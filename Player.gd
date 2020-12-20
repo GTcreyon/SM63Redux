@@ -36,7 +36,7 @@ const setDiveSpeed = 35.0*fpsMod;
 const setBackflipSpeed = 30.0*fpsMod;
 const setBackflipTorque = 11.25;
 const setRolloutTorque = 18;
-const setWallBounce = 0.5*fpsMod;
+const setWallBounce = 0.35*fpsMod;
 
 const setJumpModFrames = 3;
 
