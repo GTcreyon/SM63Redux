@@ -141,8 +141,6 @@ func _physics_process(delta):
 			
 	if ceiling:
 		vel.y = 0.1;
-	else:
-		setWalkAccel
 	
 	move_and_slide(vel*60, Vector2(0, -1));
 	
