@@ -1,26 +1,40 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://SolidBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/Global/Main.gd" type="Script" id=3]
 
 [node name="Main" type="Node"]
+script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 222.097, 97.9375 )
 collision_layer = 2
 
 [node name="SolidBox" parent="." instance=ExtResource( 2 )]
-position = Vector2( -320.393, 200 )
-scale = Vector2( 89.049, 1 )
+position = Vector2( 256, 256 )
+scale = Vector2( 32, 2 )
 
 [node name="SolidBox2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 222.353, 160 )
+position = Vector2( 224, 208 )
 scale = Vector2( 4, 4 )
 
+[node name="SolidBox5" parent="." instance=ExtResource( 2 )]
+position = Vector2( 368, 192 )
+scale = Vector2( 6, 6 )
+
+[node name="SolidBox6" parent="." instance=ExtResource( 2 )]
+position = Vector2( 448, 128 )
+scale = Vector2( 4, 14 )
+
 [node name="SolidBox3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 145.31, 48 )
-scale = Vector2( 16.08, 2 )
+position = Vector2( 112, 96 )
+scale = Vector2( 14, 2 )
+
+[node name="SolidBox7" parent="." instance=ExtResource( 2 )]
+position = Vector2( 176, 64 )
+scale = Vector2( 22, 2 )
 
 [node name="SolidBox4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 63.993, 136 )
-scale = Vector2( 8, 1 )
+position = Vector2( 48, 184 )
+scale = Vector2( 6, 1 )
