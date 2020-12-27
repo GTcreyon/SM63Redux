@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://SolidBox.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Global/Main.gd" type="Script" id=3]
+[ext_resource path="res://Tilesets/Legacy.tres" type="TileSet" id=4]
 
 [node name="Main" type="Node"]
 script = ExtResource( 3 )
@@ -38,3 +39,11 @@ scale = Vector2( 22, 2 )
 [node name="SolidBox4" parent="." instance=ExtResource( 2 )]
 position = Vector2( 48, 184 )
 scale = Vector2( 6, 1 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 32, 32 )
+cell_tile_origin = 2
+cell_y_sort = true
+centered_textures = true
+format = 1

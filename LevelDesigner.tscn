@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Tilesets/Legacy.tres" type="TileSet" id=1]
+[ext_resource path="res://LevelDesigner.gd" type="Script" id=2]
+
+[node name="LevelDesigner" type="Node"]
+script = ExtResource( 2 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
+cell_tile_origin = 2
+cell_y_sort = true
+format = 1
+tile_data = PoolIntArray( 0, 1, 0, 131074, 1, 0 )

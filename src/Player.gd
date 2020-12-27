@@ -67,8 +67,9 @@ func _physics_process(delta):
 	var iJumpH = Input.is_action_pressed("jump");
 	var iDive = Input.is_action_just_pressed("dive");
 	if (Input.is_action_just_pressed("debug")):
-		$"/root/Main".classic = !classic;
-		update_classic();
+		#$"/root/Main".classic = !classic;
+		#update_classic();
+		get_tree().change_scene("res://LevelDesigner.tscn");
 	var ground = is_on_floor();
 	var wall = is_on_wall();
 	var ceiling = is_on_ceiling();
