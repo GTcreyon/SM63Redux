@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="StreamTexture"
+path="res://.import/479.png-77df0104c722158c15f3c957f7c60ada.stex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://Tilesets/Legacy/479.png"
+dest_files=[ "res://.import/479.png-77df0104c722158c15f3c957f7c60ada.stex" ]
+
+[params]
+
+compress/mode=0
+compress/lossy_quality=0.7
+compress/hdr_mode=0
+compress/bptc_ldr=0
+compress/normal_map=0
+flags/repeat=0
+flags/filter=false
+flags/mipmaps=false
+flags/anisotropic=false
+flags/srgb=2
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/HDR_as_SRGB=false
+process/invert_color=false
+stream=false
+size_limit=0
+detect_3d=false
+svg/scale=1.0

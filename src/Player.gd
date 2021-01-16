@@ -67,9 +67,11 @@ func _physics_process(delta):
 	var iJumpH = Input.is_action_pressed("jump");
 	var iDive = Input.is_action_just_pressed("dive");
 	if (Input.is_action_just_pressed("debug")):
-		#$"/root/Main".classic = !classic;
-		#update_classic();
-		get_tree().change_scene("res://LevelDesigner.tscn");
+		if iJumpH:
+			get_tree().change_scene("res://LevelDesigner.tscn");
+		else:
+			$"/root/Main".classic = !classic;
+			update_classic();
 	var ground = is_on_floor();
 	var wall = is_on_wall();
 	var ceiling = is_on_ceiling();
@@ -171,6 +173,18 @@ func _physics_process(delta):
 	if ceiling:
 		vel.y = 0.1;
 	
-	move_and_slide(vel*60, Vector2(0, -1));
+	var snap;
+	if !ground || iJump:
+		snap = Vector2.ZERO;
+		
+	else:
+		snap = Vector2(0, 32);
+		
+	var savePos = position;
+	move_and_slide_with_snap(vel*60, snap, Vector2(0, -1), true);
+	var slideVec = position-savePos;
+	position = savePos;
+	if slideVec.length() > 0.5:
+		move_and_slide_with_snap(vel*60 * (vel.length()/slideVec.length()), snap, Vector2(0, -1), true);
 	
 	$Label.text = String(vel.x);

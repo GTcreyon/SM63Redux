@@ -13,7 +13,7 @@ var tileNum = 0;
 func place_tile(tileID):
 	var x = floor(float(tileNum) / float(levelHeight))
 	var y = tileNum%levelHeight
-	ldTileMap.set_cell(x, y, $"/root/TileRef".tile_ref[tileID]);
+	ldTileMap.set_cell(x, y, $"/root/TileRef".tile_ref[tileID] - 1);
 	
 
 func _ready():
