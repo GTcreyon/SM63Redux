@@ -178,7 +178,7 @@ func _physics_process(delta):
 		snap = Vector2.ZERO;
 		
 	else:
-		snap = Vector2(0, 32);
+		snap = Vector2(0, 4);
 		
 	var savePos = position;
 	move_and_slide_with_snap(vel*60, snap, Vector2(0, -1), true);
