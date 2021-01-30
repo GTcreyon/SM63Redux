@@ -152,14 +152,20 @@ func _physics_process(delta):
 		if ground:
 			vel.x -= setWalkAccel;
 		else:
-			vel.x -= max((vel.x+setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0); #Ripped from source
+			if state == s.Frontflip:
+				vel.x -= max((vel.x+setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0) / (1.5 / fpsMod);
+			else:
+				vel.x -= max((vel.x+setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0);
 			
 	if iRight:
 		$AnimatedSprite.flip_h = false;
 		if ground:
 			vel.x += setWalkAccel;
 		else:
-			vel.x -= min((vel.x-setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0); #Ripped from source
+			if state == s.Frontflip:
+				vel.x -= min((vel.x-setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0) / (1.5 / fpsMod);
+			else:
+				vel.x -= min((vel.x-setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0);
 		
 	if iDive && state != s.Dive: #Dive
 		state = s.Dive;

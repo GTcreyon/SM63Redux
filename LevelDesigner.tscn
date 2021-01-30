@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Tilesets/Legacy/Legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://LevelDesigner.gd" type="Script" id=2]
-[ext_resource path="res://Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://LDCamera.gd" type="Script" id=3]
 
 [node name="LevelDesigner" type="Node"]
 script = ExtResource( 2 )
@@ -16,5 +16,7 @@ cell_y_sort = true
 centered_textures = true
 format = 1
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 96, 96 )
+[node name="LDCamera" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+script = ExtResource( 3 )
