@@ -18,6 +18,7 @@ var setWallBounce;
 const setJumpModFrames = 13;
 const setDoubleJumpFrames = 17;
 const setTJumpDeadzone = 3.0 * fpsMod;
+const setDiveSpeed = 35.0 * fpsMod;
 
 var jumpFrames = -1;
 var vel = Vector2();
@@ -30,6 +31,7 @@ enum s {
 	Backflip,
 	Spin,
 	Dive,
+	Diveflip,
 	Pound,
 	Door,
 }
@@ -44,7 +46,15 @@ func update_classic():
 	else:
 		setWallBounce = 0.19;
 		
-		
+func switch_state(newState):
+	state = newState;
+	match state:
+		s.Dive:
+			$StandHitbox.disabled = true;
+			$DiveHitbox.disabled = false;
+		_:
+			$StandHitbox.disabled = false;
+			$DiveHitbox.disabled = true;
 
 func _ready():
 	update_classic();
@@ -65,7 +75,7 @@ func _physics_process(delta):
 	var iRight = Input.is_action_pressed("right");
 	var iJump = Input.is_action_just_pressed("jump");
 	var iJumpH = Input.is_action_pressed("jump");
-	var iDive = Input.is_action_just_pressed("dive");
+	var iDive = Input.is_action_pressed("dive");
 	if (Input.is_action_just_pressed("debug")):
 		if iJumpH:
 			get_tree().change_scene("res://LevelDesigner.tscn");
@@ -76,9 +86,15 @@ func _physics_process(delta):
 	var wall = is_on_wall();
 	var ceiling = is_on_ceiling();
 	
-	var fallAdjust = vel.y; #Used to adjust downward acceleration to account for framerate difference
-	if state == s.Dive:
-		$AnimatedSprite.animation = "dive";
+	var fallAdjust = vel.y; #Used to adjust downward acceleration to account for framerate differenc
+	if state == s.Diveflip:
+		if $AnimatedSprite.flip_h:
+			$AnimatedSprite.rotation_degrees -= 20;
+		else:
+			$AnimatedSprite.rotation_degrees += 20;
+		if abs($AnimatedSprite.rotation_degrees) > 360-20:
+			state = s.Walk;
+			$AnimatedSprite.rotation_degrees = 0;
 		
 	if ground:
 		fallAdjust = 0;
@@ -88,7 +104,7 @@ func _physics_process(delta):
 			vel.x = ground_friction(vel.x, 0.3, 1.15); #Floor friction
 		
 		if state == s.Frontflip || state == s.Backflip: #Reset state when landing
-			state = s.Walk;
+			switch_state(s.Walk);
 			
 		if state == s.Walk:
 			$AnimatedSprite.animation = "walk";
@@ -120,55 +136,84 @@ func _physics_process(delta):
 		
 	vel.y += (fallAdjust - vel.y) * fpsMod; #Adjust the Y velocity according to the framerate
 	
-	if iJump && ground:
-		jumpFrames = setJumpModFrames;
-		doubleJumpFrames = setDoubleJumpFrames;
-		
-		match doubleJumpState:
-			0: #Single
-				vel.y = -setJumpVel;
-				doubleJumpState+=1;
-			1: #Double
-				vel.y = -setDJumpVel;
-				doubleJumpState+=1;
-			2: #Triple
-				if abs(vel.x) > setTJumpDeadzone:
-					vel.y = -setTJumpVel;
-					vel.x += (vel.x + 15*fpsMod*sign(vel.x))/5*fpsMod;
-					doubleJumpState = 0;
-					state = s.Frontflip;
-				else:
-					vel.y = -setDJumpVel; #Not moving left/right fast enough
-		
-		if !classic:
-			move_and_collide(Vector2(0, -setJumpTP)); #Suggested by Maker - slight upwards teleport
-	elif iJumpH && !ground && jumpFrames > 0:
-		vel.y -= grav * pow(fpsMod, 3); #Variable jump height
+	if iJumpH:
+		if ground:
+			if state == s.Dive:
+				switch_state(s.Diveflip);
+				$AnimatedSprite.animation = "jump";
+				vel.y = min(-setJumpVel/1.5, vel.y);
+			elif iJump:
+				jumpFrames = setJumpModFrames;
+				doubleJumpFrames = setDoubleJumpFrames;
+				
+				match doubleJumpState:
+					0: #Single
+						vel.y = -setJumpVel;
+						doubleJumpState+=1;
+					1: #Double
+						vel.y = -setDJumpVel;
+						doubleJumpState+=1;
+					2: #Triple
+						if abs(vel.x) > setTJumpDeadzone:
+							vel.y = -setTJumpVel;
+							vel.x += (vel.x + 15*fpsMod*sign(vel.x))/5*fpsMod;
+							doubleJumpState = 0;
+							switch_state(s.Frontflip);
+						else:
+							vel.y = -setDJumpVel; #Not moving left/right fast enough
+				
+				if !classic:
+					move_and_collide(Vector2(0, -setJumpTP)); #Suggested by Maker - slight upwards teleport
+		elif jumpFrames > 0 && state == s.Walk:
+			vel.y -= grav * pow(fpsMod, 3); #Variable jump height
 	
 	debugMaxYVel = max(debugMaxYVel, vel.y);
 	
-	if iLeft:
-		$AnimatedSprite.flip_h = true;
+	if iLeft && state != s.Diveflip:
+		if state != s.Dive:
+			$AnimatedSprite.flip_h = true;
 		if ground:
-			vel.x -= setWalkAccel;
+			if state != s.Dive:
+				vel.x -= setWalkAccel;
 		else:
 			if state == s.Frontflip:
 				vel.x -= max((vel.x+setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0) / (1.5 / fpsMod);
+			elif state == s.Dive:
+				vel.x -= max((vel.x+setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0) / (8 / fpsMod);
 			else:
 				vel.x -= max((vel.x+setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0);
 			
 	if iRight:
-		$AnimatedSprite.flip_h = false;
+		if state != s.Dive && state != s.Diveflip:
+			$AnimatedSprite.flip_h = false;
 		if ground:
-			vel.x += setWalkAccel;
+			if state != s.Dive:
+				vel.x += setWalkAccel;
 		else:
 			if state == s.Frontflip:
 				vel.x -= min((vel.x-setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0) / (1.5 / fpsMod);
+			elif state == s.Dive || state == s.Diveflip:
+				vel.x -= min((vel.x-setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0) / (8 / fpsMod);
 			else:
 				vel.x -= min((vel.x-setAirAccel)/(setAirSpeedCap/(3*fpsMod)), 0);
 		
-	if iDive && state != s.Dive: #Dive
-		state = s.Dive;
+	if iDive && state != s.Dive && state != s.Diveflip: #Dive
+		if ground && iJumpH:
+			switch_state(s.Diveflip);
+			$AnimatedSprite.animation = "jump";
+			vel.y = min(-setJumpVel/1.5, vel.y);
+		else:
+			switch_state(s.Dive);
+			$AnimatedSprite.animation = "dive";
+			doubleJumpState = 0;
+			move_and_collide(Vector2(0, 6));
+			if !ground:
+				if $AnimatedSprite.flip_h:
+					vel.x += (vel.x - setDiveSpeed) / (5 / fpsMod) / fpsMod;
+				else:
+					vel.x += (vel.x + setDiveSpeed) / (5 / fpsMod) / fpsMod;
+				vel.y += 3.0 * fpsMod;
+			
 	
 	if wall:
 		if int(iRight) - int(iLeft) != sign(int(vel.x)) && int(vel.x) != 0:
@@ -180,7 +225,7 @@ func _physics_process(delta):
 		vel.y = 0.1;
 	
 	var snap;
-	if !ground || iJump:
+	if !ground || iJump || state == s.Diveflip:
 		snap = Vector2.ZERO;
 		
 	else:

@@ -570,7 +570,7 @@
 [ext_resource path="res://Tilesets/Legacy/592.png" type="Texture" id=592]
 [ext_resource path="res://Tilesets/Legacy/593.png" type="Texture" id=593]
 
-[sub_resource type="ConvexPolygonShape2D" id=589]
+[sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 32, 36, 0, 36, 0, 4, 32, 4 )
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
@@ -2345,14 +2345,14 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 589 )
+0/shape = SubResource( 1 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 589 ),
+"shape": SubResource( 1 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0

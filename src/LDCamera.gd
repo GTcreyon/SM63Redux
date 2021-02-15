@@ -3,10 +3,14 @@ var scrollSpeed = 8;
 onready var LD = get_parent();
 onready var map = LD.get_node("TileMap");
 
+var mousePos = Vector2(0,0);
+var mousePosStore = Vector2(0,0);
+
 const player = preload("res://Player.tscn");
 
 const tile_enc = {
 	"-1": "0",
+	"0": "0",
 	"1": "2K",
 	"2": "2L",
 	"3": "2M",
@@ -635,7 +639,12 @@ func save_code():
 			multiplier = 0;
 			tileB = tileA;
 			n -= 1;
-
+	code += "~";
+	for child in LD.get_children():
+		if child != map && child != self:
+			code += child.code + "|";
+	code.erase(code.length() - 1, 1);
+	code += "~" + LD.songID + "~" + LD.bgID + "~" + LD.levelName;
 	return code;
 
 # Called when the node enters the scene tree for the first time.
@@ -643,15 +652,22 @@ func _ready():
 	pass
 
 func _process(delta):
-	var iLeft = Input.is_action_pressed("left");
-	var iRight = Input.is_action_pressed("right");
-	var iUp = Input.is_action_pressed("up");
-	var iDown = Input.is_action_pressed("down");
+	var iLeft = Input.is_action_pressed("LD_cam_left");
+	var iRight = Input.is_action_pressed("LD_cam_right");
+	var iUp = Input.is_action_pressed("LD_cam_up");
+	var iDown = Input.is_action_pressed("LD_cam_down");
+	var iPan = Input.is_action_pressed("LD_cam_pan");
 	var iPlace = Input.is_action_pressed("LD_place");
 	var iDelete = Input.is_action_pressed("LD_delete");
+	mousePos = get_local_mouse_position();
 	
-	#Horrific code compression - this is just for moving the camera
-	position += Vector2((int(iRight) - int(iLeft))*scrollSpeed, (int(iDown) - int(iUp))*scrollSpeed);
+	if iPan:
+		position += mousePosStore - mousePos;
+	else:
+		#Horrific code compression - this is just for moving the camera
+		position += Vector2((int(iRight) - int(iLeft))*scrollSpeed, (int(iDown) - int(iUp))*scrollSpeed);
+		
+	mousePosStore = mousePos;
 	
 	if iPlace:
 		map.set_cellv(map.world_to_map(get_global_mouse_position()), 0);
@@ -659,7 +675,7 @@ func _process(delta):
 	if iDelete:
 		map.set_cellv(map.world_to_map(get_global_mouse_position()), -1);
 		
-	if iDown && Input.is_action_pressed("debug"):
+	if iDown && Input.is_action_just_pressed("debug"):
 		get_parent().add_child(player.instance());
 		
 	if iRight && Input.is_action_pressed("debug"):

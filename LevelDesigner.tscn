@@ -4,8 +4,6 @@
 [ext_resource path="res://src/LevelDesigner.gd" type="Script" id=2]
 [ext_resource path="res://src/LDCamera.gd" type="Script" id=3]
 
-
-
 [node name="LevelDesigner" type="Node"]
 script = ExtResource( 2 )
 
@@ -22,3 +20,5 @@ format = 1
 anchor_mode = 0
 current = true
 script = ExtResource( 3 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
