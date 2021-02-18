@@ -19,15 +19,15 @@ func switch_song():
 	songNum = (songNum + 1 + (randi() % 3)) % 4;
 	stream = songList[songNum];
 	play(0);
-	fadeIn.interpolate_property(self, "volume_db", -80, 0, 5, 1, Tween.EASE_OUT);
+	fadeIn.interpolate_property(self, "volume_db", -60, 0, 5, 1, Tween.EASE_OUT);
 	fadeIn.start();
 	songLength = stream.get_length();
 	lengthFactor = rand_range(1, 3);
 	#lengthFactor = 0.3;
 	playLength = songLength * lengthFactor;
-	fadeOut.interpolate_property(self, "volume_db", 0, -80, 30, 1, Tween.EASE_IN, playLength);
+	fadeOut.interpolate_property(self, "volume_db", 0, -60, 10, 1, Tween.EASE_IN, playLength);
 	fadeOut.start();
-#
+
 #func _process(delta):
 #	if get_playback_position() > playLength + 10:
 #
