@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Ha4.ogg-e5f8eae7609bce7879214e3fa53f02e1.oggstr"
+
+[deps]
+
+source_file="res://Audio/SFX/Mario/Ha4.ogg"
+dest_files=[ "res://.import/Ha4.ogg-e5f8eae7609bce7879214e3fa53f02e1.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

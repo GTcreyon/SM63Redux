@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Ma1.ogg-21206d6574a5539bc0dc3ddab80939ab.oggstr"
+
+[deps]
+
+source_file="res://Audio/SFX/Mario/Ma1.ogg"
+dest_files=[ "res://.import/Ma1.ogg-21206d6574a5539bc0dc3ddab80939ab.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

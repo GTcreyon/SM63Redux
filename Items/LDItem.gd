@@ -63,4 +63,6 @@ func _process(delta):
 		codeArray[1] = str(position.x - 32);
 		codeArray[2] = str(position.y - 32);
 		updateCode();
-	#else:
+	
+	if codeArray[0] == "1":
+		get_parent().startPos = position;

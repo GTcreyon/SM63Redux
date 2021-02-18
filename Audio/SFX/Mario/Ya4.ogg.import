@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Ya4.ogg-38727bda09121022e458a585cd50d779.oggstr"
+
+[deps]
+
+source_file="res://Audio/SFX/Mario/Ya4.ogg"
+dest_files=[ "res://.import/Ya4.ogg-38727bda09121022e458a585cd50d779.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -39,29 +39,29 @@ animations = [ {
 "name": "fall",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
+}, {
 "frames": [ ExtResource( 11 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "poundFall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "dive",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "walk",
-"speed": 5.0
+"speed": 0.0
 }, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 6 ) ],
+"frames": [ ExtResource( 14 ) ],
 "loop": true,
-"name": "spin",
+"name": "dive",
 "speed": 5.0
 } ]
 
@@ -80,9 +80,9 @@ disabled = true
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
 animation = "walk"
+playing = true
 
 [node name="Label" type="Label" parent="."]
-visible = false
 margin_right = 131.0
 margin_bottom = 73.0
 text = "marioLabel"
@@ -96,3 +96,6 @@ smoothing_enabled = true
 
 [node name="GUI" parent="Camera2D" instance=ExtResource( 15 )]
 follow_viewport_enable = false
+
+[node name="Voice" type="AudioStreamPlayer" parent="."]
+volume_db = -5.0

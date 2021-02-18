@@ -2,9 +2,10 @@ extends Camera2D
 var scrollSpeed = 8;
 onready var LD = get_parent();
 onready var map = LD.get_node("TileMap");
+onready var music = LD.get_node("Music");
 
-var mousePos = Vector2(0,0);
-var mousePosStore = Vector2(0,0);
+var mousePos = Vector2(0, 0);
+var mousePosStore = Vector2(0, 0);
 
 const player = preload("res://Player.tscn");
 
@@ -641,15 +642,11 @@ func save_code():
 			n -= 1;
 	code += "~";
 	for child in LD.get_children():
-		if child != map && child != self:
+		if child != map && child != self && child != music:
 			code += child.code + "|";
 	code.erase(code.length() - 1, 1);
 	code += "~" + LD.songID + "~" + LD.bgID + "~" + LD.levelName;
 	return code;
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
 
 func _process(delta):
 	var iLeft = Input.is_action_pressed("LD_cam_left");
@@ -676,7 +673,9 @@ func _process(delta):
 		map.set_cellv(map.world_to_map(get_global_mouse_position()), -1);
 		
 	if iDown && Input.is_action_just_pressed("debug"):
-		get_parent().add_child(player.instance());
+		var playerSpawn = player.instance();
+		playerSpawn.position = get_parent().startPos;
+		get_parent().add_child(playerSpawn);
 		
 	if iRight && Input.is_action_pressed("debug"):
 		save_code();
