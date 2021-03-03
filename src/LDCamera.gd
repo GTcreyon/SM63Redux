@@ -7,7 +7,7 @@ onready var music = LD.get_node("Music");
 var mousePos = Vector2(0, 0);
 var mousePosStore = Vector2(0, 0);
 
-const player = preload("res://Player.tscn");
+const player = preload("res://Actors/Player/Player.tscn");
 
 const tile_enc = {
 	"-1": "0",

@@ -22,7 +22,6 @@ config/icon="res://icon.png"
 [autoload]
 
 Main="*res://src/Global/Main.gd"
-TileRef="*res://TileRef.gd"
 
 [debug]
 
