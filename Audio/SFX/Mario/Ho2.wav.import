@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Ho2.wav-df968f6671af21c0442dba91d49384bd.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Mario/Ho2.wav"
+dest_files=[ "res://.import/Ho2.wav-df968f6671af21c0442dba91d49384bd.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

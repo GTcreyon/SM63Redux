@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Ya1.wav-5e0dd75fe35d291410807a76d4ce553a.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Mario/Ya1.wav"
+dest_files=[ "res://.import/Ya1.wav-5e0dd75fe35d291410807a76d4ce553a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

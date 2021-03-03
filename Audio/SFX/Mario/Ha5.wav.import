@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Ha5.wav-57eb82c96ea55989778e30c025e7698c.sample"
+
+[deps]
+
+source_file="res://Audio/SFX/Mario/Ha5.wav"
+dest_files=[ "res://.import/Ha5.wav-57eb82c96ea55989778e30c025e7698c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
