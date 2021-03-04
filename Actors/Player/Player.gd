@@ -123,7 +123,8 @@ func _physics_process(_delta):
 	var iSpinH = Input.is_action_pressed("spin");
 	if (Input.is_action_just_pressed("debug")):
 		if iJumpH:
-			get_tree().change_scene("res://LevelDesigner.tscn");
+			#get_tree().change_scene("res://level_designer.tscn");
+			get_tree().change_scene("res://Scenes/Castle/Lobby/castle_lobby.tscn");
 		else:
 			$"/root/Main".classic = !classic;
 			update_classic();
@@ -334,7 +335,7 @@ func _physics_process(_delta):
 			vel.x = 0; #Cancel X velocity when intentionally pushing into a wall
 			
 	if ceiling:
-		vel.y = 0.1;
+		vel.y = max(vel.y, 0.1);
 	
 	var snap;
 	if !ground || iJump || state == s.Diveflip:
