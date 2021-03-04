@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Fonts/Sunbeam.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/DebugLabel.gd" type="Script" id=2]
+[ext_resource path="res://src/debug_label.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/sunbeam.tres" type="DynamicFont" id=2]
+
 
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
@@ -9,9 +10,9 @@ follow_viewport_enable = true
 [node name="DebugLabel" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 text = "Debug"
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

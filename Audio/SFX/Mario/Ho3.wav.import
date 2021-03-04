@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Ho3.wav-80a90d009307204d23d09c8463f8e3f8.sample"
+path="res://.import/ho3.wav-0a6837d544bfebbc400b91c84bc70643.sample"
 
 [deps]
 
-source_file="res://Audio/SFX/Mario/Ho3.wav"
-dest_files=[ "res://.import/Ho3.wav-80a90d009307204d23d09c8463f8e3f8.sample" ]
+source_file="res://Audio/SFX/Mario/ho3.wav"
+dest_files=[ "res://.import/ho3.wav-0a6837d544bfebbc400b91c84bc70643.sample" ]
 
 [params]
 
