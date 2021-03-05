@@ -16,14 +16,7 @@
 [ext_resource path="res://Actors/Player/Mario/marioDive.png" type="Texture" id=14]
 [ext_resource path="res://gui.tscn" type="PackedScene" id=15]
 
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6, 14.5 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 6, 6 )
-
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
@@ -34,16 +27,6 @@ animations = [ {
 "loop": true,
 "name": "poundSpin",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "walk",
-"speed": 0.0
 }, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
@@ -60,28 +43,44 @@ animations = [ {
 "name": "poundFall",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "fall",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "walk",
+"speed": 0.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 6, 14.5 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 6, 6 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "walk"
+playing = true
+
 [node name="StandHitbox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1.5 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="DiveHitbox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 disabled = true
-
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 3 )
-animation = "walk"
-playing = true
 
 [node name="Label" type="Label" parent="."]
 margin_right = 131.0

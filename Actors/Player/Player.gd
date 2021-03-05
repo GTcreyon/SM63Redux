@@ -24,6 +24,7 @@ const setDiveCorrect = 7;
 onready var voice = $Voice;
 onready var tween = $Tween;
 onready var sprite = $AnimatedSprite;
+onready var camera = $Camera2D;
 
 const voiceBank = {
 	"jump1": [
@@ -72,6 +73,16 @@ enum s {
 
 var state = s.Walk;
 var classic;
+
+func screen_handling():
+	if Input.is_action_just_pressed("fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen;
+	if Input.is_action_just_pressed("screen+"):
+		OS.window_size = OS.window_size * 2;
+	if Input.is_action_just_pressed("screen-"):
+		OS.window_size = OS.window_size / 2;
+	var zoomFactor = 448/OS.window_size.x;
+	camera.zoom = Vector2(zoomFactor, zoomFactor);
 
 func play_voice(groupName):
 	var group = voiceBank[groupName];
@@ -138,7 +149,7 @@ func _physics_process(_delta):
 			sprite.rotation_degrees -= 20;
 		else:
 			sprite.rotation_degrees += 20;
-		if abs(sprite.rotation_degrees) > 360-20:
+		if abs(sprite.rotation_degrees) > 360-20 || ground:
 			switch_state(s.Walk);
 			sprite.rotation_degrees = 0;
 #	elif state == s.Frontflip:
@@ -163,6 +174,7 @@ func _physics_process(_delta):
 			tween.stop_all();
 		
 		if state == s.Dive && abs(vel.x) == 0 && !iDiveH:
+			move_and_slide(Vector2(0, -setDiveCorrect)*60, Vector2(0, -1));
 			switch_state(s.Walk);
 		if state == s.Walk:
 			sprite.animation = "walk";
@@ -200,8 +212,8 @@ func _physics_process(_delta):
 	if iJumpH:
 		if ground:
 			if state == s.Dive:
-				move_and_slide(Vector2(0, -setDiveCorrect)*60, Vector2(0, -1));
-				if ((int(iRight) - int(iLeft)) == -1) == sprite.flip_h:
+				move_and_slide(Vector2(0, -setDiveCorrect)*60, Vector2(0, -1)); #Correct for hitbox positioning
+				if ((int(iRight) - int(iLeft) != -1) && !sprite.flip_h) || ((int(iRight) - int(iLeft) != 1) && sprite.flip_h):
 					switch_state(s.Diveflip);
 					vel.y = min(-setJumpVel/1.5, vel.y);
 				else:
@@ -314,7 +326,7 @@ func _physics_process(_delta):
 		if spinTimer > 0:
 			spinTimer -= 1;
 		elif !iSpinH:
-			state = s.Walk;
+			switch_state(s.Walk);
 	
 	if (iSpinH
 	&& state != s.Spin
@@ -351,8 +363,9 @@ func _physics_process(_delta):
 	if slideVec.length() > 0.5:
 		move_and_slide_with_snap(vel*60 * (vel.length()/slideVec.length()), snap, Vector2(0, -1), true);
 	
-	$Label.text = String(sprite.rotation_degrees);
+	$Label.text = String(vel.y);
 
+	screen_handling();
 
 func _on_Tween_tween_completed(object, key):
 	switch_state(s.Walk);
