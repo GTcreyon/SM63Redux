@@ -1,13 +1,17 @@
 extends Camera2D
-var scrollSpeed = 8;
+
+signal test_level;
+
 onready var LD = get_parent();
 onready var map = LD.get_node("TileMap");
 onready var music = LD.get_node("Music");
 
+var scrollSpeed = 8;
 var mousePos = Vector2(0, 0);
 var mousePosStore = Vector2(0, 0);
+var objects_loaded = {}
 
-const player = preload("res://Actors/Player/Player.tscn");
+const player = preload("res://Actors/Player/player.tscn");
 
 const tile_enc = {
 	"-1": "0",
@@ -607,6 +611,7 @@ const tile_enc = {
 	"593": ":v",
 }
 
+
 func save_code():
 	var code = str(LD.levelWidth) + "x" + str(LD.levelHeight) + "~";
 	var n = 0;
@@ -676,6 +681,12 @@ func _process(delta):
 		var playerSpawn = player.instance();
 		playerSpawn.position = get_parent().startPos;
 		get_parent().add_child(playerSpawn);
+		emit_signal("test_level");
 		
 	if iRight && Input.is_action_pressed("debug"):
 		save_code();
+
+func object_load(id):
+	if !objects_loaded.has(id):
+		objects_loaded[id] = load("res://Actors/Items/" + id + "/" + id + ".tscn");
+	return objects_loaded[id];

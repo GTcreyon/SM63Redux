@@ -28,28 +28,28 @@ onready var camera = $Camera2D;
 
 const voiceBank = {
 	"jump1": [
-		preload("res://Audio/SFX/Mario/Ya1.wav"),
-		preload("res://Audio/SFX/Mario/Ya2.wav"),
-		preload("res://Audio/SFX/Mario/Ya3.wav"),
-		preload("res://Audio/SFX/Mario/Ya4.wav"),
+		preload("res://Audio/SFX/Mario/ya1.wav"),
+		preload("res://Audio/SFX/Mario/ya2.wav"),
+		preload("res://Audio/SFX/Mario/ya3.wav"),
+		preload("res://Audio/SFX/Mario/ya4.wav"),
 	],
 	"jump2": [
-		preload("res://Audio/SFX/Mario/Ma1.wav"),
-		preload("res://Audio/SFX/Mario/Ma2.wav"),
-		preload("res://Audio/SFX/Mario/Ho1.wav"),
-		preload("res://Audio/SFX/Mario/Ho2.wav"),
+		preload("res://Audio/SFX/Mario/ma1.wav"),
+		preload("res://Audio/SFX/Mario/ma2.wav"),
+		preload("res://Audio/SFX/Mario/ho1.wav"),
+		preload("res://Audio/SFX/Mario/ho2.wav"),
 	],
 	"jump3": [
-		preload("res://Audio/SFX/Mario/Wahoo1.wav"),
-		preload("res://Audio/SFX/Mario/Wahoo2.wav"),
-		preload("res://Audio/SFX/Mario/Wahoo3.wav"),
+		preload("res://Audio/SFX/Mario/wahoo1.wav"),
+		preload("res://Audio/SFX/Mario/wahoo2.wav"),
+		preload("res://Audio/SFX/Mario/wahoo3.wav"),
 	],
 	"dive": [
-		preload("res://Audio/SFX/Mario/Ha1.wav"),
-		preload("res://Audio/SFX/Mario/Ha2.wav"),
-		preload("res://Audio/SFX/Mario/Ha3.wav"),
-		preload("res://Audio/SFX/Mario/Ha4.wav"),
-		preload("res://Audio/SFX/Mario/Ha5.wav"),
+		preload("res://Audio/SFX/Mario/ha1.wav"),
+		preload("res://Audio/SFX/Mario/ha2.wav"),
+		preload("res://Audio/SFX/Mario/ha3.wav"),
+		preload("res://Audio/SFX/Mario/ha4.wav"),
+		preload("res://Audio/SFX/Mario/ha5.wav"),
 	],
 };
 
@@ -134,8 +134,8 @@ func _physics_process(_delta):
 	var iSpinH = Input.is_action_pressed("spin");
 	if (Input.is_action_just_pressed("debug")):
 		if iJumpH:
-			#get_tree().change_scene("res://level_designer.tscn");
-			get_tree().change_scene("res://Scenes/Castle/Lobby/castle_lobby.tscn");
+			get_tree().change_scene("res://level_designer.tscn");
+			#get_tree().change_scene("res://Scenes/Castle/Lobby/castle_lobby.tscn");
 		else:
 			$"/root/Main".classic = !classic;
 			update_classic();
@@ -363,7 +363,7 @@ func _physics_process(_delta):
 	if slideVec.length() > 0.5:
 		move_and_slide_with_snap(vel*60 * (vel.length()/slideVec.length()), snap, Vector2(0, -1), true);
 	
-	$Label.text = String(vel.y);
+	$Label.text = String(vel.x);
 
 	screen_handling();
 
