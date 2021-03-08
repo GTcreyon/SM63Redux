@@ -7,6 +7,8 @@ var pulse = 0.0;
 var selected = false;
 var size;
 
+onready var cam = get_parent().get_node("LDCamera");
+
 func updateCode():
 	code = "";
 	for i in codeArray:
@@ -24,6 +26,7 @@ func _ready():
 	if codeArray[0] == "140":
 		rotation_degrees = int(codeArray[4]);
 	size = frames.get_frame(animation, frame).get_size();
+	cam.connect("test_level", self, "_on_LDCamera_test_level");
 
 func _process(delta):
 	var iLeft = Input.is_action_just_pressed("ui_left");
@@ -66,3 +69,12 @@ func _process(delta):
 	
 	if codeArray[0] == "1":
 		get_parent().startPos = position;
+		
+
+func _on_LDCamera_test_level():
+	if codeArray[0] != "1":
+		var objectSpawn = cam.object_load(codeArray[0]).instance();
+		objectSpawn.position = position;
+		get_parent().add_child(objectSpawn);
+	queue_free();
+
