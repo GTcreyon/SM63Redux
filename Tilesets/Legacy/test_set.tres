@@ -1,9 +1,9 @@
 [gd_resource type="TileSet" load_steps=9 format=2]
 
-[ext_resource path="res://Tilesets/Legacy/1.png" type="Texture" id=1]
-[ext_resource path="res://Tilesets/Legacy/2.png" type="Texture" id=2]
-[ext_resource path="res://Tilesets/Legacy/3.png" type="Texture" id=3]
-[ext_resource path="res://Tilesets/Legacy/4.png" type="Texture" id=4]
+[ext_resource path="res://tilesets/legacy/1.png" type="Texture" id=1]
+[ext_resource path="res://tilesets/legacy/2.png" type="Texture" id=2]
+[ext_resource path="res://tilesets/legacy/3.png" type="Texture" id=3]
+[ext_resource path="res://tilesets/legacy/4.png" type="Texture" id=4]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 31, 40, 0.0779419, 40, 0, 0, 31, 0 )

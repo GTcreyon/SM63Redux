@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "LDItem",
 "language": "GDScript",
-"path": "res://Classes/ld_item_class.gd"
+"path": "res://classes/ld_item_class.gd"
 } ]
 _global_script_class_icons={
 "LDItem": ""
@@ -26,7 +26,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Main="*res://src/Global/main.gd"
+Main="*res://src/global/main.gd"
 
 [debug]
 

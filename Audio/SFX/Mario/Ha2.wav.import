@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/ha2.wav-4c9253a4c024ffe86203955a030049b6.sample"
+path="res://.import/ha2.wav-0250c978344c0b5130b7694d2c901b27.sample"
 
 [deps]
 
-source_file="res://Audio/SFX/Mario/ha2.wav"
-dest_files=[ "res://.import/ha2.wav-4c9253a4c024ffe86203955a030049b6.sample" ]
+source_file="res://audio/sfx/mario/ha2.wav"
+dest_files=[ "res://.import/ha2.wav-0250c978344c0b5130b7694d2c901b27.sample" ]
 
 [params]
 

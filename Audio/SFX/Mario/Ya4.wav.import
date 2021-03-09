@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/ya4.wav-f7d11dd51713c6738e272f6bd2e12f8c.sample"
+path="res://.import/ya4.wav-4b3fbeda94ef54327a3dbd917ea7652d.sample"
 
 [deps]
 
-source_file="res://Audio/SFX/Mario/ya4.wav"
-dest_files=[ "res://.import/ya4.wav-f7d11dd51713c6738e272f6bd2e12f8c.sample" ]
+source_file="res://audio/sfx/mario/ya4.wav"
+dest_files=[ "res://.import/ya4.wav-4b3fbeda94ef54327a3dbd917ea7652d.sample" ]
 
 [params]
 

@@ -1,7 +1,9 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/debug_label.gd" type="Script" id=1]
-[ext_resource path="res://Fonts/sunbeam.tres" type="DynamicFont" id=2]
+[ext_resource path="res://fonts/sunbeam.tres" type="DynamicFont" id=2]
+
+
 
 
 [node name="GUI" type="CanvasLayer"]

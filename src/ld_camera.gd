@@ -11,7 +11,7 @@ var mousePos = Vector2(0, 0);
 var mousePosStore = Vector2(0, 0);
 var objects_loaded = {}
 
-const player = preload("res://Actors/Player/player.tscn");
+const player = preload("res://actors/player/player.tscn");
 
 const tile_enc = {
 	"-1": "0",
@@ -688,5 +688,5 @@ func _process(delta):
 
 func object_load(id):
 	if !objects_loaded.has(id):
-		objects_loaded[id] = load("res://Actors/Items/" + id + "/" + id + ".tscn");
+		objects_loaded[id] = load("res://actors/items/" + id + "/" + id + ".tscn");
 	return objects_loaded[id];

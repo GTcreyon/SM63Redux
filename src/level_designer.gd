@@ -616,7 +616,7 @@ var bgID = "";
 
 var startPos = Vector2(0, 0);
 
-const item = preload("res://Actors/Items/ld_item.tscn");
+const item = preload("res://actors/items/ld_item.tscn");
 
 func place_tile(tileID):
 	var x = floor(float(tileNum) / float(levelHeight))
@@ -633,12 +633,7 @@ func _ready():
 	var multiplier = "";
 	var itemCode = "";
 	var itemRef;
-#	ldTileMap.tile_set = load("res://Tilesets/Bricks.tres");
-#	ldTileMap.mode = TileMap.MODE_SQUARE;
-#	ldTileMap.cell_size = Vector2(32, 32);
-#	ldTileMap.cell_quadrant_size = 16;
-	
-	#for (var i = 1; i <= string_length(levelCode); ++i)
+
 	var n = 0;
 	while n < levelCode.length():
 		currentChar = levelCode.substr(n, 1);
