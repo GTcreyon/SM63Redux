@@ -1,5 +1,5 @@
 extends AnimatedSprite
-const glow = preload("res://Shaders/Glow.tres");
+const glow = preload("res://shaders/glow.tres");
 var code = "";
 var codeArray = [];
 var glowFactor = 1;

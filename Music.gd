@@ -3,10 +3,10 @@ extends AudioStreamPlayer;
 onready var fadeOut = $FadeOut;
 onready var fadeIn = $FadeIn;
 
-const song1 = preload("res://Audio/Music/LD/editor1.ogg");
-const song2 = preload("res://Audio/Music/LD/editor2.ogg");
-const song3 = preload("res://Audio/Music/LD/editor3.ogg");
-const song4 = preload("res://Audio/Music/LD/editor4.ogg");
+const song1 = preload("res://audio/music/ld/editor1.ogg");
+const song2 = preload("res://audio/music/ld/editor2.ogg");
+const song3 = preload("res://audio/music/ld/editor3.ogg");
+const song4 = preload("res://audio/music/ld/editor4.ogg");
 
 const songList = [song1, song2, song3, song4];
 

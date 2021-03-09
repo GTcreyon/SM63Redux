@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/149.png-340276e0873f602eec31137f0e196827.stex"
+path="res://.import/149.png-a1398a4630f7ecd2312f46755c372497.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Tilesets/Legacy/149.png"
-dest_files=[ "res://.import/149.png-340276e0873f602eec31137f0e196827.stex" ]
+source_file="res://tilesets/legacy/149.png"
+dest_files=[ "res://.import/149.png-a1398a4630f7ecd2312f46755c372497.stex" ]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Tilesets/Legacy/legacy.tres" type="TileSet" id=1]
-[ext_resource path="res://src/Global/main.gd" type="Script" id=2]
-[ext_resource path="res://Actors/Player/player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
+[ext_resource path="res://src/global/main.gd" type="Script" id=2]
+[ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://solid_box.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node"]
