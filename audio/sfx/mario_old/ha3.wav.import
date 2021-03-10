@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/ha3.wav-88ddea1fb8db48b4333069de1fe9cf5f.sample"
+
+[deps]
+
+source_file="res://audio/sfx/mario_old/ha3.wav"
+dest_files=[ "res://.import/ha3.wav-88ddea1fb8db48b4333069de1fe9cf5f.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

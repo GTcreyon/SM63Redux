@@ -5,24 +5,16 @@
 [ext_resource path="res://scenes/castle/castle_lobby_rails.png" type="Texture" id=3]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=4]
 
-
-
-
-
-
-
-
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 24 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 48, 8 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 22.6274, 11.3137 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 56, 8 )
 
 [sub_resource type="RectangleShape2D" id=5]
@@ -31,22 +23,22 @@ extents = Vector2( 22.6273, 11.3138 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 56, 8 )
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 48, 8 )
 
-[sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 32, 8 )
-
-[sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 32, 8 )
-
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 73.5391, 11.3137 )
-
-[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 32, 8 )
 
 [sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 32, 8 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 73.5391, 11.3137 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 32, 8 )
+
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 73.5391, 11.3137 )
 
 [node name="Node" type="Node"]
@@ -89,12 +81,12 @@ one_way_collision = true
 [node name="LedgeLM" type="CollisionShape2D" parent="SemisolidCollision"]
 position = Vector2( 264, 264 )
 rotation = 0.785398
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 one_way_collision = true
 
 [node name="LedgeLD" type="CollisionShape2D" parent="SemisolidCollision"]
 position = Vector2( 344, 280 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 one_way_collision = true
 
 [node name="LedgeRU" type="CollisionShape2D" parent="SemisolidCollision"]
@@ -115,36 +107,34 @@ one_way_collision = true
 
 [node name="LedgeCU" type="CollisionShape2D" parent="SemisolidCollision"]
 position = Vector2( 624, 264 )
-shape = SubResource( 11 )
+shape = SubResource( 7 )
 one_way_collision = true
 
 [node name="LedgeCD" type="CollisionShape2D" parent="SemisolidCollision"]
 position = Vector2( 624, 352 )
-shape = SubResource( 12 )
+shape = SubResource( 8 )
 one_way_collision = true
 
 [node name="StairLU" type="CollisionShape2D" parent="SemisolidCollision"]
 position = Vector2( 496, 280 )
-shape = SubResource( 7 )
+shape = SubResource( 9 )
 one_way_collision = true
 
 [node name="StairLM" type="CollisionShape2D" parent="SemisolidCollision"]
 position = Vector2( 420, 332 )
 rotation = -0.785398
-scale = Vector2( 1, 1 )
-shape = SubResource( 8 )
+shape = SubResource( 10 )
 one_way_collision = true
 
 [node name="StairRU" type="CollisionShape2D" parent="SemisolidCollision"]
 position = Vector2( 752, 280 )
-shape = SubResource( 10 )
+shape = SubResource( 11 )
 one_way_collision = true
 
 [node name="StairRM" type="CollisionShape2D" parent="SemisolidCollision"]
 position = Vector2( 828, 332 )
 rotation = 0.785398
-scale = Vector2( 1, 1 )
-shape = SubResource( 9 )
+shape = SubResource( 12 )
 one_way_collision = true
 
 [node name="Player" parent="." instance=ExtResource( 4 )]

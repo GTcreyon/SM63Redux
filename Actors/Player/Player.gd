@@ -28,28 +28,26 @@ onready var camera = $Camera2D;
 
 const voiceBank = {
 	"jump1": [
-		preload("res://audio/sfx/mario/ya1.wav"),
-		preload("res://audio/sfx/mario/ya2.wav"),
-		preload("res://audio/sfx/mario/ya3.wav"),
-		preload("res://audio/sfx/mario/ya4.wav"),
+		preload("res://audio/sfx/mario/jump1/ya1.wav"),
+		preload("res://audio/sfx/mario/jump1/ya2.wav"),
+		preload("res://audio/sfx/mario/jump1/ya3.wav"),
 	],
 	"jump2": [
-		preload("res://audio/sfx/mario/ma1.wav"),
-		preload("res://audio/sfx/mario/ma2.wav"),
-		preload("res://audio/sfx/mario/ho1.wav"),
-		preload("res://audio/sfx/mario/ho2.wav"),
+		preload("res://audio/sfx/mario/jump2/ma1.wav"),
+		preload("res://audio/sfx/mario/jump2/ma2.wav"),
+		preload("res://audio/sfx/mario/jump2/ma3.wav"),
 	],
 	"jump3": [
-		preload("res://audio/sfx/mario/wahoo1.wav"),
-		preload("res://audio/sfx/mario/wahoo2.wav"),
-		preload("res://audio/sfx/mario/wahoo3.wav"),
+		preload("res://audio/sfx/mario/jump3/wahoo1.wav"),
+		preload("res://audio/sfx/mario/jump3/wahoo2.wav"),
+		preload("res://audio/sfx/mario/jump3/wahoo3.wav"),
+		preload("res://audio/sfx/mario/jump3/wahoo4.wav"),
+		preload("res://audio/sfx/mario/jump3/wahoo5.wav"),
 	],
 	"dive": [
-		preload("res://audio/sfx/mario/ha1.wav"),
-		preload("res://audio/sfx/mario/ha2.wav"),
-		preload("res://audio/sfx/mario/ha3.wav"),
-		preload("res://audio/sfx/mario/ha4.wav"),
-		preload("res://audio/sfx/mario/ha5.wav"),
+		preload("res://audio/sfx/mario/dive/wa1.wav"),
+		preload("res://audio/sfx/mario/dive/wa2.wav"),
+		preload("res://audio/sfx/mario/dive/wa3.wav"),
 	],
 };
 
@@ -134,8 +132,8 @@ func _physics_process(_delta):
 	var iSpinH = Input.is_action_pressed("spin");
 	if (Input.is_action_just_pressed("debug")):
 		if iJumpH:
-			get_tree().change_scene("res://level_designer.tscn");
-			#get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn");
+			#get_tree().change_scene("res://level_designer.tscn");
+			get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn");
 		else:
 			$"/root/Main".classic = !classic;
 			update_classic();

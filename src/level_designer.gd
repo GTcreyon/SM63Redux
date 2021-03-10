@@ -625,7 +625,7 @@ func place_tile(tileID):
 	
 
 func _ready():
-	levelCode = gimmeYour;
+	levelCode = snowdrift;
 	var readPhase = 0;
 	var readNum = 0;
 	var tileID = "";
