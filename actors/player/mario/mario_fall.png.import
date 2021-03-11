@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mario_fall.png-201daef31eb9f133958ac52b964b65bb.stex"
+path="res://.import/mario_fall.png-34f0af754d4eb1c37bf08b5c1434b290.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/player/mario/mario_fall.png"
-dest_files=[ "res://.import/mario_fall.png-201daef31eb9f133958ac52b964b65bb.stex" ]
+source_file="res://Actors/Player/mario/mario_fall.png"
+dest_files=[ "res://.import/mario_fall.png-34f0af754d4eb1c37bf08b5c1434b290.stex" ]
 
 [params]
 

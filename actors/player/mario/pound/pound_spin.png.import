@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pound_spin.png-6c2478799652576fa2912fa9cc2275a3.stex"
+path="res://.import/pound_spin.png-eae9361988be1e4d25c45dcd23f9fcba.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/player/mario/pound/pound_spin.png"
-dest_files=[ "res://.import/pound_spin.png-6c2478799652576fa2912fa9cc2275a3.stex" ]
+source_file="res://Actors/Player/mario/pound/pound_spin.png"
+dest_files=[ "res://.import/pound_spin.png-eae9361988be1e4d25c45dcd23f9fcba.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pound_fall1.png-dbd0c8fba009230c60781b7b04b7a1fb.stex"
+path="res://.import/pound_fall1.png-4c012ef682ea14f46b7c1edd16783280.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/player/mario/pound/pound_fall1.png"
-dest_files=[ "res://.import/pound_fall1.png-dbd0c8fba009230c60781b7b04b7a1fb.stex" ]
+source_file="res://Actors/Player/mario/pound/pound_fall1.png"
+dest_files=[ "res://.import/pound_fall1.png-4c012ef682ea14f46b7c1edd16783280.stex" ]
 
 [params]
 
