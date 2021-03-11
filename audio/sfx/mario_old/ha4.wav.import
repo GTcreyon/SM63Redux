@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/ha4.wav-c9c65e85c370b1a1beb48f7048d13497.sample"
+path="res://.import/ha4.wav-e29b3befdf4ea298a66ec547a66a78a1.sample"
 
 [deps]
 
-source_file="res://Audio/sfx/mario_old/ha4.wav"
-dest_files=[ "res://.import/ha4.wav-c9c65e85c370b1a1beb48f7048d13497.sample" ]
+source_file="res://audio/sfx/mario_old/ha4.wav"
+dest_files=[ "res://.import/ha4.wav-e29b3befdf4ea298a66ec547a66a78a1.sample" ]
 
 [params]
 

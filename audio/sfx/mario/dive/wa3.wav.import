@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/wa3.wav-539193a50eb396764926ce6820ee71fd.sample"
+path="res://.import/wa3.wav-036dc105fdb685589ba20919a1a69944.sample"
 
 [deps]
 
-source_file="res://Audio/sfx/mario/dive/wa3.wav"
-dest_files=[ "res://.import/wa3.wav-539193a50eb396764926ce6820ee71fd.sample" ]
+source_file="res://audio/sfx/mario/dive/wa3.wav"
+dest_files=[ "res://.import/wa3.wav-036dc105fdb685589ba20919a1a69944.sample" ]
 
 [params]
 

@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/wahoo5.wav-83de15a64ef4793ceb9389e266827525.sample"
+path="res://.import/wahoo5.wav-174c51e268a5c49bf2f18717bff8b643.sample"
 
 [deps]
 
-source_file="res://Audio/sfx/mario/jump3/wahoo5.wav"
-dest_files=[ "res://.import/wahoo5.wav-83de15a64ef4793ceb9389e266827525.sample" ]
+source_file="res://audio/sfx/mario/jump3/wahoo5.wav"
+dest_files=[ "res://.import/wahoo5.wav-174c51e268a5c49bf2f18717bff8b643.sample" ]
 
 [params]
 
