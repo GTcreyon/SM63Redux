@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/castle_lobby_rails.png-38a64904504dde0baed02e0e40e0ed19.stex"
+path="res://.import/castle_lobby_rails.png-d0ed9a585181d9c0418f610700ef3aed.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/castle/castle_lobby_rails.png"
-dest_files=[ "res://.import/castle_lobby_rails.png-38a64904504dde0baed02e0e40e0ed19.stex" ]
+source_file="res://scenes/castle/lobby/castle_lobby_rails.png"
+dest_files=[ "res://.import/castle_lobby_rails.png-d0ed9a585181d9c0418f610700ef3aed.stex" ]
 
 [params]
 
