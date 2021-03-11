@@ -1,111 +1,85 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
+[ext_resource path="res://actors/player/mario/pound/pound_fall0.png" type="Texture" id=2]
+[ext_resource path="res://actors/player/mario/spin/mario_spin3.png" type="Texture" id=3]
+[ext_resource path="res://actors/player/mario/pound/pound_spin.png" type="Texture" id=4]
+[ext_resource path="res://actors/player/mario/mario_flip.png" type="Texture" id=5]
+[ext_resource path="res://actors/player/mario/walk/mario_walk0.png" type="Texture" id=6]
+[ext_resource path="res://actors/player/mario/spin/mario_spin0.png" type="Texture" id=7]
+[ext_resource path="res://actors/player/mario/mario_dive.png" type="Texture" id=8]
+[ext_resource path="res://actors/player/mario/mario_jump.png" type="Texture" id=9]
+[ext_resource path="res://actors/player/mario/pound/pound_fall1.png" type="Texture" id=10]
+[ext_resource path="res://actors/player/mario/spin/mario_spin2.png" type="Texture" id=11]
+[ext_resource path="res://actors/player/mario/walk/mario_walk1.png" type="Texture" id=12]
+[ext_resource path="res://actors/player/mario/spin/mario_spin1.png" type="Texture" id=13]
+[ext_resource path="res://actors/player/mario/mario_fall.png" type="Texture" id=14]
 [ext_resource path="res://gui.tscn" type="PackedScene" id=15]
 
-[sub_resource type="StreamTexture" id=2]
-load_path = "res://.import/marioFlip.png-672c07ec28810e14dd64f79f4f74bfac.stex"
-
-[sub_resource type="StreamTexture" id=3]
-load_path = "res://.import/marioWalk0.png-e96c2c12a6824a570b6d21afdf3d2611.stex"
-
-[sub_resource type="StreamTexture" id=4]
-load_path = "res://.import/marioWalk1.png-671f57c2fe7487c0fce093ff3a067190.stex"
-
-[sub_resource type="StreamTexture" id=5]
-load_path = "res://.import/marioDive.png-1676c9e9d8b479df32ce166243439c98.stex"
-
-[sub_resource type="StreamTexture" id=6]
-load_path = "res://.import/marioJump.png-5eb900a58938644999ffbb9850ac9b3b.stex"
-
-[sub_resource type="StreamTexture" id=7]
-load_path = "res://.import/poundSpin.png-abec2bd3f9229795b2b44d024d2bb929.stex"
-
-[sub_resource type="StreamTexture" id=8]
-load_path = "res://.import/poundFall0.png-7a1937c3023b8774cddf5d70884c69f8.stex"
-
-[sub_resource type="StreamTexture" id=9]
-load_path = "res://.import/poundFall1.png-7c7b42268bdf2d73262edbcc1404fc81.stex"
-
-[sub_resource type="StreamTexture" id=10]
-load_path = "res://.import/marioSpin0.png-2ec34f3ac5877eb825cec2f50cb10ada.stex"
-
-[sub_resource type="StreamTexture" id=11]
-load_path = "res://.import/marioSpin1.png-6e1c291011e1a6ec5af058b1dd4f2b51.stex"
-
-[sub_resource type="StreamTexture" id=12]
-load_path = "res://.import/marioSpin2.png-bd07b81bfb0de0f118817a3ac6b3d055.stex"
-
-[sub_resource type="StreamTexture" id=13]
-load_path = "res://.import/marioSpin3.png-3866dd875931c7d6582965d8117ffbe0.stex"
-
-[sub_resource type="StreamTexture" id=14]
-load_path = "res://.import/marioFall.png-9bffb49951475d945556dfd25b003440.stex"
-
-[sub_resource type="SpriteFrames" id=15]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ), SubResource( 4 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "walk",
-"speed": 0.0
-}, {
-"frames": [ SubResource( 5 ) ],
-"loop": true,
-"name": "dive",
+"name": "pound_fall",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 6 ) ],
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ) ],
-"loop": true,
-"name": "poundSpin",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 8 ), SubResource( 9 ) ],
-"loop": true,
-"name": "poundFall",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "spin",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 14 ) ],
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "walk",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "fall",
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=16]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 6, 14.5 )
 
-[sub_resource type="RectangleShape2D" id=17]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6, 6 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 15 )
-animation = "walk"
+frames = SubResource( 1 )
+animation = "pound_spin"
 playing = true
 
 [node name="StandHitbox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 1.5 )
-shape = SubResource( 16 )
+shape = SubResource( 2 )
 
 [node name="DiveHitbox" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )
-shape = SubResource( 17 )
+shape = SubResource( 3 )
 disabled = true
 
 [node name="Label" type="Label" parent="."]

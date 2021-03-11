@@ -1,32 +1,32 @@
 extends KinematicBody2D;
 
-const fpsMod = 32.0 / 60.0; #Multiplier to account for 60fps
-const grav = fpsMod;
+const fps_mod = 32.0 / 60.0; #Multiplier to account for 60fps
+const grav = fps_mod;
 
-const setJumpTP = 3;
-const setDJumpTP = setJumpTP * 1.25;
-const setTJumpTP = setJumpTP * 1.5;
-const setAirSpeedCap = 20.0*fpsMod;
-const setWalkAccel = 1.2 * fpsMod;
-const setAirAccel = 5.0 * fpsMod; #Functions differently to WalkAccel
-const setWalkDecel = setWalkAccel * 1.1; #Suggested by Maker - decel is faster than accel in casual mode
-const setAirDecel = setAirAccel * 1.1;
-const setJumpVel = 10 * fpsMod;
-const setDJumpVel = setJumpVel + 2.5 * fpsMod;
-const setTJumpVel = setJumpVel + 5.0 * fpsMod;
-var setWallBounce;
-const setJumpModFrames = 13;
-const setDoubleJumpFrames = 17;
-const setTJumpDeadzone = 3.0 * fpsMod;
-const setDiveSpeed = 35.0 * fpsMod;
-const setDiveCorrect = 7;
+const set_jump_1_tp = 3;
+const set_jump_2_tp = set_jump_1_tp * 1.25;
+const set_jump_3_tp = set_jump_1_tp * 1.5;
+const set_air_speed_cap = 20.0*fps_mod;
+const set_walk_accel = 1.2 * fps_mod;
+const set_air_accel = 5.0 * fps_mod; #Functions differently to walkAccel
+const set_walk_decel = set_walk_accel * 1.1; #Suggested by Maker - decel is faster than accel in casual mode
+const set_air_decel = set_air_accel * 1.1;
+const set_jump_1_vel = 10 * fps_mod;
+const set_jump_2_vel = set_jump_1_vel + 2.5 * fps_mod;
+const set_jump_3_vel = set_jump_1_vel + 5.0 * fps_mod;
+var set_wall_bounce;
+const set_jump_mod_frames = 13;
+const set_double_jump_frames = 17;
+const set_triple_jump_deadzone = 3.0 * fps_mod;
+const set_dive_speed = 35.0 * fps_mod;
+const set_dive_correct = 7;
 
 onready var voice = $Voice;
 onready var tween = $Tween;
 onready var sprite = $AnimatedSprite;
 onready var camera = $Camera2D;
 
-const voiceBank = {
+const voice_bank = {
 	"jump1": [
 		preload("res://audio/sfx/mario/jump1/ya1.wav"),
 		preload("res://audio/sfx/mario/jump1/ya2.wav"),
@@ -51,25 +51,25 @@ const voiceBank = {
 	],
 };
 
-var jumpFrames = -1;
+var jump_frames = -1;
 var vel = Vector2();
-var doubleJumpState = 0;
-var doubleJumpFrames = 0;
-var spinTimer = 0;
-var flipL;
+var double_jump_state = 0;
+var double_jump_frames = 0;
+var spin_timer = 0;
+var flip_l;
 
 enum s {
-	Walk,
-	Frontflip,
-	Backflip,
-	Spin,
-	Dive,
-	Diveflip,
-	Pound,
-	Door,
+	walk,
+	frontflip,
+	backflip,
+	spin,
+	dive,
+	diveflip,
+	pound,
+	door,
 }
 
-var state = s.Walk;
+var state = s.walk;
 var classic;
 
 func screen_handling():
@@ -79,27 +79,27 @@ func screen_handling():
 		OS.window_size = OS.window_size * 2;
 	if Input.is_action_just_pressed("screen-"):
 		OS.window_size = OS.window_size / 2;
-	var zoomFactor = 448/OS.window_size.x;
-	camera.zoom = Vector2(zoomFactor, zoomFactor);
+	var zoom_factor = 448/OS.window_size.x;
+	camera.zoom = Vector2(zoom_factor, zoom_factor);
 
-func play_voice(groupName):
-	var group = voiceBank[groupName];
+func play_voice(group_name):
+	var group = voice_bank[group_name];
 	var sound = group[randi() % group.size()];
 	voice.stream = sound;
 	voice.play(0);
 
 func update_classic():
-	classic = $"/root/Main".classic;
+	classic = $"/root/main".classic;
 	if classic:
-		setWallBounce = 0.5;
+		set_wall_bounce = 0.5;
 	else:
-		setWallBounce = 0.19;
+		set_wall_bounce = 0.19;
 		
-func switch_state(newState):
-	state = newState;
+func switch_state(new_state):
+	state = new_state;
 	sprite.rotation_degrees = 0;
 	match state:
-		s.Dive:
+		s.dive:
 			$StandHitbox.disabled = true;
 			$DiveHitbox.disabled = false;
 		_:
@@ -110,237 +110,234 @@ func _ready():
 	update_classic();
 
 func ground_friction(val, sub, div): #Ripped from source
-	val = val/fpsMod;
-	var velSign = sign(val);
+	val = val/fps_mod;
+	var vel_sign = sign(val);
 	val = abs(val);
 	val -= sub;
 	val = max(0, val);
 	val /= div;
-	val *= velSign;
-	return val*fpsMod;
+	val *= vel_sign;
+	return val*fps_mod;
 
-var debugMaxYVel = 0;
 func _physics_process(_delta):
-	var iLeft = Input.is_action_pressed("left");
-	var iRight = Input.is_action_pressed("right");
-	var iDown = Input.is_action_pressed("down");
-	var iJump = Input.is_action_just_pressed("jump");
-	var iJumpH = Input.is_action_pressed("jump");
-	var iDive = Input.is_action_just_pressed("dive");
-	var iDiveH = Input.is_action_pressed("dive");
-	var iSpin = Input.is_action_just_pressed("spin");
-	var iSpinH = Input.is_action_pressed("spin");
+	var i_left = Input.is_action_pressed("left");
+	var i_right = Input.is_action_pressed("right");
+	var i_down = Input.is_action_pressed("down");
+	var i_jump = Input.is_action_just_pressed("jump");
+	var i_jump_h = Input.is_action_pressed("jump");
+	var i_dive = Input.is_action_just_pressed("dive");
+	var i_dive_h = Input.is_action_pressed("dive");
+	var i_spin = Input.is_action_just_pressed("spin");
+	var i_spin_h = Input.is_action_pressed("spin");
 	if (Input.is_action_just_pressed("debug")):
-		if iJumpH:
+		if i_jump_h:
 			#get_tree().change_scene("res://level_designer.tscn");
 			get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn");
 		else:
-			$"/root/Main".classic = !classic;
+			$"/root/main".classic = !classic;
 			update_classic();
 	var ground = is_on_floor();
 	var wall = is_on_wall();
 	var ceiling = is_on_ceiling();
 	
-	var fallAdjust = vel.y; #Used to adjust downward acceleration to account for framerate differenc
-	if state == s.Diveflip:
-		if flipL:
+	var fall_adjust = vel.y; #Used to adjust downward acceleration to account for framerate differenc
+	if state == s.diveflip:
+		if flip_l:
 			sprite.rotation_degrees -= 20;
 		else:
 			sprite.rotation_degrees += 20;
 		if abs(sprite.rotation_degrees) > 360-20 || ground:
-			switch_state(s.Walk);
+			switch_state(s.walk);
 			sprite.rotation_degrees = 0;
-#	elif state == s.Frontflip:
-#		if flipL:
+#	elif state == s.frontflip:
+#		if flip_l:
 #			sprite.rotation_degrees -= 14;
 #		else:
 #			sprite.rotation_degrees += 14;
 #		if abs(sprite.rotation_degrees) > 720-14:
-#			state = s.Walk;
+#			state = s.walk;
 #			sprite.rotation_degrees = 0;
 		
 	if ground:
-		fallAdjust = 0;
-		if state == s.Dive:
+		fall_adjust = 0;
+		if state == s.dive:
 			vel.x = ground_friction(vel.x, 0.2, 1.05); #Floor friction
 		else:
 			vel.x = ground_friction(vel.x, 0.3, 1.15); #Floor friction
 		
-		if state == s.Frontflip || state == s.Backflip: #Reset state when landing
-			switch_state(s.Walk);
+		if state == s.frontflip || state == s.backflip: #Reset state when landing
+			switch_state(s.walk);
 			sprite.rotation_degrees = 0;
 			tween.stop_all();
 		
-		if state == s.Dive && abs(vel.x) == 0 && !iDiveH:
-			move_and_slide(Vector2(0, -setDiveCorrect)*60, Vector2(0, -1));
-			switch_state(s.Walk);
-		if state == s.Walk:
+		if state == s.dive && abs(vel.x) == 0 && !i_dive_h:
+			move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1));
+			switch_state(s.walk);
+		if state == s.walk:
 			sprite.animation = "walk";
 			
-		doubleJumpFrames = max(doubleJumpFrames - 1, 0);
-		if doubleJumpFrames <= 0:
-			doubleJumpState = 0;
+		double_jump_frames = max(double_jump_frames - 1, 0);
+		if double_jump_frames <= 0:
+			double_jump_state = 0;
 	else:
-		if state == s.Frontflip:
+		if state == s.frontflip:
 			sprite.animation = "flip";
-		elif state == s.Walk:
+		elif state == s.walk:
 			if vel.y > 0:
 				sprite.animation = "fall";
 			else:
 				sprite.animation = "jump";
 				
-		if iLeft == iRight:
+		if i_left == i_right:
 			vel.x = ground_friction(vel.x, 0, 1.001); #Air decel
 
-	fallAdjust += grav;
+	fall_adjust += grav;
 	
 	if !ground:
-		if fallAdjust > 0:
-			fallAdjust = ground_friction(fallAdjust, ((grav/fpsMod)/5), 1.05);
-		fallAdjust = ground_friction(fallAdjust, 0, 1.001);
-		if state == s.Spin && !iDown:
-			#fallAdjust = ground_friction(fallAdjust, 0.3, 1.05); #fastspin
-			fallAdjust = ground_friction(fallAdjust, 0.1, 1.03);
+		if fall_adjust > 0:
+			fall_adjust = ground_friction(fall_adjust, ((grav/fps_mod)/5), 1.05);
+		fall_adjust = ground_friction(fall_adjust, 0, 1.001);
+		if state == s.spin && !i_down:
+			#fall_adjust = ground_friction(fall_adjust, 0.3, 1.05); #fastspin
+			fall_adjust = ground_friction(fall_adjust, 0.1, 1.03);
 		vel.x = ground_friction(vel.x, 0, 1.001); #Air friction
 		
-		jumpFrames = max(jumpFrames - 1, -1);
+		jump_frames = max(jump_frames - 1, -1);
 		
-	vel.y += (fallAdjust - vel.y) * fpsMod; #Adjust the Y velocity according to the framerate
+	vel.y += (fall_adjust - vel.y) * fps_mod; #Adjust the Y velocity according to the framerate
 	
-	if iJumpH:
+	if i_jump_h:
 		if ground:
-			if state == s.Dive:
-				move_and_slide(Vector2(0, -setDiveCorrect)*60, Vector2(0, -1)); #Correct for hitbox positioning
-				if ((int(iRight) - int(iLeft) != -1) && !sprite.flip_h) || ((int(iRight) - int(iLeft) != 1) && sprite.flip_h):
-					switch_state(s.Diveflip);
-					vel.y = min(-setJumpVel/1.5, vel.y);
+			if state == s.dive:
+				move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1)); #Correct for hitbox positioning
+				if ((int(i_right) - int(i_left) != -1) && !sprite.flip_h) || ((int(i_right) - int(i_left) != 1) && sprite.flip_h):
+					switch_state(s.diveflip);
+					vel.y = min(-set_jump_1_vel/1.5, vel.y);
 				else:
-					switch_state(s.Backflip);
-					vel.y = min(-setJumpVel - 2.0 * fpsMod, vel.y);
+					switch_state(s.backflip);
+					vel.y = min(-set_jump_1_vel - 2.0 * fps_mod, vel.y);
 					if sprite.flip_h:
-						vel.x += (30.0 - abs(vel.x)) / (5 / fpsMod);
+						vel.x += (30.0 - abs(vel.x)) / (5 / fps_mod);
 					else:
-						vel.x -= (30.0 - abs(vel.x)) / (5 / fpsMod);
+						vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod);
 					if sprite.flip_h:
 						tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0);
 					else:
 						tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0);
 					tween.start();
 				sprite.animation = "jump";
-				flipL = sprite.flip_h;
+				flip_l = sprite.flip_h;
 				
-			elif iJump:
-				jumpFrames = setJumpModFrames;
-				doubleJumpFrames = setDoubleJumpFrames;
+			elif i_jump:
+				jump_frames = set_jump_mod_frames;
+				double_jump_frames = set_double_jump_frames;
 				
-				match doubleJumpState:
+				match double_jump_state:
 					0: #Single
-						switch_state(s.Walk);
+						switch_state(s.walk);
 						play_voice("jump1");
-						vel.y = -setJumpVel;
-						doubleJumpState+=1;
+						vel.y = -set_jump_1_vel;
+						double_jump_state+=1;
 					1: #Double
-						switch_state(s.Walk);
+						switch_state(s.walk);
 						play_voice("jump2");
-						vel.y = -setDJumpVel;
-						doubleJumpState+=1;
+						vel.y = -set_jump_2_vel;
+						double_jump_state+=1;
 					2: #Triple
-						if abs(vel.x) > setTJumpDeadzone:
-							vel.y = -setTJumpVel;
-							vel.x += (vel.x + 15*fpsMod*sign(vel.x))/5*fpsMod;
-							doubleJumpState = 0;
-							switch_state(s.Frontflip);
+						if abs(vel.x) > set_triple_jump_deadzone:
+							vel.y = -set_jump_3_vel;
+							vel.x += (vel.x + 15*fps_mod*sign(vel.x))/5*fps_mod;
+							double_jump_state = 0;
+							switch_state(s.frontflip);
 							play_voice("jump3");
 							if sprite.flip_h:
 								tween.interpolate_property(sprite, "rotation_degrees", 0, -720, 1, 1, Tween.EASE_OUT, 0);
 							else:
 								tween.interpolate_property(sprite, "rotation_degrees", 0, 720, 1, 1, Tween.EASE_OUT, 0);
 							tween.start();
-							flipL = sprite.flip_h;
+							flip_l = sprite.flip_h;
 						else:
-							vel.y = -setDJumpVel; #Not moving left/right fast enough
+							vel.y = -set_jump_2_vel; #Not moving left/right fast enough
 							play_voice("jump2");
 				
 				if !classic:
-					move_and_collide(Vector2(0, -setJumpTP)); #Suggested by Maker - slight upwards teleport
-		elif jumpFrames > 0 && state == s.Walk:
-			vel.y -= grav * pow(fpsMod, 3); #Variable jump height
+					move_and_collide(Vector2(0, -set_jump_1_tp)); #Suggested by Maker - slight upwards teleport
+		elif jump_frames > 0 && state == s.walk:
+			vel.y -= grav * pow(fps_mod, 3); #Variable jump height
 	
-	debugMaxYVel = max(debugMaxYVel, vel.y);
-	
-	if iLeft && !iRight:
-		if state != s.Dive && (state != s.Diveflip || !classic) && (state != s.Frontflip || !classic) && state != s.Backflip:
+	if i_left && !i_right:
+		if state != s.dive && (state != s.diveflip || !classic) && (state != s.frontflip || !classic) && state != s.backflip:
 			sprite.flip_h = true;
 		if ground:
-			if state != s.Dive:
-				vel.x -= setWalkAccel;
+			if state != s.dive:
+				vel.x -= set_walk_accel;
 		else:
-			if state == s.Frontflip || state == s.Spin:
-				vel.x -= max((setAirAccel+vel.x)/(setAirSpeedCap/(3*fpsMod)), 0) / (1.5 / fpsMod);
-			elif state == s.Dive || state == s.Diveflip:
-				vel.x -= max((setAirAccel+vel.x)/(setAirSpeedCap/(3*fpsMod)), 0) / (8 / fpsMod);
+			if state == s.frontflip || state == s.spin:
+				vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod);
+			elif state == s.dive || state == s.diveflip:
+				vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod);
 			else:
-				vel.x -= max((setAirAccel+vel.x)/(setAirSpeedCap/(3*fpsMod)), 0);
+				vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0);
 			
-	if iRight && !iLeft:
-		if state != s.Dive && (state != s.Diveflip || !classic) && (state != s.Frontflip || !classic) && state != s.Backflip:
+	if i_right && !i_left:
+		if state != s.dive && (state != s.diveflip || !classic) && (state != s.frontflip || !classic) && state != s.backflip:
 			sprite.flip_h = false;
 		if ground:
-			if state != s.Dive:
-				vel.x += setWalkAccel;
+			if state != s.dive:
+				vel.x += set_walk_accel;
 		else:
-			if state == s.Frontflip || state == s.Spin:
-				vel.x += max((setAirAccel-vel.x)/(setAirSpeedCap/(3*fpsMod)), 0) / (1.5 / fpsMod);
-			elif state == s.Dive || state == s.Diveflip:
-				vel.x += max((setAirAccel-vel.x)/(setAirSpeedCap/(3*fpsMod)), 0) / (8 / fpsMod);
+			if state == s.frontflip || state == s.spin:
+				vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod);
+			elif state == s.dive || state == s.diveflip:
+				vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod);
 			else:
-				vel.x += max((setAirAccel-vel.x)/(setAirSpeedCap/(3*fpsMod)), 0);
+				vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0);
 	
-	if iDiveH && state != s.Dive && (state != s.Diveflip || (!classic && iDive && sprite.flip_h != flipL)) && state != s.Pound  && (state != s.Spin || (!classic && iDive)): #Dive
-		if ground && iJumpH:
-			move_and_slide(Vector2(0, -setDiveCorrect)*60, Vector2(0, -1));
-			switch_state(s.Diveflip);
+	if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound  && (state != s.spin || (!classic && i_dive)): #dive
+		if ground && i_jump_h:
+			move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1));
+			switch_state(s.diveflip);
 			sprite.animation = "jump";
-			flipL = sprite.flip_h;
-			vel.y = min(-setJumpVel/1.5, vel.y);
-			doubleJumpState = 0;
-		elif state != s.Backflip || abs(sprite.rotation_degrees) > 270:
-			switch_state(s.Dive);
+			flip_l = sprite.flip_h;
+			vel.y = min(-set_jump_1_vel/1.5, vel.y);
+			double_jump_state = 0;
+		elif state != s.backflip || abs(sprite.rotation_degrees) > 270:
+			switch_state(s.dive);
 			rotation_degrees = 0;
 			tween.stop_all();
 			sprite.animation = "dive";
-			doubleJumpState = 0;
+			double_jump_state = 0;
 			if ground:
-				move_and_slide(Vector2(0, setDiveCorrect)*60, Vector2(0, -1));
+				move_and_slide(Vector2(0, set_dive_correct)*60, Vector2(0, -1));
 			else:
 				play_voice("dive");
 				if sprite.flip_h:
-					vel.x -= (setDiveSpeed - abs(vel.x)) / (5 / fpsMod) / fpsMod;
+					vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod;
 				else:
-					vel.x += (setDiveSpeed - abs(vel.x)) / (5 / fpsMod) / fpsMod;
-				vel.y += 3.0 * fpsMod;
+					vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod;
+				vel.y += 3.0 * fps_mod;
 	
-	if state == s.Spin:
-		if spinTimer > 0:
-			spinTimer -= 1;
-		elif !iSpinH:
-			switch_state(s.Walk);
+	if state == s.spin:
+		if spin_timer > 0:
+			spin_timer -= 1;
+		elif !i_spin_h:
+			switch_state(s.walk);
 	
-	if (iSpinH
-	&& state != s.Spin
-	&& state != s.Frontflip
-	&& state != s.Pound
-	&& state != s.Dive
-	&& (state != s.Diveflip || (!classic && iSpin))
-	&& (vel.y > -3.3 * fpsMod || (!classic && state == s.Diveflip))):
-		switch_state(s.Spin);
+	if (i_spin_h
+	&& state != s.spin
+	&& state != s.frontflip
+	&& state != s.pound
+	&& state != s.dive
+	&& (state != s.diveflip || (!classic && i_spin))
+	&& (vel.y > -3.3 * fps_mod || (!classic && state == s.diveflip))):
+		switch_state(s.spin);
 		sprite.animation = "spin";
-		vel.y = min(-3.3 * fpsMod, vel.y - 3.3 * fpsMod);
-		spinTimer = 30;
+		vel.y = min(-3.3 * fps_mod, vel.y - 3.3 * fps_mod);
+		spin_timer = 30;
 	
 	if wall:
-		if int(iRight) - int(iLeft) != sign(int(vel.x)) && int(vel.x) != 0:
-			vel.x = -vel.x*setWallBounce; #Bounce off a wall when not intentionally pushing into it
+		if int(i_right) - int(i_left) != sign(int(vel.x)) && int(vel.x) != 0:
+			vel.x = -vel.x*set_wall_bounce; #Bounce off a wall when not intentionally pushing into it
 		else:
 			vel.x = 0; #Cancel X velocity when intentionally pushing into a wall
 			
@@ -348,22 +345,22 @@ func _physics_process(_delta):
 		vel.y = max(vel.y, 0.1);
 	
 	var snap;
-	if !ground || iJump || state == s.Diveflip:
+	if !ground || i_jump || state == s.diveflip:
 		snap = Vector2.ZERO;
 		
 	else:
 		snap = Vector2(0, 4);
 		
-	var savePos = position;
+	var save_pos = position;
 	move_and_slide_with_snap(vel*60, snap, Vector2(0, -1), true);
-	var slideVec = position-savePos;
-	position = savePos;
-	if slideVec.length() > 0.5:
-		move_and_slide_with_snap(vel*60 * (vel.length()/slideVec.length()), snap, Vector2(0, -1), true);
+	var slide_vec = position-save_pos;
+	position = save_pos;
+	if slide_vec.length() > 0.5:
+		move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true);
 	
 	$Label.text = String(vel.x);
 
 	screen_handling();
 
 func _on_Tween_tween_completed(object, key):
-	switch_state(s.Walk);
+	switch_state(s.walk);
