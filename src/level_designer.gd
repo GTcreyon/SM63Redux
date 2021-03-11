@@ -609,7 +609,6 @@ onready var ld_tile_map = $TileMap;
 var level_width = "";
 var level_height = "";
 var level_name = "";
-var tile_num = 0;
 
 var song_id = "";
 var bg_id = "";
@@ -618,14 +617,15 @@ var start_pos = Vector2(0, 0);
 
 const item = preload("res://actors/items/ld_item.tscn");
 
-func place_tile(tile_id):
+#this now requires the tile_num and does not rely on the inner tile_num variable anymore (which is now deleted)
+func place_tile_id(tile_num, tile_id):
 	var x = floor(float(tile_num) / float(level_height))
-	var y = tile_num%level_height
+	var y = tile_num % level_height
 	ld_tile_map.set_cell(x, y, tile_dec[tile_id] - 1);
-	
 
-func _ready():
-	level_code = snowdrift;
+#I made this into a function, it's prettier and easier to use
+func load_level_code(code):
+	var tile_num = 0;
 	var read_phase = 0;
 	var read_num = 0;
 	var tile_id = "";
@@ -635,65 +635,69 @@ func _ready():
 	var item_ref;
 
 	var n = 0;
-	while n < level_code.length():
-		current_char = level_code.substr(n, 1);
+	while n < code.length():
+		current_char = code.substr(n, 1);
 		if current_char == "~" && read_phase == 2:
 			n += 1;
 			read_phase = 4;
 		match read_phase:
-			0:
+			0: #get level width
 				if current_char == "x":
 					level_width = int(level_width);
 					read_phase = 1;
 				else:
 					level_width += current_char;
-			1:
+			1: #get level height
 				if current_char == "~":
 					level_height = int(level_height);
 					read_phase = 2;
 				else:
 					level_height += current_char;
-			2:
+			2: #read all level tiles (and place them directly)
 				tile_id += current_char;
 				read_num += 1;
 				if read_num == 2 || tile_id == "0":
 					read_num = 0;
-					if level_code.substr(n+1, 1) == "*":
+					if code.substr(n+1, 1) == "*":
 						read_phase = 3;
 						n += 1;
 						multiplier = "";
 					else:
-						place_tile(tile_id);
+						place_tile_id(tile_id);
 						tile_num += 1;
 						tile_id = "";
-			3:
-				while level_code.substr(n, 1) != "*":
-					multiplier += level_code.substr(n, 1);
+			3: #same as 2
+				while code.substr(n, 1) != "*":
+					multiplier += code.substr(n, 1);
 					n+=1
 				for _i in range(int(multiplier)):
 					place_tile(tile_id);
 					tile_num += 1;
 				tile_id = "";
 				read_phase = 2;
-			4:
-				while level_code.substr(n, 1) != "|" && level_code.substr(n, 1) != "~":
-					item_code += level_code.substr(n, 1);
+			4: #place down all level items
+				while code.substr(n, 1) != "|" && code.substr(n, 1) != "~":
+					item_code += code.substr(n, 1);
 					n+=1
-				if level_code.substr(n, 1) == "~":
+				if code.substr(n, 1) == "~":
 					read_phase = 5;
 				item_ref = item.instance();
 				item_ref.set("code", item_code);
 				add_child(item_ref);
 				item_code = "";
-			5:
-				while level_code.substr(n, 1) != "~":
-					song_id += level_code.substr(n, 1);
+			5: #song id & background id
+				while code.substr(n, 1) != "~":
+					song_id += code.substr(n, 1);
 					n += 1;
 				n += 1;
-				while level_code.substr(n, 1) != "~":
-					bg_id += level_code.substr(n, 1);
+				while code.substr(n, 1) != "~":
+					bg_id += code.substr(n, 1);
 					n += 1;
 				read_phase = 6;
-			6:
+			6: #levelname
 				level_name += current_char;
 		n += 1; #Increment
+
+func _ready():
+	level_code = snowdrift;
+	load_level_code(level_code)
