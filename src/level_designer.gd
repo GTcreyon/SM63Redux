@@ -609,6 +609,7 @@ onready var ldTileMap = $TileMap;
 var levelWidth = "";
 var levelHeight = "";
 var levelName = "";
+var tileNum = 0;
 
 var songID = "";
 var bgID = "";
@@ -617,15 +618,16 @@ var startPos = Vector2(0, 0);
 
 const item = preload("res://actors/items/ld_item.tscn");
 
-func place_tileID(tileNum, tileID):
+func place_tile(tileID):
 	var x = floor(float(tileNum) / float(levelHeight))
 	var y = tileNum%levelHeight
 	ldTileMap.set_cell(x, y, tile_dec[tileID] - 1);
+	
 
-func read_levelcode(code):
+func _ready():
+	levelCode = snowdrift;
 	var readPhase = 0;
 	var readNum = 0;
-	var tileNum = 0;
 	var tileID = "";
 	var currentChar;
 	var multiplier = "";
@@ -633,8 +635,8 @@ func read_levelcode(code):
 	var itemRef;
 
 	var n = 0;
-	while n < code.length():
-		currentChar = code.substr(n, 1);
+	while n < levelCode.length():
+		currentChar = levelCode.substr(n, 1);
 		if currentChar == "~" && readPhase == 2:
 			n += 1;
 			readPhase = 4;
@@ -656,46 +658,42 @@ func read_levelcode(code):
 				readNum+=1;
 				if readNum == 2 || tileID == "0":
 					readNum = 0;
-					if code.substr(n+1, 1) == "*":
+					if levelCode.substr(n+1, 1) == "*":
 						readPhase = 3;
 						n += 1;
 						multiplier = "";
 					else:
-						place_tileID(tileNum, tileID);
+						place_tile(tileID);
 						tileNum += 1;
 						tileID = "";
 			3:
-				while code.substr(n, 1) != "*":
-					multiplier += code.substr(n, 1);
+				while levelCode.substr(n, 1) != "*":
+					multiplier += levelCode.substr(n, 1);
 					n+=1
 				for _i in range(int(multiplier)):
-					place_tileID(tileNum, tileID);
+					place_tile(tileID);
 					tileNum += 1;
 				tileID = "";
 				readPhase = 2;
 			4:
-				while code.substr(n, 1) != "|" && code.substr(n, 1) != "~":
-					itemCode += code.substr(n, 1);
+				while levelCode.substr(n, 1) != "|" && levelCode.substr(n, 1) != "~":
+					itemCode += levelCode.substr(n, 1);
 					n+=1
-				if code.substr(n, 1) == "~":
+				if levelCode.substr(n, 1) == "~":
 					readPhase = 5;
 				itemRef = item.instance();
 				itemRef.set("code", itemCode);
 				add_child(itemRef);
 				itemCode = "";
 			5:
-				while code.substr(n, 1) != "~":
-					songID += code.substr(n, 1);
+				while levelCode.substr(n, 1) != "~":
+					songID += levelCode.substr(n, 1);
 					n += 1;
 				n += 1;
-				while code.substr(n, 1) != "~":
-					bgID += code.substr(n, 1);
+				while levelCode.substr(n, 1) != "~":
+					bgID += levelCode.substr(n, 1);
 					n += 1;
 				readPhase = 6;
 			6:
 				levelName += currentChar;
 		n += 1; #Increment
-
-func _ready():
-	levelCode = snowdrift;
-	read_levelcode(levelCode);

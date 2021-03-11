@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mario_jump.png-18b1d8a4057e4b7ad99e7031593e03c4.stex"
+path="res://.import/mario_jump.png-ea9f264b97ac14e1e8efcacaf995bd34.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Actors/Player/mario/mario_jump.png"
-dest_files=[ "res://.import/mario_jump.png-18b1d8a4057e4b7ad99e7031593e03c4.stex" ]
+source_file="res://actors/player/mario/mario_jump.png"
+dest_files=[ "res://.import/mario_jump.png-ea9f264b97ac14e1e8efcacaf995bd34.stex" ]
 
 [params]
 
