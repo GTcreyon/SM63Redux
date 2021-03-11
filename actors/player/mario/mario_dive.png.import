@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mario_dive.png-a9892b45e3be0153d53f4dfcc64845fc.stex"
+path="res://.import/mario_dive.png-977cd3e9bf46aacb0ace89cb114c13c3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/player/mario/mario_dive.png"
-dest_files=[ "res://.import/mario_dive.png-a9892b45e3be0153d53f4dfcc64845fc.stex" ]
+source_file="res://Actors/Player/mario/mario_dive.png"
+dest_files=[ "res://.import/mario_dive.png-977cd3e9bf46aacb0ace89cb114c13c3.stex" ]
 
 [params]
 
