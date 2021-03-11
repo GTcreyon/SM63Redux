@@ -6,9 +6,9 @@ onready var LD = get_parent();
 onready var map = LD.get_node("TileMap");
 onready var music = LD.get_node("Music");
 
-var scrollSpeed = 8;
-var mousePos = Vector2(0, 0);
-var mousePosStore = Vector2(0, 0);
+var scroll_speed = 8;
+var mouse_pos = Vector2(0, 0);
+var mouse_pos_store = Vector2(0, 0);
 var objects_loaded = {}
 
 const player = preload("res://actors/player/player.tscn");
@@ -613,77 +613,71 @@ const tile_enc = {
 
 
 func save_code():
-	var code = str(LD.levelWidth) + "x" + str(LD.levelHeight) + "~";
+	var code = str(LD.level_width) + "x" + str(LD.level_height) + "~";
 	var n = 0;
-	var tileA;
-	var tileB = tile_enc[str(map.get_cellv(Vector2(0, 0)) + 1)];
+	var tile_a;
+	var tile_b = tile_enc[str(map.get_cellv(Vector2(0, 0)) + 1)];
 	var multiplier = 0;
-	var testA;
-	var testB;
-	while n < LD.levelWidth*LD.levelHeight - 1:
-		tileA = tileB;
-		code += tileA;
-		testA = n / LD.levelWidth;
-		testB = n % LD.levelHeight;
+	while n < LD.level_width*LD.level_height - 1:
+		tile_a = tile_b;
+		code += tile_a;
 		n += 1;
-		tileB = tile_enc[str(map.get_cellv(Vector2(n / LD.levelHeight, n % LD.levelHeight)) + 1)];
-		if tileA == tileB:
-			while tileA == tileB && n < LD.levelWidth*LD.levelHeight:
-				testA = n / LD.levelHeight;
-				testB = n % LD.levelHeight;
+		tile_b = tile_enc[str(map.get_cellv(Vector2(n / LD.level_height, n % LD.level_height)) + 1)];
+		if tile_a == tile_b:
+			while tile_a == tile_b && n < LD.level_width*LD.level_height:
 				multiplier += 1;
-				tileA = tile_enc[str(map.get_cellv(Vector2(n / LD.levelHeight, n % LD.levelHeight)) + 1)];
+				tile_a = tile_enc[str(map.get_cellv(Vector2(n / LD.level_height, n % LD.level_height)) + 1)];
 				n += 1;
-			if (n == LD.levelWidth*LD.levelHeight):
-				if (tileA == tileB):
+			if (n == LD.level_width*LD.level_height):
+				if (tile_a == tile_b):
 					multiplier += 1;
 					code += "*" + str(multiplier) + "*";
 				else:
-					code += "*" + str(multiplier) + "*" + tileA;
+					code += "*" + str(multiplier) + "*" + tile_a;
 			else:
 				code += "*" + str(multiplier) + "*";
 			multiplier = 0;
-			tileB = tileA;
+			tile_b = tile_a;
 			n -= 1;
 	code += "~";
 	for child in LD.get_children():
 		if child != map && child != self && child != music:
 			code += child.code + "|";
 	code.erase(code.length() - 1, 1);
-	code += "~" + LD.songID + "~" + LD.bgID + "~" + LD.levelName;
+	code += "~" + LD.song_id + "~" + LD.bg_id + "~" + LD.level_name;
 	return code;
 
 func _process(delta):
-	var iLeft = Input.is_action_pressed("LD_cam_left");
-	var iRight = Input.is_action_pressed("LD_cam_right");
-	var iUp = Input.is_action_pressed("LD_cam_up");
-	var iDown = Input.is_action_pressed("LD_cam_down");
-	var iPan = Input.is_action_pressed("LD_cam_pan");
-	var iPlace = Input.is_action_pressed("LD_place");
-	var iDelete = Input.is_action_pressed("LD_delete");
-	mousePos = get_local_mouse_position();
+	var i_left = Input.is_action_pressed("LD_cam_left");
+	var i_right = Input.is_action_pressed("LD_cam_right");
+	var i_up = Input.is_action_pressed("LD_cam_up");
+	var i_down = Input.is_action_pressed("LD_cam_down");
+	var i_pan = Input.is_action_pressed("LD_cam_pan");
+	var i_place = Input.is_action_pressed("LD_place");
+	var i_delete = Input.is_action_pressed("LD_delete");
+	mouse_pos = get_local_mouse_position();
 	
-	if iPan:
-		position += mousePosStore - mousePos;
+	if i_pan:
+		position += mouse_pos_store - mouse_pos;
 	else:
 		#Horrific code compression - this is just for moving the camera
-		position += Vector2((int(iRight) - int(iLeft))*scrollSpeed, (int(iDown) - int(iUp))*scrollSpeed);
+		position += Vector2((int(i_right) - int(i_left))*scroll_speed, (int(i_down) - int(i_up))*scroll_speed);
 		
-	mousePosStore = mousePos;
+	mouse_pos_store = mouse_pos;
 	
-	if iPlace:
+	if i_place:
 		map.set_cellv(map.world_to_map(get_global_mouse_position()), 0);
 		
-	if iDelete:
+	if i_delete:
 		map.set_cellv(map.world_to_map(get_global_mouse_position()), -1);
 		
-	if iDown && Input.is_action_just_pressed("debug"):
-		var playerSpawn = player.instance();
-		playerSpawn.position = get_parent().startPos;
-		get_parent().add_child(playerSpawn);
+	if i_down && Input.is_action_just_pressed("debug"):
+		var player_spawn = player.instance();
+		player_spawn.position = get_parent().start_pos;
+		get_parent().add_child(player_spawn);
 		emit_signal("test_level");
 		
-	if iRight && Input.is_action_pressed("debug"):
+	if i_right && Input.is_action_pressed("debug"):
 		save_code();
 
 func object_load(id):
