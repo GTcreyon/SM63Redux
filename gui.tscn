@@ -3,9 +3,6 @@
 [ext_resource path="res://src/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/sunbeam.tres" type="DynamicFont" id=2]
 
-
-
-
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
 
@@ -15,6 +12,27 @@ margin_bottom = 14.0
 custom_fonts/font = ExtResource( 2 )
 text = "Debug"
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin_label" type="Label" parent="."]
+margin_top = 16.6677
+margin_right = 45.0
+margin_bottom = 33.6677
+custom_fonts/font = ExtResource( 2 )
+text = "Coins x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin_counter" type="Label" parent="."]
+margin_left = 57.0
+margin_top = 17.0
+margin_right = 104.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
