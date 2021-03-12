@@ -1,6 +1,6 @@
 extends Node
 
-var classic = true;
+var classic = true
 
 #the following lines are for the coins collected in the GUI
 var coins_total = 0
