@@ -131,10 +131,10 @@ func _physics_process(_delta):
 	var i_spin_h = Input.is_action_pressed("spin");
 	if (Input.is_action_just_pressed("debug")):
 		if i_jump_h:
-			#get_tree().change_scene("res://level_designer.tscn");
-			get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn");
+			get_tree().change_scene("res://level_designer.tscn");
+			#get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn");
 		else:
-			$"/root/main".classic = !classic;
+			$"/root/Main".classic = !classic;
 			update_classic();
 	var ground = is_on_floor();
 	var wall = is_on_wall();
