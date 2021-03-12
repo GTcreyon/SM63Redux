@@ -57,6 +57,8 @@ var double_jump_state = 0
 var double_jump_frames = 0
 var spin_timer = 0
 var flip_l
+var dive_return = false
+var dive_frames = 0
 
 enum s {
 	walk,
@@ -149,14 +151,22 @@ func _physics_process(_delta):
 		if abs(sprite.rotation_degrees) > 360-20 || ground:
 			switch_state(s.walk)
 			sprite.rotation_degrees = 0
-#	elif state == s.frontflip:
-#		if flip_l:
-#			sprite.rotation_degrees -= 14
-#		else:
-#			sprite.rotation_degrees += 14
-#		if abs(sprite.rotation_degrees) > 720-14:
-#			state = s.walk
-#			sprite.rotation_degrees = 0
+	elif dive_return:
+		dive_frames -= 1
+		if dive_frames == 0:
+			sprite.animation = "jump"
+			sprite.rotation_degrees += -90 if sprite.flip_h else 90
+			move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1))
+			$StandHitbox.disabled = false
+			$DiveHitbox.disabled = true
+			
+		if sprite.rotation_degrees != 0 || dive_frames > 2:
+			sprite.rotation_degrees += 10 if sprite.flip_h else -10
+		else:
+			dive_return = false
+			switch_state(s.walk)
+			sprite.rotation_degrees = 0
+		
 		
 	if ground:
 		fall_adjust = 0
@@ -170,9 +180,9 @@ func _physics_process(_delta):
 			sprite.rotation_degrees = 0
 			tween.stop_all()
 		
-		if state == s.dive && abs(vel.x) == 0 && !i_dive_h:
-			move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1))
-			switch_state(s.walk)
+		if state == s.dive && abs(vel.x) == 0 && !i_dive_h && !dive_return:
+			dive_return = true
+			dive_frames = 4
 		if state == s.walk:
 			sprite.animation = "walk"
 			
@@ -209,24 +219,31 @@ func _physics_process(_delta):
 	if i_jump_h:
 		if ground:
 			if state == s.dive:
-				move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1)) #Correct for hitbox positioning
 				if ((int(i_right) - int(i_left) != -1) && !sprite.flip_h) || ((int(i_right) - int(i_left) != 1) && sprite.flip_h):
-					switch_state(s.diveflip)
-					vel.y = min(-set_jump_1_vel/1.5, vel.y)
+					if !dive_return:
+						move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1))
+						switch_state(s.diveflip)
+						vel.y = min(-set_jump_1_vel/1.5, vel.y)
+						sprite.animation = "jump"
+						flip_l = sprite.flip_h
 				else:
+					move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1))
 					switch_state(s.backflip)
 					vel.y = min(-set_jump_1_vel - 2.0 * fps_mod, vel.y)
 					if sprite.flip_h:
 						vel.x += (30.0 - abs(vel.x)) / (5 / fps_mod)
 					else:
 						vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
+					dive_return = false
+					tween.stop_all()
 					if sprite.flip_h:
 						tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
 					else:
 						tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0)
 					tween.start()
-				sprite.animation = "jump"
-				flip_l = sprite.flip_h
+					sprite.animation = "jump"
+					flip_l = sprite.flip_h
+				
 				
 			elif i_jump:
 				jump_frames = set_jump_mod_frames
