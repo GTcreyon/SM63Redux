@@ -70,7 +70,16 @@ position = Vector2( -1217.42, 35.9516 )
 position = Vector2( -1191.95, 14.9753 )
 
 [node name="Coin_7" parent="Coins_space" instance=ExtResource( 5 )]
-position = Vector2( -1161.98, -25.479 )
+position = Vector2( -1152, -16 )
+
+[node name="Coin_8" parent="Coins_space" instance=ExtResource( 5 )]
+position = Vector2( -1088, -80 )
+
+[node name="Coin_9" parent="Coins_space" instance=ExtResource( 5 )]
+position = Vector2( -1104, -64 )
+
+[node name="Coin_10" parent="Coins_space" instance=ExtResource( 5 )]
+position = Vector2( -1136, -48 )
 [connection signal="body_entered" from="Coins_space/Coin_1" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_2" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_3" to="." method="_on_Coin_body_entered_collected"]
@@ -78,3 +87,6 @@ position = Vector2( -1161.98, -25.479 )
 [connection signal="body_entered" from="Coins_space/Coin_5" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_6" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_7" to="." method="_on_Coin_body_entered_collected"]
+[connection signal="body_entered" from="Coins_space/Coin_8" to="." method="_on_Coin_body_entered_collected"]
+[connection signal="body_entered" from="Coins_space/Coin_9" to="." method="_on_Coin_body_entered_collected"]
+[connection signal="body_entered" from="Coins_space/Coin_10" to="." method="_on_Coin_body_entered_collected"]
