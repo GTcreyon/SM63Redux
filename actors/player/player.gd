@@ -74,6 +74,10 @@ enum s {
 var state = s.walk
 var classic
 
+func dive_correct(factor): #Correct the player's origin position when diving
+	move_and_slide(Vector2(0, set_dive_correct * factor * 60), Vector2(0, -1))
+	camera.position.y = min(0, -set_dive_correct * factor)
+
 func screen_handling():
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
@@ -156,7 +160,7 @@ func _physics_process(_delta):
 		if dive_frames == 0:
 			sprite.animation = "jump"
 			sprite.rotation_degrees += -90 if sprite.flip_h else 90
-			move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1))
+			dive_correct(-1)
 			$StandHitbox.disabled = false
 			$DiveHitbox.disabled = true
 			
@@ -221,13 +225,13 @@ func _physics_process(_delta):
 			if state == s.dive:
 				if ((int(i_right) - int(i_left) != -1) && !sprite.flip_h) || ((int(i_right) - int(i_left) != 1) && sprite.flip_h):
 					if !dive_return:
-						move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1))
+						dive_correct(-1)
 						switch_state(s.diveflip)
 						vel.y = min(-set_jump_1_vel/1.5, vel.y)
 						sprite.animation = "jump"
 						flip_l = sprite.flip_h
 				else:
-					move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1))
+					dive_correct(-1)
 					switch_state(s.backflip)
 					vel.y = min(-set_jump_1_vel - 2.0 * fps_mod, vel.y)
 					if sprite.flip_h:
@@ -283,7 +287,11 @@ func _physics_process(_delta):
 			vel.y -= grav * pow(fps_mod, 3) #Variable jump height
 	
 	if i_left && !i_right:
-		if state != s.dive && (state != s.diveflip || !classic) && (state != s.frontflip || !classic) && state != s.backflip:
+		if (state != s.dive
+		&& (state != s.diveflip || !classic)
+		&& (state != s.frontflip || !classic)
+		&& state != s.backflip
+		):
 			sprite.flip_h = true
 		if ground:
 			if state != s.dive:
@@ -297,7 +305,11 @@ func _physics_process(_delta):
 				vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 			
 	if i_right && !i_left:
-		if state != s.dive && (state != s.diveflip || !classic) && (state != s.frontflip || !classic) && state != s.backflip:
+		if (state != s.dive
+		&& (state != s.diveflip || !classic)
+		&& (state != s.frontflip || !classic)
+		&& state != s.backflip
+		):
 			sprite.flip_h = false
 		if ground:
 			if state != s.dive:
@@ -312,7 +324,7 @@ func _physics_process(_delta):
 	
 	if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound  && (state != s.spin || (!classic && i_dive)): #dive
 		if ground && i_jump_h:
-			move_and_slide(Vector2(0, -set_dive_correct)*60, Vector2(0, -1))
+			dive_correct(-1)
 			switch_state(s.diveflip)
 			sprite.animation = "jump"
 			flip_l = sprite.flip_h
@@ -324,9 +336,8 @@ func _physics_process(_delta):
 			tween.stop_all()
 			sprite.animation = "dive"
 			double_jump_state = 0
-			if ground:
-				move_and_slide(Vector2(0, set_dive_correct)*60, Vector2(0, -1))
-			else:
+			dive_correct(1)
+			if !ground:
 				play_voice("dive")
 				if sprite.flip_h:
 					vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod
