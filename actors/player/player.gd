@@ -289,7 +289,7 @@ func _physics_process(_delta):
 			if state != s.dive:
 				vel.x -= set_walk_accel
 		else:
-			if state == s.frontflip || state == s.spin:
+			if state == s.frontflip || state == s.spin || state == s.backflip:
 				vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
 			elif state == s.dive || state == s.diveflip:
 				vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod)
@@ -303,7 +303,7 @@ func _physics_process(_delta):
 			if state != s.dive:
 				vel.x += set_walk_accel
 		else:
-			if state == s.frontflip || state == s.spin:
+			if state == s.frontflip || state == s.spin || state == s.backflip:
 				vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
 			elif state == s.dive || state == s.diveflip:
 				vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod)
