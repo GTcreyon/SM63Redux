@@ -26,6 +26,10 @@ onready var tween = $Tween
 onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
 
+#####################
+export var Life_meter_counter = 8
+#####################
+
 const voice_bank = {
 	"jump1": [
 		preload("res://audio/sfx/mario/jump1/ya1.wav"),
