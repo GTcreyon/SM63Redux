@@ -38,3 +38,24 @@ uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Life_meter_label" type="Label" parent="."]
+margin_top = 32.9386
+margin_right = 45.0
+margin_bottom = 50.9386
+custom_fonts/font = ExtResource( 3 )
+text = "Meter x"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Life_meter_counter" type="Label" parent="."]
+margin_left = 48.7937
+margin_top = 38.652
+margin_right = 159.41
+margin_bottom = 52.652
+text = "8"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
