@@ -59,6 +59,9 @@ var spin_timer = 0
 var flip_l
 var dive_return = false
 var dive_frames = 0
+var pound_frames = 0
+
+var maxY = 0
 
 enum s {
 	walk,
@@ -67,7 +70,9 @@ enum s {
 	spin,
 	dive,
 	diveflip,
-	pound,
+	pound_spin,
+	pound_fall,
+	pound_land,
 	door,
 }
 
@@ -75,6 +80,7 @@ var state = s.walk
 var classic
 
 func dive_correct(factor): #Correct the player's origin position when diving
+	#warning-ignore:return_value_discarded
 	move_and_slide(Vector2(0, set_dive_correct * factor * 60), Vector2(0, -1))
 	camera.position.y = min(0, -set_dive_correct * factor)
 
@@ -108,9 +114,14 @@ func switch_state(new_state):
 		s.dive:
 			$StandHitbox.disabled = true
 			$DiveHitbox.disabled = false
+		s.pound_fall:
+			$StandHitbox.disabled = false
+			$DiveHitbox.disabled = true
+			camera.smoothing_speed = 10
 		_:
 			$StandHitbox.disabled = false
 			$DiveHitbox.disabled = true
+			camera.smoothing_speed = 5
 
 func _ready():
 	update_classic()
@@ -135,8 +146,10 @@ func _physics_process(_delta):
 	var i_dive_h = Input.is_action_pressed("dive")
 	var i_spin = Input.is_action_just_pressed("spin")
 	var i_spin_h = Input.is_action_pressed("spin")
+	var i_pound_h = Input.is_action_pressed("pound")
 	if (Input.is_action_just_pressed("debug")):
 		if i_jump_h:
+			#warning-ignore:return_value_discarded
 			get_tree().change_scene("res://level_designer.tscn")
 			#get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn")
 		else:
@@ -146,7 +159,7 @@ func _physics_process(_delta):
 	var wall = is_on_wall()
 	var ceiling = is_on_ceiling()
 	
-	var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate differenc
+	var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 	if state == s.diveflip:
 		if flip_l:
 			sprite.rotation_degrees -= 20
@@ -173,6 +186,9 @@ func _physics_process(_delta):
 		
 		
 	if ground:
+		pound_frames = max(0, pound_frames - 1)
+		if pound_frames <= 0:
+			switch_state(s.walk)
 		fall_adjust = 0
 		if state == s.dive:
 			vel.x = ground_friction(vel.x, 0.2, 1.05) #Floor friction
@@ -189,7 +205,7 @@ func _physics_process(_delta):
 			dive_frames = 4
 		if state == s.walk:
 			sprite.animation = "walk"
-			
+		
 		double_jump_frames = max(double_jump_frames - 1, 0)
 		if double_jump_frames <= 0:
 			double_jump_state = 0
@@ -201,24 +217,34 @@ func _physics_process(_delta):
 				sprite.animation = "fall"
 			else:
 				sprite.animation = "jump"
-				
+		elif state == s.pound_fall:
+			sprite.animation = "pound_fall"
+		
 		if i_left == i_right:
 			vel.x = ground_friction(vel.x, 0, 1.001) #Air decel
 
-	fall_adjust += grav
-	
-	if !ground:
-		if fall_adjust > 0:
-			fall_adjust = ground_friction(fall_adjust, ((grav/fps_mod)/5), 1.05)
-		fall_adjust = ground_friction(fall_adjust, 0, 1.001)
-		if state == s.spin && !i_down:
-			#fall_adjust = ground_friction(fall_adjust, 0.3, 1.05) #fastspin
-			fall_adjust = ground_friction(fall_adjust, 0.1, 1.03)
-		vel.x = ground_friction(vel.x, 0, 1.001) #Air friction
+	if state == s.pound_spin:
+		vel *= 0
+	else:
+		if state == s.pound_fall:
+			fall_adjust += 0.814
+		else:
+			fall_adjust += grav
 		
-		jump_frames = max(jump_frames - 1, -1)
-		
-	vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
+		if !ground:
+			if state == s.pound_fall:
+				pound_frames = 15
+			if fall_adjust > 0:
+				fall_adjust = ground_friction(fall_adjust, ((grav/fps_mod)/5), 1.05)
+			fall_adjust = ground_friction(fall_adjust, 0, 1.001)
+			if state == s.spin && !i_down:
+				#fall_adjust = ground_friction(fall_adjust, 0.3, 1.05) #fastspin
+				fall_adjust = ground_friction(fall_adjust, 0.1, 1.03)
+			vel.x = ground_friction(vel.x, 0, 1.001) #Air friction
+			
+			jump_frames = max(jump_frames - 1, -1)
+			
+		vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
 	
 	if i_jump_h:
 		if ground:
@@ -249,7 +275,7 @@ func _physics_process(_delta):
 					flip_l = sprite.flip_h
 				
 				
-			elif i_jump:
+			elif i_jump && state != s.pound_fall:
 				jump_frames = set_jump_mod_frames
 				double_jump_frames = set_double_jump_frames
 				
@@ -271,10 +297,7 @@ func _physics_process(_delta):
 							double_jump_state = 0
 							switch_state(s.frontflip)
 							play_voice("jump3")
-							if sprite.flip_h:
-								tween.interpolate_property(sprite, "rotation_degrees", 0, -720, 1, 1, Tween.EASE_OUT, 0)
-							else:
-								tween.interpolate_property(sprite, "rotation_degrees", 0, 720, 1, 1, Tween.EASE_OUT, 0)
+							tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 1, 1, Tween.EASE_OUT, 0)
 							tween.start()
 							flip_l = sprite.flip_h
 						else:
@@ -282,21 +305,25 @@ func _physics_process(_delta):
 							play_voice("jump2")
 				
 				if !classic:
+					#warning-ignore:return_value_discarded
 					move_and_collide(Vector2(0, -set_jump_1_tp)) #Suggested by Maker - slight upwards teleport
 		elif jump_frames > 0 && state == s.walk:
 			vel.y -= grav * pow(fps_mod, 3) #Variable jump height
 	
-	if i_left && !i_right:
+	if i_left && !i_right && state != s.pound_spin:
 		if (state != s.dive
 		&& (state != s.diveflip || !classic)
 		&& (state != s.frontflip || !classic)
 		&& state != s.backflip
+		&& state != s.pound_fall
 		):
 			sprite.flip_h = true
 		if ground:
-			if state != s.dive:
+			if state != s.dive && state != s.pound_fall:
 				vel.x -= set_walk_accel
 		else:
+			if state == s.pound_fall:
+				vel.x *= 0.95
 			if state == s.frontflip || state == s.spin || state == s.backflip:
 				vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
 			elif state == s.dive || state == s.diveflip:
@@ -304,15 +331,16 @@ func _physics_process(_delta):
 			else:
 				vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 			
-	if i_right && !i_left:
+	if i_right && !i_left && state != s.pound_spin:
 		if (state != s.dive
 		&& (state != s.diveflip || !classic)
 		&& (state != s.frontflip || !classic)
 		&& state != s.backflip
+		&& state != s.pound_fall
 		):
 			sprite.flip_h = false
 		if ground:
-			if state != s.dive:
+			if state != s.dive && state != s.pound_fall:
 				vel.x += set_walk_accel
 		else:
 			if state == s.frontflip || state == s.spin || state == s.backflip:
@@ -322,7 +350,7 @@ func _physics_process(_delta):
 			else:
 				vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 	
-	if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound  && (state != s.spin || (!classic && i_dive)): #dive
+	if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
 		if ground && i_jump_h:
 			dive_correct(-1)
 			switch_state(s.diveflip)
@@ -330,7 +358,7 @@ func _physics_process(_delta):
 			flip_l = sprite.flip_h
 			vel.y = min(-set_jump_1_vel/1.5, vel.y)
 			double_jump_state = 0
-		elif state != s.backflip || abs(sprite.rotation_degrees) > 270:
+		elif (state != s.backflip || abs(sprite.rotation_degrees) > 270) && state != s.pound_fall && state != s.pound_spin:
 			switch_state(s.dive)
 			rotation_degrees = 0
 			tween.stop_all()
@@ -354,14 +382,20 @@ func _physics_process(_delta):
 	if (i_spin_h
 	&& state != s.spin
 	&& state != s.frontflip
-	&& state != s.pound
 	&& state != s.dive
 	&& (state != s.diveflip || (!classic && i_spin))
-	&& (vel.y > -3.3 * fps_mod || (!classic && state == s.diveflip))):
+	&& (vel.y > -3.3 * fps_mod || (!classic && state == s.diveflip))
+	&& state != s.pound_fall
+	&& state != s.pound_spin):
 		switch_state(s.spin)
 		sprite.animation = "spin"
 		vel.y = min(-3.3 * fps_mod, vel.y - 3.3 * fps_mod)
 		spin_timer = 30
+	
+	if i_pound_h && state != s.pound_spin && state != s.pound_fall:
+		switch_state(s.pound_spin)
+		tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
+		tween.start()
 	
 	if wall:
 		if int(i_right) - int(i_left) != sign(int(vel.x)) && int(vel.x) != 0:
@@ -380,15 +414,22 @@ func _physics_process(_delta):
 		snap = Vector2(0, 4)
 		
 	var save_pos = position
+	#warning-ignore:return_value_discarded
 	move_and_slide_with_snap(vel*60, snap, Vector2(0, -1), true)
 	var slide_vec = position-save_pos
 	position = save_pos
 	if slide_vec.length() > 0.5:
+		#warning-ignore:return_value_discarded
 		move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true)
 	
-	$Label.text = String(vel.x)
+	maxY = max(vel.y, maxY)
+	$Label.text = String(maxY)
 
 	screen_handling()
 
-func _on_Tween_tween_completed(object, key):
-	switch_state(s.walk)
+func _on_Tween_tween_completed(_object, _key):
+	if state == s.pound_spin:
+		switch_state(s.pound_fall)
+		vel.y = 8
+	else:
+		switch_state(s.walk)
