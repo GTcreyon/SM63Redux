@@ -190,9 +190,10 @@ func _physics_process(_delta):
 		
 		
 	if ground:
-		pound_frames = max(0, pound_frames - 1)
-		if pound_frames <= 0:
-			switch_state(s.walk)
+		if state == s.pound_fall:
+			pound_frames = max(0, pound_frames - 1)
+			if pound_frames <= 0:
+				switch_state(s.walk)
 		fall_adjust = 0
 		if state == s.dive:
 			vel.x = ground_friction(vel.x, 0.2, 1.05) #Floor friction

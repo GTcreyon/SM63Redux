@@ -19,9 +19,9 @@ __meta__ = {
 }
 
 [node name="Coin_label" type="Label" parent="."]
-margin_top = 16.6677
+margin_top = 16.0
 margin_right = 45.0
-margin_bottom = 33.6677
+margin_bottom = 34.0
 custom_fonts/font = ExtResource( 3 )
 text = "Coins x"
 __meta__ = {
@@ -30,9 +30,10 @@ __meta__ = {
 
 [node name="Coin_counter" type="Label" parent="."]
 margin_left = 48.0
-margin_top = 20.0
+margin_top = 16.0
 margin_right = 158.616
-margin_bottom = 33.0
+margin_bottom = 34.0
+custom_fonts/font = ExtResource( 3 )
 text = "0"
 uppercase = true
 __meta__ = {
@@ -40,10 +41,9 @@ __meta__ = {
 }
 
 [node name="Red_coin_label" type="Label" parent="."]
-margin_left = 0.353561
-margin_top = 35.406
-margin_right = 63.3536
-margin_bottom = 53.406
+margin_top = 32.0
+margin_right = 63.0
+margin_bottom = 50.0
 custom_fonts/font = ExtResource( 3 )
 text = "Red Coins:"
 __meta__ = {
@@ -52,9 +52,10 @@ __meta__ = {
 
 [node name="Red_coin_counter" type="Label" parent="."]
 margin_left = 67.4454
-margin_top = 39.799
+margin_top = 32.0
 margin_right = 178.061
 margin_bottom = 53.799
+custom_fonts/font = ExtResource( 3 )
 text = "0"
 uppercase = true
 __meta__ = {
@@ -63,9 +64,10 @@ __meta__ = {
 
 [node name="Red_coin_counter_8" type="Label" parent="."]
 margin_left = 80.636
-margin_top = 40.4142
+margin_top = 32.0
 margin_right = 100.636
 margin_bottom = 54.4142
+custom_fonts/font = ExtResource( 3 )
 text = "/ 8"
 uppercase = true
 __meta__ = {
@@ -84,9 +86,10 @@ __meta__ = {
 
 [node name="Life_meter_counter" type="Label" parent="."]
 margin_left = 48.7937
-margin_top = 57.7439
+margin_top = 52.0
 margin_right = 159.41
 margin_bottom = 71.7439
+custom_fonts/font = ExtResource( 3 )
 text = "8"
 uppercase = true
 __meta__ = {

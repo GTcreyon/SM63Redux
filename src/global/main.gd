@@ -11,39 +11,31 @@ onready var red_coin_counter_string = find_node("Red_coin_counter") #specificall
 onready var coin_audio_sfx = find_node("Coin_sfx")
 
 func _on_Coin_body_entered_collected(body): #custom node method made in this scene and it's connected to the main node
-	if body.is_in_group("mario"):
-		coin_audio_sfx.play()
-		coins_total += 1
-		
-		coin_counter_string.text = str(coins_total) #str() converts the int variable to string, changing the number in Coin_counter
+	coin_audio_sfx.play()
+	coins_total += 1
 	
-	pass # Replace with function body.
+	coin_counter_string.text = str(coins_total) #str() converts the int variable to string, changing the number in Coin_counter
 
 #the next function signals are for the non yellow coins
 
 func _on_Coin_red_body_entered_increment(body):
 	#this whole thing has extra stuff
 	#for the red coins
+	coin_audio_sfx.play()
 	
-	if body.is_in_group("mario"):
-		coin_audio_sfx.play()
-		
-		red_coins_total += 1
-		coins_total += 2
-		
-		red_coin_counter_string.text = str(red_coins_total)
-		coin_counter_string.text = str(coins_total)
-	pass # Replace with function body.
+	red_coins_total += 1
+	coins_total += 2
+	
+	red_coin_counter_string.text = str(red_coins_total)
+	coin_counter_string.text = str(coins_total)
 
 
 func _on_Coin_blue_body_entered_increment(body):
 	#same as yellow coins, but increments 5
 	#instead of 1
-	if body.is_in_group("mario"):
-		coin_audio_sfx.play()
-		coins_total += 5
-		
-		coin_counter_string.text = str(coins_total)
-	pass # Replace with function body.
+	coin_audio_sfx.play()
+	coins_total += 5
+	
+	coin_counter_string.text = str(coins_total)
 
 ####End of the lines for coin collect handle in this script

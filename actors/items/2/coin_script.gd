@@ -12,7 +12,4 @@ func _process(_delta):
 		update_classic()
 
 func _on_Coin_body_entered_trigger(body): #another custom node made specifically for this object
-	if body.is_in_group("mario"):
-		queue_free() #and 'destroys' the object when colliding
-	
-	pass # Replace with function body.
+	queue_free() #and 'destroys' the object when colliding
