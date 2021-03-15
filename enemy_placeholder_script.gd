@@ -25,21 +25,3 @@ func _physics_process(_delta):
 	if $RayCast2D.is_colliding() == false:
 		direction *= -1
 		$RayCast2D.position.x *= -1
-	
-	pass
-
-
-#kind of screwed setup, but basically body's global position
-#is ompared to object's global position so the collision
-#will be triggered if bodie's is less or greater
-#depending on coordinates
-
-func _on_Area2D_body_entered_for_deletion(body):
-	if body.is_in_group("mario"):
-		if body.global_position.y < global_position.y && body.global_position.x < global_position.x:
-			print("collided from top")
-			queue_free()
-		elif body.global_position.y < global_position.y && body.global_position.x > global_position.x:
-			print("collided from top")
-			queue_free()
-	pass # Replace with function body.

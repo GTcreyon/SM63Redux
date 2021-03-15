@@ -9,7 +9,7 @@
 [sub_resource type="RectangleShape2D" id=2]
 
 [node name="Enemy_placeholder" type="KinematicBody2D"]
-collision_layer = 0
+collision_layer = 4
 script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true

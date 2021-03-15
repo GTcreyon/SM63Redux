@@ -24,30 +24,30 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "dive",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walk",
 "speed": 0.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
-"speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "spin",
 "speed": 15.0
 }, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "dive",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "pound_fall",
 "speed": 15.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
@@ -66,14 +66,14 @@ extents = Vector2( 6, 14.5 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6, 6 )
 
-[node name="Player" type="KinematicBody2D" groups=[
-"mario",
-]]
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "pound_fall"
+frame = 1
 playing = true
 
 [node name="StandHitbox" type="CollisionShape2D" parent="."]
