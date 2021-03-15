@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario/pound/pound_fall0.png" type="Texture" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://actors/player/mario/spin/mario_spin1.png" type="Texture" id=13]
 [ext_resource path="res://actors/player/mario/mario_fall.png" type="Texture" id=14]
 [ext_resource path="res://gui.tscn" type="PackedScene" id=15]
+[ext_resource path="res://audio/sfx/items/sm64_coin.ogg" type="AudioStream" id=16]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -22,6 +23,26 @@ animations = [ {
 "loop": true,
 "name": "flip",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "walk",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
 "loop": true,
@@ -33,30 +54,10 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "fall",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "walk",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -65,7 +66,9 @@ extents = Vector2( 6, 14.5 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6, 6 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"mario",
+]]
 script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -83,7 +86,8 @@ shape = SubResource( 3 )
 disabled = true
 
 [node name="Label" type="Label" parent="."]
-margin_right = 131.0
+margin_left = -0.594604
+margin_right = 130.405
 margin_bottom = 73.0
 text = "marioLabel"
 __meta__ = {
@@ -101,4 +105,7 @@ follow_viewport_enable = false
 volume_db = -5.0
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Coin_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 16 )
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
