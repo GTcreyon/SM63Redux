@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://src/global/main.gd" type="Script" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://solid_box.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/items/2/coin_item.tscn" type="PackedScene" id=5]
 [ext_resource path="res://enemy_placeholder.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/items/2/coin_red_item.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/items/2/coin_blue_item.tscn" type="PackedScene" id=8]
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
@@ -82,10 +84,29 @@ position = Vector2( -1104, -64 )
 [node name="Coin_10" parent="Coins_space" instance=ExtResource( 5 )]
 position = Vector2( -1136, -48 )
 
+[node name="Coin_red" parent="Coins_space" instance=ExtResource( 7 )]
+position = Vector2( -763.907, 169.534 )
+
+[node name="Coin_red2" parent="Coins_space" instance=ExtResource( 7 )]
+position = Vector2( -674.473, 169.534 )
+
+[node name="Coin_red3" parent="Coins_space" instance=ExtResource( 7 )]
+position = Vector2( -583.703, 168.199 )
+
+[node name="Coin_blue" parent="Coins_space" instance=ExtResource( 8 )]
+position = Vector2( -316.329, 168.867 )
+
+[node name="Coin_blue2" parent="Coins_space" instance=ExtResource( 8 )]
+position = Vector2( -248.156, 168.118 )
+
+[node name="Coin_blue3" parent="Coins_space" instance=ExtResource( 8 )]
+position = Vector2( -179.983, 167.369 )
+
 [node name="Enemy_space" type="Node" parent="."]
 
 [node name="Enemy_placeholder" parent="Enemy_space" instance=ExtResource( 6 )]
 position = Vector2( -1430.88, 134.099 )
+scale = Vector2( 2.14836, 2.3694 )
 [connection signal="body_entered" from="Coins_space/Coin_1" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_2" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_3" to="." method="_on_Coin_body_entered_collected"]
@@ -96,3 +117,9 @@ position = Vector2( -1430.88, 134.099 )
 [connection signal="body_entered" from="Coins_space/Coin_8" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_9" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_10" to="." method="_on_Coin_body_entered_collected"]
+[connection signal="body_entered" from="Coins_space/Coin_red" to="." method="_on_Coin_red_body_entered_increment"]
+[connection signal="body_entered" from="Coins_space/Coin_red2" to="." method="_on_Coin_red_body_entered_increment"]
+[connection signal="body_entered" from="Coins_space/Coin_red3" to="." method="_on_Coin_red_body_entered_increment"]
+[connection signal="body_entered" from="Coins_space/Coin_blue" to="." method="_on_Coin_blue_body_entered_increment"]
+[connection signal="body_entered" from="Coins_space/Coin_blue2" to="." method="_on_Coin_blue_body_entered_increment"]
+[connection signal="body_entered" from="Coins_space/Coin_blue3" to="." method="_on_Coin_blue_body_entered_increment"]

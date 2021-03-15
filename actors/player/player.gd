@@ -26,7 +26,7 @@ onready var tween = $Tween
 onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
 
-#####################
+#mario's gameplay parameters
 export var Life_meter_counter = 8
 #####################
 

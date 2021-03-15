@@ -39,10 +39,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Red_coin_label" type="Label" parent="."]
+margin_left = 0.353561
+margin_top = 35.406
+margin_right = 63.3536
+margin_bottom = 53.406
+custom_fonts/font = ExtResource( 3 )
+text = "Red Coins:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Red_coin_counter" type="Label" parent="."]
+margin_left = 67.4454
+margin_top = 39.799
+margin_right = 178.061
+margin_bottom = 53.799
+text = "0"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Red_coin_counter_8" type="Label" parent="."]
+margin_left = 80.636
+margin_top = 40.4142
+margin_right = 100.636
+margin_bottom = 54.4142
+text = "/ 8"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Life_meter_label" type="Label" parent="."]
-margin_top = 32.9386
-margin_right = 45.0
-margin_bottom = 50.9386
+margin_top = 52.0305
+margin_right = 46.0
+margin_bottom = 70.0305
 custom_fonts/font = ExtResource( 3 )
 text = "Meter x"
 __meta__ = {
@@ -51,9 +84,9 @@ __meta__ = {
 
 [node name="Life_meter_counter" type="Label" parent="."]
 margin_left = 48.7937
-margin_top = 38.652
+margin_top = 57.7439
 margin_right = 159.41
-margin_bottom = 52.652
+margin_bottom = 71.7439
 text = "8"
 uppercase = true
 __meta__ = {

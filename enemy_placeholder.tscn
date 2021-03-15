@@ -35,4 +35,5 @@ script = ExtResource( 3 )
 [node name="Area2D_shape" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
 one_way_collision = true
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered_for_deletion"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered_hurt"]
