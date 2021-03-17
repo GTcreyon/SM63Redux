@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://icon.png" type="Texture" id=1]
 [ext_resource path="res://enemy_placeholder_script.gd" type="Script" id=2]
@@ -6,14 +6,14 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=4]
+radius = 49.012
+
+[sub_resource type="RectangleShape2D" id=3]
 
 [node name="Enemy_placeholder" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.0694444, 0.0694444 )
@@ -27,13 +27,21 @@ position = Vector2( 8.88388, 0 )
 enabled = true
 cast_to = Vector2( 0, 11 )
 
+[node name="Collision_for_mario" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collision_for_mario"]
+shape = SubResource( 4 )
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 3 )
 
 [node name="Area2D_shape" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 one_way_collision = true
-[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered_for_deletion"]
+[connection signal="body_entered" from="Collision_for_mario" to="." method="_on_Collision_mario_detected"]
+[connection signal="body_exited" from="Collision_for_mario" to="." method="_on_Collision_detect_left"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered_hurt"]

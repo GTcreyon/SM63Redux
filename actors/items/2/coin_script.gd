@@ -11,5 +11,5 @@ func _process(_delta):
 	if Input.is_action_just_pressed("debug"):
 		update_classic()
 
-func _on_Coin_body_entered_trigger(body): #another custom node made specifically for this object
+func _on_Coin_body_entered_trigger(_body): #another custom node made specifically for this object
 	queue_free() #and 'destroys' the object when colliding
