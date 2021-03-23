@@ -13,7 +13,7 @@
 script = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1751.34, 189.168 )
+position = Vector2( -1754.66, -2000 )
 
 [node name="SolidBox" parent="." instance=ExtResource( 4 )]
 position = Vector2( 256, 256 )
