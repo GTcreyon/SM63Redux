@@ -25,6 +25,7 @@ onready var voice = $Voice
 onready var tween = $Tween
 onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
+onready var angle_cast = $DiveAngling
 
 #mario's gameplay parameters
 export var Life_meter_counter = 8
@@ -188,7 +189,6 @@ func _physics_process(_delta):
 			switch_state(s.walk)
 			sprite.rotation_degrees = 0
 		
-		
 	if ground:
 		if state == s.pound_fall:
 			pound_frames = max(0, pound_frames - 1)
@@ -197,6 +197,9 @@ func _physics_process(_delta):
 		fall_adjust = 0
 		if state == s.dive:
 			vel.x = ground_friction(vel.x, 0.2, 1.05) #Floor friction
+			if angle_cast.is_colliding() && !dive_return:
+				#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
+				sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + PI/2, 0.5)
 		else:
 			vel.x = ground_friction(vel.x, 0.3, 1.15) #Floor friction
 		
@@ -208,6 +211,7 @@ func _physics_process(_delta):
 		if state == s.dive && abs(vel.x) == 0 && !i_dive_h && !dive_return:
 			dive_return = true
 			dive_frames = 4
+			sprite.rotation_degrees = 0
 		if state == s.walk:
 			sprite.animation = "walk"
 		
