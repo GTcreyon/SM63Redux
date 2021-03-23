@@ -228,6 +228,11 @@ func _physics_process(_delta):
 				sprite.animation = "jump"
 		elif state == s.pound_fall:
 			sprite.animation = "pound_fall"
+		elif state == s.dive:
+			if sprite.flip_h:
+				sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x), 0.5)
+			else:
+				sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x), 0.5)
 		
 		if i_left == i_right:
 			vel.x = ground_friction(vel.x, 0, 1.001) #Air decel
@@ -367,7 +372,9 @@ func _physics_process(_delta):
 			flip_l = sprite.flip_h
 			vel.y = min(-set_jump_1_vel/1.5, vel.y)
 			double_jump_state = 0
-		elif (state != s.backflip || abs(sprite.rotation_degrees) > 270) && state != s.pound_fall && state != s.pound_spin:
+		elif ((state != s.backflip || abs(sprite.rotation_degrees) > 270)
+			&& state != s.pound_fall
+			&& state != s.pound_spin):
 			switch_state(s.dive)
 			rotation_degrees = 0
 			tween.stop_all()
@@ -401,7 +408,7 @@ func _physics_process(_delta):
 		vel.y = min(-3.3 * fps_mod, vel.y - 3.3 * fps_mod)
 		spin_timer = 30
 	
-	if i_pound_h && state != s.pound_spin && state != s.pound_fall:
+	if i_pound_h && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic):
 		switch_state(s.pound_spin)
 		tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
 		tween.start()
