@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var lm_counter = get_node("../../../Player").Life_meter_counter
+onready var lm_counter = get_node("../../../Player").life_meter_counter
 onready var lm_gui = get_node("../../../Player/Camera2D/GUI/Life_meter_counter")
 
 #kind of screwed setup, but basically body's global position
