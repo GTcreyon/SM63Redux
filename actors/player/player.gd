@@ -30,6 +30,8 @@ onready var angle_cast = $DiveAngling
 
 #mario's gameplay parameters
 export var life_meter_counter = 8
+export var water = 100
+export var power = 100
 #####################
 
 const voice_bank = {
@@ -91,8 +93,6 @@ enum n { #fludd enum
 
 var state = s.walk
 var nozzle = n.hover
-var water = 100
-var power = 100
 var classic
 
 func dive_correct(factor): #Correct the player's origin position when diving
@@ -434,7 +434,7 @@ func _physics_process(_delta):
 			#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((power/(175))+(0.75 * fps_mod))
 			vel.y -= (((-4*power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
 			vel.x = ground_friction(vel.x, 0.05, 1.03)
-		water -= 0.07 * fps_mod
+		water = max(0, water - 0.7 * fps_mod)
 		power -= 1.5 * fps_mod
 	elif ground:
 		power = 100
