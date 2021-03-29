@@ -1,8 +1,33 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/debug_label.gd" type="Script" id=1]
+[ext_resource path="res://hud/water_meter/water_meter_frame.png" type="Texture" id=2]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=3]
 [ext_resource path="res://gui.gd" type="Script" id=4]
+[ext_resource path="res://WaterMeter.gd" type="Script" id=5]
+[ext_resource path="res://hud/water_meter/water_meter_bottom.png" type="Texture" id=6]
+[ext_resource path="res://hud/water_meter/water_meter_fill.png" type="Texture" id=7]
+[ext_resource path="res://hud/water_meter/water_meter_surface.png" type="Texture" id=8]
+[ext_resource path="res://hud/water_meter/water_meter_bubble_big.png" type="Texture" id=9]
+[ext_resource path="res://hud/water_meter/water_meter_mask_bottom.png" type="Texture" id=10]
+[ext_resource path="res://hud/water_meter/water_meter_mask_filler.png" type="Texture" id=11]
+[ext_resource path="res://hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=12]
+[ext_resource path="res://hud/water_meter/water_meter_bubble_small.png" type="Texture" id=13]
+[ext_resource path="res://hud/water_meter/water_meter_mask_canvas.png" type="Texture" id=14]
+[ext_resource path="res://hud/water_meter/water_meter_max.png" type="Texture" id=15]
+[ext_resource path="res://hud/water_meter/water_meter_power_filler.png" type="Texture" id=16]
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 2
+emission_box_extents = Vector3( 15, 0, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 15.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.2
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
 
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
@@ -95,3 +120,105 @@ uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="WaterMeter" type="Sprite" parent="."]
+light_mask = -2147483648
+position = Vector2( 391, 191 )
+texture = ExtResource( 2 )
+centered = false
+script = ExtResource( 5 )
+
+[node name="BubbleMask" type="Light2D" parent="WaterMeter"]
+position = Vector2( 16, 26 )
+texture = ExtResource( 14 )
+mode = 3
+range_layer_min = 1
+range_layer_max = 1
+range_item_cull_mask = 2
+
+[node name="BubbleMaskFiller" type="Light2D" parent="WaterMeter/BubbleMask"]
+position = Vector2( 0, 62 )
+scale = Vector2( 1, -79 )
+texture = ExtResource( 11 )
+mode = 2
+range_layer_min = 1
+range_layer_max = 1
+range_item_cull_mask = 2
+
+[node name="BubbleMaskBottom" type="Light2D" parent="WaterMeter/BubbleMask"]
+position = Vector2( 0, 65.5 )
+texture = ExtResource( 10 )
+mode = 2
+range_layer_min = 1
+range_layer_max = 1
+range_item_cull_mask = 2
+
+[node name="Bottom" type="Sprite" parent="WaterMeter"]
+position = Vector2( 2, 88 )
+z_index = -2
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Filler" type="Sprite" parent="WaterMeter"]
+position = Vector2( 0, 88 )
+scale = Vector2( 1, 79 )
+z_index = -3
+texture = ExtResource( 7 )
+centered = false
+offset = Vector2( 1, -1 )
+
+[node name="Surface" type="Sprite" parent="WaterMeter"]
+z_index = -1
+texture = ExtResource( 8 )
+centered = false
+
+[node name="BubblesBig" type="Particles2D" parent="WaterMeter"]
+light_mask = 2
+position = Vector2( 16, 103 )
+z_index = -2
+lifetime = 2.5
+visibility_rect = Rect2( -15, -100, 30, 100 )
+process_material = SubResource( 2 )
+texture = ExtResource( 9 )
+
+[node name="BubblesMedium" type="Particles2D" parent="WaterMeter"]
+light_mask = 2
+position = Vector2( 16, 103 )
+z_index = -2
+amount = 7
+lifetime = 2.5
+visibility_rect = Rect2( -15, -100, 30, 100 )
+process_material = SubResource( 2 )
+texture = ExtResource( 12 )
+
+[node name="BubblesSmall" type="Particles2D" parent="WaterMeter"]
+light_mask = 2
+position = Vector2( 16, 103 )
+z_index = -2
+amount = 6
+lifetime = 2.5
+visibility_rect = Rect2( -15, -100, 30, 100 )
+process_material = SubResource( 2 )
+texture = ExtResource( 13 )
+
+[node name="WaterMeterLabel" type="Label" parent="WaterMeter"]
+margin_left = 1.0
+margin_top = 40.0
+margin_right = 23.0
+margin_bottom = 51.0
+text = "00"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Max" type="Sprite" parent="WaterMeter"]
+position = Vector2( 16, 50 )
+texture = ExtResource( 15 )
+
+[node name="PowerFiller" type="Sprite" parent="WaterMeter"]
+position = Vector2( 35, 90 )
+scale = Vector2( 4, 83 )
+texture = ExtResource( 16 )
+centered = false
+offset = Vector2( 0, -1 )
