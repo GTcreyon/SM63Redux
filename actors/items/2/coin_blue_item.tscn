@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://actors/items/2/coin_script.gd" type="Script" id=1]
+[ext_resource path="res://actors/items/2/coin.gd" type="Script" id=1]
 [ext_resource path="res://actors/items/2/legacy_coin2.png" type="Texture" id=2]
 [ext_resource path="res://actors/items/2/coin0.png" type="Texture" id=3]
 [ext_resource path="res://actors/items/2/coin2.png" type="Texture" id=4]
@@ -12,6 +12,7 @@
 [ext_resource path="res://actors/items/2/legacy_coin0.png" type="Texture" id=10]
 [ext_resource path="res://actors/items/2/legacy_coin4.png" type="Texture" id=11]
 [ext_resource path="res://actors/items/2/coin1.png" type="Texture" id=12]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

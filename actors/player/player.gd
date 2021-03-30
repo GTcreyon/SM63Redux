@@ -32,6 +32,7 @@ onready var angle_cast = $DiveAngling
 export var life_meter_counter = 8
 export var water = 100
 export var power = 100
+export var fludd_strain = false
 #####################
 
 const voice_bank = {
@@ -407,6 +408,7 @@ func _physics_process(_delta):
 				vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 	
 	if i_fludd && power > 0 && water > 0 && nozzle == n.hover && state != s.diveflip && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land && (classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270)):
+		fludd_strain = true
 		if state == s.dive || state == s.frontflip:
 			vel.y *= 1 - 0.02 * fps_mod
 			vel.x *= 1 - 0.03 * fps_mod
@@ -434,10 +436,12 @@ func _physics_process(_delta):
 			#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((power/(175))+(0.75 * fps_mod))
 			vel.y -= (((-4*power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
 			vel.x = ground_friction(vel.x, 0.05, 1.03)
-		water = max(0, water - 0.7 * fps_mod)
+		water = max(0, water - 0.07 * fps_mod)
 		power -= 1.5 * fps_mod
-	elif ground:
-		power = 100
+	else:
+		fludd_strain = false
+		if ground:
+			power = 100
 	
 	if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
 		if ground && i_jump_h:

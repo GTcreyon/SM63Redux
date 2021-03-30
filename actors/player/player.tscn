@@ -14,7 +14,7 @@
 [ext_resource path="res://actors/player/mario/walk/mario_walk1.png" type="Texture" id=12]
 [ext_resource path="res://actors/player/mario/spin/mario_spin1.png" type="Texture" id=13]
 [ext_resource path="res://actors/player/mario/mario_fall.png" type="Texture" id=14]
-[ext_resource path="res://gui.tscn" type="PackedScene" id=15]
+[ext_resource path="res://hud/gui.tscn" type="PackedScene" id=15]
 [ext_resource path="res://audio/sfx/items/sm64_coin.ogg" type="AudioStream" id=16]
 [ext_resource path="res://actors/player/mario/walk/hover/mario_hover_walk0.png" type="Texture" id=17]
 [ext_resource path="res://actors/player/mario/walk/hover/mario_hover_walk1.png" type="Texture" id=18]
@@ -23,6 +23,7 @@
 [ext_resource path="res://actors/player/mario/spin/hover/mario_hover_spin3.png" type="Texture" id=21]
 [ext_resource path="res://actors/player/mario/spin/hover/mario_hover_spin2.png" type="Texture" id=22]
 [ext_resource path="res://actors/player/mario/mario_hover_fall.png" type="Texture" id=23]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
