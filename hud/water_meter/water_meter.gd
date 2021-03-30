@@ -9,8 +9,16 @@ onready var bubbles_medium = $BubblesMedium
 onready var bubbles_small = $BubblesSmall
 onready var label = $WaterMeterLabel
 onready var power_filler = $PowerFiller
+onready var power_filler_cover = $PowerFiller/Cover
+onready var cover = $Cover
+onready var power_mask = $PowerMask
+onready var max_sprite = $Max
+onready var tween = $Tween
 
-onready var player = $"../../../../Player"
+onready var player = $"/root/Main/Player"
+
+var power_prev = 100
+var water_prev = 100
 
 var font_white = BitmapFont.new()
 
@@ -36,9 +44,23 @@ func _process(_delta):
 		bubbles_medium.visible = false
 		bubbles_small.visible = false
 	if player.water == 100:
-		$Max.visible = true
+		max_sprite.visible = true
 		label.visible = false
 	else:
-		$Max.visible = false
+		max_sprite.visible = false
 		label.visible = true
 		label.text = str(floor(player.water))
+		
+	power_mask.offset.y = int(power_mask.offset.y - 1) % 83
+	power_mask.energy = 1.3 if player.fludd_strain else 1.0
+	if player.power == 100 && power_prev != 100:
+		power_filler_cover.modulate.a = 1
+	elif power_filler_cover.modulate.a > 0:
+		power_filler_cover.modulate.a -= 0.1
+	power_prev = player.power
+	
+	if player.water > water_prev:
+		cover.modulate.a = 1
+	elif cover.modulate.a > 0:
+		cover.modulate.a -= 0.1
+	water_prev = player.water

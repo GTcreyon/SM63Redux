@@ -24,10 +24,6 @@ config/name="Super Mario 63 Redux"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
-[autoload]
-
-Main="*res://src/global/main.gd"
-
 [debug]
 
 settings/fps/force_fps=60
