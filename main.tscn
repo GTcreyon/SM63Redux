@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://src/global/main.gd" type="Script" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://enemy_placeholder.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/2/coin_red_item.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/items/2/coin_blue_item.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/items/Bottle_refill.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/items/Bottle_refill_2.tscn" type="PackedScene" id=10]
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
@@ -106,6 +108,14 @@ position = Vector2( -179.983, 167.369 )
 [node name="Enemy_placeholder" parent="Enemy_space" instance=ExtResource( 6 )]
 position = Vector2( -2156.9, 169.867 )
 scale = Vector2( 2.14836, 2.3694 )
+
+[node name="Bottles" type="Node" parent="."]
+
+[node name="Bottle_small" parent="Bottles" instance=ExtResource( 9 )]
+position = Vector2( -1520.33, 226.954 )
+
+[node name="Bottle_small2" parent="Bottles" instance=ExtResource( 10 )]
+position = Vector2( -1479.13, 224.29 )
 [connection signal="body_entered" from="Coins_space/Coin_1" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_2" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins_space/Coin_3" to="." method="_on_Coin_body_entered_collected"]
