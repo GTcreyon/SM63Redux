@@ -33,7 +33,7 @@ func _on_BottleBig_body_entered(_body):
 		queue_free()
 
 
-func _on_BottleSmall_body_entered(body):
+func _on_BottleSmall_body_entered(_body):
 	if !Engine.editor_hint:
 		player.water = min(player.water + 15, 100)
 		queue_free()
