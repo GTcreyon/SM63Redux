@@ -7,8 +7,8 @@ onready var player = $"/root/Main/Player"
 onready var big = $BottleBig
 onready var small = $BottleSmall
 
-func switch_type(type):
-	match type:
+func switch_type(new_type):
+	match new_type:
 		1:
 			big.visible = true
 			big.monitoring = true

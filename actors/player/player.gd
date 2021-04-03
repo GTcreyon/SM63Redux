@@ -69,6 +69,7 @@ var flip_l
 var dive_return = false
 var dive_frames = 0
 var pound_frames = 0
+var rocket_charge = 0
 
 var maxY = 0
 
@@ -93,7 +94,7 @@ enum n { #fludd enum
 }
 
 var state = s.walk
-var nozzle = n.hover
+var nozzle = n.rocket
 var classic
 
 func dive_correct(factor): #Correct the player's origin position when diving
@@ -191,6 +192,7 @@ func _physics_process(_delta):
 	var i_spin_h = Input.is_action_pressed("spin")
 	var i_pound_h = Input.is_action_pressed("pound")
 	var i_fludd = Input.is_action_pressed("fludd")
+	var i_switch = Input.is_action_just_pressed("switch_fludd")
 	var test = 0
 	if (Input.is_action_just_pressed("debug")):
 		if i_jump_h:
@@ -203,6 +205,9 @@ func _physics_process(_delta):
 	var ground = is_on_floor()
 	var wall = is_on_wall()
 	var ceiling = is_on_ceiling()
+	
+	if i_switch:
+		nozzle = (nozzle + 1) % 4
 	
 	var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 	if state == s.diveflip:
@@ -407,41 +412,63 @@ func _physics_process(_delta):
 			else:
 				vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 	
-	if i_fludd && power > 0 && water > 0 && nozzle == n.hover && state != s.diveflip && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land && (classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270)):
-		fludd_strain = true
-		if state == s.dive || state == s.frontflip:
-			vel.y *= 1 - 0.02 * fps_mod
-			vel.x *= 1 - 0.03 * fps_mod
-			if ground:
-				vel.x += cos(sprite.rotation)*0.92*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
-			elif state == s.dive:
-				vel.y += sin(sprite.rotation * (-1 if sprite.flip_h else 1))*0.92*pow(fps_mod, 2)
-				vel.x += cos(sprite.rotation)*0.92/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
-			else:
-				if sprite.flip_h:
-					vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
-					vel.x -= cos(-sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
-				else:
-					vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
-					vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
-		else:
-			if power == 100:
-				vel.y -= 2
-			
-			if i_jump_h:
-				vel.y *= 1 - (0.12 * fps_mod)
-			else:
-				vel.y *= 1 - (0.2 * fps_mod)
-			#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((power/(175 / fps_mod))+(0.75 * fps_mod))
-			#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((power/(175))+(0.75 * fps_mod))
-			vel.y -= (((-4*power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
-			vel.x = ground_friction(vel.x, 0.05, 1.03)
-		water = max(0, water - 0.07 * fps_mod)
-		power -= 1.5 * fps_mod
+	if i_fludd && power > 0 && water > 0 && state != s.diveflip && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
+		match nozzle:
+			n.hover:
+				fludd_strain = true
+				if classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
+					if state == s.dive || state == s.frontflip:
+						vel.y *= 1 - 0.02 * fps_mod
+						vel.x *= 1 - 0.03 * fps_mod
+						if ground:
+							vel.x += cos(sprite.rotation)*0.92*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+						elif state == s.dive:
+							vel.y += sin(sprite.rotation * (-1 if sprite.flip_h else 1))*0.92*pow(fps_mod, 2)
+							vel.x += cos(sprite.rotation)*0.92/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+						else:
+							if sprite.flip_h:
+								vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
+								vel.x -= cos(-sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
+							else:
+								vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
+								vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
+					else:
+						if power == 100:
+							vel.y -= 2
+						
+						if i_jump_h:
+							vel.y *= 1 - (0.12 * fps_mod)
+						else:
+							vel.y *= 1 - (0.2 * fps_mod)
+						#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((power/(175 / fps_mod))+(0.75 * fps_mod))
+						#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((power/(175))+(0.75 * fps_mod))
+						vel.y -= (((-4*power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
+						vel.x = ground_friction(vel.x, 0.05, 1.03)
+					water = max(0, water - 0.07 * fps_mod)
+					power -= 1.5 * fps_mod
+			n.rocket:
+				if power == 100:
+					fludd_strain = true
+					rocket_charge += 1
+				if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
+					if state == s.dive:
+						vel -= Vector2(-cos(sprite.rotation)*25*fps_mod * fps_mod * -1 if sprite.flip_h else 1, sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
+#					elif state == s.frontflip:
+#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
+					else:
+						vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
+						vel.y -= 0.5 * fps_mod
+					
+					water = max(water - 5, 0)
+					rocket_charge = 0
+					power = 0
 	else:
 		fludd_strain = false
+		rocket_charge = 0
 		if ground:
 			power = 100
+		elif !i_fludd && nozzle != n.hover:
+			power = min(power + fps_mod, 100)
 	
 	if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
 		if ground && i_jump_h:
