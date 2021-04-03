@@ -52,7 +52,7 @@ func _process(_delta):
 		label.text = str(floor(player.water))
 		
 	power_mask.offset.y = int(power_mask.offset.y - 1) % 83
-	power_mask.energy = 1.3 if player.fludd_strain else 1.0
+	power_mask.energy = 1.4 if player.fludd_strain else 1.0
 	if player.power == 100 && power_prev != 100:
 		power_filler_cover.modulate.a = 1
 	elif power_filler_cover.modulate.a > 0:
