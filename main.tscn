@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://src/global/main.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://actors/items/2/coin_blue_item.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/items/75/bottle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=10]
+[ext_resource path="res://actors/items/tube.tscn" type="PackedScene" id=11]
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
@@ -117,6 +118,10 @@ type = 1
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 10 )]
 position = Vector2( -1440, 224 )
+
+[node name="Tube" parent="Items" instance=ExtResource( 11 )]
+position = Vector2( -1984, 200 )
+target_x_pos = 80
 [connection signal="body_entered" from="Coins/Coin_1" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins/Coin_2" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins/Coin_3" to="." method="_on_Coin_body_entered_collected"]
