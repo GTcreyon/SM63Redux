@@ -49,13 +49,13 @@ func _physics_process(_delta):
 	velocity = move_and_slide(velocity, FLOOR)
 
 
-func _on_Turbo_body_entered(body):
+func _on_Turbo_body_entered(_body):
 	pickup(player.n.turbo)
 
 
-func _on_Rocket_body_entered(body):
+func _on_Rocket_body_entered(_body):
 	pickup(player.n.rocket)
 
 
-func _on_Hover_body_entered(body):
+func _on_Hover_body_entered(_body):
 	pickup(player.n.hover)

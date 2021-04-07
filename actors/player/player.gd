@@ -452,7 +452,7 @@ func _physics_process(_delta):
 					rocket_charge += 1
 				if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
 					if state == s.dive:
-						vel -= Vector2(-cos(sprite.rotation)*25*fps_mod * fps_mod * -1 if sprite.flip_h else 1, sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
+						vel -= Vector2(-cos(sprite.rotation)*25*fps_mod * -fps_mod if sprite.flip_h else fps_mod, sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
 #					elif state == s.frontflip:
 #						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
 					else:
