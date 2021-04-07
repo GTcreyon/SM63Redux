@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://src/global/main.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://actors/items/2/coin_blue_item.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/items/75/bottle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=10]
+[ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=11]
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
@@ -44,6 +45,9 @@ scale = Vector2( 22, 2 )
 [node name="SolidBox4" parent="." instance=ExtResource( 4 )]
 position = Vector2( 48, 184 )
 scale = Vector2( 6, 1 )
+
+[node name="TerrainPolygon" parent="." instance=ExtResource( 11 )]
+position = Vector2( -1792, 160 )
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( 0, 16 )
