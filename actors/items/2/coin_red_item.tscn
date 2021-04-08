@@ -2,16 +2,16 @@
 
 [ext_resource path="res://actors/items/2/coin.gd" type="Script" id=1]
 [ext_resource path="res://actors/items/2/legacy_coin2.png" type="Texture" id=2]
-[ext_resource path="res://actors/items/2/coin0.png" type="Texture" id=3]
-[ext_resource path="res://actors/items/2/coin2.png" type="Texture" id=4]
-[ext_resource path="res://actors/items/2/coin3.png" type="Texture" id=5]
+[ext_resource path="res://actors/items/2/red_coin4.png" type="Texture" id=3]
+[ext_resource path="res://actors/items/2/red_coin0.png" type="Texture" id=4]
+[ext_resource path="res://actors/items/2/red_coin3.png" type="Texture" id=5]
 [ext_resource path="res://actors/items/2/legacy_coin1.png" type="Texture" id=6]
 [ext_resource path="res://actors/items/2/legacy_coin3.png" type="Texture" id=7]
-[ext_resource path="res://actors/items/2/coin5.png" type="Texture" id=8]
-[ext_resource path="res://actors/items/2/coin4.png" type="Texture" id=9]
+[ext_resource path="res://actors/items/2/red_coin5.png" type="Texture" id=8]
+[ext_resource path="res://actors/items/2/red_coin1.png" type="Texture" id=9]
 [ext_resource path="res://actors/items/2/legacy_coin0.png" type="Texture" id=10]
 [ext_resource path="res://actors/items/2/legacy_coin4.png" type="Texture" id=11]
-[ext_resource path="res://actors/items/2/coin1.png" type="Texture" id=12]
+[ext_resource path="res://actors/items/2/red_coin2.png" type="Texture" id=12]
 
 
 [sub_resource type="SpriteFrames" id=1]
@@ -21,7 +21,7 @@ animations = [ {
 "name": "legacy",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 12 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 9 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 4 ), ExtResource( 9 ), ExtResource( 12 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "modern",
 "speed": 15.0
@@ -34,9 +34,9 @@ extents = Vector2( 8, 8 )
 script = ExtResource( 1 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-modulate = Color( 1, 0, 0, 1 )
 frames = SubResource( 1 )
 animation = "modern"
+frame = 5
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
