@@ -1,27 +1,32 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://actors/items/tube.gd" type="Script" id=1]
+[ext_resource path="res://actors/items/pipe.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 21.1506, 8 )
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 24, 40 )
+extents = Vector2( 13.7864, 3.6095 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 15.9792, 16.0339 )
 
 [node name="Tube" type="StaticBody2D"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource( 1 )
 
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape_2" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 0, -40 )
-shape = SubResource( 2 )
+position = Vector2( -0.132435, -14.9405 )
+shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_mario_top"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_mario_off"]

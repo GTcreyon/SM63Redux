@@ -16,6 +16,6 @@ func _on_mario_top(body):
 		print("on top")
 		can_warp = true
 
-func _on_mario_off(body):
+func _on_mario_off(_body):
 		print("not on top")
 		can_warp = false
