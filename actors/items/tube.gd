@@ -19,10 +19,13 @@ func _process(_delta):
 	#slid is set to true, which is what happends after
 	#mario changes to front sprite
 	if slid:
-		if player.position.y != position.y:
-			player.position.y += 1
-	
-	#this whole wacky process is what makes mario get warped
+		#this checks if mario is ground pounding or not
+		if player.state == 7:
+			player.position.y = position.y
+		else:
+			if player.position.y < position.y:
+				player.position.y += 0.7
+				
 	if can_warp && Input.is_action_pressed("down") && oncedown:
 		oncedown = false #set to false to avoid the player pressing down too many times
 		
@@ -52,6 +55,33 @@ func _process(_delta):
 		player.switch_state(player.s.walk)
 		
 		oncedown = true #so the player can enter another pipe
+		slid = false #to stop animation.
+	elif can_warp && player.state == 7 && oncedown:
+		#same as above but for groundpounding
+		oncedown = false
+		player.static_v = true
+		can_warp = false
+		
+		player.position = Vector2(position.x, position.y - 30)
+		
+		slid = true
+		sound.play()
+		
+		var t = Timer.new()
+		t.set_wait_time(1)
+		t.set_one_shot(true)
+		self.add_child(t)
+		t.start()
+		yield(t, "timeout")
+		t.queue_free()
+		
+		sound.stop()
+		player.position = Vector2(target_x_pos, target_y_pos)
+		player.static_v = false
+		player.switch_state(player.s.walk)
+		
+		oncedown = true
+		slid = false
 
 func _on_mario_top(body):
 	if body.global_position.y < global_position.y:
