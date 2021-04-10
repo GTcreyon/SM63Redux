@@ -1,8 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://actors/items/tube.gd" type="Script" id=1]
 [ext_resource path="res://actors/items/pipe.png" type="Texture" id=2]
-
+[ext_resource path="res://audio/sfx/items/sm64_pipe.ogg" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13.7864, 3.6095 )
@@ -28,5 +28,8 @@ shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
+
+[node name="sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_mario_top"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_mario_off"]

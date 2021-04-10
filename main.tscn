@@ -120,8 +120,12 @@ type = 1
 position = Vector2( -1440, 224 )
 
 [node name="Tube" parent="Items" instance=ExtResource( 11 )]
-position = Vector2( -1984, 224 )
+position = Vector2( -1984.13, 224 )
 target_x_pos = 80
+
+[node name="Tube2" parent="Items" instance=ExtResource( 11 )]
+position = Vector2( 224, 32 )
+target_x_pos = 430
 [connection signal="body_entered" from="Coins/Coin_1" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins/Coin_2" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins/Coin_3" to="." method="_on_Coin_body_entered_collected"]
