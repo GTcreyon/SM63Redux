@@ -41,19 +41,25 @@ func _draw():
 		for i in range(size):
 			var vert = polygon[i]
 			var vert_next = polygon[(i + 1) % size]
+			var normal = vert.direction_to(vert_next).tangent()
+			#polygon[i] += normal * 4;
+		for i in range(size):
+			var vert = polygon[i]
+			var vert_next = polygon[(i + 1) % size]
 			var vert_post = polygon[(i + 2) % size]
 			#print(vert)
 			if (vert.x >= vert_next.x) == dir:
 				#var normal = vert.direction_to(vert_next).tangent()
+				var normal = vert.direction_to(vert_next).tangent()
 				if intersect_list[i] == null:
-					intersect_list[i] = Vector2.INF #Used to represent a grass vertex at the end of a quad
+					intersect_list[i] = [Vector2.INF] #Used to represent a grass vertex at the end of a quad
 				if (vert_next.x >= vert_post.x) == dir:
 					var half = ((vert.direction_to(vert_next) + vert_next.direction_to(vert_post)) / 2).tangent().normalized() #split vector
 
 					var angle = half.angle_to(vert_next.direction_to(vert_post))
 					var intersect = half * (12 / sin(angle)) * sign(half.angle())
 
-					intersect_list[(i + 1) % size] = vert_next + intersect
+					intersect_list[(i + 1) % size] = [vert_next + intersect * 2/3, vert_next - intersect / 3]
 		for i in range(size):
 			var strip = Polygon2D.new()
 			var vert = polygon[i]
@@ -63,27 +69,29 @@ func _draw():
 			if splitter != null:
 				var normal = vert.direction_to(vert_next).tangent()
 				strip.polygon = (PoolVector2Array([
-					vert,
-					vert_next,
-					vert_next - normal * 12,
-					vert - normal * 12
-					]))
+					vert + normal * 4,
+					vert_next + normal * 4,
+					vert_next - normal * 8,
+					vert - normal * 8
+				]))
 				strip.texture = grass_texture
 				
 				var splitter_next = intersect_list[(i + 1) % size]
-				if splitter != null && splitter != Vector2.INF:
+				if splitter && splitter[0] != Vector2.INF:
 					#print("a" + str(splitter))
-					strip.polygon[3] = splitter
-				if splitter_next != null && splitter_next != Vector2.INF:
+					strip.polygon[3] = splitter[0]
+					strip.polygon[0] = splitter[1] 
+				if splitter_next && splitter_next[0] != Vector2.INF:
 					#print("b" + str(splitter_next))
-					strip.polygon[2] = splitter_next
+					strip.polygon[2] = splitter_next[0]
+					strip.polygon[1] = splitter_next[1]
 				strip.texture_rotation = -normal.angle() - PI / 2
 				
 				strip.texture_offset.x = offset_sum
 				#print(offset_sum)
 				#strip.texture_offset.y = 12 * strip.texture_rotation
-				strip.texture_offset.y = (sin(strip.texture_rotation) * -vert.x) - vert.y * cos(strip.texture_rotation)
-				offset_sum += vert.distance_squared_to(vert_next) #dunno why this works better than distance_to() but eh
+				strip.texture_offset.y = (sin(strip.texture_rotation) * -vert.x) - vert.y * cos(strip.texture_rotation) + 4
+				offset_sum += vert.distance_to(vert_next) #dunno why this works better than distance_to() but eh
 				#strip.texture_offset.y = 3.310345
 				#strip.texture_offset.x = $Node2D.position.x
 				#$Node2D.position.x = 0
