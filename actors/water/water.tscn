@@ -1,18 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://actors/water/water.tres" type="Material" id=1]
 [ext_resource path="res://actors/water/blank.bmp" type="Texture" id=2]
+[ext_resource path="res://actors/water/water.gd" type="Script" id=3]
 
 [node name="Water" type="Area2D"]
+material = ExtResource( 1 )
 z_index = 1
 space_override = 3
 gravity_vec = Vector2( 0, 0 )
 linear_damp = 0.5
+script = ExtResource( 3 )
 
 [node name="Texture" type="Polygon2D" parent="."]
-material = ExtResource( 1 )
+use_parent_material = true
 texture = ExtResource( 2 )
-polygon = PoolVector2Array( 0, 0, 100, 0, 100, 100, 0, 100 )
+polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 visible = false
