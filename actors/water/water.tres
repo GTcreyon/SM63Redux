@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://actors/water/water.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/object_pos = Vector2( 0.44705, 0.457272 )
+shader_param/wave_speed = 0.1
+shader_param/wave_length = 30.0
+shader_param/wave_height = 2.0
+shader_param/reflectance_size = 4.0
+shader_param/transparency_size = 2.0
+shader_param/transparency = 1.0
+shader_param/enable_animation = true
+shader_param/reflectance = 0.7
+shader_param/water_color = Color( 0, 0.701961, 1, 0.92549 )
