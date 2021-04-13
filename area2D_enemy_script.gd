@@ -19,5 +19,11 @@ func _on_Area2D_body_entered_hurt(body):
 		lm_gui.text = str(lm_counter)
 		
 	if body.global_position.y < global_position.y && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
+		$"../Sprite".set_animation("squish")
 		print("collided from top")
+		#get_parent().queue_free()
+
+
+func _on_squished():
+	if $"../Sprite".animation == "squish":
 		get_parent().queue_free()
