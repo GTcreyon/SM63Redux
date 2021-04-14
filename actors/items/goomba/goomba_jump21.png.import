@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/box1.png-3e66219df28c72409408674d44dcf11f.stex"
+path="res://.import/goomba_jump21.png-124eb31f47e168ba3154194e0ae29edb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/breakable_box/box1.png"
-dest_files=[ "res://.import/box1.png-3e66219df28c72409408674d44dcf11f.stex" ]
+source_file="res://actors/items/goomba/goomba_jump21.png"
+dest_files=[ "res://.import/goomba_jump21.png-124eb31f47e168ba3154194e0ae29edb.stex" ]
 
 [params]
 
