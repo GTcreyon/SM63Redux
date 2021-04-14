@@ -1,31 +1,52 @@
 [gd_scene load_steps=31 format=2]
 
-[ext_resource path="res://goombawalk2.png" type="Texture" id=1]
+[ext_resource path="res://actors/items/goomba/goomba_walk2.png" type="Texture" id=1]
 [ext_resource path="res://enemy_placeholder.gd" type="Script" id=2]
 [ext_resource path="res://area2D_enemy_script.gd" type="Script" id=3]
-[ext_resource path="res://goombawalk5.png" type="Texture" id=4]
-[ext_resource path="res://goombawalk3.png" type="Texture" id=5]
-[ext_resource path="res://goombawalk4.png" type="Texture" id=6]
-[ext_resource path="res://goombawalk1.png" type="Texture" id=7]
-[ext_resource path="res://goombawalk6.png" type="Texture" id=8]
-[ext_resource path="res://goomba_squish4.png" type="Texture" id=9]
-[ext_resource path="res://goombajump16.png" type="Texture" id=10]
-[ext_resource path="res://goombajump23.png" type="Texture" id=11]
-[ext_resource path="res://goomba_squish3.png" type="Texture" id=12]
-[ext_resource path="res://goombajump1.png" type="Texture" id=13]
-[ext_resource path="res://goomba_squish2.png" type="Texture" id=14]
-[ext_resource path="res://goombajump24.png" type="Texture" id=15]
-[ext_resource path="res://goomba_squish1.png" type="Texture" id=16]
-[ext_resource path="res://goombajump15.png" type="Texture" id=17]
-[ext_resource path="res://goombajump12.png" type="Texture" id=21]
-[ext_resource path="res://goombajump17.png" type="Texture" id=22]
-[ext_resource path="res://goombajump20.png" type="Texture" id=23]
-[ext_resource path="res://goombajump13.png" type="Texture" id=25]
-[ext_resource path="res://goombajump18.png" type="Texture" id=26]
-[ext_resource path="res://goombajump19.png" type="Texture" id=27]
-[ext_resource path="res://goombajump14.png" type="Texture" id=29]
-[ext_resource path="res://goombajump21.png" type="Texture" id=30]
-[ext_resource path="res://goombajump22.png" type="Texture" id=31]
+[ext_resource path="res://actors/items/goomba/goomba_walk5.png" type="Texture" id=4]
+[ext_resource path="res://actors/items/goomba/goomba_walk3.png" type="Texture" id=5]
+[ext_resource path="res://actors/items/goomba/goomba_walk4.png" type="Texture" id=6]
+[ext_resource path="res://actors/items/goomba/goomba_walk1.png" type="Texture" id=7]
+[ext_resource path="res://actors/items/goomba/goomba_walk6.png" type="Texture" id=8]
+[ext_resource path="res://actors/items/goomba/goomba_squish4.png" type="Texture" id=9]
+[ext_resource path="res://actors/items/goomba/goomba_jump16.png" type="Texture" id=10]
+[ext_resource path="res://actors/items/goomba/goomba_jump23.png" type="Texture" id=11]
+[ext_resource path="res://actors/items/goomba/goomba_squish3.png" type="Texture" id=12]
+[ext_resource path="res://actors/items/goomba/goomba_jump1.png" type="Texture" id=13]
+[ext_resource path="res://actors/items/goomba/goomba_squish2.png" type="Texture" id=14]
+[ext_resource path="res://actors/items/goomba/goomba_jump24.png" type="Texture" id=15]
+[ext_resource path="res://actors/items/goomba/goomba_squish1.png" type="Texture" id=16]
+[ext_resource path="res://actors/items/goomba/goomba_jump15.png" type="Texture" id=17]
+[ext_resource path="res://actors/items/goomba/goomba_jump12.png" type="Texture" id=21]
+[ext_resource path="res://actors/items/goomba/goomba_jump17.png" type="Texture" id=22]
+[ext_resource path="res://actors/items/goomba/goomba_jump20.png" type="Texture" id=23]
+[ext_resource path="res://actors/items/goomba/goomba_jump13.png" type="Texture" id=25]
+[ext_resource path="res://actors/items/goomba/goomba_jump18.png" type="Texture" id=26]
+[ext_resource path="res://actors/items/goomba/goomba_jump19.png" type="Texture" id=27]
+[ext_resource path="res://actors/items/goomba/goomba_jump14.png" type="Texture" id=29]
+[ext_resource path="res://actors/items/goomba/goomba_jump21.png" type="Texture" id=30]
+[ext_resource path="res://actors/items/goomba/goomba_jump22.png" type="Texture" id=31]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

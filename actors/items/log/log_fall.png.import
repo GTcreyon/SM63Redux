@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/box1.png-3e66219df28c72409408674d44dcf11f.stex"
+path="res://.import/log_fall.png-0aae866a9379ef75a923383049ed41cc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/breakable_box/box1.png"
-dest_files=[ "res://.import/box1.png-3e66219df28c72409408674d44dcf11f.stex" ]
+source_file="res://actors/items/log/log_fall.png"
+dest_files=[ "res://.import/log_fall.png-0aae866a9379ef75a923383049ed41cc.stex" ]
 
 [params]
 
