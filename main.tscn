@@ -148,8 +148,7 @@ position = Vector2( -179.983, 167.369 )
 [node name="Enemies" type="Node" parent="."]
 
 [node name="EnemyPlaceholder" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( -2248, 215.232 )
-scale = Vector2( 2.14836, 2.3694 )
+position = Vector2( -2328, 222.042 )
 
 [node name="Items" type="Node" parent="."]
 
