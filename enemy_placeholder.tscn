@@ -27,27 +27,6 @@
 [ext_resource path="res://actors/items/goomba/goomba_jump21.png" type="Texture" id=30]
 [ext_resource path="res://actors/items/goomba/goomba_jump22.png" type="Texture" id=31]
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 13 ), ExtResource( 21 ), ExtResource( 25 ), ExtResource( 29 ), ExtResource( 17 ), ExtResource( 10 ), ExtResource( 22 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 23 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 11 ), ExtResource( 15 ) ],
@@ -67,34 +46,31 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 5.43271, 4.8798 )
+extents = Vector2( 9.74508, 4.8798 )
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 49.012
+radius = 82.0869
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 5.84989, 5.63387 )
+extents = Vector2( 10.2861, 10.3407 )
 
 [node name="EnemyPlaceholder" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 4.76837e-07, -4.76837e-07 )
-scale = Vector2( 0.550851, 0.550851 )
 frames = SubResource( 1 )
 animation = "walking"
-frame = 3
 playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
-position = Vector2( -0.33371, 3.92109 )
+position = Vector2( -0.441942, 11.1369 )
 shape = SubResource( 2 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2( 4.6794, 0.315335 )
+position = Vector2( 9, 0 )
 enabled = true
-cast_to = Vector2( 0, 11 )
+cast_to = Vector2( 0, 21 )
 
 [node name="MarioCollision" type="Area2D" parent="."]
 collision_layer = 0
@@ -109,11 +85,11 @@ collision_mask = 2
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( -0.0883865, 3.18198 )
+position = Vector2( -0.140308, 5.75262 )
 shape = SubResource( 4 )
 one_way_collision = true
-[connection signal="animation_finished" from="Sprite" to="." method="_on_Goomba_floor"]
 [connection signal="animation_finished" from="Sprite" to="Area2D" method="_on_squished"]
+[connection signal="animation_finished" from="Sprite" to="." method="_on_Goomba_floor"]
 [connection signal="body_entered" from="MarioCollision" to="." method="_on_Collision_mario_detected"]
 [connection signal="body_exited" from="MarioCollision" to="." method="_on_Collision_detect_left"]
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered_hurt"]

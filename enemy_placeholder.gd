@@ -11,8 +11,11 @@ export var direction = 1
 var is_jumping = false #this is for stopping goomba's movement and then
 #transition to higher speed.
 
+var dir = 0
+
 func _physics_process(_delta):
 	if is_jumping:
+		$RayCast2D.set_enabled(false)
 		
 		var t = Timer.new()
 		t.set_wait_time(0.1)
@@ -34,13 +37,11 @@ func _physics_process(_delta):
 	#to change directions
 	if !is_jumping:
 		if is_on_wall():
-			direction *= -1
-			$RayCast2D.position.x *= -1
+			flip_ev()
 			speed = 50
 		
 		if $RayCast2D.is_colliding() == false:
-			direction *= -1
-			$RayCast2D.position.x *= -1
+			flip_ev()
 		
 	if direction == 1:
 		$Sprite.flip_h = true
@@ -59,27 +60,24 @@ func _physics_process(_delta):
 
 func _on_Collision_mario_detected(body):
 	if body.global_position.x < global_position.x:
-		#speed = 100
 		speed = 0
 		$Sprite.set_animation("jumping")
 		is_jumping = true
+		dir = 2
 		
 		print("mario on the left")
 		if direction != -1:
-			direction *= -1
-			$RayCast2D.position.x *= -1
+			flip_ev()
+
 	elif body.global_position.x > global_position.x:
-		#speed = 100
 		speed = 0
 		$Sprite.set_animation("jumping")
 		print("mario on the right")
 		is_jumping = true
+		dir = 1
 		
 		if direction != 1:
-			direction *= -1
-			$RayCast2D.position.x *= -1
-	pass # Replace with function body.
-
+			flip_ev()
 
 func _on_Collision_detect_left(body):
 	if body.global_position.x < global_position.x:
@@ -88,11 +86,22 @@ func _on_Collision_detect_left(body):
 	elif body.global_position.x > global_position.x:
 		speed = 50
 		print("mario went away(right)")
-	pass # Replace with function body.
-
 
 func _on_Goomba_floor():
 	if $Sprite.animation == "jumping":
 		speed = 100
 		$Sprite.set_animation("walking")
 		is_jumping = false
+		
+		if dir == 1:
+			direction = 1
+			$RayCast2D.position.x = 1
+		elif dir == 2:
+			direction = -1
+			$RayCast2D.position.x = -1
+		
+		$RayCast2D.set_enabled(true)
+
+func flip_ev():
+	direction *= -1
+	$RayCast2D.position.x *= -1
