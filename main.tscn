@@ -148,8 +148,7 @@ position = Vector2( -179.983, 167.369 )
 [node name="Enemies" type="Node" parent="."]
 
 [node name="EnemyPlaceholder" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( -2156.9, 169.867 )
-scale = Vector2( 2.14836, 2.3694 )
+position = Vector2( -2328, 222.042 )
 
 [node name="Items" type="Node" parent="."]
 
@@ -159,7 +158,6 @@ type = 1
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 10 )]
 position = Vector2( -1611.83, 224 )
-type = 0
 
 [node name="Tube" parent="Items" instance=ExtResource( 11 )]
 position = Vector2( -1968.13, 224 )

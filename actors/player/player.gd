@@ -199,7 +199,8 @@ func _physics_process(_delta):
 		if (Input.is_action_just_pressed("debug")):
 			if i_jump_h:
 				#warning-ignore:return_value_discarded
-				get_tree().change_scene("res://level_designer.tscn")
+				#get_tree().change_scene("res://level_designer.tscn")
+				get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
 				#get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn")
 			else:
 				$"/root/Main".classic = !classic
@@ -492,9 +493,9 @@ func _physics_process(_delta):
 				if !ground:
 					play_voice("dive")
 					if sprite.flip_h:
-						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod
+						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.75
 					else:
-						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod
+						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.75
 					vel.y += 3.0 * fps_mod
 		
 		if state == s.spin:

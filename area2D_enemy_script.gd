@@ -13,11 +13,22 @@ func _on_Area2D_body_entered_hurt(body):
 		print("collided from left")
 		lm_counter -= 1
 		lm_gui.text = str(lm_counter)
+		
+		$"/root/Main/Player".vel.x = -4
+		$"/root/Main/Player".vel.y = -8
 	elif body.global_position.x > global_position.x && body.global_position.y > global_position.y:
 		print("collided from right")
 		lm_counter -= 1
 		lm_gui.text = str(lm_counter)
 		
+		$"/root/Main/Player".vel.x = 4
+		$"/root/Main/Player".vel.y = -8
 	if body.global_position.y < global_position.y && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
+		$"../Sprite".set_animation("squish")
+		$"/root/Main/Player".vel.y = -5
 		print("collided from top")
+
+
+func _on_squished():
+	if $"../Sprite".animation == "squish":
 		get_parent().queue_free()
