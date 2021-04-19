@@ -4,7 +4,7 @@ extends Area2D
 export var water_segment_size = 5 #in pixels, this works regardless of water scale.
 export var impact = {"force": 30, "range": 50, "max_damp_range": 0.2, "damping_per_second": 0.95} #values in pixels, pixels, percentage, percentage
 export var multipliers = {"wave": 1,"impact": 1} #have multipliers to impact and wave height
-export var wave = {"width": 1, "speed": 2} #if speed is negative then the direction flips
+export var wave = {"width": 30, "height": 5, "speed": 1.5} #if speed is negative then the direction flips
 
 #private variables
 onready var texture = $Texture
@@ -89,8 +89,9 @@ func _process(dt):
 	for k in surface.keys():
 		#surface[i].y *= 0.95
 		addon_surface[k] *= (1 - impact.damping_per_second * dt) * multipliers.impact
-		surface[k].y = sin(elapsed_time * PI * wave.speed + surface[k].x * wave.width) * multipliers.wave
-		real_surf[k] = surface[k] + Vector2(0, addon_surface[k])
+		surface[k].y = sin(elapsed_time * PI * wave.speed + (surface[k].x * PI * scale.x) / wave.width + position.x * PI) * multipliers.wave
+		real_surf[k] = surface[k] / Vector2(1, scale.y / wave.height) + Vector2(0, addon_surface[k] / scale.y * 5)
+		real_surf[k].y = min(real_surf[k].y, 31.99)
 	set_surface_verts(real_surf)
 
 func _on_Water_body_entered(body):
