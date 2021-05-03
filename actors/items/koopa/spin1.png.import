@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spin7.png-6f3375602b5daf1532eb0d9ff7dbe392.stex"
+path="res://.import/spin1.png-7c2218e7da96ec6b8c4a0841a76ac78b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/koopa/spin7.png"
-dest_files=[ "res://.import/spin7.png-6f3375602b5daf1532eb0d9ff7dbe392.stex" ]
+source_file="res://actors/items/koopa/spin1.png"
+dest_files=[ "res://.import/spin1.png-7c2218e7da96ec6b8c4a0841a76ac78b.stex" ]
 
 [params]
 

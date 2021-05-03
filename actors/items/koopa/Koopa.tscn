@@ -1,7 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://actors/koopa/Koopa.gd" type="Script" id=2]
-[ext_resource path="res://actors/koopa/standing.png" type="Texture" id=6]
+[ext_resource path="res://actors/items/koopa/Koopa.gd" type="Script" id=2]
+[ext_resource path="res://actors/items/koopa/standing.png" type="Texture" id=6]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
