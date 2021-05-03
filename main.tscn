@@ -148,7 +148,7 @@ position = Vector2( -179.983, 167.369 )
 [node name="Enemies" type="Node" parent="."]
 
 [node name="EnemyPlaceholder" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( -2328, 222.042 )
+position = Vector2( -2248, 215.232 )
 
 [node name="Items" type="Node" parent="."]
 
@@ -169,11 +169,7 @@ target_x_pos = 430
 
 [node name="Water" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1504, 240 )
-scale = Vector2( 5, 5 )
-
-[node name="Water2" parent="." instance=ExtResource( 12 )]
-position = Vector2( -1344, 240 )
-scale = Vector2( 10, 2.5 )
+scale = Vector2( 15, 5 )
 [connection signal="body_entered" from="Coins/Coin_1" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins/Coin_11" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins/Coin_12" to="." method="_on_Coin_body_entered_collected"]
