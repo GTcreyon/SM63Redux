@@ -13,19 +13,16 @@ var is_jumping = false #this is for stopping goomba's movement and then
 
 var dir = 0
 
+onready var sprite = $Sprite
+onready var raycast = $RayCast2D
+
+var land_timer = 0
+
 func _physics_process(_delta):
-	if is_jumping:
-		$RayCast2D.set_enabled(false)
-		
-		var t = Timer.new()
-		t.set_wait_time(0.1)
-		t.set_one_shot(true)
-		self.add_child(t)
-		t.start()
-		yield(t, "timeout")
-		t.queue_free()
-		
-		position.y += -3.5
+	
+	if !is_on_floor():
+		sprite.frame = 1
+		raycast.enabled = false
 	
 	velocity.x = speed * direction
 	
@@ -35,19 +32,45 @@ func _physics_process(_delta):
 	
 	#raycast2d is used here to detect if the object collided with a wall
 	#to change directions
-	if !is_jumping:
+	if direction == 1:
+		sprite.flip_h = true
+	elif direction == -1:
+		sprite.flip_h = false
+	
+	if is_on_floor():
 		if is_on_wall():
 			flip_ev()
 			speed = 50
 		
-		if $RayCast2D.is_colliding() == false:
+		if !raycast.is_colliding() && raycast.enabled:
 			flip_ev()
-		
-	if direction == 1:
-		$Sprite.flip_h = true
-	elif direction == -1:
-		$Sprite.flip_h = false
-
+			
+		if sprite.animation == "jumping":
+			if is_jumping:
+				speed = 100
+				sprite.frame = 2
+				land_timer = 0
+				is_jumping = false
+				
+				if dir == 1:
+					direction = 1
+					raycast.position.x = 9
+				elif dir == 2:
+					direction = -1
+					raycast.position.x = -9
+				
+				raycast.enabled = true
+				
+			
+			land_timer += 0.2
+			print(str(sprite.frame) + " " + str(land_timer))
+			if land_timer >= 1.8:
+				sprite.frame = 0
+				sprite.animation = "walking"
+			else:
+				sprite.frame = 2 + land_timer #finish up jumping anim
+			
+			
 #the next signals are used for the aggresive trigger
 #behaviour, it changes the velocity and goes towards
 #the player, it also changes the raycast2d because
@@ -59,25 +82,20 @@ func _physics_process(_delta):
 #as we need only the x coordinates
 
 func _on_Collision_mario_detected(body):
-	if body.global_position.x < global_position.x:
+	if is_on_floor():
+		if body.global_position.x < global_position.x:
+			print("mario on the left")
+			dir = 2
+		elif body.global_position.x > global_position.x:
+			print("mario on the right")
+			dir = 1
 		speed = 0
-		$Sprite.set_animation("jumping")
+		sprite.animation = "jumping"
+		sprite.frame = 0
 		is_jumping = true
-		dir = 2
-		
-		print("mario on the left")
-		if direction != -1:
-			flip_ev()
-
-	elif body.global_position.x > global_position.x:
-		speed = 0
-		$Sprite.set_animation("jumping")
-		print("mario on the right")
-		is_jumping = true
-		dir = 1
-		
 		if direction != 1:
 			flip_ev()
+		velocity.y = -200
 
 func _on_Collision_detect_left(body):
 	if body.global_position.x < global_position.x:
@@ -87,21 +105,7 @@ func _on_Collision_detect_left(body):
 		speed = 50
 		print("mario went away(right)")
 
-func _on_Goomba_floor():
-	if $Sprite.animation == "jumping":
-		speed = 100
-		$Sprite.set_animation("walking")
-		is_jumping = false
-		
-		if dir == 1:
-			direction = 1
-			$RayCast2D.position.x = 1
-		elif dir == 2:
-			direction = -1
-			$RayCast2D.position.x = -1
-		
-		$RayCast2D.set_enabled(true)
 
 func flip_ev():
 	direction *= -1
-	$RayCast2D.position.x *= -1
+	raycast.position.x *= -1
