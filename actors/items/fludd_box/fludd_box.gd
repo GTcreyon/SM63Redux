@@ -5,6 +5,7 @@ export(int, 3) var type = 0
 var old_type = type
 
 onready var main = $"/root/Main/Items"
+onready var player = $"/root/Main/Player"
 onready var hover = $Hover
 onready var rocket = $Rocket
 onready var turbo = $Turbo
@@ -33,15 +34,14 @@ func _process(_delta):
 			switch_type(type)
 			old_type = type
 
+
 func _ready():
 	switch_type(type)
 
 
 func _on_FluddBox_body_entered(body):
-	if body.global_position.y < global_position.y && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
-		print("collided from top")
+	if body == player && player.vel.y > 1:
 		main.call_deferred("add_child", obj)
 		obj.position = position
-		$"/root/Main/Player".vel.y = -6 * 32 / 60
+		player.vel.y = -6 * 32 / 60
 		queue_free()
-	pass # Replace with function body.
