@@ -4,14 +4,15 @@
 [ext_resource path="res://actors/terrain/terrain_polygon.gd" type="Script" id=3]
 
 [node name="TerrainPolygon" type="Polygon2D"]
-polygon = PoolVector2Array( 0, 0, 24.194, 20.6955, 34.3722, 4.51066, 43.0486, 41.0518, 72.4151, 40.0508, 81.759, 2.17469, 100, 0, 100, 100, 0, 100 )
+polygon = PoolVector2Array( 0, 0, 0, 100, 100, 100, 100, 0, 50, 0 )
 script = ExtResource( 3 )
-max_angle = 60
+up_vector = Vector2( 1, 0 )
+max_angle = 46
 
 [node name="BaseTexture" type="Polygon2D" parent="."]
 position = Vector2( 0.353554, -0.15749 )
 texture = ExtResource( 2 )
-polygon = PoolVector2Array( 0, 0, 24.194, 20.6955, 34.3722, 4.51066, 43.0486, 41.0518, 72.4151, 40.0508, 81.759, 2.17469, 100, 0, 100, 100, 0, 100 )
+polygon = PoolVector2Array( 0, 0, 0, 100, 100, 100, 100, 0, 47.6514, 0.631801 )
 
 [node name="Top" type="Node2D" parent="."]
 z_index = 1
@@ -20,4 +21,4 @@ z_index = 1
 
 [node name="CollisionShape" type="CollisionPolygon2D" parent="Collision"]
 visible = false
-polygon = PoolVector2Array( 0, 0, 24.194, 20.6955, 34.3722, 4.51066, 43.0486, 41.0518, 72.4151, 40.0508, 81.759, 2.17469, 100, 0, 100, 100, 0, 100 )
+polygon = PoolVector2Array( 0, 0, 0, 50, 0, 100, 100, 100, 100, 0 )
