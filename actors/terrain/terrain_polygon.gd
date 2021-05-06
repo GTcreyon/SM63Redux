@@ -2,7 +2,7 @@ tool
 extends Polygon2D
 
 export var up_vector = Vector2(0, -1)
-export var max_angle = 45
+export var max_angle = 60
 
 onready var collision = $Collision/CollisionShape
 onready var base = $BaseTexture
@@ -22,6 +22,7 @@ var poly_groups = []
 #		i += 1
 #	return sum > 0 #True if clockwise
 
+#this function generates the polygon groups
 func generate_poly_groups():
 	poly_groups = []
 	var size = polygon.size()
@@ -83,8 +84,27 @@ func generate_grass(group):
 	#offset_sum += vert.distance_to(vert_next) #dunno why this works better than distance_to() but eh
 	top.add_child(strip)
 
+func mark_grass():
+	var size = poly_groups.size()
+	for i in range(size):
+		var this_group = poly_groups[i]
+		this_group.has_grass = false #set it to false by default
+		var angle = this_group.normal.angle_to(up_vector) / PI * 180
+		this_group.has_grass = true #testing
+		if abs(angle) <= max_angle:
+			this_group.has_grass = true
+
+#it's a bit brutal but hey you gotta to what you gotta do
+func clear_all_children(parent):
+	for child in parent.get_children():
+		parent.remove_child(child)
+
 func generate_full():
-	set_polygon_from_groups()
+	clear_all_children(top) #first delete all the children
+	generate_poly_groups() #get the poly groups
+	set_polygon_from_groups() #set the polygon shape
+	mark_grass() #mark the grass
+	#now determine if the grass should be placed
 	var size = poly_groups.size()
 	for i in size:
 		var left = poly_groups[i]
@@ -95,7 +115,6 @@ func generate_full():
 			generate_grass(left)
 
 func _draw():
-	generate_poly_groups()
 	generate_full()
 
 func __process(_delta):
