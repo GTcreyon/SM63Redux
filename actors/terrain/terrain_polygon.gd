@@ -35,8 +35,10 @@ func generate_poly_groups():
 			"end": end_vert,
 			"left_overwrite": null, #these overwrites are being used with intersections, if null there's no intersection
 			"right_overwrite": null,
+			"index": i,
 			"direction": start_vert.direction_to(end_vert),
-			"has_grass": false
+			"has_grass": false,
+			"debug_draw_outline": false
 		}
 		if i == 0 || i == 1:
 			data.has_grass = true
@@ -52,6 +54,7 @@ func calculate_intersection(left, right):
 	var intersect = half * (12 / sin(angle)) * sign(half.angle())
 	#2/3 is 8 pixels and 1/3 is 4 pixels
 	var overwrite = [left.end + intersect * 2/3, left.end - intersect / 3]
+	
 	left.right_overwrite = overwrite #replace the overwrites of the groups
 	right.left_overwrite = overwrite
 
@@ -77,11 +80,29 @@ func generate_grass(group):
 	if group.right_overwrite:
 		strip.polygon[2] = group.right_overwrite[0]
 		strip.polygon[1] = group.right_overwrite[1]
+	
+	#check for intersections, this is important for drawing grass the correct way
+	#(maybe this can be done in the calculate intersections area?, it works for now though)
+	var intersect = Geometry.segment_intersects_segment_2d(strip.polygon[0], strip.polygon[1], strip.polygon[2], strip.polygon[3])
+	if intersect != null:
+		var p1 = strip.polygon[1]
+		strip.polygon[1] = strip.polygon[2]
+		strip.polygon[2] = p1
+	
 	strip.texture = grass_texture
 	strip.texture_rotation = -group.normal_angle - PI / 2
-	#strip.texture_offset.x = offset_sum
 	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + 4
-	#offset_sum += vert.distance_to(vert_next) #dunno why this works better than distance_to() but eh
+	
+	#purely for debugging
+	if group.debug_draw_outline:
+		strip.color = Color(0, 0, 1, 0)
+		var size = strip.polygon.size()
+		for i in size:
+			var this = strip.polygon[i]
+			var next = strip.polygon[(i + 1) % size]
+			draw_line(this, next, Color(0, 0, float(i) / 3.0), 1)
+			draw_circle(this, 1, Color(0, 0, float(i) / 3.0))
+	
 	top.add_child(strip)
 
 func mark_grass():
@@ -90,7 +111,6 @@ func mark_grass():
 		var this_group = poly_groups[i]
 		this_group.has_grass = false #set it to false by default
 		var angle = this_group.normal.angle_to(up_vector) / PI * 180
-		this_group.has_grass = true #testing
 		if abs(angle) <= max_angle:
 			this_group.has_grass = true
 
