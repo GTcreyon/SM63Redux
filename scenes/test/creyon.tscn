@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
+[ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actors/items/koopa/koopa_shell.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/global/main.gd" type="Script" id=4]
+
+[node name="Main" type="Node"]
+script = ExtResource( 4 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -200 )
+
+[node name="Shell" parent="." instance=ExtResource( 3 )]
+position = Vector2( 39, -171 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+centered_textures = true
+format = 1
+tile_data = PoolIntArray( -327685, 138, 0, -327684, 136, 0, -327683, 139, 0, -393214, 140, 0, -393213, 136, 0, -393212, 138, 0, -262148, 138, 0, -262147, 136, 0, -262146, 136, 0, -262145, 136, 0, -327680, 136, 0, -327679, 136, 0, -327678, 136, 0, -327677, 138, 0, -196610, 138, 0, -196609, 136, 0, -262144, 136, 0, -262143, 138, 0 )

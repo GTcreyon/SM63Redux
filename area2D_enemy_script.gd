@@ -11,7 +11,7 @@ onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/Life_meter_counter"
 #depending on coordinates
 
 func _on_Area2D_body_entered_hurt(body):
-	if body.hitbox.global_position.y + body.hitbox.shape.extents.y < global_position.y:# && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
+	if body.hitbox.global_position.y + body.hitbox.shape.extents.y < global_position.y && body.vel.y > 0:# && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
 		sprite.animation = "squish"
 		player.vel.y = -5
 		print("collided from top")
