@@ -202,7 +202,8 @@ func _physics_process(_delta):
 			if i_jump_h:
 				#warning-ignore:return_value_discarded
 				#get_tree().change_scene("res://level_designer.tscn")
-				get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
+				#get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
+				get_tree().change_scene("res://scenes/test/creyon.tscn")
 				#get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn")
 			else:
 				$"/root/Main".classic = !classic

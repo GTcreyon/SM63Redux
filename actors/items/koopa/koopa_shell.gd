@@ -17,23 +17,24 @@ func _ready():
 func _physics_process(_delta):
 	velocity.y += GRAVITY
 	velocity = move_and_slide(velocity, FLOOR)
-	print(direction)
+	#print(direction)
 	if is_on_wall():
 		direction *= -1
 	
 func _on_CollisionArea_body_entered(body):
-	if body.global_position.x < global_position.x && body.global_position.y > global_position.y:
-		print("collided from left")
-		#if it's less than, then x-wise it's left and y-wise it's up.
-		velocity.x = speed * direction
-	elif body.global_position.x > global_position.x && body.global_position.y > global_position.y:
-		print("collided from right")
-		velocity.x = speed * -direction
-	if body.global_position.y < global_position.y && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
+	if body.hitbox.global_position.y + body.hitbox.shape.extents.y < global_position.y && body.vel.y > 0:
 		print("collided from top")
 		$"/root/Main/Player".vel.y = -5
-		if player.flip_h:
-			velocity.x = speed * -direction
+		if body.global_position.x < global_position.x:
+			velocity.x = speed
 		else:
-			velocity.x = speed * direction
+			velocity.x = -speed
+	elif body.global_position.x < global_position.x:
+		print("collided from left")
+		#if it's less than, then x-wise it's left and y-wise it's up.
+		velocity.x = speed
+	elif body.global_position.x > global_position.x:
+		print("collided from right")
+		velocity.x = -speed
+
 		
