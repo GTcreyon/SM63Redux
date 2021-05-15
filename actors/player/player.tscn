@@ -42,24 +42,14 @@ animations = [ {
 "name": "walk",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "pound_fall",
-"speed": 15.0
+"name": "pound_spin",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
@@ -67,15 +57,15 @@ animations = [ {
 "name": "fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "hover_spin",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 23 ) ],
 "loop": true,
 "name": "hover_fall",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "hover_spin",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
 "loop": true,
@@ -86,6 +76,16 @@ animations = [ {
 "loop": true,
 "name": "jump",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
