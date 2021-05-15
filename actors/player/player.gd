@@ -27,6 +27,9 @@ onready var tween = $Tween
 onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
 onready var angle_cast = $DiveAngling
+onready var stand_box =  $StandHitbox
+onready var dive_box = $DiveHitbox
+onready var hitbox = stand_box
 
 #mario's gameplay parameters
 export var life_meter_counter = 8
@@ -71,7 +74,6 @@ var dive_return = false
 var dive_frames = 0
 var pound_frames = 0
 var rocket_charge = 0
-
 var maxY = 0
 
 enum s { #state enum
@@ -157,15 +159,15 @@ func switch_state(new_state):
 	sprite.rotation_degrees = 0
 	match state:
 		s.dive:
-			$StandHitbox.disabled = true
-			$DiveHitbox.disabled = false
+			stand_box.disabled = true
+			dive_box.disabled = false
 		s.pound_fall:
-			$StandHitbox.disabled = false
-			$DiveHitbox.disabled = true
+			stand_box.disabled = false
+			dive_box.disabled = true
 			camera.smoothing_speed = 10
 		_:
-			$StandHitbox.disabled = false
-			$DiveHitbox.disabled = true
+			stand_box.disabled = false
+			dive_box.disabled = true
 			camera.smoothing_speed = 5
 
 func _ready():
@@ -227,8 +229,8 @@ func _physics_process(_delta):
 				switch_anim("jump")
 				sprite.rotation_degrees += -90 if sprite.flip_h else 90
 				dive_correct(-1)
-				$StandHitbox.disabled = false
-				$DiveHitbox.disabled = true
+				stand_box.disabled = false
+				dive_box.disabled = true
 				
 			if sprite.rotation_degrees != 0 || dive_frames > 2:
 				sprite.rotation_degrees += 10 if sprite.flip_h else -10
