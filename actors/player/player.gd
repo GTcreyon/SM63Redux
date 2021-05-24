@@ -198,16 +198,10 @@ func _physics_process(_delta):
 		var i_fludd = Input.is_action_pressed("fludd")
 		var i_switch = Input.is_action_just_pressed("switch_fludd")
 		var test = 0
-		if (Input.is_action_just_pressed("debug")):
-			if i_jump_h:
-				#warning-ignore:return_value_discarded
-				#get_tree().change_scene("res://level_designer.tscn")
-				#get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
-				get_tree().change_scene("res://scenes/test/creyon.tscn")
-				#get_tree().change_scene("res://scenes/castle/lobby/castle_lobby.tscn")
-			else:
-				$"/root/Main".classic = !classic
-				update_classic()
+#		if Input.is_action_just_pressed("debug"):
+#			if i_jump_h:
+#				$"/root/Main".classic = !classic
+#				update_classic()
 		var ground = is_on_floor()
 		var wall = is_on_wall()
 		var ceiling = is_on_ceiling()
