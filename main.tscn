@@ -158,7 +158,6 @@ type = 1
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 10 )]
 position = Vector2( -1611.83, 224 )
-type = 0
 
 [node name="Tube" parent="Items" instance=ExtResource( 11 )]
 position = Vector2( -1968.13, 224 )

@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://actors/debug/console.gd" type="Script" id=1]
+[ext_resource path="res://themes/debug.tres" type="Theme" id=2]
+
+[node name="Console" type="Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Logger" type="Label" parent="."]
+margin_right = 448.0
+margin_bottom = 280.0
+theme = ExtResource( 2 )
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Input" type="LineEdit" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -24.0
+margin_right = 448.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
