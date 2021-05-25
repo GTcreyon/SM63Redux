@@ -9,7 +9,6 @@ export var next_scene: PackedScene
 var timer = 0
 var entered = false
 func _physics_process(delta):
-	print(timer)
 	if enterable == 1 && Input.is_action_just_pressed("up"):
 		player.static_v = true
 		$DoorSprite.play("opening")
