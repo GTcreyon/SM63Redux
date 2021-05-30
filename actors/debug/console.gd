@@ -16,13 +16,21 @@ func run_command(cmd):
 	history.append(cmd)
 	var args = cmd.split(" ")
 	match args[0]:
-		"s":
+		"w":
 			var path
 			match args[1]:
 				"creyon":
 					path = "res://scenes/test/creyon.tscn"
 				"main":
 					path = "res://main.tscn"
+				"t1":
+					path = "res://scenes/tutorial_1/tutorial_1_1.tscn"
+				"t1r2":
+					path = "res://scenes/tutorial_1/tutorial_1_2.tscn"
+				"t1r3":
+					path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
+				"t1r4":
+					path = "res://scenes/tutorial_1/tutorial_1_4.tscn"
 				_:
 					path = ""
 			if path == "":
