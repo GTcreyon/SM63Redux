@@ -490,9 +490,9 @@ func _physics_process(_delta):
 				if !ground:
 					play_voice("dive")
 					if sprite.flip_h:
-						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.75
+						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.95
 					else:
-						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.75
+						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.95
 					vel.y += 3.0 * fps_mod
 		
 		if state == s.spin:

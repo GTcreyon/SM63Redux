@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
@@ -8,9 +8,21 @@
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0005.png" type="Texture" id=9]
+[ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0011.png" type="Texture" id=10]
+[ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0012.png" type="Texture" id=11]
+[ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0006.png" type="Texture" id=12]
+[ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0013.png" type="Texture" id=13]
+[ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0010.png" type="Texture" id=14]
+[ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0008.png" type="Texture" id=15]
+[ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0009.png" type="Texture" id=16]
+
 
 [node name="Main" type="Node"]
 script = ExtResource( 5 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 110, 142 )
 
 [node name="Items" type="Node" parent="."]
 
@@ -87,10 +99,10 @@ position = Vector2( 810, 158 )
 position = Vector2( 1077, 106 )
 
 [node name="Log25" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1174, 149 )
+position = Vector2( 1178, 154 )
 
 [node name="Log26" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1176, 135 )
+position = Vector2( 1180, 140 )
 
 [node name="LogFall" parent="Items" instance=ExtResource( 3 )]
 position = Vector2( 1092, 111 )
@@ -99,32 +111,65 @@ position = Vector2( 1092, 111 )
 position = Vector2( 1408.91, 78.937 )
 
 [node name="BreakableBox" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 1733.77, 98.2475 )
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 110, 142 )
+position = Vector2( 1738.77, 94.2475 )
 
 [node name="Water" type="Node" parent="."]
 
 [node name="Water" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 320, 226 )
-scale = Vector2( 27, 3 )
-z_index = 0
+scale = Vector2( 28, 6 )
 
 [node name="Terrain" type="Node" parent="."]
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 16, 160 )
-polygon = PoolVector2Array( -16, -20, 84, 0, 304, 0, 304, 80, 324, 144, -16, 144 )
+z_index = 1
+polygon = PoolVector2Array( -16, -15, 84, 0, 304, 0, 304, 87, 334, 169, 401, 153, 422, 85, 425, 0, 449, -14, 495, -11, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 777, 198, 948, 216, 1130, 189, 1181, 111, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -63, 1666, -48, 1787, -62, 1815, -120, 1939, -120, 2200, 422, -52, 266 )
 
 [node name="TerrainPolygon2" parent="Terrain" instance=ExtResource( 1 )]
+visible = false
 position = Vector2( 439, 149 )
 polygon = PoolVector2Array( 0, 1, 17, -8, 74, -2, 93, -20, 168, -20, 168, 155, -20, 155, 0, 91 )
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
-polygon = PoolVector2Array( 0, 0, 118, 0, 144, -70, 252, -52, 252, -23, 276, 121, 156, 131, 0, 107 )
+z_index = 2
+polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277, 133, 159, 141, 1, 118 )
 
 [node name="TerrainPolygon4" parent="Terrain" instance=ExtResource( 1 )]
+visible = false
 position = Vector2( 1184, 128 )
 polygon = PoolVector2Array( 0, 0, 70, 0, 62, -75, 138, -70, 142, -34, 376, -34, 494, -18, 612, -34, 634, -86, 682, -80, 740, -80, 740, 172, 0, 176 )
+
+[node name="Sprite-0005" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.498039 )
+position = Vector2( 225.5, 151 )
+texture = ExtResource( 9 )
+
+[node name="Sprite-0010" type="Sprite" parent="Sprite-0005"]
+position = Vector2( 1602.5, -99 )
+texture = ExtResource( 14 )
+
+[node name="Sprite-0006" type="Sprite" parent="Sprite-0005"]
+position = Vector2( 408.5, -9 )
+texture = ExtResource( 12 )
+
+[node name="Sprite-0011" type="Sprite" parent="Sprite-0005"]
+position = Vector2( 154.5, 122.5 )
+texture = ExtResource( 10 )
+
+[node name="Sprite-0012" type="Sprite" parent="Sprite-0005"]
+position = Vector2( 514.002, 119.517 )
+texture = ExtResource( 11 )
+
+[node name="Sprite-0013" type="Sprite" parent="Sprite-0005"]
+position = Vector2( 861.964, 118.518 )
+texture = ExtResource( 13 )
+
+[node name="Sprite-0008" type="Sprite" parent="Sprite-0005"]
+position = Vector2( 1009.5, -37 )
+texture = ExtResource( 15 )
+
+[node name="Sprite-0009" type="Sprite" parent="Sprite-0005"]
+position = Vector2( 1401.5, -54 )
+texture = ExtResource( 16 )
