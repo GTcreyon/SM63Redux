@@ -37,9 +37,9 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "dive",
+"name": "pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
@@ -47,15 +47,20 @@ animations = [ {
 "name": "walk",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "pound_spin",
+"name": "dive",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "fall",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "hover_walk",
+"speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ) ],
 "loop": true,
@@ -66,11 +71,6 @@ animations = [ {
 "loop": true,
 "name": "hover_spin",
 "speed": 15.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "hover_walk",
-"speed": 0.0
 }, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
