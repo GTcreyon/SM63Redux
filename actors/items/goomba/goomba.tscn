@@ -1,38 +1,39 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://actors/items/goomba/goomba_walk2.png" type="Texture" id=1]
-[ext_resource path="res://enemy_placeholder.gd" type="Script" id=2]
-[ext_resource path="res://area2D_enemy_script.gd" type="Script" id=3]
-[ext_resource path="res://actors/items/goomba/goomba_walk5.png" type="Texture" id=4]
-[ext_resource path="res://actors/items/goomba/goomba_walk3.png" type="Texture" id=5]
-[ext_resource path="res://actors/items/goomba/goomba_walk4.png" type="Texture" id=6]
-[ext_resource path="res://actors/items/goomba/goomba_walk1.png" type="Texture" id=7]
-[ext_resource path="res://actors/items/goomba/goomba_walk6.png" type="Texture" id=8]
-[ext_resource path="res://actors/items/goomba/goomba_squish4.png" type="Texture" id=9]
-[ext_resource path="res://actors/items/goomba/goomba_jump2.png" type="Texture" id=10]
-[ext_resource path="res://actors/items/goomba/goomba_jump4.png" type="Texture" id=11]
-[ext_resource path="res://actors/items/goomba/goomba_squish3.png" type="Texture" id=12]
-[ext_resource path="res://actors/items/goomba/goomba_jump1.png" type="Texture" id=13]
-[ext_resource path="res://actors/items/goomba/goomba_squish2.png" type="Texture" id=14]
-[ext_resource path="res://actors/items/goomba/goomba_jump3.png" type="Texture" id=15]
-[ext_resource path="res://actors/items/goomba/goomba_squish1.png" type="Texture" id=16]
+[ext_resource path="res://actors/items/goomba/goomba_walk1.png" type="Texture" id=1]
+[ext_resource path="res://actors/items/goomba/goomba_jump4.png" type="Texture" id=2]
+[ext_resource path="res://actors/items/goomba/goomba_squish3.png" type="Texture" id=3]
+[ext_resource path="res://actors/items/goomba/goomba_jump3.png" type="Texture" id=4]
+[ext_resource path="res://actors/items/goomba/goomba_jump2.png" type="Texture" id=5]
+[ext_resource path="res://actors/items/goomba/goomba_jump1.png" type="Texture" id=6]
+[ext_resource path="res://actors/items/goomba/goomba_walk5.png" type="Texture" id=7]
+[ext_resource path="res://actors/items/goomba/goomba_squish2.png" type="Texture" id=8]
+[ext_resource path="res://actors/items/goomba/goomba_walk4.png" type="Texture" id=9]
+[ext_resource path="res://actors/items/goomba/goomba_squish4.png" type="Texture" id=10]
+[ext_resource path="res://actors/items/goomba/goomba_walk3.png" type="Texture" id=11]
+[ext_resource path="res://actors/items/goomba/goomba_walk6.png" type="Texture" id=12]
+[ext_resource path="res://actors/items/goomba/goomba_walk2.png" type="Texture" id=13]
+[ext_resource path="res://actors/items/goomba/goomba_squish1.png" type="Texture" id=14]
+[ext_resource path="res://area2D_enemy_script.gd" type="Script" id=15]
+[ext_resource path="res://actors/items/goomba/goomba.gd" type="Script" id=16]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 7 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 4 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 1 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walking",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 13 ), ExtResource( 10 ), ExtResource( 15 ), ExtResource( 11 ) ],
-"loop": false,
-"name": "jumping",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 16 ), ExtResource( 14 ), ExtResource( 12 ), ExtResource( 9 ) ],
+"frames": [ ExtResource( 14 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "squish",
 "speed": 20.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "jumping",
+"speed": 0.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -43,12 +44,12 @@ extents = Vector2( 9, 10 )
 
 [node name="EnemyPlaceholder" type="KinematicBody2D"]
 collision_layer = 4
-script = ExtResource( 2 )
+script = ExtResource( 16 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "walking"
-frame = 2
+frame = 1
 playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
@@ -79,7 +80,7 @@ polygon = PoolVector2Array( 286, -85, 286, 84, -288, 84, -288, -85 )
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource( 3 )
+script = ExtResource( 15 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource( 3 )
