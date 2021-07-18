@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario/pound/pound_fall0.png" type="Texture" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://actors/player/mario/spin/hover/mario_hover_spin2.png" type="Texture" id=22]
 [ext_resource path="res://actors/player/mario/mario_hover_fall.png" type="Texture" id=23]
 [ext_resource path="res://actors/player/mario/mario_front.png" type="Texture" id=24]
+[ext_resource path="res://actors/player/camera.gd" type="Script" id=25]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -37,19 +38,14 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "walk",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
@@ -57,34 +53,39 @@ animations = [ {
 "name": "fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "hover_walk",
-"speed": 0.0
+"name": "jump",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 23 ) ],
 "loop": true,
 "name": "hover_fall",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "hover_walk",
+"speed": 0.0
+}, {
 "frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
 "loop": true,
 "name": "hover_spin",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
 "loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
+"name": "walk",
+"speed": 0.0
 }, {
 "frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
 "speed": 15.0
 } ]
 
@@ -124,6 +125,9 @@ __meta__ = {
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 smoothing_enabled = true
+script = ExtResource( 25 )
+
+[node name="Tween" type="Tween" parent="Camera2D"]
 
 [node name="GUI" parent="Camera2D" instance=ExtResource( 15 )]
 follow_viewport_enable = false
@@ -133,7 +137,7 @@ volume_db = -5.0
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="Coin_sfx" type="AudioStreamPlayer2D" parent="."]
+[node name="Coin_sfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 
 [node name="DiveAngling" type="RayCast2D" parent="."]

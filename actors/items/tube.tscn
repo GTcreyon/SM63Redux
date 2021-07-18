@@ -11,7 +11,6 @@ extents = Vector2( 4.36713, 8 )
 extents = Vector2( 15.9792, 16.0339 )
 
 [node name="Tube" type="StaticBody2D"]
-collision_layer = 0
 collision_mask = 2
 script = ExtResource( 1 )
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://hud/water_meter/water_meter_fill.png" type="Texture" id=17]
 [ext_resource path="res://hud/water_meter/water_meter_power_filler_cover.png" type="Texture" id=18]
 [ext_resource path="res://hud/water_meter/water_meter_cover.png" type="Texture" id=19]
+[ext_resource path="res://actors/debug/console.tscn" type="PackedScene" id=20]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
@@ -35,6 +36,8 @@ orbit_velocity_random = 0.0
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
 script = ExtResource( 4 )
+
+[node name="Console" parent="." instance=ExtResource( 20 )]
 
 [node name="DebugLabel" type="Label" parent="."]
 margin_right = 40.0

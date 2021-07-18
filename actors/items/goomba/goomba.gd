@@ -1,8 +1,13 @@
 extends KinematicBody2D
 
 const GRAVITY = 10
-var speed = 50
 const FLOOR = Vector2(0, -1)
+
+const sfx = {
+	"jump": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
+	"step": preload("res://audio/sfx/items/goomba/goomba_step.wav"),
+	#"squish": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
+	}
 
 var velocity = Vector2()
 
@@ -11,11 +16,15 @@ export var direction = 1
 var is_jumping = false #this is for stopping goomba's movement and then
 #transition to higher speed.
 
-var dir = 0
 var tracking = false
+var wander_dist = 0
+var stepped = false
 
 onready var sprite = $Sprite
 onready var raycast = $RayCast2D
+onready var player = $"/root/Main/Player"
+onready var sfx_active = $SFXActive
+onready var sfx_passive = $SFXPassive
 
 var land_timer = 0
 
@@ -24,17 +33,13 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if !is_on_floor():
+	if !is_on_floor() && sprite.animation != "squish":
 		sprite.frame = 1
 		raycast.enabled = false
 	
-	velocity.x = speed * direction
-	
 	velocity.y += GRAVITY
 	
-	velocity = move_and_slide(velocity, FLOOR)
-	
-	if sprite.animation != "squished":
+	if sprite.animation != "squish":
 		#raycast2d is used here to detect if the object collided with a wall
 		#to change directions
 		if direction == 1:
@@ -43,27 +48,18 @@ func _physics_process(_delta):
 			sprite.flip_h = false
 		
 		if is_on_floor():
-			if is_on_wall():
+			if is_on_wall() && !tracking:
 				flip_ev()
-				speed = 50
+				wander_dist = 0
 			
 			if !raycast.is_colliding() && raycast.enabled:
 				flip_ev()
 				
 			if sprite.animation == "jumping":
 				if is_jumping:
-					speed = 100
 					sprite.frame = 2
 					land_timer = 0
 					is_jumping = false
-					
-					if dir == 1:
-						direction = 1
-						raycast.position.x = 9
-					elif dir == 2:
-						direction = -1
-						raycast.position.x = -9
-					
 					raycast.enabled = true
 				
 				land_timer += 0.2
@@ -73,8 +69,44 @@ func _physics_process(_delta):
 					sprite.animation = "walking"
 				else:
 					sprite.frame = 2 + land_timer #finish up jumping anim
-			
-			
+			else:
+				if sprite.frame == 0 || sprite.frame == 3:
+					if !stepped:
+						sfx_passive.pitch_scale = rand_range(0.9, 1.1)
+						sfx_passive.play()
+						stepped = true
+				else:
+					stepped = false
+				if tracking:
+					sprite.speed_scale = abs(velocity.x) / 100 + 1
+					if player.position.x - position.x < -20 || (player.position.x < position.x && abs(player.position.y - position.y) < 26):
+						velocity.x = max(velocity.x - 5, -100)
+						direction = -1
+						raycast.position.x = -9
+						sprite.playing = true
+					elif player.position.x - position.x > 20 || (player.position.x > position.x && abs(player.position.y - position.y) < 26):
+						velocity.x = min(velocity.x + 5, 100)
+						direction = 1
+						raycast.position.x = 9
+						sprite.playing = true
+					else:
+						velocity.x *= 0.85
+						if sprite.frame == 0:
+							sprite.playing = false
+				else:
+					sprite.speed_scale = 1
+					sprite.playing = true
+					if direction == 1:
+						velocity.x = min(velocity.x + 5, 50)
+					else:
+						velocity.x = max(velocity.x - 5, -50)
+					wander_dist += 1
+					if wander_dist >= 120 && sprite.frame == 0:
+						wander_dist = 0
+						direction *= -1
+				
+		
+	velocity = move_and_slide(velocity, FLOOR)
 #the next signals are used for the aggresive trigger
 #behaviour, it changes the velocity and goes towards
 #the player, it also changes the raycast2d because
@@ -86,22 +118,19 @@ func _physics_process(_delta):
 #as we need only the x coordinates
 
 func _on_Collision_mario_detected(body):
-	if !tracking:
+	if !tracking && sprite.animation != "squish":
+		if player.position.x > position.x:
+			direction = 1
+		else:
+			direction = -1
 		tracking = true
-		if is_on_floor() && sprite.animation != "jumping":
-			if body.global_position.x < global_position.x:
-				print("mario on the left")
-				dir = 2
-			elif body.global_position.x > global_position.x:
-				print("mario on the right")
-				dir = 1
-			speed = 0
-			sprite.animation = "jumping"
-			sprite.frame = 0
-			is_jumping = true
-			if direction != 1:
-				flip_ev()
-			velocity.y = -200
+		sprite.animation = "jumping"
+		sfx_active.stream = sfx["jump"]
+		sfx_active.play()
+		sprite.frame = 0
+		is_jumping = true
+		velocity.y = -150
+		wander_dist = 0
 
 
 func flip_ev():
@@ -110,9 +139,6 @@ func flip_ev():
 
 
 func _on_AwareArea_body_exited(body):
-	tracking = false
-	speed = 50
-	if body.global_position.x < global_position.x:
-		print("mario went away(left)")
-	elif body.global_position.x > global_position.x:
-		print("mario went away(right)")
+	if body == player:
+		print("lost")
+		tracking = false

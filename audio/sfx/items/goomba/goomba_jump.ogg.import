@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/goomba_jump.ogg-9d35cc21552fb0e50e09900514ff4c07.oggstr"
+
+[deps]
+
+source_file="res://audio/sfx/items/goomba/goomba_jump.ogg"
+dest_files=[ "res://.import/goomba_jump.ogg-9d35cc21552fb0e50e09900514ff4c07.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
