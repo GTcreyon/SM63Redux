@@ -78,7 +78,7 @@ var maxY = 0
 
 enum s { #state enum
 	walk,
-	frontflip,
+	frontflip, #triple jump
 	backflip,
 	spin,
 	dive,
@@ -87,6 +87,7 @@ enum s { #state enum
 	pound_fall,
 	pound_land,
 	door,
+	ejump, #bouncing off a goomba
 }
 
 enum n { #fludd enum
@@ -97,7 +98,7 @@ enum n { #fludd enum
 }
 
 var state = s.walk
-var nozzle = n.rocket
+var nozzle = n.none
 var classic
 
 func dive_correct(factor): #Correct the player's origin position when diving
@@ -105,17 +106,6 @@ func dive_correct(factor): #Correct the player's origin position when diving
 	move_and_slide(Vector2(0, set_dive_correct * factor * 60), Vector2(0, -1))
 	camera.position.y = min(0, -set_dive_correct * factor)
 
-func screen_handling():
-	if Input.is_action_just_pressed("fullscreen"):
-		OS.window_fullscreen = !OS.window_fullscreen
-	if Input.is_action_just_pressed("screen+") && OS.window_size.x * 2 <= OS.get_screen_size().x && OS.window_size.y * 2 <= OS.get_screen_size().y:
-		OS.window_size *= 2
-		$Camera2D/GUI.scale *= 2
-	if Input.is_action_just_pressed("screen-") && OS.window_size.x / 2 >= 448:
-		OS.window_size /= 2
-		$Camera2D/GUI.scale /= 2
-	var zoom_factor = 448/OS.window_size.x
-	camera.zoom = Vector2(zoom_factor, zoom_factor)
 
 func play_voice(group_name):
 	var group = voice_bank[group_name]
@@ -541,12 +531,10 @@ func _physics_process(_delta):
 		position = save_pos
 		if slide_vec.length() > 0.5:
 			#warning-ignore:return_value_discarded
-			move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true)
+			move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(46))
 		
 		maxY = max(vel.y, maxY)
 		$Label.text = String(test)
-
-		screen_handling()
 
 func _on_Tween_tween_completed(_object, _key):
 	if state == s.pound_spin:
