@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://src/global/main.gd" type="Script" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://actors/items/tube.tscn" type="PackedScene" id=11]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=12]
 [ext_resource path="res://enemies.gd" type="Script" id=13]
+[ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=14]
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
@@ -158,6 +159,9 @@ position = Vector2( -2249, 230 )
 [node name="Goomba3" parent="Enemies" instance=ExtResource( 6 )]
 position = Vector2( -2313, 230 )
 
+[node name="Goonie" parent="Enemies" instance=ExtResource( 14 )]
+position = Vector2( -1764, 113 )
+
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Bottle" parent="Items" instance=ExtResource( 9 )]
@@ -178,6 +182,7 @@ target_x_pos = 430
 [node name="Water" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1504, 240 )
 scale = Vector2( 15, 5 )
+
 [connection signal="body_entered" from="Coins/Coin_1" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins/Coin_11" to="." method="_on_Coin_body_entered_collected"]
 [connection signal="body_entered" from="Coins/Coin_12" to="." method="_on_Coin_body_entered_collected"]

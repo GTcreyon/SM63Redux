@@ -531,10 +531,10 @@ func _physics_process(_delta):
 		position = save_pos
 		if slide_vec.length() > 0.5:
 			#warning-ignore:return_value_discarded
-			move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(46))
+			move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
 		
 		maxY = max(vel.y, maxY)
-		$Label.text = String(test)
+		$Label.text = String(vel.x)
 
 func _on_Tween_tween_completed(_object, _key):
 	if state == s.pound_spin:
