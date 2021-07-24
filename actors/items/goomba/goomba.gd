@@ -2,7 +2,6 @@ extends KinematicBody2D
 
 const GRAVITY = 10
 const FLOOR = Vector2(0, -1)
-
 const sfx = {
 	"jump": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
 	"step": preload("res://audio/sfx/items/goomba/goomba_step.wav"),
@@ -104,7 +103,10 @@ func _physics_process(_delta):
 					if wander_dist >= 120 && sprite.frame == 0:
 						wander_dist = 0
 						direction *= -1
-				
+		else:
+			sprite.animation = "jumping"
+			if !is_jumping:
+				sprite.frame = 1
 		
 	velocity = move_and_slide(velocity, FLOOR)
 #the next signals are used for the aggresive trigger
@@ -124,12 +126,13 @@ func _on_Collision_mario_detected(body):
 		else:
 			direction = -1
 		tracking = true
-		sprite.animation = "jumping"
-		sfx_active.stream = sfx["jump"]
-		sfx_active.play()
-		sprite.frame = 0
-		is_jumping = true
-		velocity.y = -150
+		if is_on_floor():
+			sprite.animation = "jumping"
+			sfx_active.stream = sfx["jump"]
+			sfx_active.play()
+			sprite.frame = 0
+			is_jumping = true
+			velocity.y = -150
 		wander_dist = 0
 
 

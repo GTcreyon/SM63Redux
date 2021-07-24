@@ -1,13 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/items/koopa/koopa_shell.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/global/main.gd" type="Script" id=4]
 [ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/spawner.tscn" type="PackedScene" id=7]
 
-[node name="Main" type="Node"]
-script = ExtResource( 4 )
+[node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -200 )
@@ -15,12 +15,96 @@ position = Vector2( 0, -200 )
 [node name="Shell" parent="." instance=ExtResource( 3 )]
 position = Vector2( 39, -171 )
 
-[node name="Goomba" parent="Shell" instance=ExtResource( 5 )]
-position = Vector2( 278, -38 )
+[node name="Goomba" parent="." instance=ExtResource( 5 )]
+position = Vector2( 317, -209 )
 
 [node name="TileMap" type="TileMap" parent="."]
+z_index = 2
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 centered_textures = true
 format = 1
-tile_data = PoolIntArray( -327684, 136, 0, -327683, 139, 0, -393214, 140, 0, -393213, 136, 0, -393212, 138, 0, -393211, 138, 0, -393210, 136, 0, -393209, 136, 0, -393208, 136, 0, -393207, 136, 0, -393206, 136, 0, -393205, 136, 0, -393204, 136, 0, -393203, 136, 0, -393202, 136, 0, -262148, 138, 0, -262147, 136, 0, -262146, 136, 0, -262145, 136, 0, -327680, 136, 0, -327679, 136, 0, -327678, 136, 0, -327677, 138, 0, -327673, 138, 0, -327672, 138, 0, -327671, 138, 0, -327670, 138, 0, -327669, 138, 0, -327668, 138, 0, -327667, 138, 0, -196610, 138, 0, -196609, 136, 0, -262144, 136, 0, -262143, 138, 0 )
+tile_data = PoolIntArray( -327699, 141, 0, -327698, 142, 0, -327686, 142, 0, -327685, 141, 0, -327684, 136, 0, -327683, 139, 0, -393214, 140, 0, -393213, 136, 0, -393212, 138, 0, -393211, 138, 0, -393210, 136, 0, -393209, 136, 0, -393208, 136, 0, -393207, 136, 0, -393206, 136, 0, -393205, 136, 0, -393204, 136, 0, -393203, 136, 0, -393202, 136, 0, -262163, 143, 0, -262162, 141, 0, -262161, 142, 0, -262151, 142, 0, -262150, 141, 0, -262149, 143, 0, -262148, 138, 0, -262147, 136, 0, -262146, 136, 0, -262145, 136, 0, -327680, 136, 0, -327679, 136, 0, -327678, 136, 0, -327677, 138, 0, -327673, 138, 0, -327672, 138, 0, -327671, 138, 0, -327670, 138, 0, -327669, 138, 0, -327668, 138, 0, -327667, 138, 0, -196626, 143, 0, -196625, 141, 0, -196624, 142, 0, -196616, 142, 0, -196615, 141, 0, -196614, 143, 0, -196610, 138, 0, -196609, 136, 0, -262144, 136, 0, -262143, 138, 0, -131089, 143, 0, -131088, 141, 0, -131087, 141, 0, -131086, 142, 0, -131085, 142, 0, -131084, 142, 0, -131083, 142, 0, -131082, 142, 0, -131081, 141, 0, -131080, 141, 0, -131079, 143, 0, -65551, 143, 0, -65550, 143, 0, -65549, 143, 0, -65548, 143, 0, -65547, 143, 0, -65546, 143, 0, -65545, 143, 0 )
+
+[node name="WaterGroup" type="Node2D" parent="."]
+
+[node name="Water" parent="WaterGroup" instance=ExtResource( 6 )]
+position = Vector2( -576, -192 )
+
+[node name="Water5" parent="WaterGroup" instance=ExtResource( 6 )]
+position = Vector2( -192, -192 )
+impact = {
+"damping_per_second": 0.95,
+"force": 30,
+"max_damp_range": 0.2,
+"range": 50
+}
+multipliers = {
+"impact": 1,
+"wave": 1
+}
+wave = {
+"height": 5,
+"speed": 1.5,
+"width": 30
+}
+
+[node name="Water3" parent="WaterGroup" instance=ExtResource( 6 )]
+position = Vector2( -448, -192 )
+scale = Vector2( 5, 4 )
+impact = {
+"damping_per_second": 0.95,
+"force": 30,
+"max_damp_range": 0.2,
+"range": 50
+}
+multipliers = {
+"impact": 1,
+"wave": 1
+}
+wave = {
+"height": 5,
+"speed": 1.5,
+"width": 30
+}
+
+[node name="Water2" parent="WaterGroup" instance=ExtResource( 6 )]
+position = Vector2( -544, -192 )
+scale = Vector2( 3, 3 )
+impact = {
+"damping_per_second": 0.95,
+"force": 30,
+"max_damp_range": 0.2,
+"range": 50
+}
+multipliers = {
+"impact": 1,
+"wave": 1
+}
+wave = {
+"height": 5,
+"speed": 1.5,
+"width": 30
+}
+
+[node name="Water4" parent="WaterGroup" instance=ExtResource( 6 )]
+position = Vector2( -288, -192 )
+scale = Vector2( 3, 3 )
+impact = {
+"damping_per_second": 0.95,
+"force": 30,
+"max_damp_range": 0.2,
+"range": 50
+}
+multipliers = {
+"impact": 1,
+"wave": 1
+}
+wave = {
+"height": 5,
+"speed": 1.5,
+"width": 30
+}
+
+[node name="Spawner" parent="." instance=ExtResource( 7 )]
+position = Vector2( -352, -288 )

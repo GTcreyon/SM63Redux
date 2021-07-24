@@ -20,11 +20,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "jumping",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 14 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "squish",
@@ -34,6 +29,11 @@ animations = [ {
 "loop": true,
 "name": "walking",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "jumping",
+"speed": 0.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -56,7 +56,7 @@ script = ExtResource( 16 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "walking"
-frame = 4
+frame = 2
 playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]

@@ -10,6 +10,8 @@ z_index = 1
 space_override = 3
 gravity_vec = Vector2( 0, 0 )
 linear_damp = 0.5
+collision_layer = 0
+collision_mask = 4
 script = ExtResource( 3 )
 
 [node name="Texture" type="Polygon2D" parent="."]
@@ -20,4 +22,5 @@ polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [node name="Collision" type="CollisionPolygon2D" parent="."]
 visible = false
 polygon = PoolVector2Array( 0, 0, 100, 0, 100, 100, 0, 100 )
+
 [connection signal="body_entered" from="." to="." method="_on_Water_body_entered"]

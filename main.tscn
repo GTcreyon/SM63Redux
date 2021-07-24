@@ -1,13 +1,12 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
-[ext_resource path="res://src/global/main.gd" type="Script" id=2]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://solid_box.tscn" type="PackedScene" id=4]
-[ext_resource path="res://actors/items/2/coin_item.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=5]
 [ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/items/2/coin_red_item.tscn" type="PackedScene" id=7]
-[ext_resource path="res://actors/items/2/coin_blue_item.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/items/coin/coin_red.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/items/75/bottle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=10]
 [ext_resource path="res://actors/items/tube.tscn" type="PackedScene" id=11]
@@ -16,10 +15,9 @@
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=14]
 
 [node name="Main" type="Node"]
-script = ExtResource( 2 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -1756.66, 1 )
+position = Vector2( -1763, 87 )
 
 [node name="SolidBox" parent="." instance=ExtResource( 4 )]
 position = Vector2( 256, 256 )
@@ -151,13 +149,7 @@ position = Vector2( -179.983, 167.369 )
 script = ExtResource( 13 )
 
 [node name="Goomba" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( -2185, 230 )
-
-[node name="Goomba2" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( -2249, 230 )
-
-[node name="Goomba3" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( -2313, 230 )
+position = Vector2( -2109, 218 )
 
 [node name="Goonie" parent="Enemies" instance=ExtResource( 14 )]
 position = Vector2( -1764, 113 )
@@ -182,28 +174,4 @@ target_x_pos = 430
 [node name="Water" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1504, 240 )
 scale = Vector2( 15, 5 )
-
-[connection signal="body_entered" from="Coins/Coin_1" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_11" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_12" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_13" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_14" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_15" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_16" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_17" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_18" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_2" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_3" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_4" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_5" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_6" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_7" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_8" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_9" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_10" to="." method="_on_Coin_body_entered_collected"]
-[connection signal="body_entered" from="Coins/Coin_red" to="." method="_on_Coin_red_body_entered_increment"]
-[connection signal="body_entered" from="Coins/Coin_red2" to="." method="_on_Coin_red_body_entered_increment"]
-[connection signal="body_entered" from="Coins/Coin_red3" to="." method="_on_Coin_red_body_entered_increment"]
-[connection signal="body_entered" from="Coins/Coin_blue" to="." method="_on_Coin_blue_body_entered_increment"]
-[connection signal="body_entered" from="Coins/Coin_blue2" to="." method="_on_Coin_blue_body_entered_increment"]
-[connection signal="body_entered" from="Coins/Coin_blue3" to="." method="_on_Coin_blue_body_entered_increment"]
+gravity_vec = Vector2( 0, 1 )

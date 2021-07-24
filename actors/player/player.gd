@@ -114,7 +114,7 @@ func play_voice(group_name):
 	voice.play(0)
 
 func update_classic():
-	classic = $"/root/Main".classic #this isn't a filename don't change Main to lowercase lol
+	classic = $"/root/Singleton".classic #this isn't a filename don't change Main to lowercase lol
 	if classic:
 		set_wall_bounce = 0.5
 	else:

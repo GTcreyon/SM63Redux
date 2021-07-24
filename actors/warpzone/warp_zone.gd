@@ -10,6 +10,7 @@ func _ready():
 	
 func _physics_process(delta):
 	if turn_on == true:
+		sweep_effect.visible = true
 		sweep_effect.rect_position.x += 20
 	if sweep_effect.rect_position.x == -200 and turn_on == true:
 		player.position = set_location
