@@ -53,7 +53,7 @@ func _physics_process(_delta):
 		time_count += 1
 
 func _on_RideArea_body_entered(body):
-	if body.is_on_floor():
+	if body.vel.y > 0:
 		sprite.animation = "flap"
 		sprite.speed_scale = 3
 		riding += 1
