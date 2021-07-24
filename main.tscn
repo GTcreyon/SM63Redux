@@ -173,5 +173,4 @@ target_x_pos = 430
 
 [node name="Water" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1504, 240 )
-scale = Vector2( 15, 5 )
-gravity_vec = Vector2( 0, 1 )
+polygon = PoolVector2Array( 0, 0, 480, 0, 480, 160, 0, 160 )

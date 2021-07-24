@@ -7,7 +7,7 @@ export var multipliers = {"wave": 1,"impact": 1} #have multipliers to impact and
 export var wave = {"width": 30, "height": 5, "speed": 1.5} #if speed is negative then the direction flips
 
 #private variables
-onready var texture = $Texture
+onready var texture = $".."
 var surface = {}
 var global_surface = {} #read only!!!
 var addon_surface = {}
@@ -21,12 +21,18 @@ func set_polys(polys): #set the shape of the water for the collision and texture
 
 func subdivide_surface(): #subdivide the water surface
 	var polys = PoolVector2Array()
-	for x in range(0, 32 * scale.x, water_segment_size):
-		polys.append(Vector2(x / scale.x, 0))
-	if !polys[polys.size() - 1].is_equal_approx(Vector2(32, 0)):
-		polys.append(Vector2(32, 0))
-	polys.append(Vector2(32, 32))
-	polys.append(Vector2(0, 32))
+	var size = texture.polygon.size()
+	for i in range(0, size):
+		var dir = texture.polygon[i].direction_to(texture.polygon[(i+1) % size])
+		if dir == Vector2.RIGHT:
+			var point = texture.polygon[i]
+			while point.x < texture.polygon[(i+1) % size].x:
+				polys.append(point)
+				point += dir * water_segment_size
+			if !polys[polys.size() - 1].is_equal_approx(texture.polygon[(i+1) % size]):
+				polys.append(texture.polygon[(i+1) % size])
+		else:
+			polys.append(texture.polygon[i])
 	set_polys(polys)
 	var surf = get_surface_verts()
 	surface = surf
@@ -38,10 +44,10 @@ func subdivide_surface(): #subdivide the water surface
 
 func get_surface_verts():
 	var dict = {}
-	for i in texture.polygon.size():
-		var vert = texture.polygon[i]
-		if vert.y != 32:
-			dict[i] = vert
+	var size = texture.polygon.size()
+	for i in size:
+		if texture.polygon[i].direction_to(texture.polygon[(i + 1) % size]) == Vector2.RIGHT || texture.polygon[((i - 1) + size) % size].direction_to(texture.polygon[i]) == Vector2.RIGHT:
+			dict[i] = texture.polygon[i]
 	return dict
 
 func set_surface_verts(dict):
@@ -81,7 +87,7 @@ func _process(dt):
 	var pos = get_global_transform_with_canvas().origin #get the position
 	var size = OS.get_window_size() #normalise the object
 	pos.y = size.y - pos.y #inverse the y
-	material.set_shader_param("object_pos", pos / size) #give the object position to the shader
+	texture.material.set_shader_param("object_pos", pos / size) #give the object position to the shader
 	
 	var real_surf = get_surface_verts()
 	#var transformed = transform_polygons_dict(surface, true)
