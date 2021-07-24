@@ -61,9 +61,9 @@ func transform_polygons_dict(dict, to_global):
 	for k in dict.keys():
 		var vert = dict[k]
 		if to_global:
-			vert = vert * scale + position
+			vert = vert * scale + global_position
 		else:
-			vert = (vert - position) / scale
+			vert = (vert - global_position) / scale
 		dict[k] = vert
 	return dict
 	
@@ -80,6 +80,7 @@ func transform_polygons_dict_float(dict, to_global):
 
 func _ready():
 	subdivide_surface()
+	$Collision.polygon = texture.polygon
 
 #update the shader with the latest information
 func _process(dt):
@@ -128,5 +129,6 @@ func _on_Water_body_entered(body):
 		var real_impact = f * g * impact.force * body_y_vel #get the real impact
 		global[k] += real_impact
 	addon_surface = transform_polygons_dict_float(global, false)
+	#print(global_surface)
 	#print(addon_surface)
 	#set_surface_verts(local) #set the surface polygons
