@@ -49,7 +49,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Coin_label" type="Label" parent="."]
+[node name="CoinLabel" type="Label" parent="."]
 margin_top = 16.0
 margin_right = 45.0
 margin_bottom = 34.0
@@ -59,7 +59,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Coin_counter" type="Label" parent="."]
+[node name="CoinCounter" type="Label" parent="."]
 margin_left = 48.0
 margin_top = 16.0
 margin_right = 158.616
@@ -71,7 +71,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Red_coin_label" type="Label" parent="."]
+[node name="RedCoinLabel" type="Label" parent="."]
 margin_top = 32.0
 margin_right = 63.0
 margin_bottom = 50.0
@@ -81,7 +81,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Red_coin_counter" type="Label" parent="."]
+[node name="RedCoinCounter" type="Label" parent="."]
 margin_left = 67.4454
 margin_top = 32.0
 margin_right = 178.061
@@ -93,7 +93,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Red_coin_counter_8" type="Label" parent="."]
+[node name="RedCoinCounter_8" type="Label" parent="."]
 margin_left = 80.636
 margin_top = 32.0
 margin_right = 100.636
@@ -105,7 +105,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Life_meter_label" type="Label" parent="."]
+[node name="LifeMeterLabel" type="Label" parent="."]
 margin_top = 52.0305
 margin_right = 46.0
 margin_bottom = 70.0305
@@ -115,7 +115,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Life_meter_counter" type="Label" parent="."]
+[node name="LifeMeterCounter" type="Label" parent="."]
 margin_left = 48.7937
 margin_top = 52.0
 margin_right = 159.41
@@ -208,6 +208,7 @@ process_material = SubResource( 1 )
 texture = ExtResource( 11 )
 
 [node name="SweepEffect" type="ColorRect" parent="WaterMeter"]
+visible = false
 margin_left = -1198.07
 margin_top = -562.857
 margin_right = -398.071

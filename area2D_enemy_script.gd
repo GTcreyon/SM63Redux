@@ -1,9 +1,11 @@
 extends Area2D
 
+const coin = preload("res://actors/items/coin/coin_yellow.tscn")
+onready var main = $"/root/Main"
 onready var player = $"/root/Main/Player"
 onready var sprite = $"../Sprite"
 onready var lm_counter = player.life_meter_counter
-onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/Life_meter_counter"
+onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/LifeMeterCounter"
 onready var enemy_layer = $"/root/Main/Enemies"
 
 var full_jump = false
@@ -14,9 +16,6 @@ var id = null
 #is compared to object's global position so the collision
 #will be triggered if body's is less or greater
 #depending on coordinates
-
-func _ready():
-	id = enemy_layer.grab_id()
 
 
 func _on_Area2D_body_entered_hurt(body):
@@ -45,6 +44,10 @@ func _on_Area2D_body_entered_hurt(body):
 func _physics_process(_delta):
 	if sprite.animation == "squish":
 		if dead:
+			var spawn = coin.instance()
+			spawn.position = get_parent().position
+			spawn.dropped = true
+			main.add_child(spawn)
 			get_parent().queue_free()
 		else:
 			if player.position.y + 16 > global_position.y - 10:

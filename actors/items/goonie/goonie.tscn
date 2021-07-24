@@ -18,14 +18,14 @@ extents = Vector2( 12, 7 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "swoop",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "flap",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "swoop",
 "speed": 10.0
 } ]
 
@@ -35,7 +35,7 @@ script = ExtResource( 9 )
 
 [node name="RideArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 6
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RideArea"]
 position = Vector2( 0, -8 )
@@ -49,6 +49,7 @@ one_way_collision = true
 position = Vector2( 0, -2 )
 frames = SubResource( 3 )
 animation = "flap"
+frame = 2
 playing = true
 
 [connection signal="body_entered" from="RideArea" to="." method="_on_RideArea_body_entered"]

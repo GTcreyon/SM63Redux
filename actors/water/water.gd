@@ -8,7 +8,6 @@ export var wave = {"width": 30, "height": 5, "speed": 1.5} #if speed is negative
 
 #private variables
 onready var texture = $Texture
-onready var player = $"/root/Main/Player"
 var surface = {}
 var global_surface = {} #read only!!!
 var addon_surface = {}
@@ -95,8 +94,6 @@ func _process(dt):
 	set_surface_verts(real_surf)
 
 func _on_Water_body_entered(body):
-	if body is TileMap or body is StaticBody2D: #don't interact with tilemap, as it breaks stuff
-		return
 	var this_shape = shape_owner_get_shape(0, 0) #get our shape
 	var other_shape; var other_owner #get the other shape and owner_id
 	for owner_id in body.get_shape_owners():
@@ -112,17 +109,17 @@ func _on_Water_body_entered(body):
 		return
 	var contact = contacts[0] #get single contact point
 	
-	var player_y_vel = 0
-	if body == player:
-		player_y_vel = player.vel.y * 0.2 #make the player velocity have an impact on the wave size
-		#if the collision isn't the player, then use the default
+	var body_y_vel = 0
+	if body.get("vel") != null:
+		body_y_vel = body.vel.y * 0.2 #make the body velocity have an impact on the wave size
+		#if the collision doesn't have a velocity, then use the default
 	var global = transform_polygons_dict_float(addon_surface, true) #transform it back to global space
 	var max_size = 32 * scale.x * impact.max_damp_range #full max is 32 * scale.x
 	for k in global.keys():
 		var dist = contact.distance_to(global_surface[k]) #get the distance
 		var f = cos(dist / impact.range * PI * 1.5) #make the wave effect
 		var g = max(-dist / max_size + 1, 0) #damping effect
-		var real_impact = f * g * impact.force * player_y_vel #get the real impact
+		var real_impact = f * g * impact.force * body_y_vel #get the real impact
 		global[k] += real_impact
 	addon_surface = transform_polygons_dict_float(global, false)
 	#print(addon_surface)

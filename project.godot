@@ -24,6 +24,10 @@ config/name="Super Mario 63 Redux"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Singleton="*res://src/global/singleton.gd"
+
 [debug]
 
 settings/fps/force_fps=60
@@ -285,8 +289,7 @@ zoom-={
 
 2d_physics/layer_1="terrain"
 2d_physics/layer_2="player"
-2d_physics/layer_3="enemy"
-2d_physics/layer_4="collectibles"
+2d_physics/layer_3="entity"
 
 [rendering]
 

@@ -15,7 +15,6 @@ func _ready():
 	rng.seed = hash(position.x + position.y * PI) #each bird will be different, but behave the same way each time
 	
 	time_count = rng.randi_range(0, up_time/2)
-	print(time_count)
 	vel.x = 2 + rng.randf() * 0.5
 	if sprite.flip_h:
 		vel.x *= -1
@@ -28,7 +27,8 @@ func _physics_process(_delta):
 			move_vec = Vector2(vel.x*32/60, 0.36)
 			position += move_vec
 			for body in ride_area.get_overlapping_bodies():
-				body.move_and_collide(move_vec)
+				if body.is_on_floor():
+					body.move_and_collide(move_vec)
 		else:
 			move_vec = Vector2(vel.x*32/60, vel.y*32/60)
 			position += move_vec
@@ -38,12 +38,12 @@ func _physics_process(_delta):
 				sprite.animation = "swoop"
 				
 				time_count = rng.randi_range(0, down_time/2)
-				print(time_count)
 	else:
 		move_vec = Vector2(vel.x * 1.5*32/60, 1.5*32/60)
 		position += move_vec
 		for body in ride_area.get_overlapping_bodies():
-			body.move_and_collide(move_vec)
+			if body.is_on_floor():
+				body.move_and_collide(move_vec)
 		if time_count >= down_time:
 			sprite.animation = "flap"
 			sprite.frame = 5
