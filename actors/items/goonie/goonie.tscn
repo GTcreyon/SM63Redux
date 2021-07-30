@@ -49,7 +49,7 @@ one_way_collision = true
 position = Vector2( 0, -2 )
 frames = SubResource( 3 )
 animation = "flap"
-frame = 2
+frame = 6
 playing = true
 
 [connection signal="body_entered" from="RideArea" to="." method="_on_RideArea_body_entered"]

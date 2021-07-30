@@ -7,7 +7,7 @@ export var spawns_per_frame = 0.1
 var cycles = 0
 
 func _process(_delta):
-	if cycles >= 1 / spawns_per_frame:
+	if cycles >= 1 / spawns_per_frame && visible: #make invisible to disable
 		var spawn = entity.instance()
 		spawn.position = position
 		spawn.dropped = true

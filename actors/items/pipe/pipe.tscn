@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://actors/items/tube.gd" type="Script" id=1]
-[ext_resource path="res://actors/items/pipe.png" type="Texture" id=2]
-[ext_resource path="res://audio/sfx/items/sm64_pipe.ogg" type="AudioStream" id=3]
+[ext_resource path="res://audio/sfx/items/sm64_pipe.ogg" type="AudioStream" id=1]
+[ext_resource path="res://actors/items/pipe/pipe.png" type="Texture" id=2]
+[ext_resource path="res://actors/items/pipe/pipe.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4.36713, 8 )
@@ -10,9 +10,9 @@ extents = Vector2( 4.36713, 8 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 15.9792, 16.0339 )
 
-[node name="Tube" type="StaticBody2D"]
+[node name="Pipe" type="StaticBody2D"]
 collision_mask = 2
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -29,6 +29,7 @@ shape = SubResource( 1 )
 shape = SubResource( 2 )
 
 [node name="sfx" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 1 )
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_mario_top"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_mario_off"]

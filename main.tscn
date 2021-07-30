@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
+[ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://solid_box.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=5]
@@ -9,12 +10,12 @@
 [ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/items/75/bottle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=10]
-[ext_resource path="res://actors/items/tube.tscn" type="PackedScene" id=11]
+[ext_resource path="res://actors/items/pipe/pipe.tscn" type="PackedScene" id=11]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=12]
 [ext_resource path="res://enemies.gd" type="Script" id=13]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=14]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( -1763, 87 )
@@ -170,6 +171,9 @@ target_x_pos = 80
 [node name="Tube2" parent="Items" instance=ExtResource( 11 )]
 position = Vector2( 224, 32 )
 target_x_pos = 430
+
+[node name="Pivot" parent="Items" instance=ExtResource( 2 )]
+position = Vector2( -1728, 128 )
 
 [node name="Water" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1504, 240 )
