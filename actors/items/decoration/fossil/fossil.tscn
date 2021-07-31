@@ -1,0 +1,27 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://actors/items/decoration/fossil/brick.png" type="Texture" id=1]
+[ext_resource path="res://actors/items/decoration/fossil/paw.png" type="Texture" id=2]
+[ext_resource path="res://actors/items/decoration/fossil/hat.png" type="Texture" id=3]
+[ext_resource path="res://actors/items/decoration/fossil/bombprint.png" type="Texture" id=4]
+[ext_resource path="res://actors/items/decoration/fossil/goonie_fossil.png" type="Texture" id=5]
+[ext_resource path="res://actors/items/decoration/fossil/skull.png" type="Texture" id=6]
+[ext_resource path="res://actors/items/decoration/fossil/fossil.gd" type="Script" id=7]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "red",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"loop": false,
+"name": "yellow",
+"speed": 5.0
+} ]
+
+[node name="Fossil" type="AnimatedSprite"]
+frames = SubResource( 1 )
+animation = "red"
+script = ExtResource( 7 )
