@@ -4,5 +4,5 @@
 
 [node name="Flowers" type="Sprite"]
 position = Vector2( 0, -7 )
-z_index = 1
+z_index = -1
 texture = ExtResource( 1 )
