@@ -19,8 +19,8 @@ func run_command(cmd):
 		"w":
 			var path
 			match args[1]:
-				"creyon":
-					path = "res://scenes/test/creyon.tscn"
+				"basin":
+					path = "res://scenes/test/basin.tscn"
 				"main":
 					path = "res://main.tscn"
 				"t1":

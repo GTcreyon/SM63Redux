@@ -1,0 +1,120 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
+[ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://actors/items/koopa/koopa_shell.tscn" type="PackedScene" id=3]
+[ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=4]
+[ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=5]
+[ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/spawner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=10]
+[ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=11]
+[ext_resource path="res://actors/debug/bin.tscn" type="PackedScene" id=12]
+[ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=13]
+[ext_resource path="res://actors/items/cloud/cloud.tscn" type="PackedScene" id=14]
+
+[node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 0, -200 )
+
+[node name="Shell" parent="." instance=ExtResource( 3 )]
+position = Vector2( 39, -171 )
+
+[node name="Goomba" parent="." instance=ExtResource( 5 )]
+position = Vector2( 320, -208 )
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = 2
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+centered_textures = true
+format = 1
+tile_data = PoolIntArray( -327699, 141, 0, -327698, 142, 0, -327686, 142, 0, -327685, 141, 0, -327684, 136, 0, -327683, 139, 0, -393214, 140, 0, -393213, 136, 0, -393212, 138, 0, -393211, 138, 0, -393210, 136, 0, -393209, 136, 0, -393208, 136, 0, -393207, 136, 0, -393206, 136, 0, -393205, 136, 0, -393204, 136, 0, -393203, 136, 0, -393202, 136, 0, -262163, 143, 0, -262162, 141, 0, -262161, 142, 0, -262151, 142, 0, -262150, 141, 0, -262149, 143, 0, -262148, 138, 0, -262147, 136, 0, -262146, 136, 0, -262145, 136, 0, -327680, 136, 0, -327679, 136, 0, -327678, 136, 0, -327677, 138, 0, -327673, 138, 0, -327672, 138, 0, -327671, 138, 0, -327670, 138, 0, -327669, 138, 0, -327668, 138, 0, -327667, 138, 0, -196626, 143, 0, -196625, 141, 0, -196624, 142, 0, -196616, 142, 0, -196615, 141, 0, -196614, 143, 0, -196610, 138, 0, -196609, 136, 0, -262144, 136, 0, -262143, 138, 0, -131089, 143, 0, -131088, 141, 0, -131087, 141, 0, -131086, 142, 0, -131084, 142, 0, -131083, 142, 0, -131082, 142, 0, -131081, 141, 0, -131080, 141, 0, -131079, 143, 0, -65551, 143, 0, -65550, 141, 0, -65548, 141, 0, -65547, 143, 0, -65546, 143, 0, -65545, 143, 0, -14, 141, 0, -12, 141, 0, 65524, 143, 0 )
+
+[node name="WaterGroup" type="Node2D" parent="."]
+
+[node name="Water" parent="WaterGroup" instance=ExtResource( 6 )]
+position = Vector2( -576, -192 )
+polygon = PoolVector2Array( 0, 0, 416, 0, 416, 16, 384, 16, 384, 48, 352, 48, 352, 80, 320, 80, 320, 96, 288, 96, 288, 112, 192, 112, 192, 432, 160, 432, 160, 112, 128, 112, 128, 96, 96, 96, 96, 80, 64, 80, 64, 48, 32, 48, 32, 16, 0, 16 )
+
+[node name="Spawner" parent="." instance=ExtResource( 7 )]
+position = Vector2( -368, -192 )
+
+[node name="Pivot" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -256 )
+count = 4
+
+[node name="Goonie" parent="." instance=ExtResource( 8 )]
+position = Vector2( -816, -224 )
+
+[node name="Goonie2" parent="." instance=ExtResource( 8 )]
+position = Vector2( -864, -320 )
+
+[node name="Goonie3" parent="." instance=ExtResource( 8 )]
+position = Vector2( -928, -144 )
+
+[node name="CoinBlue" parent="." instance=ExtResource( 9 )]
+position = Vector2( 0, -352 )
+
+[node name="TerrainPolygon" parent="." instance=ExtResource( 10 )]
+position = Vector2( -608, -144 )
+polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 64, 32, 64, 64, 96, 64, 96, 80, 128, 80, 128, 96, 192, 96, 192, 384, 224, 384, 224, 96, 352, 96, 352, 80, 384, 80, 384, 64, 416, 64, 416, 32, 448, 32, 448, 0, 512, 0, 512, 16, 544, 16, 544, 32, 576, 32, 576, 48, 640, 48, 640, 32, 672, 32, 672, 16, 704, 16, 704, 0, 736, 0, 736, -32, 800, -32, 800, -16, 832, -16, 832, 0, 1056, 0, 1056, -16, 1088, -16, 1088, -48, 1328, -16, 1408, -64, 1488, -128, 1584, -128, 1664, -96, 1712, -32, 1776, 0, 2176, 0, 2256, -208, 2224, -720, 2704, -672, 2816, 432, -528, 424, -560, -784, -192, -752, -192, -96 )
+
+[node name="Bin" parent="." instance=ExtResource( 12 )]
+position = Vector2( -400, 224 )
+
+[node name="Pivot2" parent="." instance=ExtResource( 4 )]
+position = Vector2( -368, -192 )
+
+[node name="Log" parent="." instance=ExtResource( 11 )]
+position = Vector2( 864, -264 )
+
+[node name="Log2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 848, -272 )
+
+[node name="Log3" parent="." instance=ExtResource( 11 )]
+position = Vector2( 832, -280 )
+
+[node name="Log4" parent="." instance=ExtResource( 11 )]
+position = Vector2( 816, -288 )
+
+[node name="Log5" parent="." instance=ExtResource( 11 )]
+position = Vector2( 800, -296 )
+
+[node name="Log6" parent="." instance=ExtResource( 11 )]
+position = Vector2( 784, -304 )
+
+[node name="Log7" parent="." instance=ExtResource( 11 )]
+position = Vector2( 768, -312 )
+
+[node name="Log8" parent="." instance=ExtResource( 11 )]
+position = Vector2( 752, -320 )
+
+[node name="Log9" parent="." instance=ExtResource( 11 )]
+position = Vector2( 736, -328 )
+
+[node name="Log10" parent="." instance=ExtResource( 11 )]
+position = Vector2( 720, -336 )
+
+[node name="TerrainPolygon2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 592, -384 )
+polygon = PoolVector2Array( 0, 0, 64, 16, 120, 40, 112, 72, 96, 96, 32, 96, -16, 72, -48, 24 )
+
+[node name="Coin" parent="." instance=ExtResource( 13 )]
+position = Vector2( 528, -224 )
+
+[node name="Coin2" parent="." instance=ExtResource( 13 )]
+position = Vector2( 584, -216 )
+
+[node name="Coin3" parent="." instance=ExtResource( 13 )]
+position = Vector2( 640, -208 )
+
+[node name="Coin4" parent="." instance=ExtResource( 13 )]
+position = Vector2( 696, -200 )
+
+[node name="Cloud" parent="." instance=ExtResource( 14 )]
+position = Vector2( 368, -400 )
+width = 7

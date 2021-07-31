@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -14,16 +14,18 @@
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0004.png" type="Texture" id=12]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0012.png" type="Texture" id=13]
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=14]
+[ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=15]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node2D"]
 
-[node name="Terrain" type="Node" parent="."]
+[node name="Terrain" type="Node2D" parent="."]
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 14 )]
 position = Vector2( 0, 209 )
 polygon = PoolVector2Array( 0, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -739, 714, -739, 720, -744, 820, -744, 860, -722, 928, -732, 1106, -732, 1246, 170, -47, 120 )
 
 [node name="Sprite-0001" type="Sprite" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.505882 )
 position = Vector2( 225.5, 150 )
 texture = ExtResource( 5 )
@@ -76,4 +78,35 @@ texture = ExtResource( 13 )
 position = Vector2( 356.5, 81.5 )
 texture = ExtResource( 7 )
 
-[node name="Items" type="Node" parent="."]
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Pivot" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 386, -31 )
+count = 4
+
+[node name="Pivot2" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 438, -183 )
+count = 4
+
+[node name="Pivot3" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 292, -254 )
+count = 4
+
+[node name="Pivot4" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( -465, -659 )
+
+[node name="Pivot5" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( -20, -647 )
+count = 1
+
+[node name="Pivot6" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 80, -647 )
+count = 1
+
+[node name="Pivot7" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 180, -647 )
+count = 1
+
+[node name="Pivot8" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 280, -647 )
+count = 1
