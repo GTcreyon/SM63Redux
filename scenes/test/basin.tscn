@@ -154,27 +154,28 @@ frame = 1
 [node name="Fossil3" parent="." instance=ExtResource( 19 )]
 position = Vector2( 950.303, -139.107 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil4" parent="." instance=ExtResource( 19 )]
 position = Vector2( 918.341, -236.446 )
 animation = "yellow"
-frame = 1
+frame = 2
 
 [node name="Fossil5" parent="." instance=ExtResource( 19 )]
 position = Vector2( 819, -117 )
 animation = "yellow"
-frame = 2
+frame = 1
 
 [node name="Fossil6" parent="." instance=ExtResource( 19 )]
 position = Vector2( 300, -376 )
-frame = 2
 
 [node name="Fossil7" parent="." instance=ExtResource( 19 )]
 position = Vector2( 405, -348 )
-frame = 1
 
 [node name="Fossil8" parent="." instance=ExtResource( 19 )]
 position = Vector2( 500, -371 )
+frame = 1
 
 [node name="Fossil9" parent="." instance=ExtResource( 19 )]
 position = Vector2( 602, -322 )
+frame = 1

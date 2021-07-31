@@ -1,6 +1,8 @@
 tool
 extends Polygon2D
 
+const thickness = 18
+
 export var up_vector = Vector2(0, -1)
 export var max_angle = 60
 export var grass_texture = preload("./jungle_grass.png")
@@ -57,8 +59,8 @@ func generate_poly_groups():
 func calculate_intersection(left, right):
 	var half = ((left.direction + right.direction) / 2).tangent().normalized() #split vector
 	var angle = half.angle_to(right.direction)
-	var intersect = half * (12 / sin(angle)) * sign(half.angle())
-	#2/3 is 8 pixels and 1/3 is 4 pixels
+	var intersect = half * (thickness / sin(angle)) * sign(half.angle())
+	#2/3 is 10.67 pixels and 1/3 is 5.33 pixels
 	var overwrite = [left.end + intersect * 2/3, left.end - intersect / 3]
 	
 	left.right_overwrite = overwrite #replace the overwrites of the groups
@@ -75,10 +77,10 @@ func set_polygon_from_groups():
 func generate_grass(group):
 	var strip = Polygon2D.new()
 	strip.polygon = PoolVector2Array([
-		group.start + group.normal * 4,
-		group.end + group.normal * 4,
-		group.end - group.normal * 8,
-		group.start - group.normal * 8
+		group.start + group.normal * thickness / 3,
+		group.end + group.normal * thickness / 3,
+		group.end - group.normal * thickness * 2 / 3,
+		group.start - group.normal * thickness * 2 / 3,
 	])
 	if group.left_overwrite:
 		strip.polygon[3] = group.left_overwrite[0]
@@ -97,7 +99,7 @@ func generate_grass(group):
 	
 	strip.texture = grass_texture
 	strip.texture_rotation = -group.normal_angle - PI / 2
-	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + 4
+	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + thickness/3
 	
 	#purely for debugging
 	if group.debug_draw_outline:
