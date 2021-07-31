@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=2]
@@ -14,6 +14,12 @@
 [ext_resource path="res://actors/debug/bin.tscn" type="PackedScene" id=12]
 [ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=13]
 [ext_resource path="res://actors/items/cloud/cloud.tscn" type="PackedScene" id=14]
+[ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=15]
+[ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=16]
+[ext_resource path="res://actors/items/decoration/bobush.tscn" type="PackedScene" id=17]
+[ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=18]
+[ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=19]
+[ext_resource path="res://actors/terrain/dark_ground.png" type="Texture" id=20]
 
 [node name="Main" type="Node2D"]
 
@@ -35,13 +41,14 @@ format = 1
 tile_data = PoolIntArray( -327699, 141, 0, -327698, 142, 0, -327686, 142, 0, -327685, 141, 0, -327684, 136, 0, -327683, 139, 0, -393214, 140, 0, -393213, 136, 0, -393212, 138, 0, -393211, 138, 0, -393210, 136, 0, -393209, 136, 0, -393208, 136, 0, -393207, 136, 0, -393206, 136, 0, -393205, 136, 0, -393204, 136, 0, -393203, 136, 0, -393202, 136, 0, -262163, 143, 0, -262162, 141, 0, -262161, 142, 0, -262151, 142, 0, -262150, 141, 0, -262149, 143, 0, -262148, 138, 0, -262147, 136, 0, -262146, 136, 0, -262145, 136, 0, -327680, 136, 0, -327679, 136, 0, -327678, 136, 0, -327677, 138, 0, -327673, 138, 0, -327672, 138, 0, -327671, 138, 0, -327670, 138, 0, -327669, 138, 0, -327668, 138, 0, -327667, 138, 0, -196626, 143, 0, -196625, 141, 0, -196624, 142, 0, -196616, 142, 0, -196615, 141, 0, -196614, 143, 0, -196610, 138, 0, -196609, 136, 0, -262144, 136, 0, -262143, 138, 0, -131089, 143, 0, -131088, 141, 0, -131087, 141, 0, -131086, 142, 0, -131084, 142, 0, -131083, 142, 0, -131082, 142, 0, -131081, 141, 0, -131080, 141, 0, -131079, 143, 0, -65551, 143, 0, -65550, 141, 0, -65548, 141, 0, -65547, 143, 0, -65546, 143, 0, -65545, 143, 0, -14, 141, 0, -12, 141, 0, 65524, 143, 0 )
 
 [node name="WaterGroup" type="Node2D" parent="."]
+z_index = 1
 
 [node name="Water" parent="WaterGroup" instance=ExtResource( 6 )]
 position = Vector2( -576, -192 )
 polygon = PoolVector2Array( 0, 0, 416, 0, 416, 16, 384, 16, 384, 48, 352, 48, 352, 80, 320, 80, 320, 96, 288, 96, 288, 112, 192, 112, 192, 432, 160, 432, 160, 112, 128, 112, 128, 96, 96, 96, 96, 80, 64, 80, 64, 48, 32, 48, 32, 16, 0, 16 )
 
 [node name="Spawner" parent="." instance=ExtResource( 7 )]
-position = Vector2( -368, -192 )
+position = Vector2( -368, -200 )
 
 [node name="Pivot" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, -256 )
@@ -63,45 +70,46 @@ position = Vector2( 0, -352 )
 position = Vector2( -608, -144 )
 polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 64, 32, 64, 64, 96, 64, 96, 80, 128, 80, 128, 96, 192, 96, 192, 384, 224, 384, 224, 96, 352, 96, 352, 80, 384, 80, 384, 64, 416, 64, 416, 32, 448, 32, 448, 0, 512, 0, 512, 16, 544, 16, 544, 32, 576, 32, 576, 48, 640, 48, 640, 32, 672, 32, 672, 16, 704, 16, 704, 0, 736, 0, 736, -32, 800, -32, 800, -16, 832, -16, 832, 0, 1056, 0, 1056, -16, 1088, -16, 1088, -48, 1328, -16, 1408, -64, 1488, -128, 1584, -128, 1664, -96, 1712, -32, 1776, 0, 2176, 0, 2256, -208, 2224, -720, 2704, -672, 2816, 432, -528, 424, -560, -784, -192, -752, -192, -96 )
 
+[node name="TerrainPolygon2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 592, -384 )
+polygon = PoolVector2Array( -13, 16, 48, 44, 126, 85, 126, 104, 119, 112, 85, 117, 32, 96, -69, 73, -190, 60, -281, 69, -359, 34, -341, -12, -282.527, -27, -120.344, -27, -58, -11 )
+ground_texture = ExtResource( 20 )
+
 [node name="Bin" parent="." instance=ExtResource( 12 )]
 position = Vector2( -400, 224 )
 
 [node name="Pivot2" parent="." instance=ExtResource( 4 )]
-position = Vector2( -368, -192 )
+position = Vector2( -368, -200 )
 
 [node name="Log" parent="." instance=ExtResource( 11 )]
-position = Vector2( 864, -264 )
+position = Vector2( 870, -265 )
 
 [node name="Log2" parent="." instance=ExtResource( 11 )]
-position = Vector2( 848, -272 )
+position = Vector2( 854, -268 )
 
 [node name="Log3" parent="." instance=ExtResource( 11 )]
-position = Vector2( 832, -280 )
+position = Vector2( 838, -271 )
 
 [node name="Log4" parent="." instance=ExtResource( 11 )]
-position = Vector2( 816, -288 )
+position = Vector2( 822, -274 )
 
 [node name="Log5" parent="." instance=ExtResource( 11 )]
-position = Vector2( 800, -296 )
+position = Vector2( 806, -277 )
 
 [node name="Log6" parent="." instance=ExtResource( 11 )]
-position = Vector2( 784, -304 )
+position = Vector2( 790, -280 )
 
 [node name="Log7" parent="." instance=ExtResource( 11 )]
-position = Vector2( 768, -312 )
+position = Vector2( 774, -283 )
 
 [node name="Log8" parent="." instance=ExtResource( 11 )]
-position = Vector2( 752, -320 )
+position = Vector2( 758, -286 )
 
 [node name="Log9" parent="." instance=ExtResource( 11 )]
-position = Vector2( 736, -328 )
+position = Vector2( 742, -289 )
 
 [node name="Log10" parent="." instance=ExtResource( 11 )]
-position = Vector2( 720, -336 )
-
-[node name="TerrainPolygon2" parent="." instance=ExtResource( 10 )]
-position = Vector2( 592, -384 )
-polygon = PoolVector2Array( 0, 0, 64, 16, 120, 40, 112, 72, 96, 96, 32, 96, -16, 72, -48, 24 )
+position = Vector2( 726, -292 )
 
 [node name="Coin" parent="." instance=ExtResource( 13 )]
 position = Vector2( 528, -224 )
@@ -116,5 +124,57 @@ position = Vector2( 640, -208 )
 position = Vector2( 696, -200 )
 
 [node name="Cloud" parent="." instance=ExtResource( 14 )]
-position = Vector2( 368, -400 )
+position = Vector2( 63, -367 )
 width = 7
+
+[node name="BigTree" parent="." instance=ExtResource( 16 )]
+position = Vector2( 928, -324 )
+
+[node name="SmallTree" parent="." instance=ExtResource( 15 )]
+position = Vector2( 687, -350 )
+
+[node name="BigTree2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 374, -463 )
+
+[node name="BoBush" parent="." instance=ExtResource( 17 )]
+position = Vector2( 688, -174 )
+
+[node name="Flowers" parent="." instance=ExtResource( 18 )]
+position = Vector2( 544, -192 )
+
+[node name="Fossil" parent="." instance=ExtResource( 19 )]
+position = Vector2( 1014.84, -189.418 )
+animation = "yellow"
+
+[node name="Fossil2" parent="." instance=ExtResource( 19 )]
+position = Vector2( 847, -191 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil3" parent="." instance=ExtResource( 19 )]
+position = Vector2( 950.303, -139.107 )
+animation = "yellow"
+
+[node name="Fossil4" parent="." instance=ExtResource( 19 )]
+position = Vector2( 918.341, -236.446 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil5" parent="." instance=ExtResource( 19 )]
+position = Vector2( 819, -117 )
+animation = "yellow"
+frame = 2
+
+[node name="Fossil6" parent="." instance=ExtResource( 19 )]
+position = Vector2( 300, -376 )
+frame = 2
+
+[node name="Fossil7" parent="." instance=ExtResource( 19 )]
+position = Vector2( 405, -348 )
+frame = 1
+
+[node name="Fossil8" parent="." instance=ExtResource( 19 )]
+position = Vector2( 500, -371 )
+
+[node name="Fossil9" parent="." instance=ExtResource( 19 )]
+position = Vector2( 602, -322 )

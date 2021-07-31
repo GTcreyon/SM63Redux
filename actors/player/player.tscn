@@ -38,16 +38,6 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "jump",
@@ -87,6 +77,16 @@ animations = [ {
 "loop": true,
 "name": "walk",
 "speed": 0.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -114,6 +114,7 @@ shape = SubResource( 3 )
 disabled = true
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = -0.594604
 margin_right = 130.405
 margin_bottom = 73.0

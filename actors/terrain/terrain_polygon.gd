@@ -3,11 +3,12 @@ extends Polygon2D
 
 export var up_vector = Vector2(0, -1)
 export var max_angle = 60
+export var grass_texture = preload("./jungle_grass.png")
+export var ground_texture = preload("./jungle_ground.png") setget set_ground_texture
 
 onready var collision = $Collision/CollisionShape
 onready var base = $BaseTexture
 onready var top = $Top
-var grass_texture = preload("res://actors/terrain/jungle_grass.png")
 var poly_old = PoolVector2Array([])
 var poly_groups = []
 
@@ -21,6 +22,11 @@ var poly_groups = []
 #		sum += (vert_next.x - vert.x) * (vert_next.y + vert.y)
 #		i += 1
 #	return sum > 0 #True if clockwise
+
+#update ground texture when changed
+func set_ground_texture(new_texture):
+	ground_texture = new_texture
+	$BaseTexture.texture = ground_texture #can't use the variable cuz the node isn't ready yet
 
 #this function generates the polygon groups
 func generate_poly_groups():
