@@ -72,15 +72,39 @@ func transform_polygons_dict_float(dict, to_global):
 	for k in dict.keys():
 		var y_pos = dict[k]
 		if to_global:
-			y_pos = y_pos * scale.y + position.y
+			y_pos = y_pos * scale.y + global_position.y
 		else:
-			y_pos = (y_pos - position.y) / scale.y
+			y_pos = (y_pos - global_position.y) / scale.y
 		dict[k] = y_pos
 	return dict
 
-func _ready():
-	subdivide_surface()
+func _ready():	
+	#get the max x and max y
+	#from the wiki I read textures can't be bigger than 16384x16384 pixels
+	#so that means water can't be bigger than 16384x16384 pixels either (512x512 tiles)
+	var max_x = 1; var max_y = 1
+	for vertex in texture.polygon:
+		if vertex.x >= max_x:
+			max_x = vertex.x
+		if vertex.y >= max_y:
+			max_y = vertex.y
+	#generate the texture for UV
+	var img_texture = ImageTexture.new()
+	var img = Image.new()
+	#note: is there a less space needing format? it really only needs to store 2 colors, so 1 bit image format would work
+	img.create(max_x, max_y, false, Image.FORMAT_RGB8)
+	#make the texture white
+	img.fill(Color(1, 1, 1, 1))
+	img_texture.create_from_image(img)
+	#set the texture
+	texture.texture = img_texture
+
+	#make the uv coords equal the one of the polygon BEFORE subdividing
+	texture.uv = texture.polygon
 	$Collision.polygon = texture.polygon
+	
+	#the water should be purely visual, so the uv and collision should be set before subdividing
+	subdivide_surface()
 
 #update the shader with the latest information
 func _process(dt):
