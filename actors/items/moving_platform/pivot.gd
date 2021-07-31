@@ -1,3 +1,4 @@
+tool
 extends Node2D
 
 const dot_tex = preload("./dot.png")
