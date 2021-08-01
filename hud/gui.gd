@@ -1,21 +1,20 @@
 extends CanvasLayer
 
-var size = 1 setget set_size
-var font_red = BitmapFont.new()
+#var font_red = BitmapFont.new()
 
 onready var singleton = $"/root/Singleton"
-onready var coin_counter = $CoinCounter
-onready var red_coin_counter = $RedCoinCounter
+onready var coin_counter = $StatsTL/CoinRow/Count
+onready var red_coin_counter = $StatsTL/RedCoinRow/Count
 
-func set_size(new_size):
-	size = new_size
-	$MeterControl/WaterMeter.scale = Vector2.ONE * size
-	$MeterControl/WaterMeter.position = Vector2(-41, -97) * (size - 1)
+func set_size(size):
+	$MeterControl.rect_scale = Vector2.ONE * size
+	$StatsTL.rect_scale = Vector2.ONE * size
+	$StatsTR.rect_scale = Vector2.ONE * size
+	$StatsBL.rect_scale = Vector2.ONE * size
 
-
-func _ready():
-	font_red.create_from_fnt("res://fonts/red/gui_red.fnt")
-	coin_counter.set("custom_fonts/font", font_red)
+#func _ready():
+	#font_red.create_from_fnt("res://fonts/red/gui_red.fnt")
+	#coin_counter.set("custom_fonts/font", font_red)
 
 
 func _process(_delta):

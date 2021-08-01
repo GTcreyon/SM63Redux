@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -20,6 +20,14 @@
 [ext_resource path="res://hud/water_meter/water_meter_power_filler_cover.png" type="Texture" id=18]
 [ext_resource path="res://hud/water_meter/water_meter_cover.png" type="Texture" id=19]
 [ext_resource path="res://actors/debug/console.tscn" type="PackedScene" id=20]
+[ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=21]
+[ext_resource path="res://hud/hud_silver_shine.png" type="Texture" id=22]
+[ext_resource path="res://hud/hud_red_coin.png" type="Texture" id=23]
+[ext_resource path="res://hud/hud_x.png" type="Texture" id=24]
+[ext_resource path="res://hud/hud_coin.png" type="Texture" id=25]
+[ext_resource path="res://hud/hud_shine.png" type="Texture" id=26]
+[ext_resource path="res://hud/hud_shine_coin.png" type="Texture" id=27]
+[ext_resource path="res://hud/hud_shroom.png" type="Texture" id=28]
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
@@ -39,6 +47,187 @@ script = ExtResource( 4 )
 
 [node name="Console" parent="." instance=ExtResource( 20 )]
 
+[node name="StatsTL" type="VBoxContainer" parent="."]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( -8, -8 )
+custom_constants/separation = 21
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CoinRow" type="Control" parent="StatsTL"]
+margin_right = 32.0
+
+[node name="Sprite" type="Sprite" parent="StatsTL/CoinRow"]
+texture = ExtResource( 25 )
+centered = false
+
+[node name="X" type="Sprite" parent="StatsTL/CoinRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTL/CoinRow"]
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 72.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RedCoinRow" type="Control" parent="StatsTL"]
+margin_top = 21.0
+margin_right = 32.0
+margin_bottom = 21.0
+
+[node name="Sprite" type="Sprite" parent="StatsTL/RedCoinRow"]
+texture = ExtResource( 23 )
+centered = false
+
+[node name="X" type="Sprite" parent="StatsTL/RedCoinRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTL/RedCoinRow"]
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 80.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SilverShineRow" type="Control" parent="StatsTL"]
+margin_top = 42.0
+margin_right = 32.0
+margin_bottom = 42.0
+
+[node name="Sprite" type="Sprite" parent="StatsTL/SilverShineRow"]
+texture = ExtResource( 22 )
+centered = false
+
+[node name="X" type="Sprite" parent="StatsTL/SilverShineRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTL/SilverShineRow"]
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 112.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsTR" type="VBoxContainer" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -8.0
+margin_top = 8.0
+rect_pivot_offset = Vector2( 8, -8 )
+custom_constants/separation = 21
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShineRow" type="Control" parent="StatsTR"]
+margin_right = 8.0
+
+[node name="Sprite" type="Sprite" parent="StatsTR/ShineRow"]
+position = Vector2( -40, 8.5 )
+texture = ExtResource( 26 )
+
+[node name="X" type="Sprite" parent="StatsTR/ShineRow"]
+position = Vector2( -29, 4 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTR/ShineRow"]
+margin_left = -15.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShineCoinRow" type="Control" parent="StatsTR"]
+margin_top = 21.0
+margin_right = 8.0
+margin_bottom = 21.0
+
+[node name="Sprite" type="Sprite" parent="StatsTR/ShineCoinRow"]
+position = Vector2( -40, 9.5 )
+texture = ExtResource( 27 )
+
+[node name="X" type="Sprite" parent="StatsTR/ShineCoinRow"]
+position = Vector2( -29, 4 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTR/ShineCoinRow"]
+margin_left = -15.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsBL" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -8.0
+margin_right = 8.0
+rect_pivot_offset = Vector2( -8, 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShroomRow" type="Control" parent="StatsBL"]
+margin_bottom = 8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="StatsBL/ShroomRow"]
+position = Vector2( 0, -16 )
+texture = ExtResource( 28 )
+centered = false
+
+[node name="X" type="Sprite" parent="StatsBL/ShroomRow"]
+position = Vector2( 19, -12 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsBL/ShroomRow"]
+margin_left = 32.0
+margin_top = -15.0
+margin_right = 112.0
+margin_bottom = 1.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="DebugLabel" type="Label" parent="."]
 visible = false
 margin_right = 40.0
@@ -50,6 +239,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CoinCounter" type="Label" parent="."]
+visible = false
+margin_left = 32.0
+margin_top = 16.0
+margin_right = 48.0
+margin_bottom = 32.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CoinLabel" type="Label" parent="."]
 visible = false
 margin_top = 16.0
@@ -57,19 +259,6 @@ margin_right = 45.0
 margin_bottom = 34.0
 custom_fonts/font = ExtResource( 2 )
 text = "Coins x"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CoinCounter" type="Label" parent="."]
-visible = false
-margin_left = 48.0
-margin_top = 16.0
-margin_right = 158.616
-margin_bottom = 34.0
-custom_fonts/font = ExtResource( 2 )
-text = "0"
-uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -144,6 +333,7 @@ margin_left = -57.0
 margin_top = -113.0
 margin_right = -15.0
 margin_bottom = -16.0
+rect_pivot_offset = Vector2( 57, 113 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
