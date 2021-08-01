@@ -40,6 +40,7 @@ script = ExtResource( 4 )
 [node name="Console" parent="." instance=ExtResource( 20 )]
 
 [node name="DebugLabel" type="Label" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 2 )
@@ -50,6 +51,7 @@ __meta__ = {
 }
 
 [node name="CoinLabel" type="Label" parent="."]
+visible = false
 margin_top = 16.0
 margin_right = 45.0
 margin_bottom = 34.0
@@ -60,6 +62,7 @@ __meta__ = {
 }
 
 [node name="CoinCounter" type="Label" parent="."]
+visible = false
 margin_left = 48.0
 margin_top = 16.0
 margin_right = 158.616
@@ -72,6 +75,7 @@ __meta__ = {
 }
 
 [node name="RedCoinLabel" type="Label" parent="."]
+visible = false
 margin_top = 32.0
 margin_right = 63.0
 margin_bottom = 50.0
@@ -82,6 +86,7 @@ __meta__ = {
 }
 
 [node name="RedCoinCounter" type="Label" parent="."]
+visible = false
 margin_left = 67.4454
 margin_top = 32.0
 margin_right = 178.061
@@ -94,6 +99,7 @@ __meta__ = {
 }
 
 [node name="RedCoinCounter_8" type="Label" parent="."]
+visible = false
 margin_left = 80.636
 margin_top = 32.0
 margin_right = 100.636
@@ -106,6 +112,7 @@ __meta__ = {
 }
 
 [node name="LifeMeterLabel" type="Label" parent="."]
+visible = false
 margin_top = 52.0305
 margin_right = 46.0
 margin_bottom = 70.0305
@@ -116,6 +123,7 @@ __meta__ = {
 }
 
 [node name="LifeMeterCounter" type="Label" parent="."]
+visible = false
 margin_left = 48.7937
 margin_top = 52.0
 margin_right = 159.41
@@ -127,14 +135,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WaterMeter" type="Sprite" parent="."]
+[node name="MeterControl" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -57.0
+margin_top = -113.0
+margin_right = -15.0
+margin_bottom = -16.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="WaterMeter" type="Sprite" parent="MeterControl"]
 light_mask = -2147483648
-position = Vector2( 391, 191 )
 texture = ExtResource( 16 )
 centered = false
 script = ExtResource( 3 )
 
-[node name="BubbleMask" type="Light2D" parent="WaterMeter"]
+[node name="BubbleMask" type="Light2D" parent="MeterControl/WaterMeter"]
 position = Vector2( 16, 26 )
 texture = ExtResource( 14 )
 mode = 3
@@ -142,7 +162,7 @@ range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 2
 
-[node name="BubbleMaskFiller" type="Light2D" parent="WaterMeter/BubbleMask"]
+[node name="BubbleMaskFiller" type="Light2D" parent="MeterControl/WaterMeter/BubbleMask"]
 position = Vector2( 0, 62 )
 scale = Vector2( 1, -79 )
 texture = ExtResource( 12 )
@@ -151,7 +171,7 @@ range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 2
 
-[node name="BubbleMaskBottom" type="Light2D" parent="WaterMeter/BubbleMask"]
+[node name="BubbleMaskBottom" type="Light2D" parent="MeterControl/WaterMeter/BubbleMask"]
 position = Vector2( 0, 65.5 )
 texture = ExtResource( 5 )
 mode = 2
@@ -159,13 +179,13 @@ range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 2
 
-[node name="Bottom" type="Sprite" parent="WaterMeter"]
+[node name="Bottom" type="Sprite" parent="MeterControl/WaterMeter"]
 position = Vector2( 2, 88 )
 z_index = -2
 texture = ExtResource( 15 )
 centered = false
 
-[node name="Filler" type="Sprite" parent="WaterMeter"]
+[node name="Filler" type="Sprite" parent="MeterControl/WaterMeter"]
 position = Vector2( 0, 88 )
 scale = Vector2( 1, 79 )
 z_index = -3
@@ -173,12 +193,12 @@ texture = ExtResource( 17 )
 centered = false
 offset = Vector2( 1, -1 )
 
-[node name="Surface" type="Sprite" parent="WaterMeter"]
+[node name="Surface" type="Sprite" parent="MeterControl/WaterMeter"]
 z_index = -1
 texture = ExtResource( 10 )
 centered = false
 
-[node name="BubblesBig" type="Particles2D" parent="WaterMeter"]
+[node name="BubblesBig" type="Particles2D" parent="MeterControl/WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
@@ -187,7 +207,7 @@ visibility_rect = Rect2( -15, -100, 30, 100 )
 process_material = SubResource( 1 )
 texture = ExtResource( 6 )
 
-[node name="BubblesMedium" type="Particles2D" parent="WaterMeter"]
+[node name="BubblesMedium" type="Particles2D" parent="MeterControl/WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
@@ -197,7 +217,7 @@ visibility_rect = Rect2( -15, -100, 30, 100 )
 process_material = SubResource( 1 )
 texture = ExtResource( 8 )
 
-[node name="BubblesSmall" type="Particles2D" parent="WaterMeter"]
+[node name="BubblesSmall" type="Particles2D" parent="MeterControl/WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
@@ -207,7 +227,7 @@ visibility_rect = Rect2( -15, -100, 30, 100 )
 process_material = SubResource( 1 )
 texture = ExtResource( 11 )
 
-[node name="SweepEffect" type="ColorRect" parent="WaterMeter"]
+[node name="SweepEffect" type="ColorRect" parent="MeterControl/WaterMeter"]
 visible = false
 margin_left = -1198.07
 margin_top = -562.857
@@ -218,7 +238,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WaterMeterLabel" type="Label" parent="WaterMeter"]
+[node name="WaterMeterLabel" type="Label" parent="MeterControl/WaterMeter"]
 margin_left = 1.0
 margin_top = 40.0
 margin_right = 23.0
@@ -229,12 +249,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Max" type="Sprite" parent="WaterMeter"]
+[node name="Max" type="Sprite" parent="MeterControl/WaterMeter"]
 position = Vector2( 16, 50 )
 z_index = 1
 texture = ExtResource( 9 )
 
-[node name="PowerFiller" type="Sprite" parent="WaterMeter"]
+[node name="PowerFiller" type="Sprite" parent="MeterControl/WaterMeter"]
 light_mask = 4
 position = Vector2( 35, 90 )
 scale = Vector2( 4, 83 )
@@ -242,24 +262,24 @@ texture = ExtResource( 13 )
 centered = false
 offset = Vector2( 0, -1 )
 
-[node name="Cover" type="Sprite" parent="WaterMeter/PowerFiller"]
+[node name="Cover" type="Sprite" parent="MeterControl/WaterMeter/PowerFiller"]
 modulate = Color( 1, 1, 1, 0 )
 light_mask = 4
 texture = ExtResource( 18 )
 centered = false
 offset = Vector2( 0, -1 )
 
-[node name="PowerMask" type="Light2D" parent="WaterMeter"]
+[node name="PowerMask" type="Light2D" parent="MeterControl/WaterMeter"]
 position = Vector2( 37, 90 )
 texture = ExtResource( 7 )
 range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 4
 
-[node name="Tween" type="Tween" parent="WaterMeter"]
+[node name="Tween" type="Tween" parent="MeterControl/WaterMeter"]
 
-[node name="Cover" type="Sprite" parent="WaterMeter"]
+[node name="Cover" type="Sprite" parent="MeterControl/WaterMeter"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 1, 2 )
+position = Vector2( -7, 0 )
 texture = ExtResource( 19 )
 centered = false

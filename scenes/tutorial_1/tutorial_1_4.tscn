@@ -44,6 +44,7 @@ position = Vector2( 0, 209 )
 polygon = PoolVector2Array( -238, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -739, 714, -739, 720, -744, 820, -744, 860, -722, 928, -732, 1106, -732, 1310, 334, -248, 359 )
 
 [node name="Sprite-0001" type="Sprite" parent="."]
+visible = false
 modulate = Color( 1, 1, 1, 0.505882 )
 position = Vector2( 225.5, 150 )
 texture = ExtResource( 5 )
@@ -211,14 +212,14 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 212.058
+rotation = 92.677
 size = Vector2( 92, 92 )
 wait = 90
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 317.737
+rotation = 139.103
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
@@ -226,7 +227,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -317.737
+rotation = -139.103
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
@@ -361,14 +362,14 @@ position = Vector2( 262, 179 )
 position = Vector2( 482.5, 192.5 )
 
 [node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 30 )]
-position = Vector2( 336, 168 )
+position = Vector2( 340, 168 )
 
 [node name="FungusDouble" parent="Items/Decoration" instance=ExtResource( 29 )]
 position = Vector2( 547, 193.5 )
 flip_h = true
 
 [node name="Flowers" parent="Items/Decoration" instance=ExtResource( 26 )]
-position = Vector2( 375, 196.5 )
+position = Vector2( 310, 196.5 )
 
 [node name="BigTree" parent="Items/Decoration" instance=ExtResource( 27 )]
 position = Vector2( 631, 143 )

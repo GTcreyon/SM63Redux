@@ -74,7 +74,7 @@ var dive_return = false
 var dive_frames = 0
 var pound_frames = 0
 var rocket_charge = 0
-var maxY = 0
+var jump_cancel = false
 
 enum s { #state enum
 	walk,
@@ -225,6 +225,7 @@ func _physics_process(_delta):
 				sprite.rotation_degrees = 0
 			
 		if ground:
+			jump_cancel = false
 			if state == s.pound_fall:
 				pound_frames = max(0, pound_frames - 1)
 				if pound_frames <= 0:
@@ -260,7 +261,10 @@ func _physics_process(_delta):
 				if vel.y > 0:
 					switch_anim("fall")
 				else:
-					switch_anim("jump")
+					if double_jump_state == 2 && !jump_cancel:
+						switch_anim("jump_double")
+					else:
+						switch_anim("jump")
 			elif state == s.pound_fall:
 				switch_anim("pound_fall")
 			elif state == s.dive:
@@ -406,6 +410,7 @@ func _physics_process(_delta):
 			match nozzle:
 				n.hover:
 					fludd_strain = true
+					jump_cancel = true
 					if classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
 						if state == s.dive || state == s.frontflip:
 							vel.y *= 1 - 0.02 * fps_mod
@@ -533,7 +538,6 @@ func _physics_process(_delta):
 			#warning-ignore:return_value_discarded
 			move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
 		
-		maxY = max(vel.y, maxY)
 		$Label.text = String(vel.x)
 
 func _on_Tween_tween_completed(_object, _key):
