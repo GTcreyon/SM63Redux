@@ -3,6 +3,6 @@
 [ext_resource path="res://actors/items/decoration/big_tree.png" type="Texture" id=1]
 
 [node name="BigTree" type="Sprite"]
-position = Vector2( 0, -50 )
+position = Vector2( 0.5, -50 )
 z_index = -1
 texture = ExtResource( 1 )

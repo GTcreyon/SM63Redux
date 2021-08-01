@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -21,17 +21,29 @@
 [ext_resource path="res://actors/items/tilting_platform/tilting_platform.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=20]
 [ext_resource path="res://actors/items/rotating_block/rotating_block.tscn" type="PackedScene" id=21]
+[ext_resource path="res://actors/items/fungus_platform/fungus_head.tscn" type="PackedScene" id=22]
+[ext_resource path="res://actors/items/fungus_platform/fungus_stem.tscn" type="PackedScene" id=23]
+[ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=24]
+[ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=25]
+[ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=26]
+[ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=27]
+[ext_resource path="res://actors/items/decoration/fungus_single.tscn" type="PackedScene" id=28]
+[ext_resource path="res://actors/items/decoration/fungus_double.tscn" type="PackedScene" id=29]
+[ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=30]
+[ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=31]
 
 [node name="Main" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource( 18 )]
+position = Vector2( 13, 188 )
 
 [node name="Terrain" type="Node2D" parent="."]
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 14 )]
 position = Vector2( 0, 209 )
-polygon = PoolVector2Array( 0, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -739, 714, -739, 720, -744, 820, -744, 860, -722, 928, -732, 1106, -732, 1246, 170, -47, 120 )
+polygon = PoolVector2Array( -238, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -739, 714, -739, 720, -744, 820, -744, 860, -722, 928, -732, 1106, -732, 1310, 334, -248, 359 )
 
 [node name="Sprite-0001" type="Sprite" parent="."]
-visible = false
 modulate = Color( 1, 1, 1, 0.505882 )
 position = Vector2( 225.5, 150 )
 texture = ExtResource( 5 )
@@ -86,9 +98,8 @@ texture = ExtResource( 7 )
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Bottle" parent="Items" instance=ExtResource( 16 )]
-position = Vector2( 453, 140 )
-type = 1
+[node name="Goonie" parent="Items" instance=ExtResource( 20 )]
+position = Vector2( 93, -310 )
 
 [node name="Clouds" type="Node2D" parent="Items"]
 
@@ -196,31 +207,188 @@ width = 3
 position = Vector2( -285, -641 )
 width = 3
 
-[node name="RotatingBlock" parent="Items" instance=ExtResource( 21 )]
+[node name="RotatingBlocks" type="Node2D" parent="Items"]
+
+[node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 43.3365
+rotation = 212.058
 size = Vector2( 92, 92 )
 wait = 90
 
-[node name="RotatingBlock2" parent="Items" instance=ExtResource( 21 )]
-modulate = Color( 1, 1, 1, 0.25 )
+[node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
+modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 64.4026
+rotation = 317.737
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
 
-[node name="RotatingBlock3" parent="Items" instance=ExtResource( 21 )]
-modulate = Color( 1, 1, 1, 0.25 )
+[node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
+modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -73.8274
+rotation = -317.737
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
 type = 2
 
-[node name="Player" parent="." instance=ExtResource( 18 )]
-position = Vector2( 13, 188 )
+[node name="Fungus" type="Node2D" parent="Items"]
 
-[node name="Goonie" parent="." instance=ExtResource( 20 )]
-position = Vector2( 93, -310 )
+[node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 23 )]
+position = Vector2( 429, 65 )
+length = 146
+
+[node name="FungusHead" parent="Items/Fungus" instance=ExtResource( 22 )]
+position = Vector2( 454, 160 )
+
+[node name="FungusHead2" parent="Items/Fungus" instance=ExtResource( 22 )]
+position = Vector2( 509, 100 )
+
+[node name="FungusHead4" parent="Items/Fungus" instance=ExtResource( 22 )]
+position = Vector2( 435, 49 )
+
+[node name="FungusHead3" parent="Items/Fungus" instance=ExtResource( 22 )]
+position = Vector2( 586, 56 )
+
+[node name="FungusStem4" parent="Items/Fungus" instance=ExtResource( 23 )]
+position = Vector2( 580, 72 )
+length = 125
+
+[node name="FungusStem2" parent="Items/Fungus" instance=ExtResource( 23 )]
+position = Vector2( 503, 116 )
+length = 95
+
+[node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 23 )]
+position = Vector2( 448, 176 )
+
+[node name="Coins" type="Node2D" parent="Items"]
+
+[node name="Coin" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 386, -2 )
+
+[node name="Coin2" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 350, -16 )
+
+[node name="Coin3" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 336, -52 )
+
+[node name="Coin4" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 350, -88 )
+
+[node name="Coin5" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 386, -102 )
+
+[node name="Coin6" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 422, -88 )
+
+[node name="Coin7" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 436, -52 )
+
+[node name="Coin8" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 422, -16 )
+
+[node name="Coin9" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 437, -152 )
+
+[node name="Coin10" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 401, -166 )
+
+[node name="Coin11" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 387, -202 )
+
+[node name="Coin12" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 401, -238 )
+
+[node name="Coin13" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 437, -252 )
+
+[node name="Coin14" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 473, -238 )
+
+[node name="Coin15" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 487, -202 )
+
+[node name="Coin16" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 473, -166 )
+
+[node name="Coin17" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( -138, -298 )
+
+[node name="Coin18" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( -535, -386 )
+
+[node name="Coin24" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( -356, -375 )
+
+[node name="Coin19" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( -635, -386 )
+
+[node name="Coin20" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( -259, -669 )
+
+[node name="Coin22" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 401, -627 )
+
+[node name="Coin25" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 503, -627 )
+
+[node name="Coin23" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( 452, -627 )
+
+[node name="Coin21" parent="Items/Coins" instance=ExtResource( 24 )]
+position = Vector2( -312, -669 )
+
+[node name="Bottles" type="Node2D" parent="Items"]
+
+[node name="Bottle" parent="Items/Bottles" instance=ExtResource( 16 )]
+position = Vector2( 453, 140 )
+type = 1
+
+[node name="Bottle2" parent="Items/Bottles" instance=ExtResource( 16 )]
+position = Vector2( -814, -310 )
+type = 1
+
+[node name="Bottle3" parent="Items/Bottles" instance=ExtResource( 16 )]
+position = Vector2( -3, -278 )
+type = 1
+
+[node name="Goomba" parent="Items" instance=ExtResource( 25 )]
+position = Vector2( 262, 179 )
+
+[node name="Decoration" type="Node2D" parent="Items"]
+
+[node name="FungusSingle" parent="Items/Decoration" instance=ExtResource( 28 )]
+position = Vector2( 482.5, 192.5 )
+
+[node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 30 )]
+position = Vector2( 336, 168 )
+
+[node name="FungusDouble" parent="Items/Decoration" instance=ExtResource( 29 )]
+position = Vector2( 547, 193.5 )
+flip_h = true
+
+[node name="Flowers" parent="Items/Decoration" instance=ExtResource( 26 )]
+position = Vector2( 375, 196.5 )
+
+[node name="BigTree" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 631, 143 )
+
+[node name="BigTree2" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 195.5, 154 )
+
+[node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 26 )]
+position = Vector2( 128, 202.5 )
+
+[node name="Signs" type="Node2D" parent="Items"]
+
+[node name="Sign" parent="Items/Signs" instance=ExtResource( 31 )]
+position = Vector2( -737, -302 )
+
+[node name="Sign2" parent="Items/Signs" instance=ExtResource( 31 )]
+position = Vector2( 371, 203 )
+
+[node name="Sign3" parent="Items/Signs" instance=ExtResource( 31 )]
+position = Vector2( -129, -638 )
+
+[node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
+position = Vector2( 945, -528 )

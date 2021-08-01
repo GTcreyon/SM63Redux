@@ -4,4 +4,5 @@
 
 [node name="FungusDouble" type="Sprite"]
 position = Vector2( 0, -17.5 )
+z_index = -1
 texture = ExtResource( 1 )
