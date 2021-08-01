@@ -8,8 +8,8 @@ var riding = 0
 onready var sprite = $Sprite
 onready var ride_area = $RideArea
 
-const up_time = 250*60/32 #maximum time a bird will flap up
-const down_time = 45*60/32 #maximum time a bird will swoop down
+const up_time = 250.0*60/32 #maximum time a bird will flap up
+const down_time = 45.0*60/32 #maximum time a bird will swoop down
 
 func _ready():
 	rng.seed = hash(position.x + position.y * PI) #each bird will be different, but behave the same way each time

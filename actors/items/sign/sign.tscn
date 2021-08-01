@@ -5,6 +5,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="Sign" type="Area2D"]
+z_index = -1
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -15 )
