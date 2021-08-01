@@ -36,5 +36,6 @@ texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BottleSmall"]
 shape = SubResource( 2 )
+
 [connection signal="body_entered" from="BottleBig" to="." method="_on_BottleBig_body_entered"]
 [connection signal="body_entered" from="BottleSmall" to="." method="_on_BottleSmall_body_entered"]

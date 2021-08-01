@@ -9,10 +9,9 @@ func _process(_delta):
 		OS.window_fullscreen = !OS.window_fullscreen
 	if Input.is_action_just_pressed("screen+") && OS.window_size.x * 2 <= OS.get_screen_size().x && OS.window_size.y * 2 <= OS.get_screen_size().y:
 		OS.window_size *= 2
-		$GUI.scale *= 2
 	if Input.is_action_just_pressed("screen-") && OS.window_size.x / 2 >= 448:
 		OS.window_size /= 2
-		$GUI.scale /= 2
+	$GUI.size = floor(OS.window_size.x / 448)
 	var zoom_factor = 448/OS.window_size.x
 	
 	if Input.is_action_just_pressed("zoom+"):
