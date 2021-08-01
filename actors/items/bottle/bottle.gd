@@ -10,15 +10,15 @@ onready var small = $BottleSmall
 func switch_type(new_type):
 	match new_type:
 		1:
-			big.visible = true
-			big.monitoring = true
-			small.visible = false
-			small.monitoring = false
+			$BottleBig.visible = true
+			$BottleBig.monitoring = true
+			$BottleSmall.visible = false
+			$BottleSmall.monitoring = false
 		_:
-			big.visible = false
-			big.monitoring = false
-			small.visible = true
-			small.monitoring = true
+			$BottleBig.visible = false
+			$BottleBig.monitoring = false
+			$BottleSmall.visible = true
+			$BottleSmall.monitoring = true
 			
 func _process(_delta):
 	if Engine.editor_hint:
