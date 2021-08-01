@@ -18,8 +18,6 @@ const texture_dict = {
 		],
 }
 
-
-
 export var size = Vector2(64, 64) setget set_size
 export var speed = 1
 export var wait = 120
@@ -70,7 +68,7 @@ func set_type(new_type):
 	match type:
 		2:
 			change_texture("white")
-			modulate.a = 0.25
+			modulate.a = 0.5
 		_:
 			change_texture("orange")
 			modulate.a = 1

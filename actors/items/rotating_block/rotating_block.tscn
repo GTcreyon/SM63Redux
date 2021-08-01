@@ -12,7 +12,7 @@ resource_local_to_scene = true
 extents = Vector2( 32, 32 )
 
 [node name="RotatingBlock" type="StaticBody2D"]
-rotation = 3.14159
+rotation = 1.5708
 script = ExtResource( 6 )
 
 [node name="Middle" type="TextureRect" parent="."]
