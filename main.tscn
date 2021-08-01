@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=2]
@@ -8,12 +8,13 @@
 [ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/coin/coin_red.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=8]
-[ext_resource path="res://actors/items/75/bottle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/items/bottle/bottle.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=10]
 [ext_resource path="res://actors/items/pipe/pipe.tscn" type="PackedScene" id=11]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=12]
 [ext_resource path="res://enemies.gd" type="Script" id=13]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=14]
+[ext_resource path="res://actors/items/cloud/cloud.tscn" type="PackedScene" id=15]
 
 [node name="Main" type="Node2D"]
 
@@ -163,7 +164,6 @@ type = 1
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 10 )]
 position = Vector2( -1611.83, 224 )
-type = 0
 
 [node name="Tube" parent="Items" instance=ExtResource( 11 )]
 position = Vector2( -1968.13, 224 )
@@ -175,6 +175,20 @@ target_x_pos = 430
 
 [node name="Pivot" parent="Items" instance=ExtResource( 2 )]
 position = Vector2( -1728, 128 )
+
+[node name="Cloud" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( -1632, 96 )
+width = 4
+
+[node name="Cloud2" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( -1824, 176 )
+
+[node name="Cloud3" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( -1808, 48 )
+
+[node name="Cloud4" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( -1664, 192 )
+width = 0
 
 [node name="Water" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1504, 240 )

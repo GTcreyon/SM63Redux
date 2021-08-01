@@ -56,7 +56,7 @@ script = ExtResource( 16 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "walking"
-frame = 2
+frame = 5
 playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
@@ -102,6 +102,7 @@ stream = SubResource( 5 )
 [node name="SFXPassive" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 17 )
 volume_db = -6.0
+attenuation = 10.0
 
 [connection signal="body_entered" from="AlertArea" to="." method="_on_Collision_mario_detected"]
 [connection signal="body_exited" from="AwareArea" to="." method="_on_AwareArea_body_exited"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://actors/items/75/bottle_small.png" type="Texture" id=1]
-[ext_resource path="res://actors/items/75/bottle.gd" type="Script" id=2]
-[ext_resource path="res://actors/items/75/bottle_big.png" type="Texture" id=3]
+[ext_resource path="res://actors/items/bottle/bottle_small.png" type="Texture" id=1]
+[ext_resource path="res://actors/items/bottle/bottle.gd" type="Script" id=2]
+[ext_resource path="res://actors/items/bottle/bottle_big.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 11 )

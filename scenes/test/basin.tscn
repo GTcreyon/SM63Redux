@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/terrain/dark_ground.png" type="Texture" id=20]
+[ext_resource path="res://actors/items/tilting_platform/tilting_platform.tscn" type="PackedScene" id=21]
 
 [node name="Main" type="Node2D"]
 
@@ -124,7 +125,7 @@ position = Vector2( 640, -208 )
 position = Vector2( 696, -200 )
 
 [node name="Cloud" parent="." instance=ExtResource( 14 )]
-position = Vector2( 63, -367 )
+position = Vector2( 110, -389 )
 width = 7
 
 [node name="BigTree" parent="." instance=ExtResource( 16 )]
@@ -149,17 +150,16 @@ animation = "yellow"
 [node name="Fossil2" parent="." instance=ExtResource( 19 )]
 position = Vector2( 847, -191 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil3" parent="." instance=ExtResource( 19 )]
 position = Vector2( 950.303, -139.107 )
 animation = "yellow"
-frame = 1
+frame = 2
 
 [node name="Fossil4" parent="." instance=ExtResource( 19 )]
 position = Vector2( 918.341, -236.446 )
 animation = "yellow"
-frame = 2
+frame = 1
 
 [node name="Fossil5" parent="." instance=ExtResource( 19 )]
 position = Vector2( 819, -117 )
@@ -179,3 +179,7 @@ frame = 1
 [node name="Fossil9" parent="." instance=ExtResource( 19 )]
 position = Vector2( 602, -322 )
 frame = 1
+
+[node name="TiltingPlatform" parent="." instance=ExtResource( 21 )]
+position = Vector2( -66, -414 )
+width = 5

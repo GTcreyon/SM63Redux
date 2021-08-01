@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -15,6 +15,11 @@
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0012.png" type="Texture" id=13]
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=15]
+[ext_resource path="res://actors/items/bottle/bottle.tscn" type="PackedScene" id=16]
+[ext_resource path="res://actors/items/cloud/cloud.tscn" type="PackedScene" id=17]
+[ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=18]
+[ext_resource path="res://actors/items/tilting_platform/tilting_platform.tscn" type="PackedScene" id=19]
+[ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=20]
 
 [node name="Main" type="Node2D"]
 
@@ -80,33 +85,118 @@ texture = ExtResource( 7 )
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Pivot" parent="Items" instance=ExtResource( 15 )]
+[node name="Bottle" parent="Items" instance=ExtResource( 16 )]
+position = Vector2( 453, 140 )
+type = 1
+
+[node name="Clouds" type="Node2D" parent="Items"]
+
+[node name="Cloud" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( 174, -223 )
+
+[node name="Cloud2" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -2, -261 )
+
+[node name="Cloud3" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -260, -289 )
+width = 0
+
+[node name="Cloud4" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -273, -223 )
+width = 2
+
+[node name="Cloud5" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -443, -354 )
+
+[node name="Cloud6" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -774, -292 )
+width = 8
+
+[node name="Cloud7" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -776, -459 )
+
+[node name="Cloud8" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -776, -459 )
+
+[node name="Cloud9" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -673, -626 )
+
+[node name="Cloud12" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -579, -645 )
+width = 2
+
+[node name="Cloud13" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -863, -594 )
+width = 2
+
+[node name="Cloud14" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -132, -626 )
+width = 2
+
+[node name="Cloud15" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( 593, -573 )
+width = 2
+
+[node name="Cloud16" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( 452, -594 )
+width = 8
+
+[node name="Cloud10" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -721, -528 )
+width = 0
+
+[node name="Cloud11" parent="Items/Clouds" instance=ExtResource( 17 )]
+position = Vector2( -764, -597 )
+width = 0
+
+[node name="Pivots" type="Node2D" parent="Items"]
+
+[node name="Pivot" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 386, -31 )
 count = 4
 
-[node name="Pivot2" parent="Items" instance=ExtResource( 15 )]
+[node name="Pivot2" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 438, -183 )
 count = 4
 
-[node name="Pivot3" parent="Items" instance=ExtResource( 15 )]
+[node name="Pivot3" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 292, -254 )
 count = 4
 
-[node name="Pivot4" parent="Items" instance=ExtResource( 15 )]
+[node name="Pivot4" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( -465, -659 )
 
-[node name="Pivot5" parent="Items" instance=ExtResource( 15 )]
+[node name="Pivot5" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( -20, -647 )
 count = 1
 
-[node name="Pivot6" parent="Items" instance=ExtResource( 15 )]
+[node name="Pivot6" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 80, -647 )
 count = 1
 
-[node name="Pivot7" parent="Items" instance=ExtResource( 15 )]
+[node name="Pivot7" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 180, -647 )
 count = 1
 
-[node name="Pivot8" parent="Items" instance=ExtResource( 15 )]
+[node name="Pivot8" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 280, -647 )
 count = 1
+
+[node name="TiltingPlatforms" type="Node2D" parent="Items"]
+
+[node name="TiltingPlatform" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
+position = Vector2( 81, -241 )
+
+[node name="TiltingPlatform2" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
+position = Vector2( -135, -269 )
+width = 3
+
+[node name="TiltingPlatform3" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
+position = Vector2( -285, -641 )
+width = 3
+
+[node name="Player" parent="." instance=ExtResource( 18 )]
+position = Vector2( 13, 188 )
+
+[node name="Goonie" parent="." instance=ExtResource( 20 )]
+position = Vector2( 93, -310 )
