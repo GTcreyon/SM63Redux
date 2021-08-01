@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/items/tilting_platform/tilting_platform.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=20]
+[ext_resource path="res://actors/items/rotating_block/rotating_block.tscn" type="PackedScene" id=21]
 
 [node name="Main" type="Node2D"]
 
@@ -52,7 +53,7 @@ position = Vector2( -246, -81 )
 texture = ExtResource( 3 )
 
 [node name="Sprite-0006" type="Sprite" parent="Sprite-0001/Sprite-0002/Sprite-0003/Sprite-0004/Sprite-0005"]
-position = Vector2( -429, -16.5 )
+position = Vector2( -429, -16 )
 texture = ExtResource( 4 )
 
 [node name="Sprite-0007" type="Sprite" parent="Sprite-0001/Sprite-0002/Sprite-0003/Sprite-0004/Sprite-0005/Sprite-0006"]
@@ -194,6 +195,29 @@ width = 3
 [node name="TiltingPlatform3" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
 position = Vector2( -285, -641 )
 width = 3
+
+[node name="RotatingBlock" parent="Items" instance=ExtResource( 21 )]
+position = Vector2( -355, -296 )
+rotation = 43.3365
+size = Vector2( 92, 92 )
+wait = 90
+
+[node name="RotatingBlock2" parent="Items" instance=ExtResource( 21 )]
+modulate = Color( 1, 1, 1, 0.25 )
+position = Vector2( -535, -318 )
+rotation = 64.4026
+size = Vector2( 70, 70 )
+wait = 60
+type = 2
+
+[node name="RotatingBlock3" parent="Items" instance=ExtResource( 21 )]
+modulate = Color( 1, 1, 1, 0.25 )
+position = Vector2( -636, -318 )
+rotation = -73.8274
+size = Vector2( 70, 70 )
+speed = -1
+wait = 60
+type = 2
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
 position = Vector2( 13, 188 )
