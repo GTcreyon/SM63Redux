@@ -10,6 +10,7 @@ resource_local_to_scene = true
 extents = Vector2( 15, 8 )
 
 [node name="Cloud" type="StaticBody2D"]
+z_index = 1
 collision_mask = 0
 script = ExtResource( 1 )
 
