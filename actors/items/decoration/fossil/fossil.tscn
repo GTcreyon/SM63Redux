@@ -15,13 +15,14 @@ animations = [ {
 "name": "red",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ) ],
 "loop": false,
 "name": "yellow",
 "speed": 5.0
 } ]
 
 [node name="Fossil" type="AnimatedSprite"]
+z_index = 2
 frames = SubResource( 1 )
 animation = "red"
 script = ExtResource( 7 )
