@@ -14,12 +14,6 @@
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=12]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=13]
 
-
-
-
-
-
-
 [node name="Main" type="Node"]
 script = ExtResource( 5 )
 

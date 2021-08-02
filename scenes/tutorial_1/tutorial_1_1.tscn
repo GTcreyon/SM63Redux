@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
@@ -6,7 +6,7 @@
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=5]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=6]
-[ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=7]
+[ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0005.png" type="Texture" id=9]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0011.png" type="Texture" id=10]
@@ -16,14 +16,20 @@
 [ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0010.png" type="Texture" id=14]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0008.png" type="Texture" id=15]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0009.png" type="Texture" id=16]
+[ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=17]
+[ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=18]
+[ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=19]
+[ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=20]
+[ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=21]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node2D"]
 script = ExtResource( 5 )
 
 [node name="Sprite-0005" type="Sprite" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0.498039 )
 position = Vector2( 225.5, 151 )
+z_index = -2
 texture = ExtResource( 9 )
 
 [node name="Sprite-0010" type="Sprite" parent="Sprite-0005"]
@@ -54,112 +60,245 @@ texture = ExtResource( 15 )
 position = Vector2( 1401.5, -54 )
 texture = ExtResource( 16 )
 
-[node name="Items" type="Node" parent="."]
-
-[node name="Log" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 327, 176 )
-
-[node name="Log2" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 342, 176 )
-
-[node name="Log3" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 357, 175 )
-
-[node name="Log8" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 372, 175 )
-
-[node name="Log4" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 387, 174 )
-
-[node name="Log5" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 402, 172 )
-
-[node name="Log6" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 417, 169 )
-
-[node name="Log7" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 432, 166 )
-
-[node name="Log9" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 614, 136 )
-
-[node name="Log10" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 642, 143 )
-
-[node name="Log23" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 628, 140 )
-
-[node name="Log11" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 656, 146 )
-
-[node name="Log12" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 670, 149 )
-
-[node name="Log13" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 684, 152 )
-
-[node name="Log14" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 698, 154 )
-
-[node name="Log15" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 712, 156 )
-
-[node name="Log16" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 726, 158 )
-
-[node name="Log17" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 740, 159 )
-
-[node name="Log18" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 754, 160 )
-
-[node name="Log19" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 768, 160 )
-
-[node name="Log20" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 782, 160 )
-
-[node name="Log21" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 796, 159 )
-
-[node name="Log22" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 810, 158 )
-
-[node name="Log24" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1077, 106 )
-
-[node name="Log25" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1178, 154 )
-
-[node name="Log26" parent="Items" instance=ExtResource( 2 )]
-position = Vector2( 1180, 140 )
-
-[node name="LogFall" parent="Items" instance=ExtResource( 3 )]
-position = Vector2( 1092, 111 )
-
-[node name="FluddBox" parent="Items" instance=ExtResource( 7 )]
-position = Vector2( 1408.91, 78.937 )
+[node name="Items" type="Node2D" parent="."]
 
 [node name="BreakableBox" parent="Items" instance=ExtResource( 6 )]
 position = Vector2( 1738.77, 94.2475 )
 
-[node name="Water" type="Node" parent="."]
+[node name="Logs" type="Node2D" parent="Items"]
+
+[node name="Log" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 327, 176 )
+
+[node name="Log2" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 342, 176 )
+
+[node name="Log3" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 357, 175 )
+
+[node name="Log8" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 372, 175 )
+
+[node name="Log4" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 387, 174 )
+
+[node name="Log5" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 402, 172 )
+
+[node name="Log6" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 417, 169 )
+
+[node name="Log7" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 432, 166 )
+
+[node name="Log9" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 614, 136 )
+
+[node name="Log10" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 642, 143 )
+
+[node name="Log23" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 628, 140 )
+
+[node name="Log11" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 656, 146 )
+
+[node name="Log12" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 670, 149 )
+
+[node name="Log13" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 684, 152 )
+
+[node name="Log14" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 698, 154 )
+
+[node name="Log15" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 712, 156 )
+
+[node name="Log16" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 726, 158 )
+
+[node name="Log17" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 740, 159 )
+
+[node name="Log18" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 754, 160 )
+
+[node name="Log19" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 768, 160 )
+
+[node name="Log20" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 782, 160 )
+
+[node name="Log21" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 796, 159 )
+
+[node name="Log22" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 810, 158 )
+
+[node name="Log24" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 1077, 106 )
+
+[node name="Log25" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 1178, 154 )
+
+[node name="Log26" parent="Items/Logs" instance=ExtResource( 2 )]
+position = Vector2( 1180, 140 )
+
+[node name="LogFall" parent="Items/Logs" instance=ExtResource( 3 )]
+position = Vector2( 1092, 111 )
+
+[node name="Signs" type="Node2D" parent="Items"]
+
+[node name="Sign" parent="Items/Signs" instance=ExtResource( 17 )]
+position = Vector2( 189, 165 )
+
+[node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
+position = Vector2( 299, 165 )
+
+[node name="Sign3" parent="Items/Signs" instance=ExtResource( 17 )]
+position = Vector2( 1287, 53 )
+
+[node name="Decoration" type="Node2D" parent="Items"]
+
+[node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 18 )]
+position = Vector2( 63, 126 )
+
+[node name="BigTree" parent="Items/Decoration" instance=ExtResource( 7 )]
+position = Vector2( 8.5, 102 )
+
+[node name="BigTree2" parent="Items/Decoration" instance=ExtResource( 7 )]
+position = Vector2( 242.5, 115 )
+
+[node name="BigTree3" parent="Items/Decoration" instance=ExtResource( 7 )]
+position = Vector2( 901.5, 97 )
+
+[node name="BigTree4" parent="Items/Decoration" instance=ExtResource( 7 )]
+position = Vector2( 1012.5, 38 )
+
+[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource( 18 )]
+position = Vector2( 1315, 20 )
+
+[node name="Flowers" parent="Items/Decoration" instance=ExtResource( 20 )]
+position = Vector2( 137, 158.5 )
+
+[node name="BigTree5" parent="Items/Decoration" instance=ExtResource( 7 )]
+position = Vector2( 578.5, 75 )
+
+[node name="SmallTree3" parent="Items/Decoration" instance=ExtResource( 18 )]
+position = Vector2( 496, 110 )
+
+[node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 20 )]
+position = Vector2( 1223, 119.5 )
+
+[node name="SmallTree4" parent="Items/Decoration" instance=ExtResource( 18 )]
+position = Vector2( 1686, 73 )
+
+[node name="BigTree6" parent="Items/Decoration" instance=ExtResource( 7 )]
+position = Vector2( 1470.5, 42 )
+
+[node name="Flowers3" parent="Items/Decoration" instance=ExtResource( 20 )]
+position = Vector2( 1427, 85.5 )
+
+[node name="Flowers4" parent="Items/Decoration" instance=ExtResource( 20 )]
+position = Vector2( 1608, 91.5 )
+
+[node name="Flowers5" parent="Items/Decoration" instance=ExtResource( 20 )]
+position = Vector2( 857, 140.5 )
+
+[node name="Fossil" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 77, 208 )
+animation = "yellow"
+
+[node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 200, 207 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 259, 266 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 505, 216 )
+animation = "yellow"
+
+[node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 568, 176 )
+animation = "yellow"
+
+[node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 864, 188 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 1010, 145 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil14" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 977, 216 )
+animation = "yellow"
+
+[node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 1311, 145 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 1426, 159 )
+animation = "yellow"
+
+[node name="Fossil10" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 1618, 156 )
+animation = "yellow"
+
+[node name="Fossil11" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 1534, 198 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil13" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 1254, 222 )
+animation = "yellow"
+frame = 1
+
+[node name="Fossil12" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 1739, 173 )
+animation = "yellow"
+frame = 1
+
+[node name="Goomba" parent="Items" instance=ExtResource( 19 )]
+position = Vector2( 1388, 77 )
+
+[node name="Goomba2" parent="Items" instance=ExtResource( 19 )]
+position = Vector2( 1490, 65 )
+
+[node name="Goomba3" parent="Items" instance=ExtResource( 19 )]
+position = Vector2( 1593, 81 )
+
+[node name="Water" type="Node2D" parent="."]
 
 [node name="Water" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 320, 226 )
-scale = Vector2( 28, 6 )
+polygon = PoolVector2Array( 0, 0, 118, 0, 118, 20, 97, 87, 30, 103, 0, 21 )
+
+[node name="Water2" parent="Water" instance=ExtResource( 8 )]
+position = Vector2( 606, 226 )
+polygon = PoolVector2Array( 0, 0, 212, 0, 212, 43, 370, 66, 488, 58, 478.711, 0, 588.07, 0, 591, 45, 540, 123, 358, 150, 187, 132, 176, 155, 140, 175, 31, 147, 0, 35 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 110, 142 )
 
-[node name="Terrain" type="Node" parent="."]
+[node name="Terrain" type="Node2D" parent="."]
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 16, 160 )
 z_index = 1
-polygon = PoolVector2Array( -17, -8, 83, 9, 304, 9, 304, 87, 334, 169, 401, 153, 422, 85, 422, -1, 449, -14, 495, -11, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 777, 198, 948, 216, 1130, 189, 1181, 111, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -63, 1666, -48, 1787, -62, 1815, -120, 1939, -120, 2200, 422, -52, 266 )
+polygon = PoolVector2Array( -17, -8, 83, 9, 304, 9, 304, 87, 334, 169, 401, 153, 422, 85, 422, -1, 449, -14, 495, -11, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 777, 198, 948, 216, 1130, 189, 1181, 111, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -120, 1939, -120, 2200, 422, -91, 442 )
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
-z_index = 2
 polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277, 133, 159, 141, 1, 118 )

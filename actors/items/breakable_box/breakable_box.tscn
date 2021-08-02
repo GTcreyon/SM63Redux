@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actors/items/breakable_box/box1.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.gd" type="Script" id=2]
@@ -17,11 +17,12 @@ animations = [ {
 extents = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 18, 18 )
+extents = Vector2( 16, 1 )
 
-[node name="BreakableBox" type="StaticBody2D" groups=[
-"Breakable",
-]]
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 18, 16 )
+
+[node name="BreakableBox" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource( 2 )
 
@@ -32,9 +33,20 @@ frames = SubResource( 1 )
 visible = false
 shape = SubResource( 2 )
 
-[node name="DetectionArea" type="Area2D" parent="."]
+[node name="PoundArea" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PoundArea"]
+position = Vector2( 0, -17 )
 shape = SubResource( 3 )
-[connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]
+
+[node name="SpinArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpinArea"]
+shape = SubResource( 4 )
+
+[connection signal="body_entered" from="PoundArea" to="." method="_on_DetectionArea_body_entered"]
+[connection signal="body_entered" from="SpinArea" to="." method="_on_DetectionArea_body_entered"]

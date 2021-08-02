@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0004.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0005.png" type="Texture" id=2]
@@ -8,18 +8,24 @@
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0003.png" type="Texture" id=6]
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=8]
+[ext_resource path="res://actors/items/fungus_platform/fungus_head.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/items/fungus_platform/fungus_stem.tscn" type="PackedScene" id=10]
+[ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=11]
+[ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=12]
+[ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=13]
+[ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=14]
+[ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=15]
 
+[node name="Main" type="Node2D"]
 
-
-[node name="Main" type="Node"]
-
-[node name="Water" type="Node" parent="."]
+[node name="Water" type="Node2D" parent="."]
 
 [node name="Water" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 1414, 150 )
-scale = Vector2( 11, 2.985 )
+z_index = 2
+polygon = PoolVector2Array( 0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60 )
 
-[node name="Terrain" type="Node" parent="."]
+[node name="Terrain" type="Node2D" parent="."]
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 7 )]
 position = Vector2( 0, 215 )
@@ -34,6 +40,7 @@ texture = ExtResource( 5 )
 
 [node name="Sprite-0002" type="Sprite" parent="Sprite-0001"]
 position = Vector2( 337, -0.5 )
+z_index = -3
 texture = ExtResource( 4 )
 
 [node name="Sprite-0003" type="Sprite" parent="Sprite-0001/Sprite-0002"]
@@ -51,3 +58,132 @@ texture = ExtResource( 2 )
 [node name="Sprite-0006" type="Sprite" parent="Sprite-0001/Sprite-0002/Sprite-0003/Sprite-0004/Sprite-0005"]
 position = Vector2( -227.547, 33.447 )
 texture = ExtResource( 3 )
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Fungus" type="Node2D" parent="Items"]
+
+[node name="FungusStem6" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 791, 185 )
+
+[node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 334, 94 )
+length = 102
+
+[node name="FungusHead" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 393, 145 )
+
+[node name="FungusHead2" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 320, 128 )
+
+[node name="FungusHead3" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 340, 78 )
+
+[node name="FungusHead4" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 682, 141 )
+
+[node name="FungusHead5" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 764, 102 )
+
+[node name="FungusHead6" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 797, 169 )
+
+[node name="FungusHead7" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 842, 80 )
+rotation = -0.349066
+
+[node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 314, 144 )
+
+[node name="FungusStem2" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 387, 161 )
+
+[node name="FungusStem4" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 676, 157 )
+
+[node name="FungusStem5" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 758, 118 )
+length = 89
+
+[node name="FungusStem7" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 842, 97 )
+rotation = -0.349066
+length = 110
+
+[node name="FungusHead8" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 1054, -66 )
+
+[node name="FungusStem8" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 1049, -50 )
+
+[node name="FungusStem9" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 1386, 72 )
+
+[node name="FungusHead9" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 1392, 56 )
+
+[node name="FungusHead10" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 1460, 24 )
+rotation = 0.349066
+
+[node name="FungusStem10" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 1449, 37 )
+rotation = 0.349066
+length = 134
+
+[node name="FungusHead11" parent="Items/Fungus" instance=ExtResource( 9 )]
+position = Vector2( 966, -154 )
+
+[node name="FungusStem11" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 960, -138 )
+length = 97
+
+[node name="FluddBox" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 548, 187 )
+
+[node name="Coins" type="Node2D" parent="Items"]
+position = Vector2( 0, 2 )
+
+[node name="Coin" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 293, 172 )
+
+[node name="Coin2" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 333, 172 )
+
+[node name="Coin3" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 373, 172 )
+
+[node name="Coin4" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 683, 103 )
+
+[node name="Coin5" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 764, 67 )
+
+[node name="Coin6" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 833, 44 )
+
+[node name="Coin7" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 944, -61 )
+
+[node name="Coin8" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 994, -61 )
+
+[node name="Coin9" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 1044, -35 )
+
+[node name="Coin10" parent="Items/Coins" instance=ExtResource( 13 )]
+position = Vector2( 1084, -35 )
+
+[node name="Signs" type="Node2D" parent="Items"]
+
+[node name="Sign" parent="Items/Signs" instance=ExtResource( 12 )]
+position = Vector2( 500, 204 )
+
+[node name="Sign2" parent="Items/Signs" instance=ExtResource( 12 )]
+position = Vector2( 1232, 16 )
+
+[node name="Goomba" parent="Items" instance=ExtResource( 14 )]
+position = Vector2( 261, 183 )
+
+[node name="Player" parent="." instance=ExtResource( 11 )]
+position = Vector2( 26, 191 )
