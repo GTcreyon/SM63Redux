@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -29,6 +29,11 @@
 [ext_resource path="res://hud/hud_shine_coin.png" type="Texture" id=27]
 [ext_resource path="res://hud/hud_shroom.png" type="Texture" id=28]
 [ext_resource path="res://shaders/flash.tres" type="Material" id=29]
+[ext_resource path="res://shaders/flash.shader" type="Shader" id=30]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 30 )
+shader_param/flash_factor = 0.0
 
 [sub_resource type="ParticlesMaterial" id=1]
 emission_shape = 2
@@ -72,7 +77,7 @@ texture = ExtResource( 24 )
 centered = false
 
 [node name="Count" type="Label" parent="StatsTL/CoinRow"]
-material = ExtResource( 29 )
+material = SubResource( 2 )
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 72.0
