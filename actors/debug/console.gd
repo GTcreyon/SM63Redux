@@ -44,6 +44,8 @@ func run_command(cmd):
 				get_tree().change_scene(scene)
 			else:
 				output("Scene does not exist.")
+		"water":
+			$"/root/Singleton".water = args[1]
 		_:
 			output("Unknown command.")
 
