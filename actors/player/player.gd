@@ -160,8 +160,10 @@ func switch_state(new_state):
 			dive_box.disabled = true
 			camera.smoothing_speed = 5
 
+
 func _ready():
 	update_classic()
+
 
 func ground_friction(val, sub, div): #Ripped from source
 	val = val/fps_mod
@@ -310,9 +312,10 @@ func _physics_process(_delta):
 							switch_anim("jump")
 							flip_l = sprite.flip_h
 					else:
-						dive_correct(-1)
+						if !dive_return:
+							dive_correct(-1)
 						switch_state(s.backflip)
-						vel.y = min(-set_jump_1_vel - 2.0 * fps_mod, vel.y)
+						vel.y = min(-set_jump_1_vel - 2.5 * fps_mod, vel.y)
 						if sprite.flip_h:
 							vel.x += (30.0 - abs(vel.x)) / (5 / fps_mod)
 						else:
@@ -506,7 +509,7 @@ func _physics_process(_delta):
 		&& state != s.pound_spin):
 			switch_state(s.spin)
 			switch_anim("spin")
-			vel.y = min(-3.3 * fps_mod, vel.y - 3.3 * fps_mod)
+			vel.y = min(-3.5 * fps_mod, vel.y - 3.5 * fps_mod)
 			spin_timer = 30
 		
 		if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
