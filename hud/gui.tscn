@@ -478,6 +478,6 @@ range_item_cull_mask = 4
 
 [node name="Cover" type="Sprite" parent="MeterControl/WaterMeter"]
 modulate = Color( 1, 1, 1, 0 )
-position = Vector2( -7, 0 )
+position = Vector2( 1, 2 )
 texture = ExtResource( 19 )
 centered = false

@@ -6,6 +6,7 @@ const FLOOR = Vector2(0, -1)
 var velocity = Vector2()
 
 onready var main = $"/root/Main/Items/FluddBox".type
+onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 
 onready var hover = $Hover
@@ -29,8 +30,8 @@ func switch_type(type):
 
 
 func pickup(nozzle):
-	player.nozzle = nozzle
-	player.water = 100
+	singleton.nozzle = nozzle
+	singleton.water = 100
 	queue_free()
 
 

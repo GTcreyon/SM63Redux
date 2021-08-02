@@ -15,6 +15,7 @@ onready var power_mask = $PowerMask
 onready var max_sprite = $Max
 onready var tween = $Tween
 
+onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 
 var power_prev = 100
@@ -27,40 +28,40 @@ func _ready():
 	label.set("custom_fonts/font", font_white)
 
 func _process(_delta):
-	filler.scale.y = player.water * 79 / 100
+	filler.scale.y = singleton.water * 79 / 100
 	mask_filler.scale.y = -filler.scale.y
-	power_filler.scale.y = player.power * 83 / 100
-	if player.water > 0:
+	power_filler.scale.y = singleton.power * 83 / 100
+	if singleton.water > 0:
 		surface.visible = true
 		bottom.visible = true
 		bubbles_big.visible = true
 		bubbles_medium.visible = true
 		bubbles_small.visible = true
-		surface.position.y = (100 - player.water) * 79 / 100
+		surface.position.y = (100 - singleton.water) * 79 / 100
 	else:
 		surface.visible = false
 		bottom.visible = false
 		bubbles_big.visible = false
 		bubbles_medium.visible = false
 		bubbles_small.visible = false
-	if player.water == 100:
+	if singleton.water == 100:
 		max_sprite.visible = true
 		label.visible = false
 	else:
 		max_sprite.visible = false
 		label.visible = true
-		label.text = str(floor(player.water))
+		label.text = str(floor(singleton.water))
 		
 	power_mask.offset.y = int(power_mask.offset.y - 1) % 83
 	power_mask.energy = 1.4 if player.fludd_strain else 1.0
-	if player.power == 100 && power_prev != 100:
+	if singleton.power == 100 && power_prev != 100:
 		power_filler_cover.modulate.a = 1
 	elif power_filler_cover.modulate.a > 0:
 		power_filler_cover.modulate.a -= 0.1
-	power_prev = player.power
+	power_prev = singleton.power
 	
-	if player.water > water_prev:
+	if singleton.water > water_prev:
 		cover.modulate.a = 1
 	elif cover.modulate.a > 0:
 		cover.modulate.a -= 0.1
-	water_prev = player.water
+	water_prev = singleton.water

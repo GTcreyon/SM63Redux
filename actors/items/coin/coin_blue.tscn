@@ -57,3 +57,4 @@ shape = SubResource( 3 )
 stream = ExtResource( 13 )
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
+[connection signal="finished" from="SFX" to="." method="_on_SFX_finished"]

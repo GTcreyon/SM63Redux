@@ -40,7 +40,6 @@ script = ExtResource( 13 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "modern"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -57,3 +56,4 @@ shape = SubResource( 3 )
 stream = ExtResource( 1 )
 
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
+[connection signal="finished" from="SFX" to="." method="_on_SFX_finished"]

@@ -22,6 +22,7 @@ const set_dive_speed = 35.0 * fps_mod
 const set_dive_correct = 7
 const set_hover_speed = 9.2
 
+onready var singleton = $"/root/Singleton"
 onready var voice = $Voice
 onready var tween = $Tween
 onready var sprite = $AnimatedSprite
@@ -32,10 +33,8 @@ onready var dive_box = $DiveHitbox
 onready var hitbox = stand_box
 
 #mario's gameplay parameters
-export var life_meter_counter = 8
-export var water = 100
-export var power = 100
-export var fludd_strain = false
+var life_meter_counter = 8
+var fludd_strain = false
 var static_v = false #for pipe, may be used for other things.
 #####################
 
@@ -98,7 +97,6 @@ enum n { #fludd enum
 }
 
 var state = s.walk
-var nozzle = n.none
 var classic
 
 func dive_correct(factor): #Correct the player's origin position when diving
@@ -122,7 +120,7 @@ func update_classic():
 
 func switch_anim(new_anim):
 	var fludd_anim
-	match nozzle:
+	match singleton.nozzle:
 		n.hover:
 			fludd_anim = "hover_" + new_anim
 			if sprite.frames.has_animation(fludd_anim):
@@ -199,7 +197,7 @@ func _physics_process(_delta):
 		var ceiling = is_on_ceiling()
 		
 		if i_switch:
-			nozzle = (nozzle + 1) % 4
+			singleton.nozzle = (singleton.nozzle + 1) % 4
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.diveflip:
@@ -353,10 +351,10 @@ func _physics_process(_delta):
 								double_jump_state = 0
 								switch_state(s.frontflip)
 								play_voice("jump3") 
-								if nozzle == n.none:
-									tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 1, Tween.TRANS_QUART, Tween.EASE_OUT)
+								if singleton.nozzle == n.none:
+									tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
 								else:
-									tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 1, Tween.TRANS_QUART, Tween.EASE_OUT)
+									tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
 								tween.start()
 								flip_l = sprite.flip_h
 							else:
@@ -409,8 +407,8 @@ func _physics_process(_delta):
 				else:
 					vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 		
-		if i_fludd && power > 0 && water > 0 && state != s.diveflip && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
-			match nozzle:
+		if i_fludd && singleton.power > 0 && singleton.water > 0 && state != s.diveflip && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
+			match singleton.nozzle:
 				n.hover:
 					fludd_strain = true
 					jump_cancel = true
@@ -419,10 +417,10 @@ func _physics_process(_delta):
 							vel.y *= 1 - 0.02 * fps_mod
 							vel.x *= 1 - 0.03 * fps_mod
 							if ground:
-								vel.x += cos(sprite.rotation)*0.92*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+								vel.x += cos(sprite.rotation)*1.4*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
 							elif state == s.dive:
 								vel.y += sin(sprite.rotation * (-1 if sprite.flip_h else 1))*0.92*pow(fps_mod, 2)
-								vel.x += cos(sprite.rotation)*0.92/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+								vel.x += cos(sprite.rotation)*1.4/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
 							else:
 								if sprite.flip_h:
 									vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
@@ -431,21 +429,21 @@ func _physics_process(_delta):
 									vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
 									vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
 						else:
-							if power == 100:
+							if singleton.power == 100:
 								vel.y -= 2
 							
 							if i_jump_h:
 								vel.y *= 1 - (0.12 * fps_mod)
 							else:
 								vel.y *= 1 - (0.2 * fps_mod)
-							#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((power/(175 / fps_mod))+(0.75 * fps_mod))
-							#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((power/(175))+(0.75 * fps_mod))
-							vel.y -= (((-4*power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
+							#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((singleton.power/(175 / fps_mod))+(0.75 * fps_mod))
+							#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((singleton.power/(175))+(0.75 * fps_mod))
+							vel.y -= (((-4*singleton.power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*singleton.power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
 							vel.x = ground_friction(vel.x, 0.05, 1.03)
-						water = max(0, water - 0.07 * fps_mod)
-						power -= 1.5 * fps_mod
+						singleton.water = max(0, singleton.water - 0.07 * fps_mod)
+						singleton.power -= 1.5 * fps_mod
 				n.rocket:
-					if power == 100:
+					if singleton.power == 100:
 						fludd_strain = true
 						rocket_charge += 1
 					if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
@@ -457,16 +455,16 @@ func _physics_process(_delta):
 							vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
 							vel.y -= 0.5 * fps_mod
 						
-						water = max(water - 5, 0)
+						singleton.water = max(singleton.water - 5, 0)
 						rocket_charge = 0
-						power = 0
+						singleton.power = 0
 		else:
 			fludd_strain = false
 			rocket_charge = 0
 			if ground:
-				power = 100
-			elif !i_fludd && nozzle != n.hover:
-				power = min(power + fps_mod, 100)
+				singleton.power = 100
+			elif !i_fludd && singleton.nozzle != n.hover:
+				singleton.power = min(singleton.power + fps_mod, 100)
 		
 		if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
 			if ground && i_jump_h:
@@ -479,19 +477,23 @@ func _physics_process(_delta):
 			elif ((state != s.backflip || abs(sprite.rotation_degrees) > 270)
 				&& state != s.pound_fall
 				&& state != s.pound_spin):
+				if !ground:
+					play_voice("dive")
+					if sprite.flip_h:
+						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.8
+					else:
+						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.8
+					if state == s.walk:
+						vel.y = max(-3, vel.y + 3.0 * fps_mod)
+					else:
+						vel.y += 3.0 * fps_mod
 				switch_state(s.dive)
 				rotation_degrees = 0
 				tween.stop_all()
 				switch_anim("dive")
 				double_jump_state = 0
 				dive_correct(1)
-				if !ground:
-					play_voice("dive")
-					if sprite.flip_h:
-						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.95
-					else:
-						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.95
-					vel.y += 3.0 * fps_mod
+				
 		
 		if state == s.spin:
 			if spin_timer > 0:
@@ -527,7 +529,7 @@ func _physics_process(_delta):
 			vel.y = max(vel.y, 0.1)
 		
 		var snap
-		if !ground || i_jump || state == s.diveflip || i_fludd:
+		if !ground || i_jump || state == s.diveflip || (i_fludd && singleton.nozzle == n.hover):
 			snap = Vector2.ZERO
 		else:
 			snap = Vector2(0, 4)
