@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://actors/items/coin/coin_yellow.gd" type="Script" id=1]
+[ext_resource path="res://actors/items/coin/coin_blue.gd" type="Script" id=1]
 [ext_resource path="res://actors/items/coin/legacy_coin2.png" type="Texture" id=2]
 [ext_resource path="res://actors/items/coin/blue_coin0.png" type="Texture" id=3]
 [ext_resource path="res://actors/items/coin/blue_coin4.png" type="Texture" id=4]
@@ -40,7 +40,7 @@ script = ExtResource( 1 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "modern"
-frame = 1
+frame = 5
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
