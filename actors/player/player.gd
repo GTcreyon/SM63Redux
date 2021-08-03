@@ -303,7 +303,7 @@ func _physics_process(_delta):
 			if ground:
 				if state == s.dive:
 					if ((int(i_right) - int(i_left) != -1) && !sprite.flip_h) || ((int(i_right) - int(i_left) != 1) && sprite.flip_h):
-						if !dive_return:
+						if !dive_return && vel.x != 0 && !wall: #prevents static dive recover
 							dive_correct(-1)
 							switch_state(s.diveflip)
 							vel.y = min(-set_jump_1_vel/1.5, vel.y)
@@ -467,7 +467,7 @@ func _physics_process(_delta):
 				singleton.power = min(singleton.power + fps_mod, 100)
 		
 		if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
-			if ground && i_jump_h:
+			if ground && i_jump_h && abs(vel.x) > 1:
 				dive_correct(-1)
 				switch_state(s.diveflip)
 				switch_anim("jump")
@@ -479,10 +479,13 @@ func _physics_process(_delta):
 				&& state != s.pound_spin):
 				if !ground:
 					play_voice("dive")
+					var multiplier = 1
+					if state == s.backflip:
+						multiplier = 2
 					if sprite.flip_h:
-						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.8
+						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.8 * multiplier
 					else:
-						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.8
+						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.8 * multiplier
 					if state == s.walk:
 						vel.y = max(-3, vel.y + 3.0 * fps_mod)
 					else:
@@ -505,6 +508,7 @@ func _physics_process(_delta):
 		&& state != s.spin
 		&& state != s.frontflip
 		&& state != s.dive
+		&& state != s.backflip
 		&& (state != s.diveflip || (!classic && i_spin))
 		&& (vel.y > -3.3 * fps_mod || (!classic && state == s.diveflip))
 		&& state != s.pound_fall
