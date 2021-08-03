@@ -6,6 +6,7 @@
 extents = Vector2( 8, 9.5 )
 
 [node name="LogFall" type="KinematicBody2D"]
+z_index = -1
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

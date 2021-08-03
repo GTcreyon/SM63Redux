@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/items/bobomb/bobomb_fuse_unlit.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/bobomb/bobomb_body.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://actors/items/bobomb/bobomb_fuse_lit_1.png" type="Texture" id=4]
 [ext_resource path="res://actors/items/bobomb/bobomb_key_0.png" type="Texture" id=5]
 [ext_resource path="res://actors/items/bobomb/bobomb_key_1.png" type="Texture" id=6]
+[ext_resource path="res://actors/items/bobomb/bobomb.gd" type="Script" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -36,7 +37,12 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 9 )
+
 [node name="Bobomb" type="KinematicBody2D"]
+collision_layer = 4
+script = ExtResource( 7 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
@@ -46,10 +52,15 @@ animation = "walk"
 position = Vector2( -1, -15 )
 frames = SubResource( 2 )
 animation = "lit"
+frame = 1
 playing = true
 centered = false
 
 [node name="Key" type="AnimatedSprite" parent="."]
 position = Vector2( 11, 0 )
 frames = SubResource( 3 )
+frame = 1
 playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
