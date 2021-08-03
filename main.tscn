@@ -175,10 +175,6 @@ target_x_pos = 430
 
 [node name="Pivot" parent="Items" instance=ExtResource( 2 )]
 position = Vector2( -1728, 128 )
-radius = 50
-count = 3
-speed = 10.0
-offset = 0.0
 
 [node name="Cloud" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1632, 96 )
@@ -186,11 +182,9 @@ width = 4
 
 [node name="Cloud2" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1824, 176 )
-width = 1
 
 [node name="Cloud3" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1808, 48 )
-width = 1
 
 [node name="Cloud4" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1664, 192 )
