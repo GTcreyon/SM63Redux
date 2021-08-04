@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 const GRAVITY = 10
-const FLOOR = Vector2(0, -1)
 const coin = preload("res://actors/items/coin/coin_yellow.tscn")
 const sfx = {
 	"jump": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
@@ -147,7 +146,7 @@ func _physics_process(_delta):
 			if !is_jumping:
 				sprite.frame = 1
 		
-	vel = move_and_slide(vel, FLOOR)
+	vel = move_and_slide(vel, Vector2.UP)
 	if is_on_floor() && struck && sprite.animation != "squish":
 		sprite.animation = "squish"
 		sprite.frame = 0
@@ -205,7 +204,7 @@ func _on_Area2D_body_entered_hurt(body):
 					struck = true
 					vel.y -= 158
 					sprite.animation = "jumping"
-					vel.x += max((12 + vel.x * sign(player.position.x - position.x) / 1.5), 0) * 5.4 
+					vel.x += max((12 + vel.x * sign(player.position.x - position.x) / 1.5), 0) * 5.4
 				else:
 					lm_counter -= 1
 					lm_gui.text = str(lm_counter)
