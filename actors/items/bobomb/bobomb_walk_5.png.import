@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/turbo_pickup.png-1a4b71ff795510c216751c199ab382f3.stex"
+path="res://.import/bobomb_walk_5.png-1de7eebfbf281cd4e86662dba1bd9ed2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/fludd_box/turbo_pickup.png"
-dest_files=[ "res://.import/turbo_pickup.png-1a4b71ff795510c216751c199ab382f3.stex" ]
+source_file="res://actors/items/bobomb/bobomb_walk_5.png"
+dest_files=[ "res://.import/bobomb_walk_5.png-1de7eebfbf281cd4e86662dba1bd9ed2.stex" ]
 
 [params]
 

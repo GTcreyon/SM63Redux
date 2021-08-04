@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://enemies.gd" type="Script" id=13]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/items/cloud/cloud.tscn" type="PackedScene" id=15]
+[ext_resource path="res://actors/items/bobomb/bobomb.tscn" type="PackedScene" id=16]
 
 [node name="Main" type="Node2D"]
 
@@ -156,6 +157,9 @@ position = Vector2( -2109, 218 )
 [node name="Goonie" parent="Enemies" instance=ExtResource( 14 )]
 position = Vector2( -1764, 113 )
 
+[node name="Bobomb" parent="Enemies" instance=ExtResource( 16 )]
+position = Vector2( -1808, 224 )
+
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Bottle" parent="Items" instance=ExtResource( 9 )]
@@ -179,10 +183,6 @@ target_x_pos = 1050
 
 [node name="Pivot" parent="Items" instance=ExtResource( 2 )]
 position = Vector2( -1728, 128 )
-radius = 50
-count = 3
-speed = 10.0
-offset = 0.0
 
 [node name="Cloud" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1632, 96 )
@@ -190,11 +190,9 @@ width = 4
 
 [node name="Cloud2" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1824, 176 )
-width = 1
 
 [node name="Cloud3" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1808, 48 )
-width = 1
 
 [node name="Cloud4" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1664, 192 )

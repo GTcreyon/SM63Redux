@@ -1,11 +1,7 @@
 extends KinematicBody2D
 
-const GRAVITY = 10
-const FLOOR = Vector2(0, -1)
+var vel = Vector2()
 
-var velocity = Vector2()
-
-onready var main = $"/root/Main/Items/FluddBox".type
 onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 
@@ -16,17 +12,26 @@ onready var turbo = $Turbo
 func switch_type(type):
 	match type:
 		2:
-			hover.visible = false
-			rocket.visible = false
-			turbo.visible = true
+			$Hover.visible = false
+			$Hover.monitoring = false
+			$Rocket.visible = false
+			$Rocket.monitoring = false
+			$Turbo.visible = true
+			$Turbo.monitoring = true
 		1:
-			hover.visible = false
-			rocket.visible = true
-			turbo.visible = false
+			$Hover.visible = false
+			$Hover.visible = false
+			$Rocket.visible = true
+			$Rocket.visible = true
+			$Turbo.visible = false
+			$Turbo.visible = false
 		_:
-			hover.visible = true
-			rocket.visible = false
-			turbo.visible = false
+			$Hover.visible = true
+			$Hover.monitoring = true
+			$Rocket.visible = false
+			$Rocket.monitoring = false
+			$Turbo.visible = false
+			$Turbo.monitoring = false
 
 
 func pickup(nozzle):
@@ -35,19 +40,10 @@ func pickup(nozzle):
 	queue_free()
 
 
-func _process(_delta):
-	if Engine.editor_hint:
-		switch_type(main)
-
-
-func _ready():
-	switch_type(main)
-
-
 func _physics_process(_delta):
-	velocity.y += GRAVITY
+	vel.y += 1.67
 	
-	velocity = move_and_slide(velocity, FLOOR)
+	move_and_slide(vel * 60, Vector2.UP)
 
 
 func _on_Turbo_body_entered(_body):

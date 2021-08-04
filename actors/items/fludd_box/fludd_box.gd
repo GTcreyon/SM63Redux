@@ -1,47 +1,34 @@
 tool
 extends Node2D
 
-export(int, 3) var type = 0
-var old_type = type
+export(int, 2) var type = 0 setget set_type
 
 onready var main = $"/root/Main/Items"
 onready var player = $"/root/Main/Player"
-onready var hover = $Hover
-onready var rocket = $Rocket
-onready var turbo = $Turbo
 
 var obj = preload("res://actors/items/fludd_box/fludd.tscn").instance()
 
-func switch_type(new_type):
+func set_type(new_type):
+	type = new_type
 	match new_type:
 		2:
-			hover.visible = false
-			rocket.visible = false
-			turbo.visible = true
+			$Hover.visible = false
+			$Rocket.visible = false
+			$Turbo.visible = true
 		1:
-			hover.visible = false
-			rocket.visible = true
-			turbo.visible = false
+			$Hover.visible = false
+			$Rocket.visible = true
+			$Turbo.visible = false
 		_:
-			hover.visible = true
-			rocket.visible = false
-			turbo.visible = false
-
-
-func _process(_delta):
-	if Engine.editor_hint:
-		if type != old_type: #reduces number of checks each frame by checking if the variable changed
-			switch_type(type)
-			old_type = type
-
-
-func _ready():
-	switch_type(type)
+			$Hover.visible = true
+			$Rocket.visible = false
+			$Turbo.visible = false
 
 
 func _on_FluddBox_body_entered(body):
 	if body == player && player.vel.y > 1:
 		main.call_deferred("add_child", obj)
-		obj.position = position
+		obj.position = Vector2(position.x, position.y + 8.5)
+		obj.switch_type(type)
 		player.vel.y = -6 * 32 / 60
 		queue_free()

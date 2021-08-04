@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actors/items/fludd_box/pickup_hover.png" type="Texture" id=1]
-[ext_resource path="res://actors/items/fludd_box/turbo_pickup.png" type="Texture" id=2]
+[ext_resource path="res://actors/items/fludd_box/pickup_turbo.png" type="Texture" id=2]
 [ext_resource path="res://actors/items/fludd_box/pickup_rocket.png" type="Texture" id=3]
 [ext_resource path="res://actors/items/fludd_box/fludd_gravity.gd" type="Script" id=4]
 
@@ -59,6 +59,7 @@ shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 4 )
+
 [connection signal="body_entered" from="Hover" to="." method="_on_Hover_body_entered"]
 [connection signal="body_entered" from="Rocket" to="." method="_on_Rocket_body_entered"]
 [connection signal="body_entered" from="Turbo" to="." method="_on_Turbo_body_entered"]

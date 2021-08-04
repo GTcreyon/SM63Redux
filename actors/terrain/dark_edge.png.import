@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bobomb_body.png-559d184aac0452a58ccf68524562831d.stex"
+path="res://.import/dark_edge.png-6a4735780591a8bafb5585cfcaf3188e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/bobomb/bobomb_body.png"
-dest_files=[ "res://.import/bobomb_body.png-559d184aac0452a58ccf68524562831d.stex" ]
+source_file="res://actors/terrain/dark_edge.png"
+dest_files=[ "res://.import/dark_edge.png-6a4735780591a8bafb5585cfcaf3188e.stex" ]
 
 [params]
 
