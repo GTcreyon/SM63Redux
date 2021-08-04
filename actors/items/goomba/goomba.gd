@@ -204,7 +204,7 @@ func _on_Area2D_body_entered_hurt(body):
 					struck = true
 					vel.y -= 158
 					sprite.animation = "jumping"
-					vel.x += max((12 + vel.x * sign(player.position.x - position.x) / 1.5), 0) * 5.4
+					vel.x += max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x)
 				else:
 					lm_counter -= 1
 					lm_gui.text = str(lm_counter)

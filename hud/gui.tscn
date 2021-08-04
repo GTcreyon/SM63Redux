@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -30,12 +30,15 @@
 [ext_resource path="res://hud/hud_shroom.png" type="Texture" id=28]
 [ext_resource path="res://shaders/flash.tres" type="Material" id=29]
 [ext_resource path="res://shaders/flash.shader" type="Shader" id=30]
+[ext_resource path="res://actors/items/fludd_box/nozzle_hover.png" type="Texture" id=31]
+[ext_resource path="res://actors/items/fludd_box/nozzle_turbo.png" type="Texture" id=32]
+[ext_resource path="res://actors/items/fludd_box/nozzle_rocket.png" type="Texture" id=33]
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 30 )
 shader_param/flash_factor = 0.0
 
-[sub_resource type="ParticlesMaterial" id=1]
+[sub_resource type="ParticlesMaterial" id=2]
 emission_shape = 2
 emission_box_extents = Vector3( 15, 0, 1 )
 flag_disable_z = true
@@ -46,6 +49,24 @@ initial_velocity = 60.0
 initial_velocity_random = 0.2
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 31 ) ],
+"loop": true,
+"name": "hover",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "rocket",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "turbo",
+"speed": 5.0
+} ]
 
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
@@ -77,7 +98,7 @@ texture = ExtResource( 24 )
 centered = false
 
 [node name="Count" type="Label" parent="StatsTL/CoinRow"]
-material = SubResource( 2 )
+material = SubResource( 1 )
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 72.0
@@ -402,7 +423,7 @@ position = Vector2( 16, 103 )
 z_index = -2
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 1 )
+process_material = SubResource( 2 )
 texture = ExtResource( 6 )
 
 [node name="BubblesMedium" type="Particles2D" parent="MeterControl/WaterMeter"]
@@ -412,7 +433,7 @@ z_index = -2
 amount = 7
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 1 )
+process_material = SubResource( 2 )
 texture = ExtResource( 8 )
 
 [node name="BubblesSmall" type="Particles2D" parent="MeterControl/WaterMeter"]
@@ -422,7 +443,7 @@ z_index = -2
 amount = 6
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 1 )
+process_material = SubResource( 2 )
 texture = ExtResource( 11 )
 
 [node name="SweepEffect" type="ColorRect" parent="MeterControl/WaterMeter"]
@@ -481,3 +502,8 @@ modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 1, 2 )
 texture = ExtResource( 19 )
 centered = false
+
+[node name="Icon" type="AnimatedSprite" parent="MeterControl"]
+position = Vector2( 16, -4 )
+frames = SubResource( 3 )
+animation = "hover"
