@@ -129,7 +129,7 @@ func _physics_process(_delta):
 				base.animation = "struck"
 				fuse.visible = false
 				key.visible = false
-				vel.x += max((12 + vel.x * sign(player.position.x - position.x) / 1.5), 0) * 5.4
+				vel.x += max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x)
 		
 #the next signals are used for the aggresive trigger
 #behaviour, it changes the vel and goes towards

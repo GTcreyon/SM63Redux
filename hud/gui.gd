@@ -3,8 +3,13 @@ extends CanvasLayer
 #var font_red = BitmapFont.new()
 
 onready var singleton = $"/root/Singleton"
+onready var player = $"/root/Main/Player"
 onready var coin_counter = $StatsTL/CoinRow/Count
 onready var red_coin_counter = $StatsTL/RedCoinRow/Count
+onready var meter = $MeterControl
+onready var icon = $MeterControl/Icon
+
+var icon_bob = 0
 
 func set_size(size):
 	$MeterControl.rect_scale = Vector2.ONE * size
@@ -27,3 +32,20 @@ func _process(_delta):
 	if red_coin_counter.text != str(singleton.red_coin_total):
 		red_coin_counter.material.set_shader_param("flash_factor", 0.5)
 		red_coin_counter.text = str(singleton.red_coin_total)
+	
+	meter.visible = true
+	match singleton.nozzle:
+		1:
+			icon.animation = "hover"
+		2:
+			icon.animation = "rocket"
+		3:
+			icon.animation = "turbo"
+		_:
+			meter.visible = false
+	if player.fludd_strain:
+		icon_bob = fmod(icon_bob + 0.5, 120)
+	else:
+		icon_bob = fmod(icon_bob + 0.1, 120)
+	icon.offset.y = sin(icon_bob) * 2
+	
