@@ -23,7 +23,7 @@ script = ExtResource( 5 )
 
 [node name="Water" parent="Water" instance=ExtResource( 11 )]
 position = Vector2( 719, 312 )
-scale = Vector2( 15, 5 )
+polygon = PoolVector2Array( 0, 0, 480, 0, 480, 192, 0, 192 )
 
 [node name="Terrain" type="Node" parent="."]
 
