@@ -31,6 +31,8 @@ onready var angle_cast = $DiveAngling
 onready var stand_box =  $StandHitbox
 onready var dive_box = $DiveHitbox
 onready var hitbox = stand_box
+onready var bubbles_medium = $BubblesMedium
+onready var bubbles_small = $BubblesSmall
 
 #mario's gameplay parameters
 var life_meter_counter = 8
@@ -548,6 +550,33 @@ func _physics_process(_delta):
 			move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
 		
 		$Label.text = String(vel.x)
+	bubbles_medium.emitting = fludd_strain
+	bubbles_small.emitting = fludd_strain
+	var rot_offset = PI/2
+	if state == s.dive:
+		bubbles_medium.position.y = -9
+		bubbles_small.position.y = -9
+		if sprite.flip_h:
+			rot_offset = 0
+			bubbles_medium.position.x = -1
+			bubbles_small.position.x = -1
+			
+		else:
+			rot_offset = PI
+			bubbles_medium.position.x = 1
+			bubbles_small.position.x = 1
+	else:
+		bubbles_medium.position.y = -3
+		bubbles_small.position.y = -3
+		if sprite.flip_h:
+			bubbles_medium.position.x = 11
+			bubbles_small.position.x = 11
+		else:
+			bubbles_medium.position.x = -11
+			bubbles_small.position.x = -11
+	bubbles_medium.process_material.direction = Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0)
+	bubbles_small.process_material.direction = Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0)
+	
 
 func _on_Tween_tween_completed(_object, _key):
 	if state == s.pound_spin:
