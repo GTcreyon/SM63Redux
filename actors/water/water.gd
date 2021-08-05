@@ -2,24 +2,23 @@ extends Area2D
 
 #settings for water
 export var water_segment_size = 5 #in pixels, this works regardless of water scale.
-export var impact = {"force": 30, "range": 50, "max_damp_range": 0.2, "damping_per_second": 0.95} #values in pixels, pixels, percentage, percentage
-export var multipliers = {"wave": 1,"impact": 1} #have multipliers to impact and wave height
-export var wave = {"width": 30, "height": 5, "speed": 1.5} #if speed is negative then the direction flips
+export var surface_wave_properties = {
+	width = 32, #in pixels
+	height = 4, #in pixels
+	speed = 1 #idk it just works
+}
 
 #private variables
 onready var texture = $".."
+var waves = []
 var surface = {}
-var global_surface = {} #read only!!!
-var addon_surface = {}
+var surface_width_px = 0
+var surface_width_keys = 0
 var elapsed_time = 0
+var wave_id_counter = 0
 
-#utility functions
-func set_polys(polys): #set the shape of the water for the collision and texture (note, disabled collision)
-	#var shape = shape_owner_get_shape(0, 0)
-	#shape.set_point_cloud(polys)
-	texture.polygon = polys
-
-func subdivide_surface(): #subdivide the water surface
+#subdivide the water surface
+func subdivide_surface():
 	var polys = PoolVector2Array()
 	var size = texture.polygon.size()
 	for i in range(0, size):
@@ -33,22 +32,22 @@ func subdivide_surface(): #subdivide the water surface
 				polys.append(texture.polygon[(i+1) % size])
 		else:
 			polys.append(texture.polygon[i])
+	
 	set_polys(polys)
-	var surf = get_surface_verts()
-	surface = surf
-	global_surface = transform_polygons_dict(surf, true)
-	var addon = {}
-	for k in surf.keys():
-		addon[k] = 0
-	addon_surface = addon
+	surface = get_surface_verts()
+	surface_width_keys = len(surface) - 1
+	surface_width_px = surface_width_keys * water_segment_size
+
+func set_polys(polys):
+	texture.polygon = polys
 
 func get_surface_verts():
-	var dict = {}
+	var vertices = {}
 	var size = texture.polygon.size()
 	for i in size:
 		if texture.polygon[i].direction_to(texture.polygon[(i + 1) % size]) == Vector2.RIGHT || texture.polygon[((i - 1) + size) % size].direction_to(texture.polygon[i]) == Vector2.RIGHT:
-			dict[i] = texture.polygon[i]
-	return dict
+			vertices[i] = texture.polygon[i]
+	return vertices
 
 func set_surface_verts(dict):
 	var copy = PoolVector2Array(texture.polygon)
@@ -56,29 +55,54 @@ func set_surface_verts(dict):
 		copy.set(k, dict[k])
 	set_polys(copy)
 
-func transform_polygons_dict(dict, to_global):
-	dict = dict.duplicate()
-	for k in dict.keys():
-		var vert = dict[k]
-		if to_global:
-			vert = vert * scale + global_position
-		else:
-			vert = (vert - global_position) / scale
-		dict[k] = vert
-	return dict
-	
-func transform_polygons_dict_float(dict, to_global):
-	dict = dict.duplicate()
-	for k in dict.keys():
-		var y_pos = dict[k]
-		if to_global:
-			y_pos = y_pos * scale.y + global_position.y
-		else:
-			y_pos = (y_pos - global_position.y) / scale.y
-		dict[k] = y_pos
-	return dict
+func get_nearest_surface_vertex_key(pos):
+	var key
+	var nearest_dist = INF
+	for vertKey in surface.keys():
+		var vert = surface[vertKey]
+		var dist = (vert - pos).length()
+		if dist < nearest_dist:
+			key = vertKey
+			nearest_dist = dist
+	return key
 
-func _ready():	
+func move_wave(wave, new):
+	wave.current_position = new
+	wave.current_vertex_key = get_nearest_surface_vertex_key(new)
+	wave.next_vertex_key = get_next_vertex_key_for_wave(wave)
+	wave.speed = wave.speed * (1 if wave.next_vertex_key >= wave.current_vertex_key else -1)
+
+func create_wave(from, speed):
+	wave_id_counter += 1
+	var current_vertex_key = get_nearest_surface_vertex_key(from)
+	var wave = {
+		current_position = from,
+		current_vertex_key = current_vertex_key,
+		next_vertex_key = current_vertex_key,
+		speed = speed,
+		height = 16, #in pixel
+		width = 32, #in pixels
+		reduce = 8, #in pixels per second
+		reduce_width = 0, #in pixels per second
+		direction = 1, #should be either 1 or -1
+		height_direction = 1, #should be either 1 or -1
+		id = wave_id_counter,
+	}
+	wave.next_vertex = get_next_vertex_key_for_wave(wave)
+	waves.append(wave)
+	return wave
+
+func get_next_vertex_key_for_wave(wave):
+	var check_direction = (1 if wave.speed >= 0 else -1) * wave.direction
+	#print(check_direction)
+	if surface.has(wave.current_vertex_key + check_direction):
+		return wave.current_vertex_key + check_direction
+	elif surface.has(wave.current_vertex_key - check_direction):
+		return wave.current_vertex_key - check_direction
+	else:
+		return wave.current_vertex_key
+
+func _ready():
 	#get the max x and max y
 	#from the wiki I read textures can't be bigger than 16384x16384 pixels
 	#so that means water can't be bigger than 16384x16384 pixels either (512x512 tiles)
@@ -88,6 +112,7 @@ func _ready():
 			max_x = vertex.x
 		if vertex.y >= max_y:
 			max_y = vertex.y
+	
 	#generate the texture for UV
 	var img_texture = ImageTexture.new()
 	var img = Image.new()
@@ -114,15 +139,54 @@ func _process(dt):
 	pos.y = size.y - pos.y #inverse the y
 	texture.material.set_shader_param("object_pos", pos / size) #give the object position to the shader
 	
-	var real_surf = get_surface_verts()
-	#var transformed = transform_polygons_dict(surface, true)
-	for k in surface.keys():
-		#surface[i].y *= 0.95
-		addon_surface[k] *= (1 - impact.damping_per_second * dt) * multipliers.impact
-		surface[k].y = sin(elapsed_time * PI * wave.speed + (surface[k].x * PI * scale.x) / wave.width + position.x * PI) * multipliers.wave
-		real_surf[k] = surface[k] / Vector2(1, scale.y / wave.height) + Vector2(0, addon_surface[k] / scale.y * 5)
-		real_surf[k].y = min(real_surf[k].y, 31.99)
-	set_surface_verts(real_surf)
+	var wave_y_modifier = {}
+	for wave in waves:
+		#first reduce the height
+		wave.height -= wave.reduce * dt
+		wave.width -= wave.reduce_width * dt
+		#if our wave has become incredibly small, remove him
+		if wave.height <= 2 || wave.width <= 2:
+			waves.erase(wave)
+			wave.height = 0 #do not skip the rest of the code, we set the wave height to 0 and it will clear itself up
+		wave.current_position.x += wave.speed * wave.direction * dt
+		#update the current and next vertex position, also flip the direction if needed
+		if (wave.speed * wave.direction >= 0 && wave.current_position.x >= surface[wave.next_vertex_key].x) || (wave.speed * wave.direction <= 0 && wave.current_position.x <= surface[wave.next_vertex_key].x):
+			wave.current_vertex_key = wave.next_vertex_key
+			wave.next_vertex_key = get_next_vertex_key_for_wave(wave)
+			wave.speed *= (1 if wave.next_vertex_key >= wave.current_vertex_key else -1) * sign(wave.speed * wave.direction)
+		#get the min/max
+		var ind_width = wave.width / water_segment_size
+		var min_ind = max(wave.current_vertex_key - ind_width / 2, 0)
+		var max_ind = min(wave.current_vertex_key + ind_width / 2, surface_width_keys)
+		ind_width = max_ind - min_ind
+		#generate a hill effect for this wave using sine
+		var counter = 0
+		for ind in range(min_ind, max_ind):
+			#var y_mod = -sin(float(counter) / float(ind_width) * PI) * wave.height
+			#add the modifier
+			#surface[ind] = Vector2(surface[ind].x, sin(float(counter) / float(ind_width - 1) * PI) * 10)
+			var y_mod = -sin(float(counter) / float(ind_width) * PI) * wave.height * wave.height_direction
+			counter += 1
+			if wave_y_modifier.has(ind):
+				wave_y_modifier[ind][wave.id] = y_mod
+			else:
+				wave_y_modifier[ind] = {[wave.id]: y_mod}
+
+	#have a default wave effect
+	var x_offset = get_global_transform().origin.x
+	for surf_key in surface.keys():
+		surface[surf_key].y = sin(
+			(x_offset + surface[surf_key].x) * PI / surface_wave_properties.width
+			+ elapsed_time * 2 * PI * surface_wave_properties.speed
+		) * surface_wave_properties.height
+	
+	#apply the modifier
+	for surf_key in wave_y_modifier.keys():
+		for add_y in wave_y_modifier[surf_key].values():
+			surface[surf_key].y += add_y
+
+	#now actually set the verts
+	set_surface_verts(surface)
 
 func _on_Water_body_entered(body):
 	var this_shape = shape_owner_get_shape(0, 0) #get our shape
@@ -139,20 +203,10 @@ func _on_Water_body_entered(body):
 	if contacts.empty(): #if empty, well there's not much we can do then
 		return
 	var contact = contacts[0] #get single contact point
+	contact -= get_global_transform().origin #transform it to local coordinates
 	
-	var body_y_vel = 0
-	if body.get("vel") != null:
-		body_y_vel = body.vel.y * 0.2 #make the body velocity have an impact on the wave size
-		#if the collision doesn't have a velocity, then use the default
-	var global = transform_polygons_dict_float(addon_surface, true) #transform it back to global space
-	var max_size = 32 * scale.x * impact.max_damp_range #full max is 32 * scale.x
-	for k in global.keys():
-		var dist = contact.distance_to(global_surface[k]) #get the distance
-		var f = cos(dist / impact.range * PI * 1.5) #make the wave effect
-		var g = max(-dist / max_size + 1, 0) #damping effect
-		var real_impact = f * g * impact.force * body_y_vel #get the real impact
-		global[k] += real_impact
-	addon_surface = transform_polygons_dict_float(global, false)
-	#print(global_surface)
-	#print(addon_surface)
-	#set_surface_verts(local) #set the surface polygons
+	#make the speed dependant on impact speed, but I forgot how to get the speed, so can someone else do that ? xd
+	#just set wave.speed
+	var right = create_wave(contact, 128)
+	var left = create_wave(contact, 128)
+	left.direction = -1
