@@ -20,4 +20,5 @@ script = ExtResource( 3 )
 [node name="Collision" type="CollisionPolygon2D" parent="DetectionArea"]
 visible = false
 polygon = PoolVector2Array( 0, 0, 100, 0, 100, 100, 0, 100 )
-[connection signal="body_entered" from="DetectionArea" to="DetectionArea" method="_on_Water_body_entered"]
+[connection signal="body_entered" from="DetectionArea" to="DetectionArea" method="_on_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="DetectionArea" method="_on_body_exited"]
