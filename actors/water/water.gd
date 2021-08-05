@@ -188,7 +188,7 @@ func _process(dt):
 	#now actually set the verts
 	set_surface_verts(surface)
 
-func _on_Water_body_entered(body):
+func handle_impact(body, is_exit):
 	var this_shape = shape_owner_get_shape(0, 0) #get our shape
 	var other_shape; var other_owner #get the other shape and owner_id
 	for owner_id in body.get_shape_owners():
@@ -205,8 +205,34 @@ func _on_Water_body_entered(body):
 	var contact = contacts[0] #get single contact point
 	contact -= get_global_transform().origin #transform it to local coordinates
 	
-	#make the speed dependant on impact speed, but I forgot how to get the speed, so can someone else do that ? xd
-	#just set wave.speed
+	#make the wave size dependant on impact and area
+	var body_vel = 5
+	if body.vel != null:
+		body_vel = abs(body.vel.y)
+	
+	body_vel *= (0.5 if is_exit else 1)
+	
+	#impact velocity
+	var mario_area = 348 #this is mario's default area
+	var height_mult = sqrt(body_vel) / 2
+	var speed_mult = sqrt(3 * body_vel) / 2
+	
+	#multiply area
+	var area_mult = 4 * other_shape.extents.x * other_shape.extents.y / mario_area
+	height_mult *= area_mult
+	speed_mult *= area_mult
+	
+	#create the waves
 	var right = create_wave(contact, 128)
+	right.height *= height_mult
+	right.speed *= speed_mult
 	var left = create_wave(contact, 128)
+	left.height *= height_mult
+	left.speed *= speed_mult
 	left.direction = -1
+
+func _on_body_entered(body):
+	handle_impact(body, false)
+
+func _on_body_exited(body):
+	handle_impact(body, true)
