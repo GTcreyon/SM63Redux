@@ -293,5 +293,5 @@ zoom-={
 
 [rendering]
 
-environment/default_clear_color=Color( 0.545098, 0.701961, 0.843137, 1 )
+environment/default_clear_color=Color( 0.572549, 0.8, 0.827451, 1 )
 environment/default_environment="res://default_env.tres"

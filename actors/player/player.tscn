@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario/pound/pound_fall0.png" type="Texture" id=2]
@@ -35,6 +35,8 @@
 [ext_resource path="res://actors/player/mario/mario_hover_dive.png" type="Texture" id=33]
 [ext_resource path="res://hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=34]
 [ext_resource path="res://hud/water_meter/water_meter_bubble_small.png" type="Texture" id=35]
+[ext_resource path="res://actors/player/bubbles.gd" type="Script" id=37]
+[ext_resource path="res://actors/player/bubble.tres" type="Material" id=38]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -48,20 +50,25 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walk",
 "speed": 0.0
 }, {
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 15.0
+}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "pound_spin",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -73,35 +80,15 @@ animations = [ {
 "name": "hover_pound_spin",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 26 ) ],
+"frames": [ ExtResource( 33 ) ],
 "loop": true,
-"name": "jump_double",
+"name": "hover_dive",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "hover_spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 27 ) ],
-"loop": true,
-"name": "hover_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "hover_walk",
-"speed": 0.0
 }, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "fall",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "hover_pound_fall",
-"speed": 15.0
 }, {
 "frames": [ ExtResource( 23 ) ],
 "loop": true,
@@ -113,25 +100,40 @@ animations = [ {
 "name": "hover_flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 33 ) ],
+"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
 "loop": true,
-"name": "hover_dive",
-"speed": 5.0
+"name": "hover_pound_fall",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 28 ) ],
 "loop": true,
 "name": "hover_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
 "loop": true,
-"name": "pound_fall",
+"name": "hover_walk",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 26 ) ],
+"loop": true,
+"name": "jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "hover_spin",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 27 ) ],
 "loop": true,
-"name": "spin",
-"speed": 15.0
+"name": "hover_jump_double",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -210,29 +212,36 @@ stream = ExtResource( 16 )
 enabled = true
 cast_to = Vector2( 0, 20 )
 
-[node name="BubblesSmall" type="Particles2D" parent="."]
+[node name="BubbleViewport" type="Viewport" parent="."]
+size = Vector2( 320, 320 )
+transparent_bg = true
+usage = 0
+render_target_v_flip = true
+render_target_update_mode = 3
+
+[node name="BubblesSmall" type="Particles2D" parent="BubbleViewport"]
 light_mask = 2
-position = Vector2( -11, -3 )
 z_index = -2
 emitting = false
 amount = 30
 lifetime = 0.5
-visibility_rect = Rect2( -9, 0, 18, 118 )
-local_coords = false
+visibility_rect = Rect2( -32, -160, 64, 320 )
 process_material = SubResource( 6 )
 texture = ExtResource( 35 )
 
-[node name="BubblesMedium" type="Particles2D" parent="."]
+[node name="BubblesMedium" type="Particles2D" parent="BubbleViewport"]
 light_mask = 2
-position = Vector2( -11, -3 )
 z_index = -2
 emitting = false
 amount = 27
 lifetime = 0.35
 fixed_fps = 60
-visibility_rect = Rect2( -9, 0, 18, 118 )
-local_coords = false
+visibility_rect = Rect2( -32, -160, 64, 320 )
 process_material = SubResource( 6 )
 texture = ExtResource( 34 )
 
+[node name="Bubbles" type="Sprite" parent="."]
+material = ExtResource( 38 )
+z_index = -2
+script = ExtResource( 37 )
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
