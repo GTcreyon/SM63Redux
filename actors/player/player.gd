@@ -31,8 +31,9 @@ onready var angle_cast = $DiveAngling
 onready var stand_box =  $StandHitbox
 onready var dive_box = $DiveHitbox
 onready var hitbox = stand_box
-onready var bubbles_medium = $BubblesMedium
-onready var bubbles_small = $BubblesSmall
+onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
+onready var bubbles_small = $"BubbleViewport/BubblesSmall"
+onready var bubbles_viewport = $BubbleViewport
 
 #mario's gameplay parameters
 var life_meter_counter = 8
@@ -553,6 +554,7 @@ func _physics_process(_delta):
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
+	var center = bubbles_viewport.size * 0.5
 	if state == s.dive:
 		bubbles_medium.position.y = -9
 		bubbles_small.position.y = -9
@@ -560,7 +562,7 @@ func _physics_process(_delta):
 			rot_offset = 0
 			bubbles_medium.position.x = -1
 			bubbles_small.position.x = -1
-			
+
 		else:
 			rot_offset = PI
 			bubbles_medium.position.x = 1
@@ -574,6 +576,8 @@ func _physics_process(_delta):
 		else:
 			bubbles_medium.position.x = -11
 			bubbles_small.position.x = -11
+	bubbles_medium.position += center
+	bubbles_small.position += center
 	bubbles_medium.process_material.direction = Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0)
 	bubbles_small.process_material.direction = Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0)
 	
