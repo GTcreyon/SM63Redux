@@ -48,39 +48,19 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 31 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "hover_pound_spin",
+"name": "jump",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "hover_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 15.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walk",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "jump",
+"name": "pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ) ],
@@ -88,20 +68,10 @@ animations = [ {
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 31 ) ],
 "loop": true,
-"name": "pound_spin",
+"name": "hover_pound_spin",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 28 ) ],
-"loop": true,
-"name": "hover_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "hover_walk",
-"speed": 0.0
 }, {
 "frames": [ ExtResource( 26 ) ],
 "loop": true,
@@ -118,20 +88,50 @@ animations = [ {
 "name": "hover_jump_double",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 23 ) ],
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
 "loop": true,
-"name": "hover_fall",
-"speed": 5.0
+"name": "hover_walk",
+"speed": 0.0
 }, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "fall",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "hover_pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 23 ) ],
+"loop": true,
+"name": "hover_fall",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 32 ) ],
 "loop": true,
 "name": "hover_flip",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "hover_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "hover_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -140,14 +140,14 @@ extents = Vector2( 6, 14.5 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 6, 6 )
 
-[sub_resource type="Gradient" id=5]
+[sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 0, 0.473684, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=6]
-gradient = SubResource( 5 )
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=4]
+[sub_resource type="ParticlesMaterial" id=6]
 lifetime_randomness = 0.5
 flag_disable_z = true
 direction = Vector3( 0, 1, 0 )
@@ -158,7 +158,7 @@ orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 linear_accel = -300.0
 linear_accel_random = 0.2
-color_ramp = SubResource( 6 )
+color_ramp = SubResource( 5 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 6
@@ -214,23 +214,25 @@ cast_to = Vector2( 0, 20 )
 light_mask = 2
 position = Vector2( -11, -3 )
 z_index = -2
+emitting = false
 amount = 30
 lifetime = 0.5
 visibility_rect = Rect2( -9, 0, 18, 118 )
 local_coords = false
-process_material = SubResource( 4 )
+process_material = SubResource( 6 )
 texture = ExtResource( 35 )
 
 [node name="BubblesMedium" type="Particles2D" parent="."]
 light_mask = 2
 position = Vector2( -11, -3 )
 z_index = -2
+emitting = false
 amount = 27
 lifetime = 0.35
 fixed_fps = 60
 visibility_rect = Rect2( -9, 0, 18, 118 )
 local_coords = false
-process_material = SubResource( 4 )
+process_material = SubResource( 6 )
 texture = ExtResource( 34 )
 
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
