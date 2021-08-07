@@ -55,49 +55,24 @@ animations = [ {
 "name": "walk",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
+"name": "jump",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "dive",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 31 ) ],
 "loop": true,
 "name": "hover_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ) ],
-"loop": true,
-"name": "hover_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 32 ) ],
-"loop": true,
-"name": "hover_flip",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
@@ -120,9 +95,9 @@ animations = [ {
 "name": "jump_double",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 23 ) ],
 "loop": true,
-"name": "jump",
+"name": "hover_fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
@@ -130,10 +105,35 @@ animations = [ {
 "name": "hover_spin",
 "speed": 15.0
 }, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "hover_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "hover_dive",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 27 ) ],
 "loop": true,
 "name": "hover_jump_double",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -213,7 +213,7 @@ enabled = true
 cast_to = Vector2( 0, 20 )
 
 [node name="BubbleViewport" type="Viewport" parent="."]
-size = Vector2( 320, 320 )
+size = Vector2( 448, 304 )
 transparent_bg = true
 usage = 0
 render_target_v_flip = true
@@ -226,6 +226,7 @@ emitting = false
 amount = 30
 lifetime = 0.5
 visibility_rect = Rect2( -32, -160, 64, 320 )
+local_coords = false
 process_material = SubResource( 6 )
 texture = ExtResource( 35 )
 
@@ -237,6 +238,7 @@ amount = 27
 lifetime = 0.35
 fixed_fps = 60
 visibility_rect = Rect2( -32, -160, 64, 320 )
+local_coords = false
 process_material = SubResource( 6 )
 texture = ExtResource( 34 )
 
@@ -244,4 +246,5 @@ texture = ExtResource( 34 )
 material = ExtResource( 38 )
 z_index = -2
 script = ExtResource( 37 )
+
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
