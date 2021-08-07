@@ -28,8 +28,7 @@ onready var player = $"/root/Main/Player"
 onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
-onready var lm_counter = player.life_meter_counter
-onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/LifeMeterCounter"
+onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/LifeControl/AnimatedSprite"
 var land_timer = 0
 
 func _ready():
@@ -206,8 +205,7 @@ func _on_Area2D_body_entered_hurt(body):
 					sprite.animation = "jumping"
 					vel.x += max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x)
 				else:
-					lm_counter -= 1
-					lm_gui.text = str(lm_counter)
+					player.life_meter_counter -= 1
 					
 					player.vel.x += 4 * sign(body.position.x - position.x)
 					player.vel.y += -8
