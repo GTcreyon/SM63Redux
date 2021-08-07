@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -33,12 +33,31 @@
 [ext_resource path="res://actors/items/fludd_box/nozzle_hover.png" type="Texture" id=31]
 [ext_resource path="res://actors/items/fludd_box/nozzle_turbo.png" type="Texture" id=32]
 [ext_resource path="res://actors/items/fludd_box/nozzle_rocket.png" type="Texture" id=33]
+[ext_resource path="res://hud/life/MeterLife.png" type="Texture" id=34]
+[ext_resource path="res://hud/life/Meter5.png" type="Texture" id=35]
+[ext_resource path="res://hud/life/Meter7.png" type="Texture" id=36]
+[ext_resource path="res://hud/life/Meter6.png" type="Texture" id=37]
+[ext_resource path="res://hud/life/Meter8.png" type="Texture" id=38]
+[ext_resource path="res://hud/life/Meter2.png" type="Texture" id=39]
+[ext_resource path="res://hud/life/Meter1.png" type="Texture" id=40]
+[ext_resource path="res://hud/life/Meter0.png" type="Texture" id=41]
+[ext_resource path="res://hud/life/Meter3.png" type="Texture" id=42]
+[ext_resource path="res://hud/life/Meter4.png" type="Texture" id=43]
+[ext_resource path="res://hud/life/LifeControl.gd" type="Script" id=44]
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 41 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 35 ), ExtResource( 37 ), ExtResource( 36 ), ExtResource( 38 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 30 )
 shader_param/flash_factor = 0.0
 
-[sub_resource type="ParticlesMaterial" id=2]
+[sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 2
 emission_box_extents = Vector3( 15, 0, 1 )
 flag_disable_z = true
@@ -50,7 +69,7 @@ initial_velocity_random = 0.2
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[sub_resource type="SpriteFrames" id=3]
+[sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ ExtResource( 31 ) ],
 "loop": true,
@@ -73,6 +92,16 @@ follow_viewport_enable = true
 script = ExtResource( 4 )
 
 [node name="Console" parent="." instance=ExtResource( 20 )]
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2( 224, -40 )
+script = ExtResource( 44 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D"]
+frames = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Node2D"]
+texture = ExtResource( 34 )
 
 [node name="StatsTL" type="VBoxContainer" parent="."]
 margin_left = 8.0
@@ -98,7 +127,7 @@ texture = ExtResource( 24 )
 centered = false
 
 [node name="Count" type="Label" parent="StatsTL/CoinRow"]
-material = SubResource( 1 )
+material = SubResource( 2 )
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 72.0
@@ -423,7 +452,7 @@ position = Vector2( 16, 103 )
 z_index = -2
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 2 )
+process_material = SubResource( 3 )
 texture = ExtResource( 6 )
 
 [node name="BubblesMedium" type="Particles2D" parent="MeterControl/WaterMeter"]
@@ -433,7 +462,7 @@ z_index = -2
 amount = 7
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 2 )
+process_material = SubResource( 3 )
 texture = ExtResource( 8 )
 
 [node name="BubblesSmall" type="Particles2D" parent="MeterControl/WaterMeter"]
@@ -443,7 +472,7 @@ z_index = -2
 amount = 6
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 2 )
+process_material = SubResource( 3 )
 texture = ExtResource( 11 )
 
 [node name="SweepEffect" type="ColorRect" parent="MeterControl/WaterMeter"]
@@ -505,5 +534,5 @@ centered = false
 
 [node name="Icon" type="AnimatedSprite" parent="MeterControl"]
 position = Vector2( 16, -4 )
-frames = SubResource( 3 )
+frames = SubResource( 4 )
 animation = "hover"
