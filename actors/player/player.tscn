@@ -1,42 +1,55 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
-[ext_resource path="res://actors/player/mario/pound/pound_fall0.png" type="Texture" id=2]
-[ext_resource path="res://actors/player/mario/spin/mario_spin3.png" type="Texture" id=3]
-[ext_resource path="res://actors/player/mario/pound/pound_spin.png" type="Texture" id=4]
+[ext_resource path="res://actors/player/mario/pound_fall0.png" type="Texture" id=2]
+[ext_resource path="res://actors/player/mario/mario_spin3.png" type="Texture" id=3]
+[ext_resource path="res://actors/player/mario/pound_spin.png" type="Texture" id=4]
 [ext_resource path="res://actors/player/mario/mario_flip.png" type="Texture" id=5]
-[ext_resource path="res://actors/player/mario/walk/mario_walk0.png" type="Texture" id=6]
-[ext_resource path="res://actors/player/mario/spin/mario_spin0.png" type="Texture" id=7]
+[ext_resource path="res://actors/player/mario/mario_walk0.png" type="Texture" id=6]
+[ext_resource path="res://actors/player/mario/mario_spin0.png" type="Texture" id=7]
 [ext_resource path="res://actors/player/mario/mario_dive.png" type="Texture" id=8]
 [ext_resource path="res://actors/player/mario/mario_jump.png" type="Texture" id=9]
-[ext_resource path="res://actors/player/mario/pound/pound_fall1.png" type="Texture" id=10]
-[ext_resource path="res://actors/player/mario/spin/mario_spin2.png" type="Texture" id=11]
-[ext_resource path="res://actors/player/mario/walk/mario_walk1.png" type="Texture" id=12]
-[ext_resource path="res://actors/player/mario/spin/mario_spin1.png" type="Texture" id=13]
+[ext_resource path="res://actors/player/mario/pound_fall1.png" type="Texture" id=10]
+[ext_resource path="res://actors/player/mario/mario_spin2.png" type="Texture" id=11]
+[ext_resource path="res://actors/player/mario/mario_walk1.png" type="Texture" id=12]
+[ext_resource path="res://actors/player/mario/mario_spin1.png" type="Texture" id=13]
 [ext_resource path="res://actors/player/mario/mario_fall.png" type="Texture" id=14]
 [ext_resource path="res://hud/gui.tscn" type="PackedScene" id=15]
 [ext_resource path="res://actors/items/coin/sm64_coin.ogg" type="AudioStream" id=16]
-[ext_resource path="res://actors/player/mario/walk/hover/mario_hover_walk0.png" type="Texture" id=17]
-[ext_resource path="res://actors/player/mario/walk/hover/mario_hover_walk1.png" type="Texture" id=18]
-[ext_resource path="res://actors/player/mario/spin/hover/mario_hover_spin0.png" type="Texture" id=19]
-[ext_resource path="res://actors/player/mario/spin/hover/mario_hover_spin1.png" type="Texture" id=20]
-[ext_resource path="res://actors/player/mario/spin/hover/mario_hover_spin3.png" type="Texture" id=21]
-[ext_resource path="res://actors/player/mario/spin/hover/mario_hover_spin2.png" type="Texture" id=22]
-[ext_resource path="res://actors/player/mario/mario_hover_fall.png" type="Texture" id=23]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_walk0.png" type="Texture" id=17]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_walk1.png" type="Texture" id=18]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_spin0.png" type="Texture" id=19]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_spin1.png" type="Texture" id=20]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_spin3.png" type="Texture" id=21]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_spin2.png" type="Texture" id=22]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_fall.png" type="Texture" id=23]
 [ext_resource path="res://actors/player/mario/mario_front.png" type="Texture" id=24]
 [ext_resource path="res://actors/player/camera.gd" type="Script" id=25]
 [ext_resource path="res://actors/player/mario/mario_jump_double.png" type="Texture" id=26]
-[ext_resource path="res://actors/player/mario/mario_hover_jump_double.png" type="Texture" id=27]
-[ext_resource path="res://actors/player/mario/mario_hover_jump.png" type="Texture" id=28]
-[ext_resource path="res://actors/player/mario/pound/mario_hover_pound_fall_0.png" type="Texture" id=29]
-[ext_resource path="res://actors/player/mario/pound/mario_hover_pound_fall_1.png" type="Texture" id=30]
-[ext_resource path="res://actors/player/mario/pound/mario_hover_pound_spin.png" type="Texture" id=31]
-[ext_resource path="res://actors/player/mario/mario_hover_flip.png" type="Texture" id=32]
-[ext_resource path="res://actors/player/mario/mario_hover_dive.png" type="Texture" id=33]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_jump_double.png" type="Texture" id=27]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_jump.png" type="Texture" id=28]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_pound_fall_0.png" type="Texture" id=29]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_pound_fall_1.png" type="Texture" id=30]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_pound_spin.png" type="Texture" id=31]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_flip.png" type="Texture" id=32]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_dive.png" type="Texture" id=33]
 [ext_resource path="res://hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=34]
 [ext_resource path="res://hud/water_meter/water_meter_bubble_small.png" type="Texture" id=35]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_stand.png" type="Texture" id=36]
 [ext_resource path="res://actors/player/bubbles.gd" type="Script" id=37]
 [ext_resource path="res://actors/player/bubble.tres" type="Material" id=38]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_jump_double.png" type="Texture" id=39]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_pound_fall_0.png" type="Texture" id=40]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_pound_fall_1.png" type="Texture" id=41]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_pound_spin.png" type="Texture" id=42]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_dive.png" type="Texture" id=43]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_spin_0.png" type="Texture" id=44]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_spin_1.png" type="Texture" id=45]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_fall.png" type="Texture" id=46]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_spin_2.png" type="Texture" id=47]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_flip.png" type="Texture" id=48]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_jump.png" type="Texture" id=49]
+[ext_resource path="res://actors/player/mario/rocket/mario_rocket_spin_3.png" type="Texture" id=50]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -50,14 +63,14 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 27 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "hover_jump_double",
-"speed": 5.0
+"name": "spin",
+"speed": 15.0
 }, {
-"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "hover_spin",
+"name": "pound_fall",
 "speed": 15.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
@@ -65,14 +78,29 @@ animations = [ {
 "name": "walk",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 27 ) ],
+"loop": true,
+"name": "hover_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 33 ) ],
@@ -80,9 +108,14 @@ animations = [ {
 "name": "hover_dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 23 ) ],
+"frames": [ ExtResource( 32 ) ],
 "loop": true,
-"name": "hover_fall",
+"name": "hover_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 31 ) ],
+"loop": true,
+"name": "hover_pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
@@ -95,9 +128,19 @@ animations = [ {
 "name": "hover_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 32 ) ],
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
 "loop": true,
-"name": "hover_flip",
+"name": "hover_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 23 ) ],
+"loop": true,
+"name": "hover_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 26 ) ],
+"loop": true,
+"name": "jump_double",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
@@ -105,34 +148,49 @@ animations = [ {
 "name": "hover_walk",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 26 ) ],
+"frames": [ ExtResource( 42 ) ],
 "loop": true,
-"name": "jump_double",
+"name": "rocket_pound_spin",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
+"frames": [ ExtResource( 39 ) ],
 "loop": true,
-"name": "fall",
+"name": "rocket_jump_double",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 31 ) ],
+"frames": [ ExtResource( 48 ) ],
 "loop": true,
-"name": "hover_pound_spin",
+"name": "rocket_flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 43 ) ],
 "loop": true,
-"name": "dive",
+"name": "rocket_dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
 "loop": true,
-"name": "pound_fall",
+"name": "rocket_spin",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 46 ) ],
 "loop": true,
-"name": "pound_spin",
+"name": "rocket_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 36 ) ],
+"loop": true,
+"name": "rocket_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
+"loop": true,
+"name": "rocket_pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "rocket_jump",
 "speed": 5.0
 } ]
 
@@ -244,4 +302,5 @@ texture = ExtResource( 34 )
 material = ExtResource( 38 )
 z_index = -2
 script = ExtResource( 37 )
+
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
