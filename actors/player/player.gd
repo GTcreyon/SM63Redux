@@ -235,7 +235,7 @@ func _physics_process(_delta):
 					switch_state(s.walk)
 			fall_adjust = 0
 			if state == s.dive:
-				vel.x = ground_friction(vel.x, 0.2, 1.05) #Floor friction
+				vel.x = ground_friction(vel.x, 0.2, 1.02) #Floor friction
 				if angle_cast.is_colliding() && !dive_return:
 					#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
 					sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + PI/2, 0.5)
@@ -420,10 +420,10 @@ func _physics_process(_delta):
 							vel.y *= 1 - 0.02 * fps_mod
 							vel.x *= 1 - 0.03 * fps_mod
 							if ground:
-								vel.x += cos(sprite.rotation)*1.4*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+								vel.x += cos(sprite.rotation)*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
 							elif state == s.dive:
 								vel.y += sin(sprite.rotation * (-1 if sprite.flip_h else 1))*0.92*pow(fps_mod, 2)
-								vel.x += cos(sprite.rotation)*1.4/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+								vel.x += cos(sprite.rotation)/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
 							else:
 								if sprite.flip_h:
 									vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
@@ -451,7 +451,16 @@ func _physics_process(_delta):
 						rocket_charge += 1
 					if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
 						if state == s.dive:
-							vel -= Vector2(-cos(sprite.rotation)*25*fps_mod * -fps_mod if sprite.flip_h else fps_mod, sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
+							print(cos(sprite.rotation))
+							print(-cos(sprite.rotation)*25*fps_mod * -fps_mod if sprite.flip_h else -fps_mod)
+							
+							#set sign of velocity (could use ternary but they're icky)
+							var multiplier = 1
+							if sprite.flip_h:
+								multiplier = -1
+							if ground:
+								multiplier *= 2
+							vel += Vector2(cos(sprite.rotation)*25*fps_mod * fps_mod * multiplier, -sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
 	#					elif state == s.frontflip:
 	#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
 						else:

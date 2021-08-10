@@ -45,7 +45,7 @@ func run_command(cmd):
 			else:
 				output("Scene does not exist.")
 		"water":
-			$"/root/Singleton".water = args[1]
+			$"/root/Singleton".water = str(args[1])
 		_:
 			output("Unknown command.")
 
