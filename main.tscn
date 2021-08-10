@@ -1,11 +1,11 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://solid_box.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=6]
+[ext_resource path="res://actors/items/koopa/koopa_shell.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/coin/coin_red.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=8]
 [ext_resource path="res://actors/items/bottle/bottle.tscn" type="PackedScene" id=9]
@@ -15,7 +15,6 @@
 [ext_resource path="res://enemies.gd" type="Script" id=13]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/items/cloud/cloud.tscn" type="PackedScene" id=15]
-[ext_resource path="res://actors/items/bobomb/bobomb.tscn" type="PackedScene" id=16]
 
 [node name="Main" type="Node2D"]
 
@@ -151,14 +150,11 @@ position = Vector2( -179.983, 167.369 )
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource( 13 )
 
-[node name="Goomba" parent="Enemies" instance=ExtResource( 6 )]
-position = Vector2( -2109, 218 )
-
 [node name="Goonie" parent="Enemies" instance=ExtResource( 14 )]
 position = Vector2( -1764, 113 )
 
-[node name="Bobomb" parent="Enemies" instance=ExtResource( 16 )]
-position = Vector2( -1808, 224 )
+[node name="Shell" parent="Enemies" instance=ExtResource( 6 )]
+position = Vector2( -1824, 224 )
 
 [node name="Items" type="Node2D" parent="."]
 
@@ -200,4 +196,5 @@ width = 0
 
 [node name="Water" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1504, 240 )
-polygon = PoolVector2Array( 0, 0, 480, 0, 480, 160, 0, 160 )
+scale = Vector2( 0.8, 1 )
+polygon = PoolVector2Array( 0, 0, 600, 0, 600, 160, 0, 160 )
