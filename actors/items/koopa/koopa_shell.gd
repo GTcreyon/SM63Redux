@@ -1,7 +1,4 @@
 extends KinematicBody2D
-onready var lm_counter = $"/root/Main/Player".life_meter_counter
-onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/Life_meter_counter"
-onready var player = $"/root/Main/Player/AnimatedSprite"
 var speed = 5
 var vel = Vector2.ZERO
 
