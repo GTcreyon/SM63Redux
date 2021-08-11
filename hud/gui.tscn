@@ -93,15 +93,13 @@ script = ExtResource( 4 )
 
 [node name="Console" parent="." instance=ExtResource( 20 )]
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="LifeMeter" type="Sprite" parent="."]
 position = Vector2( 224, -40 )
+texture = ExtResource( 34 )
 script = ExtResource( 44 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Node2D"]
+[node name="Filler" type="AnimatedSprite" parent="LifeMeter"]
 frames = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="Node2D"]
-texture = ExtResource( 34 )
 
 [node name="StatsTL" type="VBoxContainer" parent="."]
 margin_left = 8.0
@@ -293,91 +291,6 @@ margin_bottom = 14.0
 custom_fonts/font = ExtResource( 2 )
 text = "Debug"
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CoinCounter" type="Label" parent="."]
-visible = false
-margin_left = 32.0
-margin_top = 16.0
-margin_right = 48.0
-margin_bottom = 32.0
-custom_fonts/font = ExtResource( 21 )
-text = "0"
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CoinLabel" type="Label" parent="."]
-visible = false
-margin_top = 16.0
-margin_right = 45.0
-margin_bottom = 34.0
-custom_fonts/font = ExtResource( 2 )
-text = "Coins x"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RedCoinLabel" type="Label" parent="."]
-visible = false
-margin_top = 32.0
-margin_right = 63.0
-margin_bottom = 50.0
-custom_fonts/font = ExtResource( 2 )
-text = "Red Coins:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RedCoinCounter" type="Label" parent="."]
-visible = false
-margin_left = 67.4454
-margin_top = 32.0
-margin_right = 178.061
-margin_bottom = 53.799
-custom_fonts/font = ExtResource( 2 )
-text = "0"
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RedCoinCounter_8" type="Label" parent="."]
-visible = false
-margin_left = 80.636
-margin_top = 32.0
-margin_right = 100.636
-margin_bottom = 54.4142
-custom_fonts/font = ExtResource( 2 )
-text = "/ 8"
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LifeMeterLabel" type="Label" parent="."]
-visible = false
-margin_top = 52.0305
-margin_right = 46.0
-margin_bottom = 70.0305
-custom_fonts/font = ExtResource( 2 )
-text = "Meter x"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LifeMeterCounter" type="Label" parent="."]
-visible = false
-margin_left = 48.7937
-margin_top = 52.0
-margin_right = 159.41
-margin_bottom = 71.7439
-custom_fonts/font = ExtResource( 2 )
-text = "8"
-uppercase = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
