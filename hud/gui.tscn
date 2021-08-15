@@ -33,17 +33,17 @@
 [ext_resource path="res://actors/items/fludd_box/nozzle_hover.png" type="Texture" id=31]
 [ext_resource path="res://actors/items/fludd_box/nozzle_turbo.png" type="Texture" id=32]
 [ext_resource path="res://actors/items/fludd_box/nozzle_rocket.png" type="Texture" id=33]
-[ext_resource path="res://hud/life/MeterLife.png" type="Texture" id=34]
-[ext_resource path="res://hud/life/Meter5.png" type="Texture" id=35]
-[ext_resource path="res://hud/life/Meter7.png" type="Texture" id=36]
-[ext_resource path="res://hud/life/Meter6.png" type="Texture" id=37]
-[ext_resource path="res://hud/life/Meter8.png" type="Texture" id=38]
-[ext_resource path="res://hud/life/Meter2.png" type="Texture" id=39]
-[ext_resource path="res://hud/life/Meter1.png" type="Texture" id=40]
-[ext_resource path="res://hud/life/Meter0.png" type="Texture" id=41]
-[ext_resource path="res://hud/life/Meter3.png" type="Texture" id=42]
-[ext_resource path="res://hud/life/Meter4.png" type="Texture" id=43]
-[ext_resource path="res://hud/life/LifeControl.gd" type="Script" id=44]
+[ext_resource path="res://hud/life/meter_life_base.png" type="Texture" id=34]
+[ext_resource path="res://hud/life/meter_life_5.png" type="Texture" id=35]
+[ext_resource path="res://hud/life/meter_life_7.png" type="Texture" id=36]
+[ext_resource path="res://hud/life/meter_life_6.png" type="Texture" id=37]
+[ext_resource path="res://hud/life/meter_life_8.png" type="Texture" id=38]
+[ext_resource path="res://hud/life/meter_life_2.png" type="Texture" id=39]
+[ext_resource path="res://hud/life/meter_life_1.png" type="Texture" id=40]
+[ext_resource path="res://hud/life/meter_life_0.png" type="Texture" id=41]
+[ext_resource path="res://hud/life/meter_life_3.png" type="Texture" id=42]
+[ext_resource path="res://hud/life/meter_life_4.png" type="Texture" id=43]
+[ext_resource path="res://hud/life/life_control.gd" type="Script" id=44]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -76,14 +76,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "rocket",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 32 ) ],
 "loop": true,
 "name": "turbo",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "rocket",
 "speed": 5.0
 } ]
 
@@ -94,12 +94,14 @@ script = ExtResource( 4 )
 [node name="Console" parent="." instance=ExtResource( 20 )]
 
 [node name="LifeMeter" type="Sprite" parent="."]
-position = Vector2( 224, -40 )
+position = Vector2( 224, -76 )
 texture = ExtResource( 34 )
+offset = Vector2( 0, 36 )
 script = ExtResource( 44 )
 
 [node name="Filler" type="AnimatedSprite" parent="LifeMeter"]
 frames = SubResource( 1 )
+offset = Vector2( 0, 36 )
 
 [node name="StatsTL" type="VBoxContainer" parent="."]
 margin_left = 8.0
