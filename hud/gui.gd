@@ -16,6 +16,7 @@ func set_size(size):
 	$StatsTL.rect_scale = Vector2.ONE * size
 	$StatsTR.rect_scale = Vector2.ONE * size
 	$StatsBL.rect_scale = Vector2.ONE * size
+	$LifeMeter.scale = Vector2.ONE * size
 
 #func _ready():
 	#font_red.create_from_fnt("res://fonts/red/gui_red.fnt")
@@ -23,6 +24,7 @@ func set_size(size):
 
 
 func _process(_delta):
+	$LifeMeter.position.x = OS.window_size.x / 2
 	coin_counter.material.set_shader_param("flash_factor", max(coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
 	if coin_counter.text != str(singleton.coin_total):
 		coin_counter.material.set_shader_param("flash_factor", 0.5)

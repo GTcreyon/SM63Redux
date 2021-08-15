@@ -63,24 +63,19 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 15.0
+"name": "jump",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walk",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "jump",
+"name": "pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ) ],
@@ -88,24 +83,9 @@ animations = [ {
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 27 ) ],
 "loop": true,
 "name": "hover_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 32 ) ],
@@ -113,14 +93,54 @@ animations = [ {
 "name": "hover_flip",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 26 ) ],
+"loop": true,
+"name": "jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 31 ) ],
 "loop": true,
 "name": "hover_pound_spin",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
+"frames": [ ExtResource( 36 ) ],
 "loop": true,
-"name": "hover_pound_fall",
+"name": "rocket_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "rocket_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
+"loop": true,
+"name": "rocket_pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 43 ) ],
+"loop": true,
+"name": "rocket_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "hover_walk",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "hover_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "rocket_spin",
 "speed": 15.0
 }, {
 "frames": [ ExtResource( 28 ) ],
@@ -133,26 +153,6 @@ animations = [ {
 "name": "hover_spin",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 23 ) ],
-"loop": true,
-"name": "hover_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 26 ) ],
-"loop": true,
-"name": "jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "hover_walk",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 42 ) ],
-"loop": true,
-"name": "rocket_pound_spin",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 39 ) ],
 "loop": true,
 "name": "rocket_jump_double",
@@ -163,35 +163,35 @@ animations = [ {
 "name": "rocket_flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 43 ) ],
-"loop": true,
-"name": "rocket_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
-"loop": true,
-"name": "rocket_spin",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 46 ) ],
 "loop": true,
 "name": "rocket_fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 36 ) ],
+"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
 "loop": true,
-"name": "rocket_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
-"loop": true,
-"name": "rocket_pound_fall",
+"name": "hover_pound_fall",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 49 ) ],
+"frames": [ ExtResource( 42 ) ],
 "loop": true,
-"name": "rocket_jump",
+"name": "rocket_pound_spin",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ) ],
+"loop": true,
+"name": "hover_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]

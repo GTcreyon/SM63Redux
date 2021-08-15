@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Meter2.png-fc0445f2728f48c0acfdfb64c935394e.stex"
+path="res://.import/meter_life_7.png-e67d049dc2f52a3769d54c6bab37b775.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://hud/life/Meter2.png"
-dest_files=[ "res://.import/Meter2.png-fc0445f2728f48c0acfdfb64c935394e.stex" ]
+source_file="res://hud/life/meter_life_7.png"
+dest_files=[ "res://.import/meter_life_7.png-e67d049dc2f52a3769d54c6bab37b775.stex" ]
 
 [params]
 

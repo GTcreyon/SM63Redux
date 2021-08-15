@@ -20,9 +20,9 @@ func _process(_delta):
 		lifs = player.life_meter_counter #for the conditional
 		act = true
 		
-	if position.y < 40 && act:
+	if position.y < 40 - 36 && act:
 		position.y += 8 #since it's in _process, it will keep adding until conditional stops being true
-		if position.y >= 40: #and then starts timer
+		if position.y >= 40 - 36: #and then starts timer
 			act = false
 			del = true
 		
@@ -35,10 +35,12 @@ func _process(_delta):
 		rechange = true #then it will return to its initial position
 	
 	if rechange:
-		if position.y > -80:
+		if position.y > -80 - 72 * scale.y:
 			position.y -= 8
 		else:
 			rechange = false #and now everything is back to place
+	elif !act && !del:
+		position.y = -80 - 72 * scale.y
 	
 	filler.frame = player.life_meter_counter #for the HUD with its respective frame
 	
