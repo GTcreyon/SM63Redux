@@ -3,5 +3,7 @@
 [ext_resource path="res://fonts/bylight/bylight.otf" type="DynamicFontData" id=1]
 
 [resource]
-size = 20
+size = 14
+outline_size = 1
+outline_color = Color( 0.32, 0.17408, 0.1376, 1 )
 font_data = ExtResource( 1 )

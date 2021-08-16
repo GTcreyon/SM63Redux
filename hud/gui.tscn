@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -44,6 +44,7 @@
 [ext_resource path="res://hud/life/meter_life_3.png" type="Texture" id=42]
 [ext_resource path="res://hud/life/meter_life_4.png" type="Texture" id=43]
 [ext_resource path="res://hud/life/life_control.gd" type="Script" id=44]
+[ext_resource path="res://hud/dialog/sign_box.tres" type="StyleBox" id=45]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -76,14 +77,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 32 ) ],
-"loop": true,
-"name": "turbo",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 33 ) ],
 "loop": true,
 "name": "rocket",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "turbo",
 "speed": 5.0
 } ]
 
@@ -451,3 +452,36 @@ centered = false
 position = Vector2( 16, -4 )
 frames = SubResource( 4 )
 animation = "hover"
+
+[node name="DialogBox" type="Panel" parent="."]
+margin_left = 96.0
+margin_top = 224.0
+margin_right = 352.0
+margin_bottom = 288.0
+custom_styles/panel = ExtResource( 45 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogBox"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 248.0
+margin_bottom = 54.0
+custom_fonts/normal_font = ExtResource( 2 )
+text = " I rhink it's a rign, Rhaggy.
+ The quick brown fox jumps over the
+ lazy dog."
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="DialogBox"]
+visible = false
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "a
+a
+a"
