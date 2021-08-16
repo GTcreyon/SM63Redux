@@ -15,7 +15,7 @@ func _process(_delta):
 		OS.window_size.y -= 304
 	#$GUI.set_size(log(floor(OS.window_size.x / 448)) / log(2) + 1)
 	#$GUI.set_size(floor(OS.window_size.x / 448))
-	$GUI.set_size(floor(log(floor(OS.window_size.x / 448)) / log(2) + 1))
+	$GUI.set_size(floor(log(floor(OS.window_size.x / 448)) / log(2) + 1), floor(OS.window_size.x / 448))
 	var zoom_factor = 448/OS.window_size.x
 	
 	if Input.is_action_just_pressed("zoom+"):

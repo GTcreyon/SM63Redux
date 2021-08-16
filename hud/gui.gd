@@ -11,20 +11,23 @@ onready var icon = $MeterControl/Icon
 
 var icon_bob = 0
 
-func set_size(size):
+func set_size(size, lin_size):
+	#size: general size of UI elements
+	#lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
 	$MeterControl.rect_scale = Vector2.ONE * size
 	$StatsTL.rect_scale = Vector2.ONE * size
 	$StatsTR.rect_scale = Vector2.ONE * size
 	$StatsBL.rect_scale = Vector2.ONE * size
 	$LifeMeter.scale = Vector2.ONE * size
-
+	$LifeMeter.position.x = OS.window_size.x / 2
+	$DialogBox.rect_scale = Vector2.ONE * lin_size
+	$DialogBox.rect_position = Vector2(OS.window_size.x / 2 - 128 * lin_size, OS.window_size.y - 80 * lin_size)
 #func _ready():
 	#font_red.create_from_fnt("res://fonts/red/gui_red.fnt")
 	#coin_counter.set("custom_fonts/font", font_red)
 
 
 func _process(_delta):
-	$LifeMeter.position.x = OS.window_size.x / 2
 	coin_counter.material.set_shader_param("flash_factor", max(coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
 	if coin_counter.text != str(singleton.coin_total):
 		coin_counter.material.set_shader_param("flash_factor", 0.5)
