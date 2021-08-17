@@ -587,9 +587,10 @@ func _physics_process(_delta):
 			bubbles_small.position.x = -11
 	bubbles_medium.position += center
 	bubbles_small.position += center
-	bubbles_medium.process_material.direction = Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0)
-	bubbles_small.process_material.direction = Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0)
-	
+	bubbles_medium.process_material.set_shader_param("owner_vel", Vector2(vel.x, 0))
+	bubbles_medium.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
+	bubbles_small.process_material.set_shader_param("owner_vel", Vector2(vel.x, 0))
+	bubbles_small.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 
 func _on_Tween_tween_completed(_object, _key):
 	if state == s.pound_spin:
