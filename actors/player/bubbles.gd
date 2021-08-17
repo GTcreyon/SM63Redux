@@ -3,6 +3,8 @@ extends Sprite
 onready var viewport = $"../BubbleViewport"
 
 func _ready():
+	#set the viewport size to the window size
+	viewport.size = get_viewport_rect().size
 	#create a texture for the bubbles
 	var tex = ImageTexture.new()
 	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
@@ -17,9 +19,6 @@ func _ready():
 	$"/root/Main/Player".call_deferred("remove_child", viewport)
 	$"/root/Main".call_deferred("add_child", viewport)
 
-
 func _process(delta):
+	#set the position to the screen center
 	position = get_viewport_rect().size / 2 - get_viewport().get_canvas_transform().origin
-	var o = $"/root/Main/Player".get_global_transform_with_canvas().origin
-	$"/root/Main/BubbleViewport/BubblesSmall".position = o
-	$"/root/Main/BubbleViewport/BubblesMedium".position = o
