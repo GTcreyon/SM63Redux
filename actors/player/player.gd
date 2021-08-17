@@ -563,7 +563,7 @@ func _physics_process(_delta):
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
-	var center = bubbles_viewport.size * 0.5
+	var center = get_global_transform_with_canvas().origin
 	if state == s.dive:
 		bubbles_medium.position.y = -9
 		bubbles_small.position.y = -9
