@@ -454,6 +454,7 @@ frames = SubResource( 4 )
 animation = "hover"
 
 [node name="DialogBox" type="Panel" parent="."]
+visible = false
 margin_left = 96.0
 margin_top = 224.0
 margin_right = 352.0
@@ -463,25 +464,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="DialogBox"]
+[node name="Text" type="RichTextLabel" parent="DialogBox"]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 248.0
 margin_bottom = 54.0
 custom_fonts/normal_font = ExtResource( 2 )
-text = " I rhink it's a rign, Rhaggy.
- The quick brown fox jumps over the
- lazy dog."
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Label" type="Label" parent="DialogBox"]
-visible = false
-margin_right = 40.0
-margin_bottom = 14.0
-custom_fonts/font = ExtResource( 2 )
-text = "a
-a
-a"
