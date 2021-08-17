@@ -157,6 +157,8 @@ position = Vector2( 189, 165 )
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
 position = Vector2( 299, 165 )
+lines = [ "Gordon~
+You... just posted cringe." ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 17 )]
 position = Vector2( 1287, 53 )
@@ -211,6 +213,7 @@ position = Vector2( 857, 140.5 )
 [node name="Fossil" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 77, 208 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 200, 207 )
@@ -220,6 +223,7 @@ frame = 1
 [node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 259, 266 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 505, 216 )
@@ -237,6 +241,7 @@ frame = 1
 [node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1010, 145 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil14" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 977, 216 )
@@ -250,6 +255,7 @@ animation = "yellow"
 [node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1426, 159 )
 animation = "yellow"
+frame = 2
 
 [node name="Fossil10" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1618, 156 )
@@ -259,7 +265,6 @@ frame = 1
 [node name="Fossil11" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1534, 198 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil13" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1254, 222 )

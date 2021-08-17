@@ -1,10 +1,13 @@
 extends Sprite
 
 onready var viewport = $"../BubbleViewport"
+onready var cam = $"../Camera2D"
 
-func _ready():
+func refresh():
 	#set the viewport size to the window size
-	viewport.size = get_viewport_rect().size
+	print(viewport.size)
+	viewport.size = OS.window_size
+	print(viewport.size)
 	#create a texture for the bubbles
 	var tex = ImageTexture.new()
 	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
@@ -19,6 +22,10 @@ func _ready():
 	$"/root/Main/Player".call_deferred("remove_child", viewport)
 	$"/root/Main".call_deferred("add_child", viewport)
 
+
+func _ready():
+	refresh()
+
 func _process(delta):
 	#set the position to the screen center
-	position = get_viewport_rect().size / 2 - get_viewport().get_canvas_transform().origin
+	position = (viewport.size / 2 - get_viewport().get_canvas_transform().origin) * cam.zoom

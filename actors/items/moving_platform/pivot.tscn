@@ -7,9 +7,10 @@
 script = ExtResource( 1 )
 
 [node name="Dots" type="Node2D" parent="."]
-z_index = -1
+z_index = -2
 
 [node name="Platforms" type="Node2D" parent="."]
+z_index = -1
 
 [node name="Center" type="Sprite" parent="."]
 texture = ExtResource( 2 )
