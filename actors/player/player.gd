@@ -585,6 +585,8 @@ func _physics_process(_delta):
 		else:
 			bubbles_medium.position.x = -11
 			bubbles_small.position.x = -11
+#	bubbles_medium.position /= camera.zoom
+#	bubbles_small.position /= camera.zoom
 	bubbles_medium.position += center
 	bubbles_small.position += center
 	bubbles_medium.process_material.set_shader_param("owner_vel", Vector2(vel.x, 0))
