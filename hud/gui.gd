@@ -10,8 +10,6 @@ onready var meter = $MeterControl
 onready var icon = $MeterControl/Icon
 
 var icon_bob = 0
-var loaded_lines = []
-var line_index = 0
 
 func set_size(size, lin_size):
 	#size: general size of UI elements
@@ -24,25 +22,7 @@ func set_size(size, lin_size):
 	$LifeMeter.position.x = OS.window_size.x / 2
 	$DialogBox.rect_scale = Vector2.ONE * lin_size
 	$DialogBox.rect_position = Vector2(OS.window_size.x / 2 - 128 * lin_size, OS.window_size.y - 80 * lin_size)
-#func _ready():
-	#font_red.create_from_fnt("res://fonts/red/gui_red.fnt")
-	#coin_counter.set("custom_fonts/font", font_red)
 
-
-func say_line(index):
-	#pad the left side to prevent outline issues ._.
-	var sub_lines = loaded_lines[index].split("\n")
-	for i in range(sub_lines.size()):
-		sub_lines[i] = " " + sub_lines[i]
-	var display_line = sub_lines.join("\n")
-	$DialogBox.visible = true
-	$DialogBox/Text.text = display_line
-
-
-func load_lines(lines):
-	loaded_lines = lines
-	line_index = 0
-	say_line(0) #say the first line
 
 func _process(_delta):
 	coin_counter.material.set_shader_param("flash_factor", max(coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
