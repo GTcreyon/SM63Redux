@@ -3,6 +3,7 @@
 [ext_resource path="res://shaders/glow.shader" type="Shader" id=1]
 
 [resource]
+resource_local_to_scene = true
 shader = ExtResource( 1 )
 shader_param/intensity = 100
 shader_param/precision = 0.01

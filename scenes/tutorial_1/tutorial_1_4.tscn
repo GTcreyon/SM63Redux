@@ -212,14 +212,14 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 118.683
+rotation = 49.4102
 size = Vector2( 92, 92 )
 wait = 90
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 177.849
+rotation = 74.0194
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
@@ -227,7 +227,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -177.849
+rotation = -74.0194
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
@@ -390,6 +390,7 @@ position = Vector2( 371, 203 )
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 31 )]
 position = Vector2( -129, -638 )
+lines = [ "Hey sweetie-pie! If you’re ever feeling tired just press the (P/Assigned Button) to pause the game! In the pause menu, you change settings, view all of the items you’ve collected, change Nozzles, or just sit back and take some time to yourself! Self-care is important Mario, don’t you dare forget that!" ]
 
 [node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
 position = Vector2( 945, -528 )
