@@ -22,6 +22,8 @@ func set_size(size, lin_size):
 	$LifeMeter.position.x = OS.window_size.x / 2
 	$DialogBox.rect_scale = Vector2.ONE * lin_size
 	$DialogBox.rect_position = Vector2(OS.window_size.x / 2 - 128 * lin_size, OS.window_size.y - 80 * lin_size)
+	$InputDisplay.rect_scale = Vector2.ONE * size
+	$InputDisplay.rect_position = Vector2(2 * size, 71 * size)
 
 
 func _process(_delta):

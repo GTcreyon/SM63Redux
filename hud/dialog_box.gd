@@ -1,6 +1,7 @@
 extends Panel
 
 onready var player = $"/root/Main/Player"
+onready var button = $Button
 
 var loaded_lines = []
 var line_index = 0
@@ -30,8 +31,15 @@ func load_lines(lines):
 
 func _process(_delta):
 	if visible:
-		if pause_time <= 0:
-			if char_index < target_line.length() - 1:
+		if char_index < target_line.length() - 1:
+			button.animation = "wait"
+			if Input.is_action_just_pressed("skip"):
+				var regex = RegEx.new()
+				regex.compile("\\[@[^\\]]*\\]") #remove @ tags
+				$Text.bbcode_text = regex.sub(target_line, "", true)
+				char_roll = target_line.length() - 1
+				char_index = char_roll
+			if pause_time <= 0:
 				if floor(char_roll) > char_index:
 					var looping = true
 					var skip_char = false
@@ -76,12 +84,14 @@ func _process(_delta):
 								looping = false
 						char_index = floor(char_roll)
 				char_roll += text_speed
-			elif Input.is_action_just_pressed("interact"):
+			else:
+				pause_time -= text_speed
+		else:
+			button.animation = "ready"
+			if Input.is_action_just_pressed("interact"):
 				line_index += 1
 				if loaded_lines.size() <= line_index:
 					visible = false
 					player.static_v = false
 				else:
 					say_line(line_index)
-		else:
-			pause_time -= text_speed
