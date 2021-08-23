@@ -77,6 +77,7 @@ var dive_frames = 0
 var pound_frames = 0
 var rocket_charge = 0
 var jump_cancel = false
+var sign_cooldown = 0
 
 enum s { #state enum
 	walk,
@@ -198,6 +199,8 @@ func _physics_process(_delta):
 		var ground = is_on_floor()
 		var wall = is_on_wall()
 		var ceiling = is_on_ceiling()
+		
+		sign_cooldown = max(sign_cooldown - 1, 0)
 		
 		if i_switch:
 			singleton.nozzle = (singleton.nozzle + 1) % 4

@@ -1,25 +1,62 @@
 extends Panel
 
 onready var player = $"/root/Main/Player"
-onready var button = $Button
+onready var star = $Star
 
 var loaded_lines = []
 var line_index = 0
 var char_roll = 1
 var char_index = 1
 var target_line = ""
-var text_speed = 1
+var text_speed = 0.5
 var pause_time = 0
 
 func say_line(index):
 	$Text.bbcode_text = ""
 	char_roll = 1
 	char_index = 0
+	
+	#add line breaks
+	var font = $Text.get_font("normal_font")
+	var cumulative_length = 0
+	var i = 0
+	target_line = loaded_lines[index]
+	while i < target_line.length():
+#		if target_line[i] == "[":
+#			while target_line[i] != "]" || target_line[i+1] == "[":
+#				i += 1
+#			i += 1
+		var j = 0
+		var word = " "
+		var loop = true
+		while i + j < target_line.length() && target_line[i + j] != " " && target_line[i + j] != "\n" && loop:
+			if target_line[i + j] == "[":
+				while target_line[i + j - 1] != "]" || target_line[i + j] == "[":
+					j += 1
+				if target_line[i + j] == " ":
+					loop = false
+				#word += target_line[i + j]
+				#j -= 1
+			if loop:
+				word += target_line[i + j]
+				j += 1
+			
+			
+		#word += target_line[i + j]
+		if i + j < target_line.length() && target_line[i + j] == "\n":
+			cumulative_length = 0
+		else:
+			var added_length = font.get_string_size(word).x
+			cumulative_length += added_length
+			#print(word + str(cumulative_length))
+			if cumulative_length >= 233:
+				cumulative_length = added_length
+				target_line = target_line.insert(i, "\n")
+				i += 1
+		i += j
+		i += 1
 	#pad the left side to prevent outline issues ._.
-	var sub_lines = loaded_lines[index].split("\n")
-	for i in range(sub_lines.size()):
-		sub_lines[i] = " " + sub_lines[i]
-	target_line = sub_lines.join("\n")
+	target_line = " " + target_line.replace("\n", "\n ")
 	visible = true
 
 
@@ -31,19 +68,20 @@ func load_lines(lines):
 
 func _process(_delta):
 	if visible:
-		if char_index < target_line.length() - 1:
-			button.animation = "wait"
-			if Input.is_action_just_pressed("skip"):
+		if char_index < target_line.length():
+			if Input.is_action_pressed("skip"):
 				var regex = RegEx.new()
 				regex.compile("\\[@[^\\]]*\\]") #remove @ tags
 				$Text.bbcode_text = regex.sub(target_line, "", true)
-				char_roll = target_line.length() - 1
+				char_roll = target_line.length()
 				char_index = char_roll
+			else:
+				star.animation = "wait"
 			if pause_time <= 0:
 				if floor(char_roll) > char_index:
 					var looping = true
 					var skip_char = false
-					while looping && char_index < target_line.length() - 1: #prevents lag on tags
+					while looping && char_index < target_line.length(): #prevents lag on tags
 						match target_line[char_index]:
 							"[":
 								var tag = ""
@@ -87,8 +125,9 @@ func _process(_delta):
 			else:
 				pause_time -= text_speed
 		else:
-			button.animation = "ready"
+			star.animation = "ready"
 			if Input.is_action_just_pressed("interact"):
+				#print($Text.text)
 				line_index += 1
 				if loaded_lines.size() <= line_index:
 					visible = false
