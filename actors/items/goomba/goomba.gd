@@ -145,7 +145,7 @@ func _physics_process(_delta):
 			if !is_jumping:
 				sprite.frame = 1
 		
-	vel = move_and_slide(vel, Vector2.UP)
+	vel = move_and_slide(vel, Vector2.UP, true)
 	if is_on_floor() && struck && sprite.animation != "squish":
 		sprite.animation = "squish"
 		sprite.frame = 0

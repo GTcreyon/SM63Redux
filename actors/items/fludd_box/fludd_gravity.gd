@@ -41,9 +41,10 @@ func pickup(nozzle):
 
 
 func _physics_process(_delta):
+	if is_on_floor():
+		vel.y = 0
 	vel.y += 1.67
-	
-	move_and_slide(vel * 60, Vector2.UP)
+	move_and_slide(vel * 60, Vector2.UP, true)
 
 
 func _on_Turbo_body_entered(_body):

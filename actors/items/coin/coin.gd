@@ -16,6 +16,8 @@ func _physics_process(_delta):
 			vel.y *= 0.98
 		if is_on_floor():
 			vel.y = -vel.y / 2
+			if abs(vel.y) < 0:
+				vel.y = 0
 		
 		if is_on_wall():
 			vel.x = -vel.x / 2
