@@ -273,6 +273,7 @@ offset = Vector2( 0, 36 )
 script = ExtResource( 44 )
 
 [node name="Filler" type="AnimatedSprite" parent="LifeMeter"]
+z_index = -1
 frames = SubResource( 1 )
 offset = Vector2( 0, 36 )
 
@@ -377,7 +378,7 @@ __meta__ = {
 margin_right = 8.0
 
 [node name="Sprite" type="Sprite" parent="StatsTR/ShineRow"]
-position = Vector2( -40, 8.5 )
+position = Vector2( -40.5, 7.5 )
 texture = ExtResource( 26 )
 
 [node name="X" type="Sprite" parent="StatsTR/ShineRow"]

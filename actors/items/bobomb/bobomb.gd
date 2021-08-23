@@ -113,7 +113,7 @@ func _physics_process(_delta):
 					wander_dist = 0
 					direction *= -1
 		
-	vel = move_and_slide(vel, Vector2.UP)
+	vel = move_and_slide(vel, Vector2.UP, true)
 	if is_on_floor() && struck:
 		var spawn = coin.instance()
 		spawn.position = position
