@@ -96,14 +96,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "rocket",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 32 ) ],
 "loop": true,
 "name": "turbo",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "rocket",
 "speed": 5.0
 } ]
 
@@ -120,23 +120,83 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=13]
+[sub_resource type="ShaderMaterial" id=6]
 resource_local_to_scene = true
 shader = ExtResource( 63 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
+"frames": [ ExtResource( 47 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 48 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 47 ) ],
+} ]
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = ExtResource( 63 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ ExtResource( 49 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 50 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=10]
+resource_local_to_scene = true
+shader = ExtResource( 63 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ ExtResource( 52 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 51 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=12]
+resource_local_to_scene = true
+shader = ExtResource( 63 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ ExtResource( 60 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 54 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -147,36 +207,16 @@ shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 50 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 49 ) ],
+"frames": [ ExtResource( 58 ) ],
 "loop": true,
 "name": "off",
 "speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=15]
-resource_local_to_scene = true
-shader = ExtResource( 63 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=8]
-animations = [ {
-"frames": [ ExtResource( 51 ) ],
+}, {
+"frames": [ ExtResource( 59 ) ],
 "loop": true,
 "name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 52 ) ],
-"loop": true,
-"name": "off",
 "speed": 5.0
 } ]
 
@@ -187,36 +227,16 @@ shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ ExtResource( 54 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 60 ) ],
+"frames": [ ExtResource( 57 ) ],
 "loop": true,
 "name": "off",
 "speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=17]
-resource_local_to_scene = true
-shader = ExtResource( 63 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=10]
-animations = [ {
-"frames": [ ExtResource( 59 ) ],
+}, {
+"frames": [ ExtResource( 53 ) ],
 "loop": true,
 "name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 58 ) ],
-"loop": true,
-"name": "off",
 "speed": 5.0
 } ]
 
@@ -227,36 +247,16 @@ shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ ExtResource( 53 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 57 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=19]
-resource_local_to_scene = true
-shader = ExtResource( 63 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=12]
-animations = [ {
-"frames": [ ExtResource( 56 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 55 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 56 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -640,16 +640,17 @@ __meta__ = {
 [node name="Text" type="RichTextLabel" parent="DialogBox"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 248.0
+margin_right = 244.0
 margin_bottom = 54.0
 custom_fonts/normal_font = ExtResource( 2 )
+custom_colors/default_color = Color( 0.976471, 0.909804, 0.909804, 1 )
 bbcode_enabled = true
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Button" type="AnimatedSprite" parent="DialogBox"]
+[node name="Star" type="AnimatedSprite" parent="DialogBox"]
 position = Vector2( 250, 58 )
 frames = SubResource( 5 )
 animation = "wait"
@@ -664,63 +665,63 @@ __meta__ = {
 }
 
 [node name="Z" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 13 )
+material = SubResource( 6 )
 position = Vector2( 0, 46 )
-frames = SubResource( 6 )
+frames = SubResource( 7 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "pound"
 
 [node name="X" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 14 )
+material = SubResource( 8 )
 position = Vector2( 22, 46 )
-frames = SubResource( 7 )
+frames = SubResource( 9 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "spin"
 
 [node name="C" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 15 )
+material = SubResource( 10 )
 position = Vector2( 44, 46 )
-frames = SubResource( 8 )
+frames = SubResource( 11 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "fludd"
 
 [node name="L" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 16 )
+material = SubResource( 12 )
 position = Vector2( 0, 23 )
-frames = SubResource( 9 )
+frames = SubResource( 13 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "left"
 
 [node name="R" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 17 )
+material = SubResource( 14 )
 position = Vector2( 44, 23 )
-frames = SubResource( 10 )
+frames = SubResource( 15 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "right"
 
 [node name="U" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 18 )
+material = SubResource( 16 )
 position = Vector2( 22, 0 )
-frames = SubResource( 11 )
+frames = SubResource( 17 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "up"
 
 [node name="D" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 19 )
+material = SubResource( 18 )
 position = Vector2( 22, 23 )
-frames = SubResource( 12 )
+frames = SubResource( 19 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )

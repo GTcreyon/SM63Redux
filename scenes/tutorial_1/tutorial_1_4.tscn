@@ -212,14 +212,14 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 49.4102
+rotation = 65.066
 size = Vector2( 92, 92 )
 wait = 90
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 74.0194
+rotation = 97.529
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
@@ -227,7 +227,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -74.0194
+rotation = -97.529
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
@@ -387,6 +387,7 @@ position = Vector2( -737, -302 )
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 31 )]
 position = Vector2( 371, 203 )
+lines = [ "The [color=#5f75c5]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don’t become too reliant on it though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it’s gone,[@p,3] you won’t be able to hover any longer.", "Not to worry,[@p,3] if you hop into a body of water or grab a water bottle,[@p,3] the tank will refill." ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 31 )]
 position = Vector2( -129, -638 )
