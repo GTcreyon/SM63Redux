@@ -64,39 +64,24 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "walk",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
 "loop": true,
-"name": "pound_spin",
-"speed": 5.0
+"name": "walk",
+"speed": 0.0
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 28 ) ],
 "loop": true,
 "name": "hover_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 48 ) ],
-"loop": true,
-"name": "rocket_flip",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
@@ -104,39 +89,19 @@ animations = [ {
 "name": "hover_spin",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 26 ) ],
-"loop": true,
-"name": "jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "hover_walk",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ) ],
-"loop": true,
-"name": "hover_fall",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 49 ) ],
 "loop": true,
 "name": "rocket_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 27 ) ],
+"frames": [ ExtResource( 31 ) ],
 "loop": true,
-"name": "hover_jump_double",
+"name": "hover_pound_spin",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 46 ) ],
+"frames": [ ExtResource( 33 ) ],
 "loop": true,
-"name": "rocket_fall",
+"name": "hover_dive",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
@@ -144,39 +109,39 @@ animations = [ {
 "name": "fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
+"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
 "loop": true,
-"name": "rocket_pound_fall",
+"name": "hover_pound_fall",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 31 ) ],
+"frames": [ ExtResource( 46 ) ],
 "loop": true,
-"name": "hover_pound_spin",
+"name": "rocket_fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
 "loop": true,
-"name": "rocket_spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 32 ) ],
-"loop": true,
-"name": "hover_flip",
-"speed": 5.0
+"name": "hover_walk",
+"speed": 0.0
 }, {
 "frames": [ ExtResource( 36 ) ],
 "loop": true,
 "name": "rocket_walk",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
+"frames": [ ExtResource( 23 ) ],
 "loop": true,
-"name": "hover_pound_fall",
-"speed": 15.0
+"name": "hover_fall",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 39 ) ],
 "loop": true,
 "name": "rocket_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 26 ) ],
+"loop": true,
+"name": "jump_double",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 43 ) ],
@@ -187,6 +152,41 @@ animations = [ {
 "frames": [ ExtResource( 42 ) ],
 "loop": true,
 "name": "rocket_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "rocket_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
+"loop": true,
+"name": "rocket_pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 27 ) ],
+"loop": true,
+"name": "hover_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ) ],
+"loop": true,
+"name": "rocket_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "hover_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],

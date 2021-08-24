@@ -27,6 +27,6 @@ func _ready():
 	$"/root/Main/Player".call_deferred("remove_child", viewport)
 	$"/root/Main".call_deferred("add_child", viewport)
 
-func _process(delta):
+func _process(_delta):
 	#set the position to the screen center
 	position = (viewport.size / 2 - get_viewport().get_canvas_transform().origin)

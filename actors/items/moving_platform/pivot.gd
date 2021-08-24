@@ -53,7 +53,7 @@ func refresh_ring():
 		$Dots.add_child(inst)
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if !Engine.editor_hint:
 		for i in $Platforms.get_child_count():
 			var angle = (2 * PI / count) * i + offset + rot

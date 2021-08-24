@@ -7,7 +7,7 @@ const set_jump_1_tp = 3
 const set_jump_2_tp = set_jump_1_tp * 1.25
 const set_jump_3_tp = set_jump_1_tp * 1.5
 const set_air_speed_cap = 20.0*fps_mod
-const set_walk_accel = 1.2 * fps_mod
+const set_walk_accel = 1.1 * fps_mod
 const set_air_accel = 5.0 * fps_mod #Functions differently to walkAccel
 const set_walk_decel = set_walk_accel * 1.1 #Suggested by Maker - decel is faster than accel in casual mode
 const set_air_decel = set_air_accel * 1.1
@@ -78,6 +78,7 @@ var pound_frames = 0
 var rocket_charge = 0
 var jump_cancel = false
 var sign_cooldown = 0
+var jump_buffer = 0
 
 enum s { #state enum
 	walk,
@@ -191,7 +192,6 @@ func _physics_process(_delta):
 		var i_pound_h = Input.is_action_pressed("pound")
 		var i_fludd = Input.is_action_pressed("fludd")
 		var i_switch = Input.is_action_just_pressed("switch_fludd")
-		var test = 0
 #		if Input.is_action_just_pressed("debug"):
 #			if i_jump_h:
 #				$"/root/Main".classic = !classic
@@ -199,6 +199,13 @@ func _physics_process(_delta):
 		var ground = is_on_floor()
 		var wall = is_on_wall()
 		var ceiling = is_on_ceiling()
+		
+		if i_jump_h:
+			jump_buffer = max(jump_buffer - 1, 0)
+			if i_jump:
+				jump_buffer = 6
+		else:
+			jump_buffer = 0
 		
 		sign_cooldown = max(sign_cooldown - 1, 0)
 		
@@ -238,11 +245,15 @@ func _physics_process(_delta):
 					switch_state(s.walk)
 			fall_adjust = 0
 			if state == s.dive:
+				if double_jump_frames >= set_double_jump_frames - 1:
+					vel.x = ground_friction(vel.x, 0.2, 1.02) #Double friction on landing
 				vel.x = ground_friction(vel.x, 0.2, 1.02) #Floor friction
 				if angle_cast.is_colliding() && !dive_return:
 					#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
 					sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + PI/2, 0.5)
 			else:
+				if double_jump_frames >= set_double_jump_frames - 1:
+					vel.x = ground_friction(vel.x, 0.3, 1.15) #Double friction on landing
 				vel.x = ground_friction(vel.x, 0.3, 1.15) #Floor friction
 			
 			if state == s.frontflip || state == s.backflip: #Reset state when landing
@@ -335,7 +346,8 @@ func _physics_process(_delta):
 						flip_l = sprite.flip_h
 					
 					
-				elif i_jump && state != s.pound_fall:
+				elif jump_buffer > 0 && state != s.pound_fall:
+					jump_buffer = 0
 					jump_frames = set_jump_mod_frames
 					double_jump_frames = set_double_jump_frames
 					
@@ -356,7 +368,8 @@ func _physics_process(_delta):
 								vel.x += (vel.x + 15*fps_mod*sign(vel.x))/5*fps_mod
 								double_jump_state = 0
 								switch_state(s.frontflip)
-								play_voice("jump3") 
+								play_voice("jump3")
+								tween.stop_all()
 								if singleton.nozzle == n.none:
 									tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
 								else:
@@ -493,14 +506,15 @@ func _physics_process(_delta):
 				&& state != s.pound_fall
 				&& state != s.pound_spin):
 				if !ground:
-					play_voice("dive")
+					if state != s.frontflip:
+						play_voice("dive")
 					var multiplier = 1
 					if state == s.backflip:
 						multiplier = 2
 					if sprite.flip_h:
-						vel.x -= (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.8 * multiplier
+						vel.x -= (set_dive_speed - abs(vel.x / fps_mod)) / (5 / fps_mod) / fps_mod * multiplier
 					else:
-						vel.x += (set_dive_speed - abs(vel.x)) / (5 / fps_mod) / fps_mod * 0.8 * multiplier
+						vel.x += (set_dive_speed - abs(vel.x / fps_mod)) / (5 / fps_mod) / fps_mod * multiplier
 					if state == s.walk:
 						vel.y = max(-3, vel.y + 3.0 * fps_mod)
 					else:
@@ -535,6 +549,7 @@ func _physics_process(_delta):
 		
 		if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
 			switch_state(s.pound_spin)
+			tween.stop_all()
 			tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
 			tween.start()
 		
@@ -548,7 +563,7 @@ func _physics_process(_delta):
 			vel.y = max(vel.y, 0.1)
 		
 		var snap
-		if !ground || i_jump || state == s.diveflip || (i_fludd && singleton.nozzle == n.hover):
+		if (!ground && !i_jump_h) || jump_buffer > 0 || state == s.diveflip || (i_fludd && singleton.nozzle == n.hover):
 			snap = Vector2.ZERO
 		else:
 			snap = Vector2(0, 4)
