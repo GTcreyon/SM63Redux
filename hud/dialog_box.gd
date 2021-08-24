@@ -10,6 +10,10 @@ var char_index = 1
 var target_line = ""
 var text_speed = 0.5
 var pause_time = 0
+var star_wobble = 0
+var gui_size = 1
+var swoop_timer = 0
+var active = false
 
 func say_line(index):
 	$Text.bbcode_text = ""
@@ -58,16 +62,24 @@ func say_line(index):
 	#pad the left side to prevent outline issues ._.
 	target_line = " " + target_line.replace("\n", "\n ")
 	visible = true
+	active = true
 
 
 func load_lines(lines):
+	swoop_timer = 0
+	star_wobble = 0
 	loaded_lines = lines
 	line_index = 0
 	say_line(0) #say the first line
 
 
 func _process(_delta):
-	if visible:
+	if active:
+		if star.animation == "ready" || star.offset.y != 0:
+			star_wobble += 0.1
+			star.offset.y = round(sin(-star_wobble) * 2)
+		else:
+			star_wobble = 0 #prevent overflow lol
 		if char_index < target_line.length():
 			if Input.is_action_pressed("skip"):
 				var regex = RegEx.new()
@@ -130,7 +142,17 @@ func _process(_delta):
 				#print($Text.text)
 				line_index += 1
 				if loaded_lines.size() <= line_index:
-					visible = false
+					active = false
 					player.static_v = false
+					swoop_timer = 0
 				else:
 					say_line(line_index)
+		swoop_timer = min(swoop_timer + 1, 80)
+		rect_scale = Vector2.ONE * gui_size
+		rect_position = Vector2(OS.window_size.x / 2 - 128 * gui_size, OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size)
+	else:
+		swoop_timer = min(swoop_timer + 0.75, 100)
+		rect_scale = Vector2.ONE * gui_size
+		rect_position = Vector2(OS.window_size.x / 2 - 128 * gui_size, OS.window_size.y + 20 - (100 / swoop_timer) * gui_size)
+		if swoop_timer >= 100:
+			visible = false
