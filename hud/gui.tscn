@@ -96,14 +96,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 32 ) ],
-"loop": true,
-"name": "turbo",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 33 ) ],
 "loop": true,
 "name": "rocket",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "turbo",
 "speed": 5.0
 } ]
 
@@ -652,9 +652,11 @@ __meta__ = {
 }
 
 [node name="Star" type="AnimatedSprite" parent="DialogBox"]
-position = Vector2( 250, 58 )
+position = Vector2( 250, 56 )
 frames = SubResource( 5 )
 animation = "wait"
+
+[node name="Tween" type="Tween" parent="DialogBox"]
 
 [node name="InputDisplay" type="Control" parent="."]
 margin_left = 2.0
