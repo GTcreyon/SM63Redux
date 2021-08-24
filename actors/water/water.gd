@@ -210,7 +210,7 @@ func handle_impact(body, is_exit):
 	if body.vel != null:
 		body_vel = abs(body.vel.y)
 	
-	body_vel *= (0.5 if is_exit else 1)
+	body_vel *= (0.5 if is_exit else 1.0)
 	
 	#impact velocity
 	var mario_area = 348 #this is mario's default area

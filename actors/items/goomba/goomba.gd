@@ -28,7 +28,6 @@ onready var player = $"/root/Main/Player"
 onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
-onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/LifeControl/AnimatedSprite"
 var land_timer = 0
 
 func _ready():
@@ -161,7 +160,7 @@ func _physics_process(_delta):
 #for hurting mario or the enemy itself, but less complicated
 #as we need only the x coordinates
 
-func _on_Collision_mario_detected(body):
+func _on_Collision_mario_detected(_body):
 	if !tracking && sprite.animation != "squish":
 		if player.position.x > position.x:
 			direction = 1

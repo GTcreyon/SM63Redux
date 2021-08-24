@@ -4,7 +4,7 @@ export(String) var input
 
 var intensity = 0
 
-func _process(delta):
+func _process(_delta):
 	intensity = max(intensity - 0.05, 0)
 	if Input.is_action_pressed(input):
 		animation = "on"
