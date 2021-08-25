@@ -12,7 +12,6 @@ export var surface_wave_properties = {
 onready var texture = $".."
 var waves = []
 var surface = {}
-var surface_width_px = 0
 var surface_width_keys = 0
 var elapsed_time = 0
 var wave_id_counter = 0
@@ -36,7 +35,6 @@ func subdivide_surface():
 	set_polys(polys)
 	surface = get_surface_verts()
 	surface_width_keys = len(surface) - 1
-	surface_width_px = surface_width_keys * water_segment_size
 
 func set_polys(polys):
 	texture.polygon = polys
@@ -156,15 +154,23 @@ func _process(dt):
 			wave.speed *= (1 if wave.next_vertex_key >= wave.current_vertex_key else -1) * sign(wave.speed * wave.direction)
 		#get the min/max
 		var ind_width = wave.width / water_segment_size
-		var min_ind = max(wave.current_vertex_key - ind_width / 2, 0)
-		var max_ind = min(wave.current_vertex_key + ind_width / 2, surface_width_keys)
+		var min_ind = round(wave.current_vertex_key - ind_width / 2)
+		var max_ind = round(wave.current_vertex_key + ind_width / 2)
+		#get the real min/max
+		for ind in range(wave.current_vertex_key, min_ind - 1, -1):
+			if not surface.has(ind):
+				min_ind = ind + 1
+				break
+		for ind in range(wave.current_vertex_key, max_ind):
+			if not surface.has(ind):
+				max_ind = ind - 1
+				break
+		#get the width
 		ind_width = max_ind - min_ind
 		#generate a hill effect for this wave using sine
 		var counter = 0
 		for ind in range(min_ind, max_ind):
-			#var y_mod = -sin(float(counter) / float(ind_width) * PI) * wave.height
 			#add the modifier
-			#surface[ind] = Vector2(surface[ind].x, sin(float(counter) / float(ind_width - 1) * PI) * 10)
 			var y_mod = -sin(float(counter) / float(ind_width) * PI) * wave.height * wave.height_direction
 			counter += 1
 			if wave_y_modifier.has(ind):
@@ -201,6 +207,7 @@ func handle_impact(body, is_exit):
 	#get the collision point
 	var contacts = this_shape.collide_and_get_contacts(this_transform, other_shape, other_transform)
 	if contacts.empty(): #if empty, well there's not much we can do then
+		print("why are there no contact points?")
 		return
 	var contact = contacts[0] #get single contact point
 	contact -= get_global_transform().origin #transform it to local coordinates

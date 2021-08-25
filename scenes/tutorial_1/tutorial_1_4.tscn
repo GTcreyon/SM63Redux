@@ -106,9 +106,11 @@ position = Vector2( 93, -310 )
 
 [node name="Cloud" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( 174, -223 )
+width = 1
 
 [node name="Cloud2" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -2, -261 )
+width = 1
 
 [node name="Cloud3" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -260, -289 )
@@ -120,6 +122,7 @@ width = 2
 
 [node name="Cloud5" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -443, -354 )
+width = 1
 
 [node name="Cloud6" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -774, -292 )
@@ -127,12 +130,15 @@ width = 8
 
 [node name="Cloud7" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -776, -459 )
+width = 1
 
 [node name="Cloud8" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -776, -459 )
+width = 1
 
 [node name="Cloud9" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -673, -626 )
+width = 1
 
 [node name="Cloud12" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -579, -645 )
@@ -166,39 +172,65 @@ width = 0
 
 [node name="Pivot" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 386, -31 )
+radius = 50
 count = 4
+speed = 10.0
+offset = 0.0
 
 [node name="Pivot2" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 438, -183 )
+radius = 50
 count = 4
+speed = 10.0
+offset = 0.0
 
 [node name="Pivot3" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 292, -254 )
+radius = 50
 count = 4
+speed = 10.0
+offset = 0.0
 
 [node name="Pivot4" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( -465, -659 )
+radius = 50
+count = 3
+speed = 10.0
+offset = 0.0
 
 [node name="Pivot5" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( -20, -647 )
+radius = 50
 count = 1
+speed = 10.0
+offset = 0.0
 
 [node name="Pivot6" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 80, -647 )
+radius = 50
 count = 1
+speed = 10.0
+offset = 0.0
 
 [node name="Pivot7" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 180, -647 )
+radius = 50
 count = 1
+speed = 10.0
+offset = 0.0
 
 [node name="Pivot8" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 280, -647 )
+radius = 50
 count = 1
+speed = 10.0
+offset = 0.0
 
 [node name="TiltingPlatforms" type="Node2D" parent="Items"]
 
 [node name="TiltingPlatform" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
 position = Vector2( 81, -241 )
+width = 1
 
 [node name="TiltingPlatform2" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
 position = Vector2( -135, -269 )
@@ -212,24 +244,37 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
+rotation = 0.610865
 size = Vector2( 92, 92 )
+speed = 1
 wait = 90
+time_offset = 0
+interval = 90
+angle_offset = 0
+type = 1
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 2.58308
+rotation = 1.13446
 size = Vector2( 70, 70 )
+speed = 1
 wait = 60
+time_offset = 0
+interval = 90
+angle_offset = 0
 type = 2
 
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -2.58308
+rotation = -1.13446
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
+time_offset = 0
+interval = 90
+angle_offset = 0
 type = 2
 
 [node name="Fungus" type="Node2D" parent="Items"]
@@ -260,6 +305,7 @@ length = 95
 
 [node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 23 )]
 position = Vector2( 448, 176 )
+length = 56
 
 [node name="Coins" type="Node2D" parent="Items"]
 
