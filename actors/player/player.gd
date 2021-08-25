@@ -582,6 +582,7 @@ func _physics_process(_delta):
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
 	var center = get_global_transform_with_canvas().origin
+	#print(center)
 	if state == s.dive:
 		bubbles_medium.position.y = -9
 		bubbles_small.position.y = -9
@@ -603,10 +604,16 @@ func _physics_process(_delta):
 		else:
 			bubbles_medium.position.x = -11
 			bubbles_small.position.x = -11
-#	bubbles_medium.position /= camera.zoom
-#	bubbles_small.position /= camera.zoom
+	#handle camera zoom
+	bubbles_medium.position /= camera.zoom
+	bubbles_small.position /= camera.zoom
+	var inv_zoom = Vector2.ONE / camera.zoom
+	bubbles_small.process_material.set_shader_param("scale", inv_zoom.x)
+	bubbles_medium.process_material.set_shader_param("scale", inv_zoom.x)
+	#offset bubbles to mario's center
 	bubbles_medium.position += center
 	bubbles_small.position += center
+	#give it shader data
 	bubbles_medium.process_material.set_shader_param("owner_vel", Vector2(vel.x, 0))
 	bubbles_medium.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 	bubbles_small.process_material.set_shader_param("owner_vel", Vector2(vel.x, 0))

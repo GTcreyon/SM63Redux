@@ -64,9 +64,14 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "jump",
+"name": "spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
@@ -79,29 +84,14 @@ animations = [ {
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 28 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "hover_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "hover_spin",
+"name": "pound_fall",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 49 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
-"name": "rocket_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 31 ) ],
-"loop": true,
-"name": "hover_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
+"name": "jump",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 14 ) ],
@@ -109,10 +99,10 @@ animations = [ {
 "name": "fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
+"frames": [ ExtResource( 31 ) ],
 "loop": true,
-"name": "hover_pound_fall",
-"speed": 15.0
+"name": "hover_pound_spin",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 46 ) ],
 "loop": true,
@@ -134,6 +124,41 @@ animations = [ {
 "name": "hover_fall",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "rocket_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "hover_pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "hover_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ), ExtResource( 22 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "hover_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "hover_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ) ],
+"loop": true,
+"name": "rocket_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 43 ) ],
+"loop": true,
+"name": "rocket_dive",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 39 ) ],
 "loop": true,
 "name": "rocket_jump_double",
@@ -144,55 +169,30 @@ animations = [ {
 "name": "jump_double",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 43 ) ],
+"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
 "loop": true,
-"name": "rocket_dive",
-"speed": 5.0
+"name": "rocket_spin",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 42 ) ],
 "loop": true,
 "name": "rocket_pound_spin",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"frames": [ ExtResource( 27 ) ],
 "loop": true,
-"name": "rocket_spin",
-"speed": 15.0
+"name": "hover_jump_double",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
 "loop": true,
 "name": "rocket_pound_fall",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 27 ) ],
-"loop": true,
-"name": "hover_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 48 ) ],
-"loop": true,
-"name": "rocket_flip",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 32 ) ],
 "loop": true,
 "name": "hover_flip",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -274,7 +274,7 @@ light_mask = 2
 z_index = -2
 emitting = false
 amount = 27
-lifetime = 60.0
+lifetime = 0.5
 fixed_fps = 60
 visibility_rect = Rect2( -32, -160, 64, 320 )
 local_coords = false
@@ -285,5 +285,4 @@ texture = ExtResource( 34 )
 material = ExtResource( 38 )
 z_index = -2
 script = ExtResource( 37 )
-
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
