@@ -81,7 +81,7 @@ void vertex() {
 		float angle1_rad = rand_from_seed_m1_p1(alt_seed) * spread_rad;
 		angle1_rad += direction.x != 0.0 ? atan(direction.y, direction.x) : sign(direction.y) * (pi / 2.0);
 		vec3 rot = vec3(cos(angle1_rad), sin(angle1_rad), 0.0);
-		VELOCITY = rot * initial_linear_velocity * mix(1.0, rand_from_seed(alt_seed), initial_linear_velocity_random);
+		VELOCITY = rot * initial_linear_velocity * mix(1.0, rand_from_seed(alt_seed), initial_linear_velocity_random) * scale;
 		float base_angle = (initial_angle + tex_angle) * mix(1.0, angle_rand, initial_angle_random);
 		CUSTOM.x = base_angle * degree_to_rad;
 		CUSTOM.y = 0.0;
@@ -103,7 +103,7 @@ void vertex() {
 		float tex_angle = 0.0;
 		float tex_anim_speed = 0.0;
 		float tex_anim_offset = 0.0;
-		vec3 force = gravity;
+		vec3 force = gravity * scale;
 		vec3 pos = TRANSFORM[3].xyz;
 		pos.z = 0.0;
 		// apply linear acceleration
