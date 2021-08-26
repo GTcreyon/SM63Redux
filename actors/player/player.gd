@@ -593,8 +593,6 @@ func _physics_process(_delta):
 		if slide_vec.length() > 0.5:
 			#warning-ignore:return_value_discarded
 			move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
-		
-		$Label.text = String(vel.x)
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
@@ -635,7 +633,19 @@ func _physics_process(_delta):
 	bubbles_medium.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 	bubbles_small.process_material.set_shader_param("owner_vel", Vector2(vel.x, 0))
 	bubbles_small.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
-
+	
+	if sprite.animation == "walk":
+		
+		if round(vel.x) == 0:
+			sprite.frame = 0
+			sprite.speed_scale = 0
+		else:
+			if sprite.speed_scale == 0:
+				sprite.frame = 1
+			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
+	else:
+		sprite.speed_scale = 1
+	$Label.text = str(vel.x)
 func _on_Tween_tween_completed(_object, _key):
 	if state == s.pound_spin:
 		switch_state(s.pound_fall)

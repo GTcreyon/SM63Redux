@@ -2,11 +2,11 @@ extends KinematicBody2D
 onready var lm_counter = $"/root/Main/Player".life_meter_counter
 onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/Life_meter_counter"
 var shell = preload("koopa_shell.tscn").instance()
-const GRAVITY = 10
+const GRAVITY = 0.17
 var speed = 50
 const FLOOR = Vector2(0, -1)
 var init_position = 0
-var velocity = Vector2()
+var vel = Vector2.ZERO
 var distance_detector = Vector2()
 export var direction = 1
 #It's supposed to walk from left to right for some certain distance.
@@ -18,9 +18,14 @@ func _ready():
 	 init_position = position
 
 func _physics_process(_delta):
-	velocity.x = speed * direction
-	velocity.y += GRAVITY
-	velocity = move_and_slide(velocity, FLOOR)
+	vel.x = speed * direction
+	vel.y += GRAVITY
+	var snap
+	if !is_on_floor():
+		snap = Vector2.ZERO
+	else:
+		snap = Vector2(0, 4)
+	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	#raycast2d is used here to detect if the object collided with a wall
 	#to change directions
 	if is_on_wall():
