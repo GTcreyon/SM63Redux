@@ -330,6 +330,7 @@ func _physics_process(_delta):
 				if state == s.dive:
 					if ((int(i_right) - int(i_left) != -1) && !sprite.flip_h) || ((int(i_right) - int(i_left) != 1) && sprite.flip_h):
 						if !dive_return && vel.x != 0 && !wall: #prevents static dive recover
+							coyote_time = 0
 							dive_correct(-1)
 							switch_state(s.diveflip)
 							vel.y = min(-set_jump_1_vel/1.5, vel.y)
@@ -338,6 +339,7 @@ func _physics_process(_delta):
 					else:
 						if !dive_return:
 							dive_correct(-1)
+						coyote_time = 0
 						switch_state(s.backflip)
 						vel.y = min(-set_jump_1_vel - 2.5 * fps_mod, vel.y)
 						if sprite.flip_h:
@@ -359,7 +361,7 @@ func _physics_process(_delta):
 					jump_buffer = 0
 					jump_frames = set_jump_mod_frames
 					double_jump_frames = set_double_jump_frames
-					
+					coyote_time = 0
 					match double_jump_state:
 						0: #Single
 							switch_state(s.walk)
@@ -505,6 +507,7 @@ func _physics_process(_delta):
 		
 		if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
 			if coyote_time > 0 && i_jump_h && abs(vel.x) > 1:
+				coyote_time = 0
 				dive_correct(-1)
 				switch_state(s.diveflip)
 				switch_anim("jump")
@@ -515,6 +518,7 @@ func _physics_process(_delta):
 				&& state != s.pound_fall
 				&& state != s.pound_spin):
 				if !ground:
+					coyote_time = 0
 					if state != s.frontflip:
 						play_voice("dive")
 					var multiplier = 1

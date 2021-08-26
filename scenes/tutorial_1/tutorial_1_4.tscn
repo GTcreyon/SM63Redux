@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -31,6 +31,39 @@
 [ext_resource path="res://actors/items/decoration/fungus_double.tscn" type="PackedScene" id=29]
 [ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=30]
 [ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=31]
+[ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=32]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 32 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 32 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 32 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 32 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
 
 [node name="Main" type="Node2D"]
 
@@ -106,11 +139,9 @@ position = Vector2( 93, -310 )
 
 [node name="Cloud" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( 174, -223 )
-width = 1
 
 [node name="Cloud2" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -2, -261 )
-width = 1
 
 [node name="Cloud3" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -260, -289 )
@@ -122,7 +153,6 @@ width = 2
 
 [node name="Cloud5" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -443, -354 )
-width = 1
 
 [node name="Cloud6" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -774, -292 )
@@ -130,15 +160,12 @@ width = 8
 
 [node name="Cloud7" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -776, -459 )
-width = 1
 
 [node name="Cloud8" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -776, -459 )
-width = 1
 
 [node name="Cloud9" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -673, -626 )
-width = 1
 
 [node name="Cloud12" parent="Items/Clouds" instance=ExtResource( 17 )]
 position = Vector2( -579, -645 )
@@ -172,65 +199,39 @@ width = 0
 
 [node name="Pivot" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 386, -31 )
-radius = 50
 count = 4
-speed = 10.0
-offset = 0.0
 
 [node name="Pivot2" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 438, -183 )
-radius = 50
 count = 4
-speed = 10.0
-offset = 0.0
 
 [node name="Pivot3" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 292, -254 )
-radius = 50
 count = 4
-speed = 10.0
-offset = 0.0
 
 [node name="Pivot4" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( -465, -659 )
-radius = 50
-count = 3
-speed = 10.0
-offset = 0.0
 
 [node name="Pivot5" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( -20, -647 )
-radius = 50
 count = 1
-speed = 10.0
-offset = 0.0
 
 [node name="Pivot6" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 80, -647 )
-radius = 50
 count = 1
-speed = 10.0
-offset = 0.0
 
 [node name="Pivot7" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 180, -647 )
-radius = 50
 count = 1
-speed = 10.0
-offset = 0.0
 
 [node name="Pivot8" parent="Items/Pivots" instance=ExtResource( 15 )]
 position = Vector2( 280, -647 )
-radius = 50
 count = 1
-speed = 10.0
-offset = 0.0
 
 [node name="TiltingPlatforms" type="Node2D" parent="Items"]
 
 [node name="TiltingPlatform" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
 position = Vector2( 81, -241 )
-width = 1
 
 [node name="TiltingPlatform2" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
 position = Vector2( -135, -269 )
@@ -244,37 +245,25 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 0.610865
+rotation = 4.71239
 size = Vector2( 92, 92 )
-speed = 1
 wait = 90
-time_offset = 0
-interval = 90
-angle_offset = 0
-type = 1
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 1.13446
+rotation = 7.03367
 size = Vector2( 70, 70 )
-speed = 1
 wait = 60
-time_offset = 0
-interval = 90
-angle_offset = 0
 type = 2
 
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -1.13446
+rotation = -7.03367
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
-time_offset = 0
-interval = 90
-angle_offset = 0
 type = 2
 
 [node name="Fungus" type="Node2D" parent="Items"]
@@ -305,7 +294,6 @@ length = 95
 
 [node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 23 )]
 position = Vector2( 448, 176 )
-length = 56
 
 [node name="Coins" type="Node2D" parent="Items"]
 
@@ -428,15 +416,19 @@ position = Vector2( 128, 202.5 )
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign" parent="Items/Signs" instance=ExtResource( 31 )]
+material = SubResource( 1 )
 position = Vector2( -737, -302 )
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 31 )]
+material = SubResource( 2 )
 position = Vector2( 371, 203 )
 lines = [ "The [color=#5f75c5]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don’t become too reliant on it though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it’s gone,[@p,3] you won’t be able to hover any longer.", "Not to worry,[@p,3] if you hop into a body of water or grab a water bottle,[@p,3] the tank will refill." ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 31 )]
+material = SubResource( 3 )
 position = Vector2( -129, -638 )
 lines = [ "Hey sweetie-pie! If you’re ever feeling tired just press the (P/Assigned Button) to pause the game! In the pause menu, you change settings, view all of the items you’ve collected, change Nozzles, or just sit back and take some time to yourself! Self-care is important Mario, don’t you dare forget that!" ]
 
 [node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
+material = SubResource( 4 )
 position = Vector2( 945, -528 )
