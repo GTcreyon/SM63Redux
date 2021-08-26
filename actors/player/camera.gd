@@ -37,7 +37,7 @@ func _process(_delta):
 		size_changed = true
 		
 	if size_changed:
-		#$"/root/Main/Bubbles".refresh()
+		$"/root/Main/Bubbles".refresh()
 		$GUI.set_size(floor(log(floor(OS.window_size.x / 448)) / log(2) + 1), floor(OS.window_size.x / 448))
 	
 	zoom = Vector2.ONE * zoom_factor * current_zoom

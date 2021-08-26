@@ -5,7 +5,7 @@ onready var cam = $"../Camera2D"
 
 func refresh():
 	#set the viewport size to the window size
-	viewport.size = get_viewport_rect().size * cam.target_zoom
+	viewport.size = OS.window_size * cam.target_zoom
 	#create a texture for the bubbles
 	var tex = ImageTexture.new()
 	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
