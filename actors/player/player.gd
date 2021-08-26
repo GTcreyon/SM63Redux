@@ -80,6 +80,7 @@ var jump_cancel = false
 var sign_cooldown = 0
 var jump_buffer = 0
 var coyote_time = 0
+var sign_x = null
 
 enum s { #state enum
 	walk,
@@ -181,7 +182,10 @@ func ground_friction(val, sub, div): #Ripped from source
 
 
 func _physics_process(_delta):
-	if !static_v: #for the pipe, maybe will be used for other things.
+	if static_v:
+		if sign_x != null:
+			position.x = sign_x + (position.x - sign_x) * 0.75
+	else:
 		var i_left = Input.is_action_pressed("left")
 		var i_right = Input.is_action_pressed("right")
 		var i_down = Input.is_action_pressed("down")

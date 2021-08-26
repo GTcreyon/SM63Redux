@@ -143,6 +143,7 @@ func _process(_delta):
 				line_index += 1
 				if loaded_lines.size() <= line_index:
 					active = false
+					player.sign_x = null
 					player.static_v = false
 					swoop_timer = 0
 				else:
