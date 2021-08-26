@@ -1,6 +1,6 @@
 extends "res://actors/items/coin/coin.gd"
 
-func _on_PickupArea_body_entered(body):
+func _on_PickupArea_body_entered(_body):
 	singleton.coin_total += 2
 	singleton.red_coin_total += 1
 	$SFX.play()
