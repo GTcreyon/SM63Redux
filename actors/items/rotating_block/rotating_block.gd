@@ -63,7 +63,6 @@ func change_texture(id):
 
 
 func set_type(new_type):
-	print(new_type)
 	type = new_type
 	match type:
 		2:

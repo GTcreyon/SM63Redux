@@ -447,7 +447,7 @@ func _physics_process(_delta):
 		elif !i_fludd && singleton.nozzle != n.hover:
 			singleton.power = min(singleton.power + fps_mod, 100)
 		
-		if i_fludd && singleton.power > 0 && singleton.water > 0 && state != s.diveflip && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
+		if i_fludd && singleton.power > 0 && singleton.water > 0 && state != s.diveflip && (state != s.backflip || !classic) && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
 			match singleton.nozzle:
 				n.hover:
 					fludd_strain = true

@@ -20,7 +20,6 @@ func _ready():
 
 func set_radius(new_radius):
 	radius = new_radius
-	print(radius)
 	refresh_ring() #regenerate the ring with new radius
 
 
