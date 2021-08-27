@@ -12,12 +12,10 @@ func _process(_delta):
 	if Input.is_action_just_pressed("screen+") && OS.window_size.x + 448 <= OS.get_screen_size().x && OS.window_size.y + 304 <= OS.get_screen_size().y:
 		OS.window_size.x += 448
 		OS.window_size.y += 304
-		$"/root/Main/Bubbles".refresh()
 		size_changed = true
 	if Input.is_action_just_pressed("screen-") && OS.window_size.x - 448 >= 448:
 		OS.window_size.x -= 448
 		OS.window_size.y -= 304
-		$"/root/Main/Bubbles".refresh()
 		size_changed = true
 	
 	#$GUI.set_size(log(floor(OS.window_size.x / 448)) / log(2) + 1)
@@ -30,15 +28,14 @@ func _process(_delta):
 		tween.stop_all()
 		tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)
 		tween.start()
-		size_changed = true
 	if Input.is_action_just_pressed("zoom-"):
 		target_zoom *= 2
 		tween.stop_all()
 		tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)
 		tween.start()
-		size_changed = true
 		
 	if size_changed:
+		$"/root/Main/Bubbles".refresh()
 		$GUI.set_size(floor(log(floor(OS.window_size.x / 448)) / log(2) + 1), floor(OS.window_size.x / 448))
 	
 	zoom = Vector2.ONE * zoom_factor * current_zoom
