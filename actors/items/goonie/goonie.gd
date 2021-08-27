@@ -59,7 +59,7 @@ func _on_RideArea_body_entered(body):
 		riding += 1
 
 
-func _on_RideArea_body_exited(body):
+func _on_RideArea_body_exited(_body):
 	riding -= 1
 	if riding <= 0:
 		sprite.speed_scale = 1

@@ -79,6 +79,8 @@ var rocket_charge = 0
 var jump_cancel = false
 var sign_cooldown = 0
 var jump_buffer = 0
+var coyote_time = 0
+var sign_x = null
 
 enum s { #state enum
 	walk,
@@ -178,8 +180,12 @@ func ground_friction(val, sub, div): #Ripped from source
 	val *= vel_sign
 	return val*fps_mod
 
+
 func _physics_process(_delta):
-	if !static_v: #for the pipe, maybe will be used for other things.
+	if static_v:
+		if sign_x != null:
+			position.x = sign_x + (position.x - sign_x) * 0.75
+	else:
 		var i_left = Input.is_action_pressed("left")
 		var i_right = Input.is_action_pressed("right")
 		var i_down = Input.is_action_pressed("down")
@@ -199,6 +205,11 @@ func _physics_process(_delta):
 		var ground = is_on_floor()
 		var wall = is_on_wall()
 		var ceiling = is_on_ceiling()
+		
+		if ground:
+			coyote_time = 5
+		else:
+			coyote_time = max(coyote_time - 1, 0)
 		
 		if i_jump_h:
 			jump_buffer = max(jump_buffer - 1, 0)
@@ -237,34 +248,36 @@ func _physics_process(_delta):
 				switch_state(s.walk)
 				sprite.rotation_degrees = 0
 			
-		if ground:
+		if coyote_time > 0:
 			jump_cancel = false
 			if state == s.pound_fall:
 				pound_frames = max(0, pound_frames - 1)
 				if pound_frames <= 0:
 					switch_state(s.walk)
-			fall_adjust = 0
-			if state == s.dive:
-				if double_jump_frames >= set_double_jump_frames - 1:
-					vel.x = ground_friction(vel.x, 0.2, 1.02) #Double friction on landing
-				vel.x = ground_friction(vel.x, 0.2, 1.02) #Floor friction
-				if angle_cast.is_colliding() && !dive_return:
-					#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
-					sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + PI/2, 0.5)
-			else:
-				if double_jump_frames >= set_double_jump_frames - 1:
-					vel.x = ground_friction(vel.x, 0.3, 1.15) #Double friction on landing
-				vel.x = ground_friction(vel.x, 0.3, 1.15) #Floor friction
+					
+			if ground: #specifically apply to when actually on the ground, not coyote time
+				fall_adjust = 0 #set adjustable yvel to 0
+				if state == s.dive:
+					if double_jump_frames >= set_double_jump_frames - 1:
+						vel.x = ground_friction(vel.x, 0.2, 1.02) #Double friction on landing
+					vel.x = ground_friction(vel.x, 0.2, 1.02) #Floor friction
+					if angle_cast.is_colliding() && !dive_return:
+						#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
+						sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + PI/2, 0.5)
+				else:
+					if double_jump_frames >= set_double_jump_frames - 1:
+						vel.x = ground_friction(vel.x, 0.3, 1.15) #Double friction on landing
+					vel.x = ground_friction(vel.x, 0.3, 1.15) #Floor friction
 			
-			if state == s.frontflip || state == s.backflip: #Reset state when landing
-				switch_state(s.walk)
-				sprite.rotation_degrees = 0
-				tween.stop_all()
-			
-			if state == s.dive && abs(vel.x) == 0 && !i_dive_h && !dive_return:
-				dive_return = true
-				dive_frames = 4
-				sprite.rotation_degrees = 0
+				if state == s.frontflip || state == s.backflip: #Reset state when landing
+					switch_state(s.walk)
+					sprite.rotation_degrees = 0
+					tween.stop_all()
+				
+				if state == s.dive && abs(vel.x) == 0 && !i_dive_h && !dive_return:
+					dive_return = true
+					dive_frames = 4
+					sprite.rotation_degrees = 0
 			if state == s.walk:
 				switch_anim("walk")
 			
@@ -317,10 +330,11 @@ func _physics_process(_delta):
 			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
 		
 		if i_jump_h:
-			if ground:
+			if coyote_time > 0:
 				if state == s.dive:
 					if ((int(i_right) - int(i_left) != -1) && !sprite.flip_h) || ((int(i_right) - int(i_left) != 1) && sprite.flip_h):
 						if !dive_return && vel.x != 0 && !wall: #prevents static dive recover
+							coyote_time = 0
 							dive_correct(-1)
 							switch_state(s.diveflip)
 							vel.y = min(-set_jump_1_vel/1.5, vel.y)
@@ -329,6 +343,7 @@ func _physics_process(_delta):
 					else:
 						if !dive_return:
 							dive_correct(-1)
+						coyote_time = 0
 						switch_state(s.backflip)
 						vel.y = min(-set_jump_1_vel - 2.5 * fps_mod, vel.y)
 						if sprite.flip_h:
@@ -350,7 +365,7 @@ func _physics_process(_delta):
 					jump_buffer = 0
 					jump_frames = set_jump_mod_frames
 					double_jump_frames = set_double_jump_frames
-					
+					coyote_time = 0
 					match double_jump_state:
 						0: #Single
 							switch_state(s.walk)
@@ -475,7 +490,7 @@ func _physics_process(_delta):
 							if sprite.flip_h:
 								multiplier = -1
 							if ground:
-								multiplier *= 2
+								multiplier *= 2 #double power when grounded to counteract friction
 							vel += Vector2(cos(sprite.rotation)*25*fps_mod * fps_mod * multiplier, -sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
 	#					elif state == s.frontflip:
 	#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
@@ -495,7 +510,8 @@ func _physics_process(_delta):
 				singleton.power = min(singleton.power + fps_mod, 100)
 		
 		if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
-			if ground && i_jump_h && abs(vel.x) > 1:
+			if coyote_time > 0 && i_jump_h && abs(vel.x) > 1:
+				coyote_time = 0
 				dive_correct(-1)
 				switch_state(s.diveflip)
 				switch_anim("jump")
@@ -506,6 +522,7 @@ func _physics_process(_delta):
 				&& state != s.pound_fall
 				&& state != s.pound_spin):
 				if !ground:
+					coyote_time = 0
 					if state != s.frontflip:
 						play_voice("dive")
 					var multiplier = 1
@@ -576,8 +593,6 @@ func _physics_process(_delta):
 		if slide_vec.length() > 0.5:
 			#warning-ignore:return_value_discarded
 			move_and_slide_with_snap(vel*60 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
-		
-		$Label.text = String(vel.x)
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
@@ -610,7 +625,19 @@ func _physics_process(_delta):
 	#give it shader data
 	bubbles_medium.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 	bubbles_small.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
-
+	
+	if sprite.animation == "walk":
+		
+		if round(vel.x) == 0:
+			sprite.frame = 0
+			sprite.speed_scale = 0
+		else:
+			if sprite.speed_scale == 0:
+				sprite.frame = 1
+			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
+	else:
+		sprite.speed_scale = 1
+	$Label.text = str(vel.x)
 func _on_Tween_tween_completed(_object, _key):
 	if state == s.pound_spin:
 		switch_state(s.pound_fall)
