@@ -81,6 +81,7 @@ var sign_cooldown = 0
 var jump_buffer = 0
 var coyote_time = 0
 var sign_x = null
+var solid_floors = 0
 
 enum s { #state enum
 	walk,
@@ -262,9 +263,12 @@ func _physics_process(_delta):
 					if double_jump_frames >= set_double_jump_frames - 1:
 						vel.x = ground_friction(vel.x, 0.2, 1.02) #Double friction on landing
 					vel.x = ground_friction(vel.x, 0.2, 1.02) #Floor friction
-					if angle_cast.is_colliding() && !dive_return:
-						#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
-						sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + PI/2, 0.5)
+					if !dive_return:
+						if angle_cast.is_colliding():
+							#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
+							sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + PI/2, 0.5)
+						elif solid_floors > 0:
+							sprite.rotation = 0
 				else:
 					if double_jump_frames >= set_double_jump_frames - 1:
 						vel.x = ground_friction(vel.x, 0.3, 1.15) #Double friction on landing
@@ -644,3 +648,11 @@ func _on_Tween_tween_completed(_object, _key):
 		vel.y = 8
 	else:
 		switch_state(s.walk)
+
+
+func _on_BackupAngle_body_entered(body):
+	solid_floors += 1
+
+
+func _on_BackupAngle_body_exited(body):
+	solid_floors -= 1
