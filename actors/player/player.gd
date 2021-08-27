@@ -182,6 +182,7 @@ func ground_friction(val, sub, div): #Ripped from source
 
 
 func _physics_process(_delta):
+	update_classic()
 	if static_v:
 		if sign_x != null:
 			position.x = sign_x + (position.x - sign_x) * 0.75
@@ -441,6 +442,11 @@ func _physics_process(_delta):
 				else:
 					vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 		
+		if ground:
+			singleton.power = 100
+		elif !i_fludd && singleton.nozzle != n.hover:
+			singleton.power = min(singleton.power + fps_mod, 100)
+		
 		if i_fludd && singleton.power > 0 && singleton.water > 0 && state != s.diveflip && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
 			match singleton.nozzle:
 				n.hover:
@@ -480,11 +486,10 @@ func _physics_process(_delta):
 					if singleton.power == 100:
 						fludd_strain = true
 						rocket_charge += 1
+					else:
+						fludd_strain = false
 					if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
 						if state == s.dive:
-							print(cos(sprite.rotation))
-							print(-cos(sprite.rotation)*25*fps_mod * -fps_mod if sprite.flip_h else -fps_mod)
-							
 							#set sign of velocity (could use ternary but they're icky)
 							var multiplier = 1
 							if sprite.flip_h:
@@ -504,10 +509,6 @@ func _physics_process(_delta):
 		else:
 			fludd_strain = false
 			rocket_charge = 0
-			if ground:
-				singleton.power = 100
-			elif !i_fludd && singleton.nozzle != n.hover:
-				singleton.power = min(singleton.power + fps_mod, 100)
 		
 		if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
 			if coyote_time > 0 && i_jump_h && abs(vel.x) > 1:
@@ -549,7 +550,7 @@ func _physics_process(_delta):
 				spin_timer -= 1
 			elif !i_spin_h:
 				switch_state(s.walk)
-		
+
 		if (i_spin_h
 		&& state != s.spin
 		&& state != s.frontflip
@@ -597,7 +598,6 @@ func _physics_process(_delta):
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
 	var center = position#get_global_transform_with_canvas().origin
-	#print(center)
 	if state == s.dive:
 		bubbles_medium.position.y = -9
 		bubbles_small.position.y = -9
