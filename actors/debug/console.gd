@@ -36,16 +36,26 @@ func run_command(cmd):
 			if path == "":
 				output("Scene does not exist.")
 			else:
-				get_tree().change_scene(path)
+				var err = get_tree().change_scene(path)
+				if err == OK:
+					output("Warped to " + path)
+				else:
+					output("Error: " + err)
 		"scene":
 			var scene = "res://" + args[1] + ".tscn"
 			var file_check = File.new()
 			if file_check.file_exists(scene):
-				get_tree().change_scene(scene)
+				var err = get_tree().change_scene(scene)
+				if err == OK:
+					output("Warped to " + scene)
+				else:
+					output("Error: " + err)
 			else:
 				output("Scene does not exist.")
 		"water":
 			$"/root/Singleton".water = int(args[1])
+		"c":
+			$"/root/Singleton".classic = !$"/root/Singleton".classic
 		_:
 			output("Unknown command.")
 

@@ -21,6 +21,7 @@ func _physics_process(_delta):
 		
 		if is_on_wall():
 			vel.x = -vel.x / 2
+		# warning-ignore:RETURN_VALUE_DISCARDED
 		move_and_slide(vel * 60, Vector2.UP)
 
 

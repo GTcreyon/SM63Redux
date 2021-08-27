@@ -4,6 +4,7 @@ render_mode unshaded;
 uniform int intensity : hint_range(0,200); 
 uniform float precision : hint_range(0,0.02);
 uniform vec4 outline_color : hint_color;
+uniform bool radial;
 
 varying vec2 o;
 varying vec2 f;
@@ -33,13 +34,13 @@ void fragment()
 	vec4 final_color = regular_color;
 	if (regular_color.a <= 0.0)
 	{
-		for(int x = -1; x <= 1; x += 1){
-			for(int y = -1; y <= 1; y += 1){
+		for(float x = -ps.x; x <= ps.x; x += TEXTURE_PIXEL_SIZE.x){
+			for(float y = -ps.x; y <= ps.y; y += TEXTURE_PIXEL_SIZE.y){
 				//Get the X and Y offset from this
-				if (x==0 && y==0)
+				if ((distance(vec2(0, 0), vec2(x, y)) > ps.r && radial) || abs(x) == abs(y) && !radial)
 					continue;
 					
-				vec2 outline_uv = regular_uv + vec2(float(x) * ps.x, float(y) * ps.y); 
+				vec2 outline_uv = regular_uv + vec2(x, y); 
 				
 				//Sample here, if we are out of bounds then fail
 				vec4 outline_sample = texture(TEXTURE, outline_uv);

@@ -108,7 +108,7 @@ func _process(_delta):
 										$Text.pop() #closes tag
 									"@":
 										if tag[2] == "/":
-											var a = 0
+											var _a = 0
 										else:
 											var subtag = tag.substr(2, tag.length() - 3)
 											print(subtag)
@@ -143,6 +143,7 @@ func _process(_delta):
 				line_index += 1
 				if loaded_lines.size() <= line_index:
 					active = false
+					player.sign_x = null
 					player.static_v = false
 					swoop_timer = 0
 				else:

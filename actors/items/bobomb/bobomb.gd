@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const GRAVITY = 10
+const GRAVITY = 0.17
 const coin = preload("res://actors/items/coin/coin_yellow.tscn")
 const sfx = {
 	"jump": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
@@ -8,7 +8,7 @@ const sfx = {
 	#"squish": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
 	}
 
-var vel = Vector2()
+var vel = Vector2.ZERO
 
 export var direction = 1
 
@@ -86,14 +86,14 @@ func _physics_process(_delta):
 			else:
 				stepped = false
 			if tracking:
-				base.speed_scale = abs(vel.x) / 100 + 1
+				base.speed_scale = abs(vel.x) / 2 + 1
 				if player.position.x - position.x < -20 || (player.position.x < position.x && abs(player.position.y - position.y) < 26):
-					vel.x = max(vel.x - 5, -100)
+					vel.x = min(vel.x - 0.1, -2)
 					direction = -1
 					raycast.position.x = -9
 					base.playing = true
 				elif player.position.x - position.x > 20 || (player.position.x > position.x && abs(player.position.y - position.y) < 26):
-					vel.x = min(vel.x + 5, 100)
+					vel.x = min(vel.x + 0.1, 2)
 					direction = 1
 					raycast.position.x = 9
 					base.playing = true
@@ -105,15 +105,20 @@ func _physics_process(_delta):
 				base.speed_scale = 1
 				base.playing = true
 				if direction == 1:
-					vel.x = min(vel.x + 5, 50)
+					vel.x = min(vel.x + 0.1, 1)
 				else:
-					vel.x = max(vel.x - 5, -50)
+					vel.x = max(vel.x - 0.1, -1)
 				wander_dist += 1
 				if wander_dist >= 120 && base.frame == 0:
 					wander_dist = 0
 					direction *= -1
 		
-	vel = move_and_slide(vel, Vector2.UP, true)
+	var snap
+	if !is_on_floor() || base.animation == "struck":
+		snap = Vector2.ZERO
+	else:
+		snap = Vector2(0, 4)
+	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	if is_on_floor() && struck:
 		var spawn = coin.instance()
 		spawn.position = position
@@ -125,11 +130,11 @@ func _physics_process(_delta):
 		if body == player:
 			if !struck && player.state == player.s.spin && player.spin_timer > 0:
 				struck = true
-				vel.y -= 158
+				vel.y -= 2.63
 				base.animation = "struck"
 				fuse.visible = false
 				key.visible = false
-				vel.x += max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x)
+				vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x) / 10
 		
 #the next signals are used for the aggresive trigger
 #behaviour, it changes the vel and goes towards

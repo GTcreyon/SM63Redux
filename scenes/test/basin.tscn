@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/terrain/dark_ground.png" type="Texture" id=20]
 [ext_resource path="res://actors/items/tilting_platform/tilting_platform.tscn" type="PackedScene" id=21]
+[ext_resource path="res://actors/items/bobomb/bobomb.tscn" type="PackedScene" id=22]
 
 [node name="Main" type="Node2D"]
 
@@ -53,10 +54,7 @@ position = Vector2( -368, -200 )
 
 [node name="Pivot" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, -256 )
-radius = 50
 count = 4
-speed = 10.0
-offset = 0.0
 
 [node name="Goonie" parent="." instance=ExtResource( 8 )]
 position = Vector2( -816, -224 )
@@ -84,10 +82,6 @@ position = Vector2( -400, 224 )
 
 [node name="Pivot2" parent="." instance=ExtResource( 4 )]
 position = Vector2( -368, -200 )
-radius = 50
-count = 3
-speed = 10.0
-offset = 0.0
 
 [node name="Log" parent="." instance=ExtResource( 11 )]
 position = Vector2( 870, -265 )
@@ -153,17 +147,14 @@ position = Vector2( 544, -192 )
 [node name="Fossil" parent="." instance=ExtResource( 19 )]
 position = Vector2( 1014.84, -189.418 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil2" parent="." instance=ExtResource( 19 )]
 position = Vector2( 847, -191 )
 animation = "yellow"
-frame = 2
 
 [node name="Fossil3" parent="." instance=ExtResource( 19 )]
 position = Vector2( 950.303, -139.107 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil4" parent="." instance=ExtResource( 19 )]
 position = Vector2( 918.341, -236.446 )
@@ -175,13 +166,14 @@ animation = "yellow"
 
 [node name="Fossil6" parent="." instance=ExtResource( 19 )]
 position = Vector2( 300, -376 )
+frame = 2
 
 [node name="Fossil7" parent="." instance=ExtResource( 19 )]
 position = Vector2( 405, -348 )
+frame = 1
 
 [node name="Fossil8" parent="." instance=ExtResource( 19 )]
 position = Vector2( 500, -371 )
-frame = 2
 
 [node name="Fossil9" parent="." instance=ExtResource( 19 )]
 position = Vector2( 602, -322 )
@@ -190,3 +182,6 @@ frame = 2
 [node name="TiltingPlatform" parent="." instance=ExtResource( 21 )]
 position = Vector2( -66, -414 )
 width = 5
+
+[node name="Bobomb" parent="." instance=ExtResource( 22 )]
+position = Vector2( 271, -202 )
