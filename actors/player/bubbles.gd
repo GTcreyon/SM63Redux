@@ -5,7 +5,7 @@ onready var cam = $"../Camera2D"
 
 func refresh():
 	#set the viewport size to the window size
-	viewport.size = get_viewport_rect().size * cam.target_zoom
+	viewport.size = OS.window_size
 	#create a texture for the bubbles
 	var tex = ImageTexture.new()
 	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
@@ -23,6 +23,7 @@ func _ready():
 	$"/root/Main".call_deferred("add_child", viewport)
 
 func _process(_delta):
+	viewport.canvas_transform = get_canvas_transform()
 	#set the position to the screen center
 	scale = Vector2(1, 1) / cam.get_canvas_transform().get_scale()
 	position = (viewport.size / 2 - cam.get_canvas_transform().origin) * scale
