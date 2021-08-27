@@ -150,6 +150,7 @@ func _physics_process(_delta):
 		snap = Vector2.ZERO
 	else:
 		snap = Vector2(0, 4)
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	if is_on_floor() && struck && sprite.animation != "squish":
 		sprite.animation = "squish"

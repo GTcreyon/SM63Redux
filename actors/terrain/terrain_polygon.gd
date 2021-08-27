@@ -99,7 +99,7 @@ func generate_grass(group):
 	
 	strip.texture = grass_texture
 	strip.texture_rotation = -group.normal_angle - PI / 2
-	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + thickness/3
+	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + thickness/3.0
 	
 	#purely for debugging
 	if group.debug_draw_outline:
