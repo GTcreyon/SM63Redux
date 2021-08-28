@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -33,10 +33,26 @@
 [ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=31]
 [ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=32]
 
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 32 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 32 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
 shader = ExtResource( 32 )
-shader_param/intensity = 100
+shader_param/intensity = 200
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/radial = false
@@ -221,14 +237,14 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 26.7035
+rotation = 175.633
 size = Vector2( 92, 92 )
 wait = 90
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 40.4043
+rotation = 263.074
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
@@ -236,7 +252,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -40.4043
+rotation = -263.074
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
@@ -392,16 +408,18 @@ position = Vector2( 128, 202.5 )
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign" parent="Items/Signs" instance=ExtResource( 31 )]
+material = SubResource( 1 )
 position = Vector2( -737, -302 )
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 31 )]
+material = SubResource( 2 )
 position = Vector2( 371, 203 )
 lines = [ "The [color=#5f75c5]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don’t become too reliant on it though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it’s gone,[@p,3] you won’t be able to hover any longer.", "Not to worry,[@p,3] if you hop into a body of water or grab a water bottle,[@p,3] the tank will refill." ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 31 )]
+material = SubResource( 3 )
 position = Vector2( -129, -638 )
 lines = [ "Hey sweetie-pie! If you’re ever feeling tired just press the (P/Assigned Button) to pause the game! In the pause menu, you change settings, view all of the items you’ve collected, change Nozzles, or just sit back and take some time to yourself! Self-care is important Mario, don’t you dare forget that!" ]
 
 [node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
-material = SubResource( 3 )
 position = Vector2( 945, -528 )

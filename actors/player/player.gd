@@ -650,9 +650,9 @@ func _on_Tween_tween_completed(_object, _key):
 		switch_state(s.walk)
 
 
-func _on_BackupAngle_body_entered(body):
+func _on_BackupAngle_body_entered(_body):
 	solid_floors += 1
 
 
-func _on_BackupAngle_body_exited(body):
+func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
