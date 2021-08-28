@@ -17,7 +17,7 @@ const set_jump_3_vel = set_jump_1_vel + 5.0 * fps_mod
 var set_wall_bounce
 const set_jump_mod_frames = 13
 const set_double_jump_frames = 17
-const set_triple_jump_deadzone = 3.0 * fps_mod
+const set_triple_jump_deadzone = 2.0 * fps_mod
 const set_dive_speed = 35.0 * fps_mod
 const set_dive_correct = 7
 const set_hover_speed = 9.2
