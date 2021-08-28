@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/edge_shadow.png-02332d70924f7b359d0607d2842d9f3b.stex"
+path="res://.import/jungle_cliff.png-23a9d70af5850c97b49cce93f71148f9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/terrain/edge_shadow.png"
-dest_files=[ "res://.import/edge_shadow.png-02332d70924f7b359d0607d2842d9f3b.stex" ]
+source_file="res://actors/terrain/jungle_cliff.png"
+dest_files=[ "res://.import/jungle_cliff.png-23a9d70af5850c97b49cce93f71148f9.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=1
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

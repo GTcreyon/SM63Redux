@@ -1,11 +1,15 @@
 tool
 extends Polygon2D
 
-const thickness = 18
+const grass_thickness = 18
+const cliff_thickness = 4
+const sub_mat = preload("res://shaders/subtract.tres")
+const shadow_texture = preload("./cliff_shadow.png")
 
 export var up_vector = Vector2(0, -1)
 export var max_angle = 60
 export var grass_texture = preload("./jungle_grass.png")
+export var cliff_texture = preload("./jungle_cliff.png")
 export var ground_texture = preload("./jungle_ground.png") setget set_ground_texture
 
 onready var collision = $Collision/CollisionShape
@@ -59,7 +63,7 @@ func generate_poly_groups():
 func calculate_intersection(left, right):
 	var half = ((left.direction + right.direction) / 2).tangent().normalized() #split vector
 	var angle = half.angle_to(right.direction)
-	var intersect = half * (thickness / sin(angle)) * sign(half.angle())
+	var intersect = half * (grass_thickness / sin(angle)) * sign(half.angle())
 	#2/3 is 10.67 pixels and 1/3 is 5.33 pixels
 	var overwrite = [left.end + intersect * 2/3, left.end - intersect / 3]
 	
@@ -77,10 +81,10 @@ func set_polygon_from_groups():
 func generate_grass(group):
 	var strip = Polygon2D.new()
 	strip.polygon = PoolVector2Array([
-		group.start + group.normal * thickness / 3,
-		group.end + group.normal * thickness / 3,
-		group.end - group.normal * thickness * 2 / 3,
-		group.start - group.normal * thickness * 2 / 3,
+		group.start + group.normal * grass_thickness / 3,
+		group.end + group.normal * grass_thickness / 3,
+		group.end - group.normal * grass_thickness * 2 / 3,
+		group.start - group.normal * grass_thickness * 2 / 3,
 	])
 	if group.left_overwrite:
 		strip.polygon[3] = group.left_overwrite[0]
@@ -99,7 +103,48 @@ func generate_grass(group):
 	
 	strip.texture = grass_texture
 	strip.texture_rotation = -group.normal_angle - PI / 2
-	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + thickness/3.0
+	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + grass_thickness/3.0
+	
+	#purely for debugging
+	if group.debug_draw_outline:
+		strip.color = Color(0, 0, 1, 0)
+		var size = strip.polygon.size()
+		for i in size:
+			var this = strip.polygon[i]
+			var next = strip.polygon[(i + 1) % size]
+			draw_line(this, next, Color(0, 0, float(i) / 3.0), 1)
+			draw_circle(this, 1, Color(0, 0, float(i) / 3.0))
+	
+	strip.z_index = 1
+	
+	top.add_child(strip)
+
+
+func generate_edge(group):
+	var strip = Polygon2D.new()
+	var temp_thickness = cliff_thickness + 1 #genuinely don't know why this is necessary
+	strip.polygon = PoolVector2Array([
+		group.start + group.normal * temp_thickness / 3,
+		group.end + group.normal * temp_thickness / 3,
+		group.end - group.normal * temp_thickness * 2 / 3,
+		group.start - group.normal * temp_thickness * 2 / 3,
+	])
+	if group.left_overwrite:
+		strip.polygon[3] = group.left_overwrite[0]
+		strip.polygon[0] = group.left_overwrite[1]
+	if group.right_overwrite:
+		strip.polygon[2] = group.right_overwrite[0]
+		strip.polygon[1] = group.right_overwrite[1]
+	
+	var intersect = Geometry.segment_intersects_segment_2d(strip.polygon[0], strip.polygon[1], strip.polygon[2], strip.polygon[3])
+	if intersect != null:
+		var p1 = strip.polygon[1]
+		strip.polygon[1] = strip.polygon[2]
+		strip.polygon[2] = p1
+	
+	strip.texture = cliff_texture
+	strip.texture_rotation = -group.normal_angle - PI / 2
+	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + (cliff_thickness - 1)/3.0
 	
 	#purely for debugging
 	if group.debug_draw_outline:
@@ -112,6 +157,11 @@ func generate_grass(group):
 			draw_circle(this, 1, Color(0, 0, float(i) / 3.0))
 	
 	top.add_child(strip)
+	var shadow_strip = strip.duplicate()
+	strip.texture = shadow_texture
+	strip.material = sub_mat
+	top.add_child(shadow_strip)
+
 
 func mark_grass():
 	var size = poly_groups.size()
@@ -141,6 +191,8 @@ func generate_full():
 			calculate_intersection(left, right)
 		if left.has_grass:
 			generate_grass(left)
+		else:
+			generate_edge(left)
 
 func _draw():
 	generate_full()
