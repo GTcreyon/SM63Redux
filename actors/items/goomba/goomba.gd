@@ -203,7 +203,7 @@ func _on_Area2D_body_entered_hurt(body):
 				vel.y = 0
 				sprite.frame = 0
 				sprite.playing = true
-				player.switch_state(player.s.ejump)
+				player.call_deferred("switch_state", player.s.ejump)
 			elif !struck:
 				if player.state == player.s.spin && player.spin_timer > 0:
 					struck = true
