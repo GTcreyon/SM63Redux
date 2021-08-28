@@ -116,10 +116,10 @@ func generate_edge(group):
 	
 	var temp_thickness = cliff_thickness + 0
 	strip.polygon = PoolVector2Array([
-		group.start + group.normal * temp_thickness / 3,
-		group.end + group.normal * temp_thickness / 3,
-		group.end - group.normal * temp_thickness * 2 / 3,
-		group.start - group.normal * temp_thickness * 2 / 3,
+		group.start + group.normal * temp_thickness / 3 - (group.normal / 3),
+		group.end + group.normal * temp_thickness / 3 - (group.normal / 3),
+		group.end - group.normal * temp_thickness * 2 / 3 - (group.normal / 3),
+		group.start - group.normal * temp_thickness * 2 / 3 - (group.normal / 3),
 	])
 	if group.left_overwrite:
 		strip.polygon[3] = group.left_overwrite[0]
