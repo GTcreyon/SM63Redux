@@ -3,12 +3,15 @@ extends Polygon2D
 
 const grass_thickness = 18
 const cliff_thickness = 4
+const corner_width = 4
 const sub_mat = preload("res://shaders/subtract.tres")
 const shadow_texture = preload("./cliff_shadow.png")
 
 export var up_vector = Vector2(0, -1)
 export var max_angle = 60
 export var grass_texture = preload("./jungle_grass.png")
+export var grass_left_corner = preload("./jungle_grass_left_corner.png")
+export var grass_right_corner = preload("./jungle_grass_right_corner.png")
 export var cliff_texture = preload("./jungle_cliff.png")
 export var ground_texture = preload("./jungle_ground.png") setget set_ground_texture
 
@@ -17,17 +20,6 @@ onready var base = $BaseTexture
 onready var top = $Top
 var poly_old = PoolVector2Array([])
 var poly_groups = []
-
-#func calculate_direction(poly):
-#	var i = 0
-#	var size = poly.size()
-#	var sum = 0
-#	while i < size:
-#		var vert = poly[i]
-#		var vert_next = poly[(i + 1) % size]
-#		sum += (vert_next.x - vert.x) * (vert_next.y + vert.y)
-#		i += 1
-#	return sum > 0 #True if clockwise
 
 #update ground texture when changed
 func set_ground_texture(new_texture):
@@ -103,7 +95,7 @@ func generate_grass(group):
 	
 	strip.texture = grass_texture
 	strip.texture_rotation = -group.normal_angle - PI / 2
-	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + grass_thickness/3.0
+	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + grass_thickness / 3.0
 	
 	#purely for debugging
 	if group.debug_draw_outline:
@@ -119,10 +111,10 @@ func generate_grass(group):
 	
 	top.add_child(strip)
 
-
 func generate_edge(group):
 	var strip = Polygon2D.new()
-	var temp_thickness = cliff_thickness + 1 #genuinely don't know why this is necessary
+	
+	var temp_thickness = cliff_thickness + 0
 	strip.polygon = PoolVector2Array([
 		group.start + group.normal * temp_thickness / 3,
 		group.end + group.normal * temp_thickness / 3,
@@ -144,7 +136,7 @@ func generate_edge(group):
 	
 	strip.texture = cliff_texture
 	strip.texture_rotation = -group.normal_angle - PI / 2
-	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + (cliff_thickness - 1)/3.0
+	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + (cliff_thickness - 1) / 3.0
 	
 	#purely for debugging
 	if group.debug_draw_outline:
@@ -157,11 +149,50 @@ func generate_edge(group):
 			draw_circle(this, 1, Color(0, 0, float(i) / 3.0))
 	
 	top.add_child(strip)
+	
 	var shadow_strip = strip.duplicate()
 	strip.texture = shadow_texture
 	strip.material = sub_mat
 	top.add_child(shadow_strip)
 
+func generate_corner(group, is_left_corner):
+	var strip = Polygon2D.new()
+	
+	#ternary statement fun!!!!!!
+	#get the correct corner and negate the width if the corner is a left corner, not a right corner
+	if is_left_corner:
+		strip.polygon = PoolVector2Array([
+			group.start + group.direction * corner_width / -2 + group.normal * grass_thickness / 3,
+			group.start + group.direction * corner_width / 2 + group.normal * grass_thickness / 3,
+			group.start + group.direction * corner_width / 2 - group.normal * grass_thickness * 2 / 3,
+			group.start + group.direction * corner_width / -2 - group.normal * grass_thickness * 2 / 3,
+		])
+	else:
+		strip.polygon = PoolVector2Array([
+			group.end + group.direction * corner_width / -2 + group.normal * grass_thickness / 3,
+			group.end + group.direction * corner_width / 2 + group.normal * grass_thickness / 3,
+			group.end + group.direction * corner_width / 2 - group.normal * grass_thickness * 2 / 3,
+			group.end + group.direction * corner_width / -2 - group.normal * grass_thickness * 2 / 3,
+		])
+	
+	#MORE TERNARY OPERATORS!!!! I AM SO HAPPY
+	strip.texture = grass_left_corner if is_left_corner else grass_right_corner
+	strip.texture_rotation = -group.normal_angle - PI / 2
+	strip.texture_offset.x = 2
+	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + grass_thickness / 3.0
+
+	#purely for debugging
+	if group.debug_draw_outline:
+		strip.color = Color(0, 0, 1, 0)
+		var size = strip.polygon.size()
+		for i in size:
+			var this = strip.polygon[i]
+			var next = strip.polygon[(i + 1) % size]
+			draw_line(this, next, Color(0, 0, float(i) / 3.0), 1)
+			draw_circle(this, 1, Color(0, 0, float(i) / 3.0))
+
+	strip.z_index = 2
+	top.add_child(strip)
 
 func mark_grass():
 	var size = poly_groups.size()
@@ -189,10 +220,16 @@ func generate_full():
 		var right = poly_groups[(i + 1) % size]
 		if left.has_grass && right.has_grass:
 			calculate_intersection(left, right)
+		#generate the main top
 		if left.has_grass:
 			generate_grass(left)
 		else:
 			generate_edge(left)
+		#generate the corners
+		if right.has_grass && !left.has_grass:
+			generate_corner(right, true)
+		if left.has_grass && !right.has_grass:
+			generate_corner(left, false)
 
 func _draw():
 	generate_full()
