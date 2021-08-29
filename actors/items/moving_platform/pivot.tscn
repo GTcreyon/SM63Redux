@@ -13,4 +13,5 @@ z_index = -2
 z_index = -1
 
 [node name="Center" type="Sprite" parent="."]
+z_index = -2
 texture = ExtResource( 2 )

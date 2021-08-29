@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=30]
 [ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=31]
 [ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=32]
+[ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=33]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -50,6 +51,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/radial = false
 
 [sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 32 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
 shader = ExtResource( 32 )
 shader_param/intensity = 200
@@ -237,14 +246,14 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 175.633
+rotation = 3.14159
 size = Vector2( 92, 92 )
 wait = 90
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 263.074
+rotation = 4.71239
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
@@ -252,7 +261,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -263.074
+rotation = -4.71239
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
@@ -405,6 +414,36 @@ position = Vector2( 195.5, 154 )
 [node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 26 )]
 position = Vector2( 128, 202.5 )
 
+[node name="Arrows" type="Node2D" parent="Items/Decoration"]
+
+[node name="Arrow" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
+position = Vector2( 453, 95 )
+rotation = 1.5708
+
+[node name="Arrow2" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
+position = Vector2( 386, -31 )
+rotation = -1.23918
+
+[node name="Arrow3" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
+position = Vector2( 438, -183 )
+rotation = -2.68781
+
+[node name="Arrow4" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
+position = Vector2( 292, -254 )
+rotation = 3.14159
+
+[node name="Arrow5" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
+position = Vector2( -776, -330 )
+rotation = 4.71239
+
+[node name="Arrow6" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
+position = Vector2( -776, -391 )
+rotation = 4.71239
+
+[node name="Arrow7" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
+position = Vector2( 589, -643 )
+rotation = 0.349066
+
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign" parent="Items/Signs" instance=ExtResource( 31 )]
@@ -422,4 +461,5 @@ position = Vector2( -129, -638 )
 lines = [ "Hey sweetie-pie! If you’re ever feeling tired just press the (P/Assigned Button) to pause the game! In the pause menu, you change settings, view all of the items you’ve collected, change Nozzles, or just sit back and take some time to yourself! Self-care is important Mario, don’t you dare forget that!" ]
 
 [node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
+material = SubResource( 4 )
 position = Vector2( 945, -528 )
