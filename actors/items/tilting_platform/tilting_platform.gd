@@ -19,6 +19,7 @@ func set_width(new_width):
 		$Middle.rect_position.x = -24 * width
 		$Collision.shape.extents.x = 24 * width + 16
 		$RideArea/RideShape.shape.extents.x = 24 * width + 16
+		$SafetyNet/CollisionShape2D.shape.extents.x = 24 * width + 16
 	$Left.position.x = -24 * width - 8
 	$Right.position.x = 24 * width + 8
 
