@@ -14,6 +14,7 @@ func set_width(new_width):
 		$Middle.visible = true
 	#if !Engine.editor_hint:
 	$Collision.shape.extents.x = 8 * width + 15
+	$SafetyNet/CollisionShape2D.shape.extents.x = 8 * width + 15
 	$Middle.rect_size.x = 16 * width
 	$Middle.rect_position.x = -8 * width
 	

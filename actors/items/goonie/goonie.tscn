@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://actors/items/goonie/goonie_flap4.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/goonie/goonie_flap1.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://actors/items/goonie/goonie_flap2.png" type="Texture" id=7]
 [ext_resource path="res://actors/items/goonie/goonie_flap5.png" type="Texture" id=8]
 [ext_resource path="res://actors/items/goonie/goonie.gd" type="Script" id=9]
+[ext_resource path="res://actors/items/safety_net.gd" type="Script" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 1 )
@@ -28,6 +29,9 @@ animations = [ {
 "name": "flap",
 "speed": 10.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 12, 3 )
 
 [node name="Goonie" type="StaticBody2D"]
 z_index = 1
@@ -50,8 +54,19 @@ one_way_collision = true
 position = Vector2( 0, -2 )
 frames = SubResource( 3 )
 animation = "flap"
-frame = 3
+frame = 1
 playing = true
+
+[node name="SafetyNet" type="Area2D" parent="."]
+position = Vector2( 0, -4 )
+collision_layer = 0
+collision_mask = 2
+script = ExtResource( 10 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafetyNet"]
+shape = SubResource( 4 )
 
 [connection signal="body_entered" from="RideArea" to="." method="_on_RideArea_body_entered"]
 [connection signal="body_exited" from="RideArea" to="." method="_on_RideArea_body_exited"]
+[connection signal="body_entered" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_entered"]
+[connection signal="body_exited" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_exited"]
