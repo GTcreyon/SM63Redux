@@ -20,6 +20,7 @@ func _ready():
 		vel.x *= -1
 	vel.y = -0.7 - rng.randf() * 0.25
 
+
 func _physics_process(_delta):
 	var move_vec = Vector2.ZERO
 	if sprite.animation == "flap":
@@ -51,6 +52,7 @@ func _physics_process(_delta):
 	
 	if riding <= 0:
 		time_count += 1
+
 
 func _on_RideArea_body_entered(body):
 	if body.vel.y > 0:
