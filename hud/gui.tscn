@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=2]
+[gd_scene load_steps=108 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -67,6 +67,7 @@
 [ext_resource path="res://hud/pause/pause_left_corner_bottom.png" type="Texture" id=65]
 [ext_resource path="res://hud/pause/pause_right_corner_top.png" type="Texture" id=66]
 [ext_resource path="res://hud/pause/pause_top.png" type="Texture" id=67]
+[ext_resource path="res://hud/pause/buttons/text_map.png" type="Texture" id=68]
 [ext_resource path="res://hud/pause/pause_right_middle.png" type="Texture" id=69]
 [ext_resource path="res://hud/pause/pause_right_corner_bottom.png" type="Texture" id=70]
 [ext_resource path="res://hud/pause/pause_left_corner_top.png" type="Texture" id=71]
@@ -79,6 +80,11 @@
 [ext_resource path="res://hud/pause/buttons/button_options_0.tres" type="StyleBox" id=78]
 [ext_resource path="res://hud/pause/buttons/button_exit_0.tres" type="StyleBox" id=79]
 [ext_resource path="res://hud/pause/buttons/button_options_1.tres" type="StyleBox" id=80]
+[ext_resource path="res://hud/pause/buttons/text_exit.png" type="Texture" id=81]
+[ext_resource path="res://hud/pause/buttons/text_options.png" type="Texture" id=82]
+[ext_resource path="res://hud/pause/buttons/text_fludd.png" type="Texture" id=83]
+[ext_resource path="res://hud/pause/buttons/pause_button.gd" type="Script" id=84]
+[ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=85]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -144,14 +150,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ ExtResource( 47 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 48 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -164,14 +170,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 50 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -184,14 +190,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=11]
 animations = [ {
-"frames": [ ExtResource( 52 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 51 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 52 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -204,14 +210,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ ExtResource( 60 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 54 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 60 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -224,14 +230,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 58 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 59 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 58 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -244,14 +250,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ ExtResource( 57 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 53 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 57 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -264,14 +270,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ ExtResource( 55 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 56 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 55 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -290,7 +296,7 @@ script = ExtResource( 4 )
 ]]
 margin_right = 448.0
 margin_bottom = 304.0
-color = Color( 0.584314, 0.372549, 0.772549, 0.501961 )
+color = Color( 0.584314, 0.372549, 0.772549, 0.74902 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -518,6 +524,7 @@ __meta__ = {
 
 [node name="WaterMeter" type="Sprite" parent="MeterControl"]
 light_mask = -2147483648
+z_index = 4
 texture = ExtResource( 16 )
 centered = false
 script = ExtResource( 3 )
@@ -654,6 +661,7 @@ centered = false
 
 [node name="Icon" type="AnimatedSprite" parent="MeterControl"]
 position = Vector2( 16, -4 )
+z_index = 4
 frames = SubResource( 4 )
 animation = "hover"
 
@@ -762,6 +770,13 @@ centered = false
 script = ExtResource( 61 )
 input = "down"
 
+[node name="Control" type="Control" parent="InputDisplay"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Top" type="TextureRect" parent="." groups=[
 "pause",
 ]]
@@ -853,6 +868,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LevelInfo" type="Control" parent="." groups=[
+"pause",
+]]
+margin_right = 448.0
+margin_bottom = 304.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelName" type="Label" parent="LevelInfo"]
+anchor_top = 0.3
+anchor_right = 1.0
+anchor_bottom = 0.39
+custom_fonts/font = ExtResource( 21 )
+text = "Mushroom Kingdom"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissionName" type="Label" parent="LevelInfo"]
+anchor_top = 0.375
+anchor_right = 1.0
+anchor_bottom = 0.375
+custom_fonts/font = ExtResource( 85 )
+text = "Tutorial 1"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissionDetails" type="Label" parent="LevelInfo"]
+anchor_top = 0.45
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 100.0
+margin_top = 0.400002
+margin_right = -100.0
+margin_bottom = 47.792
+custom_fonts/font = ExtResource( 2 )
+text = "Okay this wasn't meant to be outlined but it looks alright.
+Possibly even better? You decide."
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButtonMap" type="Button" parent="." groups=[
 "pause",
 ]]
@@ -870,6 +935,19 @@ custom_styles/normal = ExtResource( 73 )
 toggle_mode = true
 action_mode = 0
 button_mask = 3
+script = ExtResource( 84 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="TextureRect" parent="ButtonMap"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -19.0
+margin_top = -8.0
+texture = ExtResource( 68 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -891,6 +969,21 @@ custom_styles/normal = ExtResource( 76 )
 toggle_mode = true
 action_mode = 0
 button_mask = 3
+script = ExtResource( 84 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="TextureRect" parent="ButtonFludd"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -8.0
+margin_right = -76.5
+margin_bottom = 8.0
+texture = ExtResource( 83 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -912,6 +1005,21 @@ custom_styles/normal = ExtResource( 78 )
 toggle_mode = true
 action_mode = 0
 button_mask = 3
+script = ExtResource( 84 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="TextureRect" parent="ButtonOptions"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -8.0
+margin_right = -172.0
+margin_bottom = 8.0
+texture = ExtResource( 82 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -933,13 +1041,30 @@ custom_styles/normal = ExtResource( 79 )
 toggle_mode = true
 action_mode = 0
 button_mask = 3
+script = ExtResource( 84 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PauseMenu" type="Control" parent="."]
-margin_right = 448.0
-margin_bottom = 304.0
+[node name="Text" type="TextureRect" parent="ButtonExit"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -8.0
+margin_right = -267.0
+margin_bottom = 8.0
+texture = ExtResource( 81 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
+[connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
+[connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]
+[connection signal="toggled" from="ButtonFludd" to="ButtonFludd" method="_on_Button_toggled"]
+[connection signal="button_down" from="ButtonOptions" to="." method="_on_ButtonOptions_button_down"]
+[connection signal="toggled" from="ButtonOptions" to="ButtonOptions" method="_on_Button_toggled"]
+[connection signal="button_down" from="ButtonExit" to="." method="_on_ButtonExit_button_down"]
+[connection signal="toggled" from="ButtonExit" to="ButtonExit" method="_on_Button_toggled"]

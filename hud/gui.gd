@@ -19,6 +19,8 @@ func resize():
 	var scale = floor(OS.window_size.y / 304)
 	var topsize = OS.window_size.x / scale - 36 - 30
 	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
+	$BG.rect_size = OS.window_size
+	
 	$Top.rect_scale = Vector2.ONE * scale
 	$Top.rect_size.x = topsize + offset + 19 * scale
 	$Top.rect_position.x = 29 * scale - offset * scale - 19 * scale
@@ -48,6 +50,9 @@ func resize():
 	$ButtonExit.rect_scale = Vector2.ONE * scale
 	$ButtonExit.rect_position.x = $ButtonOptions.rect_position.x + $ButtonOptions.rect_size.x * scale - 1 * scale
 	$ButtonExit.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
+	
+	$LevelInfo.rect_scale = Vector2.ONE * scale
+	$LevelInfo.rect_size = OS.window_size / scale
 
 
 func set_size(size, lin_size):
@@ -129,3 +134,19 @@ func _process(_delta):
 	$StatsBL.margin_top = -8 - (33 * gui_scale) * pause_offset
 	$MeterControl.margin_left = -57 - (37 * gui_scale) * pause_offset
 	$MeterControl.margin_top = -113 - (33 * gui_scale) * pause_offset
+
+
+func _on_ButtonMap_button_down():
+	pass # Replace with function body.
+
+
+func _on_ButtonFludd_button_down():
+	pass # Replace with function body.
+
+
+func _on_ButtonOptions_button_down():
+	pass # Replace with function body.
+
+
+func _on_ButtonExit_button_down():
+	pass # Replace with function body.
