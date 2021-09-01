@@ -10,6 +10,7 @@ polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 uv = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
 [node name="DetectionArea" type="Area2D" parent="."]
+pause_mode = 2
 z_index = 1
 space_override = 3
 gravity_vec = Vector2( 0, 0 )
