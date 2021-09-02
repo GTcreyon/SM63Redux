@@ -38,18 +38,30 @@ func resize():
 	$ButtonMap.rect_scale = Vector2.ONE * scale
 	$ButtonMap.rect_position.x = 29 * scale
 	$ButtonMap.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
+	$ButtonMap/StarsOff.polygon[1].x = $ButtonMap.rect_size.x - 1
+	$ButtonMap/StarsOff.polygon[2].x = $ButtonMap.rect_size.x - 1
+	$ButtonMap/StarsOn.polygon = $ButtonMap/StarsOff.polygon
 	
 	$ButtonFludd.rect_scale = Vector2.ONE * scale
 	$ButtonFludd.rect_position.x = $ButtonMap.rect_position.x + $ButtonMap.rect_size.x * scale - 1 * scale
 	$ButtonFludd.rect_size.x = ceil((OS.window_size.x - 61 * scale) / scale / 4)
+	$ButtonFludd/StarsOff.polygon[1].x = $ButtonFludd.rect_size.x - 1
+	$ButtonFludd/StarsOff.polygon[2].x = $ButtonFludd.rect_size.x - 1
+	$ButtonFludd/StarsOn.polygon = $ButtonFludd/StarsOff.polygon
 	
 	$ButtonOptions.rect_scale = Vector2.ONE * scale
 	$ButtonOptions.rect_position.x = $ButtonFludd.rect_position.x + $ButtonFludd.rect_size.x * scale - 1 * scale
 	$ButtonOptions.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
+	$ButtonOptions/StarsOff.polygon[1].x = $ButtonOptions.rect_size.x - 1
+	$ButtonOptions/StarsOff.polygon[2].x = $ButtonOptions.rect_size.x - 1
+	$ButtonOptions/StarsOn.polygon = $ButtonOptions/StarsOff.polygon
 	
 	$ButtonExit.rect_scale = Vector2.ONE * scale
 	$ButtonExit.rect_position.x = $ButtonOptions.rect_position.x + $ButtonOptions.rect_size.x * scale - 1 * scale
 	$ButtonExit.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
+	$ButtonExit/StarsOff.polygon[1].x = $ButtonExit.rect_size.x - 1
+	$ButtonExit/StarsOff.polygon[2].x = $ButtonExit.rect_size.x - 1
+	$ButtonExit/StarsOn.polygon = $ButtonExit/StarsOff.polygon
 	
 	$LevelInfo.rect_scale = Vector2.ONE * scale
 	$LevelInfo.rect_size = OS.window_size / scale
