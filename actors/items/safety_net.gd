@@ -30,6 +30,6 @@ func _on_SafetyNet_body_entered(_body):
 
 
 func _on_SafetyNet_body_exited(_body):
-	if player.vel.y < 0 && (!Input.is_action_pressed("fludd") || singleton.classic):
+	if player.vel.y < 0 && (!Input.is_action_pressed("fludd") || singleton.classic || singleton.nozzle != player.n.rocket):
 		singleton.power = 100 #air rocket
 	has_player = false

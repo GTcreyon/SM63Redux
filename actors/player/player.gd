@@ -223,8 +223,10 @@ func _physics_process(_delta):
 		sign_cooldown = max(sign_cooldown - 1, 0)
 		
 		if i_switch:
-			singleton.nozzle = (singleton.nozzle + 1) % 4
-		
+			singleton.nozzle = (singleton.nozzle + 1) % 2
+			var anim = sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", "") #lazy way to refresh fludd anim
+			switch_anim(anim)
+			fludd_strain = false
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.diveflip:
 			if flip_l:
