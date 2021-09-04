@@ -11,8 +11,14 @@ onready var icon = $MeterControl/Icon
 
 var icon_bob = 0
 var pause_offset = 0
+var pulse = 0
+
 func _ready():
 	resize()
+	var menu = get_tree().get_nodes_in_group("pause")
+	for node in menu: #make pause nodes visible but transparent
+		node.modulate.a = 0
+		node.visible = true
 
 
 func resize():
@@ -65,7 +71,31 @@ func resize():
 	
 	$LevelInfo.rect_scale = Vector2.ONE * scale
 	$LevelInfo.rect_size = OS.window_size / scale
-
+	
+	var font = $LevelInfo/LevelName.get_font("font")
+	var gap = (OS.window_size.x / scale - font.get_string_size($LevelInfo/LevelName.text.to_upper()).x) / 2
+	$LevelInfo/LevelName/Panel.margin_left = gap - 7
+	$LevelInfo/LevelName/Panel.margin_right = -gap + 4
+	font = $LevelInfo/MissionName.get_font("font")
+	gap = (OS.window_size.x / scale - font.get_string_size($LevelInfo/MissionName.text.to_upper()).x) / 2
+	$LevelInfo/MissionName/Panel.margin_left = gap - 7
+	$LevelInfo/MissionName/Panel.margin_right = -gap + 4
+	
+	#this is terrible. i wish godot had a way to force controls to update their margins before the frame ends
+	var shine_count = 0
+	for child in $LevelInfo/CollectRow/ShineRow.get_children():
+		if child.visible:
+			shine_count += 1
+	var shine_width = (shine_count - 1) * $LevelInfo/CollectRow/ShineRow.get_constant("separation")
+	var coin_count = 0
+	for child in $LevelInfo/CollectRow/CoinRow.get_children():
+		if child.visible:
+			coin_count += 1
+	var coin_width = (coin_count - 1) * $LevelInfo/CollectRow/CoinRow.get_constant("separation")
+	$LevelInfo/ShinePanel.margin_left = (OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 33 / 2 - 4
+	$LevelInfo/ShinePanel.margin_right = -((OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 29 / 2 - 4)
+	#$LevelInfo/ShinePanel.margin_left = $LevelInfo/CollectRow/ShineRow.margin_left + 37 - 33 / 2 - 4
+	#$LevelInfo/ShinePanel.margin_right = -($LevelInfo/CollectRow.rect_size.x - $LevelInfo/CollectRow/CoinRow.margin_right) - 37 + 29 / 2 + 4
 
 func set_size(size, lin_size):
 	#size: general size of UI elements
@@ -83,6 +113,8 @@ func set_size(size, lin_size):
 
 
 func _process(_delta):
+	pulse += 0.1
+	$LevelInfo/CollectRow/ShineRow/Shine1/Sprite.material.set_shader_param("outline_color", Color(1, 1, 1, sin(pulse) * 0.25 + 0.5))
 	coin_counter.material.set_shader_param("flash_factor", max(coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
 	if coin_counter.text != str(singleton.coin_total):
 		coin_counter.material.set_shader_param("flash_factor", 0.5)
