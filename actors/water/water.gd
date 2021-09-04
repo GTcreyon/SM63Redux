@@ -10,6 +10,8 @@ export var surface_wave_properties = {
 
 #private variables
 onready var texture = $".."
+onready var player = $"/root/Main/Player"
+
 var waves = []
 var surface = {}
 var surface_width_keys = 0
@@ -240,6 +242,10 @@ func handle_impact(body, is_exit):
 
 func _on_body_entered(body):
 	handle_impact(body, false)
+	if body == player:
+		player.call_deferred("switch_state", player.s.swim)
 
 func _on_body_exited(body):
 	handle_impact(body, true)
+	if body == player:
+		player.call_deferred("switch_state", player.s.walk)
