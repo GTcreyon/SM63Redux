@@ -632,8 +632,7 @@ func _physics_process(_delta):
 	bubbles_medium.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 	bubbles_small.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 	
-	if sprite.animation == "walk":
-		
+	if sprite.animation.ends_with("walk"):
 		if round(vel.x) == 0:
 			sprite.frame = 0
 			sprite.speed_scale = 0
