@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=2]
+[gd_scene load_steps=124 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -97,6 +97,8 @@
 [ext_resource path="res://hud/pause/buttons/star_exit_0.png" type="Texture" id=95]
 [ext_resource path="res://hud/pause/buttons/star_exit_1.png" type="Texture" id=96]
 [ext_resource path="res://hud/pause/buttons/star_options_1.png" type="Texture" id=97]
+[ext_resource path="res://hud/pause/pause_back.tres" type="StyleBox" id=98]
+[ext_resource path="res://shaders/glow_deep.tres" type="Material" id=99]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -293,7 +295,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=24]
+[sub_resource type="SpriteFrames" id=20]
 animations = [ {
 "frames": [ ExtResource( 88 ) ],
 "loop": true,
@@ -306,7 +308,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=23]
+[sub_resource type="SpriteFrames" id=21]
 animations = [ {
 "frames": [ ExtResource( 87 ) ],
 "loop": true,
@@ -319,11 +321,11 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="StyleBoxEmpty" id=20]
-
-[sub_resource type="StyleBoxEmpty" id=21]
-
 [sub_resource type="StyleBoxEmpty" id=22]
+
+[sub_resource type="StyleBoxEmpty" id=23]
+
+[sub_resource type="StyleBoxEmpty" id=24]
 
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
@@ -332,6 +334,7 @@ script = ExtResource( 4 )
 [node name="BG" type="ColorRect" parent="." groups=[
 "pause",
 ]]
+visible = false
 margin_right = 448.0
 margin_bottom = 304.0
 color = Color( 0.584314, 0.372549, 0.772549, 0.74902 )
@@ -342,7 +345,7 @@ __meta__ = {
 [node name="Console" parent="." instance=ExtResource( 20 )]
 
 [node name="LifeMeter" type="Sprite" parent="."]
-position = Vector2( 224, -76 )
+position = Vector2( 224, -75 )
 z_index = 1
 texture = ExtResource( 34 )
 offset = Vector2( 0, 36 )
@@ -819,6 +822,7 @@ __meta__ = {
 [node name="Top" type="TextureRect" parent="." groups=[
 "pause",
 ]]
+visible = false
 margin_right = 381.0
 margin_bottom = 19.0
 texture = ExtResource( 67 )
@@ -831,6 +835,7 @@ __meta__ = {
 [node name="LeftCornerTop" type="TextureRect" parent="." groups=[
 "pause",
 ]]
+visible = false
 margin_right = 37.0
 margin_bottom = 17.0
 texture = ExtResource( 71 )
@@ -841,6 +846,7 @@ __meta__ = {
 [node name="LeftCornerBottom" type="TextureRect" parent="." groups=[
 "pause",
 ]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -33.0
@@ -854,6 +860,7 @@ __meta__ = {
 [node name="RightCornerTop" type="TextureRect" parent="." groups=[
 "pause",
 ]]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -38.0
@@ -867,6 +874,7 @@ __meta__ = {
 [node name="RightCornerBottom" type="TextureRect" parent="." groups=[
 "pause",
 ]]
+visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -884,6 +892,7 @@ __meta__ = {
 [node name="Left" type="TextureRect" parent="." groups=[
 "pause",
 ]]
+visible = false
 margin_right = 37.0
 margin_bottom = 254.0
 texture = ExtResource( 72 )
@@ -895,6 +904,7 @@ __meta__ = {
 [node name="Right" type="TextureRect" parent="." groups=[
 "pause",
 ]]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -37.0
@@ -928,6 +938,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Panel" type="Panel" parent="LevelInfo/LevelName"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -4.0
+margin_bottom = 4.0
+custom_styles/panel = ExtResource( 98 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShinePanel" type="Panel" parent="LevelInfo"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -19.0
+margin_bottom = 18.0
+custom_styles/panel = ExtResource( 98 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CollectRow" type="HBoxContainer" parent="LevelInfo"]
 anchor_top = 0.5
 anchor_right = 1.0
@@ -941,9 +976,9 @@ __meta__ = {
 }
 
 [node name="ShineRow" type="HBoxContainer" parent="LevelInfo/CollectRow"]
-margin_left = 28.0
-margin_right = 160.0
-custom_constants/separation = 33
+margin_left = 131.0
+margin_right = 203.0
+custom_constants/separation = 36
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -952,49 +987,52 @@ __meta__ = {
 [node name="Shine1" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine1"]
-frames = SubResource( 24 )
-animation = "on"
+material = ExtResource( 99 )
+frames = SubResource( 20 )
+animation = "off"
 offset = Vector2( 0, -1 )
 
 [node name="Shine2" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
-margin_left = 33.0
-margin_right = 33.0
+margin_left = 36.0
+margin_right = 36.0
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine2"]
-frames = SubResource( 24 )
-animation = "on"
+frames = SubResource( 20 )
+animation = "off"
 offset = Vector2( 0, -1 )
 
 [node name="Shine3" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
-margin_left = 66.0
-margin_right = 66.0
+margin_left = 72.0
+margin_right = 72.0
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine3"]
-frames = SubResource( 24 )
-animation = "on"
+frames = SubResource( 20 )
+animation = "off"
 offset = Vector2( 0, -1 )
 
 [node name="Shine4" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
-margin_left = 99.0
-margin_right = 99.0
+visible = false
+margin_left = 33.0
+margin_right = 33.0
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine4"]
-frames = SubResource( 24 )
+frames = SubResource( 20 )
 animation = "on"
 offset = Vector2( 0, -1 )
 
 [node name="Shine5" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
-margin_left = 132.0
-margin_right = 132.0
+visible = false
+margin_left = 33.0
+margin_right = 33.0
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine5"]
-frames = SubResource( 24 )
+frames = SubResource( 20 )
 animation = "on"
 offset = Vector2( 0, -1 )
 
 [node name="CoinRow" type="HBoxContainer" parent="LevelInfo/CollectRow"]
-margin_left = 200.0
-margin_right = 345.0
+margin_left = 243.0
+margin_right = 243.0
 custom_constants/separation = 29
 alignment = 1
 __meta__ = {
@@ -1004,47 +1042,42 @@ __meta__ = {
 [node name="Coin1" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin1"]
-frames = SubResource( 23 )
-animation = "on"
+frames = SubResource( 21 )
+animation = "off"
 
 [node name="Coin2" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
-margin_left = 29.0
-margin_right = 29.0
+visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin2"]
-frames = SubResource( 23 )
+frames = SubResource( 21 )
 animation = "on"
 
 [node name="Coin3" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
-margin_left = 58.0
-margin_right = 58.0
+visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin3"]
-frames = SubResource( 23 )
+frames = SubResource( 21 )
 animation = "on"
 
 [node name="Coin4" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
-margin_left = 87.0
-margin_right = 87.0
+visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin4"]
-frames = SubResource( 23 )
+frames = SubResource( 21 )
 animation = "on"
 
 [node name="Coin5" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
-margin_left = 116.0
-margin_right = 116.0
+visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin5"]
-frames = SubResource( 23 )
+frames = SubResource( 21 )
 animation = "on"
 
 [node name="Coin6" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
-margin_left = 145.0
-margin_right = 145.0
+visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin6"]
-frames = SubResource( 23 )
+frames = SubResource( 21 )
 animation = "on"
 
 [node name="MissionName" type="Label" parent="LevelInfo"]
@@ -1059,8 +1092,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Panel" type="Panel" parent="LevelInfo/MissionName"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -4.0
+margin_bottom = 4.0
+custom_styles/panel = ExtResource( 98 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="MissionDetails" type="Label" parent="LevelInfo"]
-anchor_top = 0.694
+anchor_top = 0.7
 anchor_right = 1.0
 anchor_bottom = 0.7
 margin_left = 100.0
@@ -1068,6 +1113,7 @@ margin_top = 0.400002
 margin_right = -100.0
 margin_bottom = 47.792
 custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.819608, 0.705882, 0.768627, 1 )
 text = "Okay this wasn't meant to be outlined but it looks alright.
 Possibly even better? You decide."
 align = 1
@@ -1076,9 +1122,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Panel" type="Panel" parent="LevelInfo/MissionDetails"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -4.0
+margin_bottom = 4.0
+custom_styles/panel = ExtResource( 98 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="ButtonMap" type="Button" parent="." groups=[
 "pause",
 ]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 29.0
@@ -1088,7 +1147,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 73 )
 custom_styles/pressed = ExtResource( 74 )
-custom_styles/focus = SubResource( 20 )
+custom_styles/focus = SubResource( 22 )
 custom_styles/normal = ExtResource( 73 )
 toggle_mode = true
 action_mode = 0
@@ -1121,6 +1180,7 @@ __meta__ = {
 [node name="ButtonFludd" type="Button" parent="." groups=[
 "pause",
 ]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 124.0
@@ -1130,7 +1190,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 76 )
 custom_styles/pressed = ExtResource( 75 )
-custom_styles/focus = SubResource( 21 )
+custom_styles/focus = SubResource( 23 )
 custom_styles/normal = ExtResource( 76 )
 toggle_mode = true
 action_mode = 0
@@ -1165,6 +1225,7 @@ __meta__ = {
 [node name="ButtonOptions" type="Button" parent="." groups=[
 "pause",
 ]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 220.0
@@ -1174,7 +1235,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 78 )
 custom_styles/pressed = ExtResource( 80 )
-custom_styles/focus = SubResource( 22 )
+custom_styles/focus = SubResource( 24 )
 custom_styles/normal = ExtResource( 78 )
 toggle_mode = true
 action_mode = 0
@@ -1209,6 +1270,7 @@ __meta__ = {
 [node name="ButtonExit" type="Button" parent="." groups=[
 "pause",
 ]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 315.0
@@ -1218,7 +1280,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 79 )
 custom_styles/pressed = ExtResource( 77 )
-custom_styles/focus = SubResource( 22 )
+custom_styles/focus = SubResource( 24 )
 custom_styles/normal = ExtResource( 79 )
 toggle_mode = true
 action_mode = 0
