@@ -237,9 +237,10 @@ func _physics_process(_delta):
 				switch_anim("walk")
 			else:
 				switch_anim("swim")
+				if sprite.frame == 0:
+					sprite.speed_scale = 0
 			print(str(sprite.speed_scale) + str(sprite.frame))
-			if sprite.frame == 0:
-				sprite.speed_scale = 0
+			
 			fall_adjust += grav / 3.0
 			fall_adjust = ground_friction(fall_adjust, 0.05, 1.01);
 			fall_adjust = ground_friction(fall_adjust, ((grav/fps_mod)/5), 1.05)
@@ -655,7 +656,7 @@ func _physics_process(_delta):
 		move_and_slide_with_snap(vel*60.0, snap, Vector2(0, -1), true)
 		var slide_vec = position-save_pos
 		position = save_pos
-		if slide_vec.length() > 0.5 || !ground:
+		if slide_vec.length() > 0.5 || (!ground && slide_vec.length() != 0):
 			#warning-ignore:return_value_discarded
 			move_and_slide_with_snap(vel*60.0 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
 	bubbles_medium.emitting = fludd_strain
