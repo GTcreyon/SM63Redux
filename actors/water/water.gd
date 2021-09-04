@@ -244,6 +244,7 @@ func _on_body_entered(body):
 	handle_impact(body, false)
 	if body == player:
 		player.call_deferred("switch_state", player.s.swim)
+		$"/root/Singleton".water = 100
 
 func _on_body_exited(body):
 	handle_impact(body, true)
