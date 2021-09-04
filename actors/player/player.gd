@@ -293,7 +293,16 @@ func _physics_process(_delta):
 				double_jump_state = 0
 		else:
 			if state == s.frontflip:
-				switch_anim("flip")
+				if singleton.nozzle == n.none:
+					if abs(sprite.rotation_degrees) < 700:
+						switch_anim("flip")
+					else:
+						switch_anim("fall")
+				else:
+					if abs(sprite.rotation_degrees) < 340:
+						switch_anim("flip")
+					else:
+						switch_anim("fall")
 			elif state == s.walk:
 				if vel.y > 0:
 					switch_anim("fall")
