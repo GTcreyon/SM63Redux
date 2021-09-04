@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
@@ -23,9 +23,37 @@
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=21]
 [ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=23]
+[ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=24]
+[ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=25]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 24 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 24 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 24 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 5 )
+
+[node name="BGT1" parent="." instance=ExtResource( 25 )]
 
 [node name="Sprite-0005" type="Sprite" parent="."]
 visible = false
@@ -153,14 +181,17 @@ position = Vector2( 1092, 111 )
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign" parent="Items/Signs" instance=ExtResource( 17 )]
+material = SubResource( 1 )
 position = Vector2( 189, 165 )
 lines = [ "Hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times’ sake,[@p,3] here’s a refresher.", "Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f]Z[/color].", "They have plenty of tips to help traverse,[@p,3] and if you’re not interested,[@p,3] at least say “Hi” for me,[@p,3] eh?" ]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
+material = SubResource( 2 )
 position = Vector2( 299, 165 )
 lines = [ "They have plenty of tips to help traverse,[@p,3] and if you’re not interested,[@p,3] at least say “Hi” for me,[@p,3] eh?" ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 17 )]
+material = SubResource( 3 )
 position = Vector2( 1287, 53 )
 
 [node name="Decoration" type="Node2D" parent="Items"]
@@ -213,16 +244,15 @@ position = Vector2( 857, 140.5 )
 [node name="Fossil" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 77, 208 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 200, 207 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 259, 266 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 505, 216 )
@@ -236,7 +266,6 @@ frame = 1
 [node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 864, 188 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1010, 145 )
@@ -246,7 +275,6 @@ frame = 1
 [node name="Fossil14" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 977, 216 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1311, 145 )
@@ -255,6 +283,7 @@ animation = "yellow"
 [node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1426, 159 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil10" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1618, 156 )
@@ -264,6 +293,7 @@ frame = 1
 [node name="Fossil11" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1534, 198 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil13" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1254, 222 )

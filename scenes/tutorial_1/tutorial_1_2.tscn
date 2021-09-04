@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r2/Sprite-0001.png" type="Texture" id=1]
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=2]
@@ -13,19 +13,22 @@
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=11]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=12]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=13]
+[ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=14]
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node2D"]
 script = ExtResource( 5 )
+
+[node name="BGT1" parent="." instance=ExtResource( 14 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 
-[node name="Water" type="Node" parent="."]
+[node name="Water" type="Node2D" parent="."]
 
 [node name="Water" parent="Water" instance=ExtResource( 11 )]
 position = Vector2( 719, 312 )
 polygon = PoolVector2Array( 0, 0, 480, 0, 480, 192, 0, 192 )
 
-[node name="Terrain" type="Node" parent="."]
+[node name="Terrain" type="Node2D" parent="."]
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 2 )]
 position = Vector2( 0, 192 )
@@ -73,7 +76,7 @@ texture = ExtResource( 9 )
 position = Vector2( 186.512, -0.455 )
 texture = ExtResource( 10 )
 
-[node name="Items" type="Node" parent="."]
+[node name="Items" type="Node2D" parent="."]
 
 [node name="Log" parent="Items" instance=ExtResource( 12 )]
 position = Vector2( 1067, 265 )

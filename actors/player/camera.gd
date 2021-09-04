@@ -4,6 +4,11 @@ onready var tween = $Tween
 var current_zoom = 1.0
 var target_zoom = 1.0
 
+func _ready():
+	if get_tree().get_current_scene().filename.ends_with("tutorial_1_1.tscn"):
+		limit_left = 0
+
+
 func _process(_delta):
 	var zoom_factor = 448/OS.window_size.x
 	if !get_tree().paused:

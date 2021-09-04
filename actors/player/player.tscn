@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario/pound_fall0.png" type="Texture" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://actors/player/mario/hover/mario_hover_walk1.png" type="Texture" id=18]
 [ext_resource path="res://actors/player/mario/mario_swim_1.png" type="Texture" id=19]
 [ext_resource path="res://actors/player/mario/mario_swim_0.png" type="Texture" id=20]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_swim_0.png" type="Texture" id=21]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_swim_1.png" type="Texture" id=22]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_fall.png" type="Texture" id=23]
 [ext_resource path="res://actors/player/mario/mario_front.png" type="Texture" id=24]
 [ext_resource path="res://actors/player/camera.gd" type="Script" id=25]
@@ -215,6 +217,11 @@ animations = [ {
 "loop": true,
 "name": "fall",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "hover_swim",
+"speed": 4.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -232,7 +239,8 @@ script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "swim"
+animation = "hover_swim"
+frame = 1
 playing = true
 
 [node name="StandHitbox" type="CollisionShape2D" parent="."]
