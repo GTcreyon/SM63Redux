@@ -1,24 +1,25 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://actors/bg/t1/t1_layer_1.png" type="Texture" id=1]
-[ext_resource path="res://actors/bg/t1/t1_layer_0.png" type="Texture" id=2]
+[ext_resource path="res://actors/bg/t1/t1_layer_0_hd.png" type="Texture" id=2]
 [ext_resource path="res://actors/bg/t1/t1_layer_2.png" type="Texture" id=3]
 [ext_resource path="res://actors/bg/bg.gd" type="Script" id=4]
 
 [node name="BGT1" type="CanvasLayer"]
+process_priority = 1
 layer = -100
 script = ExtResource( 4 )
 
 [node name="Sky" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 centered = false
+offset = Vector2( -224, -152 )
 
 [node name="Layer1" type="Polygon2D" parent="."]
+position = Vector2( 0, 211 )
 texture = ExtResource( 1 )
-texture_offset = Vector2( 0, -211 )
-polygon = PoolVector2Array( 0, 0, 450, 0, 448, 304, 0, 304 )
+polygon = PoolVector2Array( 0, 0, 448, 0, 448, 93, 0, 93 )
 
 [node name="Layer2" type="Polygon2D" parent="."]
 texture = ExtResource( 3 )
-texture_offset = Vector2( 0, -168 )
-polygon = PoolVector2Array( 0, 0, 450, 0, 448, 304, 0, 304 )
+polygon = PoolVector2Array( 0, 0, 450, 0, 449, 176, 0, 176 )
