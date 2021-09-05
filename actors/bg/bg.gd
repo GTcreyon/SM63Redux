@@ -14,4 +14,6 @@ func _process(_delta):
 	$Layer1.position.y = max(211, 211 - $"/root/Main/Player".position.y / 20)
 	$Layer2.texture_offset.x = $"/root/Main/Player".position.x / 20
 	$Layer2.position.y = -70 -$"/root/Main/Player".position.y / 50
+	$Layer3.texture_offset.x = $"/root/Main/Player".position.x / 10
+	$Layer3.position.y = lerp($Layer3.position.y, max(76, 76 -$"/root/Main/Player".position.y / 5), 0.05)
 	scale = Vector2.ONE * OS.window_size.x / 448
