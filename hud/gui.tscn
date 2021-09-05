@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=2]
+[gd_scene load_steps=125 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -99,6 +99,7 @@
 [ext_resource path="res://hud/pause/buttons/star_options_1.png" type="Texture" id=97]
 [ext_resource path="res://hud/pause/pause_back.tres" type="StyleBox" id=98]
 [ext_resource path="res://shaders/glow_deep.tres" type="Material" id=99]
+[ext_resource path="res://hud/sweep_effect.gd" type="Script" id=100]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -550,6 +551,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="SweepEffect" type="Polygon2D" parent="."]
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 100 )
+
 [node name="MeterControl" type="Control" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
@@ -643,17 +648,6 @@ lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
 process_material = SubResource( 3 )
 texture = ExtResource( 11 )
-
-[node name="SweepEffect" type="ColorRect" parent="MeterControl/WaterMeter"]
-visible = false
-margin_left = -1198.07
-margin_top = -562.857
-margin_right = -398.071
-margin_bottom = 1437.14
-color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="WaterMeterLabel" type="Label" parent="MeterControl/WaterMeter"]
 margin_left = 1.0

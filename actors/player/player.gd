@@ -239,7 +239,6 @@ func _physics_process(_delta):
 				switch_anim("swim")
 				if sprite.frame == 0:
 					sprite.speed_scale = 0
-			print(str(sprite.speed_scale) + str(sprite.frame))
 			
 			fall_adjust += grav / 3.0
 			fall_adjust = ground_friction(fall_adjust, 0.05, 1.01);
