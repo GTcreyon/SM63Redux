@@ -160,26 +160,44 @@ func generate_corner(group, is_left_corner):
 	
 	#ternary statement fun!!!!!!
 	#get the correct corner and negate the width if the corner is a left corner, not a right corner
+#	if is_left_corner:
+#		strip.polygon = PoolVector2Array([
+#			group.start + group.direction * corner_width / -2 + group.normal * grass_thickness / 3,
+#			group.start + group.direction * corner_width / 2 + group.normal * grass_thickness / 3,
+#			group.start + group.direction * corner_width / 2 - group.normal * grass_thickness * 2 / 3,
+#			group.start + group.direction * corner_width / -2 - group.normal * grass_thickness * 2 / 3,
+#		])
+#	else:
+#		strip.polygon = PoolVector2Array([
+#			group.end + group.direction * corner_width / -2 + group.normal * grass_thickness / 3,
+#			group.end + group.direction * corner_width / 2 + group.normal * grass_thickness / 3,
+#			group.end + group.direction * corner_width / 2 - group.normal * grass_thickness * 2 / 3,
+#			group.end + group.direction * corner_width / -2 - group.normal * grass_thickness * 2 / 3,
+#		])
 	if is_left_corner:
 		strip.polygon = PoolVector2Array([
-			group.start + group.direction * corner_width / -2 + group.normal * grass_thickness / 3,
-			group.start + group.direction * corner_width / 2 + group.normal * grass_thickness / 3,
-			group.start + group.direction * corner_width / 2 - group.normal * grass_thickness * 2 / 3,
-			group.start + group.direction * corner_width / -2 - group.normal * grass_thickness * 2 / 3,
+			group.start + group.direction * -corner_width + group.normal * grass_thickness / 3,
+			group.start + group.normal * grass_thickness / 3,
+			group.start - group.normal * grass_thickness * 2 / 3,
+			group.start + group.direction * -corner_width - group.normal * grass_thickness * 2 / 3,
 		])
 	else:
 		strip.polygon = PoolVector2Array([
-			group.end + group.direction * corner_width / -2 + group.normal * grass_thickness / 3,
-			group.end + group.direction * corner_width / 2 + group.normal * grass_thickness / 3,
-			group.end + group.direction * corner_width / 2 - group.normal * grass_thickness * 2 / 3,
-			group.end + group.direction * corner_width / -2 - group.normal * grass_thickness * 2 / 3,
+			group.end + group.direction * corner_width + group.normal * grass_thickness / 3,
+			group.end + group.normal * grass_thickness / 3,
+			group.end - group.normal * grass_thickness * 2 / 3,
+			group.end + group.direction * corner_width - group.normal * grass_thickness * 2 / 3,
 		])
 	
 	#MORE TERNARY OPERATORS!!!! I AM SO HAPPY
 	strip.texture = grass_left_corner if is_left_corner else grass_right_corner
 	strip.texture_rotation = -group.normal_angle - PI / 2
-	strip.texture_offset.x = 2
-	strip.texture_offset.y = (sin(strip.texture_rotation) * -group.start.x) - group.start.y * cos(strip.texture_rotation) + grass_thickness / 3.0
+	
+	var unit = Vector2(sin(strip.texture_rotation), cos(strip.texture_rotation))
+	var pos = group.start if is_left_corner else group.end
+	var text_offset = Vector2(0, 12)
+	strip.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - text_offset.x
+	strip.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - text_offset.y
 
 	#purely for debugging
 	if group.debug_draw_outline:
