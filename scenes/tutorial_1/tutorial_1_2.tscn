@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r2/Sprite-0001.png" type="Texture" id=1]
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=2]
@@ -14,6 +14,40 @@
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=12]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=13]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=14]
+[ext_resource path="res://actors/items/bobomb/bobomb.tscn" type="PackedScene" id=15]
+[ext_resource path="res://actors/terrain/jungle_cliff.png" type="Texture" id=16]
+[ext_resource path="res://actors/terrain/jungle_grass.png" type="Texture" id=17]
+[ext_resource path="res://actors/terrain/jungle_grass_left_corner.png" type="Texture" id=18]
+[ext_resource path="res://actors/terrain/jungle_grass_right_corner.png" type="Texture" id=19]
+[ext_resource path="res://actors/terrain/jungle_ground.png" type="Texture" id=20]
+[ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=21]
+[ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=22]
+[ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=23]
+[ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=24]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 24 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 24 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 24 )
+shader_param/intensity = 200
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/radial = false
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 5 )
@@ -34,11 +68,25 @@ polygon = PoolVector2Array( 0, 0, 480, 0, 480, 192, 0, 192 )
 position = Vector2( 0, 192 )
 z_index = 1
 polygon = PoolVector2Array( 0, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -57, 1699, -57, 1728, -48, 1780, -48, 1904, 517, -55, 523 )
+up_vector = Vector2( 0, -1 )
+max_angle = 60
+grass_texture = ExtResource( 17 )
+grass_left_corner = ExtResource( 18 )
+grass_right_corner = ExtResource( 19 )
+cliff_texture = ExtResource( 16 )
+ground_texture = ExtResource( 20 )
 
 [node name="TerrainPolygon2" parent="Terrain" instance=ExtResource( 2 )]
 position = Vector2( 760, 228 )
 z_index = 1
 polygon = PoolVector2Array( 0, 0, 37, -28, 80, -38, 72, -163, 57, -211, 55, -237, 124, -224, 211, -226, 238, -160, 235, -52, 246, 5, 298, 31, 298, 100, 192, 125, 125, 103, 35, 92, 0, 64 )
+up_vector = Vector2( 0, -1 )
+max_angle = 60
+grass_texture = ExtResource( 17 )
+grass_left_corner = ExtResource( 18 )
+grass_right_corner = ExtResource( 19 )
+cliff_texture = ExtResource( 16 )
+ground_texture = ExtResource( 20 )
 
 [node name="Sprite-0003" type="Sprite" parent="."]
 visible = false
@@ -110,3 +158,45 @@ position = Vector2( 744, 244 )
 
 [node name="BreakableBox2" parent="Items" instance=ExtResource( 13 )]
 position = Vector2( 744, 276 )
+
+[node name="Bobomb" parent="." instance=ExtResource( 15 )]
+position = Vector2( 369.972, 183.887 )
+
+[node name="Bobomb2" parent="." instance=ExtResource( 15 )]
+position = Vector2( 458.266, 179.683 )
+
+[node name="Bobomb3" parent="." instance=ExtResource( 15 )]
+position = Vector2( 1091.5, 244.758 )
+
+[node name="Goomba" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1182.11, 256.085 )
+
+[node name="Goomba2" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1444.39, 239.095 )
+
+[node name="Goomba3" parent="." instance=ExtResource( 23 )]
+position = Vector2( 1519.9, 236.264 )
+
+[node name="Goonie" parent="." instance=ExtResource( 21 )]
+position = Vector2( 165.859, 16.4121 )
+
+[node name="Goonie" parent="Goonie" instance=ExtResource( 21 )]
+position = Vector2( 130.141, 67.8974 )
+
+[node name="Sign" parent="." instance=ExtResource( 22 )]
+material = SubResource( 1 )
+position = Vector2( 126.179, 187.312 )
+
+[node name="Sign" parent="Sign" instance=ExtResource( 22 )]
+material = SubResource( 2 )
+position = Vector2( 556.718, 34.6689 )
+
+[node name="Sign2" parent="Sign" instance=ExtResource( 22 )]
+material = SubResource( 3 )
+position = Vector2( 1458.22, 57.8323 )
+
+[node name="Goonie" parent="Sign" instance=ExtResource( 21 )]
+position = Vector2( 398.971, -107.621 )
+
+[node name="Goonie2" parent="Sign" instance=ExtResource( 21 )]
+position = Vector2( 1043.1, -122.757 )
