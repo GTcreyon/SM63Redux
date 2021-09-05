@@ -656,7 +656,7 @@ func _physics_process(_delta):
 		move_and_slide_with_snap(vel*60.0, snap, Vector2(0, -1), true)
 		var slide_vec = position-save_pos
 		position = save_pos
-		if slide_vec.length() > 0.5 || (!ground && slide_vec.length() != 0):
+		if slide_vec.length() > 0.5 || state == s.swim:
 			#warning-ignore:return_value_discarded
 			move_and_slide_with_snap(vel*60.0 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
 	bubbles_medium.emitting = fludd_strain
