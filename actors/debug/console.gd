@@ -31,6 +31,8 @@ func run_command(cmd):
 					path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
 				"t1r4":
 					path = "res://scenes/tutorial_1/tutorial_1_4.tscn"
+				"custom":
+					path = "res://scenes/digtest/digtest.tscn"
 				_:
 					path = ""
 			if path == "":

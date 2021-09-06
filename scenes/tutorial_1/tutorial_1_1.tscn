@@ -255,7 +255,6 @@ frame = 1
 [node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 259, 266 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 505, 216 )
@@ -265,6 +264,7 @@ frame = 1
 [node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 568, 176 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 864, 188 )
@@ -283,12 +283,10 @@ animation = "yellow"
 [node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1311, 145 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1426, 159 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil10" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1618, 156 )
@@ -297,12 +295,10 @@ animation = "yellow"
 [node name="Fossil11" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1534, 198 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil13" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1254, 222 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil12" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1739, 173 )
@@ -384,7 +380,7 @@ position = Vector2( 606, 226 )
 polygon = PoolVector2Array( 0, 0, 212, 0, 212, 43, 370, 66, 488, 58, 478.711, 0, 588.07, 0, 591, 45, 540, 123, 358, 150, 187, 132, 176, 155, 140, 175, 31, 147, 0, 35 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 110, 142 )
+position = Vector2( 110, 143.335 )
 
 [node name="Terrain" type="Node2D" parent="."]
 
