@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0004.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0005.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=15]
 [ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=16]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=17]
+[ext_resource path="res://actors/CameraArea.tscn" type="PackedScene" id=18]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -85,6 +86,7 @@ texture = ExtResource( 3 )
 
 [node name="FungusStem6" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 791, 185 )
+length = 56
 
 [node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 334, 94 )
@@ -114,12 +116,15 @@ rotation = -0.349066
 
 [node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 314, 144 )
+length = 56
 
 [node name="FungusStem2" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 387, 161 )
+length = 56
 
 [node name="FungusStem4" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 676, 157 )
+length = 56
 
 [node name="FungusStem5" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 758, 118 )
@@ -135,9 +140,11 @@ position = Vector2( 1054, -66 )
 
 [node name="FungusStem8" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 1049, -50 )
+length = 56
 
 [node name="FungusStem9" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 1386, 72 )
+length = 56
 
 [node name="FungusHead9" parent="Items/Fungus" instance=ExtResource( 9 )]
 position = Vector2( 1392, 56 )
@@ -160,6 +167,7 @@ length = 97
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 548, 187 )
+type = 0
 
 [node name="Coins" type="Node2D" parent="Items"]
 position = Vector2( 0, 2 )
@@ -209,3 +217,8 @@ position = Vector2( 261, 183 )
 
 [node name="Player" parent="." instance=ExtResource( 11 )]
 position = Vector2( 26, 191 )
+
+[node name="Area2D" parent="." instance=ExtResource( 18 )]
+position = Vector2( 917.5, 170 )
+size = Vector2( 1835, 0 )
+[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
