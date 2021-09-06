@@ -16,14 +16,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 8 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 11 ) ],
-"loop": true,
-"name": "modern",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "legacy",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 12 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": true,
+"name": "modern",
 "speed": 15.0
 } ]
 
@@ -40,6 +40,7 @@ script = ExtResource( 13 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "modern"
+frame = 4
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -54,6 +55,5 @@ shape = SubResource( 3 )
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
-
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="finished" from="SFX" to="." method="_on_SFX_finished"]

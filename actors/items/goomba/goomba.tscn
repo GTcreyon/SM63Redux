@@ -19,11 +19,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "jumping",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 14 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "squish",
@@ -33,6 +28,11 @@ animations = [ {
 "loop": true,
 "name": "walking",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "jumping",
+"speed": 0.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -99,7 +99,6 @@ stream = SubResource( 5 )
 stream = ExtResource( 17 )
 volume_db = -6.0
 attenuation = 10.0
-
 [connection signal="body_entered" from="AlertArea" to="." method="_on_Collision_mario_detected"]
 [connection signal="body_exited" from="AwareArea" to="." method="_on_AwareArea_body_exited"]
 [connection signal="body_entered" from="Hurtbox" to="." method="_on_Area2D_body_entered_hurt"]
