@@ -40,6 +40,8 @@ onready var timer = get_node("Timer")
 var life_meter_counter = 8
 var fludd_strain = false
 var static_v = false #for pipe, may be used for other things.
+var invincible = false; #needed for making him invincible
+var internal_coin_counter = 0 #if it hits 5, gets reset
 #####################
 
 const voice_bank = {
@@ -187,6 +189,10 @@ func ground_friction(val, sub, div): #Ripped from source
 
 
 func _physics_process(_delta):
+	if internal_coin_counter >= 5 && life_meter_counter < 8:
+		life_meter_counter += 1
+		internal_coin_counter = 0
+	
 	update_classic()
 	if static_v:
 		if sign_x != null:
@@ -728,4 +734,6 @@ func _on_BackupAngle_body_exited(_body):
 func mario():
 	get_tree().reload_current_scene()
 
-
+func invincibility_on_effect():
+	invincible = true
+	print("placeholder effect for flashing sprite")
