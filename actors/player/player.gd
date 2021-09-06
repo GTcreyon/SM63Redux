@@ -34,6 +34,7 @@ onready var hitbox = stand_box
 onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
+onready var timer = get_node("Timer")
 
 #mario's gameplay parameters
 var life_meter_counter = 8
@@ -171,6 +172,7 @@ func switch_state(new_state):
 
 func _ready():
 	update_classic()
+	timer.set_wait_time(1)
 
 
 func ground_friction(val, sub, div): #Ripped from source
@@ -701,6 +703,11 @@ func _physics_process(_delta):
 	elif !sprite.animation.ends_with("swim"):
 		sprite.speed_scale = 1
 	$Label.text = str(vel.x)
+	if life_meter_counter == 1:
+		timer.start()
+	if life_meter_counter == 0:
+		$Camera2D/GUI/Control/deathanim.play("DeathIn")
+
 
 
 func _on_Tween_tween_completed(_object, _key):
@@ -718,3 +725,7 @@ func _on_BackupAngle_body_entered(_body):
 func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
 	
+func mario():
+	get_tree().reload_current_scene()
+
+
