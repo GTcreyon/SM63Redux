@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=2]
+[gd_scene load_steps=124 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -99,7 +99,6 @@
 [ext_resource path="res://hud/pause/buttons/star_options_1.png" type="Texture" id=97]
 [ext_resource path="res://hud/pause/pause_back.tres" type="StyleBox" id=98]
 [ext_resource path="res://shaders/glow_deep.tres" type="Material" id=99]
-[ext_resource path="res://hud/sweep_effect.gd" type="Script" id=100]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -551,10 +550,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SweepEffect" type="Polygon2D" parent="."]
-color = Color( 0, 0, 0, 1 )
-script = ExtResource( 100 )
-
 [node name="MeterControl" type="Control" parent="."]
 anchor_left = 1.0
 anchor_top = 1.0
@@ -570,6 +565,7 @@ __meta__ = {
 }
 
 [node name="WaterMeter" type="Sprite" parent="MeterControl"]
+visible = false
 light_mask = -2147483648
 z_index = 4
 texture = ExtResource( 16 )
@@ -695,7 +691,7 @@ position = Vector2( 1, 2 )
 texture = ExtResource( 19 )
 centered = false
 
-[node name="Icon" type="AnimatedSprite" parent="MeterControl"]
+[node name="Icon" type="AnimatedSprite" parent="MeterControl/WaterMeter"]
 position = Vector2( 16, -4 )
 z_index = 4
 frames = SubResource( 4 )
@@ -1305,6 +1301,7 @@ texture = ExtResource( 81 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
 [connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
 [connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]
