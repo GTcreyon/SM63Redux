@@ -21,7 +21,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Super Mario 63 Redux"
-run/main_scene="res://digtest.tscn"
+run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
