@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://hud/sweep_effect.gd" type="Script" id=1]
+[ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
+
+[node name="Singleton" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Warp" type="Polygon2D" parent="."]
+color = Color( 0, 0, 0, 1 )
+script = ExtResource( 1 )
