@@ -717,3 +717,4 @@ func _on_BackupAngle_body_entered(_body):
 
 func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
+	
