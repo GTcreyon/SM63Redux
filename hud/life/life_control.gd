@@ -26,7 +26,7 @@ func _process(_delta):
 			act = true
 			
 		if position.y < 40 - 36 && act:
-			position.y += 8 #since it's in _process, it will keep adding until conditional stops being true
+			position.y = lerp(position.y, 8, 0.3) #since it's in _process, it will keep adding until conditional stops being true
 			if position.y >= 40 - 36: #and then starts timer
 				act = false
 				del = true
@@ -40,12 +40,15 @@ func _process(_delta):
 			rechange = true #then it will return to its initial position
 		
 		if rechange:
-			if position.y > -80 - 72 * scale.y:
-				position.y -= 8
+			if position.y > -80 - 72 * scale.y && player.life_meter_counter > 7:
+				position.y = lerp(position.y, -140, 0.3)
 			else:
 				rechange = false #and now everything is back to place
-		elif !act && !del:
+		elif !act && !del && player.life_meter_counter >= 8:
 			position.y = -80 - 72 * scale.y
+		
+		if player.life_meter_counter == 8:
+			del = true
 		
 		filler.frame = player.life_meter_counter #for the HUD with its respective frame
 		
