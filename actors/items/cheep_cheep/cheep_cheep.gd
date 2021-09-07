@@ -27,9 +27,9 @@ func _on_Following_body_entered(body):
 		player = body
 
 
-func _on_Following_body_exited(body):
+func _on_Following_body_exited(_body):
 	player = null
 
 
-func _on_Disable_body_entered(body):
+func _on_Disable_body_entered(_body):
 	player = null

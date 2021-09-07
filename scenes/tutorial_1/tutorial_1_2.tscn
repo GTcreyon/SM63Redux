@@ -15,12 +15,13 @@
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=13]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/items/bobomb/bobomb.tscn" type="PackedScene" id=15]
-[ext_resource path="res://actors/CameraArea.tscn" type="PackedScene" id=16]
+[ext_resource path="res://actors/camera_area.tscn" type="PackedScene" id=16]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=17]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=21]
 [ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=23]
 [ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=24]
+
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
