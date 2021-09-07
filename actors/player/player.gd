@@ -40,8 +40,9 @@ onready var timer = get_node("Timer")
 var life_meter_counter = 8
 var fludd_strain = false
 var static_v = false #for pipe, may be used for other things.
-var invincible = false; #needed for making him invincible
+var invincible = false #needed for making him invincible
 var internal_coin_counter = 0 #if it hits 5, gets reset
+var if_died = false #for death transition
 #####################
 
 const voice_bank = {
@@ -175,6 +176,8 @@ func switch_state(new_state):
 func _ready():
 	update_classic()
 	timer.set_wait_time(1)
+	if(singleton.dead):
+		$Camera2D/GUI/Deathcontrol/deathanim.play("DeathOut")
 
 
 func ground_friction(val, sub, div): #Ripped from source
@@ -189,6 +192,7 @@ func ground_friction(val, sub, div): #Ripped from source
 
 
 func _physics_process(_delta):
+	
 	if internal_coin_counter >= 5 && life_meter_counter < 8:
 		life_meter_counter += 1
 		internal_coin_counter = 0
@@ -711,8 +715,9 @@ func _physics_process(_delta):
 	$Label.text = str(vel.x)
 	if life_meter_counter == 1:
 		timer.start()
-	if life_meter_counter == 0:
-		$Camera2D/GUI/Control/deathanim.play("DeathIn")
+	if life_meter_counter <= 0:
+		singleton.dead = true
+		$Camera2D/GUI/Deathcontrol/deathanim.play("DeathIn")
 
 
 
@@ -737,3 +742,7 @@ func mario():
 func invincibility_on_effect():
 	invincible = true
 	print("placeholder effect for flashing sprite")
+
+func after_transition():
+	$Camera2D/GUI/Deathcontrol/deathanim.stop()
+	singleton.dead = false

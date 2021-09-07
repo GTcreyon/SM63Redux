@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=2]
+[gd_scene load_steps=126 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -100,7 +100,11 @@
 [ext_resource path="res://hud/pause/pause_back.tres" type="StyleBox" id=98]
 [ext_resource path="res://shaders/glow_deep.tres" type="Material" id=99]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 30 )
+shader_param/flash_factor = 0.0
+
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ ExtResource( 41 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 35 ), ExtResource( 37 ), ExtResource( 36 ), ExtResource( 38 ) ],
 "loop": true,
@@ -108,11 +112,90 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 30 )
-shader_param/flash_factor = 0.0
+[sub_resource type="Animation" id=4]
+resource_name = "DeathIn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "mario"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../LifeMeter:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="Animation" id=7]
+resource_name = "DeathOut"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("../../..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "after_transition"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("../LifeMeter:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="ParticlesMaterial" id=10]
 emission_shape = 2
 emission_box_extents = Vector3( 15, 0, 1 )
 flag_disable_z = true
@@ -124,7 +207,7 @@ initial_velocity_random = 0.2
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
-[sub_resource type="SpriteFrames" id=4]
+[sub_resource type="SpriteFrames" id=11]
 animations = [ {
 "frames": [ ExtResource( 31 ) ],
 "loop": true,
@@ -142,7 +225,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=5]
+[sub_resource type="SpriteFrames" id=12]
 animations = [ {
 "frames": [ ExtResource( 64 ) ],
 "loop": true,
@@ -155,177 +238,177 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=6]
+[sub_resource type="ShaderMaterial" id=13]
 resource_local_to_scene = true
 shader = ExtResource( 63 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=14]
 animations = [ {
-"frames": [ ExtResource( 47 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 48 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=8]
+[sub_resource type="ShaderMaterial" id=15]
 resource_local_to_scene = true
 shader = ExtResource( 63 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=9]
+[sub_resource type="SpriteFrames" id=16]
 animations = [ {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 50 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=10]
+[sub_resource type="ShaderMaterial" id=17]
 resource_local_to_scene = true
 shader = ExtResource( 63 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=11]
+[sub_resource type="SpriteFrames" id=18]
 animations = [ {
-"frames": [ ExtResource( 52 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 51 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 52 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=12]
+[sub_resource type="ShaderMaterial" id=19]
 resource_local_to_scene = true
 shader = ExtResource( 63 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=13]
+[sub_resource type="SpriteFrames" id=20]
 animations = [ {
-"frames": [ ExtResource( 60 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 54 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 60 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=14]
+[sub_resource type="ShaderMaterial" id=21]
 resource_local_to_scene = true
 shader = ExtResource( 63 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=15]
+[sub_resource type="SpriteFrames" id=22]
 animations = [ {
-"frames": [ ExtResource( 58 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 59 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 58 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=16]
+[sub_resource type="ShaderMaterial" id=23]
 resource_local_to_scene = true
 shader = ExtResource( 63 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=17]
+[sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 57 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 53 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 57 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=18]
+[sub_resource type="ShaderMaterial" id=25]
 resource_local_to_scene = true
 shader = ExtResource( 63 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="SpriteFrames" id=19]
+[sub_resource type="SpriteFrames" id=26]
 animations = [ {
-"frames": [ ExtResource( 55 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 56 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=20]
-animations = [ {
-"frames": [ ExtResource( 89 ) ],
+}, {
+"frames": [ ExtResource( 55 ) ],
 "loop": true,
 "name": "off",
 "speed": 5.0
-}, {
+} ]
+
+[sub_resource type="SpriteFrames" id=27]
+animations = [ {
 "frames": [ ExtResource( 88 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=21]
-animations = [ {
-"frames": [ ExtResource( 86 ) ],
+}, {
+"frames": [ ExtResource( 89 ) ],
 "loop": true,
 "name": "off",
 "speed": 5.0
-}, {
+} ]
+
+[sub_resource type="SpriteFrames" id=28]
+animations = [ {
 "frames": [ ExtResource( 87 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 86 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
 } ]
 
-[sub_resource type="StyleBoxEmpty" id=22]
+[sub_resource type="StyleBoxEmpty" id=29]
 
-[sub_resource type="StyleBoxEmpty" id=23]
+[sub_resource type="StyleBoxEmpty" id=30]
 
-[sub_resource type="StyleBoxEmpty" id=24]
+[sub_resource type="StyleBoxEmpty" id=31]
 
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
@@ -343,18 +426,6 @@ __meta__ = {
 }
 
 [node name="Console" parent="." instance=ExtResource( 20 )]
-
-[node name="LifeMeter" type="Sprite" parent="."]
-position = Vector2( 224, -75 )
-z_index = 1
-texture = ExtResource( 34 )
-offset = Vector2( 0, 36 )
-script = ExtResource( 44 )
-
-[node name="Filler" type="AnimatedSprite" parent="LifeMeter"]
-z_index = -1
-frames = SubResource( 1 )
-offset = Vector2( 0, 36 )
 
 [node name="StatsTL" type="VBoxContainer" parent="."]
 margin_left = 8.0
@@ -380,7 +451,7 @@ texture = ExtResource( 24 )
 centered = false
 
 [node name="Count" type="Label" parent="StatsTL/CoinRow"]
-material = SubResource( 2 )
+material = SubResource( 9 )
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 72.0
@@ -539,6 +610,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="LifeMeter" type="Sprite" parent="."]
+position = Vector2( 224, -75 )
+z_index = 1
+texture = ExtResource( 34 )
+offset = Vector2( 0, 36 )
+script = ExtResource( 44 )
+
+[node name="Filler" type="AnimatedSprite" parent="LifeMeter"]
+z_index = -1
+frames = SubResource( 8 )
+offset = Vector2( 0, 36 )
+
+[node name="Deathcontrol" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Deathcontrol"]
+margin_right = 450.0
+margin_bottom = 304.0
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="deathanim" type="AnimationPlayer" parent="Deathcontrol"]
+anims/DeathIn = SubResource( 4 )
+anims/DeathOut = SubResource( 7 )
+
 [node name="DebugLabel" type="Label" parent="."]
 visible = false
 margin_right = 40.0
@@ -622,7 +725,7 @@ position = Vector2( 16, 103 )
 z_index = -2
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 3 )
+process_material = SubResource( 10 )
 texture = ExtResource( 6 )
 
 [node name="BubblesMedium" type="Particles2D" parent="MeterControl/WaterMeter"]
@@ -632,7 +735,7 @@ z_index = -2
 amount = 7
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 3 )
+process_material = SubResource( 10 )
 texture = ExtResource( 8 )
 
 [node name="BubblesSmall" type="Particles2D" parent="MeterControl/WaterMeter"]
@@ -642,7 +745,7 @@ z_index = -2
 amount = 6
 lifetime = 2.5
 visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 3 )
+process_material = SubResource( 10 )
 texture = ExtResource( 11 )
 
 [node name="WaterMeterLabel" type="Label" parent="MeterControl/WaterMeter"]
@@ -694,7 +797,7 @@ centered = false
 [node name="Icon" type="AnimatedSprite" parent="MeterControl/WaterMeter"]
 position = Vector2( 16, -4 )
 z_index = 4
-frames = SubResource( 4 )
+frames = SubResource( 11 )
 animation = "hover"
 
 [node name="DialogBox" type="Panel" parent="."]
@@ -724,7 +827,7 @@ __meta__ = {
 
 [node name="Star" type="AnimatedSprite" parent="DialogBox"]
 position = Vector2( 250, 56 )
-frames = SubResource( 5 )
+frames = SubResource( 12 )
 animation = "wait"
 
 [node name="Tween" type="Tween" parent="DialogBox"]
@@ -740,63 +843,63 @@ __meta__ = {
 }
 
 [node name="Z" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 6 )
+material = SubResource( 13 )
 position = Vector2( 0, 46 )
-frames = SubResource( 7 )
+frames = SubResource( 14 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "pound"
 
 [node name="X" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 8 )
+material = SubResource( 15 )
 position = Vector2( 22, 46 )
-frames = SubResource( 9 )
+frames = SubResource( 16 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "spin"
 
 [node name="C" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 10 )
+material = SubResource( 17 )
 position = Vector2( 44, 46 )
-frames = SubResource( 11 )
+frames = SubResource( 18 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "fludd"
 
 [node name="L" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 12 )
+material = SubResource( 19 )
 position = Vector2( 0, 23 )
-frames = SubResource( 13 )
+frames = SubResource( 20 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "left"
 
 [node name="R" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 14 )
+material = SubResource( 21 )
 position = Vector2( 44, 23 )
-frames = SubResource( 15 )
+frames = SubResource( 22 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "right"
 
 [node name="U" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 16 )
+material = SubResource( 23 )
 position = Vector2( 22, 0 )
-frames = SubResource( 17 )
+frames = SubResource( 24 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
 input = "up"
 
 [node name="D" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 18 )
+material = SubResource( 25 )
 position = Vector2( 22, 23 )
-frames = SubResource( 19 )
+frames = SubResource( 26 )
 animation = "off"
 centered = false
 script = ExtResource( 61 )
@@ -978,7 +1081,7 @@ __meta__ = {
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine1"]
 material = ExtResource( 99 )
-frames = SubResource( 20 )
+frames = SubResource( 27 )
 animation = "off"
 offset = Vector2( 0, -1 )
 
@@ -987,7 +1090,7 @@ margin_left = 36.0
 margin_right = 36.0
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine2"]
-frames = SubResource( 20 )
+frames = SubResource( 27 )
 animation = "off"
 offset = Vector2( 0, -1 )
 
@@ -996,7 +1099,7 @@ margin_left = 72.0
 margin_right = 72.0
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine3"]
-frames = SubResource( 20 )
+frames = SubResource( 27 )
 animation = "off"
 offset = Vector2( 0, -1 )
 
@@ -1006,7 +1109,7 @@ margin_left = 108.0
 margin_right = 108.0
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine4"]
-frames = SubResource( 20 )
+frames = SubResource( 27 )
 animation = "on"
 offset = Vector2( 0, -1 )
 
@@ -1016,7 +1119,7 @@ margin_left = 108.0
 margin_right = 108.0
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine5"]
-frames = SubResource( 20 )
+frames = SubResource( 27 )
 animation = "on"
 offset = Vector2( 0, -1 )
 
@@ -1032,42 +1135,42 @@ __meta__ = {
 [node name="Coin1" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin1"]
-frames = SubResource( 21 )
+frames = SubResource( 28 )
 animation = "off"
 
 [node name="Coin2" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
 visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin2"]
-frames = SubResource( 21 )
+frames = SubResource( 28 )
 animation = "on"
 
 [node name="Coin3" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
 visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin3"]
-frames = SubResource( 21 )
+frames = SubResource( 28 )
 animation = "on"
 
 [node name="Coin4" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
 visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin4"]
-frames = SubResource( 21 )
+frames = SubResource( 28 )
 animation = "on"
 
 [node name="Coin5" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
 visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin5"]
-frames = SubResource( 21 )
+frames = SubResource( 28 )
 animation = "on"
 
 [node name="Coin6" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
 visible = false
 
 [node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin6"]
-frames = SubResource( 21 )
+frames = SubResource( 28 )
 animation = "on"
 
 [node name="MissionName" type="Label" parent="LevelInfo"]
@@ -1137,7 +1240,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 73 )
 custom_styles/pressed = ExtResource( 74 )
-custom_styles/focus = SubResource( 22 )
+custom_styles/focus = SubResource( 29 )
 custom_styles/normal = ExtResource( 73 )
 toggle_mode = true
 action_mode = 0
@@ -1180,7 +1283,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 76 )
 custom_styles/pressed = ExtResource( 75 )
-custom_styles/focus = SubResource( 23 )
+custom_styles/focus = SubResource( 30 )
 custom_styles/normal = ExtResource( 76 )
 toggle_mode = true
 action_mode = 0
@@ -1225,7 +1328,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 78 )
 custom_styles/pressed = ExtResource( 80 )
-custom_styles/focus = SubResource( 24 )
+custom_styles/focus = SubResource( 31 )
 custom_styles/normal = ExtResource( 78 )
 toggle_mode = true
 action_mode = 0
@@ -1270,7 +1373,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 79 )
 custom_styles/pressed = ExtResource( 77 )
-custom_styles/focus = SubResource( 24 )
+custom_styles/focus = SubResource( 31 )
 custom_styles/normal = ExtResource( 79 )
 toggle_mode = true
 action_mode = 0
@@ -1301,7 +1404,6 @@ texture = ExtResource( 81 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
 [connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
 [connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
 [connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]
