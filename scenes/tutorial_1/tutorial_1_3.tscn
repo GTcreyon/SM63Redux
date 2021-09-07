@@ -17,8 +17,9 @@
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=15]
 [ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=16]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=17]
-[ext_resource path="res://actors/CameraArea.tscn" type="PackedScene" id=18]
+[ext_resource path="res://actors/camera_area.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=19]
+
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
