@@ -71,6 +71,7 @@ func _physics_process(_delta):
 			key.offset.x = 0
 		
 		if is_on_floor():
+			vel.y = GRAVITY
 			if is_on_wall() && !tracking:
 				flip_ev()
 				wander_dist = 0
@@ -88,7 +89,7 @@ func _physics_process(_delta):
 			if tracking:
 				base.speed_scale = abs(vel.x) / 2 + 1
 				if player.position.x - position.x < -20 || (player.position.x < position.x && abs(player.position.y - position.y) < 26):
-					vel.x = min(vel.x - 0.1, -2)
+					vel.x = max(vel.x - 0.1, -2)
 					direction = -1
 					raycast.position.x = -9
 					base.playing = true
