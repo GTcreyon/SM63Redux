@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=25]
 [ext_resource path="res://actors/warpzone/warp_zone.tscn" type="PackedScene" id=26]
 [ext_resource path="res://actors/CameraArea.tscn" type="PackedScene" id=27]
+[ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=28]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -91,6 +92,9 @@ texture = ExtResource( 15 )
 [node name="Sprite-0009" type="Sprite" parent="Sprite-0005"]
 position = Vector2( 1401.5, -54 )
 texture = ExtResource( 16 )
+
+[node name="Cheep Cheep" parent="." instance=ExtResource( 28 )]
+position = Vector2( 1112.68, 287.02 )
 
 [node name="Items" type="Node2D" parent="."]
 
@@ -246,25 +250,24 @@ position = Vector2( 857, 140.5 )
 [node name="Fossil" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 77, 208 )
 animation = "yellow"
+frame = 2
 
 [node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 200, 207 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 259, 266 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 505, 216 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 568, 176 )
 animation = "yellow"
-frame = 2
 
 [node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 864, 188 )
@@ -273,16 +276,15 @@ animation = "yellow"
 [node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1010, 145 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil14" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 977, 216 )
 animation = "yellow"
-frame = 2
 
 [node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1311, 145 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1426, 159 )
@@ -291,11 +293,11 @@ animation = "yellow"
 [node name="Fossil10" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1618, 156 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil11" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1534, 198 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil13" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1254, 222 )
@@ -305,7 +307,6 @@ frame = 1
 [node name="Fossil12" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1739, 173 )
 animation = "yellow"
-frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 77 )
@@ -409,4 +410,7 @@ position = Vector2( 947, 130.332 )
 collision_layer = 0
 collision_mask = 2
 size = Vector2( 1894, 0 )
+
+[node name="Cheep Cheep2" parent="." instance=ExtResource( 28 )]
+position = Vector2( 865.68, 325.02 )
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
