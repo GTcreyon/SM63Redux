@@ -11,6 +11,7 @@ var rng = RandomNumberGenerator.new()
 var life_meter = 8
 var enter = 0
 var direction = 0
+var dead = false
 
 func _ready():
 	rng.seed = hash("2401")
