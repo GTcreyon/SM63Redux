@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0004.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0005.png" type="Texture" id=2]
@@ -20,16 +20,7 @@
 [ext_resource path="res://actors/camera_area.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=19]
 
-
 [sub_resource type="ShaderMaterial" id=1]
-resource_local_to_scene = true
-shader = ExtResource( 16 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-shader_param/radial = false
-
-[sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 16 )
 shader_param/intensity = 200
@@ -206,12 +197,8 @@ position = Vector2( 1084, -35 )
 
 [node name="Signs" type="Node2D" parent="Items"]
 
-[node name="Sign" parent="Items/Signs" instance=ExtResource( 12 )]
-material = SubResource( 1 )
-position = Vector2( 500, 204 )
-
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 12 )]
-material = SubResource( 2 )
+material = SubResource( 1 )
 position = Vector2( 1232, 16 )
 
 [node name="Goomba" parent="Items" instance=ExtResource( 14 )]
@@ -229,4 +216,3 @@ position = Vector2( 1648.46, 189.27 )
 
 [node name="Cheep Cheep2" parent="." instance=ExtResource( 19 )]
 position = Vector2( 1489.72, 181.333 )
-[connection signal="body_entered" from="Area2D" to="Area2D" method="_on_Area2D_body_entered"]
