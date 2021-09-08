@@ -23,7 +23,7 @@ func warp(dir, location, path):
 	direction = dir
 	set_location = location
 	scene_path = path
-	var x_pos = (1 - direction.x) * 244
+	var x_pos = (1 - direction.x) * OS.window_size.x / 2
 	curve_top = Vector2(x_pos, 0)
 	curve_arc = Vector2(0, OS.window_size.y / 2)
 	curve_bottom = Vector2(x_pos, OS.window_size.y)
@@ -32,9 +32,10 @@ func warp(dir, location, path):
 func _process(_delta):
 	if enter != 0:
 		visible = true
-		curve_top += 20 * direction
-		curve_arc -= 5 * direction * enter
-		curve_bottom += 20 * direction
+		var speed = OS.window_size.x / 448
+		curve_top += 20 * direction * speed
+		curve_arc -= 5 * direction * enter * speed
+		curve_bottom += 20 * direction * speed
 		curve.set_point_position(0, curve_top)
 		curve.set_point_out(0, curve_arc)
 		curve.set_point_position(1, curve_bottom)
@@ -63,7 +64,7 @@ func _process(_delta):
 		#curve.add_point(Vector2(0, OS.window_size.y / 2))
 		#curve.add_point(Vector2(OS.window_size.x, OS.window_size.y))
 		curve.add_point(Vector2(0, OS.window_size.y))
-		var x_pos = (1 - direction.x) * 244
+		var x_pos = (1 - direction.x) * OS.window_size.x / 2
 		curve_top = Vector2(x_pos, 0)
 		curve_arc = Vector2(0, OS.window_size.y / 2)
 		curve_bottom = Vector2(x_pos, OS.window_size.y)
