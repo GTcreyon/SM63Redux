@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=2]
@@ -15,8 +15,13 @@
 [ext_resource path="res://enemies.gd" type="Script" id=13]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/items/cloud/cloud.tscn" type="PackedScene" id=15]
+[ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=16]
+[ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=17]
 
 [node name="Main" type="Node2D"]
+
+[node name="Goomba" parent="." instance=ExtResource( 16 )]
+position = Vector2( -2004.91, 229.954 )
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( -1763, 87 )
@@ -205,3 +210,7 @@ width = 0
 position = Vector2( -1504, 240 )
 scale = Vector2( 0.8, 1 )
 polygon = PoolVector2Array( 0, 0, 220, 0, 280, 32, 340, 0, 600, 0, 600, 160, 0, 160 )
+
+[node name="Cheep Cheep" parent="." instance=ExtResource( 17 )]
+position = Vector2( -1535.19, 73.0775 )
+speed = 3

@@ -26,7 +26,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Singleton="*res://src/global/singleton.gd"
+Singleton="*res://src/global/singleton.tscn"
 
 [debug]
 
@@ -294,6 +294,11 @@ skip={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":3,"pressure":0.0,"pressed":false,"script":null)
+ ]
+}
+semi={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":59,"unicode":0,"echo":false,"script":null)
  ]
 }
 
