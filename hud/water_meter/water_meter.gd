@@ -13,6 +13,7 @@ onready var power_filler_cover = $PowerFiller/Cover
 onready var cover = $Cover
 onready var power_mask = $PowerMask
 onready var max_sprite = $Max
+onready var icon = $Icon
 onready var tween = $Tween
 
 onready var singleton = $"/root/Singleton"
@@ -20,14 +21,42 @@ onready var player = $"/root/Main/Player"
 
 var power_prev = 100
 var water_prev = 100
-
+var icon_bob = 0
 var font_white = BitmapFont.new()
 
+func refresh():
+	visible = true
+	match singleton.nozzle:
+		1:
+			icon.animation = "hover"
+		2:
+			icon.animation = "rocket"
+		3:
+			icon.animation = "turbo"
+		_:
+			visible = false
+	if singleton.water == 100:
+		max_sprite.visible = true
+		label.visible = false
+	else:
+		max_sprite.visible = false
+		label.visible = true
+		label.text = str(floor(singleton.water))
+
+
 func _ready():
+	refresh()
 	font_white.create_from_fnt("res://fonts/white/gui_white.fnt")
 	label.set("custom_fonts/font", font_white)
 
+
 func _process(_delta):
+	refresh()
+	if player.fludd_strain:
+		icon_bob = fmod(icon_bob + 0.5, 120)
+	else:
+		icon_bob = fmod(icon_bob + 0.1, 120)
+	icon.offset.y = sin(icon_bob) * 2
 	filler.scale.y = singleton.water * 79 / 100
 	mask_filler.scale.y = -filler.scale.y
 	power_filler.scale.y = singleton.power * 83 / 100
@@ -44,13 +73,6 @@ func _process(_delta):
 		bubbles_big.visible = false
 		bubbles_medium.visible = false
 		bubbles_small.visible = false
-	if singleton.water == 100:
-		max_sprite.visible = true
-		label.visible = false
-	else:
-		max_sprite.visible = false
-		label.visible = true
-		label.text = str(floor(singleton.water))
 		
 	power_mask.offset.y = int(power_mask.offset.y - 1) % 83
 	power_mask.energy = 1.4 if player.fludd_strain else 1.0

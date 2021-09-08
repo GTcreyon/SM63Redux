@@ -60,6 +60,11 @@ func _process(_delta):
 func _on_mario_top(body):
 	if body.global_position.y < global_position.y:
 		print("on top")
+		if(player.state == 0):
+			can_warp = true
+		else:
+			can_warp = false
+		
 		if player.state == 4:
 			can_warp = false
 		else:

@@ -29,18 +29,18 @@ void fragment()
 		regular_color = vec4(0.0); 
 	}
 	
-	vec2 ps = TEXTURE_PIXEL_SIZE * float(intensity) * precision;
+	float ps = float(intensity) * precision;
 	
 	vec4 final_color = regular_color;
 	if (regular_color.a <= 0.0)
 	{
-		for(float x = -ps.x; x <= ps.x; x += TEXTURE_PIXEL_SIZE.x){
-			for(float y = -ps.x; y <= ps.y; y += TEXTURE_PIXEL_SIZE.y){
-				//Get the X and Y offset from this
-				if ((distance(vec2(0, 0), vec2(x, y)) > ps.r && radial) || abs(x) == abs(y) && !radial)
+		for(float x = -ps; x <= ps; x += 1.0){
+			for(float y = -ps; y <= ps; y += 1.0){
+				//exclude pixels outside the mask
+				if (distance(vec2(0,0), vec2(x,y)) > ps && radial || abs(x) == abs(y) && !radial)
 					continue;
 					
-				vec2 outline_uv = regular_uv + vec2(x, y); 
+				vec2 outline_uv = regular_uv + vec2(TEXTURE_PIXEL_SIZE.x * x, TEXTURE_PIXEL_SIZE.y * y); 
 				
 				//Sample here, if we are out of bounds then fail
 				vec4 outline_sample = texture(TEXTURE, outline_uv);
