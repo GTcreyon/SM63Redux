@@ -10,8 +10,11 @@ const shadow_texture = preload("./cliff_shadow.png")
 export var up_vector = Vector2(0, -1)
 export var max_angle = 60
 export var grass_texture = preload("./jungle_grass.png")
+export var grass_texture_shade = preload("./jungle_grass_shade.png")
 export var grass_left_corner = preload("./jungle_grass_left_corner.png")
+export var grass_left_corner_shade = preload("./jungle_grass_left_corner_shade.png")
 export var grass_right_corner = preload("./jungle_grass_right_corner.png")
+export var grass_right_corner_shade = preload("./jungle_grass_right_corner_shade.png")
 export var cliff_texture = preload("./jungle_cliff.png")
 export var ground_texture = preload("./jungle_ground.png") setget set_ground_texture
 
@@ -20,6 +23,7 @@ onready var base = $BaseTexture
 onready var top = $Top
 var poly_old = PoolVector2Array([])
 var poly_groups = []
+var ground_shadows = {}
 
 #update ground texture when changed
 func set_ground_texture(new_texture):
@@ -31,7 +35,7 @@ func generate_poly_groups():
 	poly_groups = []
 	var size = polygon.size()
 	#create polygon groups
-	for i in range(size):
+	for i in size:
 		var start_vert = polygon[i] #get the current and the next poly
 		var end_vert = polygon[(i + 1) % size]
 		var data = { #the group it self, this precalculates a lot of stuff so yeah
@@ -39,17 +43,26 @@ func generate_poly_groups():
 			"end": end_vert,
 			"left_overwrite": null, #these overwrites are being used with intersections, if null there's no intersection
 			"right_overwrite": null,
+			"prev_group": null, #link the current and previous groups
+			"next_group": null,
 			"index": i,
+			"distance": start_vert.distance_to(end_vert),
 			"direction": start_vert.direction_to(end_vert),
 			"has_grass": false,
 			"debug_draw_outline": false
 		}
-		if i == 0 || i == 1:
-			data.has_grass = true
+		#if i == 0 || i == 1:
+		#	data.has_grass = true
 		data.angle = data.direction.angle()
 		data.normal = data.direction.tangent()
 		data.normal_angle = data.normal.angle()
 		poly_groups.append(data)
+	
+	#link to other groups
+	size = poly_groups.size()
+	for i in size:
+		poly_groups[i].prev_group = poly_groups[(i - 1) % size]
+		poly_groups[i].next_group = poly_groups[(i + 1) % size]
 
 #this function takes 2 poly groups and calculates the intersection points (automatically sets the overwrite points)
 func calculate_intersection(left, right):
@@ -108,8 +121,12 @@ func generate_grass(group):
 			draw_circle(this, 1, Color(0, 0, float(i) / 3.0))
 	
 	strip.z_index = 1
-	
 	top.add_child(strip)
+	
+	var shadow_strip = strip.duplicate()
+	shadow_strip.texture = grass_texture_shade
+	ground_shadows[group.index] = shadow_strip
+	top.add_child(shadow_strip)
 
 func generate_edge(group):
 	var strip = Polygon2D.new()
@@ -155,25 +172,38 @@ func generate_edge(group):
 	strip.material = sub_mat
 	top.add_child(shadow_strip)
 
+func handle_edge_cutoff(ray_origin, ray_target, target_strip, is_left_corner):
+	var bottom_intersect = Geometry.segment_intersects_segment_2d(
+		ray_origin, ray_target,
+		target_strip.polygon[2], target_strip.polygon[3]
+	)
+	var left_intersect = Geometry.segment_intersects_segment_2d(
+		ray_origin, ray_target,
+		target_strip.polygon[3], target_strip.polygon[0]
+	)
+	var right_intersect = Geometry.segment_intersects_segment_2d(
+		ray_origin, ray_target,
+		target_strip.polygon[1], target_strip.polygon[2]
+	)
+	
+	#now correct the polygon
+	if left_intersect:
+		target_strip.polygon[0] = left_intersect
+	if right_intersect:
+		target_strip.polygon[1] = right_intersect
+	if bottom_intersect:
+		#make sure we set the right vertex depending on which side we're coming from
+		target_strip.polygon[3 if is_left_corner else 2] = bottom_intersect
+		#this IF hurts me
+		if ((is_left_corner && !left_intersect) || (!is_left_corner && !right_intersect)) && (left_intersect || right_intersect):
+			target_strip.polygon[0] = bottom_intersect
+	return bottom_intersect 
+
 func generate_corner(group, is_left_corner):
 	var strip = Polygon2D.new()
 	
 	#ternary statement fun!!!!!!
 	#get the correct corner and negate the width if the corner is a left corner, not a right corner
-#	if is_left_corner:
-#		strip.polygon = PoolVector2Array([
-#			group.start + group.direction * corner_width / -2 + group.normal * grass_thickness / 3,
-#			group.start + group.direction * corner_width / 2 + group.normal * grass_thickness / 3,
-#			group.start + group.direction * corner_width / 2 - group.normal * grass_thickness * 2 / 3,
-#			group.start + group.direction * corner_width / -2 - group.normal * grass_thickness * 2 / 3,
-#		])
-#	else:
-#		strip.polygon = PoolVector2Array([
-#			group.end + group.direction * corner_width / -2 + group.normal * grass_thickness / 3,
-#			group.end + group.direction * corner_width / 2 + group.normal * grass_thickness / 3,
-#			group.end + group.direction * corner_width / 2 - group.normal * grass_thickness * 2 / 3,
-#			group.end + group.direction * corner_width / -2 - group.normal * grass_thickness * 2 / 3,
-#		])
 	if is_left_corner:
 		strip.polygon = PoolVector2Array([
 			group.start + group.direction * -corner_width + group.normal * grass_thickness / 3,
@@ -199,6 +229,9 @@ func generate_corner(group, is_left_corner):
 	strip.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - text_offset.x
 	strip.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - text_offset.y
 
+	strip.z_index = 2
+	top.add_child(strip)
+	
 	#purely for debugging
 	if group.debug_draw_outline:
 		strip.color = Color(0, 0, 1, 0)
@@ -208,9 +241,46 @@ func generate_corner(group, is_left_corner):
 			var next = strip.polygon[(i + 1) % size]
 			draw_line(this, next, Color(0, 0, float(i) / 3.0), 1)
 			draw_circle(this, 1, Color(0, 0, float(i) / 3.0))
-
-	strip.z_index = 2
-	top.add_child(strip)
+	
+	#check for special cases
+	if !ground_shadows.has(group.index):
+		return
+	
+	#check if 2 groups are 90 degrees rotated, this is a special case as raycasting fails
+	#thus we have to check for it
+	var alt_group = group.prev_group if is_left_corner else group.next_group
+	var target_strip = ground_shadows[group.index]
+	var keep_shadow_regardless = false
+	#check if we're inside of the ground or not, because if we are, KEEEP
+	if is_equal_approx(abs(alt_group.angle - group.angle), PI / 2):
+		var check_for_pos = pos + group.direction * (-1 if is_left_corner else 1)
+		draw_circle(check_for_pos, 3, Color(1, 0, 0))
+		if !Geometry.is_point_in_polygon(check_for_pos, polygon):
+			return
+		else:
+			keep_shadow_regardless = true
+	
+	#now do *SIGH* the shadow
+	var shadow_strip = strip.duplicate()
+	shadow_strip.texture = grass_left_corner_shade if is_left_corner else grass_right_corner_shade
+	
+	var bottom_intersect = handle_edge_cutoff(
+		alt_group.start,
+		alt_group.start + alt_group.direction * 2 * alt_group.distance,
+		target_strip,
+		is_left_corner
+	)
+	
+	if !bottom_intersect || keep_shadow_regardless:
+		if !keep_shadow_regardless:
+			handle_edge_cutoff(
+				alt_group.start,
+				alt_group.start + alt_group.direction * 2 * alt_group.distance,
+				shadow_strip,
+				is_left_corner
+			)
+		shadow_strip.z_index = -1
+		top.add_child(shadow_strip)
 
 func mark_grass():
 	var size = poly_groups.size()
@@ -227,6 +297,8 @@ func clear_all_children(parent):
 		parent.remove_child(child)
 
 func generate_full():
+	ground_shadows.clear()
+	
 	clear_all_children(top) #first delete all the children
 	generate_poly_groups() #get the poly groups
 	set_polygon_from_groups() #set the polygon shape
