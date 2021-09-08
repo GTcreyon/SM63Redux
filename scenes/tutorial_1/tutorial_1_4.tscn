@@ -250,14 +250,14 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 1248.78
+rotation = 131.947
 size = Vector2( 92, 92 )
 wait = 90
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 1873.0
+rotation = 198.392
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
@@ -265,7 +265,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -1873.0
+rotation = -198.392
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
@@ -469,11 +469,16 @@ material = SubResource( 4 )
 position = Vector2( 945, -528 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 35 )]
-position = Vector2( 350, 72 )
+position = Vector2( 350, 100 )
 limits = 3
-size = Vector2( 700, 500 )
+size = Vector2( 700, 450 )
 
 [node name="CameraArea2" parent="." instance=ExtResource( 35 )]
-position = Vector2( 0, -500 )
+position = Vector2( -150, -300 )
 limits = 3
-size = Vector2( 2000, 644 )
+size = Vector2( 1900, 250 )
+
+[node name="CameraArea3" parent="." instance=ExtResource( 35 )]
+position = Vector2( 50, -620 )
+limits = 3
+size = Vector2( 2300, 280 )
