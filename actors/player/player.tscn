@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario/pound_fall0.png" type="Texture" id=2]
@@ -55,6 +55,7 @@
 [ext_resource path="res://actors/player/mario/hover/mario_hover_back.png" type="Texture" id=53]
 [ext_resource path="res://actors/player/mario/turbo/mario_turbo_back.png" type="Texture" id=54]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_back.png" type="Texture" id=55]
+[ext_resource path="res://audio/sfx/items/fludd/fludd_switch.wav" type="AudioStream" id=56]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -73,15 +74,20 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 15.0
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -93,9 +99,9 @@ animations = [ {
 "name": "swim",
 "speed": 4.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
 "loop": true,
-"name": "spin",
+"name": "pound_fall",
 "speed": 15.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -118,9 +124,14 @@ animations = [ {
 "name": "hover_jump_double",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 43 ) ],
+"frames": [ ExtResource( 31 ) ],
 "loop": true,
-"name": "rocket_dive",
+"name": "hover_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 53 ) ],
+"loop": true,
+"name": "hover_back",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
@@ -133,84 +144,9 @@ animations = [ {
 "name": "rocket_flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
-"loop": true,
-"name": "rocket_spin",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 36 ) ],
 "loop": true,
 "name": "rocket_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "hover_walk",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 28 ) ],
-"loop": true,
-"name": "hover_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 54 ) ],
-"loop": true,
-"name": "turbo_back",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 26 ) ],
-"loop": true,
-"name": "jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 31 ) ],
-"loop": true,
-"name": "hover_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 46 ) ],
-"loop": true,
-"name": "rocket_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ) ],
-"loop": true,
-"name": "hover_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "hover_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
-"loop": true,
-"name": "rocket_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 42 ) ],
-"loop": true,
-"name": "rocket_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 32 ) ],
-"loop": true,
-"name": "hover_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 53 ) ],
-"loop": true,
-"name": "hover_back",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 55 ) ],
@@ -218,10 +154,81 @@ animations = [ {
 "name": "rocket_back",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "hover_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 26 ) ],
+"loop": true,
+"name": "jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "hover_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "rocket_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 23 ) ],
+"loop": true,
+"name": "hover_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "hover_dive",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 49 ) ],
 "loop": true,
 "name": "rocket_jump",
 "speed": 5.0
+}, {
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 46 ) ],
+"loop": true,
+"name": "rocket_fall",
+"speed": 5.0
+"frames": [ ExtResource( 43 ) ],
+"loop": true,
+"name": "rocket_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 54 ) ],
+"loop": true,
+"name": "turbo_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 39 ) ],
+"loop": true,
+"name": "rocket_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "hover_pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "hover_walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
+"loop": true,
+"name": "rocket_pound_fall",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -328,6 +335,9 @@ z_index = -2
 script = ExtResource( 37 )
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="switch" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 56 )
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="body_entered" from="BackupAngle" to="." method="_on_BackupAngle_body_entered"]
 [connection signal="body_exited" from="BackupAngle" to="." method="_on_BackupAngle_body_exited"]

@@ -31,4 +31,10 @@ func _on_FluddBox_body_entered(body):
 		obj.position = Vector2(position.x, position.y + 8.5)
 		obj.switch_type(type)
 		player.vel.y = -6 * 32 / 60
-		queue_free()
+		$Open.play()
+		$CollisionShape2D.queue_free()
+		$Hover.visible = false
+
+
+func _on_Open_finished():
+	queue_free()

@@ -59,7 +59,6 @@ shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 4 )
-
 [connection signal="body_entered" from="Hover" to="." method="_on_Hover_body_entered"]
 [connection signal="body_entered" from="Rocket" to="." method="_on_Rocket_body_entered"]
 [connection signal="body_entered" from="Turbo" to="." method="_on_Turbo_body_entered"]

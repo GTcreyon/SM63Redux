@@ -255,6 +255,7 @@ func _physics_process(_delta):
 			var anim = sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", "") #lazy way to refresh fludd anim
 			switch_anim(anim)
 			fludd_strain = false
+			$switch.play()
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.swim: #swimming is basically entirely different so it's wholly seperate

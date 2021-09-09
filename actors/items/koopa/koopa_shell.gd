@@ -18,6 +18,7 @@ func _physics_process(_delta):
 
 func _on_CollisionArea_body_entered(body):
 	if body.hitbox.global_position.y + body.hitbox.shape.extents.y < global_position.y && body.vel.y > 0:
+		$Kick.play()
 		print("collided from top")
 		$"/root/Main/Player".vel.y = -5
 		if body.global_position.x < global_position.x:
@@ -26,7 +27,9 @@ func _on_CollisionArea_body_entered(body):
 			vel.x = -speed
 	elif body.global_position.x < global_position.x:
 		print("collided from left")
+		$Kick.play()
 		vel.x = speed
 	elif body.global_position.x > global_position.x:
 		print("collided from right")
+		$Kick.play()
 		vel.x = -speed

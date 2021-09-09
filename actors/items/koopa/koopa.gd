@@ -5,7 +5,6 @@ onready var player = $"/root/Main/Player"
 #onready var lm_gui = player.get_child("/Camera2D/GUI/LifeMeter")
 
 var shell = preload("koopa_shell.tscn").instance()
-
 const FLOOR = Vector2(0, -1)
 const GRAVITY = 0.17
 
@@ -54,6 +53,7 @@ func _on_KoopaCollision_body_entered(body):
 		player.take_damage_shove(1, 1)
 	if body.global_position.y < global_position.y && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
 		print("collided from top")
+		$Kick.play()
 		get_parent().add_child(shell)
 		shell.position = position
 		queue_free()

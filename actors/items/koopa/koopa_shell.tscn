@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://actors/items/koopa/spin7.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/koopa/spin5.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://actors/items/koopa/spin4.png" type="Texture" id=7]
 [ext_resource path="res://actors/items/koopa/spin6.png" type="Texture" id=8]
 [ext_resource path="res://actors/items/koopa/koopa_shell.gd" type="Script" id=9]
+[ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -43,4 +44,7 @@ collision_mask = 2
 shape = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_CollisionArea_body_entered"]
