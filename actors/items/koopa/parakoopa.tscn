@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/items/koopa/parakoopa3.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/koopa/parakoopa1.png" type="Texture" id=2]
@@ -10,7 +10,7 @@
 [ext_resource path="res://actors/items/koopa/parakoopa.gd" type="Script" id=8]
 [ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=9]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
@@ -18,11 +18,8 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 9.98765, 0.95985 )
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10, 15.3446 )
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 5.59755 )
 
 [node name="Parakoopa" type="KinematicBody2D"]
 collision_layer = 0
@@ -31,9 +28,9 @@ script = ExtResource( 8 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 1267.43, -437.487 )
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 animation = "flying"
-frame = 4
+frame = 5
 playing = true
 offset = Vector2( -1267.82, 436.709 )
 
@@ -41,7 +38,7 @@ offset = Vector2( -1267.82, 436.709 )
 
 [node name="HitDetection" type="CollisionShape2D" parent="KoopaCollision"]
 position = Vector2( -0.995131, -13.2889 )
-shape = SubResource( 3 )
+shape = SubResource( 2 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 visible = false
@@ -51,7 +48,6 @@ stream = ExtResource( 9 )
 
 [node name="Collision" type="CollisionShape2D" parent="Damage"]
 position = Vector2( -0.92468, 4.47431 )
-shape = SubResource( 1 )
 [connection signal="body_entered" from="KoopaCollision" to="." method="_on_KoopaCollision_body_entered"]
 [connection signal="finished" from="Kick" to="." method="_on_Kick_finished"]
 [connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered"]

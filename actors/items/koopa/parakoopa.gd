@@ -15,10 +15,8 @@ func _on_KoopaCollision_body_entered(body):
 	$Sprite.visible = false
 	$Damage/Collision.queue_free()
 
-
 func _on_Kick_finished():
 	queue_free()
-
 
 func _on_Damage_body_entered(body):
 	player.life_meter_counter -= 1
