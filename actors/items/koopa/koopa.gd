@@ -55,6 +55,12 @@ func _on_KoopaCollision_body_entered(body):
 	if body.global_position.y < global_position.y && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
 		print("collided from top")
 		$Kick.play()
-		get_parent().add_child(shell)
-		shell.position = position
-		queue_free()
+		$"/root/Main/Player".vel.y = -5
+		get_parent().call_deferred("add_child", shell)
+		shell.position = position + Vector2(0, 7.5)
+		$KoopaCollision.set_deferred("monitoring", false)
+		set_deferred("visible", false)
+
+
+func _on_Kick_finished():
+	queue_free()
