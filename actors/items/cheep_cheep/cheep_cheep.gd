@@ -5,7 +5,7 @@ var move = Vector2.ZERO
 export var speed = 1
 var direction = null
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	move = Vector2.ZERO
 	
 	if player != null:

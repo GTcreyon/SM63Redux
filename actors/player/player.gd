@@ -752,13 +752,17 @@ func _on_BackupAngle_body_entered(_body):
 
 func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
-	
-func mario():
+
+
+func reset_room():
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().reload_current_scene()
+
 
 func invincibility_on_effect():
 	invincible = true
 	print("placeholder effect for flashing sprite")
+
 
 func after_transition():
 	$Camera2D/GUI/Deathcontrol/deathanim.stop()
