@@ -114,15 +114,18 @@ var state = s.walk
 var classic
 
 func take_damage(amount):
-	life_meter_counter = clamp(life_meter_counter - amount, 0, 8)
-	invincibility_on_effect()
+	if !invincible:
+		life_meter_counter = clamp(life_meter_counter - amount, 0, 8)
+		invincibility_on_effect()
 
 func take_damage_shove(amount, direction):
-	take_damage_impact(amount, Vector2(4 * direction, -8))
+	if !invincible:
+		take_damage_impact(amount, Vector2(4 * direction, -8))
 
 func take_damage_impact(amount, impact_vel):
-	take_damage(amount)
-	vel = impact_vel
+	if !invincible:
+		take_damage(amount)
+		vel = impact_vel
 
 func recieve_health(amount):
 	life_meter_counter = clamp(life_meter_counter + amount, 0, 8)

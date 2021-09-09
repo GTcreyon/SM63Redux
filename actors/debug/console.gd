@@ -18,6 +18,9 @@ func run_command(cmd):
 	match args[0]:
 		"w":
 			var path
+			if len(args) == 1:
+				output("No second argument. (really? smh. read the api!)")
+				return
 			match args[1]:
 				"basin":
 					path = "res://scenes/test/basin.tscn"
@@ -36,7 +39,7 @@ func run_command(cmd):
 				_:
 					path = ""
 			if path == "":
-				output("Scene does not exist.")
+				output("Scene does not exist. (learn to spell you baguette)")
 			else:
 				var err = get_tree().change_scene(path)
 				if err == OK:
@@ -53,13 +56,16 @@ func run_command(cmd):
 				else:
 					output("Error: " + err)
 			else:
-				output("Scene does not exist.")
+				output("Scene does not exist. (again, learn to spell!!!)")
 		"water":
 			$"/root/Singleton".water = int(args[1])
 		"c":
 			$"/root/Singleton".classic = !$"/root/Singleton".classic
+		"death":
+			$"/root/Main/Player".take_damage(8)
+			output("WAIT WHAT NO!!!")
 		_:
-			output("Unknown command.")
+			output("Unknown command. (imagine not knowing a command, can't be me :dabs:)")
 
 
 func _process(_delta):
