@@ -220,10 +220,5 @@ func _on_Area2D_body_entered_hurt(body):
 					vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x) / 10
 				else:
 					if player.invincible == false:
-						player.life_meter_counter -= 3
-						
-						player.vel.x += 4 * sign(body.position.x - position.x)
-						player.vel.y += -8
-						
-						player.invincibility_on_effect()
+						player.take_damage_shove(3, sign(body.position.x - position.x))
 
