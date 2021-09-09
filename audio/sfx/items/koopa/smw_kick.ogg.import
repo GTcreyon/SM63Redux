@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/smw_kick.ogg-f9c3c488fee974938a335276e18dca0a.oggstr"
+
+[deps]
+
+source_file="res://audio/sfx/items/koopa/smw_kick.ogg"
+dest_files=[ "res://.import/smw_kick.ogg-f9c3c488fee974938a335276e18dca0a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
