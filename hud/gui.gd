@@ -7,7 +7,7 @@ onready var player = $"/root/Main/Player"
 onready var coin_counter = $StatsTL/CoinRow/Count
 onready var red_coin_counter = $StatsTL/RedCoinRow/Count
 onready var meter = $MeterControl
-onready var icon = $MeterControl/Icon
+onready var icon = $MeterControl/WaterMeter/Icon
 
 var pause_offset = 0
 var pulse = 0

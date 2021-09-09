@@ -22,7 +22,7 @@ export var direction = 1
 func _ready():
 	 init_position = position
 
-func _physics_process(dt):
+func _physics_process(_delta):
 	vel.x = speed * direction
 	vel.y += GRAVITY
 	var snap
@@ -30,6 +30,7 @@ func _physics_process(dt):
 		snap = Vector2.ZERO
 	else:
 		snap = Vector2(0, 4)
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	#raycast2d is used here to detect if the object collided with a wall
 	#to change directions
