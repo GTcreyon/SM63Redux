@@ -113,11 +113,24 @@ enum n { #fludd enum
 var state = s.walk
 var classic
 
+func take_damage(amount):
+	life_meter_counter = clamp(life_meter_counter - amount, 0, 8)
+	invincibility_on_effect()
+
+func take_damage_shove(amount, direction):
+	take_damage_impact(amount, Vector2(4 * direction, -8))
+
+func take_damage_impact(amount, impact_vel):
+	take_damage(amount)
+	vel = impact_vel
+
+func recieve_health(amount):
+	life_meter_counter = clamp(life_meter_counter + amount, 0, 8)
+
 func dive_correct(factor): #Correct the player's origin position when diving
 	#warning-ignore:return_value_discarded
 	move_and_slide(Vector2(0, set_dive_correct * factor * 60), Vector2(0, -1))
 	camera.position.y = min(0, -set_dive_correct * factor)
-
 
 func play_voice(group_name):
 	var group = voice_bank[group_name]

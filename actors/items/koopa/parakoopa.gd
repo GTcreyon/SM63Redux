@@ -7,7 +7,6 @@ var parakoopa_pos = Vector2(global_position)
 func _physics_process(delta):
 	$Sprite.play("flying")
 
-
 func _on_KoopaCollision_body_entered(body):
 	get_parent().add_child(shell)
 	shell.set_position(parakoopa_pos)

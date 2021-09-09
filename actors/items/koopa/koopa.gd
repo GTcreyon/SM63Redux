@@ -1,7 +1,8 @@
 extends KinematicBody2D
 
-onready var lm_counter = $"/root/Main/Player".life_meter_counter
-onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/LifeMeter"
+onready var player = $"/root/Main/Player"
+#onready var lm_counter = player.life_meter_counter
+#onready var lm_gui = player.get_child("/Camera2D/GUI/LifeMeter")
 
 var shell = preload("koopa_shell.tscn").instance()
 
@@ -47,19 +48,10 @@ func flip_ev():
 func _on_KoopaCollision_body_entered(body):
 	if body.global_position.x < global_position.x && body.global_position.y > global_position.y:
 		print("collided from left")
-		lm_counter -= 1
-		#lm_gui.text = str(lm_counter)
-		
-		$"/root/Main/Player".vel.x = -4
-		$"/root/Main/Player".vel.y = -8
+		player.take_damage_shove(1, -1)
 	elif body.global_position.x > global_position.x && body.global_position.y > global_position.y:
 		print("collided from right")
-		lm_counter -= 1
-		#lm_gui.text = str(lm_counter)
-		
-		$"/root/Main/Player".vel.x = 4
-		$"/root/Main/Player".vel.y = -8
-	
+		player.take_damage_shove(1, 1)
 	if body.global_position.y < global_position.y && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
 		print("collided from top")
 		get_parent().add_child(shell)
