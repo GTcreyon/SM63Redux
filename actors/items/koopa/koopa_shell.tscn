@@ -43,5 +43,4 @@ collision_mask = 2
 shape = SubResource( 3 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_CollisionArea_body_entered"]
