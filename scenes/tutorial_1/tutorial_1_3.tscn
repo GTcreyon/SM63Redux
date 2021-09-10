@@ -161,7 +161,6 @@ length = 97
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 548, 187 )
-type = 0
 
 [node name="Coins" type="Node2D" parent="Items"]
 position = Vector2( 0, 2 )

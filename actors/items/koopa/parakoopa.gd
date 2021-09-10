@@ -11,10 +11,14 @@ func _on_KoopaCollision_body_entered(_body):
 	get_parent().add_child(koopa)
 	koopa.position = global_position
 	$Sprite.visible = false
-	$Damage/Collision.queue_free()
 
 func _on_Kick_finished():
 	queue_free()
 
-func _on_Damage_body_entered(_body):
-	player.life_meter_counter -= 1
+func _on_Damage_body_entered(body):
+	if body.global_position.x < global_position.x && body.global_position.y > global_position.y:
+		print("collided from left")
+		player.take_damage_shove(1, -1)
+	elif body.global_position.x > global_position.x && body.global_position.y > global_position.y:
+		print("collided from right")
+		player.take_damage_shove(1, 1)

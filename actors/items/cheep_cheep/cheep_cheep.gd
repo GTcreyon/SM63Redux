@@ -4,6 +4,7 @@ var player = null
 var move = Vector2.ZERO
 export var speed = 1
 var direction = null
+onready var playerdamage = $"/root/Main/Player"
 
 func _physics_process(_delta):
 	move = Vector2.ZERO
@@ -33,3 +34,12 @@ func _on_Following_body_exited(_body):
 
 func _on_Disable_body_entered(_body):
 	player = null
+
+
+func _on_Damage_body_entered(body):
+	if body.global_position.x < global_position.x && body.global_position.y > global_position.y:
+		print("collided from left")
+		playerdamage.take_damage_shove(1, -1)
+	elif body.global_position.x > global_position.x && body.global_position.y > global_position.y:
+		print("collided from right")
+		playerdamage.take_damage_shove(1, 1)
