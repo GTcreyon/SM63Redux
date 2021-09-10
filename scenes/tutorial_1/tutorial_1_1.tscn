@@ -411,4 +411,5 @@ position = Vector2( 865.68, 325.02 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
 position = Vector2( 976, 127 )
+limits = 3
 size = Vector2( 1952, 600 )

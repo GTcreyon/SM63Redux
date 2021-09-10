@@ -55,6 +55,7 @@ script = ExtResource( 16 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "walking"
+frame = 2
 playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
