@@ -15,8 +15,6 @@ export var direction = 1
 var is_jumping = false #this is for stopping goomba's movement and then
 #transition to higher speed.
 
-var invincible_timer = 0 #for when player's invincible variable is true, then starts incrementing
-
 var tracking = false
 var wander_dist = 0
 var stepped = false
@@ -37,11 +35,6 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if player.invincible == true:
-		invincible_timer += 1
-	if invincible_timer == 180:
-		invincible_timer = 0
-		player.invincible = false
 	
 	if sprite.animation == "squish":
 		if dead:
@@ -219,5 +212,5 @@ func _on_Area2D_body_entered_hurt(body):
 					sprite.animation = "jumping"
 					vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x) / 10
 				else:
-					player.take_damage_shove(3, sign(body.position.x - position.x))
+					player.take_damage_shove(1, sign(body.position.x - position.x))
 

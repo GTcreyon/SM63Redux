@@ -41,6 +41,8 @@ var life_meter_counter = 8
 var fludd_strain = false
 var static_v = false #for pipe, may be used for other things.
 var invincible = false #needed for making him invincible
+var invincible_timer = 0 #for when player's invincible variable is true, then starts incrementing
+var prog_alpha = 0
 var internal_coin_counter = 0 #if it hits 5, gets reset
 var if_died = false #for death transition
 #####################
@@ -127,6 +129,8 @@ func take_damage_impact(amount, impact_vel):
 		take_damage(amount)
 		vel = impact_vel
 
+
+
 func recieve_health(amount):
 	life_meter_counter = clamp(life_meter_counter + amount, 0, 8)
 
@@ -208,6 +212,16 @@ func ground_friction(val, sub, div): #Ripped from source
 
 
 func _physics_process(_delta):
+	if invincible == true:
+		invincible_timer += 1
+		modulate.a = (sin(2 * PI * prog_alpha) + 3) / 4
+		prog_alpha += 0.05
+		
+		
+	if invincible_timer == 180:
+		invincible_timer = 0
+		modulate.a = 1
+		invincible = false
 	
 	if internal_coin_counter >= 5 && life_meter_counter < 8:
 		life_meter_counter += 1
