@@ -102,7 +102,7 @@ func _process(_delta):
 									char_index += 1
 									char_roll += 1
 								tag += target_line[char_index]
-								print(tag)
+								#print(tag)
 								match tag[1]:
 									"/":
 										$Text.pop() #closes tag
@@ -111,7 +111,7 @@ func _process(_delta):
 											var _a = 0
 										else:
 											var subtag = tag.substr(2, tag.length() - 3)
-											print(subtag)
+											#print(subtag)
 											var args = subtag.split(",")
 											match args[0]:
 												"s":
@@ -119,7 +119,7 @@ func _process(_delta):
 												"p":
 													pause_time = float(args[1])
 												_:
-													print("Dialog: Unknown tag")
+													print_debug("Dialog: Unknown tag")
 									_:
 										$Text.append_bbcode(tag)
 								if skip_char:

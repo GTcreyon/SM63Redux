@@ -38,6 +38,7 @@ collision_mask = 2147483650
 
 [node name="Collision" type="CollisionShape2D" parent="Damage"]
 shape = SubResource( 3 )
+
 [connection signal="body_entered" from="Following" to="." method="_on_Following_body_entered"]
 [connection signal="body_exited" from="Following" to="." method="_on_Following_body_exited"]
 [connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered"]

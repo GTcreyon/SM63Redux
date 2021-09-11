@@ -24,8 +24,8 @@ func _on_Kick_finished():
 
 func _on_Damage_body_entered(body):
 	if body.global_position.x < global_position.x && body.global_position.y > global_position.y:
-		print("collided from left")
+		#print("collided from left")
 		player.take_damage_shove(1, -1)
 	elif body.global_position.x > global_position.x && body.global_position.y > global_position.y:
-		print("collided from right")
+		#print("collided from right")
 		player.take_damage_shove(1, 1)

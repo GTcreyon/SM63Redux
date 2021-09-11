@@ -74,16 +74,6 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "spin",
@@ -93,46 +83,6 @@ animations = [ {
 "loop": true,
 "name": "pound_fall",
 "speed": 15.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 20 ), ExtResource( 19 ) ],
-"loop": true,
-"name": "swim",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 39 ) ],
-"loop": true,
-"name": "rocket_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 55 ) ],
-"loop": true,
-"name": "rocket_back",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 54 ) ],
-"loop": true,
-"name": "turbo_back",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
-"loop": true,
-"name": "hover_swim",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "rocket_jump",
-"speed": 5.0
 }, {
 "frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
 "loop": true,
@@ -152,6 +102,31 @@ animations = [ {
 "frames": [ ExtResource( 31 ) ],
 "loop": true,
 "name": "hover_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 55 ) ],
+"loop": true,
+"name": "rocket_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "hover_swim",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "rocket_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 54 ) ],
+"loop": true,
+"name": "turbo_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 27 ) ],
+"loop": true,
+"name": "hover_jump_double",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 32 ) ],
@@ -174,16 +149,6 @@ animations = [ {
 "name": "rocket_fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "hover_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 27 ) ],
-"loop": true,
-"name": "hover_jump_double",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 36 ) ],
 "loop": true,
 "name": "rocket_walk",
@@ -194,19 +159,29 @@ animations = [ {
 "name": "hover_fall",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
+"loop": true,
+"name": "hover_pound_fall",
+"speed": 15.0
+}, {
 "frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
 "loop": true,
 "name": "rocket_pound_fall",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 53 ) ],
 "loop": true,
 "name": "hover_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 42 ) ],
+"loop": true,
+"name": "rocket_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "hover_dive",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
@@ -219,10 +194,35 @@ animations = [ {
 "name": "rocket_flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 42 ) ],
+"frames": [ ExtResource( 39 ) ],
 "loop": true,
-"name": "rocket_pound_spin",
+"name": "rocket_jump_double",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 20 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "swim",
+"speed": 4.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -328,11 +328,9 @@ material = ExtResource( 38 )
 z_index = -2
 script = ExtResource( 37 )
 
-[node name="Timer" type="Timer" parent="."]
-
-[node name="switch" type="AudioStreamPlayer2D" parent="."]
+[node name="SwitchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 56 )
+
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="body_entered" from="BackupAngle" to="." method="_on_BackupAngle_body_entered"]
 [connection signal="body_exited" from="BackupAngle" to="." method="_on_BackupAngle_body_exited"]
-[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

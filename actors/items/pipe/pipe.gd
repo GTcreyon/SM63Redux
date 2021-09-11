@@ -59,7 +59,7 @@ func _process(_delta):
 
 func _on_mario_top(body):
 	if body.global_position.y < global_position.y:
-		print("on top")
+		#print("on top")
 		if(player.state == 0):
 			can_warp = true
 		else:
@@ -71,5 +71,5 @@ func _on_mario_top(body):
 			can_warp = true #for being able to work all the stuff above
 
 func _on_mario_off(_body):
-		print("not on top")
+		#print("not on top")
 		can_warp = false #or else he won't

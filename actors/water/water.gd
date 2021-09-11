@@ -209,7 +209,7 @@ func handle_impact(body, is_exit):
 	#get the collision point
 	var contacts = this_shape.collide_and_get_contacts(this_transform, other_shape, other_transform)
 	if contacts.empty(): #if empty, well there's not much we can do then
-		print("why are there no contact points?")
+		#print("why are there no contact points?")
 		return
 	var contact = contacts[0] #get single contact point
 	contact -= get_global_transform().origin #transform it to local coordinates

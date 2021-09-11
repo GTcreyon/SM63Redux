@@ -39,9 +39,9 @@ func _process(_delta):
 		curve.set_point_position(0, curve_top)
 		curve.set_point_out(0, curve_arc)
 		curve.set_point_position(1, curve_bottom)
-		print(curve_top)
-		print(curve_arc)
-		print(curve_bottom)
+		#print(curve_top)
+		#print(curve_arc)
+		#print(curve_bottom)
 		#print(str(curve.get_point_position(0)) + str(curve.get_point_position(1)) + str(curve.get_point_position(2)))
 		if direction.x * enter == -1:
 #			print(curve.get_point_position(0))
@@ -55,8 +55,8 @@ func _process(_delta):
 		#print(polygon)
 		#draw_polyline(curve.get_baked_points(), Color.red, 2.0)
 		#print(curve.get_baked_points())
-	if  enter == 1 && ((curve_top.x + curve_arc.x > OS.window_size.x && direction == Vector2.RIGHT) || (curve_top.x + curve_arc.x < 0 && direction == Vector2.LEFT)):
-		print("switch")
+	if enter == 1 && ((curve_top.x + curve_arc.x > OS.window_size.x && direction == Vector2.RIGHT) || (curve_top.x + curve_arc.x < 0 && direction == Vector2.LEFT)):
+		#print("switch")
 		#warning-ignore:RETURN_VALUE_DISCARDED
 		get_tree().change_scene(scene_path)
 		curve.clear_points()
