@@ -35,7 +35,7 @@ func say_line(index):
 		var loop = true
 		while i + j < target_line.length() && target_line[i + j] != " " && target_line[i + j] != "\n" && loop:
 			if target_line[i + j] == "[":
-				while target_line[i + j - 1] != "]" || target_line[i + j] == "[":
+				while i + j < target_line.length() - 1 && (target_line[i + j - 1] != "]" || target_line[i + j] == "["):
 					j += 1
 				if target_line[i + j] == " ":
 					loop = false

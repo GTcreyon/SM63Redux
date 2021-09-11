@@ -16,7 +16,7 @@ animations = [ {
 extents = Vector2( 11, 16.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 11, 16.4053 )
+extents = Vector2( 11, 16.5 )
 
 [node name="Koopa" type="KinematicBody2D"]
 collision_layer = 4
@@ -37,15 +37,16 @@ enabled = true
 cast_to = Vector2( 0, 21 )
 
 [node name="KoopaCollision" type="Area2D" parent="."]
+position = Vector2( 0, 0.5 )
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KoopaCollision"]
-position = Vector2( 0, 0.5 )
 shape = SubResource( 3 )
 one_way_collision = true
 
 [node name="Kick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+
 [connection signal="body_entered" from="KoopaCollision" to="." method="_on_KoopaCollision_body_entered"]
 [connection signal="finished" from="Kick" to="." method="_on_Kick_finished"]
