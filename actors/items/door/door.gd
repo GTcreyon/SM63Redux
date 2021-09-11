@@ -22,8 +22,8 @@ func _physics_process(delta):
 		player.static_v = false
 		entered = false
 func _on_Door_body_entered(body):
-	print("in")
+	#print("in")
 	enterable = 1
 func _on_Door_body_exited(body):
-	print("out")
+	#print("out")
 	enterable = 0

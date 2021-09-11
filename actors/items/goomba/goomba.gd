@@ -30,12 +30,8 @@ onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
 var land_timer = 0
 
-func _ready():
-	sprite.animation = "walking"
-
 
 func _physics_process(_delta):
-	
 	if sprite.animation == "squish":
 		if dead:
 			var spawn = coin.instance()

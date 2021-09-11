@@ -34,7 +34,7 @@ onready var hitbox = stand_box
 onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
-onready var timer = get_node("Timer")
+onready var switch_sfx = $SwitchSFX
 
 #mario's gameplay parameters
 var life_meter_counter = 8
@@ -195,8 +195,7 @@ func switch_state(new_state):
 
 func _ready():
 	update_classic()
-	timer.set_wait_time(1)
-	if(singleton.dead):
+	if singleton.dead:
 		$Camera2D/GUI/Deathcontrol/deathanim.play("DeathOut")
 
 
@@ -272,7 +271,7 @@ func _physics_process(_delta):
 			var anim = sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", "") #lazy way to refresh fludd anim
 			switch_anim(anim)
 			fludd_strain = false
-			$switch.play()
+			switch_sfx.play()
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.swim: #swimming is basically entirely different so it's wholly seperate
@@ -743,9 +742,7 @@ func _physics_process(_delta):
 			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
 	elif !sprite.animation.ends_with("swim"):
 		sprite.speed_scale = 1
-	$Label.text = str(vel.x)
-	if life_meter_counter == 1:
-		timer.start()
+	#$Label.text = str(vel.x)
 	if life_meter_counter <= 0:
 		singleton.dead = true
 		$Camera2D/GUI/Deathcontrol/deathanim.play("DeathIn")
@@ -775,7 +772,7 @@ func reset_room():
 
 func invincibility_on_effect():
 	invincible = true
-	print("placeholder effect for flashing sprite")
+	#print("placeholder effect for flashing sprite")
 
 
 func after_transition():

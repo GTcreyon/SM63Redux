@@ -48,13 +48,13 @@ func flip_ev():
 
 func _on_KoopaCollision_body_entered(body):
 	if body.global_position.x < global_position.x && body.global_position.y > global_position.y:
-		print("collided from left")
+		#print("collided from left")
 		player.take_damage_shove(1, -1)
 	elif body.global_position.x > global_position.x && body.global_position.y > global_position.y:
-		print("collided from right")
+		#print("collided from right")
 		player.take_damage_shove(1, 1)
 	if body.global_position.y < global_position.y && (body.global_position.x < global_position.x || body.global_position.x > global_position.x):
-		print("collided from top")
+		#print("collided from top")
 		$Kick.play()
 		$"/root/Main/Player".vel.y = -5
 		get_parent().call_deferred("add_child", shell)

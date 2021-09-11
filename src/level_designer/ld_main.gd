@@ -58,7 +58,7 @@ func save_code():
 			tile_b = tile_a
 			n -= 1
 	code += "~"
-	print(get_children())
+	#print(get_children())
 	#for child in get_children():
 	#	if child != map && child != self && child != music:
 	#		code += child.code + "|"

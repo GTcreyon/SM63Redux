@@ -17,10 +17,10 @@ func _on_Area2D_body_entered(_body):
 	if !Engine.editor_hint:
 		if limits & 1:
 			$"/root/Main/Player/Camera2D".target_limit_left = position.x - $CollisionShape2D.shape.extents.x
-			print($"/root/Main/Player/Camera2D".target_limit_left)
+			#print($"/root/Main/Player/Camera2D".target_limit_left)
 		if limits & 2:
 			$"/root/Main/Player/Camera2D".target_limit_right = position.x + $CollisionShape2D.shape.extents.x
-			print($"/root/Main/Player/Camera2D".target_limit_right)
+			#print($"/root/Main/Player/Camera2D".target_limit_right)
 		if limits & 4:
 			$"/root/Main/Player/Camera2D".target_limit_top = position.y - $CollisionShape2D.shape.extents.y
 		if limits & 8:
