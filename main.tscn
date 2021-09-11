@@ -169,6 +169,7 @@ speed = 3
 
 [node name="Parakoopa" parent="Enemies" instance=ExtResource( 18 )]
 position = Vector2( -1708.27, -33.542 )
+frame = 7
 
 [node name="Koopa" parent="Enemies" instance=ExtResource( 19 )]
 position = Vector2( -1900, 200 )
@@ -196,10 +197,6 @@ target_x_pos = 1050
 
 [node name="Pivot" parent="Items" instance=ExtResource( 2 )]
 position = Vector2( -1728, 128 )
-radius = 50
-count = 3
-speed = 10.0
-offset = 0.0
 
 [node name="Cloud" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1632, 96 )
@@ -207,11 +204,9 @@ width = 4
 
 [node name="Cloud2" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1824, 176 )
-width = 1
 
 [node name="Cloud3" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1808, 48 )
-width = 1
 
 [node name="Cloud4" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1664, 192 )

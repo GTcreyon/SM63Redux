@@ -26,10 +26,11 @@ func _physics_process(_delta):
 	vel.x = speed * direction
 	vel.y += GRAVITY
 	var snap
-	if !is_on_floor():
-		snap = Vector2.ZERO
-	else:
+	if is_on_floor():
+		vel.y = GRAVITY
 		snap = Vector2(0, 4)
+	else:
+		snap = Vector2.ZERO
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	#raycast2d is used here to detect if the object collided with a wall
