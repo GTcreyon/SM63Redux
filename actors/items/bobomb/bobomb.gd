@@ -29,11 +29,7 @@ onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
 onready var lm_counter = player.life_meter_counter
-onready var lm_gui = $"/root/Main/Player/Camera2D/GUI/LifeMeterCounter"
 var land_timer = 0
-
-func _ready():
-	base.animation = "walking"
 
 
 func _process(_delta):
@@ -119,6 +115,7 @@ func _physics_process(_delta):
 		snap = Vector2.ZERO
 	else:
 		snap = Vector2(0, 4)
+	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	if is_on_floor() && struck:
 		var spawn = coin.instance()
@@ -153,7 +150,7 @@ func flip_ev():
 	raycast.position.x *= -1
 
 
-func _on_AlertArea_body_entered(body):
+func _on_AlertArea_body_entered(_body):
 	if !tracking:
 		if player.position.x > position.x:
 			direction = 1

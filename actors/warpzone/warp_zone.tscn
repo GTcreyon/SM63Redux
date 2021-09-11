@@ -3,6 +3,8 @@
 [ext_resource path="res://actors/warpzone/warp_zone.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 0, 0 )
 
 [node name="WarpZone" type="Area2D"]
 collision_layer = 0
