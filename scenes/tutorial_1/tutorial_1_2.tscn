@@ -17,12 +17,12 @@
 [ext_resource path="res://actors/items/bobomb/bobomb.tscn" type="PackedScene" id=15]
 [ext_resource path="res://actors/camera_area.tscn" type="PackedScene" id=16]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=17]
-[ext_resource path="res://actors/items/decoration/small_tree.png" type="Texture" id=18]
-[ext_resource path="res://actors/items/decoration/big_tree.png" type="Texture" id=19]
+[ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=20]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=21]
 [ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=23]
 [ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=24]
+[ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=25]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -186,50 +186,38 @@ position = Vector2( 1089.76, 371.532 )
 [node name="Cheep Cheep2" parent="." instance=ExtResource( 17 )]
 position = Vector2( 962.514, 414.344 )
 
-[node name="big_tree" type="Sprite" parent="."]
-position = Vector2( 134.121, 140.062 )
-texture = ExtResource( 19 )
+[node name="BigTree" parent="." instance=ExtResource( 20 )]
+position = Vector2( 134.5, 138 )
 
-[node name="big_tree2" type="Sprite" parent="."]
-position = Vector2( 350.367, 138.427 )
-texture = ExtResource( 19 )
+[node name="BigTree2" parent="." instance=ExtResource( 20 )]
+position = Vector2( 350.5, 138 )
 
-[node name="big_tree3" type="Sprite" parent="."]
-position = Vector2( 423.27, 155.265 )
-texture = ExtResource( 19 )
+[node name="SmallTree" parent="." instance=ExtResource( 25 )]
+position = Vector2( 240, 153 )
 
-[node name="small_tree" type="Sprite" parent="big_tree3"]
-position = Vector2( -183.114, 0.0436096 )
-texture = ExtResource( 18 )
+[node name="BigTree3" parent="." instance=ExtResource( 20 )]
+position = Vector2( 423.5, 148 )
 
-[node name="big_tree4" type="Sprite" parent="."]
-position = Vector2( 580.548, 110.093 )
-texture = ExtResource( 19 )
+[node name="BigTree4" parent="." instance=ExtResource( 20 )]
+position = Vector2( 580.5, 106 )
 
-[node name="small_tree" type="Sprite" parent="."]
-position = Vector2( 494.395, 160.286 )
-texture = ExtResource( 18 )
+[node name="SmallTree2" parent="." instance=ExtResource( 25 )]
+position = Vector2( 494, 160 )
 
-[node name="small_tree2" type="Sprite" parent="."]
-position = Vector2( 1040.94, 214.042 )
-texture = ExtResource( 18 )
+[node name="SmallTree3" parent="." instance=ExtResource( 25 )]
+position = Vector2( 1041, 214 )
 
-[node name="big_tree5" type="Sprite" parent="."]
-position = Vector2( 1299.69, 215.63 )
-texture = ExtResource( 19 )
+[node name="BigTree5" parent="." instance=ExtResource( 20 )]
+position = Vector2( 1289.5, 212 )
 
-[node name="big_tree6" type="Sprite" parent="."]
-position = Vector2( 1419.54, 210.074 )
-texture = ExtResource( 19 )
+[node name="BigTree6" parent="." instance=ExtResource( 20 )]
+position = Vector2( 1419.5, 209 )
 
-[node name="big_tree7" type="Sprite" parent="."]
-position = Vector2( 1650.88, 199.756 )
-texture = ExtResource( 19 )
+[node name="BigTree7" parent="." instance=ExtResource( 20 )]
+position = Vector2( 1650.5, 195 )
 
-[node name="small_tree3" type="Sprite" parent="."]
-position = Vector2( 1524.68, 217.217 )
-texture = ExtResource( 18 )
+[node name="SmallTree4" parent="." instance=ExtResource( 25 )]
+position = Vector2( 1350, 227 )
 
-[node name="small_tree4" type="Sprite" parent="."]
-position = Vector2( 1350.07, 230.71 )
-texture = ExtResource( 18 )
+[node name="SmallTree5" parent="." instance=ExtResource( 25 )]
+position = Vector2( 1525, 210 )
