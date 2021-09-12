@@ -2,12 +2,52 @@ extends CanvasLayer
 
 #var font_red = BitmapFont.new()
 
+#absolute cache
 onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
+
+#misc cache
+onready var dialog_box = $DialogBox
+
+#hud cache
 onready var coin_counter = $StatsTL/CoinRow/Count
 onready var red_coin_counter = $StatsTL/RedCoinRow/Count
-onready var meter = $MeterControl
+onready var life_meter = $LifeMeter
+onready var water_meter = $MeterControl
 onready var icon = $MeterControl/WaterMeter/Icon
+onready var stats_tl = $StatsTL
+onready var stats_tr = $StatsTR
+onready var stats_bl = $StatsBL
+
+#pause cache
+onready var bg = $BG
+onready var top = $Top
+onready var left_corner_top = $LeftCornerTop
+onready var left_corner_bottom = $LeftCornerBottom
+onready var right_corner_top = $RightCornerTop
+onready var right_corner_bottom = $RightCornerBottom
+onready var left = $Left
+onready var right = $Right
+onready var button_map = $ButtonMap
+onready var button_map_off = $ButtonMap/StarsOff
+onready var button_map_on = $ButtonMap/StarsOn
+onready var button_fludd = $ButtonFludd
+onready var button_fludd_off = $ButtonFludd/StarsOff
+onready var button_fludd_on = $ButtonFludd/StarsOn
+onready var button_options = $ButtonOptions
+onready var button_options_off = $ButtonOptions/StarsOff
+onready var button_options_on = $ButtonOptions/StarsOn
+onready var button_exit = $ButtonExit
+onready var button_exit_off = $ButtonExit/StarsOff
+onready var button_exit_on = $ButtonExit/StarsOn
+onready var info = $LevelInfo
+onready var shine_panel = $LevelInfo/ShinePanel
+onready var shine_row = $LevelInfo/CollectRow/ShineRow
+onready var coin_row = $LevelInfo/CollectRow/CoinRow
+onready var level_name = $LevelInfo/LevelName
+onready var level_name_panel = $LevelInfo/LevelName/Panel
+onready var mission_name = $LevelInfo/MissionName
+onready var mission_name_panel = $LevelInfo/MissionName/Panel
 
 var pause_offset = 0
 var pulse = 0
@@ -24,90 +64,90 @@ func resize():
 	var scale = floor(OS.window_size.y / 304)
 	var topsize = OS.window_size.x / scale - 36 - 30
 	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
-	$BG.rect_size = OS.window_size
+	bg.rect_size = OS.window_size
 	
-	$Top.rect_scale = Vector2.ONE * scale
-	$Top.rect_size.x = topsize + offset + 19 * scale
-	$Top.rect_position.x = 29 * scale - offset * scale - 19 * scale
-	$LeftCornerTop.rect_scale = Vector2.ONE * scale
-	$LeftCornerBottom.rect_scale = Vector2.ONE * scale
-	$RightCornerTop.rect_scale = Vector2.ONE * scale
-	$RightCornerBottom.rect_scale = Vector2.ONE * scale
-	$Left.rect_scale = Vector2.ONE * scale
-	$Left.rect_position.y = 17 * scale
-	$Left.rect_size.y = OS.window_size.y / scale - 17 - 33
-	$Right.rect_scale = Vector2.ONE * scale
-	$Right.rect_position.y = 17 * scale
-	$Right.rect_size.y = OS.window_size.y / scale - 17 - 33
+	top.rect_scale = Vector2.ONE * scale
+	top.rect_size.x = topsize + offset + 19 * scale
+	top.rect_position.x = 29 * scale - offset * scale - 19 * scale
+	left_corner_top.rect_scale = Vector2.ONE * scale
+	left_corner_bottom.rect_scale = Vector2.ONE * scale
+	right_corner_top.rect_scale = Vector2.ONE * scale
+	right_corner_bottom.rect_scale = Vector2.ONE * scale
+	left.rect_scale = Vector2.ONE * scale
+	left.rect_position.y = 17 * scale
+	left.rect_size.y = OS.window_size.y / scale - 17 - 33
+	right.rect_scale = Vector2.ONE * scale
+	right.rect_position.y = 17 * scale
+	right.rect_size.y = OS.window_size.y / scale - 17 - 33
 	
-	$ButtonMap.rect_scale = Vector2.ONE * scale
-	$ButtonMap.rect_position.x = 29 * scale
-	$ButtonMap.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
-	$ButtonMap/StarsOff.polygon[1].x = $ButtonMap.rect_size.x - 1
-	$ButtonMap/StarsOff.polygon[2].x = $ButtonMap.rect_size.x - 1
-	$ButtonMap/StarsOn.polygon = $ButtonMap/StarsOff.polygon
+	button_map.rect_scale = Vector2.ONE * scale
+	button_map.rect_position.x = 29 * scale
+	button_map.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
+	button_map_off.polygon[1].x = button_map.rect_size.x - 1
+	button_map_off.polygon[2].x = button_map.rect_size.x - 1
+	button_map_on.polygon = button_map_off.polygon
 	
-	$ButtonFludd.rect_scale = Vector2.ONE * scale
-	$ButtonFludd.rect_position.x = $ButtonMap.rect_position.x + $ButtonMap.rect_size.x * scale - 1 * scale
-	$ButtonFludd.rect_size.x = ceil((OS.window_size.x - 61 * scale) / scale / 4)
-	$ButtonFludd/StarsOff.polygon[1].x = $ButtonFludd.rect_size.x - 1
-	$ButtonFludd/StarsOff.polygon[2].x = $ButtonFludd.rect_size.x - 1
-	$ButtonFludd/StarsOn.polygon = $ButtonFludd/StarsOff.polygon
+	button_fludd.rect_scale = Vector2.ONE * scale
+	button_fludd.rect_position.x = button_map.rect_position.x + button_map.rect_size.x * scale - 1 * scale
+	button_fludd.rect_size.x = ceil((OS.window_size.x - 61 * scale) / scale / 4)
+	button_fludd_off.polygon[1].x = button_fludd.rect_size.x - 1
+	button_fludd_off.polygon[2].x = button_fludd.rect_size.x - 1
+	button_fludd_on.polygon = button_fludd_off.polygon
 	
-	$ButtonOptions.rect_scale = Vector2.ONE * scale
-	$ButtonOptions.rect_position.x = $ButtonFludd.rect_position.x + $ButtonFludd.rect_size.x * scale - 1 * scale
-	$ButtonOptions.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
-	$ButtonOptions/StarsOff.polygon[1].x = $ButtonOptions.rect_size.x - 1
-	$ButtonOptions/StarsOff.polygon[2].x = $ButtonOptions.rect_size.x - 1
-	$ButtonOptions/StarsOn.polygon = $ButtonOptions/StarsOff.polygon
+	button_options.rect_scale = Vector2.ONE * scale
+	button_options.rect_position.x = button_fludd.rect_position.x + button_fludd.rect_size.x * scale - 1 * scale
+	button_options.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
+	button_options_off.polygon[1].x = button_options.rect_size.x - 1
+	button_options_off.polygon[2].x = button_options.rect_size.x - 1
+	button_options_on.polygon = button_options_off.polygon
 	
-	$ButtonExit.rect_scale = Vector2.ONE * scale
-	$ButtonExit.rect_position.x = $ButtonOptions.rect_position.x + $ButtonOptions.rect_size.x * scale - 1 * scale
-	$ButtonExit.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
-	$ButtonExit/StarsOff.polygon[1].x = $ButtonExit.rect_size.x - 1
-	$ButtonExit/StarsOff.polygon[2].x = $ButtonExit.rect_size.x - 1
-	$ButtonExit/StarsOn.polygon = $ButtonExit/StarsOff.polygon
+	button_exit.rect_scale = Vector2.ONE * scale
+	button_exit.rect_position.x = button_options.rect_position.x + button_options.rect_size.x * scale - 1 * scale
+	button_exit.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
+	button_exit_off.polygon[1].x = button_exit.rect_size.x - 1
+	button_exit_off.polygon[2].x = button_exit.rect_size.x - 1
+	button_exit_on.polygon = button_exit_off.polygon
 	
-	$LevelInfo.rect_scale = Vector2.ONE * scale
-	$LevelInfo.rect_size = OS.window_size / scale
+	info.rect_scale = Vector2.ONE * scale
+	info.rect_size = OS.window_size / scale
 	
-	var font = $LevelInfo/LevelName.get_font("font")
-	var gap = (OS.window_size.x / scale - font.get_string_size($LevelInfo/LevelName.text.to_upper()).x) / 2
-	$LevelInfo/LevelName/Panel.margin_left = gap - 7
-	$LevelInfo/LevelName/Panel.margin_right = -gap + 4
-	font = $LevelInfo/MissionName.get_font("font")
-	gap = (OS.window_size.x / scale - font.get_string_size($LevelInfo/MissionName.text.to_upper()).x) / 2
-	$LevelInfo/MissionName/Panel.margin_left = gap - 7
-	$LevelInfo/MissionName/Panel.margin_right = -gap + 4
+	var font = level_name.get_font("font")
+	var gap = (OS.window_size.x / scale - font.get_string_size(level_name.text.to_upper()).x) / 2
+	level_name_panel.margin_left = gap - 7
+	level_name_panel.margin_right = -gap + 4
+	font = mission_name.get_font("font")
+	gap = (OS.window_size.x / scale - font.get_string_size(mission_name.text.to_upper()).x) / 2
+	mission_name_panel.margin_left = gap - 7
+	mission_name_panel.margin_right = -gap + 4
 	
 	#this is terrible. i wish godot had a way to force controls to update their margins before the frame ends
 	var shine_count = 0
-	for child in $LevelInfo/CollectRow/ShineRow.get_children():
+	for child in shine_row.get_children():
 		if child.visible:
 			shine_count += 1
-	var shine_width = (shine_count - 1) * $LevelInfo/CollectRow/ShineRow.get_constant("separation")
+	var shine_width = (shine_count - 1) * shine_row.get_constant("separation")
 	var coin_count = 0
-	for child in $LevelInfo/CollectRow/CoinRow.get_children():
+	for child in coin_row.get_children():
 		if child.visible:
 			coin_count += 1
-	var coin_width = (coin_count - 1) * $LevelInfo/CollectRow/CoinRow.get_constant("separation")
-	$LevelInfo/ShinePanel.margin_left = (OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 33 / 2 - 4
-	$LevelInfo/ShinePanel.margin_right = -((OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 29 / 2 - 4)
+	var coin_width = (coin_count - 1) * coin_row.get_constant("separation")
+	shine_panel.margin_left = (OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 33 / 2 - 4
+	shine_panel.margin_right = -((OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 29 / 2 - 4)
 	#$LevelInfo/ShinePanel.margin_left = $LevelInfo/CollectRow/ShineRow.margin_left + 37 - 33 / 2 - 4
 	#$LevelInfo/ShinePanel.margin_right = -($LevelInfo/CollectRow.rect_size.x - $LevelInfo/CollectRow/CoinRow.margin_right) - 37 + 29 / 2 + 4
 
 func set_size(size, lin_size):
 	#size: general size of UI elements
 	#lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
-	$MeterControl.rect_scale = Vector2.ONE * size
-	$StatsTL.rect_scale = Vector2.ONE * size
-	$StatsTR.rect_scale = Vector2.ONE * size
-	$StatsBL.rect_scale = Vector2.ONE * size
-	$LifeMeter.scale = Vector2.ONE * size
-	$LifeMeter.position.x = OS.window_size.x / 2
-	$DialogBox.gui_size = lin_size
-	$InputDisplay.rect_scale = Vector2.ONE * size
-	$InputDisplay.rect_position = Vector2(2 * size, 71 * size)
+	water_meter.rect_scale = Vector2.ONE * size
+	stats_tl.rect_scale = Vector2.ONE * size
+	stats_tr.rect_scale = Vector2.ONE * size
+	stats_bl.rect_scale = Vector2.ONE * size
+	life_meter.scale = Vector2.ONE * size
+	life_meter.position.x = OS.window_size.x / 2
+	dialog_box.gui_size = lin_size
+#	$InputDisplay.rect_scale = Vector2.ONE * size
+#	$InputDisplay.rect_position = Vector2(2 * size, 71 * size)
 	resize()
 
 
@@ -153,14 +193,14 @@ func _process(_delta):
 		pause_offset = lerp(pause_offset, 0, 0.5)
 		for node in menu:
 			node.modulate.a = max(node.modulate.a - 0.2, 0)
-	$StatsTL.margin_left = 8 + (37 * gui_scale) * pause_offset
-	$StatsTL.margin_top = 8 + (19 * gui_scale) * pause_offset
-	$StatsTR.margin_left = -8 - (37 * gui_scale) * pause_offset
-	$StatsTR.margin_top = 8 + (19 * gui_scale) * pause_offset
-	$StatsBL.margin_left = 8 + (37 * gui_scale) * pause_offset
-	$StatsBL.margin_top = -8 - (33 * gui_scale) * pause_offset
-	$MeterControl.margin_left = -57 - (37 * gui_scale) * pause_offset
-	$MeterControl.margin_top = -113 - (33 * gui_scale) * pause_offset
+	stats_tl.margin_left = 8 + (37 * gui_scale) * pause_offset
+	stats_tl.margin_top = 8 + (19 * gui_scale) * pause_offset
+	stats_tr.margin_left = -8 - (37 * gui_scale) * pause_offset
+	stats_tr.margin_top = 8 + (19 * gui_scale) * pause_offset
+	stats_bl.margin_left = 8 + (37 * gui_scale) * pause_offset
+	stats_bl.margin_top = -8 - (33 * gui_scale) * pause_offset
+	water_meter.margin_left = -57 - (37 * gui_scale) * pause_offset
+	water_meter.margin_top = -113 - (33 * gui_scale) * pause_offset
 
 
 func _on_ButtonMap_button_down():
