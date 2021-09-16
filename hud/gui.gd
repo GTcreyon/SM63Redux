@@ -40,14 +40,8 @@ onready var button_options_on = $ButtonOptions/StarsOn
 onready var button_exit = $ButtonExit
 onready var button_exit_off = $ButtonExit/StarsOff
 onready var button_exit_on = $ButtonExit/StarsOn
-onready var info = $LevelInfo
-onready var shine_panel = $LevelInfo/ShinePanel
-onready var shine_row = $LevelInfo/CollectRow/ShineRow
-onready var coin_row = $LevelInfo/CollectRow/CoinRow
-onready var level_name = $LevelInfo/LevelName
-onready var level_name_panel = $LevelInfo/LevelName/Panel
-onready var mission_name = $LevelInfo/MissionName
-onready var mission_name_panel = $LevelInfo/MissionName/Panel
+
+onready var pause_content = $PauseContent
 
 var pause_offset = 0
 var pulse = 0
@@ -108,33 +102,8 @@ func resize():
 	button_exit_off.polygon[2].x = button_exit.rect_size.x - 1
 	button_exit_on.polygon = button_exit_off.polygon
 	
-	info.rect_scale = Vector2.ONE * scale
-	info.rect_size = OS.window_size / scale
-	
-	var font = level_name.get_font("font")
-	var gap = (OS.window_size.x / scale - font.get_string_size(level_name.text.to_upper()).x) / 2
-	level_name_panel.margin_left = gap - 7
-	level_name_panel.margin_right = -gap + 4
-	font = mission_name.get_font("font")
-	gap = (OS.window_size.x / scale - font.get_string_size(mission_name.text.to_upper()).x) / 2
-	mission_name_panel.margin_left = gap - 7
-	mission_name_panel.margin_right = -gap + 4
-	
-	#this is terrible. i wish godot had a way to force controls to update their margins before the frame ends
-	var shine_count = 0
-	for child in shine_row.get_children():
-		if child.visible:
-			shine_count += 1
-	var shine_width = (shine_count - 1) * shine_row.get_constant("separation")
-	var coin_count = 0
-	for child in coin_row.get_children():
-		if child.visible:
-			coin_count += 1
-	var coin_width = (coin_count - 1) * coin_row.get_constant("separation")
-	shine_panel.margin_left = (OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 33 / 2 - 4
-	shine_panel.margin_right = -((OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 29 / 2 - 4)
-	#$LevelInfo/ShinePanel.margin_left = $LevelInfo/CollectRow/ShineRow.margin_left + 37 - 33 / 2 - 4
-	#$LevelInfo/ShinePanel.margin_right = -($LevelInfo/CollectRow.rect_size.x - $LevelInfo/CollectRow/CoinRow.margin_right) - 37 + 29 / 2 + 4
+	pause_content.resize(scale)
+
 
 func set_size(size, lin_size):
 	#size: general size of UI elements
@@ -153,7 +122,7 @@ func set_size(size, lin_size):
 
 func _process(_delta):
 	pulse += 0.1
-	$LevelInfo/CollectRow/ShineRow/Shine1/Sprite.material.set_shader_param("outline_color", Color(1, 1, 1, sin(pulse) * 0.25 + 0.5))
+	$PauseContent/LevelInfo/CollectRow/ShineRow/Shine1/Sprite.material.set_shader_param("outline_color", Color(1, 1, 1, sin(pulse) * 0.25 + 0.5))
 	coin_counter.material.set_shader_param("flash_factor", max(coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
 	if coin_counter.text != str(singleton.coin_total):
 		coin_counter.material.set_shader_param("flash_factor", 0.5)

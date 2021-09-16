@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=2]
+[gd_scene load_steps=130 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -99,6 +99,10 @@
 [ext_resource path="res://hud/pause/buttons/star_options_1.png" type="Texture" id=97]
 [ext_resource path="res://hud/pause/pause_back.tres" type="StyleBox" id=98]
 [ext_resource path="res://shaders/glow_deep.tres" type="Material" id=99]
+[ext_resource path="res://paintings/bob.png" type="Texture" id=100]
+[ext_resource path="res://hud/level_info.gd" type="Script" id=101]
+[ext_resource path="res://hud/pause_content.gd" type="Script" id=102]
+[ext_resource path="res://hud/map.gd" type="Script" id=103]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 30 )
@@ -1010,19 +1014,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LevelInfo" type="Control" parent="." groups=[
+[node name="PauseContent" type="Control" parent="." groups=[
 "pause",
 ]]
-margin_right = 448.0
-margin_bottom = 304.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 37.0
+margin_top = 19.0
+margin_right = -37.0
+margin_bottom = -32.0
+mouse_filter = 2
+script = ExtResource( 102 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LevelName" type="Label" parent="LevelInfo"]
-anchor_top = 0.35
+[node name="LevelInfo" type="Control" parent="PauseContent"]
 anchor_right = 1.0
-anchor_bottom = 0.39
+anchor_bottom = 1.0
+script = ExtResource( 101 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="PauseContent/LevelInfo"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.360784, 1, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelName" type="Label" parent="PauseContent/LevelInfo"]
+anchor_top = 0.346
+anchor_right = 1.0
+anchor_bottom = 0.346
+rect_pivot_offset = Vector2( 280, 16 )
 custom_fonts/font = ExtResource( 21 )
 text = "Mushroom Kingdom"
 align = 1
@@ -1031,7 +1059,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="LevelInfo/LevelName"]
+[node name="Panel" type="Panel" parent="PauseContent/LevelInfo/LevelName"]
 modulate = Color( 1, 1, 1, 0.501961 )
 show_behind_parent = true
 anchor_right = 1.0
@@ -1043,7 +1071,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ShinePanel" type="Panel" parent="LevelInfo"]
+[node name="CollectPanel" type="Panel" parent="PauseContent/LevelInfo"]
 modulate = Color( 1, 1, 1, 0.501961 )
 show_behind_parent = true
 anchor_top = 0.5
@@ -1056,7 +1084,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CollectRow" type="HBoxContainer" parent="LevelInfo"]
+[node name="CollectRow" type="HBoxContainer" parent="PauseContent/LevelInfo"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -1068,115 +1096,115 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ShineRow" type="HBoxContainer" parent="LevelInfo/CollectRow"]
-margin_left = 131.0
-margin_right = 203.0
+[node name="ShineRow" type="HBoxContainer" parent="PauseContent/LevelInfo/CollectRow"]
+margin_left = 94.0
+margin_right = 166.0
 custom_constants/separation = 36
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Shine1" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
+[node name="Shine1" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine1"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine1"]
 material = ExtResource( 99 )
 frames = SubResource( 22 )
 animation = "off"
 offset = Vector2( 0, -1 )
 
-[node name="Shine2" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
+[node name="Shine2" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
 margin_left = 36.0
 margin_right = 36.0
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine2"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine2"]
 frames = SubResource( 22 )
 animation = "off"
 offset = Vector2( 0, -1 )
 
-[node name="Shine3" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
+[node name="Shine3" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
 margin_left = 72.0
 margin_right = 72.0
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine3"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine3"]
 frames = SubResource( 22 )
 animation = "off"
 offset = Vector2( 0, -1 )
 
-[node name="Shine4" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
+[node name="Shine4" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
 visible = false
 margin_left = 108.0
 margin_right = 108.0
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine4"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine4"]
 frames = SubResource( 22 )
 animation = "on"
 offset = Vector2( 0, -1 )
 
-[node name="Shine5" type="Control" parent="LevelInfo/CollectRow/ShineRow"]
+[node name="Shine5" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
 visible = false
 margin_left = 108.0
 margin_right = 108.0
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/ShineRow/Shine5"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine5"]
 frames = SubResource( 22 )
 animation = "on"
 offset = Vector2( 0, -1 )
 
-[node name="CoinRow" type="HBoxContainer" parent="LevelInfo/CollectRow"]
-margin_left = 243.0
-margin_right = 243.0
+[node name="CoinRow" type="HBoxContainer" parent="PauseContent/LevelInfo/CollectRow"]
+margin_left = 206.0
+margin_right = 206.0
 custom_constants/separation = 29
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Coin1" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
+[node name="Coin1" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin1"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin1"]
 frames = SubResource( 23 )
 animation = "off"
 
-[node name="Coin2" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
+[node name="Coin2" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin2"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin2"]
 frames = SubResource( 23 )
 animation = "on"
 
-[node name="Coin3" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
+[node name="Coin3" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin3"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin3"]
 frames = SubResource( 23 )
 animation = "on"
 
-[node name="Coin4" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
+[node name="Coin4" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin4"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin4"]
 frames = SubResource( 23 )
 animation = "on"
 
-[node name="Coin5" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
+[node name="Coin5" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin5"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin5"]
 frames = SubResource( 23 )
 animation = "on"
 
-[node name="Coin6" type="Control" parent="LevelInfo/CollectRow/CoinRow"]
+[node name="Coin6" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="LevelInfo/CollectRow/CoinRow/Coin6"]
+[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin6"]
 frames = SubResource( 23 )
 animation = "on"
 
-[node name="MissionName" type="Label" parent="LevelInfo"]
-anchor_top = 0.6
+[node name="MissionName" type="Label" parent="PauseContent/LevelInfo"]
+anchor_top = 0.62
 anchor_right = 1.0
-anchor_bottom = 0.6
+anchor_bottom = 0.651
 custom_fonts/font = ExtResource( 85 )
 text = "Tutorial 1"
 align = 1
@@ -1185,7 +1213,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="LevelInfo/MissionName"]
+[node name="Panel" type="Panel" parent="PauseContent/LevelInfo/MissionName"]
 modulate = Color( 1, 1, 1, 0.501961 )
 show_behind_parent = true
 anchor_right = 1.0
@@ -1197,13 +1225,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MissionDetails" type="Label" parent="LevelInfo"]
+[node name="DetailsPanel" type="Panel" parent="PauseContent/LevelInfo"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
 anchor_top = 0.7
 anchor_right = 1.0
-anchor_bottom = 0.7
-margin_left = 100.0
+anchor_bottom = 1.0
+margin_left = 59.0
+margin_right = -59.0
+custom_styles/panel = ExtResource( 98 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissionDetails" type="Label" parent="PauseContent/LevelInfo"]
+anchor_top = 0.714
+anchor_right = 1.0
+anchor_bottom = 0.714
+margin_left = 59.0
 margin_top = 0.400002
-margin_right = -100.0
+margin_right = -59.0
 margin_bottom = 47.792
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0.819608, 0.705882, 0.768627, 1 )
@@ -1215,17 +1256,47 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="LevelInfo/MissionDetails"]
-modulate = Color( 1, 1, 1, 0.501961 )
-show_behind_parent = true
+[node name="MapMenu" type="Control" parent="PauseContent"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -4.0
-margin_bottom = 4.0
-custom_styles/panel = ExtResource( 98 )
+script = ExtResource( 103 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="TextureRect" type="ColorRect" parent="PauseContent/MapMenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BoB" type="Control" parent="PauseContent/MapMenu"]
+margin_right = 374.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Painting" type="TextureRect" parent="PauseContent/MapMenu/BoB"]
+margin_left = 28.0
+margin_top = 12.0
+texture = ExtResource( 100 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FluddMenu" type="Control" parent="PauseContent"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OptionsMenu" type="Control" parent="PauseContent"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ExitMenu" type="Control" parent="PauseContent"]
+margin_right = 40.0
+margin_bottom = 40.0
 
 [node name="ButtonMap" type="Button" parent="." groups=[
 "pause",
