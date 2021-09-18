@@ -1475,7 +1475,6 @@ texture = ExtResource( 81 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
 [connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
 [connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
 [connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]

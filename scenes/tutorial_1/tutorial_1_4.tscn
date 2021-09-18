@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -35,6 +35,7 @@
 [ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=33]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=34]
 [ext_resource path="res://actors/camera_area.tscn" type="PackedScene" id=35]
+[ext_resource path="res://actors/camera_area/camera_area.tscn" type="PackedScene" id=36]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -69,6 +70,9 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/radial = false
 
 [node name="Main" type="Node2D"]
+
+[node name="CameraArea4" parent="." instance=ExtResource( 36 )]
+polygon = PoolVector2Array( -1050.96, -924.875, 1047.18, -920.637, 1053.54, -460.83, 739.936, -469.306, 720.866, 297.745, -200.867, 304.102, -205.504, -151.467, -1050.96, -149.348 )
 
 [node name="BGT1" parent="." instance=ExtResource( 34 )]
 
@@ -282,7 +286,7 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 20.1935
+rotation = 144.374
 size = Vector2( 92, 92 )
 speed = 1
 wait = 90
@@ -294,7 +298,7 @@ type = 1
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 29.8451
+rotation = 216.107
 size = Vector2( 70, 70 )
 speed = 1
 wait = 60
@@ -306,7 +310,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -29.8451
+rotation = -216.107
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60

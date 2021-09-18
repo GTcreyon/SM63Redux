@@ -155,6 +155,7 @@ position = Vector2( 544, -192 )
 [node name="Fossil" parent="." instance=ExtResource( 19 )]
 position = Vector2( 1014.84, -189.418 )
 animation = "yellow"
+frame = 2
 
 [node name="Fossil2" parent="." instance=ExtResource( 19 )]
 position = Vector2( 847, -191 )
@@ -163,7 +164,6 @@ animation = "yellow"
 [node name="Fossil3" parent="." instance=ExtResource( 19 )]
 position = Vector2( 950.303, -139.107 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil4" parent="." instance=ExtResource( 19 )]
 position = Vector2( 918.341, -236.446 )
@@ -173,21 +173,20 @@ frame = 1
 [node name="Fossil5" parent="." instance=ExtResource( 19 )]
 position = Vector2( 819, -117 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil6" parent="." instance=ExtResource( 19 )]
 position = Vector2( 300, -376 )
+frame = 2
 
 [node name="Fossil7" parent="." instance=ExtResource( 19 )]
 position = Vector2( 405, -348 )
-frame = 2
 
 [node name="Fossil8" parent="." instance=ExtResource( 19 )]
 position = Vector2( 500, -371 )
 
 [node name="Fossil9" parent="." instance=ExtResource( 19 )]
 position = Vector2( 602, -322 )
-frame = 1
+frame = 2
 
 [node name="TiltingPlatform" parent="." instance=ExtResource( 21 )]
 position = Vector2( -66, -414 )

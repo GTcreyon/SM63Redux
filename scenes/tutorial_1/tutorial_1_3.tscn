@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0004.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0005.png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://actors/camera_area.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/koopa/parakoopa.tscn" type="PackedScene" id=20]
+[ext_resource path="res://actors/camera_area/camera_area.tscn" type="PackedScene" id=21]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -30,6 +31,9 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/radial = false
 
 [node name="Main" type="Node2D"]
+
+[node name="CameraArea" parent="." instance=ExtResource( 21 )]
+polygon = PoolVector2Array( 14.1866, 318.124, 15.8684, -132.596, 480.043, -130.914, 779.402, -413.455, 1875.93, -423.546, 1884.34, 321.488 )
 
 [node name="BGT1" parent="." instance=ExtResource( 17 )]
 
@@ -161,6 +165,7 @@ length = 97
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 548, 187 )
+type = 0
 
 [node name="Coins" type="Node2D" parent="Items"]
 position = Vector2( 0, 2 )
@@ -219,3 +224,4 @@ position = Vector2( 1489.72, 181.333 )
 
 [node name="Parakoopa" parent="." instance=ExtResource( 20 )]
 position = Vector2( 1335.47, -15.5049 )
+frame = 1
