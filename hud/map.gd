@@ -27,5 +27,5 @@ func resize(scale):
 	gui_scale = scale
 	max_height = main_count * 166 + mini_count * 113 - (OS.window_size.y / scale - 54)
 	refresh_scroll()
-	$Courses/MainCourses/BoB.resize(scale)
-	$Courses/MainCourses/SL.resize(scale)
+	$Courses/MainCourses/BoB.resize()
+	$Courses/MainCourses/SL.resize()

@@ -55,5 +55,5 @@ func set_limits():
 	if right_int:
 		camera.target_limit_right = right_int.x
 
-func _process(dt):
+func _process(_dt):
 	set_limits()
