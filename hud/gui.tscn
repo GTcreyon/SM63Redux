@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=2]
+[gd_scene load_steps=148 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -103,6 +103,20 @@
 [ext_resource path="res://hud/level_info.gd" type="Script" id=101]
 [ext_resource path="res://hud/pause_content.gd" type="Script" id=102]
 [ext_resource path="res://hud/map.gd" type="Script" id=103]
+[ext_resource path="res://actors/items/fludd_box/pickup_turbo.png" type="Texture" id=104]
+[ext_resource path="res://actors/items/fludd_box/pickup_rocket.png" type="Texture" id=105]
+[ext_resource path="res://actors/items/fludd_box/pickup_hover.png" type="Texture" id=106]
+[ext_resource path="res://actors/items/fludd_box/map_turbo.png" type="Texture" id=107]
+[ext_resource path="res://actors/items/fludd_box/map_hover.png" type="Texture" id=108]
+[ext_resource path="res://actors/items/fludd_box/map_rocket.png" type="Texture" id=109]
+[ext_resource path="res://hud/pause/map/scroll_bar.png" type="Texture" id=110]
+[ext_resource path="res://hud/pause/map/scroll_top.png" type="Texture" id=111]
+[ext_resource path="res://hud/map_course.gd" type="Script" id=112]
+[ext_resource path="res://hud/pause/map/divider_middle.png" type="Texture" id=113]
+[ext_resource path="res://hud/pause/map/divider_edge.png" type="Texture" id=114]
+[ext_resource path="res://hud/pause/map/scroll_handle.png" type="Texture" id=115]
+[ext_resource path="res://hud/pause/map/pin.png" type="Texture" id=116]
+[ext_resource path="res://paintings/mini.png" type="Texture" id=117]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 30 )
@@ -408,15 +422,71 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="StyleBoxEmpty" id=24]
+[sub_resource type="SpriteFrames" id=24]
+animations = [ {
+"frames": [ ExtResource( 89 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 88 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
 
-[sub_resource type="StyleBoxEmpty" id=25]
+[sub_resource type="SpriteFrames" id=25]
+animations = [ {
+"frames": [ ExtResource( 108 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 106 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
 
-[sub_resource type="StyleBoxEmpty" id=26]
+[sub_resource type="SpriteFrames" id=26]
+animations = [ {
+"frames": [ ExtResource( 109 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 105 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=27]
+animations = [ {
+"frames": [ ExtResource( 107 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 104 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
+
+[sub_resource type="StyleBoxEmpty" id=28]
+
+[sub_resource type="StyleBoxEmpty" id=29]
+
+[sub_resource type="StyleBoxEmpty" id=30]
 
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
 script = ExtResource( 4 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [  ]
+}
 
 [node name="BG" type="ColorRect" parent="." groups=[
 "pause",
@@ -432,6 +502,7 @@ __meta__ = {
 [node name="Console" parent="." instance=ExtResource( 20 )]
 
 [node name="StatsTL" type="VBoxContainer" parent="."]
+visible = false
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 40.0
@@ -518,6 +589,7 @@ __meta__ = {
 }
 
 [node name="StatsTR" type="VBoxContainer" parent="."]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -8.0
@@ -577,6 +649,7 @@ __meta__ = {
 }
 
 [node name="StatsBL" type="HBoxContainer" parent="."]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -615,6 +688,7 @@ __meta__ = {
 }
 
 [node name="LifeMeter" type="Sprite" parent="."]
+visible = false
 position = Vector2( 224, -75 )
 z_index = 1
 texture = ExtResource( 34 )
@@ -916,104 +990,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Top" type="TextureRect" parent="." groups=[
-"pause",
-]]
-visible = false
-margin_right = 381.0
-margin_bottom = 19.0
-texture = ExtResource( 67 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LeftCornerTop" type="TextureRect" parent="." groups=[
-"pause",
-]]
-visible = false
-margin_right = 37.0
-margin_bottom = 17.0
-texture = ExtResource( 71 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LeftCornerBottom" type="TextureRect" parent="." groups=[
-"pause",
-]]
-visible = false
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_top = -33.0
-margin_right = 37.0
-rect_pivot_offset = Vector2( 0, 33 )
-texture = ExtResource( 65 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RightCornerTop" type="TextureRect" parent="." groups=[
-"pause",
-]]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -38.0
-margin_bottom = 17.0
-rect_pivot_offset = Vector2( 38, 0 )
-texture = ExtResource( 66 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="RightCornerBottom" type="TextureRect" parent="." groups=[
-"pause",
-]]
-visible = false
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -37.0
-margin_top = -33.0
-margin_right = 448.0
-margin_bottom = 284.0
-rect_pivot_offset = Vector2( 37, 33 )
-texture = ExtResource( 70 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Left" type="TextureRect" parent="." groups=[
-"pause",
-]]
-visible = false
-margin_right = 37.0
-margin_bottom = 254.0
-texture = ExtResource( 72 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Right" type="TextureRect" parent="." groups=[
-"pause",
-]]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -37.0
-margin_top = 17.0
-margin_bottom = 271.0
-rect_pivot_offset = Vector2( 37, 0 )
-texture = ExtResource( 69 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="PauseContent" type="Control" parent="." groups=[
 "pause",
 ]]
@@ -1022,14 +998,24 @@ anchor_bottom = 1.0
 margin_left = 37.0
 margin_top = 19.0
 margin_right = -37.0
-margin_bottom = -32.0
+margin_bottom = -33.0
 mouse_filter = 2
 script = ExtResource( 102 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="TextureRect" type="ColorRect" parent="PauseContent"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="LevelInfo" type="Control" parent="PauseContent"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 101 )
@@ -1257,7 +1243,6 @@ __meta__ = {
 }
 
 [node name="MapMenu" type="Control" parent="PauseContent"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 103 )
@@ -1265,20 +1250,630 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="ColorRect" parent="PauseContent/MapMenu"]
+[node name="Courses" type="VBoxContainer" parent="PauseContent/MapMenu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="BoB" type="Control" parent="PauseContent/MapMenu"]
-margin_right = 374.0
+custom_constants/separation = 166
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Painting" type="TextureRect" parent="PauseContent/MapMenu/BoB"]
-margin_left = 28.0
+[node name="MainCourses" type="VBoxContainer" parent="PauseContent/MapMenu/Courses"]
+margin_right = 374.0
+margin_bottom = 166.0
+custom_constants/separation = 166
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BoB" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses"]
+margin_right = 374.0
+script = ExtResource( 112 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Painting" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+margin_left = 21.0
 margin_top = 12.0
 texture = ExtResource( 100 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pin" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/Painting"]
+position = Vector2( 52, 0 )
+texture = ExtResource( 116 )
+
+[node name="Name" type="Label" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+anchor_right = 1.0
+margin_left = 133.0
+margin_top = 14.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 21 )
+text = "Bob-omb
+Battlefield"
+valign = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CoinRow" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+margin_left = 33.0
+margin_top = 113.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinRow"]
+texture = ExtResource( 25 )
+centered = false
+
+[node name="X" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinRow"]
+material = SubResource( 1 )
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 72.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShineGroup" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+margin_left = 178.0
+margin_top = 75.0
+margin_right = 178.0
+margin_bottom = 75.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shine1" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine2" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
+position = Vector2( 25, 25 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine3" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
+position = Vector2( 16, 56 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine4" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
+position = Vector2( -16, 56 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine5" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
+position = Vector2( -25, 25 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="CoinGroup" type="GridContainer" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+margin_left = 239.0
+margin_top = 62.0
+custom_constants/vseparation = 2
+custom_constants/hseparation = 3
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin1" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
+margin_right = 26.0
+margin_bottom = 26.0
+texture = ExtResource( 86 )
+
+[node name="Coin2" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
+margin_left = 29.0
+margin_right = 55.0
+margin_bottom = 26.0
+texture = ExtResource( 86 )
+
+[node name="Coin3" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
+margin_top = 28.0
+margin_right = 26.0
+margin_bottom = 54.0
+texture = ExtResource( 86 )
+
+[node name="Coin4" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
+margin_left = 29.0
+margin_top = 28.0
+margin_right = 55.0
+margin_bottom = 54.0
+texture = ExtResource( 86 )
+
+[node name="Coin5" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
+margin_top = 56.0
+margin_right = 26.0
+margin_bottom = 82.0
+texture = ExtResource( 86 )
+
+[node name="Coin6" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
+margin_left = 29.0
+margin_top = 56.0
+margin_right = 55.0
+margin_bottom = 82.0
+texture = ExtResource( 86 )
+
+[node name="FluddGroup" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -48.0
+margin_top = 75.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hover" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/FluddGroup"]
+frames = SubResource( 25 )
+animation = "on"
+
+[node name="Rocket" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/FluddGroup"]
+position = Vector2( 0, 27 )
+frames = SubResource( 26 )
+animation = "on"
+
+[node name="Turbo" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/FluddGroup"]
+position = Vector2( 0, 56 )
+frames = SubResource( 27 )
+animation = "on"
+
+[node name="DividerLeft" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+margin_left = 12.0
+margin_top = 157.0
+texture = ExtResource( 114 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DividerMiddle" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 156.0
+margin_right = -35.0
+texture = ExtResource( 113 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DividerRight" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 157.0
+texture = ExtResource( 114 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SL" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses"]
+margin_top = 166.0
+margin_right = 374.0
+margin_bottom = 166.0
+script = ExtResource( 112 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Painting" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+margin_left = 21.0
+margin_top = 12.0
+texture = ExtResource( 100 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pin" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/Painting"]
+position = Vector2( 52, 0 )
+texture = ExtResource( 116 )
+
+[node name="Name" type="Label" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+anchor_right = 1.0
+margin_left = 133.0
+margin_top = 14.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 21 )
+text = "???"
+valign = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CoinRow" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+margin_left = 33.0
+margin_top = 113.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinRow"]
+texture = ExtResource( 25 )
+centered = false
+
+[node name="X" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinRow"]
+material = SubResource( 1 )
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 72.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShineGroup" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+margin_left = 178.0
+margin_top = 75.0
+margin_right = 178.0
+margin_bottom = 75.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shine1" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine2" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
+position = Vector2( 25, 25 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine3" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
+position = Vector2( 16, 56 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine4" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
+position = Vector2( -16, 56 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine5" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
+position = Vector2( -25, 25 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="CoinGroup" type="GridContainer" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+margin_left = 239.0
+margin_top = 62.0
+custom_constants/vseparation = 2
+custom_constants/hseparation = 3
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin1" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
+margin_right = 26.0
+margin_bottom = 26.0
+texture = ExtResource( 86 )
+
+[node name="Coin2" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
+margin_left = 29.0
+margin_right = 55.0
+margin_bottom = 26.0
+texture = ExtResource( 86 )
+
+[node name="Coin3" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
+margin_top = 28.0
+margin_right = 26.0
+margin_bottom = 54.0
+texture = ExtResource( 86 )
+
+[node name="Coin4" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
+margin_left = 29.0
+margin_top = 28.0
+margin_right = 55.0
+margin_bottom = 54.0
+texture = ExtResource( 86 )
+
+[node name="Coin5" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
+margin_top = 56.0
+margin_right = 26.0
+margin_bottom = 82.0
+texture = ExtResource( 86 )
+
+[node name="Coin6" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
+margin_left = 29.0
+margin_top = 56.0
+margin_right = 55.0
+margin_bottom = 82.0
+texture = ExtResource( 86 )
+
+[node name="FluddGroup" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -48.0
+margin_top = 75.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hover" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/FluddGroup"]
+frames = SubResource( 25 )
+animation = "on"
+
+[node name="Rocket" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/FluddGroup"]
+position = Vector2( 0, 27 )
+frames = SubResource( 26 )
+animation = "on"
+
+[node name="Turbo" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/FluddGroup"]
+position = Vector2( 0, 56 )
+frames = SubResource( 27 )
+animation = "on"
+
+[node name="DividerLeft" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+margin_left = 12.0
+margin_top = 157.0
+texture = ExtResource( 114 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DividerMiddle" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 156.0
+margin_right = -35.0
+texture = ExtResource( 113 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DividerRight" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 157.0
+texture = ExtResource( 114 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MiniCourses" type="VBoxContainer" parent="PauseContent/MapMenu/Courses"]
+margin_top = 332.0
+margin_right = 374.0
+margin_bottom = 332.0
+custom_constants/separation = 166
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SSL" type="Control" parent="PauseContent/MapMenu/Courses/MiniCourses"]
+margin_right = 374.0
+script = ExtResource( 112 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Painting" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+margin_left = 21.0
+margin_top = 12.0
+texture = ExtResource( 117 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Pin" type="Sprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/Painting"]
+position = Vector2( 36, 0 )
+texture = ExtResource( 116 )
+
+[node name="Name" type="Label" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+anchor_right = 1.0
+margin_left = 101.0
+margin_top = 14.0
+margin_bottom = 49.0
+custom_fonts/font = ExtResource( 21 )
+text = "Shifting
+Sand Land"
+valign = 1
+autowrap = true
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CoinRow" type="Control" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+margin_left = 33.0
+margin_top = 81.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinRow"]
+texture = ExtResource( 25 )
+centered = false
+
+[node name="X" type="Sprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 24 )
+centered = false
+
+[node name="Count" type="Label" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinRow"]
+material = SubResource( 1 )
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 72.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 21 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShineGroup" type="Control" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+margin_left = 153.0
+margin_top = 75.0
+margin_bottom = 75.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shine1" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/ShineGroup"]
+position = Vector2( -32, 0 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine2" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/ShineGroup"]
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="Shine3" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/ShineGroup"]
+position = Vector2( 32, 0 )
+frames = SubResource( 24 )
+animation = "on"
+
+[node name="CoinGroup" type="GridContainer" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+margin_left = 217.0
+margin_top = 63.0
+custom_constants/vseparation = 2
+custom_constants/hseparation = 3
+columns = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin1" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinGroup"]
+margin_right = 26.0
+margin_bottom = 26.0
+texture = ExtResource( 86 )
+
+[node name="Coin2" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinGroup"]
+margin_left = 29.0
+margin_right = 55.0
+margin_bottom = 26.0
+texture = ExtResource( 86 )
+
+[node name="Coin3" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinGroup"]
+margin_left = 58.0
+margin_right = 84.0
+margin_bottom = 26.0
+texture = ExtResource( 86 )
+
+[node name="FluddGroup" type="Control" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -48.0
+margin_top = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hover" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/FluddGroup"]
+frames = SubResource( 25 )
+animation = "on"
+
+[node name="Rocket" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/FluddGroup"]
+position = Vector2( 0, 27 )
+frames = SubResource( 26 )
+animation = "on"
+
+[node name="Turbo" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/FluddGroup"]
+position = Vector2( 0, 56 )
+frames = SubResource( 27 )
+animation = "on"
+
+[node name="DividerLeft" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+margin_left = 12.0
+margin_top = 104.0
+texture = ExtResource( 114 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DividerMiddle" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 103.0
+margin_right = -35.0
+texture = ExtResource( 113 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DividerRight" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 104.0
+texture = ExtResource( 114 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollBar" type="TextureRect" parent="PauseContent/MapMenu"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -15.0
+margin_top = 2.0
+texture = ExtResource( 110 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollTop" type="TextureRect" parent="PauseContent/MapMenu"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -15.0
+margin_bottom = 2.0
+texture = ExtResource( 111 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollBottom" type="ColorRect" parent="PauseContent/MapMenu"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -13.0
+margin_top = -1.0
+margin_right = -1.0
+color = Color( 0.607843, 0.639216, 0.780392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollHandle" type="TextureRect" parent="PauseContent/MapMenu"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -13.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = 52.0
+texture = ExtResource( 115 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1297,6 +1892,107 @@ margin_bottom = 40.0
 [node name="ExitMenu" type="Control" parent="PauseContent"]
 margin_right = 40.0
 margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Top" type="TextureRect" parent="." groups=[
+"pause",
+]]
+visible = false
+margin_right = 381.0
+margin_bottom = 19.0
+texture = ExtResource( 67 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftCornerTop" type="TextureRect" parent="." groups=[
+"pause",
+]]
+visible = false
+margin_right = 37.0
+margin_bottom = 17.0
+texture = ExtResource( 71 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftCornerBottom" type="TextureRect" parent="." groups=[
+"pause",
+]]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -33.0
+margin_right = 37.0
+rect_pivot_offset = Vector2( 0, 33 )
+texture = ExtResource( 65 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightCornerTop" type="TextureRect" parent="." groups=[
+"pause",
+]]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -38.0
+margin_bottom = 17.0
+rect_pivot_offset = Vector2( 38, 0 )
+texture = ExtResource( 66 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightCornerBottom" type="TextureRect" parent="." groups=[
+"pause",
+]]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -37.0
+margin_top = -33.0
+margin_right = 448.0
+margin_bottom = 284.0
+rect_pivot_offset = Vector2( 37, 33 )
+texture = ExtResource( 70 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="TextureRect" parent="." groups=[
+"pause",
+]]
+visible = false
+margin_right = 37.0
+margin_bottom = 254.0
+texture = ExtResource( 72 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Right" type="TextureRect" parent="." groups=[
+"pause",
+]]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -37.0
+margin_top = 17.0
+margin_bottom = 271.0
+rect_pivot_offset = Vector2( 37, 0 )
+texture = ExtResource( 69 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ButtonMap" type="Button" parent="." groups=[
 "pause",
@@ -1311,7 +2007,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 73 )
 custom_styles/pressed = ExtResource( 74 )
-custom_styles/focus = SubResource( 24 )
+custom_styles/focus = SubResource( 28 )
 custom_styles/normal = ExtResource( 73 )
 toggle_mode = true
 action_mode = 0
@@ -1354,7 +2050,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 76 )
 custom_styles/pressed = ExtResource( 75 )
-custom_styles/focus = SubResource( 25 )
+custom_styles/focus = SubResource( 29 )
 custom_styles/normal = ExtResource( 76 )
 toggle_mode = true
 action_mode = 0
@@ -1399,7 +2095,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 78 )
 custom_styles/pressed = ExtResource( 80 )
-custom_styles/focus = SubResource( 26 )
+custom_styles/focus = SubResource( 30 )
 custom_styles/normal = ExtResource( 78 )
 toggle_mode = true
 action_mode = 0
@@ -1444,7 +2140,7 @@ rect_pivot_offset = Vector2( 0, 33 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 79 )
 custom_styles/pressed = ExtResource( 77 )
-custom_styles/focus = SubResource( 26 )
+custom_styles/focus = SubResource( 30 )
 custom_styles/normal = ExtResource( 79 )
 toggle_mode = true
 action_mode = 0
