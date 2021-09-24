@@ -19,7 +19,7 @@ func set_width(new_width):
 		$Middle.rect_position.x = -24 * width
 		$Collision.shape.extents.x = 24 * width + 16
 		$RideArea/RideShape.shape.extents.x = 24 * width + 16
-		$SafetyNet/CollisionShape2D.shape.extents.x = 24 * width + 16
+		#$SafetyNet/CollisionShape2D.shape.extents.x = 24 * width + 16
 	$Left.position.x = -24 * width - 8
 	$Right.position.x = 24 * width + 8
 
@@ -38,8 +38,9 @@ func _physics_process(_delta):
 				var angle = get_angle_to(body.position)
 				var dist = position.distance_to(body.position)
 				var perpendicular_dist = cos(angle) * dist #calculate perpendicular distance from pivot
-				torque += perpendicular_dist
-		ang_vel += torque / 8000 / width
+				ang_vel += perpendicular_dist / 8000 / width
+				body.position.x += rotation_degrees * 0.076
+				body.position.y += tan(ang_vel) * perpendicular_dist
 		rotation += ang_vel
 		if rotation > deg2rad(1):
 			ang_vel -= deg2rad(0.025)
@@ -47,7 +48,6 @@ func _physics_process(_delta):
 			ang_vel += deg2rad(0.025)
 		rotation = lerp(rotation, 0, 0.0125)
 		ang_vel = lerp(ang_vel, 0, 0.0125)
-	
 #	for body in ride_area.get_overlapping_bodies():
 #		if body.is_on_floor():
 #			body.move_and_collide(move_vec)
