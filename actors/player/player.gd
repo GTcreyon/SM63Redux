@@ -689,11 +689,12 @@ func _physics_process(_delta):
 				tween.start()
 		
 		if wall:
-			if int(i_right) - int(i_left) != sign(int(vel.x)) && int(vel.x) != 0:
-				vel.x = -vel.x*set_wall_bounce #Bounce off a wall when not intentionally pushing into it
-			else:
-				vel.x = 0 #Cancel X velocity when intentionally pushing into a wall
-				
+			if int(vel.x) != 0:
+				if int(i_right) - int(i_left) != sign(int(vel.x)):
+					vel.x = -vel.x*set_wall_bounce #Bounce off a wall when not intentionally pushing into it
+				else:
+					vel.x = 0 #Cancel X velocity when intentionally pushing into a wall
+		
 		if ceiling:
 			vel.y = max(vel.y, 0.1)
 		
@@ -744,7 +745,7 @@ func _physics_process(_delta):
 	bubbles_small.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 	
 	if sprite.animation.ends_with("walk"):
-		if round(vel.x) == 0:
+		if int(vel.x) == 0:
 			sprite.frame = 0
 			sprite.speed_scale = 0
 		else:
