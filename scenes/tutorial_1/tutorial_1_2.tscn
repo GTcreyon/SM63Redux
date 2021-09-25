@@ -15,7 +15,7 @@
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=13]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/items/bobomb/bobomb.tscn" type="PackedScene" id=15]
-[ext_resource path="res://actors/camera_area.tscn" type="PackedScene" id=16]
+[ext_resource path="res://actors/warpzone/warp_zone.tscn" type="PackedScene" id=16]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=17]
 [ext_resource path="res://actors/camera_area/camera_area.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=20]
@@ -50,7 +50,7 @@ polygon = PoolVector2Array( 17.0466, -40.8411, 1747.17, -28.3685, 1779.24, 668.3
 [node name="BGT1" parent="." instance=ExtResource( 14 )]
 
 [node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 61.7361, 171.349 )
+position = Vector2( 62, 172 )
 
 [node name="Water" type="Node2D" parent="."]
 
@@ -63,7 +63,7 @@ polygon = PoolVector2Array( 0, 0, 480, 0, 480, 192, 0, 192 )
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 2 )]
 position = Vector2( 0, 192 )
 z_index = 1
-polygon = PoolVector2Array( 0, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -57, 1699, -57, 1728, -48, 1780, -48, 1904, 517, -55, 523 )
+polygon = PoolVector2Array( -70, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -57, 1699, -57, 1728, -48, 1780, -48, 1904, 517, -55, 523 )
 
 [node name="TerrainPolygon2" parent="Terrain" instance=ExtResource( 2 )]
 position = Vector2( 760, 228 )
@@ -180,10 +180,6 @@ position = Vector2( 1043.1, -122.757 )
 material = SubResource( 2 )
 position = Vector2( 1601.46, 246.894 )
 
-[node name="Area2D" parent="." instance=ExtResource( 16 )]
-position = Vector2( 870, 160.596 )
-size = Vector2( 1740, 4.77 )
-
 [node name="Cheep Cheep" parent="." instance=ExtResource( 17 )]
 position = Vector2( 1089.76, 371.532 )
 
@@ -225,3 +221,10 @@ position = Vector2( 1350, 227 )
 
 [node name="SmallTree5" parent="." instance=ExtResource( 25 )]
 position = Vector2( 1525, 210 )
+
+[node name="WarpZone" parent="." instance=ExtResource( 16 )]
+position = Vector2( -20, 92 )
+sweep_direction = Vector2( 1, 0 )
+spawn_location = Vector2( 1843, 24 )
+scene_path = "res://scenes/tutorial_1/tutorial_1_1.tscn"
+size = Vector2( 20, 100 )

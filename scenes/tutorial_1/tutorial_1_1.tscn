@@ -405,9 +405,9 @@ polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277, 133
 position = Vector2( 1739, 51 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 26 )]
-position = Vector2( 1850, -50 )
+position = Vector2( 1876, -50 )
 sweep_direction = Vector2( -1, 0 )
-spawn_location = Vector2( 0, 0 )
+spawn_location = Vector2( 62, 172 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_2.tscn"
 size = Vector2( 20, 100 )
 
