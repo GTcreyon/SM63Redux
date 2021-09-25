@@ -18,6 +18,8 @@ const texture_dict = {
 		],
 }
 
+onready var ride_area = $RideArea
+
 export var size = Vector2(64, 64) setget set_size
 export var speed = 1
 export var wait = 120
@@ -47,6 +49,7 @@ func set_size(new_size):
 	$CornerBL.position = Vector2(4 - size.x, size.y - 4) / 2
 	$CornerBR.position = Vector2(size.x - 4, size.y - 4) / 2
 	$Collision.shape.extents = size / 2
+	$RideArea/RideShape.shape.extents = size / 2 + Vector2.ONE * 2
 
 
 func change_texture(id):
@@ -77,7 +80,7 @@ func _ready():
 	timer = time_offset
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	timer += 1
 	if timer >= wait:
 		turning = true
@@ -89,3 +92,10 @@ func _process(_delta):
 			turning = false
 			total_interval += interval
 			rotation = deg2rad(total_interval) * sign(speed)
+		for body in ride_area.get_overlapping_bodies():
+			if body.is_on_floor():
+				var vec = position - body.position
+				var dist = position.distance_to(body.position)
+				var rot = atan2(vec.y, vec.x);
+				var diff = Vector2(cos(rot) * dist - cos(rot + deg2rad(speed)) * dist, sin(rot) * dist - sin(rot + deg2rad(speed)) * dist)
+				body.position += diff
