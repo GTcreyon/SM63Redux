@@ -1,15 +1,14 @@
 extends Polygon2D
 
-onready var player = $"/root/Main/Player"
-
 var curve = Curve2D.new()
 var curve_top = Vector2.ZERO
 var curve_arc = Vector2(0, OS.window_size.y / 2)
 var curve_bottom = Vector2(0, OS.window_size.y)
 var direction = 0
 var enter = 0
-var set_location = Vector2.ZERO
+var set_location = null
 var scene_path = ""
+var flip = false
 
 func _ready():
 	curve.add_point(Vector2(0, 0))
@@ -70,8 +69,7 @@ func _process(_delta):
 		curve_arc = Vector2(0, OS.window_size.y / 2)
 		curve_bottom = Vector2(x_pos, OS.window_size.y)
 		enter = -1
-		#direction = -direction
-		$"/root/Main/Player".position = set_location
+		flip = $"/root/Main/Player/AnimatedSprite".flip_h
 	elif enter == -1 && ((curve_top.x > OS.window_size.x && direction == Vector2.RIGHT) || (curve_top.x < 0 && direction == Vector2.LEFT)):
 		enter = 0
 		visible = false
