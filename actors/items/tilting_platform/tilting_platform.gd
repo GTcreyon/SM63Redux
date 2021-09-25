@@ -32,15 +32,20 @@ func _physics_process(_delta):
 		#F will just be a constant for now
 		#maybe objects could have weights at some point idk
 		
-		var torque = 0
+		var riders = []
 		for body in ride_area.get_overlapping_bodies():
 			if body.is_on_floor():
-				var angle = get_angle_to(body.position)
-				var dist = position.distance_to(body.position)
-				var perpendicular_dist = cos(angle) * dist #calculate perpendicular distance from pivot
-				ang_vel += perpendicular_dist / 8000 / width
-				body.position.x += rotation_degrees * 0.076
-				body.position.y += tan(ang_vel) * perpendicular_dist
+				riders.append(body)
+				
+		for body in riders:
+			var angle = get_angle_to(body.position)
+			var dist = position.distance_to(body.position)
+			var perpendicular_dist = cos(angle) * dist #calculate perpendicular distance from pivot
+			ang_vel += perpendicular_dist / 8000 / width
+			#body.position.x += rotation_degrees * 0.076
+			#print(Vector2.RIGHT * rotation_degrees * 0.076)
+			#body.move_and_slide(Vector2(rotation_degrees * 0.076, 1), Vector2.UP, true)
+		
 		rotation += ang_vel
 		if rotation > deg2rad(1):
 			ang_vel -= deg2rad(0.025)
@@ -48,6 +53,10 @@ func _physics_process(_delta):
 			ang_vel += deg2rad(0.025)
 		rotation = lerp(rotation, 0, 0.0125)
 		ang_vel = lerp(ang_vel, 0, 0.0125)
+		for body in riders:
+			var dist = position.distance_to(body.position)
+			#warning-ignore:return_value_discarded
+			body.move_and_slide_with_snap(Vector2(rotation_degrees * 0.076 * 32, sin(ang_vel) * dist * 32), Vector2(0, 4), Vector2.UP, true)
 #	for body in ride_area.get_overlapping_bodies():
 #		if body.is_on_floor():
 #			body.move_and_collide(move_vec)
