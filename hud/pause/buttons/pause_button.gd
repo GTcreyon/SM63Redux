@@ -3,13 +3,18 @@ extends Button
 var scroll = 0
 var scroll_goal = 0
 
+onready var stars_on = $StarsOn
+onready var stars_off = $StarsOff
+onready var text_node = $Text
+onready var buttons = [get_parent().get_node("ButtonMap"), get_parent().get_node("ButtonFludd"), get_parent().get_node("ButtonOptions"), get_parent().get_node("ButtonExit")]
+
 func _process(_delta):
 	if pressed:
-		$StarsOn.visible = true
-		$StarsOff.visible = false
+		stars_on.visible = true
+		stars_off.visible = false
 	else:
-		$StarsOn.visible = false
-		$StarsOff.visible = true
+		stars_on.visible = false
+		stars_off.visible = true
 	if pressed:
 		scroll = fmod((scroll + 0.01), 1.0)
 		scroll_goal = 0
@@ -26,12 +31,15 @@ func _process(_delta):
 			scroll = lerp(scroll, 1, 0.02)
 		else:
 			scroll = lerp(scroll, 1, 0.04)
-	$StarsOff.texture_offset = Vector2(-15, -10) * scroll + Vector2(0, -2)
-	$StarsOn.texture_offset = $StarsOff.texture_offset
+	stars_off.texture_offset = Vector2(-15, -10) * scroll + Vector2(0, -2)
+	stars_on.texture_offset = stars_off.texture_offset
 
 
 func _on_Button_toggled(button_pressed):
 	if button_pressed:
-		$Text.margin_top = -7
+		text_node.margin_top = -7
+		for button in buttons:
+			if button != self:
+				button.pressed = false
 	else:
-		$Text.margin_top = -8
+		text_node.margin_top = -8

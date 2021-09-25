@@ -501,8 +501,9 @@ __meta__ = {
 
 [node name="Console" parent="." instance=ExtResource( 20 )]
 
-[node name="StatsTL" type="VBoxContainer" parent="."]
-visible = false
+[node name="StatsTL" type="VBoxContainer" parent="." groups=[
+"stats",
+]]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 40.0
@@ -588,8 +589,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsTR" type="VBoxContainer" parent="."]
-visible = false
+[node name="StatsTR" type="VBoxContainer" parent="." groups=[
+"stats",
+]]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -8.0
@@ -648,8 +650,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsBL" type="HBoxContainer" parent="."]
-visible = false
+[node name="StatsBL" type="HBoxContainer" parent="." groups=[
+"stats",
+]]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
@@ -687,8 +690,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LifeMeter" type="Sprite" parent="."]
-visible = false
+[node name="LifeMeter" type="Sprite" parent="." groups=[
+"stats",
+]]
 position = Vector2( 224, -75 )
 z_index = 1
 texture = ExtResource( 34 )
@@ -1015,7 +1019,6 @@ __meta__ = {
 }
 
 [node name="LevelInfo" type="Control" parent="PauseContent"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 101 )
@@ -1243,6 +1246,7 @@ __meta__ = {
 }
 
 [node name="MapMenu" type="Control" parent="PauseContent"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 103 )
@@ -1879,6 +1883,7 @@ __meta__ = {
 }
 
 [node name="FluddMenu" type="Control" parent="PauseContent"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -1886,10 +1891,12 @@ __meta__ = {
 }
 
 [node name="OptionsMenu" type="Control" parent="PauseContent"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="ExitMenu" type="Control" parent="PauseContent"]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -2171,6 +2178,7 @@ texture = ExtResource( 81 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
 [connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
 [connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]
