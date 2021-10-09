@@ -33,6 +33,7 @@ onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
+onready var death_anim = $Camera2D/GUI/Deathcontrol/DeathAnim
 
 var stand_box_pos = Vector2(0, 1.5)
 var stand_box_extents = Vector2(6, 14.5)
@@ -129,13 +130,14 @@ func take_damage(amount):
 
 func take_damage_shove(amount, direction):
 	if !invincible:
-		take_damage_impact(amount, Vector2(4 * direction, -8))
+		take_damage_impact(amount, Vector2(4 * direction, -3))
 
 
 func take_damage_impact(amount, impact_vel):
 	if !invincible:
 		take_damage(amount)
 		vel = impact_vel
+		move_and_slide(Vector2.UP, Vector2(0, -1), true)
 
 
 func recieve_health(amount):
@@ -190,8 +192,6 @@ func switch_anim(new_anim):
 
 func switch_state(new_state):
 	if state != new_state:
-		if state == s.waterdive:
-			print("A")
 		state = new_state
 		sprite.rotation_degrees = 0
 		match state:
@@ -206,7 +206,6 @@ func switch_state(new_state):
 				hitbox.position = stand_box_pos
 				hitbox.shape.extents = stand_box_extents
 				camera.smoothing_speed = 5
-		print("B")
 
 
 func _ready():
@@ -217,7 +216,7 @@ func _ready():
 		sprite.flip_h = warp.flip
 	update_classic()
 	if singleton.dead:
-		$Camera2D/GUI/Deathcontrol/deathanim.play("DeathOut")
+		death_anim.play("DeathOut")
 
 
 func ground_friction(val, sub, div): #Ripped from source
@@ -235,7 +234,7 @@ func _physics_process(_delta):
 	if invincible == true:
 		invincible_timer += 1
 		modulate.a = (sin(2 * PI * prog_alpha) + 3) / 4
-		prog_alpha += 0.05
+		prog_alpha += 0.1
 		
 		
 	if invincible_timer == 180:
@@ -427,8 +426,8 @@ func _physics_process(_delta):
 					switch_anim("jump")
 					sprite.rotation_degrees += -90 if sprite.flip_h else 90
 					dive_correct(-1)
-					hitbox.position = dive_box_pos
-					hitbox.shape.extents = dive_box_extents
+					hitbox.position = stand_box_pos
+					hitbox.shape.extents = stand_box_extents
 					
 				if sprite.rotation_degrees != 0 || dive_frames > 2:
 					sprite.rotation_degrees += 10 if sprite.flip_h else -10
@@ -840,7 +839,7 @@ func _physics_process(_delta):
 	#$Label.text = str(vel.x)
 	if life_meter_counter <= 0:
 		singleton.dead = true
-		$Camera2D/GUI/Deathcontrol/deathanim.play("DeathIn")
+		death_anim.play("DeathIn")
 
 
 
@@ -874,7 +873,7 @@ func invincibility_on_effect():
 
 
 func after_transition():
-	$Camera2D/GUI/Deathcontrol/deathanim.stop()
+	death_anim.stop()
 	singleton.dead = false
 
 
