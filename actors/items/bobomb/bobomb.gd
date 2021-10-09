@@ -126,7 +126,7 @@ func _physics_process(_delta):
 	
 	for body in hurtbox.get_overlapping_bodies(): #done in process not signals cuz bobombs can be walked through
 		if body == player:
-			if !struck && player.state == player.s.spin && player.spin_timer > 0:
+			if !struck && player.is_spinning():
 				struck = true
 				vel.y -= 2.63
 				base.animation = "struck"
