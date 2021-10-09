@@ -6,11 +6,7 @@ onready var collision = $CollisionShape2D
 var has_player = false
 
 func snap_player():
-	var player_box
-	if player.state == player.s.dive:
-		player_box = player.get_node("DiveHitbox")
-	else:
-		player_box = player.get_node("StandHitbox")
+	var player_box = player.get_node("Hitbox")
 	if (has_player
 	&& player.vel.y > 0
 	&& player.position.y + player_box.shape.extents.y + player_box.position.y - 4 < global_position.y + collision.shape.extents.y

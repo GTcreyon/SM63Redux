@@ -202,7 +202,7 @@ func _on_Area2D_body_entered_hurt(body):
 				sprite.playing = true
 				player.call_deferred("switch_state", player.s.ejump)
 			elif !struck:
-				if player.state == player.s.spin && player.spin_timer > 0:
+				if player.is_spinning():
 					struck = true
 					vel.y -= 2.63
 					sprite.animation = "jumping"

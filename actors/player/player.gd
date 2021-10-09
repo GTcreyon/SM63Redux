@@ -28,13 +28,16 @@ onready var tween = $Tween
 onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
 onready var angle_cast = $DiveAngling
-onready var stand_box =  $StandHitbox
-onready var dive_box = $DiveHitbox
-onready var hitbox = stand_box
+onready var hitbox =  $Hitbox
 onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
+
+var stand_box_pos = Vector2(0, 1.5)
+var stand_box_extents = Vector2(6, 14.5)
+var dive_box_pos = Vector2(0, 3)
+var dive_box_extents = Vector2(6, 6)
 
 #mario's gameplay parameters
 var life_meter_counter = 8
@@ -103,6 +106,9 @@ enum s { #state enum
 	door,
 	ejump, #bouncing off a goomba
 	swim,
+	waterdive,
+	waterbackflip,
+	waterspin,
 }
 
 enum n { #fludd enum
@@ -183,20 +189,24 @@ func switch_anim(new_anim):
 
 
 func switch_state(new_state):
-	state = new_state
-	sprite.rotation_degrees = 0
-	match state:
-		s.dive:
-			stand_box.disabled = true
-			dive_box.disabled = false
-		s.pound_fall:
-			stand_box.disabled = false
-			dive_box.disabled = true
-			camera.smoothing_speed = 10
-		_:
-			stand_box.disabled = false
-			dive_box.disabled = true
-			camera.smoothing_speed = 5
+	if state != new_state:
+		if state == s.waterdive:
+			print("A")
+		state = new_state
+		sprite.rotation_degrees = 0
+		match state:
+			s.dive, s.waterdive:
+				hitbox.position = dive_box_pos
+				hitbox.shape.extents = dive_box_extents
+			s.pound_fall:
+				hitbox.position = dive_box_pos
+				hitbox.shape.extents = dive_box_extents
+				camera.smoothing_speed = 10
+			_:
+				hitbox.position = stand_box_pos
+				hitbox.shape.extents = stand_box_extents
+				camera.smoothing_speed = 5
+		print("B")
 
 
 func _ready():
@@ -285,48 +295,121 @@ func _physics_process(_delta):
 			switch_sfx.play()
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
-		if state == s.swim: #swimming is basically entirely different so it's wholly seperate
-			if ground:
-				switch_anim("walk")
-			else:
-				switch_anim("swim")
-				if sprite.frame == 0:
-					sprite.speed_scale = 0
-			
-			fall_adjust += grav / 3.0
-			fall_adjust = ground_friction(fall_adjust, 0.05, 1.01);
-			fall_adjust = ground_friction(fall_adjust, ((grav/fps_mod)/5), 1.05)
-			fall_adjust = ground_friction(fall_adjust, 0, 1.001)
+		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate
+			if state == s.swim:
+				if i_spin_h:
+					switch_state(s.waterspin)
+					switch_anim("spin")
+					if !ground:
+						fall_adjust = min(-3.5 * fps_mod, fall_adjust - 3.5 * fps_mod) * 3
+					spin_timer = 30
+				else:
+					if ground:
+						switch_anim("walk")
+						fall_adjust = 0
+					else:
+						switch_anim("swim")
+						if sprite.frame == 0:
+							sprite.speed_scale = 0
+			if state == s.waterspin:
+				if spin_timer > 0:
+					spin_timer -= 1
+				elif !i_spin_h:
+					switch_state(s.swim)
+			if !i_spin_h:
+				fall_adjust += grav / 3.0
+			if state != s.waterbackflip || vel.y > 0:
+				fall_adjust = ground_friction(fall_adjust, 0.05, 1.01);
+				fall_adjust = ground_friction(fall_adjust, ((grav/fps_mod)/5), 1.05)
+				fall_adjust = ground_friction(fall_adjust, 0, 1.001)
 			vel.x = ground_friction(vel.x, 0, 1.001)
-			if i_left == i_right:
+			if i_left == i_right || state == s.waterdive:
 				vel.x = ground_friction(vel.x, 0, 1.001)
 			#fall_adjust = ground_friction(fall_adjust, 0.05, 1.1);
-			if i_left && !i_right:
-				sprite.flip_h = true
-				if state == s.spin || state == s.backflip:
-					vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
+			if state != s.waterdive:
+				if i_left && !i_right:
+					sprite.flip_h = true
+					if state == s.spin || state == s.backflip:
+						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
+					else:
+						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
+				
+				if i_right && !i_left:
+					sprite.flip_h = false
+					if state == s.spin || state == s.backflip:
+						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
+					else:
+						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
+				
+			if dive_return:
+				dive_frames -= 1
+				if dive_frames == 0:
+					switch_anim("jump")
+					sprite.rotation_degrees += -90 if sprite.flip_h else 90
+					dive_correct(-1)
+					hitbox.position = stand_box_pos
+					hitbox.shape.extents = stand_box_extents
+					
+				if sprite.rotation_degrees != 0 || dive_frames > 2:
+					sprite.rotation_degrees += 10 if sprite.flip_h else -10
 				else:
-					vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
-			
-			if i_right && !i_left:
-				sprite.flip_h = false
-				if state == s.spin || state == s.backflip:
-					vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
-				else:
-					vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
+					dive_return = false
+					switch_state(s.swim)
+					sprite.rotation_degrees = 0
+					
 			if i_jump || i_semi:
-				switch_anim("swim")
-				if swim_delay:
-					fall_adjust = min((- set_jump_1_vel) * 1.25, fall_adjust) * fps_mod
-				else:
-					fall_adjust = min((- set_jump_1_vel) * 1.25, fall_adjust)
-				sprite.frame = 1
-				sprite.speed_scale = 1
-				swim_delay = true
+				if state == s.swim:
+					switch_anim("swim")
+					if swim_delay:
+						fall_adjust = min((- set_jump_1_vel) * 1.25, fall_adjust) * fps_mod
+					else:
+						fall_adjust = min((- set_jump_1_vel) * 1.25, fall_adjust)
+					sprite.frame = 1
+					sprite.speed_scale = 1
+					swim_delay = true
+				elif state == s.waterdive && i_jump && (((int(i_right) - int(i_left)) == 1.0 && sprite.flip_h) || ((int(i_right) - int(i_left)) == -1.0 && !sprite.flip_h)):
+					if !dive_return:
+						dive_correct(-1)
+					coyote_time = 0
+					switch_state(s.waterbackflip)
+					vel.y = min(-set_jump_1_vel - 2.5 * fps_mod, vel.y)
+					if sprite.flip_h:
+						vel.x += (30.0 - abs(vel.x)) / (5 / fps_mod)
+					else:
+						vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
+					dive_return = false
+					tween.stop_all()
+					if sprite.flip_h:
+						tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
+					else:
+						tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0)
+					tween.start()
+					switch_anim("jump")
+					flip_l = sprite.flip_h
 			else:
 				swim_delay = false
-			if i_down:
-				fall_adjust += 0.107
+			
+			if ground:
+				if i_dive_h && state != s.waterbackflip && state != s.waterspin:
+					switch_state(s.waterdive)
+					rotation_degrees = 0
+					tween.stop_all()
+					switch_anim("dive")
+					double_jump_state = 0
+					dive_correct(1)
+				else:
+					if state == s.waterdive && abs(vel.x) == 0 && !dive_return:
+						dive_return = true
+						dive_frames = 4
+						sprite.rotation_degrees = 0
+			else:
+				if state == s.waterdive && !dive_return:
+					dive_return = true
+					dive_frames = 4
+					sprite.rotation_degrees = 0
+				if i_down:
+					fall_adjust += 0.107
+				
 			vel.x = ground_friction(vel.x, 0.05, 1.05)
 			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
 		else:
@@ -344,8 +427,8 @@ func _physics_process(_delta):
 					switch_anim("jump")
 					sprite.rotation_degrees += -90 if sprite.flip_h else 90
 					dive_correct(-1)
-					stand_box.disabled = false
-					dive_box.disabled = true
+					hitbox.position = dive_box_pos
+					hitbox.shape.extents = dive_box_extents
 					
 				if sprite.rotation_degrees != 0 || dive_frames > 2:
 					sprite.rotation_degrees += 10 if sprite.flip_h else -10
@@ -709,14 +792,14 @@ func _physics_process(_delta):
 		move_and_slide_with_snap(vel*60.0, snap, Vector2(0, -1), true)
 		var slide_vec = position-save_pos
 		position = save_pos
-		if slide_vec.length() > 0.5 || state == s.swim:
+		if slide_vec.length() > 0.5 || ((state == s.swim || state == s.waterbackflip || state == s.waterspin) && slide_vec != Vector2.ZERO):
 			#warning-ignore:return_value_discarded
 			move_and_slide_with_snap(vel*60.0 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
 	var center = position#get_global_transform_with_canvas().origin
-	if state == s.dive:
+	if state == s.dive || state == s.waterdive:
 		bubbles_medium.position.y = -9
 		bubbles_small.position.y = -9
 		if sprite.flip_h:
@@ -766,7 +849,10 @@ func _on_Tween_tween_completed(_object, _key):
 		switch_state(s.pound_fall)
 		vel.y = 8
 	else:
-		switch_state(s.walk)
+		if state == s.waterdive || state == s.waterbackflip:
+			switch_state(s.swim)
+		else:
+			switch_state(s.walk)
 
 
 func _on_BackupAngle_body_entered(_body):
@@ -790,3 +876,7 @@ func invincibility_on_effect():
 func after_transition():
 	$Camera2D/GUI/Deathcontrol/deathanim.stop()
 	singleton.dead = false
+
+
+func is_spinning():
+	return (state == s.spin || state == s.waterspin) && spin_timer > 0
