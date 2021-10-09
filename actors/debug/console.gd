@@ -9,6 +9,7 @@ var hist_index = 0
 
 func output(msg):
 	logger.text += "\n" + str(msg)
+	print(msg)
 
 
 func run_command(cmd):
@@ -19,7 +20,7 @@ func run_command(cmd):
 		"w":
 			var path
 			if len(args) == 1:
-				output("No second argument. (really? smh. read the api!)")
+				output("No second argument.")
 				return
 			match args[1]:
 				"basin":
@@ -41,7 +42,7 @@ func run_command(cmd):
 				_:
 					path = ""
 			if path == "":
-				output("Scene does not exist. (learn to spell you baguette)")
+				output("Scene does not exist.")
 			else:
 				var err = get_tree().change_scene(path)
 				if err == OK:
@@ -58,16 +59,16 @@ func run_command(cmd):
 				else:
 					output("Error: " + err)
 			else:
-				output("Scene does not exist. (again, learn to spell!!!)")
+				output("Scene does not exist.")
 		"water":
 			$"/root/Singleton".water = int(args[1])
 		"c":
 			$"/root/Singleton".classic = !$"/root/Singleton".classic
 		"death":
 			$"/root/Main/Player".take_damage(8)
-			output("WAIT WHAT NO!!!")
+			output("Dead.")
 		_:
-			output("Unknown command. (imagine not knowing a command, can't be me :dabs:)")
+			output("Unknown command.")
 
 
 func _process(_delta):
