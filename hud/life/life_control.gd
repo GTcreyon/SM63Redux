@@ -1,54 +1,59 @@
 extends Node2D
 
+const start_pos = -75
+const end_pos = 6
+var end_adjust = end_pos
+
 onready var player = $"/root/Main/Player"
 onready var filler = $Filler
-onready var lifs = player.life_meter_counter #for when variable gets changed
+onready var save_count = player.life_meter_counter #for when variable gets changed
 var act = false #for when life meter sprite can appear if true
-var tim = 0 #"timer"
-var del = false #so it can trigger the timer increment
-var rechange = false #after it's shown, it will return back up
+var rechange_timer = 0
+var rechange_trigger = false #so it can trigger the rechange_timer increment
+var rechange_moving = false #after it's shown, it will return back up
+var progress = 0
 
 func _process(_delta):
+	var gui_scale = floor(OS.window_size.y / 304)
 	if get_tree().paused:
-		var gui_scale = floor(OS.window_size.y / 304)
-		position.y = lerp(position.y, 40 + 18 * gui_scale - 36, 0.5)
-		rechange = true
+		progress = min(progress + 0.1, 1)
+		end_adjust = lerp(end_adjust, end_pos + 18, 0.5)
+		rechange_moving = true
 	else:
-		if lifs != player.life_meter_counter: #if it changed
+		if !rechange_moving:
+			end_adjust = lerp(end_adjust, end_pos, 0.5)
+		if save_count != player.life_meter_counter: #if it changed
+			save_count = player.life_meter_counter #for the conditional
+			act = true #start life meter moving onto the screen
 			#these are required for when the life meter gets affected while still showing up, will "last" longer on screen
-			if del:
-				tim = 60
-			elif rechange:
-				tim = 60
-				rechange = false #in case it's going up
-				
-			lifs = player.life_meter_counter #for the conditional
-			act = true
-			
-		if position.y < 40 - 36 && act:
-			position.y = lerp(position.y, 8, 0.3) #since it's in _process, it will keep adding until conditional stops being true
-			if position.y >= 40 - 36: #and then starts timer
+			rechange_moving = false #in case it's going up
+		
+		if act:
+			if progress < 1: #and then starts rechange_timer
+				progress += 0.05
+			if player.life_meter_counter == 8:
 				act = false
-				del = true
 			
-		if del:
-			tim += 1
+			
+		if player.life_meter_counter == 8:
+			rechange_timer += 1
+		else:
+			rechange_timer = 0
 		
-		if tim == 180: #if timer reaches 6 seconds
-			tim = 0
-			del = false
-			rechange = true #then it will return to its initial position
-		
-		if rechange:
-			if position.y > -80 - 72 * scale.y && player.life_meter_counter > 7:
-				position.y = lerp(position.y, -140, 0.3)
-			else:
-				rechange = false #and now everything is back to place
-		elif !act && !del && player.life_meter_counter >= 8:
-			position.y = -80 - 72 * scale.y
+		if rechange_timer >= 180: #if rechange_timer reaches 6 seconds
+			rechange_timer = 0
+			rechange_moving = true #then it will return to its initial position
 		
 		if player.life_meter_counter == 8:
-			del = true
-		
+			if rechange_moving:
+				if progress > 0:
+					progress -= 0.1
+				else:
+					rechange_moving = false #and now everything is back to place
+			elif !act && !rechange_trigger && player.life_meter_counter >= 8:
+				position.y = start_pos * gui_scale
+		else:
+			rechange_moving = false
+
 		filler.frame = player.life_meter_counter #for the HUD with its respective frame
-		
+	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * scale.y

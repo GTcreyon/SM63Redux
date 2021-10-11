@@ -33,7 +33,7 @@ onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
-onready var death_anim = $Camera2D/GUI/Deathcontrol/DeathAnim
+onready var death_anim = $Camera2D/GUI/DeathControl/DeathAnim
 
 var stand_box_pos = Vector2(0, 1.5)
 var stand_box_extents = Vector2(6, 14.5)
@@ -137,6 +137,7 @@ func take_damage_impact(amount, impact_vel):
 	if !invincible:
 		take_damage(amount)
 		vel = impact_vel
+		#warning-ignore:return_value_discarded
 		move_and_slide(Vector2.UP, Vector2(0, -1), true)
 
 

@@ -704,7 +704,7 @@ z_index = -1
 frames = SubResource( 2 )
 offset = Vector2( 0, 36 )
 
-[node name="Deathcontrol" type="Control" parent="."]
+[node name="DeathControl" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -712,7 +712,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Deathcontrol"]
+[node name="ColorRect" type="ColorRect" parent="DeathControl"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 1, 1, 1, 0 )
@@ -720,7 +720,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DeathAnim" type="AnimationPlayer" parent="Deathcontrol"]
+[node name="DeathAnim" type="AnimationPlayer" parent="DeathControl"]
 anims/DeathIn = SubResource( 3 )
 anims/DeathOut = SubResource( 4 )
 
