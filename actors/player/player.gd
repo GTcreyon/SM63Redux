@@ -200,8 +200,8 @@ func switch_state(new_state):
 				hitbox.position = dive_box_pos
 				hitbox.shape.extents = dive_box_extents
 			s.pound_fall:
-				hitbox.position = dive_box_pos
-				hitbox.shape.extents = dive_box_extents
+				hitbox.position = stand_box_pos
+				hitbox.shape.extents = stand_box_extents
 				camera.smoothing_speed = 10
 			_:
 				hitbox.position = stand_box_pos
