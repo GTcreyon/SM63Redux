@@ -21,7 +21,12 @@ const item = preload("res://actors/items/ld_item.tscn")
 func place_tile_id(tile_num, tile_id):
 	var x = floor(float(tile_num) / float(level_height))
 	var y = tile_num % level_height
-	ld_tile_map.set_cell(x, y, tiles.decode[tile_id] - 1)
+	#ld_tile_map.set_cell(x, y, tiles.decode[tile_id] - 1)
+	var subtile = tiles.decode[tile_id] - 1
+	if subtile > 46:
+		if subtile > 75:
+			subtile -= 24
+	ld_tile_map.set_cell(x, y, 0, false, false, false, Vector2(subtile % 24, floor(subtile / 24)))
 
 func place_item(item_code):
 	var item_ref = item.instance()

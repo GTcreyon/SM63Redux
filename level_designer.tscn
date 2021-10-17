@@ -5,7 +5,7 @@
 [ext_resource path="res://src/level_designer/ld_camera.gd" type="Script" id=3]
 [ext_resource path="res://music.gd" type="Script" id=5]
 
-[node name="LevelDesigner" type="Node"]
+[node name="LevelDesigner" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -28,6 +28,7 @@ script = ExtResource( 5 )
 [node name="FadeOut" type="Tween" parent="Music"]
 
 [node name="FadeIn" type="Tween" parent="Music"]
+
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]
