@@ -242,13 +242,6 @@ func handle_impact(body, is_exit):
 
 func _on_body_entered(body):
 	handle_impact(body, false)
-	if body == player:
-		if player.state != player.s.swim && player.state != player.s.waterdive && player.state != player.s.waterbackflip && player.state != player.s.waterspin:
-			player.call_deferred("switch_state", player.s.swim)
-		$"/root/Singleton".water = 100
 
 func _on_body_exited(body):
 	handle_impact(body, true)
-	if body == player && get_overlapping_bodies().count(player) == 0:
-		print(get_overlapping_bodies())
-		player.call_deferred("switch_state", player.s.walk)
