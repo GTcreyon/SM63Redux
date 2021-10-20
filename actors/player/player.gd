@@ -29,6 +29,7 @@ onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
+onready var water_check = $WaterCheck
 onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
@@ -880,3 +881,14 @@ func after_transition():
 
 func is_spinning():
 	return (state == s.spin || state == s.waterspin) && spin_timer > 0
+
+
+func _on_WaterCheck_area_entered(_area):
+	if state != s.swim && state != s.waterdive && state != s.waterbackflip && state != s.waterspin:
+		call_deferred("switch_state", s.swim)
+		$"/root/Singleton".water = 100
+
+
+func _on_WaterCheck_area_exited(_area):
+	if water_check.get_overlapping_bodies().size() == 0:
+		call_deferred("switch_state", s.walk)
