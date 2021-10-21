@@ -7,9 +7,14 @@ var can_follow = false
 var vel = Vector2.ZERO
 var direction = null
 var idle_time = 0
-var in_water = true
+var in_water = false
 onready var player = $"/root/Main/Player"
 onready var sprite = $Sprite
+var rng = RandomNumberGenerator.new()
+
+func _ready():
+	rng.seed = hash(position.x + position.y * PI)
+
 
 func _physics_process(_delta):
 	if in_water:
@@ -45,6 +50,11 @@ func _physics_process(_delta):
 			follow = abs(vel.y) < 1 && can_follow
 	else:
 		vel.y += 0.25
+		if is_on_floor():
+			vel.y = -2
+			vel.x = rng.randf() * 2 - 1
+		rotation = lerp_angle(rotation, 0, 0.25)
+		sprite.flip_h = vel.x < 0
 		
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide(vel * 60, Vector2.UP)
