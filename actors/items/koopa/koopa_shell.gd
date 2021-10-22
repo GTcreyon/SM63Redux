@@ -1,4 +1,7 @@
 extends KinematicBody2D
+
+onready var sprite = $AnimatedSprite
+
 var speed = 5
 var vel = Vector2.ZERO
 
@@ -14,6 +17,11 @@ func _physics_process(_delta):
 	if is_on_wall(): #flip when hitting wall
 		direction *= -1
 		vel.x *= -1
+	sprite.speed_scale = abs(vel.x)
+	if vel.x > 0:
+		sprite.animation = "counterclockwise"
+	else:
+		sprite.animation = "clockwise"
 
 
 func _on_CollisionArea_body_entered(body):

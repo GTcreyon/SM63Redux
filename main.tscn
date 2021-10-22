@@ -165,7 +165,6 @@ position = Vector2( -1824, 224 )
 
 [node name="Cheep Cheep" parent="Enemies" instance=ExtResource( 17 )]
 position = Vector2( -1500.44, 63.2776 )
-speed = 3
 
 [node name="Parakoopa" parent="Enemies" instance=ExtResource( 18 )]
 position = Vector2( -1708.27, -33.542 )
