@@ -1,28 +1,90 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=23 format=2]
 
-[ext_resource path="res://actors/items/koopa/spin7.png" type="Texture" id=1]
-[ext_resource path="res://actors/items/koopa/spin5.png" type="Texture" id=2]
-[ext_resource path="res://actors/items/koopa/spin2.png" type="Texture" id=3]
-[ext_resource path="res://actors/items/koopa/spin1.png" type="Texture" id=4]
-[ext_resource path="res://actors/items/koopa/spin8.png" type="Texture" id=5]
-[ext_resource path="res://actors/items/koopa/spin3.png" type="Texture" id=6]
-[ext_resource path="res://actors/items/koopa/spin4.png" type="Texture" id=7]
-[ext_resource path="res://actors/items/koopa/spin6.png" type="Texture" id=8]
+[ext_resource path="res://actors/items/koopa/shell.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/koopa/koopa_shell.gd" type="Script" id=9]
 [ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=10]
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 126, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 108, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 90, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 72, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 54, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 36, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 18, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 18, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 36, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 54, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 72, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 90, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 108, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 126, 22, 18 )
+
+[sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 8 ), ExtResource( 1 ), ExtResource( 5 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
-"name": "shell",
+"name": "clockwise",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "counterclockwise",
+"speed": 6.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 11, 9 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 11, 9 )
 
 [node name="Shell" type="KinematicBody2D"]
@@ -30,21 +92,24 @@ collision_layer = 4
 script = ExtResource( 9 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
-animation = "shell"
+frames = SubResource( 9 )
+animation = "counterclockwise"
+frame = 7
+playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 10 )
 
 [node name="CollisionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
-shape = SubResource( 3 )
+shape = SubResource( 11 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 
-[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+[node name="Kick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_CollisionArea_body_entered"]
