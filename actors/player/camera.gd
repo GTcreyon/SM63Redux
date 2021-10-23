@@ -24,7 +24,7 @@ func _process(_delta):
 			tween.stop_all()
 			tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)
 			tween.start()
-		if Input.is_action_just_pressed("zoom-"):
+		if Input.is_action_just_pressed("zoom-") && target_zoom < 1:
 			target_zoom *= 2
 			tween.stop_all()
 			tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)

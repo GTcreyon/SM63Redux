@@ -818,7 +818,7 @@ func _physics_process(_delta):
 			&& state != s.pound_spin):
 				switch_state(s.spin)
 				switch_anim("spin")
-				vel.y = min(-3.5 * fps_mod, vel.y - 3.5 * fps_mod)
+				vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
 				spin_timer = 30
 			
 			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
@@ -922,7 +922,6 @@ func _on_BackupAngle_body_exited(_body):
 func invincibility_on_effect():
 	invincible = true
 	#print("placeholder effect for flashing sprite")
-
 
 
 func is_spinning():

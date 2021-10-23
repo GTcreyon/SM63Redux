@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -34,7 +34,9 @@
 [ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=32]
 [ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=33]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=34]
+[ext_resource path="res://actors/items/koopa/parakoopa.tscn" type="PackedScene" id=35]
 [ext_resource path="res://actors/camera_area/camera_area.tscn" type="PackedScene" id=36]
+[ext_resource path="res://actors/warpzone/warp_zone.tscn" type="PackedScene" id=37]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -71,12 +73,14 @@ shader_param/radial = false
 [node name="Main" type="Node2D"]
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
+position = Vector2( -1208, -26 )
+offset = Vector2( 1208, 26 )
 polygon = PoolVector2Array( -1050.96, -924.875, 1047.18, -920.637, 1053.54, -460.83, 739.936, -469.306, 720.866, 297.745, -200.867, 304.102, -205.504, -151.467, -1050.96, -149.348 )
 
 [node name="BGT1" parent="." instance=ExtResource( 34 )]
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
-position = Vector2( 13, 193 )
+position = Vector2( -291, -257 )
 
 [node name="Terrain" type="Node2D" parent="."]
 
@@ -253,14 +257,14 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 26.8606
+rotation = 1074.42
 size = Vector2( 92, 92 )
 wait = 90
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 40.8407
+rotation = 1612.06
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
@@ -268,7 +272,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -40.8407
+rotation = -1612.06
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
@@ -394,8 +398,18 @@ type = 1
 position = Vector2( -3, -278 )
 type = 1
 
-[node name="Goomba" parent="Items" instance=ExtResource( 25 )]
+[node name="Enemy" type="Node2D" parent="Items"]
+
+[node name="Goomba" parent="Items/Enemy" instance=ExtResource( 25 )]
 position = Vector2( 262, 179 )
+
+[node name="Parakoopa" parent="Items/Enemy" instance=ExtResource( 35 )]
+position = Vector2( -638, -668 )
+frame = 2
+
+[node name="Parakoopa2" parent="Items/Enemy" instance=ExtResource( 35 )]
+position = Vector2( -57, -330 )
+frame = 1
 
 [node name="Decoration" type="Node2D" parent="Items"]
 
@@ -470,3 +484,10 @@ lines = [ "Hey sweetie-pie! If you’re ever feeling tired just press the (P/Ass
 [node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
 material = SubResource( 4 )
 position = Vector2( 945, -528 )
+
+[node name="WarpZone2" parent="." instance=ExtResource( 37 )]
+position = Vector2( -175, 109 )
+sweep_direction = Vector2( 1, 0 )
+spawn_location = Vector2( 1774, 20 )
+scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
+size = Vector2( 20, 100 )
