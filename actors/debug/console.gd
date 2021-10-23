@@ -72,6 +72,11 @@ func run_command(cmd):
 			output("Took %d damage." % int(args[1]))
 		_:
 			output("Unknown command \"%s\"." % args[0])
+		"kris":
+			if Singleton.kris == false:
+				Singleton.kris = true
+			else:
+				Singleton.kris = false
 
 
 func _process(_delta):
