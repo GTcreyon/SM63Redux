@@ -221,7 +221,7 @@ position = Vector2( 64, 195 )
 position = Vector2( 20, 111 )
 sweep_direction = Vector2( 1, 0 )
 spawn_location = Vector2( 1713, 23 )
-scene_path = "res://scenes/tutorial_1/tutorial_1_1.tscn"
+scene_path = "res://scenes/tutorial_1/tutorial_1_2.tscn"
 size = Vector2( 20, 100 )
 
 [node name="WarpZone2" parent="." instance=ExtResource( 18 )]
