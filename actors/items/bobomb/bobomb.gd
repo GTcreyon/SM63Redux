@@ -28,7 +28,7 @@ onready var player = $"/root/Main/Player"
 onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
-onready var lm_counter = player.life_meter_counter
+onready var lm_counter = $"/root/Singleton".hp
 var land_timer = 0
 
 

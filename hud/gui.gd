@@ -43,6 +43,8 @@ onready var button_exit_on = $ButtonExit/StarsOn
 
 onready var pause_content = $PauseContent
 
+onready var warp = $"/root/Singleton/Warp"
+
 var pause_offset = 0
 var pulse = 0
 
