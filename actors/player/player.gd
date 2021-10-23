@@ -297,6 +297,9 @@ func _physics_process(_delta):
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate
+			singleton.water = 100
+			singleton.power = 100
+			
 			if state == s.swim:
 				if i_spin_h:
 					switch_state(s.waterspin)
@@ -410,7 +413,60 @@ func _physics_process(_delta):
 					sprite.rotation_degrees = 0
 				if i_down:
 					fall_adjust += 0.107
-				
+			
+			if i_fludd && singleton.power > 0 && singleton.water > 0 && (state != s.waterbackflip || !classic) && state != s.waterspin:
+				match singleton.nozzle:
+					n.hover:
+						fludd_strain = true
+						jump_cancel = true
+						if classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
+							if state == s.waterdive:
+								vel.y *= 1 - 0.02 * fps_mod
+								vel.x *= 1 - 0.03 * fps_mod
+								if ground:
+									vel.x += cos(sprite.rotation)*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+								elif state == s.dive:
+									vel.y += sin(sprite.rotation * (-1 if sprite.flip_h else 1))*0.92*pow(fps_mod, 2)
+									vel.x += cos(sprite.rotation)/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+								else:
+									if sprite.flip_h:
+										vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
+										vel.x -= cos(-sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
+									else:
+										vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
+										vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
+							else:
+								if i_jump_h:
+									vel.y *= 1 - (0.12 * fps_mod)
+								else:
+									vel.y *= 1 - (0.2 * fps_mod)
+								vel.y -= 0.75
+								vel.x = ground_friction(vel.x, 0.05, 1.03)
+					n.rocket:
+						if singleton.power == 100:
+							fludd_strain = true
+							rocket_charge += 1
+						else:
+							fludd_strain = false
+						if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
+							if state == s.dive:
+								#set sign of velocity (could use ternary but they're icky)
+								var multiplier = 1
+								if sprite.flip_h:
+									multiplier = -1
+								if ground:
+									multiplier *= 2 #double power when grounded to counteract friction
+								vel += Vector2(cos(sprite.rotation)*25*fps_mod * fps_mod * multiplier, -sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
+		#					elif state == s.frontflip:
+		#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
+							else:
+								vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
+								vel.y -= 0.5 * fps_mod
+							rocket_charge = 0
+			else:
+				fludd_strain = false
+				rocket_charge = 0
+			
 			vel.x = ground_friction(vel.x, 0.05, 1.05)
 			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
 		else:
@@ -886,9 +942,11 @@ func is_spinning():
 func _on_WaterCheck_area_entered(_area):
 	if state != s.swim && state != s.waterdive && state != s.waterbackflip && state != s.waterspin:
 		call_deferred("switch_state", s.swim)
-		$"/root/Singleton".water = 100
+		singleton.water = 100
 
 
 func _on_WaterCheck_area_exited(_area):
 	if water_check.get_overlapping_bodies().size() == 0:
 		call_deferred("switch_state", s.walk)
+		if vel.y < 0 && !fludd_strain:
+			vel.y -= 3
