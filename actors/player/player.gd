@@ -42,7 +42,6 @@ var dive_box_pos = Vector2(0, 3)
 var dive_box_extents = Vector2(6, 6)
 
 #mario's gameplay parameters
-var life_meter_counter = 8
 var fludd_strain = false
 var static_v = false #for pipe, may be used for other things.
 var invincible = false #needed for making him invincible
@@ -125,7 +124,7 @@ var classic
 
 func take_damage(amount):
 	if !invincible:
-		life_meter_counter = clamp(life_meter_counter - amount, 0, 8)
+		singleton.hp = clamp(singleton.hp - amount, 0, 8)
 		invincibility_on_effect()
 
 
@@ -143,7 +142,7 @@ func take_damage_impact(amount, impact_vel):
 
 
 func recieve_health(amount):
-	life_meter_counter = clamp(life_meter_counter + amount, 0, 8)
+	singleton.hp = clamp(singleton.hp + amount, 0, 8)
 
 
 func dive_correct(factor): #Correct the player's origin position when diving
@@ -244,8 +243,8 @@ func _physics_process(_delta):
 		modulate.a = 1
 		invincible = false
 	
-	if internal_coin_counter >= 5 && life_meter_counter < 8:
-		life_meter_counter += 1
+	if internal_coin_counter >= 5 && singleton.hp < 8:
+		singleton.hp += 1
 		internal_coin_counter = 0
 	
 	update_classic()
@@ -895,9 +894,8 @@ func _physics_process(_delta):
 	elif !sprite.animation.ends_with("swim"):
 		sprite.speed_scale = 1
 	#$Label.text = str(vel.x)
-	if life_meter_counter <= 0:
+	if singleton.hp <= 0:
 		singleton.dead = true
-		death_anim.play("DeathIn")
 
 
 
@@ -920,19 +918,11 @@ func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
 
 
-func reset_room():
-	#warning-ignore:RETURN_VALUE_DISCARDED
-	get_tree().reload_current_scene()
-
 
 func invincibility_on_effect():
 	invincible = true
 	#print("placeholder effect for flashing sprite")
 
-
-func after_transition():
-	death_anim.stop()
-	singleton.dead = false
 
 
 func is_spinning():

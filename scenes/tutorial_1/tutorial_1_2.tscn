@@ -45,7 +45,7 @@ shader_param/radial = false
 script = ExtResource( 5 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 18 )]
-polygon = PoolVector2Array( 17.0466, -40.8411, 1747.17, -28.3685, 1779.24, 668.314, 18.8284, 679.005 )
+polygon = PoolVector2Array( -20, -40.841, 1747.17, -28.3685, 1779.24, 668.314, -20, 679.005 )
 
 [node name="BGT1" parent="." instance=ExtResource( 14 )]
 
@@ -167,7 +167,7 @@ position = Vector2( 130.141, 67.8974 )
 
 [node name="Sign" parent="." instance=ExtResource( 22 )]
 material = SubResource( 1 )
-position = Vector2( 48.6266, 188.279 )
+position = Vector2( 91.6266, 188.279 )
 lines = [ "Watch your step, bro! There are some nasty [color=#f7c55f]Bomb-ombs [/color]behind this rock. Oh, you need to go this way? Well, in that case, press [color=#f7c55f](X/Assigned Button) [/color]to do a [color=#ff7f7f]spin attack [/color]to send those Bomb-ombs flying.", "Well, in that case, press [color=#f7c55f](X/Assigned Button) [/color]to do a [color=#ff7f7f]spin attack [/color]to send those Bomb-ombs flying.", "If you press [color=#f7c55f](Z/Assigned Button) [/color]in the air you can do a [color=#ff7f7f]Ground-Pound [/color]to smash anything beneath you, enemies or blocks!" ]
 
 [node name="Goonie" parent="Sign" instance=ExtResource( 21 )]
@@ -223,8 +223,15 @@ position = Vector2( 1350, 227 )
 position = Vector2( 1525, 210 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 16 )]
-position = Vector2( -20, 92 )
+position = Vector2( -23, 92 )
 sweep_direction = Vector2( 1, 0 )
 spawn_location = Vector2( 1843, 24 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_1.tscn"
+size = Vector2( 20, 100 )
+
+[node name="WarpZone2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1749, 40 )
+sweep_direction = Vector2( -1, 0 )
+spawn_location = Vector2( 64, 159 )
+scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
 size = Vector2( 20, 100 )

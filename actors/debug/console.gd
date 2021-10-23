@@ -67,8 +67,11 @@ func run_command(cmd):
 		"die":
 			$"/root/Main/Player".take_damage(8)
 			output("Dead.")
+		"dmg":
+			$"/root/Main/Player".take_damage(int(args[1]))
+			output("Took %d damage." % int(args[1]))
 		_:
-			output("Unknown command.")
+			output("Unknown command \"%s\"." % args[0])
 
 
 func _process(_delta):

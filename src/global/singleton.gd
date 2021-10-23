@@ -12,6 +12,7 @@ var life_meter = 8
 var enter = 0
 var direction = 0
 var dead = false
+var hp = 8
 
 func _ready():
 	rng.seed = hash("2401")

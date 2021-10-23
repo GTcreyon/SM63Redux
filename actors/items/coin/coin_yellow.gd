@@ -4,7 +4,7 @@ onready var player = $"/root/Main/Player"
 
 func _on_PickupArea_body_entered(_body):
 	singleton.coin_total += 1
-	if(player.life_meter_counter < 8):
+	if singleton.hp < 8:
 		player.internal_coin_counter += 1
 		
 	$SFX.play()

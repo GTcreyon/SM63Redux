@@ -2,6 +2,8 @@ extends Polygon2D
 
 onready var player = $"/root/Main/Player"
 onready var camera: Camera2D = player.get_node("Camera2D")
+onready var warp = $"/root/Singleton/Warp"
+
 
 #return segment-polygon intersection
 func intersect_polygon(from, to, poly):
@@ -56,4 +58,5 @@ func set_limits():
 		camera.target_limit_right = right_int.x
 
 func _process(_dt):
-	set_limits()
+	if warp.enter != 1:
+		set_limits()
