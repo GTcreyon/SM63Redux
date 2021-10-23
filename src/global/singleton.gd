@@ -13,6 +13,7 @@ var enter = 0
 var direction = 0
 var dead = false
 var hp = 8
+var kris = false
 
 func _ready():
 	rng.seed = hash("2401")
