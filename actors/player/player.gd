@@ -168,27 +168,31 @@ func update_classic():
 
 func switch_anim(new_anim):
 	var fludd_anim
+	var anim
 	match singleton.nozzle:
 		n.hover:
 			fludd_anim = "hover_" + new_anim
 			if sprite.frames.has_animation(fludd_anim):
-				sprite.animation = fludd_anim
+				anim = fludd_anim
 			else:
-				sprite.animation = new_anim
+				anim = new_anim
 		n.rocket:
 			fludd_anim = "rocket_" + new_anim
 			if sprite.frames.has_animation(fludd_anim):
-				sprite.animation = fludd_anim
+				anim = fludd_anim
 			else:
-				sprite.animation = new_anim
+				anim = new_anim
 		n.turbo:
 			fludd_anim = "turbo_" + new_anim
 			if sprite.frames.has_animation(fludd_anim):
-				sprite.animation = fludd_anim
+				anim = fludd_anim
 			else:
-				sprite.animation = new_anim
+				anim = new_anim
 		_:
-			sprite.animation = new_anim
+			anim = new_anim
+	if singleton.kris:
+		anim = "kris_" + anim
+	sprite.animation = anim
 
 
 func switch_state(new_state):
@@ -302,25 +306,16 @@ func _physics_process(_delta):
 			if state == s.swim:
 				if i_spin_h:
 					switch_state(s.waterspin)
-					if Singleton.kris == false:
-						switch_anim("spin")
-					else:
-						switch_anim("spin_kris")
+					switch_anim("spin")
 					if !ground:
 						fall_adjust = min(-3.5 * fps_mod, fall_adjust - 3.5 * fps_mod) * 3
 					spin_timer = 30
 				else:
 					if ground:
-						if Singleton.kris == false:
-							switch_anim("walk")
-						else:
-							switch_anim("walk_kris")
+						switch_anim("walk")
 						fall_adjust = 0
 					else:
-						if Singleton.kris == false:
-							switch_anim("swim")
-						else:
-							switch_anim("swim_kris")
+						switch_anim("swim")
 						if sprite.frame == 0:
 							sprite.speed_scale = 0
 			if state == s.waterspin:
@@ -356,10 +351,7 @@ func _physics_process(_delta):
 			if dive_return:
 				dive_frames -= 1
 				if dive_frames == 0:
-					if Singleton.kris == false:
-						switch_anim("jump")
-					else:
-						switch_anim("jump_kris")
+					switch_anim("jump")
 					sprite.rotation_degrees += -90 if sprite.flip_h else 90
 					dive_correct(-1)
 					hitbox.position = stand_box_pos
@@ -374,10 +366,7 @@ func _physics_process(_delta):
 					
 			if i_jump || i_semi:
 				if state == s.swim:
-					if Singleton.kris == false:
-						switch_anim("swim")
-					else:
-						switch_anim("swim_kris")
+					switch_anim("swim")
 					if swim_delay:
 						fall_adjust = min((- set_jump_1_vel) * 1.25, fall_adjust) * fps_mod
 					else:
@@ -402,10 +391,7 @@ func _physics_process(_delta):
 					else:
 						tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0)
 					tween.start()
-					if Singleton.kris == false:
-						switch_anim("jump")
-					else:
-						switch_anim("jump_kris")
+					switch_anim("jump")
 					flip_l = sprite.flip_h
 			else:
 				swim_delay = false
@@ -415,10 +401,7 @@ func _physics_process(_delta):
 					switch_state(s.waterdive)
 					rotation_degrees = 0
 					tween.stop_all()
-					if Singleton.kris == false:
-						switch_anim("dive")
-					else:
-						switch_anim("dive_kris")
+					switch_anim("dive")
 					double_jump_state = 0
 					dive_correct(1)
 				else:
@@ -501,10 +484,7 @@ func _physics_process(_delta):
 			elif dive_return:
 				dive_frames -= 1
 				if dive_frames == 0:
-					if Singleton.kris == false:
-						switch_anim("jump")
-					else:
-						switch_anim("jump_kris")
+					switch_anim("jump")
 					sprite.rotation_degrees += -90 if sprite.flip_h else 90
 					dive_correct(-1)
 					hitbox.position = stand_box_pos
@@ -551,10 +531,7 @@ func _physics_process(_delta):
 						dive_frames = 4
 						sprite.rotation_degrees = 0
 				if state == s.walk:
-							if Singleton.kris == false:
-								switch_anim("walk")
-							else:
-								switch_anim("walk_kris")
+					switch_anim("walk")
 				
 				double_jump_frames = max(double_jump_frames - 1, 0)
 				if double_jump_frames <= 0:
@@ -563,48 +540,24 @@ func _physics_process(_delta):
 				if state == s.frontflip:
 					if singleton.nozzle == n.none:
 						if abs(sprite.rotation_degrees) < 700:
-							if Singleton.kris == false:
-								switch_anim("flip")
-							else:
-								switch_anim("flip_kris")
+							switch_anim("flip")
 						else:
-							if Singleton.kris == false:
-								switch_anim("fall")
-							else:
-								switch_anim("fall_kris")
+							switch_anim("fall")
 					else:
 						if abs(sprite.rotation_degrees) < 340:
-							if Singleton.kris == false:
-								switch_anim("flip")
-							else:
-								switch_anim("flip_kris")
+							switch_anim("flip")
 						else:
-							if Singleton.kris == false:
-								switch_anim("fall")
-							else:
-								switch_anim("fall_kris")
+							switch_anim("fall")
 				elif state == s.walk:
 					if vel.y > 0:
-						if Singleton.kris == false:
-							switch_anim("fall")
-						else:
-							switch_anim("fall_kris")
+						switch_anim("fall")
 					else:
 						if double_jump_state == 2 && !jump_cancel:
-							if Singleton.kris == false:
-								switch_anim("jump_double")
-							else:
-								switch_anim("jump_double_kris")
+							switch_anim("jump_double")
 						else:
-							if Singleton.kris == false:
-								switch_anim("jump")
-							else:
-								switch_anim("jump_kris")
+							switch_anim("jump")
 				elif state == s.pound_fall:
-					if Singleton.kris == false:
-							switch_anim("pound_fall")
-					else:
-							switch_anim("pound_fall_kris")
+					switch_anim("pound_fall")
 				elif state == s.dive:
 					if sprite.flip_h:
 						sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x), 0.5)
@@ -646,10 +599,7 @@ func _physics_process(_delta):
 								dive_correct(-1)
 								switch_state(s.diveflip)
 								vel.y = min(-set_jump_1_vel/1.5, vel.y)
-								if Singleton.kris == false:
-									switch_anim("jump")
-								else:
-									switch_anim("jump_kris")
+								switch_anim("jump")
 								flip_l = sprite.flip_h
 						else:
 							if !dive_return:
@@ -668,10 +618,7 @@ func _physics_process(_delta):
 							else:
 								tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0)
 							tween.start()
-							if Singleton.kris == false:
-								switch_anim("jump")
-							else:
-								switch_anim("jump_kris")
+							switch_anim("jump")
 							flip_l = sprite.flip_h
 						
 						
@@ -828,10 +775,7 @@ func _physics_process(_delta):
 					coyote_time = 0
 					dive_correct(-1)
 					switch_state(s.diveflip)
-					if Singleton.kris == false:
-						switch_anim("jump")
-					else:
-						switch_anim("jump_kris")
+					switch_anim("jump")
 					flip_l = sprite.flip_h
 					vel.y = min(-set_jump_1_vel/1.5, vel.y)
 					double_jump_state = 0
@@ -856,10 +800,7 @@ func _physics_process(_delta):
 					switch_state(s.dive)
 					rotation_degrees = 0
 					tween.stop_all()
-					if Singleton.kris == false:
-						switch_anim("dive")
-					else:
-						switch_anim("dive_kris")
+					switch_anim("dive")
 					double_jump_state = 0
 					dive_correct(1)
 					
