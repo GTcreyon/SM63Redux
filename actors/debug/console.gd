@@ -64,7 +64,7 @@ func run_command(cmd):
 			$"/root/Singleton".water = int(args[1])
 		"c":
 			$"/root/Singleton".classic = !$"/root/Singleton".classic
-		"death":
+		"die":
 			$"/root/Main/Player".take_damage(8)
 			output("Dead.")
 		_:
