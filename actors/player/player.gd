@@ -34,7 +34,6 @@ onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
-onready var death_anim = $Camera2D/GUI/DeathControl/DeathAnim
 
 var stand_box_pos = Vector2(0, 1.5)
 var stand_box_extents = Vector2(6, 14.5)
@@ -192,6 +191,9 @@ func switch_anim(new_anim):
 			anim = new_anim
 	if singleton.kris:
 		anim = "kris_" + anim
+		sprite.offset.y = -3
+	else:
+		sprite.offset.y = 0
 	sprite.animation = anim
 
 
@@ -220,8 +222,6 @@ func _ready():
 		warp.set_location = null
 		sprite.flip_h = warp.flip
 	update_classic()
-	if singleton.dead:
-		death_anim.play("DeathOut")
 
 
 func ground_friction(val, sub, div): #Ripped from source
@@ -300,6 +300,8 @@ func _physics_process(_delta):
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate
+			AudioServer.set_bus_effect_enabled(0, 0, true)
+			AudioServer.set_bus_effect_enabled(0, 1, true)
 			singleton.water = 100
 			singleton.power = 100
 			
@@ -473,6 +475,8 @@ func _physics_process(_delta):
 			vel.x = ground_friction(vel.x, 0.05, 1.05)
 			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
 		else:
+			AudioServer.set_bus_effect_enabled(0, 0, false)
+			AudioServer.set_bus_effect_enabled(0, 1, false)
 			if state == s.diveflip:
 				if flip_l:
 					sprite.rotation_degrees -= 20

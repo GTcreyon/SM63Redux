@@ -2,6 +2,7 @@ extends Control
 
 onready var logger = $Logger
 onready var input_line = $Input
+onready var singleton = $"/root/Singleton"
 
 var history = []
 var hist_index = 0
@@ -61,22 +62,19 @@ func run_command(cmd):
 			else:
 				output("Scene does not exist.")
 		"water":
-			$"/root/Singleton".water = int(args[1])
+			singleton.water = int(args[1])
 		"c":
-			$"/root/Singleton".classic = !$"/root/Singleton".classic
+			singleton.classic = !singleton.classic
 		"die":
 			$"/root/Main/Player".take_damage(8)
 			output("Dead.")
 		"dmg":
 			$"/root/Main/Player".take_damage(int(args[1]))
 			output("Took %d damage." % int(args[1]))
+		"kris":
+			singleton.kris = !singleton.kris
 		_:
 			output("Unknown command \"%s\"." % args[0])
-		"kris":
-			if Singleton.kris == false:
-				Singleton.kris = true
-			else:
-				Singleton.kris = false
 
 
 func _process(_delta):

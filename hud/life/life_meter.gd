@@ -18,8 +18,6 @@ var progress = 0
 
 func _ready():
 	if singleton.hp == 8:
-		position.y = start_pos * floor(OS.window_size.y / 304)
-	else:
 		progress = 1
 		position.y = 6 * floor(OS.window_size.y / 304)
 		filler.frame = singleton.hp
