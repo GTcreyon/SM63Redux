@@ -18,10 +18,10 @@ func _ready():
 func _process(_delta):
 	if pound_area.overlaps_body(player):
 		if player.state == player.s.pound_fall:
-			queue_free()
+			destroy()
 	if spin_area.overlaps_body(player):
 		if player.is_spinning(): 
-			queue_free()
+			destroy()
 
 
 func _on_PoundArea_body_entered(body):
