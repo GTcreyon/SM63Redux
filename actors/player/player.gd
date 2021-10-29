@@ -124,6 +124,7 @@ var classic
 func take_damage(amount):
 	if !invincible:
 		singleton.hp = clamp(singleton.hp - amount, 0, 8)
+		print(singleton.hp)
 		invincibility_on_effect()
 
 
@@ -302,7 +303,7 @@ func _physics_process(_delta):
 		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate
 			AudioServer.set_bus_effect_enabled(0, 0, true)
 			AudioServer.set_bus_effect_enabled(0, 1, true)
-			singleton.water = 100
+			singleton.water = max(singleton.water, 100)
 			singleton.power = 100
 			
 			if state == s.swim:
@@ -846,7 +847,7 @@ func _physics_process(_delta):
 			vel.y = max(vel.y, 0.1)
 		
 		var snap
-		if (!ground && !i_jump_h) || jump_buffer > 0 || state == s.diveflip || (i_fludd && singleton.nozzle == n.hover) || (state == s.swim && i_semi):
+		if !ground || i_jump || jump_buffer > 0 || state == s.diveflip || (i_fludd && singleton.nozzle == n.hover) || (state == s.swim && i_semi):
 			snap = Vector2.ZERO
 		else:
 			snap = Vector2(0, 4)
@@ -939,7 +940,7 @@ func is_spinning():
 func _on_WaterCheck_area_entered(_area):
 	if state != s.swim && state != s.waterdive && state != s.waterbackflip && state != s.waterspin:
 		call_deferred("switch_state", s.swim)
-		singleton.water = 100
+		singleton.water = max(singleton.water, 100)
 
 
 func _on_WaterCheck_area_exited(_area):
