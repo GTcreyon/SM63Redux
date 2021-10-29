@@ -17,14 +17,14 @@ var progress = 0
 
 
 func _ready():
-	if singleton.hp == 8:
-		progress = 1
-		position.y = 6 * floor(OS.window_size.y / 304)
-		filler.frame = singleton.hp
+	modulate.v = 1 - death_cover.color.a
+	progress = singleton.meter_progress
+	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * scale.y
+	filler.frame = singleton.hp
 
 
 func _process(_delta):
-	modulate.a = 1 - death_cover.color.a
+	modulate.v = 1 - death_cover.color.a
 	
 	var gui_scale = floor(OS.window_size.y / 304)
 	if get_tree().paused:
@@ -69,3 +69,4 @@ func _process(_delta):
 
 		filler.frame = singleton.hp #for the HUD with its respective frame
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * scale.y
+	singleton.meter_progress = progress

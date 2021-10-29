@@ -41,7 +41,10 @@ func refresh():
 	else:
 		max_sprite.visible = false
 		label.visible = true
-		label.text = str(floor(singleton.water))
+		if singleton.water == INF:
+			label.text = "INF"
+		else:
+			label.text = str(floor(singleton.water))
 
 
 func _ready():
@@ -57,7 +60,10 @@ func _process(_delta):
 	else:
 		icon_bob = fmod(icon_bob + 0.1, 120)
 	icon.offset.y = sin(icon_bob) * 2
-	filler.scale.y = singleton.water * 79 / 100
+	if singleton.water == INF:
+		filler.scale.y = 79
+	else:
+		filler.scale.y = singleton.water * 79 / 100
 	mask_filler.scale.y = -filler.scale.y
 	power_filler.scale.y = singleton.power * 83 / 100
 	if singleton.water > 0:
@@ -66,7 +72,10 @@ func _process(_delta):
 		bubbles_big.visible = true
 		bubbles_medium.visible = true
 		bubbles_small.visible = true
-		surface.position.y = (100 - singleton.water) * 79 / 100
+		if singleton.water == INF:
+			surface.position.y = 0
+		else:
+			surface.position.y = (100 - singleton.water) * 79 / 100
 	else:
 		surface.visible = false
 		bottom.visible = false
