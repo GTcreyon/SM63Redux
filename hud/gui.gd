@@ -49,6 +49,7 @@ var pause_offset = 0
 var pulse = 0
 
 func _ready():
+	coin_counter.text = str(singleton.coin_total)
 	set_size(floor(log(floor(OS.window_size.x / 448)) / log(2) + 1), floor(OS.window_size.x / 448))
 	var menu = get_tree().get_nodes_in_group("pause")
 	for node in menu: #make pause nodes visible but transparent
