@@ -124,7 +124,6 @@ var classic
 func take_damage(amount):
 	if !invincible:
 		singleton.hp = clamp(singleton.hp - amount, 0, 8)
-		print(singleton.hp)
 		invincibility_on_effect()
 
 
