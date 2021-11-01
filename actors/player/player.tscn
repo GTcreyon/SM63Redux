@@ -316,7 +316,8 @@ script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "dive"
+animation = "walk"
+frame = 1
 playing = true
 
 [node name="WaterCheck" type="Area2D" parent="."]
