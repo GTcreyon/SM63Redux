@@ -254,7 +254,7 @@ position = Vector2( 857, 140.5 )
 [node name="Fossil" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 77, 208 )
 animation = "yellow"
-frame = 2
+frame = 1
 
 [node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 200, 207 )
@@ -263,6 +263,7 @@ animation = "yellow"
 [node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 259, 266 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 505, 216 )
@@ -285,10 +286,12 @@ frame = 1
 [node name="Fossil14" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 977, 216 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1311, 145 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1426, 159 )
@@ -297,20 +300,21 @@ animation = "yellow"
 [node name="Fossil10" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1618, 156 )
 animation = "yellow"
-frame = 1
+frame = 2
 
 [node name="Fossil11" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1534, 198 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil13" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1254, 222 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil12" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1739, 173 )
 animation = "yellow"
+frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 77 )
@@ -405,7 +409,7 @@ polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277, 133
 position = Vector2( 1739, 51 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 26 )]
-position = Vector2( 1876, -50 )
+position = Vector2( 1911, -50 )
 sweep_direction = Vector2( -1, 0 )
 spawn_location = Vector2( 62, 172 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_2.tscn"

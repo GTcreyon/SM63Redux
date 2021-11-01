@@ -9,6 +9,12 @@ onready var text_node = $Text
 onready var buttons = [get_parent().get_node("ButtonMap"), get_parent().get_node("ButtonFludd"), get_parent().get_node("ButtonOptions"), get_parent().get_node("ButtonExit")]
 
 func _process(_delta):
+	if get_tree().paused:
+		disabled = false
+		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+	else:
+		disabled = true
+		mouse_default_cursor_shape = Control.CURSOR_ARROW
 	if pressed:
 		stars_on.visible = true
 		stars_off.visible = false

@@ -2,6 +2,7 @@ extends Control
 
 onready var logger = $Logger
 onready var input_line = $Input
+onready var singleton = $"/root/Singleton"
 
 var history = []
 var hist_index = 0
@@ -61,20 +62,41 @@ func run_command(cmd):
 			else:
 				output("Scene does not exist.")
 		"water":
-			$"/root/Singleton".water = int(args[1])
+			if args[1].to_lower() == "inf":
+				singleton.water = INF
+				output("Water is now infinite.")
+			else:
+				singleton.water = int(args[1])
+				output("Water set to %d" % int(args[1]))
+		"ref":
+			singleton.water = max(singleton.water, 100)
+			output("Water refilled" % int(args[1]))
 		"c":
-			$"/root/Singleton".classic = !$"/root/Singleton".classic
-		"death":
+			singleton.classic = !singleton.classic
+			if singleton.classic:
+				output("Classic mode enabled.")
+			else:
+				output("Classic mode disabled.")
+		"die":
 			$"/root/Main/Player".take_damage(8)
 			output("Dead.")
+		"dmg":
+			$"/root/Main/Player".take_damage(int(args[1]))
+			output("Took %d damage." % int(args[1]))
+		"fdmg":
+			singleton.hp -= int(args[1])
+			output("Forced %d damage." % int(args[1]))
+		"kris":
+			singleton.kris = !singleton.kris
 		_:
-			output("Unknown command.")
+			output("Unknown command \"%s\"." % args[0])
 
 
 func _process(_delta):
 	if Input.is_action_just_pressed("debug"):
 		visible = !visible
 		input_line.grab_focus()
+		input_line.text = input_line.text.replace("/", "")
 	if visible:
 		if Input.is_action_just_pressed("ui_accept"):
 			run_command(input_line.text)

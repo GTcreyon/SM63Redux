@@ -45,7 +45,7 @@ shader_param/radial = false
 script = ExtResource( 5 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 18 )]
-polygon = PoolVector2Array( 17.0466, -40.8411, 1747.17, -28.3685, 1779.24, 668.314, 18.8284, 679.005 )
+polygon = PoolVector2Array( -20, -40.841, 1747.17, -28.3685, 1779.24, 668.314, -20, 679.005 )
 
 [node name="BGT1" parent="." instance=ExtResource( 14 )]
 
@@ -63,7 +63,7 @@ polygon = PoolVector2Array( 0, 0, 480, 0, 480, 192, 0, 192 )
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 2 )]
 position = Vector2( 0, 192 )
 z_index = 1
-polygon = PoolVector2Array( -70, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -57, 1699, -57, 1728, -48, 1780, -48, 1904, 517, -55, 523 )
+polygon = PoolVector2Array( -70, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -51, 1699, -51, 1728, -41, 1780, -41, 1904, 517, -55, 523 )
 
 [node name="TerrainPolygon2" parent="Terrain" instance=ExtResource( 2 )]
 position = Vector2( 760, 228 )
@@ -167,8 +167,8 @@ position = Vector2( 130.141, 67.8974 )
 
 [node name="Sign" parent="." instance=ExtResource( 22 )]
 material = SubResource( 1 )
-position = Vector2( 48.6266, 188.279 )
-lines = [ "Watch your step, bro! There are some nasty [color=#f7c55f]Bomb-ombs [/color]behind this rock. Oh, you need to go this way? Well, in that case, press [color=#f7c55f](X/Assigned Button) [/color]to do a [color=#ff7f7f]spin attack [/color]to send those Bomb-ombs flying.", "Well, in that case, press [color=#f7c55f](X/Assigned Button) [/color]to do a [color=#ff7f7f]spin attack [/color]to send those Bomb-ombs flying.", "If you press [color=#f7c55f](Z/Assigned Button) [/color]in the air you can do a [color=#ff7f7f]Ground-Pound [/color]to smash anything beneath you, enemies or blocks!" ]
+position = Vector2( 91.6266, 188.279 )
+lines = [ "Watch your step,[@p,3] bro![@p,10] There are some nasty [color=#f7c55f]Bomb-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need to go this way?", "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f]X[/color] to do a [color=#ff7f7f]spin attack[/color] to send those Bomb-ombs flying.", "If you press [color=#f7c55f]Z[/color] in the air you can do a [color=#ff7f7f]Ground-Pound[/color] to smash anything beneath you,[@p,3] enemies or blocks!" ]
 
 [node name="Goonie" parent="Sign" instance=ExtResource( 21 )]
 position = Vector2( 398.971, -107.621 )
@@ -178,7 +178,8 @@ position = Vector2( 1043.1, -122.757 )
 
 [node name="Sign3" parent="." instance=ExtResource( 22 )]
 material = SubResource( 2 )
-position = Vector2( 1601.46, 246.894 )
+position = Vector2( 1601, 247 )
+lines = [ "Ah,[@p,3] there you are![@p,10] I forgot to mention something really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]", "If you jump three times while moving,[@p,3] you can jump higher each time,[@p,3] with the final jump being the highest.", "That’s everything I know,[@p,3] or at least,[@p,3] all I can remember." ]
 
 [node name="Cheep Cheep" parent="." instance=ExtResource( 17 )]
 position = Vector2( 1089.76, 371.532 )
@@ -223,8 +224,15 @@ position = Vector2( 1350, 227 )
 position = Vector2( 1525, 210 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 16 )]
-position = Vector2( -20, 92 )
+position = Vector2( -23, 92 )
 sweep_direction = Vector2( 1, 0 )
 spawn_location = Vector2( 1843, 24 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_1.tscn"
+size = Vector2( 20, 100 )
+
+[node name="WarpZone2" parent="." instance=ExtResource( 16 )]
+position = Vector2( 1749, 47 )
+sweep_direction = Vector2( -1, 0 )
+spawn_location = Vector2( 64, 159 )
+scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
 size = Vector2( 20, 100 )
