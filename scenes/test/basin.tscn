@@ -47,7 +47,7 @@ tile_data = PoolIntArray( -327699, 141, 0, -327698, 142, 0, -327686, 142, 0, -32
 z_index = 1
 
 [node name="Water" parent="WaterGroup" instance=ExtResource( 6 )]
-position = Vector2( -576, -192 )
+position = Vector2( -576, -128 )
 polygon = PoolVector2Array( 0, 0, 416, 0, 416, 16, 384, 16, 384, 48, 352, 48, 352, 80, 320, 80, 320, 96, 288, 96, 288, 112, 192, 112, 192, 432, 160, 432, 160, 112, 128, 112, 128, 96, 96, 96, 96, 80, 64, 80, 64, 48, 32, 48, 32, 16, 0, 16 )
 
 [node name="Spawner" parent="." instance=ExtResource( 7 )]
@@ -155,7 +155,7 @@ position = Vector2( 544, -192 )
 [node name="Fossil" parent="." instance=ExtResource( 19 )]
 position = Vector2( 1014.84, -189.418 )
 animation = "yellow"
-frame = 2
+frame = 1
 
 [node name="Fossil2" parent="." instance=ExtResource( 19 )]
 position = Vector2( 847, -191 )
@@ -164,6 +164,7 @@ animation = "yellow"
 [node name="Fossil3" parent="." instance=ExtResource( 19 )]
 position = Vector2( 950.303, -139.107 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil4" parent="." instance=ExtResource( 19 )]
 position = Vector2( 918.341, -236.446 )
@@ -186,7 +187,7 @@ position = Vector2( 500, -371 )
 
 [node name="Fossil9" parent="." instance=ExtResource( 19 )]
 position = Vector2( 602, -322 )
-frame = 2
+frame = 1
 
 [node name="TiltingPlatform" parent="." instance=ExtResource( 21 )]
 position = Vector2( -66, -414 )
