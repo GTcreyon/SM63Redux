@@ -1,15 +1,16 @@
 extends Area2D
 
 #settings for water
-export var water_segment_size = 5 #in pixels, this works regardless of water scale.
+export var water_segment_size = 20 #in pixels, this works regardless of water scale.
 export var surface_wave_properties = {
 	width = 32, #in pixels
 	height = 4, #in pixels
 	speed = 1 #idk it just works
 }
+export var top_left_corner = Vector2() #gets automatically set by the parent script
 
 #private variables
-onready var texture = $".."
+onready var texture = $"../Viewport/WaterPolygon"
 onready var player = $"/root/Main/Player"
 
 var waves = []
@@ -102,7 +103,7 @@ func get_next_vertex_key_for_wave(wave):
 	else:
 		return wave.current_vertex_key
 
-func _ready():
+func on_ready():
 	#get the max x and max y
 	#from the wiki I read textures can't be bigger than 16384x16384 pixels
 	#so that means water can't be bigger than 16384x16384 pixels either (512x512 tiles)
@@ -125,8 +126,9 @@ func _ready():
 	texture.texture = img_texture
 
 	#make the uv coords equal the one of the polygon BEFORE subdividing
-	texture.uv = texture.polygon
-	$Collision.polygon = texture.polygon
+	#print(texture.polygon)
+	#texture.uv = texture.polygon
+	#$Collision.polygon = texture.polygon
 	
 	#the water should be purely visual, so the uv and collision should be set before subdividing
 	subdivide_surface()
@@ -197,6 +199,8 @@ func _process(dt):
 	set_surface_verts(surface)
 
 func handle_impact(body, is_exit):
+	if !(body is KinematicBody2D || body is RigidBody2D):
+		return
 	var this_shape = shape_owner_get_shape(0, 0) #get our shape
 	var other_shape; var other_owner #get the other shape and owner_id
 	for owner_id in body.get_shape_owners():
@@ -212,11 +216,13 @@ func handle_impact(body, is_exit):
 		#print("why are there no contact points?")
 		return
 	var contact = contacts[0] #get single contact point
-	contact -= get_global_transform().origin #transform it to local coordinates
+	#contact -= get_global_transform().origin #transform it to local coordinates
+	#contact += water_extends / 2
+	contact -= top_left_corner;
 	
 	#make the wave size dependant on impact and area
 	var body_vel = 5
-	if body.vel != null:
+	if !(body.get("vel") == null):
 		body_vel = abs(body.vel.y)
 	
 	body_vel *= (0.5 if is_exit else 1.0)
@@ -249,6 +255,7 @@ func _on_body_entered(body):
 
 func _on_body_exited(body):
 	handle_impact(body, true)
-	if body == player && get_overlapping_bodies().count(player) == 0:
-		print(get_overlapping_bodies())
+	#print(get_overlapping_bodies().count(player))
+	if body == player && get_overlapping_bodies().count(player) == 1:
+		#print(get_overlapping_bodies())
 		player.call_deferred("switch_state", player.s.walk)
