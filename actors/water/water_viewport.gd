@@ -1,3 +1,4 @@
+tool
 extends Sprite
 
 onready var viewport: Viewport = $Viewport
@@ -66,5 +67,15 @@ func refresh():
 	mat.set_shader_param("animation_swing_range_px", animation_swing_range)
 	mat.set_shader_param("animation_speed", animation_speed)
 
+func _draw():
+	if Engine.editor_hint:
+		var colors = PoolColorArray()
+		for poly in polygon:
+			colors.append(Color(0, 0.7, 1))#water_color)
+		draw_polygon(polygon, colors)
+		for poly in polygon:
+			draw_circle(poly, 3, Color(0, 1, 1))
+
 func _ready():
-	refresh()
+	if !Engine.editor_hint:
+		refresh()

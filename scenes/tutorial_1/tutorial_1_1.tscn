@@ -254,21 +254,20 @@ position = Vector2( 857, 140.5 )
 [node name="Fossil" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 77, 208 )
 animation = "yellow"
-frame = 1
+frame = 2
 
 [node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 200, 207 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 259, 266 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 505, 216 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 568, 176 )
@@ -281,7 +280,6 @@ animation = "yellow"
 [node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1010, 145 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil14" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 977, 216 )
@@ -296,11 +294,12 @@ frame = 1
 [node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1426, 159 )
 animation = "yellow"
+frame = 1
 
 [node name="Fossil10" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1618, 156 )
 animation = "yellow"
-frame = 2
+frame = 1
 
 [node name="Fossil11" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1534, 198 )
@@ -314,7 +313,6 @@ animation = "yellow"
 [node name="Fossil12" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1739, 173 )
 animation = "yellow"
-frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 77 )
@@ -386,13 +384,14 @@ position = Vector2( 1136, 27 )
 [node name="Water" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 320, 226 )
 polygon = PoolVector2Array( 0, 0, 118, 0, 118, 20, 97, 87, 30, 103, 0, 21 )
+water_color = Color( 0.243137, 0, 1, 0.8 )
 
 [node name="Water2" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 606, 226 )
 polygon = PoolVector2Array( 0, 0, 212, 0, 212, 43, 370, 66, 488, 58, 478.711, 0, 588.07, 0, 591, 45, 540, 123, 358, 150, 187, 132, 176, 155, 140, 175, 31, 147, 0, 35 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 110, 143.335 )
+position = Vector2( 110, 144.67 )
 
 [node name="Terrain" type="Node2D" parent="."]
 
