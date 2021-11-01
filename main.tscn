@@ -8,7 +8,7 @@
 [ext_resource path="res://actors/items/koopa/koopa_shell.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/coin/coin_red.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=8]
-[ext_resource path="res://actors/items/bottle/bottle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://actors/items/bottle/bottle_big.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actors/items/fludd_box/fludd_box.tscn" type="PackedScene" id=10]
 [ext_resource path="res://actors/items/pipe/pipe.tscn" type="PackedScene" id=11]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=12]
@@ -169,20 +169,18 @@ position = Vector2( -1500.44, 63.2776 )
 
 [node name="Parakoopa" parent="Enemies" instance=ExtResource( 18 )]
 position = Vector2( -1708.27, -33.542 )
-frame = 4
+frame = 3
 
 [node name="Koopa" parent="Enemies" instance=ExtResource( 19 )]
 position = Vector2( -1900, 200 )
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Bottle" parent="Items" instance=ExtResource( 9 )]
-position = Vector2( -1520, 224 )
-type = 1
+[node name="BottleBig" parent="Items" instance=ExtResource( 9 )]
+position = Vector2( -1520, 232 )
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 10 )]
 position = Vector2( -1611.83, 224 )
-type = 0
 
 [node name="Tube" parent="Items" instance=ExtResource( 11 )]
 position = Vector2( -1968.13, 224 )
@@ -198,10 +196,6 @@ target_x_pos = 1050
 
 [node name="Pivot" parent="Items" instance=ExtResource( 2 )]
 position = Vector2( -1728, 128 )
-radius = 50
-count = 3
-speed = 10.0
-offset = 0.0
 
 [node name="Cloud" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1632, 96 )
@@ -209,11 +203,9 @@ width = 4
 
 [node name="Cloud2" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1824, 176 )
-width = 1
 
 [node name="Cloud3" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1808, 48 )
-width = 1
 
 [node name="Cloud4" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( -1664, 192 )
