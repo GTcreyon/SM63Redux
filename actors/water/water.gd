@@ -136,11 +136,6 @@ func on_ready():
 #update the shader with the latest information
 func _process(dt):
 	elapsed_time += dt
-	var pos = get_global_transform_with_canvas().origin #get the position
-	var size = OS.get_window_size() #normalise the object
-	pos.y = size.y - pos.y #inverse the y
-	texture.material.set_shader_param("object_pos", pos / size) #give the object position to the shader
-	
 	var wave_y_modifier = {}
 	for wave in waves:
 		#first reduce the height
@@ -216,9 +211,7 @@ func handle_impact(body, is_exit):
 		#print("why are there no contact points?")
 		return
 	var contact = contacts[0] #get single contact point
-	#contact -= get_global_transform().origin #transform it to local coordinates
-	#contact += water_extends / 2
-	contact -= top_left_corner;
+	contact -= top_left_corner; #transform it to local coordinates
 	
 	#make the wave size dependant on impact and area
 	var body_vel = 5

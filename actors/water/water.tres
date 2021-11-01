@@ -4,13 +4,10 @@
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/object_pos = Vector2( 0.44705, 0.457272 )
-shader_param/wave_speed = 0.1
-shader_param/wave_length = 30.0
-shader_param/wave_height = 2.0
-shader_param/reflectancy = Vector3( 0, 0, 0.25 )
-shader_param/transparency = Vector3( 0, 0, 1 )
-shader_param/enable_animation = true
-shader_param/water_color = Color( 0, 0.701961, 1, 1 )
-shader_param/water_surface_color = Color( 0.8, 1, 1, 1 )
-shader_param/water_surface_depth = 4.0
+shader_param/base_water_color = null
+shader_param/water_texture_size = null
+shader_param/water_xy_ratio = null
+shader_param/texture_repeat = null
+shader_param/normal_map_mult = 0.2
+shader_param/animation_swing_range_px = 32.0
+shader_param/animation_speed = 1.0
