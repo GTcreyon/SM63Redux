@@ -2,11 +2,12 @@ extends KinematicBody2D
 
 onready var singleton = $"/root/Singleton"
 var dropped = false
-var vel = Vector2(0.0, 0.0)
+var vel : Vector2 = Vector2.INF
 
 func _ready():
-	vel.x = (singleton.rng.randf() * 4 - 2) * 0.53
-	vel.y = -7 * 0.53
+	if vel == Vector2.INF:
+		vel.x = (singleton.rng.randf() * 4 - 2) * 0.53
+		vel.y = -7 * 0.53
 
 
 func _physics_process(_delta):
@@ -16,11 +17,13 @@ func _physics_process(_delta):
 			vel.y *= 0.98
 		if is_on_floor():
 			vel.y = -vel.y / 2
-			if abs(vel.y) < 0:
+			if round(vel.y) == 0:
 				vel.y = 0
 		
 		if is_on_wall():
-			vel.x = -vel.x / 2
+			vel.x *= -0.5
+		if is_on_floor():
+			vel.x *= 0.75
 		# warning-ignore:RETURN_VALUE_DISCARDED
 		move_and_slide(vel * 60, Vector2.UP)
 

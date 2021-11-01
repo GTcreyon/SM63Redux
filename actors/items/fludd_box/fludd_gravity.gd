@@ -36,7 +36,7 @@ func switch_type(type):
 
 func pickup(nozzle):
 	singleton.nozzle = nozzle
-	singleton.water = 100
+	singleton.water = max(singleton.water, 100)
 	queue_free()
 
 

@@ -29,11 +29,11 @@ onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
+onready var water_check = $WaterCheck
 onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
-onready var death_anim = $Camera2D/GUI/DeathControl/DeathAnim
 
 var stand_box_pos = Vector2(0, 1.5)
 var stand_box_extents = Vector2(6, 14.5)
@@ -41,7 +41,6 @@ var dive_box_pos = Vector2(0, 3)
 var dive_box_extents = Vector2(6, 6)
 
 #mario's gameplay parameters
-var life_meter_counter = 8
 var fludd_strain = false
 var static_v = false #for pipe, may be used for other things.
 var invincible = false #needed for making him invincible
@@ -124,7 +123,7 @@ var classic
 
 func take_damage(amount):
 	if !invincible:
-		life_meter_counter = clamp(life_meter_counter - amount, 0, 8)
+		singleton.hp = clamp(singleton.hp - amount, 0, 8)
 		invincibility_on_effect()
 
 
@@ -142,7 +141,7 @@ func take_damage_impact(amount, impact_vel):
 
 
 func recieve_health(amount):
-	life_meter_counter = clamp(life_meter_counter + amount, 0, 8)
+	singleton.hp = clamp(singleton.hp + amount, 0, 8)
 
 
 func dive_correct(factor): #Correct the player's origin position when diving
@@ -168,27 +167,34 @@ func update_classic():
 
 func switch_anim(new_anim):
 	var fludd_anim
+	var anim
 	match singleton.nozzle:
 		n.hover:
 			fludd_anim = "hover_" + new_anim
 			if sprite.frames.has_animation(fludd_anim):
-				sprite.animation = fludd_anim
+				anim = fludd_anim
 			else:
-				sprite.animation = new_anim
+				anim = new_anim
 		n.rocket:
 			fludd_anim = "rocket_" + new_anim
 			if sprite.frames.has_animation(fludd_anim):
-				sprite.animation = fludd_anim
+				anim = fludd_anim
 			else:
-				sprite.animation = new_anim
+				anim = new_anim
 		n.turbo:
 			fludd_anim = "turbo_" + new_anim
 			if sprite.frames.has_animation(fludd_anim):
-				sprite.animation = fludd_anim
+				anim = fludd_anim
 			else:
-				sprite.animation = new_anim
+				anim = new_anim
 		_:
-			sprite.animation = new_anim
+			anim = new_anim
+	if singleton.kris:
+		anim = "kris_" + anim
+		sprite.offset.y = -3
+	else:
+		sprite.offset.y = 0
+	sprite.animation = anim
 
 
 func switch_state(new_state):
@@ -216,8 +222,6 @@ func _ready():
 		warp.set_location = null
 		sprite.flip_h = warp.flip
 	update_classic()
-	if singleton.dead:
-		death_anim.play("DeathOut")
 
 
 func ground_friction(val, sub, div): #Ripped from source
@@ -243,8 +247,8 @@ func _physics_process(_delta):
 		modulate.a = 1
 		invincible = false
 	
-	if internal_coin_counter >= 5 && life_meter_counter < 8:
-		life_meter_counter += 1
+	if internal_coin_counter >= 5 && singleton.hp < 8:
+		singleton.hp += 1
 		internal_coin_counter = 0
 	
 	update_classic()
@@ -296,6 +300,11 @@ func _physics_process(_delta):
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate
+			AudioServer.set_bus_effect_enabled(0, 0, true)
+			AudioServer.set_bus_effect_enabled(0, 1, true)
+			singleton.water = max(singleton.water, 100)
+			singleton.power = 100
+			
 			if state == s.swim:
 				if i_spin_h:
 					switch_state(s.waterspin)
@@ -409,10 +418,65 @@ func _physics_process(_delta):
 					sprite.rotation_degrees = 0
 				if i_down:
 					fall_adjust += 0.107
-				
+			
+			if i_fludd && singleton.power > 0 && singleton.water > 0 && (state != s.waterbackflip || !classic) && state != s.waterspin:
+				match singleton.nozzle:
+					n.hover:
+						fludd_strain = true
+						jump_cancel = true
+						if classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
+							if state == s.waterdive:
+								vel.y *= 1 - 0.02 * fps_mod
+								vel.x *= 1 - 0.03 * fps_mod
+								if ground:
+									vel.x += cos(sprite.rotation)*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+								elif state == s.dive:
+									vel.y += sin(sprite.rotation * (-1 if sprite.flip_h else 1))*0.92*pow(fps_mod, 2)
+									vel.x += cos(sprite.rotation)/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+								else:
+									if sprite.flip_h:
+										vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
+										vel.x -= cos(-sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
+									else:
+										vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
+										vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
+							else:
+								if i_jump_h:
+									vel.y *= 1 - (0.12 * fps_mod)
+								else:
+									vel.y *= 1 - (0.2 * fps_mod)
+								vel.y -= 0.75
+								vel.x = ground_friction(vel.x, 0.05, 1.03)
+					n.rocket:
+						if singleton.power == 100:
+							fludd_strain = true
+							rocket_charge += 1
+						else:
+							fludd_strain = false
+						if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
+							if state == s.dive:
+								#set sign of velocity (could use ternary but they're icky)
+								var multiplier = 1
+								if sprite.flip_h:
+									multiplier = -1
+								if ground:
+									multiplier *= 2 #double power when grounded to counteract friction
+								vel += Vector2(cos(sprite.rotation)*25*fps_mod * fps_mod * multiplier, -sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
+		#					elif state == s.frontflip:
+		#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
+							else:
+								vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
+								vel.y -= 0.5 * fps_mod
+							rocket_charge = 0
+			else:
+				fludd_strain = false
+				rocket_charge = 0
+			
 			vel.x = ground_friction(vel.x, 0.05, 1.05)
 			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
 		else:
+			AudioServer.set_bus_effect_enabled(0, 0, false)
+			AudioServer.set_bus_effect_enabled(0, 1, false)
 			if state == s.diveflip:
 				if flip_l:
 					sprite.rotation_degrees -= 20
@@ -762,7 +826,7 @@ func _physics_process(_delta):
 			&& state != s.pound_spin):
 				switch_state(s.spin)
 				switch_anim("spin")
-				vel.y = min(-3.5 * fps_mod, vel.y - 3.5 * fps_mod)
+				vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
 				spin_timer = 30
 			
 			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
@@ -782,7 +846,7 @@ func _physics_process(_delta):
 			vel.y = max(vel.y, 0.1)
 		
 		var snap
-		if (!ground && !i_jump_h) || jump_buffer > 0 || state == s.diveflip || (i_fludd && singleton.nozzle == n.hover) || (state == s.swim && i_semi):
+		if !ground || i_jump || jump_buffer > 0 || state == s.diveflip || (i_fludd && singleton.nozzle == n.hover) || (state == s.swim && i_semi):
 			snap = Vector2.ZERO
 		else:
 			snap = Vector2(0, 4)
@@ -838,9 +902,8 @@ func _physics_process(_delta):
 	elif !sprite.animation.ends_with("swim"):
 		sprite.speed_scale = 1
 	#$Label.text = str(vel.x)
-	if life_meter_counter <= 0:
+	if singleton.hp <= 0:
 		singleton.dead = true
-		death_anim.play("DeathIn")
 
 
 
@@ -863,20 +926,24 @@ func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
 
 
-func reset_room():
-	#warning-ignore:RETURN_VALUE_DISCARDED
-	get_tree().reload_current_scene()
-
 
 func invincibility_on_effect():
 	invincible = true
 	#print("placeholder effect for flashing sprite")
 
 
-func after_transition():
-	death_anim.stop()
-	singleton.dead = false
-
-
 func is_spinning():
 	return (state == s.spin || state == s.waterspin) && spin_timer > 0
+
+
+func _on_WaterCheck_area_entered(_area):
+	if state != s.swim && state != s.waterdive && state != s.waterbackflip && state != s.waterspin:
+		call_deferred("switch_state", s.swim)
+		singleton.water = max(singleton.water, 100)
+
+
+func _on_WaterCheck_area_exited(_area):
+	if water_check.get_overlapping_bodies().size() == 0:
+		call_deferred("switch_state", s.walk)
+		if vel.y < 0 && !fludd_strain:
+			vel.y -= 3
