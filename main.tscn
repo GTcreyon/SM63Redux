@@ -169,7 +169,6 @@ position = Vector2( -1500.44, 63.2776 )
 
 [node name="Parakoopa" parent="Enemies" instance=ExtResource( 18 )]
 position = Vector2( -1708.27, -33.542 )
-frame = 0
 
 [node name="Koopa" parent="Enemies" instance=ExtResource( 19 )]
 position = Vector2( -1900, 200 )
@@ -221,7 +220,7 @@ width = 0
 
 [node name="Water" parent="." instance=ExtResource( 12 )]
 position = Vector2( -1504, 240 )
-
 polygon = PoolVector2Array( 0, 0, 480, 0, 480, 160, 0, 160 )
+
 [node name="BreakableBox" parent="." instance=ExtResource( 20 )]
 position = Vector2( -1725, 224 )
