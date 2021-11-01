@@ -24,12 +24,12 @@ func _process(_delta):
 			destroy()
 
 
-func _on_PoundArea_body_entered(body):
+func _on_PoundArea_body_entered(_body):
 	if player.state == player.s.pound_fall:
 		destroy()
 
 
-func _on_SpinArea_body_entered(body):
+func _on_SpinArea_body_entered(_body):
 	if player.is_spinning():
 		destroy()
 

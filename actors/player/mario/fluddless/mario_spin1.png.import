@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mario_walk1.png-1d679092455a8fb1e25ffa2f196b60c6.stex"
+path="res://.import/mario_spin1.png-182258144aff6b3795c740b7ebdc7be4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/player/mario/mario_walk1.png"
-dest_files=[ "res://.import/mario_walk1.png-1d679092455a8fb1e25ffa2f196b60c6.stex" ]
+source_file="res://actors/player/mario/fluddless/mario_spin1.png"
+dest_files=[ "res://.import/mario_spin1.png-182258144aff6b3795c740b7ebdc7be4.stex" ]
 
 [params]
 

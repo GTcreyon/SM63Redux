@@ -1,41 +1,34 @@
-[gd_scene load_steps=86 format=2]
+[gd_scene load_steps=81 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
-[ext_resource path="res://actors/player/mario/pound_fall0.png" type="Texture" id=2]
-[ext_resource path="res://actors/player/mario/mario_spin3.png" type="Texture" id=3]
-[ext_resource path="res://actors/player/mario/pound_spin.png" type="Texture" id=4]
-[ext_resource path="res://actors/player/mario/mario_flip.png" type="Texture" id=5]
-[ext_resource path="res://actors/player/mario/mario_walk0.png" type="Texture" id=6]
-[ext_resource path="res://actors/player/mario/mario_spin0.png" type="Texture" id=7]
-[ext_resource path="res://actors/player/mario/mario_dive.png" type="Texture" id=8]
-[ext_resource path="res://actors/player/mario/mario_jump.png" type="Texture" id=9]
-[ext_resource path="res://actors/player/mario/pound_fall1.png" type="Texture" id=10]
-[ext_resource path="res://actors/player/mario/mario_spin2.png" type="Texture" id=11]
-[ext_resource path="res://actors/player/mario/mario_walk1.png" type="Texture" id=12]
-[ext_resource path="res://actors/player/mario/mario_spin1.png" type="Texture" id=13]
-[ext_resource path="res://actors/player/mario/mario_fall.png" type="Texture" id=14]
+[ext_resource path="res://actors/player/mario/fluddless/mario_walk.png" type="Texture" id=2]
+[ext_resource path="res://actors/player/mario/fluddless/mario_spin3.png" type="Texture" id=3]
+[ext_resource path="res://actors/player/mario/fluddless/pound_spin.png" type="Texture" id=4]
+[ext_resource path="res://actors/player/mario/fluddless/mario_flip.png" type="Texture" id=5]
+[ext_resource path="res://actors/player/mario/fluddless/mario_jump.png" type="Texture" id=6]
+[ext_resource path="res://actors/player/mario/fluddless/mario_spin0.png" type="Texture" id=7]
+[ext_resource path="res://actors/player/mario/fluddless/mario_dive.png" type="Texture" id=8]
+[ext_resource path="res://actors/player/mario/fluddless/mario_spin2.png" type="Texture" id=11]
+[ext_resource path="res://actors/player/mario/fluddless/mario_spin1.png" type="Texture" id=13]
+[ext_resource path="res://actors/player/mario/fluddless/mario_fall.png" type="Texture" id=14]
 [ext_resource path="res://hud/gui.tscn" type="PackedScene" id=15]
 [ext_resource path="res://actors/items/coin/sm64_coin.ogg" type="AudioStream" id=16]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_walk0.png" type="Texture" id=17]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_walk1.png" type="Texture" id=18]
-[ext_resource path="res://actors/player/mario/mario_swim_1.png" type="Texture" id=19]
-[ext_resource path="res://actors/player/mario/mario_swim_0.png" type="Texture" id=20]
+[ext_resource path="res://actors/player/mario/fluddless/mario_swim_1.png" type="Texture" id=19]
+[ext_resource path="res://actors/player/mario/fluddless/mario_swim_0.png" type="Texture" id=20]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_swim_0.png" type="Texture" id=21]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_swim_1.png" type="Texture" id=22]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_fall.png" type="Texture" id=23]
-[ext_resource path="res://actors/player/mario/mario_front.png" type="Texture" id=24]
+[ext_resource path="res://actors/player/mario/fluddless/mario_front.png" type="Texture" id=24]
 [ext_resource path="res://actors/player/camera.gd" type="Script" id=25]
-[ext_resource path="res://actors/player/mario/mario_jump_double.png" type="Texture" id=26]
-[ext_resource path="res://actors/player/mario/hover/mario_hover_jump_double.png" type="Texture" id=27]
+[ext_resource path="res://actors/player/mario/fluddless/mario_jump_double.png" type="Texture" id=26]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_jump.png" type="Texture" id=28]
-[ext_resource path="res://actors/player/mario/hover/mario_hover_pound_fall_0.png" type="Texture" id=29]
-[ext_resource path="res://actors/player/mario/hover/mario_hover_pound_fall_1.png" type="Texture" id=30]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_pound_spin.png" type="Texture" id=31]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_flip.png" type="Texture" id=32]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_dive.png" type="Texture" id=33]
 [ext_resource path="res://hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=34]
 [ext_resource path="res://hud/water_meter/water_meter_bubble_small.png" type="Texture" id=35]
-[ext_resource path="res://actors/player/mario/rocket/mario_rocket_stand.png" type="Texture" id=36]
 [ext_resource path="res://actors/player/bubbles.gd" type="Script" id=37]
 [ext_resource path="res://actors/player/bubble.tres" type="Material" id=38]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_jump_double.png" type="Texture" id=39]
@@ -51,7 +44,7 @@
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_jump.png" type="Texture" id=49]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_spin_3.png" type="Texture" id=50]
 [ext_resource path="res://actors/player/bubble_particle.tres" type="Material" id=51]
-[ext_resource path="res://actors/player/mario/mario_back.png" type="Texture" id=52]
+[ext_resource path="res://actors/player/mario/fluddless/mario_back.png" type="Texture" id=52]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_back.png" type="Texture" id=53]
 [ext_resource path="res://actors/player/mario/turbo/mario_turbo_back.png" type="Texture" id=54]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_back.png" type="Texture" id=55]
@@ -82,6 +75,14 @@
 [ext_resource path="res://actors/player/kris/kris_spin_11.png" type="Texture" id=80]
 [ext_resource path="res://actors/player/kris/kris_walk_right_3.png" type="Texture" id=81]
 
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 18, 31 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 18, 0, 18, 31 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 24 ) ],
@@ -94,152 +95,17 @@ animations = [ {
 "name": "back",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 73 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
-"name": "kris_pound_fall",
+"name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 20 ), ExtResource( 19 ) ],
-"loop": true,
-"name": "rocket_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 31 ) ],
-"loop": true,
-"name": "hover_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 48 ) ],
-"loop": true,
-"name": "rocket_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 43 ) ],
-"loop": true,
-"name": "rocket_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 28 ) ],
-"loop": true,
-"name": "hover_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 27 ) ],
-"loop": true,
-"name": "hover_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 46 ) ],
-"loop": true,
-"name": "rocket_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
-"loop": true,
-"name": "rocket_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 42 ) ],
-"loop": true,
-"name": "rocket_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "rocket_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 36 ) ],
-"loop": true,
-"name": "rocket_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
-"loop": true,
-"name": "hover_swim",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 53 ) ],
-"loop": true,
-"name": "rocket_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 32 ) ],
-"loop": true,
-"name": "hover_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
-"loop": true,
-"name": "rocket_spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 26 ) ],
-"loop": true,
-"name": "jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 55 ) ],
-"loop": true,
-"name": "rocket_back",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ) ],
-"loop": true,
-"name": "hover_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
-"loop": true,
-"name": "hover_walk",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 39 ) ],
-"loop": true,
-"name": "rocket_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 29 ), ExtResource( 30 ) ],
-"loop": true,
-"name": "hover_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 54 ) ],
-"loop": true,
-"name": "turbo_back",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 12 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
@@ -249,19 +115,54 @@ animations = [ {
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 20 ), ExtResource( 19 ) ],
 "loop": true,
 "name": "swim",
 "speed": 4.0
 }, {
+"frames": [ ExtResource( 7 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "kris_pound_fall",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 55 ) ],
 "loop": true,
 "name": "rocket_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 39 ) ],
+"loop": true,
+"name": "rocket_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "kris_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "rocket_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ) ],
+"loop": true,
+"name": "rocket_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 31 ) ],
+"loop": true,
+"name": "hover_pound_spin",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
@@ -269,9 +170,114 @@ animations = [ {
 "name": "rocket_pound_fall",
 "speed": 15.0
 }, {
+"frames": [ ExtResource( 60 ), ExtResource( 57 ), ExtResource( 59 ), ExtResource( 58 ) ],
+"loop": true,
+"name": "hover_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 23 ) ],
+"loop": true,
+"name": "hover_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 74 ) ],
+"loop": true,
+"name": "kris_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 70 ) ],
+"loop": true,
+"name": "kris_front",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "hover_walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "hover_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "hover_swim",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "kris_pound_spin",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 46 ) ],
+"loop": true,
+"name": "rocket_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "hover_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 43 ) ],
+"loop": true,
+"name": "rocket_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 54 ) ],
+"loop": true,
+"name": "hover_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 65 ) ],
+"loop": true,
+"name": "kris_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "rocket_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 75 ), ExtResource( 76 ), ExtResource( 75 ), ExtResource( 81 ) ],
+"loop": true,
+"name": "kris_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 53 ) ],
+"loop": true,
+"name": "hover_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 63 ) ],
+"loop": true,
+"name": "kris_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "kris_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "rocket_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 42 ) ],
+"loop": true,
+"name": "rocket_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 26 ) ],
+"loop": true,
+"name": "jump_double",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 62 ) ],
@@ -279,10 +285,20 @@ animations = [ {
 "name": "kris_swim",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 31 ) ],
+"frames": [ ExtResource( 64 ) ],
 "loop": true,
-"name": "hover_pound_spin",
+"name": "kris_jump",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "hover_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 66 ), ExtResource( 80 ), ExtResource( 71 ), ExtResource( 78 ), ExtResource( 77 ), ExtResource( 61 ), ExtResource( 67 ), ExtResource( 69 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 79 ) ],
+"loop": true,
+"name": "kris_spin",
+"speed": 15.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -300,8 +316,7 @@ script = ExtResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "hover_swim"
-frame = 1
+animation = "dive"
 playing = true
 
 [node name="WaterCheck" type="Area2D" parent="."]
@@ -395,6 +410,8 @@ script = ExtResource( 37 )
 [node name="SwitchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 56 )
 
+[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
+[connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 [connection signal="body_entered" from="BackupAngle" to="." method="_on_BackupAngle_body_entered"]
 [connection signal="body_exited" from="BackupAngle" to="." method="_on_BackupAngle_body_exited"]
