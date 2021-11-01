@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mario_jump_double.png-7038945b55dd59d1f24211c704a82ee8.stex"
+path="res://.import/mario_swim_1.png-23ec3dc60708b6d217d153e88ae57447.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/player/mario/mario_jump_double.png"
-dest_files=[ "res://.import/mario_jump_double.png-7038945b55dd59d1f24211c704a82ee8.stex" ]
+source_file="res://actors/player/mario/fluddless/mario_swim_1.png"
+dest_files=[ "res://.import/mario_swim_1.png-23ec3dc60708b6d217d153e88ae57447.stex" ]
 
 [params]
 
