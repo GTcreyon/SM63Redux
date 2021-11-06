@@ -1,8 +1,7 @@
 extends KinematicBody2D
 
 onready var player = $"/root/Main/Player"
-#onready var lm_counter = player.life_meter_counter
-#onready var lm_gui = player.get_child("/Camera2D/GUI/LifeMeter")
+onready var sprite = $AnimatedSprite
 
 var shell = preload("koopa_shell.tscn").instance()
 const FLOOR = Vector2(0, -1)
@@ -20,7 +19,10 @@ export var direction = 1
 #Start from zero, whenever it turns back after reaching a certain point, reset and start over again.
 
 func _ready():
-	 init_position = position
+	init_position = position
+	sprite.frame = hash(position.x + position.y * PI) % 6
+	sprite.playing = true
+
 
 func _physics_process(_delta):
 	vel.x = speed * direction
@@ -38,13 +40,15 @@ func _physics_process(_delta):
 	if is_on_wall():
 		flip_ev()
 	
-	$Sprite.flip_h = direction == -1
+	sprite.flip_h = direction == -1
 	if position.x - init_position.x > 100 or position.x - init_position.x < -100:
 		flip_ev()
+
 
 func flip_ev():
 	direction *= -1
 	$RayCast2D.position.x *= -1
+
 
 func _on_KoopaCollision_body_entered(_body):
 	if player.position.y < position.y:

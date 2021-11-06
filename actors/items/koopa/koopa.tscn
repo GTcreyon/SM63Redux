@@ -4,60 +4,58 @@
 [ext_resource path="res://actors/items/koopa/koopa.gd" type="Script" id=2]
 [ext_resource path="res://actors/items/koopa/koopa_walk.png" type="Texture" id=3]
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 3 )
 region = Rect2( 22, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
 region = Rect2( 44, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 3 )
 region = Rect2( 66, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 3 )
 region = Rect2( 88, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 3 )
 region = Rect2( 110, 0, 22, 35 )
 
-[sub_resource type="SpriteFrames" id=1]
+[sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "walk",
 "speed": 8.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 11, 16.5 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 11, 2 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 5, 14.5 )
 
 [node name="Koopa" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 7 )
 animation = "walk"
-frame = 5
-playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 0.5 )
-shape = SubResource( 2 )
+shape = SubResource( 8 )
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 9, 0 )
@@ -70,7 +68,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KoopaCollision"]
-shape = SubResource( 3 )
+shape = SubResource( 9 )
 one_way_collision = true
 
 [node name="Kick" type="AudioStreamPlayer" parent="."]
@@ -82,7 +80,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="Collision" type="CollisionShape2D" parent="Damage"]
-shape = SubResource( 4 )
+shape = SubResource( 10 )
 
 [connection signal="body_entered" from="KoopaCollision" to="." method="_on_KoopaCollision_body_entered"]
 [connection signal="finished" from="Kick" to="." method="_on_Kick_finished"]

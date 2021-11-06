@@ -16,14 +16,14 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 10 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "legacy",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 9 ), ExtResource( 12 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "modern",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 11 ), ExtResource( 6 ), ExtResource( 2 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "legacy",
 "speed": 15.0
 } ]
 
@@ -37,10 +37,9 @@ extents = Vector2( 8, 8 )
 collision_layer = 4
 script = ExtResource( 13 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "modern"
-playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
@@ -54,5 +53,6 @@ shape = SubResource( 3 )
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
 [connection signal="finished" from="SFX" to="." method="_on_SFX_finished"]

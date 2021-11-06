@@ -19,14 +19,14 @@ extents = Vector2( 12, 7 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "swoop",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "flap",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "swoop",
 "speed": 10.0
 } ]
 
@@ -50,12 +50,10 @@ shape = SubResource( 1 )
 shape = SubResource( 2 )
 one_way_collision = true
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -2 )
 frames = SubResource( 3 )
 animation = "flap"
-frame = 1
-playing = true
 
 [node name="SafetyNet" type="Area2D" parent="."]
 position = Vector2( 0, -4 )

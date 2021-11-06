@@ -1,13 +1,30 @@
 extends KinematicBody2D
 
 onready var singleton = $"/root/Singleton"
+onready var player = $"/root/Main/Player"
+onready var sprite = $AnimatedSprite
 var dropped = false
 var vel : Vector2 = Vector2.INF
+var picked = false
+var active_timer = 30
+var yellow = 0
+var red = 0
+
+func _process(_delta):
+	if !picked:
+		if dropped:
+			active_timer = max(active_timer - 1, 0)
+			if active_timer == 0:
+				$PickupArea.monitoring = true
+		else:
+			$PickupArea.monitoring = true
+
 
 func _ready():
 	if vel == Vector2.INF:
 		vel.x = (singleton.rng.randf() * 4 - 2) * 0.53
 		vel.y = -7 * 0.53
+	sprite.playing = true
 
 
 func _physics_process(_delta):
@@ -26,6 +43,17 @@ func _physics_process(_delta):
 			vel.x *= 0.75
 		# warning-ignore:RETURN_VALUE_DISCARDED
 		move_and_slide(vel * 60, Vector2.UP)
+
+
+func _on_PickupArea_body_entered(_body):
+	singleton.coin_total += yellow
+	if singleton.hp < 8:
+		player.internal_coin_counter += yellow
+	singleton.red_coin_total += red
+	picked = true
+	$SFX.play()
+	$PickupArea.queue_free() #clears up the acting segments of the coin so only the SFX is left
+	sprite.queue_free()
 
 
 func _on_SFX_finished():

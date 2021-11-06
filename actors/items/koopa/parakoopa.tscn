@@ -49,8 +49,6 @@ extents = Vector2( 5, 15 )
 [node name="Parakoopa" type="AnimatedSprite"]
 frames = SubResource( 8 )
 animation = "flying"
-frame = 5
-playing = true
 script = ExtResource( 8 )
 
 [node name="KoopaCollision" type="Area2D" parent="."]

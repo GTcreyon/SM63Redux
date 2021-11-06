@@ -19,11 +19,6 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 14 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "squish",
-"speed": 20.0
-}, {
 "frames": [ ExtResource( 1 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walking",
@@ -33,6 +28,11 @@ animations = [ {
 "loop": false,
 "name": "jumping",
 "speed": 0.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "squish",
+"speed": 20.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -52,11 +52,9 @@ collision_layer = 4
 collision_mask = 2147483649
 script = ExtResource( 16 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "walking"
-frame = 1
-playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
 visible = false
@@ -82,13 +80,15 @@ polygon = PoolVector2Array( -208, -59, -208, 32, -160, 35, -128, 35, -96, 33, -4
 
 [node name="AwareArea" type="Area2D" parent="."]
 visible = false
+collision_layer = 0
+collision_mask = 2
 
 [node name="EyeFull" type="CollisionShape2D" parent="AwareArea"]
 shape = SubResource( 3 )
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
-collision_mask = 6
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource( 4 )
