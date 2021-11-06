@@ -8,6 +8,7 @@
 [ext_resource path="res://actors/player/mario/fluddless/mario_jump.png" type="Texture" id=6]
 [ext_resource path="res://actors/player/mario/fluddless/mario_spin0.png" type="Texture" id=7]
 [ext_resource path="res://actors/player/mario/fluddless/mario_dive.png" type="Texture" id=8]
+[ext_resource path="res://actors/player/mario/hover/mario_hover_jump_double.png" type="Texture" id=9]
 [ext_resource path="res://actors/player/mario/fluddless/mario_spin2.png" type="Texture" id=11]
 [ext_resource path="res://actors/player/mario/fluddless/mario_spin1.png" type="Texture" id=13]
 [ext_resource path="res://actors/player/mario/fluddless/mario_fall.png" type="Texture" id=14]
@@ -46,7 +47,6 @@
 [ext_resource path="res://actors/player/bubble_particle.tres" type="Material" id=51]
 [ext_resource path="res://actors/player/mario/fluddless/mario_back.png" type="Texture" id=52]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_back.png" type="Texture" id=53]
-[ext_resource path="res://actors/player/mario/turbo/mario_turbo_back.png" type="Texture" id=54]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_back.png" type="Texture" id=55]
 [ext_resource path="res://audio/sfx/items/fludd/fludd_switch.wav" type="AudioStream" id=56]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_spin1.png" type="Texture" id=57]
@@ -270,7 +270,7 @@ animations = [ {
 "name": "kris_swim",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 54 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "hover_jump_double",
 "speed": 5.0
