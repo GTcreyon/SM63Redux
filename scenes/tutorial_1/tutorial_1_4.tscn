@@ -80,7 +80,7 @@ polygon = PoolVector2Array( -1050.96, -924.875, 1047.18, -920.637, 1053.54, -460
 [node name="BGT1" parent="." instance=ExtResource( 34 )]
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
-position = Vector2( -291, -257 )
+position = Vector2( -81, 193 )
 
 [node name="Terrain" type="Node2D" parent="."]
 
@@ -257,14 +257,14 @@ width = 3
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 position = Vector2( -355, -296 )
-rotation = 62.8319
+rotation = 115.785
 size = Vector2( 92, 92 )
 wait = 90
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -535, -318 )
-rotation = 94.2478
+rotation = 173.381
 size = Vector2( 70, 70 )
 wait = 60
 type = 2
@@ -272,7 +272,7 @@ type = 2
 [node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
 modulate = Color( 1, 1, 1, 0.5 )
 position = Vector2( -636, -318 )
-rotation = -94.2478
+rotation = -173.381
 size = Vector2( 70, 70 )
 speed = -1
 wait = 60
