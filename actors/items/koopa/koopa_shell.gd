@@ -7,6 +7,10 @@ var vel = Vector2.ZERO
 
 export var direction = 1
 
+func _ready():
+	sprite.playing = true
+
+
 func _physics_process(_delta):
 	vel.y = min(vel.y + 0.3, 6)
 	# warning-ignore:RETURN_VALUE_DISCARDED

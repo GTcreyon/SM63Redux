@@ -28,9 +28,8 @@ extents = Vector2( 1, 1 )
 collision_layer = 4
 script = ExtResource( 3 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-playing = true
 
 [node name="Following" type="Area2D" parent="."]
 collision_layer = 0

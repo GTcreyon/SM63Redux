@@ -3,6 +3,10 @@ onready var player = $"/root/Main/Player"
 var koopa = preload("koopa.tscn").instance()
 var shell = preload("koopa_shell.tscn").instance()
 
+func _ready():
+	frame = hash(position.x + position.y * PI) % 6
+	playing = true
+
 
 func _on_KoopaCollision_body_entered(_body):
 	if player.is_spinning():

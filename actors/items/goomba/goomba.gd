@@ -21,14 +21,18 @@ var stepped = false
 var full_jump = false
 var dead = false
 var struck = false
+var land_timer = 0
 
-onready var sprite = $Sprite
+onready var sprite = $AnimatedSprite
 onready var raycast = $RayCast2D
 onready var player = $"/root/Main/Player"
 onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
-var land_timer = 0
+
+func _ready():
+	sprite.frame = hash(position.x + position.y * PI) % 4
+	sprite.playing = true
 
 
 func _physics_process(_delta):
@@ -187,27 +191,25 @@ func flip_ev():
 	raycast.position.x *= -1
 
 
-func _on_AwareArea_body_exited(body):
-	if body == player:
-		tracking = false
+func _on_AwareArea_body_exited(_body):
+	tracking = false
 
 
 func _on_Area2D_body_entered_hurt(body):
-	if body == player:
-		if sprite.animation != "squish":
-			if body.hitbox.global_position.y + body.hitbox.shape.extents.y - body.vel.y - 6 < position.y && body.vel.y > 0:
-				sprite.animation = "squish"
-				struck = false
-				vel.y = 0
-				sprite.frame = 0
-				sprite.playing = true
-				player.call_deferred("switch_state", player.s.ejump)
-			elif !struck:
-				if player.is_spinning():
-					struck = true
-					vel.y -= 2.63
-					sprite.animation = "jumping"
-					vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x) / 10
-				else:
-					player.take_damage_shove(1, sign(body.position.x - position.x))
+	if sprite.animation != "squish":
+		if body.hitbox.global_position.y + body.hitbox.shape.extents.y - body.vel.y - 6 < position.y && body.vel.y > 0:
+			sprite.animation = "squish"
+			struck = false
+			vel.y = 0
+			sprite.frame = 0
+			sprite.playing = true
+			player.call_deferred("switch_state", player.s.ejump)
+		elif !struck:
+			if player.is_spinning():
+				struck = true
+				vel.y -= 2.63
+				sprite.animation = "jumping"
+				vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x) / 10
+			else:
+				player.take_damage_shove(1, sign(body.position.x - position.x))
 

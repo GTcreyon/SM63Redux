@@ -12,11 +12,13 @@ var in_water = false
 var struck = false
 var struck_timer = 60
 onready var player = $"/root/Main/Player"
-onready var sprite = $Sprite
+onready var sprite = $AnimatedSprite
 var rng = RandomNumberGenerator.new()
 
 func _ready():
 	rng.seed = hash(position.x + position.y * PI)
+	sprite.frame = rng.seed % 2
+	sprite.playing = true
 
 
 func _physics_process(_delta):

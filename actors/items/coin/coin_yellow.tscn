@@ -37,10 +37,9 @@ extents = Vector2( 8, 8 )
 collision_layer = 4
 script = ExtResource( 13 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "modern"
-playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )

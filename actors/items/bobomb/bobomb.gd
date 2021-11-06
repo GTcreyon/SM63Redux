@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 const GRAVITY = 0.17
 const coin = preload("res://actors/items/coin/coin_yellow.tscn")
+const explosion = preload("res://actors/items/bobomb/explosion.tscn")
 const sfx = {
 	"jump": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
 	"step": preload("res://audio/sfx/items/goomba/goomba_step.wav"),
@@ -18,6 +19,7 @@ var stepped = false
 var full_jump = false
 var dead = false
 var struck = false
+var fuse_time = 240
 
 onready var hurtbox = $Hurtbox
 onready var base = $Base
@@ -29,7 +31,6 @@ onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
 onready var lm_counter = $"/root/Singleton".hp
-var land_timer = 0
 
 
 func _process(_delta):
@@ -109,7 +110,7 @@ func _physics_process(_delta):
 				if wander_dist >= 120 && base.frame == 0:
 					wander_dist = 0
 					direction *= -1
-		
+	
 	var snap
 	if !is_on_floor() || base.animation == "struck":
 		snap = Vector2.ZERO
@@ -117,10 +118,17 @@ func _physics_process(_delta):
 		snap = Vector2(0, 4)
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
-	if is_on_floor() && struck:
+	
+	if fuse.animation == "lit":
+		fuse_time -= 1
+	
+	if (is_on_floor() && struck) || fuse_time <= 0:
 		var spawn = coin.instance()
 		spawn.position = position
 		spawn.dropped = true
+		main.add_child(spawn)
+		spawn = explosion.instance()
+		spawn.position = position
 		main.add_child(spawn)
 		queue_free()
 	
