@@ -300,7 +300,7 @@ func _physics_process(_delta):
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate
-			AudioServer.set_bus_effect_enabled(0, 0, true)
+			AudioServer.set_bus_effect_enabled(0, 0, true) #muffle audio underwater
 			AudioServer.set_bus_effect_enabled(0, 1, true)
 			singleton.water = max(singleton.water, 100)
 			singleton.power = 100
