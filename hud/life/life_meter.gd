@@ -19,7 +19,7 @@ var progress = 0
 func _ready():
 	modulate.v = 1 - death_cover.color.a
 	progress = singleton.meter_progress
-	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * scale.y
+	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * floor(OS.window_size.y / 304)
 	filler.frame = singleton.hp
 
 
