@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mario_spin3.png-a8e9f98fbccb60403ac3d58e17491b56.stex"
+path="res://.import/mario_pound_spin.png-051b4f2c8c7c3d8cb0d8556d73d1b4c8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/player/mario/fluddless/mario_spin3.png"
-dest_files=[ "res://.import/mario_spin3.png-a8e9f98fbccb60403ac3d58e17491b56.stex" ]
+source_file="res://actors/player/mario/fluddless/mario_pound_spin.png"
+dest_files=[ "res://.import/mario_pound_spin.png-051b4f2c8c7c3d8cb0d8556d73d1b4c8.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false
