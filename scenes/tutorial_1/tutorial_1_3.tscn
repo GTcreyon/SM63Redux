@@ -33,7 +33,8 @@ shader_param/radial = false
 [node name="Main" type="Node2D"]
 
 [node name="CameraArea" parent="." instance=ExtResource( 21 )]
-polygon = PoolVector2Array( 14.1866, 318.124, 15.8684, -132.596, 480.043, -130.914, 779.402, -413.455, 1875.93, -423.546, 1884.34, 321.488 )
+color = Color( 1, 0, 0, 0 )
+polygon = PoolVector2Array( 237.535, 134.968, 240.801, 49.8095, 664.159, 49.8095, 880.08, -96.1033, 1186.24, -99.8831, 1596.5, 1.05197, 1597.69, 129.486 )
 
 [node name="BGT1" parent="." instance=ExtResource( 17 )]
 
@@ -215,7 +216,7 @@ position = Vector2( 1648.46, 189.27 )
 position = Vector2( 1489.72, 181.333 )
 
 [node name="Player" parent="." instance=ExtResource( 11 )]
-position = Vector2( 64, 195 )
+position = Vector2( 64, 195.944 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 18 )]
 position = Vector2( 20, 111 )

@@ -1,9 +1,15 @@
+tool
 extends Polygon2D
+
+export var editor_view_extends = false
 
 onready var player = $"/root/Main/Player"
 onready var camera: Camera2D = player.get_node("Camera2D")
 onready var warp = $"/root/Singleton/Warp"
 
+const WINDOW_DIAGONAL = pow(pow(448 / 2, 2) + pow(304 / 2, 2), 0.5)
+
+var global_polygon = PoolVector2Array()
 
 #return segment-polygon intersection
 func intersect_polygon(from, to, poly):
@@ -24,39 +30,76 @@ func intersect_polygon(from, to, poly):
 			hit = check_hit
 	return hit
 
+func get_closest_point_to_polygon(point, fallback):
+	#get a list of nearest positions
+	var nearest_positions = []
+	var size = global_polygon.size()
+	for ind in range(size):
+		var this = global_polygon[ind % size]
+		var next = global_polygon[(ind + 1) % size]
+		var nearest = Geometry.get_closest_point_to_segment_2d(point, this, next)
+		#if !(nearest == this || nearest == next):
+		nearest_positions.append(nearest)
+	#find the REAL nearest position
+	var real_pos = fallback
+	var nearest_dist = INF
+	for poly in nearest_positions:
+		var mag = (poly - point).length()
+		if mag < nearest_dist:
+			nearest_dist = mag
+			real_pos = poly
+	return real_pos
+
+var last_valid_pos = null
 func set_limits():
-	#we multiply by 2 so the camera doesn't *instantly* snaps back once the camera doesn't need to clip anymore
-	var screen_size = OS.window_size / camera.get_global_transform().get_scale() * 2
-	var player_pos = player.global_position
-	
-	#transform this polygon into global positions
-	var global_polygon = PoolVector2Array()
+	if global_polygon.size() == 0:
+		return
+	#TODO for the future, disable the tweening for the camera when outside of the radius
+	var camera_pos = camera.get_camera_screen_center()
+	var player_pos = player.position
+	if !last_valid_pos:
+		last_valid_pos = get_closest_point_to_polygon(player_pos, last_valid_pos)
+	#var camera_sway = last_valid_pos - camera_pos
+	#check if the camera position is inside the polygon
+	if Geometry.is_point_in_polygon(player_pos, global_polygon):
+		camera.offset = Vector2(0, 0)
+		camera.smoothing_enabled = true
+		last_valid_pos = player_pos
+	else:
+		var real_pos = get_closest_point_to_polygon(player_pos, last_valid_pos)
+		#calculate the offset
+		var offset = real_pos - player_pos
+		camera.position = offset
+
+func _draw():
+	if Engine.editor_hint && editor_view_extends:
+		var margin_poly = PoolVector2Array()
+		var size = polygon.size()
+		var global_normal = 1 if Geometry.is_polygon_clockwise(polygon) else -1
+		for ind in range(size):
+			var prev = polygon[(ind - 1) % size]
+			var this = polygon[ind % size]
+			var next = polygon[(ind + 1) % size]
+			var this_prev = this.direction_to(prev)
+			var this_next = this.direction_to(next)
+			var normal = (this_prev + this_next).normalized()
+			normal *= 1 if Geometry.is_polygon_clockwise([prev, this, next]) else -1
+			normal *= global_normal
+			margin_poly.append(this - normal * WINDOW_DIAGONAL) #224 is half the width of
+		draw_colored_polygon(polygon, Color(1, 0, 0, 0.5))
+		draw_colored_polygon(margin_poly, Color(0, 1, 0, 0.3))
+
+func _ready():
+	if Engine.editor_hint:
+		return
+	#convert polygon to global polygon
+	var real_poly = PoolVector2Array()
 	for vec in polygon:
-		global_polygon.append(vec + global_position)
-	
-	#set default value
-	camera.target_limit_left = player_pos.x + -screen_size.x / 2
-	camera.target_limit_right = player_pos.x + screen_size.x / 2
-	camera.target_limit_top = player_pos.y + -screen_size.y / 2
-	camera.target_limit_bottom = player_pos.y + screen_size.y / 2
-	
-	#check for 
-	var upper_int = intersect_polygon(player_pos, player_pos + Vector2(0, -screen_size.y / 2), global_polygon)
-	if upper_int:
-		camera.target_limit_top = upper_int.y
-
-	var lower_int = intersect_polygon(player_pos, player_pos + Vector2(0, screen_size.y / 2), global_polygon)
-	if lower_int:
-		camera.target_limit_bottom = lower_int.y
-
-	var left_int = intersect_polygon(player_pos, player_pos + Vector2(-screen_size.y / 2, 0), global_polygon)
-	if left_int:
-		camera.target_limit_left = left_int.x
-
-	var right_int = intersect_polygon(player_pos, player_pos + Vector2(screen_size.y / 2, 0), global_polygon)
-	if right_int:
-		camera.target_limit_right = right_int.x
+		real_poly.append(vec + global_position)
+	global_polygon = real_poly
 
 func _process(_dt):
+	if Engine.editor_hint:
+		return
 	if warp.enter != 1:
 		set_limits()
