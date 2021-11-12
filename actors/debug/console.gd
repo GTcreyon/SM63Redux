@@ -3,6 +3,7 @@ extends Control
 onready var logger = $Logger
 onready var input_line = $Input
 onready var singleton = $"/root/Singleton"
+onready var serializer = singleton.serializer
 
 var history = []
 var hist_index = 0
@@ -88,6 +89,9 @@ func run_command(cmd):
 			output("Forced %d damage." % int(args[1]))
 		"kris":
 			singleton.kris = !singleton.kris
+		"designer":
+			output("(Entered LD Designer)")
+			get_tree().change_scene("res://level_designer.tscn")
 		_:
 			output("Unknown command \"%s\"." % args[0])
 
