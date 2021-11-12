@@ -826,7 +826,8 @@ func _physics_process(_delta):
 			&& state != s.pound_spin):
 				switch_state(s.spin)
 				switch_anim("spin")
-				vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
+				if !ground:
+					vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
 				spin_timer = 30
 			
 			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
