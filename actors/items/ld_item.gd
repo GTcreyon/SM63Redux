@@ -1,7 +1,10 @@
 extends AnimatedSprite
+
 const glow = preload("res://shaders/glow.tres")
-var code = ""
-var code_array = []
+
+var id = ""
+var data = []
+
 var glow_factor = 1
 var pulse = 0.0
 var selected = false
@@ -9,22 +12,13 @@ var size
 
 onready var cam = get_parent().get_node("LDCamera")
 
-func updateCode():
-	code = ""
-	for i in code_array:
-		code += i + ","
-	code.erase(code.length() - 1, 1)
-	$Label.text = code
-
 func _ready():
-	$Label.text = code
-	code_array = code.split(",")
-	position = Vector2(int(code_array[1]) + 32, int(code_array[2]) + 32)
-	animation = code_array[0]
-	if animation != code_array[0]:
+	$Label.text = str(id)
+	animation = str(id)
+	if animation != str(id):
 		animation = "0"
-	if code_array[0] == "140":
-		rotation_degrees = int(code_array[4])
+	if id == 140:
+		rotation_degrees = int(data[3])
 	size = frames.get_frame(animation, frame).get_size()
 	cam.connect("test_level", self, "_on_LDCamera_test_level")
 
@@ -63,17 +57,17 @@ func _process(delta):
 				position.y -= shift_step
 			if i_down:
 				position.y += shift_step
-		code_array[1] = str(position.x - 32)
-		code_array[2] = str(position.y - 32)
-		updateCode()
+		#code_array[1] = str(position.x - 32)
+		#code_array[2] = str(position.y - 32)
+		#updateCode()
 	
-	if code_array[0] == "1":
-		get_parent().start_pos = position
+	#if id == 1:
+	#	get_parent().start_pos = position
 		
 
 func _on_LDCamera_test_level():
-	if code_array[0] != "1":
-		var object_spawn = cam.object_load(code_array[0]).instance()
+	if id != 1:
+		var object_spawn = cam.object_load(id).instance()
 		object_spawn.position = position
 		get_parent().add_child(object_spawn)
 	queue_free()

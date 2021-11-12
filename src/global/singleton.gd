@@ -1,5 +1,7 @@
 extends Node
 
+onready var serializer = $Serializer
+
 var classic = true
 
 var nozzle = 0

@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "LDItem",
 "language": "GDScript",
 "path": "res://classes/ld_item_class.gd"
+}, {
+"base": "Node2D",
+"class": "Serializer",
+"language": "GDScript",
+"path": "res://src/global/serializer.gd"
 } ]
 _global_script_class_icons={
-"LDItem": ""
+"LDItem": "",
+"Serializer": ""
 }
 
 [application]
