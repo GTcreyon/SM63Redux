@@ -31,12 +31,12 @@ func _process(delta):
 		
 	mouse_pos_store = mouse_pos
 	
-	if i_place:
-		map.set_cellv(map.world_to_map(get_global_mouse_position()), 0)
-		
-	if i_delete:
-		map.set_cellv(map.world_to_map(get_global_mouse_position()), -1)
-		
+#	if i_place:
+#		map.set_cellv(map.world_to_map(get_global_mouse_position()), 0)
+#
+#	if i_delete:
+#		map.set_cellv(map.world_to_map(get_global_mouse_position()), -1)
+#
 	if i_down && Input.is_action_just_pressed("debug"):
 		var player_spawn = player.instance()
 		player_spawn.position = get_parent().start_pos

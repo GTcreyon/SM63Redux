@@ -1,21 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://src/level_designer/ld_main.gd" type="Script" id=2]
 [ext_resource path="res://src/level_designer/ld_camera.gd" type="Script" id=3]
 [ext_resource path="res://music.gd" type="Script" id=5]
 
 [node name="LevelDesigner" type="Node2D"]
 script = ExtResource( 2 )
-
-[node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 1 )
-cell_size = Vector2( 32, 32 )
-cell_custom_transform = Transform2D( 32, 0, 0, 32, 0, 0 )
-cell_tile_origin = 2
-cell_y_sort = true
-centered_textures = true
-format = 1
 
 [node name="LDCamera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -28,6 +18,9 @@ script = ExtResource( 5 )
 [node name="FadeOut" type="Tween" parent="Music"]
 
 [node name="FadeIn" type="Tween" parent="Music"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PoolVector2Array( 51.5379, 35.3333, 180.279, 16.7992, 267.587, 35.0543, 284.254, 122.361, 232.664, 216.018, 142.182, 190.62, 193.772, 125.536, 150.913, 91.4071, 77.8921, 136.648, 75.511, 182.683, 46.1441, 196.969, 8.84015, 172.365, 39.0008, 104.106, 69.4972, 81.3542, 78.4769, 59.4662, 45.9255, 62.8336, 32.6512, 55.6905 )
 
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
