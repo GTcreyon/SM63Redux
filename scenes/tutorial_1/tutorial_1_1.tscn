@@ -313,13 +313,13 @@ position = Vector2( 1739, 173 )
 animation = "yellow"
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1388, 77 )
+position = Vector2( 1388, 86 )
 
 [node name="Goomba2" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1490, 65 )
+position = Vector2( 1490, 86 )
 
 [node name="Goomba3" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1593, 81 )
+position = Vector2( 1593, 88 )
 
 [node name="Coins" type="Node2D" parent="Items"]
 
