@@ -5,7 +5,7 @@ onready var input_line = $Input
 onready var singleton = $"/root/Singleton"
 onready var serializer = singleton.serializer
 
-var history = []
+var history : PoolStringArray = []
 var hist_index = 0
 
 
@@ -17,8 +17,8 @@ func output(msg):
 func run_command(cmd):
 	hist_index = 0
 	history.append(cmd)
-	var args = cmd.split(" ")
-	match args[0]:
+	var args : PoolStringArray = cmd.split(" ")
+	match args[0].to_lower():
 		"w":
 			var path
 			if len(args) == 1:
@@ -89,8 +89,9 @@ func run_command(cmd):
 			output("Forced %d damage." % int(args[1]))
 		"kris":
 			singleton.kris = !singleton.kris
-		"designer":
-			output("(Entered LD Designer)")
+		"designer", "ld":
+			output("Entered Level Designer.")
+			#warning-ignore:RETURN_VALUE_DISCARDED
 			get_tree().change_scene("res://level_designer.tscn")
 		_:
 			output("Unknown command \"%s\"." % args[0])
