@@ -28,16 +28,14 @@ func switch_song():
 	fade_out.interpolate_property(self, "volume_db", 0, -60, 10, 1, Tween.EASE_IN, play_length)
 	fade_out.start()
 
-#func _process(delta):
-#	if get_playback_position() > play_length + 10:
-#
 
 func _ready():
 	randomize()
 	song_num = randi() % 4
 	volume_db = -80
 	switch_song()
-	
+
+
 func _on_FadeOut_tween_completed(_object, _key):
 	# stop the music -- otherwise it continues to run at silent volume
 	stop()
