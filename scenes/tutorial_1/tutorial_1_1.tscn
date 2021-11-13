@@ -197,7 +197,7 @@ lines = [ "Hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Welcome back to the M
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 2 )
 position = Vector2( 299, 165 )
-lines = [ "Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as a thank you?", "Okay,[@p,3] well,[@p,3] by double-tapping either left or right you can start running real fast in that direction!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
+lines = [ "Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as a thank you?", "You can press [color=#f7c55f]X[/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 3 )
