@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hat.png-e21255c08dafb7064b3ce29d6fa91da9.stex"
+path="res://.import/big_rock.png-e6fc2983589f779a849e530a7f996aa9.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/decoration/fossil/hat.png"
-dest_files=[ "res://.import/hat.png-e21255c08dafb7064b3ce29d6fa91da9.stex" ]
+source_file="res://actors/items/rocks/big_rock/big_rock.png"
+dest_files=[ "res://.import/big_rock.png-e6fc2983589f779a849e530a7f996aa9.stex" ]
 
 [params]
 
@@ -21,13 +21,14 @@ compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
 flags/filter=false
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false
