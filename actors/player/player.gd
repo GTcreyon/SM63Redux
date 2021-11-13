@@ -21,6 +21,7 @@ const set_triple_jump_deadzone = 2.0 * fps_mod
 const set_dive_speed = 35.0 * fps_mod
 const set_dive_correct = 7
 const set_hover_speed = 9.2
+const ground_override_threshold = 10
 
 onready var singleton = $"/root/Singleton"
 onready var voice = $Voice
@@ -39,6 +40,7 @@ var stand_box_pos = Vector2(0, 1.5)
 var stand_box_extents = Vector2(6, 14.5)
 var dive_box_pos = Vector2(0, 3)
 var dive_box_extents = Vector2(6, 6)
+var ground_override = 0
 
 #mario's gameplay parameters
 var fludd_strain = false
@@ -273,7 +275,15 @@ func _physics_process(_delta):
 #			if i_jump_h:
 #				$"/root/Main".classic = !classic
 #				update_classic()
-		var ground = is_on_floor()
+
+		# failsafe to prevent getting stuck between slopes
+		# treat with care: tweaking this in the wrong way could allow midair jumps
+		# varying from "possible but too difficult to do in a speedrun but just useful enough to"
+		# destroy a category if someone pulls it off" to "intrusive and annoying"
+		var ground = is_on_floor() || ground_override >= ground_override_threshold
+		if vel.y < 0 || is_on_floor() || i_fludd:
+			ground_override = 0
+		
 		var wall = is_on_wall()
 		var ceiling = is_on_ceiling()
 		
@@ -635,16 +645,25 @@ func _physics_process(_delta):
 							0: #Single
 								switch_state(s.walk)
 								play_voice("jump1")
-								vel.y = -set_jump_1_vel
+								if ground_override > 0:
+									vel.y = -set_jump_1_vel * 2
+								else:
+									vel.y = -set_jump_1_vel
 								double_jump_state+=1
 							1: #Double
 								switch_state(s.walk)
 								play_voice("jump2")
-								vel.y = -set_jump_2_vel
+								if ground_override > 0:
+									vel.y = -set_jump_2_vel * 2
+								else:
+									vel.y = -set_jump_2_vel
 								double_jump_state+=1
 							2: #Triple
 								if abs(vel.x) > set_triple_jump_deadzone:
-									vel.y = -set_jump_3_vel
+									if ground_override > 0:
+										vel.y = -set_jump_3_vel * 2
+									else:
+										vel.y = -set_jump_3_vel
 									vel.x += (vel.x + 15*fps_mod*sign(vel.x))/5*fps_mod
 									double_jump_state = 0
 									switch_state(s.frontflip)
@@ -657,7 +676,10 @@ func _physics_process(_delta):
 									tween.start()
 									flip_l = sprite.flip_h
 								else:
-									vel.y = -set_jump_2_vel #Not moving left/right fast enough
+									if ground_override > 0:
+										vel.y = -set_jump_2_vel * 2
+									else:
+										vel.y = -set_jump_2_vel #Not moving left/right fast enough
 									play_voice("jump2")
 						
 						if !classic:
@@ -855,7 +877,10 @@ func _physics_process(_delta):
 		var save_pos = position
 		#warning-ignore:return_value_discarded
 		move_and_slide_with_snap(vel*60.0, snap, Vector2(0, -1), true)
+		
 		var slide_vec = position-save_pos
+		if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
+			ground_override = min(ground_override + 1, ground_override_threshold)
 		position = save_pos
 		if slide_vec.length() > 0.5 || ((state == s.swim || state == s.waterbackflip || state == s.waterspin) && slide_vec != Vector2.ZERO):
 			#warning-ignore:return_value_discarded
