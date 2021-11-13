@@ -22,7 +22,7 @@ func _ready():
 	size = frames.get_frame(animation, frame).get_size()
 	cam.connect("test_level", self, "_on_LDCamera_test_level")
 
-func _process(delta):
+func _process(_delta):
 	var i_left = Input.is_action_just_pressed("ui_left")
 	var i_right = Input.is_action_just_pressed("ui_right")
 	var i_up = Input.is_action_just_pressed("ui_up")

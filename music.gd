@@ -38,7 +38,7 @@ func _ready():
 	volume_db = -80
 	switch_song()
 	
-func _on_FadeOut_tween_completed(object, key):
+func _on_FadeOut_tween_completed(_object, _key):
 	# stop the music -- otherwise it continues to run at silent volume
 	stop()
 	switch_song()
