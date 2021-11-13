@@ -57,7 +57,7 @@ shader_param/radial = false
 script = ExtResource( 5 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
-polygon = PoolVector2Array( 229.721, 46.8014, 230.91, 316.751, 1678.91, 307.624, 1683.67, 31.7278 )
+polygon = PoolVector2Array( 230, 40, 230, 310, 1680, 310, 1680, 40 )
 
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 

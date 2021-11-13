@@ -198,25 +198,25 @@ func switch_anim(new_anim):
 
 
 func switch_state(new_state):
-	if state != new_state:
-		state = new_state
-		sprite.rotation_degrees = 0
-		match state:
-			s.dive, s.waterdive:
-				hitbox.position = dive_box_pos
-				hitbox.shape.extents = dive_box_extents
-			s.pound_fall:
-				hitbox.position = stand_box_pos
-				hitbox.shape.extents = stand_box_extents
-				camera.smoothing_speed = 10
-			_:
-				hitbox.position = stand_box_pos
-				hitbox.shape.extents = stand_box_extents
-				camera.smoothing_speed = 5
+	state = new_state
+	sprite.rotation_degrees = 0
+	match state:
+		s.dive, s.waterdive:
+			hitbox.position = dive_box_pos
+			hitbox.shape.extents = dive_box_extents
+		s.pound_fall:
+			hitbox.position = stand_box_pos
+			hitbox.shape.extents = stand_box_extents
+			camera.smoothing_speed = 10
+		_:
+			hitbox.position = stand_box_pos
+			hitbox.shape.extents = stand_box_extents
+			camera.smoothing_speed = 5
 
 
 func _ready():
 	var warp = $"/root/Singleton/Warp"
+	switch_state(s.walk) # reset state to avoid short mario glitch
 	if warp.set_location != null:
 		position = warp.set_location
 		warp.set_location = null
