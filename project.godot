@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "BaseModifier",
 "language": "GDScript",
-"path": "res://src/global/BaseModifier.gd"
+"path": "res://src/global/base_modifier.gd"
 }, {
 "base": "Node2D",
 "class": "LDItem",
