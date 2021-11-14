@@ -20,7 +20,7 @@
 [ext_resource path="res://actors/items/koopa/parakoopa.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/items/koopa/koopa.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=20]
-[ext_resource path="res://actors/items/butterfly/butterfly_.tscn" type="PackedScene" id=21]
+[ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=21]
 
 
 [node name="Main" type="Node2D"]
