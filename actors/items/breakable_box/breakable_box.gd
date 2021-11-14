@@ -17,7 +17,7 @@ func _ready():
 
 func _process(_delta):
 	if pound_area.overlaps_body(player):
-		if player.state == player.s.pound_fall:
+		if player.state == player.s.pound_fall || player.state == player.s.pound_land:
 			destroy()
 	if spin_area.overlaps_body(player):
 		if player.is_spinning(): 
@@ -25,7 +25,7 @@ func _process(_delta):
 
 
 func _on_PoundArea_body_entered(_body):
-	if player.state == player.s.pound_fall:
+	if player.state == player.s.pound_fall || player.state == player.s.pound_land:
 		destroy()
 
 
