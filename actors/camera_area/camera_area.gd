@@ -53,7 +53,6 @@ func get_closest_point_to_polygon(point, fallback):
 	return real_pos
 
 var last_valid_pos = null
-var modifier_id = null
 func set_limits():
 	if global_polygon.size() == 0:
 		return
@@ -72,10 +71,7 @@ func set_limits():
 		var real_pos = get_closest_point_to_polygon(player_pos, last_valid_pos)
 		#calculate the offset
 		var offset = real_pos - player_pos
-		if !modifier_id:
-			modifier_id = base_modifier.get_id()
-		base_modifier.change_modifier(camera, "position", modifier_id, offset)
-		#camera.position = offset
+		base_modifier.add_modifier(camera, "position", "camera_limits", offset)
 
 func _draw():
 	if Engine.editor_hint && editor_view_extends:

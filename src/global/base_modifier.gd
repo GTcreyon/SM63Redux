@@ -3,11 +3,6 @@ class_name BaseModifier
 
 var items = {}
 
-var _id = 0
-func get_id():
-	_id += 1
-	return _id
-
 #calculate the total and set that as the property
 func set_calculated_value(item, property):
 	var value = items[item][property].base
@@ -29,42 +24,22 @@ func set_base(item, property, base):
 	set_calculated_value(item, property)
 
 #add a additive modifier
-func add_modifier(item, property, add):
+func add_modifier(item, property, key, add):
 	if !items.has(item):
 		set_base(item, property, item[property])
-	var id = get_id()
-	items[item][property].add[id] = add
+	items[item][property].add[key] = add
 	set_calculated_value(item, property)
-	return id
 	
 #add a multiplying modifier
-func mul_modifier(item, property, mul):
+func mul_modifier(item, property, key, mul):
 	if !items.has(item):
 		set_base(item, property, item[property])
-	var id = get_id()
-	items[item][property].mul[id] = mul
-	set_calculated_value(item, property)
-	return id
-
-#change an existing modifier, optional argument is `type`
-#if type is specified it will not do automatic id checking, but directly changes
-#the modifier type
-func change_modifier(item, property, id, val, type = null):
-	if !items.has(item):
-		set_base(item, property, item[property])
-	var item_mod = items[item][property]
-	if type:
-		item_mod[type][id] = val
-	else:
-		if item_mod.mul.has(id):
-			item_mod.mul[id] = val
-		else:
-			item_mod.add[id] = val
+	items[item][property].mul[key] = mul
 	set_calculated_value(item, property)
 
 #remove a property modifier
-func remove_modifier(item, property, id):
+func remove_modifier(item, property, key):
 	if !items.has(item):
 		set_base(item, property, item[property])
-	items[item][property].mul.erase(id)
-	items[item][property].add.erase(id)
+	items[item][property].mul.erase(key)
+	items[item][property].add.erase(key)
