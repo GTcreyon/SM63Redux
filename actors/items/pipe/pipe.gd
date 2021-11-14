@@ -37,7 +37,7 @@ func _process(_delta):
 		can_warp = false
 		inc = true
 		slid = true
-	elif player.state == player.s.pound_fall && can_warp:
+	elif (player.state == player.s.pound_fall || player.state == player.s.pound_land) && can_warp:
 		sound.play()
 		player.static_v = true #affects mario's whole input process
 		#player.position = Vector2(position.x, position.y - 30)

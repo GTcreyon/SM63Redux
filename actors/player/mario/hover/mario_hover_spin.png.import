@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bombprint.png-71136bc51a2af8c7140aff142d0cc88b.stex"
+path="res://.import/mario_hover_spin.png-dd57d0739d7332c738514c6a95dd41ab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/decoration/fossil/bombprint.png"
-dest_files=[ "res://.import/bombprint.png-71136bc51a2af8c7140aff142d0cc88b.stex" ]
+source_file="res://actors/player/mario/hover/mario_hover_spin.png"
+dest_files=[ "res://.import/mario_hover_spin.png-dd57d0739d7332c738514c6a95dd41ab.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

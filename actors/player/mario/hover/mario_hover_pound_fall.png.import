@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hat.png-e21255c08dafb7064b3ce29d6fa91da9.stex"
+path="res://.import/mario_hover_pound_fall.png-050c66f7a3663d3a0ac8968b042b0fcb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/decoration/fossil/hat.png"
-dest_files=[ "res://.import/hat.png-e21255c08dafb7064b3ce29d6fa91da9.stex" ]
+source_file="res://actors/player/mario/hover/mario_hover_pound_fall.png"
+dest_files=[ "res://.import/mario_hover_pound_fall.png-050c66f7a3663d3a0ac8968b042b0fcb.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

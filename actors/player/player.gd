@@ -21,6 +21,7 @@ const set_triple_jump_deadzone = 2.0 * fps_mod
 const set_dive_speed = 35.0 * fps_mod
 const set_dive_correct = 7
 const set_hover_speed = 9.2
+const ground_override_threshold = 10
 
 onready var singleton = $"/root/Singleton"
 onready var base_modifier: BaseModifier = singleton.base_modifier
@@ -40,6 +41,7 @@ var stand_box_pos = Vector2(0, 1.5)
 var stand_box_extents = Vector2(6, 14.5)
 var dive_box_pos = Vector2(0, 3)
 var dive_box_extents = Vector2(6, 6)
+var ground_override = 0
 
 #mario's gameplay parameters
 var fludd_strain = false
@@ -106,6 +108,7 @@ enum s { #state enum
 	pound_land,
 	door,
 	ejump, #bouncing off a goomba
+	edive, #bouncing off a goomba
 	swim,
 	waterdive,
 	waterbackflip,
@@ -210,25 +213,25 @@ func switch_anim(new_anim):
 
 
 func switch_state(new_state):
-	if state != new_state:
-		state = new_state
-		sprite.rotation_degrees = 0
-		match state:
-			s.dive, s.waterdive:
-				hitbox.position = dive_box_pos
-				hitbox.shape.extents = dive_box_extents
-			s.pound_fall:
-				hitbox.position = stand_box_pos
-				hitbox.shape.extents = stand_box_extents
-				camera.smoothing_speed = 10
-			_:
-				hitbox.position = stand_box_pos
-				hitbox.shape.extents = stand_box_extents
-				camera.smoothing_speed = 5
+	state = new_state
+	sprite.rotation_degrees = 0
+	match state:
+		s.dive, s.waterdive:
+			hitbox.position = dive_box_pos
+			hitbox.shape.extents = dive_box_extents
+		s.pound_fall:
+			hitbox.position = stand_box_pos
+			hitbox.shape.extents = stand_box_extents
+			camera.smoothing_speed = 10
+		_:
+			hitbox.position = stand_box_pos
+			hitbox.shape.extents = stand_box_extents
+			camera.smoothing_speed = 5
 
 
 func _ready():
 	var warp = $"/root/Singleton/Warp"
+	switch_state(s.walk) # reset state to avoid short mario glitch
 	if warp.set_location != null:
 		position = warp.set_location
 		warp.set_location = null
@@ -285,7 +288,15 @@ func _physics_process(_delta):
 #			if i_jump_h:
 #				$"/root/Main".classic = !classic
 #				update_classic()
-		var ground = is_on_floor()
+
+		# failsafe to prevent getting stuck between slopes
+		# treat with care: tweaking this in the wrong way could allow midair jumps
+		# varying from "possible but too difficult to do in a speedrun but just useful enough to"
+		# destroy a category if someone pulls it off" to "intrusive and annoying"
+		var ground = is_on_floor() || ground_override >= ground_override_threshold
+		if vel.y < 0 || is_on_floor() || i_fludd || state == s.pound_spin || is_swimming() || state == s.ejump || state == s.edive:
+			ground_override = 0
+		
 		var wall = is_on_wall()
 		var ceiling = is_on_ceiling()
 		
@@ -399,7 +410,7 @@ func _physics_process(_delta):
 					else:
 						vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
 					dive_return = false
-					tween.stop_all()
+					tween.remove_all()
 					if sprite.flip_h:
 						tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
 					else:
@@ -414,7 +425,7 @@ func _physics_process(_delta):
 				if i_dive_h && state != s.waterbackflip && state != s.waterspin:
 					switch_state(s.waterdive)
 					rotation_degrees = 0
-					tween.stop_all()
+					tween.remove_all()
 					switch_anim("dive")
 					double_jump_state = 0
 					dive_correct(1)
@@ -486,7 +497,7 @@ func _physics_process(_delta):
 			
 			vel.x = ground_friction(vel.x, 0.05, 1.05)
 			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
-		else:
+		else: # on land
 			AudioServer.set_bus_effect_enabled(0, 0, false)
 			AudioServer.set_bus_effect_enabled(0, 1, false)
 			if state == s.diveflip:
@@ -515,12 +526,15 @@ func _physics_process(_delta):
 				
 			if coyote_time > 0:
 				jump_cancel = false
-				if state == s.pound_fall:
-					pound_frames = max(0, pound_frames - 1)
-					if pound_frames <= 0:
-						switch_state(s.walk)
 						
 				if ground: #specifically apply to when actually on the ground, not coyote time
+					if state == s.pound_fall || state == s.pound_land:
+						if pound_frames == 12:
+							switch_state(s.pound_land)
+							switch_anim("flip")
+						elif pound_frames <= 0:
+							switch_state(s.walk)
+						pound_frames = max(0, pound_frames - 1)
 					fall_adjust = 0 #set adjustable yvel to 0
 					if state == s.dive:
 						if double_jump_frames >= set_double_jump_frames - 1:
@@ -540,7 +554,7 @@ func _physics_process(_delta):
 					if state == s.frontflip || state == s.backflip: #Reset state when landing
 						switch_state(s.walk)
 						sprite.rotation_degrees = 0
-						tween.stop_all()
+						tween.remove_all()
 					
 					if state == s.dive && abs(vel.x) == 0 && !i_dive_h && !dive_return:
 						dive_return = true
@@ -628,7 +642,7 @@ func _physics_process(_delta):
 							else:
 								vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
 							dive_return = false
-							tween.stop_all()
+							tween.remove_all()
 							if sprite.flip_h:
 								tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
 							else:
@@ -638,7 +652,7 @@ func _physics_process(_delta):
 							flip_l = sprite.flip_h
 						
 						
-					elif jump_buffer > 0 && state != s.pound_fall:
+					elif jump_buffer > 0 && state != s.pound_fall && state != s.pound_land && state != s.ejump && state != s.edive:
 						jump_buffer = 0
 						jump_frames = set_jump_mod_frames
 						double_jump_frames = set_double_jump_frames
@@ -647,21 +661,30 @@ func _physics_process(_delta):
 							0: #Single
 								switch_state(s.walk)
 								play_voice("jump1")
-								vel.y = -set_jump_1_vel
+								if ground_override > 0:
+									vel.y = -set_jump_1_vel * 2
+								else:
+									vel.y = -set_jump_1_vel
 								double_jump_state+=1
 							1: #Double
 								switch_state(s.walk)
 								play_voice("jump2")
-								vel.y = -set_jump_2_vel
+								if ground_override > 0:
+									vel.y = -set_jump_2_vel * 2
+								else:
+									vel.y = -set_jump_2_vel
 								double_jump_state+=1
 							2: #Triple
 								if abs(vel.x) > set_triple_jump_deadzone:
-									vel.y = -set_jump_3_vel
+									if ground_override > 0:
+										vel.y = -set_jump_3_vel * 2
+									else:
+										vel.y = -set_jump_3_vel
 									vel.x += (vel.x + 15*fps_mod*sign(vel.x))/5*fps_mod
 									double_jump_state = 0
 									switch_state(s.frontflip)
 									play_voice("jump3")
-									tween.stop_all()
+									tween.remove_all()
 									if singleton.nozzle == n.none:
 										tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
 									else:
@@ -669,7 +692,10 @@ func _physics_process(_delta):
 									tween.start()
 									flip_l = sprite.flip_h
 								else:
-									vel.y = -set_jump_2_vel #Not moving left/right fast enough
+									if ground_override > 0:
+										vel.y = -set_jump_2_vel * 2
+									else:
+										vel.y = -set_jump_2_vel #Not moving left/right fast enough
 									play_voice("jump2")
 						
 						if !classic:
@@ -684,18 +710,21 @@ func _physics_process(_delta):
 				&& (state != s.frontflip || !classic)
 				&& state != s.backflip
 				&& state != s.pound_fall
+				&& state != s.pound_land
 				):
 					sprite.flip_h = true
 				if ground:
-					if state != s.dive && state != s.pound_fall:
+					if state == s.pound_fall || state == s.pound_land:
+						vel.x = 0
+					elif state != s.dive:
 						vel.x -= set_walk_accel
 				else:
-					if state == s.pound_fall:
-						vel.x *= 0.95
 					if state == s.frontflip || state == s.spin || state == s.backflip:
 						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
 					elif state == s.dive || state == s.diveflip:
 						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod)
+					elif state == s.pound_fall:
+						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (2 / fps_mod)
 					else:
 						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 				
@@ -705,16 +734,21 @@ func _physics_process(_delta):
 				&& (state != s.frontflip || !classic)
 				&& state != s.backflip
 				&& state != s.pound_fall
+				&& state != s.pound_land
 				):
 					sprite.flip_h = false
 				if ground:
-					if state != s.dive && state != s.pound_fall:
+					if state == s.pound_fall || state == s.pound_land:
+						vel.x = 0
+					elif state != s.dive:
 						vel.x += set_walk_accel
 				else:
 					if state == s.frontflip || state == s.spin || state == s.backflip:
 						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
 					elif state == s.dive || state == s.diveflip:
 						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod)
+					elif state == s.pound_fall:
+						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (2 / fps_mod)
 					else:
 						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 			
@@ -786,7 +820,14 @@ func _physics_process(_delta):
 				fludd_strain = false
 				rocket_charge = 0
 			
-			if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
+			if (i_dive_h
+				&& state != s.dive
+				&& (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l))
+				&& state != s.pound_spin
+				&& (state != s.spin || (!classic && i_dive))
+				&& state != s.ejump
+				&& state != s.edive
+				): #dive
 				if coyote_time > 0 && i_jump_h && abs(vel.x) > 1:
 					coyote_time = 0
 					dive_correct(-1)
@@ -797,7 +838,8 @@ func _physics_process(_delta):
 					double_jump_state = 0
 				elif ((state != s.backflip || abs(sprite.rotation_degrees) > 270)
 					&& state != s.pound_fall
-					&& state != s.pound_spin):
+					&& state != s.pound_spin
+					&& state != s.pound_land):
 					if !ground:
 						coyote_time = 0
 						if state != s.frontflip:
@@ -815,7 +857,7 @@ func _physics_process(_delta):
 							vel.y += 3.0 * fps_mod
 					switch_state(s.dive)
 					rotation_degrees = 0
-					tween.stop_all()
+					tween.remove_all()
 					switch_anim("dive")
 					double_jump_state = 0
 					dive_correct(1)
@@ -835,15 +877,18 @@ func _physics_process(_delta):
 			&& (state != s.diveflip || (!classic && i_spin))
 			&& (vel.y > -3.3 * fps_mod || (!classic && state == s.diveflip))
 			&& state != s.pound_fall
-			&& state != s.pound_spin):
+			&& state != s.pound_spin
+			&& state != s.pound_land):
 				switch_state(s.spin)
 				switch_anim("spin")
-				vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
+				if !ground:
+					vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
 				spin_timer = 30
 			
-			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
+			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && state != s.pound_land && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
 				switch_state(s.pound_spin)
-				tween.stop_all()
+				sprite.rotation_degrees = 0
+				tween.remove_all()
 				tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
 				tween.start()
 		
@@ -866,7 +911,11 @@ func _physics_process(_delta):
 		var save_pos = position
 		#warning-ignore:return_value_discarded
 		move_and_slide_with_snap(vel*60.0, snap, Vector2(0, -1), true)
+		if (state == s.pound_fall || state == s.pound_land) && is_on_floor():
+			vel.x = 0 #stop sliding down into holes
 		var slide_vec = position-save_pos
+		if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
+			ground_override = min(ground_override + 1, ground_override_threshold)
 		position = save_pos
 		if slide_vec.length() > 0.5 || ((state == s.swim || state == s.waterbackflip || state == s.waterspin) && slide_vec != Vector2.ZERO):
 			#warning-ignore:return_value_discarded
@@ -946,6 +995,10 @@ func invincibility_on_effect():
 
 func is_spinning():
 	return (state == s.spin || state == s.waterspin) && spin_timer > 0
+
+
+func is_swimming():
+	return state == s.swim || state == s.waterspin || state == s.waterdive || state == s.waterbackflip
 
 
 func _on_WaterCheck_area_entered(_area):

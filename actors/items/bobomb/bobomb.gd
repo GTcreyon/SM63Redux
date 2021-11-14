@@ -70,6 +70,7 @@ func _physics_process(_delta):
 		if is_on_floor():
 			vel.y = GRAVITY
 			if is_on_wall() && !tracking:
+				vel.x = 0
 				flip_ev()
 				wander_dist = 0
 			

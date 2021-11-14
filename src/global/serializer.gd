@@ -14,9 +14,9 @@ func flood_fill(tiles, pos, limits):
 	
 	#create an empty checked tile map
 	var checked = []
-	for x in range(limits.x):
+	for _x in range(limits.x):
 		var l = []
-		for y in range(limits.y):
+		for _y in range(limits.y):
 			l.append(REAL_EMPTY_TILE)
 		checked.append(l)
 	
@@ -84,7 +84,7 @@ func deserialize(lvl_text):
 		var pointer = Vector2()
 		#create a 2D grid
 		var tiles = []
-		for x in range(level_data.x):
+		for _x in range(level_data.x):
 			tiles.append([])
 		#read the tiles
 		var tiles_expression = RegEx.new()
@@ -95,7 +95,7 @@ func deserialize(lvl_text):
 			amount = 1 if amount <= 0 else amount
 			#get the tile id
 			var tile = tile_data.get_string("tile")
-			for i in range(amount):
+			for _i in range(amount):
 				tiles[pointer.x].append(tile)
 				#loop
 				pointer.y += 1
@@ -147,9 +147,9 @@ func deserialize(lvl_text):
 		for shape_tile in shapes.keys():
 			var shape = shapes[shape_tile]
 			var checked = []
-			for x in range(level_data.x):
+			for _x in range(level_data.x):
 				var l = []
-				for y in range(level_data.y):
+				for _y in range(level_data.y):
 					l.append(REAL_EMPTY_TILE)
 				checked.append(l)
 			var corners = []
