@@ -708,6 +708,8 @@ func _physics_process(_delta):
 						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
 					elif state == s.dive || state == s.diveflip:
 						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod)
+					elif state == s.pound_fall:
+						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (2 / fps_mod)
 					else:
 						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 				
@@ -729,6 +731,8 @@ func _physics_process(_delta):
 						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
 					elif state == s.dive || state == s.diveflip:
 						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod)
+					elif state == s.pound_fall:
+						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (2 / fps_mod)
 					else:
 						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 			
@@ -882,7 +886,8 @@ func _physics_process(_delta):
 		var save_pos = position
 		#warning-ignore:return_value_discarded
 		move_and_slide_with_snap(vel*60.0, snap, Vector2(0, -1), true)
-		
+		if (state == s.pound_fall || state == s.pound_land) && is_on_floor():
+			vel.x = 0 #stop sliding down into holes
 		var slide_vec = position-save_pos
 		if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
 			ground_override = min(ground_override + 1, ground_override_threshold)
