@@ -6,6 +6,8 @@ export var editor_view_extends = false
 onready var player = $"/root/Main/Player"
 onready var camera: Camera2D = player.get_node("Camera2D")
 onready var warp = $"/root/Singleton/Warp"
+onready var singleton = $"/root/Singleton"
+onready var base_modifier: BaseModifier = singleton.base_modifier
 
 const WINDOW_DIAGONAL = pow(pow(448 / 2, 2) + pow(304 / 2, 2), 0.5)
 
@@ -51,6 +53,7 @@ func get_closest_point_to_polygon(point, fallback):
 	return real_pos
 
 var last_valid_pos = null
+var modifier_id = null
 func set_limits():
 	if global_polygon.size() == 0:
 		return
@@ -69,7 +72,10 @@ func set_limits():
 		var real_pos = get_closest_point_to_polygon(player_pos, last_valid_pos)
 		#calculate the offset
 		var offset = real_pos - player_pos
-		camera.position = offset
+		if !modifier_id:
+			modifier_id = base_modifier.get_id()
+		base_modifier.change_modifier(camera, "position", modifier_id, offset)
+		#camera.position = offset
 
 func _draw():
 	if Engine.editor_hint && editor_view_extends:

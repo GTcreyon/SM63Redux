@@ -4,7 +4,7 @@
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
 [ext_resource path="res://src/global/death_cover.gd" type="Script" id=3]
 [ext_resource path="res://src/global/serializer.gd" type="Script" id=4]
-[ext_resource path="res://src/global/BaseModifier.gd" type="Script" id=5]
+[ext_resource path="res://src/global/base_modifier.gd" type="Script" id=5]
 
 [node name="Singleton" type="CanvasLayer"]
 script = ExtResource( 2 )
