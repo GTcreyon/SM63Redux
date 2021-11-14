@@ -147,16 +147,13 @@ func take_damage_impact(amount, impact_vel):
 func recieve_health(amount):
 	singleton.hp = clamp(singleton.hp + amount, 0, 8)
 
-var modifier_id = null
 func dive_correct(factor): #Correct the player's origin position when diving
 	#warning-ignore:return_value_discarded
 	move_and_slide(Vector2(0, set_dive_correct * factor * 60), Vector2(0, -1))
-	if !modifier_id:
-		modifier_id = base_modifier.get_id()
-	base_modifier.change_modifier(
+	base_modifier.add_modifier(
 		camera,
 		"position",
-		modifier_id,
+		"dive_correction",
 		Vector2(
 			0,
 			min(0, -set_dive_correct * factor)
