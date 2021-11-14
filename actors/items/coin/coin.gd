@@ -63,7 +63,7 @@ func _on_PickupArea_body_entered(_body):
 		player.internal_coin_counter += yellow
 	singleton.red_coin_total += red
 	picked = true
-	$SFX.play()
+	singleton.get_node("CoinSFX").play()
 	$PickupArea.queue_free() #clears up the acting segments of the coin so only the SFX is left
 	sprite.queue_free()
 
