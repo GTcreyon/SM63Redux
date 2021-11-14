@@ -17,9 +17,9 @@ func _on_KoopaCollision_body_entered(_body):
 			koopa.position = Vector2(position.x, player.position.y + 33)
 			koopa.vel.y = player.vel.y
 			if flip_h:
-				koopa.direction = 1
-			else:
 				koopa.direction = -1
+			else:
+				koopa.direction = 1
 			player.vel.y = -5
 			get_parent().call_deferred("add_child", koopa)
 			$KoopaCollision.set_deferred("monitoring", false)

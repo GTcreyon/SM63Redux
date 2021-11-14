@@ -33,6 +33,7 @@ volume_db = -4.521
 bus = "Coin"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+pause_mode = 2
 stream = ExtResource( 6 )
 volume_db = -8.0
 script = ExtResource( 7 )
