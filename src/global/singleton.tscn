@@ -7,7 +7,7 @@
 [ext_resource path="res://src/global/base_modifier.gd" type="Script" id=5]
 [ext_resource path="res://audio/music/mushroom_kingdom/tutorial_1.mp3" type="AudioStream" id=6]
 [ext_resource path="res://src/global/music.gd" type="Script" id=7]
-[ext_resource path="res://actors/items/coin/sm64_coin.ogg" type="AudioStream" id=8]
+[ext_resource path="res://actors/items/coin/coin_collect.wav" type="AudioStream" id=8]
 
 [node name="Singleton" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -33,8 +33,6 @@ script = ExtResource( 5 )
 
 [node name="CoinSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
-volume_db = -4.521
-bus = "Coin"
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
