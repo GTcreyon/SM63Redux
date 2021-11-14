@@ -57,7 +57,7 @@ shader_param/radial = false
 script = ExtResource( 5 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
-polygon = PoolVector2Array( 229.721, 46.8014, 230.91, 316.751, 1678.91, 307.624, 1683.67, 31.7278 )
+polygon = PoolVector2Array( 230, 40, 230, 310, 1680, 310, 1680, 40 )
 
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 
@@ -197,7 +197,7 @@ lines = [ "Hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Welcome back to the M
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 2 )
 position = Vector2( 299, 165 )
-lines = [ "Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as a thank you?", "Okay,[@p,3] well,[@p,3] by double-tapping either left or right you can start running real fast in that direction!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
+lines = [ "Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as a thank you?", "You can press [color=#f7c55f]X[/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 3 )
@@ -254,7 +254,6 @@ position = Vector2( 857, 140.5 )
 [node name="Fossil" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 77, 208 )
 animation = "yellow"
-frame = 2
 
 [node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 200, 207 )
@@ -267,7 +266,6 @@ animation = "yellow"
 [node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 505, 216 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 568, 176 )
@@ -280,7 +278,6 @@ animation = "yellow"
 [node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1010, 145 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil14" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 977, 216 )
@@ -297,7 +294,6 @@ animation = "yellow"
 [node name="Fossil10" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1618, 156 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil11" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1534, 198 )
@@ -306,20 +302,19 @@ animation = "yellow"
 [node name="Fossil13" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1254, 222 )
 animation = "yellow"
-frame = 1
 
 [node name="Fossil12" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 1739, 173 )
 animation = "yellow"
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1388, 77 )
+position = Vector2( 1388, 86 )
 
 [node name="Goomba2" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1490, 65 )
+position = Vector2( 1490, 86 )
 
 [node name="Goomba3" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1593, 81 )
+position = Vector2( 1593, 88 )
 
 [node name="Coins" type="Node2D" parent="Items"]
 
@@ -408,7 +403,7 @@ position = Vector2( 1739, 51 )
 [node name="WarpZone" parent="." instance=ExtResource( 26 )]
 position = Vector2( 1911, -50 )
 sweep_direction = Vector2( -1, 0 )
-spawn_location = Vector2( 62, 172 )
+spawn_location = Vector2( -42, 160 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_2.tscn"
 size = Vector2( 20, 100 )
 

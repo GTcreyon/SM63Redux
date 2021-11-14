@@ -13,7 +13,7 @@ var objects_loaded = {}
 
 const player = preload("res://actors/player/player.tscn")
 
-func _process(delta):
+func _process(_delta):
 	var i_left = Input.is_action_pressed("LD_cam_left")
 	var i_right = Input.is_action_pressed("LD_cam_right")
 	var i_up = Input.is_action_pressed("LD_cam_up")

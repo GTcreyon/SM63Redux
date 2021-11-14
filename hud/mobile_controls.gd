@@ -1,7 +1,21 @@
 extends Control
 
 func _init():
-	visible = OS.get_name() == "Android"
+	visible = false
+	if OS.get_name() == "Android":
+		visible = true
+		Input.action_release("left")
+		Input.action_release("right")
+		Input.action_release("up")
+		Input.action_release("jump")
+		Input.action_release("down")
+		Input.action_release("dive")
+		Input.action_release("pound")
+		Input.action_release("interact")
+		Input.action_release("spin")
+		Input.action_release("skip")
+		Input.action_release("fludd")
+		Input.action_release("switch_fludd")
 
 
 func _on_Left_pressed():

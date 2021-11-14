@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mario_hover_pound_fall_1.png-a43427f286fdd77705aded7b16e3da3d.stex"
+path="res://.import/mario_hover_walk.png-8d0b87e9103a87096a3aca7480a9f1cd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/player/mario/hover/mario_hover_pound_fall_1.png"
-dest_files=[ "res://.import/mario_hover_pound_fall_1.png-a43427f286fdd77705aded7b16e3da3d.stex" ]
+source_file="res://actors/player/mario/hover/mario_hover_walk.png"
+dest_files=[ "res://.import/mario_hover_walk.png-8d0b87e9103a87096a3aca7480a9f1cd.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false
