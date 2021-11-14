@@ -281,7 +281,7 @@ func _physics_process(_delta):
 		# varying from "possible but too difficult to do in a speedrun but just useful enough to"
 		# destroy a category if someone pulls it off" to "intrusive and annoying"
 		var ground = is_on_floor() || ground_override >= ground_override_threshold
-		if vel.y < 0 || is_on_floor() || i_fludd || state == s.pound_spin:
+		if vel.y < 0 || is_on_floor() || i_fludd || state == s.pound_spin || is_swimming():
 			ground_override = 0
 		
 		var wall = is_on_wall()
@@ -513,12 +513,15 @@ func _physics_process(_delta):
 				
 			if coyote_time > 0:
 				jump_cancel = false
-				if state == s.pound_fall:
-					pound_frames = max(0, pound_frames - 1)
-					if pound_frames <= 0:
-						switch_state(s.walk)
 						
 				if ground: #specifically apply to when actually on the ground, not coyote time
+					if state == s.pound_fall || state == s.pound_land:
+						if pound_frames == 12:
+							switch_state(s.pound_land)
+							switch_anim("flip")
+						elif pound_frames <= 0:
+							switch_state(s.walk)
+						pound_frames = max(0, pound_frames - 1)
 					fall_adjust = 0 #set adjustable yvel to 0
 					if state == s.dive:
 						if double_jump_frames >= set_double_jump_frames - 1:
@@ -636,7 +639,7 @@ func _physics_process(_delta):
 							flip_l = sprite.flip_h
 						
 						
-					elif jump_buffer > 0 && state != s.pound_fall:
+					elif jump_buffer > 0 && state != s.pound_fall && state != s.pound_land:
 						jump_buffer = 0
 						jump_frames = set_jump_mod_frames
 						double_jump_frames = set_double_jump_frames
@@ -694,6 +697,7 @@ func _physics_process(_delta):
 				&& (state != s.frontflip || !classic)
 				&& state != s.backflip
 				&& state != s.pound_fall
+				&& state != s.pound_land
 				):
 					sprite.flip_h = true
 				if ground:
@@ -702,8 +706,6 @@ func _physics_process(_delta):
 					elif state != s.dive:
 						vel.x -= set_walk_accel
 				else:
-					if state == s.pound_fall:
-						vel.x *= 0.95
 					if state == s.frontflip || state == s.spin || state == s.backflip:
 						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
 					elif state == s.dive || state == s.diveflip:
@@ -719,6 +721,7 @@ func _physics_process(_delta):
 				&& (state != s.frontflip || !classic)
 				&& state != s.backflip
 				&& state != s.pound_fall
+				&& state != s.pound_land
 				):
 					sprite.flip_h = false
 				if ground:
@@ -815,7 +818,8 @@ func _physics_process(_delta):
 					double_jump_state = 0
 				elif ((state != s.backflip || abs(sprite.rotation_degrees) > 270)
 					&& state != s.pound_fall
-					&& state != s.pound_spin):
+					&& state != s.pound_spin
+					&& state != s.pound_land):
 					if !ground:
 						coyote_time = 0
 						if state != s.frontflip:
@@ -853,14 +857,15 @@ func _physics_process(_delta):
 			&& (state != s.diveflip || (!classic && i_spin))
 			&& (vel.y > -3.3 * fps_mod || (!classic && state == s.diveflip))
 			&& state != s.pound_fall
-			&& state != s.pound_spin):
+			&& state != s.pound_spin
+			&& state != s.pound_land):
 				switch_state(s.spin)
 				switch_anim("spin")
 				if !ground:
 					vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
 				spin_timer = 30
 			
-			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
+			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && state != s.pound_land && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
 				switch_state(s.pound_spin)
 				sprite.rotation_degrees = 0
 				tween.remove_all()
@@ -970,6 +975,10 @@ func invincibility_on_effect():
 
 func is_spinning():
 	return (state == s.spin || state == s.waterspin) && spin_timer > 0
+
+
+func is_swimming():
+	return state == s.swim || state == s.waterspin || state == s.waterdive || state == s.waterbackflip
 
 
 func _on_WaterCheck_area_entered(_area):
