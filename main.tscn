@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://actors/items/koopa/parakoopa.tscn" type="PackedScene" id=18]
 [ext_resource path="res://actors/items/koopa/koopa.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=20]
+[ext_resource path="res://actors/items/Butterfly/Butterfly.tscn" type="PackedScene" id=21]
 
 [node name="Main" type="Node2D"]
 
@@ -217,3 +218,6 @@ polygon = PoolVector2Array( 0, 0, 480, 0, 480, 160, 0, 160 )
 
 [node name="BreakableBox" parent="." instance=ExtResource( 20 )]
 position = Vector2( -1725, 224 )
+
+[node name="Butterfly" parent="." instance=ExtResource( 21 )]
+position = Vector2( -1572.77, 170.564 )
