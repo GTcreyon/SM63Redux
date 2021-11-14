@@ -107,6 +107,7 @@ enum s { #state enum
 	pound_land,
 	door,
 	ejump, #bouncing off a goomba
+	edive, #bouncing off a goomba
 	swim,
 	waterdive,
 	waterbackflip,
@@ -281,7 +282,7 @@ func _physics_process(_delta):
 		# varying from "possible but too difficult to do in a speedrun but just useful enough to"
 		# destroy a category if someone pulls it off" to "intrusive and annoying"
 		var ground = is_on_floor() || ground_override >= ground_override_threshold
-		if vel.y < 0 || is_on_floor() || i_fludd || state == s.pound_spin || is_swimming():
+		if vel.y < 0 || is_on_floor() || i_fludd || state == s.pound_spin || is_swimming() || state == s.ejump || state == s.edive:
 			ground_override = 0
 		
 		var wall = is_on_wall()
@@ -484,7 +485,7 @@ func _physics_process(_delta):
 			
 			vel.x = ground_friction(vel.x, 0.05, 1.05)
 			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
-		else:
+		else: # on land
 			AudioServer.set_bus_effect_enabled(0, 0, false)
 			AudioServer.set_bus_effect_enabled(0, 1, false)
 			if state == s.diveflip:
@@ -639,7 +640,7 @@ func _physics_process(_delta):
 							flip_l = sprite.flip_h
 						
 						
-					elif jump_buffer > 0 && state != s.pound_fall && state != s.pound_land:
+					elif jump_buffer > 0 && state != s.pound_fall && state != s.pound_land && state != s.ejump && state != s.edive:
 						jump_buffer = 0
 						jump_frames = set_jump_mod_frames
 						double_jump_frames = set_double_jump_frames
@@ -807,7 +808,14 @@ func _physics_process(_delta):
 				fludd_strain = false
 				rocket_charge = 0
 			
-			if i_dive_h && state != s.dive && (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l)) && state != s.pound_spin && (state != s.spin || (!classic && i_dive)): #dive
+			if (i_dive_h
+				&& state != s.dive
+				&& (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l))
+				&& state != s.pound_spin
+				&& (state != s.spin || (!classic && i_dive))
+				&& state != s.ejump
+				&& state != s.edive
+				): #dive
 				if coyote_time > 0 && i_jump_h && abs(vel.x) > 1:
 					coyote_time = 0
 					dive_correct(-1)
