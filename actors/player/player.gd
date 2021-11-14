@@ -281,7 +281,7 @@ func _physics_process(_delta):
 		# varying from "possible but too difficult to do in a speedrun but just useful enough to"
 		# destroy a category if someone pulls it off" to "intrusive and annoying"
 		var ground = is_on_floor() || ground_override >= ground_override_threshold
-		if vel.y < 0 || is_on_floor() || i_fludd:
+		if vel.y < 0 || is_on_floor() || i_fludd || state == s.pound_spin:
 			ground_override = 0
 		
 		var wall = is_on_wall()
@@ -397,7 +397,7 @@ func _physics_process(_delta):
 					else:
 						vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
 					dive_return = false
-					tween.stop_all()
+					tween.remove_all()
 					if sprite.flip_h:
 						tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
 					else:
@@ -412,7 +412,7 @@ func _physics_process(_delta):
 				if i_dive_h && state != s.waterbackflip && state != s.waterspin:
 					switch_state(s.waterdive)
 					rotation_degrees = 0
-					tween.stop_all()
+					tween.remove_all()
 					switch_anim("dive")
 					double_jump_state = 0
 					dive_correct(1)
@@ -538,7 +538,7 @@ func _physics_process(_delta):
 					if state == s.frontflip || state == s.backflip: #Reset state when landing
 						switch_state(s.walk)
 						sprite.rotation_degrees = 0
-						tween.stop_all()
+						tween.remove_all()
 					
 					if state == s.dive && abs(vel.x) == 0 && !i_dive_h && !dive_return:
 						dive_return = true
@@ -626,7 +626,7 @@ func _physics_process(_delta):
 							else:
 								vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
 							dive_return = false
-							tween.stop_all()
+							tween.remove_all()
 							if sprite.flip_h:
 								tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
 							else:
@@ -668,7 +668,7 @@ func _physics_process(_delta):
 									double_jump_state = 0
 									switch_state(s.frontflip)
 									play_voice("jump3")
-									tween.stop_all()
+									tween.remove_all()
 									if singleton.nozzle == n.none:
 										tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
 									else:
@@ -697,7 +697,9 @@ func _physics_process(_delta):
 				):
 					sprite.flip_h = true
 				if ground:
-					if state != s.dive && state != s.pound_fall:
+					if state == s.pound_fall || state == s.pound_land:
+						vel.x = 0
+					elif state != s.dive:
 						vel.x -= set_walk_accel
 				else:
 					if state == s.pound_fall:
@@ -718,7 +720,9 @@ func _physics_process(_delta):
 				):
 					sprite.flip_h = false
 				if ground:
-					if state != s.dive && state != s.pound_fall:
+					if state == s.pound_fall || state == s.pound_land:
+						vel.x = 0
+					elif state != s.dive:
 						vel.x += set_walk_accel
 				else:
 					if state == s.frontflip || state == s.spin || state == s.backflip:
@@ -825,7 +829,7 @@ func _physics_process(_delta):
 							vel.y += 3.0 * fps_mod
 					switch_state(s.dive)
 					rotation_degrees = 0
-					tween.stop_all()
+					tween.remove_all()
 					switch_anim("dive")
 					double_jump_state = 0
 					dive_correct(1)
@@ -854,7 +858,8 @@ func _physics_process(_delta):
 			
 			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
 				switch_state(s.pound_spin)
-				tween.stop_all()
+				sprite.rotation_degrees = 0
+				tween.remove_all()
 				tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
 				tween.start()
 		
