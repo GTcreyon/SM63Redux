@@ -1,6 +1,5 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://actors/items/coin/sm64_coin.ogg" type="AudioStream" id=1]
 [ext_resource path="res://actors/items/coin/legacy_coin2.png" type="Texture" id=2]
 [ext_resource path="res://actors/items/coin/red_coin4.png" type="Texture" id=3]
 [ext_resource path="res://actors/items/coin/red_coin0.png" type="Texture" id=4]
@@ -33,9 +32,6 @@ extents = Vector2( 8, 8 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 8, 8 )
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1, 1 )
-
 [node name="CoinRed" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 9
@@ -56,15 +52,4 @@ monitoring = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource( 3 )
 
-[node name="WaterCheck" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
-shape = SubResource( 4 )
-
-[node name="SFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
-
 [connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
-[connection signal="finished" from="SFX" to="." method="_on_SFX_finished"]
