@@ -1,6 +1,7 @@
 extends Node
 
-onready var serializer = $Serializer
+onready var serializer: Serializer = $Serializer
+onready var base_modifier: BaseModifier = $BaseModifier
 
 var classic = true
 

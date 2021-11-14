@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "BaseModifier",
+"language": "GDScript",
+"path": "res://src/global/BaseModifier.gd"
+}, {
+"base": "Node2D",
 "class": "LDItem",
 "language": "GDScript",
 "path": "res://classes/ld_item_class.gd"
@@ -20,6 +25,7 @@ _global_script_classes=[ {
 "path": "res://src/global/serializer.gd"
 } ]
 _global_script_class_icons={
+"BaseModifier": "",
 "LDItem": "",
 "Serializer": ""
 }
