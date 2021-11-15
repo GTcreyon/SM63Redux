@@ -25,7 +25,7 @@ var icon_bob = 0
 var font_white = BitmapFont.new()
 
 func refresh():
-	visible = true
+	modulate.a = 1
 	match singleton.nozzle:
 		1:
 			icon.animation = "hover"
@@ -34,7 +34,7 @@ func refresh():
 		3:
 			icon.animation = "turbo"
 		_:
-			visible = false
+			modulate.a = 0
 	if singleton.water == 100:
 		max_sprite.visible = true
 		label.visible = false
