@@ -18,6 +18,8 @@ func _ready():
 
 
 func warp(dir, location, path):
+	$"/root/Main/Player/Camera2D".drag_margin_h_enabled = true #hack solution to stop camera
+	$"/root/Main/Player/Camera2D".drag_margin_v_enabled = true
 	enter = 1
 	direction = dir
 	set_location = location

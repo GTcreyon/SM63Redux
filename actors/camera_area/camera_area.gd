@@ -55,7 +55,7 @@ func get_closest_point_to_polygon(point, fallback):
 var last_valid_pos = null
 func set_limits():
 	if global_polygon.size() == 0:
-		return
+		pass
 	#TODO for the future, disable the tweening for the camera when outside of the radius
 	var camera_pos = camera.get_camera_screen_center()
 	var player_pos = player.position
@@ -93,7 +93,7 @@ func _draw():
 
 func _ready():
 	if Engine.editor_hint:
-		return
+		pass
 	#convert polygon to global polygon
 	var real_poly = PoolVector2Array()
 	for vec in polygon:
@@ -102,6 +102,6 @@ func _ready():
 
 func _process(_dt):
 	if Engine.editor_hint:
-		return
+		pass
 	if warp.enter != 1:
 		set_limits()
