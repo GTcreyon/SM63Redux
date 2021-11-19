@@ -18,8 +18,6 @@ onready var icon = $MeterControl/WaterMeter/Icon
 onready var stats_tl = $StatsTL
 onready var stats_tr = $StatsTR
 onready var stats_bl = $StatsBL
-onready var mobile_arrows = $MobileControls/MobileArrows
-onready var mobile_action = $MobileControls/MobileAction
 
 #pause cache
 onready var bg = $BG
@@ -64,9 +62,6 @@ func resize():
 	var topsize = OS.window_size.x / scale - 36 - 30
 	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
 	bg.rect_size = OS.window_size
-	
-	mobile_arrows.rect_scale = Vector2.ONE * scale * 6
-	mobile_action.rect_scale = Vector2.ONE * scale * 6
 	
 	top.rect_scale = Vector2.ONE * scale
 	top.rect_size.x = topsize + offset + 19 * scale
