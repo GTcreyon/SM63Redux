@@ -1,21 +1,15 @@
 extends Control
 
 func _init():
-	visible = false
+	visible = true
 	if OS.get_name() == "Android":
 		visible = true
-		Input.action_release("left")
-		Input.action_release("right")
-		Input.action_release("up")
-		Input.action_release("jump")
-		Input.action_release("down")
-		Input.action_release("dive")
-		Input.action_release("pound")
-		Input.action_release("interact")
-		Input.action_release("spin")
-		Input.action_release("skip")
-		Input.action_release("fludd")
-		Input.action_release("switch_fludd")
+
+
+func _ready():
+	var scale = floor(OS.window_size.y / 304)
+	$MobileArrows.rect_scale = Vector2.ONE * scale * 6
+	$MobileAction.rect_scale = Vector2.ONE * scale * 6
 
 
 func _on_Left_pressed():

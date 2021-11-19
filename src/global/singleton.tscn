@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
@@ -8,6 +8,21 @@
 [ext_resource path="res://audio/music/mushroom_kingdom/tutorial_1.mp3" type="AudioStream" id=6]
 [ext_resource path="res://src/global/music.gd" type="Script" id=7]
 [ext_resource path="res://actors/items/coin/coin_collect.wav" type="AudioStream" id=8]
+[ext_resource path="res://hud/mobile_controls.gd" type="Script" id=9]
+[ext_resource path="res://hud/buttons/l_button_1.png" type="Texture" id=10]
+[ext_resource path="res://hud/buttons/z_button_0.png" type="Texture" id=11]
+[ext_resource path="res://hud/buttons/r_button_0.png" type="Texture" id=12]
+[ext_resource path="res://hud/buttons/z_button_1.png" type="Texture" id=13]
+[ext_resource path="res://hud/buttons/d_button_0.png" type="Texture" id=14]
+[ext_resource path="res://hud/buttons/r_button_1.png" type="Texture" id=15]
+[ext_resource path="res://hud/buttons/x_button_0.png" type="Texture" id=16]
+[ext_resource path="res://hud/buttons/x_button_1.png" type="Texture" id=17]
+[ext_resource path="res://hud/buttons/u_button_0.png" type="Texture" id=18]
+[ext_resource path="res://hud/buttons/c_button_1.png" type="Texture" id=19]
+[ext_resource path="res://hud/buttons/c_button_0.png" type="Texture" id=20]
+[ext_resource path="res://hud/buttons/u_button_1.png" type="Texture" id=21]
+[ext_resource path="res://hud/buttons/d_button_1.png" type="Texture" id=22]
+[ext_resource path="res://hud/buttons/l_button_0.png" type="Texture" id=23]
 
 [node name="Singleton" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -39,3 +54,92 @@ pause_mode = 2
 stream = ExtResource( 6 )
 volume_db = -8.0
 script = ExtResource( 7 )
+
+[node name="MobileControls" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MobileArrows" type="Control" parent="MobileControls"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( -60, -21 )
+normal = ExtResource( 23 )
+pressed = ExtResource( 10 )
+
+[node name="Right" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( -20, -21 )
+normal = ExtResource( 12 )
+pressed = ExtResource( 15 )
+
+[node name="Up" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( -40, -42 )
+normal = ExtResource( 18 )
+pressed = ExtResource( 21 )
+
+[node name="Down" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( -40, -21 )
+normal = ExtResource( 14 )
+pressed = ExtResource( 22 )
+
+[node name="MobileAction" type="Control" parent="MobileControls"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Z" type="TouchScreenButton" parent="MobileControls/MobileAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 0, -21 )
+normal = ExtResource( 11 )
+pressed = ExtResource( 13 )
+
+[node name="X" type="TouchScreenButton" parent="MobileControls/MobileAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 20, -21 )
+normal = ExtResource( 16 )
+pressed = ExtResource( 17 )
+
+[node name="C" type="TouchScreenButton" parent="MobileControls/MobileAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 40, -21 )
+normal = ExtResource( 20 )
+pressed = ExtResource( 19 )
+
+[node name="Shift" type="TouchScreenButton" parent="MobileControls/MobileAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 0, -42 )
+normal = ExtResource( 18 )
+pressed = ExtResource( 21 )
+
+[connection signal="pressed" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_pressed"]
+[connection signal="released" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_released"]
+[connection signal="pressed" from="MobileControls/MobileArrows/Right" to="MobileControls" method="_on_Right_pressed"]
+[connection signal="released" from="MobileControls/MobileArrows/Right" to="MobileControls" method="_on_Right_released"]
+[connection signal="pressed" from="MobileControls/MobileArrows/Up" to="MobileControls" method="_on_Up_pressed"]
+[connection signal="released" from="MobileControls/MobileArrows/Up" to="MobileControls" method="_on_Up_released"]
+[connection signal="pressed" from="MobileControls/MobileArrows/Down" to="MobileControls" method="_on_Down_pressed"]
+[connection signal="released" from="MobileControls/MobileArrows/Down" to="MobileControls" method="_on_Down_released"]
+[connection signal="pressed" from="MobileControls/MobileAction/Z" to="MobileControls" method="_on_Z_pressed"]
+[connection signal="released" from="MobileControls/MobileAction/Z" to="MobileControls" method="_on_Z_released"]
+[connection signal="pressed" from="MobileControls/MobileAction/X" to="MobileControls" method="_on_X_pressed"]
+[connection signal="released" from="MobileControls/MobileAction/X" to="MobileControls" method="_on_X_released"]
+[connection signal="pressed" from="MobileControls/MobileAction/C" to="MobileControls" method="_on_C_pressed"]
+[connection signal="released" from="MobileControls/MobileAction/C" to="MobileControls" method="_on_C_released"]
+[connection signal="pressed" from="MobileControls/MobileAction/Shift" to="MobileControls" method="_on_Shift_pressed"]
+[connection signal="released" from="MobileControls/MobileAction/Shift" to="MobileControls" method="_on_Shift_released"]
