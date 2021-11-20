@@ -312,11 +312,17 @@ func _physics_process(_delta):
 		sign_cooldown = max(sign_cooldown - 1, 0)
 		
 		if i_switch:
-			singleton.nozzle = (singleton.nozzle + 1) % 2
-			var anim = sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", "") #lazy way to refresh fludd anim
-			switch_anim(anim)
-			fludd_strain = false
-			switch_sfx.play()
+			var save_nozzle = singleton.nozzle
+			singleton.nozzle += 1
+			while (singleton.nozzle < 4 && !singleton.collected_nozzles[(singleton.nozzle - 1) % 3]) || singleton.nozzle == 0:
+				singleton.nozzle += 1
+			if singleton.nozzle == 4:
+				singleton.nozzle = 0
+			if singleton.nozzle != save_nozzle:
+				var anim = sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", "") #lazy way to refresh fludd anim
+				switch_anim(anim)
+				fludd_strain = false
+				switch_sfx.play()
 		
 		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
 		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate

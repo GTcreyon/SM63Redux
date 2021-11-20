@@ -1,7 +1,7 @@
 extends Control
 
 func _init():
-	visible = true
+	visible = false
 	if OS.get_name() == "Android":
 		visible = true
 
