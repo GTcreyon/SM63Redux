@@ -18,6 +18,7 @@ var dead = false
 var hp = 8
 var kris = false
 var meter_progress = 0
+var collected_nozzles = [false, false, false]
 
 func _ready():
 	rng.seed = hash("2401")

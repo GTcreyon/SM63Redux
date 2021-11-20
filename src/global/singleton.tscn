@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
@@ -23,6 +23,15 @@
 [ext_resource path="res://hud/buttons/u_button_1.png" type="Texture" id=21]
 [ext_resource path="res://hud/buttons/d_button_1.png" type="Texture" id=22]
 [ext_resource path="res://hud/buttons/l_button_0.png" type="Texture" id=23]
+[ext_resource path="res://hud/buttons/shift_button.png" type="Texture" id=24]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 24 )
+region = Rect2( 0, 0, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 24 )
+region = Rect2( 20, 0, 20, 21 )
 
 [node name="Singleton" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -124,8 +133,8 @@ pressed = ExtResource( 19 )
 [node name="Shift" type="TouchScreenButton" parent="MobileControls/MobileAction"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( 0, -42 )
-normal = ExtResource( 18 )
-pressed = ExtResource( 21 )
+normal = SubResource( 1 )
+pressed = SubResource( 2 )
 
 [connection signal="pressed" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_pressed"]
 [connection signal="released" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_released"]

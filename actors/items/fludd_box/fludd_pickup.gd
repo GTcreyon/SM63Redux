@@ -12,26 +12,26 @@ onready var turbo = $Turbo
 func switch_type(type):
 	match type:
 		2:
-			$Hover.visible = false
-			$Hover.monitoring = false
-			$Rocket.visible = false
-			$Rocket.monitoring = false
-			$Turbo.visible = true
-			$Turbo.monitoring = true
+			hover.visible = false
+			hover.monitoring = false
+			rocket.visible = false
+			rocket.monitoring = false
+			turbo.visible = true
+			turbo.monitoring = true
 		1:
-			$Hover.visible = false
-			$Hover.visible = false
-			$Rocket.visible = true
-			$Rocket.visible = true
-			$Turbo.visible = false
-			$Turbo.visible = false
+			hover.visible = false
+			hover.visible = false
+			rocket.visible = true
+			rocket.visible = true
+			turbo.visible = false
+			turbo.visible = false
 		_:
-			$Hover.visible = true
-			$Hover.monitoring = true
-			$Rocket.visible = false
-			$Rocket.monitoring = false
-			$Turbo.visible = false
-			$Turbo.monitoring = false
+			hover.visible = true
+			hover.monitoring = true
+			rocket.visible = false
+			rocket.monitoring = false
+			turbo.visible = false
+			turbo.monitoring = false
 
 
 func pickup(nozzle):
