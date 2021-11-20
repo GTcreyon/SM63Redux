@@ -46,7 +46,7 @@ func run_command(cmd):
 			if path == "":
 				output("Scene does not exist.")
 			else:
-				var err = get_tree().change_scene(path)
+				var err = singleton.warp_to(path)
 				if err == OK:
 					output("Warped to " + path)
 				else:
@@ -55,7 +55,7 @@ func run_command(cmd):
 			var scene = "res://" + args[1] + ".tscn"
 			var file_check = File.new()
 			if file_check.file_exists(scene):
-				var err = get_tree().change_scene(scene)
+				var err = singleton.warp_to(scene)
 				if err == OK:
 					output("Warped to " + scene)
 				else:
@@ -92,7 +92,7 @@ func run_command(cmd):
 		"designer", "ld":
 			output("Entered Level Designer.")
 			#warning-ignore:RETURN_VALUE_DISCARDED
-			get_tree().change_scene("res://level_designer.tscn")
+			singleton.warp_to("res://level_designer.tscn")
 		_:
 			output("Unknown command \"%s\"." % args[0])
 

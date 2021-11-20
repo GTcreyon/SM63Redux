@@ -1,10 +1,9 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/items/log/log_fall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/global/singleton.gd" type="Script" id=5]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=8]
@@ -54,7 +53,6 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/radial = false
 
 [node name="Main" type="Node2D"]
-script = ExtResource( 5 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
 polygon = PoolVector2Array( 230, 40, 230, 310, 1680, 310, 1680, 40 )
