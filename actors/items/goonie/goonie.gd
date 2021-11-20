@@ -25,7 +25,6 @@ func _ready():
 		var to : Vector2 = camera_polygon[(i + 1) % points]
 		var intersect = Geometry.segment_intersects_segment_2d(from, to, position, Vector2(-99999, 0))
 		if intersect != null:
-			print(intersect)
 			reset_position = intersect + Vector2.LEFT * 20
 	rng.seed = hash(position.x + position.y * PI) #each bird will be different, but behave the same way each time
 	sprite.frame = rng.seed % 7
@@ -78,7 +77,6 @@ func _physics_process(_delta):
 			reset_timer -= 1
 			if reset_timer <= 0:
 				position = reset_position
-				print("reset" + str(reset_position))
 				reset_timer = 90
 
 

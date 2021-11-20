@@ -58,8 +58,7 @@ func _process(_delta):
 		#print(curve.get_baked_points())
 	if enter == 1 && ((curve_top.x + curve_arc.x > OS.window_size.x && direction == Vector2.RIGHT) || (curve_top.x + curve_arc.x < 0 && direction == Vector2.LEFT)):
 		#print("switch")
-		#warning-ignore:RETURN_VALUE_DISCARDED
-		get_tree().change_scene(scene_path)
+		Singleton.warp_to(scene_path)
 		curve.clear_points()
 		#curve.add_point(Vector2(OS.window_size.x, 0))
 		curve.add_point(Vector2(0, 0))
