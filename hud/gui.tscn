@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=2]
+[gd_scene load_steps=150 format=2]
 
 [ext_resource path="res://hud/debug_label.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -117,6 +117,8 @@
 [ext_resource path="res://hud/pause/map/scroll_handle.png" type="Texture" id=115]
 [ext_resource path="res://hud/pause/map/pin.png" type="Texture" id=116]
 [ext_resource path="res://paintings/mini.png" type="Texture" id=117]
+[ext_resource path="res://hud/buttons/mobile_buttons.png" type="Texture" id=118]
+[ext_resource path="res://hud/unpause.gd" type="Script" id=119]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 30 )
@@ -182,14 +184,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 48 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 47 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -202,14 +204,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=11]
 animations = [ {
-"frames": [ ExtResource( 50 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 49 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 50 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -222,14 +224,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ ExtResource( 51 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 52 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 51 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -242,14 +244,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 54 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 60 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 54 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -262,14 +264,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ ExtResource( 59 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 58 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 59 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -282,14 +284,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ ExtResource( 53 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 57 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 53 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -302,94 +304,102 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ ExtResource( 56 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 55 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 56 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=22]
 animations = [ {
-"frames": [ ExtResource( 88 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 89 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 88 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=23]
 animations = [ {
-"frames": [ ExtResource( 87 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 86 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 87 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 88 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 89 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 88 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=25]
 animations = [ {
-"frames": [ ExtResource( 106 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 108 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 106 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=26]
 animations = [ {
-"frames": [ ExtResource( 105 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 109 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 105 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=27]
 animations = [ {
-"frames": [ ExtResource( 104 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 107 ) ],
 "loop": true,
 "name": "off",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 104 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
 } ]
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 118 )
+region = Rect2( 0, 105, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 118 )
+region = Rect2( 20, 105, 20, 21 )
 
 [sub_resource type="StyleBoxEmpty" id=28]
 
@@ -918,6 +928,8 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_top = 87.192
+margin_bottom = 87.192
 color = Color( 0.360784, 1, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1132,6 +1144,9 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Panel" type="Panel" parent="PauseContent/LevelInfo"]
+margin_bottom = 40.0
 
 [node name="MapMenu" type="Control" parent="PauseContent"]
 visible = false
@@ -1791,6 +1806,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="UnpauseControl" type="Control" parent="PauseContent"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -60.0
+margin_top = 2.0
+script = ExtResource( 119 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Unpause" type="TouchScreenButton" parent="PauseContent/UnpauseControl" groups=["pause"]]
+position = Vector2( -20, 0 )
+normal = SubResource( 31 )
+pressed = SubResource( 32 )
+
 [node name="Top" type="TextureRect" parent="." groups=["pause"]]
 visible = false
 margin_right = 381.0
@@ -2045,6 +2075,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="pressed" from="PauseContent/UnpauseControl/Unpause" to="PauseContent/UnpauseControl" method="_on_Unpause_pressed"]
+[connection signal="released" from="PauseContent/UnpauseControl/Unpause" to="PauseContent/UnpauseControl" method="_on_Unpause_released"]
 [connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
 [connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
 [connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]

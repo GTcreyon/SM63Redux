@@ -82,3 +82,11 @@ func _on_Shift_pressed():
 
 func _on_Shift_released():
 	Input.action_release("switch_fludd")
+
+
+func _on_P_pressed():
+	Input.action_press("pause")
+
+
+func _on_P_released():
+	Input.action_release("pause")

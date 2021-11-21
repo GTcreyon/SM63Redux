@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
@@ -9,29 +9,79 @@
 [ext_resource path="res://src/global/music.gd" type="Script" id=7]
 [ext_resource path="res://actors/items/coin/coin_collect.wav" type="AudioStream" id=8]
 [ext_resource path="res://hud/mobile_controls.gd" type="Script" id=9]
-[ext_resource path="res://hud/buttons/l_button_1.png" type="Texture" id=10]
-[ext_resource path="res://hud/buttons/z_button_0.png" type="Texture" id=11]
-[ext_resource path="res://hud/buttons/r_button_0.png" type="Texture" id=12]
-[ext_resource path="res://hud/buttons/z_button_1.png" type="Texture" id=13]
-[ext_resource path="res://hud/buttons/d_button_0.png" type="Texture" id=14]
-[ext_resource path="res://hud/buttons/r_button_1.png" type="Texture" id=15]
-[ext_resource path="res://hud/buttons/x_button_0.png" type="Texture" id=16]
-[ext_resource path="res://hud/buttons/x_button_1.png" type="Texture" id=17]
-[ext_resource path="res://hud/buttons/u_button_0.png" type="Texture" id=18]
-[ext_resource path="res://hud/buttons/c_button_1.png" type="Texture" id=19]
-[ext_resource path="res://hud/buttons/c_button_0.png" type="Texture" id=20]
-[ext_resource path="res://hud/buttons/u_button_1.png" type="Texture" id=21]
-[ext_resource path="res://hud/buttons/d_button_1.png" type="Texture" id=22]
-[ext_resource path="res://hud/buttons/l_button_0.png" type="Texture" id=23]
-[ext_resource path="res://hud/buttons/shift_button.png" type="Texture" id=24]
+[ext_resource path="res://hud/buttons/mobile_buttons.png" type="Texture" id=10]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 105, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 105, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 126, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 126, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 63, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 63, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 84, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 84, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 147, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 147, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 168, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 168, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 189, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 189, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 21, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 10 )
+region = Rect2( 20, 42, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 24 )
-region = Rect2( 0, 0, 20, 21 )
+atlas = ExtResource( 10 )
+region = Rect2( 0, 210, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 24 )
-region = Rect2( 20, 0, 20, 21 )
+atlas = ExtResource( 10 )
+region = Rect2( 20, 210, 20, 21 )
 
 [node name="Singleton" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -84,26 +134,26 @@ __meta__ = {
 [node name="Left" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -60, -21 )
-normal = ExtResource( 23 )
-pressed = ExtResource( 10 )
+normal = SubResource( 3 )
+pressed = SubResource( 4 )
 
 [node name="Right" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -20, -21 )
-normal = ExtResource( 12 )
-pressed = ExtResource( 15 )
+normal = SubResource( 5 )
+pressed = SubResource( 6 )
 
 [node name="Up" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -40, -42 )
-normal = ExtResource( 18 )
-pressed = ExtResource( 21 )
+normal = SubResource( 7 )
+pressed = SubResource( 8 )
 
 [node name="Down" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -40, -21 )
-normal = ExtResource( 14 )
-pressed = ExtResource( 22 )
+normal = SubResource( 9 )
+pressed = SubResource( 10 )
 
 [node name="MobileAction" type="Control" parent="MobileControls"]
 anchor_top = 1.0
@@ -115,24 +165,30 @@ __meta__ = {
 [node name="Z" type="TouchScreenButton" parent="MobileControls/MobileAction"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( 0, -21 )
-normal = ExtResource( 11 )
-pressed = ExtResource( 13 )
+normal = SubResource( 11 )
+pressed = SubResource( 12 )
 
 [node name="X" type="TouchScreenButton" parent="MobileControls/MobileAction"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( 20, -21 )
-normal = ExtResource( 16 )
-pressed = ExtResource( 17 )
+normal = SubResource( 13 )
+pressed = SubResource( 14 )
 
 [node name="C" type="TouchScreenButton" parent="MobileControls/MobileAction"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( 40, -21 )
-normal = ExtResource( 20 )
-pressed = ExtResource( 19 )
+normal = SubResource( 15 )
+pressed = SubResource( 16 )
 
 [node name="Shift" type="TouchScreenButton" parent="MobileControls/MobileAction"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( 0, -42 )
+normal = SubResource( 17 )
+pressed = SubResource( 18 )
+
+[node name="P" type="TouchScreenButton" parent="MobileControls/MobileAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 20, -42 )
 normal = SubResource( 1 )
 pressed = SubResource( 2 )
 
@@ -152,3 +208,5 @@ pressed = SubResource( 2 )
 [connection signal="released" from="MobileControls/MobileAction/C" to="MobileControls" method="_on_C_released"]
 [connection signal="pressed" from="MobileControls/MobileAction/Shift" to="MobileControls" method="_on_Shift_pressed"]
 [connection signal="released" from="MobileControls/MobileAction/Shift" to="MobileControls" method="_on_Shift_released"]
+[connection signal="pressed" from="MobileControls/MobileAction/P" to="MobileControls" method="_on_P_pressed"]
+[connection signal="released" from="MobileControls/MobileAction/P" to="MobileControls" method="_on_P_released"]
