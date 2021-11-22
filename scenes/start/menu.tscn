@@ -1,8 +1,116 @@
-[gd_scene format=2]
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://gui/main_menu/selection_frame.png" type="Texture" id=1]
+[ext_resource path="res://gui/main_menu/selection_content.png" type="Texture" id=2]
+[ext_resource path="res://scenes/start/menu.gd" type="Script" id=3]
+[ext_resource path="res://gui/main_menu/border.tres" type="StyleBox" id=4]
+[ext_resource path="res://gui/main_menu/icon.png" type="Texture" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 126, 36 )
+
+[sub_resource type="StreamTexture" id=5]
+load_path = "res://.import/hook.png-e9d2a498cdf6d318f3759c79ceb7de8e.stex"
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = SubResource( 5 )
+region = Rect2( 0, 0, 56, 32 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 108, 126, 36 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = SubResource( 5 )
+region = Rect2( 0, 96, 56, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 72, 126, 36 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = SubResource( 5 )
+region = Rect2( 0, 65, 56, 31 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 36, 126, 36 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = SubResource( 5 )
+region = Rect2( 0, 32, 56, 33 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Border" type="Panel" parent="."]
+margin_top = 1.0
+margin_right = 448.0
+margin_bottom = 305.0
+custom_styles/panel = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Story" type="Sprite" parent="."]
+position = Vector2( 224, 124 )
+texture = SubResource( 1 )
+
+[node name="Frame" type="Sprite" parent="Story"]
+position = Vector2( -75, -32 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Hook" type="Sprite" parent="Story/Frame"]
+position = Vector2( 75, -12 )
+texture = SubResource( 6 )
+
+[node name="Settings" type="Sprite" parent="."]
+position = Vector2( 4, 188 )
+texture = SubResource( 4 )
+
+[node name="Frame" type="Sprite" parent="Settings"]
+position = Vector2( -75, -32 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Hook" type="Sprite" parent="Settings/Frame"]
+position = Vector2( 75, -12 )
+texture = SubResource( 7 )
+
+[node name="Extras" type="Sprite" parent="."]
+position = Vector2( 224, 400 )
+texture = SubResource( 3 )
+
+[node name="Frame" type="Sprite" parent="Extras"]
+position = Vector2( -75, -32 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Hook" type="Sprite" parent="Extras/Frame"]
+position = Vector2( 75, -12 )
+texture = SubResource( 8 )
+
+[node name="LevelDesigner" type="Sprite" parent="."]
+position = Vector2( 444, 188 )
+texture = SubResource( 2 )
+
+[node name="Frame" type="Sprite" parent="LevelDesigner"]
+position = Vector2( -75, -32 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Hook" type="Sprite" parent="LevelDesigner/Frame"]
+position = Vector2( 75, -12 )
+texture = SubResource( 9 )
+
+[node name="Icon" type="Sprite" parent="."]
+texture = ExtResource( 5 )
+centered = false
+offset = Vector2( 9, 33 )

@@ -8,8 +8,8 @@
 [ext_resource path="res://audio/music/mushroom_kingdom/tutorial_1.mp3" type="AudioStream" id=6]
 [ext_resource path="res://src/global/music.gd" type="Script" id=7]
 [ext_resource path="res://actors/items/coin/coin_collect.wav" type="AudioStream" id=8]
-[ext_resource path="res://hud/mobile_controls.gd" type="Script" id=9]
-[ext_resource path="res://hud/buttons/mobile_buttons.png" type="Texture" id=10]
+[ext_resource path="res://src/global/mobile_controls.gd" type="Script" id=9]
+[ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=10]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 10 )
