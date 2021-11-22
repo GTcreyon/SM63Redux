@@ -92,7 +92,10 @@ func run_command(cmd):
 		"designer", "ld":
 			output("Entered Level Designer.")
 			#warning-ignore:RETURN_VALUE_DISCARDED
-			singleton.warp_to("res://level_designer.tscn")
+			get_tree().change_scene("res://level_designer.tscn")
+		"menu":
+			#warning-ignore:RETURN_VALUE_DISCARDED
+			get_tree().change_scene("res://scenes/start/menu.tscn")
 		_:
 			output("Unknown command \"%s\"." % args[0])
 

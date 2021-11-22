@@ -14,7 +14,7 @@
 [ext_resource path="res://actors/player/mario/hover/mario_hover_pound_fall.png" type="Texture" id=12]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_spin.png" type="Texture" id=13]
 [ext_resource path="res://actors/player/mario/fluddless/mario_fall.png" type="Texture" id=14]
-[ext_resource path="res://hud/gui.tscn" type="PackedScene" id=15]
+[ext_resource path="res://gui/gui.tscn" type="PackedScene" id=15]
 [ext_resource path="res://actors/player/mario/fluddless/mario_swim_0.png" type="Texture" id=16]
 [ext_resource path="res://actors/player/mario/fluddless/mario_swim_1.png" type="Texture" id=17]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_swim_0.png" type="Texture" id=21]
@@ -27,8 +27,8 @@
 [ext_resource path="res://actors/player/mario/hover/mario_hover_pound_spin.png" type="Texture" id=31]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_flip.png" type="Texture" id=32]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_dive.png" type="Texture" id=33]
-[ext_resource path="res://hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=34]
-[ext_resource path="res://hud/water_meter/water_meter_bubble_small.png" type="Texture" id=35]
+[ext_resource path="res://gui/hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=34]
+[ext_resource path="res://gui/hud/water_meter/water_meter_bubble_small.png" type="Texture" id=35]
 [ext_resource path="res://actors/player/bubbles.gd" type="Script" id=37]
 [ext_resource path="res://actors/player/bubble.tres" type="Material" id=38]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_jump_double.png" type="Texture" id=39]
@@ -66,6 +66,7 @@
 [ext_resource path="res://actors/player/kris/kris_spin_8.png" type="Texture" id=79]
 [ext_resource path="res://actors/player/kris/kris_spin_11.png" type="Texture" id=80]
 [ext_resource path="res://actors/player/kris/kris_walk_right_3.png" type="Texture" id=81]
+
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )

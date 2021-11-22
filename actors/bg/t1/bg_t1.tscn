@@ -7,6 +7,7 @@
 [ext_resource path="res://actors/bg/t1/t1_layer_3.png" type="Texture" id=5]
 
 [node name="BGT1" type="CanvasLayer"]
+pause_mode = 2
 process_priority = 1
 layer = -100
 script = ExtResource( 4 )
