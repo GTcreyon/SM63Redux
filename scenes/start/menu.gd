@@ -1,5 +1,10 @@
 extends Control
 
+onready var selector_story = $SelectorStory
+onready var selector_settings = $SelectorSettings
+onready var selector_extra = $SelectorExtras
+onready var selector_ld = $SelectorLevelDesigner
+
 onready var story = $Story
 onready var settings = $Settings
 onready var extra = $Extras
@@ -36,6 +41,10 @@ func _process(_delta):
 	settings.scale = Vector2.ONE * scale
 	extra.scale = Vector2.ONE * scale
 	ld.scale = Vector2.ONE * scale
+	selector_story.scale = Vector2.ONE * scale
+	selector_settings.scale = Vector2.ONE * scale
+	selector_extra.scale = Vector2.ONE * scale
+	selector_ld.scale = Vector2.ONE * scale
 	
 	icon.scale = Vector2.ONE * scale
 	border.rect_scale = Vector2.ONE * scale
@@ -62,21 +71,32 @@ func _process(_delta):
 		cycle_direction = -1
 	
 	var result = sin(cycle_progress * PI/2)
+	var offset = Vector2.DOWN * 45 * scale
+	selector_story.position = lerp(cycle_positions[cycle_step % 4] + offset, cycle_positions[(cycle_step + cycle_direction) % 4] + offset, cycle_progress)
+	selector_settings.position = lerp(cycle_positions[(cycle_step + 1) % 4] + offset, cycle_positions[(cycle_step + 1 + cycle_direction) % 4] + offset, cycle_progress)
+	selector_extra.position = lerp(cycle_positions[(cycle_step + 2) % 4] + offset, cycle_positions[(cycle_step + 2 + cycle_direction) % 4] + offset, cycle_progress)
+	selector_ld.position = lerp(cycle_positions[(cycle_step + 3) % 4] + offset, cycle_positions[(cycle_step + 3 + cycle_direction) % 4] + offset, cycle_progress)
+	
 	story.position = lerp(cycle_positions[cycle_step % 4], cycle_positions[(cycle_step + cycle_direction) % 4], result)
 	settings.position = lerp(cycle_positions[(cycle_step + 1) % 4], cycle_positions[(cycle_step + 1 + cycle_direction) % 4], result)
 	extra.position = lerp(cycle_positions[(cycle_step + 2) % 4], cycle_positions[(cycle_step + 2 + cycle_direction) % 4], result)
 	ld.position = lerp(cycle_positions[(cycle_step + 3) % 4], cycle_positions[(cycle_step + 3 + cycle_direction) % 4], result)
 	
 	if cycle_direction != 0:
-		var outside = [story, settings, extra, ld][(cycle_direction - cycle_step) % 4]
-		outside.position.x = lerp(cycle_positions[(2 - cycle_direction) % 4].x, OS.window_size.x / 2 + cycle_direction * OS.window_size.x, result)
-		outside.position.y = lerp(cycle_positions[(2 - cycle_direction) % 4].y, OS.window_size.y, result)
-		var inside = [story, settings, extra, ld][(2 * cycle_direction - cycle_step) % 4]
-		inside.position.x = lerp(OS.window_size.x / 2 - cycle_direction * OS.window_size.x, cycle_positions[(2 + cycle_direction) % 4].x, result)
-		inside.position.y = lerp(OS.window_size.y, cycle_positions[(2 + cycle_direction) % 4].y, result)
+		var arr = [[story, selector_story], [settings, selector_settings], [extra, selector_extra], [ld, selector_ld]]
+		var outside = arr[(cycle_direction - cycle_step) % 4]
+		outside[0].position.x = lerp(cycle_positions[(2 - cycle_direction) % 4].x, OS.window_size.x / 2 + cycle_direction * OS.window_size.x, result)
+		outside[0].position.y = lerp(cycle_positions[(2 - cycle_direction) % 4].y, OS.window_size.y, result)
+		outside[1].position.x = lerp(cycle_positions[(2 - cycle_direction) % 4].x, OS.window_size.x / 2 + cycle_direction * OS.window_size.x, cycle_progress)
+#		outside[1].position.y = lerp(cycle_positions[(2 - cycle_direction) % 4].y, OS.window_size.y, cycle_progress)
+		var inside = arr[(2 * cycle_direction - cycle_step) % 4]
+		inside[0].position.x = lerp(OS.window_size.x / 2 - cycle_direction * OS.window_size.x, cycle_positions[(2 + cycle_direction) % 4].x, result)
+		inside[0].position.y = lerp(OS.window_size.y, cycle_positions[(2 + cycle_direction) % 4].y, result)
+		inside[1].position.x = lerp(OS.window_size.x / 2 - cycle_direction * OS.window_size.x, cycle_positions[(2 + cycle_direction) % 4].x, cycle_progress)
+		inside[1].position.y = lerp(OS.window_size.y, cycle_positions[(2 + cycle_direction) % 4].y, cycle_progress)
 	
 	if cycle_direction != 0:
-		cycle_progress += 1 / 10.0
+		cycle_progress += 1 / 12.0
 		if abs(cycle_progress) >= 1:
 			cycle_step += cycle_direction
 			#story.position = cycle_positions[cycle_step + cycle_direction]
