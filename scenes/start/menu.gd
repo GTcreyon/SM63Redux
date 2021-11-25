@@ -88,7 +88,7 @@ func _process(_delta):
 		outside[0].position.x = lerp(cycle_positions[(2 - cycle_direction) % 4].x, OS.window_size.x / 2 + cycle_direction * OS.window_size.x, result)
 		outside[0].position.y = lerp(cycle_positions[(2 - cycle_direction) % 4].y, OS.window_size.y, result)
 		outside[1].position.x = lerp(cycle_positions[(2 - cycle_direction) % 4].x, OS.window_size.x / 2 + cycle_direction * OS.window_size.x, cycle_progress)
-#		outside[1].position.y = lerp(cycle_positions[(2 - cycle_direction) % 4].y, OS.window_size.y, cycle_progress)
+		outside[1].position.y = lerp(cycle_positions[(2 - cycle_direction) % 4].y, OS.window_size.y, cycle_progress)
 		var inside = arr[(2 * cycle_direction - cycle_step) % 4]
 		inside[0].position.x = lerp(OS.window_size.x / 2 - cycle_direction * OS.window_size.x, cycle_positions[(2 + cycle_direction) % 4].x, result)
 		inside[0].position.y = lerp(OS.window_size.y, cycle_positions[(2 + cycle_direction) % 4].y, result)
@@ -96,9 +96,15 @@ func _process(_delta):
 		inside[1].position.y = lerp(OS.window_size.y, cycle_positions[(2 + cycle_direction) % 4].y, cycle_progress)
 	
 	if cycle_direction != 0:
-		cycle_progress += 1 / 12.0
+		cycle_progress += 1 / 120.0
 		if abs(cycle_progress) >= 1:
 			cycle_step += cycle_direction
-			#story.position = cycle_positions[cycle_step + cycle_direction]
 			cycle_progress = 0
 			cycle_direction = 0
+	
+	var arr = [story, ld, extra, settings]
+	for node in arr:
+		node.get_node("Frame/CrystalL").frame = 0
+		node.get_node("Frame/CrystalR").frame = 0
+	arr[cycle_step % 4].get_node("Frame/CrystalL").frame = 1
+	arr[cycle_step % 4].get_node("Frame/CrystalR").frame = 1
