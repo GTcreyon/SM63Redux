@@ -12,10 +12,9 @@ onready var mission_details_panel = $DetailsPanel
 
 func resize(scale):
 	var font = level_name.get_font("font")
-	print(scale)
+
 	level_name.rect_pivot_offset.x = (OS.window_size.x / scale - 31 * 2) / 2
 	
-	print(level_name.rect_pivot_offset.x)
 	if OS.window_fullscreen:
 		level_name.rect_scale = Vector2.ONE * 2
 	else:

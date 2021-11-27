@@ -12,6 +12,7 @@ var red = 0
 var water_bodies = 0
 var collect_id
 
+
 func _process(_delta):
 	if !picked:
 		if dropped:
@@ -23,16 +24,17 @@ func _process(_delta):
 
 
 func _ready():
-	var room = get_tree().get_current_scene().get_filename()
-	collect_id = singleton.get_collect_id()
-	if singleton.collected_dict[room].size() > collect_id && singleton.collected_dict[room][collect_id]:
-		queue_free()
-	else:
-		singleton.collected_dict[room].append(false)
-		if vel == Vector2.INF:
-			vel.x = (singleton.rng.randf() * 4 - 2) * 0.53
-			vel.y = -7 * 0.53
-		sprite.playing = true
+	if !dropped:
+		var room = get_tree().get_current_scene().get_filename()
+		collect_id = singleton.get_collect_id()
+		if singleton.collected_dict[room].size() > collect_id && singleton.collected_dict[room][collect_id]:
+			queue_free()
+		else:
+			singleton.collected_dict[room].append(false)
+	if vel == Vector2.INF:
+		vel.x = (singleton.rng.randf() * 4 - 2) * 0.53
+		vel.y = -7 * 0.53
+	sprite.playing = true
 
 
 func _physics_process(_delta):
@@ -69,7 +71,8 @@ func _on_PickupArea_body_entered(_body):
 	if singleton.hp < 8:
 		player.internal_coin_counter += yellow
 	singleton.red_coin_total += red
-	singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
+	if !dropped:
+		singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
 	singleton.collect_count += 1
 	picked = true
 	singleton.get_node("CoinSFX").play()
