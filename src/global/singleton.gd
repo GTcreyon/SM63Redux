@@ -31,7 +31,6 @@ func _ready():
 
 
 func warp_to(path):
-	print(collected_dict)
 	collect_count = 0
 	if !path in collected_dict:
 		collected_dict[path] = []

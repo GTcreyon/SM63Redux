@@ -22,6 +22,7 @@ var full_jump = false
 var dead = false
 var struck = false
 var land_timer = 0
+var collect_id
 
 onready var sprite = $AnimatedSprite
 onready var raycast = $RayCast2D
@@ -31,17 +32,20 @@ onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
 
 func _ready():
+	collect_id = Singleton.get_collect_id()
 	sprite.frame = hash(position.x + position.y * PI) % 4
 	sprite.playing = true
 
 
 func _physics_process(_delta):
 	if sprite.animation == "squish":
-		if dead:
+		var room = get_tree().get_current_scene().get_filename()
+		if dead && !(Singleton.collected_dict[room].size() > collect_id && Singleton.collected_dict[room][collect_id]):
 			var spawn = coin.instance()
 			spawn.position = position
 			spawn.dropped = true
 			main.add_child(spawn)
+			Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
 			queue_free()
 		elif !struck:
 			if player.position.y + 16 > global_position.y - 10:

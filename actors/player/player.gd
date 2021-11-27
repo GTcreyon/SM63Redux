@@ -786,7 +786,7 @@ func _physics_process(_delta):
 									vel.y -= 2
 								
 								if i_jump_h:
-									vel.y *= 1 - (0.12 * fps_mod)
+									vel.y *= 1 - (0.13 * fps_mod)
 								else:
 									vel.y *= 1 - (0.2 * fps_mod)
 								#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((singleton.power/(175 / fps_mod))+(0.75 * fps_mod))

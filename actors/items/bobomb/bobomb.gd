@@ -20,6 +20,7 @@ var full_jump = false
 var dead = false
 var struck = false
 var fuse_time = 240
+var collect_id
 
 onready var hurtbox = $Hurtbox
 onready var base = $Base
@@ -31,6 +32,10 @@ onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
 onready var lm_counter = $"/root/Singleton".hp
+
+
+func _ready():
+	collect_id = Singleton.get_collect_id()
 
 
 func _process(_delta):
@@ -122,8 +127,10 @@ func _physics_process(_delta):
 	
 	if fuse.animation == "lit":
 		fuse_time -= 1
-	
-	if (is_on_floor() && struck) || fuse_time <= 0:
+		
+	var room = get_tree().get_current_scene().get_filename()
+	if ((is_on_floor() && struck) || fuse_time <= 0) && !(Singleton.collected_dict[room].size() > collect_id && Singleton.collected_dict[room][collect_id]):
+		Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
 		var spawn = coin.instance()
 		spawn.position = position
 		spawn.dropped = true
