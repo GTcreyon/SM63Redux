@@ -94,20 +94,26 @@ func run_command(cmd):
 			#warning-ignore:RETURN_VALUE_DISCARDED
 			get_tree().change_scene("res://level_designer.tscn")
 		"menu":
+			output("Warped to menu.")
 			#warning-ignore:RETURN_VALUE_DISCARDED
 			get_tree().change_scene("res://scenes/start/menu.tscn")
 		"fludd":
 			match args[1]:
 				"h", "hover", "0":
 					Singleton.collected_nozzles[0] = !Singleton.collected_nozzles[0]
+					output("Toggled hover.")
 				"r", "rocket", "1":
 					Singleton.collected_nozzles[1] = !Singleton.collected_nozzles[1]
+					output("Toggled rocket.")
 				"t", "turbo", "2":
 					Singleton.collected_nozzles[2] = !Singleton.collected_nozzles[2]
+					output("Toggled turbo.")
 				"all":
 					Singleton.collected_nozzles = [true, true, true]
+					output("All nozzles enabled.")
 				"none":
 					Singleton.collected_nozzles = [false, false, false]
+					output("All nozzles disabled.")
 		_:
 			output("Unknown command \"%s\"." % args[0])
 
