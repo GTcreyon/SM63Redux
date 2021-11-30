@@ -129,8 +129,8 @@ func _physics_process(_delta):
 		fuse_time -= 1
 		
 	var room = get_tree().get_current_scene().get_filename()
-	if ((is_on_floor() && struck) || fuse_time <= 0) && !(Singleton.collected_dict[room].size() > collect_id && Singleton.collected_dict[room][collect_id]):
-		Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
+	if ((is_on_floor() && struck) || fuse_time <= 0) && !Singleton.collected_dict[room][collect_id]:
+		Singleton.collected_dict[room][collect_id] = true
 		var spawn = coin.instance()
 		spawn.position = position
 		spawn.dropped = true

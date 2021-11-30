@@ -40,7 +40,7 @@ func _ready():
 func _physics_process(_delta):
 	if sprite.animation == "squish":
 		var room = get_tree().get_current_scene().get_filename()
-		if dead && !(Singleton.collected_dict[room].size() > collect_id && Singleton.collected_dict[room][collect_id]):
+		if dead && !Singleton.collected_dict[room][collect_id]:
 			var spawn = coin.instance()
 			spawn.position = position
 			spawn.dropped = true

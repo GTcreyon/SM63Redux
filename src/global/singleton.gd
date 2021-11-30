@@ -39,5 +39,6 @@ func warp_to(path):
 
 
 func get_collect_id():
+	Singleton.collected_dict[get_tree().get_current_scene().get_filename()].append(false)
 	collect_count += 1
 	return collect_count - 1
