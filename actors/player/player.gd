@@ -498,7 +498,9 @@ func _physics_process(_delta):
 				fludd_strain = false
 				rocket_charge = 0
 			
-			vel.x = ground_friction(vel.x, 0.05, 1.05)
+			var swim_adjust = vel.x
+			swim_adjust = ground_friction(swim_adjust, 0.05, 1.05)
+			vel.x += (swim_adjust - vel.x) * fps_mod
 			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
 		else: # on land
 			AudioServer.set_bus_effect_enabled(0, 0, false)

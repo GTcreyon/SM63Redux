@@ -27,7 +27,7 @@ func _ready():
 	if !dropped:
 		var room = get_tree().get_current_scene().get_filename()
 		collect_id = singleton.get_collect_id()
-		if singleton.collected_dict[room].size() > collect_id && singleton.collected_dict[room][collect_id]:
+		if singleton.collected_dict[room][collect_id]:
 			queue_free()
 		else:
 			singleton.collected_dict[room].append(false)
