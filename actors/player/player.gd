@@ -36,6 +36,7 @@ onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
+onready var dust = $Dust
 
 var stand_box_pos = Vector2(0, 1.5)
 var stand_box_extents = Vector2(6, 14.5)
@@ -150,6 +151,7 @@ func recieve_health(amount):
 func dive_correct(factor): #Correct the player's origin position when diving
 	#warning-ignore:return_value_discarded
 	move_and_slide(Vector2(0, set_dive_correct * factor * 60), Vector2(0, -1))
+	dust.position.y -= set_dive_correct * factor
 	base_modifier.add_modifier(
 		camera,
 		"position",
@@ -957,6 +959,11 @@ func _physics_process(_delta):
 	bubbles_medium.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 	bubbles_small.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
 	
+	if abs(vel.x) < 2:
+		dust.emitting = false
+	else:
+		dust.emitting = is_on_floor()
+		
 	if sprite.animation.ends_with("walk"):
 		if int(vel.x) == 0:
 			sprite.frame = 0

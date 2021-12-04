@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=88 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario/fluddless/mario_walk.png" type="Texture" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://gui/gui.tscn" type="PackedScene" id=15]
 [ext_resource path="res://actors/player/mario/fluddless/mario_swim_0.png" type="Texture" id=16]
 [ext_resource path="res://actors/player/mario/fluddless/mario_swim_1.png" type="Texture" id=17]
+[ext_resource path="res://actors/particles/dust.png" type="Texture" id=18]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_swim_0.png" type="Texture" id=21]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_swim_1.png" type="Texture" id=22]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_fall.png" type="Texture" id=23]
@@ -67,6 +68,13 @@
 [ext_resource path="res://actors/player/kris/kris_spin_11.png" type="Texture" id=80]
 [ext_resource path="res://actors/player/kris/kris_walk_right_3.png" type="Texture" id=81]
 
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 12 )
+region = Rect2( 28, 0, 28, 32 )
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
@@ -116,14 +124,6 @@ region = Rect2( 56, 0, 28, 32 )
 atlas = ExtResource( 13 )
 region = Rect2( 84, 0, 28, 32 )
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 12 )
-region = Rect2( 28, 0, 28, 32 )
-
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
 "frames": [ ExtResource( 24 ) ],
@@ -141,20 +141,150 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 46 ) ],
+"loop": true,
+"name": "rocket_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "hover_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "rocket_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 26 ) ],
+"loop": true,
+"name": "jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "kris_swim",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 55 ) ],
+"loop": true,
+"name": "rocket_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 70 ) ],
+"loop": true,
+"name": "kris_front",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
+"loop": true,
+"name": "rocket_pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 53 ) ],
+"loop": true,
+"name": "hover_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "hover_swim",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 39 ) ],
+"loop": true,
+"name": "rocket_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 31 ) ],
+"loop": true,
+"name": "hover_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 75 ), ExtResource( 76 ), ExtResource( 75 ), ExtResource( 81 ) ],
+"loop": true,
+"name": "kris_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ) ],
+"loop": true,
+"name": "rocket_flip",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "hover_pound_fall",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "hover_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "rocket_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "hover_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 42 ) ],
+"loop": true,
+"name": "rocket_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "kris_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "kris_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 43 ) ],
+"loop": true,
+"name": "rocket_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 33 ) ],
+"loop": true,
+"name": "hover_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "kris_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 74 ) ],
+"loop": true,
+"name": "kris_jump_double",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 16 ), ExtResource( 17 ) ],
 "loop": true,
-"name": "jump",
-"speed": 5.0
+"name": "swim",
+"speed": 4.0
 }, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
@@ -170,11 +300,6 @@ animations = [ {
 "loop": true,
 "name": "pound_fall",
 "speed": 10.0
-}, {
-"frames": [ ExtResource( 16 ), ExtResource( 17 ) ],
-"loop": true,
-"name": "swim",
-"speed": 4.0
 }, {
 "frames": [ ExtResource( 73 ) ],
 "loop": true,
@@ -205,131 +330,6 @@ animations = [ {
 "loop": true,
 "name": "kris_spin",
 "speed": 15.0
-}, {
-"frames": [ ExtResource( 43 ) ],
-"loop": true,
-"name": "rocket_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 33 ) ],
-"loop": true,
-"name": "hover_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 31 ) ],
-"loop": true,
-"name": "hover_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 75 ), ExtResource( 76 ), ExtResource( 75 ), ExtResource( 81 ) ],
-"loop": true,
-"name": "kris_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 74 ) ],
-"loop": true,
-"name": "kris_jump_double",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 15 ), SubResource( 16 ) ],
-"loop": true,
-"name": "hover_pound_fall",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
-"loop": true,
-"name": "rocket_spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_swim",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 55 ) ],
-"loop": true,
-"name": "rocket_back",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 39 ) ],
-"loop": true,
-"name": "rocket_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 32 ) ],
-"loop": true,
-"name": "hover_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 48 ) ],
-"loop": true,
-"name": "rocket_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 53 ) ],
-"loop": true,
-"name": "hover_back",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "rocket_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ) ],
-"loop": true,
-"name": "hover_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 28 ) ],
-"loop": true,
-"name": "hover_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 42 ) ],
-"loop": true,
-"name": "rocket_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 46 ) ],
-"loop": true,
-"name": "rocket_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 26 ) ],
-"loop": true,
-"name": "jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 70 ) ],
-"loop": true,
-"name": "kris_front",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
-"loop": true,
-"name": "rocket_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "kris_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 73 ) ],
-"loop": true,
-"name": "kris_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
-"loop": true,
-"name": "hover_swim",
-"speed": 4.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -340,6 +340,24 @@ extents = Vector2( 6, 14.5 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6, 0.999998 )
+
+[sub_resource type="CanvasItemMaterial" id=21]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 4
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=22]
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_box_extents = Vector3( 4, 0, 0 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 10.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 6
@@ -437,6 +455,16 @@ script = ExtResource( 37 )
 
 [node name="SwitchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 56 )
+
+[node name="Dust" type="Particles2D" parent="."]
+material = SubResource( 21 )
+position = Vector2( 0, 11.5 )
+z_index = -1
+amount = 6
+lifetime = 0.35
+local_coords = false
+process_material = SubResource( 22 )
+texture = ExtResource( 18 )
 
 [connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
 [connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]
