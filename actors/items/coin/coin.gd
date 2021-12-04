@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+onready var main = $"/root/Main"
 onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
@@ -11,7 +12,7 @@ var yellow = 0
 var red = 0
 var water_bodies = 0
 var collect_id
-
+var sparkle : Resource
 
 func _process(_delta):
 	if !picked:
@@ -77,6 +78,9 @@ func _on_PickupArea_body_entered(_body):
 	picked = true
 	singleton.get_node("CoinSFX").play()
 	$PickupArea.queue_free() #clears up the acting segments of the coin so only the SFX is left
+	var inst = sparkle.instance()
+	inst.position = position
+	main.add_child(inst)
 	sprite.queue_free()
 
 
