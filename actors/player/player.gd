@@ -334,7 +334,7 @@ func _physics_process(_delta):
 			singleton.power = 100
 			
 			if state == s.swim:
-				if i_spin_h:
+				if i_spin_h && vel.y > -1:
 					switch_state(s.waterspin)
 					switch_anim("spin")
 					if !ground:
@@ -1022,5 +1022,5 @@ func _on_WaterCheck_area_entered(_area):
 func _on_WaterCheck_area_exited(_area):
 	if water_check.get_overlapping_bodies().size() == 0:
 		call_deferred("switch_state", s.walk)
-		if vel.y < 0 && !fludd_strain:
+		if vel.y < 0 && !fludd_strain && !is_spinning():
 			vel.y -= 3

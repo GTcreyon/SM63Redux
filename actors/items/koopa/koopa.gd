@@ -29,6 +29,7 @@ func _physics_process(_delta):
 	vel.y += GRAVITY
 	var snap
 	if is_on_floor():
+		init_position = position
 		vel.y = GRAVITY
 		snap = Vector2(0, 4)
 	else:
@@ -38,6 +39,7 @@ func _physics_process(_delta):
 	#raycast2d is used here to detect if the object collided with a wall
 	#to change directions
 	if is_on_wall():
+		vel.x = 0
 		flip_ev()
 	
 	sprite.flip_h = direction == -1
