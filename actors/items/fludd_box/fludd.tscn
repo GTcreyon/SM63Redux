@@ -5,7 +5,6 @@
 [ext_resource path="res://actors/items/fludd_box/pickup_rocket.png" type="Texture" id=3]
 [ext_resource path="res://actors/items/fludd_box/fludd_pickup.gd" type="Script" id=4]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 7.5 )
 
@@ -19,6 +18,7 @@ extents = Vector2( 9.5, 10.5 )
 extents = Vector2( 8, 7.5 )
 
 [node name="FluddPickup" type="KinematicBody2D"]
+z_index = -1
 collision_layer = 0
 script = ExtResource( 4 )
 
@@ -60,6 +60,7 @@ shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 4 )
+
 [connection signal="body_entered" from="Hover" to="." method="_on_Hover_body_entered"]
 [connection signal="body_entered" from="Rocket" to="." method="_on_Rocket_body_entered"]
 [connection signal="body_entered" from="Turbo" to="." method="_on_Turbo_body_entered"]
