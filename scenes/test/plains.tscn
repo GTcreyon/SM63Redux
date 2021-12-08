@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=2]
+
+[node name="Main" type="Node2D"]
+
+[node name="TerrainPolygon" parent="." instance=ExtResource( 1 )]
+position = Vector2( 33, 37 )
+polygon = PoolVector2Array( 2031, -37, 2031, 27, -33, 27, -33, -37 )
+
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 18, -24 )

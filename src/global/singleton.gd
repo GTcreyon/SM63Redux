@@ -9,6 +9,7 @@ var nozzle = 0
 var water = 100
 var power = 100
 var coin_total = 0
+var internal_coin_counter = 0 #if it hits 5, gets reset
 var red_coin_total = 0
 var rng = RandomNumberGenerator.new()
 var life_meter = 8

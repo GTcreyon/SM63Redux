@@ -70,7 +70,7 @@ func _on_WaterCheck_area_exited(_body):
 func _on_PickupArea_body_entered(_body):
 	singleton.coin_total += yellow
 	if singleton.hp < 8:
-		player.internal_coin_counter += yellow
+		singleton.internal_coin_counter += yellow
 	singleton.red_coin_total += red
 	if !dropped:
 		singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true

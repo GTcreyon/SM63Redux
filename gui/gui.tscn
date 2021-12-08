@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=2]
+[gd_scene load_steps=166 format=2]
 
 [ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -28,14 +28,12 @@
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
 [ext_resource path="res://shaders/glow.shader" type="Shader" id=27]
 [ext_resource path="res://shaders/flash.shader" type="Shader" id=28]
-[ext_resource path="res://gui/hud/life/meter_life_6.png" type="Texture" id=29]
+[ext_resource path="res://gui/hud/life/coin_meter.png" type="Texture" id=29]
 [ext_resource path="res://gui/hud/water_meter/water_meter_bubble_small.png" type="Texture" id=30]
-[ext_resource path="res://gui/hud/life/meter_life_0.png" type="Texture" id=31]
+[ext_resource path="res://gui/hud/life/life_meter.png" type="Texture" id=31]
 [ext_resource path="res://gui/hud/water_meter/water_meter_frame.png" type="Texture" id=32]
 [ext_resource path="res://gui/hud/hud_red_coin.png" type="Texture" id=33]
-[ext_resource path="res://gui/hud/life/meter_life_4.png" type="Texture" id=34]
-[ext_resource path="res://gui/hud/life/meter_life_1.png" type="Texture" id=35]
-[ext_resource path="res://gui/hud/life/meter_life_7.png" type="Texture" id=36]
+[ext_resource path="res://gui/hud/life/coin_ring.png" type="Texture" id=34]
 [ext_resource path="res://gui/hud/buttons/u_button_1.png" type="Texture" id=37]
 [ext_resource path="res://gui/hud/buttons/z_button_1.png" type="Texture" id=38]
 [ext_resource path="res://gui/hud/water_meter/water_meter_cover.png" type="Texture" id=39]
@@ -58,9 +56,6 @@
 [ext_resource path="res://gui/hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=56]
 [ext_resource path="res://gui/hud/water_meter/water_meter_mask_bottom.png" type="Texture" id=57]
 [ext_resource path="res://gui/hud/buttons/d_button_0.png" type="Texture" id=58]
-[ext_resource path="res://gui/hud/life/meter_life_2.png" type="Texture" id=59]
-[ext_resource path="res://gui/hud/life/meter_life_5.png" type="Texture" id=60]
-[ext_resource path="res://gui/hud/life/meter_life_3.png" type="Texture" id=61]
 [ext_resource path="res://gui/hud/water_meter/water_meter_power_filler.png" type="Texture" id=62]
 [ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=63]
 [ext_resource path="res://actors/items/fludd_box/nozzle_rocket.png" type="Texture" id=64]
@@ -74,7 +69,6 @@
 [ext_resource path="res://gui/hud/buttons/c_button_1.png" type="Texture" id=72]
 [ext_resource path="res://gui/hud/buttons/x_button_1.png" type="Texture" id=73]
 [ext_resource path="res://gui/hud/water_meter/water_meter_surface.png" type="Texture" id=74]
-[ext_resource path="res://gui/hud/life/meter_life_8.png" type="Texture" id=75]
 [ext_resource path="res://shaders/flash.tres" type="Material" id=76]
 [ext_resource path="res://actors/items/fludd_box/nozzle_turbo.png" type="Texture" id=77]
 [ext_resource path="res://gui/hud/water_meter/water_meter_power_mask.png" type="Texture" id=78]
@@ -124,12 +118,109 @@
 shader = ExtResource( 28 )
 shader_param/flash_factor = 0.0
 
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 31 )
+region = Rect2( 72, 72, 36, 36 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 31 )
+region = Rect2( 36, 72, 36, 36 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 31 )
+region = Rect2( 0, 72, 36, 36 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 31 )
+region = Rect2( 72, 36, 36, 36 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 31 )
+region = Rect2( 36, 36, 36, 36 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 31 )
+region = Rect2( 0, 36, 36, 36 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 31 )
+region = Rect2( 72, 0, 36, 36 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 31 )
+region = Rect2( 36, 0, 36, 36 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 31 )
+region = Rect2( 0, 0, 36, 36 )
+
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 31 ), ExtResource( 35 ), ExtResource( 59 ), ExtResource( 61 ), ExtResource( 34 ), ExtResource( 60 ), ExtResource( 29 ), ExtResource( 36 ), ExtResource( 75 ) ],
+"frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 54 ), SubResource( 53 ), SubResource( 55 ), SubResource( 56 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 12, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 24, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 36, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 48, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 60, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 72, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 48, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 36, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 24, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 12, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=68]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="SpriteFrames" id=47]
+animations = [ {
+"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
+"loop": true,
+"name": "charge",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
+"loop": false,
+"name": "flash",
+"speed": 15.0
 } ]
 
 [sub_resource type="ParticlesMaterial" id=5]
@@ -151,14 +242,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 77 ) ],
-"loop": true,
-"name": "turbo",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 64 ) ],
 "loop": true,
 "name": "rocket",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 77 ) ],
+"loop": true,
+"name": "turbo",
 "speed": 5.0
 } ]
 
@@ -621,6 +712,16 @@ script = ExtResource( 116 )
 z_index = -1
 frames = SubResource( 2 )
 offset = Vector2( 0, 36 )
+
+[node name="CoinMeter" type="AnimatedSprite" parent="LifeMeter"]
+position = Vector2( 0, 36 )
+frames = SubResource( 47 )
+animation = "flash"
+frame = 6
+playing = true
+
+[node name="CoinRing" type="Sprite" parent="LifeMeter/CoinMeter"]
+texture = ExtResource( 34 )
 
 [node name="DebugLabel" type="Label" parent="."]
 visible = false
