@@ -25,6 +25,8 @@ func run_command(cmd):
 				output("No second argument.")
 				return
 			match args[1]:
+				"plains":
+					path = "res://scenes/test/plains.tscn"
 				"basin":
 					path = "res://scenes/test/basin.tscn"
 				"main":

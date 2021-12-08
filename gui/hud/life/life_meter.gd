@@ -6,6 +6,8 @@ var end_adjust = end_pos
 
 onready var player = $"/root/Main/Player"
 onready var filler = $Filler
+onready var coin_meter = $CoinMeter
+onready var coin_ring = $CoinMeter/CoinRing
 onready var singleton = $"/root/Singleton"
 onready var death_cover = $"/root/Singleton/DeathCover"
 onready var save_count = singleton.hp #for when variable gets changed
@@ -14,9 +16,10 @@ var rechange_timer = 0
 var rechange_trigger = false #so it can trigger the rechange_timer increment
 var rechange_moving = false #after it's shown, it will return back up
 var progress = 0
-
+var coin_save = 0
 
 func _ready():
+	coin_save = singleton.internal_coin_counter
 	modulate.v = 1 - death_cover.color.a
 	progress = singleton.meter_progress
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * floor(OS.window_size.y / 304)
@@ -68,5 +71,23 @@ func _process(_delta):
 			rechange_moving = false
 
 		filler.frame = singleton.hp #for the HUD with its respective frame
+		if singleton.internal_coin_counter >= 5 && singleton.hp < 8:
+			singleton.hp += 1
+			singleton.internal_coin_counter = 0
+			coin_save = 0
+			coin_meter.frame = 0
+			coin_meter.animation = "flash"
+		else:
+			if coin_meter.animation == "charge" || coin_save != singleton.internal_coin_counter:
+				coin_meter.animation = "charge"
+				coin_meter.frame = singleton.internal_coin_counter
+				coin_save = singleton.internal_coin_counter
+		
+		if coin_meter.animation == "flash" && coin_meter.frame == 6:
+			coin_meter.animation = "charge"
+		
+		
+		
+		coin_ring.visible = (coin_meter.animation == "flash" && coin_meter.frame == 0)
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * scale.y
 	singleton.meter_progress = progress

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/meter_life_3.png-f5f15669d7882b9aa9f4630ba9b5cfb5.stex"
+path="res://.import/coin_ring.png-21131d6c737ea0e9f9d85c13cdc5c9f7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/hud/life/meter_life_3.png"
-dest_files=[ "res://.import/meter_life_3.png-f5f15669d7882b9aa9f4630ba9b5cfb5.stex" ]
+source_file="res://gui/hud/life/coin_ring.png"
+dest_files=[ "res://.import/coin_ring.png-21131d6c737ea0e9f9d85c13cdc5c9f7.stex" ]
 
 [params]
 

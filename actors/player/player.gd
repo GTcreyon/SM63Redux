@@ -50,7 +50,6 @@ var static_v = false #for pipe, may be used for other things.
 var invincible = false #needed for making him invincible
 var invincible_timer = 0 #for when player's invincible variable is true, then starts incrementing
 var prog_alpha = 0
-var internal_coin_counter = 0 #if it hits 5, gets reset
 var if_died = false #for death transition
 #####################
 
@@ -260,10 +259,6 @@ func _physics_process(_delta):
 		invincible_timer = 0
 		modulate.a = 1
 		invincible = false
-	
-	if internal_coin_counter >= 5 && singleton.hp < 8:
-		singleton.hp += 1
-		internal_coin_counter = 0
 	
 	update_classic()
 	if static_v:
