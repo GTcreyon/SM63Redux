@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://gui/main_menu/selection_frame.png" type="Texture" id=1]
 [ext_resource path="res://gui/main_menu/selection_content.png" type="Texture" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://gui/main_menu/hook.png" type="Texture" id=11]
 [ext_resource path="res://gui/main_menu/sheen.png" type="Texture" id=12]
 [ext_resource path="res://scenes/start/sheen.gd" type="Script" id=13]
+[ext_resource path="res://shaders/desaturate.tres" type="Material" id=14]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -144,108 +145,132 @@ centered = false
 texture = SubResource( 16 )
 
 [node name="SelectorSettings" type="Sprite" parent="."]
+material = ExtResource( 14 )
 position = Vector2( 4, 233 )
 texture = ExtResource( 7 )
 
 [node name="Settings" type="Sprite" parent="."]
+material = ExtResource( 14 )
 position = Vector2( 4, 188 )
 texture = SubResource( 4 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Settings"]
+use_parent_material = true
 texture = ExtResource( 12 )
 polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
 script = ExtResource( 13 )
 
 [node name="Frame" type="Sprite" parent="Settings"]
+use_parent_material = true
 position = Vector2( -75, -32 )
 texture = ExtResource( 1 )
 centered = false
 
 [node name="Hook" type="Sprite" parent="Settings/Frame"]
+use_parent_material = true
 position = Vector2( 75, -12 )
 texture = SubResource( 7 )
 
 [node name="CrystalL" type="AnimatedSprite" parent="Settings/Frame"]
+use_parent_material = true
 position = Vector2( -6, 46 )
 frames = SubResource( 15 )
 centered = false
 
 [node name="CrystalR" type="AnimatedSprite" parent="Settings/Frame"]
+use_parent_material = true
 position = Vector2( 135, 46 )
 frames = SubResource( 15 )
 centered = false
 
 [node name="Title" type="Sprite" parent="Settings"]
+use_parent_material = true
 texture = SubResource( 17 )
 
 [node name="SelectorExtras" type="Sprite" parent="."]
+material = ExtResource( 14 )
 position = Vector2( 224, 445 )
 texture = ExtResource( 7 )
 
 [node name="Extras" type="Sprite" parent="."]
+material = ExtResource( 14 )
 position = Vector2( 224, 400 )
 texture = SubResource( 3 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Extras"]
+use_parent_material = true
 texture = ExtResource( 12 )
 polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
 script = ExtResource( 13 )
 
 [node name="Frame" type="Sprite" parent="Extras"]
+use_parent_material = true
 position = Vector2( -75, -32 )
 texture = ExtResource( 1 )
 centered = false
 
 [node name="Hook" type="Sprite" parent="Extras/Frame"]
+use_parent_material = true
 position = Vector2( 75, -11 )
 texture = SubResource( 8 )
 
 [node name="CrystalL" type="AnimatedSprite" parent="Extras/Frame"]
+use_parent_material = true
 position = Vector2( -6, 46 )
 frames = SubResource( 15 )
 centered = false
 
 [node name="CrystalR" type="AnimatedSprite" parent="Extras/Frame"]
+use_parent_material = true
 position = Vector2( 135, 46 )
 frames = SubResource( 15 )
 centered = false
 
 [node name="Title" type="Sprite" parent="Extras"]
+use_parent_material = true
 texture = SubResource( 18 )
 
 [node name="SelectorLevelDesigner" type="Sprite" parent="."]
+material = ExtResource( 14 )
 position = Vector2( 444, 233 )
 texture = ExtResource( 7 )
 
 [node name="LevelDesigner" type="Sprite" parent="."]
+material = ExtResource( 14 )
 position = Vector2( 444, 188 )
 texture = SubResource( 2 )
 
 [node name="Polygon2D" type="Polygon2D" parent="LevelDesigner"]
+use_parent_material = true
 texture = ExtResource( 12 )
 polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
 script = ExtResource( 13 )
 
 [node name="Frame" type="Sprite" parent="LevelDesigner"]
+use_parent_material = true
 position = Vector2( -75, -32 )
 texture = ExtResource( 1 )
 centered = false
 
 [node name="Hook" type="Sprite" parent="LevelDesigner/Frame"]
+use_parent_material = true
 position = Vector2( 75, -12 )
 texture = SubResource( 9 )
 
 [node name="CrystalL" type="AnimatedSprite" parent="LevelDesigner/Frame"]
+use_parent_material = true
 position = Vector2( -6, 46 )
 frames = SubResource( 15 )
 centered = false
 
 [node name="CrystalR" type="AnimatedSprite" parent="LevelDesigner/Frame"]
+use_parent_material = true
 position = Vector2( 135, 46 )
 frames = SubResource( 15 )
 centered = false
 
 [node name="Title" type="Sprite" parent="LevelDesigner"]
+use_parent_material = true
 texture = SubResource( 19 )
 
 [node name="Icon" type="Sprite" parent="."]
@@ -262,7 +287,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Border"]
+[node name="Description" type="Label" parent="Border"]
 anchor_right = 1.0
 margin_left = 5.0
 margin_top = 5.0
@@ -292,3 +317,12 @@ end_cap_mode = 2
 visible = false
 texture = ExtResource( 12 )
 polygon = PoolVector2Array( 0, 0, 0, 304, 448, 304, 448, 0 )
+
+[node name="FadeOut" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.003
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
