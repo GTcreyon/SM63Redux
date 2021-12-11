@@ -2,6 +2,8 @@ extends StaticBody2D
 
 const coin = preload("res://actors/items/coin/coin_yellow.tscn")
 const particle = preload("res://actors/items/breakable_box/box_particle.tscn")
+const residual = preload("res://actors/residual_sfx.tscn")
+const boom = preload("res://actors/items/breakable_box/boom.wav")
 
 onready var main = $"/root/Main"
 onready var player = $"/root/Main/Player"
@@ -52,4 +54,7 @@ func destroy():
 			inst.vel = Vector2((rng.randf() - 0.5) * 5.0, rng.randf() * -2.5)
 			inst.dropped = true
 			main.call_deferred("add_child", inst)
+	var inst = residual.instance()
+	inst.sound = boom
+	main.call_deferred("add_child", inst)
 	queue_free()
