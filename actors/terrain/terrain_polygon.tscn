@@ -15,6 +15,8 @@ polygon = PoolVector2Array( 0, 0, 32, 0, 32, -32, 64, -32, 64, 32, -32, 32, -32,
 z_index = 1
 
 [node name="Collision" type="StaticBody2D" parent="."]
+collision_layer = 8388609
+collision_mask = 0
 
 [node name="CollisionShape" type="CollisionPolygon2D" parent="Collision"]
 visible = false

@@ -26,9 +26,12 @@ const ground_override_threshold = 10
 onready var singleton = $"/root/Singleton"
 onready var base_modifier: BaseModifier = singleton.base_modifier
 onready var voice = $Voice
+onready var step = $Step
 onready var tween = $Tween
 onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
+onready var step_check = $StepCheck
+onready var grass_check = $GrassCheck
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
@@ -43,6 +46,7 @@ var stand_box_extents = Vector2(6, 14.5)
 var dive_box_pos = Vector2(0, 3)
 var dive_box_extents = Vector2(6, 6)
 var ground_override = 0
+var last_step = 0
 
 #mario's gameplay parameters
 var fludd_strain = false
@@ -75,6 +79,31 @@ const voice_bank = {
 		preload("res://audio/sfx/mario/dive/wa1.wav"),
 		preload("res://audio/sfx/mario/dive/wa2.wav"),
 		preload("res://audio/sfx/mario/dive/wa3.wav"),
+	],
+}
+
+const step_bank = {
+	"grass": [
+		preload("res://audio/sfx/step/grass/step_grass_0.wav"),
+		preload("res://audio/sfx/step/grass/step_grass_1.wav"),
+		preload("res://audio/sfx/step/grass/step_grass_2.wav"),
+		preload("res://audio/sfx/step/grass/step_grass_3.wav"),
+	],
+	"generic": [
+		preload("res://audio/sfx/step/generic/step_generic_0.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_1.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_2.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_3.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_4.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_5.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_6.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_7.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_8.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_9.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_10.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_11.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_12.wav"),
+		preload("res://audio/sfx/step/generic/step_generic_13.wav"),
 	],
 }
 
@@ -170,6 +199,19 @@ func play_voice(group_name):
 	voice.play(0)
 
 
+func play_step():
+	if sprite.frame == 0 && last_step == 1 && step_check.is_colliding():
+		var group
+		if grass_check.is_colliding():
+			group = step_bank["grass"]
+		else:
+			group = step_bank["generic"]
+			
+		var sound = group[randi() % group.size()]
+		step.stream = sound
+		step.play(0)
+
+
 func update_classic():
 	classic = $"/root/Singleton".classic #this isn't a filename don't change Main to lowercase lol
 	if classic:
@@ -181,6 +223,8 @@ func update_classic():
 func switch_anim(new_anim):
 	var fludd_anim
 	var anim
+	if new_anim == "fall":
+		last_step = 1
 	match singleton.nozzle:
 		n.hover:
 			fludd_anim = "hover_" + new_anim
@@ -963,10 +1007,13 @@ func _physics_process(_delta):
 		if int(vel.x) == 0:
 			sprite.frame = 0
 			sprite.speed_scale = 0
+			play_step()
 		else:
 			if sprite.speed_scale == 0:
 				sprite.frame = 1
 			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
+			play_step()
+		last_step = sprite.frame
 	elif !sprite.animation.ends_with("swim"):
 		sprite.speed_scale = 1
 	#$Label.text = str(vel.x)

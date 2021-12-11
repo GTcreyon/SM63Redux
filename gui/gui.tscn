@@ -242,14 +242,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 64 ) ],
-"loop": true,
-"name": "rocket",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 77 ) ],
 "loop": true,
 "name": "turbo",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 64 ) ],
+"loop": true,
+"name": "rocket",
 "speed": 5.0
 } ]
 
@@ -721,6 +721,7 @@ frame = 6
 playing = true
 
 [node name="CoinRing" type="Sprite" parent="LifeMeter/CoinMeter"]
+visible = false
 texture = ExtResource( 34 )
 
 [node name="DebugLabel" type="Label" parent="."]

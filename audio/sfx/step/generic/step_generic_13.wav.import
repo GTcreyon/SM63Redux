@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/step_generic_13.wav-b6174eb80aa46a34a57f1785e46ae2e3.sample"
+
+[deps]
+
+source_file="res://audio/sfx/step/generic/step_generic_13.wav"
+dest_files=[ "res://.import/step_generic_13.wav-b6174eb80aa46a34a57f1785e46ae2e3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

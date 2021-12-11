@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/step_metal_5.wav-758595559c4f3666ac14c5f0f448f0e0.sample"
+
+[deps]
+
+source_file="res://audio/sfx/step/metal/step_metal_5.wav"
+dest_files=[ "res://.import/step_metal_5.wav-758595559c4f3666ac14c5f0f448f0e0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

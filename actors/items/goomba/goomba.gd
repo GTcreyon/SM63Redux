@@ -47,33 +47,34 @@ func _physics_process(_delta):
 			main.add_child(spawn)
 			Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
 			queue_free()
-		elif !struck:
-			if player.position.y + 16 > global_position.y - 10:
-				player.vel.y = 0
-				player.position.y += 0.5
-			if Input.is_action_just_pressed("jump"):
-				full_jump = true
-			
-		if sprite.frame == 3:
+		else:
 			if !struck:
-				if player.state == player.s.edive:
-					player.coyote_time = 0
-					player.dive_correct(-1)
-					player.switch_state(player.s.diveflip)
-					player.switch_anim("jump")
-					player.flip_l = player.sprite.flip_h
-					player.vel.y = min(-player.set_jump_1_vel/1.5, player.vel.y)
-					player.double_jump_state = 0
-				else:
-					if Input.is_action_pressed("jump"):
-						if full_jump:
-							player.vel.y = -6.5
-						else:
-							player.vel.y = -6
+				if player.position.y + 16 > global_position.y - 10:
+					player.vel.y = 0
+					player.position.y += 0.5
+				if Input.is_action_just_pressed("jump"):
+					full_jump = true
+			
+			if sprite.frame == 3:
+				if !struck:
+					if player.state == player.s.edive:
+						player.coyote_time = 0
+						player.dive_correct(-1)
+						player.switch_state(player.s.diveflip)
+						player.switch_anim("jump")
+						player.flip_l = player.sprite.flip_h
+						player.vel.y = min(-player.set_jump_1_vel/1.5, player.vel.y)
+						player.double_jump_state = 0
 					else:
-						player.vel.y = -5
-					player.switch_state(player.s.walk)
-			dead = true #apparently queue_free() doesn't cancel the current cycle
+						if Input.is_action_pressed("jump"):
+							if full_jump:
+								player.vel.y = -6.5
+							else:
+								player.vel.y = -6
+						else:
+							player.vel.y = -5
+						player.switch_state(player.s.walk)
+				dead = true #apparently queue_free() doesn't cancel the current cycle
 			
 	#code to push enemies apart - maybe come back to later?
 #	for area in get_overlapping_areas():
