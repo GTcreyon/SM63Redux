@@ -17,8 +17,8 @@ func _ready():
 	animation = str(id)
 	if animation != str(id):
 		animation = "0"
-	if id == 140:
-		rotation_degrees = int(data[3])
+#	if id == 140:
+#		rotation_degrees = int(data[3])
 	size = frames.get_frame(animation, frame).get_size()
 	cam.connect("test_level", self, "_on_LDCamera_test_level")
 
@@ -61,14 +61,16 @@ func _process(_delta):
 		#code_array[2] = str(position.y - 32)
 		#updateCode()
 	
-	#if id == 1:
-	#	get_parent().start_pos = position
+	if id == 1:
+		get_parent().start_pos = position
 		
 
 func _on_LDCamera_test_level():
 	if id != 1:
-		var object_spawn = cam.object_load(id).instance()
-		object_spawn.position = position
-		get_parent().add_child(object_spawn)
+		var a = cam.object_load(id)
+		if a != null:
+			var object_spawn = cam.object_load(id).instance()
+			object_spawn.position = position
+			get_parent().add_child(object_spawn)
 	queue_free()
 
