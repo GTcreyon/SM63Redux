@@ -48,5 +48,5 @@ func _process(_delta):
 
 func object_load(id):
 	if !objects_loaded.has(id):
-		objects_loaded[id] = load("res://actors/items/" + id + "/" + id + ".tscn")
+		objects_loaded[id] = load("res://actors/items/" + str(id) + "/" + str(id) + ".tscn")
 	return objects_loaded[id]
