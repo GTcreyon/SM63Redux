@@ -23,11 +23,17 @@ _global_script_classes=[ {
 "class": "Serializer",
 "language": "GDScript",
 "path": "res://src/global/serializer.gd"
+}, {
+"base": "Node2D",
+"class": "TileToPoly",
+"language": "GDScript",
+"path": "res://src/global/tile_to_poly.gd"
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
 "LDItem": "",
-"Serializer": ""
+"Serializer": "",
+"TileToPoly": ""
 }
 
 [application]

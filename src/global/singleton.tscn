@@ -9,78 +9,60 @@
 [ext_resource path="res://src/global/music.gd" type="Script" id=7]
 [ext_resource path="res://actors/items/coin/coin_collect.wav" type="AudioStream" id=8]
 [ext_resource path="res://src/global/mobile_controls.gd" type="Script" id=9]
-[ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=10]
+[ext_resource path="res://src/global/tile_to_poly.gd" type="Script" id=10]
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 10 )
 region = Rect2( 0, 105, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 105, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 10 )
 region = Rect2( 0, 126, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 126, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 10 )
 region = Rect2( 0, 63, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 63, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 10 )
 region = Rect2( 0, 84, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 84, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 10 )
 region = Rect2( 0, 147, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 147, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 10 )
 region = Rect2( 0, 168, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 168, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 10 )
 region = Rect2( 0, 189, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 189, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 21, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 42, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 10 )
 region = Rect2( 0, 210, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 10 )
 region = Rect2( 20, 210, 20, 21 )
 
 [node name="Singleton" type="CanvasLayer"]
@@ -101,6 +83,9 @@ __meta__ = {
 
 [node name="Serializer" type="Node2D" parent="."]
 script = ExtResource( 4 )
+
+[node name="TileToPoly" type="Node2D" parent="Serializer"]
+script = ExtResource( 10 )
 
 [node name="BaseModifier" type="Node2D" parent="."]
 script = ExtResource( 5 )
