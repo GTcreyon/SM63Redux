@@ -40,12 +40,13 @@ func _ready():
 func _physics_process(_delta):
 	if sprite.animation == "squish":
 		var room = get_tree().get_current_scene().get_filename()
-		if dead && !Singleton.collected_dict[room][collect_id]:
-			var spawn = coin.instance()
-			spawn.position = position
-			spawn.dropped = true
-			main.add_child(spawn)
-			Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
+		if dead:
+			if !Singleton.collected_dict[room][collect_id]:
+				var spawn = coin.instance()
+				spawn.position = position
+				spawn.dropped = true
+				main.add_child(spawn)
+				Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
 			queue_free()
 		else:
 			if !struck:
@@ -221,6 +222,7 @@ func _on_Area2D_body_entered_hurt(body):
 				player.call_deferred("switch_state", player.s.edive)
 			else:
 				player.call_deferred("switch_state", player.s.ejump)
+				print("a")
 		elif !struck:
 			if player.is_spinning():
 				struck = true

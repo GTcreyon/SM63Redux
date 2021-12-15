@@ -81,8 +81,4 @@ func _on_PickupArea_body_entered(_body):
 	var inst = sparkle.instance()
 	inst.position = position
 	main.add_child(inst)
-	sprite.queue_free()
-
-
-func _on_SFX_finished():
 	queue_free()
