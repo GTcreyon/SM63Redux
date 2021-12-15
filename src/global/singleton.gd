@@ -20,10 +20,13 @@ var hp = 8
 var kris = false
 var meter_progress = 0
 var collected_nozzles = [false, false, false]
-var collected_dict = {"res://scenes/tutorial_1/tutorial_1_1.tscn":[]}
+var collected_dict = {}
 var collect_count = 0
 
 func _ready():
+	var file = get_tree().get_current_scene().get_filename()
+	if !collected_dict.has(file):
+		collected_dict[file] = []
 	rng.seed = hash("2401")
 	collect_count = 0 # reset the collect count on every room load
 #	if enter != 0:
