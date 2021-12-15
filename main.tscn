@@ -22,7 +22,6 @@
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=20]
 [ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=21]
 
-
 [node name="Main" type="Node2D"]
 
 [node name="Goomba" parent="." instance=ExtResource( 16 )]
