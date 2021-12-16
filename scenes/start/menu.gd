@@ -122,5 +122,5 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		match (cycle_step + cycle_direction) % 4:
 			0:
-				Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn")
+				Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
 	

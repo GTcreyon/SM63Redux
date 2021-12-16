@@ -274,8 +274,8 @@ func switch_state(new_state):
 func _ready():
 	var warp = $"/root/Singleton/Warp"
 	switch_state(s.walk) # reset state to avoid short mario glitch
-	if warp.set_location != null:
-		position = warp.set_location
+	if Singleton.set_location != null:
+		position = Singleton.set_location
 		warp.set_location = null
 		sprite.flip_h = warp.flip
 	update_classic()

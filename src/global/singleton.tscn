@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://actors/items/coin/coin_collect.wav" type="AudioStream" id=8]
 [ext_resource path="res://src/global/mobile_controls.gd" type="Script" id=9]
 [ext_resource path="res://src/global/tile_to_poly.gd" type="Script" id=10]
+[ext_resource path="res://src/global/window_warp.gd" type="Script" id=11]
 
 [sub_resource type="AtlasTexture" id=3]
 region = Rect2( 0, 105, 20, 21 )
@@ -71,6 +72,13 @@ script = ExtResource( 2 )
 [node name="Warp" type="Polygon2D" parent="."]
 color = Color( 0, 0, 0, 1 )
 script = ExtResource( 1 )
+
+[node name="WindowWarp" type="Polygon2D" parent="."]
+color = Color( 0, 0, 0, 1 )
+invert_enable = true
+invert_border = 224.0
+polygon = PoolVector2Array( 148, 110, 206, 107, 230, 40, 258, 105, 315, 112, 294, 186, 226, 196, 172, 178 )
+script = ExtResource( 11 )
 
 [node name="DeathCover" type="ColorRect" parent="."]
 anchor_right = 1.0
