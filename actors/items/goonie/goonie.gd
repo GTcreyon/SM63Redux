@@ -18,7 +18,7 @@ const up_time = 250.0*60/32 #maximum time a bird will flap up
 const down_time = 45.0*60/32 #maximum time a bird will swoop down
 
 func _ready():
-	if camera_area.polygon != null:
+	if camera_area != null:
 		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
 		var points = camera_polygon.size()
 		for i in range(points):
