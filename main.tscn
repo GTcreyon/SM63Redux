@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://tilesets/legacy/legacy.tres" type="TileSet" id=1]
 [ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=2]
@@ -21,8 +21,14 @@
 [ext_resource path="res://actors/items/koopa/koopa.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=20]
 [ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=21]
+[ext_resource path="res://actors/items/heart/heart.tscn" type="PackedScene" id=22]
 
 [node name="Main" type="Node2D"]
+
+[node name="Heart" parent="." instance=ExtResource( 22 )]
+position = Vector2( -2599, 230 )
+collision_layer = 4
+collision_mask = 2
 
 [node name="Goomba" parent="." instance=ExtResource( 16 )]
 position = Vector2( -2004.91, 229.954 )
