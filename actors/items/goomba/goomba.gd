@@ -222,7 +222,6 @@ func _on_Area2D_body_entered_hurt(body):
 				player.call_deferred("switch_state", player.s.edive)
 			else:
 				player.call_deferred("switch_state", player.s.ejump)
-				print("a")
 		elif !struck:
 			if player.is_spinning():
 				struck = true

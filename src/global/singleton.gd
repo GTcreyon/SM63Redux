@@ -22,11 +22,11 @@ var meter_progress = 0
 var collected_nozzles = [false, false, false]
 var collected_dict = {}
 var collect_count = 0
+var set_location
+var flip
 
 func _ready():
-	var file = get_tree().get_current_scene().get_filename()
-	if !collected_dict.has(file):
-		collected_dict[file] = []
+	#create_coindict(get_tree().get_current_scene().get_filename())
 	rng.seed = hash("2401")
 	collect_count = 0 # reset the collect count on every room load
 #	if enter != 0:
@@ -36,13 +36,19 @@ func _ready():
 
 func warp_to(path):
 	collect_count = 0
-	if !path in collected_dict:
-		collected_dict[path] = []
+	#create_coindict(path)
 	#warning-ignore:RETURN_VALUE_DISCARDED
-	return get_tree().change_scene(path)
+	return get_tree().call_deferred("change_scene", path)
 
 
 func get_collect_id():
-	Singleton.collected_dict[get_tree().get_current_scene().get_filename()].append(false)
+	var path = get_tree().get_current_scene().get_filename()
+	create_coindict(path)
+	Singleton.collected_dict[path].append(false)
 	collect_count += 1
 	return collect_count - 1
+
+
+func create_coindict(path):
+	if !collected_dict.has(path):
+		collected_dict[path] = [false]

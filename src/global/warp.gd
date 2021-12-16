@@ -22,7 +22,7 @@ func warp(dir, location, path):
 	$"/root/Main/Player/Camera2D".drag_margin_v_enabled = true
 	enter = 1
 	direction = dir
-	set_location = location
+	Singleton.set_location = location
 	scene_path = path
 	var x_pos = (1 - direction.x) * OS.window_size.x / 2
 	curve_top = Vector2(x_pos, 0)
@@ -70,7 +70,7 @@ func _process(_delta):
 		curve_arc = Vector2(0, OS.window_size.y / 2)
 		curve_bottom = Vector2(x_pos, OS.window_size.y)
 		enter = -1
-		flip = $"/root/Main/Player/AnimatedSprite".flip_h
+		Singleton.flip = $"/root/Main/Player/AnimatedSprite".flip_h
 	elif enter == -1 && ((curve_top.x > OS.window_size.x && direction == Vector2.RIGHT) || (curve_top.x < 0 && direction == Vector2.LEFT)):
 		enter = 0
 		visible = false
