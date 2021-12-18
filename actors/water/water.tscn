@@ -16,11 +16,11 @@ water_texture = ExtResource( 5 )
 [node name="DetectionArea" type="Area2D" parent="."]
 pause_mode = 2
 z_index = 1
+collision_layer = 2147483656
+collision_mask = 4
 space_override = 3
 gravity_vec = Vector2( 0, 0 )
 linear_damp = 0.5
-collision_layer = 2147483656
-collision_mask = 4
 script = ExtResource( 3 )
 water_segment_size = 5
 
