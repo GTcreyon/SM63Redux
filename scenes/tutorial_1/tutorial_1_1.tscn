@@ -375,7 +375,6 @@ position = Vector2( 1136, 27 )
 [node name="Water" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 320, 226 )
 polygon = PoolVector2Array( 0, 0, 118, 0, 118, 20, 97, 87, 30, 103, 0, 21 )
-water_color = Color( 0.243137, 0, 1, 0.8 )
 
 [node name="Water2" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 606, 226 )
