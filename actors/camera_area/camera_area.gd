@@ -9,7 +9,7 @@ onready var warp = $"/root/Singleton/Warp"
 onready var singleton = $"/root/Singleton"
 onready var base_modifier: BaseModifier = singleton.base_modifier
 
-const WINDOW_DIAGONAL = pow(pow(448 / 2, 2) + pow(304 / 2, 2), 0.5)
+const WINDOW_DIAGONAL = pow(pow(Singleton.DEFAULT_SIZE.x / 2, 2) + pow(Singleton.DEFAULT_SIZE.y / 2, 2), 0.5)
 
 var global_polygon = PoolVector2Array()
 

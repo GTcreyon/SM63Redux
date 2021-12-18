@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/legacy_coin0.png-cc1a5f5137682805c5e31abe5fd208d5.stex"
+path="res://.import/twirlheartredo6.png-260c55d7493e4253b318f0c861497efa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/coin/legacy_coin0.png"
-dest_files=[ "res://.import/legacy_coin0.png-cc1a5f5137682805c5e31abe5fd208d5.stex" ]
+source_file="res://actors/items/heart/twirlheartredo6.png"
+dest_files=[ "res://.import/twirlheartredo6.png-260c55d7493e4253b318f0c861497efa.stex" ]
 
 [params]
 
@@ -28,6 +28,7 @@ process/fix_alpha_border=true
 process/premult_alpha=false
 process/HDR_as_SRGB=false
 process/invert_color=false
+process/normal_map_invert_y=false
 stream=false
 size_limit=0
 detect_3d=false

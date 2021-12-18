@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actors/items/fludd_box/pickup_hover.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/fludd_box/pickup_turbo.png" type="Texture" id=2]
 [ext_resource path="res://actors/items/fludd_box/pickup_rocket.png" type="Texture" id=3]
 [ext_resource path="res://actors/items/fludd_box/fludd_pickup.gd" type="Script" id=4]
+[ext_resource path="res://src/global/dejitter.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 7.5 )
@@ -28,6 +29,7 @@ collision_mask = 2
 
 [node name="Sprite" type="Sprite" parent="Hover"]
 texture = ExtResource( 1 )
+script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hover"]
 shape = SubResource( 1 )
@@ -40,6 +42,7 @@ collision_mask = 2
 [node name="Sprite" type="Sprite" parent="Rocket"]
 position = Vector2( 0, -5 )
 texture = ExtResource( 3 )
+script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rocket"]
 position = Vector2( 0, -5 )
@@ -53,6 +56,7 @@ collision_mask = 2
 [node name="Sprite" type="Sprite" parent="Turbo"]
 position = Vector2( 0, -3 )
 texture = ExtResource( 2 )
+script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Turbo"]
 position = Vector2( 0, -3 )

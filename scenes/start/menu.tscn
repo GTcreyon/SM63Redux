@@ -319,7 +319,7 @@ texture = ExtResource( 12 )
 polygon = PoolVector2Array( 0, 0, 0, 304, 448, 304, 448, 0 )
 
 [node name="FadeOut" type="ColorRect" parent="."]
-visible = false
+modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.003
 color = Color( 0, 0, 0, 1 )

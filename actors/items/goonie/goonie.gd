@@ -18,14 +18,15 @@ const up_time = 250.0*60/32 #maximum time a bird will flap up
 const down_time = 45.0*60/32 #maximum time a bird will swoop down
 
 func _ready():
-	camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
-	var points = camera_polygon.size()
-	for i in range(points):
-		var from : Vector2 = camera_polygon[i]
-		var to : Vector2 = camera_polygon[(i + 1) % points]
-		var intersect = Geometry.segment_intersects_segment_2d(from, to, position, Vector2(-99999, 0))
-		if intersect != null:
-			reset_position = intersect + Vector2.LEFT * 20
+	if camera_area != null:
+		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
+		var points = camera_polygon.size()
+		for i in range(points):
+			var from : Vector2 = camera_polygon[i]
+			var to : Vector2 = camera_polygon[(i + 1) % points]
+			var intersect = Geometry.segment_intersects_segment_2d(from, to, position, Vector2(-99999, 0))
+			if intersect != null:
+				reset_position = intersect + Vector2.LEFT * 20
 	rng.seed = hash(position.x + position.y * PI) #each bird will be different, but behave the same way each time
 	sprite.frame = rng.seed % 7
 	sprite.playing = true

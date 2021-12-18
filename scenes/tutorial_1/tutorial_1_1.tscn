@@ -381,7 +381,7 @@ position = Vector2( 606, 226 )
 polygon = PoolVector2Array( 0, 0, 212, 0, 212, 43, 370, 66, 488, 58, 478.711, 0, 588.07, 0, 591, 45, 540, 123, 358, 150, 187, 132, 176, 155, 140, 175, 31, 147, 0, 35 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 110, 144.67 )
+position = Vector2( 110, 153 )
 
 [node name="Terrain" type="Node2D" parent="."]
 

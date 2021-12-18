@@ -15,18 +15,18 @@ script = ExtResource( 4 )
 [node name="Sky" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 centered = false
-offset = Vector2( -224, -152 )
+offset = Vector2( -320, -180 )
 
 [node name="Layer1" type="Polygon2D" parent="."]
-position = Vector2( 0, 211 )
+position = Vector2( 0, 267 )
 texture = ExtResource( 1 )
-polygon = PoolVector2Array( 0, 0, 448, 0, 448, 93, 0, 93 )
+polygon = PoolVector2Array( 0, 0, 640, 0, 640, 93, 0, 93 )
 
 [node name="Layer2" type="Polygon2D" parent="."]
 texture = ExtResource( 3 )
-polygon = PoolVector2Array( 0, 0, 450, 0, 449, 176, 0, 176 )
+polygon = PoolVector2Array( 0, 0, 640, 0, 640, 176, 0, 176 )
 
 [node name="Layer3" type="Polygon2D" parent="."]
-position = Vector2( 0, 76 )
+position = Vector2( 0, 132 )
 texture = ExtResource( 5 )
-polygon = PoolVector2Array( 0, 0, 447, 0, 447, 228, 0, 228 )
+polygon = PoolVector2Array( 0, 0, 640, 0, 640, 228, 0, 228 )

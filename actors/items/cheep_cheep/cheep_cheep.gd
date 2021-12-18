@@ -13,6 +13,7 @@ var struck = false
 var struck_timer = 60
 onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
+onready var hurtbox = $Damage
 var rng = RandomNumberGenerator.new()
 
 func _ready():
@@ -78,6 +79,9 @@ func _physics_process(_delta):
 				vel.x = rng.randf() * 2 - 1
 			rotation = lerp_angle(rotation, 0, 0.25)
 			sprite.flip_h = vel.x < 0
+		var bodies = hurtbox.get_overlapping_bodies()
+		if bodies.size() > 0:
+			damage_check(bodies[0])
 		
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide(vel * 60, Vector2.UP)
@@ -97,18 +101,8 @@ func _on_Following_body_exited(_body):
 
 
 func _on_Damage_body_entered(body):
-	if body.is_spinning():
-		struck = true
-		if body.position.x < position.x:
-			vel.x = 10
-		elif body.position.x > position.x:
-			vel.x = -10
-		vel.y = -1
-	else:
-		if body.position.x < position.x:
-			player.take_damage_shove(1, -1)
-		elif body.position.x > position.x:
-			player.take_damage_shove(1, 1)
+	if !struck:
+		damage_check(body)
 
 
 func _on_WaterCheck_area_entered(_area):
@@ -120,3 +114,18 @@ func _on_WaterCheck_area_exited(_area):
 	follow = false
 	can_follow = false
 	vel.y = -5.0
+
+
+func damage_check(body):
+	if body.is_spinning():
+		struck = true
+		if body.position.x < position.x:
+			vel.x = 10
+		elif body.position.x > position.x:
+			vel.x = -10
+		vel.y = -1
+	else:
+		if body.position.x < position.x:
+			body.take_damage_shove(1, -1)
+		elif body.position.x > position.x:
+			body.take_damage_shove(1, 1)
