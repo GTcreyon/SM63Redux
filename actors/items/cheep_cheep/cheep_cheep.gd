@@ -69,7 +69,7 @@ func _physics_process(_delta):
 						idle_time = 241
 					else:
 						idle_time = 0
-					vel.x = 0
+					vel.x = -sign(vel.x)
 					
 				follow = abs(vel.y) < 1 && can_follow
 		else:
