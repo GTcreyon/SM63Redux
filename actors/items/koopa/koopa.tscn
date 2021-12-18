@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=1]
 [ext_resource path="res://actors/items/koopa/koopa.gd" type="Script" id=2]
 [ext_resource path="res://actors/items/koopa/koopa_walk.png" type="Texture" id=3]
+[ext_resource path="res://src/global/dejitter.gd" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 3 )
@@ -52,6 +53,7 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 7 )
 animation = "walk"
+script = ExtResource( 4 )
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 0.5 )
