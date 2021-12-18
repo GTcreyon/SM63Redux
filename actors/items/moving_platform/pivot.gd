@@ -48,7 +48,7 @@ func refresh_ring():
 		var inst = Sprite.new()
 		inst.texture = dot_tex
 		var angle = (2 * PI / dots) * i
-		inst.position = Vector2(cos(angle) * radius, sin(angle) * radius)
+		inst.position = Vector2(cos(angle) * radius, sin(angle) * radius).round()
 		$Dots.add_child(inst)
 
 

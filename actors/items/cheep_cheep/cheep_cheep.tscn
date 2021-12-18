@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep1.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep2.png" type="Texture" id=2]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.gd" type="Script" id=3]
+[ext_resource path="res://src/global/dejitter.gd" type="Script" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -30,6 +31,7 @@ script = ExtResource( 3 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
+script = ExtResource( 4 )
 
 [node name="Following" type="Area2D" parent="."]
 collision_layer = 0
