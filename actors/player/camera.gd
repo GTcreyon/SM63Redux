@@ -18,9 +18,9 @@ func _ready():
 
 func _process(_delta):
 	if OS.window_size.x != 0:
-		var zoom_factor = 448/OS.window_size.x
+		var zoom_factor = Singleton.DEFAULT_SIZE.x/OS.window_size.x
 		if !get_tree().paused:
-			if Input.is_action_just_pressed("zoom+"):
+			if Input.is_action_just_pressed("zoom+") && target_zoom > 0.25:
 				target_zoom /= 2
 				tween.stop_all()
 				tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)

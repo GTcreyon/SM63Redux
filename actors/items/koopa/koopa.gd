@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
+onready var hurtbox = $Damage
 
 var shell = preload("koopa_shell.tscn").instance()
 const FLOOR = Vector2(0, -1)
@@ -45,6 +46,10 @@ func _physics_process(_delta):
 	sprite.flip_h = direction == -1
 	if position.x - init_position.x > 100 or position.x - init_position.x < -100:
 		flip_ev()
+	
+	var bodies = hurtbox.get_overlapping_bodies()
+	if bodies.size() > 0:
+		damage_check(bodies[0])
 
 
 func flip_ev():
@@ -69,7 +74,11 @@ func _on_Kick_finished():
 
 
 func _on_Damage_body_entered(body):
-	if player.is_spinning():
+	damage_check(body)
+	
+
+func damage_check(body):
+	if body.is_spinning():
 		$Kick.play()
 		$"/root/Main/Player".vel.y = -5
 		get_parent().call_deferred("add_child", shell)
@@ -84,7 +93,7 @@ func _on_Damage_body_entered(body):
 	else:
 		if body.global_position.x < global_position.x:
 			#print("collided from left")
-			player.take_damage_shove(1, -1)
+			body.take_damage_shove(1, -1)
 		elif body.global_position.x > global_position.x:
 			#print("collided from right")
-			player.take_damage_shove(1, 1)
+			body.take_damage_shove(1, 1)

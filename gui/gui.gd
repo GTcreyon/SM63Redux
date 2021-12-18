@@ -50,7 +50,7 @@ var pulse = 0
 
 func _ready():
 	coin_counter.text = str(singleton.coin_total)
-	set_size(floor(log(floor(OS.window_size.x / 448)) / log(2) + 1), floor(OS.window_size.x / 448))
+	set_size(floor(log(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x)) / log(2) + 1), floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 	var menu = get_tree().get_nodes_in_group("pause")
 	for node in menu: #make pause nodes visible but transparent
 		node.modulate.a = 0
@@ -58,7 +58,7 @@ func _ready():
 
 
 func resize():
-	var scale = floor(OS.window_size.y / 304)
+	var scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
 	var topsize = OS.window_size.x / scale - 36 - 30
 	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
 	bg.rect_size = OS.window_size
@@ -111,11 +111,11 @@ func resize():
 func set_size(size, lin_size):
 	#size: general size of UI elements
 	#lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
-	water_meter.rect_scale = Vector2.ONE * size
-	stats_tl.rect_scale = Vector2.ONE * size
-	stats_tr.rect_scale = Vector2.ONE * size
-	stats_bl.rect_scale = Vector2.ONE * size
-	life_meter.scale = Vector2.ONE * size
+	water_meter.rect_scale = Vector2.ONE * lin_size
+	stats_tl.rect_scale = Vector2.ONE * lin_size
+	stats_tr.rect_scale = Vector2.ONE * lin_size
+	stats_bl.rect_scale = Vector2.ONE * lin_size
+	life_meter.scale = Vector2.ONE * lin_size
 	life_meter.position.x = OS.window_size.x / 2
 	dialog_box.gui_size = lin_size
 #	$InputDisplay.rect_scale = Vector2.ONE * size
@@ -140,23 +140,23 @@ func _process(_delta):
 	if Input.is_action_just_pressed("fullscreen"):
 		OS.window_fullscreen = !OS.window_fullscreen
 		size_changed = true
-	if Input.is_action_just_pressed("screen+") && OS.window_size.x + 448 <= OS.get_screen_size().x && OS.window_size.y + 304 <= OS.get_screen_size().y:
-		OS.window_size.x += 448
-		OS.window_size.y += 304
+	if Input.is_action_just_pressed("screen+") && OS.window_size.x + Singleton.DEFAULT_SIZE.x < OS.get_screen_size().x && OS.window_size.y + Singleton.DEFAULT_SIZE.y < OS.get_screen_size().y:
+		OS.window_size.x += Singleton.DEFAULT_SIZE.x
+		OS.window_size.y += Singleton.DEFAULT_SIZE.y
 		size_changed = true
-	if Input.is_action_just_pressed("screen-") && OS.window_size.x - 448 >= 448:
-		OS.window_size.x -= 448
-		OS.window_size.y -= 304
+	if Input.is_action_just_pressed("screen-") && OS.window_size.x - Singleton.DEFAULT_SIZE.x >= Singleton.DEFAULT_SIZE.x:
+		OS.window_size.x -= Singleton.DEFAULT_SIZE.x
+		OS.window_size.y -= Singleton.DEFAULT_SIZE.y
 		size_changed = true
 	if size_changed:
 		$"/root/Main/Bubbles".refresh()
-		set_size(floor(log(floor(OS.window_size.x / 448)) / log(2) + 1), floor(OS.window_size.x / 448))
+		set_size(floor(log(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x)) / log(2) + 1), floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 	
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused
 	
 	var menu = get_tree().get_nodes_in_group("pause")
-	var gui_scale = floor(OS.window_size.y / 304)
+	var gui_scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
 	if get_tree().paused:
 		pause_offset = lerp(pause_offset, 1, 0.5)
 		for node in menu:

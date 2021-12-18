@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://actors/items/koopa/shell.png" type="Texture" id=1]
+[ext_resource path="res://src/global/dejitter.gd" type="Script" id=2]
 [ext_resource path="res://actors/items/koopa/koopa_shell.gd" type="Script" id=9]
 [ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=10]
 
@@ -94,6 +95,7 @@ script = ExtResource( 9 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 17 )
 animation = "counterclockwise"
+script = ExtResource( 2 )
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
 shape = SubResource( 18 )
