@@ -23,9 +23,9 @@ var fuse_time = 240
 var collect_id
 
 onready var hurtbox = $Hurtbox
-onready var base = $Base
-onready var fuse = $Fuse
-onready var key = $Key
+onready var base = $Sprites/Base
+onready var fuse = $Sprites/Fuse
+onready var key = $Sprites/Key
 onready var raycast = $RayCast2D
 onready var player = $"/root/Main/Player"
 onready var sfx_active = $SFXActive
