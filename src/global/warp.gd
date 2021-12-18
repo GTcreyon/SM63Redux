@@ -33,7 +33,7 @@ func warp(dir, location, path):
 func _process(_delta):
 	if enter != 0:
 		visible = true
-		var speed = OS.window_size.x / 448
+		var speed = OS.window_size.x / Singleton.DEFAULT_SIZE.x
 		curve_top += 20 * direction * speed
 		curve_arc -= 5 * direction * enter * speed
 		curve_bottom += 20 * direction * speed

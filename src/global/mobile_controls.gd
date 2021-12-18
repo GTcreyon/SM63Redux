@@ -7,7 +7,7 @@ func _init():
 
 
 func _ready():
-	var scale = floor(OS.window_size.y / 304)
+	var scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
 	$MobileArrows.rect_scale = Vector2.ONE * scale * 6
 	$MobileAction.rect_scale = Vector2.ONE * scale * 6
 

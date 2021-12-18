@@ -74,6 +74,7 @@ color = Color( 0, 0, 0, 1 )
 script = ExtResource( 1 )
 
 [node name="WindowWarp" type="Polygon2D" parent="."]
+visible = false
 color = Color( 0, 0, 0, 1 )
 invert_enable = true
 invert_border = 224.0

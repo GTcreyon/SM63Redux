@@ -49,10 +49,10 @@ func run_command(cmd):
 				output("Scene does not exist.")
 			else:
 				var err = singleton.warp_to(path)
-				if err == OK:
+				if err == OK || err == null:
 					output("Warped to " + path)
 				else:
-					output("Error: " + err)
+					output("Error: " + str(err))
 		"scene":
 			var scene = "res://" + args[1] + ".tscn"
 			var file_check = File.new()

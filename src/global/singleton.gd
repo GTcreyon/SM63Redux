@@ -1,5 +1,7 @@
 extends Node
 
+const DEFAULT_SIZE = Vector2(640, 360)
+
 onready var serializer: Serializer = $Serializer
 onready var base_modifier: BaseModifier = $BaseModifier
 
