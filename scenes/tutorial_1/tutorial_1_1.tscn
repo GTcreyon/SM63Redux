@@ -55,7 +55,7 @@ shader_param/radial = false
 [node name="Main" type="Node2D"]
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
-polygon = PoolVector2Array( 230, 40, 230, 310, 1680, 310, 1680, 40 )
+polygon = PoolVector2Array( 320, 40, 320, 310, 1616, 310, 1616, 40 )
 
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 

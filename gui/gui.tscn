@@ -242,14 +242,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 77 ) ],
-"loop": true,
-"name": "turbo",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 64 ) ],
 "loop": true,
 "name": "rocket",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 77 ) ],
+"loop": true,
+"name": "turbo",
 "speed": 5.0
 } ]
 
@@ -275,14 +275,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 38 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 51 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 38 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -295,14 +295,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=11]
 animations = [ {
-"frames": [ ExtResource( 73 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 49 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -315,14 +315,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ ExtResource( 72 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 41 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 72 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -335,14 +335,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 54 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 86 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 54 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -355,14 +355,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ ExtResource( 84 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 87 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 84 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -375,14 +375,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ ExtResource( 37 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 97 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 37 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -395,92 +395,92 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ ExtResource( 69 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 58 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 69 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=22]
 animations = [ {
-"frames": [ ExtResource( 92 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 90 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 92 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=23]
 animations = [ {
-"frames": [ ExtResource( 91 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 100 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 91 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 92 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 90 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 92 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=25]
 animations = [ {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 47 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=26]
 animations = [ {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 55 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=27]
 animations = [ {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 45 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -1041,6 +1041,7 @@ __meta__ = {
 anchor_top = 0.346
 anchor_right = 1.0
 anchor_bottom = 0.346
+rect_scale = Vector2( 2, 2 )
 rect_pivot_offset = Vector2( 280, 16 )
 custom_fonts/font = ExtResource( 26 )
 text = "Mushroom Kingdom"
@@ -1088,8 +1089,8 @@ __meta__ = {
 }
 
 [node name="ShineRow" type="HBoxContainer" parent="PauseContent/LevelInfo/CollectRow"]
-margin_left = 94.0
-margin_right = 166.0
+margin_left = 190.0
+margin_right = 262.0
 custom_constants/separation = 36
 alignment = 1
 __meta__ = {
@@ -1143,8 +1144,8 @@ animation = "on"
 offset = Vector2( 0, -1 )
 
 [node name="CoinRow" type="HBoxContainer" parent="PauseContent/LevelInfo/CollectRow"]
-margin_left = 206.0
-margin_right = 206.0
+margin_left = 302.0
+margin_right = 302.0
 custom_constants/separation = 29
 alignment = 1
 __meta__ = {
@@ -1222,9 +1223,9 @@ show_behind_parent = true
 anchor_top = 0.7
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 55.0
+margin_left = 60.0
 margin_top = -0.399994
-margin_right = -55.0
+margin_right = -60.0
 custom_styles/panel = ExtResource( 7 )
 __meta__ = {
 "_edit_use_anchors_": false
