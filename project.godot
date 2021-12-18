@@ -52,8 +52,8 @@ settings/fps/force_fps=60
 
 [display]
 
-window/size/width=448
-window/size/height=304
+window/size/width=640
+window/size/height=360
 window/size/resizable=false
 
 [importer_defaults]
