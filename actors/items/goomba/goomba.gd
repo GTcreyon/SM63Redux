@@ -24,6 +24,7 @@ var struck = false
 var land_timer = 0
 var collect_id
 
+onready var hurtbox = $Hurtbox
 onready var sprite = $AnimatedSprite
 onready var raycast = $RayCast2D
 onready var player = $"/root/Main/Player"
@@ -161,6 +162,9 @@ func _physics_process(_delta):
 			sprite.animation = "jumping"
 			if !is_jumping:
 				sprite.frame = 1
+		var bodies = hurtbox.get_overlapping_bodies()
+		if bodies.size() > 0:
+			damage_check(bodies[0])
 				
 	var snap
 	if !is_on_floor() || sprite.animation == "jumping":
@@ -223,11 +227,14 @@ func _on_Area2D_body_entered_hurt(body):
 			else:
 				player.call_deferred("switch_state", player.s.ejump)
 		elif !struck:
-			if player.is_spinning():
-				struck = true
-				vel.y -= 2.63
-				sprite.animation = "jumping"
-				vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x) / 10
-			else:
-				player.take_damage_shove(1, sign(body.position.x - position.x))
+			damage_check(body)
 
+
+func damage_check(body):
+	if body.is_spinning():
+		struck = true
+		vel.y -= 2.63
+		sprite.animation = "jumping"
+		vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10
+	else:
+		body.take_damage_shove(1, sign(body.position.x - position.x))

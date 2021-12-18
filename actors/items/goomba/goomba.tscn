@@ -19,6 +19,11 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "jumping",
+"speed": 0.0
+}, {
 "frames": [ ExtResource( 1 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walking",
@@ -28,11 +33,6 @@ animations = [ {
 "loop": true,
 "name": "squish",
 "speed": 20.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "jumping",
-"speed": 0.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
