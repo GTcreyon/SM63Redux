@@ -5,7 +5,7 @@
 [ext_resource path="res://shaders/glow_deep.tres" type="Material" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+extents = Vector2( 16, 8 )
 
 [node name="Sign" type="Area2D"]
 material = ExtResource( 3 )
