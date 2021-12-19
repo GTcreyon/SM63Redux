@@ -1,7 +1,7 @@
 extends Node2D
 class_name SM63ToRedux
 
-onready var tile_to_poly: TileToPoly = $TileToPoly
+onready var tile_to_poly: TileToPoly = $"../TileToPoly"
 
 export(String, FILE) var tile_groupings
 
@@ -19,6 +19,67 @@ func debug_print_tiles(tiles):
 				did_send = true
 			continue
 		print(tiles[x])
+
+func convert_xml_to_readable():
+	var root = {
+		root_dir = "tilesets/legacy",
+		groups = []
+	}
+	var is_in_textures = false
+	
+	var parser := XMLParser.new()
+	parser.open(tile_groupings)
+	
+	var node_name = ""
+	while (!parser.read()):
+		var node_type = parser.get_node_type()
+		var current_group = root.groups.back()
+		
+		if node_type == 1:
+			node_name = parser.get_node_name()
+			
+			#we ignore tilE groupings tag
+			if node_name == "tile_groupings":
+				pass
+			
+			#if it's a group, create the group and stall execution
+			if node_name == "grouping":
+				root.groups.append({
+					do_not_convert = false,
+					texture_directory = "",
+					texture_type = "terrain",
+					textures = {},
+					ids = {}
+				})
+				continue
+			
+			if node_name == "textures":
+				is_in_textures = true
+				continue
+			
+			if is_in_textures:
+				pass
+			
+		elif node_type == 3:
+			var node_data = parser.get_node_data()
+			#make sure we only include actual data, not any 0 width ones
+			node_data = node_data.replace("\n", "")
+			node_data = node_data.replace("\t", "")
+			node_data = node_data.replace("\r", "")
+			node_data = node_data.replace(" ", "")
+			#skip non-data
+			if len(node_data) == 0:
+				continue
+			
+			if node_name == "texture_dir":
+				current_group.texture_directory = root.root_dir + "/" + node_data
+				print(current_group.texture_directory)
+			
+		elif node_type == 2:
+			node_name = parser.get_node_name()
+			if node_name == "textures":
+				is_in_textures = false
+	return root
 
 func deserialize_tiles(level_data):
 	#create an tile array
@@ -50,9 +111,9 @@ func deserialize_tiles(level_data):
 			if tiles[x][y] != "0":
 				normalised_tiles[x][y] = 1
 	
-	debug_print_tiles(tiles)
-	print()
-	debug_print_tiles(normalised_tiles)
+	#debug_print_tiles(tiles)
+	#print()
+	#debug_print_tiles(normalised_tiles)
 	
 	var polygons = tile_to_poly.get_all_polygons_from_grid(normalised_tiles, 1)
 	return polygons
@@ -80,6 +141,8 @@ func deserialize_items(level_data):
 	return items
 
 func deserialize(lvl_text):
+	convert_xml_to_readable()
+	
 	#first seperate the level into several segments
 	var expression = RegEx.new()
 	expression.compile("(?<x>\\d+)x(?<y>\\d+)~(?<tiles>.+?)~(?<items>.+?)~(?<song>\\d+)~(?<bg>\\d+)~(?<name>.+)")
