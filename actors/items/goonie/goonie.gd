@@ -1,6 +1,5 @@
 extends StaticBody2D
 
-
 var rng = RandomNumberGenerator.new()
 var time_count = 0
 var vel = Vector2.ZERO
