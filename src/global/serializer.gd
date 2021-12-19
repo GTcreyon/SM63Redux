@@ -3,6 +3,8 @@ class_name Serializer
 
 onready var tile_to_poly: TileToPoly = $TileToPoly
 
+export(String, FILE) var tile_groupings
+
 var version = 0
 
 const REAL_EMPTY_TILE = ""
