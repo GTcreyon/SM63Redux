@@ -64,116 +64,6 @@ func weighted_sum(list, kernel):
 func serialize():
 	pass
 
-func deserialize_tiles_OLD(level_data):
-	var pointer = Vector2()
-	#create a 2D grid
-	var tiles = []
-	for _x in range(level_data.x):
-		tiles.append([])
-	#read the tiles
-	var tiles_expression = RegEx.new()
-	tiles_expression.compile("(?<tile>0|..)(\\*(?<amount>\\d+)\\*)?")
-	for tile_data in tiles_expression.search_all(level_data.tiles_txt):
-		#get the amount for each tile, if it is missing or less than 1 then set it to 1
-		var amount = int(tile_data.get_string("amount"))
-		amount = 1 if amount <= 0 else amount
-		#get the tile id
-		var tile = tile_data.get_string("tile")
-		for _i in range(amount):
-			tiles[pointer.x].append(tile)
-			#loop
-			pointer.y += 1
-			if pointer.y >= level_data.y:
-				pointer.x += 1
-				pointer.y = 0
-	#collect all shapes for the tiles, we use this to get the corners later
-	var shapes = {}
-	for x in range(level_data.x):
-		for y in range(level_data.y):
-			var should_fill = true
-			var pos = Vector2(x, y)
-			#check if we haven't already checked this tile already
-			for shape in shapes.values():
-				if shape[pos.x][pos.y] != REAL_EMPTY_TILE:
-					should_fill = false
-					break
-			#if we should fill, then get the shape
-			if should_fill:
-				var shape = flood_fill(tiles, pos, level_data.limits)
-				shapes[shape[pos.x][pos.y]] = shape
-	#0 is the id for air, we don't care about air! WHO NEEDS AIR ANYWAYS?!
-	if shapes.has("0"):
-		shapes.erase("0")
-	
-	#now get the corners of the shapes
-	var loop_corner = [
-		Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1),
-		Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0),
-		Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1)
-	]
-	
-	#horizontal kernel
-	var k_x = [
-		-1, 0, 1,
-		-2, 0, 2,
-		-1, 0, 1,
-	]
-	#vertical kernel
-	var k_y = [
-		1, 2, 1,
-		0, 0, 0,
-		-1, -2, -1,
-	]
-	
-	#get the corner tiles for each shape, we don't need other tiles
-	#they will be extra unneeded vertices
-	var shape_corners = {}
-	for shape_tile in shapes.keys():
-		var shape = shapes[shape_tile]
-		var checked = []
-		for _x in range(level_data.x):
-			var l = []
-			for _y in range(level_data.y):
-				l.append(REAL_EMPTY_TILE)
-			checked.append(l)
-		var corners = []
-		
-		#Sobel Edge detection implementation
-		#but I use it for corners
-		#get owned Sobel
-		for x in range(level_data.x):
-			for y in range(level_data.y):
-				#make sure we only check on tiles that equal the shape
-				if shape[x][y] != shape_tile:
-					continue
-				var pos = Vector2(x, y)
-				#compile a 1d list of with 0's and 1's
-				var list = []
-				for offset in loop_corner:
-					var real_pos = pos + offset
-					if !is_in_bounds(real_pos, level_data.limits):
-						list.append(0)
-						continue
-					if shape[real_pos.x][real_pos.y] != shape_tile:
-						list.append(0)
-						continue
-					list.append(1)
-				
-				#get the weighted sums of the list combined with both kernels
-				var g_x = weighted_sum(list, k_x)
-				var g_y = weighted_sum(list, k_y)
-				#now add both sums together using pythagoras
-				var g = pow(pow(g_x, 2) + pow(g_y, 2), 0.5)
-				
-				#edges are g = 4, g = 1 is when fully surrounded, so is g = 0
-				#so if we skip those, we have corners!
-				if g != 0 && g != 4 && g != 1:
-					checked[pos.x][pos.y] = g
-					corners.append(pos)
-		shape_corners[shape_tile] = corners
-	#now update lv data
-	return [shapes, shape_corners]
-
 func deserialize_tiles(level_data):
 	#create an tile array
 	var pointer = Vector2()
@@ -202,7 +92,6 @@ func deserialize_tiles(level_data):
 	for x in range(tiles.size()):
 		for y in range(tiles[x].size()):
 			if tiles[x][y] != "0":
-				print(tiles[x][y])
 				normalised_tiles[x][y] = 1
 	
 	debug_print_tiles(tiles)
