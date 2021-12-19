@@ -5,46 +5,10 @@ onready var tile_to_poly: TileToPoly = $TileToPoly
 
 export(String, FILE) var tile_groupings
 
-var version = 0
-
 const REAL_EMPTY_TILE = ""
 const TILE_SIZE = Vector2(32, 32)
 const TILE_SIZE_X = TILE_SIZE * Vector2(1, 0)
 const TILE_SIZE_Y = TILE_SIZE * Vector2(0, 1)
-
-func is_in_bounds(pos, limits):
-	return pos.x >= 0 && pos.x < limits.x && pos.y >= 0 && pos.y < limits.y
-
-func flood_fill(tiles, pos, limits):
-	if not is_in_bounds(pos, limits):
-		return
-	
-	#create an empty checked tile map
-	var checked = []
-	for _x in range(limits.x):
-		var l = []
-		for _y in range(limits.y):
-			l.append(REAL_EMPTY_TILE)
-		checked.append(l)
-	
-	var search_for = tiles[pos.x][pos.y]
-	var positions_to_fill = [pos]
-	
-	while !positions_to_fill.empty():
-		#get the current pos and tile id
-		var current_pos = positions_to_fill.pop_back()
-		var current_tile_id = tiles[current_pos.x][current_pos.y]
-
-		checked[current_pos.x][current_pos.y] = search_for
-		
-		#add new tiles to check in our stack
-		for offset in [Vector2.RIGHT, Vector2.DOWN, Vector2.LEFT, Vector2.UP]:
-			var neighbour_pos = current_pos + offset
-			if is_in_bounds(neighbour_pos, limits) && tiles[neighbour_pos.x][neighbour_pos.y] == search_for:
-				#make sure we don't check tiles we already checked
-				if checked[neighbour_pos.x][neighbour_pos.y] != search_for:
-					positions_to_fill.push_back(neighbour_pos)
-	return checked
 
 func debug_print_tiles(tiles):
 	var did_send = false
@@ -55,16 +19,6 @@ func debug_print_tiles(tiles):
 				did_send = true
 			continue
 		print(tiles[x])
-
-#get the weighted sum for a nodes neighbors for a kernel
-func weighted_sum(list, kernel):
-	var sum = 0
-	for ind in range(list.size()):
-		sum += list[ind] * kernel[ind]
-	return sum
-
-func serialize():
-	pass
 
 func deserialize_tiles(level_data):
 	#create an tile array
