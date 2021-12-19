@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=1]
 [ext_resource path="res://actors/items/koopa/koopa.gd" type="Script" id=2]
@@ -46,6 +46,9 @@ extents = Vector2( 11, 2 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 5, 14.5 )
 
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 1, 1 )
+
 [node name="Koopa" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 2 )
@@ -84,6 +87,15 @@ collision_mask = 2
 [node name="Collision" type="CollisionShape2D" parent="Damage"]
 shape = SubResource( 10 )
 
+[node name="WaterCheck" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
+shape = SubResource( 11 )
+
 [connection signal="body_entered" from="KoopaCollision" to="." method="_on_KoopaCollision_body_entered"]
 [connection signal="finished" from="Kick" to="." method="_on_Kick_finished"]
 [connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered"]
+[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
+[connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]

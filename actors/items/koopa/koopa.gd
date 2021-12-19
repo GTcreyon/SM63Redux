@@ -12,6 +12,7 @@ var vel = Vector2.ZERO
 var distance_detector = Vector2()
 var speed = 0.9
 var init_position = 0
+var water_bodies : int = 0
 
 export var direction = 1
 #It's supposed to walk from left to right for some certain distance.
@@ -27,7 +28,10 @@ func _ready():
 
 func _physics_process(_delta):
 	vel.x = speed * direction
-	vel.y = min(vel.y + GRAVITY, 6)
+	if water_bodies > 0:
+		vel.y = min(vel.y + GRAVITY, 2)
+	else:
+		vel.y = min(vel.y + GRAVITY, 6)
 	var snap
 	if is_on_floor():
 		init_position = position
@@ -97,3 +101,11 @@ func damage_check(body):
 		elif body.global_position.x > global_position.x:
 			#print("collided from right")
 			body.take_damage_shove(1, 1)
+
+
+func _on_WaterCheck_area_entered(area):
+	water_bodies += 1
+
+
+func _on_WaterCheck_area_exited(area):
+	water_bodies -= 1
