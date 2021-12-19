@@ -1,5 +1,5 @@
 extends Node2D
-class_name Serializer
+class_name SM63ToRedux
 
 onready var tile_to_poly: TileToPoly = $TileToPoly
 
