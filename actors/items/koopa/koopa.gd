@@ -27,7 +27,7 @@ func _ready():
 
 func _physics_process(_delta):
 	vel.x = speed * direction
-	vel.y += GRAVITY
+	vel.y = min(vel.y + GRAVITY, 6)
 	var snap
 	if is_on_floor():
 		init_position = position

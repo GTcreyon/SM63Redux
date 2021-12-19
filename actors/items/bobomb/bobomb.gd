@@ -51,7 +51,7 @@ func _physics_process(_delta):
 	if !is_on_floor():
 		raycast.enabled = false
 	
-	vel.y += GRAVITY
+	vel.y = min(vel.y + GRAVITY, 6)
 	
 	if !struck:
 		#raycast2d is used here to detect if the object collided with a wall

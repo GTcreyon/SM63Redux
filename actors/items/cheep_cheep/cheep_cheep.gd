@@ -73,7 +73,7 @@ func _physics_process(_delta):
 					
 				follow = abs(vel.y) < 1 && can_follow
 		else:
-			vel.y += 0.25
+			vel.y = min(vel.y + 0.25, 5)
 			if is_on_floor():
 				vel.y = -2
 				vel.x = rng.randf() * 2 - 1

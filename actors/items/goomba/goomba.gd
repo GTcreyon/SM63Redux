@@ -90,7 +90,7 @@ func _physics_process(_delta):
 		sprite.frame = 1
 		raycast.enabled = false
 	
-	vel.y += GRAVITY
+	vel.y = min(vel.y + GRAVITY, 6)
 	
 	if sprite.animation != "squish" && !struck:
 		#raycast2d is used here to detect if the object collided with a wall

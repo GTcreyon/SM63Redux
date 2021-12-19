@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+const GRAVITY = 0.17
 onready var sprite = $AnimatedSprite
 
 var speed = 5
@@ -12,7 +13,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	vel.y = min(vel.y + 0.3, 6)
+	vel.y = min(vel.y + GRAVITY, 6)
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide(vel * 60, Vector2.UP)
 	vel.x = lerp(vel.x, 0, 0.00625)
