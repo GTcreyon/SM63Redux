@@ -5,7 +5,7 @@ const DEFAULT_SIZE = Vector2(640, 360)
 onready var serializer: Serializer = $Serializer
 onready var base_modifier: BaseModifier = $BaseModifier
 
-var classic = true
+var classic = false
 
 var nozzle = 0
 var water = 100
