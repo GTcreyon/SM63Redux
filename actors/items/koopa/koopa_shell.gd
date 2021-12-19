@@ -5,6 +5,7 @@ onready var sprite = $AnimatedSprite
 
 var speed = 5
 var vel = Vector2.ZERO
+var water_bodies : int = 0
 
 export var direction = 1
 
@@ -13,7 +14,10 @@ func _ready():
 
 
 func _physics_process(_delta):
-	vel.y = min(vel.y + GRAVITY, 6)
+	if water_bodies > 0:
+		vel.y = min(vel.y + GRAVITY, 2)
+	else:
+		vel.y = min(vel.y + GRAVITY, 6)
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide(vel * 60, Vector2.UP)
 	vel.x = lerp(vel.x, 0, 0.00625)
@@ -46,3 +50,11 @@ func _on_CollisionArea_body_entered(body):
 		#print("collided from right")
 		$Kick.play()
 		vel.x = -speed
+
+
+func _on_WaterCheck_area_entered(area):
+	water_bodies += 1
+
+
+func _on_WaterCheck_area_exited(area):
+	water_bodies -= 1

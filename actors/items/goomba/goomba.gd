@@ -23,6 +23,7 @@ var dead = false
 var struck = false
 var land_timer = 0
 var collect_id
+var water_bodies : int = 0
 
 onready var hurtbox = $Hurtbox
 onready var sprite = $AnimatedSprite
@@ -90,7 +91,10 @@ func _physics_process(_delta):
 		sprite.frame = 1
 		raycast.enabled = false
 	
-	vel.y = min(vel.y + GRAVITY, 6)
+	if water_bodies > 0:
+		vel.y = min(vel.y + GRAVITY, 2)
+	else:
+		vel.y = min(vel.y + GRAVITY, 6)
 	
 	if sprite.animation != "squish" && !struck:
 		#raycast2d is used here to detect if the object collided with a wall
@@ -238,3 +242,11 @@ func damage_check(body):
 		vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10
 	else:
 		body.take_damage_shove(1, sign(body.position.x - position.x))
+
+
+func _on_WaterCheck_area_entered(area):
+	water_bodies += 1
+
+
+func _on_WaterCheck_area_exited(area):
+	water_bodies -= 1

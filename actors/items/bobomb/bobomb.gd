@@ -21,6 +21,7 @@ var dead = false
 var struck = false
 var fuse_time = 240
 var collect_id
+var water_bodies : int = 0
 
 onready var hurtbox = $Hurtbox
 onready var base = $Sprites/Base
@@ -51,7 +52,10 @@ func _physics_process(_delta):
 	if !is_on_floor():
 		raycast.enabled = false
 	
-	vel.y = min(vel.y + GRAVITY, 6)
+	if water_bodies > 0:
+		vel.y = min(vel.y + GRAVITY, 2)
+	else:
+		vel.y = min(vel.y + GRAVITY, 6)
 	
 	if !struck:
 		#raycast2d is used here to detect if the object collided with a wall
@@ -175,3 +179,11 @@ func _on_AlertArea_body_entered(_body):
 		tracking = true
 		fuse.animation = "lit"
 		wander_dist = 0
+
+
+func _on_WaterCheck_area_entered(area):
+	water_bodies += 1
+
+
+func _on_WaterCheck_area_exited(area):
+	water_bodies -= 1
