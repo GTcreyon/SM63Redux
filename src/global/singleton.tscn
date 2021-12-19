@@ -90,6 +90,7 @@ script = ExtResource( 10 )
 
 [node name="SM63ToRedux" type="Node2D" parent="Serializer"]
 script = ExtResource( 11 )
+tile_groupings = "res://src/global/serializers/tile_groupings.xml"
 
 [node name="BaseModifier" type="Node2D" parent="."]
 script = ExtResource( 5 )
