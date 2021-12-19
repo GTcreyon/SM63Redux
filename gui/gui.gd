@@ -47,6 +47,7 @@ onready var warp = $"/root/Singleton/Warp"
 
 var pause_offset = 0
 var pulse = 0
+var last_size = Vector2.ZERO
 
 func _ready():
 	coin_counter.text = str(singleton.coin_total)
@@ -136,21 +137,10 @@ func _process(_delta):
 		red_coin_counter.material.set_shader_param("flash_factor", 0.5)
 		red_coin_counter.text = str(singleton.red_coin_total)
 	
-	var size_changed = false
-	if Input.is_action_just_pressed("fullscreen"):
-		OS.window_fullscreen = !OS.window_fullscreen
-		size_changed = true
-	if Input.is_action_just_pressed("screen+") && OS.window_size.x + Singleton.DEFAULT_SIZE.x < OS.get_screen_size().x && OS.window_size.y + Singleton.DEFAULT_SIZE.y < OS.get_screen_size().y:
-		OS.window_size.x += Singleton.DEFAULT_SIZE.x
-		OS.window_size.y += Singleton.DEFAULT_SIZE.y
-		size_changed = true
-	if Input.is_action_just_pressed("screen-") && OS.window_size.x - Singleton.DEFAULT_SIZE.x >= Singleton.DEFAULT_SIZE.x:
-		OS.window_size.x -= Singleton.DEFAULT_SIZE.x
-		OS.window_size.y -= Singleton.DEFAULT_SIZE.y
-		size_changed = true
-	if size_changed:
+	if last_size != OS.window_size:
 		$"/root/Main/Bubbles".refresh()
 		set_size(floor(log(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x)) / log(2) + 1), floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
+	last_size = OS.window_size
 	
 	if Input.is_action_just_pressed("pause"):
 		get_tree().paused = !get_tree().paused

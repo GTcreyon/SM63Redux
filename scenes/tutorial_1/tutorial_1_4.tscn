@@ -82,7 +82,7 @@ position = Vector2( -81, 193 )
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 14 )]
 position = Vector2( 0, 209 )
-polygon = PoolVector2Array( -238, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -744, 714, -744, 720, -749, 820, -749, 860, -722, 928, -732, 1106, -732, 1310, 334, -248, 359 )
+polygon = PoolVector2Array( -238, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -744, 714, -744, 720, -749, 820, -749, 860, -722, 928, -732, 1068.23, -732, 1068, -1276, 1387, -1276, 1372, 334, -248, 359 )
 
 [node name="Sprite-0001" type="Sprite" parent="."]
 visible = false
@@ -487,11 +487,11 @@ visible = false
 polygon = PoolVector2Array( -70, 84, -1, 53, -43, 21 )
 
 [node name="WarpZone3" parent="." instance=ExtResource( 37 )]
-position = Vector2( -695, -21 )
-sweep_direction = Vector2( 1, 0 )
+position = Vector2( -2195, -21 )
+sweep_direction = Vector2( 0, 1 )
 spawn_location = Vector2( 1000, -400 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
-size = Vector2( 500, 50 )
+size = Vector2( 2000, 50 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
 position = Vector2( -43.5524, -85.8583 )
