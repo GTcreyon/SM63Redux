@@ -8,29 +8,29 @@ const MAX_TILES = Vector2(8192, 8192)
 #otherwise the glueing together of parts will not work
 const contour_lines = [
 	[],
-	[[Vector2(0, 0.5), Vector2(0.499, 0.501), Vector2(0.5, 1)]],
-	[[Vector2(0.5, 1), Vector2(0.501, 0.501), Vector2(1, 0.5)]],
+	[[Vector2(0, 0.5), Vector2(0.49, 0.51), Vector2(0.5, 1)]],
+	[[Vector2(0.5, 1), Vector2(0.51, 0.51), Vector2(1, 0.5)]],
 	[[Vector2(0, 0.5), Vector2(1, 0.5)]],
 
-	[[Vector2(1, 0.5), Vector2(0.501, 0.499), Vector2(0.5, 0)]],
+	[[Vector2(1, 0.5), Vector2(0.51, 0.49), Vector2(0.5, 0)]],
 	[
-		[Vector2(1, 0.5), Vector2(0.501, 0.499), Vector2(0.5, 0)],
-		[Vector2(0, 0.5), Vector2(0.499, 0.501), Vector2(0.5, 1)]
+		[Vector2(1, 0.5), Vector2(0.51, 0.49), Vector2(0.5, 0)],
+		[Vector2(0, 0.5), Vector2(0.49, 0.51), Vector2(0.5, 1)]
 	],
 	[[Vector2(0.5, 1), Vector2(0.5, 0)]],
-	[[Vector2(0, 0.5), Vector2(0.499, 0.499), Vector2(0.5, 0)]],
+	[[Vector2(0, 0.5), Vector2(0.49, 0.49), Vector2(0.5, 0)]],
 
-	[[Vector2(0.5, 0), Vector2(0.499, 0.499), Vector2(0, 0.5)]],
+	[[Vector2(0.5, 0), Vector2(0.49, 0.49), Vector2(0, 0.5)]],
 	[[Vector2(0.5, 0), Vector2(0.5, 1)]],
 	[
-		[Vector2(0.5, 0), Vector2(0.499, 0.499), Vector2(0, 0.5)],
-		[Vector2(0.5, 1), Vector2(0.501, 0.501), Vector2(1, 0.5)]
+		[Vector2(0.5, 0), Vector2(0.49, 0.49), Vector2(0, 0.5)],
+		[Vector2(0.5, 1), Vector2(0.51, 0.51), Vector2(1, 0.5)]
 	],
-	[[Vector2(0.5, 0), Vector2(0.501, 0.499), Vector2(1, 0.5)]],
+	[[Vector2(0.5, 0), Vector2(0.51, 0.49), Vector2(1, 0.5)]],
 
 	[[Vector2(1, 0.5), Vector2(0, 0.5)]],
-	[[Vector2(1, 0.5), Vector2(0.501, 0.501), Vector2(0.5, 1)]],
-	[[Vector2(0.5, 1), Vector2(0.499, 0.501), Vector2(0, 0.5)]],
+	[[Vector2(1, 0.5), Vector2(0.51, 0.51), Vector2(0.5, 1)]],
+	[[Vector2(0.5, 1), Vector2(0.49, 0.51), Vector2(0, 0.5)]],
 	[]
 
 	#reference:
@@ -289,6 +289,10 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 	if injection_index == null: #we specifically check for null, because !0 = true
 		injection_index = start_ind
 		injection_point = start_pos
+	if injection_index == null:
+		print("E")
+		injection_index = 0
+		injection_point = polygon[0]
 	#rebuild the polygon
 	injection_index += 1
 	polygon.insert(injection_index, injection_point)
