@@ -1,22 +1,10 @@
 tool
 extends StaticBody2D
 
-const texture_dict = {
-	"orange":[
-		preload("./orange/block_center.png"),
-		preload("./orange/block_corner.png"),
-		preload("./orange/block_middle.png"),
-		preload("./orange/block_side.png"),
-		preload("./orange/block_top.png"),
-		],
-	"white":[
-		preload("./white/block_center.png"),
-		preload("./white/block_corner.png"),
-		preload("./white/block_middle.png"),
-		preload("./white/block_side.png"),
-		preload("./white/block_top.png"),
-		],
-}
+const texture_list = [
+	[preload("./block_normal_fill.png"), preload("./block_normal_case.png"),],
+	[preload("./block_ghost_fill.png"), preload("./block_ghost_case.png"),],
+]
 
 onready var ride_area = $RideArea
 
@@ -53,26 +41,21 @@ func set_size(new_size):
 
 
 func change_texture(id):
-	$Center.texture = texture_dict[id][0]
-	$CornerTL.texture = texture_dict[id][1]
-	$CornerTR.texture = texture_dict[id][1]
-	$CornerBL.texture = texture_dict[id][1]
-	$CornerBR.texture = texture_dict[id][1]
-	$Middle.texture = texture_dict[id][2]
-	$Left.texture = texture_dict[id][3]
-	$Right.texture = texture_dict[id][3]
-	$Top.texture = texture_dict[id][4]
-	$Bottom.texture = texture_dict[id][4]
+	var tex = texture_list[id]
+	$Middle.texture = tex[0]
+	$Center.texture.atlas = tex[1]
+	$CornerTL.texture.atlas = tex[1] #most textures are just references to others
+	$Left.texture.atlas = tex[1]
+	$Top.texture.atlas = tex[1]
 
 
 func set_type(new_type):
 	type = new_type
+	change_texture(new_type - 1)
 	match type:
 		2:
-			change_texture("white")
 			modulate.a = 0.5
 		_:
-			change_texture("orange")
 			modulate.a = 1
 
 func _ready():

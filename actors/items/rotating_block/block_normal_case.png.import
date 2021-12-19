@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/block_middle.png-dba4c218b924f8199a363dcaf431d230.stex"
+path="res://.import/block_normal_case.png-c3e099804a3f224e59ed88127b1b69df.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/rotating_block/white/block_middle.png"
-dest_files=[ "res://.import/block_middle.png-dba4c218b924f8199a363dcaf431d230.stex" ]
+source_file="res://actors/items/rotating_block/block_normal_case.png"
+dest_files=[ "res://.import/block_normal_case.png-c3e099804a3f224e59ed88127b1b69df.stex" ]
 
 [params]
 
@@ -19,9 +19,9 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=1
 flags/filter=false
-flags/mipmaps=false
+flags/mipmaps=true
 flags/anisotropic=false
 flags/srgb=2
 process/fix_alpha_border=true
