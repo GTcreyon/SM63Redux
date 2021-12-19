@@ -16,7 +16,7 @@ const set_jump_2_vel = set_jump_1_vel + 2.5 * fps_mod
 const set_jump_3_vel = set_jump_1_vel + 5.0 * fps_mod
 var set_wall_bounce
 const set_jump_mod_frames = 13
-const set_double_jump_frames = 17
+var set_double_jump_frames = 17
 const set_triple_jump_deadzone = 2.0 * fps_mod
 const set_dive_speed = 35.0 * fps_mod
 const set_dive_correct = 7
@@ -179,7 +179,10 @@ func recieve_health(amount):
 func dive_correct(factor): #Correct the player's origin position when diving
 	#warning-ignore:return_value_discarded
 	move_and_slide(Vector2(0, set_dive_correct * factor * 60), Vector2(0, -1))
-	dust.position.y -= set_dive_correct * factor
+	if factor == -1:
+		dust.position.y = 11.5
+	else:
+		dust.position.y = 11.5 - set_dive_correct
 	base_modifier.add_modifier(
 		camera,
 		"position",
@@ -216,8 +219,10 @@ func update_classic():
 	classic = $"/root/Singleton".classic #this isn't a filename don't change Main to lowercase lol
 	if classic:
 		set_wall_bounce = 0.5
+		set_double_jump_frames = 17
 	else:
 		set_wall_bounce = 0.19
+		set_double_jump_frames = 8
 
 
 func switch_anim(new_anim):
