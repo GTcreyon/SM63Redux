@@ -96,9 +96,20 @@ script = ExtResource( 1 )
 visible = false
 color = Color( 0, 0, 0, 1 )
 invert_enable = true
-invert_border = 224.0
-polygon = PoolVector2Array( 148, 110, 206, 107, 230, 40, 258, 105, 315, 112, 294, 186, 226, 196, 172, 178 )
+invert_border = 320.0
 script = ExtResource( 11 )
+
+[node name="CoverLayer" type="CanvasLayer" parent="."]
+layer = 2
+
+[node name="WarpCover" type="ColorRect" parent="CoverLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="DeathCover" type="ColorRect" parent="."]
 anchor_right = 1.0
