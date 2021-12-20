@@ -8,7 +8,7 @@ onready var sm63_to_redux: SM63ToRedux = singleton.sm63_to_redux
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
 const item_prefab = preload("res://actors/items/ld_item.tscn")
 
-func place_terrain(poly):
+func place_terrain(poly, texture_type, textures):
 	var terrain_ref = terrain_prefab.instance()
 	terrain_ref.polygon = poly
 	add_child(terrain_ref)
@@ -25,11 +25,12 @@ func _draw():
 	demo_level = "50x30~0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*24*2W2Y*3*2K2M0*24*2a3d*3*2K2M0*24*2K3d3m*2*2K2M0*24*2b3d*3*2K2M0*24*2X2Z*3*2K2M0*28*2K2M0*21*4K04K*3*0*2*2K2M0*21*4K0*3*4K0*2*2K2M0*21*4K*5*0*2*2K2M0*21*4K0*6*2K2M0*21*4K0*6*2K2M0*28*2K2M0*21*4K*5*0*2*2K2M0*21*4K0*3*4K0*2*2K2M0*21*4K*5*0*2*2K2M0*28*2K2M0*21*4K*5*0*2*2K2M0*21*4K04K04K0*2*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M0*28*2K2M~1,64,832,0,0,Right~1~1~My%20Level"
 	var lv_data = sm63_to_redux.deserialize(demo_level)
 	
-	for poly in lv_data.polygons:
-		var pool = PoolVector2Array()
-		for vec in poly:
-			pool.append(vec * 32 - Vector2(48, 48))
-		place_terrain(pool)
+	for data in lv_data.polygon_data:
+		for poly in data.polygons:
+			var pool = PoolVector2Array()
+			for vec in poly:
+				pool.append(vec * 32 - Vector2(48, 48))
+			place_terrain(pool, data.texture_type, data.textures)
 	
 	for item in lv_data.items:
 		place_item(item)

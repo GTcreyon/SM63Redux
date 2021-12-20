@@ -162,25 +162,28 @@ func deserialize_tiles(level_data):
 			
 			done_tiles[tile_group.name] = tile_group
 	
-	var test = []
+	var result = []
 	for group in done_tiles.values():
+		#get a normal map for the polygons to get generated on
 		var map = tile_to_poly.create_2d_grid(tiles.size() + 1, tiles[0].size() + 1)
 		for x in range(tiles.size()):
 			for y in range(tiles[x].size()):
 				var tile_id = tiles[x][y]
 				if group.ids.has(tile_id):
 					map[x][y] = 1
+		#get all the polygons
 		var polygons = tile_to_poly.get_all_polygons_from_grid(map, 1)
-		test.append_array(polygons)
-		
-	return test
-	
-	#debug_print_tiles(tiles)
-	#print()
-	#debug_print_tiles(normalised_tiles)
-	
-	#var polygons = tile_to_poly.get_all_polygons_from_grid(normalised_tiles, 1)
-	#return polygons
+		#convert the relative texture paths to absolute ones
+		var actual_texture_paths = {}
+		for key in group.textures.keys():
+			actual_texture_paths[key] = group.texture_directory + "/" + group.textures[key]
+		#append the result
+		result.append({
+			texture_type = group.texture_type,
+			textures = actual_texture_paths,
+			polygons = polygons,
+		})
+	return result
 
 func deserialize_items(level_data):
 	var items_expression = RegEx.new()
@@ -218,14 +221,13 @@ func deserialize(lvl_text):
 			limits = Vector2(int(result.get_string("x")), int(result.get_string("y"))),
 			tiles_txt = result.get_string("tiles"),
 			items_txt = result.get_string("items"),
-			polygons = null,
+			polygon_data = null,
 			items = null,
 			song = int(result.get_string("song")),
 			bg = int(result.get_string("bg")),
 			name = result.get_string("name")
 		}
-		level_data.polygons = deserialize_tiles(level_data)
-		level_data.shape_corners = []
+		level_data.polygon_data = deserialize_tiles(level_data)
 		level_data.items = deserialize_items(level_data)
 		#our job, is done here.
 		return level_data
