@@ -23,10 +23,23 @@ func debug_print_tiles(tiles):
 func convert_xml_to_readable():
 	var root = {
 		root_dir = "tilesets/legacy",
-		groups = []
+		groups = [],
+		id_to_group = {}
 	}
 	var is_in_textures = false
 	
+	#get a list of number ids -> tile ids
+	var numeric_id_to_tile_id = {}
+	for group_id in range(100, 700, 50):
+		for tile_id in range(1, 51 if group_id != 650 else 101):
+			var sum = group_id + tile_id
+			var char_1 = floor(sum / 75) + 49
+			var char_2 = sum - (char_1 - 49) * 75 + 49
+			#convert to a PoolByteArray since then we can convert to ascii
+			var chars = PoolByteArray([char_1, char_2])
+			var string = chars.get_string_from_ascii()
+			numeric_id_to_tile_id[sum] = string
+			
 	var parser := XMLParser.new()
 	parser.open(tile_groupings)
 	
@@ -38,7 +51,7 @@ func convert_xml_to_readable():
 		if node_type == 1:
 			node_name = parser.get_node_name()
 			
-			#we ignore tilE groupings tag
+			#we ignore tile groupings tag
 			if node_name == "tile_groupings":
 				pass
 			
@@ -46,22 +59,22 @@ func convert_xml_to_readable():
 			if node_name == "grouping":
 				root.groups.append({
 					do_not_convert = false,
-					texture_directory = "",
+					name = parser.get_named_attribute_value("name"),
+					texture_directory = root.root_dir,
 					texture_type = "terrain",
 					textures = {},
 					ids = {}
 				})
-				continue
 			
 			if node_name == "textures":
+				current_group.texture_type = parser.get_named_attribute_value("kind")
 				is_in_textures = true
-				continue
 			
-			if is_in_textures:
-				pass
+			if node_name == "do_not_convert":
+				current_group.do_not_convert = true
 			
 		elif node_type == 3:
-			var node_data = parser.get_node_data()
+			var node_data := parser.get_node_data()
 			#make sure we only include actual data, not any 0 width ones
 			node_data = node_data.replace("\n", "")
 			node_data = node_data.replace("\t", "")
@@ -71,14 +84,39 @@ func convert_xml_to_readable():
 			if len(node_data) == 0:
 				continue
 			
+			#set the directory
 			if node_name == "texture_dir":
 				current_group.texture_directory = root.root_dir + "/" + node_data
-				print(current_group.texture_directory)
+			
+			#get the ids for groups
+			if node_name == "ids":
+				var id_type = parser.get_named_attribute_value("type") if parser.has_attribute("type") else "normal"
+				if id_type == "range":
+					var str_range = node_data.split("-")
+					#loop for the range of ids
+					for n_id in range(str_range[0].to_int(), str_range[1].to_int() + 1):
+						#get the actual tile id
+						var id = numeric_id_to_tile_id[n_id]
+						#add the reference to the current group
+						current_group.ids[id] = true
+						root.id_to_group[id] = current_group
+				
+				else:
+					var ids = node_data.split_floats(",")
+					for n_id in ids:
+						var id = numeric_id_to_tile_id[int(n_id)]
+						current_group.ids[id] = true
+						root.id_to_group[id] = current_group
+			
+			#set the textures
+			if is_in_textures:
+				current_group.textures[node_name] = node_data
 			
 		elif node_type == 2:
 			node_name = parser.get_node_name()
 			if node_name == "textures":
 				is_in_textures = false
+	
 	return root
 
 func deserialize_tiles(level_data):
@@ -104,19 +142,45 @@ func deserialize_tiles(level_data):
 				pointer.x += 1
 				pointer.y = 0
 	
-	var normalised_tiles = tile_to_poly.create_2d_grid(level_data.x + 1, level_data.y + 1)
+	var tile_data = convert_xml_to_readable()
 	
+	var done_tiles = {}
 	for x in range(tiles.size()):
 		for y in range(tiles[x].size()):
-			if tiles[x][y] != "0":
-				normalised_tiles[x][y] = 1
+			#we only need to do every tile type once
+			var tile_id = tiles[x][y]
+			if tile_id == "0":
+				continue
+			
+			if !tile_data.id_to_group.has(tile_id):
+				print("Unknown tile id: ", tile_id)
+				continue
+			
+			var tile_group = tile_data.id_to_group[tile_id]
+			if done_tiles.has(tile_group.name):
+				continue
+			
+			done_tiles[tile_group.name] = tile_group
+	
+	var test = []
+	for group in done_tiles.values():
+		var map = tile_to_poly.create_2d_grid(tiles.size() + 1, tiles[0].size() + 1)
+		for x in range(tiles.size()):
+			for y in range(tiles[x].size()):
+				var tile_id = tiles[x][y]
+				if group.ids.has(tile_id):
+					map[x][y] = 1
+		var polygons = tile_to_poly.get_all_polygons_from_grid(map, 1)
+		test.append_array(polygons)
+		
+	return test
 	
 	#debug_print_tiles(tiles)
 	#print()
 	#debug_print_tiles(normalised_tiles)
 	
-	var polygons = tile_to_poly.get_all_polygons_from_grid(normalised_tiles, 1)
-	return polygons
+	#var polygons = tile_to_poly.get_all_polygons_from_grid(normalised_tiles, 1)
+	#return polygons
 
 func deserialize_items(level_data):
 	var items_expression = RegEx.new()
@@ -141,8 +205,6 @@ func deserialize_items(level_data):
 	return items
 
 func deserialize(lvl_text):
-	convert_xml_to_readable()
-	
 	#first seperate the level into several segments
 	var expression = RegEx.new()
 	expression.compile("(?<x>\\d+)x(?<y>\\d+)~(?<tiles>.+?)~(?<items>.+?)~(?<song>\\d+)~(?<bg>\\d+)~(?<name>.+)")
