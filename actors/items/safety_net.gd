@@ -12,7 +12,7 @@ func snap_player():
 	&& player.position.y + player_box.shape.extents.y + player_box.position.y - 4 < global_position.y + collision.shape.extents.y
 	):
 		player.position.y = global_position.y - collision.shape.extents.y - player_box.shape.extents.y - player_box.position.y
-		player.vel.y = 0.1
+		player.vel.y = 1
 		has_player = false
 
 

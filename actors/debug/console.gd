@@ -116,6 +116,11 @@ func run_command(cmd):
 				"none":
 					Singleton.collected_nozzles = [false, false, false]
 					output("All nozzles disabled.")
+		"cherry":
+			var player = load("res://actors/player/player.tscn")
+			var inst = player.instance()
+			inst.position = $"/root/Main/Player".position + Vector2.UP * 16
+			$"/root/Main".add_child(inst)
 		_:
 			output("Unknown command \"%s\"." % args[0])
 

@@ -216,7 +216,7 @@ func play_step():
 
 
 func update_classic():
-	classic = $"/root/Singleton".classic #this isn't a filename don't change Main to lowercase lol
+	classic = $"/root/Singleton".classic
 	if classic:
 		set_wall_bounce = 0.5
 		set_double_jump_frames = 17

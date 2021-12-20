@@ -2,6 +2,9 @@ extends Polygon2D
 
 const IN_TIME = 30
 const OUT_TIME = 30
+const IN_UNIT = 1.0 / IN_TIME
+const OUT_UNIT = 1.0 / OUT_TIME
+onready var cover = $"../CoverLayer/WarpCover"
 
 var direction = 0
 var enter = 0
@@ -35,16 +38,19 @@ func resize_polygon(factor):
 		Vector2(width/6, height/2 + width/6),
 	]
 	var star_temp = []
-	for point in star:
-		star_temp.append(point * factor - Vector2(width*(factor-1)/2, height*(factor-1)/2))
+	if factor == 1:
+		star_temp = star
+	else:
+		for point in star:
+			star_temp.append(point * factor - Vector2(width*(factor-1)/2, height*(factor-1)/2))
 	polygon = star_temp
 
 
 func _process(_delta):
 	if enter == 1:
 		visible = true
-		if progress >= 1.0 - 1.0 / IN_TIME:
-			resize_polygon(0)
+		cover.color.a = progress + IN_UNIT
+		if progress >= 1.0 - IN_UNIT:
 			if has_node("/root/Main/Player/AnimatedSprite"):
 				Singleton.flip = $"/root/Main/Player/AnimatedSprite".flip_h
 			else:
@@ -53,15 +59,16 @@ func _process(_delta):
 			enter = -1
 			progress = 0
 		else:
-			progress += 1.0 / IN_TIME
+			progress += IN_UNIT
 			resize_polygon(1.5 - progress * 1.5)
 	elif enter == -1:
+		cover.color.a = 1.0 - progress
 		if progress >= 1.0:
 			enter = 0
 			progress = 0
 			visible = false
 		else:
-			progress += 1.0 / OUT_TIME
+			progress += OUT_UNIT
 			resize_polygon(progress * 1.5)
 
 
