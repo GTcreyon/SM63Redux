@@ -96,14 +96,13 @@ script = ExtResource( 1 )
 visible = false
 color = Color( 0, 0, 0, 1 )
 invert_enable = true
-invert_border = 320.0
+invert_border = 640.0
 script = ExtResource( 11 )
 
 [node name="CoverLayer" type="CanvasLayer" parent="."]
 layer = 2
 
 [node name="WarpCover" type="ColorRect" parent="CoverLayer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 0 )

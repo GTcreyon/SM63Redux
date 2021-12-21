@@ -1,7 +1,7 @@
 extends Polygon2D
 
-const IN_TIME = 30
-const OUT_TIME = 30
+const IN_TIME = 25
+const OUT_TIME = 15
 const IN_UNIT = 1.0 / IN_TIME
 const OUT_UNIT = 1.0 / OUT_TIME
 onready var cover = $"../CoverLayer/WarpCover"
@@ -17,6 +17,7 @@ func _ready():
 
 
 func resize_polygon(factor):
+	invert_border = OS.window_size.x
 	var width = OS.window_size.x
 	var height = OS.window_size.y
 	var star = [
@@ -38,11 +39,8 @@ func resize_polygon(factor):
 		Vector2(width/6, height/2 + width/6),
 	]
 	var star_temp = []
-	if factor == 1:
-		star_temp = star
-	else:
-		for point in star:
-			star_temp.append(point * factor - Vector2(width*(factor-1)/2, height*(factor-1)/2))
+	for point in star:
+		star_temp.append(point * factor - Vector2(width*(factor-1)/2, height*(factor-1)/2))
 	polygon = star_temp
 
 
