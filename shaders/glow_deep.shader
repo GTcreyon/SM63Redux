@@ -19,10 +19,9 @@ void vertex()
 
 void fragment()
 {
-	ivec2 t = textureSize(TEXTURE, 0);
 	vec2 regular_uv;
-	regular_uv.x = UV.x + (f.x - o.x)/float(t.x);
-	regular_uv.y = UV.y + (f.y - o.y)/float(t.y);
+	regular_uv.x = UV.x + (f.x - o.x) * TEXTURE_PIXEL_SIZE.x;
+	regular_uv.y = UV.y + (f.y - o.y) * TEXTURE_PIXEL_SIZE.y;
 	
 	vec4 regular_color = texture(TEXTURE, regular_uv);
 	if((regular_uv.x < 0.0 || regular_uv.x > 1.0) || (regular_uv.y < 0.0 || regular_uv.y > 1.0) || regular_color.a <=0.25){
