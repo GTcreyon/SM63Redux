@@ -344,5 +344,6 @@ scroll_down={
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_clear_color=Color( 0.572549, 0.8, 0.827451, 1 )
 environment/default_environment="res://default_env.tres"

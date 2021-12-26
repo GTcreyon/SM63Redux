@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=2]
+[gd_scene load_steps=87 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario/fluddless/mario_walk.png" type="Texture" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://actors/player/mario/fluddless/mario_swim_1.png" type="Texture" id=17]
 [ext_resource path="res://actors/particles/dust.png" type="Texture" id=18]
 [ext_resource path="res://src/global/dejitter.gd" type="Script" id=19]
+[ext_resource path="res://actors/player/dust_material.tres" type="Material" id=20]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_swim_0.png" type="Texture" id=21]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_swim_1.png" type="Texture" id=22]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_fall.png" type="Texture" id=23]
@@ -45,7 +46,6 @@
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_flip.png" type="Texture" id=48]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_jump.png" type="Texture" id=49]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_spin_3.png" type="Texture" id=50]
-[ext_resource path="res://actors/player/bubble_particle.tres" type="Material" id=51]
 [ext_resource path="res://actors/player/mario/fluddless/mario_back.png" type="Texture" id=52]
 [ext_resource path="res://actors/player/mario/hover/mario_hover_back.png" type="Texture" id=53]
 [ext_resource path="res://actors/player/mario/rocket/mario_rocket_back.png" type="Texture" id=55]
@@ -93,22 +93,6 @@ region = Rect2( 56, 0, 28, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 84, 0, 28, 32 )
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 13 )
-region = Rect2( 0, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 13 )
-region = Rect2( 28, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 13 )
-region = Rect2( 56, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 13 )
-region = Rect2( 84, 0, 28, 32 )
-
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 28, 32 )
@@ -125,27 +109,38 @@ region = Rect2( 0, 0, 26, 32 )
 atlas = ExtResource( 11 )
 region = Rect2( 26, 0, 26, 32 )
 
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 13 )
+region = Rect2( 28, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 13 )
+region = Rect2( 56, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 13 )
+region = Rect2( 84, 0, 28, 32 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 24 ) ],
-"loop": true,
-"name": "front",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 52 ) ],
 "loop": true,
 "name": "back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ) ],
+"loop": true,
+"name": "front",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "flip",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 11 ), SubResource( 12 ) ],
-"loop": true,
-"name": "walk",
-"speed": 10.0
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -157,10 +152,20 @@ animations = [ {
 "name": "jump",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 11 ), SubResource( 12 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 7 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "pound_fall",
 "speed": 10.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 16 ), ExtResource( 17 ) ],
 "loop": true,
@@ -172,99 +177,9 @@ animations = [ {
 "name": "pound_spin",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
-"loop": true,
-"name": "spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 75 ), ExtResource( 76 ), ExtResource( 75 ), ExtResource( 81 ) ],
-"loop": true,
-"name": "kris_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_swim",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 48 ) ],
-"loop": true,
-"name": "rocket_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
-"loop": true,
-"name": "hover_swim",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 42 ) ],
-"loop": true,
-"name": "rocket_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ) ],
-"loop": true,
-"name": "hover_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "kris_jump",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 55 ) ],
 "loop": true,
 "name": "rocket_back",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
-"loop": true,
-"name": "rocket_spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 28 ) ],
-"loop": true,
-"name": "hover_jump",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
-"loop": true,
-"name": "hover_spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "rocket_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 46 ) ],
-"loop": true,
-"name": "rocket_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 39 ) ],
-"loop": true,
-"name": "rocket_jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 70 ) ],
-"loop": true,
-"name": "kris_front",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 53 ) ],
-"loop": true,
-"name": "hover_back",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
@@ -277,25 +192,50 @@ animations = [ {
 "name": "hover_pound_fall",
 "speed": 10.0
 }, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "kris_dive",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 70 ) ],
+"loop": true,
+"name": "kris_front",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 31 ) ],
 "loop": true,
 "name": "hover_pound_spin",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
+"frames": [ ExtResource( 74 ) ],
 "loop": true,
-"name": "rocket_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 66 ), ExtResource( 80 ), ExtResource( 71 ), ExtResource( 78 ), ExtResource( 77 ), ExtResource( 61 ), ExtResource( 67 ), ExtResource( 69 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 79 ) ],
-"loop": true,
-"name": "kris_spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 32 ) ],
-"loop": true,
-"name": "hover_flip",
+"name": "kris_jump_double",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ) ],
+"loop": true,
+"name": "rocket_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 75 ), ExtResource( 76 ), ExtResource( 75 ), ExtResource( 81 ) ],
+"loop": true,
+"name": "kris_walk",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 46 ) ],
+"loop": true,
+"name": "rocket_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "hover_swim",
+"speed": 4.0
 }, {
 "frames": [ ExtResource( 33 ) ],
 "loop": true,
@@ -304,12 +244,37 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 73 ) ],
 "loop": true,
-"name": "kris_flip",
+"name": "kris_pound_fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 73 ) ],
+"frames": [ ExtResource( 23 ) ],
 "loop": true,
-"name": "kris_pound_fall",
+"name": "hover_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "kris_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "rocket_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
+"loop": true,
+"name": "rocket_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 39 ) ],
+"loop": true,
+"name": "rocket_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 32 ) ],
+"loop": true,
+"name": "hover_flip",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 13 ), SubResource( 14 ) ],
@@ -317,19 +282,54 @@ animations = [ {
 "name": "hover_walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 74 ) ],
+"frames": [ ExtResource( 43 ) ],
 "loop": true,
-"name": "kris_jump_double",
+"name": "rocket_dive",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 53 ) ],
+"loop": true,
+"name": "hover_back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 66 ), ExtResource( 80 ), ExtResource( 71 ), ExtResource( 78 ), ExtResource( 77 ), ExtResource( 61 ), ExtResource( 67 ), ExtResource( 69 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 79 ) ],
+"loop": true,
+"name": "kris_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "kris_flip",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "kris_swim",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 42 ) ],
+"loop": true,
+"name": "rocket_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 28 ) ],
+"loop": true,
+"name": "hover_jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "hover_spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
+"loop": true,
+"name": "rocket_pound_fall",
+"speed": 15.0
 }, {
 "frames": [ ExtResource( 26 ) ],
 "loop": true,
 "name": "jump_double",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 43 ) ],
-"loop": true,
-"name": "rocket_dive",
 "speed": 5.0
 } ]
 
@@ -341,24 +341,6 @@ extents = Vector2( 6, 14.5 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6, 0.999998 )
-
-[sub_resource type="CanvasItemMaterial" id=21]
-particles_animation = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 4
-particles_anim_loop = false
-
-[sub_resource type="ParticlesMaterial" id=22]
-lifetime_randomness = 0.5
-emission_shape = 2
-emission_box_extents = Vector3( 4, 0, 0 )
-flag_disable_z = true
-direction = Vector3( 0, -1, 0 )
-spread = 10.0
-gravity = Vector3( 0, 0, 0 )
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-anim_speed = 1.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 6
@@ -424,34 +406,33 @@ position = Vector2( 0, 10 )
 shape = SubResource( 6 )
 
 [node name="BubbleViewport" type="Viewport" parent="."]
-size = Vector2( 320, 320 )
+size = Vector2( 640, 360 )
 transparent_bg = true
 usage = 0
 render_target_v_flip = true
 render_target_update_mode = 3
 
-[node name="BubblesSmall" type="Particles2D" parent="BubbleViewport"]
-light_mask = 2
-z_index = -2
+[node name="BubblesSmall" type="CPUParticles2D" parent="BubbleViewport"]
 emitting = false
 amount = 30
 lifetime = 0.5
-visibility_rect = Rect2( -32, -160, 64, 320 )
 local_coords = false
-process_material = ExtResource( 51 )
 texture = ExtResource( 35 )
+direction = Vector2( 0, 1 )
+spread = 5.0
+gravity = Vector2( 0, 450 )
+initial_velocity = 300.0
 
-[node name="BubblesMedium" type="Particles2D" parent="BubbleViewport"]
-light_mask = 2
-z_index = -2
+[node name="BubblesMedium" type="CPUParticles2D" parent="BubbleViewport"]
 emitting = false
 amount = 27
 lifetime = 0.5
-fixed_fps = 60
-visibility_rect = Rect2( -32, -160, 64, 320 )
 local_coords = false
-process_material = ExtResource( 51 )
 texture = ExtResource( 34 )
+direction = Vector2( 0, 1 )
+spread = 5.0
+gravity = Vector2( 0, 450 )
+initial_velocity = 300.0
 
 [node name="Bubbles" type="Sprite" parent="."]
 material = ExtResource( 38 )
@@ -461,15 +442,21 @@ script = ExtResource( 37 )
 [node name="SwitchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 56 )
 
-[node name="Dust" type="Particles2D" parent="."]
-material = SubResource( 21 )
+[node name="Dust" type="CPUParticles2D" parent="."]
+material = ExtResource( 20 )
 position = Vector2( 0, 11.5 )
 z_index = -1
 amount = 6
 lifetime = 0.35
+lifetime_randomness = 0.5
 local_coords = false
-process_material = SubResource( 22 )
 texture = ExtResource( 18 )
+emission_shape = 2
+emission_rect_extents = Vector2( 4, 0 )
+direction = Vector2( 0, -1 )
+spread = 10.0
+gravity = Vector2( 0, 0 )
+anim_speed = 1.0
 
 [node name="StepCheck" type="RayCast2D" parent="."]
 enabled = true
