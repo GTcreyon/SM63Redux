@@ -1000,8 +1000,8 @@ func _physics_process(_delta):
 	bubbles_medium.position += center
 	bubbles_small.position += center
 	#give it shader data
-	bubbles_medium.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
-	bubbles_small.process_material.set_shader_param("direction", Vector3(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset), 0))
+	bubbles_small.direction = Vector2(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset))
+	bubbles_medium.direction = Vector2(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset))
 	
 	if abs(vel.x) < 2:
 		dust.emitting = false
