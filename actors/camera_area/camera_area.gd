@@ -1,107 +1,69 @@
-tool
 extends Polygon2D
 
-export var editor_view_extends = false
-
 onready var player = $"/root/Main/Player"
-onready var camera: Camera2D = player.get_node("Camera2D")
-onready var warp = $"/root/Singleton/Warp"
+onready var camera = player.get_node("Camera2D")
+
 onready var singleton = $"/root/Singleton"
 onready var base_modifier: BaseModifier = singleton.base_modifier
 
-const WINDOW_DIAGONAL = pow(pow(Singleton.DEFAULT_SIZE.x / 2, 2) + pow(Singleton.DEFAULT_SIZE.y / 2, 2), 0.5)
+onready var collision = $StaticBody2D/CollisionPolygon2D
+onready var body = $KinematicBody2D
+onready var body_collision = $KinematicBody2D/CollisionShape2D
 
-var global_polygon = PoolVector2Array()
+export var spawn_position: Vector2
 
-#return segment-polygon intersection
-func intersect_polygon(from, to, poly):
-	var hit
-	var closest_distance = INF
-	var size = poly.size()
-	for ind in range(size):
-		var this = poly[ind]
-		var next = poly[(ind + 1) % size]
-		var check_hit = Geometry.segment_intersects_segment_2d(from, to, this, next)
-		#if nothing got hit, then skip
-		if !check_hit:
-			continue
-		#make sure the one we return is the closest to the player
-		var dist = (check_hit - from).length()
-		if dist <= closest_distance:
-			closest_distance = dist
-			hit = check_hit
-	return hit
+func get_rect(poly, margin = 0):
+	var min_v = Vector2.INF
+	var max_v = -Vector2.INF
+	for vec in poly:
+		min_v.x = min(min_v.x, vec.x)
+		min_v.y = min(min_v.y, vec.y)
+		max_v.x = max(max_v.x, vec.x)
+		max_v.y = max(max_v.y, vec.y)
+	return Rect2(min_v - Vector2(margin, margin), max_v - min_v + Vector2(margin, margin) * 2)
 
-func get_closest_point_to_polygon(point, fallback):
-	#get a list of nearest positions
-	var nearest_positions = []
-	var size = global_polygon.size()
-	for ind in range(size):
-		var this = global_polygon[ind % size]
-		var next = global_polygon[(ind + 1) % size]
-		var nearest = Geometry.get_closest_point_to_segment_2d(point, this, next)
-		#if !(nearest == this || nearest == next):
-		nearest_positions.append(nearest)
-	#find the REAL nearest position
-	var real_pos = fallback
-	var nearest_dist = INF
-	for poly in nearest_positions:
-		var mag = (poly - point).length()
-		if mag < nearest_dist:
-			nearest_dist = mag
-			real_pos = poly
-	return real_pos
-
-var last_valid_pos = null
-func set_limits():
-	if global_polygon.size() == 0:
-		return
-	#TODO for the future, disable the tweening for the camera when outside of the radius
-	var camera_pos = camera.get_camera_screen_center()
-	var player_pos = player.position
-	if !last_valid_pos:
-		last_valid_pos = get_closest_point_to_polygon(player_pos, last_valid_pos)
-	#var camera_sway = last_valid_pos - camera_pos
-	#check if the camera position is inside the polygon
-	if Geometry.is_point_in_polygon(player_pos, global_polygon):
-		camera.offset = Vector2(0, 0)
-		camera.smoothing_enabled = true
-		last_valid_pos = player_pos
-	else:
-		var real_pos = get_closest_point_to_polygon(player_pos, last_valid_pos)
-		#calculate the offset
-		var offset = real_pos - player_pos
-		base_modifier.add_modifier(camera, "position", "camera_limits", offset)
-
-func _draw():
-	if Engine.editor_hint && editor_view_extends:
-		var margin_poly = PoolVector2Array()
-		var size = polygon.size()
-		var global_normal = 1 if Geometry.is_polygon_clockwise(polygon) else -1
-		for ind in range(size):
-			var prev = polygon[(ind - 1) % size]
-			var this = polygon[ind % size]
-			var next = polygon[(ind + 1) % size]
-			var this_prev = this.direction_to(prev)
-			var this_next = this.direction_to(next)
-			var normal = (this_prev + this_next).normalized()
-			normal *= 1 if Geometry.is_polygon_clockwise([prev, this, next]) else -1
-			normal *= global_normal
-			margin_poly.append(this - normal * WINDOW_DIAGONAL) #224 is half the width of
-		draw_colored_polygon(polygon, Color(1, 0, 0, 0.5))
-		draw_colored_polygon(margin_poly, Color(0, 1, 0, 0.3))
+func set_physics_polygon(poly):
+	var rect = get_rect(poly, 20)
+	var inject = [
+		rect.position, rect.position + Vector2(rect.size.x, 0),
+		rect.position + rect.size, rect.position + Vector2(0, rect.size.y)
+	]
+	
+	#merge the polygon
+	var real = []
+	real.append(inject[0])
+	real.append_array(poly)
+	real.append(poly[0])
+	real.append(inject[0])
+	inject.invert()
+	real.append_array(inject)
+	real.remove(real.size() - 1)
+	
+	polygon = real
+	collision.polygon = real
 
 func _ready():
-	if Engine.editor_hint:
-		return
-	#convert polygon to global polygon
-	var real_poly = PoolVector2Array()
-	for vec in polygon:
-		real_poly.append(vec + global_position)
-	global_polygon = real_poly
-
-func _process(_dt):
-	if Engine.editor_hint:
-		return
-	if warp.enter != 1:
-		set_limits()
+	#invert the current polygon
+	set_physics_polygon(polygon)
+	
+	#create a shape and set it to the correct size
+	var shape2d = Shape2D.new()
+	body_collision.shape.set_extents(OS.window_size / 2)
+	
+	body.position = spawn_position
+	#make it invisible
+	color = Color(0, 0, 0, 0)
+	
+func _physics_process(dt):
+	#handle the scaling of the window / zoom of the camera
+	if body_collision.shape:
+		var target_size = OS.window_size / 2 * camera.target_zoom
+		if target_size != body_collision.shape.get_extents():
+			body_collision.shape.set_extents(target_size)
+	
+	#update the camera position and stuff
+	var target = player.position
+	body.move_and_slide((target - body.position) * 10)
+	#set the base of the camera to the body
+	var cam_offset = camera.position - camera.get_camera_screen_center()
+	base_modifier.set_base(camera, "position", cam_offset + body.position)

@@ -55,7 +55,8 @@ shader_param/radial = false
 [node name="Main" type="Node2D"]
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
-polygon = PoolVector2Array( 320, 40, 320, 310, 1616, 310, 1616, 40 )
+polygon = PoolVector2Array( 6.35429, -359.8, 1916.44, -366.927, 1921.79, 463.39, 2.7907, 472.299 )
+spawn_position = Vector2( 400, 200 )
 
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 
@@ -386,7 +387,7 @@ position = Vector2( 110, 153 )
 [node name="Terrain" type="Node2D" parent="."]
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 1 )]
-position = Vector2( 16, 160 )
+position = Vector2( 18, 159 )
 z_index = 1
 polygon = PoolVector2Array( -17, -8, 83, 9, 304, 9, 304, 87, 334, 169, 401, 153, 422, 85, 422, -1, 449, -14, 495, -11, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 777, 198, 948, 216, 1130, 189, 1181, 111, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -120, 1939, -120, 2200, 422, -91, 442 )
 
