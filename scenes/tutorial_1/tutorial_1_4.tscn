@@ -494,6 +494,4 @@ scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
 size = Vector2( 2000, 50 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
-position = Vector2( -43.5524, -85.8583 )
-color = Color( 1, 0, 0, 0 )
-polygon = PoolVector2Array( 200, 248.366, 563.678, 255.074, 563.381, -201.142, 780, -492.61, 780, -676.142, -708.841, -676.364, -704.448, -178, 200, -178 )
+polygon = PoolVector2Array( -180.471, -27.1885, -1002.55, -24.4006, -1002.55, -845.869, 1167.04, -845.869, 1167.04, -440.175, 766.38, -427.575, 751.261, 288.06, -182.991, 290.312 )

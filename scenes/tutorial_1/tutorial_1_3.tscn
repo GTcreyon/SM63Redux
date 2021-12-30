@@ -32,10 +32,6 @@ shader_param/radial = false
 
 [node name="Main" type="Node2D"]
 
-[node name="CameraArea" parent="." instance=ExtResource( 21 )]
-color = Color( 1, 0, 0, 0 )
-polygon = PoolVector2Array( 331, 132, 331, 49.81, 664.159, 49.8095, 880.08, -96.1033, 1186.24, -99.8831, 1485, 1.05197, 1485, 132 )
-
 [node name="BGT1" parent="." instance=ExtResource( 17 )]
 
 [node name="Water" type="Node2D" parent="."]
@@ -231,3 +227,6 @@ sweep_direction = Vector2( -1, 0 )
 spawn_location = Vector2( 18, 193 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_4.tscn"
 size = Vector2( 20, 100 )
+
+[node name="CameraArea" parent="." instance=ExtResource( 21 )]
+polygon = PoolVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
