@@ -63,7 +63,7 @@ func _physics_process(dt):
 	
 	#update the camera position and stuff
 	var target = player.position
-	body.move_and_slide((target - body.position) * 10)
+	body.move_and_slide(((target - body.position) / dt))
+
 	#set the base of the camera to the body
-	var cam_offset = camera.position - camera.get_camera_screen_center()
-	base_modifier.set_base(camera, "position", cam_offset + body.position)
+	base_modifier.set_base(camera, "position", body.position - player.position)

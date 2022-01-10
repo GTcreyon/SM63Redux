@@ -59,7 +59,6 @@ shader_param/radial = false
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
 polygon = PoolVector2Array( 6.35429, -359.8, 1916.44, -366.927, 1921.79, 463.39, 2.7907, 472.299 )
-spawn_position = Vector2( 400, 200 )
 
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 
@@ -109,73 +108,73 @@ position = Vector2( 1738.77, 94.2475 )
 [node name="Logs" type="Node2D" parent="Items"]
 
 [node name="Log" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 327, 176 )
+position = Vector2( 327, 175 )
 
 [node name="Log2" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 342, 176 )
+position = Vector2( 342, 175 )
 
 [node name="Log3" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 357, 175 )
+position = Vector2( 357, 174 )
 
 [node name="Log8" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 372, 175 )
+position = Vector2( 372, 174 )
 
 [node name="Log4" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 387, 174 )
+position = Vector2( 387, 173 )
 
 [node name="Log5" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 402, 172 )
+position = Vector2( 402, 171 )
 
 [node name="Log6" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 417, 169 )
+position = Vector2( 417, 168 )
 
 [node name="Log7" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 432, 166 )
+position = Vector2( 432, 165 )
 
 [node name="Log9" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 614, 136 )
+position = Vector2( 614, 135 )
 
 [node name="Log10" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 642, 143 )
+position = Vector2( 642, 142 )
 
 [node name="Log23" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 628, 140 )
+position = Vector2( 628, 139 )
 
 [node name="Log11" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 656, 146 )
+position = Vector2( 656, 145 )
 
 [node name="Log12" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 670, 149 )
+position = Vector2( 670, 148 )
 
 [node name="Log13" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 684, 152 )
+position = Vector2( 684, 151 )
 
 [node name="Log14" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 698, 154 )
+position = Vector2( 698, 153 )
 
 [node name="Log15" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 712, 156 )
+position = Vector2( 712, 155 )
 
 [node name="Log16" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 726, 158 )
+position = Vector2( 726, 157 )
 
 [node name="Log17" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 740, 159 )
+position = Vector2( 740, 158 )
 
 [node name="Log18" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 754, 160 )
+position = Vector2( 754, 159 )
 
 [node name="Log19" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 768, 160 )
+position = Vector2( 768, 159 )
 
 [node name="Log20" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 782, 160 )
+position = Vector2( 782, 159 )
 
 [node name="Log21" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 796, 159 )
+position = Vector2( 796, 158 )
 
 [node name="Log22" parent="Items/Logs" instance=ExtResource( 2 )]
-position = Vector2( 810, 158 )
+position = Vector2( 810, 157 )
 
 [node name="Log24" parent="Items/Logs" instance=ExtResource( 2 )]
 position = Vector2( 1077, 106 )
@@ -323,7 +322,6 @@ rotation = 4.71239
 
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 137, 142 )
-frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )
