@@ -57,7 +57,7 @@ func _ready():
 func _physics_process(dt):
 	#handle the scaling of the window / zoom of the camera
 	if body_collision.shape:
-		var target_size = OS.window_size / 2 * camera.target_zoom
+		var target_size = OS.window_size / 2 * camera.zoom
 		if target_size != body_collision.shape.get_extents():
 			body_collision.shape.set_extents(target_size)
 	
