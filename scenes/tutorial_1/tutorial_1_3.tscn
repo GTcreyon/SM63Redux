@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0004.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0005.png" type="Texture" id=2]
@@ -21,6 +21,12 @@
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/koopa/parakoopa.tscn" type="PackedScene" id=20]
 [ext_resource path="res://actors/camera_area/camera_area.tscn" type="PackedScene" id=21]
+[ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=22]
+[ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=23]
+[ext_resource path="res://actors/items/decoration/fungus_double.tscn" type="PackedScene" id=24]
+[ext_resource path="res://actors/items/decoration/fungus_single.tscn" type="PackedScene" id=25]
+[ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=26]
+[ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=27]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -210,6 +216,95 @@ position = Vector2( 1648.46, 189.27 )
 
 [node name="Cheep Cheep2" parent="Items/Enemy" instance=ExtResource( 19 )]
 position = Vector2( 1489.72, 181.333 )
+
+[node name="Decoration" type="Node2D" parent="Items"]
+
+[node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 22 )]
+position = Vector2( 147, 175 )
+
+[node name="BigTree" parent="Items/Decoration" instance=ExtResource( 23 )]
+position = Vector2( 240.5, 150 )
+
+[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource( 22 )]
+position = Vector2( 465, 165 )
+
+[node name="SmallTree3" parent="Items/Decoration" instance=ExtResource( 22 )]
+position = Vector2( 591, 167 )
+
+[node name="SmallTree4" parent="Items/Decoration" instance=ExtResource( 22 )]
+position = Vector2( 1796, 1 )
+
+[node name="FungusDouble" parent="Items/Decoration" instance=ExtResource( 24 )]
+position = Vector2( 845, 174.5 )
+
+[node name="FungusSingle" parent="Items/Decoration" instance=ExtResource( 25 )]
+position = Vector2( 728.5, 180.5 )
+
+[node name="FungusDouble2" parent="Items/Decoration" instance=ExtResource( 24 )]
+position = Vector2( 1126, -23 )
+
+[node name="Flowers" parent="Items/Decoration" instance=ExtResource( 26 )]
+position = Vector2( 1769, 30.5 )
+
+[node name="FungusSingle2" parent="Items/Decoration" instance=ExtResource( 25 )]
+position = Vector2( 1268.5, -2.5 )
+
+[node name="FungusSingle3" parent="Items/Decoration" instance=ExtResource( 25 )]
+position = Vector2( 919.5, -58.5 )
+
+[node name="FungusDouble3" parent="Items/Decoration" instance=ExtResource( 24 )]
+position = Vector2( 1309, 67.5 )
+
+[node name="FungusSingle4" parent="Items/Decoration" instance=ExtResource( 25 )]
+position = Vector2( 1351.5, 77.5 )
+
+[node name="FungusSingle5" parent="Items/Decoration" instance=ExtResource( 25 )]
+position = Vector2( 362.5, 172.5 )
+
+[node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 26 )]
+position = Vector2( 190, 197.5 )
+
+[node name="Flowers3" parent="Items/Decoration" instance=ExtResource( 26 )]
+position = Vector2( 512, 196.5 )
+
+[node name="Flowers4" parent="Items/Decoration" instance=ExtResource( 26 )]
+position = Vector2( 616, 192.5 )
+
+[node name="Fossil" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 979, 39.8811 )
+animation = "yellow"
+
+[node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 1305, 169 )
+animation = "yellow"
+
+[node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 1176, 171 )
+animation = "yellow"
+
+[node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 721, 290 )
+animation = "yellow"
+
+[node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 844, 270 )
+animation = "yellow"
+
+[node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 325, 298 )
+animation = "yellow"
+
+[node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 325, 298 )
+animation = "yellow"
+
+[node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 1025, 131 )
+animation = "yellow"
+
+[node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 1165, 58 )
+animation = "yellow"
 
 [node name="Player" parent="." instance=ExtResource( 11 )]
 position = Vector2( 64, 195.944 )

@@ -3,18 +3,6 @@
 [ext_resource path="res://actors/items/decoration/fossil/fossils.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/decoration/fossil/fossil.gd" type="Script" id=7]
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 34, 22 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 22, 34, 22 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 44, 34, 22 )
-
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 66, 34, 22 )
@@ -27,16 +15,28 @@ region = Rect2( 0, 88, 34, 22 )
 atlas = ExtResource( 1 )
 region = Rect2( 0, 110, 34, 22 )
 
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 34, 22 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 22, 34, 22 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 44, 34, 22 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
-"name": "red",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": false,
 "name": "yellow",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ],
+"loop": true,
+"name": "red",
 "speed": 5.0
 } ]
 

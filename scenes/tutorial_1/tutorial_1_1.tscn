@@ -1,9 +1,10 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/items/log/log_fall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://actors/items/rocks/big_rock/big_rock.tscn" type="PackedScene" id=5]
 [ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=8]
@@ -27,6 +28,8 @@
 [ext_resource path="res://actors/warpzone/warp_zone.tscn" type="PackedScene" id=26]
 [ext_resource path="res://actors/camera_area/camera_area.tscn" type="PackedScene" id=27]
 [ext_resource path="res://actors/items/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=28]
+[ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=29]
+[ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -306,6 +309,22 @@ animation = "yellow"
 position = Vector2( 1739, 173 )
 animation = "yellow"
 
+[node name="Arrow" parent="Items/Decoration" instance=ExtResource( 29 )]
+position = Vector2( 1135, 291 )
+rotation = 2.35619
+
+[node name="Arrow2" parent="Items/Decoration" instance=ExtResource( 29 )]
+position = Vector2( 978, 332 )
+rotation = 3.14159
+
+[node name="Arrow3" parent="Items/Decoration" instance=ExtResource( 29 )]
+position = Vector2( 727, 291 )
+rotation = 4.71239
+
+[node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
+position = Vector2( 137, 142 )
+frame = 1
+
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )
 
@@ -370,6 +389,25 @@ position = Vector2( 1160, 40 )
 
 [node name="Coin15" parent="Items/Coins" instance=ExtResource( 22 )]
 position = Vector2( 1136, 27 )
+
+[node name="Rocks" type="Node2D" parent="Items"]
+
+[node name="BigRock" parent="Items/Rocks" instance=ExtResource( 5 )]
+position = Vector2( 383, 308 )
+
+[node name="BigRock2" parent="Items/Rocks" instance=ExtResource( 5 )]
+position = Vector2( 743, 364 )
+
+[node name="BigRock3" parent="Items/Rocks" instance=ExtResource( 5 )]
+position = Vector2( 638, 214 )
+rotation = 1.5708
+
+[node name="BigRock4" parent="Items/Rocks" instance=ExtResource( 5 )]
+position = Vector2( 826, 225 )
+rotation = 4.71239
+
+[node name="BigRock5" parent="Items/Rocks" instance=ExtResource( 5 )]
+position = Vector2( 1139, 358 )
 
 [node name="Water" type="Node2D" parent="."]
 

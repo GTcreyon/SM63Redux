@@ -479,7 +479,7 @@ func _physics_process(_delta):
 					double_jump_state = 0
 					dive_correct(1)
 				else:
-					if state == s.waterdive && abs(vel.x) == 0 && !dive_return:
+					if state == s.waterdive && !dive_return:
 						dive_return = true
 						dive_frames = 4
 						sprite.rotation_degrees = 0
