@@ -20,7 +20,7 @@ func _ready():
 func _process(delta):
 	if fall_timer > 0:
 		fall_timer -= 1
-		sprite.position = Vector2((rng.randi() % JITTER) - JITTER / 2, (rng.randi() % JITTER) - JITTER / 2)
+		sprite.position = Vector2((rng.randi() % JITTER) - JITTER / 2.0, (rng.randi() % JITTER) - JITTER / 2.0)
 	elif fall_timer == 0:
 		sprite.position = Vector2.ZERO
 		vel.y += GRAVITY
@@ -28,6 +28,6 @@ func _process(delta):
 	if !Geometry.is_point_in_polygon(position, camera_polygon):
 		queue_free()
 
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(_body):
 	fall_timer = 60
 	$Area2D.queue_free()
