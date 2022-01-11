@@ -1,4 +1,4 @@
-extends Particles2D
+extends CPUParticles2D
 
 var time = 0
 

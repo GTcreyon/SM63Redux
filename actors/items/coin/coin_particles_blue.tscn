@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://actors/items/coin/coin_particles_blue.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/coin/coin_particles.gd" type="Script" id=2]
@@ -9,23 +9,17 @@ particles_anim_h_frames = 1
 particles_anim_v_frames = 4
 particles_anim_loop = false
 
-[sub_resource type="ParticlesMaterial" id=1]
-emission_shape = 1
-emission_sphere_radius = 8.0
-flag_disable_z = true
-gravity = Vector3( 0, 0, 0 )
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-anim_speed = 6.0
-anim_speed_random = 0.5
-
-[node name="CoinParticlesBlue" type="Particles2D"]
+[node name="CoinParticlesBlue" type="CPUParticles2D"]
 material = SubResource( 2 )
 z_index = -1
 emitting = false
 amount = 3
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 1 )
 texture = ExtResource( 1 )
+emission_shape = 1
+emission_sphere_radius = 8.0
+gravity = Vector2( 0, 0 )
+anim_speed = 6.0
+anim_speed_random = 0.5
 script = ExtResource( 2 )

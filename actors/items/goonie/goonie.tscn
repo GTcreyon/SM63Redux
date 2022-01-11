@@ -53,6 +53,7 @@ one_way_collision = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -2 )
+z_index = 3
 frames = SubResource( 3 )
 animation = "flap"
 script = ExtResource( 11 )

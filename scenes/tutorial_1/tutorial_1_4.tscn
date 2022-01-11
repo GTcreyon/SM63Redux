@@ -420,6 +420,38 @@ position = Vector2( 195.5, 154 )
 [node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 26 )]
 position = Vector2( 128, 202.5 )
 
+[node name="Fossil" parent="Items/Decoration" instance=ExtResource( 39 )]
+position = Vector2( 165, 303 )
+animation = "yellow"
+
+[node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 39 )]
+position = Vector2( 461, 296 )
+animation = "yellow"
+
+[node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 39 )]
+position = Vector2( 762, -11 )
+animation = "yellow"
+
+[node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 39 )]
+position = Vector2( 805, -146 )
+animation = "yellow"
+
+[node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 39 )]
+position = Vector2( 758, -292 )
+animation = "yellow"
+
+[node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 39 )]
+position = Vector2( 861, -398 )
+animation = "yellow"
+
+[node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 39 )]
+position = Vector2( 574, 274 )
+animation = "yellow"
+
+[node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 39 )]
+position = Vector2( 795, 209 )
+animation = "yellow"
+
 [node name="Arrows" type="Node2D" parent="Items/Decoration"]
 
 [node name="Arrow" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
@@ -449,34 +481,6 @@ rotation = 4.71239
 [node name="Arrow7" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
 position = Vector2( 589, -643 )
 rotation = 0.349066
-
-[node name="Fossil" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 165, 303 )
-animation = "yellow"
-
-[node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 461, 296 )
-animation = "yellow"
-
-[node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 762, -11 )
-animation = "yellow"
-
-[node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 805, -146 )
-animation = "yellow"
-
-[node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 758, -292 )
-animation = "yellow"
-
-[node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 861, -398 )
-animation = "yellow"
-
-[node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 574, 274 )
-animation = "yellow"
 
 [node name="Signs" type="Node2D" parent="Items"]
 
