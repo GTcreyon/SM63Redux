@@ -1,3 +1,4 @@
+tool
 extends Polygon2D
 
 onready var player = $"/root/Main/Player"
@@ -10,7 +11,19 @@ onready var collision = $StaticBody2D/CollisionPolygon2D
 onready var body = $KinematicBody2D
 onready var body_collision = $KinematicBody2D/CollisionShape2D
 
-export var spawn_position: Vector2
+export var spawn_position: Vector2 setget force_draw
+
+func force_draw(val):
+	spawn_position = val
+	update()
+
+func _draw():
+	if Engine.editor_hint:
+		var base_size = Vector2(640, 360)
+		draw_rect(Rect2(
+			spawn_position - base_size / 2,
+			base_size
+		), Color(0, 0, 1, 0.5))
 
 func get_rect(poly, margin = 0):
 	var min_v = Vector2.INF
@@ -43,6 +56,8 @@ func set_physics_polygon(poly):
 	collision.polygon = real
 
 func _ready():
+	if Engine.editor_hint:
+		return
 	#invert the current polygon
 	set_physics_polygon(polygon)
 	
@@ -55,6 +70,8 @@ func _ready():
 	color = Color(0, 0, 0, 0)
 	
 func _physics_process(dt):
+	if Engine.editor_hint:
+		return
 	#handle the scaling of the window / zoom of the camera
 	if body_collision.shape:
 		var target_size = OS.window_size / 2 * camera.zoom

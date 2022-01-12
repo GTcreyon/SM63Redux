@@ -519,3 +519,4 @@ size = Vector2( 2000, 50 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
 polygon = PoolVector2Array( -180.471, -27.1885, -1002.55, -24.4006, -1002.55, -845.869, 1167.04, -845.869, 1167.04, -440.175, 766.38, -427.575, 751.261, 288.06, -182.991, 290.312 )
+spawn_position = Vector2( 200, 0 )
