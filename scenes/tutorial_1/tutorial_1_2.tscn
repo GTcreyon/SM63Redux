@@ -303,4 +303,5 @@ scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
 size = Vector2( 20, 100 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 18 )]
-polygon = PoolVector2Array( -80.6043, -76.7664, 1754.29, -76.7664, 1754.29, 395.171, 1378.63, 400.834, 1118.12, 574.507, 576.332, 572.619, -76.8288, 287.569 )
+polygon = PoolVector2Array( -80.6043, -76.7664, 1754.29, -76.7664, 1754.29, 395.171, 1378.63, 400.834, 1118.12, 574.507, 576.332, 572.619, 322.258, 388.097, -77.1369, 376.758 )
+spawn_position = Vector2( 300, 120 )
