@@ -54,6 +54,7 @@ func refresh():
 	var root_mat = water_viewport_material.duplicate()
 	root_mat.set_shader_param("viewport_texture", viewport.get_texture())
 	root_mat.set_shader_param("outline_color", outline_color)
+	root_mat.set_shader_param("base_water_color", water_color)
 	root_mat.set_shader_param("outline_size", outline_size)
 	material = root_mat
 	

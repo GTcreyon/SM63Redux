@@ -28,6 +28,10 @@ void fragment() {
 	vec2 moved_uv = real_uv + vec2(cos(real_uv.y * TAU + TIME * animation_speed) * animation_swing, 0);
 	moved_uv = keep_bounds(moved_uv);
 	//get the pixel color of the texture
+	/*
 	float normal_map = texture(water_texture, moved_uv).a * normal_map_mult;
 	COLOR = base_water_color + vec4(normal_map, normal_map, normal_map, 0);
+	*/
+	COLOR = base_water_color;
+	COLOR.a = 1f;
 }
