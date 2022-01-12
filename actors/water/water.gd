@@ -81,6 +81,7 @@ func create_wave(from, speed):
 		current_vertex_key = current_vertex_key,
 		next_vertex_key = current_vertex_key,
 		speed = speed,
+		travelled_distance = 0, #in pixels
 		height = 16, #in pixel
 		width = 32, #in pixels
 		reduce = 8, #in pixels per second
@@ -146,6 +147,7 @@ func _process(dt):
 			waves.erase(wave)
 			wave.height = 0 #do not skip the rest of the code, we set the wave height to 0 and it will clear itself up
 		wave.current_position.x += wave.speed * wave.direction * dt
+		wave.travelled_distance += abs(wave.speed * wave.direction * dt)
 		#update the current and next vertex position, also flip the direction if needed
 		if (wave.speed * wave.direction >= 0 && wave.current_position.x >= surface[wave.next_vertex_key].x) || (wave.speed * wave.direction <= 0 && wave.current_position.x <= surface[wave.next_vertex_key].x):
 			wave.current_vertex_key = wave.next_vertex_key
@@ -222,7 +224,7 @@ func handle_impact(body, is_exit):
 	
 	#impact velocity
 	var mario_area = 348 #this is mario's default area
-	var height_mult = sqrt(body_vel) / 2
+	var height_mult = sqrt(body_vel) / 4
 	var speed_mult = sqrt(3 * body_vel) / 2
 	
 	#multiply area
@@ -234,10 +236,32 @@ func handle_impact(body, is_exit):
 	var right = create_wave(contact, 128)
 	right.height *= height_mult
 	right.speed *= speed_mult
+	
 	var left = create_wave(contact, 128)
 	left.height *= height_mult
 	left.speed *= speed_mult
 	left.direction = -1
+	
+	var end_of_wave = left.width
+	var og_wave_width = left.width
+	var ind = 1
+	while (left.height >= 1):
+		if left.travelled_distance >= end_of_wave:
+			var right_trail = create_wave(contact, 128)
+			right_trail.height *= height_mult / ind
+			right_trail.speed *= speed_mult
+			right_trail.height_direction = -1
+			
+			var left_trail = create_wave(contact, 128)
+			left_trail.height *= height_mult / ind
+			left_trail.speed *= speed_mult
+			left_trail.direction = -1
+			left_trail.height_direction = -1 if (ind % 2) else 1
+			ind += 1
+			end_of_wave += og_wave_width
+		
+		yield(get_tree(), "idle_frame")
+	
 
 func _on_body_entered(body):
 	handle_impact(body, false)
