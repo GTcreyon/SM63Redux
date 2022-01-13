@@ -8,3 +8,5 @@ shader_param/outline_color = Color( 0.2, 0.7, 1, 0.8 )
 shader_param/base_water_color = Color( 0.2, 0.7, 1, 0.8 )
 shader_param/outline_size = 6.0
 shader_param/second_size = 2.0
+shader_param/outline_texture_size = null
+shader_param/outline_anim_phase = 0.0

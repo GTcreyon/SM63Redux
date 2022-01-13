@@ -8,7 +8,9 @@ onready var collision: CollisionPolygon2D = $DetectionArea/Collision
 
 export var polygon: PoolVector2Array = PoolVector2Array()
 export var water_texture: Texture = load("res://actors/water/water_texture.png")
+export var outline_texture: Texture = load("res://actors/water/water_outline_anim.png")
 export var water_texture_size: Vector2 = Vector2(64, 64)
+export var outline_texture_size: Vector2 = Vector2(32, 6)
 export var water_color: Color = Color(0, 0.7, 1, 0.8)
 export var outline_color: Color = Color(0.2, 0.7, 1, 0.8)
 export var outline_size: float = 6;
@@ -55,6 +57,8 @@ func refresh():
 	root_mat.set_shader_param("viewport_texture", viewport.get_texture())
 	root_mat.set_shader_param("outline_color", outline_color)
 	root_mat.set_shader_param("base_water_color", water_color)
+	root_mat.set_shader_param("outline_texture", outline_texture)
+	root_mat.set_shader_param("outline_texture_size", outline_texture_size)
 	root_mat.set_shader_param("outline_size", outline_size)
 	material = root_mat
 	
@@ -83,6 +87,18 @@ func _draw():
 		draw_polygon(polygon, colors)
 		for poly in polygon:
 			draw_circle(poly, 3, Color(0, 1, 1))
+
+var next_frame = 0.2
+var timer = 0
+var current_frame = 0
+func _process(dt):
+	if Engine.editor_hint:
+		return
+	timer += dt
+	if timer >= next_frame:
+		next_frame = timer + 0.2
+		current_frame = (current_frame + 1) % 4
+		material.set_shader_param("outline_anim_phase", current_frame)
 
 func _ready():
 	if !Engine.editor_hint:
