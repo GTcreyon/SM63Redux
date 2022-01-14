@@ -14,6 +14,8 @@ var star_wobble = 0
 var gui_size = 1
 var swoop_timer = 0
 var active = false
+var translator = preload("res://locale/es.po")
+
 
 func say_line(index):
 	$Text.bbcode_text = ""
@@ -24,7 +26,9 @@ func say_line(index):
 	var font = $Text.get_font("normal_font")
 	var cumulative_length = 0
 	var i = 0
-	target_line = loaded_lines[index]
+#	if 
+	target_line = translator.get_message(loaded_lines[index])
+	print(translator.get_message_count())
 	while i < target_line.length():
 #		if target_line[i] == "[":
 #			while target_line[i] != "]" || target_line[i+1] == "[":

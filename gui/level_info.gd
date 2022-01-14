@@ -19,13 +19,13 @@ func resize(scale):
 #		level_name.rect_scale = Vector2.ONE * 2
 #	else:
 #		level_name.rect_scale = Vector2.ONE
-	var gap = (OS.window_size.x / scale - font.get_string_size(level_name.text.to_upper()).x - 37 * 2) / 2
+	var gap = (OS.window_size.x / scale - font.get_string_size(TranslationServer.translate(level_name.text).to_upper()).x - 37 * 2) / 2
 	#level_name.margin_left = 0
 	level_name_panel.margin_left = gap - 7
 	#level_name.margin_right = 0
 	level_name_panel.margin_right = -gap + 4
 	font = mission_name.get_font("font")
-	gap = (OS.window_size.x / scale - font.get_string_size(mission_name.text.to_upper()).x - 37 * 2) / 2
+	gap = (OS.window_size.x / scale - font.get_string_size(TranslationServer.translate(mission_name.text).to_upper()).x - 37 * 2) / 2
 	mission_name.margin_left = gap - 7
 	mission_name.margin_right = -gap + 4
 	font = mission_details.get_font("font")
@@ -55,10 +55,9 @@ func resize(scale):
 	
 	#we then add the label height to form the panel's height, giving us our final answer
 	#with 14 added on because reasons idfk
-	
 	mission_details_panel.margin_bottom = (8
 	- (OS.window_size.y / scale - 52) * 0.3
-	+ font.get_wordwrap_string_size(mission_details.text, ((OS.window_size.x / scale - 74) - 118)).y)
+	+ font.get_wordwrap_string_size(TranslationServer.translate(mission_details.text), ((OS.window_size.x / scale - 74) - 118)).y)
 
 	#mission_details_panel.margin_bottom = -79 + (2 + 1) * 14# + mission_details.text.count("\n") * font.get_height() + 5
 

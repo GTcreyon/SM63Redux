@@ -342,6 +342,11 @@ scroll_down={
 2d_physics/layer_23="metal"
 2d_physics/layer_24="grass"
 
+[locale]
+
+translations=PoolStringArray( "res://locale/es.po" )
+locale_filter=[ 0, [  ] ]
+
 [rendering]
 
 quality/driver/driver_name="GLES2"
