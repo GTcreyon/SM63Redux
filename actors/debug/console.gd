@@ -121,6 +121,9 @@ func run_command(cmd):
 			var inst = player.instance()
 			inst.position = $"/root/Main/Player".position + Vector2.UP * 16
 			$"/root/Main".add_child(inst)
+		"locale":
+			TranslationServer.set_locale(args[1])
+			output("Locale set to \"%s\"." % args[1])
 		_:
 			output("Unknown command \"%s\"." % args[0])
 

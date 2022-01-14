@@ -48,6 +48,7 @@ onready var warp = $"/root/Singleton/Warp"
 var pause_offset = 0
 var pulse = 0
 var last_size = Vector2.ZERO
+var temp_locale = "en"
 
 func _ready():
 	coin_counter.text = str(singleton.coin_total)
@@ -125,6 +126,10 @@ func set_size(size, lin_size):
 
 
 func _process(_delta):
+	var new_locale = TranslationServer.get_locale()
+	if new_locale != temp_locale:
+		resize()
+		temp_locale = new_locale
 	pulse += 0.1
 	$PauseContent/LevelInfo/CollectRow/ShineRow/Shine1/Sprite.material.set_shader_param("outline_color", Color(1, 1, 1, sin(pulse) * 0.25 + 0.5))
 	coin_counter.material.set_shader_param("flash_factor", max(coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))

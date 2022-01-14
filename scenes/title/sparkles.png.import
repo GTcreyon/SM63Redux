@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shine_mask.png-598a8a7477b957da0f9cad618a2db5e9.stex"
+path="res://.import/sparkles.png-35c39d39305b3b8400834c925b1eed2c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/start/shine_mask.png"
-dest_files=[ "res://.import/shine_mask.png-598a8a7477b957da0f9cad618a2db5e9.stex" ]
+source_file="res://scenes/title/sparkles.png"
+dest_files=[ "res://.import/sparkles.png-35c39d39305b3b8400834c925b1eed2c.stex" ]
 
 [params]
 
