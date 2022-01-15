@@ -343,7 +343,7 @@ scroll_down={
 
 [locale]
 
-translations=PoolStringArray( "res://locale/es.po" )
+translations=PoolStringArray( "res://locale/translations/es.po" )
 locale_filter=[ 0, [  ] ]
 
 [rendering]
