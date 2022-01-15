@@ -49,8 +49,6 @@ func refresh():
 
 func _ready():
 	refresh()
-	font_white.create_from_fnt("res://fonts/white/gui_white.fnt")
-	label.set("custom_fonts/font", font_white)
 
 
 func _process(_delta):
