@@ -535,7 +535,6 @@ margin_top = 1.0
 margin_right = 72.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -561,7 +560,6 @@ margin_top = 1.0
 margin_right = 80.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -586,7 +584,6 @@ margin_top = 1.0
 margin_right = 112.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -620,7 +617,6 @@ margin_top = 1.0
 margin_right = 65.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -645,7 +641,6 @@ margin_top = 1.0
 margin_right = 65.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -684,7 +679,6 @@ margin_top = -15.0
 margin_right = 112.0
 margin_bottom = 1.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -716,7 +710,6 @@ texture = ExtResource( 34 )
 visible = false
 anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 15 )
-text = "Debug"
 valign = 2
 script = ExtResource( 21 )
 __meta__ = {
@@ -1336,7 +1329,6 @@ margin_top = 1.0
 margin_right = 72.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1532,7 +1524,6 @@ margin_top = 1.0
 margin_right = 72.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1736,7 +1727,6 @@ margin_top = 1.0
 margin_right = 72.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 26 )
-text = "0"
 __meta__ = {
 "_edit_use_anchors_": false
 }
