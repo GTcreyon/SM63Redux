@@ -195,12 +195,12 @@ position = Vector2( 1092, 111 )
 [node name="Sign" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 1 )
 position = Vector2( 189, 165 )
-lines = [ "Hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times’ sake,[@p,3] here’s a refresher.", "Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f]Z[/color].", "They have plenty of tips to help traverse,[@p,3] and if you’re not interested,[@p,3] at least say “Hi” for me,[@p,3] eh?" ]
+lines = [ "Hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times’ sake,[@p,3] here’s a refresher.", "Use [color=#f7c55f]Arrows[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact][/color].", "They have plenty of tips to help traverse,[@p,3] and if you’re not interested,[@p,3] at least say “Hi” for me,[@p,3] eh?" ]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 2 )
 position = Vector2( 299, 165 )
-lines = [ "Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as a thank you?", "You can press [color=#f7c55f]X[/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
+lines = [ "Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as a thank you?", "You can press [color=#f7c55f][@b,spin][/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 3 )
@@ -325,31 +325,37 @@ rotation = 4.71239
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 137, 142 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 299, 82 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 533, 104 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 945, 22 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly5" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1230, 9 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly6" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1428, 71 )
 animation = "green"
+frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )

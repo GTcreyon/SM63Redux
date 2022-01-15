@@ -14,7 +14,16 @@ var star_wobble = 0
 var gui_size = 1
 var swoop_timer = 0
 var active = false
-var translator = preload("res://locale/es.po")
+
+func insert_keybind_strings(input: String) -> String:
+	var regex: RegEx = RegEx.new()
+	regex.compile("\\[@b[^\\]]*\\]")
+	var bind_tags: Array = regex.search_all(input)
+	for tag_match in bind_tags:
+		var tag_string: String = tag_match.get_string()
+		var tag_bind = tag_string.substr(4, tag_string.length() - 5)
+		input = input.replace(tag_string, InputMap.get_action_list(tag_bind)[0].as_text())
+	return input
 
 
 func say_line(index):
@@ -27,8 +36,7 @@ func say_line(index):
 	var cumulative_length = 0
 	var i = 0
 #	if 
-	target_line = translator.get_message(loaded_lines[index])
-	print(translator.get_message_count())
+	target_line = insert_keybind_strings(TranslationServer.translate(loaded_lines[index]))
 	while i < target_line.length():
 #		if target_line[i] == "[":
 #			while target_line[i] != "]" || target_line[i+1] == "[":

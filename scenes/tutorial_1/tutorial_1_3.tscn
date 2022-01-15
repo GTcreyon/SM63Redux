@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0004.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0005.png" type="Texture" id=2]
@@ -27,6 +27,7 @@
 [ext_resource path="res://actors/items/decoration/fungus_single.tscn" type="PackedScene" id=25]
 [ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=26]
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=27]
+[ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=28]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -200,6 +201,10 @@ position = Vector2( 1084, -35 )
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 12 )]
 material = SubResource( 1 )
+position = Vector2( 502, 204 )
+
+[node name="Sign3" parent="Items/Signs" instance=ExtResource( 12 )]
+material = SubResource( 1 )
 position = Vector2( 1232, 16 )
 
 [node name="Enemy" type="Node2D" parent="Items"]
@@ -267,9 +272,6 @@ position = Vector2( 362.5, 172.5 )
 [node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 26 )]
 position = Vector2( 190, 197.5 )
 
-[node name="Flowers3" parent="Items/Decoration" instance=ExtResource( 26 )]
-position = Vector2( 512, 196.5 )
-
 [node name="Flowers4" parent="Items/Decoration" instance=ExtResource( 26 )]
 position = Vector2( 616, 192.5 )
 
@@ -308,6 +310,10 @@ animation = "yellow"
 [node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 27 )]
 position = Vector2( 1165, 58 )
 animation = "yellow"
+
+[node name="Arrow" parent="Items/Decoration" instance=ExtResource( 28 )]
+position = Vector2( 832, -2 )
+rotation = -1.5708
 
 [node name="Player" parent="." instance=ExtResource( 11 )]
 position = Vector2( 64, 195.944 )
