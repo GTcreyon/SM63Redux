@@ -48,6 +48,10 @@ shader_param/radial = false
 
 [node name="BGT1" parent="." instance=ExtResource( 14 )]
 
+[node name="CameraArea" parent="." instance=ExtResource( 18 )]
+polygon = PoolVector2Array( -80.6043, -76.7664, 1754.29, -76.7664, 1754.29, 395.171, 1378.63, 400.834, 1118.12, 574.507, 576.332, 572.619, 322.258, 388.097, -77.1369, 376.758 )
+spawn_position = Vector2( 300, 120 )
+
 [node name="Player" parent="." instance=ExtResource( 3 )]
 position = Vector2( -42, 160 )
 
@@ -228,7 +232,6 @@ position = Vector2( 1525, 210 )
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 11, 145 )
 animation = "green"
-frame = 1
 
 [node name="Flowers" parent="Items/Decoration" instance=ExtResource( 27 )]
 position = Vector2( 11, 165.5 )
@@ -239,11 +242,11 @@ position = Vector2( 716, 217.5 )
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 717, 199 )
 animation = "green"
-frame = 1
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 1200, 199 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Flowers3" parent="Items/Decoration" instance=ExtResource( 27 )]
@@ -261,7 +264,6 @@ position = Vector2( 891.5, -50 )
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 1557, 214 )
 animation = "green"
-frame = 1
 
 [node name="Goonies" type="Node2D" parent="Items"]
 
@@ -303,7 +305,3 @@ sweep_direction = Vector2( -1, 0 )
 spawn_location = Vector2( 64, 159 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
 size = Vector2( 20, 100 )
-
-[node name="CameraArea" parent="." instance=ExtResource( 18 )]
-polygon = PoolVector2Array( -80.6043, -76.7664, 1754.29, -76.7664, 1754.29, 395.171, 1378.63, 400.834, 1118.12, 574.507, 576.332, 572.619, 322.258, 388.097, -77.1369, 376.758 )
-spawn_position = Vector2( 300, 120 )

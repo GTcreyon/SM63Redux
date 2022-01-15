@@ -58,11 +58,14 @@ shader_param/radial = false
 
 [node name="Main" type="Node2D"]
 
+[node name="BGT1" parent="." instance=ExtResource( 25 )]
+
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
 polygon = PoolVector2Array( 6.35429, -359.8, 1916.44, -366.927, 1921.79, 463.39, 2.7907, 472.299 )
 spawn_position = Vector2( 400, 0 )
 
-[node name="BGT1" parent="." instance=ExtResource( 25 )]
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 110, 153 )
 
 [node name="Sprite-0005" type="Sprite" parent="."]
 visible = false
@@ -325,37 +328,31 @@ rotation = 4.71239
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 137, 142 )
 animation = "green"
-frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 299, 82 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 533, 104 )
 animation = "green"
-frame = 1
 
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 945, 22 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly5" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1230, 9 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly6" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1428, 71 )
 animation = "green"
-frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )
@@ -480,9 +477,6 @@ polygon = PoolVector2Array( 0, 0, 118, 0, 118, 20, 97, 87, 30, 103, 0, 21 )
 [node name="Water2" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 606, 226 )
 polygon = PoolVector2Array( 0, 0, 212, 0, 212, 43, 370, 66, 488, 58, 478.711, 0, 588.07, 0, 591, 45, 540, 123, 358, 150, 187, 132, 176, 155, 140, 175, 31, 147, 0, 35 )
-
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 110, 153 )
 
 [node name="Terrain" type="Node2D" parent="."]
 

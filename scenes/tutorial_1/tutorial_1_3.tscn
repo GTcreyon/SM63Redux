@@ -41,6 +41,13 @@ shader_param/radial = false
 
 [node name="BGT1" parent="." instance=ExtResource( 17 )]
 
+[node name="CameraArea" parent="." instance=ExtResource( 21 )]
+polygon = PoolVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
+spawn_position = Vector2( 400, 100 )
+
+[node name="Player" parent="." instance=ExtResource( 11 )]
+position = Vector2( 64, 195.944 )
+
 [node name="Water" type="Node2D" parent="."]
 
 [node name="Water" parent="Water" instance=ExtResource( 8 )]
@@ -315,9 +322,6 @@ animation = "yellow"
 position = Vector2( 832, -2 )
 rotation = -1.5708
 
-[node name="Player" parent="." instance=ExtResource( 11 )]
-position = Vector2( 64, 195.944 )
-
 [node name="WarpZone" parent="." instance=ExtResource( 18 )]
 position = Vector2( 20, 111 )
 sweep_direction = Vector2( 1, 0 )
@@ -331,7 +335,3 @@ sweep_direction = Vector2( -1, 0 )
 spawn_location = Vector2( 18, 193 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_4.tscn"
 size = Vector2( 20, 100 )
-
-[node name="CameraArea" parent="." instance=ExtResource( 21 )]
-polygon = PoolVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
-spawn_position = Vector2( 400, 100 )
