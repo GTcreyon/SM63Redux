@@ -170,7 +170,7 @@ position = Vector2( 1519.9, 236.264 )
 [node name="Sign" parent="Items" instance=ExtResource( 22 )]
 material = SubResource( 1 )
 position = Vector2( 50.6266, 171.279 )
-lines = [ "Watch your step,[@p,3] bro![@p,10] There are some nasty [color=#f7c55f]Bomb-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need to go this way?", "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f]X[/color] to do a [color=#ff7f7f]spin attack[/color] to send those Bomb-ombs flying.", "If you press [color=#f7c55f]Z[/color] in the air you can do a [color=#ff7f7f]Ground-Pound[/color] to smash anything beneath you,[@p,3] enemies or blocks!" ]
+lines = [ "Watch your step,[@p,3] bro![@p,10] There are some nasty [color=#f7c55f]Bomb-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need to go this way?", "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do a [color=#ff7f7f]spin attack[/color] to send those Bomb-ombs flying.", "If you press [color=#f7c55f][@b,pound][/color] in the air you can do a [color=#ff7f7f]Ground-Pound[/color] to smash anything beneath you,[@p,3] enemies or blocks!" ]
 
 [node name="Sign3" parent="Items" instance=ExtResource( 22 )]
 material = SubResource( 2 )
@@ -228,6 +228,7 @@ position = Vector2( 1525, 210 )
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 11, 145 )
 animation = "green"
+frame = 1
 
 [node name="Flowers" parent="Items/Decoration" instance=ExtResource( 27 )]
 position = Vector2( 11, 165.5 )
@@ -238,11 +239,11 @@ position = Vector2( 716, 217.5 )
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 717, 199 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 1200, 199 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Flowers3" parent="Items/Decoration" instance=ExtResource( 27 )]
@@ -260,6 +261,7 @@ position = Vector2( 891.5, -50 )
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 1557, 214 )
 animation = "green"
+frame = 1
 
 [node name="Goonies" type="Node2D" parent="Items"]
 
