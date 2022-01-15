@@ -1,4 +1,4 @@
-[gd_scene load_steps=166 format=2]
+[gd_scene load_steps=165 format=2]
 
 [ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -223,18 +223,6 @@ animations = [ {
 "speed": 15.0
 } ]
 
-[sub_resource type="ParticlesMaterial" id=5]
-emission_shape = 2
-emission_box_extents = Vector3( 15, 0, 1 )
-flag_disable_z = true
-direction = Vector3( 0, -1, 0 )
-spread = 15.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 60.0
-initial_velocity_random = 0.2
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 46 ) ],
@@ -242,14 +230,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 77 ) ],
-"loop": true,
-"name": "turbo",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 64 ) ],
 "loop": true,
 "name": "rocket",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 77 ) ],
+"loop": true,
+"name": "turbo",
 "speed": 5.0
 } ]
 
@@ -275,14 +263,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 51 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 38 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 51 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -295,14 +283,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=11]
 animations = [ {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 73 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -315,14 +303,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ ExtResource( 41 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 72 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 41 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -335,14 +323,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 86 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 54 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 86 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -355,14 +343,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ ExtResource( 87 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 84 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 87 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -375,14 +363,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ ExtResource( 97 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 37 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 97 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -395,92 +383,92 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ ExtResource( 58 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 69 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 58 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=22]
 animations = [ {
-"frames": [ ExtResource( 90 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 92 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 90 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=23]
 animations = [ {
-"frames": [ ExtResource( 100 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 91 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 100 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 90 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 92 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 90 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=25]
 animations = [ {
-"frames": [ ExtResource( 47 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=26]
 animations = [ {
-"frames": [ ExtResource( 55 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 55 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=27]
 animations = [ {
-"frames": [ ExtResource( 45 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 45 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -726,10 +714,10 @@ texture = ExtResource( 34 )
 
 [node name="DebugLabel" type="Label" parent="."]
 visible = false
-margin_right = 40.0
-margin_bottom = 14.0
+anchor_bottom = 1.0
 custom_fonts/font = ExtResource( 15 )
 text = "Debug"
+valign = 2
 script = ExtResource( 21 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -800,51 +788,66 @@ z_index = -1
 texture = ExtResource( 74 )
 centered = false
 
-[node name="BubblesBig" type="Particles2D" parent="MeterControl/WaterMeter"]
+[node name="BubblesBig" type="CPUParticles2D" parent="MeterControl/WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
 lifetime = 2.5
 preprocess = 2.0
-visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 5 )
 texture = ExtResource( 80 )
+emission_shape = 2
+emission_rect_extents = Vector2( 15, 0 )
+direction = Vector2( 0, -1 )
+spread = 15.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.2
 
-[node name="BubblesMedium" type="Particles2D" parent="MeterControl/WaterMeter"]
+[node name="BubblesMedium" type="CPUParticles2D" parent="MeterControl/WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
 amount = 7
 lifetime = 2.5
 preprocess = 2.0
-visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 5 )
 texture = ExtResource( 56 )
+emission_shape = 2
+emission_rect_extents = Vector2( 15, 0 )
+direction = Vector2( 0, -1 )
+spread = 15.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.2
 
-[node name="BubblesSmall" type="Particles2D" parent="MeterControl/WaterMeter"]
+[node name="BubblesSmall" type="CPUParticles2D" parent="MeterControl/WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
 amount = 6
 lifetime = 2.5
 preprocess = 2.0
-visibility_rect = Rect2( -15, -100, 30, 100 )
-process_material = SubResource( 5 )
 texture = ExtResource( 30 )
+emission_shape = 2
+emission_rect_extents = Vector2( 15, 0 )
+direction = Vector2( 0, -1 )
+spread = 15.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.2
 
 [node name="WaterMeterLabel" type="Label" parent="MeterControl/WaterMeter"]
 margin_left = 1.0
 margin_top = 40.0
 margin_right = 23.0
 margin_bottom = 51.0
-text = "00"
+custom_fonts/font = ExtResource( 25 )
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Max" type="Sprite" parent="MeterControl/WaterMeter"]
-position = Vector2( 16, 50 )
+position = Vector2( 15.5, 48 )
 z_index = 1
 texture = ExtResource( 40 )
 
