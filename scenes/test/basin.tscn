@@ -52,13 +52,11 @@ polygon = PoolVector2Array( 0, 0, 416, 0, 416, 16, 384, 16, 384, 48, 352, 48, 35
 
 [node name="Spawner" parent="." instance=ExtResource( 7 )]
 position = Vector2( -368, -200 )
+spawns_per_frame = 0.01
 
 [node name="Pivot" parent="." instance=ExtResource( 4 )]
 position = Vector2( 0, -256 )
-radius = 50
 count = 4
-speed = 10.0
-offset = 0.0
 
 [node name="Goonie" parent="." instance=ExtResource( 8 )]
 position = Vector2( -816, -224 )
@@ -86,10 +84,6 @@ position = Vector2( -400, 224 )
 
 [node name="Pivot2" parent="." instance=ExtResource( 4 )]
 position = Vector2( -368, -200 )
-radius = 50
-count = 3
-speed = 10.0
-offset = 0.0
 
 [node name="Log" parent="." instance=ExtResource( 11 )]
 position = Vector2( 870, -265 )
