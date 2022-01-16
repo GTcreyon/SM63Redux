@@ -7,7 +7,9 @@ uniform sampler2D outline_texture;
 uniform vec2 outline_texture_size;
 uniform float outline_anim_phase = 0;
 
+const vec2 ATLAS_SIZE = vec2(32f, 48f);
 const vec4 COL_BLACK = vec4(0, 0, 0, 1);
+const float ANIM_STABLE_OFFSET = 0.1f / ATLAS_SIZE.y;
 
 float modf_gles2(float x, float range) {
 	return x - range * floor(x / range);
@@ -23,13 +25,12 @@ void fragment() {
 		outline_sum += sign(texture(viewport_texture, UV - vec2(0, TEXTURE_PIXEL_SIZE.y * inc)).a);
 	}
 	if (outline_sum != outline_texture_size.y) {
-		float px_y = outline_sum + outline_anim_phase * outline_texture_size.y;
 		vec2 px = vec2(
 			modf_gles2(
 				UV.x * (1f / TEXTURE_PIXEL_SIZE.x) / outline_texture_size.x,
 				1f
 			),
-			(outline_sum + outline_anim_phase / 4f) / 48f
+			(outline_sum + outline_anim_phase / 4f) / ATLAS_SIZE.y + ANIM_STABLE_OFFSET
 		);
 		vec4 text_col = texture(outline_texture, px);
 		col = text_col == COL_BLACK ? col : text_col;
