@@ -1,18 +1,15 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://actors/items/fungus_platform/fungus_stem.png" type="Texture" id=1]
-[ext_resource path="res://actors/items/fungus_platform/fungus_stem.gd" type="Script" id=2]
+[ext_resource path="res://actors/items/fungus_platform/fungus_head.tscn" type="PackedScene" id=2]
 
-[node name="FungusStem" type="Node2D"]
-z_index = -1
-script = ExtResource( 2 )
-
-[node name="Texture" type="TextureRect" parent="."]
-margin_right = 12.0
-margin_bottom = 56.0
+[node name="FungusStem" type="Line2D"]
+z_index = -2
+points = PoolVector2Array( -4, 16, -4, 21, -4, 72 )
+width = 12.0
+default_color = Color( 1, 1, 1, 1 )
 texture = ExtResource( 1 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture_mode = 1
+joint_mode = 1
+
+[node name="FungusHead" parent="." instance=ExtResource( 2 )]
