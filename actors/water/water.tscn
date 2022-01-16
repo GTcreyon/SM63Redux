@@ -15,7 +15,6 @@ polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 water_texture = ExtResource( 5 )
 outline_texture = ExtResource( 6 )
 water_color = Color( 0.501961, 0.670588, 0.862745, 0.498039 )
-outline_color = Color( 0.501961, 0.670588, 0.862745, 1 )
 texture_color_impact = 0.05
 
 [node name="DetectionArea" type="Area2D" parent="."]
