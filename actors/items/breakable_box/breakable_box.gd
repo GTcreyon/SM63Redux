@@ -3,7 +3,8 @@ extends StaticBody2D
 const coin = preload("res://actors/items/coin/coin_yellow.tscn")
 const particle = preload("res://actors/items/breakable_box/box_particle.tscn")
 const residual = preload("res://actors/residual_sfx.tscn")
-const boom = preload("res://actors/items/breakable_box/boom.wav")
+const boom0 = preload("res://actors/items/breakable_box/boom.wav")
+const boom1 = preload("res://actors/items/breakable_box/box_break.wav")
 
 onready var main = $"/root/Main"
 onready var player = $"/root/Main/Player"
@@ -55,6 +56,9 @@ func destroy():
 			inst.dropped = true
 			main.call_deferred("add_child", inst)
 	var inst = residual.instance()
-	inst.sound = boom
+	if rng.randi() % 2 < 1:
+		inst.sound = boom0
+	else:
+		inst.sound = boom1
 	main.call_deferred("add_child", inst)
 	queue_free()
