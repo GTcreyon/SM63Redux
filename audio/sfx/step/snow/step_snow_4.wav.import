@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/step_snow_4.wav-bda631f28d75a90a7866a5b352e7f2fb.sample"
+
+[deps]
+
+source_file="res://audio/sfx/step/snow/step_snow_4.wav"
+dest_files=[ "res://.import/step_snow_4.wav-bda631f28d75a90a7866a5b352e7f2fb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
