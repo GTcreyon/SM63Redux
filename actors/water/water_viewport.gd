@@ -10,10 +10,8 @@ export var polygon: PoolVector2Array = PoolVector2Array()
 export var water_texture: Texture = load("res://actors/water/water_texture.png")
 export var outline_texture: Texture = load("res://actors/water/water_outline_anim.png")
 export var water_texture_size: Vector2 = Vector2(64, 64)
-export var outline_texture_size: Vector2 = Vector2(32, 6)
+export var outline_texture_size: Vector2 = Vector2(32, 12)
 export var water_color: Color = Color(0, 0.7, 1, 0.8)
-export var outline_color: Color = Color(0.2, 0.7, 1, 0.8)
-export var outline_size: float = 6;
 export var texture_color_impact: float = 0.2;
 export var animation_swing_range: float = 32;
 export var animation_speed: float = 1;
@@ -55,11 +53,9 @@ func refresh():
 	#now give the shader our viewport texture
 	var root_mat = water_viewport_material.duplicate()
 	root_mat.set_shader_param("viewport_texture", viewport.get_texture())
-	root_mat.set_shader_param("outline_color", outline_color)
 	root_mat.set_shader_param("base_water_color", water_color)
 	root_mat.set_shader_param("outline_texture", outline_texture)
 	root_mat.set_shader_param("outline_texture_size", outline_texture_size)
-	root_mat.set_shader_param("outline_size", outline_size)
 	material = root_mat
 	
 	#shader copy time
