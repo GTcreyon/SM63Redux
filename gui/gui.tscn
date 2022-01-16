@@ -684,7 +684,7 @@ __meta__ = {
 }
 
 [node name="LifeMeter" type="Sprite" parent="." groups=["stats"]]
-position = Vector2( 224, -75 )
+position = Vector2( 320, -75 )
 z_index = 1
 texture = ExtResource( 67 )
 offset = Vector2( 0, 36 )
