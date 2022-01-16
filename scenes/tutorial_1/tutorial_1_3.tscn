@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0004.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0005.png" type="Texture" id=2]
@@ -28,6 +28,8 @@
 [ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=26]
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=27]
 [ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=28]
+[ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=29]
+[ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -209,6 +211,7 @@ position = Vector2( 1084, -35 )
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 12 )]
 material = SubResource( 1 )
 position = Vector2( 502, 204 )
+lines = [ "Usa el boton [color=#f7c55f][@b,fludd][/color] para elevarte usando [color=#5f75c5]F.L.U.D.D.[/color]", "Para rellenar la reserva de [color=#5f75c5]F.L.U.D.D.[/color], súmergete en agua o encuentra una botella." ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 12 )]
 material = SubResource( 1 )
@@ -321,6 +324,52 @@ animation = "yellow"
 [node name="Arrow" parent="Items/Decoration" instance=ExtResource( 28 )]
 position = Vector2( 832, -2 )
 rotation = -1.5708
+
+[node name="Butterflies" type="Node2D" parent="Items/Decoration"]
+
+[node name="Butterfly" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
+position = Vector2( 191, 176 )
+animation = "green"
+
+[node name="Butterfly2" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
+position = Vector2( 291, 95.8 )
+animation = "orange"
+vel_multipliers = Vector2( 2.5, 3.5 )
+
+[node name="Butterfly3" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
+position = Vector2( 421, 177 )
+animation = "green"
+frame = 1
+vel_multipliers = Vector2( 2.75, 2.5 )
+
+[node name="Goonies" type="Node2D" parent="Items"]
+
+[node name="Goonie" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 75, 3 )
+
+[node name="Goonie2" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 207, 247 )
+
+[node name="Goonie3" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 449, 89 )
+
+[node name="Goonie4" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 696, 227 )
+
+[node name="Goonie5" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 862, 164 )
+
+[node name="Goonie6" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 1119, 92 )
+
+[node name="Goonie7" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 1269, -130 )
+
+[node name="Goonie8" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 1489, 101 )
+
+[node name="Goonie9" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 1669, 55 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 18 )]
 position = Vector2( 20, 111 )
