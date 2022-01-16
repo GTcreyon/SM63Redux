@@ -24,6 +24,12 @@ void fragment() {
 	for (float inc = 1f; inc <= outline_texture_size.y; inc++) {
 		outline_sum += sign(texture(viewport_texture, UV - vec2(0, TEXTURE_PIXEL_SIZE.y * inc)).a);
 	}
+	
+	float should_be_brown = sign(texture(viewport_texture, UV - vec2(0, TEXTURE_PIXEL_SIZE.y)).a) +
+		sign(texture(viewport_texture, UV + vec2(0, TEXTURE_PIXEL_SIZE.y)).a) +
+		sign(texture(viewport_texture, UV - vec2(TEXTURE_PIXEL_SIZE.x, 0)).a) +
+		sign(texture(viewport_texture, UV + vec2(TEXTURE_PIXEL_SIZE.x, 0)).a);
+	
 	if (outline_sum != outline_texture_size.y) {
 		vec2 px = vec2(
 			modf_gles2(
@@ -34,6 +40,9 @@ void fragment() {
 		);
 		vec4 text_col = texture(outline_texture, px);
 		col = text_col == COL_BLACK ? col : text_col;
+		if (col.a != 0f && should_be_brown != 4f) {
+			col = vec4(0.224, 0.094, 0, 1)
+		}
 	}
 	
 	COLOR = col;
