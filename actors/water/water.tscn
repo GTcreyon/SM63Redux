@@ -49,5 +49,7 @@ render_target_update_mode = 3
 material = ExtResource( 1 )
 polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
+[node name="Splash" type="AudioStreamPlayer2D" parent="."]
+
 [connection signal="body_entered" from="DetectionArea" to="DetectionArea" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="DetectionArea" method="_on_body_exited"]

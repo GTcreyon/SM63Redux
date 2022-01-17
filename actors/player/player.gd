@@ -32,6 +32,10 @@ onready var sprite = $AnimatedSprite
 onready var camera = $Camera2D
 onready var step_check = $StepCheck
 onready var grass_check = $GrassCheck
+onready var metal_check = $MetalCheck
+onready var snow_check = $SnowCheck
+onready var cloud_check = $CloudCheck
+onready var ice_check = $IceCheck
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
@@ -104,6 +108,33 @@ const step_bank = {
 		preload("res://audio/sfx/step/generic/step_generic_11.wav"),
 		preload("res://audio/sfx/step/generic/step_generic_12.wav"),
 		preload("res://audio/sfx/step/generic/step_generic_13.wav"),
+	],
+	"metal": [
+		preload("res://audio/sfx/step/metal/step_metal_0.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_1.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_2.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_3.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_4.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_5.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_6.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_7.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_8.wav"),
+		preload("res://audio/sfx/step/metal/step_metal_9.wav"),
+	],
+	"snow": [
+		preload("res://audio/sfx/step/snow/step_snow_0.wav"),
+		preload("res://audio/sfx/step/snow/step_snow_1.wav"),
+		preload("res://audio/sfx/step/snow/step_snow_2.wav"),
+		preload("res://audio/sfx/step/snow/step_snow_3.wav"),
+		preload("res://audio/sfx/step/snow/step_snow_4.wav"),
+	],
+	"cloud": [
+		preload("res://audio/sfx/step/cloud/step_cloud_0.wav"),
+		preload("res://audio/sfx/step/cloud/step_cloud_1.wav"),
+	],
+	"ice": [
+		preload("res://audio/sfx/step/ice/step_ice_0.wav"),
+		preload("res://audio/sfx/step/ice/step_ice_1.wav"),
 	],
 }
 
@@ -207,6 +238,14 @@ func play_step():
 		var group
 		if grass_check.is_colliding():
 			group = step_bank["grass"]
+		elif metal_check.is_colliding():
+			group = step_bank["metal"]
+		elif snow_check.is_colliding():
+			group = step_bank["snow"]
+		elif cloud_check.is_colliding():
+			group = step_bank["cloud"]
+		elif ice_check.is_colliding():
+			group = step_bank["ice"]
 		else:
 			group = step_bank["generic"]
 			

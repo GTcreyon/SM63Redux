@@ -133,15 +133,16 @@ func _physics_process(_delta):
 		fuse_time -= 1
 		
 	var room = get_tree().get_current_scene().get_filename()
-	if ((is_on_floor() && struck) || fuse_time <= 0) && !Singleton.collected_dict[room][collect_id]:
-		Singleton.collected_dict[room][collect_id] = true
-		var spawn = coin.instance()
-		spawn.position = position
-		spawn.dropped = true
-		main.add_child(spawn)
-		spawn = explosion.instance()
+	if (is_on_floor() && struck) || fuse_time <= 0:
+		var spawn = explosion.instance()
 		spawn.position = position
 		main.add_child(spawn)
+		if !Singleton.collected_dict[room][collect_id]:
+			Singleton.collected_dict[room][collect_id] = true
+			spawn = coin.instance()
+			spawn.position = position
+			spawn.dropped = true
+			main.add_child(spawn)
 		queue_free()
 	
 	for body in hurtbox.get_overlapping_bodies(): #done in process not signals cuz bobombs can be walked through

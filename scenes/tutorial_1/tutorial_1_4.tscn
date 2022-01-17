@@ -370,7 +370,7 @@ position = Vector2( -312, -669 )
 position = Vector2( 453, 138 )
 
 [node name="BottleBig2" parent="Items/Bottles" instance=ExtResource( 16 )]
-position = Vector2( -814, -310 )
+position = Vector2( -814, -311 )
 
 [node name="BottleBig3" parent="Items/Bottles" instance=ExtResource( 16 )]
 position = Vector2( -3, -280 )
