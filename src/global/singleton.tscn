@@ -130,6 +130,7 @@ script = ExtResource( 5 )
 
 [node name="CoinSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+volume_db = -2.0
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2

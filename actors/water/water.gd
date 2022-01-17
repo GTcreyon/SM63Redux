@@ -1,5 +1,20 @@
 extends Area2D
 
+const splash_bank = {
+	"big": [
+		preload("res://actors/water/splash_big_0.wav"),
+		preload("res://actors/water/splash_big_1.wav"),
+	],
+	"medium": [
+		preload("res://actors/water/splash_medium_0.wav"),
+		preload("res://actors/water/splash_medium_1.wav"),
+	],
+	"small": [
+		preload("res://actors/water/splash_small_0.wav"),
+		preload("res://actors/water/splash_small_1.wav"),
+	],
+}
+
 #settings for water
 export var water_segment_size = 20 #in pixels, this works regardless of water scale.
 export var surface_wave_properties = {
@@ -12,6 +27,7 @@ export var top_left_corner = Vector2() #gets automatically set by the parent scr
 #private variables
 onready var texture = $"../Viewport/WaterPolygon"
 onready var player = $"/root/Main/Player"
+onready var splash = $"../Splash"
 
 var waves = []
 var surface = {}
@@ -219,6 +235,17 @@ func handle_impact(body, is_exit):
 	var body_vel = 5
 	if !(body.get("vel") == null):
 		body_vel = abs(body.vel.y)
+	
+	if body_vel > 10:
+		splash.stream = splash_bank["big"][randi() % 2]
+	elif body_vel > 5:
+		splash.stream = splash_bank["medium"][randi() % 2]
+	else:
+		splash.stream = splash_bank["small"][randi() % 2]
+	
+	splash.global_position = body.global_position
+	splash.pitch_scale = rand_range(0.6, 1.4)
+	splash.play()
 	
 	body_vel *= (0.5 if is_exit else 1.0)
 	
