@@ -9,6 +9,7 @@ uniform float outline_anim_phase = 0;
 
 const vec2 ATLAS_SIZE = vec2(32f, 48f);
 const vec4 COL_BLACK = vec4(0, 0, 0, 1);
+const vec4 COL_BROWN = vec4(0.224, 0.094, 0, 1);
 const float ANIM_STABLE_OFFSET = 0.1f / ATLAS_SIZE.y;
 
 float modf_gles2(float x, float range) {
@@ -41,8 +42,10 @@ void fragment() {
 		vec4 text_col = texture(outline_texture, px);
 		col = text_col == COL_BLACK ? col : text_col;
 		if (col.a != 0f && should_be_brown != 4f) {
-			col = vec4(0.224, 0.094, 0, 1)
+			col = COL_BROWN;
 		}
+	} else if (should_be_brown != 4f) {
+		col = COL_BROWN;
 	}
 	
 	COLOR = col;
