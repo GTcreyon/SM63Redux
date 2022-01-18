@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=29]
 [ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=31]
+[ext_resource path="res://actors/npc/toad/toad.tscn" type="PackedScene" id=32]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -360,6 +361,10 @@ vel_multipliers = Vector2( 2.5, 3.5 )
 position = Vector2( 1428, 71 )
 animation = "green"
 frame = 1
+
+[node name="Toad" parent="Items/Decoration" instance=ExtResource( 32 )]
+position = Vector2( 828, 140 )
+frame = 3
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )
