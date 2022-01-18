@@ -295,7 +295,6 @@ margin_right = -5.0
 margin_bottom = 19.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 6 )
-text = "Take the light back from Bowser and save the Mushroom Kingdom!"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
