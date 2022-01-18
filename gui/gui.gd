@@ -143,9 +143,9 @@ func _process(_delta):
 		coin_counter.material.set_shader_param("flash_factor", 0.5)
 		coin_counter.text = str(singleton.coin_total)
 		
-	red_coin_counter.material.set_shader_param("flash_factor", max(red_coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
+	#red_coin_counter.material.set_shader_param("flash_factor", max(red_coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
 	if red_coin_counter.text != str(singleton.red_coin_total):
-		red_coin_counter.material.set_shader_param("flash_factor", 0.5)
+		#red_coin_counter.material.set_shader_param("flash_factor", 0.5)
 		red_coin_counter.text = str(singleton.red_coin_total)
 	
 	if last_size != OS.window_size:
