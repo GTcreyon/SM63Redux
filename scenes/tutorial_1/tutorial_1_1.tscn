@@ -61,6 +61,7 @@ shader_param/radial = false
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
+visible = false
 polygon = PoolVector2Array( 6.35429, -359.8, 1916.44, -366.927, 1921.79, 463.39, 2.7907, 472.299 )
 spawn_position = Vector2( 400, 0 )
 
@@ -328,31 +329,37 @@ rotation = 4.71239
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 137, 142 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 299, 82 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 533, 104 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 945, 22 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly5" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1230, 9 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly6" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1428, 71 )
 animation = "green"
+frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )
