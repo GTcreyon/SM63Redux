@@ -212,82 +212,83 @@ func _process(dt):
 	set_surface_verts(surface)
 
 func handle_impact(body, is_exit):
-	if !(body is KinematicBody2D || body is RigidBody2D):
-		return
-	var this_shape = shape_owner_get_shape(0, 0) #get our shape
-	var other_shape; var other_owner #get the other shape and owner_id
-	for owner_id in body.get_shape_owners():
-		other_owner = owner_id
-		other_shape = body.shape_owner_get_shape(owner_id, 0)
-		break
-	#get the transforms
-	var this_transform = shape_owner_get_owner(0).global_transform
-	var other_transform = body.shape_owner_get_owner(other_owner).global_transform
-	#get the collision point
-	var contacts = this_shape.collide_and_get_contacts(this_transform, other_shape, other_transform)
-	if contacts.empty(): #if empty, well there's not much we can do then
-		#print("why are there no contact points?")
-		return
-	var contact = contacts[0] #get single contact point
-	contact -= top_left_corner; #transform it to local coordinates
-	
-	#make the wave size dependant on impact and area
-	var body_vel = 5
-	if !(body.get("vel") == null):
-		body_vel = abs(body.vel.y)
-	
-	if body_vel > 10:
-		splash.stream = splash_bank["big"][randi() % 2]
-	elif body_vel > 5:
-		splash.stream = splash_bank["medium"][randi() % 2]
-	else:
-		splash.stream = splash_bank["small"][randi() % 2]
-	
-	splash.global_position = body.global_position
-	splash.pitch_scale = rand_range(0.6, 1.4)
-	splash.play()
-	
-	body_vel *= (0.5 if is_exit else 1.0)
-	
-	#impact velocity
-	var mario_area = 348 #this is mario's default area
-	var height_mult = sqrt(body_vel) / 4
-	var speed_mult = sqrt(3 * body_vel) / 2
-	
-	#multiply area
-	var area_mult = 4 * other_shape.extents.x * other_shape.extents.y / mario_area
-	height_mult *= area_mult
-	speed_mult *= area_mult
-	
-	#create the waves
-	var right = create_wave(contact, 128)
-	right.height *= height_mult
-	right.speed *= speed_mult
-	
-	var left = create_wave(contact, 128)
-	left.height *= height_mult
-	left.speed *= speed_mult
-	left.direction = -1
-	
-	var end_of_wave = left.width
-	var og_wave_width = left.width
-	var ind = 1
-	while (left.height >= 1):
-		if left.travelled_distance >= end_of_wave:
-			var right_trail = create_wave(contact, 128)
-			right_trail.height *= height_mult / ind
-			right_trail.speed *= speed_mult
-			right_trail.height_direction = -1
-			
-			var left_trail = create_wave(contact, 128)
-			left_trail.height *= height_mult / ind
-			left_trail.speed *= speed_mult
-			left_trail.direction = -1
-			left_trail.height_direction = -1 if (ind % 2) else 1
-			ind += 1
-			end_of_wave += og_wave_width
+	if elapsed_time > 0 && (body.get("vel") == null || body.vel.y > 0): #avoid objects triggering waves when spawning
+		if !(body is KinematicBody2D || body is RigidBody2D):
+			return
+		var this_shape = shape_owner_get_shape(0, 0) #get our shape
+		var other_shape; var other_owner #get the other shape and owner_id
+		for owner_id in body.get_shape_owners():
+			other_owner = owner_id
+			other_shape = body.shape_owner_get_shape(owner_id, 0)
+			break
+		#get the transforms
+		var this_transform = shape_owner_get_owner(0).global_transform
+		var other_transform = body.shape_owner_get_owner(other_owner).global_transform
+		#get the collision point
+		var contacts = this_shape.collide_and_get_contacts(this_transform, other_shape, other_transform)
+		if contacts.empty(): #if empty, well there's not much we can do then
+			#print("why are there no contact points?")
+			return
+		var contact = contacts[0] #get single contact point
+		contact -= top_left_corner; #transform it to local coordinates
 		
-		yield(get_tree(), "idle_frame")
+		#make the wave size dependant on impact and area
+		var body_vel = 5
+		if !(body.get("vel") == null):
+			body_vel = abs(body.vel.y)
+		
+		if body_vel > 10:
+			splash.stream = splash_bank["big"][randi() % 2]
+		elif body_vel > 5:
+			splash.stream = splash_bank["medium"][randi() % 2]
+		else:
+			splash.stream = splash_bank["small"][randi() % 2]
+		
+		splash.global_position = body.global_position
+		splash.pitch_scale = rand_range(0.6, 1.4)
+		splash.play()
+		
+		body_vel *= (0.5 if is_exit else 1.0)
+		
+		#impact velocity
+		var mario_area = 348 #this is mario's default area
+		var height_mult = sqrt(body_vel) / 4
+		var speed_mult = sqrt(3 * body_vel) / 2
+		
+		#multiply area
+		var area_mult = 4 * other_shape.extents.x * other_shape.extents.y / mario_area
+		height_mult *= area_mult
+		speed_mult *= area_mult
+		
+		#create the waves
+		var right = create_wave(contact, 128)
+		right.height *= height_mult
+		right.speed *= speed_mult
+		
+		var left = create_wave(contact, 128)
+		left.height *= height_mult
+		left.speed *= speed_mult
+		left.direction = -1
+		
+		var end_of_wave = left.width
+		var og_wave_width = left.width
+		var ind = 1
+		while (left.height >= 1):
+			if left.travelled_distance >= end_of_wave:
+				var right_trail = create_wave(contact, 128)
+				right_trail.height *= height_mult / ind
+				right_trail.speed *= speed_mult
+				right_trail.height_direction = -1
+				
+				var left_trail = create_wave(contact, 128)
+				left_trail.height *= height_mult / ind
+				left_trail.speed *= speed_mult
+				left_trail.direction = -1
+				left_trail.height_direction = -1 if (ind % 2) else 1
+				ind += 1
+				end_of_wave += og_wave_width
+			
+			yield(get_tree(), "idle_frame")
 	
 
 func _on_body_entered(body):

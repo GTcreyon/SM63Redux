@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
@@ -12,6 +12,11 @@
 [ext_resource path="res://src/global/tile_to_poly.gd" type="Script" id=10]
 [ext_resource path="res://src/global/window_warp.gd" type="Script" id=11]
 [ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=12]
+[ext_resource path="res://gui/sfx/start.wav" type="AudioStream" id=13]
+[ext_resource path="res://gui/sfx/confirm.wav" type="AudioStream" id=14]
+[ext_resource path="res://gui/sfx/next.wav" type="AudioStream" id=15]
+[ext_resource path="res://gui/sfx/back.wav" type="AudioStream" id=16]
+[ext_resource path="res://actors/debug/console.tscn" type="PackedScene" id=17]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 12 )
@@ -128,10 +133,6 @@ script = ExtResource( 10 )
 [node name="BaseModifier" type="Node2D" parent="."]
 script = ExtResource( 5 )
 
-[node name="CoinSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 8 )
-volume_db = -2.0
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
 stream = ExtResource( 6 )
@@ -215,6 +216,28 @@ modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( 20, -42 )
 normal = SubResource( 1 )
 pressed = SubResource( 2 )
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Coin" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 8 )
+volume_db = -2.0
+
+[node name="Confirm" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 14 )
+
+[node name="Start" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 13 )
+volume_db = -10.0
+
+[node name="Next" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 15 )
+volume_db = -15.0
+
+[node name="Back" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 16 )
+
+[node name="Console" parent="." instance=ExtResource( 17 )]
 
 [connection signal="pressed" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_pressed"]
 [connection signal="released" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_released"]
