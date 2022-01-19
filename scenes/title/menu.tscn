@@ -287,15 +287,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Description" type="Label" parent="Border"]
+[node name="DescriptionBox" type="Control" parent="Border"]
 anchor_right = 1.0
 margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = 19.0
+
+[node name="DescStory" type="Label" parent="Border/DescriptionBox"]
+anchor_right = 1.0
+margin_right = -10.0
+margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = ExtResource( 6 )
 text = "Take the light back from Bowser and save the Mushroom Kingdom!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescSettings" type="Label" parent="Border/DescriptionBox"]
+anchor_right = 1.0
+margin_right = -10.0
+margin_bottom = 14.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "Create your own worlds in this in-depth Level Designer!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescExtras" type="Label" parent="Border/DescriptionBox"]
+anchor_right = 1.0
+margin_right = -10.0
+margin_bottom = 14.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "Enjoy a collection of trinkets and goodies!"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DescLevelDesigner" type="Label" parent="Border/DescriptionBox"]
+anchor_right = 1.0
+margin_right = -10.0
+margin_bottom = 14.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 6 )
+text = "Adjust anything and everything to your liking!"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

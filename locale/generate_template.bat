@@ -1,1 +1,1 @@
-pybabel extract -F babelrc -k text -k LineEdit/placeholder_text -k lines -o redux.pot ..
+pybabel extract -F babelrc -k text -k LineEdit/placeholder_text -k lines -k descriptions -o redux.pot ..

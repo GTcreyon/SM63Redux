@@ -98,7 +98,11 @@ func run_command(cmd):
 		"menu":
 			output("Warped to menu.")
 			#warning-ignore:RETURN_VALUE_DISCARDED
-			get_tree().change_scene("res://scenes/start/menu.tscn")
+			get_tree().change_scene("res://scenes/title/menu.tscn")
+		"title":
+			output("Warped to title.")
+			#warning-ignore:RETURN_VALUE_DISCARDED
+			get_tree().change_scene("res://scenes/title/title.tscn")
 		"fludd":
 			match args[1]:
 				"h", "hover", "0":

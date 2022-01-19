@@ -1,12 +1,5 @@
 extends Control
 
-const descriptions = [
-	"Take the light back from Bowser and save the Mushroom Kingdom!",
-	"Create your own worlds in this in-depth Level Designer!",
-	"Enjoy a collection of trinkets and goodies!",
-	"Adjust anything and everything to your liking!",
-	]
-
 onready var selector_story = $SelectorStory
 onready var selector_settings = $SelectorSettings
 onready var selector_extra = $SelectorExtras
@@ -19,7 +12,7 @@ onready var ld = $LevelDesigner
 
 onready var icon = $Icon
 onready var border = $Border
-onready var description = $Border/Description
+onready var description_box = $Border/DescriptionBox
 
 var cycle_progress = 0
 var cycle_direction = 0
@@ -52,6 +45,7 @@ func _process(_delta):
 	border.margin_bottom = OS.window_size.y / scale
 	
 	if Input.is_action_just_pressed("left"):
+		Singleton.get_node("SFX/Next").play()
 		if cycle_direction == 1:
 			cycle_step += 1
 			cycle_progress = 0
@@ -61,6 +55,7 @@ func _process(_delta):
 		cycle_direction = 1
 	
 	if Input.is_action_just_pressed("right"):
+		Singleton.get_node("SFX/Next").play()
 		if cycle_direction == -1:
 			cycle_step -= 1
 			cycle_progress = 0
@@ -109,10 +104,14 @@ func _process(_delta):
 	arr[cycle_step % 4].get_node("Frame/CrystalL").frame = 1
 	arr[cycle_step % 4].get_node("Frame/CrystalR").frame = 1
 	
-	description.text = descriptions[(cycle_step + cycle_direction) % 4]
+	var i = 0
+	for desc in description_box.get_children():
+		desc.visible = i == (cycle_step + cycle_direction) % 4
+		i += 1
 	
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept") || Input.is_action_just_pressed("interact"):
 		match (cycle_step + cycle_direction) % 4:
 			0:
 				Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
+				Singleton.get_node("SFX/Start").play()
 	
