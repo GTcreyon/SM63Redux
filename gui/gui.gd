@@ -12,6 +12,9 @@ onready var dialog_box = $DialogBox
 #hud cache
 onready var coin_counter = $StatsTL/CoinRow/Count
 onready var red_coin_counter = $StatsTL/RedCoinRow/Count
+onready var silver_counter = $StatsTL/SilverShineRow/Count
+onready var shine_counter = $StatsTR/ShineRow/Count
+onready var shine_coin_counter = $StatsTR/ShineCoinRow/Count
 onready var life_meter = $LifeMeter
 onready var water_meter = $MeterControl
 onready var icon = $MeterControl/WaterMeter/Icon
@@ -52,6 +55,9 @@ var temp_locale = "en"
 
 func _ready():
 	coin_counter.text = str(singleton.coin_total)
+	silver_counter.text = str(0)
+	shine_counter.text = str(0)
+	shine_coin_counter.text = str(0)
 	set_size(floor(log(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x)) / log(2) + 1), floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 	var menu = get_tree().get_nodes_in_group("pause")
 	for node in menu: #make pause nodes visible but transparent
@@ -137,9 +143,9 @@ func _process(_delta):
 		coin_counter.material.set_shader_param("flash_factor", 0.5)
 		coin_counter.text = str(singleton.coin_total)
 		
-	red_coin_counter.material.set_shader_param("flash_factor", max(red_coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
+	#red_coin_counter.material.set_shader_param("flash_factor", max(red_coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
 	if red_coin_counter.text != str(singleton.red_coin_total):
-		red_coin_counter.material.set_shader_param("flash_factor", 0.5)
+		#red_coin_counter.material.set_shader_param("flash_factor", 0.5)
 		red_coin_counter.text = str(singleton.red_coin_total)
 	
 	if last_size != OS.window_size:

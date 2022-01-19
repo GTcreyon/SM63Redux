@@ -1,4 +1,4 @@
-[gd_scene load_steps=165 format=2]
+[gd_scene load_steps=163 format=2]
 
 [ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -23,7 +23,6 @@
 [ext_resource path="res://gui/hud/debug_label.gd" type="Script" id=21]
 [ext_resource path="res://gui/pause/unpause.gd" type="Script" id=22]
 [ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=23]
-[ext_resource path="res://actors/debug/console.tscn" type="PackedScene" id=24]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=25]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
 [ext_resource path="res://shaders/glow.shader" type="Shader" id=27]
@@ -69,7 +68,6 @@
 [ext_resource path="res://gui/hud/buttons/c_button_1.png" type="Texture" id=72]
 [ext_resource path="res://gui/hud/buttons/x_button_1.png" type="Texture" id=73]
 [ext_resource path="res://gui/hud/water_meter/water_meter_surface.png" type="Texture" id=74]
-[ext_resource path="res://shaders/flash.tres" type="Material" id=76]
 [ext_resource path="res://actors/items/fludd_box/nozzle_turbo.png" type="Texture" id=77]
 [ext_resource path="res://gui/hud/water_meter/water_meter_power_mask.png" type="Texture" id=78]
 [ext_resource path="res://gui/hud/hud_shine.png" type="Texture" id=79]
@@ -230,14 +228,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 64 ) ],
-"loop": true,
-"name": "rocket",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 77 ) ],
 "loop": true,
 "name": "turbo",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 64 ) ],
+"loop": true,
+"name": "rocket",
 "speed": 5.0
 } ]
 
@@ -503,8 +501,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Console" parent="." instance=ExtResource( 24 )]
-
 [node name="StatsTL" type="VBoxContainer" parent="." groups=["stats"]]
 margin_left = 8.0
 margin_top = 8.0
@@ -554,7 +550,6 @@ texture = ExtResource( 63 )
 centered = false
 
 [node name="Count" type="Label" parent="StatsTL/RedCoinRow"]
-material = ExtResource( 76 )
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 80.0
@@ -684,7 +679,7 @@ __meta__ = {
 }
 
 [node name="LifeMeter" type="Sprite" parent="." groups=["stats"]]
-position = Vector2( 224, -75 )
+position = Vector2( 320, -75 )
 z_index = 1
 texture = ExtResource( 67 )
 offset = Vector2( 0, 36 )
@@ -993,6 +988,7 @@ __meta__ = {
 }
 
 [node name="PauseContent" type="Control" parent="." groups=["pause"]]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 37.0

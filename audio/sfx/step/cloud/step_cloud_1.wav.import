@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/step_cloud_1.wav-1020422375ff004dc909e6c18fe6dc09.sample"
+
+[deps]
+
+source_file="res://audio/sfx/step/cloud/step_cloud_1.wav"
+dest_files=[ "res://.import/step_cloud_1.wav-1020422375ff004dc909e6c18fe6dc09.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

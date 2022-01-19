@@ -1,7 +1,6 @@
 extends KinematicBody2D
 
 onready var main = $"/root/Main"
-onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
 var dropped = false
@@ -27,13 +26,13 @@ func _process(_delta):
 func _ready():
 	if !dropped:
 		var room = get_tree().get_current_scene().get_filename()
-		collect_id = singleton.get_collect_id()
-		if singleton.collected_dict[room][collect_id]:
+		collect_id = Singleton.get_collect_id()
+		if Singleton.collected_dict[room][collect_id]:
 			queue_free()
 		else:
-			singleton.collected_dict[room].append(false)
+			Singleton.collected_dict[room].append(false)
 	if vel == Vector2.INF:
-		vel.x = (singleton.rng.randf() * 4 - 2) * 0.53
+		vel.x = (Singleton.rng.randf() * 4 - 2) * 0.53
 		vel.y = -7 * 0.53
 	sprite.playing = true
 
@@ -68,15 +67,15 @@ func _on_WaterCheck_area_exited(_body):
 
 
 func _on_PickupArea_body_entered(_body):
-	singleton.coin_total += yellow
-	if singleton.hp < 8:
-		singleton.internal_coin_counter += yellow
-	singleton.red_coin_total += red
+	Singleton.coin_total += yellow
+	if Singleton.hp < 8:
+		Singleton.internal_coin_counter += yellow
+	Singleton.red_coin_total += red
 	if !dropped:
-		singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
-	singleton.collect_count += 1
+		Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
+	Singleton.collect_count += 1
 	picked = true
-	singleton.get_node("CoinSFX").play()
+	Singleton.get_node("SFX/Coin").play()
 	$PickupArea.queue_free() #clears up the acting segments of the coin so only the SFX is left
 	var inst = sparkle.instance()
 	inst.position = position

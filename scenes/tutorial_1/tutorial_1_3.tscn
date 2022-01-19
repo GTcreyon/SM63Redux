@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0004.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0005.png" type="Texture" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://scenes/tutorial_1/temp/t1r3/Sprite-0003.png" type="Texture" id=6]
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=8]
-[ext_resource path="res://actors/items/fungus_platform/fungus_head.tscn" type="PackedScene" id=9]
 [ext_resource path="res://actors/items/fungus_platform/fungus_stem.tscn" type="PackedScene" id=10]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=11]
 [ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=12]
@@ -28,6 +27,8 @@
 [ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=26]
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=27]
 [ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=28]
+[ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=29]
+[ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -42,6 +43,7 @@ shader_param/radial = false
 [node name="BGT1" parent="." instance=ExtResource( 17 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 21 )]
+visible = false
 polygon = PoolVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
 spawn_position = Vector2( 400, 100 )
 
@@ -94,79 +96,45 @@ texture = ExtResource( 3 )
 [node name="Fungus" type="Node2D" parent="Items"]
 
 [node name="FungusStem6" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 791, 185 )
-
-[node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 334, 94 )
-length = 102
-
-[node name="FungusHead" parent="Items/Fungus" instance=ExtResource( 9 )]
-position = Vector2( 393, 145 )
-
-[node name="FungusHead2" parent="Items/Fungus" instance=ExtResource( 9 )]
-position = Vector2( 320, 128 )
-
-[node name="FungusHead3" parent="Items/Fungus" instance=ExtResource( 9 )]
-position = Vector2( 340, 78 )
-
-[node name="FungusHead4" parent="Items/Fungus" instance=ExtResource( 9 )]
-position = Vector2( 682, 141 )
-
-[node name="FungusHead5" parent="Items/Fungus" instance=ExtResource( 9 )]
-position = Vector2( 764, 102 )
-
-[node name="FungusHead6" parent="Items/Fungus" instance=ExtResource( 9 )]
 position = Vector2( 797, 169 )
 
-[node name="FungusHead7" parent="Items/Fungus" instance=ExtResource( 9 )]
-position = Vector2( 842, 80 )
-rotation = -0.349066
+[node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 10 )]
+position = Vector2( 340, 78 )
+z_index = -3
+points = PoolVector2Array( -4, 16, -4, 21, 13, 25, 18, 34, 17, 58, -1, 77, 0, 112 )
 
 [node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 314, 144 )
+position = Vector2( 320, 128 )
 
 [node name="FungusStem2" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 387, 161 )
+position = Vector2( 393, 145 )
 
 [node name="FungusStem4" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 676, 157 )
+position = Vector2( 682, 141 )
 
 [node name="FungusStem5" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 758, 118 )
-length = 89
+position = Vector2( 764, 102 )
+points = PoolVector2Array( -4, 16, -4, 21, -12, 44, -11, 76, -13, 95 )
 
 [node name="FungusStem7" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 842, 97 )
+position = Vector2( 842, 80 )
 rotation = -0.349066
-length = 110
-
-[node name="FungusHead8" parent="Items/Fungus" instance=ExtResource( 9 )]
-position = Vector2( 1054, -66 )
+points = PoolVector2Array( -4, 16, -4, 21, -10.948, 41.7749, 0.836121, 62.0266, 0.404297, 77.8321, 17.0631, 81.7671 )
 
 [node name="FungusStem8" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 1049, -50 )
+position = Vector2( 1054, -66 )
 
 [node name="FungusStem9" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 1386, 72 )
-
-[node name="FungusHead9" parent="Items/Fungus" instance=ExtResource( 9 )]
 position = Vector2( 1392, 56 )
 
-[node name="FungusHead10" parent="Items/Fungus" instance=ExtResource( 9 )]
+[node name="FungusStem10" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 1460, 24 )
 rotation = 0.349066
-
-[node name="FungusStem10" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 1449, 37 )
-rotation = 0.349066
-length = 134
-
-[node name="FungusHead11" parent="Items/Fungus" instance=ExtResource( 9 )]
-position = Vector2( 966, -154 )
+points = PoolVector2Array( -4, 16, -4, 21, -12.1193, 42.7215, -9.80469, 69.5476, -22.4421, 93.3025, -20.3036, 102.102 )
 
 [node name="FungusStem11" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 960, -138 )
-length = 97
+position = Vector2( 966, -154 )
+points = PoolVector2Array( -4, 16, -4, 21, -4, 113 )
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 548, 187 )
@@ -209,6 +177,7 @@ position = Vector2( 1084, -35 )
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 12 )]
 material = SubResource( 1 )
 position = Vector2( 502, 204 )
+lines = [ "Usa el boton [color=#f7c55f][@b,fludd][/color] para elevarte usando [color=#5f75c5]F.L.U.D.D.[/color]", "Para rellenar la reserva de [color=#5f75c5]F.L.U.D.D.[/color], súmergete en agua o encuentra una botella." ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 12 )]
 material = SubResource( 1 )
@@ -321,6 +290,53 @@ animation = "yellow"
 [node name="Arrow" parent="Items/Decoration" instance=ExtResource( 28 )]
 position = Vector2( 832, -2 )
 rotation = -1.5708
+
+[node name="Butterflies" type="Node2D" parent="Items/Decoration"]
+
+[node name="Butterfly" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
+position = Vector2( 191, 176 )
+animation = "green"
+frame = 1
+
+[node name="Butterfly2" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
+position = Vector2( 291, 95.8 )
+animation = "orange"
+frame = 1
+vel_multipliers = Vector2( 2.5, 3.5 )
+
+[node name="Butterfly3" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
+position = Vector2( 421, 177 )
+animation = "green"
+vel_multipliers = Vector2( 2.75, 2.5 )
+
+[node name="Goonies" type="Node2D" parent="Items"]
+
+[node name="Goonie" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 75, 3 )
+
+[node name="Goonie2" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 207, 247 )
+
+[node name="Goonie3" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 449, 89 )
+
+[node name="Goonie4" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 696, 227 )
+
+[node name="Goonie5" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 862, 164 )
+
+[node name="Goonie6" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 1119, 92 )
+
+[node name="Goonie7" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 1269, -130 )
+
+[node name="Goonie8" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 1489, 101 )
+
+[node name="Goonie9" parent="Items/Goonies" instance=ExtResource( 29 )]
+position = Vector2( 1669, 55 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 18 )]
 position = Vector2( 20, 111 )
