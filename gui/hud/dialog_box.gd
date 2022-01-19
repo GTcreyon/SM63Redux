@@ -36,7 +36,6 @@ func say_line(index):
 	var cumulative_length = 0
 	var i = 0
 #	if 
-	print(TranslationServer.get_loaded_locales())
 	target_line = insert_keybind_strings(TranslationServer.translate(loaded_lines[index]))
 	while i < target_line.length():
 #		if target_line[i] == "[":
