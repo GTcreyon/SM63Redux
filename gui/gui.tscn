@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=2]
+[gd_scene load_steps=164 format=2]
 
 [ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://gui/hud/debug_label.gd" type="Script" id=21]
 [ext_resource path="res://gui/pause/unpause.gd" type="Script" id=22]
 [ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=23]
+[ext_resource path="res://gui/dialog/faces/luigi/neutral.png" type="Texture" id=24]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=25]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
 [ext_resource path="res://shaders/glow.shader" type="Shader" id=27]
@@ -876,7 +877,6 @@ frames = SubResource( 6 )
 animation = "hover"
 
 [node name="DialogBox" type="Panel" parent="."]
-visible = false
 margin_left = 96.0
 margin_top = 224.0
 margin_right = 352.0
@@ -906,6 +906,18 @@ frames = SubResource( 7 )
 animation = "wait"
 
 [node name="Tween" type="Tween" parent="DialogBox"]
+
+[node name="Portrait" type="TextureRect" parent="DialogBox"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -57.0
+margin_right = 42.0
+margin_bottom = -15.0
+texture = ExtResource( 24 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="InputDisplay" type="Control" parent="."]
 visible = false
