@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://actors/npc/toad/toad.png" type="Texture" id=1]
 [ext_resource path="res://shaders/palette.tres" type="Material" id=2]
@@ -36,11 +36,21 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[node name="Toad" type="AnimatedSprite"]
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 12, 3 )
+
+[node name="Toad" type="Area2D"]
 material = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+use_parent_material = true
 z_index = -1
 frames = SubResource( 1 )
-frame = 2
+frame = 7
 playing = true
 offset = Vector2( 0, -0.5 )
-script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 8 )
+shape = SubResource( 12 )

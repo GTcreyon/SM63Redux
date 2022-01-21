@@ -1,19 +1,47 @@
 extends Panel
 
+const styles = {
+	"talk":preload("res://gui/dialog/talk_box.tres"),
+	"mario":preload("res://gui/dialog/nx_box.tres"),
+	"luigi":preload("res://gui/dialog/nx_luigi_box.tres"),
+	"wario":preload("res://gui/dialog/nx_wario_box.tres"),
+	"sign":preload("res://gui/dialog/sign_box.tres"),
+	"think":preload("res://gui/dialog/think_box.tres"),
+}
+
+const characters = {
+	"luigi":
+		[
+			PoolStringArray([
+				"neutral",
+				"sad",
+			]),
+			
+			[
+				preload("res://gui/dialog/faces/luigi/neutral.png"),
+				preload("res://gui/dialog/faces/luigi/sad.png"),
+			],
+		]
+}
+
 onready var player = $"/root/Main/Player"
 onready var star = $Star
+onready var text_area = $Text
+onready var portrait = $Portrait
 
 var loaded_lines = []
 var line_index = 0
 var char_roll = 1
 var char_index = 1
 var target_line = ""
+var raw_line = ""
 var text_speed = 0.5
 var pause_time = 0
 var star_wobble = 0
 var gui_size = 1
 var swoop_timer = 0
 var active = false
+var character = null
 
 func insert_keybind_strings(input: String) -> String:
 	var regex: RegEx = RegEx.new()
@@ -26,58 +54,63 @@ func insert_keybind_strings(input: String) -> String:
 	return input
 
 
-func say_line(index):
-	$Text.bbcode_text = ""
-	char_roll = 1
-	char_index = 0
-	
-	#add line breaks
+func refresh_returns(line):
 	var font = $Text.get_font("normal_font")
 	var cumulative_length = 0
 	var i = 0
-#	if 
-	target_line = insert_keybind_strings(TranslationServer.translate(loaded_lines[index]))
-	while i < target_line.length():
-#		if target_line[i] == "[":
-#			while target_line[i] != "]" || target_line[i+1] == "[":
+	while i < line.length():
+#		if line[i] == "[":
+#			while line[i] != "]" || line[i+1] == "[":
 #				i += 1
 #			i += 1
 		var j = 0
 		var word = " "
 		var loop = true
-		while i + j < target_line.length() && target_line[i + j] != " " && target_line[i + j] != "\n" && loop:
-			if target_line[i + j] == "[":
-				while i + j < target_line.length() - 1 && (target_line[i + j - 1] != "]" || target_line[i + j] == "["):
+		while i + j < line.length() && line[i + j] != " " && line[i + j] != "\n" && loop:
+			if line[i + j] == "[":
+				while i + j < line.length() - 1 && (line[i + j - 1] != "]" || line[i + j] == "["):
 					j += 1
-				if target_line[i + j] == " ":
+				if line[i + j] == " ":
 					loop = false
-				#word += target_line[i + j]
+				#word += line[i + j]
 				#j -= 1
 			if loop:
-				word += target_line[i + j]
+				word += line[i + j]
 				j += 1
 			
 			
-		#word += target_line[i + j]
-		if i + j < target_line.length() && target_line[i + j] == "\n":
+		#word += line[i + j]
+		if i + j < line.length() && line[i + j] == "\n":
 			cumulative_length = 0
 		else:
 			var added_length = font.get_string_size(word).x
 			cumulative_length += added_length
-			#print(word + str(cumulative_length))
-			if cumulative_length >= 233:
+			if cumulative_length >= 233 || (character != null && cumulative_length >= 233 - (47 - 8)):
 				cumulative_length = added_length
-				target_line = target_line.insert(i, "\n")
+				line = line.insert(i, "\n")
 				i += 1
 		i += j
 		i += 1
 	#pad the left side to prevent outline issues ._.
-	target_line = " " + target_line.replace("\n", "\n ")
+	line = " " + line.replace("\n", "\n ")
+	return line
+
+func say_line(index):
+	$Text.bbcode_text = ""
+	char_roll = 1
+	char_index = 0
+	
+#	if 
+	raw_line = insert_keybind_strings(TranslationServer.translate(loaded_lines[index]))
+	target_line = refresh_returns(raw_line)
+	raw_line
 	visible = true
 	active = true
 
 
 func load_lines(lines):
+	text_area.margin_left = 8
+	character = null
 	swoop_timer = 0
 	star_wobble = 0
 	loaded_lines = lines
@@ -130,6 +163,24 @@ func _process(_delta):
 													text_speed = float(args[1])
 												"p":
 													pause_time = float(args[1])
+												"t":
+													add_stylebox_override("panel", styles[args[1]])
+												"n":
+													if args.size() < 2:
+														text_area.margin_left = 8
+														portrait.visible = false
+														target_line = refresh_returns(raw_line)
+													else:
+														text_area.margin_left = 47
+														portrait.visible = true
+														character = args[1]
+														if args.size() < 3:
+															portrait.texture = characters[character][1][0] #char|texture list|first texture
+														else:
+															portrait.texture = characters[character][1][int(args[2])]
+														target_line = refresh_returns(raw_line)
+												"m":
+													portrait.texture = characters[character][1][args[1]]
 												_:
 													print_debug("Dialog: Unknown tag")
 									_:

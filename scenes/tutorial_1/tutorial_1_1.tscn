@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
@@ -32,6 +32,7 @@
 [ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=31]
 [ext_resource path="res://actors/npc/toad/toad.tscn" type="PackedScene" id=32]
+[ext_resource path="res://shaders/palette.shader" type="Shader" id=33]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -56,6 +57,76 @@ shader_param/intensity = 200
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 shader_param/radial = false
+
+[sub_resource type="ShaderMaterial" id=4]
+resource_local_to_scene = true
+shader = ExtResource( 33 )
+shader_param/color0 = Color( 0.372549, 0.458824, 0.772549, 1 )
+shader_param/color1 = Color( 0.266667, 0.211765, 0.584314, 1 )
+shader_param/color2 = Color( 0.984314, 0.827451, 0.584314, 1 )
+shader_param/color3 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color4 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = ExtResource( 33 )
+shader_param/color0 = Color( 0.968627, 0.772549, 0.372549, 1 )
+shader_param/color1 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color2 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color3 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color4 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = ExtResource( 33 )
+shader_param/color0 = Color( 0.611765, 0.772549, 0.427451, 1 )
+shader_param/color1 = Color( 0.34902, 0.482353, 0.360784, 1 )
+shader_param/color2 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color3 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color4 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
+
+[sub_resource type="ShaderMaterial" id=7]
+resource_local_to_scene = true
+shader = ExtResource( 33 )
+shader_param/color0 = Color( 0.968627, 0.772549, 0.372549, 1 )
+shader_param/color1 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color2 = Color( 0.984314, 0.827451, 0.584314, 1 )
+shader_param/color3 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color4 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = ExtResource( 33 )
+shader_param/color0 = Color( 0.780392, 0.47451, 0.858824, 1 )
+shader_param/color1 = Color( 0.584314, 0.372549, 0.772549, 1 )
+shader_param/color2 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color3 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color4 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
+
+[sub_resource type="ShaderMaterial" id=9]
+resource_local_to_scene = true
+shader = ExtResource( 33 )
+shader_param/color0 = Color( 0.611765, 0.772549, 0.427451, 1 )
+shader_param/color1 = Color( 0.34902, 0.482353, 0.360784, 1 )
+shader_param/color2 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color3 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color4 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
+
+[sub_resource type="ShaderMaterial" id=10]
+resource_local_to_scene = true
+shader = ExtResource( 33 )
+shader_param/color0 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color1 = Color( 0.713726, 0.278431, 0.156863, 1 )
+shader_param/color2 = Color( 0.984314, 0.827451, 0.584314, 1 )
+shader_param/color3 = Color( 0.898039, 0.623529, 0.32549, 1 )
+shader_param/color4 = Color( 0.87451, 0.376471, 0.258824, 1 )
+shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
 
 [node name="Main" type="Node2D"]
 
@@ -330,34 +401,43 @@ rotation = 4.71239
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 137, 142 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 299, 82 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 533, 104 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 945, 22 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly5" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1230, 9 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly6" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1428, 71 )
 animation = "green"
+frame = 1
 
 [node name="Toad" parent="Items/Decoration" instance=ExtResource( 32 )]
+material = SubResource( 4 )
 position = Vector2( 828, 140 )
+lines = [ "[@n,luigi,1]Look, [color=#df6042]Mario![/color] I can see the castle from here!" ]
+spot = 2
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )
@@ -508,3 +588,36 @@ size = Vector2( 20, 100 )
 
 [node name="Cheep Cheep2" parent="." instance=ExtResource( 28 )]
 position = Vector2( 865.68, 325.02 )
+
+[node name="Toad" parent="." instance=ExtResource( 32 )]
+material = SubResource( 5 )
+position = Vector2( 829, 119 )
+spot = 3
+skin = 1
+
+[node name="Toad2" parent="." instance=ExtResource( 32 )]
+material = SubResource( 6 )
+position = Vector2( 827, 98 )
+spot = 1
+skin = 1
+
+[node name="Toad3" parent="." instance=ExtResource( 32 )]
+material = SubResource( 7 )
+position = Vector2( 827, 77 )
+spot = 3
+
+[node name="Toad4" parent="." instance=ExtResource( 32 )]
+material = SubResource( 8 )
+position = Vector2( 828, 56 )
+spot = 4
+skin = 1
+
+[node name="Toad5" parent="." instance=ExtResource( 32 )]
+material = SubResource( 9 )
+position = Vector2( 826, 35 )
+spot = 1
+skin = 1
+
+[node name="Toad6" parent="." instance=ExtResource( 32 )]
+material = SubResource( 10 )
+position = Vector2( 828, 14 )
