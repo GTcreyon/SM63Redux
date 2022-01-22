@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0002.png" type="Texture" id=1]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r4/Sprite-0003.png" type="Texture" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://actors/items/tilting_platform/tilting_platform.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=20]
 [ext_resource path="res://actors/items/rotating_block/rotating_block.tscn" type="PackedScene" id=21]
+[ext_resource path="res://actors/items/shine/shine.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/items/fungus_platform/fungus_stem.tscn" type="PackedScene" id=23]
 [ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=24]
 [ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=25]
@@ -508,3 +509,6 @@ sweep_direction = Vector2( 0, 1 )
 spawn_location = Vector2( 1000, -400 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
 size = Vector2( 2000, 50 )
+
+[node name="Shine" parent="." instance=ExtResource( 22 )]
+position = Vector2( 773, -608 )

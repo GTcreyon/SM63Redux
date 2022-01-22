@@ -153,6 +153,9 @@ var sign_cooldown = 0
 var jump_buffer = 0
 var coyote_time = 0
 var sign_x = null
+var collect_pos_init = Vector2()
+var collect_pos_final = Vector2()
+var collect_time : float = 0
 var solid_floors = 0
 var swim_delay = false
 
@@ -352,6 +355,14 @@ func _physics_process(_delta):
 	if static_v:
 		if sign_x != null:
 			position.x = sign_x + (position.x - sign_x) * 0.75
+		if collect_pos_final != null:
+			sprite.animation = "spin"
+			print(sin(collect_time * PI / 2 * 2.5))
+			position = collect_pos_init + sin(collect_time * PI / 2) * (collect_pos_final - collect_pos_init)
+			if collect_time < 1:
+				collect_time += 1.0/120
+			else:
+				sprite.animation = "shine"
 	else:
 		var i_left = Input.is_action_pressed("left")
 		var i_right = Input.is_action_pressed("right")
