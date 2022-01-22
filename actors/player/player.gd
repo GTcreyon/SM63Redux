@@ -355,14 +355,16 @@ func _physics_process(_delta):
 	if static_v:
 		if sign_x != null:
 			position.x = sign_x + (position.x - sign_x) * 0.75
-		if collect_pos_final != null:
+		if collect_pos_final != Vector2():
 			sprite.animation = "spin"
-			print(sin(collect_time * PI / 2 * 2.5))
-			position = collect_pos_init + sin(collect_time * PI / 2) * (collect_pos_final - collect_pos_init)
+			position = collect_pos_init + sin(min(collect_time, 1) * PI / 2) * (collect_pos_final - collect_pos_init)
 			if collect_time < 1:
-				collect_time += 1.0/120
+				collect_time += 1.0/(60.0 * 3.835)
 			else:
+				collect_time += 1.0
 				sprite.animation = "shine"
+				if collect_time >= 80:
+					$"/root/Singleton/WindowWarp".warp(Vector2(), "res://scenes/title/title.tscn", 40)
 	else:
 		var i_left = Input.is_action_pressed("left")
 		var i_right = Input.is_action_pressed("right")

@@ -70,7 +70,7 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 13 )
-frame = 11
+frame = 9
 playing = true
 offset = Vector2( 0, -1.5 )
 
@@ -79,5 +79,14 @@ shape = SubResource( 14 )
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+
+[node name="CanvasLayer" type="Node2D" parent="."]
+z_index = -1
+
+[node name="Cover" type="ColorRect" parent="CanvasLayer"]
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="body_entered" from="." to="." method="_on_Shine_body_entered"]

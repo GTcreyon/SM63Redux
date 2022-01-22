@@ -1,9 +1,9 @@
 extends Polygon2D
 
-const IN_TIME = 25
-const OUT_TIME = 15
-const IN_UNIT = 1.0 / IN_TIME
-const OUT_UNIT = 1.0 / OUT_TIME
+
+
+var in_time = 25
+var out_time = 15
 onready var cover = $"../CoverLayer/WarpCover"
 
 var direction = 0
@@ -40,15 +40,25 @@ func resize_polygon(factor):
 	]
 	var star_temp = []
 	for point in star:
-		star_temp.append(point * factor - Vector2(width*(factor-1)/2, height*(factor-1)/2))
+		var dist = (point - Vector2(width/2, height/2)).length()
+		var angle = (point - Vector2(width/2, height/2)).angle()
+		var angle_offset = progress * 2 * PI / 8
+		star_temp.append(
+			Vector2(width/2, height/2)
+			+ (Vector2(cos(angle + angle_offset), sin(angle + angle_offset)) * dist * factor)
+			
+		)
+		#point * factor - Vector2(width*(factor-1)/2, height*(factor-1)/2)
 	polygon = star_temp
 
 
 func _process(_delta):
+	var in_unit = 1.0 / in_time
+	var out_unit = 1.0 / out_time
 	if enter == 1:
 		visible = true
-		cover.color.a = progress + IN_UNIT
-		if progress >= 1.0 - IN_UNIT:
+		cover.color.a = progress + in_unit
+		if progress >= 1 - in_unit:
 			if has_node("/root/Main/Player/AnimatedSprite"):
 				Singleton.flip = $"/root/Main/Player/AnimatedSprite".flip_h
 			else:
@@ -57,7 +67,7 @@ func _process(_delta):
 			enter = -1
 			progress = 0
 		else:
-			progress += IN_UNIT
+			progress += in_unit
 			resize_polygon(1.5 - progress * 1.5)
 	elif enter == -1:
 		cover.color.a = 1.0 - progress
@@ -66,11 +76,13 @@ func _process(_delta):
 			progress = 0
 			visible = false
 		else:
-			progress += OUT_UNIT
+			progress += out_unit
 			resize_polygon(progress * 1.5)
 
 
-func warp(location, path):
+func warp(location, path, t_in = 25, t_out = 15):
+	in_time = t_in
+	out_time = t_out
 	enter = 1
 	Singleton.set_location = location
 	scene_path = path

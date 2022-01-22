@@ -16,20 +16,22 @@ func _ready():
 	limit_bottom = 10000000
 
 
+func rezoom():
+	tween.stop_all()
+	tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)
+	tween.start()
+
+
 func _process(_delta):
 	if OS.window_size.x != 0:
 		var zoom_factor = Singleton.DEFAULT_SIZE.x/OS.window_size.x
 		if !get_tree().paused:
 			if Input.is_action_just_pressed("zoom+") && target_zoom > 0.25:
 				target_zoom /= 2
-				tween.stop_all()
-				tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)
-				tween.start()
+				rezoom()
 			if Input.is_action_just_pressed("zoom-") && target_zoom < 1:
 				target_zoom *= 2
-				tween.stop_all()
-				tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)
-				tween.start()
+				rezoom()
 		zoom = Vector2.ONE * zoom_factor * current_zoom
 		if first_frame:
 			limit_left = target_limit_left

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/shine_get.mp3-2d3a7432081fe636af68abab343c544f.mp3st
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0
