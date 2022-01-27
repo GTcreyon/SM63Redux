@@ -74,6 +74,8 @@ func run_command(cmd):
 		"ref":
 			singleton.water = max(singleton.water, 100)
 			output("Water refilled" % int(args[1]))
+		"q":
+			visible = false
 		"c":
 			singleton.classic = !singleton.classic
 			if singleton.classic:
