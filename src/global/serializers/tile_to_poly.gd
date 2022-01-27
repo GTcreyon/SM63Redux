@@ -272,7 +272,7 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 		var point = Geometry.segment_intersects_segment_2d(
 			start_pos,
 			end_pos,
-			p_start, 
+			p_start,
 			p_end
 		)
 		#draw_line(debug_vec_deform(start_pos), debug_vec_deform(end_pos), Color(1, 0, 1), 2)
@@ -290,7 +290,6 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 		injection_index = start_ind
 		injection_point = start_pos
 	if injection_index == null:
-		print("E")
 		injection_index = 0
 		injection_point = polygon[0]
 	#rebuild the polygon
