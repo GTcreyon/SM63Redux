@@ -70,38 +70,6 @@
 [ext_resource path="res://actors/player/kris/kris_spin_11.png" type="Texture" id=80]
 [ext_resource path="res://actors/player/kris/kris_walk_right_3.png" type="Texture" id=81]
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 12 )
-region = Rect2( 28, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 11 )
-region = Rect2( 0, 0, 26, 32 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 11 )
-region = Rect2( 26, 0, 26, 32 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 13 )
-region = Rect2( 0, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 13 )
-region = Rect2( 28, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 13 )
-region = Rect2( 56, 0, 28, 32 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 13 )
-region = Rect2( 84, 0, 28, 32 )
-
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 18, 32 )
@@ -126,16 +94,48 @@ region = Rect2( 56, 0, 28, 32 )
 atlas = ExtResource( 3 )
 region = Rect2( 84, 0, 28, 32 )
 
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 26, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 11 )
+region = Rect2( 26, 0, 26, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 12 )
+region = Rect2( 28, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 13 )
+region = Rect2( 28, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 13 )
+region = Rect2( 56, 0, 28, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 13 )
+region = Rect2( 84, 0, 28, 32 )
+
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ ExtResource( 24 ) ],
-"loop": true,
-"name": "front",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 52 ) ],
 "loop": true,
 "name": "back",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 24 ) ],
+"loop": true,
+"name": "front",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
@@ -143,54 +143,59 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 42 ) ],
+"frames": [ ExtResource( 6 ) ],
 "loop": true,
-"name": "rocket_pound_spin",
+"name": "jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 73 ) ],
+"frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "kris_pound_fall",
+"name": "dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 31 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
-"name": "hover_pound_spin",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "rocket_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 73 ) ],
-"loop": true,
-"name": "kris_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 48 ) ],
-"loop": true,
-"name": "rocket_flip",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 15 ), SubResource( 16 ) ],
-"loop": true,
-"name": "hover_pound_fall",
+"name": "walk",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "pound_spin",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"loop": true,
+"name": "spin",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "swim",
+"speed": 4.0
 }, {
 "frames": [ ExtResource( 26 ) ],
 "loop": true,
 "name": "jump_double",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 55 ) ],
+"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
 "loop": true,
-"name": "rocket_back",
+"name": "rocket_pound_fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "kris_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 23 ) ],
+"frames": [ ExtResource( 53 ) ],
 "loop": true,
-"name": "hover_fall",
+"name": "hover_back",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 74 ) ],
@@ -198,9 +203,29 @@ animations = [ {
 "name": "kris_jump_double",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "rocket_jump",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 33 ) ],
 "loop": true,
 "name": "hover_dive",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"loop": true,
+"name": "hover_walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
+"loop": true,
+"name": "hover_swim",
+"speed": 4.0
+}, {
+"frames": [ ExtResource( 46 ) ],
+"loop": true,
+"name": "rocket_fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 47 ), ExtResource( 50 ), ExtResource( 44 ), ExtResource( 45 ) ],
@@ -208,54 +233,9 @@ animations = [ {
 "name": "rocket_spin",
 "speed": 15.0
 }, {
-"frames": [ SubResource( 13 ), SubResource( 14 ) ],
+"frames": [ ExtResource( 23 ) ],
 "loop": true,
-"name": "hover_walk",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_swim",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_dive",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 21 ), ExtResource( 22 ) ],
-"loop": true,
-"name": "hover_swim",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 40 ), ExtResource( 41 ) ],
-"loop": true,
-"name": "rocket_pound_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 28 ) ],
-"loop": true,
-"name": "hover_jump",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
-"loop": true,
-"name": "hover_spin",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 46 ) ],
-"loop": true,
-"name": "rocket_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 8 ) ],
-"loop": true,
-"name": "kris_jump",
+"name": "hover_fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 75 ), ExtResource( 76 ), ExtResource( 75 ), ExtResource( 81 ) ],
@@ -268,24 +248,24 @@ animations = [ {
 "name": "kris_front",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 53 ) ],
+"frames": [ ExtResource( 27 ) ],
 "loop": true,
-"name": "hover_back",
+"name": "shine",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 39 ) ],
+"frames": [ ExtResource( 73 ) ],
 "loop": true,
-"name": "rocket_jump_double",
+"name": "kris_pound_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 48 ) ],
+"loop": true,
+"name": "rocket_flip",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 32 ) ],
 "loop": true,
 "name": "hover_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 27 ) ],
-"loop": true,
-"name": "shine",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
@@ -298,45 +278,65 @@ animations = [ {
 "name": "rocket_dive",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "kris_dive",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 66 ), ExtResource( 80 ), ExtResource( 71 ), ExtResource( 78 ), ExtResource( 77 ), ExtResource( 61 ), ExtResource( 67 ), ExtResource( 69 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 79 ) ],
 "loop": true,
 "name": "kris_spin",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 10 ) ],
+"frames": [ SubResource( 15 ), SubResource( 16 ) ],
 "loop": true,
-"name": "pound_fall",
+"name": "hover_pound_fall",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 28 ) ],
 "loop": true,
-"name": "dive",
+"name": "hover_jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 11 ), SubResource( 12 ) ],
+"frames": [ ExtResource( 31 ) ],
 "loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 6 ) ],
-"loop": true,
-"name": "jump",
+"name": "hover_pound_spin",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 16 ), ExtResource( 17 ) ],
+"frames": [ ExtResource( 55 ) ],
 "loop": true,
-"name": "swim",
-"speed": 4.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "pound_spin",
+"name": "rocket_back",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
+"frames": [ ExtResource( 14 ) ],
 "loop": true,
-"name": "spin",
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
+"loop": true,
+"name": "hover_spin",
 "speed": 15.0
+}, {
+"frames": [ ExtResource( 42 ) ],
+"loop": true,
+"name": "rocket_pound_spin",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 39 ) ],
+"loop": true,
+"name": "rocket_jump_double",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "kris_swim",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "kris_flip",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]

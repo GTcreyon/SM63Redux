@@ -9,16 +9,14 @@
 [ext_resource path="res://src/global/music.gd" type="Script" id=7]
 [ext_resource path="res://actors/items/coin/coin_collect.wav" type="AudioStream" id=8]
 [ext_resource path="res://src/global/mobile_controls.gd" type="Script" id=9]
-[ext_resource path="res://src/global/tile_to_poly.gd" type="Script" id=10]
-[ext_resource path="res://src/global/window_warp.gd" type="Script" id=11]
+[ext_resource path="res://src/global/serializers/tile_to_poly.gd" type="Script" id=10]
+[ext_resource path="res://src/global/serializers/sm63_to_redux.gd" type="Script" id=11]
 [ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=12]
 [ext_resource path="res://gui/sfx/start.wav" type="AudioStream" id=13]
 [ext_resource path="res://gui/sfx/confirm.wav" type="AudioStream" id=14]
 [ext_resource path="res://gui/sfx/next.wav" type="AudioStream" id=15]
 [ext_resource path="res://gui/sfx/back.wav" type="AudioStream" id=16]
 [ext_resource path="res://actors/debug/console.tscn" type="PackedScene" id=17]
-[ext_resource path="res://src/global/serializers/tile_to_poly.gd" type="Script" id=10]
-[ext_resource path="res://src/global/serializers/sm63_to_redux.gd" type="Script" id=11]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 12 )

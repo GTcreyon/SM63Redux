@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://src/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://src/level_designer/ld_main.gd" type="Script" id=2]
 [ext_resource path="res://src/level_designer/ld_camera.gd" type="Script" id=3]
 [ext_resource path="res://music.gd" type="Script" id=5]
@@ -12,6 +13,43 @@ anchor_mode = 0
 current = true
 script = ExtResource( 3 )
 
+[node name="UI" type="Node2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="SaveControl" type="Node2D" parent="UI"]
+
+[node name="Load" type="Button" parent="UI/SaveControl"]
+margin_left = 15.5892
+margin_top = 13.5892
+margin_right = 64.5892
+margin_bottom = 33.5892
+text = "Load"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Save" type="Button" parent="UI/SaveControl"]
+margin_left = 78.3245
+margin_top = 13.9351
+margin_right = 127.324
+margin_bottom = 33.9351
+text = "Save"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TerrainControl" type="Node2D" parent="UI"]
+
+[node name="Place" type="Button" parent="UI/TerrainControl"]
+margin_left = 533.115
+margin_top = 329.828
+margin_right = 627.115
+margin_bottom = 349.828
+text = "Place Terrain"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Music" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 
@@ -19,6 +57,9 @@ script = ExtResource( 5 )
 
 [node name="FadeIn" type="Tween" parent="Music"]
 
+[node name="LevelTemplate" type="Node2D" parent="."]
+
+[connection signal="pressed" from="UI/TerrainControl/Place" to="UI" method="_on_terrain_control_place_pressed"]
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]
