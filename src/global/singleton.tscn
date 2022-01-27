@@ -3,7 +3,7 @@
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
 [ext_resource path="res://src/global/death_cover.gd" type="Script" id=3]
-[ext_resource path="res://src/global/serializer.gd" type="Script" id=4]
+[ext_resource path="res://src/global/serializers/serializer.gd" type="Script" id=4]
 [ext_resource path="res://src/global/base_modifier.gd" type="Script" id=5]
 [ext_resource path="res://audio/music/mushroom_kingdom/tutorial_1.mp3" type="AudioStream" id=6]
 [ext_resource path="res://src/global/music.gd" type="Script" id=7]
@@ -17,6 +17,8 @@
 [ext_resource path="res://gui/sfx/next.wav" type="AudioStream" id=15]
 [ext_resource path="res://gui/sfx/back.wav" type="AudioStream" id=16]
 [ext_resource path="res://actors/debug/console.tscn" type="PackedScene" id=17]
+[ext_resource path="res://src/global/serializers/tile_to_poly.gd" type="Script" id=10]
+[ext_resource path="res://src/global/serializers/sm63_to_redux.gd" type="Script" id=11]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 12 )
@@ -129,6 +131,10 @@ script = ExtResource( 4 )
 
 [node name="TileToPoly" type="Node2D" parent="Serializer"]
 script = ExtResource( 10 )
+
+[node name="SM63ToRedux" type="Node2D" parent="Serializer"]
+script = ExtResource( 11 )
+tile_groupings = "res://src/global/serializers/tile_groupings.xml"
 
 [node name="BaseModifier" type="Node2D" parent="."]
 script = ExtResource( 5 )
