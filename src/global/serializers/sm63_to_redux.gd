@@ -24,9 +24,11 @@ func convert_xml_to_readable():
 	var root = {
 		root_dir = "tilesets/legacy",
 		groups = [],
-		id_to_group = {}
+		tile_shapes = {},
+		id_to_group = {},
 	}
 	var is_in_textures = false
+	var lastest_tile_shape
 	
 	#get a list of number ids -> tile ids
 	var numeric_id_to_tile_id = {}
@@ -44,34 +46,38 @@ func convert_xml_to_readable():
 	parser.open(tile_groupings)
 	
 	var node_name = ""
+	var global_state = ""
 	while (!parser.read()):
 		var node_type = parser.get_node_type()
 		var current_group = root.groups.back()
 		
 		if node_type == 1:
 			node_name = parser.get_node_name()
+				
+			match node_name:
+				"tile_groupings":
+					global_state = "tile_groupings"
+				"tile_shapes":
+					global_state = "tile_shapes"
+				"grouping":
+					#if it's a group, create the group and stall execution
+					root.groups.append({
+						do_not_convert = false,
+						name = parser.get_named_attribute_value("name"),
+						texture_directory = root.root_dir,
+						texture_type = "terrain",
+						textures = {},
+						ids = {}
+					})
+				"textures":
+					current_group.texture_type = parser.get_named_attribute_value("kind")
+					is_in_textures = true
+				"do_not_convert":
+					current_group.do_not_convert = true
 			
-			#we ignore tile groupings tag
-			if node_name == "tile_groupings":
-				pass
-			
-			#if it's a group, create the group and stall execution
-			if node_name == "grouping":
-				root.groups.append({
-					do_not_convert = false,
-					name = parser.get_named_attribute_value("name"),
-					texture_directory = root.root_dir,
-					texture_type = "terrain",
-					textures = {},
-					ids = {}
-				})
-			
-			if node_name == "textures":
-				current_group.texture_type = parser.get_named_attribute_value("kind")
-				is_in_textures = true
-			
-			if node_name == "do_not_convert":
-				current_group.do_not_convert = true
+			if global_state == "tile_shapes" && node_name != "vec":
+				lastest_tile_shape = node_name
+				root.tile_shapes[lastest_tile_shape] = []
 			
 		elif node_type == 3:
 			var node_data := parser.get_node_data()
@@ -84,33 +90,40 @@ func convert_xml_to_readable():
 			if len(node_data) == 0:
 				continue
 			
-			#set the directory
-			if node_name == "texture_dir":
-				current_group.texture_directory = root.root_dir + "/" + node_data
-			
-			#get the ids for groups
-			if node_name == "ids":
-				var id_type = parser.get_named_attribute_value("type") if parser.has_attribute("type") else "normal"
-				if id_type == "range":
-					var str_range = node_data.split("-")
-					#loop for the range of ids
-					for n_id in range(str_range[0].to_int(), str_range[1].to_int() + 1):
-						#get the actual tile id
-						var id = numeric_id_to_tile_id[n_id]
-						#add the reference to the current group
-						current_group.ids[id] = true
-						root.id_to_group[id] = current_group
-				
-				else:
-					var ids = node_data.split_floats(",")
-					for n_id in ids:
-						var id = numeric_id_to_tile_id[int(n_id)]
-						current_group.ids[id] = true
-						root.id_to_group[id] = current_group
-			
-			#set the textures
-			if is_in_textures:
-				current_group.textures[node_name] = node_data
+			if global_state == "tile_shapes":
+				if node_name == "vec":
+					var vec = node_data.split_floats(",")
+					if vec.size() < 2:
+						var line = parser.get_current_line()
+						printerr("Invalid vector at line ", line)
+					vec = Vector2(vec[0], vec[1])
+					root.tile_shapes[lastest_tile_shape].append(vec)
+			elif global_state == "tile_groupings":
+				match node_name:
+					"texture_dir":
+						#set the directory
+						current_group.texture_directory = root.root_dir + "/" + node_data
+					"ids":
+						#get the ids for groups
+						var id_type = parser.get_named_attribute_value("type") if parser.has_attribute("type") else "normal"
+						if id_type == "range":
+							var str_range = node_data.split("-")
+							#loop for the range of ids
+							for n_id in range(str_range[0].to_int(), str_range[1].to_int() + 1):
+								#get the actual tile id
+								var id = numeric_id_to_tile_id[n_id]
+								#add the reference to the current group
+								current_group.ids[id] = true
+								root.id_to_group[id] = current_group
+						else:
+							var ids = node_data.split_floats(",")
+							for n_id in ids:
+								var id = numeric_id_to_tile_id[int(n_id)]
+								current_group.ids[id] = true
+								root.id_to_group[id] = current_group
+				#set the textures
+				if is_in_textures:
+					current_group.textures[node_name] = node_data
 			
 		elif node_type == 2:
 			node_name = parser.get_node_name()
