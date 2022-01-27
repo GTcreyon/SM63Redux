@@ -1,0 +1,221 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<!--
+    supported texture kinds:
+        terrain (useful for grass terrains)
+        base (useful for tiles which don't have any special top layer or anything, but simple have one repeating texture)
+
+    supported id types:
+        normal (you specify ids, seperated by comma's)
+        range (you specify ids in a range, differenciating with a `-` example: 101-145
+-->
+<xml>
+    <!-- tile shape definitions -->
+    <tile_shapes>
+        <bottom_slab>
+            <vec>0,0.5</vec>
+            <vec>1,0.5</vec>
+            <vec>1,1</vec>
+            <vec>0,1</vec>
+        </bottom_slab>
+        <top_slab>
+            <vec>0,0</vec>
+            <vec>1,0</vec>
+            <vec>1,0.5</vec>
+            <vec>0,0.5</vec>
+        </top_slab>
+    </tile_shapes>
+
+    <!-- tile group definitions -->
+    <tile_groupings>
+        <root_dir>tilesets/legacy</root_dir>
+
+        <!-- 100 -->
+        <grouping name="jungle">
+            <texture_dir>jungle</texture_dir>
+            <textures kind="terrain">
+                <base>jungle_ground</base>
+                
+                <top>jungle_grass</top>
+                <top_shade>jungle_grass_shade</top_shade>
+                
+                <left_corner>jungle_grass_left_corner</left_corner>
+                <left_corner_shade>jungle_grass_left_corner_shade</left_corner_shade>
+
+                <right_corner>jungle_grass_right_corner</right_corner>
+                <right_corner_shade>jungle_grass_right_corner_shade</right_corner_shade>
+
+                <bottom>jungle_cliff</bottom>
+            </textures>
+            <ids type="range">101-145</ids>
+        </grouping>
+
+        <!-- 150 -->
+        <grouping name="destructable_box">
+            <do_not_convert />
+            <ids type="range">151-155</ids>
+        </grouping>
+        <grouping name="destructable_ice">
+            <do_not_convert />
+            <ids type="range">156-160</ids>
+        </grouping>
+        <grouping name="destructable_forcefield">
+            <do_not_convert />
+            <ids type="range">161-175</ids>
+        </grouping>
+        <grouping name="destructable_cracked_stone">
+            <do_not_convert />
+            <ids type="range">176-180</ids>
+        </grouping>
+        <grouping name="destructable_cracked_bricks">
+            <do_not_convert />
+            <ids type="range">181-185</ids>
+        </grouping>
+        <grouping name="destructable_cracked_blue_bricks">
+            <do_not_convert />
+            <ids type="range">186-190</ids>
+        </grouping>
+        <grouping name="cannon">
+            <do_not_convert />
+            <ids type="normal">191</ids>
+        </grouping>
+        <grouping name="togglable_box">
+            <do_not_convert />
+            <ids type="normal">192</ids>
+        </grouping>
+
+        <!-- 200 -->
+        <grouping name="blue_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>blue_bricks</base>
+            </textures>
+            <ids type="range">201-209</ids>
+        </grouping>
+        <grouping name="green_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>green_bricks</base>
+            </textures>
+            <ids type="range">210-218</ids>
+        </grouping>
+        <grouping name="wall_tile">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>wall_tile</base>
+            </textures>
+            <ids type="range">219-227</ids>
+        </grouping>
+        <grouping name="grey_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>grey_bricks</base>
+            </textures>
+            <ids type="range">228-236</ids>
+        </grouping>
+        <grouping name="dark_grey_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>dark_grey_bricks</base>
+            </textures>
+            <ids type="range">237-245</ids>
+        </grouping>
+        <grouping name="brown_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>brown_bricks</base>
+            </textures>
+            <ids type="range">246-250</ids>
+        </grouping>
+
+        <!-- 250 -->
+        <grouping name="red_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>red_bricks</base>
+            </textures>
+            <ids type="range">251-259</ids>
+        </grouping>
+        <grouping name="large_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>large_bricks</base>
+            </textures>
+            <ids type="range">260-264</ids>
+        </grouping>
+        <grouping name="faded_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>faded_bricks</base>
+            </textures>
+            <ids type="range">265-269</ids>
+        </grouping>
+        <grouping name="indented_bricks">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>indented_bricks</base>
+            </textures>
+            <ids type="range">270-274</ids>
+        </grouping>
+        <grouping name="dark_stone">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>dark_stone</base>
+            </textures>
+            <ids type="range">275-279</ids>
+        </grouping>
+        <grouping name="smooth_stone">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>smooth_stone</base>
+            </textures>
+            <ids type="range">280-284</ids>
+        </grouping>
+
+        <grouping name="goomba_statue">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>goomba_statue</base> </textures> <ids type="normal">285</ids>
+        </grouping>
+        <grouping name="koopa_statue">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>koopa_statue</base> </textures> <ids type="normal">286</ids>
+        </grouping>
+        <grouping name="hide_fledge_1">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>hidge_fledge_1</base> </textures> <ids type="normal">287</ids>
+        </grouping>
+        <grouping name="hide_fledge_2">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>hidge_fledge_2</base> </textures> <ids type="normal">288</ids>
+        </grouping>
+        <grouping name="blue_metal_1">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>blue_metal_1</base> </textures> <ids type="normal">289</ids>
+        </grouping>
+        <grouping name="blue_metal_2">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>blue_metal_2</base> </textures> <ids type="normal">290</ids>
+        </grouping>
+        <grouping name="blue_metal_1">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>blue_metal_1</base> </textures> <ids type="normal">289</ids>
+        </grouping>
+        <grouping name="metal_box">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>metal_box</base> </textures> <ids type="normal">291</ids>
+        </grouping>
+        <grouping name="metal_mesh">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>metal_mesh</base> </textures> <ids type="normal">292</ids>
+        </grouping>
+        <grouping name="metal_cage">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>metal_cage</base> </textures> <ids type="normal">293</ids>
+        </grouping>
+        <grouping name="mossy_rock">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>mossy_rock</base> </textures> <ids type="normal">294</ids>
+        </grouping>
+        <grouping name="blue_rock">
+            <texture_dir>single_tiles</texture_dir> <textures kind="base"> <base>blue_rock</base> </textures> <ids type="normal">295</ids>
+        </grouping>
+
+        <grouping name="bowser_texture">
+            <texture_dir>bricks</texture_dir>
+            <textures kind="base">
+                <base>bowser_texture</base>
+            </textures>
+            <ids type="range">296-298</ids>
+        </grouping>
+
+        <!-- 300 -->
+    </tile_groupings>
+</xml>
