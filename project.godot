@@ -20,18 +20,24 @@ _global_script_classes=[ {
 "path": "res://classes/ld_item_class.gd"
 }, {
 "base": "Node2D",
+"class": "SM63ToRedux",
+"language": "GDScript",
+"path": "res://src/global/serializers/sm63_to_redux.gd"
+}, {
+"base": "Node2D",
 "class": "Serializer",
 "language": "GDScript",
-"path": "res://src/global/serializer.gd"
+"path": "res://src/global/serializers/serializer.gd"
 }, {
 "base": "Node2D",
 "class": "TileToPoly",
 "language": "GDScript",
-"path": "res://src/global/tile_to_poly.gd"
+"path": "res://src/global/serializers/tile_to_poly.gd"
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
 "LDItem": "",
+"SM63ToRedux": "",
 "Serializer": "",
 "TileToPoly": ""
 }
