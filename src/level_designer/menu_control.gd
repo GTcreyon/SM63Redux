@@ -10,9 +10,13 @@ func _ready():
 #	background.texture = tex
 	pass
 
+func fake_polygon_create():
+	pass
+
 func _process(_dt):
 	background.material.set_shader_param("camera_position", global_position)
 
 func _on_terrain_control_place_pressed():
 	print("Place Terrain")
+	fake_polygon_create()
 	pass # Replace with function body.

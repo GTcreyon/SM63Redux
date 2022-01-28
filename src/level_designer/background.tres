@@ -5,5 +5,3 @@
 [resource]
 shader = ExtResource( 1 )
 shader_param/camera_position = Vector2( 0, 0 )
-shader_param/outline_thickness = 1.0
-shader_param/outline_spacing = 32.0
