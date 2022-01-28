@@ -162,6 +162,26 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 12, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 24, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 36, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 48, 12, 12 )
+
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 29 )
 region = Rect2( 0, 60, 12, 12 )
@@ -190,37 +210,17 @@ region = Rect2( 0, 12, 12, 12 )
 atlas = ExtResource( 29 )
 region = Rect2( 0, 0, 12, 12 )
 
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 0, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 12, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 24, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 36, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 48, 12, 12 )
-
 [sub_resource type="SpriteFrames" id=47]
 animations = [ {
-"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
-"loop": false,
-"name": "flash",
-"speed": 15.0
-}, {
 "frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
 "loop": true,
 "name": "charge",
 "speed": 0.0
+}, {
+"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
+"loop": false,
+"name": "flash",
+"speed": 15.0
 } ]
 
 [sub_resource type="SpriteFrames" id=6]
@@ -1014,30 +1014,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="ColorRect" parent="PauseContent"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 1, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="LevelInfo" type="Control" parent="PauseContent"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ColorRect" type="ColorRect" parent="PauseContent/LevelInfo"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 87.192
-margin_bottom = 87.192
-color = Color( 0.360784, 1, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1252,9 +1232,6 @@ autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="Panel" type="Panel" parent="PauseContent/LevelInfo"]
-margin_bottom = 40.0
 
 [node name="MapMenu" type="Control" parent="PauseContent"]
 visible = false
@@ -2023,6 +2000,7 @@ mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 6 )
 custom_styles/focus = SubResource( 28 )
+custom_styles/disabled = ExtResource( 2 )
 custom_styles/normal = ExtResource( 2 )
 toggle_mode = true
 action_mode = 0
@@ -2064,6 +2042,7 @@ mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 10 )
 custom_styles/pressed = ExtResource( 3 )
 custom_styles/focus = SubResource( 29 )
+custom_styles/disabled = ExtResource( 10 )
 custom_styles/normal = ExtResource( 10 )
 toggle_mode = true
 action_mode = 0
@@ -2107,6 +2086,7 @@ mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 5 )
 custom_styles/focus = SubResource( 30 )
+custom_styles/disabled = ExtResource( 4 )
 custom_styles/normal = ExtResource( 4 )
 toggle_mode = true
 action_mode = 0
@@ -2150,6 +2130,7 @@ mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 9 )
 custom_styles/pressed = ExtResource( 8 )
 custom_styles/focus = SubResource( 30 )
+custom_styles/disabled = ExtResource( 9 )
 custom_styles/normal = ExtResource( 9 )
 toggle_mode = true
 action_mode = 0
