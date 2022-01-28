@@ -42,15 +42,73 @@ func set_physics_polygon(poly):
 		rect.position + rect.size, rect.position + Vector2(0, rect.size.y)
 	]
 	
-	#merge the polygon
+	#re-arrange the polygon to the first vertex is the most top vertex
+	
+	#first find the top most vertex
+	var top_vertex = 0
+	var top_y_pos = 0
+	var poly_size = poly.size()
+	for ind in range(poly_size):
+		var poly_y = poly[ind].y
+		if poly_y <= top_y_pos:
+			top_y_pos = poly_y
+			top_vertex = ind
+	
+	#rebuild the polygon
+	var real_poly = []
+	for ind in range(poly_size):
+		if ind >= top_vertex:
+			real_poly.append(poly[ind])
+	for ind in range(poly_size):
+		if ind < top_vertex:
+			real_poly.append(poly[ind])
+	poly = real_poly
+	
+	#our ray upwards
+	var ray_start = poly[0]
+	var ray_end = poly[0] - Vector2(0, 10000)
+	
+	#get the point where we should inject
+	var inject_index
+	var inject_vector
+	
+	var p_size = inject.size()
+	for ind in range(p_size):
+		var p_start = inject[ind]
+		var p_end = inject[(ind + 1) % p_size]
+		#check if there's an intersection, if so, check if it is the nearest one
+		var point = Geometry.segment_intersects_segment_2d(
+			ray_start,
+			ray_end,
+			p_start, 
+			p_end
+		)
+		
+		if point:
+			inject_index = ind
+			inject_vector = point
+			break
+	
+	#build the REAL shape array
 	var real = []
-	real.append(inject[0])
-	real.append_array(poly)
-	real.append(poly[0])
-	real.append(inject[0])
-	inject.invert()
-	real.append_array(inject)
-	real.remove(real.size() - 1)
+	var did_inject = false
+	for ind in range(p_size):
+		real.append(inject[ind])
+		if !did_inject && ind >= inject_index:
+			
+			#add our injection vector
+			real.append(inject_vector)
+			
+			#to prevent the injection points from crossing eachother
+			var first_vector = poly[0]
+			poly.invert()
+			real.append_array(poly)
+			
+			#add our injection vector
+			real.append(first_vector)
+			real.append(inject_vector)
+			
+			did_inject = true
 	
 	polygon = real
 	collision.polygon = real
