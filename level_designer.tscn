@@ -10,6 +10,8 @@
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="LevelTemplate" type="Node2D" parent="."]
+
 [node name="LDCamera" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
@@ -57,17 +59,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LevelTemplate" type="Node2D" parent="."]
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 
 [node name="FadeOut" type="Tween" parent="Music"]
 
 [node name="FadeIn" type="Tween" parent="Music"]
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PoolVector2Array( 193.735, 128.455, 428.936, 68.0652, 503.099, 172.952, 414.104, 299.028, 107.919, 304.326, 108.978, 400.737, 273.195, 421.926, 453.384, 595.02, 359.098, 646.653, 85.2169, 621.959, 93.0741, 496.243, -229.073, 464.815, -397.442, 450.223, -293.053, 183.077, -7.94748, 196.546, 3.27713, 80.9325, 149.197, 71.9528 )
 
 [connection signal="pressed" from="LDCamera/UI/TerrainControl/Place" to="LDCamera/UI" method="_on_terrain_control_place_pressed"]
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
