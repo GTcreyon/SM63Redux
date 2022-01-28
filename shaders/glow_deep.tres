@@ -1,11 +1,11 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
-[ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=1]
+[ext_resource path="res://shaders/glow_new.shader" type="Shader" id=1]
 
 [resource]
 resource_local_to_scene = true
 shader = ExtResource( 1 )
-shader_param/intensity = 200
-shader_param/precision = 0.007
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 1
+shader_param/radial = true
 shader_param/outline_color = Color( 1, 1, 1, 1 )
-shader_param/radial = false
