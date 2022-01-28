@@ -43,7 +43,6 @@ shader_param/radial = false
 [node name="BGT1" parent="." instance=ExtResource( 17 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 21 )]
-visible = false
 polygon = PoolVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
 spawn_position = Vector2( 400, 100 )
 
