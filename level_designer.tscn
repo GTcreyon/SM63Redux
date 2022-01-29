@@ -10,8 +10,6 @@
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="LevelTemplate" type="Node2D" parent="."]
-
 [node name="LDCamera" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
@@ -54,10 +52,13 @@ margin_left = 533.115
 margin_top = 329.828
 margin_right = 627.115
 margin_bottom = 349.828
+rect_pivot_offset = Vector2( 77.9722, 0 )
 text = "Place Terrain"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="LevelTemplate" type="Node2D" parent="."]
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
