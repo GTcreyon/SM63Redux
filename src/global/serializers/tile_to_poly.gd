@@ -47,7 +47,7 @@ func create_2d_grid(w, h, i = 0):
 	var grid = []
 	for x in range(w):
 		grid.append([])
-		for y in range(h):
+		for _y in range(h):
 			grid[x].append(i)
 	return grid
 
