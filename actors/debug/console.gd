@@ -2,8 +2,7 @@ extends Control
 
 onready var logger = $Logger
 onready var input_line = $Input
-onready var singleton = $"/root/Singleton"
-onready var serializer = singleton.serializer
+onready var serializer = Singleton.serializer
 
 var history : PoolStringArray = []
 var hist_index = 0
@@ -48,7 +47,8 @@ func run_command(cmd):
 			if path == "":
 				output("Scene does not exist.")
 			else:
-				var err = singleton.warp_to(path)
+				Singleton.set_location = null
+				var err = Singleton.warp_to(path)
 				if err == OK || err == null:
 					output("Warped to " + path)
 				else:
@@ -57,7 +57,7 @@ func run_command(cmd):
 			var scene = "res://" + args[1] + ".tscn"
 			var file_check = File.new()
 			if file_check.file_exists(scene):
-				var err = singleton.warp_to(scene)
+				var err = Singleton.warp_to(scene)
 				if err == OK:
 					output("Warped to " + scene)
 				else:
@@ -66,17 +66,17 @@ func run_command(cmd):
 				output("Scene does not exist.")
 		"water":
 			if args[1].to_lower() == "inf":
-				singleton.water = INF
+				Singleton.water = INF
 				output("Water is now infinite.")
 			else:
-				singleton.water = int(args[1])
+				Singleton.water = int(args[1])
 				output("Water set to %d" % int(args[1]))
 		"ref":
-			singleton.water = max(singleton.water, 100)
+			Singleton.water = max(Singleton.water, 100)
 			output("Water refilled" % int(args[1]))
 		"c":
-			singleton.classic = !singleton.classic
-			if singleton.classic:
+			Singleton.classic = !Singleton.classic
+			if Singleton.classic:
 				output("Classic mode enabled.")
 			else:
 				output("Classic mode disabled.")
@@ -87,10 +87,10 @@ func run_command(cmd):
 			$"/root/Main/Player".take_damage(int(args[1]))
 			output("Took %d damage." % int(args[1]))
 		"fdmg":
-			singleton.hp -= int(args[1])
+			Singleton.hp -= int(args[1])
 			output("Forced %d damage." % int(args[1]))
 		"kris":
-			singleton.kris = !singleton.kris
+			Singleton.kris = !Singleton.kris
 		"designer", "ld":
 			output("Entered Level Designer.")
 			#warning-ignore:RETURN_VALUE_DISCARDED

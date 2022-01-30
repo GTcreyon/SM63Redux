@@ -158,6 +158,7 @@ var collect_pos_final = Vector2()
 var collect_time : float = 0
 var solid_floors = 0
 var swim_delay = false
+var gp_dive_timer : int = 0
 
 enum s { #state enum
 	walk,
@@ -376,6 +377,7 @@ func _physics_process(_delta):
 		var i_dive_h = Input.is_action_pressed("dive")
 		var i_spin = Input.is_action_just_pressed("spin")
 		var i_spin_h = Input.is_action_pressed("spin")
+		var i_pound = Input.is_action_just_pressed("pound")
 		var i_pound_h = Input.is_action_pressed("pound")
 		var i_fludd = Input.is_action_pressed("fludd")
 		var i_switch = Input.is_action_just_pressed("switch_fludd")
@@ -399,6 +401,8 @@ func _physics_process(_delta):
 			coyote_time = 5
 		else:
 			coyote_time = max(coyote_time - 1, 0)
+			
+		gp_dive_timer = max(gp_dive_timer - 1, 0)
 		
 		if i_jump_h:
 			jump_buffer = max(jump_buffer - 1, 0)
@@ -944,6 +948,7 @@ func _physics_process(_delta):
 					&& state != s.pound_spin
 					&& state != s.pound_land):
 					if !ground:
+						gp_dive_timer = 6
 						coyote_time = 0
 						if state != s.frontflip:
 							play_voice("dive")
@@ -988,12 +993,40 @@ func _physics_process(_delta):
 					vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
 				spin_timer = 30
 			
-			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && state != s.pound_land && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
-				switch_state(s.pound_spin)
-				sprite.rotation_degrees = 0
-				tween.remove_all()
-				tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
-				tween.start()
+			if i_pound_h:
+				if state == s.dive && gp_dive_timer > 0:
+					var mag = vel.length()
+					vel = Vector2(cos(PI / 6) * mag, sin(PI / 6) * mag)
+				else:
+					if (
+						!ground
+						&& state != s.pound_spin
+						&& state != s.pound_fall
+						&& state != s.pound_land
+						&&
+						(
+							state != s.dive
+							||
+							(
+								!classic
+								&& i_pound
+							)
+						)
+						&&
+						(
+							state != s.diveflip || !classic
+						)
+						&&
+						(
+							state != s.spin || !classic
+						)
+					):
+						switch_state(s.pound_spin)
+						switch_anim("pound_spin")
+						sprite.rotation_degrees = 0
+						tween.remove_all()
+						tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
+						tween.start()
 		
 		if wall:
 			if int(vel.x) != 0:
@@ -1106,6 +1139,10 @@ func invincibility_on_effect():
 
 func is_spinning():
 	return (state == s.spin || state == s.waterspin) && spin_timer > 0
+
+
+func is_diving(allow_recover):
+	return (state == s.dive || state == s.waterdive || state == s.edive || (state == s.diveflip && allow_recover))
 
 
 func is_swimming():

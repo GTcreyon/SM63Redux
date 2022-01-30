@@ -69,6 +69,7 @@ shader_param/radial = false
 [node name="BGT1" parent="." instance=ExtResource( 34 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
+visible = false
 polygon = PoolVector2Array( -180.471, -27.1885, -1002.55, -24.4006, -1002.55, -845.869, 1167.04, -845.869, 1167.04, -440.175, 766.38, -427.575, 751.261, 288.06, -182.991, 290.312 )
 spawn_position = Vector2( 200, 0 )
 
@@ -273,19 +274,20 @@ type = 2
 [node name="Fungus" type="Node2D" parent="Items"]
 
 [node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 23 )]
-position = Vector2( 435, 49 )
-points = PoolVector2Array( -4, 16, -4, 21, -14, 69, -30, 94, -27, 163 )
+position = Vector2( 440, 54 )
+points = PoolVector2Array( -7, -4, -5, 9, -4, 21, -5, 35, -7, 47, -10, 59, -14, 69, -25, 81, -30, 94, -33, 105, -33, 118, -31, 143, -27, 163 )
 
 [node name="FungusStem4" parent="Items/Fungus" instance=ExtResource( 23 )]
-position = Vector2( 586, 56 )
-points = PoolVector2Array( -4, 16, -4, 21, -3, 70, -15, 96, 5, 138 )
+position = Vector2( 591, 61 )
+points = PoolVector2Array( -7, -4, -2, 15, 0, 29, 1, 45, 0, 61, -3, 72, -7, 83, -9, 91, -9, 100, -8, 110, -5, 121, -1, 130, 5, 138 )
 
 [node name="FungusStem2" parent="Items/Fungus" instance=ExtResource( 23 )]
-position = Vector2( 509, 100 )
-points = PoolVector2Array( -4, 16, -4, 21, 10, 68, 3, 112 )
+position = Vector2( 514, 105 )
+points = PoolVector2Array( -7, -4, -8, 3, -7, 10, -4, 21, 4, 42, 9, 54, 10, 68, 8, 91, 3, 112 )
 
 [node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 23 )]
-position = Vector2( 454, 160 )
+position = Vector2( 459, 165 )
+points = PoolVector2Array( -6, -4, -5, 2, -4, 10, -4, 17, -5, 29, -7, 40, -10, 47, -14, 53 )
 
 [node name="Coins" type="Node2D" parent="Items"]
 
