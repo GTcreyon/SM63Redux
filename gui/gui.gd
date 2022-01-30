@@ -55,6 +55,7 @@ var temp_locale = "en"
 
 func _ready():
 	coin_counter.text = str(singleton.coin_total)
+	red_coin_counter.text = str(0)
 	silver_counter.text = str(0)
 	shine_counter.text = str(0)
 	shine_coin_counter.text = str(0)
@@ -154,11 +155,18 @@ func _process(_delta):
 	last_size = OS.window_size
 	
 	if Input.is_action_just_pressed("pause"):
-		get_tree().paused = !get_tree().paused
+		if Singleton.pause_menu:
+			Singleton.pause_menu = false
+			get_tree().paused = false
+		else:
+			if !get_tree().paused:
+				Singleton.pause_menu = true
+				get_tree().paused = true
+		
 	
 	var menu = get_tree().get_nodes_in_group("pause")
 	var gui_scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
-	if get_tree().paused:
+	if Singleton.pause_menu:
 		pause_offset = lerp(pause_offset, 1, 0.5)
 		for node in menu:
 			node.modulate.a = min(node.modulate.a + 0.2, 1)

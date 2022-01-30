@@ -30,7 +30,7 @@ func _process(_delta):
 	modulate.v = 1 - death_cover.color.a
 	
 	var gui_scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
-	if get_tree().paused:
+	if Singleton.pause_menu:
 		progress = min(progress + 0.1, 1)
 		end_adjust = lerp(end_adjust, end_pos + 18, 0.5)
 		rechange_moving = true

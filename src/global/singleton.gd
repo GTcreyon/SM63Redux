@@ -27,6 +27,7 @@ var collected_dict = {}
 var collect_count = 0
 var set_location
 var flip
+var pause_menu = false
 
 func _ready():
 	#create_coindict(get_tree().get_current_scene().get_filename())
