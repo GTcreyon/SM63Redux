@@ -3,7 +3,7 @@
 [ext_resource path="res://actors/items/shine/shine.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/shine/shine.gd" type="Script" id=2]
 [ext_resource path="res://actors/items/shine/shine_get.mp3" type="AudioStream" id=3]
-[ext_resource path="res://shaders/glow_deep.tres" type="Material" id=4]
+[ext_resource path="res://shaders/glow.tres" type="Material" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

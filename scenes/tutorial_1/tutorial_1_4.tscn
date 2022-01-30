@@ -31,7 +31,7 @@
 [ext_resource path="res://actors/items/decoration/fungus_double.tscn" type="PackedScene" id=29]
 [ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=30]
 [ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=31]
-[ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=32]
+[ext_resource path="res://shaders/glow.shader" type="Shader" id=32]
 [ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=33]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=34]
 [ext_resource path="res://actors/items/koopa/parakoopa.tscn" type="PackedScene" id=35]
@@ -40,29 +40,29 @@
 [ext_resource path="res://actors/interaction/death_plane.tscn" type="PackedScene" id=38]
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=39]
 
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 32 )
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 2
+shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 32 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 2
 shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
 shader = ExtResource( 32 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 2
 shader_param/radial = false
-
-[sub_resource type="ShaderMaterial" id=4]
-resource_local_to_scene = true
-shader = ExtResource( 32 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
-shader_param/radial = false
 
 [node name="Main" type="Node2D"]
 
@@ -479,17 +479,17 @@ rotation = 0.349066
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 31 )]
-material = SubResource( 2 )
+material = SubResource( 1 )
 position = Vector2( 371, 203 )
 lines = [ "The [color=#5f75c5]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don’t become too reliant on it though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it’s gone,[@p,3] you won’t be able to hover any longer.", "Not to worry,[@p,3] if you hop into a body of water or grab a water bottle,[@p,3] the tank will refill." ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 31 )]
-material = SubResource( 3 )
+material = SubResource( 2 )
 position = Vector2( -129, -638 )
 lines = [ "Hey sweetie-pie![@p,10] If you’re ever feeling tired just press [color=#f7c55f][@b,pause][/color] to pause the game!", "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] change FLUDD nozzle,[@p,3] or just sit back and relax!", "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don’t you dare forget that!" ]
 
 [node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
-material = SubResource( 4 )
+material = SubResource( 3 )
 position = Vector2( 945, -528 )
 lines = [ "(End of demo!)" ]
 

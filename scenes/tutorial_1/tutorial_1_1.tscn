@@ -23,7 +23,7 @@
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=21]
 [ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=23]
-[ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=24]
+[ext_resource path="res://shaders/glow.shader" type="Shader" id=24]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=25]
 [ext_resource path="res://actors/warpzone/warp_zone.tscn" type="PackedScene" id=26]
 [ext_resource path="res://actors/camera_area/camera_area.tscn" type="PackedScene" id=27]
@@ -32,35 +32,36 @@
 [ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=31]
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
 shader = ExtResource( 24 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 2
 shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=5]
 resource_local_to_scene = true
 shader = ExtResource( 24 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 2
 shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=6]
 resource_local_to_scene = true
 shader = ExtResource( 24 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 2
 shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [node name="Main" type="Node2D"]
 
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
+visible = false
 polygon = PoolVector2Array( 0, -304, 1920, -304, 1920, 480, 0, 480 )
 spawn_position = Vector2( 400, 0 )
 
@@ -196,17 +197,17 @@ position = Vector2( 1092, 111 )
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign" parent="Items/Signs" instance=ExtResource( 17 )]
-material = SubResource( 1 )
+material = SubResource( 4 )
 position = Vector2( 189, 165 )
 lines = [ "Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here’s a refresher.", "Use [color=#f7c55f]Arrows[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact][/color].", "They have plenty of tips to help out,[@p,3] and if you're not interested,[@p,3] at least say \"Hi\" for me,[@p,3] eh?" ]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
-material = SubResource( 2 )
+material = SubResource( 5 )
 position = Vector2( 299, 165 )
 lines = [ "Oh hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as thanks?", "You can press [color=#f7c55f][@b,spin][/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 17 )]
-material = SubResource( 3 )
+material = SubResource( 6 )
 position = Vector2( 1287, 53 )
 lines = [ "Oh [color=#ff8b70]Mario[/color],[@p,3] honey![@p,10] It’s been so long since I’ve seen you...[@p,10] Oh my![@p,10] I see scars from your journeys...", "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an unlucky enemy to refill one [color=#ff7f7f]health point.[/color]", "No one quite understands why,[@p,3] but it’s a lifesaver -[@p,3] so keep it in mind,[@p,3] sweetie!" ]
 
