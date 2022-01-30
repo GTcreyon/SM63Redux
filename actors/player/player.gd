@@ -1052,10 +1052,14 @@ func _physics_process(_delta):
 		var slide_vec = position-save_pos
 		if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
 			ground_override = min(ground_override + 1, ground_override_threshold)
-		position = save_pos
-		if slide_vec.length() > 0.5 || ((state == s.swim || state == s.waterbackflip || state == s.waterspin) && slide_vec != Vector2.ZERO):
+		
+		if (
+			slide_vec.x >= 0.5
+			&& is_on_floor()
+		):
+			position = save_pos
 			#warning-ignore:return_value_discarded
-			move_and_slide_with_snap(vel*60.0 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
+			move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2

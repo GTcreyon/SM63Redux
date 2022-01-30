@@ -162,26 +162,6 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 0, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 12, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 24, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 36, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 48, 12, 12 )
-
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 29 )
 region = Rect2( 0, 60, 12, 12 )
@@ -210,17 +190,37 @@ region = Rect2( 0, 12, 12, 12 )
 atlas = ExtResource( 29 )
 region = Rect2( 0, 0, 12, 12 )
 
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 12, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 24, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 36, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 48, 12, 12 )
+
 [sub_resource type="SpriteFrames" id=47]
 animations = [ {
-"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
-"loop": true,
-"name": "charge",
-"speed": 0.0
-}, {
 "frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
 "loop": false,
 "name": "flash",
 "speed": 15.0
+}, {
+"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
+"loop": true,
+"name": "charge",
+"speed": 0.0
 } ]
 
 [sub_resource type="SpriteFrames" id=6]
@@ -891,11 +891,11 @@ __meta__ = {
 
 [node name="Text" type="RichTextLabel" parent="DialogBox"]
 margin_left = 8.0
-margin_top = 8.0
+margin_top = 7.0
 margin_right = 244.0
-margin_bottom = 54.0
+margin_bottom = 55.0
 custom_colors/default_color = Color( 0.976471, 0.909804, 0.909804, 1 )
-custom_fonts/normal_font = ExtResource( 15 )
+custom_fonts/normal_font = ExtResource( 35 )
 bbcode_enabled = true
 scroll_active = false
 __meta__ = {
