@@ -242,6 +242,7 @@ volume_db = -15.0
 stream = ExtResource( 16 )
 
 [node name="Console" parent="." instance=ExtResource( 17 )]
+pause_mode = 2
 
 [connection signal="pressed" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_pressed"]
 [connection signal="released" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_released"]

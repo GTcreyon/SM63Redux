@@ -6,6 +6,10 @@ onready var serializer = Singleton.serializer
 
 var history : PoolStringArray = []
 var hist_index = 0
+var req = HTTPRequest.new()
+
+func _ready():
+	add_child(req)
 
 
 func output(msg):
@@ -128,6 +132,8 @@ func run_command(cmd):
 		"locale":
 			TranslationServer.set_locale(args[1])
 			output("Locale set to \"%s\"." % args[1])
+		"report":
+			req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content": cmd.substr(7)}))
 		_:
 			output("Unknown command \"%s\"." % args[0])
 
@@ -135,6 +141,7 @@ func run_command(cmd):
 func _process(_delta):
 	if Input.is_action_just_pressed("debug"):
 		visible = !visible
+		get_tree().paused = visible
 		input_line.grab_focus()
 		input_line.text = input_line.text.replace("/", "")
 	if visible:
