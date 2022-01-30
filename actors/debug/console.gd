@@ -7,6 +7,7 @@ onready var serializer = Singleton.serializer
 var history : PoolStringArray = []
 var hist_index = 0
 var req = HTTPRequest.new()
+var hook_name = "Ingame Webhook"
 
 func _ready():
 	add_child(req)
@@ -133,7 +134,10 @@ func run_command(cmd):
 			TranslationServer.set_locale(args[1])
 			output("Locale set to \"%s\"." % args[1])
 		"report":
-			req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content": cmd.substr(7)}))
+			req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content": cmd.substr(7), "username": hook_name}))
+		"rename":
+			hook_name = cmd.substr(7)
+			req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content":"renamed to \"" + hook_name + "\"", "username": hook_name}))
 		_:
 			output("Unknown command \"%s\"." % args[0])
 
