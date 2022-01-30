@@ -12,6 +12,10 @@ varying vec2 f;
 
 void vertex()
 {
+//	vec2 REALUV = vec2(
+//		mod(atlas_dimensions.x * UV.x, 1),
+//		mod(atlas_dimensions.y * UV.y, 1)
+//	);
 	o = VERTEX;
 	vec2 uv = (UV - 0.5);
 	VERTEX += uv * float(width) * 2f;
@@ -24,8 +28,9 @@ void fragment(){
 		mod(atlas_dimensions.x * UV.x, 1),
 		mod(atlas_dimensions.y * UV.y, 1)
 	);
-	REALUV.x = UV.x + (f.x - o.x) * TEXTURE_PIXEL_SIZE.x;
-	REALUV.y = UV.y + (f.y - o.y) * TEXTURE_PIXEL_SIZE.y;
+	REALUV = UV;
+	REALUV.x = REALUV.x + (f.x - o.x) * TEXTURE_PIXEL_SIZE.x;
+	REALUV.y = REALUV.y + (f.y - o.y) * TEXTURE_PIXEL_SIZE.y;
 	
 	COLOR = texture(TEXTURE, REALUV);
 	if(COLOR.a <= 0f || REALUV.x > 1f || REALUV.x < 0f || REALUV.y > 1f || REALUV.y < 0f){

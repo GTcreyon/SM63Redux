@@ -72,8 +72,6 @@ script = ExtResource( 2 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 4 )
 frames = SubResource( 13 )
-frame = 2
-playing = true
 offset = Vector2( 0, -1.5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
