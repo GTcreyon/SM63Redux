@@ -9,6 +9,10 @@ onready var text_node = $Text
 onready var buttons = [get_parent().get_node("ButtonMap"), get_parent().get_node("ButtonFludd"), get_parent().get_node("ButtonOptions"), get_parent().get_node("ButtonExit")]
 
 func _process(_delta):
+	if modulate.a == 0:
+		mouse_filter = MOUSE_FILTER_IGNORE
+	else:
+		mouse_filter = MOUSE_FILTER_STOP
 	if Singleton.pause_menu:
 		disabled = false
 		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
