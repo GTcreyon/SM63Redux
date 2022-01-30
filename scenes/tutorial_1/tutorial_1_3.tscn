@@ -102,7 +102,7 @@ points = PoolVector2Array( -6, -3, -10, 4, -11, 14, -10, 25 )
 [node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 346, 83 )
 z_index = -3
-points = PoolVector2Array( -7, -5, -6, 5, -3, 13, 4, 21, 13, 25, 18, 34, 19, 45, 17, 58, 9, 69, 0, 88, -2, 101, 0, 112 )
+points = PoolVector2Array( -7, -5, -6, 5, -3, 13, 4, 21, 12, 27, 16, 35, 14, 45, 9, 54, 3, 64, -1, 75, -5, 87, -5, 100, 0, 112 )
 
 [node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 326, 133 )
@@ -302,16 +302,17 @@ rotation = -1.5708
 [node name="Butterfly" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
 position = Vector2( 191, 176 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
 position = Vector2( 291, 95.8 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly3" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
 position = Vector2( 421, 177 )
 animation = "green"
-frame = 1
 vel_multipliers = Vector2( 2.75, 2.5 )
 
 [node name="Goonies" type="Node2D" parent="Items"]
