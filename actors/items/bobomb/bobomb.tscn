@@ -99,6 +99,7 @@ script = ExtResource( 8 )
 [node name="Base" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 9 )
 animation = "walk"
+frame = 3
 playing = true
 
 [node name="Fuse" type="AnimatedSprite" parent="Sprites"]
@@ -111,7 +112,6 @@ centered = false
 [node name="Key" type="AnimatedSprite" parent="Sprites"]
 position = Vector2( 11, 0 )
 frames = SubResource( 11 )
-frame = 1
 playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]

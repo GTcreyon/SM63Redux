@@ -61,7 +61,7 @@ shader_param/radial = false
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
-polygon = PoolVector2Array( 11.5771, -304.359, 1916.15, -282.382, 1917.94, 482.009, 3.64716, 476.351 )
+polygon = PoolVector2Array( 0, -304, 1920, -304, 1920, 480, 0, 480 )
 spawn_position = Vector2( 400, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
@@ -108,7 +108,7 @@ position = Vector2( 1112.68, 287.02 )
 [node name="Items" type="Node2D" parent="."]
 
 [node name="BreakableBox" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 1738.77, 94.2475 )
+position = Vector2( 1727.77, 105.247 )
 
 [node name="Logs" type="Node2D" parent="Items"]
 
@@ -328,37 +328,31 @@ rotation = 4.71239
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 137, 142 )
 animation = "green"
-frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 299, 82 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 533, 104 )
 animation = "green"
-frame = 1
 
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 945, 22 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly5" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1230, 9 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly6" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1428, 71 )
 animation = "green"
-frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )
@@ -491,14 +485,14 @@ outline_texture_size = Vector2( 32, 6 )
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 18, 159 )
 z_index = 1
-polygon = PoolVector2Array( -17, -8, 83, 9, 304, 9, 304, 87, 334, 169, 401, 153, 422, 85, 422, -1, 449, -14, 495, -11, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 777, 198, 948, 216, 1130, 189, 1181, 111, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -120, 1939, -120, 2200, 422, -91, 442 )
+polygon = PoolVector2Array( -17, -8, 83, 9, 304, 9, 304, 87, 334, 169, 401, 153, 422, 85, 422, -1, 449, -14, 495, -11, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 777, 198, 948, 216, 1130, 189, 1181, 111, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -111, 1939, -111, 2200, 422, -91, 442 )
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
 polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277, 133, 159, 141, 1, 118 )
 
 [node name="CoinBlue" parent="." instance=ExtResource( 23 )]
-position = Vector2( 1739, 51 )
+position = Vector2( 1728, 55 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 26 )]
 position = Vector2( 1911, -50 )
