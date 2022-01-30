@@ -26,7 +26,6 @@
 [ext_resource path="res://gui/dialog/faces/luigi/neutral.png" type="Texture" id=24]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=25]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
-[ext_resource path="res://shaders/glow.shader" type="Shader" id=27]
 [ext_resource path="res://shaders/flash.shader" type="Shader" id=28]
 [ext_resource path="res://gui/hud/life/coin_meter.png" type="Texture" id=29]
 [ext_resource path="res://gui/hud/water_meter/water_meter_bubble_small.png" type="Texture" id=30]
@@ -40,7 +39,7 @@
 [ext_resource path="res://gui/hud/water_meter/water_meter_cover.png" type="Texture" id=39]
 [ext_resource path="res://gui/hud/water_meter/water_meter_max.png" type="Texture" id=40]
 [ext_resource path="res://gui/hud/buttons/c_button_0.png" type="Texture" id=41]
-[ext_resource path="res://shaders/glow_deep.tres" type="Material" id=42]
+[ext_resource path="res://shaders/glow.tres" type="Material" id=42]
 [ext_resource path="res://paintings/mini.png" type="Texture" id=43]
 [ext_resource path="res://gui/hud/water_meter/water_meter_fill.png" type="Texture" id=44]
 [ext_resource path="res://actors/items/fludd_box/map_turbo.png" type="Texture" id=45]
@@ -254,9 +253,69 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="Shader" id=69]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform int intensity : hint_range(0,200); 
+uniform float precision : hint_range(0,0.02);
+uniform vec4 outline_color : hint_color;
+
+varying vec2 o;
+varying vec2 f;
+
+void vertex()
+{
+	o = VERTEX;
+	vec2 uv = (UV - 0.5);
+	VERTEX += uv * float(intensity);
+	f = VERTEX;
+}
+
+void fragment()
+{
+	vec2 regular_uv;
+	regular_uv.x = UV.x + (f.x - o.x) * TEXTURE_PIXEL_SIZE.x;
+	regular_uv.y = UV.y + (f.y - o.y) * TEXTURE_PIXEL_SIZE.y;
+	
+	vec4 regular_color = texture(TEXTURE, regular_uv);
+	if((regular_uv.x < 0.0 || regular_uv.x > 1.0) || (regular_uv.y < 0.0 || regular_uv.y > 1.0) || regular_color.a <=0.25){
+		regular_color = vec4(0.0); 
+	}
+	
+	vec2 ps = TEXTURE_PIXEL_SIZE * float(intensity) * precision;
+	
+	vec4 final_color = regular_color;
+	if (regular_color.a <= 0.0)
+	{
+		for(int x = -1; x <= 1; x += 1){
+			for(int y = -1; y <= 1; y += 1){
+				//Get the X and Y offset from this
+				if (x==0 && y==0)
+					continue;
+					
+				vec2 outline_uv = regular_uv + vec2(float(x) * ps.x, float(y) * ps.y); 
+				
+				//Sample here, if we are out of bounds then fail
+				vec4 outline_sample = texture(TEXTURE, outline_uv);
+				if((outline_uv.x < 0.0 || outline_uv.x > 1.0) || (outline_uv.y < 0.0 || outline_uv.y > 1.0)){
+					//We aren't a real color
+					outline_sample = vec4(0);
+				}
+				
+				//Is our sample empty? Is there something nearby? If so, draw this pixel
+				if(outline_sample.a > final_color.a){
+					final_color = outline_color;
+				}
+			}
+		}
+	}
+	COLOR = final_color; 
+}"
+
 [sub_resource type="ShaderMaterial" id=8]
 resource_local_to_scene = true
-shader = ExtResource( 27 )
+shader = SubResource( 69 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -276,7 +335,7 @@ animations = [ {
 
 [sub_resource type="ShaderMaterial" id=10]
 resource_local_to_scene = true
-shader = ExtResource( 27 )
+shader = SubResource( 69 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -296,7 +355,7 @@ animations = [ {
 
 [sub_resource type="ShaderMaterial" id=12]
 resource_local_to_scene = true
-shader = ExtResource( 27 )
+shader = SubResource( 69 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -316,7 +375,7 @@ animations = [ {
 
 [sub_resource type="ShaderMaterial" id=14]
 resource_local_to_scene = true
-shader = ExtResource( 27 )
+shader = SubResource( 69 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -336,7 +395,7 @@ animations = [ {
 
 [sub_resource type="ShaderMaterial" id=16]
 resource_local_to_scene = true
-shader = ExtResource( 27 )
+shader = SubResource( 69 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -356,7 +415,7 @@ animations = [ {
 
 [sub_resource type="ShaderMaterial" id=18]
 resource_local_to_scene = true
-shader = ExtResource( 27 )
+shader = SubResource( 69 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -376,7 +435,7 @@ animations = [ {
 
 [sub_resource type="ShaderMaterial" id=20]
 resource_local_to_scene = true
-shader = ExtResource( 27 )
+shader = SubResource( 69 )
 shader_param/intensity = 100
 shader_param/precision = 0.01
 shader_param/outline_color = Color( 1, 1, 1, 1 )
