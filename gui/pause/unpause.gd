@@ -11,8 +11,10 @@ func _ready():
 
 
 func _on_Unpause_pressed():
-	Input.action_press("pause")
+	if !Singleton.feedback:
+		Input.action_press("pause")
 
 
 func _on_Unpause_released():
-	Input.action_release("pause")
+	if !Singleton.feedback:
+		Input.action_release("pause")
