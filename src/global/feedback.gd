@@ -4,13 +4,17 @@ var req = HTTPRequest.new()
 
 func _ready():
 	add_child(req)
-	
+	visible = false
 
 func _process(delta):
 	if Input.is_action_just_pressed("feedback"):
 		visible = !visible
 		get_tree().paused = visible || Singleton.pause_menu
 		Singleton.feedback = visible
+
+
+func add_data(tag : String, data) -> String:
+	return tag + ":" + str(data) + "\n"
 
 
 func _on_Submit_pressed():
@@ -55,6 +59,25 @@ func _on_Submit_pressed():
 	
 	msg += "\n**Contact:**\n> " + contact
 	#print(msg)
+	
+	
+	
+	var data = ""
+	data += add_data("platform", OS.get_name())
+	data += add_data("timestamp", OS.get_ticks_msec())
+	data += add_data("window_size", OS.get_window_size())
+	data += add_data("fullscreen", OS.window_fullscreen)
+	data += add_data("room", get_tree().get_current_scene().get_filename())
+	var player = $"/root/Main/Player"
+	if player == null:
+		data += add_data("no_player", "")
+	else:
+		data += add_data("pos", player.position)
+		data += add_data("rot", player.rotation)
+		data += add_data("zoom", player.get_node("Camera2D").zoom)
+		
+	
+	
 	yield(VisualServer, "frame_post_draw")
 	var img = get_viewport().get_texture().get_data()
 	img.flip_y()
@@ -63,7 +86,9 @@ func _on_Submit_pressed():
 	+ msg
 	+ "\n--boundary\nContent-Disposition:form-data; name=\"username\"\n\n"
 	+ username
-	+ "\n--boundary\nContent-Disposition: form-data; name=\"files[0]\"; filename=\"screenshot.png\"\nContent-Type: image/png\n\n").to_ascii()
+	+ "\n--boundary\nContent-Disposition: form-data; name=\"files[0]\"; filename=\"data.txt\"\nContent-Type: text/plain\n\n"
+	+ data
+	+ "\n--boundary\nContent-Disposition: form-data; name=\"files[1]\"; filename=\"screenshot.png\"\nContent-Type: image/png\n\n").to_ascii()
 	payload.append_array(img)
 	payload.append_array("\n--boundary--".to_ascii())
 	#req.connect("request_completed", self, "_on_request_completed")

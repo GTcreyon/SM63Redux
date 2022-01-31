@@ -60,7 +60,6 @@ layer = 2
 [node name="FeedbackControl" type="Control" parent="."]
 pause_mode = 2
 process_priority = 1
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -93,9 +92,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -213.0
-margin_top = 21.0
+margin_top = 15.0
 margin_right = 57.0
-margin_bottom = 36.0
+margin_bottom = 30.0
 custom_fonts/font = ExtResource( 2 )
 text = "Description"
 __meta__ = {
@@ -106,9 +105,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -213.0
-margin_top = 259.0
+margin_top = 224.0
 margin_right = 57.0
-margin_bottom = 274.0
+margin_bottom = 239.0
 custom_fonts/font = ExtResource( 2 )
 text = "Contact info (optional)"
 __meta__ = {
@@ -118,9 +117,9 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="FeedbackControl"]
 anchor_right = 1.0
 margin_left = 100.0
-margin_top = 40.0
+margin_top = 34.0
 margin_right = -100.0
-margin_bottom = 164.0
+margin_bottom = 138.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 1 )
 __meta__ = {
@@ -146,9 +145,9 @@ __meta__ = {
 [node name="Panel2" type="Panel" parent="FeedbackControl"]
 anchor_right = 1.0
 margin_left = 100.0
-margin_top = 277.0
+margin_top = 242.0
 margin_right = -100.0
-margin_bottom = 317.0
+margin_bottom = 282.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 1 )
 __meta__ = {
@@ -173,9 +172,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -135.0
-margin_top = 168.0
+margin_top = 140.0
 margin_right = 163.0
-margin_bottom = 203.0
+margin_bottom = 175.0
 grow_horizontal = 2
 mouse_filter = 2
 custom_constants/separation = 8
@@ -246,9 +245,9 @@ color = Color( 0.431373, 0.890196, 0.286275, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -128.0
-margin_top = 216.0
+margin_top = 181.0
 margin_right = 128.0
-margin_bottom = 245.0
+margin_bottom = 210.0
 grow_horizontal = 2
 mouse_filter = 2
 custom_constants/separation = 64
@@ -310,10 +309,10 @@ position = Vector2( 0, 7 )
 [node name="Submit" type="Button" parent="FeedbackControl"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -39.0
-margin_top = 321.0
-margin_right = 39.0
-margin_bottom = 356.0
+margin_left = 138.0
+margin_top = 304.0
+margin_right = 216.0
+margin_bottom = 339.0
 mouse_default_cursor_shape = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/hover = ExtResource( 8 )
@@ -321,6 +320,24 @@ custom_styles/pressed = ExtResource( 7 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
 text = "Submit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -215.0
+margin_top = 285.0
+margin_right = 134.0
+margin_bottom = 372.0
+custom_fonts/font = ExtResource( 2 )
+text = "Report includes:
+-The data you entered
+-Ingame data (e.g. Mario's position, a screenshot, etc.)
+-Current platform (Windows, Web, Android, etc.)
+"
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
