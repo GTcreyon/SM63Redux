@@ -1,4 +1,4 @@
-extends Panel
+extends Control
 
 const styles = {
 	"talk":preload("res://gui/dialog/talk_box.tres"),
@@ -214,6 +214,10 @@ func _process(_delta):
 		swoop_timer = min(swoop_timer + 1, 80)
 		rect_scale = Vector2.ONE * gui_size
 		rect_position = Vector2(OS.window_size.x / 2 - 128 * gui_size, OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size)
+#		if Input.is_action_pressed("interact"):
+#			star.animation = "wait"
+#		else:
+#			star.animation = "ready"
 	else:
 		swoop_timer = min(swoop_timer + 0.75, 100)
 		rect_scale = Vector2.ONE * gui_size
