@@ -47,10 +47,12 @@ func fake_polygon_create():
 	terrain_modifier.clear()
 	terrain_modifier.state = "create"
 	terrain_modifier.polygon = [Vector2(0, 0)]
+	terrain_modifier.ref = level_editor.place_terrain([Vector2(0, 0)], 0, 0)
 #	terrain_modifier.poly = poly
 
 func finish_creating_polygon():
-	level_editor.place_terrain(terrain_modifier.polygon, 0, 0)
+	#level_editor.place_terrain(terrain_modifier.polygon, 0, 0)
+	terrain_modifier.ref.polygon = terrain_modifier.polygon
 	
 	terrain_modifier.clear()
 	terrain_modifier.state = "idle"
@@ -75,10 +77,12 @@ func _draw():
 				Color(0, 1, 0, 0.2) if success else Color(1, 0, 0, 0.2)
 			)
 		
-		draw_polygon(
-			local_poly,
-			colors
-		)
+		terrain_modifier.ref.polygon = terrain_modifier.polygon
+		
+#		draw_polygon(
+#			local_poly,
+#			colors
+#		)
 		
 		draw_polyline(
 			local_poly,

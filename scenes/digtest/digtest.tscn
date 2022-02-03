@@ -17,6 +17,7 @@
 [ext_resource path="res://actors/items/decoration/fungus_double.png" type="Texture" id=15]
 [ext_resource path="res://actors/items/decoration/big_tree.png" type="Texture" id=16]
 
+
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 5 )

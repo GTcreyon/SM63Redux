@@ -3,6 +3,7 @@
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=2]
 
+
 [node name="Main" type="Node2D"]
 
 [node name="TerrainPolygon" parent="." instance=ExtResource( 1 )]
