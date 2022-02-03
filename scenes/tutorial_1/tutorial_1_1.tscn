@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
@@ -31,6 +31,14 @@
 [ext_resource path="res://actors/items/arrow/arrow.tscn" type="PackedScene" id=29]
 [ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=31]
+[ext_resource path="res://actors/terrain/jungle_grass_shade.png" type="Texture" id=32]
+[ext_resource path="res://actors/terrain/jungle_grass_right_corner.png" type="Texture" id=33]
+[ext_resource path="res://actors/terrain/jungle_grass_right_corner_shade.png" type="Texture" id=34]
+[ext_resource path="res://actors/terrain/jungle_grass.png" type="Texture" id=35]
+[ext_resource path="res://actors/terrain/jungle_ground.png" type="Texture" id=36]
+[ext_resource path="res://actors/terrain/jungle_grass_left_corner_shade.png" type="Texture" id=37]
+[ext_resource path="res://actors/terrain/jungle_cliff.png" type="Texture" id=38]
+[ext_resource path="res://actors/terrain/jungle_grass_left_corner.png" type="Texture" id=39]
 
 [sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
@@ -487,10 +495,30 @@ outline_texture_size = Vector2( 32, 6 )
 position = Vector2( 18, 159 )
 z_index = 1
 polygon = PoolVector2Array( -17, -8, 67.0601, 15.773, 304, 9, 304, 87, 334, 169, 401, 153, 418.545, 86.5817, 422, -1, 449, -14, 496, -18, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 777, 198, 948, 216, 1130, 189, 1178.96, 111.727, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -111, 1939, -111, 2200, 422, -91, 442 )
+up_vector = Vector2( 0, -1 )
+max_angle = 60
+grass_texture = ExtResource( 35 )
+grass_texture_shade = ExtResource( 32 )
+grass_left_corner = ExtResource( 39 )
+grass_left_corner_shade = ExtResource( 37 )
+grass_right_corner = ExtResource( 33 )
+grass_right_corner_shade = ExtResource( 34 )
+cliff_texture = ExtResource( 38 )
+ground_texture = ExtResource( 36 )
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
 polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 279.953, 133.586, 159, 141, 1, 118 )
+up_vector = Vector2( 0, -1 )
+max_angle = 60
+grass_texture = ExtResource( 35 )
+grass_texture_shade = ExtResource( 32 )
+grass_left_corner = ExtResource( 39 )
+grass_left_corner_shade = ExtResource( 37 )
+grass_right_corner = ExtResource( 33 )
+grass_right_corner_shade = ExtResource( 34 )
+cliff_texture = ExtResource( 38 )
+ground_texture = ExtResource( 36 )
 
 [node name="CoinBlue" parent="." instance=ExtResource( 23 )]
 position = Vector2( 1728, 55 )
