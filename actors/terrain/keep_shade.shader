@@ -1,0 +1,18 @@
+shader_type canvas_item;
+
+const vec4 ignore_px = vec4(1.0, 0.0, 188.0 / 255.0, 1.0);
+
+void fragment()
+{
+	vec4 color = texture(TEXTURE, UV);
+	if (color == ignore_px) {
+		vec4 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV);
+		if (screen_color.r >= 0.8) {
+			COLOR = vec4(0.7, 0.2, 0, 1);
+		} else {
+			COLOR = vec4(0, 0, 0, 0);
+		}
+	} else {
+		COLOR = color;
+	}
+}
