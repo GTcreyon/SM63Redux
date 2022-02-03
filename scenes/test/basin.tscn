@@ -24,6 +24,7 @@
 [ext_resource path="res://actors/items/bobomb/bobomb.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/items/koopa/koopa.tscn" type="PackedScene" id=23]
 
+
 [node name="Main" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 2 )]

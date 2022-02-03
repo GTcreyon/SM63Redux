@@ -30,6 +30,7 @@
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=29]
 [ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 
+
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 16 )

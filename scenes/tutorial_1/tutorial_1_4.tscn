@@ -40,6 +40,7 @@
 [ext_resource path="res://actors/interaction/death_plane.tscn" type="PackedScene" id=38]
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=39]
 
+
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 32 )

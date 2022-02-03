@@ -297,6 +297,9 @@ func clear_all_children(parent):
 		parent.remove_child(child)
 
 func generate_full():
+	if polygon.size() <= 3:
+		return
+	
 	ground_shadows.clear()
 	
 	clear_all_children(top) #first delete all the children
