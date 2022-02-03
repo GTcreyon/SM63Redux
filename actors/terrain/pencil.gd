@@ -4,7 +4,6 @@ extends Node2D
 onready var root = $".."
 onready var collision = $"../Static/Collision"
 onready var main_texture = $"../Body"
-onready var inside_checker = $"../Check"
 
 func add_edge_segment(is_left, group):
 	#get the correct corner & the correct direction
@@ -174,6 +173,8 @@ func draw_top_from_connected_lines(lines):
 #			uvs.append(Vector2(0.5, inv_vert_y))
 #
 #		draw_polygon(area.verts, colors, uvs, root.top)
+		
+		
 		#create the polygon
 		var poly2d = Polygon2D.new()
 		poly2d.texture = root.top
@@ -237,8 +238,6 @@ func _draw():
 	oof_children()
 	main_texture.texture = root.body
 	main_texture.polygon = root.polygon
-	
-	inside_checker.polygon = root.polygon
 	
 	add_top_full(root.polygon)
 	if !Engine.editor_hint:
