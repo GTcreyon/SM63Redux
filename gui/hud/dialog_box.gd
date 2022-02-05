@@ -28,20 +28,24 @@ onready var player = $"/root/Main/Player"
 onready var star = $Star
 onready var text_area = $Text
 onready var portrait = $Portrait
+onready var nameplate = $EdgeLeft/Name
+onready var edge_left = $EdgeLeft
+onready var block_left = $BlockLeft
 
 var loaded_lines = []
 var line_index = 0
 var char_roll = 1
 var char_index = 1
-var target_line = ""
-var raw_line = ""
-var text_speed = 0.5
+var target_line : String = ""
+var raw_line : String = ""
+var text_speed : float = 0.5
 var pause_time = 0
 var star_wobble = 0
 var gui_size = 1
 var swoop_timer = 0
 var active = false
-var character = null
+var character_id = null
+var character_name : String = ""
 
 func insert_keybind_strings(input: String) -> String:
 	var regex: RegEx = RegEx.new()
@@ -85,7 +89,7 @@ func refresh_returns(line):
 		else:
 			var added_length = font.get_string_size(word).x
 			cumulative_length += added_length
-			if cumulative_length >= 233 || (character != null && cumulative_length >= 233 - (47 - 8)):
+			if cumulative_length >= 232:# || (character_id != null && cumulative_length >= 233 - (47 - 8)):
 				cumulative_length = added_length
 				line = line.insert(i, "\n")
 				i += 1
@@ -110,7 +114,8 @@ func say_line(index):
 
 func load_lines(lines):
 	text_area.margin_left = 8
-	character = null
+	character_id = null
+	character_name = ""
 	swoop_timer = 0
 	star_wobble = 0
 	loaded_lines = lines
@@ -165,22 +170,25 @@ func _process(_delta):
 													pause_time = float(args[1])
 												"t":
 													add_stylebox_override("panel", styles[args[1]])
-												"n":
+												"c":
 													if args.size() < 2:
-														text_area.margin_left = 8
 														portrait.visible = false
 														target_line = refresh_returns(raw_line)
 													else:
-														text_area.margin_left = 47
 														portrait.visible = true
-														character = args[1]
-														if args.size() < 3:
-															portrait.texture = characters[character][1][0] #char|texture list|first texture
+														character_id = args[1]
+														if characters.has(character_id):
+															if args.size() < 3:
+																portrait.texture = characters[character_id][1][0] #char|texture list|first texture
+															else:
+																portrait.texture = characters[character_id][1][int(args[2])]
 														else:
-															portrait.texture = characters[character][1][int(args[2])]
+															Singleton.log_msg("Unknown character \"%s\"." % character_id, Singleton.LogType.ERROR)
 														target_line = refresh_returns(raw_line)
 												"m":
-													portrait.texture = characters[character][1][args[1]]
+													portrait.texture = characters[character_id][1][args[1]]
+												"n":
+													character_name = args[1]
 												_:
 													print_debug("Dialog: Unknown tag")
 									_:
@@ -213,11 +221,24 @@ func _process(_delta):
 					say_line(line_index)
 		swoop_timer = min(swoop_timer + 1, 80)
 		rect_scale = Vector2.ONE * gui_size
-		rect_position = Vector2(OS.window_size.x / 2 - 128 * gui_size, OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size)
 #		if Input.is_action_pressed("interact"):
 #			star.animation = "wait"
 #		else:
 #			star.animation = "ready"
+		if character_id == null:
+			rect_position = Vector2(OS.window_size.x / 2 - 128 * gui_size, OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size)
+			edge_left.margin_left = -16
+			block_left.margin_left = 12
+		else:
+			rect_position = Vector2(OS.window_size.x / 2 - 108 * gui_size, OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size)
+			edge_left.margin_left = -56
+			block_left.margin_left = -28
+			
+		if character_name == "":
+			nameplate.visible = false
+		else:
+			nameplate.text = character_name
+			nameplate.visible = true
 	else:
 		swoop_timer = min(swoop_timer + 0.75, 100)
 		rect_scale = Vector2.ONE * gui_size

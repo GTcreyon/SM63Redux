@@ -191,11 +191,12 @@ position = Vector2( 1084, -35 )
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 12 )]
 material = SubResource( 1 )
 position = Vector2( 502, 204 )
-lines = [ "Usa el boton [color=#f7c55f][@b,fludd][/color] para elevarte usando [color=#5f75c5]F.L.U.D.D.[/color]", "Para rellenar la reserva de [color=#5f75c5]F.L.U.D.D.[/color], súmergete en agua o encuentra una botella." ]
+lines = [ "[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!" ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 12 )]
 material = SubResource( 2 )
 position = Vector2( 1232, 16 )
+lines = [ "[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle." ]
 
 [node name="Enemy" type="Node2D" parent="Items"]
 
