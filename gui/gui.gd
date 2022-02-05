@@ -6,10 +6,8 @@ extends CanvasLayer
 onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 
-#misc cache
-onready var dialog_box = $DialogBox
-
 #hud cache
+onready var dialog_box = $DialogBox
 onready var coin_counter = $StatsTL/CoinRow/Count
 onready var red_coin_counter = $StatsTL/RedCoinRow/Count
 onready var silver_counter = $StatsTL/SilverShineRow/Count
@@ -21,6 +19,7 @@ onready var icon = $MeterControl/WaterMeter/Icon
 onready var stats_tl = $StatsTL
 onready var stats_tr = $StatsTR
 onready var stats_bl = $StatsBL
+onready var timer = $Timer
 
 #pause cache
 onready var bg = $BG
@@ -113,6 +112,8 @@ func resize():
 	button_exit_off.polygon[1].x = button_exit.rect_size.x - 1
 	button_exit_off.polygon[2].x = button_exit.rect_size.x - 1
 	button_exit_on.polygon = button_exit_off.polygon
+	
+	timer.rect_scale = Vector2.ONE * scale
 	
 	pause_content.resize(scale)
 

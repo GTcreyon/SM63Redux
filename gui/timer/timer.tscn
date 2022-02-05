@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gui/timer/timer_edge.png" type="Texture" id=2]
+[ext_resource path="res://gui/timer/timer.gd" type="Script" id=3]
 
 [node name="Timer" type="Label"]
 custom_fonts/font = ExtResource( 1 )
 text = "0:00"
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

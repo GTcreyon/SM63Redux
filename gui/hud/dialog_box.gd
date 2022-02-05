@@ -10,6 +10,16 @@ const styles = {
 }
 
 const characters = {
+	"toad":
+		[
+			PoolStringArray([
+				"anger",
+			]),
+			
+			[
+				preload("res://gui/dialog/faces/toad/anger.png"),
+			],
+		],
 	"luigi":
 		[
 			PoolStringArray([
@@ -21,7 +31,7 @@ const characters = {
 				preload("res://gui/dialog/faces/luigi/neutral.png"),
 				preload("res://gui/dialog/faces/luigi/sad.png"),
 			],
-		]
+		],
 }
 
 onready var player = $"/root/Main/Player"
