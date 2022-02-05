@@ -5,5 +5,5 @@ void fragment(){
 	COLOR = texture(TEXTURE, UV);
 	if (COLOR == vec4(93f/255f, 85f/255f, 88f/255f, 1f))
 	{
-		COLOR = vec4(57f/255f, 24f/255f, 0f, 0.75f))
+		COLOR = vec4(57f/255f, 24f/255f, 0f, 0.5f))
 	}
