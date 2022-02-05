@@ -941,7 +941,6 @@ frames = SubResource( 6 )
 animation = "hover"
 
 [node name="DialogBox" type="Control" parent="."]
-visible = false
 margin_left = 96.0
 margin_top = 224.0
 margin_right = 352.0
@@ -2352,6 +2351,7 @@ __meta__ = {
 }
 
 [node name="Timer" parent="." instance=ExtResource( 60 )]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0

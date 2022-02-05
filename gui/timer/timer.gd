@@ -29,9 +29,7 @@ func _process(delta):
 	if hours > 0:
 		text = "%s:%s:%s.%s" % [hours_str, minutes_str, seconds_str, ms_str]
 		margin_right = get_font("font").get_string_size("0:00:00.000").x + 10
-		print(margin_right)
 	else:
 		text = "%s:%s.%s" % [minutes_str, seconds_str, ms_str]
 		margin_right = get_font("font").get_string_size("0:00.000").x + 10
-		print(margin_right)
 	
