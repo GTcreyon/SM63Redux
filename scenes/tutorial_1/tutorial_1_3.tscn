@@ -311,16 +311,17 @@ rotation = -1.5708
 [node name="Butterfly" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
 position = Vector2( 191, 176 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
 position = Vector2( 291, 95.8 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly3" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
 position = Vector2( 421, 177 )
 animation = "green"
-frame = 1
 vel_multipliers = Vector2( 2.75, 2.5 )
 
 [node name="Goonies" type="Node2D" parent="Items"]

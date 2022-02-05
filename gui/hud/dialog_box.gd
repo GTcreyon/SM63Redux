@@ -11,15 +11,9 @@ const styles = {
 
 const characters = {
 	"toad":
-		[
-			PoolStringArray([
-				"anger",
-			]),
-			
-			[
-				preload("res://gui/dialog/faces/toad/anger.png"),
-			],
-		],
+		{
+			"anger":preload("res://gui/dialog/faces/toad/anger.png"),
+		},
 	"luigi":
 		[
 			PoolStringArray([
@@ -188,15 +182,13 @@ func _process(_delta):
 														portrait.visible = true
 														character_id = args[1]
 														if characters.has(character_id):
-															if args.size() < 3:
-																portrait.texture = characters[character_id][1][0] #char|texture list|first texture
-															else:
+															if args.size() >= 3:
 																portrait.texture = characters[character_id][1][int(args[2])]
 														else:
 															Singleton.log_msg("Unknown character \"%s\"." % character_id, Singleton.LogType.ERROR)
 														target_line = refresh_returns(raw_line)
 												"m":
-													portrait.texture = characters[character_id][1][args[1]]
+													portrait.texture = characters[character_id][args[1]]
 												"n":
 													character_name = args[1]
 												_:
@@ -236,13 +228,14 @@ func _process(_delta):
 #		else:
 #			star.animation = "ready"
 		if character_id == null:
-			rect_position = Vector2(OS.window_size.x / 2 - 128 * gui_size, OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size)
+			rect_position.x = OS.window_size.x / 2 - 128 * gui_size
 			edge_left.margin_left = -16
 			block_left.margin_left = 12
 		else:
-			rect_position = Vector2(OS.window_size.x / 2 - 108 * gui_size, OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size)
+			rect_position.x = OS.window_size.x / 2 - 108 * gui_size
 			edge_left.margin_left = -56
 			block_left.margin_left = -28
+		rect_position.y = OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size
 			
 		if character_name == "":
 			nameplate.visible = false
@@ -252,6 +245,10 @@ func _process(_delta):
 	else:
 		swoop_timer = min(swoop_timer + 0.75, 100)
 		rect_scale = Vector2.ONE * gui_size
-		rect_position = Vector2(OS.window_size.x / 2 - 128 * gui_size, OS.window_size.y + 20 - (100 / swoop_timer) * gui_size)
+		if character_id == null:
+			rect_position.x = OS.window_size.x / 2 - 128 * gui_size
+		else:
+			rect_position.x = OS.window_size.x / 2 - 108 * gui_size
+		rect_position.y = OS.window_size.y + 20 * gui_size - (100 / swoop_timer) * gui_size
 		if swoop_timer >= 100:
 			visible = false
