@@ -5,6 +5,7 @@ const DEFAULT_SIZE = Vector2(640, 360)
 onready var serializer: Serializer = $Serializer
 onready var sm63_to_redux: SM63ToRedux = $"Serializer/SM63ToRedux"
 onready var base_modifier: BaseModifier = $BaseModifier
+onready var console = $Console
 
 var classic = false
 
@@ -29,6 +30,29 @@ var set_location
 var flip
 var pause_menu = false
 var feedback = false
+var line_count: int = 0
+
+enum LogType {
+	INFO,
+	WARNING,
+	ERROR,
+}
+
+func log_msg(msg: String, type: int = LogType.INFO):
+	var color_tag : String = "[color=#"
+	match type:
+		LogType.INFO:
+			color_tag += "f9e8e8"
+		LogType.WARNING:
+			color_tag += "f2d67c"
+		LogType.ERROR:
+			color_tag += "f28d7c"
+	color_tag += "]"
+		
+	console.logger.append_bbcode("\n" + color_tag + str(msg) + "[/color]")
+	line_count += 1
+	print(msg)
+	
 
 func _ready():
 	#create_coindict(get_tree().get_current_scene().get_filename())

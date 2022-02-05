@@ -481,12 +481,12 @@ rotation = 0.349066
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 31 )]
 material = SubResource( 1 )
 position = Vector2( 371, 203 )
-lines = [ "The [color=#5f75c5]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don’t become too reliant on it though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it’s gone,[@p,3] you won’t be able to hover any longer.", "Not to worry,[@p,3] if you hop into a body of water or grab a water bottle,[@p,3] the tank will refill." ]
+lines = [ "[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don’t become too reliant on it though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it’s gone,[@p,3] you won’t be able to hover any longer." ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 31 )]
 material = SubResource( 2 )
 position = Vector2( -129, -638 )
-lines = [ "Hey sweetie-pie![@p,10] If you’re ever feeling tired just press [color=#f7c55f][@b,pause][/color] to pause the game!", "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] change FLUDD nozzle,[@p,3] or just sit back and relax!", "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don’t you dare forget that!" ]
+lines = [ "[@n,Jil Board]Hey sweetie-pie![@p,10] If you’re ever feeling tired,[@p,3] just press [color=#f7c55f][@b,pause][/color] to pause the game!", "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] change FLUDD nozzle,[@p,3] or just sit back and relax!", "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don’t you dare forget that!" ]
 
 [node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
 material = SubResource( 3 )
