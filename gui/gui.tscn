@@ -941,6 +941,7 @@ frames = SubResource( 6 )
 animation = "hover"
 
 [node name="DialogBox" type="Control" parent="."]
+visible = false
 margin_left = 96.0
 margin_top = 224.0
 margin_right = 352.0
@@ -977,7 +978,6 @@ margin_right = 56.0
 margin_bottom = 2.0
 custom_colors/font_color = Color( 0.819608, 0.705882, 0.768627, 1 )
 custom_fonts/font = ExtResource( 35 )
-text = "Luigi"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -1066,9 +1066,6 @@ margin_bottom = 57.0
 custom_colors/default_color = Color( 0.976471, 0.909804, 0.909804, 1 )
 custom_fonts/normal_font = ExtResource( 35 )
 bbcode_enabled = true
-text = " A
- A
- A"
 scroll_active = false
 __meta__ = {
 "_edit_use_anchors_": false
