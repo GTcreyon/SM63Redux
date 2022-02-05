@@ -1,4 +1,4 @@
-[gd_scene load_steps=169 format=2]
+[gd_scene load_steps=168 format=2]
 
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_edge.png" type="Texture" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -60,7 +60,6 @@
 [ext_resource path="res://gui/hud/buttons/d_button_0.png" type="Texture" id=58]
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_middle.png" type="Texture" id=59]
 [ext_resource path="res://gui/timer/timer.tscn" type="PackedScene" id=60]
-[ext_resource path="res://gui/timer/timer.gd" type="Script" id=61]
 [ext_resource path="res://gui/hud/water_meter/water_meter_power_filler.png" type="Texture" id=62]
 [ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=63]
 [ext_resource path="res://actors/items/fludd_box/nozzle_rocket.png" type="Texture" id=64]
@@ -2356,14 +2355,13 @@ __meta__ = {
 }
 
 [node name="Timer" parent="." instance=ExtResource( 60 )]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = -16.0
-margin_right = 35.0
-margin_bottom = -1.0
-script = ExtResource( 61 )
+margin_left = 10.0
+margin_top = -18.0
+margin_right = 37.0
+margin_bottom = -3.0
+rect_pivot_offset = Vector2( -10, 18 )
 
 [connection signal="pressed" from="PauseContent/UnpauseControl/Unpause" to="PauseContent/UnpauseControl" method="_on_Unpause_pressed"]
 [connection signal="released" from="PauseContent/UnpauseControl/Unpause" to="PauseContent/UnpauseControl" method="_on_Unpause_released"]
