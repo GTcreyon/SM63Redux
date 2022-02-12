@@ -117,6 +117,7 @@ func say_line(index):
 
 
 func load_lines(lines):
+	portrait.visible = false
 	text_area.margin_left = 8
 	character_id = null
 	character_name = ""
