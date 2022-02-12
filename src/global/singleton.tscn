@@ -171,24 +171,28 @@ modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -60, -21 )
 normal = SubResource( 3 )
 pressed = SubResource( 4 )
+passby_press = true
 
 [node name="Right" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -20, -21 )
 normal = SubResource( 5 )
 pressed = SubResource( 6 )
+passby_press = true
 
 [node name="Up" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -40, -42 )
 normal = SubResource( 7 )
 pressed = SubResource( 8 )
+passby_press = true
 
 [node name="Down" type="TouchScreenButton" parent="MobileControls/MobileArrows"]
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -40, -21 )
 normal = SubResource( 9 )
 pressed = SubResource( 10 )
+passby_press = true
 
 [node name="MobileAction" type="Control" parent="MobileControls"]
 anchor_top = 1.0
@@ -254,6 +258,7 @@ mouse_filter = 2
 [node name="Feedback" parent="." instance=ExtResource( 18 )]
 
 [node name="Timer" parent="." instance=ExtResource( 19 )]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 
