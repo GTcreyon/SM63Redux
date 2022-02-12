@@ -232,14 +232,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 64 ) ],
-"loop": true,
-"name": "rocket",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 77 ) ],
 "loop": true,
 "name": "turbo",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 64 ) ],
+"loop": true,
+"name": "rocket",
 "speed": 5.0
 } ]
 
@@ -941,6 +941,7 @@ frames = SubResource( 6 )
 animation = "hover"
 
 [node name="DialogBox" type="Control" parent="."]
+visible = false
 margin_left = 96.0
 margin_top = 224.0
 margin_right = 352.0
@@ -1078,6 +1079,7 @@ animation = "wait"
 [node name="Tween" type="Tween" parent="DialogBox"]
 
 [node name="Portrait" type="TextureRect" parent="DialogBox"]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = -41.0
