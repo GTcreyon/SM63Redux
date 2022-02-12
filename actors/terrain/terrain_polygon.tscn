@@ -24,5 +24,6 @@ polygon = PoolVector2Array( -28.3582, -5.97571, 11.8069, -20.5108, 67.278, -0.49
 script = ExtResource( 6 )
 
 [node name="Static" type="StaticBody2D" parent="."]
+collision_layer = 8388609
 
 [node name="Collision" type="CollisionPolygon2D" parent="Static"]
