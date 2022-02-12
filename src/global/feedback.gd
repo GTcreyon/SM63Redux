@@ -7,6 +7,8 @@ func _ready():
 	visible = false
 
 func _process(delta):
+	rect_pivot_offset = Vector2(OS.window_size.x / 2, 0)
+	rect_scale = Vector2.ONE * floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
 	if Input.is_action_just_pressed("feedback"):
 		visible = !visible
 		get_tree().paused = visible || Singleton.pause_menu

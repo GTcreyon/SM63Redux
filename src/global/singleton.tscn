@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://gui/sfx/back.wav" type="AudioStream" id=16]
 [ext_resource path="res://actors/debug/console.tscn" type="PackedScene" id=17]
 [ext_resource path="res://src/global/feedback.tscn" type="PackedScene" id=18]
+[ext_resource path="res://gui/timer/timer.tscn" type="PackedScene" id=19]
+[ext_resource path="res://src/global/input_manager.gd" type="Script" id=20]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 12 )
@@ -250,6 +252,14 @@ pause_mode = 2
 mouse_filter = 2
 
 [node name="Feedback" parent="." instance=ExtResource( 18 )]
+
+[node name="Timer" parent="." instance=ExtResource( 19 )]
+anchor_top = 1.0
+anchor_bottom = 1.0
+
+[node name="InputManager" type="Node" parent="."]
+pause_mode = 2
+script = ExtResource( 20 )
 
 [connection signal="pressed" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_pressed"]
 [connection signal="released" from="MobileControls/MobileArrows/Left" to="MobileControls" method="_on_Left_released"]
