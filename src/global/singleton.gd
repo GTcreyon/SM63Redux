@@ -6,6 +6,7 @@ onready var serializer: Serializer = $Serializer
 onready var sm63_to_redux: SM63ToRedux = $"Serializer/SM63ToRedux"
 onready var base_modifier: BaseModifier = $BaseModifier
 onready var console = $Console
+onready var timer = $Timer
 
 var classic = false
 
@@ -66,6 +67,7 @@ func _ready():
 func warp_to(path):
 	collect_count = 0
 	#create_coindict(path)
+	timer.split()
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	return get_tree().call_deferred("change_scene", path)
 
@@ -81,14 +83,3 @@ func get_collect_id():
 func create_coindict(path):
 	if !collected_dict.has(path):
 		collected_dict[path] = [false]
-
-
-func _process(_delta):
-	if Input.is_action_just_pressed("fullscreen") && OS.get_name() != "HTML5":
-		OS.window_fullscreen = !OS.window_fullscreen
-	if Input.is_action_just_pressed("screen+") && OS.window_size.x + Singleton.DEFAULT_SIZE.x < OS.get_screen_size().x && OS.window_size.y + Singleton.DEFAULT_SIZE.y < OS.get_screen_size().y:
-		OS.window_size.x += Singleton.DEFAULT_SIZE.x
-		OS.window_size.y += Singleton.DEFAULT_SIZE.y
-	if Input.is_action_just_pressed("screen-") && OS.window_size.x - Singleton.DEFAULT_SIZE.x >= Singleton.DEFAULT_SIZE.x:
-		OS.window_size.x -= Singleton.DEFAULT_SIZE.x
-		OS.window_size.y -= Singleton.DEFAULT_SIZE.y

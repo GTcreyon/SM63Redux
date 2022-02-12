@@ -4,15 +4,26 @@
 [ext_resource path="res://gui/timer/timer_edge.png" type="Texture" id=2]
 [ext_resource path="res://gui/timer/timer.gd" type="Script" id=3]
 
-[node name="Timer" type="Label"]
-custom_fonts/font = ExtResource( 1 )
-text = "0:00"
+[node name="Timer" type="Control"]
+pause_mode = 2
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Total" type="Label" parent="."]
+margin_left = 18.0
+margin_top = -50.0
+margin_right = 45.0
+margin_bottom = -35.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "0:00"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Total"]
 show_behind_parent = true
 anchor_right = 1.0
 margin_left = -1.0
@@ -22,7 +33,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Total"]
 show_behind_parent = true
 margin_left = -8.0
 margin_right = -1.0
@@ -32,7 +43,51 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="TextureRect2" type="TextureRect" parent="Total"]
+show_behind_parent = true
+anchor_left = 1.0
+anchor_right = 1.0
+margin_right = 7.0
+margin_bottom = 16.0
+texture = ExtResource( 2 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Split" type="Label" parent="."]
+pause_mode = 2
+margin_left = 18.0
+margin_top = -18.0
+margin_right = 37.0
+margin_bottom = -3.0
+custom_fonts/font = ExtResource( 1 )
+text = "0:00"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="Split"]
+show_behind_parent = true
+anchor_right = 1.0
+margin_left = -1.0
+margin_bottom = 16.0
+color = Color( 0.25098, 0.156863, 0.0980392, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="Split"]
+show_behind_parent = true
+margin_left = -8.0
+margin_right = -1.0
+margin_bottom = 16.0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="Split"]
 show_behind_parent = true
 anchor_left = 1.0
 anchor_right = 1.0
