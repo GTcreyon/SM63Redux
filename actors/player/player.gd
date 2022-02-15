@@ -504,6 +504,10 @@ func _physics_process(_delta):
 					sprite.frame = 1
 					sprite.speed_scale = 1
 					swim_delay = true
+				elif state == s.waterspin:
+					switch_state(s.swim)
+					fall_adjust -= set_jump_1_vel * 1.25
+					vel.x += 1.5 * sign(vel.x)
 				elif state == s.waterdive && i_jump && (((int(i_right) - int(i_left)) == 1.0 && sprite.flip_h) || ((int(i_right) - int(i_left)) == -1.0 && !sprite.flip_h)):
 					if !dive_return:
 						dive_correct(-1)
@@ -996,7 +1000,12 @@ func _physics_process(_delta):
 			if i_pound_h:
 				if state == s.dive && gp_dive_timer > 0:
 					var mag = vel.length()
-					vel = Vector2(cos(PI / 6) * mag, sin(PI / 6) * mag)
+					var ang
+					if vel.x > 0:
+						ang = PI / 5
+					else:
+						ang = PI - PI / 5
+					vel = Vector2(cos(ang) * mag, sin(ang) * mag)
 				else:
 					if (
 						!ground
