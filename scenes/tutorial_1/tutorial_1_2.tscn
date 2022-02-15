@@ -280,7 +280,7 @@ position = Vector2( 800, 360 )
 flip = true
 
 [node name="Goonie6" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 901, 248 )
+position = Vector2( 855, 258 )
 flip = true
 
 [node name="Bobomb4" parent="Items" instance=ExtResource( 15 )]
