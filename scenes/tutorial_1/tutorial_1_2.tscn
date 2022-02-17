@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://scenes/tutorial_1/temp/t1r2/Sprite-0001.png" type="Texture" id=1]
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=2]
@@ -22,7 +22,6 @@
 [ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=20]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=21]
 [ext_resource path="res://actors/items/sign/sign.tscn" type="PackedScene" id=22]
-[ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=23]
 [ext_resource path="res://shaders/glow.shader" type="Shader" id=24]
 [ext_resource path="res://actors/items/decoration/small_tree.tscn" type="PackedScene" id=25]
 [ext_resource path="res://actors/items/rocks/big_rock/big_rock.tscn" type="PackedScene" id=26]
@@ -163,15 +162,6 @@ position = Vector2( 439, 193 )
 [node name="Bobomb3" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 1091.5, 244.758 )
 
-[node name="Goomba" parent="Items" instance=ExtResource( 23 )]
-position = Vector2( 1182.11, 256.085 )
-
-[node name="Goomba2" parent="Items" instance=ExtResource( 23 )]
-position = Vector2( 1444.39, 239.095 )
-
-[node name="Goomba3" parent="Items" instance=ExtResource( 23 )]
-position = Vector2( 1519.9, 236.264 )
-
 [node name="Sign" parent="Items" instance=ExtResource( 22 )]
 material = SubResource( 1 )
 position = Vector2( 50.6266, 171.279 )
@@ -290,8 +280,11 @@ position = Vector2( 800, 360 )
 flip = true
 
 [node name="Goonie6" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 901, 248 )
+position = Vector2( 855, 258 )
 flip = true
+
+[node name="Bobomb4" parent="Items" instance=ExtResource( 15 )]
+position = Vector2( 1387, 247 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 16 )]
 position = Vector2( -81, 92 )

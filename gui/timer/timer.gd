@@ -1,10 +1,15 @@
-extends Label
+extends Control
 
-var frames : int = 0.0
+onready var total = $Total
+onready var split = $Split
 
-func _process(delta):
-	frames += 1.0
-	var overall_seconds : float = frames / 60.0
+var frames : int = 0
+var split_frames : int = 0
+
+func _ready():
+	total.margin_right = get_font("font").get_string_size("0:00.0000").x + 10
+
+func format_time(overall_seconds):
 	var ms = floor(fmod(overall_seconds, 1) * 1000)
 	var seconds = floor(fmod(overall_seconds, 60))
 	var minutes = floor(fmod(overall_seconds, 3600) / 60)
@@ -27,9 +32,18 @@ func _process(delta):
 		minutes_str = "0" + str(minutes_str)
 	
 	if hours > 0:
-		text = "%s:%s:%s.%s" % [hours_str, minutes_str, seconds_str, ms_str]
-		margin_right = get_font("font").get_string_size("0:00:00.000").x + 10
+		return "%s:%s:%s.%s" % [hours_str, minutes_str, seconds_str, ms_str]
 	else:
-		text = "%s:%s.%s" % [minutes_str, seconds_str, ms_str]
-		margin_right = get_font("font").get_string_size("0:00.000").x + 10
+		return "%s:%s.%s" % [minutes_str, seconds_str, ms_str]
+
+
+func _process(delta):
+	rect_scale = Vector2.ONE * floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+	if !get_tree().paused:
+		frames += 1
+		split_frames += 1
+		total.text = format_time(frames / 60.0)
 	
+func split():
+	split.text = format_time(split_frames / 60.0)
+	split_frames = 0
