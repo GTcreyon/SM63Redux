@@ -8,8 +8,9 @@ func _init():
 
 func _ready():
 	var scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
-	$MobileArrows.rect_scale = Vector2.ONE * scale * 6
-	$MobileAction.rect_scale = Vector2.ONE * scale * 6
+	var button_scale = min(floor(OS.window_size.x / (120 * scale)), floor(OS.window_size.y / (42 * scale)))
+	$MobileArrows.rect_scale = Vector2.ONE * scale * button_scale
+	$MobileAction.rect_scale = Vector2.ONE * scale * button_scale
 
 
 func _on_Left_pressed():

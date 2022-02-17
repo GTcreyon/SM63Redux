@@ -19,7 +19,6 @@ onready var icon = $MeterControl/WaterMeter/Icon
 onready var stats_tl = $StatsTL
 onready var stats_tr = $StatsTR
 onready var stats_bl = $StatsBL
-onready var timer = $Timer
 
 #pause cache
 onready var bg = $BG
@@ -112,8 +111,6 @@ func resize():
 	button_exit_off.polygon[1].x = button_exit.rect_size.x - 1
 	button_exit_off.polygon[2].x = button_exit.rect_size.x - 1
 	button_exit_on.polygon = button_exit_off.polygon
-	
-	timer.rect_scale = Vector2.ONE * scale
 	
 	pause_content.resize(scale)
 

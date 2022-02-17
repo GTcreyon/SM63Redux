@@ -115,10 +115,11 @@ __meta__ = {
 }
 
 [node name="Panel" type="Panel" parent="FeedbackControl"]
-anchor_right = 1.0
-margin_left = 100.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -220.0
 margin_top = 34.0
-margin_right = -100.0
+margin_right = 220.0
 margin_bottom = 138.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 1 )
@@ -143,10 +144,11 @@ __meta__ = {
 }
 
 [node name="Panel2" type="Panel" parent="FeedbackControl"]
-anchor_right = 1.0
-margin_left = 100.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -220.0
 margin_top = 242.0
-margin_right = -100.0
+margin_right = 220.0
 margin_bottom = 282.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 1 )

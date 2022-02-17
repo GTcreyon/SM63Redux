@@ -7,7 +7,7 @@
 [ext_resource path="res://audio/sfx/items/fludd/nozzlebox.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 18, 8 )
+extents = Vector2( 18, 2 )
 
 [node name="FluddBox" type="Area2D"]
 collision_layer = 0
@@ -26,7 +26,7 @@ texture = ExtResource( 4 )
 texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -20 )
+position = Vector2( 0, -14 )
 shape = SubResource( 1 )
 
 [node name="Open" type="AudioStreamPlayer" parent="."]

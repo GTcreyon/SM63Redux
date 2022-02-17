@@ -1,11 +1,10 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/items/log/log_fall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/items/rocks/big_rock/big_rock.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0005.png" type="Texture" id=9]
@@ -108,9 +107,6 @@ position = Vector2( 1112.68, 287.02 )
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="BreakableBox" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 1727.77, 105.247 )
-
 [node name="Logs" type="Node2D" parent="Items"]
 
 [node name="Log" parent="Items/Logs" instance=ExtResource( 2 )]
@@ -199,7 +195,7 @@ position = Vector2( 1092, 111 )
 [node name="Sign" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 4 )
 position = Vector2( 189, 165 )
-lines = [ "[@c,toad][@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here’s a refresher.", "Use [color=#f7c55f]Arrows[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact][/color].", "They have plenty of tips to help out,[@p,3] and if you're not interested,[@p,3] at least say \"Hi\" for me,[@p,3] eh?" ]
+lines = [ "[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here’s a refresher.", "Use [color=#f7c55f]Arrows[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact][/color].", "They have plenty of tips to help out,[@p,3] and if you're not interested,[@p,3] at least say \"Hi\" for me,[@p,3] eh?" ]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
 material = SubResource( 7 )
@@ -458,11 +454,11 @@ position = Vector2( 534, 85 )
 flip = true
 
 [node name="Goonie4" parent="Items/Birds" instance=ExtResource( 31 )]
-position = Vector2( 798, 119 )
+position = Vector2( 797, 72 )
 flip = true
 
 [node name="Goonie5" parent="Items/Birds" instance=ExtResource( 31 )]
-position = Vector2( 740, 105 )
+position = Vector2( 739, 58 )
 flip = true
 
 [node name="Goonie6" parent="Items/Birds" instance=ExtResource( 31 )]
@@ -474,6 +470,9 @@ position = Vector2( 1554, 128 )
 [node name="Goonie8" parent="Items/Birds" instance=ExtResource( 31 )]
 position = Vector2( 1701, 85 )
 flip = true
+
+[node name="BigRock" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 1724, 104 )
 
 [node name="Water" type="Node2D" parent="."]
 
