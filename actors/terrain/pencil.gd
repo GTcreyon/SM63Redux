@@ -202,20 +202,56 @@ func draw_top_from_connected_lines(lines):
 	#draw the right area
 	add_edge_segment(false, areas.back())
 
+func draw_bottom_from_connected_lines(lines):
+	#first collect everything into groups of verts
+	var groups = []
+	var p_size = lines.size()
+	for ind in range(p_size - 1):
+		var current: Vector2 = lines[ind]
+		var next: Vector2 = lines[(ind + 1) % p_size]
+		var dir := current.direction_to(next)
+		var normal := dir.tangent()
+		var off_up := normal * 1
+		var off_down := normal * -3
+		
+		var verts = [
+			current + off_up,
+			next + off_up,
+			next + off_down,
+			current + off_down
+		]
+		
+		#create the polygon
+		var poly2d = Polygon2D.new()
+		poly2d.texture = root.bottom
+		poly2d.polygon = verts
+		poly2d.texture_rotation = -normal.angle() - PI / 2
+
+		#OFFSET MATH YAAAAAAAAAY
+		var unit = Vector2(sin(poly2d.texture_rotation), cos(poly2d.texture_rotation))
+		var pos = verts[0]
+		var text_offset = Vector2(0, 0)
+
+		#set the offset
+		poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - text_offset.x
+		poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - text_offset.y
+		poly2d.material = material
+		add_child(poly2d)
+
 #child murder ;-;
 func oof_children():
 	for child in get_children():
 		remove_child(child)
 
 #this will add the grass to the top of the polygon
-func add_top_pass(lines, poly, start):
+func get_connected_lines(lines, direction, poly, start):
 	var p_size = poly.size()
 	var added = false
 	for ind in range(start, p_size):
 		var vert: Vector2 = poly[ind]
 		var next: Vector2 = poly[(ind + 1) % p_size]
 		var normal: Vector2 = vert.direction_to(next).tangent()
-		var angle: float = normal.angle_to(root.up_direction) / PI * 180
+		var angle: float = normal.angle_to(direction) / PI * 180
 		
 		if angle >= -root.max_deviation && angle <= root.max_deviation:
 			added = true
@@ -226,20 +262,37 @@ func add_top_pass(lines, poly, start):
 	return null
 
 #add the grass to 
-func add_top_full(poly):
+func add_full(poly):
+	#do the top layer
 	var latest_index = 0
+	var blacklist = []
 	while latest_index != null:
-		var lines = []
-		latest_index = add_top_pass(lines, poly, latest_index)
-		if lines.size() >= 2:
-			draw_top_from_connected_lines(lines)
+		var list = []
+		latest_index = get_connected_lines(list, root.up_direction, poly, latest_index)
+		if list.size() >= 2:
+			blacklist.append_array(list)
+			draw_top_from_connected_lines(list)
+	
+	#do the bottom layer
+	latest_index = 0
+	while latest_index != null:
+		var list = []
+		latest_index = get_connected_lines(list, root.down_direction, poly, latest_index)
+		if list.size() >= 2:
+			blacklist.append_array(list)
+			draw_bottom_from_connected_lines(list)
+	
+	
+
+#add bottom texture
+
 
 func _draw():
 	oof_children()
 	main_texture.texture = root.body
 	main_texture.polygon = root.polygon
 	
-	add_top_full(root.polygon)
+	add_full(root.polygon)
 	if !Engine.editor_hint:
 		collision.polygon = root.polygon
 
