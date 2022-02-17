@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://tilesets/redux/jungle/ground.png" type="Texture" id=1]
+[ext_resource path="res://tilesets/redux/jungle/bottom.png" type="Texture" id=2]
 [ext_resource path="res://actors/terrain/terrain_polygon.gd" type="Script" id=3]
 [ext_resource path="res://tilesets/redux/jungle/top_edge_right.png" type="Texture" id=4]
 [ext_resource path="res://tilesets/redux/jungle/top_edge_left.png" type="Texture" id=5]
@@ -15,6 +16,7 @@ body = ExtResource( 1 )
 top = ExtResource( 7 )
 top_left = ExtResource( 5 )
 top_right = ExtResource( 4 )
+bottom = ExtResource( 2 )
 
 [node name="Body" type="Polygon2D" parent="."]
 texture = ExtResource( 1 )
