@@ -37,7 +37,7 @@ func format_time(overall_seconds):
 		return "%s:%s.%s" % [minutes_str, seconds_str, ms_str]
 
 
-func _process(delta):
+func _process(_delta):
 	rect_scale = Vector2.ONE * floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
 	if !get_tree().paused:
 		frames += 1
