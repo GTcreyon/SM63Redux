@@ -3,7 +3,7 @@ extends Button
 export var color : Color
 var save_press = false
 
-func _process(delta):
+func _process(_delta):
 	if pressed:
 		if !save_press:
 			modulate = color
