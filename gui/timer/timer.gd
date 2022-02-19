@@ -6,6 +6,7 @@ onready var split = $SplitRect/Split
 
 var frames : int = 0
 var split_frames : int = 0
+var running = true
 
 #func _ready():
 #	total.margin_right = get_font("font").get_string_size("0:00.0000").x + 10
@@ -40,7 +41,7 @@ func format_time(overall_seconds):
 
 func _process(_delta):
 	rect_scale = Vector2.ONE * floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
-	if !get_tree().paused:
+	if !get_tree().paused && running:
 		frames += 1
 		split_frames += 1
 		var txt = format_time(frames / 60.0)
