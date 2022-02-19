@@ -6,7 +6,6 @@ onready var root = $".."
 export(Array) var segment_queue
 
 func add_edge_segment(is_left, group):
-	print("EE")
 	#get the correct corner & the correct direction
 	var corner = group.verts[0] if is_left else group.verts[1]
 	var normal_sign = -1 if is_left else 1
