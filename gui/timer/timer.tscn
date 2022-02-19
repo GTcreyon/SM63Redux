@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gui/timer/timer_main.png" type="Texture" id=2]
 [ext_resource path="res://gui/timer/timer.gd" type="Script" id=3]
 [ext_resource path="res://gui/timer/timer_sub.png" type="Texture" id=4]
 [ext_resource path="res://gui/timer/timer_sub_edge.png" type="Texture" id=5]
+[ext_resource path="res://gui/timer/total.gd" type="Script" id=6]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -37,7 +38,8 @@ margin_bottom = -17.0
 rect_scale = Vector2( 2, 2 )
 custom_fonts/font = ExtResource( 1 )
 text = "0:00"
-align = 1
+align = 2
+script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -49,23 +51,22 @@ margin_right = 41.0
 margin_bottom = -4.0
 custom_fonts/font = ExtResource( 1 )
 text = ".000"
-align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="."]
+[node name="MainRect" type="TextureRect" parent="."]
 show_behind_parent = true
-margin_left = -44.0
+margin_left = -43.0
 margin_top = -32.0
-margin_right = 44.0
+margin_right = 43.0
 texture = SubResource( 1 )
 stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="TextureRect2"]
+[node name="TextureRect" type="TextureRect" parent="MainRect"]
 show_behind_parent = true
 margin_left = -10.0
 margin_bottom = 32.0
@@ -74,7 +75,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="TextureRect2"]
+[node name="TextureRect2" type="TextureRect" parent="MainRect"]
 show_behind_parent = true
 anchor_left = 1.0
 anchor_right = 1.0
