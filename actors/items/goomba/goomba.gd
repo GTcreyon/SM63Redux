@@ -227,7 +227,10 @@ func _on_Area2D_body_entered_hurt(body):
 			sprite.frame = 0
 			sprite.playing = true
 			if player.state == player.s.dive || player.state == player.s.edive:
-				player.call_deferred("switch_state", player.s.edive)
+				if Input.is_action_pressed("down"):
+					damage_check(body)
+				else:
+					player.call_deferred("switch_state", player.s.edive)
 			else:
 				player.call_deferred("switch_state", player.s.ejump)
 		elif !struck:
@@ -235,7 +238,7 @@ func _on_Area2D_body_entered_hurt(body):
 
 
 func damage_check(body):
-	if body.is_spinning():
+	if body.is_spinning() || body.is_diving(true) || body.state == body.s.ejump:
 		struck = true
 		vel.y -= 2.63
 		sprite.animation = "jumping"

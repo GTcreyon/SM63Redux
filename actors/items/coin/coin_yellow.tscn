@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
+[ext_resource path="res://shaders/aa.tres" type="Material" id=1]
 [ext_resource path="res://actors/items/coin/coin3.png" type="Texture" id=6]
 [ext_resource path="res://actors/items/coin/coin2.png" type="Texture" id=7]
 [ext_resource path="res://actors/items/coin/coin0.png" type="Texture" id=8]
@@ -31,6 +32,7 @@ collision_layer = 4
 script = ExtResource( 13 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = ExtResource( 1 )
 frames = SubResource( 1 )
 animation = "modern"
 script = ExtResource( 9 )

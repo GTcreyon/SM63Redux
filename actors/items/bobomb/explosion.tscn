@@ -69,5 +69,6 @@ frames = SubResource( 12 )
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
 autoplay = true
+attenuation = 10.0
 
 [connection signal="body_entered" from="." to="." method="_on_Explosion_body_entered"]

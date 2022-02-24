@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dialog_star_1.png-8001644369c3f24f2a68fbda040c4b19.stex"
+path="res://.import/timer_main.png-33c3ecbd7ba6b32e129b37cb29734113.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/hud/dialog_star_1.png"
-dest_files=[ "res://.import/dialog_star_1.png-8001644369c3f24f2a68fbda040c4b19.stex" ]
+source_file="res://gui/timer/timer_main.png"
+dest_files=[ "res://.import/timer_main.png-33c3ecbd7ba6b32e129b37cb29734113.stex" ]
 
 [params]
 

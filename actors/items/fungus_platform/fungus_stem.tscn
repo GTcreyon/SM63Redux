@@ -4,12 +4,15 @@
 [ext_resource path="res://actors/items/fungus_platform/fungus_head.tscn" type="PackedScene" id=2]
 
 [node name="FungusStem" type="Line2D"]
+position = Vector2( 6, 10 )
 z_index = -2
-points = PoolVector2Array( -4, 16, -4, 21, -4, 72 )
-width = 12.0
+points = PoolVector2Array( -6, -3, -6, 6 )
+width = 8.0
 default_color = Color( 1, 1, 1, 1 )
 texture = ExtResource( 1 )
 texture_mode = 1
 joint_mode = 1
 
 [node name="FungusHead" parent="." instance=ExtResource( 2 )]
+position = Vector2( -6, -10 )
+z_index = 1

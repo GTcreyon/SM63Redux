@@ -1,0 +1,126 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=1]
+[ext_resource path="res://gui/timer/timer_main.png" type="Texture" id=2]
+[ext_resource path="res://gui/timer/timer.gd" type="Script" id=3]
+[ext_resource path="res://gui/timer/timer_sub.png" type="Texture" id=4]
+[ext_resource path="res://gui/timer/timer_sub_edge.png" type="Texture" id=5]
+[ext_resource path="res://gui/timer/total.gd" type="Script" id=6]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 10, 0, 1, 32 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 10, 32 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 2, 15 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 1, 15 )
+
+[node name="Timer" type="Control"]
+pause_mode = 2
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Total" type="Label" parent="."]
+margin_left = -39.0
+margin_top = -32.0
+margin_right = -12.0
+margin_bottom = -17.0
+rect_scale = Vector2( 2, 2 )
+custom_fonts/font = ExtResource( 1 )
+text = "0:00"
+align = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TotalMS" type="Label" parent="."]
+margin_left = 14.0
+margin_top = -19.0
+margin_right = 41.0
+margin_bottom = -4.0
+custom_fonts/font = ExtResource( 1 )
+text = ".000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainRect" type="TextureRect" parent="."]
+show_behind_parent = true
+margin_left = -43.0
+margin_top = -32.0
+margin_right = 43.0
+texture = SubResource( 1 )
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="MainRect"]
+show_behind_parent = true
+margin_left = -10.0
+margin_bottom = 32.0
+texture = SubResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="MainRect"]
+show_behind_parent = true
+anchor_left = 1.0
+anchor_right = 1.0
+texture = SubResource( 2 )
+flip_h = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SplitRect" type="TextureRect" parent="."]
+show_behind_parent = true
+margin_left = -35.0
+margin_top = -47.0
+margin_right = 35.0
+margin_bottom = -32.0
+texture = ExtResource( 4 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="SplitRect"]
+margin_left = -1.0
+margin_right = 1.0
+margin_bottom = 15.0
+texture = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="SplitRect"]
+anchor_left = 1.0
+anchor_right = 1.0
+texture = SubResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Split" type="Label" parent="SplitRect"]
+pause_mode = 2
+anchor_right = 1.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 1 )
+text = "0:00.000"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
