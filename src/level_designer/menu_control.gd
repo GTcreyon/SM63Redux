@@ -1,8 +1,7 @@
-extends Node2D
+extends Control
 
 onready var level_editor := $"/root/Main"
 onready var ld_camera := $"/root/Main/LDCamera"
-onready var save_controls := $SaveControl
 onready var background := $"/root/Main/LDCamera/Background"
 onready var lv_template := $"/root/Main/LevelTemplate"
 
@@ -58,7 +57,7 @@ func finish_creating_polygon():
 	terrain_modifier.state = "idle"
 
 func _process(_dt):
-	background.material.set_shader_param("camera_position", global_position)
+	background.material.set_shader_param("camera_position", ld_camera.global_position)
 	update()
 
 func _draw():
@@ -66,7 +65,7 @@ func _draw():
 		var local_poly = PoolVector2Array()
 		for vert in terrain_modifier.polygon:
 			local_poly.append(
-				vert - global_position
+				vert - ld_camera.global_position
 			)
 		
 		var success = true#polygon_self_intersecting(local_poly)
@@ -104,7 +103,7 @@ func _input(event):
 		
 		#have a dynamic moving polygon by updating the last vertex
 		if event is InputEventMouseMotion and terrain_modifier.polygon.size() >= 1:
-			var real_position = event.position + global_position
+			var real_position = event.position + ld_camera.global_position
 			real_position = snap_vector(real_position, grid_px)
 			terrain_modifier.polygon[terrain_modifier.polygon.size() - 1] = real_position
 			update() #force _draw
@@ -112,7 +111,7 @@ func _input(event):
 		#on click, insert a new vert in the polygon
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == 1:
-				var real_position = event.position + global_position
+				var real_position = event.position + ld_camera.global_position
 				real_position = snap_vector(real_position, grid_px)
 				var p_size = terrain_modifier.polygon.size()
 				#if we have 2 vertices, cancel the placement, more than 3, we place it down
