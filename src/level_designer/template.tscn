@@ -1,0 +1,13 @@
+[gd_scene format=2]
+
+[node name="Template" type="Node2D"]
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="Water" type="Node2D" parent="."]
+
+[node name="Pipescript" type="Node2D" parent="."]
+
+[node name="Other" type="Node2D" parent="."]
