@@ -69,6 +69,7 @@ func draw_top_from_connected_lines(lines):
 		
 		#draw this group
 		areas.append({
+			index = ind,
 			verts = cur_group,
 			direction = cur_group[0].direction_to(cur_group[1]),
 			normal = cur_group[0].direction_to(cur_group[1]).tangent(),

@@ -3,8 +3,11 @@ extends Polygon2D
 
 export(Texture) var body
 export(Texture) var top
+export(Texture) var top_shade
 export(Texture) var top_left
+export(Texture) var top_left_shade
 export(Texture) var top_right
+export(Texture) var top_right_shade
 export(Texture) var edge
 export(Texture) var bottom
 
