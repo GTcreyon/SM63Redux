@@ -9,6 +9,62 @@ var terrain_modifier = {
 	state = "idle"
 }
 
+var item_classes = {}
+var items = {}
+
+func read_items():
+	var parser = XMLParser.new()
+	parser.open("res://src/level_designer/items.xml.tres")
+	
+	var parent_node
+	var parent_class
+	while (!parser.read()):
+		var node_type = parser.get_node_type()
+		
+		match node_type:
+			#unused nodes
+			parser.NODE_NONE:
+				pass
+			parser.NODE_COMMENT:
+				pass
+			parser.NODE_UNKNOWN:
+				pass
+			parser.NODE_CDATA:
+				pass
+			parser.NODE_TEXT:
+				pass
+			
+			#useful nodes
+			parser.NODE_ELEMENT:
+				var node_name = parser.get_node_name()
+				
+				#interpret classes
+				if parent_node == "class" && node_name == "property":
+					var item_class = item_classes[parent_class]
+					var link_txt = parser.get_named_attribute_value_safe("link")
+					link_txt = "#DEFAULT#" if link_txt == "" else link_txt
+					
+					var properties = {
+						label = parser.get_named_attribute_value("label"),
+						type = parser.get_named_attribute_value("type"),
+						link = link_txt,
+						description = parser.get_named_attribute_value("description")
+					}
+					
+					item_class.append(properties)
+				
+				if node_name == "class":
+					var cl_name = parser.get_named_attribute_value_safe("name")
+					item_classes[cl_name] = []
+					parent_class = cl_name
+				elif node_name == "item":
+					pass
+				
+				parent_node = node_name
+			parser.NODE_ELEMENT_END:
+				pass
+	print(item_classes)
+
 #a bad, slow, O(n^2), but easy to implement algorithm
 #I should look into better algorithms
 #infact, here: https://web.archive.org/web/20141211224415/http://www.lems.brown.edu/~wq/projects/cs252.html
@@ -131,5 +187,6 @@ func _on_terrain_control_place_pressed():
 	pass # Replace with function body.
 
 func _ready():
+	read_items()
 	var template = lv_template.instance()
 	level_editor.add_child(template)
