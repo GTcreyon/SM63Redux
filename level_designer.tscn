@@ -314,16 +314,6 @@ __meta__ = {
 position = Vector2( 278, 331.5 )
 z_index = -1
 
-[node name="Demo" type="Button" parent="UILayer/LDUI"]
-margin_left = 492.923
-margin_top = 8.61072
-margin_right = 584.923
-margin_bottom = 28.6107
-text = "Place terrain"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]
