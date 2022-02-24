@@ -106,11 +106,11 @@ func _process(_delta):
 	
 	var i = 0
 	for desc in description_box.get_children():
-		desc.visible = i == (cycle_step + cycle_direction) % 4
+		desc.visible = i == posmod(cycle_step + cycle_direction, 4)
 		i += 1
 	
 	if Input.is_action_just_pressed("ui_accept") || Input.is_action_just_pressed("interact"):
-		match (cycle_step + cycle_direction) % 4:
+		match posmod(cycle_step + cycle_direction, 4):
 			0:
 				Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
 				Singleton.get_node("SFX/Start").play()

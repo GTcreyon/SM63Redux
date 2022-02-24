@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://src/global/feedback.tscn" type="PackedScene" id=18]
 [ext_resource path="res://gui/timer/timer.tscn" type="PackedScene" id=19]
 [ext_resource path="res://src/global/input_manager.gd" type="Script" id=20]
+[ext_resource path="res://src/global/window_warp.gd" type="Script" id=21]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 12 )
@@ -101,11 +102,10 @@ color = Color( 0, 0, 0, 1 )
 script = ExtResource( 1 )
 
 [node name="WindowWarp" type="Polygon2D" parent="."]
-visible = false
 color = Color( 0, 0, 0, 1 )
 invert_enable = true
 invert_border = 640.0
-script = ExtResource( 11 )
+script = ExtResource( 21 )
 
 [node name="CoverLayer" type="CanvasLayer" parent="."]
 layer = 2
