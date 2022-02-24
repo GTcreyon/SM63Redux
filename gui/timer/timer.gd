@@ -40,6 +40,8 @@ func format_time(overall_seconds):
 
 
 func _process(_delta):
+	if Input.is_action_just_pressed("timer_show"):
+		visible = !visible
 	rect_scale = Vector2.ONE * floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
 	if !get_tree().paused && running:
 		frames += 1
