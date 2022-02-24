@@ -6,6 +6,7 @@
         </class>
 
         <item name="item name" description="item description">
+            <texture tag="see tag documentation" path="res://somewhere/texture.png">
             [OPTIONAL] <inherit name="class name to inherit from" />
             [OPTIONAL] <property label="label name" type="property type" [OPTIONAL] link="see link documentation" [OPTIONAL] description="description to show" />
         </item>
@@ -14,6 +15,11 @@
             The link is an optional value, if it is left out, no function besides the default ld_property_edited will be invoked.
             A link can start with a prefix, prefixes must be a path to a node, for example `res://somewhere/entity#`, if there is a prefix it will invoke the function found in the node listed in the prefix. The prefix ends once it reaches a #
             If there's no prefix, it will assume the function can be found in the item itself.
+
+        Tag:
+            There are several options for the tag:
+            Main: this tag means that this is the sprite showing up when placed in the ld.
+            Display: this tag means that this texture should be used in the item list menu.
     -->
     <class name="basic">
         <property label="Position" type="vector2" link="res://somewhere/global#function_position" description="Repositions the item." />
