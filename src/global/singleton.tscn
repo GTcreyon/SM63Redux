@@ -258,6 +258,7 @@ mouse_filter = 2
 [node name="Feedback" parent="." instance=ExtResource( 18 )]
 
 [node name="Timer" parent="." instance=ExtResource( 19 )]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
