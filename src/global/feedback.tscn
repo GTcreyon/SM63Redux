@@ -1,0 +1,353 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=1]
+[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=2]
+[ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=3]
+[ext_resource path="res://actors/debug/traffic.png" type="Texture" id=4]
+[ext_resource path="res://actors/debug/traffic_button.gd" type="Script" id=5]
+[ext_resource path="res://actors/debug/tickbox.tscn" type="PackedScene" id=6]
+[ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=7]
+[ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=8]
+[ext_resource path="res://src/global/feedback.gd" type="Script" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=15]
+
+[sub_resource type="StyleBoxEmpty" id=16]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=17]
+
+[sub_resource type="StyleBoxEmpty" id=18]
+
+[sub_resource type="StyleBoxEmpty" id=19]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 26, 29 )
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 4 )
+region = Rect2( 26, 0, 26, 29 )
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=13]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 4 )
+region = Rect2( 52, 0, 26, 29 )
+
+[node name="Feedback" type="CanvasLayer"]
+layer = 2
+
+[node name="FeedbackControl" type="Control" parent="."]
+pause_mode = 2
+process_priority = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="FeedbackControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0.501961 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="FeedbackControl"]
+anchor_right = 1.0
+margin_top = 5.0
+margin_bottom = 20.0
+custom_fonts/font = ExtResource( 2 )
+text = "Feedback"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -213.0
+margin_top = 15.0
+margin_right = 57.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 2 )
+text = "Description"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label3" type="Label" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -213.0
+margin_top = 224.0
+margin_right = 57.0
+margin_bottom = 239.0
+custom_fonts/font = ExtResource( 2 )
+text = "Contact info (optional)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -220.0
+margin_top = 34.0
+margin_right = 220.0
+margin_bottom = 138.0
+mouse_filter = 2
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextEdit" type="TextEdit" parent="FeedbackControl/Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 7.0
+margin_bottom = -9.0
+custom_fonts/font = ExtResource( 2 )
+custom_styles/read_only = SubResource( 15 )
+custom_styles/focus = SubResource( 16 )
+custom_styles/normal = SubResource( 1 )
+custom_styles/completion = SubResource( 17 )
+breakpoint_gutter = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -220.0
+margin_top = 242.0
+margin_right = 220.0
+margin_bottom = 282.0
+mouse_filter = 2
+custom_styles/panel = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineEdit" type="LineEdit" parent="FeedbackControl/Panel2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 7.0
+margin_bottom = -9.0
+custom_fonts/font = ExtResource( 2 )
+custom_styles/read_only = SubResource( 18 )
+custom_styles/focus = SubResource( 19 )
+custom_styles/normal = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Traffic" type="HBoxContainer" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -135.0
+margin_top = 140.0
+margin_right = 163.0
+margin_bottom = 175.0
+grow_horizontal = 2
+mouse_filter = 2
+custom_constants/separation = 8
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Negative" type="Button" parent="FeedbackControl/Traffic"]
+margin_right = 88.0
+margin_bottom = 35.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 6 )
+custom_styles/normal = SubResource( 11 )
+toggle_mode = true
+text = " Negative"
+icon = SubResource( 2 )
+flat = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+color = Color( 0.466667, 0.592157, 0.811765, 1 )
+
+[node name="Neutral" type="Button" parent="FeedbackControl/Traffic"]
+margin_left = 96.0
+margin_right = 179.0
+margin_bottom = 35.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/normal = SubResource( 12 )
+toggle_mode = true
+text = " Neutral"
+icon = SubResource( 3 )
+flat = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+color = Color( 0.956863, 0.709804, 0.266667, 1 )
+
+[node name="Positive" type="Button" parent="FeedbackControl/Traffic"]
+margin_left = 187.0
+margin_right = 270.0
+margin_bottom = 35.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = SubResource( 14 )
+custom_styles/pressed = SubResource( 9 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/normal = SubResource( 13 )
+toggle_mode = true
+text = " Positive"
+icon = SubResource( 4 )
+flat = true
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+color = Color( 0.431373, 0.890196, 0.286275, 1 )
+
+[node name="Checkboxes" type="HBoxContainer" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -128.0
+margin_top = 181.0
+margin_right = 128.0
+margin_bottom = 210.0
+grow_horizontal = 2
+mouse_filter = 2
+custom_constants/separation = 64
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gameplay" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
+margin_right = 0.0
+margin_bottom = 29.0
+
+[node name="Label" parent="FeedbackControl/Checkboxes/Gameplay" index="0"]
+text = "Gameplay"
+
+[node name="Sprite" parent="FeedbackControl/Checkboxes/Gameplay" index="1"]
+position = Vector2( 0, 7 )
+
+[node name="Visual" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
+margin_left = 64.0
+margin_right = 64.0
+margin_bottom = 29.0
+
+[node name="Label" parent="FeedbackControl/Checkboxes/Visual" index="0"]
+text = "Visual"
+
+[node name="Sprite" parent="FeedbackControl/Checkboxes/Visual" index="1"]
+position = Vector2( 0, 7 )
+
+[node name="Bug" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
+margin_left = 128.0
+margin_right = 128.0
+margin_bottom = 29.0
+
+[node name="Label" parent="FeedbackControl/Checkboxes/Bug" index="0"]
+text = "Bug"
+
+[node name="Sprite" parent="FeedbackControl/Checkboxes/Bug" index="1"]
+position = Vector2( 0, 7 )
+
+[node name="Lag" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
+margin_left = 192.0
+margin_right = 192.0
+margin_bottom = 29.0
+
+[node name="Sprite" parent="FeedbackControl/Checkboxes/Lag" index="1"]
+position = Vector2( 0, 7 )
+
+[node name="Other" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
+margin_left = 256.0
+margin_right = 256.0
+margin_bottom = 29.0
+
+[node name="Label" parent="FeedbackControl/Checkboxes/Other" index="0"]
+text = "Other"
+
+[node name="Sprite" parent="FeedbackControl/Checkboxes/Other" index="1"]
+position = Vector2( 0, 7 )
+
+[node name="Submit" type="Button" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 138.0
+margin_top = 304.0
+margin_right = 216.0
+margin_bottom = 339.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 3 )
+text = "Submit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label4" type="Label" parent="FeedbackControl"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -215.0
+margin_top = 285.0
+margin_right = 134.0
+margin_bottom = 372.0
+custom_fonts/font = ExtResource( 2 )
+text = "Report includes:
+-The data you entered
+-Ingame data (e.g. Mario's position, a screenshot, etc.)
+-Current platform (Windows, Web, Android, etc.)
+"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="FeedbackControl/Submit" to="FeedbackControl" method="_on_Submit_pressed"]
+
+[editable path="FeedbackControl/Checkboxes/Gameplay"]
+[editable path="FeedbackControl/Checkboxes/Visual"]
+[editable path="FeedbackControl/Checkboxes/Bug"]
+[editable path="FeedbackControl/Checkboxes/Lag"]
+[editable path="FeedbackControl/Checkboxes/Other"]

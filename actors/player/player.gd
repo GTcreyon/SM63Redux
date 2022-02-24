@@ -158,6 +158,7 @@ var collect_pos_final = Vector2()
 var collect_time : float = 0
 var solid_floors = 0
 var swim_delay = false
+var gp_dive_timer : int = 0
 
 enum s { #state enum
 	walk,
@@ -376,9 +377,19 @@ func _physics_process(_delta):
 		var i_dive_h = Input.is_action_pressed("dive")
 		var i_spin = Input.is_action_just_pressed("spin")
 		var i_spin_h = Input.is_action_pressed("spin")
+		var i_pound = Input.is_action_just_pressed("pound")
 		var i_pound_h = Input.is_action_pressed("pound")
 		var i_fludd = Input.is_action_pressed("fludd")
 		var i_switch = Input.is_action_just_pressed("switch_fludd")
+		
+		
+		if Input.is_action_just_pressed("reset"):
+			get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
+			Singleton.get_node("Timer").frames = 0
+			Singleton.get_node("Timer").split_frames = 0
+			$"/root/Singleton/Warp".set_location = null
+			position = Vector2(110, 153)
+			
 #		if Input.is_action_just_pressed("debug"):
 #			if i_jump_h:
 #				$"/root/Main".classic = !classic
@@ -399,6 +410,8 @@ func _physics_process(_delta):
 			coyote_time = 5
 		else:
 			coyote_time = max(coyote_time - 1, 0)
+			
+		gp_dive_timer = max(gp_dive_timer - 1, 0)
 		
 		if i_jump_h:
 			jump_buffer = max(jump_buffer - 1, 0)
@@ -500,6 +513,10 @@ func _physics_process(_delta):
 					sprite.frame = 1
 					sprite.speed_scale = 1
 					swim_delay = true
+				elif state == s.waterspin:
+					switch_state(s.swim)
+					fall_adjust -= set_jump_1_vel * 1.25
+					vel.x += 1.5 * sign(vel.x)
 				elif state == s.waterdive && i_jump && (((int(i_right) - int(i_left)) == 1.0 && sprite.flip_h) || ((int(i_right) - int(i_left)) == -1.0 && !sprite.flip_h)):
 					if !dive_return:
 						dive_correct(-1)
@@ -944,6 +961,7 @@ func _physics_process(_delta):
 					&& state != s.pound_spin
 					&& state != s.pound_land):
 					if !ground:
+						gp_dive_timer = 6
 						coyote_time = 0
 						if state != s.frontflip:
 							play_voice("dive")
@@ -988,12 +1006,45 @@ func _physics_process(_delta):
 					vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
 				spin_timer = 30
 			
-			if i_pound_h && !ground && state != s.pound_spin && state != s.pound_fall && state != s.pound_land && (state != s.dive || !classic) && (state != s.diveflip || !classic) && (state != s.spin || !classic):
-				switch_state(s.pound_spin)
-				sprite.rotation_degrees = 0
-				tween.remove_all()
-				tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
-				tween.start()
+			if i_pound_h:
+				if state == s.dive && gp_dive_timer > 0:
+					var mag = vel.length()
+					var ang
+					if vel.x > 0:
+						ang = PI / 5
+					else:
+						ang = PI - PI / 5
+					vel = Vector2(cos(ang) * mag, sin(ang) * mag)
+				else:
+					if (
+						!ground
+						&& state != s.pound_spin
+						&& state != s.pound_fall
+						&& state != s.pound_land
+						&&
+						(
+							state != s.dive
+							||
+							(
+								!classic
+								&& i_pound
+							)
+						)
+						&&
+						(
+							state != s.diveflip || !classic
+						)
+						&&
+						(
+							state != s.spin || !classic
+						)
+					):
+						switch_state(s.pound_spin)
+						switch_anim("pound_spin")
+						sprite.rotation_degrees = 0
+						tween.remove_all()
+						tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
+						tween.start()
 		
 		if wall:
 			if int(vel.x) != 0:
@@ -1019,10 +1070,14 @@ func _physics_process(_delta):
 		var slide_vec = position-save_pos
 		if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
 			ground_override = min(ground_override + 1, ground_override_threshold)
-		position = save_pos
-		if slide_vec.length() > 0.5 || ((state == s.swim || state == s.waterbackflip || state == s.waterspin) && slide_vec != Vector2.ZERO):
+		
+		if (
+			slide_vec.x >= 0.5
+			&& is_on_floor()
+		):
+			position = save_pos
 			#warning-ignore:return_value_discarded
-			move_and_slide_with_snap(vel*60.0 * (vel.length()/slide_vec.length()), snap, Vector2(0, -1), true, 4, deg2rad(47))
+			move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
@@ -1106,6 +1161,10 @@ func invincibility_on_effect():
 
 func is_spinning():
 	return (state == s.spin || state == s.waterspin) && spin_timer > 0
+
+
+func is_diving(allow_recover):
+	return (state == s.dive || state == s.waterdive || state == s.edive || (state == s.diveflip && allow_recover))
 
 
 func is_swimming():

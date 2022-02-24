@@ -1,5 +1,7 @@
 extends Control
 
+onready var parent = $".."
+
 func _init():
 	visible = false
 	if OS.get_name() == "Android":
@@ -11,8 +13,10 @@ func _ready():
 
 
 func _on_Unpause_pressed():
-	Input.action_press("pause")
+	if !Singleton.feedback && parent.visible:
+		Input.action_press("pause")
 
 
 func _on_Unpause_released():
-	Input.action_release("pause")
+	if !Singleton.feedback && parent.visible:
+		Input.action_release("pause")

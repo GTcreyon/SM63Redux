@@ -1,11 +1,10 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/items/log/log.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/items/log/log_fall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://actors/player/player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://actors/items/rocks/big_rock/big_rock.tscn" type="PackedScene" id=5]
-[ext_resource path="res://actors/items/breakable_box/breakable_box.tscn" type="PackedScene" id=6]
 [ext_resource path="res://actors/items/decoration/big_tree.tscn" type="PackedScene" id=7]
 [ext_resource path="res://actors/water/water.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/tutorial_1/temp/t1r1/Sprite-0005.png" type="Texture" id=9]
@@ -23,7 +22,7 @@
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=21]
 [ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/items/coin/coin_blue.tscn" type="PackedScene" id=23]
-[ext_resource path="res://shaders/glow_deep.shader" type="Shader" id=24]
+[ext_resource path="res://shaders/glow.shader" type="Shader" id=24]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=25]
 [ext_resource path="res://actors/warpzone/warp_zone.tscn" type="PackedScene" id=26]
 [ext_resource path="res://actors/camera_area/camera_area.tscn" type="PackedScene" id=27]
@@ -32,36 +31,37 @@
 [ext_resource path="res://actors/items/butterfly/butterfly.tscn" type="PackedScene" id=30]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=31]
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
 shader = ExtResource( 24 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 2
 shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=7]
 resource_local_to_scene = true
 shader = ExtResource( 24 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/atlas_dimensions = Vector2( 12, 1 )
+shader_param/width = 2
 shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id=6]
 resource_local_to_scene = true
 shader = ExtResource( 24 )
-shader_param/intensity = 200
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader_param/atlas_dimensions = Vector2( 1, 1 )
+shader_param/width = 2
 shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [node name="Main" type="Node2D"]
 
 [node name="BGT1" parent="." instance=ExtResource( 25 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
-polygon = PoolVector2Array( 11.5771, -304.359, 1916.15, -282.382, 1917.94, 482.009, 3.64716, 476.351 )
+visible = false
+polygon = PoolVector2Array( 0, -304, 1920, -304, 1920, 480, 0, 480 )
 spawn_position = Vector2( 400, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
@@ -106,9 +106,6 @@ texture = ExtResource( 16 )
 position = Vector2( 1112.68, 287.02 )
 
 [node name="Items" type="Node2D" parent="."]
-
-[node name="BreakableBox" parent="Items" instance=ExtResource( 6 )]
-position = Vector2( 1738.77, 94.2475 )
 
 [node name="Logs" type="Node2D" parent="Items"]
 
@@ -196,19 +193,19 @@ position = Vector2( 1092, 111 )
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign" parent="Items/Signs" instance=ExtResource( 17 )]
-material = SubResource( 1 )
+material = SubResource( 4 )
 position = Vector2( 189, 165 )
-lines = [ "Hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times’ sake,[@p,3] here’s a refresher.", "Use [color=#f7c55f]Arrows[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact][/color].", "They have plenty of tips to help traverse,[@p,3] and if you’re not interested,[@p,3] at least say “Hi” for me,[@p,3] eh?" ]
+lines = [ "[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here’s a refresher.", "Use [color=#f7c55f]Arrows[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact][/color].", "They have plenty of tips to help out,[@p,3] and if you're not interested,[@p,3] at least say \"Hi\" for me,[@p,3] eh?" ]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource( 17 )]
-material = SubResource( 2 )
+material = SubResource( 7 )
 position = Vector2( 299, 165 )
-lines = [ "Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as a thank you?", "You can press [color=#f7c55f][@b,spin][/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
+lines = [ "[@n,Gil Board]Oh hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as thanks?", "You can press [color=#f7c55f][@b,spin][/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, eh?" ]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource( 17 )]
-material = SubResource( 3 )
+material = SubResource( 6 )
 position = Vector2( 1287, 53 )
-lines = [ "Oh [color=#df6042]Mario[/color],[@p,3] honey![@p,10] It’s been so long since I’ve seen you...[@p,10] Oh my![@p,10] I see scars from your journeys...", "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an unlucky enemy to refill one [color=#ff7f7f]health point.[/color]", "No one quite understands why,[@p,3] but it’s a lifesaver -[@p,3] so keep it in mind,[@p,3] sweetie!" ]
+lines = [ "[@n,Jil Board]Oh [color=#ff8b70]Mario[/color],[@p,3] honey![@p,10] It’s been so long since I’ve seen you...[@p,10] Oh my![@p,10] I see scars from your journeys...", "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an unlucky enemy to refill one [color=#ff7f7f]health point.[/color]", "No one quite understands why,[@p,3] but it’s a lifesaver -[@p,3] so keep it in mind,[@p,3] sweetie!" ]
 
 [node name="Decoration" type="Node2D" parent="Items"]
 
@@ -328,37 +325,31 @@ rotation = 4.71239
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 137, 142 )
 animation = "green"
-frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 299, 82 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 533, 104 )
 animation = "green"
-frame = 1
 
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 945, 22 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly5" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1230, 9 )
 animation = "orange"
-frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly6" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1428, 71 )
 animation = "green"
-frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 86 )
@@ -457,11 +448,11 @@ position = Vector2( 534, 85 )
 flip = true
 
 [node name="Goonie4" parent="Items/Birds" instance=ExtResource( 31 )]
-position = Vector2( 798, 119 )
+position = Vector2( 797, 72 )
 flip = true
 
 [node name="Goonie5" parent="Items/Birds" instance=ExtResource( 31 )]
-position = Vector2( 740, 105 )
+position = Vector2( 739, 58 )
 flip = true
 
 [node name="Goonie6" parent="Items/Birds" instance=ExtResource( 31 )]
@@ -473,6 +464,9 @@ position = Vector2( 1554, 128 )
 [node name="Goonie8" parent="Items/Birds" instance=ExtResource( 31 )]
 position = Vector2( 1701, 85 )
 flip = true
+
+[node name="BigRock" parent="Items" instance=ExtResource( 5 )]
+position = Vector2( 1724, 104 )
 
 [node name="Water" type="Node2D" parent="."]
 
@@ -491,20 +485,14 @@ outline_texture_size = Vector2( 32, 6 )
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 18, 159 )
 z_index = 1
-polygon = PoolVector2Array( -17, -8, 83, 9, 304, 9, 304, 87, 334, 169, 401, 153, 422, 85, 422, -1, 449, -14, 495, -11, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 777, 198, 948, 216, 1130, 189, 1181, 111, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -120, 1939, -120, 2200, 422, -91, 442 )
-up_direction = Vector2( 0, -1 )
-down_direction = Vector2( 0, 1 )
-max_deviation = 60
+polygon = PoolVector2Array( -17, -8, 67.0601, 15.773, 304, 9, 304, 87, 334, 169, 401, 153, 418.545, 86.5817, 422, -1, 449, -14, 496, -18, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 775.75, 197.25, 948, 216, 1130, 189, 1178.96, 111.727, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -111, 1939, -111, 2200, 422, -91, 442 )
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
-polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277, 133, 159, 141, 1, 118 )
-up_direction = Vector2( 0, -1 )
-down_direction = Vector2( 0, 1 )
-max_deviation = 60
+polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277.063, 132.418, 159, 141, 1, 118 )
 
 [node name="CoinBlue" parent="." instance=ExtResource( 23 )]
-position = Vector2( 1739, 51 )
+position = Vector2( 1728, 55 )
 
 [node name="WarpZone" parent="." instance=ExtResource( 26 )]
 position = Vector2( 1911, -50 )

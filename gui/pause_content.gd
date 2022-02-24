@@ -18,7 +18,7 @@ func _process(_delta):
 	exit.visible = false
 	info.visible = false
 	for node in stats:
-		node.visible = !get_tree().paused
+		node.visible = !Singleton.pause_menu
 	if map_button.pressed:
 		map.visible = true
 	elif fludd_button.pressed:

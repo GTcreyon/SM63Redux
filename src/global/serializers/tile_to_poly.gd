@@ -61,12 +61,12 @@ func shift_and_incease_2d_grid(grid, i_w, i_h, i = 0):
 	var g_h = grid[0].size()
 	#append to the bottom of the grid
 	for x in range(0, g_w):
-		for y in range(g_h, g_h + i_h):
+		for _y in range(g_h, g_h + i_h):
 			grid[x].append(i)
 	#append to the right of the grid
 	for x in range(g_w, g_w + i_w):
 		grid.append([])
-		for y in range(g_h + i_h):
+		for _y in range(g_h + i_h):
 			grid[x].append(i)
 	
 	#now shift everything
@@ -110,7 +110,7 @@ func debug_draw_edges(sorted, offset = Vector2(10, 10)):
 	for ind in range(e_size):
 		var a = sorted[ind] * mul + offset
 		var b = sorted[(ind + 1) % e_size] * mul + offset
-		var c = sorted[(ind + 2) % e_size] * mul + offset
+		var _c = sorted[(ind + 2) % e_size] * mul + offset
 		
 		verts.append(a)
 		colors.append(color)
@@ -123,7 +123,7 @@ func debug_draw_edges(sorted, offset = Vector2(10, 10)):
 		draw_line(a, b, Color(0, 0, 1))
 		draw_circle(a, 2, Color(0, 0, ind / float(e_size)))
 		
-		var n = 1 - t_offset[a] / 3.0
+		var _n = 1 - t_offset[a] / 3.0
 		#draw_string(font, a + Vector2(0, 10) * t_offset[a], str(ind), Color(n, 1, 1))
 		
 	draw_polygon(verts, colors)
@@ -428,11 +428,11 @@ func step_get_polygon_from_grid(grid, filter):
 	#merge body contours with holes
 	var real_contours = []
 	for body_ind in non_holes:
-		var has_holes = false
+		var _has_holes = false
 		for hole_ind in holes:
 			var is_inside = are_polygons_inside_eachother(contours[body_ind], contours[hole_ind])
 			if is_inside[0] || is_inside[1]:
-				has_holes = true
+				_has_holes = true
 				#split modifies the reference, does not recreate the polygon, so yeah
 				split_polygon_with_holes(contours[body_ind], contours[hole_ind])
 		real_contours.append(contours[body_ind])

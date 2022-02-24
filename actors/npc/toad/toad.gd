@@ -75,7 +75,7 @@ func _process(delta):
 		if Input.is_action_just_pressed("interact") && overlaps_body(player) && player.state == player.s.walk && player.sign_cooldown <= 0:
 			#player.switch_anim("back")
 			player.vel = Vector2.ZERO
-			player.sign_x = position.x - 20
+			player.sign_x = position.x - 16
 			player.static_v = true
 			player.sign_cooldown = 1
 			dialog.load_lines(lines)

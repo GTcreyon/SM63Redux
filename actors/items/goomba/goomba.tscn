@@ -37,13 +37,13 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 9, 9.5 )
+extents = Vector2( 9.5, 9.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 288, 85 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 9, 10 )
+extents = Vector2( 9.5, 10 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 1, 1 )
@@ -62,7 +62,6 @@ animation = "walking"
 script = ExtResource( 15 )
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 0.5 )
 shape = SubResource( 2 )
 
