@@ -92,10 +92,11 @@ func add_edge_segment(is_left, group):
 #				colors = []
 #				for v in new_poly:
 #					colors.append(color_white)
-				print("success: ", group.index)
+				#print("success: ", group.index)
 				draw_polygon(new_poly, colors, new_uv, root.top_corner_shade)
 			else:
-				print("oh no: ", group.index, ": ", new_poly.size(), " - ", new_uv.size())
+				#print("oh no: ", group.index, ": ", new_poly.size(), " - ", new_uv.size())
+				pass
 		else:
 			#since we're fully surrounded, simply draw the shade with no issues
 			draw_polygon(poly, colors, uvs, root.top_corner_shade)
