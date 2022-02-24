@@ -64,8 +64,6 @@ material = ExtResource( 4 )
 texture = ExtResource( 6 )
 centered = false
 
-[node name="LevelTemplate" type="Node2D" parent="."]
-
 [node name="Music" type="AudioStreamPlayer" parent="."]
 script = ExtResource( 5 )
 

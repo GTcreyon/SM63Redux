@@ -3,7 +3,7 @@ extends Control
 onready var level_editor := $"/root/Main"
 onready var ld_camera := $"/root/Main/LDCamera"
 onready var background := $"/root/Main/LDCamera/Background"
-onready var lv_template := $"/root/Main/LevelTemplate"
+onready var lv_template := preload("res://src/level_designer/template.tscn")
 
 var terrain_modifier = {
 	state = "idle"
@@ -128,3 +128,7 @@ func _on_terrain_control_place_pressed():
 	print("Place Terrain")
 	fake_polygon_create()
 	pass # Replace with function body.
+
+func _ready():
+	var template = lv_template.instance()
+	level_editor.add_child(template)

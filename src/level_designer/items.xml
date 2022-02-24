@@ -1,0 +1,32 @@
+<?xml version="1.1" encoding="UTF-8"?>
+<items>
+    <!-- 
+        <class name="class name">
+            [OPTIONAL] <property label="label name" type="property type" [OPTIONAL] link="see link documentation" [OPTIONAL] description="description to show" />
+        </class>
+
+        <item name="item name" description="item description">
+            [OPTIONAL] <inherit name="class name to inherit from" />
+            [OPTIONAL] <property label="label name" type="property type" [OPTIONAL] link="see link documentation" [OPTIONAL] description="description to show" />
+        </item>
+
+        Link:
+            The link is an optional value, if it is left out, no function besides the default ld_property_edited will be invoked.
+            A link can start with a prefix, prefixes must be a path to a node, for example `res://somewhere/entity#`, if there is a prefix it will invoke the function found in the node listed in the prefix. The prefix ends once it reaches a #
+            If there's no prefix, it will assume the function can be found in the item itself.
+    -->
+    <class name="basic">
+        <property label="Position" type="vector2" link="res://somewhere/global#function_position" description="Repositions the item." />
+        <property label="Rotation" type="number" link="res://somewhere/global#function_rotation" description="Rotates the item." />
+    </class>
+    <class name="entity">
+        <property label="Health" type="number" link="res://somewhere/entity#function_position" description="The health of the entity." />
+    </class>
+
+    <item name="DemoItem" description="The REAL demo item, can you believe it? Me neither.">
+        <inherits name="basic" />
+        <inherits name="entity" />
+        <property label="Text" type="string" link="some_function" description="The text this item has. Idk." />
+        <property label="Text" type="string" description="The text this item has. Idk." />
+    </item>
+</items>
