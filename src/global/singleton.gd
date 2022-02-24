@@ -67,6 +67,9 @@ func _ready():
 func warp_to(path):
 	collect_count = 0
 	#create_coindict(path)
+	if path == "res://scenes/tutorial_1/tutorial_1_1.tscn":
+		timer.frames = 0
+		timer.split_frames = 0
 	timer.split()
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	return get_tree().call_deferred("change_scene", path)
