@@ -381,6 +381,15 @@ func _physics_process(_delta):
 		var i_pound_h = Input.is_action_pressed("pound")
 		var i_fludd = Input.is_action_pressed("fludd")
 		var i_switch = Input.is_action_just_pressed("switch_fludd")
+		
+		
+		if Input.is_action_just_pressed("reset"):
+			get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
+			Singleton.get_node("Timer").frames = 0
+			Singleton.get_node("Timer").split_frames = 0
+			$"/root/Singleton/Warp".set_location = null
+			position = Vector2(110, 153)
+			
 #		if Input.is_action_just_pressed("debug"):
 #			if i_jump_h:
 #				$"/root/Main".classic = !classic
