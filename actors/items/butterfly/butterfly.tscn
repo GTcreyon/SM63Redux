@@ -35,13 +35,13 @@ region = Rect2( 16, 0, 8, 8 )
 atlas = ExtResource( 1 )
 region = Rect2( 16, 8, 8, 8 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 8, 8 )
+region = Rect2( 8, 0, 8, 8 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 8, 8, 8 )
+region = Rect2( 8, 8, 8, 8 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
@@ -51,13 +51,13 @@ region = Rect2( 24, 0, 8, 8 )
 atlas = ExtResource( 1 )
 region = Rect2( 24, 8, 8, 8 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
-region = Rect2( 8, 0, 8, 8 )
+region = Rect2( 0, 0, 8, 8 )
 
-[sub_resource type="AtlasTexture" id=15]
+[sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 1 )
-region = Rect2( 8, 8, 8, 8 )
+region = Rect2( 0, 8, 8, 8 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -81,24 +81,23 @@ animations = [ {
 "name": "orange",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 2 ), SubResource( 3 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
-"name": "white",
-"speed": 4.0
+"name": "red",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 12 ), SubResource( 13 ) ],
 "loop": true,
 "name": "yellow",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"frames": [ SubResource( 2 ), SubResource( 3 ) ],
 "loop": true,
-"name": "red",
-"speed": 5.0
+"name": "white",
+"speed": 4.0
 } ]
 
 [node name="Butterfly" type="AnimatedSprite"]
 frames = SubResource( 1 )
 animation = "white"
-playing = true
 script = ExtResource( 2 )
