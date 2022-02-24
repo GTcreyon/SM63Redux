@@ -219,7 +219,7 @@ position = Vector2( 8.5, 102 )
 position = Vector2( 242.5, 115 )
 
 [node name="BigTree3" parent="Items/Decoration" instance=ExtResource( 7 )]
-position = Vector2( 901.5, 97 )
+position = Vector2( 901.5, 98 )
 
 [node name="BigTree4" parent="Items/Decoration" instance=ExtResource( 7 )]
 position = Vector2( 1012.5, 38 )
@@ -234,7 +234,7 @@ position = Vector2( 137, 158.5 )
 position = Vector2( 578.5, 75 )
 
 [node name="SmallTree3" parent="Items/Decoration" instance=ExtResource( 18 )]
-position = Vector2( 496, 110 )
+position = Vector2( 496, 106 )
 
 [node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 20 )]
 position = Vector2( 1223, 119.5 )
@@ -352,13 +352,13 @@ position = Vector2( 1428, 71 )
 animation = "green"
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1388, 86 )
+position = Vector2( 1388, 85 )
 
 [node name="Goomba2" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1490, 86 )
+position = Vector2( 1490, 85 )
 
 [node name="Goomba3" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1593, 88 )
+position = Vector2( 1593, 87 )
 
 [node name="Coins" type="Node2D" parent="Items"]
 
@@ -485,7 +485,7 @@ outline_texture_size = Vector2( 32, 6 )
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 18, 159 )
 z_index = 1
-polygon = PoolVector2Array( -17, -8, 67.0601, 15.773, 304, 9, 304, 87, 334, 169, 401, 153, 418.545, 86.5817, 422, -1, 449, -14, 496, -18, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 775.75, 197.25, 948, 216, 1130, 189, 1178.96, 111.727, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -111, 1939, -111, 2200, 422, -91, 442 )
+polygon = PoolVector2Array( -17, -8, 67, 9, 304, 9, 304, 87, 334, 169, 401, 153, 418.545, 86.5817, 422, -1, 449, -14, 496, -18, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 775.75, 197.25, 948, 216, 1130, 189, 1178.96, 111.727, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -111, 1939, -111, 2200, 422, -91, 442 )
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
