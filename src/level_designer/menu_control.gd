@@ -83,12 +83,13 @@ func _draw():
 #			colors
 #		)
 		
-		draw_polyline(
-			local_poly,
-			Color(0, 0.7, 0) if success else Color(0.7, 0, 0),
-			2,
-			true
-		)
+#		if local_poly.size() >= 3:
+#			draw_polyline(
+#				local_poly,
+#				Color(0, 0.7, 0) if success else Color(0.7, 0, 0),
+#				2,
+#				true
+#			)
 		
 		draw_circle(
 			local_poly[local_poly.size() - 1],
