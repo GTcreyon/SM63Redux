@@ -13,7 +13,8 @@
 
         Link:
             The link is an optional value, if it is left out, no function besides the default ld_property_edited will be invoked.
-            A link can start with a prefix, prefixes must be a path to a node, for example `res://somewhere/entity#`, if there is a prefix it will invoke the function found in the node listed in the prefix. The prefix ends once it reaches a #
+            A link can start with a prefix, prefixes must be a path to a node, for example `res://somewhere/entity#`,
+            if there is a prefix it will invoke the function found in the node listed in the prefix. The prefix ends once it reaches a #
             If there's no prefix, it will assume the function can be found in the item itself.
 
         Tag:
