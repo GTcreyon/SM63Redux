@@ -49,8 +49,8 @@ func draw_top_from_connected_lines(lines):
 		var next: Vector2 = lines[(ind + 1) % p_size]
 		var dir := current.direction_to(next)
 		var normal := dir.tangent()
-		var off_up := normal * 12
-		var off_down := normal * -6
+		var off_up := normal * 6
+		var off_down := normal * -12
 		
 		var verts = [
 			current + off_up,
