@@ -172,6 +172,10 @@ func draw_top_from_connected_lines(lines):
 		poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - text_offset.y
 		poly2d.z_index = 2
 		add_child(poly2d)
+		
+		var shade = poly2d.duplicate()
+		shade.texture = root.top_shade
+		add_child(shade)
 
 	#draw the right area
 	top_edges.segment_queue.append([false, areas.back()])

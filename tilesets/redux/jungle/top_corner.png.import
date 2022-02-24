@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/top_edge_left.png-1d3c997917b8eac7f14ce6928de2b6f6.stex"
+path="res://.import/top_corner.png-072f1cd5bb62db7f3cc23172564ed6d3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tilesets/redux/jungle/top_edge_left.png"
-dest_files=[ "res://.import/top_edge_left.png-1d3c997917b8eac7f14ce6928de2b6f6.stex" ]
+source_file="res://tilesets/redux/jungle/top_corner.png"
+dest_files=[ "res://.import/top_corner.png-072f1cd5bb62db7f3cc23172564ed6d3.stex" ]
 
 [params]
 
