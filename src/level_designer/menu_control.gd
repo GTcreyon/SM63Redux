@@ -1,5 +1,6 @@
 extends Control
 
+const ld_item = preload("res://actors/items/ld_item.tscn")
 const list_item = preload("res://src/level_designer/list_item.tscn")
 
 onready var level_editor := $"/root/Main"
@@ -15,6 +16,7 @@ var terrain_modifier = {
 var item_classes = {}
 var items = {}
 var item_textures = {}
+var template
 
 func read_items():
 	var parser = XMLParser.new()
@@ -225,8 +227,8 @@ func _on_terrain_control_place_pressed():
 func _ready():
 	read_items()
 	fill_grid()
-	var template = lv_template.instance()
-	level_editor.add_child(template)
+	template = lv_template.instance()
+	level_editor.call_deferred("add_child", template)
 
 
 func fill_grid():
@@ -258,3 +260,10 @@ func fill_grid():
 		button.texture_normal = tex
 		button.item_name = key
 		item_grid.add_child(button)
+
+
+func spawn_item(path):
+	var inst = ld_item.instance()
+	inst.ghost = true
+	inst.texture = load(path)
+	template.get_node("Items").add_child(inst)
