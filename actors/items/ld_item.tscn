@@ -1,8 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://actors/items/arrow/arrow.png" type="Texture" id=1]
 [ext_resource path="res://actors/items/ld_item.gd" type="Script" id=21]
 
+[sub_resource type="RectangleShape2D" id=1]
+
 [node name="LDItem" type="Sprite"]
 texture = ExtResource( 1 )
 script = ExtResource( 21 )
+
+[node name="ClickArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+shape = SubResource( 1 )
+
+[connection signal="input_event" from="ClickArea" to="." method="_on_ClickArea_input_event"]
+[connection signal="mouse_entered" from="ClickArea" to="." method="_on_ClickArea_mouse_entered"]
+[connection signal="mouse_exited" from="ClickArea" to="." method="_on_ClickArea_mouse_exited"]

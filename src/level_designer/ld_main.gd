@@ -1,9 +1,9 @@
 extends Node2D
 
-var start_pos
-
 onready var singleton = $"/root/Singleton"
 onready var sm63_to_redux: SM63ToRedux = singleton.sm63_to_redux
+
+var start_pos
 
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
 const item_prefab = preload("res://actors/items/ld_item.tscn")
