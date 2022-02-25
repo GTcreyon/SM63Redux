@@ -384,7 +384,7 @@ func _physics_process(_delta):
 		
 		
 		if Input.is_action_just_pressed("reset"):
-			get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
+			var _return = get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
 			Singleton.get_node("Timer").frames = 0
 			Singleton.get_node("Timer").split_frames = 0
 			$"/root/Singleton/Warp".set_location = null

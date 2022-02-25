@@ -1,6 +1,5 @@
 extends Control
 
-const ld_item = preload("res://actors/items/ld_item.tscn")
 const list_item = preload("res://src/level_designer/list_item.tscn")
 
 onready var level_editor := $"/root/Main"
@@ -13,94 +12,7 @@ var terrain_modifier = {
 	state = "idle"
 }
 
-var item_classes = {}
-var items = {}
-var item_textures = {}
 var template
-
-func read_items():
-	var parser = XMLParser.new()
-	parser.open("res://src/level_designer/items.xml.tres")
-	
-	var parent_name
-	var parent_subname
-	var allow_reparent: bool = true
-	while (!parser.read()):
-		var node_type = parser.get_node_type()
-		
-		match node_type:
-			#unused nodes
-			parser.NODE_NONE:
-				pass
-			parser.NODE_COMMENT:
-				pass
-			parser.NODE_UNKNOWN:
-				pass
-			parser.NODE_CDATA:
-				pass
-			parser.NODE_TEXT:
-				pass
-			
-			#useful nodes
-			parser.NODE_ELEMENT:
-				var node_name = parser.get_node_name()
-				print(node_name)
-				#interpret classes
-				if parent_name == "class":
-					if node_name == "property":
-						var item_class = item_classes[parent_subname]
-						var link_txt = parser.get_named_attribute_value_safe("link")
-						link_txt = "#DEFAULT#" if link_txt == "" else link_txt
-						
-						var properties = {
-							label = parser.get_named_attribute_value("label"),
-							type = parser.get_named_attribute_value("type"),
-							link = link_txt,
-							description = parser.get_named_attribute_value("description")
-						}
-						
-						item_class.append(properties)
-				elif parent_name == "item":
-					print(node_name)
-					match node_name:
-						"property":
-							var item_class = items[parent_subname]
-							var link_txt = parser.get_named_attribute_value_safe("link")
-							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
-							
-							var properties = {
-								label = parser.get_named_attribute_value("label"),
-								type = parser.get_named_attribute_value("type"),
-								link = link_txt,
-								description = parser.get_named_attribute_value("description")
-							}
-							
-							item_class.append(properties)
-						"texture":
-							if !item_textures.has(parent_subname):
-								item_textures[parent_subname] = {"Placed": null, "List": null}
-							var path = parser.get_named_attribute_value_safe("path")
-							item_textures[parent_subname][parser.get_named_attribute_value_safe("tag")] = path
-								
-						#"inherit":
-							
-				
-				if allow_reparent:
-					var subname = parser.get_named_attribute_value_safe("name")
-					parent_subname = subname
-					if node_name == "class":
-						item_classes[subname] = []
-					elif node_name == "item":
-						items[subname] = []
-					parent_name = node_name
-					allow_reparent = false
-			parser.NODE_ELEMENT_END:
-				var node_name = parser.get_node_name()
-				if node_name == "class" || node_name == "item":
-					allow_reparent = true
-	print(item_classes)
-	print(items)
-	print(item_textures)
 
 #a bad, slow, O(n^2), but easy to implement algorithm
 #I should look into better algorithms
@@ -134,8 +46,6 @@ func snap_vector(vec, grid):
 
 func fake_polygon_create():
 #	var poly = Polygon2D.new()
-#	lv_template.add_child(poly)
-#	lv_template.get_parent().print_tree_pretty()
 	terrain_modifier.clear()
 	terrain_modifier.state = "create"
 	terrain_modifier.polygon = [Vector2(0, 0)]
@@ -169,20 +79,22 @@ func _draw():
 				Color(0, 1, 0, 0.2) if success else Color(1, 0, 0, 0.2)
 			)
 		
-		terrain_modifier.ref.polygon = terrain_modifier.polygon
+		#terrain_modifier.ref.polygon = terrain_modifier.polygon
 		
-#		draw_polygon(
-#			local_poly,
-#			colors
-#		)
 		
-#		if local_poly.size() >= 3:
-#			draw_polyline(
-#				local_poly,
-#				Color(0, 0.7, 0) if success else Color(0.7, 0, 0),
-#				2,
-#				true
-#			)
+		if local_poly.size() >= 3:
+			draw_polygon(
+				local_poly,
+				colors
+			)
+		
+		if local_poly.size() >= 2:
+			draw_polyline(
+				local_poly,
+				Color(0, 0.7, 0) if success else Color(0.7, 0, 0),
+				2,
+				true
+			)
 		
 		draw_circle(
 			local_poly[local_poly.size() - 1],
@@ -193,7 +105,7 @@ func _draw():
 
 func _input(event):
 	if terrain_modifier.state == "create":
-		var grid_px = 16
+		var grid_px = 8
 		
 		#have a dynamic moving polygon by updating the last vertex
 		if event is InputEventMouseMotion and terrain_modifier.polygon.size() >= 1:
@@ -225,20 +137,19 @@ func _on_terrain_control_place_pressed():
 
 
 func _ready():
-	read_items()
 	fill_grid()
 	template = lv_template.instance()
 	level_editor.call_deferred("add_child", template)
 
 
 func fill_grid():
-	for key in item_textures.keys():
+	for key in level_editor.item_textures.keys():
 		var button = list_item.instance()
 		var tex : AtlasTexture = AtlasTexture.new()
 		
-		var path = item_textures[key]["List"]
+		var path = level_editor.item_textures[key]["List"]
 		if path == null:
-			path = item_textures[key]["Placed"]
+			path = level_editor.item_textures[key]["Placed"]
 		
 		var stream: StreamTexture = load(path)
 		tex.atlas = stream
@@ -260,10 +171,3 @@ func fill_grid():
 		button.texture_normal = tex
 		button.item_name = key
 		item_grid.add_child(button)
-
-
-func spawn_item(path):
-	var inst = ld_item.instance()
-	inst.ghost = true
-	inst.texture = load(path)
-	template.get_node("Items").add_child(inst)

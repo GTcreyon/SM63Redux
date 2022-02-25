@@ -54,28 +54,28 @@
     </item>
 
     <item name="Yellow Coin" description="A single coin.">
-		<texture tag="Placed" path="res://actors/items/coin/coin0.png">
+		<texture tag="Placed" path="res://actors/items/coin/coin0.png" />
         <inherit name="point" />
     </item>
 
-    <item name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!">
-		<texture tag="Placed" path="res://actors/items/coin/red_coin0.png">
+    <item name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!" />
+		<texture tag="Placed" path="res://actors/items/coin/red_coin0.png" />
         <inherit name="point" />
     </item>
 
     <item name="Blue Coin" description="Counts for 5 yellow coins!">
-		<texture tag="Placed" path="res://actors/items/coin/blue_coin0.png">
+		<texture tag="Placed" path="res://actors/items/coin/blue_coin0.png" />
         <inherit name="point" />
     </item>
 
     <item name="Silver Star" description="Collect them all to summon a Shine Sprite!">
-		<texture tag="List" path="res://gui/hud/hud_silver_shine.png">
+		<texture tag="List" path="res://gui/hud/hud_silver_shine.png" />
         <inherit name="point" />
     </item>
 
     <item name="Shine Sprite" description="The level goal!">
-		<texture tag="Placed" path="res://actors/items/shine/shine_placed.png">
-		<texture tag="List" path="res://gui/hud/hud_shine_old.png">
+		<texture tag="Placed" path="res://actors/items/shine/shine_placed.png" />
+		<texture tag="List" path="res://gui/hud/hud_shine_old.png" />
 		<!--TODO: trigger properties (e.g. red coins, silver shines, boss - pipescript?), shine ID for missions-->
         <inherit name="point" />
     </item>
@@ -86,7 +86,7 @@
     </item>
 
     <item name="Log" description="A wooden log.">
-		<texture tag="Placed" path="res://actors/items/log/log.png">
+		<texture tag="Placed" path="res://actors/items/log/log.png" />
         <inherit name="point" />
     </item>
 
