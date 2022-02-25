@@ -232,18 +232,29 @@ func _ready():
 func fill_grid():
 	for key in item_textures.keys():
 		var button = list_item.instance()
-		var tex : ImageTexture = ImageTexture.new()
-		var img : Image = Image.new()
+		var tex : AtlasTexture = AtlasTexture.new()
+		
 		var path = item_textures[key]["List"]
 		if path == null:
 			path = item_textures[key]["Placed"]
-		if path == null:
-			img.create(16, 16, false, Image.FORMAT_RB8)
-			img.fill(Color.magenta)
-		else:
-			img.load(path)
-			img.crop(16, 16)
-		tex.create_from_image(img)
+		
+		var stream: StreamTexture = load(path)
+		tex.atlas = stream
+		var min_size = Vector2(
+			min(
+				stream.get_width(),
+				16
+			),
+			min(
+				stream.get_height(),
+				16
+			)
+		)
+		tex.region = Rect2(
+			stream.get_size() / 2 - min_size / 2,
+			min_size
+		)
+			
 		button.texture_normal = tex
 		button.item_name = key
 		item_grid.add_child(button)
