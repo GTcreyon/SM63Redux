@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://src/level_designer/ld_main.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://gui/ld/hermes.tscn" type="PackedScene" id=12]
 [ext_resource path="res://gui/ld/scroll_block_v.png" type="Texture" id=13]
 [ext_resource path="res://gui/ld/scroll_block_h.png" type="Texture" id=14]
+[ext_resource path="res://item_grid.gd" type="Script" id=15]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 7 )
@@ -180,7 +181,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect4" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/Control"]
+[node name="ColorRect4" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/Control/ColorRect3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -188,6 +189,19 @@ margin_top = 1.0
 margin_right = -1.0
 margin_bottom = -1.0
 color = Color( 0.6, 0.631373, 0.772549, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/LeftBar/ColorRect/Control/ColorRect3/ColorRect4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+columns = 3
+script = ExtResource( 15 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
