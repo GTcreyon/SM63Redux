@@ -2,6 +2,8 @@ extends Node2D
 
 onready var singleton = $"/root/Singleton"
 onready var sm63_to_redux: SM63ToRedux = singleton.sm63_to_redux
+onready var ld_ui = $UILayer/LDUI
+onready var lv_template := preload("res://src/level_designer/template.tscn")
 
 const ld_item = preload("res://actors/items/ld_item.tscn")
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
@@ -133,4 +135,8 @@ func read_items():
 	print(item_textures)
 
 func _ready():
+	var template = lv_template.instance()
+	call_deferred("add_child", template)
+	
 	read_items()
+	ld_ui.fill_grid()

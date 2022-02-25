@@ -76,30 +76,33 @@ func add_edge_segment(is_left, group):
 			verts_inside.append(vert)
 			inside_counter += 1
 	
-	var color_white = Color(1, 1, 1)
-	var colors = PoolColorArray([color_white, color_white, color_white, color_white])
+	var base_color = Color(1, 1, 1)
+	if root.shallow:
+		base_color = root.shallow_color
+	var colors = PoolColorArray([base_color, base_color, base_color, base_color])
 	
-	#draw the shade
-	if inside_counter > 0:
-		#if the polygon is fully surrounded, then don't bother with edge checks
-		if inside_counter != e_size:
-			#cut the box so it fits in the polygon
-			var cut_box = polygon_cut_box(poly, uvs, e_size)
-			var new_poly = cut_box[0]
-			var new_uv = cut_box[1]
-			#make sure the cut box is 4 verts
-			if new_poly.size() == 4:
-#				colors = []
-#				for v in new_poly:
-#					colors.append(color_white)
-				#print("success: ", group.index)
-				draw_polygon(new_poly, colors, new_uv, root.top_corner_shade)
+	if !root.shallow:
+		#draw the shade
+		if inside_counter > 0:
+			#if the polygon is fully surrounded, then don't bother with edge checks
+			if inside_counter != e_size:
+				#cut the box so it fits in the polygon
+				var cut_box = polygon_cut_box(poly, uvs, e_size)
+				var new_poly = cut_box[0]
+				var new_uv = cut_box[1]
+				#make sure the cut box is 4 verts
+				if new_poly.size() == 4:
+#					colors = []
+#					for v in new_poly:
+#						colors.append(color_white)
+					#print("success: ", group.index)
+					draw_polygon(new_poly, colors, new_uv, root.top_corner_shade)
+				else:
+					#print("oh no: ", group.index, ": ", new_poly.size(), " - ", new_uv.size())
+					pass
 			else:
-				#print("oh no: ", group.index, ": ", new_poly.size(), " - ", new_uv.size())
-				pass
-		else:
-			#since we're fully surrounded, simply draw the shade with no issues
-			draw_polygon(poly, colors, uvs, root.top_corner_shade)
+				#since we're fully surrounded, simply draw the shade with no issues
+				draw_polygon(poly, colors, uvs, root.top_corner_shade)
 	
 	#draw the actual edge
 	draw_polygon(poly, colors, uvs, root.top_corner)
