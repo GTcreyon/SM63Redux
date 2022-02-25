@@ -153,6 +153,7 @@ func draw_top_from_connected_lines(lines):
 		var poly2d = Polygon2D.new()
 		poly2d.texture = root.top
 		poly2d.polygon = area.verts
+		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 		poly2d.texture_rotation = -area.normal.angle() - PI / 2
 
 		#OFFSET MATH YAAAAAAAAAY
@@ -173,10 +174,11 @@ func draw_top_from_connected_lines(lines):
 		poly2d.z_index = 2
 		add_child(poly2d)
 		
-		var shade = poly2d.duplicate()
-		shade.texture = root.top_shade
-		add_child(shade)
-
+		if !root.shallow:
+			var shade = poly2d.duplicate()
+			shade.texture = root.top_shade
+			add_child(shade)
+	
 	#draw the right area
 	top_edges.segment_queue.append([false, areas.back()])
 
@@ -203,6 +205,7 @@ func draw_bottom_from_connected_lines(lines):
 		var poly2d = Polygon2D.new()
 		poly2d.texture = root.bottom
 		poly2d.polygon = verts
+		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 		poly2d.texture_rotation = -normal.angle() - PI / 2
 
 		#OFFSET MATH YAAAAAAAAAY
@@ -239,6 +242,7 @@ func draw_edges_from_connected_lines(lines):
 		var poly2d = Polygon2D.new()
 		poly2d.texture = root.edge
 		poly2d.polygon = verts
+		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 		poly2d.texture_rotation = -normal.angle() - PI / 2
 
 		#OFFSET MATH YAAAAAAAAAY
@@ -328,6 +332,7 @@ func _draw():
 	oof_children()
 	main_texture.texture = root.body
 	main_texture.polygon = root.polygon
+	main_texture.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 	
 	add_full(root.polygon)
 	if !Engine.editor_hint:

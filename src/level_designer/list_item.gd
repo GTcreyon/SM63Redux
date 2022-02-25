@@ -1,8 +1,7 @@
 extends TextureButton
 
 onready var main = $"/root/Main"
-onready var control = $"/root/Main/UILayer/LDUI"
-onready var placed_path = control.item_textures[item_name]["Placed"]
+onready var placed_path = main.item_textures[item_name]["Placed"]
 
 var item_name
 

@@ -5,14 +5,11 @@ const list_item = preload("res://src/level_designer/list_item.tscn")
 onready var level_editor := $"/root/Main"
 onready var ld_camera := $"/root/Main/LDCamera"
 onready var background := $"/root/Main/LDCamera/Background"
-onready var lv_template := preload("res://src/level_designer/template.tscn")
 onready var item_grid = $LeftBar/ColorRect/Control/ColorRect3/ColorRect4/ItemGrid
 
 var terrain_modifier = {
 	state = "idle"
 }
-
-var template
 
 #a bad, slow, O(n^2), but easy to implement algorithm
 #I should look into better algorithms
@@ -50,12 +47,31 @@ func fake_polygon_create():
 	terrain_modifier.state = "create"
 	terrain_modifier.polygon = [Vector2(0, 0)]
 	terrain_modifier.ref = level_editor.place_terrain([Vector2(0, 0)], 0, 0)
+	terrain_modifier.ref.shallow = true
 #	terrain_modifier.poly = poly
 
 func finish_creating_polygon():
-	#level_editor.place_terrain(terrain_modifier.polygon, 0, 0)
-	terrain_modifier.ref.polygon = terrain_modifier.polygon
+	#make sure the polygon is correctly rotated, which is counter-clockwise
+	if Geometry.is_polygon_clockwise(terrain_modifier.polygon):
+		terrain_modifier.polygon.invert()
 	
+	if terrain_modifier.polygon.back() != terrain_modifier.polygon.front():
+		print("E")
+		terrain_modifier.polygon.append(
+			terrain_modifier.polygon.back()
+		)
+	
+	#remove the old reference, this is mainly because the live editor can cause some issues
+	terrain_modifier.ref.get_parent().remove_child(terrain_modifier.ref)
+	#set the terrain polygon to the actual polygon
+	terrain_modifier.ref = level_editor.place_terrain(
+		terrain_modifier.polygon,
+		0,
+		0
+	)
+	#terrain_modifier.ref.update()
+	
+	#reset the modifier state
 	terrain_modifier.clear()
 	terrain_modifier.state = "idle"
 
@@ -79,22 +95,27 @@ func _draw():
 				Color(0, 1, 0, 0.2) if success else Color(1, 0, 0, 0.2)
 			)
 		
-		#terrain_modifier.ref.polygon = terrain_modifier.polygon
-		
-		
 		if local_poly.size() >= 3:
-			draw_polygon(
-				local_poly,
-				colors
-			)
+			#make sure rotation is correct
+			var set_poly = PoolVector2Array(terrain_modifier.polygon)
+			if Geometry.is_polygon_clockwise(terrain_modifier.polygon):
+				set_poly.invert()
+			#set the draw polygon
+			terrain_modifier.ref.polygon = set_poly
 		
-		if local_poly.size() >= 2:
-			draw_polyline(
-				local_poly,
-				Color(0, 0.7, 0) if success else Color(0.7, 0, 0),
-				2,
-				true
-			)
+#		if local_poly.size() >= 3:
+#			draw_polygon(
+#				local_poly,
+#				colors
+#			)
+#
+#		if local_poly.size() >= 2:
+#			draw_polyline(
+#				local_poly,
+#				Color(0, 0.7, 0) if success else Color(0.7, 0, 0),
+#				2,
+#				true
+#			)
 		
 		draw_circle(
 			local_poly[local_poly.size() - 1],
@@ -134,12 +155,6 @@ func _on_terrain_control_place_pressed():
 	print("Place Terrain")
 	fake_polygon_create()
 	pass # Replace with function body.
-
-
-func _ready():
-	fill_grid()
-	template = lv_template.instance()
-	level_editor.call_deferred("add_child", template)
 
 
 func fill_grid():
