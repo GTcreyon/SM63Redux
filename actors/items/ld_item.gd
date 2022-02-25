@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends Sprite
 
 const glow = preload("res://shaders/glow.tres")
 
@@ -13,7 +13,7 @@ var size
 onready var cam = get_parent().get_node("LDCamera")
 
 func _ready():
-	size = frames.get_frame(animation, frame).get_size()
+	size = texture.get_size()
 
 func _process(_delta):
 	var i_left = Input.is_action_just_pressed("ui_left")

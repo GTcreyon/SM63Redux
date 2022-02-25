@@ -27,70 +27,70 @@
     </class>
 	
     <class name="pole">
-		<inherits name="point" />
+		<inherit name="point" />
         <property label="Rotation" type="float" link="XXXXX" description="Rotation in degrees." />
     </class>
 	
     <class name="post">
-		<inherits name="point" />
+		<inherit name="point" />
         <property label="Mirror" type="bool" link="XXXXX" description="Flips the item in the X axis." />
     </class>
 	
     <class name="plane">
-        <inherits name="pole" />
-        <inherits name="post" />
+        <inherit name="pole" />
+        <inherit name="post" />
     </class>
 	
     <class name="deco">
-		<inherits name="plane" />
+		<inherit name="plane" />
         <property label="Layer" type="int" link="XXXXX" description="Items with a higher layer will be displayed in front of items with a lower layer." />
     </class>
 
     <item name="DemoItem" description="The REAL demo item, can you believe it? Me neither.">
-        <inherits name="global" />
-        <inherits name="entity" />
+        <inherit name="global" />
+        <inherit name="entity" />
         <property label="Text" type="String" link="some_function" description="The text this item has. Idk." />
         <property label="Text" type="String" description="The text this item has. Idk." />
     </item>
 
     <item name="Yellow Coin" description="A single coin.">
 		<texture tag="Placed" path="res://actors/items/coin/coin0.png">
-        <inherits name="point" />
+        <inherit name="point" />
     </item>
 
     <item name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!">
 		<texture tag="Placed" path="res://actors/items/coin/red_coin0.png">
-        <inherits name="point" />
+        <inherit name="point" />
     </item>
 
     <item name="Blue Coin" description="Counts for 5 yellow coins!">
 		<texture tag="Placed" path="res://actors/items/coin/blue_coin0.png">
-        <inherits name="point" />
+        <inherit name="point" />
     </item>
 
     <item name="Silver Star" description="Collect them all to summon a Shine Sprite!">
-		<texture tag="Placed" path="res://actors/items/coin/blue_coin0.png">
-        <inherits name="point" />
+		<texture tag="List" path="res://gui/hud/hud_silver_shine.png">
+        <inherit name="point" />
     </item>
 
     <item name="Shine Sprite" description="The level goal!">
 		<texture tag="Placed" path="res://actors/items/shine/shine_placed.png">
-		<texture tag="List" path="res://gui/hud/hud_shine.png">
+		<texture tag="List" path="res://gui/hud/hud_shine_old.png">
 		<!--TODO: trigger properties (e.g. red coins, silver shines, boss - pipescript?), shine ID for missions-->
-        <inherits name="point" />
+        <inherit name="point" />
     </item>
 
     <item name="Spin Block" description="A spinning block.">
 		<!--TODO: all properties lol-->
-        <inherits name="point" />
+        <inherit name="point" />
     </item>
 
     <item name="Log" description="A wooden log.">
-        <inherits name="point" />
+        <inherit name="point" />
     </item>
 
     <item name="Falling Log" description="An unstable wooden log. Falls when stepped on!">
-        <inherits name="point" />
+        <inherit name="point" />
 		<property label="Wait Time" type="float" link="XXXXX" description="The time taken in seconds for the log to fall after being stepped on. Setting the time to -1 will cause the log to fall immediately, with no collision." />
     </item>
 </items>

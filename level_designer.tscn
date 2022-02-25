@@ -196,10 +196,12 @@ __meta__ = {
 [node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/LeftBar/ColorRect/Control/ColorRect3/ColorRect4"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+rect_clip_content = true
+custom_constants/hseparation = 3
 columns = 3
 script = ExtResource( 15 )
 __meta__ = {

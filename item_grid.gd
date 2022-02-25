@@ -35,14 +35,14 @@ func find_png_paths(queue: Array) -> Array: #by Poobslag https://godotengine.org
 	return png_paths
 
 
-func _ready(): #this is temporary
-	var files = find_png_paths(["res://actors/items"])
-	for file in files:
-		var rect = TextureRect.new()
-		var tex : ImageTexture = ImageTexture.new()
-		var img : Image = Image.new()
-		img.load(file)
-		img.crop(16, 16)
-		tex.create_from_image(img)
-		rect.texture = tex
-		add_child(rect)
+#func _ready(): #this is temporary
+#	var files = find_png_paths(["res://actors/items"])
+#	for file in files:
+#		var rect = TextureRect.new()
+#		var tex : ImageTexture = ImageTexture.new()
+#		var img : Image = Image.new()
+#		img.load(file)
+#		img.crop(16, 16)
+#		tex.create_from_image(img)
+#		rect.texture = tex
+#		add_child(rect)
