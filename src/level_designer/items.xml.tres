@@ -86,6 +86,7 @@
     </item>
 
     <item name="Log" description="A wooden log.">
+		<texture tag="Placed" path="res://actors/items/log/log.png">
         <inherit name="point" />
     </item>
 
