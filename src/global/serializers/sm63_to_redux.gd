@@ -43,7 +43,7 @@ func convert_xml_to_readable():
 			numeric_id_to_tile_id[sum] = string
 			
 	var parser := XMLParser.new()
-	parser.open(tile_groupings)
+	var _success = parser.open(tile_groupings)
 	
 	var node_name = ""
 	var global_state = ""

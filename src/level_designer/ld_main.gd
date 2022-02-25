@@ -3,23 +3,35 @@ extends Node2D
 onready var singleton = $"/root/Singleton"
 onready var sm63_to_redux: SM63ToRedux = singleton.sm63_to_redux
 
-var start_pos
-
+const ld_item = preload("res://actors/items/ld_item.tscn")
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
 const item_prefab = preload("res://actors/items/ld_item.tscn")
+
+export(Dictionary) var item_classes = {}
+export(Dictionary) var items = {}
+export(Dictionary) var item_textures = {}
+
+var start_pos
 
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = terrain_prefab.instance()
 	terrain_ref.polygon = poly
-	add_child(terrain_ref)
+	$Template/Terrain.add_child(terrain_ref)
 	return terrain_ref
 
-func place_item(item):
+func place_item(path):
+	var inst = ld_item.instance()
+	inst.ghost = true
+	inst.texture = load(path)
+	$Template/Items.add_child(inst)
+	return inst
+
+func _old_place_item(item):
 	var item_ref = item_prefab.instance()
 	item_ref.set("id", item.id)
 	item_ref.set("data", item.data)
 	item_ref.position = item.pos
-	add_child(item_ref)
+	$Template/Items.add_child(item_ref)
 	return item_ref
 
 func _disabled_draw():
@@ -36,3 +48,89 @@ func _disabled_draw():
 	
 	for item in lv_data.items:
 		place_item(item)
+
+func read_items():
+	var parser = XMLParser.new()
+	parser.open("res://src/level_designer/items.xml.tres")
+	
+	var parent_name
+	var parent_subname
+	var allow_reparent: bool = true
+	while (!parser.read()):
+		var node_type = parser.get_node_type()
+		
+		match node_type:
+			#unused nodes
+			parser.NODE_NONE:
+				pass
+			parser.NODE_COMMENT:
+				pass
+			parser.NODE_UNKNOWN:
+				pass
+			parser.NODE_CDATA:
+				pass
+			parser.NODE_TEXT:
+				pass
+			
+			#useful nodes
+			parser.NODE_ELEMENT:
+				var node_name = parser.get_node_name()
+				print(node_name)
+				#interpret classes
+				if parent_name == "class":
+					if node_name == "property":
+						var item_class = item_classes[parent_subname]
+						var link_txt = parser.get_named_attribute_value_safe("link")
+						link_txt = "#DEFAULT#" if link_txt == "" else link_txt
+						
+						var properties = {
+							label = parser.get_named_attribute_value("label"),
+							type = parser.get_named_attribute_value("type"),
+							link = link_txt,
+							description = parser.get_named_attribute_value("description")
+						}
+						
+						item_class.append(properties)
+				elif parent_name == "item":
+					match node_name:
+						"property":
+							var item_class = items[parent_subname]
+							var link_txt = parser.get_named_attribute_value_safe("link")
+							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
+							
+							var properties = {
+								label = parser.get_named_attribute_value("label"),
+								type = parser.get_named_attribute_value("type"),
+								link = link_txt,
+								description = parser.get_named_attribute_value("description")
+							}
+							
+							item_class.append(properties)
+						"texture":
+							if !item_textures.has(parent_subname):
+								item_textures[parent_subname] = {"Placed": null, "List": null}
+							var path = parser.get_named_attribute_value_safe("path")
+							item_textures[parent_subname][parser.get_named_attribute_value_safe("tag")] = path
+								
+						#"inherit":
+							
+				
+				if allow_reparent:
+					var subname = parser.get_named_attribute_value_safe("name")
+					parent_subname = subname
+					if node_name == "class":
+						item_classes[subname] = []
+					elif node_name == "item":
+						items[subname] = []
+					parent_name = node_name
+					allow_reparent = false
+			parser.NODE_ELEMENT_END:
+				var node_name = parser.get_node_name()
+				if node_name == "class" || node_name == "item":
+					allow_reparent = true
+	print(item_classes)
+	print(items)
+	print(item_textures)
+
+func _ready():
+	read_items()

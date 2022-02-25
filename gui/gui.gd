@@ -115,7 +115,7 @@ func resize():
 	pause_content.resize(scale)
 
 
-func set_size(size, lin_size):
+func set_size(_size, lin_size):
 	#size: general size of UI elements
 	#lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
 	water_meter.rect_scale = Vector2.ONE * lin_size

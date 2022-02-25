@@ -53,7 +53,7 @@ var character_name : String = ""
 
 func insert_keybind_strings(input: String) -> String:
 	var regex: RegEx = RegEx.new()
-	regex.compile("\\[@b[^\\]]*\\]")
+	var _success = regex.compile("\\[@b[^\\]]*\\]")
 	var bind_tags: Array = regex.search_all(input)
 	for tag_match in bind_tags:
 		var tag_string: String = tag_match.get_string()
@@ -111,7 +111,7 @@ func say_line(index):
 #	if 
 	raw_line = insert_keybind_strings(TranslationServer.translate(loaded_lines[index]))
 	target_line = refresh_returns(raw_line)
-	raw_line
+	#raw_line
 	visible = true
 	active = true
 
