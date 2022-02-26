@@ -15,16 +15,30 @@ export(Dictionary) var item_textures = {}
 
 var start_pos
 
+var queue_counter = 0
+var select_queue: Array = []
+var temp_select_queue: Array = []
+
+#ld_items can request a selection when clicked
+#doing this puts them on a stack
+#the top of the stack gets selected in _process()
+#clicking again or cycling with [ and ] cycles through this stack
+#this will always work unless the stack changes, in which case it resets to the top
+func request_select(me):
+	temp_select_queue.append(me)
+
+
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = terrain_prefab.instance()
 	terrain_ref.polygon = poly
 	$Template/Terrain.add_child(terrain_ref)
 	return terrain_ref
 
-func place_item(path):
+func place_item(item_name):
 	var inst = ld_item.instance()
 	inst.ghost = true
-	inst.texture = load(path)
+	inst.texture = load(item_textures[item_name]["Placed"])
+	inst.item_name = item_name
 	$Template/Items.add_child(inst)
 	return inst
 
@@ -77,7 +91,6 @@ func read_items():
 			#useful nodes
 			parser.NODE_ELEMENT:
 				var node_name = parser.get_node_name()
-				print(node_name)
 				#interpret classes
 				if parent_name == "class":
 					if node_name == "property":
@@ -130,9 +143,10 @@ func read_items():
 				var node_name = parser.get_node_name()
 				if node_name == "class" || node_name == "item":
 					allow_reparent = true
-	print(item_classes)
-	print(items)
-	print(item_textures)
+#	print(item_classes)
+#	print(items)
+#	print(item_textures)
+
 
 func _ready():
 	var template = lv_template.instance()
@@ -140,3 +154,28 @@ func _ready():
 	
 	read_items()
 	ld_ui.fill_grid()
+
+
+func _process(_delta):
+#	if temp_select_queue.empty(): #if the queue is empty
+#		if Input.is_action_just_pressed("LD_select"):
+#			queue_counter = 0
+	var size = select_queue.size()
+	if Input.is_action_just_pressed("LD_queue+"):
+		select_queue[select_queue.size() - queue_counter - 1].selected = false
+		queue_counter = (queue_counter + 1) % size
+		select_queue[select_queue.size() - queue_counter - 1].selected = true
+	if Input.is_action_just_pressed("LD_queue-"):
+		select_queue[select_queue.size() - queue_counter - 1].selected = false
+		queue_counter = (queue_counter - 1 + size) % size
+		select_queue[select_queue.size() - queue_counter - 1].selected = true
+	if !temp_select_queue.empty(): #if there are items in the queue
+		if temp_select_queue != select_queue: #if the queue has changed, reset
+			queue_counter = 0
+			select_queue = temp_select_queue.duplicate()
+		else: #if the queue is the same, cycle
+			queue_counter = (queue_counter + 1) % size
+		var new_size = select_queue.size()
+		if new_size > 0:
+			select_queue[select_queue.size() - queue_counter - 1].selected = true
+	temp_select_queue = [] #reset the queue
