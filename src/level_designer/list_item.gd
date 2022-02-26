@@ -7,4 +7,4 @@ var item_name
 
 func _on_ListItem_pressed():
 	if placed_path != null:
-		main.place_item(placed_path)
+		main.place_item(item_name)

@@ -12,7 +12,8 @@ var selected = false
 var size
 var ghost = false
 var mouse_in = false
-
+var item_name
+var drag_offset = Vector2.ZERO
 
 func _ready():
 	$ClickArea/CollisionShape2D.shape.extents = texture.get_size() / 2
@@ -31,15 +32,15 @@ func _process(_delta):
 		if i_select:
 			ghost = false
 			if Input.is_action_pressed("LD_many"):
-				var inst = control.ld_item.instance()
-				inst.ghost = true
-				inst.texture = texture
-				main.add_child(inst)
+				main.place_item(item_name)
 		position = get_global_mouse_position()
 		modulate.a = 0.5
 	else:
-		if i_select && !mouse_in:
+		if i_select:
+			drag_offset = position - get_global_mouse_position()
 			selected = false
+			if mouse_in:
+				main.request_select(self)
 		modulate.a = 1
 		if selected:
 			material = glow
@@ -51,7 +52,7 @@ func _process(_delta):
 			#var a = (sin(pulse)*0.25+0.5)*glow_factor
 			pulse = fmod((pulse + 0.1), 2*PI)
 			if i_select_h:
-				position = get_global_mouse_position()
+				position = get_global_mouse_position() + drag_offset
 			else:
 				if i_precise:
 					shift_step = 1
@@ -65,10 +66,10 @@ func _process(_delta):
 					position.y += shift_step
 
 
-func _on_ClickArea_input_event(viewport, event, shape_idx):
-	if event is InputEventMouseButton:
-		if event.pressed:
-			selected = true
+#func _on_ClickArea_input_event(viewport, event, shape_idx):
+#	if event is InputEventMouseButton:
+#		if event.pressed:
+#			selected = true
 
 
 func _on_ClickArea_mouse_entered():

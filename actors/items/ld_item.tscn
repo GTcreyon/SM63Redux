@@ -14,6 +14,5 @@ script = ExtResource( 21 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
 shape = SubResource( 1 )
 
-[connection signal="input_event" from="ClickArea" to="." method="_on_ClickArea_input_event"]
 [connection signal="mouse_entered" from="ClickArea" to="." method="_on_ClickArea_mouse_entered"]
 [connection signal="mouse_exited" from="ClickArea" to="." method="_on_ClickArea_mouse_exited"]
