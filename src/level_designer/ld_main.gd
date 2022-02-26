@@ -93,19 +93,25 @@ func read_items():
 				var node_name = parser.get_node_name()
 				#interpret classes
 				if parent_name == "class":
-					if node_name == "property":
-						var item_class = item_classes[parent_subname]
-						var link_txt = parser.get_named_attribute_value_safe("link")
-						link_txt = "#DEFAULT#" if link_txt == "" else link_txt
-						
-						var properties = {
-							label = parser.get_named_attribute_value("label"),
-							type = parser.get_named_attribute_value("type"),
-							link = link_txt,
-							description = parser.get_named_attribute_value("description")
-						}
-						
-						item_class.append(properties)
+					match node_name:
+						"property":
+							var item_class = item_classes[parent_subname]
+							var link_txt = parser.get_named_attribute_value_safe("link")
+							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
+							
+							var properties = {
+								label = parser.get_named_attribute_value("label"),
+								type = parser.get_named_attribute_value("type"),
+								link = link_txt,
+								description = parser.get_named_attribute_value("description")
+							}
+							
+							item_class.append(properties)
+						"inherit":
+							var item_class = item_classes[parent_subname]
+							var parent_class = item_classes[parser.get_named_attribute_value("name")]
+							for property in parent_class:
+								item_class.append(property)
 				elif parent_name == "item":
 					match node_name:
 						"property":
@@ -126,26 +132,29 @@ func read_items():
 								item_textures[parent_subname] = {"Placed": null, "List": null}
 							var path = parser.get_named_attribute_value_safe("path")
 							item_textures[parent_subname][parser.get_named_attribute_value_safe("tag")] = path
-								
-						#"inherit":
-							
+						"inherit":
+							var item_class = items[parent_subname]
+							var parent_class = item_classes[parser.get_named_attribute_value("name")]
+							for property in parent_class:
+								item_class.append(property)
 				
 				if allow_reparent:
 					var subname = parser.get_named_attribute_value_safe("name")
 					parent_subname = subname
 					if node_name == "class":
 						item_classes[subname] = []
+						allow_reparent = false
 					elif node_name == "item":
 						items[subname] = []
+						allow_reparent = false
 					parent_name = node_name
-					allow_reparent = false
 			parser.NODE_ELEMENT_END:
 				var node_name = parser.get_node_name()
 				if node_name == "class" || node_name == "item":
 					allow_reparent = true
-#	print(item_classes)
-#	print(items)
-#	print(item_textures)
+	#print(item_classes)
+	#print(items)
+	#print(item_textures)
 
 
 func _ready():

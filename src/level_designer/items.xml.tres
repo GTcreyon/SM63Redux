@@ -47,8 +47,7 @@
     </class>
 
     <item name="DemoItem" description="The REAL demo item, can you believe it? Me neither.">
-        <inherit name="global" />
-        <inherit name="entity" />
+        <inherit name="plane" />
         <property label="Text" type="String" link="some_function" description="The text this item has. Idk." />
         <property label="Text" type="String" description="The text this item has. Idk." />
     </item>
