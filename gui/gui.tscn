@@ -1,4 +1,4 @@
-[gd_scene load_steps=167 format=2]
+[gd_scene load_steps=169 format=2]
 
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_edge.png" type="Texture" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -59,6 +59,8 @@
 [ext_resource path="res://gui/hud/water_meter/water_meter_mask_bottom.png" type="Texture" id=57]
 [ext_resource path="res://gui/hud/buttons/d_button_0.png" type="Texture" id=58]
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_middle.png" type="Texture" id=59]
+[ext_resource path="res://gui/sfx/next.wav" type="AudioStream" id=60]
+[ext_resource path="res://gui/sfx/back.wav" type="AudioStream" id=61]
 [ext_resource path="res://gui/hud/water_meter/water_meter_power_filler.png" type="Texture" id=62]
 [ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=63]
 [ext_resource path="res://actors/items/fludd_box/nozzle_rocket.png" type="Texture" id=64]
@@ -324,14 +326,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 51 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 38 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 51 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -344,14 +346,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=11]
 animations = [ {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 73 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 49 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -364,14 +366,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ ExtResource( 41 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 72 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 41 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -384,14 +386,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 86 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 54 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 86 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -404,14 +406,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ ExtResource( 87 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 84 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 87 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -424,14 +426,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ ExtResource( 97 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 37 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 97 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -444,92 +446,92 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ ExtResource( 58 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 69 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 58 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=22]
 animations = [ {
-"frames": [ ExtResource( 90 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 92 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 90 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=23]
 animations = [ {
-"frames": [ ExtResource( 100 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 91 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 100 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=24]
 animations = [ {
-"frames": [ ExtResource( 90 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 92 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 90 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=25]
 animations = [ {
-"frames": [ ExtResource( 47 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 11 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 47 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=26]
 animations = [ {
-"frames": [ ExtResource( 55 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 55 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=27]
 animations = [ {
-"frames": [ ExtResource( 45 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 45 ) ],
+"loop": true,
+"name": "off",
 "speed": 5.0
 } ]
 
@@ -1089,6 +1091,16 @@ texture = ExtResource( 24 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Next" type="AudioStreamPlayer" parent="DialogBox"]
+stream = ExtResource( 60 )
+volume_db = -15.0
+bus = "SFX"
+
+[node name="Close" type="AudioStreamPlayer" parent="DialogBox"]
+stream = ExtResource( 61 )
+volume_db = -15.0
+bus = "SFX"
 
 [node name="InputDisplay" type="Control" parent="."]
 visible = false

@@ -4,6 +4,7 @@
 
 [node name="ResidualSFX" type="AudioStreamPlayer"]
 volume_db = -15.0
+bus = "SFX"
 script = ExtResource( 1 )
 
 [connection signal="finished" from="." to="." method="_on_ResidualSFX_finished"]

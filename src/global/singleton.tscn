@@ -146,6 +146,7 @@ script = ExtResource( 5 )
 pause_mode = 2
 stream = ExtResource( 6 )
 volume_db = -8.0
+bus = "Music"
 script = ExtResource( 7 )
 
 [node name="MobileControls" type="Control" parent="."]
@@ -236,20 +237,27 @@ pressed = SubResource( 2 )
 [node name="Coin" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 8 )
 volume_db = -2.0
+bus = "SFX"
 
 [node name="Confirm" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 14 )
+volume_db = -15.0
+bus = "SFX"
 
 [node name="Start" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 13 )
 volume_db = -10.0
+bus = "SFX"
 
 [node name="Next" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 15 )
 volume_db = -15.0
+bus = "SFX"
 
 [node name="Back" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 16 )
+volume_db = -15.0
+bus = "SFX"
 
 [node name="Console" parent="." instance=ExtResource( 17 )]
 pause_mode = 2

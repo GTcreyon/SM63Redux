@@ -45,27 +45,27 @@ region = Rect2( 126, 0, 18, 18 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "struck",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "struck",
+"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
-"loop": true,
-"name": "lit",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "unlit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "lit",
 "speed": 5.0
 } ]
 
@@ -99,7 +99,7 @@ script = ExtResource( 8 )
 [node name="Base" type="AnimatedSprite" parent="Sprites"]
 frames = SubResource( 9 )
 animation = "walk"
-frame = 3
+frame = 6
 playing = true
 
 [node name="Fuse" type="AnimatedSprite" parent="Sprites"]
@@ -112,6 +112,7 @@ centered = false
 [node name="Key" type="AnimatedSprite" parent="Sprites"]
 position = Vector2( 11, 0 )
 frames = SubResource( 11 )
+frame = 1
 playing = true
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
@@ -150,11 +151,13 @@ shape = SubResource( 15 )
 
 [node name="SFXActive" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource( 14 )
+bus = "SFX"
 
 [node name="SFXPassive" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 15 )
 volume_db = -6.0
 attenuation = 10.0
+bus = "SFX"
 
 [connection signal="body_entered" from="AlertArea" to="." method="_on_AlertArea_body_entered"]
 [connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]

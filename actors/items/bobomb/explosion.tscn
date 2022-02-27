@@ -70,5 +70,6 @@ frames = SubResource( 12 )
 stream = ExtResource( 3 )
 autoplay = true
 attenuation = 10.0
+bus = "SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_Explosion_body_entered"]

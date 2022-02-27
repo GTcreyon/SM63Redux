@@ -61,6 +61,7 @@ shape = SubResource( 9 )
 
 [node name="Kick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
+bus = "SFX"
 
 [node name="Damage" type="Area2D" parent="."]
 position = Vector2( 2, 3 )

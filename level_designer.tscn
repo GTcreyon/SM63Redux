@@ -13,6 +13,7 @@ current = true
 script = ExtResource( 3 )
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
+bus = "Music"
 script = ExtResource( 5 )
 
 [node name="FadeOut" type="Tween" parent="Music"]
