@@ -20,6 +20,11 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"loop": false,
+"name": "jumping",
+"speed": 0.0
+}, {
 "frames": [ ExtResource( 1 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 12 ) ],
 "loop": true,
 "name": "walking",
@@ -29,11 +34,6 @@ animations = [ {
 "loop": true,
 "name": "squish",
 "speed": 20.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
-"loop": false,
-"name": "jumping",
-"speed": 0.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -106,11 +106,13 @@ shape = SubResource( 6 )
 
 [node name="SFXActive" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource( 5 )
+bus = "SFX"
 
 [node name="SFXPassive" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 17 )
 volume_db = -6.0
 attenuation = 10.0
+bus = "SFX"
 
 [connection signal="body_entered" from="AlertArea" to="." method="_on_Collision_mario_detected"]
 [connection signal="body_exited" from="AwareArea" to="." method="_on_AwareArea_body_exited"]

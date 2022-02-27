@@ -64,6 +64,23 @@ func _ready():
 #		$"/root/Main/Player/Camera2D/GUI/SweepEffect".enter = direction
 
 
+func _process(_delta):
+	var sfx = AudioServer.get_bus_index("SFX")
+	var music = AudioServer.get_bus_index("Music")
+	if Input.is_action_just_pressed("mute_sfx"):
+		AudioServer.set_bus_mute(sfx, !AudioServer.is_bus_mute(sfx))
+	if Input.is_action_just_pressed("volume_sfx-"):
+		AudioServer.set_bus_volume_db(sfx, AudioServer.get_bus_volume_db(sfx) - 1)
+	if Input.is_action_just_pressed("volume_sfx+"):
+		AudioServer.set_bus_volume_db(sfx, AudioServer.get_bus_volume_db(sfx) + 1)
+	if Input.is_action_just_pressed("mute_music"):
+		AudioServer.set_bus_mute(music, !AudioServer.is_bus_mute(music))
+	if Input.is_action_just_pressed("volume_music-"):
+		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) - 1)
+	if Input.is_action_just_pressed("volume_music+"):
+		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
+
+
 func warp_to(path):
 	collect_count = 0
 	#create_coindict(path)

@@ -121,6 +121,7 @@ shape = SubResource( 20 )
 
 [node name="Kick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
+bus = "SFX"
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_CollisionArea_body_entered"]
 [connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]

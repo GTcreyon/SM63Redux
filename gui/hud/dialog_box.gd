@@ -35,6 +35,8 @@ onready var portrait = $Portrait
 onready var nameplate = $EdgeLeft/Name
 onready var edge_left = $EdgeLeft
 onready var block_left = $BlockLeft
+onready var sfx_next = $Next
+onready var sfx_close = $Close
 
 var loaded_lines = []
 var line_index = 0
@@ -220,8 +222,10 @@ func _process(_delta):
 					player.sign_x = null
 					player.static_v = false
 					swoop_timer = 0
+					sfx_close.play()
 				else:
 					say_line(line_index)
+					sfx_next.play()
 		swoop_timer = min(swoop_timer + 1, 80)
 		rect_scale = Vector2.ONE * gui_size
 #		if Input.is_action_pressed("interact"):

@@ -78,6 +78,7 @@ one_way_collision = true
 
 [node name="Kick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+bus = "SFX"
 
 [node name="Damage" type="Area2D" parent="."]
 position = Vector2( 0, 2.5 )
