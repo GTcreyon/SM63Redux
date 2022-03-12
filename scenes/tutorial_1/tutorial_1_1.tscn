@@ -472,12 +472,12 @@ position = Vector2( 1724, 104 )
 
 [node name="Water" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 320, 226 )
-polygon = PoolVector2Array( 0, 0, 118, 0, 118, 20, 97, 87, 30, 103, 0, 21 )
+polygon = PoolVector2Array( 0, 0, 118, 0, 118, 20, 100, 100, 30, 103, 0, 21 )
 outline_texture_size = Vector2( 32, 6 )
 
 [node name="Water2" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 606, 226 )
-polygon = PoolVector2Array( 0, 0, 212, 0, 212, 43, 370, 66, 488, 58, 478.711, 0, 600, 0, 600, 45, 550, 123, 358, 150, 187, 132, 176, 155, 140, 175, 31, 147, 0, 35 )
+polygon = PoolVector2Array( 0, 0, 212, 0, 212, 30, 370, 53, 480, 45, 478.711, 0, 600, 0, 600, 45, 550, 123, 358, 150, 187, 132, 176, 155, 140, 175, 31, 147, 0, 35 )
 outline_texture_size = Vector2( 32, 6 )
 
 [node name="Terrain" type="Node2D" parent="."]
@@ -489,6 +489,7 @@ polygon = PoolVector2Array( -17, -8, 67, 9, 304, 9, 304, 87, 334, 169, 401, 153,
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
+z_index = 1
 polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277.063, 132.418, 159, 141, 1, 118 )
 
 [node name="CoinBlue" parent="." instance=ExtResource( 23 )]
