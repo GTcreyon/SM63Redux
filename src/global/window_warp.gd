@@ -78,6 +78,8 @@ func _process(_delta):
 		else:
 			progress += out_unit
 			resize_polygon(progress * 1.5)
+	elif enter == 0:
+		visible = false
 
 
 func warp(location, path, t_in = 25, t_out = 15):
