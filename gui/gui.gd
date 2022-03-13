@@ -65,7 +65,7 @@ func _ready():
 
 
 func resize():
-	var scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+	var scale = 1 / max(1, round(OS.window_size.y / Singleton.DEFAULT_SIZE.y))
 	var topsize = OS.window_size.x / scale - 36 - 30
 	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
 	bg.rect_size = OS.window_size
