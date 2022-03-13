@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends StaticBody2D
 
 const GRAVITY = 0.17
 
@@ -24,7 +24,7 @@ func _process(delta):
 	elif fall_timer == 0:
 		sprite.position = Vector2.ZERO
 		vel.y += GRAVITY
-		move_and_slide(vel * 60)
+		position += vel
 	if !Geometry.is_point_in_polygon(position, camera_polygon):
 		queue_free()
 
