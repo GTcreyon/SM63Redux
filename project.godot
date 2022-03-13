@@ -60,7 +60,6 @@ settings/fps/force_fps=60
 
 window/size/width=640
 window/size/height=360
-window/size/resizable=false
 mouse_cursor/custom_image="res://gui/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2( 1, 1 )
 
@@ -419,7 +418,6 @@ locale_filter=[ 0, [  ] ]
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 environment/default_clear_color=Color( 0.572549, 0.8, 0.827451, 1 )
 environment/default_environment="res://default_env.tres"
