@@ -10,7 +10,7 @@ extents = Vector2( 8, 9.5 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 1 )
 
-[node name="LogFall" type="KinematicBody2D"]
+[node name="LogFall" type="StaticBody2D"]
 z_index = -1
 collision_mask = 0
 script = ExtResource( 2 )
