@@ -36,7 +36,7 @@ func _process(_delta):
 	clouds_upper.rect_scale = Vector2.ONE * bg_scale
 	
 	var hills_size = hills.texture.get_size().x
-	hills.margin_left = fmod(-cam_pos.x / 10, hills_size) - hills_size
+	hills.margin_left = fmod(-cam_pos.x / 5, hills_size) - hills_size
 	hills.margin_top = lerp(hills.margin_top, max(-228, -228 -cam_pos.y / 5), 0.05)
 	hills.rect_scale = Vector2.ONE * bg_scale
 	#hills.margin_top = max(-50, -50 - cam_pos.y / 50)
