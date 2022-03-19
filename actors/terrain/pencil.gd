@@ -14,8 +14,8 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	var e_angle = atan2(e_unit.y, e_unit.x)
 	
 	var delta = (e_angle - s_angle) / 5.0
-	var distance = circumcenter.distance_to(start)
-	var angle = s_angle
+	#var distance = circumcenter.distance_to(start)
+	#var angle = s_angle
 	
 	#cicular edges, this doesn't work rn, I'll work on it later
 	
@@ -182,7 +182,7 @@ func draw_top_from_connected_lines(lines):
 
 func draw_bottom_from_connected_lines(lines):
 	#first collect everything into groups of verts
-	var groups = []
+	#var groups = []
 	var p_size = lines.size()
 	for ind in range(p_size - 1):
 		var current: Vector2 = lines[ind]
@@ -218,7 +218,7 @@ func draw_bottom_from_connected_lines(lines):
 
 func draw_edges_from_connected_lines(lines):
 	#first collect everything into groups of verts
-	var groups = []
+	#var groups = []
 	var p_size = lines.size()
 	for ind in range(p_size - 1):
 		var current: Vector2 = lines[ind]

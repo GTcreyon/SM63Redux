@@ -88,7 +88,7 @@ func _process(_delta):
 				curve_bottom = Vector2(pos, OS.window_size.y)
 			
 			enter = -1
-			Singleton.flip = $"/root/Main/Player/AnimatedSprite".flip_h
+			Singleton.flip = $"/root/Main/Player/Character".flip_h
 		elif enter == -1 && ((curve_top.x > OS.window_size.x && direction == Vector2.RIGHT) || (curve_top.x < 0 && direction == Vector2.LEFT)):
 			enter = 0
 			visible = false

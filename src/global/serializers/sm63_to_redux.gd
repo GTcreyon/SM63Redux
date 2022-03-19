@@ -43,7 +43,9 @@ func convert_xml_to_readable():
 			numeric_id_to_tile_id[sum] = string
 			
 	var parser := XMLParser.new()
-	parser.open(tile_groupings)
+	var err = parser.open(tile_groupings)
+	if err != OK:
+		Singleton.log_msg(err, Singleton.LogType.ERROR)
 	
 	var node_name = ""
 	var global_state = ""

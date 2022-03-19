@@ -57,7 +57,7 @@ func _ready():
 	silver_counter.text = str(0)
 	shine_counter.text = str(0)
 	shine_coin_counter.text = str(0)
-	set_size(floor(log(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x)) / log(2) + 1), floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
+	set_size(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 	var menu = get_tree().get_nodes_in_group("pause")
 	for node in menu: #make pause nodes visible but transparent
 		node.modulate.a = 0
@@ -115,7 +115,7 @@ func resize():
 	pause_content.resize(scale)
 
 
-func set_size(size, lin_size):
+func set_size(lin_size):
 	#size: general size of UI elements
 	#lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
 	water_meter.rect_scale = Vector2.ONE * lin_size
@@ -149,7 +149,7 @@ func _process(_delta):
 	
 	if last_size != OS.window_size:
 		$"/root/Main/Bubbles".refresh()
-		set_size(floor(log(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x)) / log(2) + 1), floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
+		set_size(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 	last_size = OS.window_size
 	
 	if Input.is_action_just_pressed("pause") && !Singleton.feedback:

@@ -119,8 +119,6 @@ func _ready():
 	#invert the current polygon
 	set_physics_polygon(polygon)
 	
-	#create a shape and set it to the correct size
-	var shape2d = Shape2D.new()
 	body_collision.shape.set_extents(OS.window_size / 2)
 	
 	body.position = spawn_position

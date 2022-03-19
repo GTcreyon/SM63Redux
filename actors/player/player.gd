@@ -28,7 +28,8 @@ onready var base_modifier: BaseModifier = singleton.base_modifier
 onready var voice = $Voice
 onready var step = $Step
 onready var tween = $Tween
-onready var sprite = $AnimatedSprite
+onready var sprite = $Character
+onready var fludd_sprite = $Character/Fludd
 onready var camera = $Camera2D
 onready var step_check = $StepCheck
 onready var grass_check = $GrassCheck
@@ -273,27 +274,24 @@ func switch_anim(new_anim):
 	var anim
 	if new_anim == "fall":
 		last_step = 1
+	anim = new_anim
+	if singleton.nozzle == n.none:
+		fludd_sprite.visible = false
+	else:
+		fludd_sprite.visible = true
+		fludd_anim = new_anim + "_fludd"
+		if sprite.frames.has_animation(fludd_anim):
+			anim = fludd_anim
+		else:
+			anim = new_anim
+			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
 	match singleton.nozzle:
 		n.hover:
-			fludd_anim = "hover_" + new_anim
-			if sprite.frames.has_animation(fludd_anim):
-				anim = fludd_anim
-			else:
-				anim = new_anim
+			fludd_sprite.animation = "hover"
 		n.rocket:
-			fludd_anim = "rocket_" + new_anim
-			if sprite.frames.has_animation(fludd_anim):
-				anim = fludd_anim
-			else:
-				anim = new_anim
+			fludd_sprite.animation = "rocket"
 		n.turbo:
-			fludd_anim = "turbo_" + new_anim
-			if sprite.frames.has_animation(fludd_anim):
-				anim = fludd_anim
-			else:
-				anim = new_anim
-		_:
-			anim = new_anim
+			fludd_sprite.animation = "turbo"
 	if singleton.kris:
 		anim = "kris_" + anim
 		sprite.offset.y = -3
@@ -384,7 +382,9 @@ func _physics_process(_delta):
 		
 		
 		if Input.is_action_just_pressed("reset"):
-			get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
+			var err = get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
+			if err != OK:
+				Singleton.log_msg(err, Singleton.LogType.ERROR)
 			Singleton.get_node("Timer").frames = 0
 			Singleton.get_node("Timer").split_frames = 0
 			$"/root/Singleton/Warp".set_location = null
@@ -410,7 +410,8 @@ func _physics_process(_delta):
 			coyote_time = 5
 		else:
 			coyote_time = max(coyote_time - 1, 0)
-			
+		
+		#warning-ignore:NARROWING_CONVERSION
 		gp_dive_timer = max(gp_dive_timer - 1, 0)
 		
 		if i_jump_h:
@@ -663,7 +664,12 @@ func _physics_process(_delta):
 						if !dive_return:
 							if angle_cast.is_colliding():
 								#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
-								sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + PI/2, 0.5)
+								var angle_offset = 0
+								if sprite.flip_h:
+									angle_offset = 0
+								else:
+									angle_offset = PI
+								sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
 							elif solid_floors > 0:
 								sprite.rotation = 0
 					else:
@@ -710,9 +716,9 @@ func _physics_process(_delta):
 					switch_anim("pound_fall")
 				elif state == s.dive:
 					if sprite.flip_h:
-						sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x), 0.5)
+						sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x) - PI / 2, 0.5)
 					else:
-						sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x), 0.5)
+						sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
 				
 				if i_left == i_right:
 					vel.x = ground_friction(vel.x, 0, 1.001) #Air decel
@@ -887,10 +893,10 @@ func _physics_process(_delta):
 								vel.y *= 1 - 0.02 * fps_mod
 								vel.x *= 1 - 0.03 * fps_mod
 								if ground:
-									vel.x += cos(sprite.rotation)*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+									vel.x += cos(sprite.rotation - PI / 2)*pow(fps_mod, 2)
 								elif state == s.dive:
-									vel.y += sin(sprite.rotation * (-1 if sprite.flip_h else 1))*0.92*pow(fps_mod, 2)
-									vel.x += cos(sprite.rotation)/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+									vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
+									vel.x += cos(sprite.rotation - PI / 2)/2*pow(fps_mod, 2)
 								else:
 									if sprite.flip_h:
 										vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
@@ -1040,7 +1046,7 @@ func _physics_process(_delta):
 						)
 					):
 						switch_state(s.pound_spin)
-						switch_anim("pound_spin")
+						switch_anim("flip")
 						sprite.rotation_degrees = 0
 						tween.remove_all()
 						tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
@@ -1095,27 +1101,28 @@ func _physics_process(_delta):
 			bubbles_medium.position.x = 1
 			bubbles_small.position.x = 1
 	else:
-		bubbles_medium.position.y = -3
-		bubbles_small.position.y = -3
+		bubbles_medium.position.y = -2
+		bubbles_small.position.y = -2
 		if sprite.flip_h:
-			bubbles_medium.position.x = 11
-			bubbles_small.position.x = 11
+			bubbles_medium.position.x = 10
+			bubbles_small.position.x = 10
 		else:
-			bubbles_medium.position.x = -11
-			bubbles_small.position.x = -11
+			bubbles_medium.position.x = -10
+			bubbles_small.position.x = -10
 	#offset bubbles to mario's center
 	bubbles_medium.position += center
 	bubbles_small.position += center
+	
 	#give it shader data
-	bubbles_small.direction = Vector2(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset))
-	bubbles_medium.direction = Vector2(cos(sprite.rotation + rot_offset), sin(sprite.rotation + rot_offset))
+	bubbles_small.direction = Vector2(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2))
+	bubbles_medium.direction = Vector2(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2))
 	
 	if abs(vel.x) < 2:
 		dust.emitting = false
 	else:
 		dust.emitting = is_on_floor()
 		
-	if sprite.animation.ends_with("walk"):
+	if sprite.animation.begins_with("walk"):
 		if int(vel.x) == 0:
 			sprite.frame = 0
 			sprite.speed_scale = 0
@@ -1126,12 +1133,33 @@ func _physics_process(_delta):
 			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
 			play_step()
 		last_step = sprite.frame
-	elif !sprite.animation.ends_with("swim"):
+	elif !sprite.animation.begins_with("swim"):
 		sprite.speed_scale = 1
+	
 	#$Label.text = str(vel.x)
 	if singleton.hp <= 0:
 		singleton.dead = true
-
+	
+	fludd_sprite.flip_h = sprite.flip_h
+	if sprite.animation.begins_with("spin"):
+		print(fludd_sprite.animation)
+		match sprite.frame:
+#			0:
+#				fludd_sprite.flip_h = sprite.flip_h
+			1:
+				if !fludd_sprite.animation.ends_with("front"):
+					fludd_sprite.animation = fludd_sprite.animation + "_front"
+			2:
+				if fludd_sprite.animation.ends_with("front"):
+					fludd_sprite.animation = fludd_sprite.animation.substr(0, fludd_sprite.animation.length() - 6)
+				fludd_sprite.flip_h = !sprite.flip_h
+	if fludd_sprite.animation.ends_with("front"):
+		fludd_sprite.offset.x = 0
+	else:
+		if fludd_sprite.flip_h:
+			fludd_sprite.offset.x = 2
+		else:
+			fludd_sprite.offset.x = -2
 
 
 func _on_Tween_tween_completed(_object, _key):

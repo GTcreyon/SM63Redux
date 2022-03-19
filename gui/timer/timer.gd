@@ -50,7 +50,7 @@ func _process(_delta):
 		total.text = txt[0]
 		total_ms.text = txt[1]
 	
-func split():
+func split_timer():
 	var txt = format_time(split_frames / 60.0)
 	split.text = txt[0] + txt[1]
 	split_frames = 0
