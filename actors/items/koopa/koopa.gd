@@ -103,9 +103,9 @@ func damage_check(body):
 			body.take_damage_shove(1, 1)
 
 
-func _on_WaterCheck_area_entered(area):
+func _on_WaterCheck_area_entered(_area):
 	water_bodies += 1
 
 
-func _on_WaterCheck_area_exited(area):
+func _on_WaterCheck_area_exited(_area):
 	water_bodies -= 1

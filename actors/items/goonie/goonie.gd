@@ -50,11 +50,11 @@ func _physics_process(_delta):
 			block_riders.erase(body)
 	
 	if riding > 0:
-		move_vec = Vector2(vel.x * 32/60 * flip_sign, 0.36)
+		move_vec = Vector2(vel.x * 32.0/60.0 * flip_sign, 0.36)
 		position += move_vec
 		for body in ride_area.get_overlapping_bodies():
 			if body.is_on_floor():
-				body.move_and_collide(move_vec)
+				body.move_and_slide(move_vec * 60.0, Vector2.UP)
 	else:
 		if sprite.animation == "flap":
 			move_vec = Vector2(vel.x * 32/60 * flip_sign, vel.y*32/60)
@@ -97,6 +97,8 @@ func _on_RideArea_body_exited(body):
 	if block_riders.has(body):
 		block_riders.erase(body)
 	else:
+		if body.vel.x == 0:
+			body.vel.x = vel.x / 2
 		riding -= 1
 		if riding <= 0:
 			sprite.speed_scale = 1

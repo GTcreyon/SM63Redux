@@ -182,9 +182,9 @@ func _on_AlertArea_body_entered(_body):
 		wander_dist = 0
 
 
-func _on_WaterCheck_area_entered(area):
+func _on_WaterCheck_area_entered(_area):
 	water_bodies += 1
 
 
-func _on_WaterCheck_area_exited(area):
+func _on_WaterCheck_area_exited(_area):
 	water_bodies -= 1

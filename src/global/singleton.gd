@@ -87,7 +87,7 @@ func warp_to(path):
 	if path == "res://scenes/tutorial_1/tutorial_1_1.tscn":
 		timer.frames = 0
 		timer.split_frames = 0
-	timer.split()
+	timer.split_timer()
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	return get_tree().call_deferred("change_scene", path)
 

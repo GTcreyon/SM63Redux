@@ -247,9 +247,9 @@ func damage_check(body):
 		body.take_damage_shove(1, sign(body.position.x - position.x))
 
 
-func _on_WaterCheck_area_entered(area):
+func _on_WaterCheck_area_entered(_area):
 	water_bodies += 1
 
 
-func _on_WaterCheck_area_exited(area):
+func _on_WaterCheck_area_exited(_area):
 	water_bodies -= 1

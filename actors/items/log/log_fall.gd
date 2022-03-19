@@ -17,7 +17,7 @@ func _ready():
 	if camera_area != null:
 		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
 
-func _process(delta):
+func _process(_delta):
 	if fall_timer > 0:
 		fall_timer -= 1
 		sprite.position = Vector2((rng.randi() % JITTER) - JITTER / 2.0, (rng.randi() % JITTER) - JITTER / 2.0)

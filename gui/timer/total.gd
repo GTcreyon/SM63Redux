@@ -12,7 +12,7 @@ func _process(_delta):
 		sec_mask = "00:00"
 	else:
 		sec_mask = ":00:00"
-		for i in range(text.length() - 6):
+		for _i in range(text.length() - 6):
 			sec_mask = "0" + sec_mask
 	var sec_width = get_font("font").get_string_size(sec_mask).x * 2
 	var full_width = (
