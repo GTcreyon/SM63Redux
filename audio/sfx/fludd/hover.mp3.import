@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/hover.mp3-be9865b661b5c942a6e9e84f1d0517df.mp3str"
+
+[deps]
+
+source_file="res://audio/sfx/fludd/hover.mp3"
+dest_files=[ "res://.import/hover.mp3-be9865b661b5c942a6e9e84f1d0517df.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
