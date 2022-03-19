@@ -373,15 +373,14 @@ script = ExtResource( 1 )
 
 [node name="Character" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
-animation = "spin_fludd"
-frame = 1
+animation = "fall"
 playing = true
 script = ExtResource( 19 )
 
 [node name="Fludd" type="AnimatedSprite" parent="Character"]
 show_behind_parent = true
 frames = SubResource( 36 )
-animation = "hover_front"
+animation = "hover"
 offset = Vector2( -2, -2 )
 
 [node name="WaterCheck" type="Area2D" parent="."]
