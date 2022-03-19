@@ -1,8 +1,10 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario_sheet.png" type="Texture" id=2]
 [ext_resource path="res://actors/player/fludd_sheet.png" type="Texture" id=3]
+[ext_resource path="res://audio/sfx/fludd/hover.mp3" type="AudioStream" id=4]
+[ext_resource path="res://audio/sfx/fludd/hover_loop.mp3" type="AudioStream" id=5]
 [ext_resource path="res://gui/gui.tscn" type="PackedScene" id=15]
 [ext_resource path="res://actors/particles/dust.png" type="Texture" id=18]
 [ext_resource path="res://src/global/dejitter.gd" type="Script" id=19]
@@ -12,7 +14,7 @@
 [ext_resource path="res://gui/hud/water_meter/water_meter_bubble_small.png" type="Texture" id=35]
 [ext_resource path="res://actors/player/bubbles.gd" type="Script" id=37]
 [ext_resource path="res://actors/player/bubble.tres" type="Material" id=38]
-[ext_resource path="res://audio/sfx/items/fludd/fludd_switch.wav" type="AudioStream" id=56]
+[ext_resource path="res://audio/sfx/fludd/fludd_switch.wav" type="AudioStream" id=56]
 [ext_resource path="res://actors/player/kris/kris_spin_2.png" type="Texture" id=61]
 [ext_resource path="res://actors/player/kris/kris_dive.png" type="Texture" id=62]
 [ext_resource path="res://actors/player/kris/kris_spin_1.png" type="Texture" id=66]
@@ -44,21 +46,13 @@ region = Rect2( 72, 0, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 168, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
-region = Rect2( 144, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
-region = Rect2( 120, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
-region = Rect2( 384, 0, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
 region = Rect2( 192, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 408, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
@@ -67,10 +61,6 @@ region = Rect2( 0, 0, 24, 38 )
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 2 )
 region = Rect2( 24, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
-region = Rect2( 408, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
@@ -95,6 +85,14 @@ region = Rect2( 288, 0, 24, 38 )
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 2 )
 region = Rect2( 312, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=39]
 atlas = ExtResource( 2 )
@@ -128,14 +126,6 @@ region = Rect2( 120, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 408, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 2 )
-region = Rect2( 48, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 2 )
-region = Rect2( 144, 38, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 2 )
 region = Rect2( 216, 38, 24, 38 )
@@ -143,6 +133,10 @@ region = Rect2( 216, 38, 24, 38 )
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 2 )
 region = Rect2( 240, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 2 )
@@ -152,9 +146,17 @@ region = Rect2( 0, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 24, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=34]
+[sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 2 )
-region = Rect2( 192, 38, 24, 38 )
+region = Rect2( 48, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 38 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -173,15 +175,35 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 10 ) ],
+"frames": [ SubResource( 13 ) ],
 "loop": true,
-"name": "jump_double",
+"name": "pound_fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 16 ) ],
+"loop": true,
+"name": "dive",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 74 ) ],
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
-"name": "kris_jump_double",
+"name": "walk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 17 ) ],
+"loop": true,
+"name": "jump",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "swim",
+"speed": 4.0
+}, {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "spin",
+"speed": 20.0
 }, {
 "frames": [ SubResource( 11 ) ],
 "loop": true,
@@ -203,11 +225,6 @@ animations = [ {
 "name": "kris_walk",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 66 ), ExtResource( 80 ), ExtResource( 71 ), ExtResource( 78 ), ExtResource( 77 ), ExtResource( 61 ), ExtResource( 67 ), ExtResource( 69 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 79 ) ],
-"loop": true,
-"name": "kris_spin",
-"speed": 15.0
-}, {
 "frames": [ ExtResource( 62 ) ],
 "loop": true,
 "name": "kris_swim",
@@ -218,50 +235,15 @@ animations = [ {
 "name": "kris_front",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 66 ), ExtResource( 80 ), ExtResource( 71 ), ExtResource( 78 ), ExtResource( 77 ), ExtResource( 61 ), ExtResource( 67 ), ExtResource( 69 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 79 ) ],
+"loop": true,
+"name": "kris_spin",
+"speed": 15.0
+}, {
 "frames": [  ],
 "loop": true,
 "name": "kris_jump",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 73 ) ],
-"loop": true,
-"name": "kris_pound_fall",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_dive",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 13 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
-"loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 16 ) ],
-"loop": true,
-"name": "dive",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 17 ) ],
-"loop": true,
-"name": "jump",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "swim",
-"speed": 4.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
-"loop": true,
-"name": "spin",
-"speed": 20.0
 }, {
 "frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
 "loop": true,
@@ -288,10 +270,35 @@ animations = [ {
 "name": "fall_fludd",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 62 ) ],
+"loop": true,
+"name": "kris_dive",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 24 ) ],
 "loop": true,
 "name": "dive_fludd",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "kris_pound_fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "swim_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 34 ) ],
+"loop": true,
+"name": "pound_fall_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 32 ), SubResource( 33 ) ],
+"loop": true,
+"name": "walk_fludd",
+"speed": 10.0
 }, {
 "frames": [ SubResource( 28 ) ],
 "loop": true,
@@ -303,19 +310,14 @@ animations = [ {
 "name": "jump_double_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 30 ), SubResource( 31 ) ],
+"frames": [ SubResource( 10 ) ],
 "loop": true,
-"name": "swim_fludd",
+"name": "jump_double",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 32 ), SubResource( 33 ) ],
+"frames": [ ExtResource( 74 ) ],
 "loop": true,
-"name": "walk_fludd",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 34 ) ],
-"loop": true,
-"name": "pound_fall_fludd",
+"name": "kris_jump_double",
 "speed": 5.0
 } ]
 
@@ -464,6 +466,16 @@ script = ExtResource( 37 )
 
 [node name="SwitchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 56 )
+bus = "SFX"
+
+[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -10.0
+bus = "SFX"
+
+[node name="HoverLoopSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = -10.0
 bus = "SFX"
 
 [node name="Dust" type="CPUParticles2D" parent="."]

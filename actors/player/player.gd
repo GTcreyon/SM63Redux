@@ -44,6 +44,8 @@ onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
 onready var bubbles_small = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
+onready var hover_sfx = $HoverSFX
+onready var hover_loop_sfx = $HoverLoopSFX
 onready var dust = $Dust
 
 var stand_box_pos = Vector2(0, 1.5)
@@ -52,6 +54,7 @@ var dive_box_pos = Vector2(0, 3)
 var dive_box_extents = Vector2(6, 6)
 var ground_override = 0
 var last_step = 0
+var hover_position = 0
 
 #mario's gameplay parameters
 var fludd_strain = false
@@ -473,7 +476,20 @@ func _physics_process(_delta):
 			if i_left == i_right || state == s.waterdive:
 				vel.x = ground_friction(vel.x, 0, 1.001)
 			#fall_adjust = ground_friction(fall_adjust, 0.05, 1.1);
-			if state != s.waterdive:
+			if state == s.waterdive:
+				vel.x = ground_friction(vel.x, 0.2, 1.02) #Floor friction
+				if !dive_return:
+					if angle_cast.is_colliding():
+						#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
+						var angle_offset = 0
+						if sprite.flip_h:
+							angle_offset = 0
+						else:
+							angle_offset = PI
+						sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
+					elif solid_floors > 0:
+						sprite.rotation = 0
+			else:
 				if i_left && !i_right:
 					sprite.flip_h = true
 					if state == s.spin || state == s.backflip:
@@ -539,11 +555,10 @@ func _physics_process(_delta):
 					flip_l = sprite.flip_h
 			else:
 				swim_delay = false
-			
 			if ground:
 				if i_dive_h && state != s.waterbackflip && state != s.waterspin:
-					switch_state(s.waterdive)
-					rotation_degrees = 0
+					if state != s.waterdive:
+						switch_state(s.waterdive)
 					tween.remove_all()
 					switch_anim("dive")
 					double_jump_state = 0
@@ -560,7 +575,6 @@ func _physics_process(_delta):
 					sprite.rotation_degrees = 0
 				if i_down:
 					fall_adjust += 0.107
-			
 			if i_fludd && singleton.power > 0 && singleton.water > 0 && (state != s.waterbackflip || !classic) && state != s.waterspin:
 				match singleton.nozzle:
 					n.hover:
@@ -571,10 +585,10 @@ func _physics_process(_delta):
 								vel.y *= 1 - 0.02 * fps_mod
 								vel.x *= 1 - 0.03 * fps_mod
 								if ground:
-									vel.x += cos(sprite.rotation)*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+									vel.x += cos(sprite.rotation - PI / 2)*pow(fps_mod, 2)
 								elif state == s.dive:
-									vel.y += sin(sprite.rotation * (-1 if sprite.flip_h else 1))*0.92*pow(fps_mod, 2)
-									vel.x += cos(sprite.rotation)/2*pow(fps_mod, 2) * (-1 if sprite.flip_h else 1)
+									vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
+									vel.x += cos(sprite.rotation - PI / 2)/2*pow(fps_mod, 2)
 								else:
 									if sprite.flip_h:
 										vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
@@ -613,7 +627,6 @@ func _physics_process(_delta):
 			else:
 				fludd_strain = false
 				rocket_charge = 0
-			
 			var swim_adjust = vel.x
 			swim_adjust = ground_friction(swim_adjust, 0.05, 1.05)
 			vel.x += (swim_adjust - vel.x) * fps_mod
@@ -1084,6 +1097,31 @@ func _physics_process(_delta):
 			position = save_pos
 			#warning-ignore:return_value_discarded
 			move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
+	
+	if state == s.dive || is_swimming():
+		hover_sfx.stop()
+		if fludd_strain:
+			if !hover_loop_sfx.playing:
+				hover_loop_sfx.play(hover_position)
+		else:
+			hover_position = hover_loop_sfx.get_playback_position()
+			hover_loop_sfx.stop()
+	else:
+		hover_loop_sfx.stop()
+		if Singleton.power > 99:
+			hover_position = 0
+			hover_sfx.stop()
+			
+		if fludd_strain:
+			if !hover_sfx.playing:
+				hover_sfx.play(hover_position)
+		else:
+			if Singleton.power < 100:
+				hover_position = hover_sfx.get_playback_position()
+			else:
+				hover_position = 0
+			if !Input.is_action_pressed("fludd"):
+				hover_sfx.stop()
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 	var rot_offset = PI/2
@@ -1142,7 +1180,6 @@ func _physics_process(_delta):
 	
 	fludd_sprite.flip_h = sprite.flip_h
 	if sprite.animation.begins_with("spin"):
-		print(fludd_sprite.animation)
 		match sprite.frame:
 #			0:
 #				fludd_sprite.flip_h = sprite.flip_h
