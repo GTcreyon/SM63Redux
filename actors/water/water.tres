@@ -5,7 +5,6 @@
 [resource]
 shader = ExtResource( 1 )
 shader_param/base_water_color = null
-shader_param/water_texture_size = null
 shader_param/water_xy_ratio = null
 shader_param/texture_repeat = null
 shader_param/normal_map_mult = 0.2
