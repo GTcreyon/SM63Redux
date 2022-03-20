@@ -1,6 +1,6 @@
 extends TextureRect
 
-const SCROLL_SPEED = 1
+const SCROLL_SPEED = 0.2
 
 func _process(delta):
 	var scale = round(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
