@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://actors/water/water.tres" type="Material" id=1]
 [ext_resource path="res://actors/water/water_viewport.gd" type="Script" id=2]
 [ext_resource path="res://actors/water/water.gd" type="Script" id=3]
 [ext_resource path="res://actors/water/water_viewport.tres" type="Material" id=4]
-[ext_resource path="res://actors/water/water_texture.png" type="Texture" id=5]
 [ext_resource path="res://actors/water/water_outline_anim.png" type="Texture" id=6]
 
 [node name="WaterPolygon" type="Sprite"]
@@ -12,7 +11,6 @@ material = ExtResource( 4 )
 z_index = 1
 script = ExtResource( 2 )
 polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
-water_texture = ExtResource( 5 )
 outline_texture = ExtResource( 6 )
 water_color = Color( 0.501961, 0.670588, 0.862745, 0.498039 )
 texture_color_impact = 0.05

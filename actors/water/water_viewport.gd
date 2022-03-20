@@ -7,7 +7,6 @@ onready var detection_area: Area2D = $DetectionArea
 onready var collision: CollisionPolygon2D = $DetectionArea/Collision
 
 export var polygon: PoolVector2Array = PoolVector2Array()
-export var water_texture: Texture = load("res://actors/water/water_texture.png")
 export var outline_texture: Texture = load("res://actors/water/water_outline_anim.png")
 export var water_texture_size: Vector2 = Vector2(64, 64)
 export var outline_texture_size: Vector2 = Vector2(32, 12)
@@ -65,9 +64,7 @@ func refresh():
 	
 	#set the water shaders
 	var mat = water_material.duplicate()
-	mat.set_shader_param("water_texture", water_texture)
 	mat.set_shader_param("base_water_color", water_color)
-	mat.set_shader_param("water_texture_size", water_texture.get_size())
 	mat.set_shader_param("texture_repeat", (size_extends / water_texture_size).y)
 	mat.set_shader_param("water_xy_ratio", Vector2(size_extends.x / size_extends.y, 1))
 	mat.set_shader_param("normal_map_mult", texture_color_impact)

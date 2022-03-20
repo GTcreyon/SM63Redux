@@ -1,8 +1,6 @@
 shader_type canvas_item;
 
 uniform vec4 base_water_color;
-uniform sampler2D water_texture;
-uniform vec2 water_texture_size;
 uniform vec2 water_xy_ratio;
 uniform float texture_repeat;
 uniform float normal_map_mult = 0.2;
