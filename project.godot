@@ -15,11 +15,6 @@ _global_script_classes=[ {
 "path": "res://src/global/base_modifier.gd"
 }, {
 "base": "Node2D",
-"class": "LDItem",
-"language": "GDScript",
-"path": "res://classes/ld_item_class.gd"
-}, {
-"base": "Node2D",
 "class": "SM63ToRedux",
 "language": "GDScript",
 "path": "res://src/global/serializers/sm63_to_redux.gd"
@@ -36,7 +31,6 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
-"LDItem": "",
 "SM63ToRedux": "",
 "Serializer": "",
 "TileToPoly": ""

@@ -1,5 +1,0 @@
-Godot Engine v3.2.3.stable.official - https://godotengine.org
-OpenGL ES 3.0 Renderer: NVIDIA GeForce RTX 2070 Super/PCIe/SSE2
- 
-**ERROR**: Node not found: /root/Main/Player.
-   At: scene/main/node.cpp:1381:get_node() - Condition "!node" is true. Returned: __null

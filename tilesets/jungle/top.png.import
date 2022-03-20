@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/blue_metal_2.png-f95569438440bc8c570fe2cd688a9124.stex"
+path="res://.import/top.png-97296bfa5641ce31198850a195f2f3a5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://tilesets/legacy/single_tiles/blue_metal_2.png"
-dest_files=[ "res://.import/blue_metal_2.png-f95569438440bc8c570fe2cd688a9124.stex" ]
+source_file="res://tilesets/jungle/top.png"
+dest_files=[ "res://.import/top.png-97296bfa5641ce31198850a195f2f3a5.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=0
+flags/repeat=1
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false
