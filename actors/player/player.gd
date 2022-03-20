@@ -1124,18 +1124,16 @@ func _physics_process(_delta):
 				hover_sfx.stop()
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
-	var rot_offset = PI/2
-	var center = position#get_global_transform_with_canvas().origin
+
+	var center = position
 	if state == s.dive || state == s.waterdive:
 		bubbles_medium.position.y = -9
 		bubbles_small.position.y = -9
 		if sprite.flip_h:
-			rot_offset = 0
 			bubbles_medium.position.x = -1
 			bubbles_small.position.x = -1
 
 		else:
-			rot_offset = PI
 			bubbles_medium.position.x = 1
 			bubbles_small.position.x = 1
 	else:

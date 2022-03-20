@@ -21,7 +21,7 @@
 [ext_resource path="res://actors/items/tilting_platform/tilting_platform.tscn" type="PackedScene" id=19]
 [ext_resource path="res://actors/items/goonie/goonie.tscn" type="PackedScene" id=20]
 [ext_resource path="res://actors/items/rotating_block/rotating_block.tscn" type="PackedScene" id=21]
-[ext_resource path="res://timer_end.tscn" type="PackedScene" id=22]
+[ext_resource path="res://actors/timer_end.tscn" type="PackedScene" id=22]
 [ext_resource path="res://actors/items/fungus_platform/fungus_stem.tscn" type="PackedScene" id=23]
 [ext_resource path="res://actors/items/coin/coin_yellow.tscn" type="PackedScene" id=24]
 [ext_resource path="res://actors/items/goomba/goomba.tscn" type="PackedScene" id=25]
@@ -41,6 +41,7 @@
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=39]
 [ext_resource path="res://shaders/palette.shader" type="Shader" id=40]
 [ext_resource path="res://actors/npc/toad/toad.tscn" type="PackedScene" id=41]
+
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true

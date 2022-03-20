@@ -1,15 +1,15 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://tilesets/redux/jungle/ground.png" type="Texture" id=1]
-[ext_resource path="res://tilesets/redux/jungle/bottom.png" type="Texture" id=2]
+[ext_resource path="res://tilesets/jungle/ground.png" type="Texture" id=1]
+[ext_resource path="res://tilesets/jungle/bottom.png" type="Texture" id=2]
 [ext_resource path="res://actors/terrain/terrain_polygon.gd" type="Script" id=3]
-[ext_resource path="res://tilesets/redux/jungle/top_corner.png" type="Texture" id=5]
+[ext_resource path="res://tilesets/jungle/top_corner.png" type="Texture" id=5]
 [ext_resource path="res://actors/terrain/pencil.gd" type="Script" id=6]
-[ext_resource path="res://tilesets/redux/jungle/top.png" type="Texture" id=7]
-[ext_resource path="res://tilesets/redux/jungle/edge.png" type="Texture" id=8]
+[ext_resource path="res://tilesets/jungle/top.png" type="Texture" id=7]
+[ext_resource path="res://tilesets/jungle/edge.png" type="Texture" id=8]
 [ext_resource path="res://actors/terrain/edges_pencil.gd" type="Script" id=9]
-[ext_resource path="res://tilesets/redux/jungle/top_corner_shade.png" type="Texture" id=10]
-[ext_resource path="res://tilesets/redux/jungle/top_shade.png" type="Texture" id=12]
+[ext_resource path="res://tilesets/jungle/top_corner_shade.png" type="Texture" id=10]
+[ext_resource path="res://tilesets/jungle/top_shade.png" type="Texture" id=12]
 
 [node name="TerrainPolygon" type="Polygon2D"]
 color = Color( 0.2, 0.027451, 0.027451, 0 )

@@ -51,9 +51,10 @@ func _physics_process(_delta):
 	if position.x - init_position.x > 100 or position.x - init_position.x < -100:
 		flip_ev()
 	
-	var bodies = hurtbox.get_overlapping_bodies()
-	if bodies.size() > 0:
-		damage_check(bodies[0])
+	if hurtbox.monitoring:
+		var bodies = hurtbox.get_overlapping_bodies()
+		if bodies.size() > 0:
+			damage_check(bodies[0])
 
 
 func flip_ev():
