@@ -42,7 +42,6 @@
 [ext_resource path="res://shaders/palette.shader" type="Shader" id=40]
 [ext_resource path="res://actors/npc/toad/toad.tscn" type="PackedScene" id=41]
 
-
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 32 )
