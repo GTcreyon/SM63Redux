@@ -295,11 +295,6 @@ func switch_anim(new_anim):
 			fludd_sprite.animation = "rocket"
 		n.turbo:
 			fludd_sprite.animation = "turbo"
-	if singleton.kris:
-		anim = "kris_" + anim
-		sprite.offset.y = -3
-	else:
-		sprite.offset.y = 0
 	sprite.animation = anim
 
 
