@@ -2,7 +2,7 @@ extends Light2D
 
 var time = 7 * 60
 
-func _process(delta):
+func _process(_delta):
 	if time > 0:
 		time -= 1
 		position.x = -255
