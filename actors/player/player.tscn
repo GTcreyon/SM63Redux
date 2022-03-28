@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario_sheet.png" type="Texture" id=2]
@@ -15,24 +15,6 @@
 [ext_resource path="res://actors/player/bubbles.gd" type="Script" id=37]
 [ext_resource path="res://actors/player/bubble.tres" type="Material" id=38]
 [ext_resource path="res://audio/sfx/fludd/fludd_switch.wav" type="AudioStream" id=56]
-[ext_resource path="res://actors/player/kris/kris_spin_2.png" type="Texture" id=61]
-[ext_resource path="res://actors/player/kris/kris_dive.png" type="Texture" id=62]
-[ext_resource path="res://actors/player/kris/kris_spin_1.png" type="Texture" id=66]
-[ext_resource path="res://actors/player/kris/kris_spin_3.png" type="Texture" id=67]
-[ext_resource path="res://actors/player/kris/kris_spin_4.png" type="Texture" id=68]
-[ext_resource path="res://actors/player/kris/kris_spin_6.png" type="Texture" id=69]
-[ext_resource path="res://actors/player/kris/kris_enter_back_1.png" type="Texture" id=70]
-[ext_resource path="res://actors/player/kris/kris_spin_7.png" type="Texture" id=71]
-[ext_resource path="res://actors/player/kris/kris_spin_5.png" type="Texture" id=72]
-[ext_resource path="res://actors/player/kris/kris_gp.png" type="Texture" id=73]
-[ext_resource path="res://actors/player/kris/kris_dj.png" type="Texture" id=74]
-[ext_resource path="res://actors/player/kris/kris_walk_right_1.png" type="Texture" id=75]
-[ext_resource path="res://actors/player/kris/kris_walk_right_2.png" type="Texture" id=76]
-[ext_resource path="res://actors/player/kris/kris_spin_9.png" type="Texture" id=77]
-[ext_resource path="res://actors/player/kris/kris_spin_10.png" type="Texture" id=78]
-[ext_resource path="res://actors/player/kris/kris_spin_8.png" type="Texture" id=79]
-[ext_resource path="res://actors/player/kris/kris_spin_11.png" type="Texture" id=80]
-[ext_resource path="res://actors/player/kris/kris_walk_right_3.png" type="Texture" id=81]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
@@ -46,34 +28,6 @@ region = Rect2( 72, 0, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 168, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
-region = Rect2( 408, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
-region = Rect2( 24, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
-region = Rect2( 96, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 2 )
-region = Rect2( 216, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 2 )
-region = Rect2( 240, 0, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 2 )
 region = Rect2( 264, 0, 24, 38 )
@@ -86,9 +40,33 @@ region = Rect2( 288, 0, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 312, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=11]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 2 )
-region = Rect2( 120, 0, 24, 38 )
+region = Rect2( 216, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 240, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 408, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 2 )
@@ -106,17 +84,17 @@ region = Rect2( 288, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 312, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=23]
+[sub_resource type="AtlasTexture" id=26]
 atlas = ExtResource( 2 )
-region = Rect2( 72, 38, 24, 38 )
+region = Rect2( 168, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 2 )
 region = Rect2( 96, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=26]
+[sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 2 )
-region = Rect2( 168, 38, 24, 38 )
+region = Rect2( 144, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 2 )
@@ -126,6 +104,22 @@ region = Rect2( 120, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 408, 38, 24, 38 )
 
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 2 )
+region = Rect2( 48, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 38, 24, 38 )
+
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 2 )
 region = Rect2( 216, 38, 24, 38 )
@@ -133,10 +127,6 @@ region = Rect2( 216, 38, 24, 38 )
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 2 )
 region = Rect2( 240, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 2 )
@@ -146,17 +136,9 @@ region = Rect2( 0, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 24, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=28]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 2 )
-region = Rect2( 48, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 2 )
-region = Rect2( 144, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
-region = Rect2( 144, 0, 24, 38 )
+region = Rect2( 120, 0, 24, 38 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -175,9 +157,24 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"loop": true,
+"name": "spin",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 18 ), SubResource( 19 ) ],
+"loop": true,
+"name": "swim",
+"speed": 4.0
+}, {
 "frames": [ SubResource( 13 ) ],
 "loop": true,
 "name": "pound_fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "walk",
 "speed": 10.0
 }, {
 "frames": [ SubResource( 16 ) ],
@@ -185,29 +182,9 @@ animations = [ {
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
-"loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
 "frames": [ SubResource( 17 ) ],
 "loop": true,
 "name": "jump",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "swim",
-"speed": 4.0
-}, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
-"loop": true,
-"name": "spin",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 11 ) ],
-"loop": true,
-"name": "fall",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 12 ) ],
@@ -215,44 +192,14 @@ animations = [ {
 "name": "shine",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 73 ) ],
-"loop": true,
-"name": "kris_flip",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 75 ), ExtResource( 76 ), ExtResource( 75 ), ExtResource( 81 ) ],
-"loop": true,
-"name": "kris_walk",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_swim",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 70 ) ],
-"loop": true,
-"name": "kris_front",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 66 ), ExtResource( 80 ), ExtResource( 71 ), ExtResource( 78 ), ExtResource( 77 ), ExtResource( 61 ), ExtResource( 67 ), ExtResource( 69 ), ExtResource( 68 ), ExtResource( 72 ), ExtResource( 79 ) ],
-"loop": true,
-"name": "kris_spin",
-"speed": 15.0
-}, {
-"frames": [  ],
-"loop": true,
-"name": "kris_jump",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
 "loop": true,
 "name": "spin_fludd",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 23 ) ],
+"frames": [ SubResource( 26 ) ],
 "loop": true,
-"name": "back_fludd",
+"name": "flip_fludd",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 25 ) ],
@@ -260,9 +207,9 @@ animations = [ {
 "name": "jump_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 26 ) ],
+"frames": [ SubResource( 29 ) ],
 "loop": true,
-"name": "flip_fludd",
+"name": "jump_double_fludd",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 27 ) ],
@@ -270,44 +217,9 @@ animations = [ {
 "name": "fall_fludd",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 62 ) ],
-"loop": true,
-"name": "kris_dive",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 24 ) ],
 "loop": true,
 "name": "dive_fludd",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 73 ) ],
-"loop": true,
-"name": "kris_pound_fall",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 30 ), SubResource( 31 ) ],
-"loop": true,
-"name": "swim_fludd",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 34 ) ],
-"loop": true,
-"name": "pound_fall_fludd",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 32 ), SubResource( 33 ) ],
-"loop": true,
-"name": "walk_fludd",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 28 ) ],
-"loop": true,
-"name": "front_fludd",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 29 ) ],
-"loop": true,
-"name": "jump_double_fludd",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 10 ) ],
@@ -315,9 +227,34 @@ animations = [ {
 "name": "jump_double",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 74 ) ],
+"frames": [ SubResource( 28 ) ],
 "loop": true,
-"name": "kris_jump_double",
+"name": "front_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 34 ) ],
+"loop": true,
+"name": "pound_fall_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 23 ) ],
+"loop": true,
+"name": "back_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "swim_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 32 ), SubResource( 33 ) ],
+"loop": true,
+"name": "walk_fludd",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 11 ) ],
+"loop": true,
+"name": "fall",
 "speed": 5.0
 } ]
 

@@ -90,8 +90,6 @@ func run_command(cmd):
 		"fdmg":
 			Singleton.hp -= int(args[1])
 			Singleton.log_msg("Forced %d damage." % int(args[1]))
-		"kris":
-			Singleton.kris = !Singleton.kris
 		"designer", "ld":
 			Singleton.log_msg("Entered Level Designer.")
 			#warning-ignore:RETURN_VALUE_DISCARDED

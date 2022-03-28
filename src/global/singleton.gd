@@ -23,7 +23,6 @@ var enter = 0
 var direction = 0
 var dead = false
 var hp = 8
-var kris = false
 var meter_progress = 0
 var collected_nozzles = [false, false, false]
 var collected_dict = {}
