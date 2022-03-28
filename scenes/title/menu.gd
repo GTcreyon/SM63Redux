@@ -46,25 +46,10 @@ func _process(_delta):
 		border.margin_bottom = OS.window_size.y / scale
 		
 		if Input.is_action_just_pressed("left"):
-			Singleton.get_node("SFX/Next").play()
-			if cycle_direction == 1:
-				cycle_step += 1
-				cycle_progress = 0
-			elif cycle_direction == -1:
-				cycle_step -= 1
-				cycle_progress = 2 * asin(1 - sin(cycle_progress*(PI/2)))/PI
-			cycle_direction = 1
+			step(-1)
 		
 		if Input.is_action_just_pressed("right"):
-			Singleton.get_node("SFX/Next").play()
-			if cycle_direction == -1:
-				cycle_step -= 1
-				cycle_progress = 0
-			elif cycle_direction == 1:
-				cycle_step += 1
-				cycle_progress = 2 * asin(1 - sin(cycle_progress*(PI/2)))/PI
-				
-			cycle_direction = -1
+			step(1)
 		
 		var result = sin(cycle_progress * PI/2)
 		var offset = Vector2.DOWN * 45 * scale
@@ -111,11 +96,7 @@ func _process(_delta):
 			i += 1
 		
 		if (Input.is_action_just_pressed("ui_accept") || Input.is_action_just_pressed("interact")) && modulate.a > 0:
-			match posmod(cycle_step + cycle_direction, 4):
-				0:
-					get_parent().dampen = true
-					Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
-					Singleton.get_node("SFX/Start").play()
+			press_button(posmod(cycle_step + cycle_direction, 4))
 					
 		if Input.is_action_just_pressed("ui_cancel"):
 			visible = false
@@ -123,3 +104,51 @@ func _process(_delta):
 		modulate.a = min(modulate.a + 0.125, 1)
 	else:
 		modulate.a = 0
+
+
+func press_button(button):
+	match button:
+		0:
+			get_parent().dampen = true
+			Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
+			Singleton.get_node("SFX/Start").play()
+			if OS.get_name() == "Android":
+				Singleton.controls.visible = true
+
+
+func step(direction):
+	Singleton.get_node("SFX/Next").play()	
+	if cycle_direction == -1 * direction:
+		cycle_step -= 1 * direction
+		cycle_progress = 0
+	elif cycle_direction == 1 * direction:
+		cycle_step += 1 * direction
+		cycle_progress = 2 * asin(1 - sin(cycle_progress*(PI/2)))/PI
+		
+	cycle_direction = -1 * direction
+	
+
+func _on_LDButton_pressed():
+	mobile_cycle(1)
+
+
+func _on_ExtrasButton_pressed():
+	mobile_cycle(2)
+
+
+func _on_SettingsButton_pressed():
+	mobile_cycle(3)
+
+
+func _on_StoryButton_pressed():
+	mobile_cycle(0)
+
+
+func mobile_cycle(step):
+	if step == posmod(cycle_step, 4):
+		press_button(step)
+	else:
+		if posmod(cycle_step + 1, 4) == step:
+			step(-1)
+		else:
+			step(1)

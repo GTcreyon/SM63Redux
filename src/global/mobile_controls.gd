@@ -2,8 +2,6 @@ extends Control
 
 func _init():
 	visible = false
-	if OS.get_name() == "Android":
-		visible = true
 
 
 func _ready():
