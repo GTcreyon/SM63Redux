@@ -102,7 +102,7 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.027451, 0, 0.0941176, 1 )
+color = Color( 0.027451, 0, 0.0941176, 0.501961 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -279,13 +279,9 @@ centered = false
 offset = Vector2( 9, 33 )
 
 [node name="Border" type="Panel" parent="."]
-margin_top = 1.0
 margin_right = 448.0
 margin_bottom = 305.0
 custom_styles/panel = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DescriptionBox" type="Control" parent="Border"]
 anchor_right = 1.0

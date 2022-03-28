@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/menu_night.mp3-2540c653ad471cf55a120db24f08f3dc.mp3str"
+
+[deps]
+
+source_file="res://scenes/title/menu_night.mp3"
+dest_files=[ "res://.import/menu_night.mp3-2540c653ad471cf55a120db24f08f3dc.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
