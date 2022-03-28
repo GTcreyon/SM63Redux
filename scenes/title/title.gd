@@ -30,3 +30,10 @@ func _process(_delta):
 			text.modulate.a = min(text.modulate.a + 0.125, 1)
 		title_song.volume_db = -8 - (volume_balance * 60)
 		menu_song.volume_db = -8 - 60 + (volume_balance * 60)
+
+
+func _input(event):
+	if event is InputEventScreenTouch:
+		if event.pressed && !menu.visible:
+			menu.visible = true
+			Singleton.get_node("SFX/Confirm").play()
