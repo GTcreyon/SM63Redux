@@ -8,11 +8,11 @@ func _ready():
 	playing = true
 
 
-func _on_KoopaCollision_body_entered(_body):
+func _on_TopCollision_body_entered(_body):
 	if player.is_spinning():
 		spawn_shell()
 	else:
-		if player.position.y < position.y:
+		if player.vel.y > -2:
 			$Kick.play()
 			koopa.position = Vector2(position.x, player.position.y + 33)
 			koopa.vel.y = player.vel.y
@@ -20,9 +20,10 @@ func _on_KoopaCollision_body_entered(_body):
 				koopa.direction = -1
 			else:
 				koopa.direction = 1
-			player.vel.y = -5
+			player.vel.y = -5.5
+			player.vel.x *= 1.2
 			get_parent().call_deferred("add_child", koopa)
-			$KoopaCollision.set_deferred("monitoring", false)
+			$TopCollision.set_deferred("monitoring", false)
 			$Damage.monitoring = false
 			set_deferred("visible", false)
 			visible = false
@@ -33,15 +34,16 @@ func _on_Kick_finished():
 
 
 func _on_Damage_body_entered(body):
-	if player.is_spinning():
-		spawn_shell()
-	else:
-		if body.global_position.x < global_position.x:
-			#print("collided from left")
-			player.take_damage_shove(1, -1)
-		elif body.global_position.x > global_position.x:
-			#print("collided from right")
-			player.take_damage_shove(1, 1)
+	if !player.is_diving(true):
+		if player.is_spinning():
+			spawn_shell()
+		else:
+			if body.global_position.x < global_position.x:
+				#print("collided from left")
+				player.take_damage_shove(1, -1)
+			elif body.global_position.x > global_position.x:
+				#print("collided from right")
+				player.take_damage_shove(1, 1)
 
 
 func spawn_shell():
@@ -53,6 +55,6 @@ func spawn_shell():
 		shell.vel.x = 5
 	else:
 		shell.vel.x = -5
-	$KoopaCollision.set_deferred("monitoring", false)
+	$TopCollision.set_deferred("monitoring", false)
 	$Damage.monitoring = false
 	set_deferred("visible", false)

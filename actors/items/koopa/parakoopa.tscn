@@ -41,7 +41,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 10, 2 )
+extents = Vector2( 10, 8 )
 
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 5, 15 )
@@ -51,12 +51,13 @@ frames = SubResource( 8 )
 animation = "flying"
 script = ExtResource( 8 )
 
-[node name="KoopaCollision" type="Area2D" parent="."]
+[node name="TopCollision" type="Area2D" parent="."]
 position = Vector2( 2, -14 )
 collision_layer = 0
 collision_mask = 2
 
-[node name="HitDetection" type="CollisionShape2D" parent="KoopaCollision"]
+[node name="HitDetection" type="CollisionShape2D" parent="TopCollision"]
+position = Vector2( 0, 6 )
 shape = SubResource( 9 )
 
 [node name="Kick" type="AudioStreamPlayer" parent="."]
@@ -71,5 +72,5 @@ collision_mask = 2
 [node name="Collision" type="CollisionShape2D" parent="Damage"]
 shape = SubResource( 10 )
 
-[connection signal="body_entered" from="KoopaCollision" to="." method="_on_KoopaCollision_body_entered"]
+[connection signal="body_entered" from="TopCollision" to="." method="_on_TopCollision_body_entered"]
 [connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered"]
