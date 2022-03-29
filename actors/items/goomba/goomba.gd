@@ -40,6 +40,8 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if player.static_v:
+		tracking = false
 	if sprite.animation == "squish":
 		var room = get_tree().get_current_scene().get_filename()
 		if dead:
@@ -192,9 +194,9 @@ func _physics_process(_delta):
 #for hurting mario or the enemy itself, but less complicated
 #as we need only the x coordinates
 
-func _on_Collision_mario_detected(_body):
-	if !tracking && sprite.animation != "squish":
-		if player.position.x > position.x:
+func _on_Collision_mario_detected(body):
+	if !tracking && sprite.animation != "squish" && !body.static_v:
+		if body.position.x > position.x:
 			direction = 1
 		else:
 			direction = -1
