@@ -60,25 +60,8 @@ func _on_Submit_pressed():
 		username = "Feedback [%s]" % contact
 	
 	msg += "\n**Contact:**\n> " + contact
-	#print(msg)
-	
-	
-	
-	var data = ""
-	data += add_data("platform", OS.get_name())
-	data += add_data("timestamp", OS.get_ticks_msec())
-	data += add_data("window_size", OS.get_window_size())
-	data += add_data("fullscreen", OS.window_fullscreen)
-	data += add_data("room", get_tree().get_current_scene().get_filename())
-	var player = $"/root/Main/Player"
-	if player == null:
-		data += add_data("no_player", "")
-	else:
-		data += add_data("pos", player.position)
-		data += add_data("rot", player.rotation)
-		data += add_data("zoom", player.get_node("Camera2D").zoom)
-		
-	
+
+	var data = assemble_package()
 	
 	yield(VisualServer, "frame_post_draw")
 	var img = get_viewport().get_texture().get_data()
@@ -101,7 +84,31 @@ func _on_Submit_pressed():
 		HTTPClient.METHOD_POST,
 		payload
 	)
-	#req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content": msg, "username": username}))
-#func _on_request_completed(result, response_code, headers, body):
-#	var json = JSON.parse(body.get_string_from_utf8())
-#	print(json.result)
+
+	reset_data()
+
+
+func assemble_package() -> String:
+	var package = ""
+	package += add_data("platform", OS.get_name())
+	package += add_data("timestamp", OS.get_ticks_msec())
+	package += add_data("window_size", OS.get_window_size())
+	package += add_data("fullscreen", OS.window_fullscreen)
+	package += add_data("room", get_tree().get_current_scene().get_filename())
+	var player = $"/root/Main/Player"
+	if player == null:
+		package += add_data("no_player", "")
+	else:
+		package += add_data("pos", player.position)
+		package += add_data("rot", player.rotation)
+		package += add_data("zoom", player.get_node("Camera2D").zoom)
+	return package
+	
+
+func reset_data():
+	$Panel/TextEdit.text = ""
+	$Panel2/LineEdit.text = ""
+	for check in $Checkboxes.get_children():
+		check.pressed = false
+	for mood in $Traffic.get_children():
+		mood.pressed = false
