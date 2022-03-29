@@ -194,18 +194,18 @@ var state = s.walk
 var classic
 
 func take_damage(amount):
-	if !invincible:
+	if !invincible && !static_v:
 		singleton.hp = clamp(singleton.hp - amount, 0, 8)
 		invincibility_on_effect()
 
 
 func take_damage_shove(amount, direction):
-	if !invincible:
+	if !invincible && !static_v:
 		take_damage_impact(amount, Vector2(4 * direction, -3))
 
 
 func take_damage_impact(amount, impact_vel):
-	if !invincible:
+	if !invincible && !static_v:
 		take_damage(amount)
 		vel = impact_vel
 		#warning-ignore:return_value_discarded
