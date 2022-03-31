@@ -10,7 +10,7 @@ onready var hover = $Hover
 onready var rocket = $Rocket
 onready var turbo = $Turbo
 
-var fludd = preload("res://actors/items/fludd_box/fludd.tscn").instance()
+var fludd = preload("res://actors/items/fludd_box/fludd_pickup.tscn").instance()
 var break_anim = preload("res://actors/items/fludd_box/box_break.tscn").instance()
 
 func set_type(new_type):
