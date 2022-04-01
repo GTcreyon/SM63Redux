@@ -22,14 +22,14 @@ func _ready():
 	coin_save = singleton.internal_coin_counter
 	modulate.v = 1 - death_cover.color.a
 	progress = singleton.meter_progress
-	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	filler.frame = singleton.hp
 
 
 func _process(_delta):
 	modulate.v = 1 - death_cover.color.a
 	
-	var gui_scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if Singleton.pause_menu:
 		progress = min(progress + 0.1, 1)
 		end_adjust = lerp(end_adjust, end_pos + 18, 0.5)

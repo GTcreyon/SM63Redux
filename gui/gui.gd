@@ -149,7 +149,7 @@ func _process(_delta):
 	
 	if last_size != OS.window_size:
 		$"/root/Main/Bubbles".refresh()
-		set_size(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
+		set_size(max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1))
 	last_size = OS.window_size
 	
 	if Input.is_action_just_pressed("pause") && !Singleton.feedback:
@@ -163,7 +163,7 @@ func _process(_delta):
 		
 	
 	var menu = get_tree().get_nodes_in_group("pause")
-	var gui_scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if Singleton.pause_menu:
 		pause_offset = lerp(pause_offset, 1, 0.5)
 		for node in menu:

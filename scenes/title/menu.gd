@@ -21,7 +21,7 @@ var cycle_step = 0
 
 func _process(_delta):
 	if visible:
-		var scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+		var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 			
 		cycle_positions = [
 			Vector2(OS.window_size.x / 2, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
