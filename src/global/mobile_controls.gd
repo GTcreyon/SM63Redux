@@ -5,7 +5,7 @@ func _init():
 
 
 func _ready():
-	var scale = floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	var button_scale = min(floor(OS.window_size.x / (120 * scale)), floor(OS.window_size.y / (42 * scale)))
 	$MobileArrows.rect_scale = Vector2.ONE * scale * button_scale
 	$MobileAction.rect_scale = Vector2.ONE * scale * button_scale

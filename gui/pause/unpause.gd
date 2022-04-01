@@ -9,7 +9,7 @@ func _init():
 
 
 func _ready():
-	rect_scale = Vector2.ONE * floor(OS.window_size.y / Singleton.DEFAULT_SIZE.y) * 2
+	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1) * 2
 
 
 func _on_Unpause_pressed():

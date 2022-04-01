@@ -8,7 +8,7 @@ onready var hills = $Hills
 
 func _process(_delta):
 	var cam_pos = cam.get_camera_position()
-	var bg_scale = round(OS.window_size.x / Singleton.DEFAULT_SIZE.x)
+	var bg_scale = max(round(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 #	if OS.window_size.x > Singleton.DEFAULT_SIZE.x:
 #		sky.offset = Vector2.ZERO
 #		sky.scale = Vector2.ONE / 2

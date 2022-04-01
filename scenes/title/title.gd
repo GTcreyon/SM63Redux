@@ -10,8 +10,15 @@ onready var menu_song = $MenuLoop
 
 var volume_balance = 0
 var dampen = false
-
+var scale
 func _process(_delta):
+	scale = Vector2.ONE * max(
+		1,
+		min(
+			round(OS.window_size.x / Singleton.DEFAULT_SIZE.x),
+			round(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+		)
+	)
 	if Input.is_action_just_pressed("interact") && !menu.visible:
 		menu.visible = true
 		Singleton.get_node("SFX/Confirm").play()

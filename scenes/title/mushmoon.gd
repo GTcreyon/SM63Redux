@@ -4,7 +4,7 @@ var progress = 0.5
 var season_progress = 0
 
 func _process(_delta):
-	var scalar = round(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
+	var scalar = get_parent().scale
 	scale = scalar * Vector2.ONE
 	progress += (1.0 / 60.0) / 10
 	if progress >= 1.5:
