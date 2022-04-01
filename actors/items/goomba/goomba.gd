@@ -240,11 +240,11 @@ func _on_Area2D_body_entered_hurt(body):
 
 
 func damage_check(body):
-	if body.is_spinning() || body.is_diving(true) || body.state == body.s.ejump:
+	if body.is_spinning() || (body.is_diving(true) && abs(body.vel.x) > 1) || body.state == body.s.ejump:
 		struck = true
 		vel.y -= 2.63
 		sprite.animation = "jumping"
-		vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10
+		vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
 	else:
 		body.take_damage_shove(1, sign(body.position.x - position.x))
 
