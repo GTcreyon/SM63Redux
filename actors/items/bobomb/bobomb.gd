@@ -37,6 +37,9 @@ onready var lm_counter = $"/root/Singleton".hp
 
 func _ready():
 	collect_id = Singleton.get_collect_id()
+	base.play()
+	fuse.play()
+	key.play()
 
 
 func _process(_delta):
