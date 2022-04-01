@@ -146,14 +146,13 @@ func _physics_process(_delta):
 		queue_free()
 	
 	for body in hurtbox.get_overlapping_bodies(): #done in process not signals cuz bobombs can be walked through
-		if body == player:
-			if !struck && player.is_spinning() || player.is_diving(true):
-				struck = true
-				vel.y -= 2.63
-				base.animation = "struck"
-				fuse.visible = false
-				key.visible = false
-				vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - player.position.x) / 10
+		if !struck && (body.is_spinning() || (body.is_diving(true) && abs(body.vel.x) > 1)):
+			struck = true
+			vel.y -= 2.63
+			base.animation = "struck"
+			fuse.visible = false
+			key.visible = false
+			vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 * 1.5
 		
 #the next signals are used for the aggresive trigger
 #behaviour, it changes the vel and goes towards
