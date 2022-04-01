@@ -795,7 +795,7 @@ func _physics_process(_delta):
 							0: #Single
 								switch_state(s.walk)
 								play_voice("jump1")
-								if ground_override > 0:
+								if ground_override >= ground_override_threshold:
 									vel.y = -set_jump_1_vel * 2
 								else:
 									vel.y = -set_jump_1_vel
@@ -803,14 +803,14 @@ func _physics_process(_delta):
 							1: #Double
 								switch_state(s.walk)
 								play_voice("jump2")
-								if ground_override > 0:
+								if ground_override >= ground_override_threshold:
 									vel.y = -set_jump_2_vel * 2
 								else:
 									vel.y = -set_jump_2_vel
 								double_jump_state+=1
 							2: #Triple
 								if abs(vel.x) > set_triple_jump_deadzone:
-									if ground_override > 0:
+									if ground_override >= ground_override_threshold:
 										vel.y = -set_jump_3_vel * 2
 									else:
 										vel.y = -set_jump_3_vel
