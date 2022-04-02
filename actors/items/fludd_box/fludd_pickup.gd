@@ -37,6 +37,7 @@ func switch_type(type):
 func pickup(nozzle):
 	singleton.nozzle = nozzle
 	singleton.water = max(singleton.water, 100)
+	player.switch_anim(player.sprite.animation.replace("_fludd", ""))
 	queue_free()
 
 
