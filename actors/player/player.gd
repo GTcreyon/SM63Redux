@@ -1124,7 +1124,7 @@ func _physics_process(_delta):
 				hover_position = hover_sfx.get_playback_position()
 			else:
 				hover_position = 0
-			if !Input.is_action_pressed("fludd"):
+			if !Input.is_action_pressed("fludd") || singleton.power > 0:
 				hover_sfx.stop()
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
