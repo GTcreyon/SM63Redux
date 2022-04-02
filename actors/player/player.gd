@@ -483,7 +483,10 @@ func _physics_process(_delta):
 							angle_offset = PI
 						sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
 					elif solid_floors > 0:
-						sprite.rotation = 0
+						if sprite.flip_h:
+							sprite.rotation = -PI / 2
+						else:
+							sprite.rotation = PI / 2
 			else:
 				if i_left && !i_right:
 					sprite.flip_h = true
@@ -679,7 +682,10 @@ func _physics_process(_delta):
 									angle_offset = PI
 								sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
 							elif solid_floors > 0:
-								sprite.rotation = 0
+								if sprite.flip_h:
+									sprite.rotation = -PI / 2
+								else:
+									sprite.rotation = PI / 2
 					else:
 						if double_jump_frames >= set_double_jump_frames - 1:
 							vel.x = ground_friction(vel.x, 0.3, 1.15) #Double friction on landing
@@ -991,7 +997,10 @@ func _physics_process(_delta):
 						else:
 							vel.y += 3.0 * fps_mod
 					switch_state(s.dive)
-					rotation_degrees = 0
+					if sprite.flip_h:
+						sprite.rotation = -PI / 2
+					else:
+						sprite.rotation = PI / 2
 					tween.remove_all()
 					switch_anim("dive")
 					double_jump_state = 0
