@@ -996,15 +996,16 @@ func _physics_process(_delta):
 							vel.y = max(-3, vel.y + 3.0 * fps_mod)
 						else:
 							vel.y += 3.0 * fps_mod
-					switch_state(s.dive)
-					if sprite.flip_h:
-						sprite.rotation = -PI / 2
-					else:
-						sprite.rotation = PI / 2
-					tween.remove_all()
-					switch_anim("dive")
-					double_jump_state = 0
-					dive_correct(1)
+					if !ground || vel.y >= 0:
+						switch_state(s.dive)
+						if sprite.flip_h:
+							sprite.rotation = -PI / 2
+						else:
+							sprite.rotation = PI / 2
+						tween.remove_all()
+						switch_anim("dive")
+						double_jump_state = 0
+						dive_correct(1)
 					
 			
 			if state == s.spin:
