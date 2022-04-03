@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/title/logo.gd" type="Script" id=4]
 [ext_resource path="res://scenes/title/shine_mask.png" type="Texture" id=5]
 [ext_resource path="res://scenes/title/shine_mask.gd" type="Script" id=6]
+[ext_resource path="res://scenes/title/super_shine.png" type="Texture" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -147,9 +148,6 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="StreamTexture" id=31]
-load_path = "res://.import/super_shine.png-475bd842d1b1eb20118840de76cd899a.stex"
-
 [node name="Logo" type="Sprite"]
 texture = ExtResource( 2 )
 offset = Vector2( 0.5, 0.5 )
@@ -193,7 +191,7 @@ script = ExtResource( 3 )
 [node name="Shine" type="Sprite" parent="."]
 light_mask = 2
 position = Vector2( -21, -75 )
-texture = SubResource( 31 )
+texture = ExtResource( 7 )
 
 [node name="ShineMask" type="Light2D" parent="."]
 position = Vector2( -255, -75 )
