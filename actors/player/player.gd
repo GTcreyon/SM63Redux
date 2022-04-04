@@ -67,26 +67,31 @@ var if_died = false #for death transition
 
 const voice_bank = {
 	"jump1": [
-		preload("res://audio/sfx/mario/jump1/ya1.wav"),
-		preload("res://audio/sfx/mario/jump1/ya2.wav"),
-		preload("res://audio/sfx/mario/jump1/ya3.wav"),
+		preload("res://audio/sfx/mario/jump1/jump1_0.wav"),
+		preload("res://audio/sfx/mario/jump1/jump1_1.wav"),
+		preload("res://audio/sfx/mario/jump1/jump1_2.wav"),
+		preload("res://audio/sfx/mario/jump1/jump1_3.wav"),
 	],
 	"jump2": [
-		preload("res://audio/sfx/mario/jump2/ma1.wav"),
-		preload("res://audio/sfx/mario/jump2/ma2.wav"),
-		preload("res://audio/sfx/mario/jump2/ma3.wav"),
+		preload("res://audio/sfx/mario/jump2/jump2_0.wav"),
+		preload("res://audio/sfx/mario/jump2/jump2_1.wav"),
+		#preload("res://audio/sfx/mario/jump2/ma3.wav"),
 	],
 	"jump3": [
-		preload("res://audio/sfx/mario/jump3/wahoo1.wav"),
-		preload("res://audio/sfx/mario/jump3/wahoo2.wav"),
-		preload("res://audio/sfx/mario/jump3/wahoo3.wav"),
-		preload("res://audio/sfx/mario/jump3/wahoo4.wav"),
-		preload("res://audio/sfx/mario/jump3/wahoo5.wav"),
+		preload("res://audio/sfx/mario/jump3/jump3_0.wav"),
+		preload("res://audio/sfx/mario/jump3/jump3_1.wav"),
+		preload("res://audio/sfx/mario/jump3/jump3_2.wav"),
+		preload("res://audio/sfx/mario/jump3/jump3_3.wav"),
+		preload("res://audio/sfx/mario/jump3/jump3_4.wav"),
+		preload("res://audio/sfx/mario/jump3/jump3_5.wav"),
+		preload("res://audio/sfx/mario/jump3/jump3_6.wav"),
+		preload("res://audio/sfx/mario/jump3/jump3_7.wav"),
 	],
 	"dive": [
-		preload("res://audio/sfx/mario/dive/wa1.wav"),
-		preload("res://audio/sfx/mario/dive/wa2.wav"),
-		preload("res://audio/sfx/mario/dive/wa3.wav"),
+		preload("res://audio/sfx/mario/dive/dive_0.wav"),
+		preload("res://audio/sfx/mario/dive/dive_1.wav"),
+		preload("res://audio/sfx/mario/dive/dive_2.wav"),
+		preload("res://audio/sfx/mario/dive/dive_3.wav"),
 	],
 }
 
