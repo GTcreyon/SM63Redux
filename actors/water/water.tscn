@@ -36,7 +36,6 @@ polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
 [node name="Viewport" type="Viewport" parent="."]
 size = Vector2( 32, 32 )
-transparent_bg = true
 handle_input_locally = false
 hdr = false
 usage = 0
