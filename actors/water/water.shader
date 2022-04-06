@@ -4,11 +4,11 @@ uniform vec4 base_water_color;
 uniform vec2 water_xy_ratio;
 uniform float texture_repeat;
 uniform float normal_map_mult = 0.2;
-uniform float animation_swing_range_px = 32f;
-uniform float animation_speed = 1f;
+uniform float animation_swing_range_px = 32.;
+uniform float animation_speed = 1.;
 
 const float PI = 3.14159265359;
-const float TAU = 2f * PI;
+const float TAU = 2. * PI;
 const vec2 unit_vec = vec2(1, 1);
 
 vec2 keep_bounds(vec2 vec) {return mod(vec, unit_vec);}
@@ -31,5 +31,5 @@ void fragment() {
 	COLOR = base_water_color + vec4(normal_map, normal_map, normal_map, 0);
 	*/
 	COLOR = base_water_color;
-	COLOR.a = 1f;
+	COLOR.a = 1.;
 }
