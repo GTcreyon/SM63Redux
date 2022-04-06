@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jump_double_2.wav-3e7b7dc8db1833bafe0572a224416343.sample"
+
+[deps]
+
+source_file="res://audio/sfx/mario/jump_double/jump_double_2.wav"
+dest_files=[ "res://.import/jump_double_2.wav-3e7b7dc8db1833bafe0572a224416343.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
