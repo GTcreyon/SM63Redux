@@ -7,10 +7,10 @@ const vec4 ignore_px = vec4(1.0, 0.0, 188.0 / 255.0, 1.0);
 void fragment()
 {
 	vec4 screen_color = texture(SCREEN_TEXTURE, SCREEN_UV);
-	if (screen_color.a == 1f) {
+	if (screen_color.a == 1.) {
 		COLOR = texture(TEXTURE, UV);
 	} else {
-		COLOR = vec4(0f, 0f, 0f, 1f);
+		COLOR = vec4(0., 0., 0., 1.);
 	}
 //	vec4 color = texture(TEXTURE, UV);
 //	if (color == ignore_px) {

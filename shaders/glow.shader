@@ -18,7 +18,7 @@ void vertex()
 //	);
 	o = VERTEX;
 	vec2 uv = (UV - 0.5);
-	VERTEX += uv * float(width) * 2f;
+	VERTEX += uv * float(width) * 2.;
 	f = VERTEX;
 }
 
@@ -33,9 +33,9 @@ void fragment(){
 	REALUV.y = REALUV.y + (f.y - o.y) * TEXTURE_PIXEL_SIZE.y;
 	
 	COLOR = texture(TEXTURE, REALUV);
-	if(COLOR.a <= 0f || REALUV.x > 1f || REALUV.x < 0f || REALUV.y > 1f || REALUV.y < 0f){
-		for(float x = -float(width); x <= float(width); x += 1f){ //idk why this needs to be a float
-			for(float y = -float(width); y <= float(width); y += 1f){
+	if(COLOR.a <= 0. || REALUV.x > 1. || REALUV.x < 0. || REALUV.y > 1. || REALUV.y < 0.){
+		for(float x = -float(width); x <= float(width); x += 1.){ //idk why this needs to be a float
+			for(float y = -float(width); y <= float(width); y += 1.){
 				//exclude pixels outside the mask
 				if(distance(vec2(0), vec2(float(x), float(y))) > float(width) && radial || abs(x) == abs(y) && !radial)
 					continue;
@@ -44,11 +44,11 @@ void fragment(){
 				
 				//fail when OoB
 				vec4 neighbor_col = texture(TEXTURE, neighbor_uv);
-				if((neighbor_uv.x < 0f || neighbor_uv.x > 1f) || (neighbor_uv.y < 0f || neighbor_uv.y > 1f)){
+				if((neighbor_uv.x < 0. || neighbor_uv.x > 1.) || (neighbor_uv.y < 0. || neighbor_uv.y > 1.)){
 					neighbor_col = vec4(0);
 				}
 				
-				if(neighbor_col.a > 0f){
+				if(neighbor_col.a > 0.){
 					COLOR = outline_color;
 				}
 			}
