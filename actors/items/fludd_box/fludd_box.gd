@@ -31,7 +31,7 @@ func set_type(new_type):
 
 
 func _on_FluddBox_body_entered(body):
-	if body == player && player.vel.y > -2:
+	if body == player && player.vel.y > -2 && player.position.y < position.y: #TODO: give mario feet collision
 		main.call_deferred("add_child", break_anim)
 		break_anim.position = Vector2(position.x, position.y)
 		match type:
