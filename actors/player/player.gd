@@ -69,8 +69,6 @@ const voice_bank = {
 	"jump1": [
 		preload("res://audio/sfx/mario/jump_single/jump_single_0.wav"),
 		preload("res://audio/sfx/mario/jump_single/jump_single_1.wav"),
-		preload("res://audio/sfx/mario/jump_single/jump_single_2.wav"),
-		preload("res://audio/sfx/mario/jump_single/jump_single_3.wav"),
 	],
 	"jump2": [
 		preload("res://audio/sfx/mario/jump_double/jump_double_0.wav"),
@@ -517,7 +515,7 @@ func _physics_process(_delta):
 					hitbox.position = stand_box_pos
 					hitbox.shape.extents = stand_box_extents
 					
-				if sprite.rotation_degrees != 0 || dive_frames > 2:
+				if abs(sprite.rotation_degrees) > 9 || dive_frames > 2: #TODO: buggy
 					sprite.rotation_degrees += 10 if sprite.flip_h else -10
 				else:
 					dive_return = false
@@ -549,7 +547,7 @@ func _physics_process(_delta):
 					else:
 						vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
 					dive_return = false
-					tween.remove_all()
+					tween.remove_all() #TODO: tweens bad
 					if sprite.flip_h:
 						tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
 					else:
@@ -699,8 +697,8 @@ func _physics_process(_delta):
 				
 					if state == s.frontflip || state == s.backflip: #Reset state when landing
 						switch_state(s.walk)
-						sprite.rotation_degrees = 0
 						tween.remove_all()
+						sprite.rotation_degrees = 0
 					
 					if state == s.dive && abs(vel.x) == 0 && !i_dive_h && !dive_return:
 						dive_return = true
