@@ -142,19 +142,19 @@ rotation = 0.279253
 [node name="Decoration" type="Node2D" parent="Items"]
 
 [node name="BigTree" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 162.5, 122 )
+position = Vector2( 162.5, 123 )
 
 [node name="BigTree2" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 350.5, 138 )
+position = Vector2( 350.5, 139 )
 
 [node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 240, 137 )
+position = Vector2( 240, 138 )
 
 [node name="BigTree3" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 423.5, 148 )
+position = Vector2( 423.5, 149 )
 
 [node name="BigTree4" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 580.5, 106 )
+position = Vector2( 580.5, 107 )
 
 [node name="SmallTree2" parent="Items/Decoration" instance=ExtResource( 25 )]
 position = Vector2( 494, 160 )
@@ -163,19 +163,19 @@ position = Vector2( 494, 160 )
 position = Vector2( 1041, 214 )
 
 [node name="BigTree5" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 1289.5, 212 )
+position = Vector2( 1289.5, 213 )
 
 [node name="BigTree6" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 1419.5, 209 )
+position = Vector2( 1419.5, 210 )
 
 [node name="BigTree7" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 1650.5, 195 )
+position = Vector2( 1650.5, 196 )
 
 [node name="SmallTree4" parent="Items/Decoration" instance=ExtResource( 25 )]
 position = Vector2( 1350, 227 )
 
 [node name="SmallTree5" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 1525, 210 )
+position = Vector2( 1525, 211 )
 
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 5 )]
 position = Vector2( 11, 145 )
