@@ -337,20 +337,20 @@ frame = 1
 [node name="Decoration" type="Node2D" parent="Items"]
 
 [node name="FungusSingle" parent="Items/Decoration" instance=ExtResource( 28 )]
-position = Vector2( 482.5, 192.5 )
+position = Vector2( 482.5, 193.5 )
 
 [node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 30 )]
-position = Vector2( 340, 168 )
+position = Vector2( 340, 169 )
 
 [node name="FungusDouble" parent="Items/Decoration" instance=ExtResource( 29 )]
-position = Vector2( 547, 193.5 )
+position = Vector2( 547, 194.5 )
 flip_h = true
 
 [node name="Flowers" parent="Items/Decoration" instance=ExtResource( 26 )]
 position = Vector2( 310, 196.5 )
 
 [node name="BigTree" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 631, 143 )
+position = Vector2( 631, 144 )
 
 [node name="BigTree2" parent="Items/Decoration" instance=ExtResource( 27 )]
 position = Vector2( 195.5, 154 )

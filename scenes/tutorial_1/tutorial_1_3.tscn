@@ -64,7 +64,7 @@ polygon = PoolVector2Array( 0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 7 )]
 position = Vector2( 0, 215 )
 z_index = 1
-polygon = PoolVector2Array( 0, 0, 136, 0, 309, -21, 456, -21, 480, -7, 615, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 1885, -175, 1922, 134, 0, 120 )
+polygon = PoolVector2Array( 0, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 1885, -175, 1922, 134, 0, 120 )
 
 [node name="Items" type="Node2D" parent="."]
 
@@ -186,7 +186,7 @@ position = Vector2( 1565.72, 214.333 )
 [node name="Decoration" type="Node2D" parent="Items"]
 
 [node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 22 )]
-position = Vector2( 147, 175 )
+position = Vector2( 147, 176 )
 
 [node name="BigTree" parent="Items/Decoration" instance=ExtResource( 23 )]
 position = Vector2( 240.5, 150 )
@@ -198,7 +198,7 @@ position = Vector2( 465, 165 )
 position = Vector2( 591, 167 )
 
 [node name="SmallTree4" parent="Items/Decoration" instance=ExtResource( 22 )]
-position = Vector2( 1796, 1 )
+position = Vector2( 1796, 2 )
 
 [node name="FungusDouble" parent="Items/Decoration" instance=ExtResource( 24 )]
 position = Vector2( 845, 174.5 )
@@ -213,7 +213,7 @@ position = Vector2( 1126, -23 )
 position = Vector2( 1769, 30.5 )
 
 [node name="FungusSingle2" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 1268.5, -2.5 )
+position = Vector2( 1268.5, -1.5 )
 
 [node name="FungusSingle3" parent="Items/Decoration" instance=ExtResource( 25 )]
 position = Vector2( 919.5, -58.5 )
