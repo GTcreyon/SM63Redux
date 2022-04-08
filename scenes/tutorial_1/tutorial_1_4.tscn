@@ -469,4 +469,4 @@ scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
 size = Vector2( 2000, 50 )
 
 [node name="TimerEnd" parent="." instance=ExtResource( 22 )]
-position = Vector2( 715, -552 )
+position = Vector2( 712, -552 )
