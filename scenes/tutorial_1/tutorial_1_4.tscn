@@ -67,8 +67,8 @@ shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
 [node name="BGT1" parent="." instance=ExtResource( 34 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
-polygon = PoolVector2Array( -208, -160, -1008, -160, -1008, -848, 1168, -848, 1168, -432, 752, -432, 752, 288, -208, 288 )
-spawn_position = Vector2( 300, 100 )
+polygon = PoolVector2Array( -256, -160, -1008, -160, -1008, -848, 1168, -848, 1168, -432, 752, -432, 752, 288, -256, 288 )
+spawn_position = Vector2( 600, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
 position = Vector2( -81, 193 )
@@ -341,6 +341,9 @@ position = Vector2( 482.5, 193.5 )
 [node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 340, 169 )
 
+[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource( 30 )]
+position = Vector2( -52, 175 )
+
 [node name="FungusDouble" parent="Items/Decoration" instance=ExtResource( 29 )]
 position = Vector2( 547, 194.5 )
 flip_h = true
@@ -353,6 +356,9 @@ position = Vector2( 631, 144 )
 
 [node name="BigTree2" parent="Items/Decoration" instance=ExtResource( 27 )]
 position = Vector2( 195.5, 154 )
+
+[node name="BigTree3" parent="Items/Decoration" instance=ExtResource( 27 )]
+position = Vector2( 33.5, 160 )
 
 [node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 26 )]
 position = Vector2( 128, 202.5 )
