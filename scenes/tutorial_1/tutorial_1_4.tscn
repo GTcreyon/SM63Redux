@@ -67,9 +67,8 @@ shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
 [node name="BGT1" parent="." instance=ExtResource( 34 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
-visible = false
-polygon = PoolVector2Array( -180.471, -27.1885, -1002.55, -24.4006, -1002.55, -845.869, 1167.04, -845.869, 1167.04, -440.175, 766.38, -427.575, 751.261, 288.06, -182.991, 290.312 )
-spawn_position = Vector2( 200, 0 )
+polygon = PoolVector2Array( -208, -160, -1008, -160, -1008, -848, 1168, -848, 1168, -432, 752, -432, 752, 288, -208, 288 )
+spawn_position = Vector2( 300, 100 )
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
 position = Vector2( -81, 193 )
@@ -78,7 +77,7 @@ position = Vector2( -81, 193 )
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 14 )]
 position = Vector2( 0, 209 )
-polygon = PoolVector2Array( -238, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -744, 714, -744, 720, -749, 820, -749, 860, -722, 928, -732, 1068.23, -732, 1068, -1276, 1387, -1276, 1372, 334, -248, 359 )
+polygon = PoolVector2Array( -480, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -744, 714, -744, 720, -749, 820, -749, 860, -722, 928, -732, 1068.23, -732, 1068, -1276, 1387, -1276, 1376, 335, -480, 335 )
 
 [node name="Items" type="Node2D" parent="."]
 

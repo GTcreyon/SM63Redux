@@ -19,10 +19,13 @@ func force_draw(val):
 
 func _draw():
 	if Engine.editor_hint:
-		var base_size = Vector2(640, 360)
 		draw_rect(Rect2(
-			spawn_position - base_size / 2,
-			base_size
+			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y) / 2,
+			Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y)
+		), Color(1, 0, 1, 0.5))
+		draw_rect(Rect2(
+			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y) / 2,
+			Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y)
 		), Color(0, 0, 1, 0.5))
 
 func get_rect(poly, margin = 0):
