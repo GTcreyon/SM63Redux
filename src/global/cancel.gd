@@ -4,7 +4,7 @@ extends Control
 func _ready():
 	var scalar = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	rect_scale = Vector2.ONE * scalar
-	margin_left = 80 * scalar
+	margin_left = 40 * scalar
 	visible = false
 
 

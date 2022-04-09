@@ -353,8 +353,7 @@ __meta__ = {
 
 [node name="Cancel" type="Control" parent="."]
 pause_mode = 2
-margin_left = 80.0
-margin_right = 80.0
+margin_left = 40.0
 mouse_filter = 2
 script = ExtResource( 10 )
 
