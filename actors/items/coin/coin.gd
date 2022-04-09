@@ -4,6 +4,7 @@ onready var main = $"/root/Main"
 onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
 var dropped = false
+var indexed = true
 var vel : Vector2 = Vector2.INF
 var picked = false
 var active_timer = 30

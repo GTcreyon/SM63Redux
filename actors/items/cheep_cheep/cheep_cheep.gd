@@ -11,12 +11,14 @@ var idle_time = 0
 var in_water = false
 var struck = false
 var struck_timer = 60
+var collect_id
 onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
 onready var hurtbox = $Damage
 var rng = RandomNumberGenerator.new()
 
 func _ready():
+	collect_id = Singleton.get_collect_id()
 	rng.seed = hash(position.x + position.y * PI)
 	sprite.frame = rng.seed % 2
 	sprite.playing = true
@@ -27,10 +29,11 @@ func _physics_process(_delta):
 		vel *= 0.9
 		rotation += vel.length() * sign(vel.x) * 0.1
 		if round(vel.length()) == 0:
-			var spawn = coin.instance()
-			spawn.position = position
-			spawn.dropped = true
-			$"/root/Main".add_child(spawn)
+			if Singleton.request_coin(collect_id):
+				var spawn = coin.instance()
+				spawn.position = position
+				spawn.dropped = true
+				$"/root/Main".add_child(spawn)
 			queue_free()
 	else:
 		if in_water:

@@ -40,15 +40,13 @@ func _on_SpinArea_body_entered(_body):
 
 
 func destroy():
-	var room = get_tree().get_current_scene().get_filename()
 	for _i in range(5):
 		var inst = particle.instance()
 		inst.position = position + Vector2((rng.randf() - 0.5) * 27, (rng.randf() - 0.5) * 27)
 		inst.vel = Vector2((rng.randf() - 0.5) * 5, rng.randf() * -2.5)
 		inst.get_node("AnimatedSprite").frame = rng.randi() % 7
 		main.call_deferred("add_child", inst)
-	if !Singleton.collected_dict[room][collect_id]:
-		Singleton.collected_dict[room][collect_id] = true
+	if Singleton.request_coin(collect_id):
 		for _i in range(5):
 			var inst = coin.instance()
 			inst.position = position# + Vector2((rng.randf() - 0.5) * 27, (rng.randf() - 0.5) * 27)
