@@ -13,10 +13,10 @@ func _ready():
 
 
 func _on_Unpause_pressed():
-	if !Singleton.feedback && parent.visible:
+	if !Singleton.feedback && parent.modulate.a >= 1:
 		Input.action_press("pause")
 
 
 func _on_Unpause_released():
-	if !Singleton.feedback && parent.visible:
+	if !Singleton.feedback && parent.modulate.a >= 1:
 		Input.action_release("pause")
