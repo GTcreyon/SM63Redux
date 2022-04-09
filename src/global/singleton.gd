@@ -89,7 +89,7 @@ func warp_to(path):
 		timer.split_frames = 0
 	timer.split_timer()
 	#warning-ignore:RETURN_VALUE_DISCARDED
-	return get_tree().call_deferred("change_scene", path)
+	get_tree().call_deferred("change_scene", path)
 
 
 func get_collect_id():
@@ -103,3 +103,7 @@ func get_collect_id():
 func create_coindict(path):
 	if !collected_dict.has(path):
 		collected_dict[path] = [false]
+
+
+func reset_all_coindicts():
+	collected_dict = {}
