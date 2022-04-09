@@ -43,14 +43,12 @@ func _physics_process(_delta):
 	if player.static_v:
 		tracking = false
 	if sprite.animation == "squish":
-		var room = get_tree().get_current_scene().get_filename()
 		if dead:
-			if !Singleton.collected_dict[room][collect_id]:
+			if Singleton.request_coin(collect_id):
 				var spawn = coin.instance()
 				spawn.position = position
 				spawn.dropped = true
 				main.add_child(spawn)
-				Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
 			queue_free()
 		else:
 			if !struck:

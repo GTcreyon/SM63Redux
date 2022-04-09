@@ -107,3 +107,10 @@ func create_coindict(path):
 
 func reset_all_coindicts():
 	collected_dict = {}
+
+
+func request_coin(collect_id):
+	var room = get_tree().get_current_scene().get_filename()
+	if !Singleton.collected_dict[room][collect_id]:
+		Singleton.collected_dict[room][collect_id] = true
+		return true
