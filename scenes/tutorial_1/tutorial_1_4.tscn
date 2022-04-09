@@ -67,8 +67,7 @@ shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
 [node name="BGT1" parent="." instance=ExtResource( 34 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
-visible = false
-polygon = PoolVector2Array( -320, -160, -1008, -160, -1008, -848, 1168, -848, 1168, -400, 816, -400, 752, -335.814, 752, 288, -320, 288 )
+polygon = PoolVector2Array( -389, -160, -1008, -160, -1008, -848, 1168, -848, 1168, -400, 816, -400, 747.278, -319.208, 752, 288, -320, 288, -322, -92 )
 spawn_position = Vector2( 600, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
