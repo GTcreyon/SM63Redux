@@ -127,7 +127,7 @@ lines = [ "[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nast
 [node name="Sign3" parent="Items" instance=ExtResource( 22 )]
 material = SubResource( 2 )
 position = Vector2( 1601, 247 )
-lines = [ "[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]", "If you jump three times while moving,[@p,3] you can jump higher each time,[@p,3] ending with a huge leap!", "That’s everything I know,[@p,3] or at least,[@p,3] all I can remember." ]
+lines = [ "[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]", "If you jump three times while moving,[@p,3] you can jump higher each time,[@p,3] ending with a huge leap!", "That's everything I know,[@p,3] or at least,[@p,3] all I can remember." ]
 
 [node name="Cheep Cheep" parent="Items" instance=ExtResource( 17 )]
 position = Vector2( 1089.76, 371.532 )
