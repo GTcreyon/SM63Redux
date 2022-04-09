@@ -91,6 +91,7 @@ func _on_Submit_pressed():
 func assemble_package() -> String:
 	var package = ""
 	package += add_data("platform", OS.get_name())
+	package += add_data("version", Singleton.VERSION)
 	package += add_data("timestamp", OS.get_ticks_msec())
 	package += add_data("window_size", OS.get_window_size())
 	package += add_data("fullscreen", OS.window_fullscreen)
