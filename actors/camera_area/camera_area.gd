@@ -9,9 +9,11 @@ onready var base_modifier: BaseModifier = singleton.base_modifier
 
 onready var collision = $StaticBody2D/CollisionPolygon2D
 onready var body = $KinematicBody2D
-onready var body_collision = $KinematicBody2D/CollisionShape2D
+onready var body_collision: CollisionPolygon2D = $KinematicBody2D/CollisionPolygon2D
 
 export var spawn_position: Vector2 setget force_draw
+
+var window_prev_length: float
 
 func force_draw(val):
 	spawn_position = val
@@ -122,7 +124,14 @@ func _ready():
 	#invert the current polygon
 	set_physics_polygon(polygon)
 	
-	body_collision.shape.set_extents(OS.window_size / 2)
+#	body_collision.shape.set_extents(OS.window_size / 2)
+	body_collision.polygon = PoolVector2Array([
+		Vector2(0, -OS.window_size.y / 2),
+		Vector2(OS.window_size.x / 2, 0),
+		Vector2(0, OS.window_size.y / 2),
+		Vector2(-OS.window_size.x / 2, 0)
+	])
+	window_prev_length = OS.window_size.length()
 	
 	body.position = spawn_position
 	#make it invisible
@@ -132,14 +141,29 @@ func _physics_process(dt):
 	if Engine.editor_hint:
 		return
 	#handle the scaling of the window / zoom of the camera
-	if body_collision.shape:
-		var target_size = OS.window_size / 2 * camera.zoom
-		if target_size != body_collision.shape.get_extents():
-			body_collision.shape.set_extents(target_size)
+#	if body_collision.shape:
+#		var target_size = OS.window_size / 2 * camera.zoom
+#		if target_size != body_collision.shape.get_extents():
+#			body_collision.shape.set_extents(target_size)
+
+	var target_size = OS.window_size * camera.zoom
+	if target_size.length() != window_prev_length:
+		window_prev_length = target_size.length()
+		body_collision.polygon = PoolVector2Array([
+			Vector2(0, -target_size.y / 2),
+			Vector2(target_size.x / 2, 0),
+			Vector2(0, target_size.y / 2),
+			Vector2(-target_size.x / 2, 0)
+		])
 	
 	#update the camera position and stuff
 	var target = player.position
 	body.move_and_slide(((target - body.position) / dt))
 
+#	print(camera.position.distance_to(player.position))
+#	if camera.position.distance_to(player.position) >= 500:
+#		base_modifier.set_base(camera, "position", player.position)
+#	else:
 	#set the base of the camera to the body
 	base_modifier.set_base(camera, "position", body.position - player.position)
+
