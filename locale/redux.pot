@@ -180,14 +180,14 @@ msgstr ""
 
 #: ../scenes/tutorial_1/tutorial_1_3.tscn:180
 msgid ""
-"[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the "
-"[color=#f7c55f]F.L.U.D.D.[/color] pack!"
+"Usa el boton [color=#f7c55f][@b,fludd][/color] para elevarte usando "
+"[color=#5f75c5]F.L.U.D.D.[/color]"
 msgstr ""
 
 #: ../scenes/tutorial_1/tutorial_1_3.tscn:180
 msgid ""
-"[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump "
-"into a pool of water, or find a refill bottle."
+"Para rellenar la reserva de [color=#5f75c5]F.L.U.D.D.[/color], súmergete "
+"en agua o encuentra una botella."
 msgstr ""
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:482
