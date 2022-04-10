@@ -1,4 +1,4 @@
-[gd_scene load_steps=169 format=2]
+[gd_scene load_steps=136 format=2]
 
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_edge.png" type="Texture" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -6,23 +6,15 @@
 [ext_resource path="res://gui/pause/buttons/button_options_0.tres" type="StyleBox" id=4]
 [ext_resource path="res://gui/pause/buttons/button_options_1.tres" type="StyleBox" id=5]
 [ext_resource path="res://gui/pause/buttons/button_map_1.tres" type="StyleBox" id=6]
-[ext_resource path="res://gui/pause/pause_back.tres" type="StyleBox" id=7]
+[ext_resource path="res://gui/pause/pause.tscn" type="PackedScene" id=7]
 [ext_resource path="res://gui/pause/buttons/button_exit_1.tres" type="StyleBox" id=8]
 [ext_resource path="res://gui/pause/buttons/button_exit_0.tres" type="StyleBox" id=9]
 [ext_resource path="res://gui/pause/buttons/button_fludd_0.tres" type="StyleBox" id=10]
-[ext_resource path="res://actors/items/fludd_box/pickup_hover.png" type="Texture" id=11]
-[ext_resource path="res://actors/items/fludd_box/pickup_rocket.png" type="Texture" id=12]
-[ext_resource path="res://actors/items/fludd_box/pickup_turbo.png" type="Texture" id=13]
 [ext_resource path="res://gui/gui.gd" type="Script" id=14]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=15]
-[ext_resource path="res://gui/level_info.gd" type="Script" id=16]
 [ext_resource path="res://gui/pause/buttons/pause_button.gd" type="Script" id=17]
-[ext_resource path="res://gui/pause_content.gd" type="Script" id=18]
 [ext_resource path="res://gui/hud/buttons/input_display.gd" type="Script" id=19]
-[ext_resource path="res://gui/map.gd" type="Script" id=20]
 [ext_resource path="res://gui/hud/debug_label.gd" type="Script" id=21]
-[ext_resource path="res://gui/pause/unpause.gd" type="Script" id=22]
-[ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=23]
 [ext_resource path="res://gui/dialog/faces/toad/anger.png" type="Texture" id=24]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=25]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
@@ -41,20 +33,14 @@
 [ext_resource path="res://gui/hud/water_meter/water_meter_cover.png" type="Texture" id=39]
 [ext_resource path="res://gui/hud/water_meter/water_meter_max.png" type="Texture" id=40]
 [ext_resource path="res://gui/hud/buttons/c_button_0.png" type="Texture" id=41]
-[ext_resource path="res://shaders/glow.tres" type="Material" id=42]
-[ext_resource path="res://paintings/mini.png" type="Texture" id=43]
 [ext_resource path="res://gui/hud/water_meter/water_meter_fill.png" type="Texture" id=44]
-[ext_resource path="res://actors/items/fludd_box/map_turbo.png" type="Texture" id=45]
 [ext_resource path="res://actors/items/fludd_box/nozzle_hover.png" type="Texture" id=46]
-[ext_resource path="res://actors/items/fludd_box/map_hover.png" type="Texture" id=47]
-[ext_resource path="res://paintings/bob.png" type="Texture" id=48]
 [ext_resource path="res://gui/hud/buttons/x_button_0.png" type="Texture" id=49]
 [ext_resource path="res://gui/hud/hud_coin.png" type="Texture" id=50]
 [ext_resource path="res://gui/hud/buttons/z_button_0.png" type="Texture" id=51]
 [ext_resource path="res://gui/hud/water_meter/water_meter_power_filler_cover.png" type="Texture" id=52]
 [ext_resource path="res://gui/hud/hud_shine_coin.png" type="Texture" id=53]
 [ext_resource path="res://gui/hud/buttons/l_button_1.png" type="Texture" id=54]
-[ext_resource path="res://actors/items/fludd_box/map_rocket.png" type="Texture" id=55]
 [ext_resource path="res://gui/hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=56]
 [ext_resource path="res://gui/hud/water_meter/water_meter_mask_bottom.png" type="Texture" id=57]
 [ext_resource path="res://gui/hud/buttons/d_button_0.png" type="Texture" id=58]
@@ -81,31 +67,21 @@
 [ext_resource path="res://gui/hud/water_meter/water_meter_bubble_big.png" type="Texture" id=80]
 [ext_resource path="res://gui/pause/buttons/star_exit_0.png" type="Texture" id=81]
 [ext_resource path="res://gui/pause/buttons/text_map.png" type="Texture" id=82]
-[ext_resource path="res://gui/pause/map/pin.png" type="Texture" id=83]
 [ext_resource path="res://gui/hud/buttons/r_button_1.png" type="Texture" id=84]
-[ext_resource path="res://gui/pause/map/divider_middle.png" type="Texture" id=85]
 [ext_resource path="res://gui/hud/buttons/l_button_0.png" type="Texture" id=86]
 [ext_resource path="res://gui/hud/buttons/r_button_0.png" type="Texture" id=87]
-[ext_resource path="res://gui/pause/map/scroll_handle.png" type="Texture" id=88]
 [ext_resource path="res://gui/pause/pause_left_corner_bottom.png" type="Texture" id=89]
-[ext_resource path="res://gui/pause/map/map_shine_0.png" type="Texture" id=90]
-[ext_resource path="res://gui/pause/map/map_coin_1.png" type="Texture" id=91]
-[ext_resource path="res://gui/pause/map/map_shine_1.png" type="Texture" id=92]
 [ext_resource path="res://gui/pause/pause_right_corner_bottom.png" type="Texture" id=94]
 [ext_resource path="res://gui/pause/buttons/star_map_1.png" type="Texture" id=95]
 [ext_resource path="res://gui/pause/buttons/star_fludd_0.png" type="Texture" id=96]
 [ext_resource path="res://gui/hud/buttons/u_button_0.png" type="Texture" id=97]
-[ext_resource path="res://gui/pause/map/scroll_bar.png" type="Texture" id=98]
 [ext_resource path="res://gui/pause/buttons/text_fludd.png" type="Texture" id=99]
-[ext_resource path="res://gui/pause/map/map_coin_0.png" type="Texture" id=100]
-[ext_resource path="res://gui/pause/map/scroll_top.png" type="Texture" id=102]
 [ext_resource path="res://gui/pause/buttons/star_exit_1.png" type="Texture" id=103]
 [ext_resource path="res://gui/pause/buttons/star_map_0.png" type="Texture" id=104]
 [ext_resource path="res://gui/pause/buttons/star_options_1.png" type="Texture" id=105]
 [ext_resource path="res://gui/pause/pause_right_middle.png" type="Texture" id=106]
 [ext_resource path="res://gui/pause/pause_right_corner_top.png" type="Texture" id=107]
 [ext_resource path="res://gui/pause/buttons/text_exit.png" type="Texture" id=108]
-[ext_resource path="res://gui/pause/map/divider_edge.png" type="Texture" id=109]
 [ext_resource path="res://gui/pause/pause_top.png" type="Texture" id=110]
 [ext_resource path="res://gui/pause/pause_left_middle.png" type="Texture" id=111]
 [ext_resource path="res://gui/pause/buttons/text_options.png" type="Texture" id=112]
@@ -113,7 +89,6 @@
 [ext_resource path="res://gui/pause/buttons/star_options_0.png" type="Texture" id=114]
 [ext_resource path="res://gui/pause/pause_left_corner_top.png" type="Texture" id=115]
 [ext_resource path="res://gui/hud/life/life_meter.gd" type="Script" id=116]
-[ext_resource path="res://gui/pause/map_course.gd" type="Script" id=117]
 [ext_resource path="res://gui/hud/water_meter/water_meter.gd" type="Script" id=118]
 [ext_resource path="res://gui/hud/dialog_box.gd" type="Script" id=119]
 
@@ -165,6 +140,26 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 12, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 24, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 36, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 48, 12, 12 )
+
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 29 )
 region = Rect2( 0, 60, 12, 12 )
@@ -193,37 +188,17 @@ region = Rect2( 0, 12, 12, 12 )
 atlas = ExtResource( 29 )
 region = Rect2( 0, 0, 12, 12 )
 
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 0, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 12, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 24, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 36, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 48, 12, 12 )
-
 [sub_resource type="SpriteFrames" id=47]
 animations = [ {
-"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
-"loop": false,
-"name": "flash",
-"speed": 15.0
-}, {
 "frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
 "loop": true,
 "name": "charge",
 "speed": 0.0
+}, {
+"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
+"loop": false,
+"name": "flash",
+"speed": 15.0
 } ]
 
 [sub_resource type="SpriteFrames" id=6]
@@ -233,14 +208,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 64 ) ],
-"loop": true,
-"name": "rocket",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 77 ) ],
 "loop": true,
 "name": "turbo",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 64 ) ],
+"loop": true,
+"name": "rocket",
 "speed": 5.0
 } ]
 
@@ -326,14 +301,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 38 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 51 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 38 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -346,14 +321,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=11]
 animations = [ {
-"frames": [ ExtResource( 73 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 49 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 73 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -366,14 +341,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=13]
 animations = [ {
-"frames": [ ExtResource( 72 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 41 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 72 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -386,14 +361,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=15]
 animations = [ {
-"frames": [ ExtResource( 54 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 86 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 54 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -406,14 +381,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=17]
 animations = [ {
-"frames": [ ExtResource( 84 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 87 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 84 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -426,14 +401,14 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=19]
 animations = [ {
-"frames": [ ExtResource( 37 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 97 ) ],
 "loop": true,
 "name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 37 ) ],
+"loop": true,
+"name": "on",
 "speed": 5.0
 } ]
 
@@ -446,102 +421,16 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [sub_resource type="SpriteFrames" id=21]
 animations = [ {
-"frames": [ ExtResource( 69 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 58 ) ],
 "loop": true,
 "name": "off",
 "speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=22]
-animations = [ {
-"frames": [ ExtResource( 92 ) ],
+}, {
+"frames": [ ExtResource( 69 ) ],
 "loop": true,
 "name": "on",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 90 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
 } ]
-
-[sub_resource type="SpriteFrames" id=23]
-animations = [ {
-"frames": [ ExtResource( 91 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 100 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=24]
-animations = [ {
-"frames": [ ExtResource( 92 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 90 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=25]
-animations = [ {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 47 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=26]
-animations = [ {
-"frames": [ ExtResource( 12 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 55 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=27]
-animations = [ {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 45 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-} ]
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 23 )
-region = Rect2( 0, 105, 20, 21 )
-
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 23 )
-region = Rect2( 20, 105, 20, 21 )
 
 [sub_resource type="StyleBoxEmpty" id=28]
 
@@ -1182,921 +1071,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PauseContent" type="Control" parent="." groups=["pause"]]
+[node name="PauseContent" parent="." instance=ExtResource( 7 )]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 37.0
-margin_top = 19.0
-margin_right = -37.0
-margin_bottom = -33.0
-mouse_filter = 2
-script = ExtResource( 18 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LevelInfo" type="Control" parent="PauseContent"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-script = ExtResource( 16 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LevelName" type="Label" parent="PauseContent/LevelInfo"]
-anchor_top = 0.346
-anchor_right = 1.0
-anchor_bottom = 0.346
-rect_scale = Vector2( 2, 2 )
-rect_pivot_offset = Vector2( 280, 16 )
-custom_fonts/font = ExtResource( 26 )
-text = "Mushroom Kingdom"
-align = 1
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="PauseContent/LevelInfo/LevelName"]
-modulate = Color( 1, 1, 1, 0.501961 )
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -4.0
-margin_bottom = 4.0
-mouse_filter = 2
-custom_styles/panel = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CollectPanel" type="Panel" parent="PauseContent/LevelInfo"]
-modulate = Color( 1, 1, 1, 0.501961 )
-show_behind_parent = true
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = -19.0
-margin_bottom = 18.0
-mouse_filter = 2
-custom_styles/panel = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CollectRow" type="HBoxContainer" parent="PauseContent/LevelInfo"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = 37.0
-margin_right = -37.0
-mouse_filter = 2
-custom_constants/separation = 40
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ShineRow" type="HBoxContainer" parent="PauseContent/LevelInfo/CollectRow"]
-margin_left = 190.0
-margin_right = 262.0
-mouse_filter = 2
-custom_constants/separation = 36
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Shine1" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
-mouse_filter = 2
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine1"]
-material = ExtResource( 42 )
-frames = SubResource( 22 )
-animation = "off"
-offset = Vector2( 0, -1 )
-
-[node name="Shine2" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
-margin_left = 36.0
-margin_right = 36.0
-mouse_filter = 2
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine2"]
-frames = SubResource( 22 )
-animation = "off"
-offset = Vector2( 0, -1 )
-
-[node name="Shine3" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
-margin_left = 72.0
-margin_right = 72.0
-mouse_filter = 2
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine3"]
-frames = SubResource( 22 )
-animation = "off"
-offset = Vector2( 0, -1 )
-
-[node name="Shine4" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
-visible = false
-margin_left = 108.0
-margin_right = 108.0
-mouse_filter = 2
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine4"]
-frames = SubResource( 22 )
-animation = "on"
-offset = Vector2( 0, -1 )
-
-[node name="Shine5" type="Control" parent="PauseContent/LevelInfo/CollectRow/ShineRow"]
-visible = false
-margin_left = 108.0
-margin_right = 108.0
-mouse_filter = 2
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/ShineRow/Shine5"]
-frames = SubResource( 22 )
-animation = "on"
-offset = Vector2( 0, -1 )
-
-[node name="CoinRow" type="HBoxContainer" parent="PauseContent/LevelInfo/CollectRow"]
-margin_left = 302.0
-margin_right = 302.0
-mouse_filter = 2
-custom_constants/separation = 29
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Coin1" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin1"]
-frames = SubResource( 23 )
-animation = "off"
-
-[node name="Coin2" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
-visible = false
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin2"]
-frames = SubResource( 23 )
-animation = "on"
-
-[node name="Coin3" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
-visible = false
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin3"]
-frames = SubResource( 23 )
-animation = "on"
-
-[node name="Coin4" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
-visible = false
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin4"]
-frames = SubResource( 23 )
-animation = "on"
-
-[node name="Coin5" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
-visible = false
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin5"]
-frames = SubResource( 23 )
-animation = "on"
-
-[node name="Coin6" type="Control" parent="PauseContent/LevelInfo/CollectRow/CoinRow"]
-visible = false
-
-[node name="Sprite" type="AnimatedSprite" parent="PauseContent/LevelInfo/CollectRow/CoinRow/Coin6"]
-frames = SubResource( 23 )
-animation = "on"
-
-[node name="MissionName" type="Label" parent="PauseContent/LevelInfo"]
-anchor_top = 0.62
-anchor_right = 1.0
-anchor_bottom = 0.651
-custom_fonts/font = ExtResource( 25 )
-text = "Tutorial 1"
-align = 1
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Panel" type="Panel" parent="PauseContent/LevelInfo/MissionName"]
-modulate = Color( 1, 1, 1, 0.501961 )
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -4.0
-margin_bottom = 4.0
-custom_styles/panel = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DetailsPanel" type="Panel" parent="PauseContent/LevelInfo"]
-modulate = Color( 1, 1, 1, 0.501961 )
-show_behind_parent = true
-anchor_top = 0.7
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 60.0
-margin_top = -0.399994
-margin_right = -60.0
-mouse_filter = 2
-custom_styles/panel = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MissionDetails" type="Label" parent="PauseContent/LevelInfo"]
-anchor_top = 0.714
-anchor_right = 1.0
-anchor_bottom = 0.714
-margin_left = 59.0
-margin_top = 0.400002
-margin_right = -59.0
-margin_bottom = 47.792
-custom_colors/font_color = Color( 0.819608, 0.705882, 0.768627, 1 )
-custom_fonts/font = ExtResource( 35 )
-text = "Head to the castle, everybody's waiting!"
-align = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MapMenu" type="Control" parent="PauseContent"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Courses" type="VBoxContainer" parent="PauseContent/MapMenu"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_constants/separation = 166
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MainCourses" type="VBoxContainer" parent="PauseContent/MapMenu/Courses"]
-margin_right = 374.0
-margin_bottom = 166.0
-custom_constants/separation = 166
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BoB" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses"]
-margin_right = 374.0
-script = ExtResource( 117 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Painting" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-margin_left = 21.0
-margin_top = 12.0
-texture = ExtResource( 48 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Pin" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/Painting"]
-position = Vector2( 52, 0 )
-texture = ExtResource( 83 )
-
-[node name="Name" type="Label" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-anchor_right = 1.0
-margin_left = 133.0
-margin_top = 14.0
-margin_bottom = 49.0
-custom_fonts/font = ExtResource( 26 )
-text = "Bob-omb
-Battlefield"
-valign = 1
-autowrap = true
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CoinRow" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-margin_left = 33.0
-margin_top = 113.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinRow"]
-texture = ExtResource( 50 )
-centered = false
-
-[node name="X" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinRow"]
-position = Vector2( 19, 4 )
-texture = ExtResource( 63 )
-centered = false
-
-[node name="Count" type="Label" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinRow"]
-material = SubResource( 1 )
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 72.0
-margin_bottom = 17.0
-custom_fonts/font = ExtResource( 26 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ShineGroup" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-margin_left = 178.0
-margin_top = 75.0
-margin_right = 178.0
-margin_bottom = 75.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Shine1" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine2" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
-position = Vector2( 25, 25 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine3" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
-position = Vector2( 16, 56 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine4" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
-position = Vector2( -16, 56 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine5" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/ShineGroup"]
-position = Vector2( -25, 25 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="CoinGroup" type="GridContainer" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-margin_left = 239.0
-margin_top = 62.0
-custom_constants/vseparation = 2
-custom_constants/hseparation = 3
-columns = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Coin1" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
-margin_right = 26.0
-margin_bottom = 26.0
-texture = ExtResource( 100 )
-
-[node name="Coin2" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
-margin_left = 29.0
-margin_right = 55.0
-margin_bottom = 26.0
-texture = ExtResource( 100 )
-
-[node name="Coin3" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
-margin_top = 28.0
-margin_right = 26.0
-margin_bottom = 54.0
-texture = ExtResource( 100 )
-
-[node name="Coin4" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
-margin_left = 29.0
-margin_top = 28.0
-margin_right = 55.0
-margin_bottom = 54.0
-texture = ExtResource( 100 )
-
-[node name="Coin5" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
-margin_top = 56.0
-margin_right = 26.0
-margin_bottom = 82.0
-texture = ExtResource( 100 )
-
-[node name="Coin6" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/CoinGroup"]
-margin_left = 29.0
-margin_top = 56.0
-margin_right = 55.0
-margin_bottom = 82.0
-texture = ExtResource( 100 )
-
-[node name="FluddGroup" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -48.0
-margin_top = 75.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Hover" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/FluddGroup"]
-frames = SubResource( 25 )
-animation = "on"
-
-[node name="Rocket" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/FluddGroup"]
-position = Vector2( 0, 27 )
-frames = SubResource( 26 )
-animation = "on"
-
-[node name="Turbo" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/BoB/FluddGroup"]
-position = Vector2( 0, 56 )
-frames = SubResource( 27 )
-animation = "on"
-
-[node name="DividerLeft" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-margin_left = 12.0
-margin_top = 157.0
-texture = ExtResource( 109 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DividerMiddle" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-anchor_right = 1.0
-margin_left = 20.0
-margin_top = 156.0
-margin_right = -35.0
-texture = ExtResource( 85 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DividerRight" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/BoB"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -35.0
-margin_top = 157.0
-texture = ExtResource( 109 )
-flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SL" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses"]
-margin_top = 166.0
-margin_right = 374.0
-margin_bottom = 166.0
-script = ExtResource( 117 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Painting" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-margin_left = 21.0
-margin_top = 12.0
-texture = ExtResource( 48 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Pin" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/Painting"]
-position = Vector2( 52, 0 )
-texture = ExtResource( 83 )
-
-[node name="Name" type="Label" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-anchor_right = 1.0
-margin_left = 133.0
-margin_top = 14.0
-margin_bottom = 49.0
-custom_fonts/font = ExtResource( 26 )
-text = "???"
-valign = 1
-autowrap = true
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CoinRow" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-margin_left = 33.0
-margin_top = 113.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinRow"]
-texture = ExtResource( 50 )
-centered = false
-
-[node name="X" type="Sprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinRow"]
-position = Vector2( 19, 4 )
-texture = ExtResource( 63 )
-centered = false
-
-[node name="Count" type="Label" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinRow"]
-material = SubResource( 1 )
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 72.0
-margin_bottom = 17.0
-custom_fonts/font = ExtResource( 26 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ShineGroup" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-margin_left = 178.0
-margin_top = 75.0
-margin_right = 178.0
-margin_bottom = 75.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Shine1" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine2" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
-position = Vector2( 25, 25 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine3" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
-position = Vector2( 16, 56 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine4" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
-position = Vector2( -16, 56 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine5" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/ShineGroup"]
-position = Vector2( -25, 25 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="CoinGroup" type="GridContainer" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-margin_left = 239.0
-margin_top = 62.0
-custom_constants/vseparation = 2
-custom_constants/hseparation = 3
-columns = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Coin1" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
-margin_right = 26.0
-margin_bottom = 26.0
-texture = ExtResource( 100 )
-
-[node name="Coin2" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
-margin_left = 29.0
-margin_right = 55.0
-margin_bottom = 26.0
-texture = ExtResource( 100 )
-
-[node name="Coin3" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
-margin_top = 28.0
-margin_right = 26.0
-margin_bottom = 54.0
-texture = ExtResource( 100 )
-
-[node name="Coin4" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
-margin_left = 29.0
-margin_top = 28.0
-margin_right = 55.0
-margin_bottom = 54.0
-texture = ExtResource( 100 )
-
-[node name="Coin5" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
-margin_top = 56.0
-margin_right = 26.0
-margin_bottom = 82.0
-texture = ExtResource( 100 )
-
-[node name="Coin6" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL/CoinGroup"]
-margin_left = 29.0
-margin_top = 56.0
-margin_right = 55.0
-margin_bottom = 82.0
-texture = ExtResource( 100 )
-
-[node name="FluddGroup" type="Control" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -48.0
-margin_top = 75.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Hover" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/FluddGroup"]
-frames = SubResource( 25 )
-animation = "on"
-
-[node name="Rocket" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/FluddGroup"]
-position = Vector2( 0, 27 )
-frames = SubResource( 26 )
-animation = "on"
-
-[node name="Turbo" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MainCourses/SL/FluddGroup"]
-position = Vector2( 0, 56 )
-frames = SubResource( 27 )
-animation = "on"
-
-[node name="DividerLeft" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-margin_left = 12.0
-margin_top = 157.0
-texture = ExtResource( 109 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DividerMiddle" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-anchor_right = 1.0
-margin_left = 20.0
-margin_top = 156.0
-margin_right = -35.0
-texture = ExtResource( 85 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DividerRight" type="TextureRect" parent="PauseContent/MapMenu/Courses/MainCourses/SL"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -35.0
-margin_top = 157.0
-texture = ExtResource( 109 )
-flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MiniCourses" type="VBoxContainer" parent="PauseContent/MapMenu/Courses"]
-margin_top = 332.0
-margin_right = 374.0
-margin_bottom = 332.0
-custom_constants/separation = 166
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="SSL" type="Control" parent="PauseContent/MapMenu/Courses/MiniCourses"]
-margin_right = 374.0
-script = ExtResource( 117 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Painting" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-margin_left = 21.0
-margin_top = 12.0
-texture = ExtResource( 43 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Pin" type="Sprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/Painting"]
-position = Vector2( 36, 0 )
-texture = ExtResource( 83 )
-
-[node name="Name" type="Label" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-anchor_right = 1.0
-margin_left = 101.0
-margin_top = 14.0
-margin_bottom = 49.0
-custom_fonts/font = ExtResource( 26 )
-text = "Shifting
-Sand Land"
-valign = 1
-autowrap = true
-uppercase = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CoinRow" type="Control" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-margin_left = 33.0
-margin_top = 81.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Sprite" type="Sprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinRow"]
-texture = ExtResource( 50 )
-centered = false
-
-[node name="X" type="Sprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinRow"]
-position = Vector2( 19, 4 )
-texture = ExtResource( 63 )
-centered = false
-
-[node name="Count" type="Label" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinRow"]
-material = SubResource( 1 )
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 72.0
-margin_bottom = 17.0
-custom_fonts/font = ExtResource( 26 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ShineGroup" type="Control" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-margin_left = 153.0
-margin_top = 75.0
-margin_bottom = 75.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Shine1" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/ShineGroup"]
-position = Vector2( -32, 0 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine2" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/ShineGroup"]
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="Shine3" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/ShineGroup"]
-position = Vector2( 32, 0 )
-frames = SubResource( 24 )
-animation = "on"
-
-[node name="CoinGroup" type="GridContainer" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-margin_left = 217.0
-margin_top = 63.0
-custom_constants/vseparation = 2
-custom_constants/hseparation = 3
-columns = 3
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Coin1" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinGroup"]
-margin_right = 26.0
-margin_bottom = 26.0
-texture = ExtResource( 100 )
-
-[node name="Coin2" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinGroup"]
-margin_left = 29.0
-margin_right = 55.0
-margin_bottom = 26.0
-texture = ExtResource( 100 )
-
-[node name="Coin3" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/CoinGroup"]
-margin_left = 58.0
-margin_right = 84.0
-margin_bottom = 26.0
-texture = ExtResource( 100 )
-
-[node name="FluddGroup" type="Control" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -48.0
-margin_top = 20.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Hover" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/FluddGroup"]
-frames = SubResource( 25 )
-animation = "on"
-
-[node name="Rocket" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/FluddGroup"]
-position = Vector2( 0, 27 )
-frames = SubResource( 26 )
-animation = "on"
-
-[node name="Turbo" type="AnimatedSprite" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL/FluddGroup"]
-position = Vector2( 0, 56 )
-frames = SubResource( 27 )
-animation = "on"
-
-[node name="DividerLeft" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-margin_left = 12.0
-margin_top = 104.0
-texture = ExtResource( 109 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DividerMiddle" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-anchor_right = 1.0
-margin_left = 20.0
-margin_top = 103.0
-margin_right = -35.0
-texture = ExtResource( 85 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DividerRight" type="TextureRect" parent="PauseContent/MapMenu/Courses/MiniCourses/SSL"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -35.0
-margin_top = 104.0
-texture = ExtResource( 109 )
-flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollBar" type="TextureRect" parent="PauseContent/MapMenu"]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -15.0
-margin_top = 2.0
-texture = ExtResource( 98 )
-expand = true
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollTop" type="TextureRect" parent="PauseContent/MapMenu"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -15.0
-margin_bottom = 2.0
-texture = ExtResource( 102 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollBottom" type="ColorRect" parent="PauseContent/MapMenu"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -13.0
-margin_top = -1.0
-margin_right = -1.0
-color = Color( 0.607843, 0.639216, 0.780392, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ScrollHandle" type="TextureRect" parent="PauseContent/MapMenu"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -13.0
-margin_top = 1.0
-margin_right = -1.0
-margin_bottom = 52.0
-texture = ExtResource( 88 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="FluddMenu" type="Control" parent="PauseContent"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="OptionsMenu" type="Control" parent="PauseContent"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="ExitMenu" type="Control" parent="PauseContent"]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="UnpauseControl" type="Control" parent="PauseContent"]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -60.0
-margin_top = 2.0
-script = ExtResource( 22 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Unpause" type="TouchScreenButton" parent="PauseContent/UnpauseControl" groups=["pause"]]
-position = Vector2( -20, 0 )
-normal = SubResource( 31 )
-pressed = SubResource( 32 )
 
 [node name="Top" type="TextureRect" parent="." groups=["pause"]]
 visible = false
@@ -2363,8 +1339,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="PauseContent/UnpauseControl/Unpause" to="PauseContent/UnpauseControl" method="_on_Unpause_pressed"]
-[connection signal="released" from="PauseContent/UnpauseControl/Unpause" to="PauseContent/UnpauseControl" method="_on_Unpause_released"]
 [connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
 [connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
 [connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]
