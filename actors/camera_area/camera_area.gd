@@ -9,24 +9,27 @@ onready var base_modifier: BaseModifier = singleton.base_modifier
 
 onready var collision = $StaticBody2D/CollisionPolygon2D
 onready var body = $KinematicBody2D
-onready var body_collision = $KinematicBody2D/CollisionShape2D
+onready var body_collision: CollisionPolygon2D = $KinematicBody2D/CollisionPolygon2D
 
-export var spawn_position: Vector2 setget force_draw
+#export var spawn_position: Vector2 setget force_draw
 
-func force_draw(val):
-	spawn_position = val
-	update()
-
-func _draw():
-	if Engine.editor_hint:
-		draw_rect(Rect2(
-			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y) / 2,
-			Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y)
-		), Color(1, 0, 1, 0.5))
-		draw_rect(Rect2(
-			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y) / 2,
-			Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y)
-		), Color(0, 0, 1, 0.5))
+var window_prev_length: float
+var shrink_number = 0
+var frozen = false
+#func force_draw(val):
+#	spawn_position = val
+#	update()
+#
+#func _draw():
+#	if Engine.editor_hint:
+#		draw_rect(Rect2(
+#			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y) / 2,
+#			Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y)
+#		), Color(1, 0, 1, 0.5))
+#		draw_rect(Rect2(
+#			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y) / 2,
+#			Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y)
+#		), Color(0, 0, 1, 0.5))
 
 func get_rect(poly, margin = 0):
 	var min_v = Vector2.INF
@@ -116,30 +119,65 @@ func set_physics_polygon(poly):
 	polygon = real
 	collision.polygon = real
 
+func set_hitbox_extends(size):
+	body_collision.polygon = PoolVector2Array([
+		Vector2(0, -size.y / 2),
+		Vector2(size.x / 2, 0),
+		Vector2(0, size.y / 2),
+		Vector2(-size.x / 2, 0)
+	])
+	window_prev_length = size.length()
+
 func _ready():
 	if Engine.editor_hint:
 		return
 	#invert the current polygon
 	set_physics_polygon(polygon)
 	
-	body_collision.shape.set_extents(OS.window_size / 2)
+#	body_collision.shape.set_extents(OS.window_size / 2)
+	set_hitbox_extends(OS.window_size)
+	shrink_number = 0
 	
-	body.position = spawn_position
+	body.position = player.position # spawn_position
 	#make it invisible
 	color = Color(0, 0, 0, 0)
 	
 func _physics_process(dt):
 	if Engine.editor_hint:
 		return
-	#handle the scaling of the window / zoom of the camera
-	if body_collision.shape:
-		var target_size = OS.window_size / 2 * camera.zoom
-		if target_size != body_collision.shape.get_extents():
-			body_collision.shape.set_extents(target_size)
+
+	shrink_number = min(1, shrink_number + dt * 5)
+	var target_size = OS.window_size * camera.zoom * shrink_number
+	if target_size.length() != window_prev_length:
+		set_hitbox_extends(target_size)
 	
+		window_prev_length = target_size.length()
+		body_collision.polygon = PoolVector2Array([
+			Vector2(0, -target_size.y / 2),
+			Vector2(target_size.x / 2, 0),
+			Vector2(0, target_size.y / 2),
+			Vector2(-target_size.x / 2, 0)
+		])
+	
+	#emergency workaround
+	if Singleton.disable_limits:
+		body_collision.polygon = PoolVector2Array([
+			Vector2.ZERO,
+		])
+	elif body_collision.polygon == PoolVector2Array([
+			Vector2.ZERO,
+		]):
+		body_collision.polygon = PoolVector2Array([
+			Vector2(0, -target_size.y / 2),
+			Vector2(target_size.x / 2, 0),
+			Vector2(0, target_size.y / 2),
+			Vector2(-target_size.x / 2, 0)
+		])
+		
 	#update the camera position and stuff
 	var target = player.position
-	body.move_and_slide(((target - body.position) / dt))
+	if !frozen:
+		body.move_and_slide(((target - body.position) / dt))
 
 	#set the base of the camera to the body
 	base_modifier.set_base(camera, "position", body.position - player.position)

@@ -1,13 +1,14 @@
 extends Node
 
 const DEFAULT_SIZE = Vector2(640, 360)
+const VERSION = "v0.1.3"
 
 onready var serializer: Serializer = $Serializer
 onready var sm63_to_redux: SM63ToRedux = $"Serializer/SM63ToRedux"
 onready var base_modifier: BaseModifier = $BaseModifier
 onready var console = $Console
 onready var timer = $Timer
-onready var controls = $MobileControls
+onready var controls = $TouchControls
 
 var classic = false
 
@@ -32,6 +33,8 @@ var flip
 var pause_menu = false
 var feedback = false
 var line_count: int = 0
+var disable_limits = false
+var force_touch = false
 
 enum LogType {
 	INFO,
@@ -89,7 +92,7 @@ func warp_to(path):
 		timer.split_frames = 0
 	timer.split_timer()
 	#warning-ignore:RETURN_VALUE_DISCARDED
-	return get_tree().call_deferred("change_scene", path)
+	get_tree().call_deferred("change_scene", path)
 
 
 func get_collect_id():
@@ -103,3 +106,18 @@ func get_collect_id():
 func create_coindict(path):
 	if !collected_dict.has(path):
 		collected_dict[path] = [false]
+
+
+func reset_all_coindicts():
+	collected_dict = {}
+
+
+func request_coin(collect_id):
+	var room = get_tree().get_current_scene().get_filename()
+	if !Singleton.collected_dict[room][collect_id]:
+		Singleton.collected_dict[room][collect_id] = true
+		return true
+
+
+func touch_controls():
+	return OS.get_name() == "Android" || force_touch

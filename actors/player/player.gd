@@ -384,12 +384,12 @@ func _physics_process(_delta):
 		
 		
 		if Input.is_action_just_pressed("reset"):
-			var err = get_tree().change_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
-			if err != OK:
-				Singleton.log_msg(err, Singleton.LogType.ERROR)
 			Singleton.get_node("Timer").frames = 0
 			Singleton.get_node("Timer").split_frames = 0
-			$"/root/Singleton/Warp".set_location = null
+			Singleton.get_node("Timer").running = true
+			Singleton.set_location = Vector2(110, 153)
+			Singleton.reset_all_coindicts()
+			Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn")
 			position = Vector2(110, 153)
 			
 #		if Input.is_action_just_pressed("debug"):

@@ -1,7 +1,7 @@
 extends Label
 
 func _init():
-	if OS.get_name() == "Android":
+	if Singleton.touch_controls():
 		text = "Tap the screen to start!"
 
 

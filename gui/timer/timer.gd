@@ -39,14 +39,14 @@ func format_time(overall_seconds):
 		return ["%s:%s" % [minutes_str, seconds_str], ".%s" % ms_str]
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("timer_show"):
 		visible = !visible
 	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if !get_tree().paused && running:
 		frames += 1
 		split_frames += 1
-		var txt = format_time(frames / 60.0)
+		var txt = format_time(round(frames / 60.0 * 1000.0) / 1000.0)
 		total.text = txt[0]
 		total_ms.text = txt[1]
 	

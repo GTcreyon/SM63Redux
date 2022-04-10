@@ -26,9 +26,6 @@ region = Rect2( 0, 0, 1, 15 )
 [node name="Timer" type="Control"]
 pause_mode = 2
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Total" type="Label" parent="."]
 margin_left = -39.0
