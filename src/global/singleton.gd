@@ -8,7 +8,7 @@ onready var sm63_to_redux: SM63ToRedux = $"Serializer/SM63ToRedux"
 onready var base_modifier: BaseModifier = $BaseModifier
 onready var console = $Console
 onready var timer = $Timer
-onready var controls = $MobileControls
+onready var controls = $TouchControls
 
 var classic = false
 
@@ -33,8 +33,8 @@ var flip
 var pause_menu = false
 var feedback = false
 var line_count: int = 0
-
 var disable_limits = false
+var force_touch = false
 
 enum LogType {
 	INFO,
@@ -117,3 +117,7 @@ func request_coin(collect_id):
 	if !Singleton.collected_dict[room][collect_id]:
 		Singleton.collected_dict[room][collect_id] = true
 		return true
+
+
+func touch_controls():
+	return OS.get_name() == "Android" || force_touch

@@ -9,7 +9,7 @@ func _ready():
 
 
 func _process(_delta):
-	visible = $"../FeedbackControl".visible && OS.get_name() == "Android"
+	visible = $"../FeedbackControl".visible && Singleton.touch_controls()
 
 
 func _on_Cancel_pressed():
