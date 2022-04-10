@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-01-19 16:06+0000\n"
-"PO-Revision-Date: 2022-04-10 18:15+0200\n"
+"POT-Creation-Date: 2022-01-15 13:55+0000\n"
+"PO-Revision-Date: 2022-01-15 19:54+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_BE\n"
@@ -23,77 +23,60 @@ msgstr ""
 msgid ""
 "First ever Redux custom level hype! Do a triple jump goomba bounce to get up."
 msgstr ""
-"Eerste zelfgemaakte Redux level ooit hype! Doe een multi spong naar een "
-"goomba bons om boven te geraken."
 
 #: ../digtest.tscn:116 ../scenes/digtest/digtest.tscn:116
 msgid "Also pls dont use hover :)"
-msgstr "En gebruik hover niet pls :)"
+msgstr ""
 
 #: ../digtest.tscn:130 ../scenes/digtest/digtest.tscn:130
 msgid ""
 "I have no idea what to add here so have some [color=#df6042] Mario Terrain "
 "Weird"
 msgstr ""
-"Ik heb geen idee wat te doen hier heb wat [color=#df6042] Mario Terrein Raar"
 
 #: ../digtest.tscn:135 ../scenes/digtest/digtest.tscn:135
 msgid ""
 "sign\r\n"
 "also thats the end of the level goodbye"
 msgstr ""
-"bord\n"
-"en dat is het einde van de level doei"
 
-#: ../gui/gui.tscn:1039
+#: ../gui/gui.tscn:1043
 msgid "Mushroom Kingdom"
 msgstr "Paddenstoelenrijk"
 
-#: ../gui/gui.tscn:1193
+#: ../gui/gui.tscn:1197
 msgid "Tutorial 1"
-msgstr "Introductie 1"
+msgstr "Tutorial 1"
 
-#: ../gui/gui.tscn:1236
+#: ../gui/gui.tscn:1240
 msgid "Head to the Castle, everybody’s waiting!"
 msgstr "Ga naar het Kasteel, iedereen wacht!"
 
-#: ../gui/gui.tscn:1296
+#: ../gui/gui.tscn:1300
 msgid ""
 "Bob-omb\r\n"
 "Battlefield"
 msgstr ""
-"Bob-omb\n"
+"Bob-omb\r\n"
 "Bom-Berg"
 
-#: ../gui/gui.tscn:1492
+#: ../gui/gui.tscn:1496
 msgid "???"
 msgstr "???"
 
-#: ../gui/gui.tscn:1694
+#: ../gui/gui.tscn:1698
 msgid ""
 "Shifting\r\n"
 "Sand Land"
 msgstr ""
-"Brandend\n"
+"Brandend\r\n"
 "Zand Land"
 
-#: ../scenes/title/menu.tscn:303
+#: ../scenes/title/menu.tscn:298
 msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
 msgstr "Neem het licht terug van Bowser en red het Paddenstoelenrijk!"
 
-#: ../scenes/title/menu.tscn:315
-msgid "Create your own worlds in this in-depth Level Designer!"
-msgstr "Creëer je eigen werelden in deze uitgebreide Level Ontwikkelaar!"
-
-#: ../scenes/title/menu.tscn:327
-msgid "Enjoy a collection of trinkets and goodies!"
-msgstr "Geniet van een verzameling ditjes en datjes!"
-
-#: ../scenes/title/menu.tscn:339
-msgid "Adjust anything and everything to your liking!"
-msgstr "Pas van alles aan naar jouw wensen!"
-
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:203
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:201
 msgid ""
 "Hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Welcome back to the Mushroom "
 "Kingdom,[@p,3] pal![@p,10] For old times’ sake,[@p,3] here’s a refresher."
@@ -102,7 +85,7 @@ msgstr ""
 "Paddenstoelenrijk,[@p,3] vriend![@p,10] Voor nostalgie,[@p,3] is hier een "
 "opfrisser."
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:203
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:201
 msgid ""
 "Use [color=#f7c55f]Arrows[/color] to move around,[@p,3] and if you want to "
 "talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact][/"
@@ -112,7 +95,7 @@ msgstr ""
 "je met meer van de familie wilt praten,[@p,3] druk den gewoon op "
 "[color=#f7c55f][@b,interact][/color]."
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:203
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:201
 msgid ""
 "They have plenty of tips to help traverse,[@p,3] and if you’re not "
 "interested,[@p,3] at least say “Hi” for me,[@p,3] eh?"
@@ -120,7 +103,7 @@ msgstr ""
 "Ze hebben veel tips om te helpen met traverseren,[@p,3] en als je niet bent "
 "geïnteresseerd,[@p,3] zeg dan tenminste \"Hey\" voor me,[@p,3] hé?"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:208
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:206
 msgid ""
 "Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Not many people read "
 "signs nowadays,[@p,3] so how 'bout I teach you some tricks as a thank you?"
@@ -129,7 +112,7 @@ msgstr ""
 "bordjes tegenwoordig,[@p,3] wat dacht je van een paar trucjes leren als een "
 "bedanking?"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:208
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:206
 msgid ""
 "You can press [color=#f7c55f][@b,spin][/color] to perform a "
 "[color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up "
@@ -139,7 +122,7 @@ msgstr ""
 "[color=#ff7f7f]draai aanval[/color] uit te voeren.[@p,10] Gebruik 'em om "
 "langer in de lucht te blijven!"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:208
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:206
 msgid ""
 "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet "
 "backflip![@p,10] Cool, eh?"
@@ -147,7 +130,7 @@ msgstr ""
 "En,[@p,3] als je achterwaarts springt terwijl je bent aan het bukken,[@p,3] "
 "can je een zieke backflip doen![@p,10] Cool, hé?"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:213
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:211
 msgid ""
 "Oh [color=#df6042]Mario[/color],[@p,3] honey![@p,10] It’s been so long since "
 "I’ve seen you...[@p,10] Oh my![@p,10] I see scars from your journeys..."
@@ -156,7 +139,7 @@ msgstr ""
 "geleden dat ik je nog eens heb gezien...[@p,10] Oh god![@p,10] Ik zie "
 "littekens van je reizen..."
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:213
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:211
 msgid ""
 "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an "
 "unlucky enemy to refill one [color=#ff7f7f]health point.[/color]"
@@ -165,7 +148,7 @@ msgstr ""
 "of een pechvogel vijand om één [color=#ff7f7f]gezondheidspunt[/color] te "
 "bijvullen."
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:213
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:211
 msgid ""
 "No one quite understands why,[@p,3] but it’s a lifesaver -[@p,3] so keep it "
 "in mind,[@p,3] sweetie!"
@@ -197,7 +180,7 @@ msgid ""
 "[color=#ff7f7f]Ground-Pound[/color] to smash anything beneath you,[@p,3] "
 "enemies or blocks!"
 msgstr ""
-"Als je op [color=#f7c55f][@b,pound][/color] drukt in de lucht doe je een "
+"Als je op [color=#f7c55f][@b,pound][/color] drukt in in de lucht doe je een "
 "[color=#ff7f7f]Hip-Bash[/color] om dinges onder je te breken,[@p,3] vijanden "
 "of blokken!"
 
@@ -223,23 +206,7 @@ msgstr ""
 "Dat is alles dat ik weet,[@p,3] of tenminste,[@p,3] alles dat ik me kan "
 "herinneren."
 
-#: ../scenes/tutorial_1/tutorial_1_3.tscn:180
-msgid ""
-"[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the "
-"[color=#f7c55f]F.L.U.D.D.[/color] pack!"
-msgstr ""
-"[@n,Bill Board]Gebruik [color=#f7c55f][@b,fludd][/color] om te zweven met "
-"[color=#f7c55f]F.L.U.D.D.[/color]!"
-
-#: ../scenes/tutorial_1/tutorial_1_3.tscn:180
-msgid ""
-"[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump "
-"into a pool of water, or find a refill bottle."
-msgstr ""
-"[@n,Gil Board]Om de [color=#f7c55f]F.L.U.D.D.[/color] tank te hervullen, "
-"moet je in een plas water springen, of een water flesje vinden."
-
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:482
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:494
 msgid ""
 "The [color=#5f75c5]Hover Nozzle[/color] you have on your back can save you "
 "if you happen to slip off a platform or miss a jump."
@@ -247,7 +214,7 @@ msgstr ""
 "Het [color=#5f75c5]Zweefmondstuk[/color] dat je op je rug draagt kan je "
 "redden als je van een platform glijd of een sprong mist."
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:482
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:494
 msgid ""
 "Don’t become too reliant on it though.[@p,10] F.L.U.D.D. can only hold "
 "[color=#5f75c5]100 flubs[/color] in that tank of theirs."
@@ -255,11 +222,11 @@ msgstr ""
 "Hoewel, word er niet te afhankelijk op.[@p,10] F.L.U.D.D. kan alleen maar "
 "[color=#5f75c5]100 fluimen[/color] houden in die tank van haar."
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:482
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:494
 msgid "Once it’s gone,[@p,3] you won’t be able to hover any longer."
 msgstr "Als die weg zijn,[@p,3] zal je niet meer kunnen zweven."
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:482
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:494
 msgid ""
 "Not to worry,[@p,3] if you hop into a body of water or grab a water bottle,"
 "[@p,3] the tank will refill."
@@ -267,7 +234,7 @@ msgstr ""
 "Maar niets om schrik van te hebben,[@p,3] als je in een watermassa springt "
 "of je vind een water fles,[@p,3] zal de tank weer bijvullen."
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:487
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:499
 msgid ""
 "Hey sweetie-pie![@p,10] If you’re ever feeling tired just press "
 "[color=#f7c55f][@b,pause][/color] to pause the game!"
@@ -275,15 +242,16 @@ msgstr ""
 "Hey liefje![@p,10] Als je ooit moe bent druk dan gewoon op [color=#f7c55f]"
 "[@b,pause][/color] om het spel te pauzeren!"
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:487
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:499
 msgid ""
 "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] "
 "change FLUDD nozzle,[@p,3] or just sit back and relax!"
 msgstr ""
-"In het pauze menu,[@p,3] kan je instellingen veranderen,[@p,3] statistieken "
-"zien,[@p,3] van FLUDD mondstuk wisselen,[@p,3] of gewoon eventjes uitrusten!"
+"In het pauze menu,[@p,3] kan je instellingen verranderen,[@p,3] statistieken "
+"zien,[@p,3] van FLUDD mondstuk verranderen,[@p,3] of gewoon eventjes "
+"uitrusten!"
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:487
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:499
 msgid ""
 "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don’t you "
 "dare forget that!"
@@ -291,6 +259,6 @@ msgstr ""
 "Zelfzorg is belangrijk,[@p,3] [color=#df6042]Mario![/color][@p,10] Durf dat "
 "maar niet te vergeten!"
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:492
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:504
 msgid "(End of demo!)"
 msgstr "(Einde van demo!)"
