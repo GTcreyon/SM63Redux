@@ -386,6 +386,7 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("reset"):
 			Singleton.get_node("Timer").frames = 0
 			Singleton.get_node("Timer").split_frames = 0
+			Singleton.get_node("Timer").running = true
 			Singleton.set_location = Vector2(110, 153)
 			Singleton.reset_all_coindicts()
 			Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn")
