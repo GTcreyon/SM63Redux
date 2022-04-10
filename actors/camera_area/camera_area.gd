@@ -11,25 +11,25 @@ onready var collision = $StaticBody2D/CollisionPolygon2D
 onready var body = $KinematicBody2D
 onready var body_collision: CollisionPolygon2D = $KinematicBody2D/CollisionPolygon2D
 
-export var spawn_position: Vector2 setget force_draw
+#export var spawn_position: Vector2 setget force_draw
 
 var window_prev_length: float
 var shrink_number = 0
 
-func force_draw(val):
-	spawn_position = val
-	update()
-
-func _draw():
-	if Engine.editor_hint:
-		draw_rect(Rect2(
-			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y) / 2,
-			Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y)
-		), Color(1, 0, 1, 0.5))
-		draw_rect(Rect2(
-			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y) / 2,
-			Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y)
-		), Color(0, 0, 1, 0.5))
+#func force_draw(val):
+#	spawn_position = val
+#	update()
+#
+#func _draw():
+#	if Engine.editor_hint:
+#		draw_rect(Rect2(
+#			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y) / 2,
+#			Vector2(Singleton.DEFAULT_SIZE.x * 2, Singleton.DEFAULT_SIZE.y)
+#		), Color(1, 0, 1, 0.5))
+#		draw_rect(Rect2(
+#			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y) / 2,
+#			Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y)
+#		), Color(0, 0, 1, 0.5))
 
 func get_rect(poly, margin = 0):
 	var min_v = Vector2.INF
@@ -138,7 +138,7 @@ func _ready():
 	set_hitbox_extends(OS.window_size)
 	shrink_number = 0
 	
-	body.position = spawn_position
+	body.position = player.position # spawn_position
 	#make it invisible
 	color = Color(0, 0, 0, 0)
 	
