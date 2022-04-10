@@ -329,9 +329,6 @@ custom_styles/pressed = ExtResource( 7 )
 custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
 text = "Submit"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label4" type="Label" parent="FeedbackControl"]
 anchor_left = 0.5

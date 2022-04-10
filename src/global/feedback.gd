@@ -84,7 +84,7 @@ func _on_Submit_pressed():
 		HTTPClient.METHOD_POST,
 		payload
 	)
-
+	Singleton.get_node("SFX/Confirm").play()
 	reset_data()
 
 

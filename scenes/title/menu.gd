@@ -14,10 +14,13 @@ onready var icon = $Icon
 onready var border = $Border
 onready var description_box = $Border/DescriptionBox
 
+onready var force_touch = $ForceTouch
+
 var cycle_progress = 0
 var cycle_direction = 0
 var cycle_positions
 var cycle_step = 0
+
 
 func _process(_delta):
 	if visible:
@@ -101,6 +104,11 @@ func _process(_delta):
 		if Input.is_action_just_pressed("ui_cancel"):
 			visible = false
 			Singleton.get_node("SFX/Back").play()
+		
+		force_touch.rect_scale = scale * Vector2.ONE
+		force_touch.margin_top = -64 * scale
+		Singleton.force_touch = force_touch.pressed
+		
 		modulate.a = min(modulate.a + 0.125, 1)
 	else:
 		modulate.a = 0
@@ -112,7 +120,7 @@ func press_button(button):
 			get_parent().dampen = true
 			Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
 			Singleton.get_node("SFX/Start").play()
-			if OS.get_name() == "Android":
+			if Singleton.touch_controls():
 				Singleton.controls.visible = true
 
 
@@ -129,22 +137,22 @@ func step(direction):
 	
 
 func _on_LDButton_pressed():
-	mobile_cycle(1)
+	touch_cycle(1)
 
 
 func _on_ExtrasButton_pressed():
-	mobile_cycle(2)
+	touch_cycle(2)
 
 
 func _on_SettingsButton_pressed():
-	mobile_cycle(3)
+	touch_cycle(3)
 
 
 func _on_StoryButton_pressed():
-	mobile_cycle(0)
+	touch_cycle(0)
 
 
-func mobile_cycle(step):
+func touch_cycle(step):
 	if step == posmod(cycle_step, 4):
 		press_button(step)
 	else:
