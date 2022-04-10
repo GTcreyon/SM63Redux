@@ -47,7 +47,6 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 [node name="CameraArea" parent="." instance=ExtResource( 21 )]
 visible = false
 polygon = PoolVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
-spawn_position = Vector2( 400, 100 )
 
 [node name="Player" parent="." instance=ExtResource( 11 )]
 position = Vector2( 64, 195.944 )
@@ -64,7 +63,7 @@ polygon = PoolVector2Array( 0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 7 )]
 position = Vector2( 0, 215 )
 z_index = 1
-polygon = PoolVector2Array( 0, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 1885, -175, 1922, 134, 0, 120 )
+polygon = PoolVector2Array( -435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281 )
 
 [node name="Items" type="Node2D" parent="."]
 
@@ -325,11 +324,11 @@ position = Vector2( 20, 111 )
 sweep_direction = Vector2( 1, 0 )
 spawn_location = Vector2( 1713, 127 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_2.tscn"
-size = Vector2( 20, 100 )
+size = Vector2( 20, 800 )
 
 [node name="WarpZone2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 1825, -64 )
 sweep_direction = Vector2( -1, 0 )
 spawn_location = Vector2( 18, 193 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_4.tscn"
-size = Vector2( 20, 100 )
+size = Vector2( 20, 800 )

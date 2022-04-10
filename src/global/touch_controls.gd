@@ -7,8 +7,14 @@ func _init():
 func _ready():
 	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	var button_scale = min(floor(OS.window_size.x / (120 * scale)), floor(OS.window_size.y / (42 * scale)))
-	$MobileArrows.rect_scale = Vector2.ONE * scale * button_scale
-	$MobileAction.rect_scale = Vector2.ONE * scale * button_scale
+	$TouchArrows.rect_scale = Vector2.ONE * scale * button_scale
+	$TouchAction.rect_scale = Vector2.ONE * scale * button_scale
+	$TouchFeedback.rect_scale = Vector2.ONE * scale
+	$TouchFeedback.margin_left = 80 * scale
+
+
+func _process(_delta):
+	visible = Singleton.touch_controls()
 
 
 func _on_Left_pressed():

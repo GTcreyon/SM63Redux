@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://gui/main_menu/selection_frame.png" type="Texture" id=1]
 [ext_resource path="res://gui/main_menu/selection_content.png" type="Texture" id=2]
@@ -14,6 +14,8 @@
 [ext_resource path="res://gui/main_menu/sheen.png" type="Texture" id=12]
 [ext_resource path="res://scenes/title/sheen.gd" type="Script" id=13]
 [ext_resource path="res://shaders/desaturate.tres" type="Material" id=14]
+[ext_resource path="res://actors/debug/tickbox.tscn" type="PackedScene" id=15]
+[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -107,11 +109,11 @@ mouse_filter = 2
 color = Color( 0.027451, 0, 0.0941176, 0.501961 )
 
 [node name="SelectorStory" type="Sprite" parent="."]
-position = Vector2( 224, 169 )
+position = Vector2( 320, 169 )
 texture = ExtResource( 7 )
 
 [node name="Story" type="Sprite" parent="."]
-position = Vector2( 224, 124 )
+position = Vector2( 320, 124 )
 texture = SubResource( 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Story"]
@@ -198,12 +200,12 @@ texture = SubResource( 17 )
 
 [node name="SelectorExtras" type="Sprite" parent="."]
 material = ExtResource( 14 )
-position = Vector2( 224, 445 )
+position = Vector2( 320, 645 )
 texture = ExtResource( 7 )
 
 [node name="Extras" type="Sprite" parent="."]
 material = ExtResource( 14 )
-position = Vector2( 224, 400 )
+position = Vector2( 320, 600 )
 texture = SubResource( 3 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Extras"]
@@ -246,12 +248,12 @@ texture = SubResource( 18 )
 
 [node name="SelectorLevelDesigner" type="Sprite" parent="."]
 material = ExtResource( 14 )
-position = Vector2( 444, 233 )
+position = Vector2( 636, 233 )
 texture = ExtResource( 7 )
 
 [node name="LevelDesigner" type="Sprite" parent="."]
 material = ExtResource( 14 )
-position = Vector2( 444, 188 )
+position = Vector2( 636, 188 )
 texture = SubResource( 2 )
 
 [node name="Polygon2D" type="Polygon2D" parent="LevelDesigner"]
@@ -298,8 +300,8 @@ centered = false
 offset = Vector2( 9, 33 )
 
 [node name="Border" type="Panel" parent="."]
-margin_right = 448.0
-margin_bottom = 305.0
+margin_right = 640.0
+margin_bottom = 360.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 4 )
 
@@ -379,9 +381,26 @@ polygon = PoolVector2Array( 0, 0, 0, 304, 448, 304, 448, 0 )
 [node name="FadeOut" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
-anchor_bottom = 1.003
+anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
+
+[node name="ForceTouch" parent="." instance=ExtResource( 15 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_top = -64.0
+
+[node name="Label" type="Label" parent="ForceTouch"]
+margin_left = -300.0
+margin_top = 12.0
+margin_right = 300.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 16 )
+text = "Force touch controls
+(Experimental)"
+align = 1
 
 [connection signal="pressed" from="Story/Frame/StoryButton" to="." method="_on_StoryButton_pressed"]
 [connection signal="pressed" from="Settings/Frame/SettingsButton" to="." method="_on_SettingsButton_pressed"]

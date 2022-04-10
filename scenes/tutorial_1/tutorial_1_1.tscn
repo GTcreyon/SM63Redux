@@ -54,7 +54,6 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 [node name="CameraArea" parent="." instance=ExtResource( 27 )]
 visible = false
 polygon = PoolVector2Array( 0, -304, 1920, -304, 1920, 480, 0, 480 )
-spawn_position = Vector2( 400, 0 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 110, 153 )
@@ -442,7 +441,7 @@ outline_texture_size = Vector2( 32, 6 )
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 18, 159 )
 z_index = 1
-polygon = PoolVector2Array( -33, -11, 67, 9, 304, 9, 304, 87, 334, 169, 401, 153, 418.545, 86.5817, 422, -1, 449, -14, 496, -18, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 775.75, 197.25, 948, 216, 1130, 189, 1178.96, 111.727, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -111, 1939, -111, 2200, 422, -254, 442, -254, -549, -33, -549 )
+polygon = PoolVector2Array( -33, -11, 67, 9, 304, 9, 304, 87, 334, 169, 401, 153, 418.545, 86.5817, 422, -1, 449, -14, 496, -18, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 775.75, 197.25, 948, 216, 1130, 189, 1178.96, 111.727, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -111, 2542, -111, 2542, 442, -673, 442, -673, -549, -33, -549 )
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
@@ -457,7 +456,7 @@ position = Vector2( 1911, -50 )
 sweep_direction = Vector2( -1, 0 )
 spawn_location = Vector2( -42, 160 )
 scene_path = "res://scenes/tutorial_1/tutorial_1_2.tscn"
-size = Vector2( 20, 100 )
+size = Vector2( 20, 800 )
 
 [node name="Cheep Cheep2" parent="." instance=ExtResource( 28 )]
 position = Vector2( 865.68, 325.02 )

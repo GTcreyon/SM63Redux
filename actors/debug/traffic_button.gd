@@ -11,6 +11,7 @@ func _process(_delta):
 				button.pressed = false
 			pressed = true
 			save_press = true
+			Singleton.get_node("SFX/Next").play()
 	else:
 		modulate = Color.white
 		save_press = false
