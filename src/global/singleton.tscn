@@ -154,9 +154,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MobileArrows" type="Control" parent="MobileControls"]
 anchor_left = 1.0
@@ -232,6 +229,16 @@ position = Vector2( 20, -42 )
 normal = SubResource( 1 )
 pressed = SubResource( 2 )
 
+[node name="Feedback" type="Control" parent="MobileControls"]
+margin_left = 80.0
+
+[node name="Feedback" type="TouchScreenButton" parent="MobileControls/Feedback"]
+modulate = Color( 1, 1, 1, 0.501961 )
+scale = Vector2( 2, 2 )
+normal = SubResource( 17 )
+pressed = SubResource( 18 )
+action = "feedback"
+
 [node name="SFX" type="Node" parent="."]
 
 [node name="Coin" type="AudioStreamPlayer" parent="SFX"]
@@ -294,3 +301,5 @@ script = ExtResource( 20 )
 [connection signal="released" from="MobileControls/MobileAction/Shift" to="MobileControls" method="_on_Shift_released"]
 [connection signal="pressed" from="MobileControls/MobileAction/P" to="MobileControls" method="_on_P_pressed"]
 [connection signal="released" from="MobileControls/MobileAction/P" to="MobileControls" method="_on_P_released"]
+[connection signal="pressed" from="MobileControls/Feedback/Feedback" to="MobileControls" method="_on_Shift_pressed"]
+[connection signal="released" from="MobileControls/Feedback/Feedback" to="MobileControls" method="_on_Shift_released"]

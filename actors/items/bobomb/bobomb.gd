@@ -135,13 +135,11 @@ func _physics_process(_delta):
 	if fuse.animation == "lit":
 		fuse_time -= 1
 		
-	var room = get_tree().get_current_scene().get_filename()
 	if (is_on_floor() && struck) || fuse_time <= 0:
 		var spawn = explosion.instance()
 		spawn.position = position
 		main.add_child(spawn)
-		if !Singleton.collected_dict[room][collect_id]:
-			Singleton.collected_dict[room][collect_id] = true
+		if Singleton.request_coin(collect_id):
 			spawn = coin.instance()
 			spawn.position = position
 			spawn.dropped = true

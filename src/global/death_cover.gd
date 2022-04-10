@@ -9,6 +9,6 @@ func _process(_delta):
 			singleton.dead = false
 			singleton.hp = 8
 			#warning-ignore:RETURN_VALUE_DISCARDED
-			get_tree().reload_current_scene()
+			Singleton.warp_to(get_tree().get_current_scene().get_filename())
 	else:
 		color.a = max(color.a - 1.0/30.0, 0)

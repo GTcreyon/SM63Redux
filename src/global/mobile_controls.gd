@@ -9,6 +9,8 @@ func _ready():
 	var button_scale = min(floor(OS.window_size.x / (120 * scale)), floor(OS.window_size.y / (42 * scale)))
 	$MobileArrows.rect_scale = Vector2.ONE * scale * button_scale
 	$MobileAction.rect_scale = Vector2.ONE * scale * button_scale
+	$Feedback.rect_scale = Vector2.ONE * scale
+	$Feedback.margin_left = 80 * scale
 
 
 func _on_Left_pressed():
