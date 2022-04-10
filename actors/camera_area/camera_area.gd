@@ -15,7 +15,7 @@ onready var body_collision: CollisionPolygon2D = $KinematicBody2D/CollisionPolyg
 
 var window_prev_length: float
 var shrink_number = 0
-
+var frozen = false
 #func force_draw(val):
 #	spawn_position = val
 #	update()
@@ -176,7 +176,8 @@ func _physics_process(dt):
 		
 	#update the camera position and stuff
 	var target = player.position
-	body.move_and_slide(((target - body.position) / dt))
+	if !frozen:
+		body.move_and_slide(((target - body.position) / dt))
 
 	#set the base of the camera to the body
 	base_modifier.set_base(camera, "position", body.position - player.position)
