@@ -1,0 +1,269 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://shaders/glow.tres" type="Material" id=1]
+[ext_resource path="res://gui/pause/map/map_coin_1.png" type="Texture" id=2]
+[ext_resource path="res://gui/pause/map/map_shine_0.png" type="Texture" id=3]
+[ext_resource path="res://gui/pause/map/map_coin_0.png" type="Texture" id=4]
+[ext_resource path="res://gui/pause/map/map_shine_1.png" type="Texture" id=5]
+[ext_resource path="res://gui/pause/pause_back.tres" type="StyleBox" id=6]
+[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=7]
+[ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=8]
+[ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://gui/level_info.gd" type="Script" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+} ]
+
+[node name="LevelInfo" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LevelName" type="Label" parent="."]
+anchor_top = 0.346
+anchor_right = 1.0
+anchor_bottom = 0.346
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 280, 16 )
+custom_fonts/font = ExtResource( 8 )
+text = "Mushroom Kingdom"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="LevelName"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -4.0
+margin_bottom = 4.0
+mouse_filter = 2
+custom_styles/panel = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollectPanel" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -19.0
+margin_bottom = 18.0
+mouse_filter = 2
+custom_styles/panel = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollectRow" type="HBoxContainer" parent="."]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 37.0
+margin_right = -37.0
+mouse_filter = 2
+custom_constants/separation = 40
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShineRow" type="HBoxContainer" parent="CollectRow"]
+margin_left = 190.0
+margin_right = 262.0
+mouse_filter = 2
+custom_constants/separation = 36
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shine1" type="Control" parent="CollectRow/ShineRow"]
+mouse_filter = 2
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/ShineRow/Shine1"]
+material = ExtResource( 1 )
+frames = SubResource( 1 )
+animation = "off"
+offset = Vector2( 0, -1 )
+
+[node name="Shine2" type="Control" parent="CollectRow/ShineRow"]
+margin_left = 36.0
+margin_right = 36.0
+mouse_filter = 2
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/ShineRow/Shine2"]
+frames = SubResource( 1 )
+animation = "off"
+offset = Vector2( 0, -1 )
+
+[node name="Shine3" type="Control" parent="CollectRow/ShineRow"]
+margin_left = 72.0
+margin_right = 72.0
+mouse_filter = 2
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/ShineRow/Shine3"]
+frames = SubResource( 1 )
+animation = "off"
+offset = Vector2( 0, -1 )
+
+[node name="Shine4" type="Control" parent="CollectRow/ShineRow"]
+visible = false
+margin_left = 108.0
+margin_right = 108.0
+mouse_filter = 2
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/ShineRow/Shine4"]
+frames = SubResource( 1 )
+animation = "on"
+offset = Vector2( 0, -1 )
+
+[node name="Shine5" type="Control" parent="CollectRow/ShineRow"]
+visible = false
+margin_left = 108.0
+margin_right = 108.0
+mouse_filter = 2
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/ShineRow/Shine5"]
+frames = SubResource( 1 )
+animation = "on"
+offset = Vector2( 0, -1 )
+
+[node name="CoinRow" type="HBoxContainer" parent="CollectRow"]
+margin_left = 302.0
+margin_right = 302.0
+mouse_filter = 2
+custom_constants/separation = 29
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin1" type="Control" parent="CollectRow/CoinRow"]
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/CoinRow/Coin1"]
+frames = SubResource( 2 )
+animation = "off"
+
+[node name="Coin2" type="Control" parent="CollectRow/CoinRow"]
+visible = false
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/CoinRow/Coin2"]
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="Coin3" type="Control" parent="CollectRow/CoinRow"]
+visible = false
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/CoinRow/Coin3"]
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="Coin4" type="Control" parent="CollectRow/CoinRow"]
+visible = false
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/CoinRow/Coin4"]
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="Coin5" type="Control" parent="CollectRow/CoinRow"]
+visible = false
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/CoinRow/Coin5"]
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="Coin6" type="Control" parent="CollectRow/CoinRow"]
+visible = false
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectRow/CoinRow/Coin6"]
+frames = SubResource( 2 )
+animation = "on"
+
+[node name="MissionName" type="Label" parent="."]
+anchor_top = 0.62
+anchor_right = 1.0
+anchor_bottom = 0.651
+custom_fonts/font = ExtResource( 9 )
+text = "Tutorial 1"
+align = 1
+uppercase = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="MissionName"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -4.0
+margin_bottom = 4.0
+custom_styles/panel = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DetailsPanel" type="Panel" parent="."]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+anchor_top = 0.7
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 60.0
+margin_top = -0.399994
+margin_right = -60.0
+mouse_filter = 2
+custom_styles/panel = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MissionDetails" type="Label" parent="."]
+anchor_top = 0.714
+anchor_right = 1.0
+anchor_bottom = 0.714
+margin_left = 59.0
+margin_top = 0.400002
+margin_right = -59.0
+margin_bottom = 47.792
+custom_colors/font_color = Color( 0.819608, 0.705882, 0.768627, 1 )
+custom_fonts/font = ExtResource( 7 )
+text = "Head to the castle, everybody's waiting!"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}

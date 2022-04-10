@@ -151,6 +151,29 @@ func _physics_process(dt):
 	if target_size.length() != window_prev_length:
 		set_hitbox_extends(target_size)
 	
+		window_prev_length = target_size.length()
+		body_collision.polygon = PoolVector2Array([
+			Vector2(0, -target_size.y / 2),
+			Vector2(target_size.x / 2, 0),
+			Vector2(0, target_size.y / 2),
+			Vector2(-target_size.x / 2, 0)
+		])
+	
+	#emergency workaround
+	if Singleton.disable_limits:
+		body_collision.polygon = PoolVector2Array([
+			Vector2.ZERO,
+		])
+	elif body_collision.polygon == PoolVector2Array([
+			Vector2.ZERO,
+		]):
+		body_collision.polygon = PoolVector2Array([
+			Vector2(0, -target_size.y / 2),
+			Vector2(target_size.x / 2, 0),
+			Vector2(0, target_size.y / 2),
+			Vector2(-target_size.x / 2, 0)
+		])
+		
 	#update the camera position and stuff
 	var target = player.position
 	body.move_and_slide(((target - body.position) / dt))

@@ -34,6 +34,8 @@ var pause_menu = false
 var feedback = false
 var line_count: int = 0
 
+var disable_limits = false
+
 enum LogType {
 	INFO,
 	WARNING,
