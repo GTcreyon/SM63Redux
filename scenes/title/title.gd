@@ -7,6 +7,7 @@ onready var logo = $Logo
 onready var text = $StartText
 onready var title_song = $TitleLoop
 onready var menu_song = $MenuLoop
+onready var version = $Version
 
 var volume_balance = 0
 var dampen = false
@@ -37,6 +38,8 @@ func _process(_delta):
 			text.modulate.a = min(text.modulate.a + 0.125, 1)
 		title_song.volume_db = -8 - (volume_balance * 60)
 		menu_song.volume_db = -8 - 60 + (volume_balance * 60)
+	version.rect_scale = scale
+	version.text = Singleton.VERSION
 
 
 func _input(event):

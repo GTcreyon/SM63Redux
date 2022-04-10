@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=1]
 [ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=7]
 [ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=8]
 [ext_resource path="res://src/global/feedback.gd" type="Script" id=9]
+[ext_resource path="res://src/global/cancel.gd" type="Script" id=10]
+[ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxEmpty" id=15]
 
@@ -54,6 +56,14 @@ region = Rect2( 26, 0, 26, 29 )
 atlas = ExtResource( 4 )
 region = Rect2( 52, 0, 26, 29 )
 
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 11 )
+region = Rect2( 20, 21, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 11 )
+region = Rect2( 20, 42, 20, 21 )
+
 [node name="Feedback" type="CanvasLayer"]
 layer = 2
 
@@ -64,9 +74,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="FeedbackControl"]
 anchor_right = 1.0
@@ -344,7 +351,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cancel" type="Control" parent="."]
+pause_mode = 2
+margin_left = 40.0
+mouse_filter = 2
+script = ExtResource( 10 )
+
+[node name="Cancel" type="TouchScreenButton" parent="Cancel"]
+pause_mode = 2
+modulate = Color( 1, 1, 1, 0.501961 )
+scale = Vector2( 2, 2 )
+normal = SubResource( 20 )
+pressed = SubResource( 21 )
+
 [connection signal="pressed" from="FeedbackControl/Submit" to="FeedbackControl" method="_on_Submit_pressed"]
+[connection signal="pressed" from="Cancel/Cancel" to="FeedbackControl" method="_on_Cancel_pressed"]
+[connection signal="pressed" from="Cancel/Cancel" to="Cancel" method="_on_Cancel_pressed"]
 
 [editable path="FeedbackControl/Checkboxes/Gameplay"]
 [editable path="FeedbackControl/Checkboxes/Visual"]

@@ -3,8 +3,8 @@ extends Control
 var req = HTTPRequest.new()
 
 func _ready():
-	add_child(req)
 	visible = false
+	add_child(req)
 
 func _process(_delta):
 	rect_pivot_offset = Vector2(OS.window_size.x / 2, 0)
@@ -91,6 +91,7 @@ func _on_Submit_pressed():
 func assemble_package() -> String:
 	var package = ""
 	package += add_data("platform", OS.get_name())
+	package += add_data("version", Singleton.VERSION)
 	package += add_data("timestamp", OS.get_ticks_msec())
 	package += add_data("window_size", OS.get_window_size())
 	package += add_data("fullscreen", OS.window_fullscreen)
@@ -112,3 +113,9 @@ func reset_data():
 		check.pressed = false
 	for mood in $Traffic.get_children():
 		mood.pressed = false
+
+
+func _on_Cancel_pressed():
+	visible = false
+	get_tree().paused = Singleton.pause_menu
+	Singleton.feedback = false
