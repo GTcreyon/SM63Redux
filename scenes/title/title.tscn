@@ -120,4 +120,4 @@ margin_left = 3.0
 margin_top = -15.0
 rect_pivot_offset = Vector2( -2, 15 )
 custom_fonts/font = ExtResource( 14 )
-text = "v0.1.2"
+text = "v0.X.X"
