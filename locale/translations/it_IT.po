@@ -1,0 +1,373 @@
+# Translations template for PROJECT.
+# Copyright (C) 2022 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2022-04-10 16:06+0100\n"
+"PO-Revision-Date: 2022-04-11 22:03+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Generated-By: Babel 2.9.1\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: ../actors/debug/tickbox_feedback.tscn:44
+msgid "Lag"
+msgstr "Lag"
+
+#: ../gui/pause/level_info/level_info.tscn:56
+msgid "Mushroom Kingdom"
+msgstr "Regno dei Funghi"
+
+#: ../gui/pause/level_info/level_info.tscn:220
+msgid "Tutorial 1"
+msgstr "Tutorial 1"
+
+#: ../gui/pause/level_info/level_info.tscn:264
+msgid "Head to the castle, everybody's waiting!"
+msgstr "Dirigiti al castello, ti aspettano tutti!"
+
+#: ../gui/pause/map/map.tscn:129
+msgid ""
+"Bob-omb\n"
+"Battlefield"
+msgstr "Battaglia di Bob-ombe"
+
+#: ../gui/pause/map/map.tscn:325
+msgid "???"
+msgstr "???"
+
+#: ../gui/pause/map/map.tscn:527
+msgid ""
+"Shifting\n"
+"Sand Land"
+msgstr "Deserto Ingoiatutto"
+
+#: ../gui/pause/options/options.tscn:30
+msgid "Disable camera limiting [Try this if the camera is broken]"
+msgstr ""
+"Disabilita i limiti della telecamera [Prova questa se la telecamera è rotta]"
+
+#: ../gui/pause/options/options.tscn:43
+msgid ""
+"Enable touch controls [Warning: Turning this off will softlock on mobile "
+"devices!]"
+msgstr ""
+"Abilita controlli touch [Attenzione: la sua disattivazione risulterà in un "
+"softlock sui dispositivi mobili!]"
+
+#: ../gui/timer/timer.tscn:37
+msgid "0:00"
+msgstr "0:00"
+
+#: ../gui/timer/timer.tscn:50
+msgid ".000"
+msgstr ".000"
+
+#: ../gui/timer/timer.tscn:119
+msgid "0:00.000"
+msgstr "0:00.000"
+
+#: ../scenes/title/menu.tscn:322
+msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
+msgstr "Riprendi la luce da Bowser e salva il Regno dei Funghi!"
+
+#: ../scenes/title/menu.tscn:334
+msgid "Create your own worlds in this in-depth Level Designer!"
+msgstr "Crea i tuoi mondi personali in questo accurato Designer di Livelli!"
+
+#: ../scenes/title/menu.tscn:346
+msgid "Enjoy a collection of trinkets and goodies!"
+msgstr "Goditi una raccolta di bigiotterie e chicche!"
+
+#: ../scenes/title/menu.tscn:358
+msgid "Adjust anything and everything to your liking!"
+msgstr "Regola tutto a tuo piacimento!"
+
+#: ../scenes/title/menu.tscn:401
+msgid ""
+"Force touch controls\n"
+"(Experimental)"
+msgstr "Forza controlli touch\v(Sperimentale)"
+
+#: ../scenes/title/title.tscn:102
+msgid "Press Z to start!"
+msgstr "Premi Z per iniziare!"
+
+#: ../scenes/title/title.tscn:123
+msgid "v0.1.2"
+msgstr "v0.1.2"
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+msgid ""
+"[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back "
+"to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here’s "
+"a refresher."
+msgstr ""
+"[@n,Cartello Billo]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] "
+"Bentornato al Regno dei Funghi,[@p,3] amico![@p,10] In onore dei vecchi "
+"tempi,[@p,3] ecco una rinfrescata."
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+msgid ""
+"Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you want "
+"to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,"
+"interact][/color]."
+msgstr ""
+"Usa le [color=#f7c55f]Frecce Direzionali[/color] per muoverti intorno,[@p,3] "
+"e se vorrai parlare con il resto della famiglia,[@p,3] premi semplicemente "
+"[color=#f7c55f][@b,interact][/color]."
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+msgid ""
+"They have plenty of tips to help out,[@p,3] and if you're not interested,"
+"[@p,3] at least say \"Hi\" for me,[@p,3] eh?"
+msgstr ""
+"Hanno dritte a volontà per poterti aiutare,[@p,3] e se non fossi interessato,"
+"[@p,3] potresti almeno dirgli \"Ciao\" da parte mia,[@p,3] eh?"
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+msgid ""
+"[@n,Gil Board]Oh hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Not many "
+"people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as "
+"thanks?"
+msgstr ""
+"[@n,Cartello Gillo]Oh ciao,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Non "
+"molte persone leggono i segnali al giorno d'oggi,[@p,3] quindi che ne dici "
+"se ti insegno qualche trucco per ringraziarti?"
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+msgid ""
+"You can press [color=#f7c55f][@b,spin][/color] to perform a "
+"[color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up "
+"there longer!"
+msgstr ""
+"Puoi premere [color=#f7c55f][@b,spin][/color] per eseguire una "
+"[color=#ff7f7f]piroetta[/color].[@p,10] Usalo mentre sei in aria per "
+"rimanerci più a lungo!"
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+msgid ""
+"Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet "
+"backflip![@p,10] Cool, 'eh?"
+msgstr ""
+"Inoltre,[@p,3] se salti all'indietro,[@p,3] puoi effettuare una bella "
+"capriola all'indietro![@p,10] Fantastico, non trovi?"
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+msgid ""
+"[@n,Jil Board]Oh [color=#ff8b70]Mario[/color],[@p,3] honey![@p,10] It's been "
+"so long since I've seen you...[@p,10] Oh my![@p,10] I see scars from your "
+"journeys..."
+msgstr ""
+"[@n,Cartello Jillo]Oh [color=#ff8b70]Mario[/color],[@p,3] caro![@p,10] È "
+"passato così tanto da quando ti ho visto...[@p,10] Oh mamma![@p,10] Vedo "
+"cicatrici dai tuoi viaggi..."
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+msgid ""
+"No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an "
+"unlucky enemy to refill one [color=#ff7f7f]health point.[/color]"
+msgstr ""
+"Non preoccuparti,[@p,3] basta che raccogli [color=#f7c55f]5 monete[/color] "
+"in giro o da un nemico sfortunato per ricaricare un [color=#ff7f7f]punto "
+"vita.[/color]"
+
+#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+msgid ""
+"No one quite understands why,[@p,3] but it's a lifesaver -[@p,3] so keep it "
+"in mind,[@p,3] sweetie!"
+msgstr ""
+"Nessuno comprende bene perchè,[@p,3] ma è un salvavita -[@p,3] quindi "
+"tienilo a mente,[@p,3] dolcezza!"
+
+#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+msgid ""
+"[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nasty "
+"[color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need "
+"to go this way?"
+msgstr ""
+"[@n,Cartello Dillo]Guarda dove metti i piedi,[@p,3] fratello![@p,10] Ci sono "
+"diverse [color=#f7c55f]bob-ombe [/color]pericolose dietro questa roccia."
+"[@p,10] Oh,[@p,3] hai bisogno di andare da questa parte?"
+
+#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+msgid ""
+"Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do "
+"a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying."
+msgstr ""
+"Be',[@p,3] in quel caso,[@p,3] premi [color=#f7c55f][@b,spin][/color] per "
+"effettuare una [color=#ff7f7f]piroetta[/color] per lanciare in aria quelle "
+"bob-ombe."
+
+#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+msgid ""
+"If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can "
+"perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath you!"
+msgstr ""
+"Se premi [color=#f7c55f][@b,pound][/color] in aria,[@p,3] potrai eseguire "
+"uno [color=#ff7f7f]Schianto a Terra[/color] per distruggere gli oggetti "
+"sottostanti!"
+
+#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+msgid ""
+"[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something "
+"really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]"
+msgstr ""
+"[@n,Cartello Gillo]Ah,[@p,3] eccoti![@p,10] Ho dimenticato di menzionarti "
+"qualcosa di molto importante -[@p,3] il [color=#f7c55f]Triplo Salto![/color]"
+
+#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+msgid ""
+"If you jump three times while moving,[@p,3] you can jump higher each time,"
+"[@p,3] ending with a huge leap!"
+msgstr ""
+"Se salti tre volte mentre ti muovi,[@p,3] potrai saltare più in alto ogni "
+"volta,[@p,3] terminando con un gran balzo!"
+
+#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+msgid "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."
+msgstr "È tutto quello che so,[@p,3] o almeno,[@p,3] tutto ciò che ricordo."
+
+#: ../scenes/tutorial_1/tutorial_1_3.tscn:160
+msgid ""
+"[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the "
+"[color=#f7c55f]F.L.U.D.D.[/color] pack!"
+msgstr ""
+"[@n,Cartello Billo]Usa [color=#f7c55f][@b,fludd][/color] per librarti usando "
+"lo zaino [color=#f7c55f]SPLAC 3000[/color]!"
+
+#: ../scenes/tutorial_1/tutorial_1_3.tscn:165
+msgid ""
+"[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump "
+"into a pool of water, or find a refill bottle."
+msgstr ""
+"[@n,Cartello Gillo]Per riempire il serbatoio dello [color=#f7c55f]SPLAC "
+"3000[/color], salta in una pozza d'acqua, o trova una bottiglia ricaricante."
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+msgid ""
+"[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back "
+"can save you if you happen to slip off a platform or miss a jump."
+msgstr ""
+"[@n,Cartello Billo]Lo [color=#f7c55f]Spruzzoplano[/color] che hai sulle tue "
+"spalle può salvarti se dovessi scivolare da una piattaforma o se mancassi un "
+"salto."
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+msgid ""
+"Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only "
+"hold [color=#5f75c5]100 flubs[/color] in that tank of theirs."
+msgstr ""
+"Non diventarne troppo dipendente,[@p,3] però.[@p,10] Lo SPLAC 3000 può "
+"mantenere solo [color=#5f75c5]100 flubbi[/color] in quel suo serbatoio."
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+msgid "Once it's gone,[@p,3] you won't be able to hover any longer."
+msgstr "Non appena terminerà,[@p,3] non sarai più in grado di librarti."
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+msgid ""
+"[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] "
+"just press [color=#f7c55f][@b,pause][/color] to pause the game!"
+msgstr ""
+"[@n,Jil Board]Hey dolcezza![@p,10] Semmai dovessi sentirti stanco,[@p,3] "
+"premi [color=#f7c55f][@b,pause][/color] per mettere in pausa il gioco!"
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+msgid ""
+"In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] "
+"change FLUDD nozzle,[@p,3] or just sit back and relax!"
+msgstr ""
+"Nel menu di pausa,[@p,3] puoi cambiare le impostazioni,[@p,3] vedere le "
+"statistiche,[@p,3] cambiare spruzzo allo SPLAC 3000,[@p,3] o semplicemente "
+"mettiti comodo e rilassati!"
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+msgid ""
+"Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you "
+"dare forget that!"
+msgstr ""
+"La cura personale è importante,[@p,3] [color=#df6042]Mario![/color][@p,10] "
+"Non osare dimenticarlo!"
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:448
+msgid "You've reached the end of the [color=#f7c55f]Tiny Demo![/color]"
+msgstr "Hai raggiunto la fine della [color=#f7c55f]Demo Piccina![/color]"
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:448
+msgid "We hope you enjoyed it, and stay tuned for more!"
+msgstr "Speriamo ti sia piaciuta, rimani sintonizzato per altro!"
+
+#: ../scenes/tutorial_1/tutorial_1_4.tscn:453
+msgid ""
+"[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that "
+"[color=#f28d7c]really[/color] all I'm good for!?"
+msgstr ""
+"[@c,toad][@m,anger][@n,Ang.T]Dialogo inutilizzato...[@p,10] Quello è "
+"[color=#f28d7c]veramente[/color] tutto ciò per cui sono utile!?"
+
+#: ../src/global/feedback.tscn:92
+msgid "Feedback"
+msgstr "Feedback"
+
+#: ../src/global/feedback.tscn:106
+msgid "Description"
+msgstr "Descrizione"
+
+#: ../src/global/feedback.tscn:119
+msgid "Contact info (optional)"
+msgstr "Info di contatto (opzionale)"
+
+#: ../src/global/feedback.tscn:204
+msgid " Negative"
+msgstr "Negativo"
+
+#: ../src/global/feedback.tscn:224
+msgid " Neutral"
+msgstr "Neutrale"
+
+#: ../src/global/feedback.tscn:244
+msgid " Positive"
+msgstr "Positivo"
+
+#: ../src/global/feedback.tscn:272
+msgid "Gameplay"
+msgstr "Gameplay"
+
+#: ../src/global/feedback.tscn:283
+msgid "Visual"
+msgstr "Visiva"
+
+#: ../src/global/feedback.tscn:294
+msgid "Bug"
+msgstr "Bug"
+
+#: ../src/global/feedback.tscn:313
+msgid "Other"
+msgstr "Altro"
+
+#: ../src/global/feedback.tscn:331
+msgid "Submit"
+msgstr "Inoltra"
+
+#: ../src/global/feedback.tscn:341
+msgid ""
+"Report includes:\n"
+"-The data you entered\n"
+"-Ingame data (e.g. Mario's position, a screenshot, etc.)\n"
+"-Current platform (Windows, Web, Android, etc.)\n"
+msgstr ""
+"La segnalazione include:\n"
+"-I dati da te inseriti\n"
+"-Dati di gioco (es. la posizione di Mario, un'istantanea dello schermo, "
+"ecc.)\n"
+"-Piattaforma attuale (Windows, Web, Android, ecc.)\n"
