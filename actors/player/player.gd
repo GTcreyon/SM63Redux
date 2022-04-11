@@ -385,6 +385,7 @@ func _physics_process(_delta):
 		
 		if Input.is_action_just_pressed("reset"):
 			Singleton.collected_nozzles = [false, false, false]
+			Singleton.water = 100
 			Singleton.get_node("Timer").frames = 0
 			Singleton.get_node("Timer").split_frames = 0
 			Singleton.get_node("Timer").running = true
