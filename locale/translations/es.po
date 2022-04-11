@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-10 16:06+0100\n"
-"PO-Revision-Date: 2022-04-10 19:12-0400\n"
+"PO-Revision-Date: 2022-04-11 10:40-0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -86,7 +86,7 @@ msgstr "¡Crea tus propios mundos con este íntegro Diseñador de Niveles!"
 
 #: ../scenes/title/menu.tscn:346
 msgid "Enjoy a collection of trinkets and goodies!"
-msgstr "¡Disfruta de una colección de "
+msgstr "¡Disfruta de una colección de curiosidades y extras!"
 
 #: ../scenes/title/menu.tscn:358
 msgid "Adjust anything and everything to your liking!"
@@ -268,12 +268,13 @@ msgid ""
 "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only "
 "hold [color=#5f75c5]100 flubs[/color] in that tank of theirs."
 msgstr ""
-"Pero no dependas mucho de ella[@p,10] El tanque de F.L.U.D.D. sólo aguanta "
-"un máximo de [color=#5f75c5]100 usos[/color]."
+"Pero no dependas mucho de ella[@p,10] El tanque de F.L.U.D.D. "
+"[color=#5f75c5]tiene un límite[/color], así que fíjate en cuánta agua te "
+"queda."
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:438
 msgid "Once it's gone,[@p,3] you won't be able to hover any longer."
-msgstr "Después de eso,[@p,3] no vas a poder seguir planeando."
+msgstr "Si tu tanque está vacío,[@p,3] no vas a poder seguir planeando."
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:443
 msgid ""
@@ -332,15 +333,15 @@ msgstr "Información de Contacto (Opcional)"
 
 #: ../src/global/feedback.tscn:204
 msgid " Negative"
-msgstr "Negativo"
+msgstr " Negativo"
 
 #: ../src/global/feedback.tscn:224
 msgid " Neutral"
-msgstr "Neutral"
+msgstr " Neutral"
 
 #: ../src/global/feedback.tscn:244
 msgid " Positive"
-msgstr "Positivo"
+msgstr " Positivo"
 
 #: ../src/global/feedback.tscn:272
 msgid "Gameplay"
