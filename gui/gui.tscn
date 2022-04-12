@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=2]
+[gd_scene load_steps=135 format=2]
 
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_edge.png" type="Texture" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://gui/pause/buttons/button_exit_0.tres" type="StyleBox" id=9]
 [ext_resource path="res://gui/pause/buttons/button_fludd_0.tres" type="StyleBox" id=10]
 [ext_resource path="res://gui/gui.gd" type="Script" id=14]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=15]
 [ext_resource path="res://gui/pause/buttons/pause_button.gd" type="Script" id=17]
 [ext_resource path="res://gui/hud/buttons/input_display.gd" type="Script" id=19]
 [ext_resource path="res://gui/hud/debug_label.gd" type="Script" id=21]
@@ -26,7 +25,7 @@
 [ext_resource path="res://gui/hud/water_meter/water_meter_frame.png" type="Texture" id=32]
 [ext_resource path="res://gui/hud/hud_red_coin.png" type="Texture" id=33]
 [ext_resource path="res://gui/hud/life/coin_ring.png" type="Texture" id=34]
-[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=35]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=35]
 [ext_resource path="res://gui/hud/dialog_star_open.png" type="Texture" id=36]
 [ext_resource path="res://gui/hud/buttons/u_button_1.png" type="Texture" id=37]
 [ext_resource path="res://gui/hud/buttons/z_button_1.png" type="Texture" id=38]
@@ -140,26 +139,6 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 0, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 12, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 24, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 36, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 48, 12, 12 )
-
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 29 )
 region = Rect2( 0, 60, 12, 12 )
@@ -188,17 +167,37 @@ region = Rect2( 0, 12, 12, 12 )
 atlas = ExtResource( 29 )
 region = Rect2( 0, 0, 12, 12 )
 
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 12, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 24, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 36, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 29 )
+region = Rect2( 0, 48, 12, 12 )
+
 [sub_resource type="SpriteFrames" id=47]
 animations = [ {
-"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
-"loop": true,
-"name": "charge",
-"speed": 0.0
-}, {
 "frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
 "loop": false,
 "name": "flash",
 "speed": 15.0
+}, {
+"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
+"loop": true,
+"name": "charge",
+"speed": 0.0
 } ]
 
 [sub_resource type="SpriteFrames" id=6]
@@ -208,14 +207,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 77 ) ],
-"loop": true,
-"name": "turbo",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 64 ) ],
 "loop": true,
 "name": "rocket",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 77 ) ],
+"loop": true,
+"name": "turbo",
 "speed": 5.0
 } ]
 
@@ -463,9 +462,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 rect_pivot_offset = Vector2( -8, -8 )
 custom_constants/separation = 21
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CoinRow" type="Control" parent="StatsTL"]
 margin_right = 32.0
@@ -659,7 +655,7 @@ texture = ExtResource( 34 )
 [node name="DebugLabel" type="Label" parent="."]
 visible = false
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 15 )
+custom_fonts/font = ExtResource( 35 )
 valign = 2
 script = ExtResource( 21 )
 __meta__ = {
