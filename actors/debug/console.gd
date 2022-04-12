@@ -14,10 +14,12 @@ func _ready():
 	add_child(req)
 
 
-func run_command(cmd):
+func run_command(cmd: String):
 	hist_index = 0
+	if cmd[0] == "/":
+		cmd = cmd.substr(1)
 	history.append(cmd)
-	var args : PoolStringArray = cmd.split(" ")
+	var args: PoolStringArray = cmd.split(" ")
 	match args[0].to_lower():
 		"w":
 			var path

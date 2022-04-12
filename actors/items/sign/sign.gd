@@ -13,7 +13,7 @@ func _process(_delta):
 	glow_factor = max((100 - position.distance_to(player.position)) / 50, 0)
 	pulse += 0.1
 	material.set_shader_param("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
-	if Input.is_action_just_pressed("interact") && overlaps_body(player) && player.state == player.s.walk && player.sign_cooldown <= 0:
+	if Input.is_action_just_pressed("interact") && overlaps_body(player) && (player.state == player.s.walk || player.state == player.s.spin) && player.sign_cooldown <= 0:
 		sfx_open.play()
 		player.switch_anim("back")
 		player.vel = Vector2.ZERO
