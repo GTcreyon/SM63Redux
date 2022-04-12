@@ -1,11 +1,10 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://gui/main_menu/selection_frame.png" type="Texture" id=1]
 [ext_resource path="res://gui/main_menu/selection_content.png" type="Texture" id=2]
 [ext_resource path="res://scenes/title/menu.gd" type="Script" id=3]
 [ext_resource path="res://gui/main_menu/border.tres" type="StyleBox" id=4]
 [ext_resource path="res://gui/main_menu/icon.png" type="Texture" id=5]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=6]
 [ext_resource path="res://gui/main_menu/selector.png" type="Texture" id=7]
 [ext_resource path="res://gui/main_menu/crystal.png" type="Texture" id=8]
 [ext_resource path="res://gui/main_menu/menu_titles.png" type="Texture" id=9]
@@ -15,7 +14,7 @@
 [ext_resource path="res://scenes/title/sheen.gd" type="Script" id=13]
 [ext_resource path="res://shaders/desaturate.tres" type="Material" id=14]
 [ext_resource path="res://actors/debug/tickbox.tscn" type="PackedScene" id=15]
-[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=16]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=16]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -318,7 +317,7 @@ anchor_right = 1.0
 margin_right = -10.0
 margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 16 )
 text = "Take the light back from Bowser and save the Mushroom Kingdom!"
 align = 1
 __meta__ = {
@@ -330,7 +329,7 @@ anchor_right = 1.0
 margin_right = -10.0
 margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 16 )
 text = "Create your own worlds in this in-depth Level Designer!"
 align = 1
 __meta__ = {
@@ -342,7 +341,7 @@ anchor_right = 1.0
 margin_right = -10.0
 margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 16 )
 text = "Enjoy a collection of trinkets and goodies!"
 align = 1
 __meta__ = {
@@ -354,7 +353,7 @@ anchor_right = 1.0
 margin_right = -10.0
 margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 16 )
 text = "Adjust anything and everything to your liking!"
 align = 1
 __meta__ = {
