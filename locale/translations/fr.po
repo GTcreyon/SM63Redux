@@ -119,7 +119,7 @@ msgid ""
 "to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here's "
 "a refresher."
 msgstr ""
-"[@n,Panoda Fichage]Yo [@p,3] [color=#ff8b70]Mario![/color][@p,10] Bienvenue "
+"[@n,Panoda Fichage]Yo,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Bienvenue "
 "de nouveau au Royaume Champignon,[@p,3] amico![@p,10] En mémoire du bon "
 "vieux temps,[@p,3] voici une petite mise au point."
 
