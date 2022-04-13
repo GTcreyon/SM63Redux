@@ -100,7 +100,7 @@ func refresh_returns(line):
 		else:
 			var added_length = font.get_string_size(word).x
 			cumulative_length += added_length
-			if cumulative_length >= DEFAULT_WIDTH - 24 + width_offset:# || (character_id != null && cumulative_length >= 233 - (47 - 8)):
+			if cumulative_length >= DEFAULT_WIDTH - 25 + width_offset:# || (character_id != null && cumulative_length >= 233 - (47 - 8)):
 				cumulative_length = added_length
 				line = line.insert(i, "\n")
 				i += 1
