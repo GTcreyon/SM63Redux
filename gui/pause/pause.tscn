@@ -26,25 +26,28 @@ mouse_filter = 2
 script = ExtResource( 6 )
 
 [node name="LevelInfo" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [node name="MapMenu" parent="." instance=ExtResource( 2 )]
 visible = false
+mouse_filter = 2
 
 [node name="FluddMenu" type="Control" parent="."]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="OptionsMenu" parent="." instance=ExtResource( 3 )]
-visible = false
 
 [node name="ExitMenu" type="Control" parent="."]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -55,6 +58,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -60.0
 margin_top = 2.0
+mouse_filter = 2
 script = ExtResource( 25 )
 __meta__ = {
 "_edit_use_anchors_": false

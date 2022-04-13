@@ -3,9 +3,7 @@
 [ext_resource path="res://actors/debug/console.gd" type="Script" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
 
-
 [node name="Console" type="Control"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
@@ -19,6 +17,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -144.0
 margin_bottom = -24.0
+mouse_filter = 2
 custom_fonts/normal_font = ExtResource( 2 )
 bbcode_enabled = true
 __meta__ = {
