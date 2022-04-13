@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-10 16:06+0100\n"
-"PO-Revision-Date: 2022-04-11 22:03+0200\n"
+"PO-Revision-Date: 2022-04-13 19:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -96,7 +96,7 @@ msgstr "Regola tutto a tuo piacimento!"
 msgid ""
 "Force touch controls\n"
 "(Experimental)"
-msgstr "Forza controlli touch\v(Sperimentale)"
+msgstr "Forza controlli touch\v (Sperimentale)"
 
 #: ../scenes/title/title.tscn:102
 msgid "Press Z to start!"
@@ -132,7 +132,7 @@ msgid ""
 "[@p,3] at least say \"Hi\" for me,[@p,3] eh?"
 msgstr ""
 "Hanno dritte a volontà per poterti aiutare,[@p,3] e se non fossi interessato,"
-"[@p,3] potresti almeno dirgli \"Ciao\" da parte mia,[@p,3] eh?"
+"[@p,3] potresti almeno dirgli \"Ciao\" da parte mia,[@p,3] no?"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:159
 msgid ""
@@ -197,7 +197,7 @@ msgid ""
 msgstr ""
 "[@n,Cartello Dillo]Guarda dove metti i piedi,[@p,3] fratello![@p,10] Ci sono "
 "diverse [color=#f7c55f]bob-ombe [/color]pericolose dietro questa roccia."
-"[@p,10] Oh,[@p,3] hai bisogno di andare da questa parte?"
+"[@p,10] Oh,[@p,3] hai bisogno di andare per di qua?"
 
 #: ../scenes/tutorial_1/tutorial_1_2.tscn:124
 msgid ""
@@ -279,8 +279,8 @@ msgid ""
 "[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] "
 "just press [color=#f7c55f][@b,pause][/color] to pause the game!"
 msgstr ""
-"[@n,Jil Board]Hey dolcezza![@p,10] Semmai dovessi sentirti stanco,[@p,3] "
-"premi [color=#f7c55f][@b,pause][/color] per mettere in pausa il gioco!"
+"[@n,Cartello Jillo]Hey dolcezza![@p,10] Semmai dovessi sentirti stanco,"
+"[@p,3] premi [color=#f7c55f][@b,pause][/color] per mettere in pausa il gioco!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:443
 msgid ""
@@ -288,8 +288,8 @@ msgid ""
 "change FLUDD nozzle,[@p,3] or just sit back and relax!"
 msgstr ""
 "Nel menu di pausa,[@p,3] puoi cambiare le impostazioni,[@p,3] vedere le "
-"statistiche,[@p,3] cambiare spruzzo allo SPLAC 3000,[@p,3] o semplicemente "
-"mettiti comodo e rilassati!"
+"statistiche,[@p,3] cambiare spruzzo allo SPLAC 3000,[@p,3] o riposarti un "
+"po'!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:443
 msgid ""
@@ -329,15 +329,15 @@ msgstr "Info di contatto (opzionale)"
 
 #: ../src/global/feedback.tscn:204
 msgid " Negative"
-msgstr "Negativo"
+msgstr " Negativo"
 
 #: ../src/global/feedback.tscn:224
 msgid " Neutral"
-msgstr "Neutrale"
+msgstr " Neutrale"
 
 #: ../src/global/feedback.tscn:244
 msgid " Positive"
-msgstr "Positivo"
+msgstr " Positivo"
 
 #: ../src/global/feedback.tscn:272
 msgid "Gameplay"
@@ -368,6 +368,5 @@ msgid ""
 msgstr ""
 "La segnalazione include:\n"
 "-I dati da te inseriti\n"
-"-Dati di gioco (es. la posizione di Mario, un'istantanea dello schermo, "
-"ecc.)\n"
+"-Dati di gioco (es. posizione attuale, un'istantanea dello schermo, ecc.)\n"
 "-Piattaforma attuale (Windows, Web, Android, ecc.)\n"
