@@ -351,6 +351,7 @@ __meta__ = {
 }
 
 [node name="ButtonMap" type="Button" parent="." groups=["pause"]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 29.0
@@ -391,6 +392,7 @@ __meta__ = {
 }
 
 [node name="ButtonFludd" type="Button" parent="." groups=["pause"]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 124.0
@@ -436,6 +438,7 @@ __meta__ = {
 }
 
 [node name="ButtonOptions" type="Button" parent="." groups=["pause"]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 220.0
@@ -481,6 +484,7 @@ __meta__ = {
 }
 
 [node name="ButtonExit" type="Button" parent="." groups=["pause"]]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 315.0
