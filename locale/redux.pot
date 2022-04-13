@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-10 16:06+0100\n"
+"POT-Creation-Date: 2022-04-13 18:15+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -49,45 +49,45 @@ msgid ""
 "Sand Land"
 msgstr ""
 
-#: ../gui/pause/options/options.tscn:30
+#: ../gui/pause/options/options.tscn:36
 msgid "Disable camera limiting [Try this if the camera is broken]"
 msgstr ""
 
-#: ../gui/pause/options/options.tscn:43
+#: ../gui/pause/options/options.tscn:49
 msgid ""
 "Enable touch controls [Warning: Turning this off will softlock on mobile "
 "devices!]"
 msgstr ""
 
-#: ../gui/timer/timer.tscn:37
+#: ../gui/timer/timer.tscn:38
 msgid "0:00"
 msgstr ""
 
-#: ../gui/timer/timer.tscn:50
+#: ../gui/timer/timer.tscn:51
 msgid ".000"
 msgstr ""
 
-#: ../gui/timer/timer.tscn:119
+#: ../gui/timer/timer.tscn:126
 msgid "0:00.000"
 msgstr ""
 
-#: ../scenes/title/menu.tscn:322
+#: ../scenes/title/menu.tscn:321
 msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
 msgstr ""
 
-#: ../scenes/title/menu.tscn:334
+#: ../scenes/title/menu.tscn:333
 msgid "Create your own worlds in this in-depth Level Designer!"
 msgstr ""
 
-#: ../scenes/title/menu.tscn:346
+#: ../scenes/title/menu.tscn:345
 msgid "Enjoy a collection of trinkets and goodies!"
 msgstr ""
 
-#: ../scenes/title/menu.tscn:358
+#: ../scenes/title/menu.tscn:357
 msgid "Adjust anything and everything to your liking!"
 msgstr ""
 
-#: ../scenes/title/menu.tscn:401
+#: ../scenes/title/menu.tscn:400
 msgid ""
 "Force touch controls\n"
 "(Experimental)"
@@ -98,21 +98,21 @@ msgid "Press Z to start!"
 msgstr ""
 
 #: ../scenes/title/title.tscn:123
-msgid "v0.1.2"
+msgid "v0.X.X"
 msgstr ""
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:154
 msgid ""
 "[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome "
 "back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' "
-"sake,[@p,3] here’s a refresher."
+"sake,[@p,3] here's a refresher."
 msgstr ""
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:154
 msgid ""
 "Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you "
 "want to talk to more of the family,[@p,3] simply press "
-"[color=#f7c55f][@b,interact][/color]."
+"[color=#f7c55f][@b,interact].[/color]"
 msgstr ""
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:154
