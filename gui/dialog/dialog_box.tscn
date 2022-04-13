@@ -25,15 +25,12 @@ animations = [ {
 } ]
 
 [node name="DialogBox" type="Control"]
-margin_left = 96.0
+margin_left = 192.0
 margin_top = 224.0
-margin_right = 352.0
+margin_right = 448.0
 margin_bottom = 288.0
 mouse_filter = 2
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BlockLeft" type="ColorRect" parent="."]
 anchor_right = 0.5
@@ -131,12 +128,9 @@ margin_right = -16.0
 margin_bottom = 68.0
 mouse_filter = 2
 color = Color( 0.223529, 0.0941176, 0, 0.74902 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EdgeRight" type="TextureRect" parent="."]
-modulate = Color( 1, 1, 1, 0.74902 )
+self_modulate = Color( 1, 1, 1, 0.74902 )
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -16.0
@@ -146,28 +140,23 @@ margin_bottom = 64.0
 mouse_filter = 2
 texture = ExtResource( 6 )
 flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Star" type="AnimatedSprite" parent="EdgeRight"]
+position = Vector2( 9.99976, 52 )
+frames = SubResource( 7 )
+animation = "wait"
 
 [node name="Text" type="RichTextLabel" parent="."]
+anchor_right = 1.0
 margin_left = 8.0
 margin_top = 9.0
-margin_right = 244.0
+margin_right = -12.0002
 margin_bottom = 57.0
 mouse_filter = 2
 custom_colors/default_color = Color( 0.976471, 0.909804, 0.909804, 1 )
 custom_fonts/normal_font = ExtResource( 8 )
 bbcode_enabled = true
 scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Star" type="AnimatedSprite" parent="."]
-position = Vector2( 250, 56 )
-frames = SubResource( 7 )
-animation = "wait"
 
 [node name="Tween" type="Tween" parent="."]
 
