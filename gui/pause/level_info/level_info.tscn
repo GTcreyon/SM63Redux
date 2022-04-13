@@ -101,8 +101,8 @@ __meta__ = {
 }
 
 [node name="ShineRow" type="HBoxContainer" parent="CollectRow"]
-margin_left = 190.0
-margin_right = 262.0
+margin_left = 227.0
+margin_right = 299.0
 mouse_filter = 2
 custom_constants/separation = 36
 alignment = 1
@@ -162,8 +162,8 @@ animation = "on"
 offset = Vector2( 0, -1 )
 
 [node name="CoinRow" type="HBoxContainer" parent="CollectRow"]
-margin_left = 302.0
-margin_right = 302.0
+margin_left = 339.0
+margin_right = 339.0
 mouse_filter = 2
 custom_constants/separation = 29
 alignment = 1
@@ -264,6 +264,3 @@ custom_fonts/font = ExtResource( 7 )
 text = "Head to the castle, everybody's waiting!"
 align = 1
 autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}

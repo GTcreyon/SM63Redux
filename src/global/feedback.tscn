@@ -344,9 +344,6 @@ text = "Report includes:
 -Current platform (Windows, Web, Android, etc.)
 "
 autowrap = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Cancel" type="Control" parent="."]
 pause_mode = 2

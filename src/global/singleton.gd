@@ -2,6 +2,13 @@ extends Node
 
 const DEFAULT_SIZE = Vector2(640, 360)
 const VERSION = "v0.1.4"
+const LOCALES = [
+	["en", "English"],
+	["es", "Español"],
+	["fr", "Français"],
+	["it", "Italiano"],
+	["nl", "Nederlands"],
+]
 
 onready var serializer: Serializer = $Serializer
 onready var sm63_to_redux: SM63ToRedux = $"Serializer/SM63ToRedux"
