@@ -127,7 +127,7 @@ msgid ""
 msgstr ""
 "Gebruik de [color=#f7c55f]Pijltjes[/color] om rond te bewegen,[@p,3] en als "
 "je met meer van de familie wilt praten,[@p,3] druk dan gewoon op "
-"[color=#f7c55f][@b,interact][/color]."
+"[color=#f7c55f][@b,interact].[/color]"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:154
 msgid ""
