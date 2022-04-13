@@ -25,6 +25,7 @@ animations = [ {
 } ]
 
 [node name="DialogBox" type="Control"]
+pause_mode = 1
 margin_left = 192.0
 margin_top = 224.0
 margin_right = 448.0

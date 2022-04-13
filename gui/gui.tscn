@@ -62,6 +62,9 @@ __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
 
+[node name="DialogBox" parent="." instance=ExtResource( 1 )]
+visible = false
+
 [node name="BG" type="ColorRect" parent="." groups=["pause"]]
 visible = false
 margin_right = 448.0
@@ -249,9 +252,6 @@ __meta__ = {
 [node name="LifeMeter" parent="." instance=ExtResource( 13 )]
 
 [node name="MeterControl" parent="." instance=ExtResource( 11 )]
-
-[node name="DialogBox" parent="." instance=ExtResource( 1 )]
-visible = false
 
 [node name="InputDisplay" parent="." instance=ExtResource( 12 )]
 visible = false
