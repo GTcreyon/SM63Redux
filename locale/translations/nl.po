@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-10 16:06+0100\n"
-"PO-Revision-Date: 2022-04-10 18:49+0200\n"
+"POT-Creation-Date: 2022-04-13 18:15+0100\n"
+"PO-Revision-Date: 2022-04-13 23:17+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: nl_BE\n"
@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../actors/debug/tickbox_feedback.tscn:44
 msgid "Lag"
-msgstr "Lag"
+msgstr "Vertraaging"
 
 #: ../gui/pause/level_info/level_info.tscn:56
 msgid "Mushroom Kingdom"
@@ -29,7 +29,7 @@ msgstr "Paddenstoelenrijk"
 
 #: ../gui/pause/level_info/level_info.tscn:220
 msgid "Tutorial 1"
-msgstr "Tutorial 1"
+msgstr "Introductie 1"
 
 #: ../gui/pause/level_info/level_info.tscn:264
 msgid "Head to the castle, everybody's waiting!"
@@ -55,47 +55,45 @@ msgstr ""
 "Brandend\n"
 "Zand Land"
 
-#: ../gui/pause/options/options.tscn:30
+#: ../gui/pause/options/options.tscn:36
 msgid "Disable camera limiting [Try this if the camera is broken]"
-msgstr "Schakel camera limiting uit [Probeer dit als de camera stuk is]"
+msgstr "Schakel camera limieten uit [Probeer dit als de camera stuk is]"
 
-#: ../gui/pause/options/options.tscn:43
+#: ../gui/pause/options/options.tscn:49
 msgid ""
 "Enable touch controls [Warning: Turning this off will softlock on mobile "
 "devices!]"
-msgstr ""
-"Schakel aanraakbedieningen in [Waarschuwing: Als je dit af zet zullen mobile "
-"apparaten vastzitten!"
+msgstr "Schakel aanraakbedieningen in [Niet afzetten voor mobiele apparaten!]"
 
-#: ../gui/timer/timer.tscn:37
+#: ../gui/timer/timer.tscn:38
 msgid "0:00"
 msgstr "0:00"
 
-#: ../gui/timer/timer.tscn:50
+#: ../gui/timer/timer.tscn:51
 msgid ".000"
 msgstr ".000"
 
-#: ../gui/timer/timer.tscn:119
+#: ../gui/timer/timer.tscn:126
 msgid "0:00.000"
 msgstr "0:00.000"
 
-#: ../scenes/title/menu.tscn:322
+#: ../scenes/title/menu.tscn:321
 msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
 msgstr "Neem het licht terug van Bowser en red het Paddenstoelenrijk!"
 
-#: ../scenes/title/menu.tscn:334
+#: ../scenes/title/menu.tscn:333
 msgid "Create your own worlds in this in-depth Level Designer!"
 msgstr "Creëer je eigen werelden in deze uitgebreide Level Ontwikkelaar!"
 
-#: ../scenes/title/menu.tscn:346
+#: ../scenes/title/menu.tscn:345
 msgid "Enjoy a collection of trinkets and goodies!"
 msgstr "Geniet van een verzameling ditjes en datjes!"
 
-#: ../scenes/title/menu.tscn:358
+#: ../scenes/title/menu.tscn:357
 msgid "Adjust anything and everything to your liking!"
 msgstr "Pas alles aan zoals je wenst!"
 
-#: ../scenes/title/menu.tscn:401
+#: ../scenes/title/menu.tscn:400
 msgid ""
 "Force touch controls\n"
 "(Experimental)"
@@ -108,24 +106,24 @@ msgid "Press Z to start!"
 msgstr "Druk op Z om te beginnen!"
 
 #: ../scenes/title/title.tscn:123
-msgid "v0.1.2"
-msgstr "v0.1.2"
+msgid "v0.X.X"
+msgstr ""
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:154
 msgid ""
 "[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back "
-"to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here’s "
+"to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here's "
 "a refresher."
 msgstr ""
-"[@n,Bill Bord]Hoi,[@p,3] [color=#df6042]Mario![/color][@p,10] Welkom terug "
-"in het Paddenstoelenrijk,[@p,3] vriend![@p,10] Voor nostalgie,[@p,3] is hier "
+"[@n,Bil Bord]Hoi,[@p,3] [color=#df6042]Mario![/color][@p,10] Welkom terug in "
+"het Paddenstoelenrijk,[@p,3] vriend![@p,10] Voor nostalgie,[@p,3] is hier "
 "een opfrisser."
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:154
 msgid ""
 "Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you want "
 "to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,"
-"interact][/color]."
+"interact].[/color]"
 msgstr ""
 "Gebruik de [color=#f7c55f]Pijltjes[/color] om rond te bewegen,[@p,3] en als "
 "je met meer van de familie wilt praten,[@p,3] druk dan gewoon op "
@@ -136,8 +134,8 @@ msgid ""
 "They have plenty of tips to help out,[@p,3] and if you're not interested,"
 "[@p,3] at least say \"Hi\" for me,[@p,3] eh?"
 msgstr ""
-"Ze hebben veel tips om te helpen met traverseren,[@p,3] en als je niet bent "
-"geïnteresseerd,[@p,3] zeg dan tenminste \"Hey\" voor me,[@p,3] hé?"
+"[@w,50]Ze hebben veel tips om te helpen met traverseren,[@p,3] en als je "
+"niet bent geïnteresseerd,[@p,3] zeg dan tenminste \"Hey\" voor me,[@p,3] hé?"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:159
 msgid ""
@@ -145,7 +143,7 @@ msgid ""
 "people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as "
 "thanks?"
 msgstr ""
-"[@n,Gill Bord]Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Niet veel "
+"[@n,Gil Bord]Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Niet veel "
 "mensen lezen borden tegenwoordig,[@p,3] wat dacht je van een paar trucjes "
 "leren als een bedanking?"
 
@@ -165,7 +163,7 @@ msgid ""
 "backflip![@p,10] Cool, 'eh?"
 msgstr ""
 "En,[@p,3] als je achterwaarts springt terwijl je bent aan het bukken,[@p,3] "
-"kan je een zieke backflip doen![@p,10] Cool, hé?"
+"kan je een backflip doen![@p,10] Cool, hé?"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:164
 msgid ""
@@ -183,8 +181,7 @@ msgid ""
 "unlucky enemy to refill one [color=#ff7f7f]health point.[/color]"
 msgstr ""
 "Geen zorgen,[@p,3] neem gewoon [color=#f7c55f]5 munten[/color] van de lucht "
-"of een pechvogel vijand om één [color=#ff7f7f]gezondheidspunt[/color] te "
-"bijvullen."
+"of een vijand om één [color=#ff7f7f]gezondheidspunt[/color] te bijvullen."
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:164
 msgid ""
@@ -209,7 +206,7 @@ msgid ""
 "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do "
 "a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying."
 msgstr ""
-"Well,[@p,3] in dat geval,[@p,3] druk dan op [color=#f7c55f][@b,spin][/color] "
+"Wel,[@p,3] in dat geval,[@p,3] druk dan op [color=#f7c55f][@b,spin][/color] "
 "om een [color=#ff7f7f]draai aanval[/color] te doen om die bom-ombs een lesje "
 "te leren!"
 
@@ -234,8 +231,9 @@ msgid ""
 "If you jump three times while moving,[@p,3] you can jump higher each time,"
 "[@p,3] ending with a huge leap!"
 msgstr ""
-"Als je drie keer springt terwijl je beweegt,[@p,3] kan je elke keer hoger "
-"springen,[@p,3] terwijl de laatste sprong ook nog is gigantisch hoog gaat!"
+"[@w, 50]Als je drie keer springt terwijl je beweegt,[@p,3] kan je elke keer "
+"hoger springen,[@p,3] terwijl de laatste sprong ook nog is gigantisch hoog "
+"gaat!"
 
 #: ../scenes/tutorial_1/tutorial_1_2.tscn:129
 msgid "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."
@@ -248,7 +246,7 @@ msgid ""
 "[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the "
 "[color=#f7c55f]F.L.U.D.D.[/color] pack!"
 msgstr ""
-"[@n,Bill Bord]Gebruik [color=#f7c55f][@b,fludd][/color] om te zweven met het "
+"[@n,Bil Bord]Gebruik [color=#f7c55f][@b,fludd][/color] om te zweven met het "
 "[color=#f7c55f]F.L.U.D.D.[/color] pak!"
 
 #: ../scenes/tutorial_1/tutorial_1_3.tscn:165
@@ -292,8 +290,9 @@ msgid ""
 "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] "
 "change FLUDD nozzle,[@p,3] or just sit back and relax!"
 msgstr ""
-"In het pauze menu,[@p,3] kan je instellingen veranderen,[@p,3] statistieken "
-"zien,[@p,3] van FLUDD mondstuk wisselen,[@p,3] of gewoon eventjes uitrusten!"
+"[@w,50]In het pauze menu,[@p,3] kan je instellingen veranderen,[@p,3] "
+"statistieken zien,[@p,3] van FLUDD mondstuk wisselen,[@p,3] of gewoon "
+"eventjes uitrusten!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:443
 msgid ""
@@ -372,8 +371,11 @@ msgid ""
 msgstr ""
 "Rapport includeert:\n"
 "-De data dat je hebt ingevoerd\n"
-"-Ingame data (o.a. Mario's positie, een screenshot, etc.)\n"
+"-In-spel data (o.a. Mario's positie, een screenshot, etc.)\n"
 "-Huidig platform (Windows, Web, Android, etc.)\n"
+
+#~ msgid "v0.1.2"
+#~ msgstr "v0.1.2"
 
 #~ msgid ""
 #~ "Not to worry,[@p,3] if you hop into a body of water or grab a water "
