@@ -1,5 +1,8 @@
 extends Control
 
+const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
+const RUBY = preload("res://fonts/red/gui_red.fnt")
+
 onready var shine_panel = $CollectPanel
 onready var shine_row = $CollectRow/ShineRow
 onready var coin_row = $CollectRow/CoinRow
@@ -10,7 +13,10 @@ onready var mission_name_panel = $MissionName/Panel
 onready var mission_details = $MissionDetails
 onready var mission_details_panel = $DetailsPanel
 
+var perm_scale
+
 func resize(scale):
+	perm_scale = scale
 	var font = level_name.get_font("font")
 
 	level_name.rect_pivot_offset.x = ((OS.window_size.x / scale - 31 * 2) - 16) / 2
@@ -76,3 +82,16 @@ func resize(scale):
 	shine_panel.margin_right = -((OS.window_size.x / scale / 2) - (shine_width + 40 + coin_width) / 2 - 29 / 2 - 4) + 37
 #	#$ShinePanel.margin_left = $CollectRow/ShineRow.margin_left + 37 - 33 / 2 - 4
 #	#$ShinePanel.margin_right = -($CollectRow.rect_size.x - $CollectRow/CoinRow.margin_right) - 37 + 29 / 2 + 4
+
+
+func _process(delta):
+	if TranslationServer.get_locale().substr(0, 2) == "en":
+		if !level_name.uppercase:
+			level_name.add_font_override("font", RUBY)
+			level_name.uppercase = true
+			resize(perm_scale)
+	else:
+		if level_name.uppercase:
+			level_name.add_font_override("font", BYLIGHT)
+			level_name.uppercase = false
+			resize(perm_scale)
