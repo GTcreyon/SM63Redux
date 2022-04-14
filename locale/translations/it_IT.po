@@ -57,12 +57,8 @@ msgstr ""
 "Disabilita i limiti della telecamera [Prova questa se la telecamera è rotta]"
 
 #: ../gui/pause/options/options.tscn:43
-msgid ""
-"Enable touch controls [Warning: Turning this off will softlock on mobile "
-"devices!]"
-msgstr ""
-"Abilita controlli touch [Attenzione: la sua disattivazione risulterà in un "
-"softlock sui dispositivi mobili!]"
+msgid "Enable touch controls"
+msgstr "Abilita controlli touch"
 
 #: ../gui/timer/timer.tscn:37
 msgid "0:00"

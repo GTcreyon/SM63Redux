@@ -60,10 +60,8 @@ msgid "Disable camera limiting [Try this if the camera is broken]"
 msgstr "Schakel camera limieten uit [Probeer dit als de camera stuk is]"
 
 #: ../gui/pause/options/options.tscn:49
-msgid ""
-"Enable touch controls [Warning: Turning this off will softlock on mobile "
-"devices!]"
-msgstr "Schakel aanraakbedieningen in [Niet afzetten voor mobiele apparaten!]"
+msgid "Enable touch controls"
+msgstr "Schakel aanraakbedieningen in"
 
 #: ../gui/timer/timer.tscn:38
 msgid "0:00"

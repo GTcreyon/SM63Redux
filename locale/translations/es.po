@@ -57,10 +57,8 @@ msgstr ""
 "Deshabilitar límite de cámara [Prueba esto si la cámara no funciona bien]"
 
 #: ../gui/pause/options/options.tscn:43
-msgid ""
-"Enable touch controls [Warning: Turning this off will softlock on mobile "
-"devices!]"
-msgstr "Habilitar controles táctiles [No apagar en dispositivos móviles]"
+msgid "Enable touch controls"
+msgstr "Habilitar controles táctiles"
 
 #: ../gui/timer/timer.tscn:37
 msgid "0:00"

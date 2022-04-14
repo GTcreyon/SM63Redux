@@ -61,12 +61,8 @@ msgstr ""
 "Désactiver les contraintes de caméra [Essayez ça si la caméra détraque]"
 
 #: ../gui/pause/options/options.tscn:49
-msgid ""
-"Enable touch controls [Warning: Turning this off will softlock on mobile "
-"devices!]"
-msgstr ""
-"Activer les contrôles tactiles [Attention: Le désactiver pourrait causer des "
-"softlocks sur les supports mobiles!]"
+msgid "Enable touch controls"
+msgstr "Activer les contrôles tactiles"
 
 #: ../gui/timer/timer.tscn:38
 msgid "0:00"
