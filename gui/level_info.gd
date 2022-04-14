@@ -84,7 +84,7 @@ func resize(scale):
 #	#$ShinePanel.margin_right = -($CollectRow.rect_size.x - $CollectRow/CoinRow.margin_right) - 37 + 29 / 2 + 4
 
 
-func _process(delta):
+func _process(_delta):
 	if TranslationServer.get_locale().substr(0, 2) == "en":
 		if !level_name.uppercase:
 			level_name.add_font_override("font", RUBY)
