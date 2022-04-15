@@ -84,14 +84,16 @@ func resize(scale):
 #	#$ShinePanel.margin_right = -($CollectRow.rect_size.x - $CollectRow/CoinRow.margin_right) - 37 + 29 / 2 + 4
 
 
-func _process(_delta):
+func refresh_caps(force: bool = false):
 	if TranslationServer.get_locale().substr(0, 2) == "en":
-		if !level_name.uppercase:
-			level_name.add_font_override("font", RUBY)
-			level_name.uppercase = true
-			resize(perm_scale)
+		level_name.add_font_override("font", RUBY)
+		level_name.uppercase = true
+		resize(perm_scale)
 	else:
-		if level_name.uppercase:
-			level_name.add_font_override("font", BYLIGHT)
-			level_name.uppercase = false
-			resize(perm_scale)
+		level_name.add_font_override("font", BYLIGHT)
+		level_name.uppercase = false
+		resize(perm_scale)
+
+
+func _process(_delta):
+	refresh_caps()

@@ -35,7 +35,7 @@ func refresh():
 			icon.animation = "turbo"
 		_:
 			modulate.a = 0
-	if singleton.water >= 99.5:
+	if singleton.water == 100:
 		max_sprite.visible = true
 		label.visible = false
 	else:
@@ -44,7 +44,8 @@ func refresh():
 		if singleton.water == INF:
 			label.text = "INF"
 		else:
-			label.text = str(ceil(singleton.water))
+			#keeps the display in range 1-99
+			label.text = str(floor((singleton.water + 1) / 100 * 99))
 
 
 func _ready():
