@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://src/level_designer/background.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/camera_position = Vector2( 0, 0 )

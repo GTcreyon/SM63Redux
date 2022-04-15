@@ -1,8 +1,56 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=25 format=2]
 
+[ext_resource path="res://src/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://src/level_designer/ld_main.gd" type="Script" id=2]
 [ext_resource path="res://src/level_designer/ld_camera.gd" type="Script" id=3]
-[ext_resource path="res://scenes/ld/music.gd" type="Script" id=5]
+[ext_resource path="res://src/level_designer/background.tres" type="Material" id=4]
+[ext_resource path="res://music.gd" type="Script" id=5]
+[ext_resource path="res://src/level_designer/background.png" type="Texture" id=6]
+[ext_resource path="res://gui/ld/top_buttons.png" type="Texture" id=7]
+[ext_resource path="res://gui/ld/palette.png" type="Texture" id=8]
+[ext_resource path="res://gui/ld/start_pipe.png" type="Texture" id=9]
+[ext_resource path="res://gui/ld/start_sign.png" type="Texture" id=10]
+[ext_resource path="res://gui/ld/big_cog.png" type="Texture" id=11]
+[ext_resource path="res://gui/ld/hermes.tscn" type="PackedScene" id=12]
+[ext_resource path="res://gui/ld/scroll_block_v.png" type="Texture" id=13]
+[ext_resource path="res://gui/ld/scroll_block_h.png" type="Texture" id=14]
+[ext_resource path="res://item_grid.gd" type="Script" id=15]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 42, 30 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = SubResource( 4 )
+region_rect = Rect2( 0, 0, 42, 30 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 7 )
+region = Rect2( 42, 0, 42, 30 )
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = SubResource( 1 )
+region_rect = Rect2( 0, 0, 42, 30 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 7 )
+region = Rect2( 84, 0, 42, 30 )
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = SubResource( 6 )
+region_rect = Rect2( 0, 0, 42, 30 )
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 66, 65 )
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 45, 36 )
+
+[sub_resource type="StyleBoxTexture" id=10]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 70, 70 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
@@ -12,6 +60,11 @@ anchor_mode = 0
 current = true
 script = ExtResource( 3 )
 
+[node name="Background" type="Sprite" parent="LDCamera"]
+material = ExtResource( 4 )
+texture = ExtResource( 6 )
+centered = false
+
 [node name="Music" type="AudioStreamPlayer" parent="."]
 bus = "Music"
 script = ExtResource( 5 )
@@ -20,6 +73,265 @@ script = ExtResource( 5 )
 
 [node name="FadeIn" type="Tween" parent="Music"]
 
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="LDUI" type="Control" parent="UILayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TopBar" type="Control" parent="UILayer/LDUI"]
+anchor_right = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/LDUI/TopBar"]
+show_behind_parent = true
+margin_right = 136.0
+margin_bottom = 32.0
+color = Color( 0.223529, 0.0941176, 0, 1 )
+
+[node name="File" type="Button" parent="UILayer/LDUI/TopBar"]
+margin_right = 42.0
+margin_bottom = 30.0
+custom_styles/normal = SubResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mode" type="Button" parent="UILayer/LDUI/TopBar"]
+margin_left = 46.0
+margin_right = 88.0
+margin_bottom = 30.0
+custom_styles/normal = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="Button" parent="UILayer/LDUI/TopBar"]
+margin_left = 92.0
+margin_right = 134.0
+margin_bottom = 30.0
+custom_styles/normal = SubResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftBar" type="Control" parent="UILayer/LDUI"]
+anchor_bottom = 1.0
+margin_top = 32.0
+margin_right = 80.0
+
+[node name="ColorRect2" type="ColorRect" parent="UILayer/LDUI/LeftBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 66.0
+color = Color( 0.231373, 0.117647, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/LDUI/LeftBar/ColorRect2"]
+margin_left = 2.0
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="UILayer/LDUI/LeftBar/ColorRect2"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -86.0
+texture = ExtResource( 13 )
+flip_v = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UILayer/LDUI/LeftBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -14.0
+color = Color( 0.141176, 0.52549, 0.47451, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="UILayer/LDUI/LeftBar/ColorRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -93.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect3" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.231373, 0.117647, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect4" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/Control/ColorRect3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+color = Color( 0.168627, 0.290196, 0.239216, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/LeftBar/ColorRect/Control/ColorRect3/ColorRect4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = -2.0
+margin_bottom = -2.0
+rect_clip_content = true
+custom_constants/hseparation = 3
+columns = 3
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BottomBar" type="ColorRect" parent="UILayer/LDUI"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -22.0
+color = Color( 0.231373, 0.117647, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="UILayer/LDUI/BottomBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 86.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/LDUI/BottomBar/Control"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 7.0
+margin_bottom = 21.0
+texture = ExtResource( 14 )
+
+[node name="TextureRect2" type="TextureRect" parent="UILayer/LDUI/BottomBar/Control"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -116.0
+margin_top = 1.0
+margin_right = -110.0
+margin_bottom = 21.0
+texture = ExtResource( 14 )
+flip_h = true
+
+[node name="RightBar" type="ColorRect" parent="UILayer/LDUI"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+color = Color( 0.231373, 0.117647, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="UILayer/LDUI/RightBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 48.0
+margin_bottom = -56.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="UILayer/LDUI/RightBar/Control"]
+margin_left = 21.0
+margin_top = 1.0
+margin_right = 27.0
+margin_bottom = 21.0
+rect_rotation = 90.0
+texture = ExtResource( 14 )
+
+[node name="TextureRect2" type="TextureRect" parent="UILayer/LDUI/RightBar/Control"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_top = -1.0
+rect_rotation = 270.0
+texture = ExtResource( 14 )
+
+[node name="Palette" type="TextureRect" parent="UILayer/LDUI"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -90.0
+margin_right = 91.0
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StartButtons" type="Control" parent="UILayer/LDUI"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Start" type="Button" parent="UILayer/LDUI/StartButtons"]
+margin_left = -66.0
+margin_top = -65.0
+custom_styles/normal = SubResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FromPos" type="Button" parent="UILayer/LDUI/StartButtons"]
+margin_left = -111.0
+margin_top = -36.0
+margin_right = -66.0
+custom_styles/normal = SubResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cog" type="Button" parent="UILayer/LDUI"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -48.0
+margin_top = -22.0
+margin_right = 22.0
+margin_bottom = 48.0
+custom_styles/normal = SubResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Hermes" parent="UILayer/LDUI" instance=ExtResource( 12 )]
+position = Vector2( 278, 331.5 )
+z_index = -1
+
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]
+[connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_terrain_control_place_pressed"]

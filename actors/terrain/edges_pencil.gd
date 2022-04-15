@@ -76,8 +76,10 @@ func add_edge_segment(is_left, group):
 			verts_inside.append(vert)
 			inside_counter += 1
 	
-	var color_white = Color(1, 1, 1)
-	var colors = PoolColorArray([color_white, color_white, color_white, color_white])
+	var base_color = Color(1, 1, 1)
+	if root.shallow:
+		base_color = root.shallow_color
+	var colors = PoolColorArray([base_color, base_color, base_color, base_color])
 	
 	#draw the shade
 	if inside_counter > 0:
