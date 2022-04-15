@@ -1,0 +1,287 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://gui/hud/buttons/input_display.gd" type="Script" id=1]
+[ext_resource path="res://gui/hud/buttons/c_button_1.png" type="Texture" id=2]
+[ext_resource path="res://gui/hud/buttons/r_button_1.png" type="Texture" id=3]
+[ext_resource path="res://gui/hud/buttons/l_button_0.png" type="Texture" id=4]
+[ext_resource path="res://gui/hud/buttons/r_button_0.png" type="Texture" id=5]
+[ext_resource path="res://gui/hud/buttons/x_button_1.png" type="Texture" id=6]
+[ext_resource path="res://gui/hud/buttons/u_button_1.png" type="Texture" id=7]
+[ext_resource path="res://gui/hud/buttons/x_button_0.png" type="Texture" id=8]
+[ext_resource path="res://gui/hud/buttons/z_button_0.png" type="Texture" id=9]
+[ext_resource path="res://gui/hud/buttons/l_button_1.png" type="Texture" id=10]
+[ext_resource path="res://gui/hud/buttons/z_button_1.png" type="Texture" id=11]
+[ext_resource path="res://gui/hud/buttons/d_button_0.png" type="Texture" id=12]
+[ext_resource path="res://gui/hud/buttons/c_button_0.png" type="Texture" id=13]
+[ext_resource path="res://gui/hud/buttons/d_button_1.png" type="Texture" id=14]
+[ext_resource path="res://gui/hud/buttons/u_button_0.png" type="Texture" id=15]
+
+[sub_resource type="Shader" id=69]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform int intensity : hint_range(0,200); 
+uniform float precision : hint_range(0,0.02);
+uniform vec4 outline_color : hint_color;
+
+varying vec2 o;
+varying vec2 f;
+
+void vertex()
+{
+	o = VERTEX;
+	vec2 uv = (UV - 0.5);
+	VERTEX += uv * float(intensity);
+	f = VERTEX;
+}
+
+void fragment()
+{
+	vec2 regular_uv;
+	regular_uv.x = UV.x + (f.x - o.x) * TEXTURE_PIXEL_SIZE.x;
+	regular_uv.y = UV.y + (f.y - o.y) * TEXTURE_PIXEL_SIZE.y;
+	
+	vec4 regular_color = texture(TEXTURE, regular_uv);
+	if((regular_uv.x < 0.0 || regular_uv.x > 1.0) || (regular_uv.y < 0.0 || regular_uv.y > 1.0) || regular_color.a <=0.25){
+		regular_color = vec4(0.0); 
+	}
+	
+	vec2 ps = TEXTURE_PIXEL_SIZE * float(intensity) * precision;
+	
+	vec4 final_color = regular_color;
+	if (regular_color.a <= 0.0)
+	{
+		for(int x = -1; x <= 1; x += 1){
+			for(int y = -1; y <= 1; y += 1){
+				//Get the X and Y offset from this
+				if (x==0 && y==0)
+					continue;
+					
+				vec2 outline_uv = regular_uv + vec2(float(x) * ps.x, float(y) * ps.y); 
+				
+				//Sample here, if we are out of bounds then fail
+				vec4 outline_sample = texture(TEXTURE, outline_uv);
+				if((outline_uv.x < 0.0 || outline_uv.x > 1.0) || (outline_uv.y < 0.0 || outline_uv.y > 1.0)){
+					//We aren't a real color
+					outline_sample = vec4(0);
+				}
+				
+				//Is our sample empty? Is there something nearby? If so, draw this pixel
+				if(outline_sample.a > final_color.a){
+					final_color = outline_color;
+				}
+			}
+		}
+	}
+	COLOR = final_color; 
+}"
+
+[sub_resource type="ShaderMaterial" id=8]
+resource_local_to_scene = true
+shader = SubResource( 69 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=10]
+resource_local_to_scene = true
+shader = SubResource( 69 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=12]
+resource_local_to_scene = true
+shader = SubResource( 69 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=13]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=14]
+resource_local_to_scene = true
+shader = SubResource( 69 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=15]
+animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=16]
+resource_local_to_scene = true
+shader = SubResource( 69 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=17]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=18]
+resource_local_to_scene = true
+shader = SubResource( 69 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=19]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[sub_resource type="ShaderMaterial" id=20]
+resource_local_to_scene = true
+shader = SubResource( 69 )
+shader_param/intensity = 100
+shader_param/precision = 0.01
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=21]
+animations = [ {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "on",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+} ]
+
+[node name="InputDisplay" type="Control"]
+margin_left = 2.0
+margin_top = 71.0
+margin_right = 42.0
+margin_bottom = 111.0
+mouse_filter = 2
+
+[node name="Z" type="AnimatedSprite" parent="."]
+material = SubResource( 8 )
+position = Vector2( 0, 46 )
+frames = SubResource( 9 )
+animation = "off"
+centered = false
+script = ExtResource( 1 )
+input = "pound"
+
+[node name="X" type="AnimatedSprite" parent="."]
+material = SubResource( 10 )
+position = Vector2( 22, 46 )
+frames = SubResource( 11 )
+animation = "off"
+centered = false
+script = ExtResource( 1 )
+input = "spin"
+
+[node name="C" type="AnimatedSprite" parent="."]
+material = SubResource( 12 )
+position = Vector2( 44, 46 )
+frames = SubResource( 13 )
+animation = "off"
+centered = false
+script = ExtResource( 1 )
+input = "fludd"
+
+[node name="L" type="AnimatedSprite" parent="."]
+material = SubResource( 14 )
+position = Vector2( 0, 23 )
+frames = SubResource( 15 )
+animation = "off"
+centered = false
+script = ExtResource( 1 )
+input = "left"
+
+[node name="R" type="AnimatedSprite" parent="."]
+material = SubResource( 16 )
+position = Vector2( 44, 23 )
+frames = SubResource( 17 )
+animation = "off"
+centered = false
+script = ExtResource( 1 )
+input = "right"
+
+[node name="U" type="AnimatedSprite" parent="."]
+material = SubResource( 18 )
+position = Vector2( 22, 0 )
+frames = SubResource( 19 )
+animation = "off"
+centered = false
+script = ExtResource( 1 )
+input = "up"
+
+[node name="D" type="AnimatedSprite" parent="."]
+material = SubResource( 20 )
+position = Vector2( 22, 23 )
+frames = SubResource( 21 )
+animation = "off"
+centered = false
+script = ExtResource( 1 )
+input = "down"

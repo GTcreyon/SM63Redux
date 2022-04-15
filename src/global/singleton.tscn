@@ -115,9 +115,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DeathCover" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -160,6 +157,7 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -195,9 +193,7 @@ passby_press = true
 [node name="TouchAction" type="Control" parent="TouchControls"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+mouse_filter = 2
 
 [node name="Z" type="TouchScreenButton" parent="TouchControls/TouchAction"]
 modulate = Color( 1, 1, 1, 0.501961 )
@@ -231,6 +227,7 @@ pressed = SubResource( 2 )
 
 [node name="TouchFeedback" type="Control" parent="TouchControls"]
 margin_left = 80.0
+mouse_filter = 2
 
 [node name="Feedback" type="TouchScreenButton" parent="TouchControls/TouchFeedback"]
 modulate = Color( 1, 1, 1, 0.501961 )
@@ -269,6 +266,7 @@ bus = "SFX"
 
 [node name="Console" parent="." instance=ExtResource( 17 )]
 pause_mode = 2
+visible = false
 mouse_filter = 2
 
 [node name="Feedback" parent="." instance=ExtResource( 18 )]

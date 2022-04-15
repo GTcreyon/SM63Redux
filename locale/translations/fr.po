@@ -8,40 +8,40 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-13 18:15+0100\n"
-"PO-Revision-Date: 2022-04-13 23:17+0200\n"
+"PO-Revision-Date: 2022-04-13 21:51+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: nl_BE\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Generated-By: Babel 2.9.1\n"
 "X-Generator: Poedit 3.0.1\n"
 
 #: ../actors/debug/tickbox_feedback.tscn:44
 msgid "Lag"
-msgstr "Vertraaging"
+msgstr "Latence"
 
 #: ../gui/pause/level_info/level_info.tscn:56
 msgid "Mushroom Kingdom"
-msgstr "Paddenstoelenrijk"
+msgstr "Royaume Champignon"
 
 #: ../gui/pause/level_info/level_info.tscn:220
 msgid "Tutorial 1"
-msgstr "Introductie 1"
+msgstr "Tutoriel 1"
 
 #: ../gui/pause/level_info/level_info.tscn:264
 msgid "Head to the castle, everybody's waiting!"
-msgstr "Ga naar het Kasteel, iedereen wacht!"
+msgstr "Diriges toi vers le château, tout le monde t'attend!"
 
 #: ../gui/pause/map/map.tscn:129
 msgid ""
 "Bob-omb\n"
 "Battlefield"
 msgstr ""
-"Bob-omb\r\n"
-"Bom-Berg"
+"Bataille\n"
+"de Bob-Omb"
 
 #: ../gui/pause/map/map.tscn:325
 msgid "???"
@@ -52,16 +52,17 @@ msgid ""
 "Shifting\n"
 "Sand Land"
 msgstr ""
-"Brandend\n"
-"Zand Land"
+"Sables\n"
+"Trop Mouvants"
 
 #: ../gui/pause/options/options.tscn:36
 msgid "Disable camera limiting [Try this if the camera is broken]"
-msgstr "Schakel camera limieten uit [Probeer dit als de camera stuk is]"
+msgstr ""
+"Désactiver les contraintes de caméra [Essayez ça si la caméra détraque]"
 
 #: ../gui/pause/options/options.tscn:49
 msgid "Enable touch controls"
-msgstr "Schakel aanraakbedieningen in"
+msgstr "Activer les contrôles tactiles"
 
 #: ../gui/timer/timer.tscn:38
 msgid "0:00"
@@ -69,39 +70,40 @@ msgstr "0:00"
 
 #: ../gui/timer/timer.tscn:51
 msgid ".000"
-msgstr ".000"
+msgstr ",000"
 
 #: ../gui/timer/timer.tscn:126
 msgid "0:00.000"
-msgstr "0:00.000"
+msgstr "0:00,000"
 
 #: ../scenes/title/menu.tscn:321
 msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
-msgstr "Neem het licht terug van Bowser en red het Paddenstoelenrijk!"
+msgstr ""
+"Libérez la lumière des griffes de Bowser et sauvez le Royaume Champignon!"
 
 #: ../scenes/title/menu.tscn:333
 msgid "Create your own worlds in this in-depth Level Designer!"
-msgstr "Creëer je eigen werelden in deze uitgebreide Level Ontwikkelaar!"
+msgstr "Créez vos propres mondes avec ce Concepteur de Niveau avancé!"
 
 #: ../scenes/title/menu.tscn:345
 msgid "Enjoy a collection of trinkets and goodies!"
-msgstr "Geniet van een verzameling ditjes en datjes!"
+msgstr "Profitez d'une collection de babioles et de goodies!"
 
 #: ../scenes/title/menu.tscn:357
 msgid "Adjust anything and everything to your liking!"
-msgstr "Pas alles aan zoals je wenst!"
+msgstr "Ajustez chaque aspect du jeu selon vos préférences!"
 
 #: ../scenes/title/menu.tscn:400
 msgid ""
 "Force touch controls\n"
 "(Experimental)"
 msgstr ""
-"Forceer aanraakbedieningen\n"
-"(Experimenteel)"
+"Forcer les contrôles tactiles\n"
+"(Expérimental)"
 
 #: ../scenes/title/title.tscn:102
 msgid "Press Z to start!"
-msgstr "Druk op Z om te beginnen!"
+msgstr "Appuyez sur Z pour commencer!"
 
 #: ../scenes/title/title.tscn:123
 msgid "v0.X.X"
@@ -113,9 +115,9 @@ msgid ""
 "to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here's "
 "a refresher."
 msgstr ""
-"[@n,Bil Bord]Hoi,[@p,3] [color=#df6042]Mario![/color][@p,10] Welkom terug in "
-"het Paddenstoelenrijk,[@p,3] vriend![@p,10] Voor nostalgie,[@p,3] is hier "
-"een opfrisser."
+"[@n,Panoda Fichage]Yo,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Bienvenue "
+"de nouveau au Royaume Champignon,[@p,3] amico![@p,10] En mémoire du bon "
+"vieux temps,[@p,3] voici une petite mise au point."
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:154
 msgid ""
@@ -123,17 +125,17 @@ msgid ""
 "to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,"
 "interact].[/color]"
 msgstr ""
-"Gebruik de [color=#f7c55f]Pijltjes[/color] om rond te bewegen,[@p,3] en als "
-"je met meer van de familie wilt praten,[@p,3] druk dan gewoon op "
-"[color=#f7c55f][@b,interact].[/color]"
+"Utilise [color=#f7c55f]les Flèches[/color] pour te déplacer,[@p,3] et si tu "
+"veux parler avec les autres,[@p,3] appuie juste sur [color=#f7c55f][@b,"
+"interact].[/color]"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:154
 msgid ""
 "They have plenty of tips to help out,[@p,3] and if you're not interested,"
 "[@p,3] at least say \"Hi\" for me,[@p,3] eh?"
 msgstr ""
-"[@w,50]Ze hebben veel tips om te helpen met traverseren,[@p,3] en als je "
-"niet bent geïnteresseerd,[@p,3] zeg dan tenminste \"Hey\" voor me,[@p,3] hé?"
+"Ils ont plein d'astuces pour toi,[@p,3] et si ça ne t'intéresses pas,[@p,3] "
+"tu peux toujours me passer le salut,[@p,3] hein?"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:159
 msgid ""
@@ -141,9 +143,9 @@ msgid ""
 "people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as "
 "thanks?"
 msgstr ""
-"[@n,Gil Bord]Oh hey,[@p,3] [color=#df6042]Mario![/color][@p,10] Niet veel "
-"mensen lezen borden tegenwoordig,[@p,3] wat dacht je van een paar trucjes "
-"leren als een bedanking?"
+"[@n,Panoda Prentissage]Oh salut,[@p,3] [color=#ff8b70]Mario![/color][@p,10] "
+"Peu de gens nous lisent ces jours ci, [@p,3] alors est-ce que j'pourrais "
+"t'enseigner quelques trucs pour te remercier?"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:159
 msgid ""
@@ -151,17 +153,17 @@ msgid ""
 "[color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up "
 "there longer!"
 msgstr ""
-"Je kan op [color=#f7c55f][@b,spin][/color] drukken om een "
-"[color=#ff7f7f]draai aanval[/color] uit te voeren.[@p,10] Gebruik 'em om "
-"langer in de lucht te blijven!"
+"Tu peux appuyer sur [color=#f7c55f][@b,spin][/color] pour faire une "
+"[color=#ff7f7f]attaque tournoyante[/color].[@p,10] Avec ça, tu peux rester "
+"plus longtemps en l'air!"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:159
 msgid ""
 "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet "
 "backflip![@p,10] Cool, 'eh?"
 msgstr ""
-"En,[@p,3] als je achterwaarts springt terwijl je bent aan het bukken,[@p,3] "
-"kan je een backflip doen![@p,10] Cool, hé?"
+"Aussi,[@p,3] si tu sautes en arrière tout en t'accroupissant,[@p,3] tu peux "
+"faire un salto arrière![@p,10] Cool, hein?"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:164
 msgid ""
@@ -169,25 +171,25 @@ msgid ""
 "so long since I've seen you...[@p,10] Oh my![@p,10] I see scars from your "
 "journeys..."
 msgstr ""
-"[@n,Jil Bord]Oh [color=#df6042]Mario[/color],[@p,3] lieveling![@p,10] Het is "
-"al zo lang geleden dat ik je nog eens heb gezien...[@p,10] Oh god![@p,10] Ik "
-"zie littekens van je reizen..."
+"[@n,Panoda Mour]Oh [color=#ff8b70]Mario[/color],[@p,3] mon biquet![@p,10] Ça "
+"fait si longtemps depuis que je t'ai vu...[@p,10] Oh![@p,10] Je vois des "
+"blessures suite à tes aventures..."
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:164
 msgid ""
 "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an "
 "unlucky enemy to refill one [color=#ff7f7f]health point.[/color]"
 msgstr ""
-"Geen zorgen,[@p,3] neem gewoon [color=#f7c55f]5 munten[/color] van de lucht "
-"of een vijand om één [color=#ff7f7f]gezondheidspunt[/color] te bijvullen."
+"Ne t'en fais pas,[@p,3] récolte juste [color=#f7c55f]5 pièces[/color] en "
+"l'air ou sur un ennemi pour régénérer un [color=#ff7f7f]point de vie.[/color]"
 
 #: ../scenes/tutorial_1/tutorial_1_1.tscn:164
 msgid ""
 "No one quite understands why,[@p,3] but it's a lifesaver -[@p,3] so keep it "
 "in mind,[@p,3] sweetie!"
 msgstr ""
-"Niemand begrijpt echt waarom,[@p,3] maar het is een gouden tip -[@p,3] dus "
-"onthoud hem goed,[@p,3] lieveling!"
+"Personne ne sait vraiment pourquoi,[@p,3] mais ça peut te sauver la vie -"
+"[@p,3] garde ça en tête,[@p,3] mon chou!"
 
 #: ../scenes/tutorial_1/tutorial_1_2.tscn:124
 msgid ""
@@ -195,158 +197,157 @@ msgid ""
 "[color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need "
 "to go this way?"
 msgstr ""
-"[@n,Dil Bord]Kijk uit waar je stapt,[@p,3] vriend![@p,10] Er zijn een paar "
-"vieze [color=#f7c55f]bom-ombs [/color]achter deze steen.[@p,10] Oh,[@p,3] je "
-"moet deze kant op?"
+"[@n,Panoda Tac]Fais gaffe,[@p,3] bro![@p,10] Il y a des sales "
+"[color=#f7c55f]bob-ombs [/color]derrière ce rocher.[@p,10] Oh,[@p,3] c'est "
+"là que tu dois aller?"
 
 #: ../scenes/tutorial_1/tutorial_1_2.tscn:124
 msgid ""
 "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do "
 "a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying."
 msgstr ""
-"Wel,[@p,3] in dat geval,[@p,3] druk dan op [color=#f7c55f][@b,spin][/color] "
-"om een [color=#ff7f7f]draai aanval[/color] te doen om die bom-ombs een lesje "
-"te leren!"
+"Bon,[@p,3] dans ce cas,[@p,3] appuie sur [color=#f7c55f][@b,spin][/color] "
+"pour effectuer une [color=#ff7f7f]attaque tournoyante[/color] afin d'envoyer "
+"valser ces bob-ombs."
 
 #: ../scenes/tutorial_1/tutorial_1_2.tscn:124
 msgid ""
 "If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can "
 "perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath you!"
 msgstr ""
-"Als je op [color=#f7c55f][@b,pound][/color] drukt in de lucht, doe je een "
-"[color=#ff7f7f]Hip-Bash[/color] om objecten onder je te breken!"
+"Si tu utilises [color=#f7c55f][@b,pound][/color] en l'air,[@p,3] tu "
+"effectuer faire une [color=#ff7f7f]Attaque Rodéo[/color] pour fracasser les "
+"objets en dessous de toi!"
 
 #: ../scenes/tutorial_1/tutorial_1_2.tscn:129
 msgid ""
 "[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something "
 "really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]"
 msgstr ""
-"[@n,Gil Bord]Ah,[@p,3] daar ben je![@p,10] Ik ben iets heel belangrijk "
-"vergeten te melden -[@p,3] de [color=#f7c55f]Multi Sprong![/color]"
+"[@n,Panoda Prentissage]Ah,[@p,3] te voilà![@p,10] J'ai oublié de mentionner "
+"un truc important -[@p,3] le [color=#f7c55f]Triple Saut![/color]"
 
 #: ../scenes/tutorial_1/tutorial_1_2.tscn:129
 msgid ""
 "If you jump three times while moving,[@p,3] you can jump higher each time,"
 "[@p,3] ending with a huge leap!"
 msgstr ""
-"[@w, 50]Als je drie keer springt terwijl je beweegt,[@p,3] kan je elke keer "
-"hoger springen,[@p,3] terwijl de laatste sprong ook nog is gigantisch hoog "
-"gaat!"
+"Si tu sautes trois fois en bougeant,[@p,3] tu peux sauter de plus en plus "
+"haut,[@p,3] et finir avec un énorme bond!"
 
 #: ../scenes/tutorial_1/tutorial_1_2.tscn:129
 msgid "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."
 msgstr ""
-"Dat is alles dat ik weet,[@p,3] of tenminste,[@p,3] alles dat ik me kan "
-"herinneren."
+"C'est tout ce que je sais,[@p,3] ou du moins,[@p,3] tout ce dont je me "
+"rappelle."
 
 #: ../scenes/tutorial_1/tutorial_1_3.tscn:160
 msgid ""
 "[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the "
 "[color=#f7c55f]F.L.U.D.D.[/color] pack!"
 msgstr ""
-"[@n,Bil Bord]Gebruik [color=#f7c55f][@b,fludd][/color] om te zweven met het "
-"[color=#f7c55f]F.L.U.D.D.[/color] pak!"
+"[@n,Panoda Fichage]Utilise [color=#f7c55f][@b,fludd][/color] pour voler en "
+"l'air grâce à [color=#f7c55f]J.E.T.[/color] !"
 
 #: ../scenes/tutorial_1/tutorial_1_3.tscn:165
 msgid ""
 "[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump "
 "into a pool of water, or find a refill bottle."
 msgstr ""
-"[@n,Gil Bord]Om de [color=#f7c55f]F.L.U.D.D.[/color] tank te hervullen, moet "
-"je in een plas water springen, of een flesje water vinden."
+"[@n,Panoda Prentissage]Pour remplir le réservoir de [color=#f7c55f]J.E.T.[/"
+"color] , saute dans un bassin, ou trouve une bouteille de remplissage."
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:438
 msgid ""
 "[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back "
 "can save you if you happen to slip off a platform or miss a jump."
 msgstr ""
-"[@n,Bil Bord]Het [color=#5f75c5]Zweefmondstuk[/color] dat je op je rug "
-"draagt kan je redden als je van een platform glijd of een sprong mist."
+"[@n,Panoda Fichage]L'[color=#f7c55f]Aérobuse[/color] sur ton dos pourrait te "
+"sauver la vie si jamais tu glissais d'une plateforme ou si tu ratais un saut."
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:438
 msgid ""
 "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only "
 "hold [color=#5f75c5]100 flubs[/color] in that tank of theirs."
 msgstr ""
-"Hoewel, word er niet te afhankelijk op.[@p,10] F.L.U.D.D. kan alleen maar "
-"[color=#5f75c5]100 fluimen[/color] houden in die tank van haar."
+"Ne te repose pas trop sur lui[@p,3] cependant,[@p,10] J.E.T. ne peut "
+"contenir que [color=#5f75c5]100 flubs[/color] dans son reservoir."
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:438
 msgid "Once it's gone,[@p,3] you won't be able to hover any longer."
-msgstr "Als die weg zijn,[@p,3] zal je niet meer kunnen zweven."
+msgstr "Une fois cela épuisé, [@p,3] tu ne pourras plus voler."
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:443
 msgid ""
 "[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] "
 "just press [color=#f7c55f][@b,pause][/color] to pause the game!"
 msgstr ""
-"[@n,Jil Bord]Hey liefje![@p,10] Als je ooit moe bent, druk dan gewoon op "
-"[color=#f7c55f][@b,pause][/color] om het spel te pauzeren!"
+"[@n,Panoda Mour]Hé chouchou![@p,10] Si jamais tu te sens fatigué,[@p,3] "
+"appuie sur [color=#f7c55f][@b,pause][/color] pour mettre le jeu en pause!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:443
 msgid ""
 "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] "
 "change FLUDD nozzle,[@p,3] or just sit back and relax!"
 msgstr ""
-"[@w,50]In het pauze menu,[@p,3] kan je instellingen veranderen,[@p,3] "
-"statistieken zien,[@p,3] van FLUDD mondstuk wisselen,[@p,3] of gewoon "
-"eventjes uitrusten!"
+"Dans le menu pause,[@p,3] tu peux changer les paramètres,[@p,3] voir les "
+"statistiques,[@p,3] changer de buse pour J.E.T.,[@p,3] ou juste te reposer!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:443
 msgid ""
 "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you "
 "dare forget that!"
 msgstr ""
-"Zelfzorg is belangrijk,[@p,3] [color=#df6042]Mario![/color][@p,10] Durf dat "
-"maar niet te vergeten!"
+"Prendre soin de soi, c'est important,[@p,3] [color=#df6042]Mario![/color]"
+"[@p,10] Ne l'oublie jamais!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:448
 msgid "You've reached the end of the [color=#f7c55f]Tiny Demo![/color]"
-msgstr "Je hebt het einde van de [color=#f7c55f]Kleine Demo[/color] bereikt!"
+msgstr "C'est la fin de la [color=#f7c55f]Petite Démo![/color]"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:448
 msgid "We hope you enjoyed it, and stay tuned for more!"
-msgstr "We hopen dat je er van hebt genoten, en blijf op de hoogte voor meer!"
+msgstr "On espère que vous l'avez appréciée, et restez à l'écoute pour plus!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:453
 msgid ""
 "[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that "
 "[color=#f28d7c]really[/color] all I'm good for!?"
 msgstr ""
-"[@c,toad][@m,anger][@n,Boz.T]Onbenutte dialoog…[@p,10] Is dat "
-"[color=#f28d7c]echt[/color] alles waar ik goed voor ben!?"
+"[@c,toad][@m,anger][@n,Ang.T]Un vulgaire dialogue inutilisé...[@p,10] Ne "
+"suis-je donc [color=#f28d7c]vraiment[/color] bon qu'à cela!?"
 
 #: ../src/global/feedback.tscn:92
 msgid "Feedback"
-msgstr "Feedback"
+msgstr "Remarques"
 
 #: ../src/global/feedback.tscn:106
 msgid "Description"
-msgstr "Beschrijving"
+msgstr "Description"
 
 #: ../src/global/feedback.tscn:119
 msgid "Contact info (optional)"
-msgstr "Contact informatie (optioneel)"
+msgstr "Info de contact (optionnel)"
 
 #: ../src/global/feedback.tscn:204
 msgid " Negative"
-msgstr " Negatief"
+msgstr " Négatif"
 
 #: ../src/global/feedback.tscn:224
 msgid " Neutral"
-msgstr " Neutraal"
+msgstr " Neutre"
 
 #: ../src/global/feedback.tscn:244
 msgid " Positive"
-msgstr " Positief"
+msgstr " Positif"
 
 #: ../src/global/feedback.tscn:272
 msgid "Gameplay"
-msgstr "Spel"
+msgstr "Gameplay"
 
 #: ../src/global/feedback.tscn:283
 msgid "Visual"
-msgstr "Visueel"
+msgstr "Visuel"
 
 #: ../src/global/feedback.tscn:294
 msgid "Bug"
@@ -354,11 +355,11 @@ msgstr "Bug"
 
 #: ../src/global/feedback.tscn:313
 msgid "Other"
-msgstr "Andere"
+msgstr "Autre"
 
 #: ../src/global/feedback.tscn:331
 msgid "Submit"
-msgstr "Indienen"
+msgstr "Soumettre"
 
 #: ../src/global/feedback.tscn:341
 msgid ""
@@ -367,20 +368,10 @@ msgid ""
 "-Ingame data (e.g. Mario's position, a screenshot, etc.)\n"
 "-Current platform (Windows, Web, Android, etc.)\n"
 msgstr ""
-"Rapport includeert:\n"
-"-De data dat je hebt ingevoerd\n"
-"-In-spel data (o.a. Mario's positie, een screenshot, etc.)\n"
-"-Huidig platform (Windows, Web, Android, etc.)\n"
+"Le signalement inclus:\n"
+"-Les données que vous avez entrées\n"
+"-Vos données en jeu (ex. la position de Mario, une capture d'écran, etc.)\n"
+"-Votre plateforme actuelle (Windows, Web, Android, etc.)\n"
 
 #~ msgid "v0.1.2"
 #~ msgstr "v0.1.2"
-
-#~ msgid ""
-#~ "Not to worry,[@p,3] if you hop into a body of water or grab a water "
-#~ "bottle,[@p,3] the tank will refill."
-#~ msgstr ""
-#~ "Maar niets om schrik van te hebben,[@p,3] als je in een watermassa "
-#~ "springt of je vind een water fles,[@p,3] zal de tank weer bijvullen."
-
-#~ msgid "(End of demo!)"
-#~ msgstr "(Einde van demo!)"

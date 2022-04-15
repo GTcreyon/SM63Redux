@@ -1,6 +1,6 @@
-[gd_scene load_steps=136 format=2]
+[gd_scene load_steps=48 format=2]
 
-[ext_resource path="res://gui/dialog/boxes/neutral/neutral_edge.png" type="Texture" id=1]
+[ext_resource path="res://gui/dialog/dialog_box.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
 [ext_resource path="res://gui/pause/buttons/button_fludd_1.tres" type="StyleBox" id=3]
 [ext_resource path="res://gui/pause/buttons/button_options_0.tres" type="StyleBox" id=4]
@@ -10,71 +10,26 @@
 [ext_resource path="res://gui/pause/buttons/button_exit_1.tres" type="StyleBox" id=8]
 [ext_resource path="res://gui/pause/buttons/button_exit_0.tres" type="StyleBox" id=9]
 [ext_resource path="res://gui/pause/buttons/button_fludd_0.tres" type="StyleBox" id=10]
+[ext_resource path="res://gui/hud/water_meter/water_meter.tscn" type="PackedScene" id=11]
+[ext_resource path="res://gui/input_display.tscn" type="PackedScene" id=12]
+[ext_resource path="res://gui/hud/life/life_meter.tscn" type="PackedScene" id=13]
 [ext_resource path="res://gui/gui.gd" type="Script" id=14]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=15]
 [ext_resource path="res://gui/pause/buttons/pause_button.gd" type="Script" id=17]
-[ext_resource path="res://gui/hud/buttons/input_display.gd" type="Script" id=19]
-[ext_resource path="res://gui/hud/debug_label.gd" type="Script" id=21]
-[ext_resource path="res://gui/dialog/faces/toad/anger.png" type="Texture" id=24]
-[ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=25]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
-[ext_resource path="res://gui/hud/dialog_star_closed.png" type="Texture" id=27]
 [ext_resource path="res://shaders/flash.shader" type="Shader" id=28]
-[ext_resource path="res://gui/hud/life/coin_meter.png" type="Texture" id=29]
-[ext_resource path="res://gui/hud/water_meter/water_meter_bubble_small.png" type="Texture" id=30]
-[ext_resource path="res://gui/hud/life/life_meter.png" type="Texture" id=31]
-[ext_resource path="res://gui/hud/water_meter/water_meter_frame.png" type="Texture" id=32]
 [ext_resource path="res://gui/hud/hud_red_coin.png" type="Texture" id=33]
-[ext_resource path="res://gui/hud/life/coin_ring.png" type="Texture" id=34]
-[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=35]
-[ext_resource path="res://gui/hud/dialog_star_open.png" type="Texture" id=36]
-[ext_resource path="res://gui/hud/buttons/u_button_1.png" type="Texture" id=37]
-[ext_resource path="res://gui/hud/buttons/z_button_1.png" type="Texture" id=38]
-[ext_resource path="res://gui/hud/water_meter/water_meter_cover.png" type="Texture" id=39]
-[ext_resource path="res://gui/hud/water_meter/water_meter_max.png" type="Texture" id=40]
-[ext_resource path="res://gui/hud/buttons/c_button_0.png" type="Texture" id=41]
-[ext_resource path="res://gui/hud/water_meter/water_meter_fill.png" type="Texture" id=44]
-[ext_resource path="res://actors/items/fludd_box/nozzle_hover.png" type="Texture" id=46]
-[ext_resource path="res://gui/hud/buttons/x_button_0.png" type="Texture" id=49]
 [ext_resource path="res://gui/hud/hud_coin.png" type="Texture" id=50]
-[ext_resource path="res://gui/hud/buttons/z_button_0.png" type="Texture" id=51]
-[ext_resource path="res://gui/hud/water_meter/water_meter_power_filler_cover.png" type="Texture" id=52]
 [ext_resource path="res://gui/hud/hud_shine_coin.png" type="Texture" id=53]
-[ext_resource path="res://gui/hud/buttons/l_button_1.png" type="Texture" id=54]
-[ext_resource path="res://gui/hud/water_meter/water_meter_bubble_medium.png" type="Texture" id=56]
-[ext_resource path="res://gui/hud/water_meter/water_meter_mask_bottom.png" type="Texture" id=57]
-[ext_resource path="res://gui/hud/buttons/d_button_0.png" type="Texture" id=58]
-[ext_resource path="res://gui/dialog/boxes/neutral/neutral_middle.png" type="Texture" id=59]
-[ext_resource path="res://gui/sfx/next.wav" type="AudioStream" id=60]
-[ext_resource path="res://gui/sfx/back.wav" type="AudioStream" id=61]
-[ext_resource path="res://gui/hud/water_meter/water_meter_power_filler.png" type="Texture" id=62]
 [ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=63]
-[ext_resource path="res://actors/items/fludd_box/nozzle_rocket.png" type="Texture" id=64]
 [ext_resource path="res://gui/hud/hud_shroom.png" type="Texture" id=65]
-[ext_resource path="res://gui/hud/water_meter/water_meter_mask_canvas.png" type="Texture" id=66]
-[ext_resource path="res://gui/hud/life/meter_life_base.png" type="Texture" id=67]
-[ext_resource path="res://gui/hud/water_meter/water_meter_mask_filler.png" type="Texture" id=68]
-[ext_resource path="res://gui/hud/buttons/d_button_1.png" type="Texture" id=69]
-[ext_resource path="res://gui/hud/water_meter/water_meter_bottom.png" type="Texture" id=70]
 [ext_resource path="res://gui/hud/hud_silver_shine.png" type="Texture" id=71]
-[ext_resource path="res://gui/hud/buttons/c_button_1.png" type="Texture" id=72]
-[ext_resource path="res://gui/hud/buttons/x_button_1.png" type="Texture" id=73]
-[ext_resource path="res://gui/hud/water_meter/water_meter_surface.png" type="Texture" id=74]
-[ext_resource path="res://gui/dialog/boxes/neutral/neutral_name_edge.png" type="Texture" id=75]
-[ext_resource path="res://actors/items/fludd_box/nozzle_turbo.png" type="Texture" id=77]
-[ext_resource path="res://gui/hud/water_meter/water_meter_power_mask.png" type="Texture" id=78]
 [ext_resource path="res://gui/hud/hud_shine.png" type="Texture" id=79]
-[ext_resource path="res://gui/hud/water_meter/water_meter_bubble_big.png" type="Texture" id=80]
 [ext_resource path="res://gui/pause/buttons/star_exit_0.png" type="Texture" id=81]
 [ext_resource path="res://gui/pause/buttons/text_map.png" type="Texture" id=82]
-[ext_resource path="res://gui/hud/buttons/r_button_1.png" type="Texture" id=84]
-[ext_resource path="res://gui/hud/buttons/l_button_0.png" type="Texture" id=86]
-[ext_resource path="res://gui/hud/buttons/r_button_0.png" type="Texture" id=87]
 [ext_resource path="res://gui/pause/pause_left_corner_bottom.png" type="Texture" id=89]
 [ext_resource path="res://gui/pause/pause_right_corner_bottom.png" type="Texture" id=94]
 [ext_resource path="res://gui/pause/buttons/star_map_1.png" type="Texture" id=95]
 [ext_resource path="res://gui/pause/buttons/star_fludd_0.png" type="Texture" id=96]
-[ext_resource path="res://gui/hud/buttons/u_button_0.png" type="Texture" id=97]
 [ext_resource path="res://gui/pause/buttons/text_fludd.png" type="Texture" id=99]
 [ext_resource path="res://gui/pause/buttons/star_exit_1.png" type="Texture" id=103]
 [ext_resource path="res://gui/pause/buttons/star_map_0.png" type="Texture" id=104]
@@ -88,349 +43,10 @@
 [ext_resource path="res://gui/pause/buttons/star_fludd_1.png" type="Texture" id=113]
 [ext_resource path="res://gui/pause/buttons/star_options_0.png" type="Texture" id=114]
 [ext_resource path="res://gui/pause/pause_left_corner_top.png" type="Texture" id=115]
-[ext_resource path="res://gui/hud/life/life_meter.gd" type="Script" id=116]
-[ext_resource path="res://gui/hud/water_meter/water_meter.gd" type="Script" id=118]
-[ext_resource path="res://gui/hud/dialog_box.gd" type="Script" id=119]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 28 )
 shader_param/flash_factor = 0.0
-
-[sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 31 )
-region = Rect2( 72, 72, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=49]
-atlas = ExtResource( 31 )
-region = Rect2( 36, 72, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 31 )
-region = Rect2( 0, 72, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 31 )
-region = Rect2( 72, 36, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=52]
-atlas = ExtResource( 31 )
-region = Rect2( 36, 36, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=54]
-atlas = ExtResource( 31 )
-region = Rect2( 0, 36, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=53]
-atlas = ExtResource( 31 )
-region = Rect2( 72, 0, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=55]
-atlas = ExtResource( 31 )
-region = Rect2( 36, 0, 36, 36 )
-
-[sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 31 )
-region = Rect2( 0, 0, 36, 36 )
-
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 54 ), SubResource( 53 ), SubResource( 55 ), SubResource( 56 ) ],
-"loop": true,
-"name": "default",
-"speed": 5.0
-} ]
-
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 0, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 12, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 24, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 36, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 48, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=62]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 60, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=63]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 72, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=64]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 48, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=65]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 36, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=66]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 24, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=67]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 12, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=68]
-atlas = ExtResource( 29 )
-region = Rect2( 0, 0, 12, 12 )
-
-[sub_resource type="SpriteFrames" id=47]
-animations = [ {
-"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
-"loop": true,
-"name": "charge",
-"speed": 0.0
-}, {
-"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
-"loop": false,
-"name": "flash",
-"speed": 15.0
-} ]
-
-[sub_resource type="SpriteFrames" id=6]
-animations = [ {
-"frames": [ ExtResource( 46 ) ],
-"loop": true,
-"name": "hover",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 77 ) ],
-"loop": true,
-"name": "turbo",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 64 ) ],
-"loop": true,
-"name": "rocket",
-"speed": 5.0
-} ]
-
-[sub_resource type="SpriteFrames" id=7]
-animations = [ {
-"frames": [ ExtResource( 36 ) ],
-"loop": true,
-"name": "wait",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 27 ) ],
-"loop": true,
-"name": "ready",
-"speed": 5.0
-} ]
-
-[sub_resource type="Shader" id=69]
-code = "shader_type canvas_item;
-render_mode unshaded;
-
-uniform int intensity : hint_range(0,200); 
-uniform float precision : hint_range(0,0.02);
-uniform vec4 outline_color : hint_color;
-
-varying vec2 o;
-varying vec2 f;
-
-void vertex()
-{
-	o = VERTEX;
-	vec2 uv = (UV - 0.5);
-	VERTEX += uv * float(intensity);
-	f = VERTEX;
-}
-
-void fragment()
-{
-	vec2 regular_uv;
-	regular_uv.x = UV.x + (f.x - o.x) * TEXTURE_PIXEL_SIZE.x;
-	regular_uv.y = UV.y + (f.y - o.y) * TEXTURE_PIXEL_SIZE.y;
-	
-	vec4 regular_color = texture(TEXTURE, regular_uv);
-	if((regular_uv.x < 0.0 || regular_uv.x > 1.0) || (regular_uv.y < 0.0 || regular_uv.y > 1.0) || regular_color.a <=0.25){
-		regular_color = vec4(0.0); 
-	}
-	
-	vec2 ps = TEXTURE_PIXEL_SIZE * float(intensity) * precision;
-	
-	vec4 final_color = regular_color;
-	if (regular_color.a <= 0.0)
-	{
-		for(int x = -1; x <= 1; x += 1){
-			for(int y = -1; y <= 1; y += 1){
-				//Get the X and Y offset from this
-				if (x==0 && y==0)
-					continue;
-					
-				vec2 outline_uv = regular_uv + vec2(float(x) * ps.x, float(y) * ps.y); 
-				
-				//Sample here, if we are out of bounds then fail
-				vec4 outline_sample = texture(TEXTURE, outline_uv);
-				if((outline_uv.x < 0.0 || outline_uv.x > 1.0) || (outline_uv.y < 0.0 || outline_uv.y > 1.0)){
-					//We aren't a real color
-					outline_sample = vec4(0);
-				}
-				
-				//Is our sample empty? Is there something nearby? If so, draw this pixel
-				if(outline_sample.a > final_color.a){
-					final_color = outline_color;
-				}
-			}
-		}
-	}
-	COLOR = final_color; 
-}"
-
-[sub_resource type="ShaderMaterial" id=8]
-resource_local_to_scene = true
-shader = SubResource( 69 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=9]
-animations = [ {
-"frames": [ ExtResource( 51 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 38 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=10]
-resource_local_to_scene = true
-shader = SubResource( 69 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=11]
-animations = [ {
-"frames": [ ExtResource( 49 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 73 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=12]
-resource_local_to_scene = true
-shader = SubResource( 69 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=13]
-animations = [ {
-"frames": [ ExtResource( 41 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 72 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=14]
-resource_local_to_scene = true
-shader = SubResource( 69 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=15]
-animations = [ {
-"frames": [ ExtResource( 86 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 54 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=16]
-resource_local_to_scene = true
-shader = SubResource( 69 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=17]
-animations = [ {
-"frames": [ ExtResource( 87 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 84 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=18]
-resource_local_to_scene = true
-shader = SubResource( 69 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=19]
-animations = [ {
-"frames": [ ExtResource( 97 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 37 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-} ]
-
-[sub_resource type="ShaderMaterial" id=20]
-resource_local_to_scene = true
-shader = SubResource( 69 )
-shader_param/intensity = 100
-shader_param/precision = 0.01
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-
-[sub_resource type="SpriteFrames" id=21]
-animations = [ {
-"frames": [ ExtResource( 58 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 69 ) ],
-"loop": true,
-"name": "on",
-"speed": 5.0
-} ]
 
 [sub_resource type="StyleBoxEmpty" id=28]
 
@@ -445,6 +61,9 @@ __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_vertical_guides_": [  ]
 }
+
+[node name="DialogBox" parent="." instance=ExtResource( 1 )]
+visible = false
 
 [node name="BG" type="ColorRect" parent="." groups=["pause"]]
 visible = false
@@ -462,10 +81,8 @@ margin_top = 8.0
 margin_right = 40.0
 margin_bottom = 40.0
 rect_pivot_offset = Vector2( -8, -8 )
+mouse_filter = 2
 custom_constants/separation = 21
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="CoinRow" type="Control" parent="StatsTL"]
 margin_right = 32.0
@@ -544,10 +161,8 @@ anchor_right = 1.0
 margin_left = -8.0
 margin_top = 8.0
 rect_pivot_offset = Vector2( 8, -8 )
+mouse_filter = 2
 custom_constants/separation = 21
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ShineRow" type="Control" parent="StatsTR"]
 margin_right = 8.0
@@ -603,6 +218,7 @@ margin_left = 8.0
 margin_top = -8.0
 margin_right = 8.0
 rect_pivot_offset = Vector2( -8, 8 )
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -633,443 +249,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LifeMeter" type="Sprite" parent="." groups=["stats"]]
-position = Vector2( 320, -75 )
-z_index = 1
-texture = ExtResource( 67 )
-offset = Vector2( 0, 36 )
-script = ExtResource( 116 )
+[node name="LifeMeter" parent="." instance=ExtResource( 13 )]
 
-[node name="Filler" type="AnimatedSprite" parent="LifeMeter"]
-z_index = -1
-frames = SubResource( 2 )
-offset = Vector2( 0, 36 )
+[node name="MeterControl" parent="." instance=ExtResource( 11 )]
 
-[node name="CoinMeter" type="AnimatedSprite" parent="LifeMeter"]
-position = Vector2( 0, 36 )
-frames = SubResource( 47 )
-animation = "flash"
-frame = 6
-playing = true
-
-[node name="CoinRing" type="Sprite" parent="LifeMeter/CoinMeter"]
+[node name="InputDisplay" parent="." instance=ExtResource( 12 )]
 visible = false
-texture = ExtResource( 34 )
-
-[node name="DebugLabel" type="Label" parent="."]
-visible = false
-anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 15 )
-valign = 2
-script = ExtResource( 21 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MeterControl" type="Control" parent="."]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -57.0
-margin_top = -113.0
-margin_right = -15.0
-margin_bottom = -16.0
-rect_pivot_offset = Vector2( 57, 113 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="WaterMeter" type="Sprite" parent="MeterControl"]
-light_mask = -2147483648
-z_index = 4
-texture = ExtResource( 32 )
-centered = false
-script = ExtResource( 118 )
-
-[node name="BubbleMask" type="Light2D" parent="MeterControl/WaterMeter"]
-position = Vector2( 16, 26 )
-texture = ExtResource( 66 )
-mode = 3
-range_layer_min = 1
-range_layer_max = 1
-range_item_cull_mask = 2
-
-[node name="BubbleMaskFiller" type="Light2D" parent="MeterControl/WaterMeter/BubbleMask"]
-position = Vector2( 0, 62 )
-scale = Vector2( 1, -79 )
-texture = ExtResource( 68 )
-mode = 2
-range_layer_min = 1
-range_layer_max = 1
-range_item_cull_mask = 2
-
-[node name="BubbleMaskBottom" type="Light2D" parent="MeterControl/WaterMeter/BubbleMask"]
-position = Vector2( 0, 65.5 )
-texture = ExtResource( 57 )
-mode = 2
-range_layer_min = 1
-range_layer_max = 1
-range_item_cull_mask = 2
-
-[node name="Bottom" type="Sprite" parent="MeterControl/WaterMeter"]
-position = Vector2( 2, 88 )
-z_index = -2
-texture = ExtResource( 70 )
-centered = false
-
-[node name="Filler" type="Sprite" parent="MeterControl/WaterMeter"]
-position = Vector2( 0, 88 )
-scale = Vector2( 1, 79 )
-z_index = -3
-texture = ExtResource( 44 )
-centered = false
-offset = Vector2( 1, -1 )
-
-[node name="Surface" type="Sprite" parent="MeterControl/WaterMeter"]
-z_index = -1
-texture = ExtResource( 74 )
-centered = false
-
-[node name="BubblesBig" type="CPUParticles2D" parent="MeterControl/WaterMeter"]
-light_mask = 2
-position = Vector2( 16, 103 )
-z_index = -2
-lifetime = 2.5
-preprocess = 2.0
-texture = ExtResource( 80 )
-emission_shape = 2
-emission_rect_extents = Vector2( 15, 0 )
-direction = Vector2( 0, -1 )
-spread = 15.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 60.0
-initial_velocity_random = 0.2
-
-[node name="BubblesMedium" type="CPUParticles2D" parent="MeterControl/WaterMeter"]
-light_mask = 2
-position = Vector2( 16, 103 )
-z_index = -2
-amount = 7
-lifetime = 2.5
-preprocess = 2.0
-texture = ExtResource( 56 )
-emission_shape = 2
-emission_rect_extents = Vector2( 15, 0 )
-direction = Vector2( 0, -1 )
-spread = 15.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 60.0
-initial_velocity_random = 0.2
-
-[node name="BubblesSmall" type="CPUParticles2D" parent="MeterControl/WaterMeter"]
-light_mask = 2
-position = Vector2( 16, 103 )
-z_index = -2
-amount = 6
-lifetime = 2.5
-preprocess = 2.0
-texture = ExtResource( 30 )
-emission_shape = 2
-emission_rect_extents = Vector2( 15, 0 )
-direction = Vector2( 0, -1 )
-spread = 15.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 60.0
-initial_velocity_random = 0.2
-
-[node name="WaterMeterLabel" type="Label" parent="MeterControl/WaterMeter"]
-margin_left = 1.0
-margin_top = 40.0
-margin_right = 23.0
-margin_bottom = 51.0
-custom_fonts/font = ExtResource( 25 )
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Max" type="Sprite" parent="MeterControl/WaterMeter"]
-position = Vector2( 15.5, 48 )
-z_index = 1
-texture = ExtResource( 40 )
-
-[node name="PowerFiller" type="Sprite" parent="MeterControl/WaterMeter"]
-light_mask = 4
-position = Vector2( 35, 90 )
-scale = Vector2( 4, 83 )
-texture = ExtResource( 62 )
-centered = false
-offset = Vector2( 0, -1 )
-
-[node name="Cover" type="Sprite" parent="MeterControl/WaterMeter/PowerFiller"]
-modulate = Color( 1, 1, 1, 0 )
-light_mask = 4
-texture = ExtResource( 52 )
-centered = false
-offset = Vector2( 0, -1 )
-
-[node name="PowerMask" type="Light2D" parent="MeterControl/WaterMeter"]
-position = Vector2( 37, 90 )
-texture = ExtResource( 78 )
-range_layer_min = 1
-range_layer_max = 1
-range_item_cull_mask = 4
-
-[node name="Tween" type="Tween" parent="MeterControl/WaterMeter"]
-
-[node name="Cover" type="Sprite" parent="MeterControl/WaterMeter"]
-modulate = Color( 1, 1, 1, 0 )
-position = Vector2( 1, 2 )
-texture = ExtResource( 39 )
-centered = false
-
-[node name="Icon" type="AnimatedSprite" parent="MeterControl/WaterMeter"]
-position = Vector2( 16, -4 )
-z_index = 4
-frames = SubResource( 6 )
-animation = "hover"
-
-[node name="DialogBox" type="Control" parent="."]
-visible = false
-margin_left = 96.0
-margin_top = 224.0
-margin_right = 352.0
-margin_bottom = 288.0
-script = ExtResource( 119 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BlockLeft" type="ColorRect" parent="DialogBox"]
-anchor_right = 0.5
-margin_left = 12.0
-margin_right = -8.0
-margin_bottom = 64.0
-color = Color( 0.223529, 0.0941176, 0, 0.74902 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EdgeLeft" type="TextureRect" parent="DialogBox"]
-self_modulate = Color( 1, 1, 1, 0.74902 )
-margin_left = -16.0
-margin_right = 12.0
-margin_bottom = 60.0
-texture = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Name" type="Label" parent="DialogBox/EdgeLeft"]
-margin_left = 29.0
-margin_top = -13.0
-margin_right = 56.0
-margin_bottom = 2.0
-custom_colors/font_color = Color( 0.819608, 0.705882, 0.768627, 1 )
-custom_fonts/font = ExtResource( 35 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlateLeft" type="TextureRect" parent="DialogBox/EdgeLeft/Name"]
-modulate = Color( 1, 1, 1, 0.74902 )
-show_behind_parent = true
-margin_left = -2.0
-margin_top = -3.0
-margin_right = 2.0
-margin_bottom = 13.0
-texture = ExtResource( 75 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlateRight" type="TextureRect" parent="DialogBox/EdgeLeft/Name"]
-modulate = Color( 1, 1, 1, 0.74902 )
-show_behind_parent = true
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -3.0
-margin_top = -3.0
-margin_right = 1.0
-margin_bottom = 13.0
-texture = ExtResource( 75 )
-flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlateMiddle" type="ColorRect" parent="DialogBox/EdgeLeft/Name"]
-show_behind_parent = true
-anchor_right = 1.0
-margin_left = 2.0
-margin_top = -3.0
-margin_right = -3.0
-margin_bottom = 13.0
-color = Color( 0.223529, 0.0941176, 0, 0.74902 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Middle" type="TextureRect" parent="DialogBox"]
-modulate = Color( 1, 1, 1, 0.74902 )
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -8.0
-margin_bottom = 64.0
-texture = ExtResource( 59 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BlockRight" type="ColorRect" parent="DialogBox"]
-anchor_left = 0.5
-anchor_right = 1.0
-margin_left = 8.0
-margin_top = 4.0
-margin_right = -16.0
-margin_bottom = 68.0
-color = Color( 0.223529, 0.0941176, 0, 0.74902 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="EdgeRight" type="TextureRect" parent="DialogBox"]
-modulate = Color( 1, 1, 1, 0.74902 )
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -16.0
-margin_top = 4.0
-margin_right = 12.0
-margin_bottom = 64.0
-texture = ExtResource( 1 )
-flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Text" type="RichTextLabel" parent="DialogBox"]
-margin_left = 8.0
-margin_top = 9.0
-margin_right = 244.0
-margin_bottom = 57.0
-custom_colors/default_color = Color( 0.976471, 0.909804, 0.909804, 1 )
-custom_fonts/normal_font = ExtResource( 35 )
-bbcode_enabled = true
-scroll_active = false
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Star" type="AnimatedSprite" parent="DialogBox"]
-position = Vector2( 250, 56 )
-frames = SubResource( 7 )
-animation = "wait"
-
-[node name="Tween" type="Tween" parent="DialogBox"]
-
-[node name="Portrait" type="TextureRect" parent="DialogBox"]
-visible = false
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -41.0
-margin_top = -55.0
-margin_right = 7.0
-margin_bottom = -7.0
-texture = ExtResource( 24 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Next" type="AudioStreamPlayer" parent="DialogBox"]
-stream = ExtResource( 60 )
-volume_db = -15.0
-bus = "SFX"
-
-[node name="Close" type="AudioStreamPlayer" parent="DialogBox"]
-stream = ExtResource( 61 )
-volume_db = -15.0
-bus = "SFX"
-
-[node name="InputDisplay" type="Control" parent="."]
-visible = false
-margin_left = 2.0
-margin_top = 71.0
-margin_right = 42.0
-margin_bottom = 111.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Z" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 8 )
-position = Vector2( 0, 46 )
-frames = SubResource( 9 )
-animation = "off"
-centered = false
-script = ExtResource( 19 )
-input = "pound"
-
-[node name="X" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 10 )
-position = Vector2( 22, 46 )
-frames = SubResource( 11 )
-animation = "off"
-centered = false
-script = ExtResource( 19 )
-input = "spin"
-
-[node name="C" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 12 )
-position = Vector2( 44, 46 )
-frames = SubResource( 13 )
-animation = "off"
-centered = false
-script = ExtResource( 19 )
-input = "fludd"
-
-[node name="L" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 14 )
-position = Vector2( 0, 23 )
-frames = SubResource( 15 )
-animation = "off"
-centered = false
-script = ExtResource( 19 )
-input = "left"
-
-[node name="R" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 16 )
-position = Vector2( 44, 23 )
-frames = SubResource( 17 )
-animation = "off"
-centered = false
-script = ExtResource( 19 )
-input = "right"
-
-[node name="U" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 18 )
-position = Vector2( 22, 0 )
-frames = SubResource( 19 )
-animation = "off"
-centered = false
-script = ExtResource( 19 )
-input = "up"
-
-[node name="D" type="AnimatedSprite" parent="InputDisplay"]
-material = SubResource( 20 )
-position = Vector2( 22, 23 )
-frames = SubResource( 21 )
-animation = "off"
-centered = false
-script = ExtResource( 19 )
-input = "down"
-
-[node name="Control" type="Control" parent="InputDisplay"]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PauseContent" parent="." instance=ExtResource( 7 )]
 visible = false
@@ -1173,6 +358,7 @@ margin_left = 29.0
 margin_top = -33.0
 margin_right = 125.0
 rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 2 )
 custom_styles/pressed = ExtResource( 6 )
@@ -1183,9 +369,6 @@ toggle_mode = true
 action_mode = 0
 button_mask = 3
 script = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StarsOff" type="Polygon2D" parent="ButtonMap"]
 texture = ExtResource( 104 )
@@ -1202,6 +385,7 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -19.0
 margin_top = -8.0
+mouse_filter = 2
 texture = ExtResource( 82 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1215,6 +399,7 @@ margin_left = 124.0
 margin_top = -33.0
 margin_right = 221.0
 rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 10 )
 custom_styles/pressed = ExtResource( 3 )
@@ -1246,6 +431,7 @@ margin_left = -31.0
 margin_top = -8.0
 margin_right = -76.5
 margin_bottom = 8.0
+mouse_filter = 2
 texture = ExtResource( 99 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1259,6 +445,7 @@ margin_left = 220.0
 margin_top = -33.0
 margin_right = 316.0
 rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 4 )
 custom_styles/pressed = ExtResource( 5 )
@@ -1290,6 +477,7 @@ margin_left = -40.0
 margin_top = -8.0
 margin_right = -172.0
 margin_bottom = 8.0
+mouse_filter = 2
 texture = ExtResource( 112 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -1303,6 +491,7 @@ margin_left = 315.0
 margin_top = -33.0
 margin_right = 411.0
 rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 custom_styles/hover = ExtResource( 9 )
 custom_styles/pressed = ExtResource( 8 )
@@ -1313,9 +502,6 @@ toggle_mode = true
 action_mode = 0
 button_mask = 3
 script = ExtResource( 17 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StarsOff" type="Polygon2D" parent="ButtonExit"]
 texture = ExtResource( 81 )
@@ -1334,6 +520,7 @@ margin_left = -22.0
 margin_top = -8.0
 margin_right = -267.0
 margin_bottom = 8.0
+mouse_filter = 2
 texture = ExtResource( 108 )
 __meta__ = {
 "_edit_use_anchors_": false

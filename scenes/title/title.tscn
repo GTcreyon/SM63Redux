@@ -13,7 +13,7 @@
 [ext_resource path="res://scenes/title/magmoon.gd" type="Script" id=11]
 [ext_resource path="res://scenes/title/mushmoon.gd" type="Script" id=12]
 [ext_resource path="res://scenes/title/title_bg/mushmoon.png" type="Texture" id=13]
-[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=14]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=14]
 [ext_resource path="res://scenes/title/start_text.gd" type="Script" id=15]
 [ext_resource path="res://scenes/title/menu.tscn" type="PackedScene" id=16]
 [ext_resource path="res://scenes/title/title.gd" type="Script" id=17]
@@ -120,4 +120,4 @@ margin_left = 3.0
 margin_top = -15.0
 rect_pivot_offset = Vector2( -2, 15 )
 custom_fonts/font = ExtResource( 14 )
-text = "v0.1.2"
+text = "v0.X.X"

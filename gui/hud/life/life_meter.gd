@@ -8,9 +8,8 @@ onready var player = $"/root/Main/Player"
 onready var filler = $Filler
 onready var coin_meter = $CoinMeter
 onready var coin_ring = $CoinMeter/CoinRing
-onready var singleton = $"/root/Singleton"
 onready var death_cover = $"/root/Singleton/DeathCover"
-onready var save_count = singleton.hp #for when variable gets changed
+onready var save_count = Singleton.hp #for when variable gets changed
 var act = false #for when life meter sprite can appear if true
 var rechange_timer = 0
 var rechange_trigger = false #so it can trigger the rechange_timer increment
@@ -19,11 +18,11 @@ var progress = 0
 var coin_save = 0
 
 func _ready():
-	coin_save = singleton.internal_coin_counter
+	coin_save = Singleton.internal_coin_counter
 	modulate.v = 1 - death_cover.color.a
-	progress = singleton.meter_progress
+	progress = Singleton.meter_progress
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	filler.frame = singleton.hp
+	filler.frame = Singleton.hp
 
 
 func _process(_delta):
@@ -37,8 +36,8 @@ func _process(_delta):
 	else:
 		if !rechange_moving:
 			end_adjust = lerp(end_adjust, end_pos, 0.5)
-		if save_count != singleton.hp: #if it changed
-			save_count = singleton.hp #for the conditional
+		if save_count != Singleton.hp: #if it changed
+			save_count = Singleton.hp #for the conditional
 			act = true #start life meter moving onto the screen
 			#these are required for when the life meter gets affected while still showing up, will "last" longer on screen
 			rechange_moving = false #in case it's going up
@@ -46,11 +45,11 @@ func _process(_delta):
 		if act:
 			if progress < 1: #and then starts rechange_timer
 				progress += 0.05
-			if singleton.hp == 8:
+			if Singleton.hp == 8:
 				act = false
 			
 			
-		if singleton.hp == 8:
+		if Singleton.hp == 8:
 			rechange_timer += 1
 		else:
 			rechange_timer = 0
@@ -59,29 +58,29 @@ func _process(_delta):
 			rechange_timer = 0
 			rechange_moving = true #then it will return to its initial position
 		
-		if singleton.hp == 8:
+		if Singleton.hp == 8:
 			if rechange_moving:
 				if progress > 0:
 					progress -= 0.1
 				else:
 					rechange_moving = false #and now everything is back to place
-			elif !act && !rechange_trigger && singleton.hp >= 8:
+			elif !act && !rechange_trigger && Singleton.hp >= 8:
 				position.y = start_pos * gui_scale
 		else:
 			rechange_moving = false
 
-		filler.frame = singleton.hp #for the HUD with its respective frame
-		if singleton.internal_coin_counter >= 5 && singleton.hp < 8:
-			singleton.hp += 1
-			singleton.internal_coin_counter = 0
+		filler.frame = Singleton.hp #for the HUD with its respective frame
+		if Singleton.internal_coin_counter >= 5 && Singleton.hp < 8:
+			Singleton.hp += 1
+			Singleton.internal_coin_counter = 0
 			coin_save = 0
 			coin_meter.frame = 0
 			coin_meter.animation = "flash"
 		else:
-			if coin_meter.animation == "charge" || coin_save != singleton.internal_coin_counter:
+			if coin_meter.animation == "charge" || coin_save != Singleton.internal_coin_counter:
 				coin_meter.animation = "charge"
-				coin_meter.frame = singleton.internal_coin_counter
-				coin_save = singleton.internal_coin_counter
+				coin_meter.frame = Singleton.internal_coin_counter
+				coin_save = Singleton.internal_coin_counter
 		
 		if coin_meter.animation == "flash" && coin_meter.frame == 6:
 			coin_meter.animation = "charge"
@@ -90,4 +89,4 @@ func _process(_delta):
 		
 		coin_ring.visible = (coin_meter.animation == "flash" && coin_meter.frame == 0)
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * scale.y
-	singleton.meter_progress = progress
+	Singleton.meter_progress = progress

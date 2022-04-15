@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gui/timer/timer_main.png" type="Texture" id=2]
 [ext_resource path="res://gui/timer/timer.gd" type="Script" id=3]
 [ext_resource path="res://gui/timer/timer_sub.png" type="Texture" id=4]
@@ -25,6 +25,7 @@ region = Rect2( 0, 0, 1, 15 )
 
 [node name="Timer" type="Control"]
 pause_mode = 2
+mouse_filter = 2
 script = ExtResource( 3 )
 
 [node name="Total" type="Label" parent="."]
@@ -57,6 +58,7 @@ show_behind_parent = true
 margin_left = -43.0
 margin_top = -32.0
 margin_right = 43.0
+mouse_filter = 2
 texture = SubResource( 1 )
 stretch_mode = 1
 __meta__ = {
@@ -67,6 +69,7 @@ __meta__ = {
 show_behind_parent = true
 margin_left = -10.0
 margin_bottom = 32.0
+mouse_filter = 2
 texture = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -76,6 +79,7 @@ __meta__ = {
 show_behind_parent = true
 anchor_left = 1.0
 anchor_right = 1.0
+mouse_filter = 2
 texture = SubResource( 2 )
 flip_h = true
 __meta__ = {
@@ -88,6 +92,7 @@ margin_left = -35.0
 margin_top = -47.0
 margin_right = 35.0
 margin_bottom = -32.0
+mouse_filter = 2
 texture = ExtResource( 4 )
 stretch_mode = 2
 __meta__ = {
@@ -98,6 +103,7 @@ __meta__ = {
 margin_left = -1.0
 margin_right = 1.0
 margin_bottom = 15.0
+mouse_filter = 2
 texture = SubResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -106,6 +112,7 @@ __meta__ = {
 [node name="TextureRect2" type="TextureRect" parent="SplitRect"]
 anchor_left = 1.0
 anchor_right = 1.0
+mouse_filter = 2
 texture = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false

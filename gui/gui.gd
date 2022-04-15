@@ -3,7 +3,6 @@ extends CanvasLayer
 #var font_red = BitmapFont.new()
 
 #absolute cache
-onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 
 #hud cache
@@ -52,7 +51,7 @@ var last_size = Vector2.ZERO
 var temp_locale = "en"
 
 func _ready():
-	coin_counter.text = str(singleton.coin_total)
+	coin_counter.text = str(Singleton.coin_total)
 	red_coin_counter.text = str(0)
 	silver_counter.text = str(0)
 	shine_counter.text = str(0)
@@ -138,21 +137,21 @@ func _process(_delta):
 	pulse += 0.1
 	$PauseContent/LevelInfo/CollectRow/ShineRow/Shine1/Sprite.material.set_shader_param("outline_color", Color(1, 1, 1, sin(pulse) * 0.25 + 0.5))
 	coin_counter.material.set_shader_param("flash_factor", max(coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
-	if coin_counter.text != str(singleton.coin_total):
+	if coin_counter.text != str(Singleton.coin_total):
 		coin_counter.material.set_shader_param("flash_factor", 0.5)
-		coin_counter.text = str(singleton.coin_total)
+		coin_counter.text = str(Singleton.coin_total)
 		
 	#red_coin_counter.material.set_shader_param("flash_factor", max(red_coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
-	if red_coin_counter.text != str(singleton.red_coin_total):
+	if red_coin_counter.text != str(Singleton.red_coin_total):
 		#red_coin_counter.material.set_shader_param("flash_factor", 0.5)
-		red_coin_counter.text = str(singleton.red_coin_total)
+		red_coin_counter.text = str(Singleton.red_coin_total)
 	
 	if last_size != OS.window_size:
 		$"/root/Main/Bubbles".refresh()
 		set_size(max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1))
 	last_size = OS.window_size
 	
-	if Input.is_action_just_pressed("pause") && !Singleton.feedback:
+	if Input.is_action_just_pressed("pause"):
 		if Singleton.pause_menu:
 			Singleton.pause_menu = false
 			get_tree().paused = false
