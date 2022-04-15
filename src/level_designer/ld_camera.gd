@@ -3,7 +3,6 @@ extends Camera2D
 signal test_level
 
 onready var LD = get_parent()
-onready var map = LD.get_node("TileMap")
 onready var music = LD.get_node("Music")
 
 var scroll_speed = 8
