@@ -23,8 +23,7 @@ const set_dive_correct = 7
 const set_hover_speed = 9.2
 const ground_override_threshold = 10
 
-onready var singleton = $"/root/Singleton"
-onready var base_modifier: BaseModifier = singleton.base_modifier
+onready var base_modifier: BaseModifier = Singleton.base_modifier
 onready var voice = $Voice
 onready var step = $Step
 onready var tween = $Tween
@@ -187,19 +186,12 @@ enum s { #state enum
 	waterspin,
 }
 
-enum n { #fludd enum
-	none,
-	hover,
-	rocket,
-	turbo,
-}
-
 var state = s.walk
 var classic
 
 func take_damage(amount):
 	if !invincible && !static_v:
-		singleton.hp = clamp(singleton.hp - amount, 0, 8)
+		Singleton.hp = clamp(Singleton.hp - amount, 0, 8)
 		invincibility_on_effect()
 
 
@@ -217,7 +209,7 @@ func take_damage_impact(amount, impact_vel):
 
 
 func recieve_health(amount):
-	singleton.hp = clamp(singleton.hp + amount, 0, 8)
+	Singleton.hp = clamp(Singleton.hp + amount, 0, 8)
 
 func dive_correct(factor): #Correct the player's origin position when diving
 	#warning-ignore:return_value_discarded
@@ -267,7 +259,7 @@ func play_step():
 
 
 func update_classic():
-	classic = $"/root/Singleton".classic
+	classic = Singleton.classic
 	if classic:
 		set_wall_bounce = 0.5
 		set_double_jump_frames = 17
@@ -282,7 +274,7 @@ func switch_anim(new_anim):
 	if new_anim == "fall":
 		last_step = 1
 	anim = new_anim
-	if singleton.nozzle == n.none:
+	if Singleton.nozzle == Singleton.n.none:
 		fludd_sprite.visible = false
 	else:
 		fludd_sprite.visible = true
@@ -292,12 +284,12 @@ func switch_anim(new_anim):
 		else:
 			anim = new_anim
 			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
-	match singleton.nozzle:
-		n.hover:
+	match Singleton.nozzle:
+		Singleton.n.hover:
 			fludd_sprite.animation = "hover"
-		n.rocket:
+		Singleton.n.rocket:
 			fludd_sprite.animation = "rocket"
-		n.turbo:
+		Singleton.n.turbo:
 			fludd_sprite.animation = "turbo"
 	sprite.animation = anim
 
@@ -385,6 +377,7 @@ func _physics_process(_delta):
 		
 		if Input.is_action_just_pressed("reset"):
 			Singleton.collected_nozzles = [false, false, false]
+			Singleton.nozzle = Singleton.n.none
 			Singleton.water = 100
 			Singleton.get_node("Timer").frames = 0
 			Singleton.get_node("Timer").split_frames = 0
@@ -428,13 +421,13 @@ func _physics_process(_delta):
 		sign_cooldown = max(sign_cooldown - 1, 0)
 		
 		if i_switch:
-			var save_nozzle = singleton.nozzle
-			singleton.nozzle += 1
-			while (singleton.nozzle < 4 && !singleton.collected_nozzles[(singleton.nozzle - 1) % 3]) || singleton.nozzle == 0:
-				singleton.nozzle += 1
-			if singleton.nozzle == 4:
-				singleton.nozzle = 0
-			if singleton.nozzle != save_nozzle:
+			var save_nozzle = Singleton.nozzle
+			Singleton.nozzle += 1
+			while (Singleton.nozzle < 4 && !Singleton.collected_nozzles[(Singleton.nozzle - 1) % 3]) || Singleton.nozzle == 0:
+				Singleton.nozzle += 1
+			if Singleton.nozzle == 4:
+				Singleton.nozzle = 0
+			if Singleton.nozzle != save_nozzle:
 				var anim = sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", "") #lazy way to refresh fludd anim
 				switch_anim(anim)
 				fludd_strain = false
@@ -444,8 +437,8 @@ func _physics_process(_delta):
 		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate
 			AudioServer.set_bus_effect_enabled(0, 0, true) #muffle audio underwater
 			AudioServer.set_bus_effect_enabled(0, 1, true)
-			singleton.water = max(singleton.water, 100)
-			singleton.power = 100
+			Singleton.water = max(Singleton.water, 100)
+			Singleton.power = 100
 			
 			if state == s.swim:
 				if i_spin_h && vel.y > -1:
@@ -579,9 +572,9 @@ func _physics_process(_delta):
 					sprite.rotation_degrees = 0
 				if i_down:
 					fall_adjust += 0.107
-			if i_fludd && singleton.power > 0 && singleton.water > 0 && (state != s.waterbackflip || !classic) && state != s.waterspin:
-				match singleton.nozzle:
-					n.hover:
+			if i_fludd && Singleton.power > 0 && Singleton.water > 0 && (state != s.waterbackflip || !classic) && state != s.waterspin:
+				match Singleton.nozzle:
+					Singleton.n.hover:
 						fludd_strain = true
 						jump_cancel = true
 						if classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
@@ -607,8 +600,8 @@ func _physics_process(_delta):
 									vel.y *= 1 - (0.2 * fps_mod)
 								vel.y -= 0.75
 								vel.x = ground_friction(vel.x, 0.05, 1.03)
-					n.rocket:
-						if singleton.power == 100:
+					Singleton.n.rocket:
+						if Singleton.power == 100:
 							fludd_strain = true
 							rocket_charge += 1
 						else:
@@ -714,7 +707,7 @@ func _physics_process(_delta):
 					double_jump_state = 0
 			else:
 				if state == s.frontflip:
-					if singleton.nozzle == n.none:
+					if Singleton.nozzle == Singleton.n.none:
 						if abs(sprite.rotation_degrees) < 700:
 							switch_anim("flip")
 						else:
@@ -831,7 +824,7 @@ func _physics_process(_delta):
 									switch_state(s.frontflip)
 									play_voice("jump3")
 									tween.remove_all()
-									if singleton.nozzle == n.none:
+									if Singleton.nozzle == Singleton.n.none:
 										tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
 									else:
 										tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
@@ -899,13 +892,13 @@ func _physics_process(_delta):
 						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
 			
 			if ground:
-				singleton.power = 100
-			elif !i_fludd && singleton.nozzle != n.hover:
-				singleton.power = min(singleton.power + fps_mod, 100)
+				Singleton.power = 100
+			elif !i_fludd && Singleton.nozzle != Singleton.n.hover:
+				Singleton.power = min(Singleton.power + fps_mod, 100)
 			
-			if i_fludd && singleton.power > 0 && singleton.water > 0 && state != s.diveflip && (state != s.backflip || !classic) && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
-				match singleton.nozzle:
-					n.hover:
+			if i_fludd && Singleton.power > 0 && Singleton.water > 0 && state != s.diveflip && (state != s.backflip || !classic) && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
+				match Singleton.nozzle:
+					Singleton.n.hover:
 						fludd_strain = true
 						jump_cancel = true
 						if classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
@@ -925,21 +918,21 @@ func _physics_process(_delta):
 										vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
 										vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
 							else:
-								if singleton.power == 100:
+								if Singleton.power == 100:
 									vel.y -= 2
 								
 								if i_jump_h:
 									vel.y *= 1 - (0.13 * fps_mod)
 								else:
 									vel.y *= 1 - (0.2 * fps_mod)
-								#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((singleton.power/(175 / fps_mod))+(0.75 * fps_mod))
-								#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((singleton.power/(175))+(0.75 * fps_mod))
-								vel.y -= (((-4*singleton.power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*singleton.power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
+								#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((Singleton.power/(175 / fps_mod))+(0.75 * fps_mod))
+								#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((Singleton.power/(175))+(0.75 * fps_mod))
+								vel.y -= (((-4*Singleton.power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*Singleton.power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
 								vel.x = ground_friction(vel.x, 0.05, 1.03)
-							singleton.water = max(0, singleton.water - 0.07 * fps_mod)
-							singleton.power -= 1.5 * fps_mod
-					n.rocket:
-						if singleton.power == 100:
+							Singleton.water = max(0, Singleton.water - 0.07 * fps_mod)
+							Singleton.power -= 1.5 * fps_mod
+					Singleton.n.rocket:
+						if Singleton.power == 100:
 							fludd_strain = true
 							rocket_charge += 1
 						else:
@@ -959,9 +952,9 @@ func _physics_process(_delta):
 								vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
 								vel.y -= 0.5 * fps_mod
 							
-							singleton.water = max(singleton.water - 5, 0)
+							Singleton.water = max(Singleton.water - 5, 0)
 							rocket_charge = 0
-							singleton.power = 0
+							Singleton.power = 0
 			else:
 				fludd_strain = false
 				rocket_charge = 0
@@ -1087,7 +1080,7 @@ func _physics_process(_delta):
 			vel.y = max(vel.y, 0.1)
 		
 		var snap
-		if !ground || i_jump || jump_buffer > 0 || state == s.diveflip || (i_fludd && singleton.nozzle == n.hover) || (state == s.swim && i_semi):
+		if !ground || i_jump || jump_buffer > 0 || state == s.diveflip || (i_fludd && Singleton.nozzle == Singleton.n.hover) || (state == s.swim && i_semi):
 			snap = Vector2.ZERO
 		else:
 			snap = Vector2(0, 4)
@@ -1131,7 +1124,7 @@ func _physics_process(_delta):
 				hover_position = hover_sfx.get_playback_position()
 			else:
 				hover_position = 0
-			if !Input.is_action_pressed("fludd") || singleton.power > 0:
+			if !Input.is_action_pressed("fludd") || Singleton.power > 0:
 				hover_sfx.stop()
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
@@ -1184,8 +1177,8 @@ func _physics_process(_delta):
 		sprite.speed_scale = 1
 	
 	#$Label.text = str(vel.x)
-	if singleton.hp <= 0:
-		singleton.dead = true
+	if Singleton.hp <= 0:
+		Singleton.dead = true
 	
 	fludd_sprite.flip_h = sprite.flip_h
 	if sprite.animation.begins_with("spin"):
@@ -1248,7 +1241,7 @@ func is_swimming():
 func _on_WaterCheck_area_entered(_area):
 	if state != s.swim && state != s.waterdive && state != s.waterbackflip && state != s.waterspin:
 		call_deferred("switch_state", s.swim)
-		singleton.water = max(singleton.water, 100)
+		Singleton.water = max(Singleton.water, 100)
 
 
 func _on_WaterCheck_area_exited(_area):

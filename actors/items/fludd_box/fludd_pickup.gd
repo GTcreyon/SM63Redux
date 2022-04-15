@@ -2,7 +2,6 @@ extends KinematicBody2D
 
 var vel = Vector2()
 
-onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 
 onready var hover = $Hover
@@ -35,8 +34,8 @@ func switch_type(type):
 
 
 func pickup(nozzle):
-	singleton.nozzle = nozzle
-	singleton.water = max(singleton.water, 100)
+	Singleton.nozzle = nozzle
+	Singleton.water = max(Singleton.water, 100)
 	player.switch_anim(player.sprite.animation.replace("_fludd", ""))
 	queue_free()
 
@@ -50,12 +49,12 @@ func _physics_process(_delta):
 
 
 func _on_Turbo_body_entered(_body):
-	pickup(player.n.turbo)
+	pickup(Singleton.n.turbo)
 
 
 func _on_Rocket_body_entered(_body):
-	pickup(player.n.rocket)
+	pickup(Singleton.n.rocket)
 
 
 func _on_Hover_body_entered(_body):
-	pickup(player.n.hover)
+	pickup(Singleton.n.hover)
