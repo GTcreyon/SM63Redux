@@ -151,7 +151,7 @@ func _process(_delta):
 		set_size(max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1))
 	last_size = OS.window_size
 	
-	if Input.is_action_just_pressed("pause") && !Singleton.feedback:
+	if Input.is_action_just_pressed("pause"):
 		if Singleton.pause_menu:
 			Singleton.pause_menu = false
 			get_tree().paused = false

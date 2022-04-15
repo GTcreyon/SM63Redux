@@ -12,7 +12,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("feedback"):
 		visible = !visible
 		get_tree().paused = visible || Singleton.pause_menu
-		Singleton.feedback = visible
+		Singleton.set_pause("feedback", visible)
 
 
 func add_data(tag : String, data) -> String:
@@ -119,4 +119,4 @@ func reset_data():
 func _on_Cancel_pressed():
 	visible = false
 	get_tree().paused = Singleton.pause_menu
-	Singleton.feedback = false
+	Singleton.set_pause("feedback", false)

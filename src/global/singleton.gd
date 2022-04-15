@@ -45,10 +45,14 @@ var collect_count = 0
 var set_location
 var flip
 var pause_menu = false
-var feedback = false
 var line_count: int = 0
 var disable_limits = false
 var force_touch = false
+var meta_paused = false
+var meta_pauses = {
+	"feedback":false,
+	"console":false,
+}
 
 enum LogType {
 	INFO,
@@ -102,6 +106,7 @@ func warp_to(path):
 	collect_count = 0
 	#create_coindict(path)
 	if path == "res://scenes/tutorial_1/tutorial_1_1.tscn":
+		timer.running = true
 		timer.frames = 0
 		timer.split_frames = 0
 	timer.split_timer()
@@ -135,3 +140,11 @@ func request_coin(collect_id):
 
 func touch_controls():
 	return OS.get_name() == "Android" || force_touch
+
+
+#sets a certain pause label - when all pause labels are false, gameplay takes place
+func set_pause(label: String, set: bool):
+	meta_pauses[label] = set
+	meta_paused = false
+	for pause in meta_pauses:
+		meta_paused = meta_paused || meta_pauses[pause]
