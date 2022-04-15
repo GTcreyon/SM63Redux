@@ -2,7 +2,7 @@
 
 [ext_resource path="res://actors/debug/tickbox.png" type="Texture" id=1]
 [ext_resource path="res://actors/debug/tickbox.gd" type="Script" id=2]
-[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=3]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

@@ -4,7 +4,6 @@ extends Node2D
 export(int, 2) var type = 0 setget set_type
 
 onready var main = $"/root/Main/Items"
-onready var singleton = $"/root/Singleton"
 onready var player = $"/root/Main/Player"
 onready var hover = $Hover
 onready var rocket = $Rocket
@@ -44,7 +43,7 @@ func _on_FluddBox_body_entered(body):
 		main.call_deferred("add_child", fludd)
 		fludd.position = Vector2(position.x, position.y + 8.5)
 		fludd.call_deferred("switch_type", type)
-		singleton.collected_nozzles[type] = true
+		Singleton.collected_nozzles[type] = true
 		player.vel.y = -6 * 32 / 60
 		$Open.play()
 		$CollisionShape2D.queue_free()

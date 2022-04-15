@@ -115,13 +115,14 @@ func _process(_delta):
 
 
 func press_button(button):
-	match button:
-		0:
-			get_parent().dampen = true
-			Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
-			Singleton.get_node("SFX/Start").play()
-			if Singleton.touch_controls():
-				Singleton.controls.visible = true
+	if !get_parent().dampen:
+		match button:
+			0:
+				get_parent().dampen = true
+				Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
+				Singleton.get_node("SFX/Start").play()
+				if Singleton.touch_controls():
+					Singleton.controls.visible = true
 
 
 func step(direction):

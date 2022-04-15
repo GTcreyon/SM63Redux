@@ -1,12 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://actors/debug/tickbox.tscn" type="PackedScene" id=1]
-[ext_resource path="res://fonts/bylight/bylightv2.tres" type="DynamicFont" id=2]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
 [ext_resource path="res://gui/pause/options/options.gd" type="Script" id=3]
+[ext_resource path="res://gui/pause/options/locale_select.gd" type="Script" id=4]
+[ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=5]
+[ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=6]
+[ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=7]
 
 [node name="OptionsMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 script = ExtResource( 3 )
 
 [node name="Margin" type="VBoxContainer" parent="."]
@@ -16,6 +21,7 @@ margin_left = 14.0
 margin_top = 14.0
 margin_right = -4.0
 margin_bottom = -4.0
+mouse_filter = 2
 custom_constants/separation = 22
 
 [node name="CameraFix" parent="Margin" instance=ExtResource( 1 )]
@@ -40,4 +46,18 @@ margin_top = -8.0
 margin_right = 188.0
 margin_bottom = 7.0
 custom_fonts/font = ExtResource( 2 )
-text = "Enable touch controls [Warning: Turning this off will softlock on mobile devices!]"
+text = "Enable touch controls"
+
+[node name="LocaleSelect" type="OptionButton" parent="Margin"]
+margin_top = 44.0
+margin_right = 622.0
+margin_bottom = 72.0
+mouse_default_cursor_shape = 2
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = ExtResource( 6 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/focus = ExtResource( 5 )
+custom_styles/normal = ExtResource( 5 )
+script = ExtResource( 4 )
+
+[connection signal="item_selected" from="Margin/LocaleSelect" to="Margin/LocaleSelect" method="_on_Locale_item_selected"]

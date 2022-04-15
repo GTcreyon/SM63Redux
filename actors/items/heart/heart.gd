@@ -6,7 +6,7 @@ var timer = 30
 
 func _physics_process(delta):
 	if crossed_item:
-		if mario.singleton.hp < 8:
+		if Singleton.hp < 8:
 			if timer >= 30:
 				mario.recieve_health(1)
 				timer = 0
