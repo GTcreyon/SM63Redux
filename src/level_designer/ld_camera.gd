@@ -13,6 +13,9 @@ var objects_loaded = {}
 
 const player = preload("res://actors/player/player.tscn")
 
+func _ready():
+	position = Vector2(-120, -OS.window_size.y + 60)
+
 func _process(_delta):
 	var i_left = Input.is_action_pressed("LD_cam_left")
 	var i_right = Input.is_action_pressed("LD_cam_right")

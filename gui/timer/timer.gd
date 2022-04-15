@@ -2,7 +2,7 @@ extends Control
 
 onready var total = $Total
 onready var total_ms = $TotalMS
-onready var split = $SplitRect/Split
+onready var split_ref = $SplitRect/Split
 
 var frames : int = 0
 var split_frames : int = 0
@@ -52,5 +52,5 @@ func _physics_process(_delta):
 	
 func split_timer():
 	var txt = format_time(split_frames / 60.0)
-	split.text = txt[0] + txt[1]
+	split_ref.text = txt[0] + txt[1]
 	split_frames = 0

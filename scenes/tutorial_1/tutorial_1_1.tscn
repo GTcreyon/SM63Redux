@@ -281,31 +281,37 @@ rotation = 4.71239
 [node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 137, 142 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 299, 82 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 533, 104 )
 animation = "green"
+frame = 1
 
 [node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 945, 22 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 3, 4 )
 dist_multipliers = Vector2( 30, 10 )
 
 [node name="Butterfly5" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1230, 9 )
 animation = "orange"
+frame = 1
 vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly6" parent="Items/Decoration" instance=ExtResource( 30 )]
 position = Vector2( 1428, 71 )
 animation = "green"
+frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 85 )
@@ -447,6 +453,7 @@ polygon = PoolVector2Array( -33, -11, 67, 9, 304, 9, 304, 87, 334, 169, 401, 153
 position = Vector2( 817, 151 )
 z_index = 1
 polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277.063, 132.418, 159, 141, 1, 118 )
+shallow_color = Color( 0.2, 1, 0, 1 )
 
 [node name="CoinBlue" parent="." instance=ExtResource( 23 )]
 position = Vector2( 1728, 55 )
