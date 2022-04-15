@@ -4,8 +4,7 @@ extends Polygon2D
 onready var player = $"/root/Main/Player"
 onready var camera = player.get_node("Camera2D")
 
-onready var singleton = $"/root/Singleton"
-onready var base_modifier: BaseModifier = singleton.base_modifier
+onready var base_modifier: BaseModifier = Singleton.base_modifier
 
 onready var collision = $StaticBody2D/CollisionPolygon2D
 onready var body = $KinematicBody2D

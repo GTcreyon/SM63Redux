@@ -1,7 +1,6 @@
 extends Area2D
 
 onready var player = $"/root/Main/Player"
-onready var singleton = $"/root/Singleton"
 onready var collision = $CollisionShape2D
 var has_player = false
 
@@ -26,6 +25,6 @@ func _on_SafetyNet_body_entered(_body):
 
 
 func _on_SafetyNet_body_exited(_body):
-	if player.vel.y < 0 && (!Input.is_action_pressed("fludd") || singleton.classic || singleton.nozzle != player.n.rocket):
-		singleton.power = 100 #air rocket
+	if player.vel.y < 0 && (!Input.is_action_pressed("fludd") || Singleton.classic || Singleton.nozzle != Singleton.n.rocket):
+		Singleton.power = 100 #air rocket
 	has_player = false
