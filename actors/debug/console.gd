@@ -142,6 +142,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("debug"):
 		visible = !visible
 		get_tree().paused = visible
+		Singleton.set_pause("console", visible)
 		input_line.grab_focus()
 		input_line.text = input_line.text.replace("/", "")
 	if visible:
