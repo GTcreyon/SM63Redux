@@ -11,6 +11,7 @@ const item_prefab = preload("res://actors/items/ld_item.tscn")
 export(Dictionary) var item_classes = {}
 export(Dictionary) var items = {}
 export(Dictionary) var item_textures = {}
+export(Dictionary) var item_scenes = {}
 
 var start_pos
 
@@ -38,6 +39,7 @@ func place_item(item_name):
 	inst.ghost = true
 	inst.texture = load(item_textures[item_name]["Placed"])
 	inst.item_name = item_name
+	print(item_name)
 	$Template/Items.add_child(inst)
 	return inst
 
@@ -113,6 +115,9 @@ func read_items():
 								item_class.append(property)
 				elif parent_name == "item":
 					match node_name:
+						"scene":
+							var path = parser.get_named_attribute_value_safe("path")
+							item_scenes[parent_subname] = path
 						"property":
 							var item_class = items[parent_subname]
 							var link_txt = parser.get_named_attribute_value_safe("link")

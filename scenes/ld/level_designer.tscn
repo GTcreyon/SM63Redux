@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://src/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://src/level_designer/ld_main.gd" type="Script" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://gui/ld/scroll_block_v.png" type="Texture" id=13]
 [ext_resource path="res://gui/ld/scroll_block_h.png" type="Texture" id=14]
 [ext_resource path="res://item_grid.gd" type="Script" id=15]
+[ext_resource path="res://scenes/ld/start.gd" type="Script" id=16]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 7 )
@@ -285,9 +286,6 @@ anchor_bottom = 1.0
 margin_top = -90.0
 margin_right = 91.0
 texture = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="StartButtons" type="Control" parent="UILayer/LDUI"]
 anchor_left = 1.0
@@ -302,9 +300,7 @@ __meta__ = {
 margin_left = -66.0
 margin_top = -65.0
 custom_styles/normal = SubResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 16 )
 
 [node name="FromPos" type="Button" parent="UILayer/LDUI/StartButtons"]
 margin_left = -111.0
@@ -335,3 +331,4 @@ z_index = -1
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_terrain_control_place_pressed"]
+[connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]
