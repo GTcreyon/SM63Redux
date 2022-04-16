@@ -15,7 +15,7 @@ export var direction = 1
 var is_jumping = false #this is for stopping goomba's movement and then
 #transition to higher speed.
 
-var tracking = false
+var target = null
 var wander_dist = 0
 var stepped = false
 var full_jump = false
@@ -28,7 +28,6 @@ var water_bodies : int = 0
 onready var hurtbox = $Hurtbox
 onready var sprite = $AnimatedSprite
 onready var raycast = $RayCast2D
-onready var player = $"/root/Main/Player"
 onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
@@ -40,8 +39,8 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if player.static_v:
-		tracking = false
+	if target != null && target.static_v:
+		target = null
 	if sprite.animation == "squish":
 		if dead:
 			if Singleton.request_coin(collect_id):
@@ -52,36 +51,36 @@ func _physics_process(_delta):
 			queue_free()
 		else:
 			if !struck:
-				if player.position.y + 16 > global_position.y - 10:
-					player.vel.y = 0
-					player.position.y += 0.5
+				if target.position.y + 16 > global_position.y - 10:
+					target.vel.y = 0
+					target.position.y += 0.5
 				if Input.is_action_just_pressed("jump"):
 					full_jump = true
 			
 			if sprite.frame == 3:
 				if !struck:
-					if player.state == player.s.edive:
-						player.coyote_time = 0
-						player.dive_correct(-1)
-						player.switch_state(player.s.diveflip)
-						player.switch_anim("jump")
-						player.flip_l = player.sprite.flip_h
-						player.vel.y = min(-player.set_jump_1_vel/1.5, player.vel.y)
-						player.double_jump_state = 0
+					if target.state == target.s.edive:
+						target.coyote_time = 0
+						target.dive_correct(-1)
+						target.switch_state(target.s.diveflip)
+						target.switch_anim("jump")
+						target.flip_l = target.sprite.flip_h
+						target.vel.y = min(-target.set_jump_1_vel/1.5, target.vel.y)
+						target.double_jump_state = 0
 					else:
 						if Input.is_action_pressed("jump"):
 							if full_jump:
-								player.vel.y = -6.5
+								target.vel.y = -6.5
 							else:
-								player.vel.y = -6
+								target.vel.y = -6
 						else:
-							player.vel.y = -5
-						player.switch_state(player.s.walk)
+							target.vel.y = -5
+						target.switch_state(target.s.walk)
 				dead = true #apparently queue_free() doesn't cancel the current cycle
 			
 	#code to push enemies apart - maybe come back to later?
 #	for area in get_overlapping_areas():
-#		if area != player:
+#		if area != target:
 #			if global_position.x > area.global_position.x || (global_position.x == area.global_position.x && id > area.id):
 #				get_parent().vel.x += 7.5
 #			else:
@@ -105,7 +104,7 @@ func _physics_process(_delta):
 			sprite.flip_h = false
 		
 		if is_on_floor():
-			if is_on_wall() && !tracking:
+			if is_on_wall() && target == null:
 				vel.x = 0
 				flip_ev()
 				wander_dist = 0
@@ -135,14 +134,14 @@ func _physics_process(_delta):
 						stepped = true
 				else:
 					stepped = false
-				if tracking:
+				if target != null:
 					sprite.speed_scale = abs(vel.x) / 2 + 1
-					if player.position.x - position.x < -20 || (player.position.x < position.x && abs(player.position.y - position.y) < 26):
+					if target.position.x - position.x < -20 || (target.position.x < position.x && abs(target.position.y - position.y) < 26):
 						vel.x = max(vel.x - 0.1, -2)
 						direction = -1
 						raycast.position.x = -9
 						sprite.playing = true
-					elif player.position.x - position.x > 20 || (player.position.x > position.x && abs(player.position.y - position.y) < 26):
+					elif target.position.x - position.x > 20 || (target.position.x > position.x && abs(target.position.y - position.y) < 26):
 						vel.x = min(vel.x + 0.1, 2)
 						direction = 1
 						raycast.position.x = 9
@@ -184,7 +183,7 @@ func _physics_process(_delta):
 		
 #the next signals are used for the aggresive trigger
 #behaviour, it changes the vel and goes towards
-#the player, it also changes the raycast2d because
+#the target, it also changes the raycast2d because
 #after mario goes away, the enemy returns to its
 #pacific state
 
@@ -193,12 +192,12 @@ func _physics_process(_delta):
 #as we need only the x coordinates
 
 func _on_Collision_mario_detected(body):
-	if !tracking && sprite.animation != "squish" && !body.static_v:
+	if target == null && sprite.animation != "squish" && !body.static_v:
 		if body.position.x > position.x:
 			direction = 1
 		else:
 			direction = -1
-		tracking = true
+		target = body
 		if is_on_floor():
 			sprite.animation = "jumping"
 			sfx_active.stream = sfx["jump"]
@@ -215,8 +214,8 @@ func flip_ev():
 
 
 func _on_AwareArea_body_exited(_body):
-	tracking = false
-
+	target = null
+	
 
 func _on_Area2D_body_entered_hurt(body):
 	if sprite.animation != "squish":
@@ -226,13 +225,13 @@ func _on_Area2D_body_entered_hurt(body):
 			vel.y = 0
 			sprite.frame = 0
 			sprite.playing = true
-			if player.state == player.s.dive || player.state == player.s.edive:
+			if target.state == target.s.dive || target.state == target.s.edive:
 				if Input.is_action_pressed("down"):
 					damage_check(body)
 				else:
-					player.call_deferred("switch_state", player.s.edive)
+					target.call_deferred("switch_state", target.s.edive)
 			else:
-				player.call_deferred("switch_state", player.s.ejump)
+				target.call_deferred("switch_state", target.s.ejump)
 		elif !struck:
 			damage_check(body)
 
