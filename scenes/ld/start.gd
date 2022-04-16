@@ -12,10 +12,6 @@ func _on_Start_pressed():
 	var new_items = template_inst.get_node("Items")
 	for item in template.get_node("Items").get_children():
 		var item_inst = load(main.item_scenes[item.item_name]).instance()
-		print(item.item_name)
-		print(main.item_scenes[item.item_name])
-		print(load(main.item_scenes[item.item_name]))
-		print(item_inst)
 		item_inst.position = item.position
 		template_inst.add_child(item_inst)
 		
