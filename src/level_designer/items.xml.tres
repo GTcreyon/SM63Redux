@@ -216,7 +216,7 @@
     <item name="Fludd Box" description="A box containing a FLUDD nozzle. Breaks open when stomped, dropping the nozzle.">
 		<scene path="res://actors/items/fludd_box/fludd_box.tscn" />
 		<texture tag="List" path="res://actors/items/fludd_box/box_hover.png" />
-		<texture tag="Placed" path="res://actors/items/bottle/box_hover.png" />
+		<texture tag="Placed" path="res://actors/items/fludd_box/box_hover.png" />
         <inherit name="point" />
     </item>
 	
