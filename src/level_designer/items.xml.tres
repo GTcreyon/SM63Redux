@@ -53,26 +53,30 @@
     </item>
 
     <item name="Yellow Coin" description="A single coin.">
+		<scene path="res://actors/items/coin/coin_yellow.tscn" />
 		<texture tag="Placed" path="res://actors/items/coin/coin0.png" />
         <inherit name="point" />
     </item>
 
     <item name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!" />
+		<scene path="res://actors/items/coin/coin_red.tscn" />
 		<texture tag="Placed" path="res://actors/items/coin/red_coin0.png" />
         <inherit name="point" />
     </item>
 
     <item name="Blue Coin" description="Counts for 5 yellow coins!">
+		<scene path="res://actors/items/coin/coin_blue.tscn" />
 		<texture tag="Placed" path="res://actors/items/coin/blue_coin0.png" />
         <inherit name="point" />
     </item>
 
-    <item name="Silver Star" description="Collect them all to summon a Shine Sprite!">
+    <item name="Silver Shine" description="Collect them all to summon a Shine Sprite!">
 		<texture tag="List" path="res://gui/hud/hud_silver_shine.png" />
         <inherit name="point" />
     </item>
 
     <item name="Shine Sprite" description="The level goal!">
+		<scene path="res://actors/items/shine/shine.tscn" />
 		<texture tag="Placed" path="res://actors/items/shine/shine_placed.png" />
 		<texture tag="List" path="res://gui/hud/hud_shine_old.png" />
 		<!--TODO: trigger properties (e.g. red coins, silver shines, boss - pipescript?), shine ID for missions-->
@@ -81,15 +85,19 @@
 
     <item name="Spin Block" description="A spinning block.">
 		<!--TODO: all properties lol-->
+		<scene path="res://actors/items/rotating_block/rotating_block.tscn" />
         <inherit name="point" />
     </item>
 
     <item name="Log" description="A wooden log.">
+		<scene path="res://actors/items/log/log.tscn" />
 		<texture tag="Placed" path="res://actors/items/log/log.png" />
         <inherit name="point" />
     </item>
 
     <item name="Falling Log" description="An unstable wooden log. Falls when stepped on!">
+		<scene path="res://actors/items/log/log_fall.tscn" />
+		<texture tag="Placed" path="res://actors/items/log/log_fall.png" />
         <inherit name="point" />
 		<property label="Wait Time" type="float" link="XXXXX" description="The time taken in seconds for the log to fall after being stepped on. Setting the time to -1 will cause the log to fall immediately, with no collision." />
     </item>
