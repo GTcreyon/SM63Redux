@@ -41,6 +41,11 @@
         <inherit name="post" />
     </class>
 	
+    <class name="telescoping">
+        <inherit name="plane" />
+		<property label="Length" type="int" link="XXXXX" description="The length of the item." />
+    </class>
+	
     <class name="deco">
 		<inherit name="plane" />
         <property label="Layer" type="int" link="XXXXX" description="Items with a higher layer will be displayed in front of items with a lower layer." />
@@ -95,10 +100,151 @@
         <inherit name="point" />
     </item>
 
-    <item name="Falling Log" description="An unstable wooden log. Falls when stepped on!">
+    <item name="Falling Log" description="An unstable wooden log. It falls when stepped on!">
 		<scene path="res://actors/items/log/log_fall.tscn" />
 		<texture tag="Placed" path="res://actors/items/log/log_fall.png" />
         <inherit name="point" />
 		<property label="Wait Time" type="float" link="XXXXX" description="The time taken in seconds for the log to fall after being stepped on. Setting the time to -1 will cause the log to fall immediately, with no collision." />
+    </item>
+
+    <item name="Tipping Log" description="A log that tips to one side when stepped on.">
+		<scene path="res://actors/items/tipping_log/tipping_log.tscn" />
+		<texture tag="List" path="res://actors/items/tipping_log/tipping_log_right.png" />
+		<texture tag="Placed" path="res://actors/items/tipping_log/tipping_log_right.png" />
+        <inherit name="telescoping" />
+		<property label="Pivot" type="float" link="XXXXX" description="The offset from the center upon which the log will pivot when it rotates." />
+    </item>
+
+    <item name="Cloud" description="A cloud. Semisolid.">
+		<scene path="res://actors/items/cloud/cloud.tscn" />
+		<texture tag="List" path="res://actors/items/cloud/cloud_right.png" />
+		<texture tag="Placed" path="res://actors/items/cloud/cloud_right.png" />
+        <inherit name="telescoping" />
+    </item>
+
+    <item name="Wooden Platform" description="A wooden platform. Semisolid.">
+		<scene path="res://actors/items/wooden_platform/wooden_platform.tscn" />
+		<texture tag="List" path="res://actors/items/wooden_platform/wooden_platform.png" />
+		<texture tag="Placed" path="res://actors/items/wooden_platform/wooden_platform.png" />
+        <inherit name="plane" />
+    </item>
+
+    <item name="Pipe" description="A warp pipe. It can be used to warp between parts of the level.">
+		<scene path="res://actors/items/pipe/pipe.tscn" />
+		<texture tag="List" path="res://actors/items/pipe/pipe.png" />
+		<texture tag="Placed" path="res://actors/items/pipe/pipe.png" />
+        <inherit name="plane" />
+    </item>
+
+    <item name="Goomba" description="A Goomba. When it sees a target, it will walk toward them and damage them by walking into them. It can be stomped or attacked to kill it, dropping a coin.">
+		<scene path="res://actors/items/goomba/goomba.tscn" />
+		<texture tag="List" path="res://actors/items/goomba/goomba_walk1.png" />
+		<texture tag="Placed" path="res://actors/items/goomba/goomba_walk1.png" />
+        <inherit name="post" />
+    </item>
+
+    <item name="Parakoopa" description="A flying Koopa. It will hover in place. It can be stomped or attacked, knocking off its wings.">
+		<scene path="res://actors/items/koopa/parakoopa.tscn" />
+		<texture tag="List" path="res://actors/items/koopa/parakoopa.png" />
+		<texture tag="Placed" path="res://actors/items/koopa/parakoopa.png" />
+        <inherit name="post" />
+    </item>
+	
+    <item name="Koopa" description="A Koopa. It will damage you if you walk into it. It can be stomped or attacked, putting it in its shell.">
+		<scene path="res://actors/items/koopa/koopa.tscn" />
+		<texture tag="List" path="res://actors/items/koopa/koopa_walk.png" />
+		<texture tag="Placed" path="res://actors/items/koopa/koopa_walk.png" />
+        <inherit name="post" />
+    </item>
+	
+    <item name="Koopa Shell" description="A Koopa shell. It can be kicked or stomped to make it slide. Stomping on it will give you extra height.">
+		<scene path="res://actors/items/koopa/shell.tscn" />
+		<texture tag="List" path="res://actors/items/koopa/shell.png" />
+		<texture tag="Placed" path="res://actors/items/koopa/shell.png" />
+        <inherit name="post" />
+    </item>
+	
+    <item name="Bob-omb" description="An explosive enemy. When it sees a target, it will start its fuse and begin walking towards them. Once its fuse runs out, it will explode, dropping a coin. It can also be attacked to make it explode.">
+		<scene path="res://actors/items/bobomb/bobomb.tscn" />
+		<texture tag="List" path="res://actors/items/bobomb/bobomb_walk_4.png" />
+		<texture tag="Placed" path="res://actors/items/bobomb/bobomb_walk_4.png" />
+        <inherit name="post" />
+    </item>
+	
+    <item name="Cheep Cheep" description="A fish. It will swim through water, and hop on land. When it sees a target, it will swim toward them and damage them by touching them. It can be attacked to kill it, dropping a coin.">
+		<scene path="res://actors/items/cheep_cheep/cheep_cheep.tscn" />
+		<texture tag="List" path="res://actors/items/cheep_cheep/cheep_cheep1.png" />
+		<texture tag="Placed" path="res://actors/items/cheep_cheep/cheep_cheep1.png" />
+        <inherit name="post" />
+    </item>
+	
+    <item name="Goonie" description="A bird. It will fly through the level, moving up and down randomly. Standing on it will cause it to descend. Semisolid.">
+		<scene path="res://actors/items/goonie/goonie.tscn" />
+		<texture tag="List" path="res://actors/items/goonie/goonie_flap1.png" />
+		<texture tag="Placed" path="res://actors/items/goonie/goonie_flap1.png" />
+        <inherit name="post" />
+    </item>
+	
+    <item name="Butterfly" description="A butterfly. It will float gently in one direction, then the other. Decorative.">
+		<scene path="res://actors/items/butterfly/butterfly.tscn" />
+		<texture tag="List" path="res://actors/items/butterfly/butterfly.png" />
+		<texture tag="Placed" path="res://actors/items/butterfly/butterfly.png" />
+        <inherit name="point" />
+    </item>
+	
+    <item name="Sign" description="A readable sign.">
+		<scene path="res://actors/items/sign/sign.tscn" />
+		<texture tag="List" path="res://actors/items/sign/sign.png" />
+		<texture tag="Placed" path="res://actors/items/sign/sign.png" />
+        <inherit name="plane" />
+    </item>
+	
+    <item name="Water Bottle (Small)" description="A small bottle of water. Contains 15 flubs of water.">
+		<scene path="res://actors/items/bottle/bottle_small.tscn" />
+		<texture tag="List" path="res://actors/items/bottle/bottle_small.png" />
+		<texture tag="Placed" path="res://actors/items/bottle/bottle_small.png" />
+        <inherit name="plane" />
+    </item>
+	
+    <item name="Water Bottle (Large)" description="A large bottle of water. Contains 50 flubs of water.">
+		<scene path="res://actors/items/bottle/bottle_big.tscn" />
+		<texture tag="List" path="res://actors/items/bottle/bottle_big.png" />
+		<texture tag="Placed" path="res://actors/items/bottle/bottle_big.png" />
+        <inherit name="plane" />
+    </item>
+	
+    <item name="Fludd Box" description="A box containing a FLUDD nozzle. Breaks open when stomped, dropping the nozzle.">
+		<scene path="res://actors/items/fludd_box/fludd_box.tscn" />
+		<texture tag="List" path="res://actors/items/fludd_box/box_hover.png" />
+		<texture tag="Placed" path="res://actors/items/bottle/box_hover.png" />
+        <inherit name="point" />
+    </item>
+	
+    <item name="Big Tree" description="A large tree. Decorative.">
+		<scene path="res://actors/items/decoration/big_tree.tscn" />
+		<texture tag="List" path="res://actors/items/decoration/big_tree.png" />
+		<texture tag="Placed" path="res://actors/items/decoration/big_tree.png" />
+        <inherit name="deco" />
+    </item>
+	
+    <item name="Small Tree" description="A small tree. Decorative.">
+		<scene path="res://actors/items/decoration/small_tree.tscn" />
+		<texture tag="List" path="res://actors/items/decoration/small_tree.png" />
+		<texture tag="Placed" path="res://actors/items/decoration/small_tree.png" />
+        <inherit name="deco" />
+    </item>
+	
+    <item name="Rock" description="A large rock.">
+		<scene path="res://actors/items/rocks/big_rock/big_rock.tscn" />
+		<texture tag="List" path="res://actors/items/rocks/big_rock/big_rock.png" />
+		<texture tag="Placed" path="res://actors/items/rocks/big_rock/big_rock.png" />
+        <inherit name="plane" />
+    </item>
+	
+    <item name="Arrow" description="An arrow. Decorative.">
+		<scene path="res://actors/items/arrow/arrow.tscn" />
+		<texture tag="List" path="res://actors/items/arrow/arrow.png" />
+		<texture tag="Placed" path="res://actors/items/arrow/arrow.png" />
+        <inherit name="plane" />
     </item>
 </items>

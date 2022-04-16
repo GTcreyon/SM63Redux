@@ -39,7 +39,6 @@ func place_item(item_name):
 	inst.ghost = true
 	inst.texture = load(item_textures[item_name]["Placed"])
 	inst.item_name = item_name
-	print(item_name)
 	$Template/Items.add_child(inst)
 	return inst
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tilting_platform_right.png-99851e7b4fdba5f10c80d4bb0a963cda.stex"
+path="res://.import/tipping_log_middle.png-6c6be04b3b16c0aab5ea140115bb6ca7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/tilting_platform/tilting_platform_right.png"
-dest_files=[ "res://.import/tilting_platform_right.png-99851e7b4fdba5f10c80d4bb0a963cda.stex" ]
+source_file="res://actors/items/tipping_log/tipping_log_middle.png"
+dest_files=[ "res://.import/tipping_log_middle.png-6c6be04b3b16c0aab5ea140115bb6ca7.stex" ]
 
 [params]
 

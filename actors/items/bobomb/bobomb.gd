@@ -171,9 +171,9 @@ func flip_ev():
 	raycast.position.x *= -1
 
 
-func _on_AlertArea_body_entered(_body):
+func _on_AlertArea_body_entered(body):
 	if !tracking:
-		if player.position.x > position.x:
+		if body.position.x > position.x:
 			direction = 1
 		else:
 			direction = -1
