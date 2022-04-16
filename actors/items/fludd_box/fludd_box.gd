@@ -4,7 +4,6 @@ extends Node2D
 export(int, 2) var type = 0 setget set_type
 
 onready var main = $"/root/Main/Items"
-onready var player = $"/root/Main/Player"
 onready var hover = $Hover
 onready var rocket = $Rocket
 onready var turbo = $Turbo
@@ -30,7 +29,7 @@ func set_type(new_type):
 
 
 func _on_FluddBox_body_entered(body):
-	if body == player && player.vel.y > -2 && player.position.y < position.y: #TODO: give mario feet collision
+	if body.vel.y > -2 && body.position.y < position.y: #TODO: give mario feet collision
 		main.call_deferred("add_child", break_anim)
 		break_anim.position = Vector2(position.x, position.y)
 		match type:
@@ -44,7 +43,7 @@ func _on_FluddBox_body_entered(body):
 		fludd.position = Vector2(position.x, position.y + 8.5)
 		fludd.call_deferred("switch_type", type)
 		Singleton.collected_nozzles[type] = true
-		player.vel.y = -6 * 32 / 60
+		body.vel.y = -6 * 32 / 60
 		$Open.play()
 		$CollisionShape2D.queue_free()
 		hover.visible = false
