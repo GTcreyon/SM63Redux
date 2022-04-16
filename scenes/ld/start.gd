@@ -9,7 +9,6 @@ onready var main = $"/root/Main"
 func _on_Start_pressed():
 	var template = $"/root/Main/Template"
 	var template_inst = TEMPLATE_SCENE.instance()
-	var new_items = template_inst.get_node("Items")
 	for item in template.get_node("Items").get_children():
 		var item_inst = load(main.item_scenes[item.item_name]).instance()
 		item_inst.position = item.position
