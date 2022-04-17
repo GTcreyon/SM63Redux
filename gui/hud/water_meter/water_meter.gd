@@ -51,7 +51,8 @@ func _ready():
 	refresh()
 
 
-func _process(_delta):
+func _process(delta):
+	var dmod = 60 * delta
 	refresh()
 	if player.fludd_strain:
 		icon_bob = fmod(icon_bob + 0.5, 120)
@@ -86,11 +87,11 @@ func _process(_delta):
 	if Singleton.power == 100 && power_prev != 100:
 		power_filler_cover.modulate.a = 1
 	elif power_filler_cover.modulate.a > 0:
-		power_filler_cover.modulate.a -= 0.1
+		power_filler_cover.modulate.a -= 0.1 * dmod
 	power_prev = Singleton.power
 	
 	if Singleton.water > water_prev:
 		cover.modulate.a = 1
 	elif cover.modulate.a > 0:
-		cover.modulate.a -= 0.1
+		cover.modulate.a -= 0.1 * dmod
 	water_prev = Singleton.water

@@ -25,12 +25,13 @@ func _ready():
 	filler.frame = Singleton.hp
 
 
-func _process(_delta):
+func _process(delta):
+	var dmod = 60 * delta
 	modulate.v = 1 - death_cover.color.a
 	
 	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if Singleton.pause_menu:
-		progress = min(progress + 0.1, 1)
+		progress = min(progress + 0.1 * dmod, 1)
 		end_adjust = lerp(end_adjust, end_pos + 18, 0.5)
 		rechange_moving = true
 	else:
@@ -44,13 +45,13 @@ func _process(_delta):
 		
 		if act:
 			if progress < 1: #and then starts rechange_timer
-				progress += 0.05
+				progress += 0.05 * dmod
 			if Singleton.hp == 8:
 				act = false
 			
 			
 		if Singleton.hp == 8:
-			rechange_timer += 1
+			rechange_timer += 1 * dmod
 		else:
 			rechange_timer = 0
 		
@@ -61,7 +62,7 @@ func _process(_delta):
 		if Singleton.hp == 8:
 			if rechange_moving:
 				if progress > 0:
-					progress -= 0.1
+					progress -= 0.1 * dmod
 				else:
 					rechange_moving = false #and now everything is back to place
 			elif !act && !rechange_trigger && Singleton.hp >= 8:

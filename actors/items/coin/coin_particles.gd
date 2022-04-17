@@ -6,7 +6,7 @@ func _ready():
 	emitting = true
 
 
-func _process(_delta):
-	time += 1
+func _process(delta):
+	time += 1 * 60 * delta
 	if time > 30:
 		queue_free()

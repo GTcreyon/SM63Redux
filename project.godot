@@ -49,10 +49,6 @@ config/windows_native_icon="res://icon_windows.ico"
 
 Singleton="*res://src/global/singleton.tscn"
 
-[debug]
-
-settings/fps/force_fps=60
-
 [display]
 
 window/size/width=640

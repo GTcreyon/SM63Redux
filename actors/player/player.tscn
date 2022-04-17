@@ -341,6 +341,7 @@ shape = SubResource( 5 )
 [node name="Camera2D" type="Camera2D" parent="."]
 pause_mode = 2
 current = true
+process_mode = 0
 smoothing_enabled = true
 script = ExtResource( 25 )
 

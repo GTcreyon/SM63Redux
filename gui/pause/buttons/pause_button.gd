@@ -8,7 +8,8 @@ onready var stars_off = $StarsOff
 onready var text_node = $Text
 onready var buttons = [get_parent().get_node("ButtonMap"), get_parent().get_node("ButtonFludd"), get_parent().get_node("ButtonOptions"), get_parent().get_node("ButtonExit")]
 
-func _process(_delta):
+func _process(delta):
+	var dmod = 60 * delta
 	if modulate.a == 0:
 		mouse_filter = MOUSE_FILTER_IGNORE
 	else:
@@ -26,10 +27,10 @@ func _process(_delta):
 		stars_on.visible = false
 		stars_off.visible = true
 	if pressed:
-		scroll = fmod((scroll + 0.01), 1.0)
+		scroll = fmod((scroll + 0.01 * dmod), 1.0)
 		scroll_goal = 0
 	elif is_hovered():
-		scroll = fmod((scroll + 0.02), 1.0)
+		scroll = fmod((scroll + 0.02 * dmod), 1.0)
 		scroll_goal = 0
 	else:
 		if scroll_goal == 0:
