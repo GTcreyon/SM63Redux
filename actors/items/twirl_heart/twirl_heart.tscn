@@ -46,7 +46,5 @@ shape = SubResource( 1 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
-frame = 3
-playing = true
 
 [connection signal="body_entered" from="." to="." method="_on_Heart_body_entered"]

@@ -7,7 +7,6 @@ const boom0 = preload("res://actors/items/breakable_box/boom.wav")
 const boom1 = preload("res://actors/items/breakable_box/box_break.wav")
 
 onready var main = $"/root/Main"
-onready var player = $"/root/Main/Player"
 onready var pound_area = $PoundArea
 onready var spin_area = $SpinArea
 
@@ -21,21 +20,21 @@ func _ready():
 
 
 func _process(_delta):
-	if pound_area.overlaps_body(player):
-		if player.state == player.s.pound_fall || player.state == player.s.pound_land:
+	for body in pound_area.get_overlapping_bodies():
+		if body.state == body.s.pound_fall || body.state == body.s.pound_land:
 			destroy()
-	if spin_area.overlaps_body(player):
-		if player.is_spinning(): 
+	for body in spin_area.get_overlapping_bodies():
+		if body.is_spinning(): 
 			destroy()
 
 
-func _on_PoundArea_body_entered(_body):
-	if player.state == player.s.pound_fall || player.state == player.s.pound_land:
+func _on_PoundArea_body_entered(body):
+	if body.state == body.s.pound_fall || body.state == body.s.pound_land:
 		destroy()
 
 
-func _on_SpinArea_body_entered(_body):
-	if player.is_spinning():
+func _on_SpinArea_body_entered(body):
+	if body.is_spinning():
 		destroy()
 
 
