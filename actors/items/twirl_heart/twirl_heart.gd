@@ -6,6 +6,11 @@ var crossed_item = false
 var mario = null
 var timer = 30
 
+
+func _ready():
+	sprite.playing = true
+
+
 func _physics_process(_delta):
 	if crossed_item:
 		if Singleton.hp < 8:
