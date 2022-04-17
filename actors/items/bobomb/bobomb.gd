@@ -13,7 +13,7 @@ var vel = Vector2.ZERO
 
 export var direction = 1
 
-var tracking = false
+var target = null
 var wander_dist = 0
 var stepped = false
 var full_jump = false
@@ -28,7 +28,6 @@ onready var base = $Sprites/Base
 onready var fuse = $Sprites/Fuse
 onready var key = $Sprites/Key
 onready var raycast = $RayCast2D
-onready var player = $"/root/Main/Player"
 onready var sfx_active = $SFXActive
 onready var sfx_passive = $SFXPassive
 onready var main = $"/root/Main"
@@ -66,7 +65,7 @@ func _physics_process(_delta):
 		if direction == 1:
 			base.flip_h = true
 			fuse.flip_h = true
-			if tracking:
+			if target != null:
 				fuse.offset.x = -1
 			else:
 				fuse.offset.x = -4
@@ -81,7 +80,7 @@ func _physics_process(_delta):
 		
 		if is_on_floor():
 			vel.y = GRAVITY
-			if is_on_wall() && !tracking:
+			if is_on_wall() && target == null:
 				vel.x = 0
 				flip_ev()
 				wander_dist = 0
@@ -96,14 +95,14 @@ func _physics_process(_delta):
 					stepped = true
 			else:
 				stepped = false
-			if tracking:
+			if target != null:
 				base.speed_scale = abs(vel.x) / 2 + 1
-				if player.position.x - position.x < -20 || (player.position.x < position.x && abs(player.position.y - position.y) < 26):
+				if target.position.x - position.x < -20 || (target.position.x < position.x && abs(target.position.y - position.y) < 26):
 					vel.x = max(vel.x - 0.1, -2)
 					direction = -1
 					raycast.position.x = -9
 					base.playing = true
-				elif player.position.x - position.x > 20 || (player.position.x > position.x && abs(player.position.y - position.y) < 26):
+				elif target.position.x - position.x > 20 || (target.position.x > position.x && abs(target.position.y - position.y) < 26):
 					vel.x = min(vel.x + 0.1, 2)
 					direction = 1
 					raycast.position.x = 9
@@ -157,7 +156,7 @@ func _physics_process(_delta):
 		
 #the next signals are used for the aggresive trigger
 #behaviour, it changes the vel and goes towards
-#the player, it also changes the raycast2d because
+#the target, it also changes the raycast2d because
 #after mario goes away, the enemy returns to its
 #pacific state
 
@@ -172,12 +171,12 @@ func flip_ev():
 
 
 func _on_AlertArea_body_entered(body):
-	if !tracking:
+	if target == null:
 		if body.position.x > position.x:
 			direction = 1
 		else:
 			direction = -1
-		tracking = true
+		target = body
 		fuse.animation = "lit"
 		wander_dist = 0
 
