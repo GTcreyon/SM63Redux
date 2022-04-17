@@ -13,3 +13,7 @@ func _on_Options_pressed():
 		inst.item_name = item.name
 		inst.position = str2var(item.position)
 		template_items.add_child(inst)
+	for poly in load_dict["terrain"]:
+		var inst = main.terrain_prefab.instance()
+		inst.polygon = str2var(poly)
+		template_items.add_child(inst)
