@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-13 18:15+0100\n"
-"PO-Revision-Date: 2022-04-13 21:51+0200\n"
+"PO-Revision-Date: 2022-04-17 23:07+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -33,7 +33,7 @@ msgstr "Tutoriel 1"
 
 #: ../gui/pause/level_info/level_info.tscn:264
 msgid "Head to the castle, everybody's waiting!"
-msgstr "Diriges toi vers le château, tout le monde t'attend!"
+msgstr "Dirige toi vers le château, tout le monde t'attend!"
 
 #: ../gui/pause/map/map.tscn:129
 msgid ""
@@ -307,7 +307,7 @@ msgstr "C'est la fin de la [color=#f7c55f]Petite Démo![/color]"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:448
 msgid "We hope you enjoyed it, and stay tuned for more!"
-msgstr "On espère que vous l'avez appréciée, et restez à l'écoute pour plus!"
+msgstr "On espère que vous l'aurez appréciée, et restez à l'écoute pour plus!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:453
 msgid ""
@@ -371,7 +371,7 @@ msgstr ""
 "Le signalement inclus:\n"
 "-Les données que vous avez entrées\n"
 "-Vos données en jeu (ex. la position de Mario, une capture d'écran, etc.)\n"
-"-Votre plateforme actuelle (Windows, Web, Android, etc.)\n"
+"-Votre support actuel (Windows, Web, Android, etc.)\n"
 
 #~ msgid "v0.1.2"
 #~ msgstr "v0.1.2"
