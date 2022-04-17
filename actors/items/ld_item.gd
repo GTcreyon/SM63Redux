@@ -16,6 +16,8 @@ var item_name
 var drag_offset = Vector2.ZERO
 
 func _ready():
+	if ghost:
+		position = get_global_mouse_position()
 	$ClickArea/CollisionShape2D.shape.extents = texture.get_size() / 2
 
 
