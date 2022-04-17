@@ -158,7 +158,7 @@
     </item>
 	
     <item name="Koopa Shell" description="A Koopa shell. It can be kicked or stomped to make it slide. Stomping on it will give you extra height.">
-		<scene path="res://actors/items/koopa/shell.tscn" />
+		<scene path="res://actors/items/koopa/koopa_shell.tscn" />
 		<texture tag="List" path="res://actors/items/koopa/shell.png" />
 		<texture tag="Placed" path="res://actors/items/koopa/shell.png" />
         <inherit name="post" />
