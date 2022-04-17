@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-13 18:15+0100\n"
-"PO-Revision-Date: 2022-04-17 23:07+0200\n"
+"PO-Revision-Date: 2022-04-17 23:13+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -307,7 +307,7 @@ msgstr "C'est la fin de la [color=#f7c55f]Petite Démo![/color]"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:448
 msgid "We hope you enjoyed it, and stay tuned for more!"
-msgstr "On espère que vous l'aurez appréciée, et restez à l'écoute pour plus!"
+msgstr "On espère qu'elle vous a plu, et restez à l'écoute pour plus!"
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:453
 msgid ""
