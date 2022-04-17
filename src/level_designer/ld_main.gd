@@ -4,7 +4,6 @@ onready var sm63_to_redux: SM63ToRedux = Singleton.sm63_to_redux
 onready var ld_ui = $UILayer/LDUI
 onready var lv_template := preload("res://src/level_designer/template.tscn")
 
-const ld_item = preload("res://actors/items/ld_item.tscn")
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
 const item_prefab = preload("res://actors/items/ld_item.tscn")
 
@@ -35,7 +34,7 @@ func place_terrain(poly, texture_type, textures):
 	return terrain_ref
 
 func place_item(item_name):
-	var inst = ld_item.instance()
+	var inst = item_prefab.instance()
 	inst.ghost = true
 	inst.texture = load(item_textures[item_name]["Placed"])
 	inst.item_name = item_name
