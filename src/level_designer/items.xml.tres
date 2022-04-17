@@ -247,4 +247,19 @@
 		<texture tag="Placed" path="res://actors/items/arrow/arrow.png" />
         <inherit name="plane" />
     </item>
+	
+    <item name="Twirling Heart" description="A spinning heart. Moving through it will heal you. The amount of HP healed will be proportional to the speed at which you move through it.">
+		<scene path="res://actors/items/twirl_heart/twirl_heart.tscn" />
+		<texture tag="List" path="res://actors/items/twirl_heart/twirl_heart_icon.png" />
+		<texture tag="Placed" path="res://actors/items/twirl_heart/twirl_heart_icon.png" />
+        <inherit name="pole" />
+    </item>
+	
+    <item name="Breakable Box" description="A box that can be broken by attacking it. It can drop coins when destroyed.">
+		<scene path="res://actors/items/breakable_box/breakable_box.tscn" />
+		<texture tag="List" path="res://actors/items/breakable_box/box1.png" />
+		<texture tag="Placed" path="res://actors/items/breakable_box/box1.png" />
+		<property label="Coin Count" type="int" link="XXXXX" description="The number of coins the box will drop when destroyed." />
+        <inherit name="pole" />
+    </item>
 </items>

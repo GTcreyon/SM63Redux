@@ -1,10 +1,12 @@
 extends Area2D
 
+onready var sprite = $AnimatedSprite
+
 var crossed_item = false
 var mario = null
 var timer = 30
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if crossed_item:
 		if Singleton.hp < 8:
 			if timer >= 30:
@@ -14,11 +16,11 @@ func _physics_process(delta):
 				timer += 1
 		else:
 			crossed_item = false
-			$AnimatedSprite.set_speed_scale(1.0)
+			sprite.set_speed_scale(1.0)
 			timer = 30
 			mario = null
 
 func _on_Heart_body_entered(body):
 	crossed_item = true
 	mario = body
-	$AnimatedSprite.set_speed_scale(5.0)
+	sprite.set_speed_scale(5.0)
