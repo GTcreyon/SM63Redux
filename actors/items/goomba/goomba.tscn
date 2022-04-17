@@ -25,15 +25,15 @@ animations = [ {
 "name": "jumping",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 1 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 12 ) ],
-"loop": true,
-"name": "walking",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 14 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "squish",
 "speed": 20.0
+}, {
+"frames": [ ExtResource( 1 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "walking",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -75,6 +75,7 @@ cast_to = Vector2( 0, 21 )
 visible = false
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="EyeRight" type="CollisionPolygon2D" parent="AlertArea"]
 polygon = PoolVector2Array( 208, -59, 208, 32, 160, 35, 128, 35, 96, 33, 48, 27, 11, 20, 11, -10, 48, -29, 96, -48, 128, -55, 160, -59 )
@@ -86,6 +87,7 @@ polygon = PoolVector2Array( -208, -59, -208, 32, -160, 35, -128, 35, -96, 33, -4
 visible = false
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="EyeFull" type="CollisionShape2D" parent="AwareArea"]
 shape = SubResource( 3 )
@@ -93,6 +95,7 @@ shape = SubResource( 3 )
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource( 4 )
@@ -100,6 +103,7 @@ shape = SubResource( 4 )
 [node name="WaterCheck" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 6 )
