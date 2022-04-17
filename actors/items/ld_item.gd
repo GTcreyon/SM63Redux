@@ -2,7 +2,7 @@ extends Sprite
 
 const glow = preload("res://shaders/glow.tres")
 
-onready var cam = get_parent().get_node("LDCamera")
+onready var cam = $"/root/Main/LDCamera"
 onready var main = $"/root/Main"
 onready var control = $"/root/Main/UILayer/LDUI"
 
