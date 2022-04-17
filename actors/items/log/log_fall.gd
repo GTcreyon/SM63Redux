@@ -20,7 +20,7 @@ func _ready():
 	if camera_area != null:
 		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
 
-func _process(_delta):
+func _physics_process(_delta):
 	if falling:
 		if fall_timer > 0:
 			fall_timer -= 1

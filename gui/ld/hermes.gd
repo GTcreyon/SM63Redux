@@ -31,14 +31,15 @@ func set_pos(edge, progress) -> bool:
 	return false
 
 
-func _process(_delta):
+func _process(delta):
+	var dmod = 60 * delta
 	if Input.is_action_just_pressed("LD_place"):
 		playing = true
 	if !playing:
 		if flip_h:
-			progress -= speed
+			progress -= speed * dmod
 		else:
-			progress += speed
+			progress += speed * dmod
 	
 	if set_pos(edge, progress):
 		if flip_h:

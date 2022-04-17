@@ -14,15 +14,6 @@ var water_bodies = 0
 var collect_id
 var sparkle : Resource
 
-func _process(_delta):
-	if !picked:
-		if dropped:
-			active_timer = max(active_timer - 1, 0)
-			if active_timer == 0:
-				$PickupArea.monitoring = true
-		else:
-			$PickupArea.monitoring = true
-
 
 func _ready():
 	if !dropped:
@@ -39,6 +30,14 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if !picked:
+		if dropped:
+			active_timer = max(active_timer - 1, 0)
+			if active_timer == 0:
+				$PickupArea.monitoring = true
+		else:
+			$PickupArea.monitoring = true
+			
 	if dropped:
 		vel.y += 0.2
 		if vel.y > 0:

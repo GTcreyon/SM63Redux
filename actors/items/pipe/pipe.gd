@@ -12,7 +12,7 @@ var target = null
 export var target_x_pos = 0 #the x value where mario will get teleported
 export var target_y_pos = 0 #the y value where mario will get teleported
 
-func _process(_delta):
+func _physics_process(_delta):
 	if slid:
 		if target.state == 7:
 			target.position.y = position.y
