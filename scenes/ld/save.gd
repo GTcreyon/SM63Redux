@@ -9,6 +9,7 @@ func _on_File_pressed():
 			"name": "XXXXX"
 		},
 		"items": [],
+		"terrain": [],
 	}
 	
 	var template = $"/root/Main/Template"
@@ -18,4 +19,6 @@ func _on_File_pressed():
 			"position": var2str(item.position),
 		}
 		save_dict["items"].append(item_dict)
+	for poly in template.get_node("Terrain").get_children():
+		save_dict["terrain"].append(var2str(poly.polygon))
 	OS.set_clipboard(JSON.print(save_dict))

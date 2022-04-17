@@ -45,27 +45,27 @@ region = Rect2( 126, 0, 18, 18 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "struck",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "struck",
+"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "unlit",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "unlit",
 "speed": 5.0
 } ]
 
@@ -122,6 +122,7 @@ cast_to = Vector2( 0, 21 )
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource( 13 )
@@ -130,6 +131,7 @@ shape = SubResource( 13 )
 visible = false
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="EyeRight" type="CollisionPolygon2D" parent="AlertArea"]
 polygon = PoolVector2Array( 208, -59, 208, 32, 160, 35, 128, 35, 96, 33, 48, 27, 11, 20, 11, -10, 48, -29, 96, -48, 128, -55, 160, -59 )
@@ -140,6 +142,7 @@ polygon = PoolVector2Array( -208, -59, -208, 32, -160, 35, -128, 35, -96, 33, -4
 [node name="WaterCheck" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 15 )
