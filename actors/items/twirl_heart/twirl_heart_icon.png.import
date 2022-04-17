@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/twirlheartredo1.png-04fbfbe7b99466716eebe2f3318eb392.stex"
+path="res://.import/twirl_heart_icon.png-dd68ffcba9456d3bb75eb5bccc27bcb2.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/heart/twirlheartredo1.png"
-dest_files=[ "res://.import/twirlheartredo1.png-04fbfbe7b99466716eebe2f3318eb392.stex" ]
+source_file="res://actors/items/twirl_heart/twirl_heart_icon.png"
+dest_files=[ "res://.import/twirl_heart_icon.png-dd68ffcba9456d3bb75eb5bccc27bcb2.stex" ]
 
 [params]
 
