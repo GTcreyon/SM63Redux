@@ -8,7 +8,6 @@ onready var control = $"/root/Main/UILayer/LDUI"
 
 var glow_factor = 1
 var pulse = 0.0
-var selected = false
 var size
 var ghost = false
 var mouse_in = false
@@ -19,7 +18,6 @@ func _ready():
 	if ghost:
 		position = get_global_mouse_position()
 	$ClickArea/CollisionShape2D.shape.extents = texture.get_size() / 2
-
 
 func _process(_delta):
 	var i_left = Input.is_action_just_pressed("ui_left")
@@ -40,16 +38,17 @@ func _process(_delta):
 	else:
 		if i_select:
 			drag_offset = position - get_global_mouse_position()
-			selected = false
+			#selected = false
+			main.reset_selected_item()
 			if mouse_in:
 				main.request_select(self)
 		modulate.a = 1
-		if selected:
+		if main.get_selected_item() == get_node("."):
 			material = glow
 		else:
 			material = null
 			pulse = 0.0
-		if selected:
+		if main.get_selected_item() == get_node("."):
 			material.set_shader_param("outline_color",Color(1, 1, 1, (sin(pulse)*0.25+0.5)*glow_factor))
 			#var a = (sin(pulse)*0.25+0.5)*glow_factor
 			pulse = fmod((pulse + 0.1), 2*PI)
@@ -67,16 +66,13 @@ func _process(_delta):
 				if i_down:
 					position.y += shift_step
 
-
 #func _on_ClickArea_input_event(viewport, event, shape_idx):
 #	if event is InputEventMouseButton:
 #		if event.pressed:
 #			selected = true
 
-
 func _on_ClickArea_mouse_entered():
 	mouse_in = true
-
 
 func _on_ClickArea_mouse_exited():
 	mouse_in = false

@@ -14,9 +14,16 @@ export(Dictionary) var item_scenes = {}
 
 var start_pos
 
+var selected_item
 var queue_counter = 0
 var select_queue: Array = []
 var temp_select_queue: Array = []
+
+func reset_selected_item():
+	selected_item = null
+
+func get_selected_item():
+	return selected_item
 
 #ld_items can request a selection when clicked
 #doing this puts them on a stack
@@ -25,7 +32,6 @@ var temp_select_queue: Array = []
 #this will always work unless the stack changes, in which case it resets to the top
 func request_select(me):
 	temp_select_queue.append(me)
-
 
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = terrain_prefab.instance()
@@ -173,13 +179,11 @@ func _process(_delta):
 #			queue_counter = 0
 	var size = select_queue.size()
 	if Input.is_action_just_pressed("LD_queue+"):
-		select_queue[select_queue.size() - queue_counter - 1].selected = false
 		queue_counter = (queue_counter + 1) % size
-		select_queue[select_queue.size() - queue_counter - 1].selected = true
+		selected_item = select_queue[select_queue.size() - queue_counter - 1]
 	if Input.is_action_just_pressed("LD_queue-"):
-		select_queue[select_queue.size() - queue_counter - 1].selected = false
 		queue_counter = (queue_counter - 1 + size) % size
-		select_queue[select_queue.size() - queue_counter - 1].selected = true
+		selected_item = select_queue[select_queue.size() - queue_counter - 1]
 	if !temp_select_queue.empty(): #if there are items in the queue
 		if temp_select_queue != select_queue: #if the queue has changed, reset
 			queue_counter = 0
@@ -188,5 +192,5 @@ func _process(_delta):
 			queue_counter = (queue_counter + 1) % size
 		var new_size = select_queue.size()
 		if new_size > 0:
-			select_queue[select_queue.size() - queue_counter - 1].selected = true
+			selected_item = select_queue[select_queue.size() - queue_counter - 1]
 	temp_select_queue = [] #reset the queue

@@ -164,6 +164,14 @@ func _input(event):
 			elif event.button_index == 2:
 				finish_creating_polygon()
 			update() #force _draw
+	elif polygon_modifier.state == "idle":
+		if event is InputEventMouseButton and event.pressed:
+			#level_editor.print_tree_pretty()
+			var terrain_root = level_editor.get_node("Template").get_node("Terrain")
+			for terrain in terrain_root.get_children():
+				var relative_pos = event.position + ld_camera.global_position - terrain.global_position
+				if Geometry.is_point_in_polygon(relative_pos, terrain.polygon):
+					level_editor.request_select(terrain)
 
 func _on_terrain_control_place_pressed():
 	print("Place Terrain")

@@ -8,6 +8,8 @@
 
 [node name="Water" type="Node2D" parent="."]
 
+[node name="CameraLimits" type="Node2D" parent="."]
+
 [node name="Pipescript" type="Node2D" parent="."]
 
 [node name="Other" type="Node2D" parent="."]
