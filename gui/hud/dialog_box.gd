@@ -135,7 +135,7 @@ func load_lines(lines):
 	say_line(0) #say the first line
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if active:
 		if star.animation == "ready" || star.offset.y != 0:
 			star_wobble += 0.1

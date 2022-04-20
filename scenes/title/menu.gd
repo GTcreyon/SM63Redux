@@ -22,7 +22,8 @@ var cycle_positions
 var cycle_step = 0
 
 
-func _process(_delta):
+func _process(delta):
+	var dmod = 60 * delta
 	if visible:
 		var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 			
@@ -80,7 +81,7 @@ func _process(_delta):
 			inside[1].position.y = lerp(OS.window_size.y, cycle_positions[(2 + cycle_direction) % 4].y, cycle_progress)
 		
 		if cycle_direction != 0:
-			cycle_progress += 1 / 12.0
+			cycle_progress += 1 / 12.0 * dmod
 			if abs(cycle_progress) >= 1:
 				cycle_step += cycle_direction
 				cycle_progress = 0
@@ -109,7 +110,7 @@ func _process(_delta):
 		force_touch.margin_top = -64 * scale
 		Singleton.force_touch = force_touch.pressed
 		
-		modulate.a = min(modulate.a + 0.125, 1)
+		modulate.a = min(modulate.a + 0.125 * dmod, 1)
 	else:
 		modulate.a = 0
 

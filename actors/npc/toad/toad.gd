@@ -70,7 +70,7 @@ func _ready():
 	$Sprite.frame = fmod(position.x + position.y * PI, 7)
 
 
-func _process(_delta):
+func _physics_process(_delta):
 	if !Engine.editor_hint:
 		if Input.is_action_just_pressed("interact") && overlaps_body(player) && player.state == player.s.walk && player.sign_cooldown <= 0:
 			#player.switch_anim("back")

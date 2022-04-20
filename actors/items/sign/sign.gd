@@ -9,7 +9,7 @@ export(Array, String, MULTILINE) var lines = [""]
 var pulse = 0.0
 var glow_factor = 0.0
 
-func _process(_delta):
+func _physics_process(_delta):
 	if player != null:
 		glow_factor = max((100 - position.distance_to(player.position)) / 50, 0)
 	pulse += 0.1

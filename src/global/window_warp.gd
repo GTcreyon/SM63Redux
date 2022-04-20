@@ -52,7 +52,8 @@ func resize_polygon(factor):
 	polygon = star_temp
 
 
-func _process(_delta):
+func _process(delta):
+	var dmod = min(60 * delta, 1)
 	var in_unit = 1.0 / in_time
 	var out_unit = 1.0 / out_time
 	if enter == 1:
@@ -67,7 +68,7 @@ func _process(_delta):
 			enter = -1
 			progress = 0
 		else:
-			progress += in_unit
+			progress += in_unit * dmod
 			resize_polygon(1.5 - progress * 1.5)
 	elif enter == -1:
 		cover.color.a = 1.0 - progress
@@ -76,7 +77,7 @@ func _process(_delta):
 			progress = 0
 			visible = false
 		else:
-			progress += out_unit
+			progress += out_unit * dmod
 			resize_polygon(progress * 1.5)
 	elif enter == 0:
 		visible = false
