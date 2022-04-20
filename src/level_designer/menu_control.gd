@@ -7,8 +7,11 @@ onready var ld_camera := $"/root/Main/LDCamera"
 onready var background := $"/root/Main/LDCamera/Background"
 onready var item_grid = $LeftBar/ColorRect/Control/ColorRect3/ColorRect4/ItemGrid
 
-var terrain_modifier = {
-	state = "idle"
+var polygon_modifier = {
+	state = "idle", #the state of the polygon editor
+	type = "terrain", #the type of polygon (terrain / water / camera limits)
+	polygon = [], #the current polygon verts
+	ref = null #a reference to the instance
 }
 
 #a bad, slow, O(n^2), but easy to implement algorithm
@@ -43,96 +46,107 @@ func snap_vector(vec, grid):
 
 func fake_polygon_create():
 #	var poly = Polygon2D.new()
-	terrain_modifier.clear()
-	terrain_modifier.state = "create"
-	terrain_modifier.polygon = [Vector2(0, 0)]
-	terrain_modifier.ref = level_editor.place_terrain([Vector2(0, 0)], 0, 0)
-	terrain_modifier.ref.shallow = true
-#	terrain_modifier.poly = poly
+	polygon_modifier.clear()
+	polygon_modifier.state = "create"
+	polygon_modifier.polygon = [Vector2(0, 0)]
+#	polygon_modifier.poly = poly
 
 func finish_creating_polygon():
 	#make sure the polygon is correctly rotated, which is counter-clockwise
-	if Geometry.is_polygon_clockwise(terrain_modifier.polygon):
-		terrain_modifier.polygon.invert()
+	if Geometry.is_polygon_clockwise(polygon_modifier.polygon):
+		polygon_modifier.polygon.invert()
 	
-	if terrain_modifier.polygon.back() != terrain_modifier.polygon.front():
-		print("E")
-		terrain_modifier.polygon.append(
-			terrain_modifier.polygon.back()
+	if polygon_modifier.polygon.back() != polygon_modifier.polygon.front():
+		polygon_modifier.polygon.append(
+			polygon_modifier.polygon.back()
 		)
 	
-	#remove the old reference, this is mainly because the live editor can cause some issues
-	terrain_modifier.ref.get_parent().remove_child(terrain_modifier.ref)
 	#set the terrain polygon to the actual polygon
-	terrain_modifier.ref = level_editor.place_terrain(
-		terrain_modifier.polygon,
+	polygon_modifier.ref = level_editor.place_terrain(
+		polygon_modifier.polygon,
 		0,
 		0
 	)
-	#terrain_modifier.ref.update()
 	
 	#reset the modifier state
-	terrain_modifier.clear()
-	terrain_modifier.state = "idle"
+	polygon_modifier.clear()
+	polygon_modifier.state = "idle"
+
+func get_local_polygon_data():
+	var local_poly = PoolVector2Array()
+	for vert in polygon_modifier.polygon:
+		local_poly.append(
+			vert - ld_camera.global_position
+		)
+	return local_poly
+
+func get_polygon_rect(polygon):
+	#get the extends
+	var vec_min = Vector2.INF
+	var vec_max = -Vector2.INF
+	for vert in polygon:
+		vec_min.x = min(vec_min.x, vert.x)
+		vec_min.y = min(vec_min.y, vert.y)
+		vec_max.x = max(vec_max.x, vert.x)
+		vec_max.y = max(vec_max.y, vert.y)
+	return Rect2(vec_min, vec_max - vec_min)
+
+func draw_editable_rect(poly_rect):
+	#draw the extends
+	draw_rect(poly_rect, Color(0.6, 0.25, 0.1), false, 2)
+	for x in [0, 0.5, 1]:
+		for y in [0, 0.5, 1]:
+			if x == 0.5 && y == 0.5:
+				continue
+			var coords = poly_rect.position + poly_rect.size * Vector2(x, y)
+			draw_circle(coords, 4, Color(0.6, 0.25, 0.1))
+			draw_circle(coords, 3, Color(0.8, 0.35, 0.2))
+
+func draw_editable_polygon(local_poly):
+	#draw the polygon outline
+	#not using polyline, since it has an ugly inner joint mode
+	var p_size = local_poly.size()
+	for idx in p_size:
+		var n_idx = (idx + 1) % p_size
+		draw_line(
+			local_poly[idx],
+			local_poly[n_idx],
+			Color(0.4, 0.2, 0),
+			3
+		)
+		draw_circle(local_poly[idx], 4, Color(0.5, 0.3, 0))
+		draw_circle(local_poly[idx], 3, Color(0.8, 0.5, 0.3))
+
+func _draw():
+	if polygon_modifier.state == "create":
+		var local_poly = get_local_polygon_data()
+		var poly_rect = get_polygon_rect(local_poly)
+		draw_editable_polygon(local_poly)
+		draw_editable_rect(poly_rect)
+		
+		draw_circle(
+			local_poly[local_poly.size() - 1],
+			3,
+			Color(0, 1, 0)
+		)
+	elif polygon_modifier.state == "edit":
+		var local_poly = get_local_polygon_data()
+		var poly_rect = get_polygon_rect(local_poly)
+		draw_editable_rect(poly_rect)
 
 func _process(_dt):
 	background.material.set_shader_param("camera_position", ld_camera.global_position)
 	update()
 
-func _draw():
-	if terrain_modifier.state == "create":
-		var local_poly = PoolVector2Array()
-		for vert in terrain_modifier.polygon:
-			local_poly.append(
-				vert - ld_camera.global_position
-			)
-		
-		var success = true#polygon_self_intersecting(local_poly)
-		
-		var colors = PoolColorArray()
-		for vert in local_poly:
-			colors.append(
-				Color(0, 1, 0, 0.2) if success else Color(1, 0, 0, 0.2)
-			)
-		
-		if local_poly.size() >= 3:
-			#make sure rotation is correct
-			var set_poly = PoolVector2Array(terrain_modifier.polygon)
-			if Geometry.is_polygon_clockwise(terrain_modifier.polygon):
-				set_poly.invert()
-			#set the draw polygon
-			terrain_modifier.ref.polygon = set_poly
-		
-#		if local_poly.size() >= 3:
-#			draw_polygon(
-#				local_poly,
-#				colors
-#			)
-#
-#		if local_poly.size() >= 2:
-#			draw_polyline(
-#				local_poly,
-#				Color(0, 0.7, 0) if success else Color(0.7, 0, 0),
-#				2,
-#				true
-#			)
-		
-		draw_circle(
-			local_poly[local_poly.size() - 1],
-			3,
-			Color(0, 1, 0) if success else Color(1, 0, 0)
-		)
-		
-
 func _input(event):
-	if terrain_modifier.state == "create":
+	if polygon_modifier.state == "create":
 		var grid_px = 8
 		
 		#have a dynamic moving polygon by updating the last vertex
-		if event is InputEventMouseMotion and terrain_modifier.polygon.size() >= 1:
+		if event is InputEventMouseMotion and polygon_modifier.polygon.size() >= 1:
 			var real_position = event.position + ld_camera.global_position
 			real_position = snap_vector(real_position, grid_px)
-			terrain_modifier.polygon[terrain_modifier.polygon.size() - 1] = real_position
+			polygon_modifier.polygon[polygon_modifier.polygon.size() - 1] = real_position
 			update() #force _draw
 		
 		#on click, insert a new vert in the polygon
@@ -140,13 +154,13 @@ func _input(event):
 			if event.button_index == 1:
 				var real_position = event.position + ld_camera.global_position
 				real_position = snap_vector(real_position, grid_px)
-				var p_size = terrain_modifier.polygon.size()
+				var p_size = polygon_modifier.polygon.size()
 				#if we have 2 vertices, cancel the placement, more than 3, we place it down
-				if p_size >= 2 && real_position == terrain_modifier.polygon[0]:
+				if p_size >= 2 && real_position == polygon_modifier.polygon[0]:
 					if p_size >= 3:
 						finish_creating_polygon()
 				else:
-					terrain_modifier.polygon.append(real_position)
+					polygon_modifier.polygon.append(real_position)
 			elif event.button_index == 2:
 				finish_creating_polygon()
 			update() #force _draw
