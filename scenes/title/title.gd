@@ -12,7 +12,7 @@ onready var version = $Version
 var volume_balance = 0
 var dampen = false
 var scale
-func _process(_delta):
+func _process(delta):
 	scale = Vector2.ONE * max(
 		1,
 		min(
@@ -24,7 +24,7 @@ func _process(_delta):
 		menu.visible = true
 		Singleton.get_node("SFX/Confirm").play()
 	if dampen:
-		menu_song.volume_db -= 1
+		menu_song.volume_db -= 1 * 60 * delta
 	else:
 		if menu.visible:
 			volume_balance = min(volume_balance + FADE_SPEED, 1)
