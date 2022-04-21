@@ -16,13 +16,13 @@
 [ext_resource path="res://actors/player/bubble.tres" type="Material" id=38]
 [ext_resource path="res://audio/sfx/fludd/fludd_switch.wav" type="AudioStream" id=56]
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
-region = Rect2( 72, 0, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 2 )
 region = Rect2( 48, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
@@ -32,29 +32,9 @@ region = Rect2( 168, 0, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 408, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=14]
+[sub_resource type="AtlasTexture" id=24]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 2 )
-region = Rect2( 24, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 2 )
-region = Rect2( 96, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 2 )
-region = Rect2( 216, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 2 )
-region = Rect2( 240, 0, 24, 38 )
+region = Rect2( 408, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 2 )
@@ -68,22 +48,6 @@ region = Rect2( 288, 0, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 312, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
-region = Rect2( 120, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 2 )
-region = Rect2( 144, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 2 )
-region = Rect2( 216, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 2 )
-region = Rect2( 240, 38, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=39]
 atlas = ExtResource( 2 )
 region = Rect2( 264, 38, 24, 38 )
@@ -96,29 +60,29 @@ region = Rect2( 288, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 312, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=34]
+[sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 2 )
-region = Rect2( 192, 38, 24, 38 )
+region = Rect2( 48, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=23]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
-region = Rect2( 72, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
-region = Rect2( 384, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 2 )
-region = Rect2( 120, 38, 24, 38 )
+region = Rect2( 96, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 2 )
 region = Rect2( 144, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=24]
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 2 )
-region = Rect2( 408, 38, 24, 38 )
+region = Rect2( 216, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 240, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 2 )
@@ -132,24 +96,60 @@ region = Rect2( 24, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 168, 38, 24, 38 )
 
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 24, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 2 )
+region = Rect2( 216, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 2 )
+region = Rect2( 240, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 2 )
+region = Rect2( 72, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 24, 38 )
+
 [sub_resource type="AtlasTexture" id=25]
 atlas = ExtResource( 2 )
 region = Rect2( 96, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 2 )
-region = Rect2( 48, 38, 24, 38 )
-
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 8 ) ],
-"loop": true,
-"name": "back",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 7 ) ],
 "loop": true,
 "name": "front",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 8 ) ],
+"loop": true,
+"name": "back",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ) ],
@@ -162,69 +162,29 @@ animations = [ {
 "name": "dive",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"frames": [ SubResource( 24 ) ],
 "loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 17 ) ],
-"loop": true,
-"name": "jump",
+"name": "dive_fludd",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 13 ) ],
-"loop": true,
-"name": "pound_fall",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
-"loop": true,
-"name": "swim",
-"speed": 4.0
 }, {
 "frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
 "loop": true,
 "name": "spin",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 11 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 10 ) ],
-"loop": true,
-"name": "jump_double",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 30 ), SubResource( 31 ) ],
-"loop": true,
-"name": "swim_fludd",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
 "loop": true,
 "name": "spin_fludd",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 34 ) ],
+"frames": [ SubResource( 28 ) ],
 "loop": true,
-"name": "pound_fall_fludd",
+"name": "front_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 23 ) ],
+"frames": [ SubResource( 17 ) ],
 "loop": true,
-"name": "back_fludd",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 12 ) ],
-"loop": true,
-"name": "shine",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 27 ) ],
-"loop": true,
-"name": "fall_fludd",
+"name": "jump",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 29 ) ],
@@ -232,9 +192,14 @@ animations = [ {
 "name": "jump_double_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 24 ) ],
+"frames": [ SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
-"name": "dive_fludd",
+"name": "swim",
+"speed": 4.0
+}, {
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "shine",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 32 ), SubResource( 33 ) ],
@@ -247,14 +212,49 @@ animations = [ {
 "name": "flip_fludd",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "swim_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 27 ) ],
+"loop": true,
+"name": "fall_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 10 ) ],
+"loop": true,
+"name": "jump_double",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 34 ) ],
+"loop": true,
+"name": "pound_fall_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 11 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 23 ) ],
+"loop": true,
+"name": "back_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 13 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 10.0
+}, {
 "frames": [ SubResource( 25 ) ],
 "loop": true,
 "name": "jump_fludd",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 28 ) ],
-"loop": true,
-"name": "front_fludd",
 "speed": 5.0
 } ]
 
@@ -262,17 +262,17 @@ animations = [ {
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 28, 30 )
 
-[sub_resource type="AtlasTexture" id=38]
+[sub_resource type="AtlasTexture" id=42]
 atlas = ExtResource( 3 )
-region = Rect2( 112, 0, 28, 30 )
+region = Rect2( 28, 0, 28, 30 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 3 )
 region = Rect2( 56, 0, 28, 30 )
 
-[sub_resource type="AtlasTexture" id=42]
+[sub_resource type="AtlasTexture" id=38]
 atlas = ExtResource( 3 )
-region = Rect2( 28, 0, 28, 30 )
+region = Rect2( 112, 0, 28, 30 )
 
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
@@ -281,9 +281,9 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 38 ) ],
+"frames": [ SubResource( 42 ) ],
 "loop": true,
-"name": "turbo",
+"name": "hover_front",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 37 ) ],
@@ -291,9 +291,9 @@ animations = [ {
 "name": "rocket",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 42 ) ],
+"frames": [ SubResource( 38 ) ],
 "loop": true,
-"name": "hover_front",
+"name": "turbo",
 "speed": 5.0
 } ]
 
@@ -330,6 +330,7 @@ offset = Vector2( -2, -2 )
 position = Vector2( 0, 4 )
 collision_layer = 0
 collision_mask = 8
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 4 )
@@ -367,6 +368,7 @@ cast_to = Vector2( 0, 18 )
 
 [node name="BackupAngle" type="Area2D" parent="."]
 collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BackupAngle"]
 position = Vector2( 0, 10 )
@@ -438,31 +440,6 @@ anim_speed = 1.0
 [node name="StepCheck" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 20 )
-
-[node name="GrassCheck" type="RayCast2D" parent="."]
-enabled = true
-cast_to = Vector2( 0, 20 )
-collision_mask = 8388608
-
-[node name="MetalCheck" type="RayCast2D" parent="."]
-enabled = true
-cast_to = Vector2( 0, 20 )
-collision_mask = 4194304
-
-[node name="SnowCheck" type="RayCast2D" parent="."]
-enabled = true
-cast_to = Vector2( 0, 20 )
-collision_mask = 2097152
-
-[node name="CloudCheck" type="RayCast2D" parent="."]
-enabled = true
-cast_to = Vector2( 0, 20 )
-collision_mask = 1048576
-
-[node name="IceCheck" type="RayCast2D" parent="."]
-enabled = true
-cast_to = Vector2( 0, 20 )
-collision_mask = 524288
 
 [connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
 [connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]
