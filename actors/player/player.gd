@@ -124,8 +124,14 @@ func _physics_process(_delta):
 		locked_behaviour()
 	else:
 		player_physics()
-		
-		
+
+
+func _on_Tween_tween_completed(_object, _key):
+	if state == S.POUND:
+		pound_state = Pound.FALL
+		vel.y = 8
+
+
 func _on_BackupAngle_body_entered(_body):
 	solid_floors += 1
 
@@ -133,6 +139,17 @@ func _on_BackupAngle_body_entered(_body):
 func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
 
+
+func _on_WaterCheck_area_entered(_area):
+	swimming = true
+	Singleton.water = max(Singleton.water, 100)
+
+
+func _on_WaterCheck_area_exited(_area):
+	if water_check.get_overlapping_bodies().size() == 0:
+		swimming = false
+		if vel.y < 0 && !fludd_strain && !is_spinning():
+			vel.y -= 3
 
 # player physics constants
 const GP_DIVE_TIME = 6
@@ -142,6 +159,7 @@ const GROUND_OVERRIDE_THRESHOLD: int = 10
 var vel = Vector2.ZERO
 var state = S.NEUTRAL
 var fludd_strain = false
+var invincible = false
 
 # secondary states
 var swimming = false
@@ -179,8 +197,6 @@ var pound_state: int = Pound.SPIN
 var solid_floors: int = 0
 func player_physics():
 		
-	var wall = is_on_wall()
-	var ceiling = is_on_ceiling()
 	check_ground_state()
 	
 	manage_invuln()
@@ -195,7 +211,6 @@ func player_physics():
 		Singleton.water = max(Singleton.water, 100)
 		Singleton.power = 100
 
-	action_dive()
 	
 	if coyote_frames > 0:
 		coyote_behaviour()
@@ -213,15 +228,78 @@ func player_physics():
 	
 	player_control_x()
 	fludd_control()
+	action_dive()
+	action_spin()
+	action_pound()
 	
-	
-	if ceiling:
+	if is_on_ceiling():
 		vel.y = max(vel.y, 0.1)
 	
 	player_move()
 	
 	if state == S.POUND && is_on_floor():
 		vel.x = 0 # stop sliding down into holes
+
+
+func action_pound() -> void:
+	if Input.is_action_pressed("pound"):
+		if state == S.DIVE && gp_dive_timer > 0:
+			var mag = vel.length()
+			var ang
+			if vel.x > 0:
+				ang = PI / 5
+			else:
+				ang = PI - PI / 5
+			vel = Vector2(cos(ang) * mag, sin(ang) * mag)
+		else:
+			if (
+				!grounded
+				&& (
+					state & (
+						S.NEUTRAL
+						| S.TRIPLE_JUMP
+						| S.SPIN
+						| S.BACKFLIP
+						| S.ROLLOUT
+					)
+					||
+					(
+						state == S.DIVE
+						&& Input.is_action_just_pressed("pound")
+					)
+				)
+			):
+				switch_state(S.POUND)
+				pound_state = Pound.SPIN
+				switch_anim("flip")
+				sprite.rotation_degrees = 0
+				tween.remove_all()
+				tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
+				tween.start()
+
+
+const SPIN_TIME = 30
+var spin_frames = 0
+func action_spin() -> void:
+	if state == S.SPIN:
+		if spin_frames > 0:
+			spin_frames -= 1
+		elif !Input.is_action_pressed("spin"):
+			switch_state(S.NEUTRAL)
+			
+	if (
+		Input.is_action_pressed("spin")
+		&& (
+			state == S.NEUTRAL
+			|| (state == S.ROLLOUT || Input.is_action_just_pressed("spin"))
+		)
+		&& (vel.y > -3.3 * FPS_MOD || state == S.ROLLOUT)
+	):
+		switch_state(S.SPIN)
+		switch_anim("spin")
+		if !grounded:
+			vel.y = min(-3.5 * FPS_MOD * 1.3, vel.y - 3.5 * FPS_MOD)
+		spin_frames = SPIN_TIME
 
 
 var rocket_charge: int = 0
@@ -596,6 +674,7 @@ func manage_pound_recover() -> void:
 			switch_anim("flip")
 		elif pound_land_frames <= 0:
 			switch_state(S.NEUTRAL)
+		# warning-ignore:narrowing_conversion
 		pound_land_frames = max(0, pound_land_frames - 1)
 
 
@@ -611,6 +690,7 @@ func player_move() -> void:
 	var slide_vec = position-save_pos
 	# if the player isn't grounded despite being stopped moving downwards, increment the failsafe
 	if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
+		# warning-ignore:narrowing_conversion
 		ground_override = min(ground_override + 1, GROUND_OVERRIDE_THRESHOLD)
 	
 	# ensure the player moves the intended horizontal distance
@@ -729,23 +809,24 @@ func manage_water_audio():
 	AudioServer.set_bus_effect_enabled(0, 1, swimming) # TODO: fade the muffle effect
 
 
-const ROLLOUT_TIME = 18
-const DIVE_RESET_TIME = 8
-var rollout_frames = 0
-var dive_reset_frames = 0
+const ROLLOUT_TIME: int = 18
+const DIVE_RESET_TIME: int = 8
+var rollout_frames: int = 0
+var dive_reset_frames: int = 0
 func manage_dive_recover():
 	if state == S.ROLLOUT:
 		rollout_frames += 1
 		if sprite.flip_h:
-			sprite.rotation = -rollout_frames * PI / 2 / ROLLOUT_TIME
+			sprite.rotation = -rollout_frames * TAU / ROLLOUT_TIME
 		else:
-			sprite.rotation = rollout_frames * PI / 2 / ROLLOUT_TIME
+			sprite.rotation = rollout_frames * TAU / ROLLOUT_TIME
 		if rollout_frames >= 18 || grounded:
 			switch_state(S.NEUTRAL)
 			sprite.rotation = 0
 			rollout_frames = 0
 	elif dive_resetting:
 		dive_reset_frames += 1
+		# warning-ignore:integer_division
 		if dive_reset_frames >= DIVE_RESET_TIME / 2:
 			if sprite.animation != "jump":
 				switch_anim("jump")
@@ -756,7 +837,6 @@ func manage_dive_recover():
 				sprite.rotation = dive_reset_frames * PI / 2 / DIVE_RESET_TIME - PI / 2
 			else:
 				sprite.rotation = -dive_reset_frames * PI / 2 / DIVE_RESET_TIME + PI / 2
-			print(dive_reset_frames)
 			if dive_reset_frames >= DIVE_RESET_TIME:
 				dive_resetting = false
 				switch_state(S.NEUTRAL)
@@ -819,6 +899,7 @@ func manage_buffers():
 	else:
 		jump_buffer_frames = 0
 		
+	# warning-ignore:narrowing_conversion
 	jump_vary_frames = max(jump_vary_frames - 1, -1)
 
 
@@ -835,7 +916,7 @@ func locked_behaviour():
 #			sprite.animation = "shine"
 #			if collect_time >= 80:
 #				$"/root/Singleton/WindowWarp".warp(Vector2(), "res://scenes/title/title.tscn", 40)
-	var a = 0 # TODO
+	var _a = 0 # TODO
 
 
 func manage_invuln():
@@ -959,6 +1040,18 @@ func step_sound():
 					play_sfx("step", "ice")
 				_:
 					play_sfx("step", "generic")
+
+
+func invincibility_on_effect():
+	invincible = true
+
+
+func is_spinning():
+	return state == S.SPIN && spin_frames > 0
+
+
+func is_diving(allow_rollout):
+	return (state == S.DIVE || (state == S.ROLLOUT && allow_rollout))
 
 
 func resist(val, sub, div): # ripped from source
