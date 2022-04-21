@@ -1,27 +1,87 @@
 extends KinematicBody2D
 
-const fps_mod = 32.0 / 60.0 #Multiplier to account for 60fps
-const grav = fps_mod
+const FPS_MOD = 32.0 / 60.0 #Multiplier to account for 60fps
 
-const set_jump_1_tp = 3
-const set_jump_2_tp = set_jump_1_tp * 1.25
-const set_jump_3_tp = set_jump_1_tp * 1.5
-const set_air_speed_cap = 20.0*fps_mod
-const set_walk_accel = 1.1 * fps_mod
-const set_air_accel = 5.0 * fps_mod #Functions differently to walkAccel
-const set_walk_decel = set_walk_accel * 1.1 #Suggested by Maker - decel is faster than accel in casual mode
-const set_air_decel = set_air_accel * 1.1
-const set_jump_1_vel = 10 * fps_mod
-const set_jump_2_vel = set_jump_1_vel + 2.5 * fps_mod
-const set_jump_3_vel = set_jump_1_vel + 5.0 * fps_mod
-var set_wall_bounce
-const set_jump_mod_frames = 13
-var set_double_jump_frames = 17
-const set_triple_jump_deadzone = 2.0 * fps_mod
-const set_dive_speed = 35.0 * fps_mod
-const set_dive_correct = 7
-const set_hover_speed = 9.2
-const ground_override_threshold = 10
+const SFX_BANK = { #bank of sfx to be played with play_sfx()
+	"step": {
+		"grass": [
+			preload("res://audio/sfx/step/grass/step_grass_0.wav"),
+			preload("res://audio/sfx/step/grass/step_grass_1.wav"),
+			preload("res://audio/sfx/step/grass/step_grass_2.wav"),
+			preload("res://audio/sfx/step/grass/step_grass_3.wav"),
+		],
+		"generic": [
+			preload("res://audio/sfx/step/generic/step_generic_0.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_1.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_2.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_3.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_4.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_5.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_6.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_7.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_8.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_9.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_10.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_11.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_12.wav"),
+			preload("res://audio/sfx/step/generic/step_generic_13.wav"),
+		],
+		"metal": [
+			preload("res://audio/sfx/step/metal/step_metal_0.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_1.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_2.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_3.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_4.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_5.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_6.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_7.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_8.wav"),
+			preload("res://audio/sfx/step/metal/step_metal_9.wav"),
+		],
+		"snow": [
+			preload("res://audio/sfx/step/snow/step_snow_0.wav"),
+			preload("res://audio/sfx/step/snow/step_snow_1.wav"),
+			preload("res://audio/sfx/step/snow/step_snow_2.wav"),
+			preload("res://audio/sfx/step/snow/step_snow_3.wav"),
+			preload("res://audio/sfx/step/snow/step_snow_4.wav"),
+		],
+		"cloud": [
+			preload("res://audio/sfx/step/cloud/step_cloud_0.wav"),
+			preload("res://audio/sfx/step/cloud/step_cloud_1.wav"),
+		],
+		"ice": [
+			preload("res://audio/sfx/step/ice/step_ice_0.wav"),
+			preload("res://audio/sfx/step/ice/step_ice_1.wav"),
+		],
+	},
+	"voice": {
+		"jump1": [
+			preload("res://audio/sfx/mario/jump_single/jump_single_0.wav"),
+			preload("res://audio/sfx/mario/jump_single/jump_single_1.wav"),
+		],
+		"jump2": [
+			preload("res://audio/sfx/mario/jump_double/jump_double_0.wav"),
+			preload("res://audio/sfx/mario/jump_double/jump_double_1.wav"),
+			preload("res://audio/sfx/mario/jump_double/jump_double_2.wav"),
+		],
+		"jump3": [
+			preload("res://audio/sfx/mario/jump_triple/jump_triple_0.wav"),
+			preload("res://audio/sfx/mario/jump_triple/jump_triple_1.wav"),
+			preload("res://audio/sfx/mario/jump_triple/jump_triple_2.wav"),
+			preload("res://audio/sfx/mario/jump_triple/jump_triple_3.wav"),
+			preload("res://audio/sfx/mario/jump_triple/jump_triple_4.wav"),
+			preload("res://audio/sfx/mario/jump_triple/jump_triple_5.wav"),
+			preload("res://audio/sfx/mario/jump_triple/jump_triple_6.wav"),
+			preload("res://audio/sfx/mario/jump_triple/jump_triple_7.wav"),
+		],
+		"dive": [
+			preload("res://audio/sfx/mario/dive/dive_0.wav"),
+			preload("res://audio/sfx/mario/dive/dive_1.wav"),
+			preload("res://audio/sfx/mario/dive/dive_2.wav"),
+			preload("res://audio/sfx/mario/dive/dive_3.wav"),
+		],
+	}
+}
 
 onready var base_modifier: BaseModifier = Singleton.base_modifier
 onready var voice = $Voice
@@ -31,11 +91,6 @@ onready var sprite = $Character
 onready var fludd_sprite = $Character/Fludd
 onready var camera = $Camera2D
 onready var step_check = $StepCheck
-onready var grass_check = $GrassCheck
-onready var metal_check = $MetalCheck
-onready var snow_check = $SnowCheck
-onready var cloud_check = $CloudCheck
-onready var ice_check = $IceCheck
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
@@ -47,1171 +102,30 @@ onready var hover_sfx = $HoverSFX
 onready var hover_loop_sfx = $HoverLoopSFX
 onready var dust = $Dust
 
-var stand_box_pos = Vector2(0, 1.5)
-var stand_box_extents = Vector2(6, 14.5)
-var dive_box_pos = Vector2(0, 3)
-var dive_box_extents = Vector2(6, 6)
-var ground_override = 0
+#vars to lock mechanics
+var invuln_frames: int = 0
+var locked: bool = false
+
+#visual vars
 var last_step = 0
-var hover_position = 0
-
-#mario's gameplay parameters
-var fludd_strain = false
-var static_v = false #for pipe, may be used for other things.
-var invincible = false #needed for making him invincible
-var invincible_timer = 0 #for when player's invincible variable is true, then starts incrementing
-var prog_alpha = 0
-var if_died = false #for death transition
-#####################
-
-const voice_bank = {
-	"jump1": [
-		preload("res://audio/sfx/mario/jump_single/jump_single_0.wav"),
-		preload("res://audio/sfx/mario/jump_single/jump_single_1.wav"),
-	],
-	"jump2": [
-		preload("res://audio/sfx/mario/jump_double/jump_double_0.wav"),
-		preload("res://audio/sfx/mario/jump_double/jump_double_1.wav"),
-		preload("res://audio/sfx/mario/jump_double/jump_double_2.wav"),
-		#preload("res://audio/sfx/mario/jump2/ma3.wav"),
-	],
-	"jump3": [
-		preload("res://audio/sfx/mario/jump_triple/jump_triple_0.wav"),
-		preload("res://audio/sfx/mario/jump_triple/jump_triple_1.wav"),
-		preload("res://audio/sfx/mario/jump_triple/jump_triple_2.wav"),
-		preload("res://audio/sfx/mario/jump_triple/jump_triple_3.wav"),
-		preload("res://audio/sfx/mario/jump_triple/jump_triple_4.wav"),
-		preload("res://audio/sfx/mario/jump_triple/jump_triple_5.wav"),
-		preload("res://audio/sfx/mario/jump_triple/jump_triple_6.wav"),
-		preload("res://audio/sfx/mario/jump_triple/jump_triple_7.wav"),
-	],
-	"dive": [
-		preload("res://audio/sfx/mario/dive/dive_0.wav"),
-		preload("res://audio/sfx/mario/dive/dive_1.wav"),
-		preload("res://audio/sfx/mario/dive/dive_2.wav"),
-		preload("res://audio/sfx/mario/dive/dive_3.wav"),
-	],
-}
-
-const step_bank = {
-	"grass": [
-		preload("res://audio/sfx/step/grass/step_grass_0.wav"),
-		preload("res://audio/sfx/step/grass/step_grass_1.wav"),
-		preload("res://audio/sfx/step/grass/step_grass_2.wav"),
-		preload("res://audio/sfx/step/grass/step_grass_3.wav"),
-	],
-	"generic": [
-		preload("res://audio/sfx/step/generic/step_generic_0.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_1.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_2.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_3.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_4.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_5.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_6.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_7.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_8.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_9.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_10.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_11.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_12.wav"),
-		preload("res://audio/sfx/step/generic/step_generic_13.wav"),
-	],
-	"metal": [
-		preload("res://audio/sfx/step/metal/step_metal_0.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_1.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_2.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_3.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_4.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_5.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_6.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_7.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_8.wav"),
-		preload("res://audio/sfx/step/metal/step_metal_9.wav"),
-	],
-	"snow": [
-		preload("res://audio/sfx/step/snow/step_snow_0.wav"),
-		preload("res://audio/sfx/step/snow/step_snow_1.wav"),
-		preload("res://audio/sfx/step/snow/step_snow_2.wav"),
-		preload("res://audio/sfx/step/snow/step_snow_3.wav"),
-		preload("res://audio/sfx/step/snow/step_snow_4.wav"),
-	],
-	"cloud": [
-		preload("res://audio/sfx/step/cloud/step_cloud_0.wav"),
-		preload("res://audio/sfx/step/cloud/step_cloud_1.wav"),
-	],
-	"ice": [
-		preload("res://audio/sfx/step/ice/step_ice_0.wav"),
-		preload("res://audio/sfx/step/ice/step_ice_1.wav"),
-	],
-}
-
-var jump_frames = -1
-var vel = Vector2()
-var double_jump_state = 0
-var double_jump_frames = 0
-var spin_timer = 0
-var flip_l
-var dive_return = false
-var dive_frames = 0
-var pound_frames = 0
-var rocket_charge = 0
-var jump_cancel = false
-var sign_cooldown = 0
-var jump_buffer = 0
-var coyote_time = 0
-var sign_x = null
-var collect_pos_init = Vector2()
-var collect_pos_final = Vector2()
-var collect_time : float = 0
-var solid_floors = 0
-var swim_delay = false
-var gp_dive_timer : int = 0
-
-enum s { #state enum
-	walk,
-	frontflip, #triple jump
-	backflip,
-	spin,
-	dive,
-	diveflip,
-	pound_spin,
-	pound_fall,
-	pound_land,
-	door,
-	ejump, #bouncing off a goomba
-	edive, #bouncing off a goomba
-	swim,
-	waterdive,
-	waterbackflip,
-	waterspin,
-}
-
-var state = s.walk
-var classic
-
-func take_damage(amount):
-	if !invincible && !static_v:
-		Singleton.hp = clamp(Singleton.hp - amount, 0, 8)
-		invincibility_on_effect()
-
-
-func take_damage_shove(amount, direction):
-	if !invincible && !static_v:
-		take_damage_impact(amount, Vector2(4 * direction, -3))
-
-
-func take_damage_impact(amount, impact_vel):
-	if !invincible && !static_v:
-		take_damage(amount)
-		vel = impact_vel
-		#warning-ignore:return_value_discarded
-		move_and_slide(Vector2.UP, Vector2(0, -1), true)
-
-
-func recieve_health(amount):
-	Singleton.hp = clamp(Singleton.hp + amount, 0, 8)
-
-func dive_correct(factor): #Correct the player's origin position when diving
-	#warning-ignore:return_value_discarded
-	move_and_slide(Vector2(0, set_dive_correct * factor * 60), Vector2(0, -1))
-	if factor == -1:
-		dust.position.y = 11.5
-	else:
-		dust.position.y = 11.5 - set_dive_correct
-	base_modifier.add_modifier(
-		camera,
-		"position",
-		"dive_correction",
-		Vector2(
-			0,
-			min(0, -set_dive_correct * factor)
-		)
-	)
-	#camera.position.y = min(0, -set_dive_correct * factor)
-
-
-func play_voice(group_name):
-	var group = voice_bank[group_name]
-	var sound = group[randi() % group.size()]
-	voice.stream = sound
-	voice.play(0)
-
-
-func play_step():
-	if sprite.frame == 0 && last_step == 1 && step_check.is_colliding():
-		var group
-		if grass_check.is_colliding():
-			group = step_bank["grass"]
-		elif metal_check.is_colliding():
-			group = step_bank["metal"]
-		elif snow_check.is_colliding():
-			group = step_bank["snow"]
-		elif cloud_check.is_colliding():
-			group = step_bank["cloud"]
-		elif ice_check.is_colliding():
-			group = step_bank["ice"]
-		else:
-			group = step_bank["generic"]
-			
-		var sound = group[randi() % group.size()]
-		step.stream = sound
-		step.play(0)
-
-
-func update_classic():
-	classic = Singleton.classic
-	if classic:
-		set_wall_bounce = 0.5
-		set_double_jump_frames = 17
-	else:
-		set_wall_bounce = 0.19
-		set_double_jump_frames = 8
-
-
-func switch_anim(new_anim):
-	var fludd_anim
-	var anim
-	if new_anim == "fall":
-		last_step = 1
-	anim = new_anim
-	if Singleton.nozzle == Singleton.n.none:
-		fludd_sprite.visible = false
-	else:
-		fludd_sprite.visible = true
-		fludd_anim = new_anim + "_fludd"
-		if sprite.frames.has_animation(fludd_anim):
-			anim = fludd_anim
-		else:
-			anim = new_anim
-			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
-	match Singleton.nozzle:
-		Singleton.n.hover:
-			fludd_sprite.animation = "hover"
-		Singleton.n.rocket:
-			fludd_sprite.animation = "rocket"
-		Singleton.n.turbo:
-			fludd_sprite.animation = "turbo"
-	sprite.animation = anim
-
-
-func switch_state(new_state):
-	state = new_state
-	sprite.rotation_degrees = 0
-	match state:
-		s.dive, s.waterdive:
-			hitbox.position = dive_box_pos
-			hitbox.shape.extents = dive_box_extents
-		s.pound_fall:
-			hitbox.position = stand_box_pos
-			hitbox.shape.extents = stand_box_extents
-			camera.smoothing_speed = 10
-		_:
-			hitbox.position = stand_box_pos
-			hitbox.shape.extents = stand_box_extents
-			camera.smoothing_speed = 5
-
+var invuln_flash: int = 0
 
 func _ready():
 	var warp = $"/root/Singleton/Warp"
-	switch_state(s.walk) # reset state to avoid short mario glitch
+	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	if Singleton.set_location != null:
 		position = Singleton.set_location
 		warp.set_location = null
 		sprite.flip_h = warp.flip
-	update_classic()
-
-
-func ground_friction(val, sub, div): #Ripped from source
-	val = val/fps_mod
-	var vel_sign = sign(val)
-	val = abs(val)
-	val -= sub
-	val = max(0, val)
-	val /= div
-	val *= vel_sign
-	return val*fps_mod
 
 
 func _physics_process(_delta):
-	if invincible == true:
-		invincible_timer += 1
-		modulate.a = (sin(2 * PI * prog_alpha) + 3) / 4
-		prog_alpha += 0.1
-		
-		
-	if invincible_timer == 180:
-		invincible_timer = 0
-		modulate.a = 1
-		invincible = false
-	
-	update_classic()
-	if static_v:
-		if sign_x != null:
-			position.x = sign_x + (position.x - sign_x) * 0.75
-		if collect_pos_final != Vector2():
-			sprite.animation = "spin"
-			position = collect_pos_init + sin(min(collect_time, 1) * PI / 2) * (collect_pos_final - collect_pos_init)
-			if collect_time < 1:
-				collect_time += 1.0/(60.0 * 3.835)
-			else:
-				collect_time += 1.0
-				sprite.animation = "shine"
-				if collect_time >= 80:
-					$"/root/Singleton/WindowWarp".warp(Vector2(), "res://scenes/title/title.tscn", 40)
+	if locked:
+		locked_behaviour()
 	else:
-		var i_left = Input.is_action_pressed("left")
-		var i_right = Input.is_action_pressed("right")
-		var i_down = Input.is_action_pressed("down")
-		var i_jump = Input.is_action_just_pressed("jump")
-		var i_jump_h = Input.is_action_pressed("jump")
-		var i_semi = Input.is_action_pressed("semi")
-		var i_dive = Input.is_action_just_pressed("dive")
-		var i_dive_h = Input.is_action_pressed("dive")
-		var i_spin = Input.is_action_just_pressed("spin")
-		var i_spin_h = Input.is_action_pressed("spin")
-		var i_pound = Input.is_action_just_pressed("pound")
-		var i_pound_h = Input.is_action_pressed("pound")
-		var i_fludd = Input.is_action_pressed("fludd")
-		var i_switch = Input.is_action_just_pressed("switch_fludd")
+		player_physics()
 		
 		
-		if Input.is_action_just_pressed("reset"):
-			Singleton.collected_nozzles = [false, false, false]
-			Singleton.nozzle = Singleton.n.none
-			Singleton.water = 100
-			Singleton.get_node("Timer").frames = 0
-			Singleton.get_node("Timer").split_frames = 0
-			Singleton.get_node("Timer").running = true
-			Singleton.set_location = Vector2(110, 153)
-			Singleton.reset_all_coindicts()
-			Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn")
-			position = Vector2(110, 153)
-			
-#		if Input.is_action_just_pressed("debug"):
-#			if i_jump_h:
-#				$"/root/Main".classic = !classic
-#				update_classic()
-
-		# failsafe to prevent getting stuck between slopes
-		# treat with care: tweaking this in the wrong way could allow midair jumps
-		# varying from "possible but too difficult to do in a speedrun but just useful enough to"
-		# destroy a category if someone pulls it off" to "intrusive and annoying"
-		var ground = is_on_floor() || ground_override >= ground_override_threshold
-		if vel.y < 0 || is_on_floor() || i_fludd || state == s.pound_spin || is_swimming() || state == s.ejump || state == s.edive:
-			ground_override = 0
-		
-		var wall = is_on_wall()
-		var ceiling = is_on_ceiling()
-		
-		if ground:
-			coyote_time = 5
-		else:
-			coyote_time = max(coyote_time - 1, 0)
-		
-		#warning-ignore:NARROWING_CONVERSION
-		gp_dive_timer = max(gp_dive_timer - 1, 0)
-		
-		if i_jump_h:
-			jump_buffer = max(jump_buffer - 1, 0)
-			if i_jump:
-				jump_buffer = 6
-		else:
-			jump_buffer = 0
-		
-		sign_cooldown = max(sign_cooldown - 1, 0)
-		
-		if i_switch:
-			var save_nozzle = Singleton.nozzle
-			Singleton.nozzle += 1
-			while (Singleton.nozzle < 4 && !Singleton.collected_nozzles[(Singleton.nozzle - 1) % 3]) || Singleton.nozzle == 0:
-				Singleton.nozzle += 1
-			if Singleton.nozzle == 4:
-				Singleton.nozzle = 0
-			if Singleton.nozzle != save_nozzle:
-				var anim = sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", "") #lazy way to refresh fludd anim
-				switch_anim(anim)
-				fludd_strain = false
-				switch_sfx.play()
-		
-		var fall_adjust = vel.y #Used to adjust downward acceleration to account for framerate difference
-		if state == s.swim || state == s.waterdive || state == s.waterbackflip || state == s.waterspin: #swimming is basically entirely different so it's wholly seperate
-			AudioServer.set_bus_effect_enabled(0, 0, true) #muffle audio underwater
-			AudioServer.set_bus_effect_enabled(0, 1, true)
-			Singleton.water = max(Singleton.water, 100)
-			Singleton.power = 100
-			
-			if state == s.swim:
-				if i_spin_h && vel.y > -1:
-					switch_state(s.waterspin)
-					switch_anim("spin")
-					if !ground:
-						fall_adjust = min(-3.5 * fps_mod, fall_adjust - 3.5 * fps_mod) * 3
-					spin_timer = 30
-				else:
-					if ground:
-						switch_anim("walk")
-						fall_adjust = 0
-					else:
-						switch_anim("swim")
-						if sprite.frame == 0:
-							sprite.speed_scale = 0
-			if state == s.waterspin:
-				if spin_timer > 0:
-					spin_timer -= 1
-				elif !i_spin_h:
-					switch_state(s.swim)
-			if !i_spin_h:
-				fall_adjust += grav / 3.0
-			if state != s.waterbackflip || vel.y > 0:
-				fall_adjust = ground_friction(fall_adjust, 0.05, 1.01);
-				fall_adjust = ground_friction(fall_adjust, ((grav/fps_mod)/5), 1.05)
-				fall_adjust = ground_friction(fall_adjust, 0, 1.001)
-			vel.x = ground_friction(vel.x, 0, 1.001)
-			if i_left == i_right || state == s.waterdive:
-				vel.x = ground_friction(vel.x, 0, 1.001)
-			#fall_adjust = ground_friction(fall_adjust, 0.05, 1.1);
-			if state == s.waterdive:
-				vel.x = ground_friction(vel.x, 0.2, 1.02) #Floor friction
-				if !dive_return:
-					if angle_cast.is_colliding():
-						#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
-						var angle_offset = 0
-						if sprite.flip_h:
-							angle_offset = 0
-						else:
-							angle_offset = PI
-						sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
-					elif solid_floors > 0:
-						if sprite.flip_h:
-							sprite.rotation = -PI / 2
-						else:
-							sprite.rotation = PI / 2
-			else:
-				if i_left && !i_right:
-					sprite.flip_h = true
-					if state == s.spin || state == s.backflip:
-						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
-					else:
-						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
-				
-				if i_right && !i_left:
-					sprite.flip_h = false
-					if state == s.spin || state == s.backflip:
-						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
-					else:
-						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
-				
-			if dive_return:
-				dive_frames -= 1
-				if dive_frames == 0:
-					switch_anim("jump")
-					sprite.rotation_degrees += -90 if sprite.flip_h else 90
-					dive_correct(-1)
-					hitbox.position = stand_box_pos
-					hitbox.shape.extents = stand_box_extents
-					
-				if abs(sprite.rotation_degrees) > 9 || dive_frames > 2: #TODO: buggy
-					sprite.rotation_degrees += 10 if sprite.flip_h else -10
-				else:
-					dive_return = false
-					switch_state(s.swim)
-					sprite.rotation_degrees = 0
-					
-			if i_jump || i_semi:
-				if state == s.swim:
-					switch_anim("swim")
-					if swim_delay:
-						fall_adjust = min((- set_jump_1_vel) * 1.25, fall_adjust) * fps_mod
-					else:
-						fall_adjust = min((- set_jump_1_vel) * 1.25, fall_adjust)
-					sprite.frame = 1
-					sprite.speed_scale = 1
-					swim_delay = true
-				elif state == s.waterspin:
-					switch_state(s.swim)
-					fall_adjust -= set_jump_1_vel * 1.25
-					vel.x += 1.5 * sign(vel.x)
-				elif state == s.waterdive && i_jump && (((int(i_right) - int(i_left)) == 1.0 && sprite.flip_h) || ((int(i_right) - int(i_left)) == -1.0 && !sprite.flip_h)):
-					if !dive_return:
-						dive_correct(-1)
-					coyote_time = 0
-					switch_state(s.waterbackflip)
-					vel.y = min(-set_jump_1_vel - 2.5 * fps_mod, vel.y)
-					if sprite.flip_h:
-						vel.x += (30.0 - abs(vel.x)) / (5 / fps_mod)
-					else:
-						vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
-					dive_return = false
-					tween.remove_all() #TODO: tweens bad
-					if sprite.flip_h:
-						tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
-					else:
-						tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0)
-					tween.start()
-					switch_anim("jump")
-					flip_l = sprite.flip_h
-			else:
-				swim_delay = false
-			if ground:
-				if i_dive_h && state != s.waterbackflip && state != s.waterspin:
-					if state != s.waterdive:
-						switch_state(s.waterdive)
-					tween.remove_all()
-					switch_anim("dive")
-					double_jump_state = 0
-					dive_correct(1)
-				else:
-					if state == s.waterdive && !dive_return:
-						dive_return = true
-						dive_frames = 4
-						sprite.rotation_degrees = 0
-			else:
-				if state == s.waterdive && !dive_return:
-					dive_return = true
-					dive_frames = 4
-					sprite.rotation_degrees = 0
-				if i_down:
-					fall_adjust += 0.107
-			if i_fludd && Singleton.power > 0 && Singleton.water > 0 && (state != s.waterbackflip || !classic) && state != s.waterspin:
-				match Singleton.nozzle:
-					Singleton.n.hover:
-						fludd_strain = true
-						jump_cancel = true
-						if classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
-							if state == s.waterdive:
-								vel.y *= 1 - 0.02 * fps_mod
-								vel.x *= 1 - 0.03 * fps_mod
-								if ground:
-									vel.x += cos(sprite.rotation - PI / 2)*pow(fps_mod, 2)
-								elif state == s.dive:
-									vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
-									vel.x += cos(sprite.rotation - PI / 2)/2*pow(fps_mod, 2)
-								else:
-									if sprite.flip_h:
-										vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
-										vel.x -= cos(-sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
-									else:
-										vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
-										vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
-							else:
-								if i_jump_h:
-									vel.y *= 1 - (0.12 * fps_mod)
-								else:
-									vel.y *= 1 - (0.2 * fps_mod)
-								vel.y -= 0.75
-								vel.x = ground_friction(vel.x, 0.05, 1.03)
-					Singleton.n.rocket:
-						if Singleton.power == 100:
-							fludd_strain = true
-							rocket_charge += 1
-						else:
-							fludd_strain = false
-						if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
-							if state == s.dive:
-								#set sign of velocity (could use ternary but they're icky)
-								var multiplier = 1
-								if sprite.flip_h:
-									multiplier = -1
-								if ground:
-									multiplier *= 2 #double power when grounded to counteract friction
-								vel += Vector2(cos(sprite.rotation)*25*fps_mod * fps_mod * multiplier, -sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
-		#					elif state == s.frontflip:
-		#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
-							else:
-								vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
-								vel.y -= 0.5 * fps_mod
-							rocket_charge = 0
-			else:
-				fludd_strain = false
-				rocket_charge = 0
-			var swim_adjust = vel.x
-			swim_adjust = ground_friction(swim_adjust, 0.05, 1.05)
-			vel.x += (swim_adjust - vel.x) * fps_mod
-			vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
-		else: # on land
-			AudioServer.set_bus_effect_enabled(0, 0, false)
-			AudioServer.set_bus_effect_enabled(0, 1, false)
-			if state == s.diveflip:
-				if flip_l:
-					sprite.rotation_degrees -= 20
-				else:
-					sprite.rotation_degrees += 20
-				if abs(sprite.rotation_degrees) > 360-20 || ground:
-					switch_state(s.walk)
-					sprite.rotation_degrees = 0
-			elif dive_return:
-				dive_frames -= 1
-				if dive_frames == 0:
-					switch_anim("jump")
-					sprite.rotation_degrees += -90 if sprite.flip_h else 90
-					dive_correct(-1)
-					hitbox.position = stand_box_pos
-					hitbox.shape.extents = stand_box_extents
-					
-				if sprite.rotation_degrees != 0 || dive_frames > 2:
-					sprite.rotation_degrees += 10 if sprite.flip_h else -10
-				else:
-					dive_return = false
-					switch_state(s.walk)
-					sprite.rotation_degrees = 0
-				
-			if coyote_time > 0:
-				jump_cancel = false
-						
-				if ground: #specifically apply to when actually on the ground, not coyote time
-					if state == s.pound_fall || state == s.pound_land:
-						if pound_frames == 12:
-							switch_state(s.pound_land)
-							switch_anim("flip")
-						elif pound_frames <= 0:
-							switch_state(s.walk)
-						pound_frames = max(0, pound_frames - 1)
-					fall_adjust = 0 #set adjustable yvel to 0
-					if state == s.dive:
-						if double_jump_frames >= set_double_jump_frames - 1:
-							vel.x = ground_friction(vel.x, 0.2, 1.02) #Double friction on landing
-						vel.x = ground_friction(vel.x, 0.2, 1.02) #Floor friction
-						if !dive_return:
-							if angle_cast.is_colliding():
-								#var diff = fmod(angle_cast.get_collision_normal().angle() + PI/2 - sprite.rotation, PI * 2)
-								var angle_offset = 0
-								if sprite.flip_h:
-									angle_offset = 0
-								else:
-									angle_offset = PI
-								sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
-							elif solid_floors > 0:
-								if sprite.flip_h:
-									sprite.rotation = -PI / 2
-								else:
-									sprite.rotation = PI / 2
-					else:
-						if double_jump_frames >= set_double_jump_frames - 1:
-							vel.x = ground_friction(vel.x, 0.3, 1.15) #Double friction on landing
-						vel.x = ground_friction(vel.x, 0.3, 1.15) #Floor friction
-				
-					if state == s.frontflip || state == s.backflip: #Reset state when landing
-						switch_state(s.walk)
-						tween.remove_all()
-						sprite.rotation_degrees = 0
-					
-					if state == s.dive && abs(vel.x) == 0 && !i_dive_h && !dive_return:
-						dive_return = true
-						dive_frames = 4
-						sprite.rotation_degrees = 0
-				if state == s.walk:
-					switch_anim("walk")
-				
-				double_jump_frames = max(double_jump_frames - 1, 0)
-				if double_jump_frames <= 0:
-					double_jump_state = 0
-			else:
-				if state == s.frontflip:
-					if Singleton.nozzle == Singleton.n.none:
-						if abs(sprite.rotation_degrees) < 700:
-							switch_anim("flip")
-						else:
-							switch_anim("fall")
-					else:
-						if abs(sprite.rotation_degrees) < 340:
-							switch_anim("flip")
-						else:
-							switch_anim("fall")
-				elif state == s.walk:
-					if vel.y > 0:
-						switch_anim("fall")
-					else:
-						if double_jump_state == 2 && !jump_cancel:
-							switch_anim("jump_double")
-						else:
-							switch_anim("jump")
-				elif state == s.pound_fall:
-					switch_anim("pound_fall")
-				elif state == s.dive:
-					if sprite.flip_h:
-						sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x) - PI / 2, 0.5)
-					else:
-						sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
-				
-				if i_left == i_right:
-					vel.x = ground_friction(vel.x, 0, 1.001) #Air decel
-
-			if state == s.pound_spin:
-				vel *= 0
-			else:
-				if state == s.pound_fall:
-					fall_adjust += 0.814
-				else:
-					fall_adjust += grav
-				
-				if !ground:
-					if state == s.pound_fall:
-						pound_frames = 15
-					if fall_adjust > 0:
-						fall_adjust = ground_friction(fall_adjust, ((grav/fps_mod)/5), 1.05)
-					fall_adjust = ground_friction(fall_adjust, 0, 1.001)
-					if state == s.spin && !i_down:
-						#fall_adjust = ground_friction(fall_adjust, 0.3, 1.05) #fastspin
-						fall_adjust = ground_friction(fall_adjust, 0.1, 1.03)
-					vel.x = ground_friction(vel.x, 0, 1.001) #Air friction
-					
-					jump_frames = max(jump_frames - 1, -1)
-					
-				vel.y += (fall_adjust - vel.y) * fps_mod #Adjust the Y velocity according to the framerate
-			
-			if i_jump_h:
-				if coyote_time > 0:
-					if state == s.dive:
-						if ((int(i_right) - int(i_left) != -1) && !sprite.flip_h) || ((int(i_right) - int(i_left) != 1) && sprite.flip_h):
-							if !dive_return && vel.x != 0 && !wall: #prevents static dive recover
-								coyote_time = 0
-								dive_correct(-1)
-								switch_state(s.diveflip)
-								vel.y = min(-set_jump_1_vel/1.5, vel.y)
-								switch_anim("jump")
-								flip_l = sprite.flip_h
-						else:
-							if !dive_return:
-								dive_correct(-1)
-							coyote_time = 0
-							switch_state(s.backflip)
-							vel.y = min(-set_jump_1_vel - 2.5 * fps_mod, vel.y)
-							if sprite.flip_h:
-								vel.x += (30.0 - abs(vel.x)) / (5 / fps_mod)
-							else:
-								vel.x -= (30.0 - abs(vel.x)) / (5 / fps_mod)
-							dive_return = false
-							tween.remove_all()
-							if sprite.flip_h:
-								tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
-							else:
-								tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0)
-							tween.start()
-							switch_anim("jump")
-							flip_l = sprite.flip_h
-						
-						
-					elif jump_buffer > 0 && state != s.pound_fall && state != s.pound_land && state != s.ejump && state != s.edive:
-						jump_buffer = 0
-						jump_frames = set_jump_mod_frames
-						double_jump_frames = set_double_jump_frames
-						coyote_time = 0
-						match double_jump_state:
-							0: #Single
-								switch_state(s.walk)
-								play_voice("jump1")
-								if ground_override >= ground_override_threshold:
-									vel.y = -set_jump_1_vel * 2
-								else:
-									vel.y = -set_jump_1_vel
-								double_jump_state+=1
-							1: #Double
-								switch_state(s.walk)
-								play_voice("jump2")
-								if ground_override >= ground_override_threshold:
-									vel.y = -set_jump_2_vel * 2
-								else:
-									vel.y = -set_jump_2_vel
-								double_jump_state+=1
-							2: #Triple
-								if abs(vel.x) > set_triple_jump_deadzone:
-									if ground_override >= ground_override_threshold:
-										vel.y = -set_jump_3_vel * 2
-									else:
-										vel.y = -set_jump_3_vel
-									vel.x += (vel.x + 15*fps_mod*sign(vel.x))/5*fps_mod
-									double_jump_state = 0
-									switch_state(s.frontflip)
-									play_voice("jump3")
-									tween.remove_all()
-									if Singleton.nozzle == Singleton.n.none:
-										tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
-									else:
-										tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
-									tween.start()
-									flip_l = sprite.flip_h
-								else:
-									if ground_override > 0:
-										vel.y = -set_jump_2_vel * 2
-									else:
-										vel.y = -set_jump_2_vel #Not moving left/right fast enough
-									play_voice("jump2")
-						
-						if !classic:
-							#warning-ignore:return_value_discarded
-							move_and_collide(Vector2(0, -set_jump_1_tp)) #Suggested by Maker - slight upwards teleport
-				elif jump_frames > 0 && state == s.walk:
-					vel.y -= grav * pow(fps_mod, 3) #Variable jump height
-		
-			if i_left && !i_right && state != s.pound_spin:
-				if (state != s.dive
-				&& (state != s.diveflip || !classic)
-				&& (state != s.frontflip || !classic)
-				&& state != s.backflip
-				&& state != s.pound_fall
-				&& state != s.pound_land
-				):
-					sprite.flip_h = true
-				if ground:
-					if state == s.pound_fall || state == s.pound_land:
-						vel.x = 0
-					elif state != s.dive:
-						vel.x -= set_walk_accel
-				else:
-					if state == s.frontflip || state == s.spin || state == s.backflip:
-						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
-					elif state == s.dive || state == s.diveflip:
-						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod)
-					elif state == s.pound_fall:
-						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (2 / fps_mod)
-					else:
-						vel.x -= max((set_air_accel+vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
-				
-			if i_right && !i_left && state != s.pound_spin:
-				if (state != s.dive
-				&& (state != s.diveflip || !classic)
-				&& (state != s.frontflip || !classic)
-				&& state != s.backflip
-				&& state != s.pound_fall
-				&& state != s.pound_land
-				):
-					sprite.flip_h = false
-				if ground:
-					if state == s.pound_fall || state == s.pound_land:
-						vel.x = 0
-					elif state != s.dive:
-						vel.x += set_walk_accel
-				else:
-					if state == s.frontflip || state == s.spin || state == s.backflip:
-						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (1.5 / fps_mod)
-					elif state == s.dive || state == s.diveflip:
-						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (8 / fps_mod)
-					elif state == s.pound_fall:
-						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0) / (2 / fps_mod)
-					else:
-						vel.x += max((set_air_accel-vel.x)/(set_air_speed_cap/(3*fps_mod)), 0)
-			
-			if ground:
-				Singleton.power = 100
-			elif !i_fludd && Singleton.nozzle != Singleton.n.hover:
-				Singleton.power = min(Singleton.power + fps_mod, 100)
-			
-			if i_fludd && Singleton.power > 0 && Singleton.water > 0 && state != s.diveflip && (state != s.backflip || !classic) && state != s.spin && state != s.pound_spin && state != s.pound_fall && state != s.pound_land:
-				match Singleton.nozzle:
-					Singleton.n.hover:
-						fludd_strain = true
-						jump_cancel = true
-						if classic || state != s.frontflip || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
-							if state == s.dive || state == s.frontflip:
-								vel.y *= 1 - 0.02 * fps_mod
-								vel.x *= 1 - 0.03 * fps_mod
-								if ground:
-									vel.x += cos(sprite.rotation - PI / 2)*pow(fps_mod, 2)
-								elif state == s.dive:
-									vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
-									vel.x += cos(sprite.rotation - PI / 2)/2*pow(fps_mod, 2)
-								else:
-									if sprite.flip_h:
-										vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
-										vel.x -= cos(-sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
-									else:
-										vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(fps_mod, 2)
-										vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(fps_mod, 2)
-							else:
-								if Singleton.power == 100:
-									vel.y -= 2
-								
-								if i_jump_h:
-									vel.y *= 1 - (0.13 * fps_mod)
-								else:
-									vel.y *= 1 - (0.2 * fps_mod)
-								#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((Singleton.power/(175 / fps_mod))+(0.75 * fps_mod))
-								#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((Singleton.power/(175))+(0.75 * fps_mod))
-								vel.y -= (((-4*Singleton.power*vel.y * fps_mod * fps_mod) + (-525*vel.y * fps_mod) + (368*Singleton.power * fps_mod * fps_mod) + (48300)) / 7000) * pow(fps_mod, 5)
-								vel.x = ground_friction(vel.x, 0.05, 1.03)
-							Singleton.water = max(0, Singleton.water - 0.07 * fps_mod)
-							Singleton.power -= 1.5 * fps_mod
-					Singleton.n.rocket:
-						if Singleton.power == 100:
-							fludd_strain = true
-							rocket_charge += 1
-						else:
-							fludd_strain = false
-						if rocket_charge >= 14 / fps_mod && (state != s.frontflip || (round(abs(sprite.rotation_degrees)) < 2 || round(abs(sprite.rotation_degrees)) > 358) || (!classic && (abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
-							if state == s.dive:
-								#set sign of velocity (could use ternary but they're icky)
-								var multiplier = 1
-								if sprite.flip_h:
-									multiplier = -1
-								if ground:
-									multiplier *= 2 #double power when grounded to counteract friction
-								vel += Vector2(cos(sprite.rotation)*25*fps_mod * fps_mod * multiplier, -sin(sprite.rotation - PI / 2)*25*fps_mod * fps_mod)
-		#					elif state == s.frontflip:
-		#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
-							else:
-								vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
-								vel.y -= 0.5 * fps_mod
-							
-							Singleton.water = max(Singleton.water - 5, 0)
-							rocket_charge = 0
-							Singleton.power = 0
-			else:
-				fludd_strain = false
-				rocket_charge = 0
-			
-			if (i_dive_h
-				&& state != s.dive
-				&& (state != s.diveflip || (!classic && i_dive && sprite.flip_h != flip_l))
-				&& state != s.pound_spin
-				&& (state != s.spin || (!classic && i_dive))
-				&& state != s.ejump
-				&& state != s.edive
-				): #dive
-				if coyote_time > 0 && i_jump_h && abs(vel.x) > 1:
-					coyote_time = 0
-					dive_correct(-1)
-					switch_state(s.diveflip)
-					switch_anim("jump")
-					flip_l = sprite.flip_h
-					vel.y = min(-set_jump_1_vel/1.5, vel.y)
-					double_jump_state = 0
-				elif ((state != s.backflip || abs(sprite.rotation_degrees) > 270)
-					&& state != s.pound_fall
-					&& state != s.pound_spin
-					&& state != s.pound_land):
-					if !ground:
-						gp_dive_timer = 6
-						coyote_time = 0
-						if state != s.frontflip:
-							play_voice("dive")
-						var multiplier = 1
-						if state == s.backflip:
-							multiplier = 2
-						if sprite.flip_h:
-							vel.x -= (set_dive_speed - abs(vel.x / fps_mod)) / (5 / fps_mod) / fps_mod * multiplier
-						else:
-							vel.x += (set_dive_speed - abs(vel.x / fps_mod)) / (5 / fps_mod) / fps_mod * multiplier
-						if state == s.walk:
-							vel.y = max(-3, vel.y + 3.0 * fps_mod)
-						else:
-							vel.y += 3.0 * fps_mod
-					if !ground || vel.y >= 0:
-						switch_state(s.dive)
-						if sprite.flip_h:
-							sprite.rotation = -PI / 2
-						else:
-							sprite.rotation = PI / 2
-						tween.remove_all()
-						switch_anim("dive")
-						double_jump_state = 0
-						dive_correct(1)
-					
-			
-			if state == s.spin:
-				if spin_timer > 0:
-					spin_timer -= 1
-				elif !i_spin_h:
-					switch_state(s.walk)
-
-			if (i_spin_h
-			&& state != s.spin
-			&& state != s.frontflip
-			&& state != s.dive
-			&& state != s.backflip
-			&& (state != s.diveflip || (!classic && i_spin))
-			&& (vel.y > -3.3 * fps_mod || (!classic && state == s.diveflip))
-			&& state != s.pound_fall
-			&& state != s.pound_spin
-			&& state != s.pound_land):
-				switch_state(s.spin)
-				switch_anim("spin")
-				if !ground:
-					vel.y = min(-3.5 * fps_mod * 1.3, vel.y - 3.5 * fps_mod)
-				spin_timer = 30
-			
-			if i_pound_h:
-				if state == s.dive && gp_dive_timer > 0:
-					var mag = vel.length()
-					var ang
-					if vel.x > 0:
-						ang = PI / 5
-					else:
-						ang = PI - PI / 5
-					vel = Vector2(cos(ang) * mag, sin(ang) * mag)
-				else:
-					if (
-						!ground
-						&& state != s.pound_spin
-						&& state != s.pound_fall
-						&& state != s.pound_land
-						&&
-						(
-							state != s.dive
-							||
-							(
-								!classic
-								&& i_pound
-							)
-						)
-						&&
-						(
-							state != s.diveflip || !classic
-						)
-						&&
-						(
-							state != s.spin || !classic
-						)
-					):
-						switch_state(s.pound_spin)
-						switch_anim("flip")
-						sprite.rotation_degrees = 0
-						tween.remove_all()
-						tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
-						tween.start()
-		
-		if wall:
-			if int(vel.x) != 0:
-				if int(i_right) - int(i_left) != sign(int(vel.x)):
-					vel.x = -vel.x*set_wall_bounce #Bounce off a wall when not intentionally pushing into it
-				else:
-					vel.x = 0 #Cancel X velocity when intentionally pushing into a wall
-		
-		if ceiling:
-			vel.y = max(vel.y, 0.1)
-		
-		var snap
-		if !ground || i_jump || jump_buffer > 0 || state == s.diveflip || (i_fludd && Singleton.nozzle == Singleton.n.hover) || (state == s.swim && i_semi):
-			snap = Vector2.ZERO
-		else:
-			snap = Vector2(0, 4)
-			
-		var save_pos = position
-		#warning-ignore:return_value_discarded
-		move_and_slide_with_snap(vel*60.0, snap, Vector2(0, -1), true)
-		if (state == s.pound_fall || state == s.pound_land) && is_on_floor():
-			vel.x = 0 #stop sliding down into holes
-		var slide_vec = position-save_pos
-		if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
-			ground_override = min(ground_override + 1, ground_override_threshold)
-		
-		if (
-			slide_vec.x >= 0.5
-			&& is_on_floor()
-		):
-			position = save_pos
-			#warning-ignore:return_value_discarded
-			move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
-	
-	if state == s.dive || is_swimming():
-		hover_sfx.stop()
-		if fludd_strain:
-			if !hover_loop_sfx.playing:
-				hover_loop_sfx.play(hover_position)
-		else:
-			hover_position = hover_loop_sfx.get_playback_position()
-			hover_loop_sfx.stop()
-	else:
-		hover_loop_sfx.stop()
-		if Singleton.power > 99:
-			hover_position = 0
-			hover_sfx.stop()
-			
-		if fludd_strain:
-			if !hover_sfx.playing:
-				hover_sfx.play(hover_position)
-		else:
-			if Singleton.power < 100:
-				hover_position = hover_sfx.get_playback_position()
-			else:
-				hover_position = 0
-			if !Input.is_action_pressed("fludd") || Singleton.power > 0:
-				hover_sfx.stop()
-	bubbles_medium.emitting = fludd_strain
-	bubbles_small.emitting = fludd_strain
-
-	var center = position
-	if state == s.dive || state == s.waterdive:
-		bubbles_medium.position.y = -9
-		bubbles_small.position.y = -9
-		if sprite.flip_h:
-			bubbles_medium.position.x = -1
-			bubbles_small.position.x = -1
-
-		else:
-			bubbles_medium.position.x = 1
-			bubbles_small.position.x = 1
-	else:
-		bubbles_medium.position.y = -2
-		bubbles_small.position.y = -2
-		if sprite.flip_h:
-			bubbles_medium.position.x = 10
-			bubbles_small.position.x = 10
-		else:
-			bubbles_medium.position.x = -10
-			bubbles_small.position.x = -10
-	#offset bubbles to mario's center
-	bubbles_medium.position += center
-	bubbles_small.position += center
-	
-	#give it shader data
-	bubbles_small.direction = Vector2(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2))
-	bubbles_medium.direction = Vector2(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2))
-	
-	if abs(vel.x) < 2:
-		dust.emitting = false
-	else:
-		dust.emitting = is_on_floor()
-		
-	if sprite.animation.begins_with("walk"):
-		if int(vel.x) == 0:
-			sprite.frame = 0
-			sprite.speed_scale = 0
-			play_step()
-		else:
-			if sprite.speed_scale == 0:
-				sprite.frame = 1
-			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
-			play_step()
-		last_step = sprite.frame
-	elif !sprite.animation.begins_with("swim"):
-		sprite.speed_scale = 1
-	
-	#$Label.text = str(vel.x)
-	if Singleton.hp <= 0:
-		Singleton.dead = true
-	
-	fludd_sprite.flip_h = sprite.flip_h
-	if sprite.animation.begins_with("spin"):
-		match sprite.frame:
-#			0:
-#				fludd_sprite.flip_h = sprite.flip_h
-			1:
-				if !fludd_sprite.animation.ends_with("front"):
-					fludd_sprite.animation = fludd_sprite.animation + "_front"
-			2:
-				if fludd_sprite.animation.ends_with("front"):
-					fludd_sprite.animation = fludd_sprite.animation.substr(0, fludd_sprite.animation.length() - 6)
-				fludd_sprite.flip_h = !sprite.flip_h
-	if fludd_sprite.animation.ends_with("front"):
-		fludd_sprite.offset.x = 0
-	else:
-		if fludd_sprite.flip_h:
-			fludd_sprite.offset.x = 2
-		else:
-			fludd_sprite.offset.x = -2
-
-
-func _on_Tween_tween_completed(_object, _key):
-	if state == s.pound_spin:
-		switch_state(s.pound_fall)
-		vel.y = 8
-	else:
-		if state == s.waterdive || state == s.waterbackflip:
-			switch_state(s.swim)
-		else:
-			switch_state(s.walk)
-
-
 func _on_BackupAngle_body_entered(_body):
 	solid_floors += 1
 
@@ -1220,32 +134,840 @@ func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
 
 
+# player physics constants
+const GP_DIVE_TIME = 6
+const GROUND_OVERRIDE_THRESHOLD: int = 10
 
-func invincibility_on_effect():
-	invincible = true
-	#print("placeholder effect for flashing sprite")
+# player physics var
+var vel = Vector2.ZERO
+var state = S.NEUTRAL
+var fludd_strain = false
 
+# secondary states
+var swimming = false
+var bouncing = false
 
-func is_spinning():
-	return (state == s.spin || state == s.waterspin) && spin_timer > 0
+enum S { # state enum
+	NEUTRAL = 1 << 0,
+	BACKFLIP = 1 << 1,
+	SPIN = 1 << 2,
+	DIVE = 1 << 3,
+	ROLLOUT = 1 << 4,
+	POUND = 1 << 5,
+	TRIPLE_JUMP = 1 << 6,
+}
 
+enum Pound {
+	SPIN,
+	FALL,
+	LAND,
+}
 
-func is_diving(allow_recover):
-	return (state == s.dive || state == s.waterdive || state == s.edive || (state == s.diveflip && allow_recover))
-
-
-func is_swimming():
-	return state == s.swim || state == s.waterspin || state == s.waterdive || state == s.waterbackflip
-
-
-func _on_WaterCheck_area_entered(_area):
-	if state != s.swim && state != s.waterdive && state != s.waterbackflip && state != s.waterspin:
-		call_deferred("switch_state", s.swim)
+const GRAV: float = FPS_MOD
+const JUMP_VEL_1: float = 10 * FPS_MOD
+const JUMP_VEL_2: float = 12.5 * FPS_MOD
+const JUMP_VEL_3: float = 15 * FPS_MOD
+const DOUBLE_JUMP_TIME: int = 17
+var grounded: bool = false
+var dive_resetting: bool = false
+var frontflip_dir_left: bool = false
+var double_anim_cancel: bool = false
+var double_jump_state: int = 0
+var double_jump_frames: int = 0
+var pound_land_frames: int = 0
+var pound_state: int = Pound.SPIN
+var solid_floors: int = 0
+func player_physics():
+		
+	var wall = is_on_wall()
+	var ceiling = is_on_ceiling()
+	check_ground_state()
+	
+	manage_invuln()
+	manage_buffers()
+	manage_dive_recover()
+	manage_water_audio()
+	
+	if Input.is_action_just_pressed("switch_fludd"):
+		switch_fludd()
+	
+	if swimming:
 		Singleton.water = max(Singleton.water, 100)
+		Singleton.power = 100
+
+	action_dive()
+	
+	if coyote_frames > 0:
+		coyote_behaviour()
+	else:
+		airborne_anim()
+		if Input.is_action_pressed("left") == Input.is_action_pressed("right"):
+			vel.x = resist(vel.x, 0, 1.001) # Air decel
+	
+	player_fall()
+	if Input.is_action_pressed("jump"):
+		if coyote_frames > 0:
+			player_jump()
+		elif jump_vary_frames > 0 && state == S.NEUTRAL:
+			vel.y -= GRAV * pow(FPS_MOD, 3) #Variable jump height
+	
+	player_control_x()
+	fludd_control()
+	
+	
+	if ceiling:
+		vel.y = max(vel.y, 0.1)
+	
+	player_move()
+	
+	if state == S.POUND && is_on_floor():
+		vel.x = 0 # stop sliding down into holes
 
 
-func _on_WaterCheck_area_exited(_area):
-	if water_check.get_overlapping_bodies().size() == 0:
-		call_deferred("switch_state", s.walk)
-		if vel.y < 0 && !fludd_strain && !is_spinning():
-			vel.y -= 3
+var rocket_charge: int = 0
+func fludd_control():
+	if grounded:
+		Singleton.power = 100 # TODO: multi fludd
+	elif !Input.is_action_pressed("fludd") && Singleton.nozzle != Singleton.n.hover:
+		Singleton.power = min(Singleton.power + FPS_MOD, 100)
+	if (
+		Input.is_action_pressed("fludd")
+		&& Singleton.power > 0
+		&& Singleton.water > 0
+		&& state & (
+				S.NEUTRAL
+				| S.BACKFLIP
+				| S.TRIPLE_JUMP
+				| S.DIVE
+			)
+	):
+		match Singleton.nozzle:
+			Singleton.n.hover:
+				fludd_strain = true
+				double_anim_cancel = true
+				if state != S.TRIPLE_JUMP || (abs(sprite.rotation_degrees) < 90 || abs(sprite.rotation_degrees) > 270):
+					if state & (S.DIVE | S.TRIPLE_JUMP):
+						vel.y *= 1 - 0.02 * FPS_MOD
+						vel.x *= 1 - 0.03 * FPS_MOD
+						if grounded:
+							vel.x += cos(sprite.rotation - PI / 2)*pow(FPS_MOD, 2)
+						elif state == S.DIVE:
+							vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
+							vel.x += cos(sprite.rotation - PI / 2)/2*pow(FPS_MOD, 2)
+						else:
+							if sprite.flip_h:
+								vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
+								vel.x -= cos(-sprite.rotation - PI / 2)*0.92/2*pow(FPS_MOD, 2)
+							else:
+								vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
+								vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(FPS_MOD, 2)
+					else:
+						if Singleton.power == 100:
+							vel.y -= 2
+						
+						if Input.is_action_pressed("jump"):
+							vel.y *= 1 - (0.13 * FPS_MOD)
+						else:
+							vel.y *= 1 - (0.2 * FPS_MOD)
+						#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((Singleton.power/(175 / fps_mod))+(0.75 * fps_mod))
+						#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((Singleton.power/(175))+(0.75 * fps_mod))
+						vel.y -= (((-4*Singleton.power*vel.y * FPS_MOD * FPS_MOD) + (-525*vel.y * FPS_MOD) + (368*Singleton.power * FPS_MOD * FPS_MOD) + (48300)) / 7000) * pow(FPS_MOD, 5)
+						vel.x = resist(vel.x, 0.05, 1.03)
+					Singleton.water = max(0, Singleton.water - 0.07 * FPS_MOD)
+					Singleton.power -= 1.5 * FPS_MOD
+			Singleton.n.rocket:
+				if Singleton.power == 100:
+					fludd_strain = true
+					rocket_charge += 1
+				else:
+					fludd_strain = false
+				if rocket_charge >= 14 / FPS_MOD && (state != S.TRIPLE_JUMP || ((abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
+					if state == S.DIVE:
+						#set sign of velocity (could use ternary but they're icky)
+						var multiplier = 1
+						if sprite.flip_h:
+							multiplier = -1
+						if grounded:
+							multiplier *= 2 #double power when grounded to counteract friction
+						vel += Vector2(cos(sprite.rotation)*25*FPS_MOD * FPS_MOD * multiplier, -sin(sprite.rotation - PI / 2) * 25 * FPS_MOD * FPS_MOD)
+	#					elif state == s.frontflip:
+	#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
+					else:
+						vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
+						vel.y -= 0.5 * FPS_MOD
+					
+					Singleton.water = max(Singleton.water - 5, 0)
+					rocket_charge = 0
+					Singleton.power = 0
+	else:
+		fludd_strain = false
+		rocket_charge = 0
+
+
+const WALK_ACCEL: float = 1.1 * FPS_MOD
+const AIR_ACCEL: float = 5.0 * FPS_MOD # Functions differently to WALK_ACCEL
+const AIR_SPEED_CAP: float = 20.0 * FPS_MOD
+func player_control_x() -> void:
+	var i_right = Input.is_action_pressed("right")
+	var i_left = Input.is_action_pressed("left")
+	if i_left != i_right:
+		var dir = int(i_right) - int(i_left)
+		if state != S.POUND || pound_state != Pound.SPIN:
+			if (
+				state & (
+					S.NEUTRAL
+					| S.SPIN
+					| S.TRIPLE_JUMP
+					| S.ROLLOUT
+				)
+			):
+				sprite.flip_h = dir == -1 # flip sprite according to direction
+			if grounded:
+				if state == S.POUND:
+					vel.x = 0
+				elif state != S.DIVE:
+					vel.x += dir * WALK_ACCEL
+			else:
+				var core_vel = dir * max((AIR_ACCEL - dir * vel.x) / (AIR_SPEED_CAP / (3 * FPS_MOD)), 0)
+				if state & (S.TRIPLE_JUMP | S.SPIN | S.BACKFLIP):
+					vel.x += core_vel / (1.5 / FPS_MOD)
+				elif state & (S.DIVE | S.ROLLOUT):
+					vel.x += core_vel / (8 / FPS_MOD)
+				elif state == S.POUND:
+					vel.x += core_vel / (2 / FPS_MOD)
+				else:
+					vel.x += core_vel
+
+
+func player_jump() -> void:
+	if state == S.DIVE:
+		if (
+			(
+				(
+					int(Input.is_action_just_pressed("right"))
+					- int(Input.is_action_just_pressed("left")) != -1
+				)
+				&&
+				!sprite.flip_h
+			)
+			||
+			(
+				(
+					int(Input.is_action_just_pressed("right"))
+					- int(Input.is_action_just_pressed("left")) != 1
+				)
+				&&
+				sprite.flip_h
+			)
+		):
+			if !dive_resetting && abs(vel.x) >= 1 && !is_on_wall(): #prevents static dive recover
+				action_rollout()
+		else:
+			action_backflip()
+	elif (jump_buffer_frames > 0
+		&&
+		state &
+			(
+				S.NEUTRAL
+				| S.BACKFLIP
+				| S.ROLLOUT
+				| S.BACKFLIP
+				| S.TRIPLE_JUMP
+			)
+		):
+		action_jump()
+
+
+const TRIPLE_JUMP_DEADZONE = 2.0 * FPS_MOD
+func action_jump() -> void:
+	jump_buffer_frames = 0
+	jump_vary_frames = JUMP_VARY_TIME
+	double_jump_frames = DOUBLE_JUMP_TIME
+	coyote_frames = 0
+	match double_jump_state:
+		0: # Single
+			switch_state(S.NEUTRAL)
+			play_sfx("voice", "jump1")
+			if ground_override >= GROUND_OVERRIDE_THRESHOLD:
+				vel.y = -JUMP_VEL_1 * 2
+			else:
+				vel.y = -JUMP_VEL_1
+			double_jump_state += 1
+		1: # Double
+			switch_state(S.NEUTRAL)
+			jump_2()
+			double_jump_state += 1
+		2: #Triple
+			if abs(vel.x) > TRIPLE_JUMP_DEADZONE:
+				if ground_override >= GROUND_OVERRIDE_THRESHOLD:
+					vel.y = -JUMP_VEL_3 * 2
+				else:
+					vel.y = -JUMP_VEL_3
+				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
+				double_jump_state = 0
+				switch_state(S.TRIPLE_JUMP)
+				play_sfx("voice", "jump3")
+				tween.remove_all() # TODO: remove tween, bad
+				if Singleton.nozzle == Singleton.n.none:
+					tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
+				else:
+					tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
+				tween.start()
+				frontflip_dir_left = sprite.flip_h
+			else:
+				jump_2()
+	
+	#warning-ignore:return_value_discarded
+	move_and_collide(Vector2(0, -3)) # helps jumps feel more responsive
+
+
+func jump_2() -> void:
+	if ground_override >= GROUND_OVERRIDE_THRESHOLD:
+		vel.y = -JUMP_VEL_2 * 2
+	else:
+		vel.y = -JUMP_VEL_2
+	play_sfx("voice", "jump2")
+
+
+func action_backflip() -> void:
+	if !dive_resetting:
+		dive_correct(-1)
+	coyote_frames = 0
+	switch_state(S.BACKFLIP)
+	vel.y = min(-JUMP_VEL_1 - 2.5 * FPS_MOD, vel.y)
+	if sprite.flip_h:
+		vel.x += (30.0 - abs(vel.x)) / (5 / FPS_MOD)
+	else:
+		vel.x -= (30.0 - abs(vel.x)) / (5 / FPS_MOD)
+	dive_resetting = false
+	tween.remove_all()
+	if sprite.flip_h:
+		tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
+	else:
+		tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0)
+	tween.start()
+	switch_anim("jump")
+	frontflip_dir_left = sprite.flip_h
+
+
+func action_rollout() -> void:
+	coyote_frames = 0
+	dive_correct(-1)
+	switch_state(S.ROLLOUT)
+	vel.y = min(-JUMP_VEL_1/1.5, vel.y)
+	switch_anim("jump")
+	frontflip_dir_left = sprite.flip_h
+
+
+func coyote_behaviour() -> void:
+	double_anim_cancel = false
+				
+	if state == S.NEUTRAL:
+		switch_anim("walk")
+	
+	# warning-ignore:narrowing_conversion
+	double_jump_frames = max(double_jump_frames - 1, 0)
+	if double_jump_frames <= 0:
+		double_jump_state = 0
+	
+	if grounded: # specifically apply to when actually on the ground, not coyote time
+		manage_pound_recover()
+		vel.y = 0
+		ground_friction()
+	
+		if state & (S.TRIPLE_JUMP | S.BACKFLIP): # Reset state when landing
+			switch_state(S.NEUTRAL)
+			tween.remove_all()
+			sprite.rotation = 0
+		
+		if state == S.DIVE && abs(vel.x) < 1 && !Input.is_action_pressed("dive") && !dive_resetting:
+			reset_dive()
+
+
+func check_ground_state() -> void:
+	# failsafe to prevent getting stuck between slopes
+	grounded = is_on_floor() || ground_override >= GROUND_OVERRIDE_THRESHOLD
+	if (
+		vel.y < 0
+		|| is_on_floor()
+		|| Input.is_action_pressed("fludd")
+		|| state == S.POUND
+		|| swimming
+		|| bouncing
+	):
+		ground_override = 0
+
+
+func player_fall() -> void:
+	var fall_adjust = vel.y # used to adjust downward acceleration to account for framerate difference
+	if state == S.POUND && pound_state == Pound.SPIN:
+		vel = Vector2.ZERO
+	else:
+		if state == S.POUND && pound_state == Pound.FALL:
+			fall_adjust += 0.814
+		else:
+			fall_adjust += GRAV
+		
+		if !grounded:
+			fall_adjust = air_resistance(fall_adjust)
+		
+		vel.y += (fall_adjust - vel.y) * FPS_MOD # Adjust the Y velocity according to the framerate
+
+
+func ground_friction() -> void:
+	if state == S.DIVE:
+		if double_jump_frames >= DOUBLE_JUMP_TIME - 1:
+			vel.x = resist(vel.x, 0.2, 1.02) # Double friction on landing
+		vel.x = resist(vel.x, 0.2, 1.02) # Floor friction
+		if !dive_resetting:
+			manage_dive_angle()
+	else:
+		if double_jump_frames >= DOUBLE_JUMP_TIME - 1:
+			vel.x = resist(vel.x, 0.3, 1.15) # Double friction on landing
+		vel.x = resist(vel.x, 0.3, 1.15) # Floor friction
+
+
+func air_resistance(fall_adjust) -> float:
+	if state == S.POUND && pound_state == Pound.FALL:
+		pound_land_frames = 15
+	if fall_adjust > 0:
+		fall_adjust = resist(fall_adjust, ((GRAV/FPS_MOD)/5), 1.05)
+	fall_adjust = resist(fall_adjust, 0, 1.001)
+	if state == S.SPIN:
+		fall_adjust = resist(fall_adjust, 0.1, 1.03)
+	vel.x = resist(vel.x, 0, 1.001) #Air friction
+	return fall_adjust
+
+
+func manage_dive_angle() -> void:
+	if angle_cast.is_colliding():
+		var angle_offset = 0
+		if sprite.flip_h:
+			angle_offset = 0
+		else:
+			angle_offset = PI
+		sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
+	elif solid_floors > 0:
+		if sprite.flip_h:
+			sprite.rotation = -PI / 2
+		else:
+			sprite.rotation = PI / 2
+
+
+func reset_dive() -> void:
+	sprite.rotation = 0
+	dive_resetting = true
+	dive_reset_frames = 0
+
+
+func airborne_anim() -> void:
+	if state == S.TRIPLE_JUMP:
+		if Singleton.nozzle == Singleton.n.none:
+			if abs(sprite.rotation_degrees) < 700:
+				switch_anim("flip")
+			else:
+				switch_anim("fall")
+		else:
+			if abs(sprite.rotation_degrees) < 340:
+				switch_anim("flip")
+			else:
+				switch_anim("fall")
+	elif state == S.NEUTRAL:
+		if vel.y > 0:
+			switch_anim("fall")
+		else:
+			if double_jump_state == 2 && !double_anim_cancel:
+				switch_anim("jump_double")
+			else:
+				switch_anim("jump")
+	elif state == S.POUND && pound_state == Pound.FALL:
+		switch_anim("pound_fall")
+	elif state == S.DIVE:
+		if sprite.flip_h:
+			sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x) - PI / 2, 0.5)
+		else:
+			sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
+
+
+func manage_pound_recover() -> void:
+	if state == S.POUND:
+		if pound_land_frames == 12:
+			pound_state = Pound.LAND
+			switch_anim("flip")
+		elif pound_land_frames <= 0:
+			switch_state(S.NEUTRAL)
+		pound_land_frames = max(0, pound_land_frames - 1)
+
+
+func player_move() -> void:
+	var snap = get_snap()
+	
+	# store the current position in advance
+	var save_pos = position
+	#warning-ignore:return_value_discarded
+	move_and_slide_with_snap(vel * 60.0, snap, Vector2(0, -1), true)
+	
+	# check how far that moved the player
+	var slide_vec = position-save_pos
+	# if the player isn't grounded despite being stopped moving downwards, increment the failsafe
+	if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
+		ground_override = min(ground_override + 1, GROUND_OVERRIDE_THRESHOLD)
+	
+	# ensure the player moves the intended horizontal distance
+	if (
+		slide_vec.x >= 0.5
+		&& is_on_floor()
+	):
+		position = save_pos
+		#warning-ignore:return_value_discarded
+		move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
+
+
+func get_snap() -> Vector2:
+	if (
+		!grounded
+		|| Input.is_action_just_pressed("jump")
+		|| jump_buffer_frames > 0
+		|| state == S.ROLLOUT
+		||
+		(
+			Input.is_action_just_pressed("fludd")
+			&& Singleton.nozzle == Singleton.n.hover
+		) 
+		||
+		(
+			swimming
+			&& Input.is_action_pressed("semi")
+		)
+	):
+		return Vector2.ZERO
+	else:
+		return Vector2(0, 4)
+
+
+const DIVE_VEL = 35.0 * FPS_MOD
+func action_dive():
+	if (
+		Input.is_action_pressed("dive")
+		&&
+		(
+			state & (
+				S.TRIPLE_JUMP
+				| S.NEUTRAL
+			)
+			||
+			(
+				Input.is_action_just_pressed("dive")
+				&&
+				(
+					(
+						state == S.ROLLOUT # allows for tighter dive turns
+						&& sprite.flip_h != frontflip_dir_left
+					)
+					||
+					state == S.SPIN
+				)
+			)
+		)
+		&&
+		(
+			!swimming
+			||
+			grounded
+		)
+	):
+		if !swimming && coyote_frames > 0 && Input.is_action_pressed("jump") && abs(vel.x) > 1: # auto rollout
+			coyote_frames = 0
+			dive_correct(-1)
+			switch_state(S.ROLLOUT)
+			switch_anim("jump")
+			frontflip_dir_left = sprite.flip_h
+			vel.y = min(-JUMP_VEL_1/1.5, vel.y)
+			double_jump_state = 0
+		elif (
+			state & (
+				S.NEUTRAL
+				| S.SPIN
+				| S.TRIPLE_JUMP
+			)
+			||
+			(
+				state == S.BACKFLIP
+				&& abs(sprite.rotation) > PI / 2 * 3
+			)
+		):
+			if !grounded:
+				gp_dive_timer = 6
+				coyote_frames = 0
+				if state != S.TRIPLE_JUMP:
+					play_sfx("voice", "dive")
+				var multiplier = 1
+				if state == S.BACKFLIP:
+					multiplier = 2 # allows dives out of backflips to be more responsive
+				if sprite.flip_h: # idrk how this works
+					vel.x -= (DIVE_VEL - abs(vel.x / FPS_MOD)) / (5 / FPS_MOD) / FPS_MOD * multiplier
+				else:
+					vel.x += (DIVE_VEL - abs(vel.x / FPS_MOD)) / (5 / FPS_MOD) / FPS_MOD * multiplier
+				if state == S.NEUTRAL:
+					vel.y = max(-3, vel.y + 3.0 * FPS_MOD)
+				else:
+					vel.y += 3.0 * FPS_MOD
+			if (!grounded || vel.y >= 0) && (!swimming || grounded):
+				switch_state(S.DIVE)
+				if sprite.flip_h:
+					sprite.rotation = -PI / 2
+				else:
+					sprite.rotation = PI / 2
+				tween.remove_all()
+				switch_anim("dive")
+				double_jump_state = 0
+				dive_correct(1)
+
+
+func manage_water_audio():
+	AudioServer.set_bus_effect_enabled(0, 0, swimming) # muffle audio underwater
+	AudioServer.set_bus_effect_enabled(0, 1, swimming) # TODO: fade the muffle effect
+
+
+const ROLLOUT_TIME = 18
+const DIVE_RESET_TIME = 8
+var rollout_frames = 0
+var dive_reset_frames = 0
+func manage_dive_recover():
+	if state == S.ROLLOUT:
+		rollout_frames += 1
+		if sprite.flip_h:
+			sprite.rotation = -rollout_frames * PI / 2 / ROLLOUT_TIME
+		else:
+			sprite.rotation = rollout_frames * PI / 2 / ROLLOUT_TIME
+		if rollout_frames >= 18 || grounded:
+			switch_state(S.NEUTRAL)
+			sprite.rotation = 0
+			rollout_frames = 0
+	elif dive_resetting:
+		dive_reset_frames += 1
+		if dive_reset_frames >= DIVE_RESET_TIME / 2:
+			if sprite.animation != "jump":
+				switch_anim("jump")
+				dive_correct(-1)
+				hitbox.position = STAND_BOX_POS
+				hitbox.shape.extents = STAND_BOX_EXTENTS
+			if frontflip_dir_left:
+				sprite.rotation = dive_reset_frames * PI / 2 / DIVE_RESET_TIME - PI / 2
+			else:
+				sprite.rotation = -dive_reset_frames * PI / 2 / DIVE_RESET_TIME + PI / 2
+			print(dive_reset_frames)
+			if dive_reset_frames >= DIVE_RESET_TIME:
+				dive_resetting = false
+				switch_state(S.NEUTRAL)
+				sprite.rotation = 0
+		else:
+			if sprite.flip_h:
+				sprite.rotation = dive_reset_frames * PI / 2 / DIVE_RESET_TIME
+			else:
+				sprite.rotation = -dive_reset_frames * PI / 2 / DIVE_RESET_TIME
+
+
+func switch_fludd():
+	var save_nozzle = Singleton.nozzle
+	Singleton.nozzle += 1
+	while (
+		(
+			Singleton.nozzle < 4
+			&& !Singleton.collected_nozzles[(Singleton.nozzle - 1) % 3]
+		)
+		|| Singleton.nozzle == 0
+	):
+		Singleton.nozzle += 1
+	if Singleton.nozzle == 4:
+		Singleton.nozzle = 0
+	if Singleton.nozzle != save_nozzle:
+		# lazy way to refresh fludd anim
+		var anim = (sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", ""))
+		switch_anim(anim)
+		fludd_strain = false
+		switch_sfx.play()
+
+
+const COYOTE_TIME: int = 5
+const JUMP_VARY_TIME: int = 13
+var sign_frames: int = 0
+var ground_override: int = 0
+var gp_dive_timer: int = 0
+var coyote_frames: int = 0
+var jump_buffer_frames: int = 0
+var jump_vary_frames: int = 0
+# manage "buffers" - coyote time, buffered jumps
+func manage_buffers():
+	# warning-ignore:narrowing_conversion
+	sign_frames = max(sign_frames - 1, 0)
+	
+	if grounded:
+		coyote_frames = COYOTE_TIME
+	else:
+		# warning-ignore:narrowing_conversion
+		coyote_frames = max(coyote_frames - 1, 0)
+	
+	# warning-ignore:narrowing_conversion
+	gp_dive_timer = max(gp_dive_timer - 1, 0)
+	
+	if Input.is_action_pressed("jump"):
+		# warning-ignore:narrowing_conversion
+		jump_buffer_frames = max(jump_buffer_frames - 1, 0)
+		if Input.is_action_just_pressed("jump"):
+			jump_buffer_frames = 6
+	else:
+		jump_buffer_frames = 0
+		
+	jump_vary_frames = max(jump_vary_frames - 1, -1)
+
+
+func locked_behaviour():
+#	if sign_x != null:
+#		position.x = sign_x + (position.x - sign_x) * 0.75
+#	if collect_pos_final != Vector2():
+#		sprite.animation = "spin"
+#		position = collect_pos_init + sin(min(collect_time, 1) * PI / 2) * (collect_pos_final - collect_pos_init)
+#		if collect_time < 1:
+#			collect_time += 1.0/(60.0 * 3.835)
+#		else:
+#			collect_time += 1.0
+#			sprite.animation = "shine"
+#			if collect_time >= 80:
+#				$"/root/Singleton/WindowWarp".warp(Vector2(), "res://scenes/title/title.tscn", 40)
+	var a = 0 # TODO
+
+
+func manage_invuln():
+	if invuln_frames > 0:
+		invuln_frames -= 1
+		modulate.a = (sin(2 * PI * invuln_flash / 10.0) + 3) / 4
+		invuln_flash += 1
+	else:
+		modulate.a = 1
+		invuln_flash = 0
+
+
+const STAND_BOX_POS = Vector2(0, 1.5)
+const STAND_BOX_EXTENTS = Vector2(6, 14.5)
+const DIVE_BOX_POS = Vector2(0, 3)
+const DIVE_BOX_EXTENTS = Vector2(6, 6)
+func switch_state(new_state): # TODO - bad state
+	state = new_state
+	sprite.rotation_degrees = 0
+	match state:
+		S.DIVE:
+			hitbox.position = DIVE_BOX_POS
+			hitbox.shape.extents = DIVE_BOX_EXTENTS
+		S.POUND:
+			hitbox.position = STAND_BOX_POS
+			hitbox.shape.extents = STAND_BOX_EXTENTS
+			camera.smoothing_speed = 10
+		_:
+			hitbox.position = STAND_BOX_POS
+			hitbox.shape.extents = STAND_BOX_EXTENTS
+			camera.smoothing_speed = 5
+
+
+func switch_anim(new_anim):
+	var fludd_anim
+	var anim
+	if new_anim == "fall":
+		last_step = 1 # ensures that the step sound will be made when hitting the ground
+	anim = new_anim
+	
+	if Singleton.nozzle == Singleton.n.none:
+		fludd_sprite.visible = false # hides the fludd sprite
+	else:
+		fludd_sprite.visible = true
+		fludd_anim = new_anim + "_fludd"
+		if sprite.frames.has_animation(fludd_anim): # ensures the belt animation exists
+			anim = fludd_anim
+		else:
+			anim = new_anim
+			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
+	
+	match Singleton.nozzle: # TODO - multi fludd
+		Singleton.n.hover:
+			fludd_sprite.animation = "hover"
+		Singleton.n.rocket:
+			fludd_sprite.animation = "rocket"
+		Singleton.n.turbo:
+			fludd_sprite.animation = "turbo"
+	
+	sprite.animation = anim
+
+
+func take_damage(amount):
+	if invuln_frames <= 0 && !locked: # TODO - invuln frames, static
+		Singleton.hp = clamp(Singleton.hp - amount, 0, 8) #TODO - multi HP
+		invuln_frames = 180
+
+
+func take_damage_shove(amount, direction):
+	if invuln_frames <= 0 && !locked: # TODO - invuln frames, static
+		take_damage(amount)
+		vel = Vector2(4 * direction, -3)
+
+
+func recieve_health(amount):
+	Singleton.hp = clamp(Singleton.hp + amount, 0, 8) # TODO - multi HP
+	
+const DIVE_CORRECTION = 7
+func dive_correct(factor): # Correct the player's origin position when diving
+	#warning-ignore:return_value_discarded
+	move_and_slide(Vector2(0, DIVE_CORRECTION * factor * 60), Vector2(0, -1))
+	if factor == -1:
+		dust.position.y = 11.5
+	else:
+		dust.position.y = 11.5 - DIVE_CORRECTION
+	base_modifier.add_modifier(
+		camera,
+		"position",
+		"dive_correction",
+		Vector2(
+			0,
+			min(0, -DIVE_CORRECTION * factor)
+		)
+	)
+	#camera.position.y = min(0, -set_dive_correct * factor)
+
+
+func play_sfx(type, group):
+	var sound_set = SFX_BANK[type][group]
+	var sound = sound_set[randi() % sound_set.size()]
+	voice.stream = sound
+	voice.play(0)
+
+
+const STEP_MASK = 0b111111110000000000000000
+func step_sound():
+	if sprite.frame == 0 && last_step == 1:
+		var collider: CollisionObject2D = step_check.get_collider()
+		if collider != null:
+			var layer = collider.collision_layer & STEP_MASK >> 16
+			match layer:
+				0b10000000:
+					play_sfx("step", "grass")
+				0b01000000:
+					play_sfx("step", "metal")
+				0b00100000:
+					play_sfx("step", "snow")
+				0b00010000:
+					play_sfx("step", "soft")
+				0b00001000:
+					play_sfx("step", "ice")
+				_:
+					play_sfx("step", "generic")
+
+
+func resist(val, sub, div): # ripped from source
+	val = val / FPS_MOD
+	var vel_sign = sign(val)
+	val = abs(val)
+	val -= sub
+	val = max(0, val)
+	val /= div
+	val *= vel_sign
+	return val * FPS_MOD
+
