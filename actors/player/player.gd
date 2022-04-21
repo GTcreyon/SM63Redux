@@ -124,6 +124,7 @@ func _physics_process(_delta):
 		locked_behaviour()
 	else:
 		player_physics()
+	fixed_visuals()
 
 
 func _on_Tween_tween_completed(_object, _key):
@@ -185,7 +186,7 @@ const GRAV: float = FPS_MOD
 const JUMP_VEL_1: float = 10 * FPS_MOD
 const JUMP_VEL_2: float = 12.5 * FPS_MOD
 const JUMP_VEL_3: float = 15 * FPS_MOD
-const DOUBLE_JUMP_TIME: int = 17
+const DOUBLE_JUMP_TIME: int = 8
 var grounded: bool = false
 var dive_resetting: bool = false
 var frontflip_dir_left: bool = false
@@ -228,17 +229,130 @@ func player_physics():
 	
 	player_control_x()
 	fludd_control()
+	
 	action_dive()
 	action_spin()
 	action_pound()
 	
-	if is_on_ceiling():
-		vel.y = max(vel.y, 0.1)
+	wall_stop()
 	
 	player_move()
 	
 	if state == S.POUND && is_on_floor():
 		vel.x = 0 # stop sliding down into holes
+
+
+var hover_sound_position = 0
+func fixed_visuals() -> void:
+	if state == S.DIVE || swimming:
+		hover_sfx.stop()
+		if fludd_strain:
+			if !hover_loop_sfx.playing:
+				hover_loop_sfx.play(hover_sound_position)
+		else:
+			hover_sound_position = hover_loop_sfx.get_playback_position()
+			hover_loop_sfx.stop()
+	else:
+		hover_loop_sfx.stop()
+		if Singleton.power > 99:
+			hover_sound_position = 0
+			hover_sfx.stop()
+			
+		if fludd_strain:
+			if !hover_sfx.playing:
+				hover_sfx.play(hover_sound_position)
+		else:
+			if Singleton.power < 100:
+				hover_sound_position = hover_sfx.get_playback_position()
+			else:
+				hover_sound_position = 0
+			if !Input.is_action_pressed("fludd") || Singleton.power > 0:
+				hover_sfx.stop()
+	bubbles_medium.emitting = fludd_strain
+	bubbles_small.emitting = fludd_strain
+
+	var center = position
+	if state == S.DIVE:
+		bubbles_medium.position.y = -9
+		bubbles_small.position.y = -9
+		if sprite.flip_h:
+			bubbles_medium.position.x = -1
+			bubbles_small.position.x = -1
+
+		else:
+			bubbles_medium.position.x = 1
+			bubbles_small.position.x = 1
+	else:
+		bubbles_medium.position.y = -2
+		bubbles_small.position.y = -2
+		if sprite.flip_h:
+			bubbles_medium.position.x = 10
+			bubbles_small.position.x = 10
+		else:
+			bubbles_medium.position.x = -10
+			bubbles_small.position.x = -10
+	#offset bubbles to mario's center
+	bubbles_medium.position += center
+	bubbles_small.position += center
+	
+	#give it shader data
+	bubbles_small.direction = Vector2(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2))
+	bubbles_medium.direction = Vector2(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2))
+	
+	if abs(vel.x) < 2:
+		dust.emitting = false
+	else:
+		dust.emitting = is_on_floor()
+		
+	if sprite.animation.begins_with("walk"):
+		if int(vel.x) == 0:
+			sprite.frame = 0
+			sprite.speed_scale = 0
+			step_sound()
+		else:
+			if sprite.speed_scale == 0:
+				sprite.frame = 1
+			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
+			step_sound()
+		last_step = sprite.frame
+	elif !sprite.animation.begins_with("swim"):
+		sprite.speed_scale = 1
+	
+	#$Label.text = str(vel.x)
+	if Singleton.hp <= 0:
+		Singleton.dead = true
+	
+	fludd_sprite.flip_h = sprite.flip_h
+	if sprite.animation.begins_with("spin"):
+		match sprite.frame:
+#			0:
+#				fludd_sprite.flip_h = sprite.flip_h
+			1:
+				if !fludd_sprite.animation.ends_with("front"):
+					fludd_sprite.animation = fludd_sprite.animation + "_front"
+			2:
+				if fludd_sprite.animation.ends_with("front"):
+					fludd_sprite.animation = fludd_sprite.animation.substr(0, fludd_sprite.animation.length() - 6)
+				fludd_sprite.flip_h = !sprite.flip_h
+	if fludd_sprite.animation.ends_with("front"):
+		fludd_sprite.offset.x = 0
+	else:
+		if fludd_sprite.flip_h:
+			fludd_sprite.offset.x = 2
+		else:
+			fludd_sprite.offset.x = -2
+
+
+const WALL_BOUNCE = 0.19
+func wall_stop() -> void:
+	if is_on_wall():
+		if int(vel.x) != 0:
+			if int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) != sign(int(vel.x)):
+				vel.x = -vel.x * WALL_BOUNCE # Bounce off a wall when not intentionally pushing into it
+			else:
+				vel.x = 0 # Cancel X velocity when intentionally pushing into a wall
+	if is_on_ceiling():
+		vel.y = max(vel.y, 0.1)
 
 
 func action_pound() -> void:
@@ -451,6 +565,7 @@ func player_jump() -> void:
 				| S.ROLLOUT
 				| S.BACKFLIP
 				| S.TRIPLE_JUMP
+				| S.SPIN
 			)
 		):
 		action_jump()
