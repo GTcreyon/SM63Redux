@@ -224,15 +224,19 @@ func player_physics():
 			vel.x = resist(vel.x, 0, 1.001) # Air decel
 	
 	action_spin()
-	player_fall()
-	if swimming:
-		action_swim()
+	
+	if bouncing:
+		action_bounce()
 	else:
-		if Input.is_action_pressed("jump"):
-			if coyote_frames > 0:
-				player_jump()
-			elif jump_vary_frames > 0 && state == S.NEUTRAL:
-				vel.y -= GRAV * pow(FPS_MOD, 3) # Variable jump height
+		player_fall()
+		if swimming:
+			action_swim()
+		else:
+			if Input.is_action_pressed("jump"):
+				if coyote_frames > 0:
+					player_jump()
+				elif jump_vary_frames > 0 && state == S.NEUTRAL:
+					vel.y -= GRAV * pow(FPS_MOD, 3) # Variable jump height
 	
 	player_control_x()
 	if swimming:
@@ -248,6 +252,39 @@ func player_physics():
 	
 	if state == S.POUND && is_on_floor():
 		vel.x = 0 # stop sliding down into holes
+
+
+func start_bounce() -> void:
+	bouncing = true
+	bounce_frames = 0
+
+
+var full_bounce: bool = false
+var bounce_frames: int = 0
+func action_bounce() -> void:
+	vel.y = 0
+	if Input.is_action_just_pressed("jump"):
+		full_bounce = true
+	bounce_frames += 1
+	if bounce_frames >= 12:
+		if state == S.DIVE:
+			coyote_frames = 0
+			dive_correct(-1)
+			switch_state(S.ROLLOUT)
+			switch_anim("jump")
+			frontflip_dir_left = sprite.flip_h
+			vel.y = min(-JUMP_VEL_1/1.5, vel.y)
+			double_jump_state = 0
+		else:
+			if Input.is_action_pressed("jump"):
+				if full_bounce:
+					vel.y = -6.5
+				else:
+					vel.y = -6
+			else:
+				vel.y = -5
+			switch_state(S.NEUTRAL)
+		bouncing = false
 
 
 var swim_delay: bool = false
@@ -541,7 +578,7 @@ func fludd_control():
 					fludd_strain = false
 				if rocket_charge >= 14 / FPS_MOD && (state != S.TRIPLE_JUMP || ((abs(sprite.rotation_degrees) < 20 || abs(sprite.rotation_degrees) > 340))):
 					if state == S.DIVE:
-						#set sign of velocity (could use ternary but they're icky)
+						# set sign of velocity (could use ternary but they're icky)
 						var multiplier = 1
 						if sprite.flip_h:
 							multiplier = -1
@@ -1275,4 +1312,3 @@ func resist(val, sub, div): # ripped from source
 	val /= div
 	val *= vel_sign
 	return val * FPS_MOD
-
