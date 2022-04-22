@@ -94,8 +94,8 @@ onready var step_check = $StepCheck
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
-onready var bubbles_medium = $"BubbleViewport/BubblesMedium"
-onready var bubbles_small = $"BubbleViewport/BubblesSmall"
+onready var bubbles_medium: Particles2D = $"BubbleViewport/BubblesMedium"
+onready var bubbles_small: Particles2D = $"BubbleViewport/BubblesSmall"
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
 onready var hover_sfx = $HoverSFX
@@ -298,8 +298,8 @@ func fixed_visuals() -> void:
 	bubbles_small.position += center
 	
 	#give it shader data
-	bubbles_small.direction = Vector2(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2))
-	bubbles_medium.direction = Vector2(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2))
+	bubbles_small.process_material.direction = Vector3(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2), 0)
+	bubbles_medium.process_material.direction = Vector3(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2), 0)
 	
 	if abs(vel.x) < 2:
 		dust.emitting = false
