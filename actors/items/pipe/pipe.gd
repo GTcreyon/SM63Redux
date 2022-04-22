@@ -26,7 +26,7 @@ func _physics_process(_delta):
 		if Input.is_action_pressed("down") && store_state == target.s.walk && target.is_on_floor():
 			target.get_node("Voice").volume_db = -INF #dumb solution to mario making dive sounds
 			sound.play()
-			target.static_v = true #affects mario's whole input process
+			target.locked = true #affects mario's whole input process
 			target.get_node("Character").set_animation("front")
 			target.position = Vector2(lerp(target.position.x, position.x, 0.25), position.y - 30)
 			#warping will be disabled, then increment will start as mario slides down
@@ -35,7 +35,7 @@ func _physics_process(_delta):
 			slid = true
 		elif (target.state == target.s.pound_fall || target.state == target.s.pound_land):
 			sound.play()
-			target.static_v = true #affects mario's whole input process
+			target.locked = true #affects mario's whole input process
 			#target.position = Vector2(position.x, position.y - 30)
 			target.position = Vector2(lerp(target.position.x, position.x, 0.75), position.y - 30)
 			
@@ -54,7 +54,7 @@ func _physics_process(_delta):
 		target.get_node("Voice").volume_db = -5
 		sound.stop()
 		target.position = Vector2(target_x_pos, target_y_pos)
-		target.static_v = false
+		target.locked = false
 		target.switch_state(target.s.walk)
 		target.switch_anim("walk")
 		target.dive_correct(0)

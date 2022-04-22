@@ -227,7 +227,7 @@ func _physics_process(_delta):
 				if loaded_lines.size() <= line_index:
 					active = false
 					player.sign_x = null
-					player.static_v = false
+					player.locked = false
 					swoop_timer = 0
 					sfx_close.play()
 				else:

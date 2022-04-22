@@ -14,7 +14,7 @@ func _process(delta):
 
 func _on_Shine_body_entered(body):
 	play_time = 0.01
-	body.static_v = true
+	body.locked = true
 	body.collect_pos_final = position
 	body.collect_pos_init = body.position
 	body.collect_time = 0

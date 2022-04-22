@@ -39,7 +39,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	if target != null && target.static_v:
+	if target != null && target.locked:
 		target = null
 	if sprite.animation == "squish":
 		if dead:
@@ -192,7 +192,7 @@ func _physics_process(_delta):
 #as we need only the x coordinates
 
 func _on_Collision_mario_detected(body):
-	if target == null && sprite.animation != "squish" && !body.static_v:
+	if target == null && sprite.animation != "squish" && !body.locked:
 		if body.position.x > position.x:
 			direction = 1
 		else:
