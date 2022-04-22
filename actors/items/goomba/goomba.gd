@@ -50,32 +50,7 @@ func _physics_process(_delta):
 				main.add_child(spawn)
 			queue_free()
 		else:
-			if !struck:
-				if target.position.y + 16 > global_position.y - 10:
-					target.vel.y = 0
-					target.position.y += 0.5
-				if Input.is_action_just_pressed("jump"):
-					full_jump = true
-			
 			if sprite.frame == 3:
-				if !struck:
-					if target.state == target.S.DIVE:
-						target.coyote_time = 0
-						target.dive_correct(-1)
-						target.switch_state(target.S.ROLLOUT)
-						target.switch_anim("jump")
-						target.flip_l = target.sprite.flip_h
-						target.vel.y = min(-target.set_jump_1_vel/1.5, target.vel.y)
-						target.double_jump_state = 0
-					else:
-						if Input.is_action_pressed("jump"):
-							if full_jump:
-								target.vel.y = -6.5
-							else:
-								target.vel.y = -6
-						else:
-							target.vel.y = -5
-						target.switch_state(target.S.NEUTRAL)
 				dead = true #apparently queue_free() doesn't cancel the current cycle
 			
 	#code to push enemies apart - maybe come back to later?
@@ -225,13 +200,13 @@ func _on_Area2D_body_entered_hurt(body):
 			vel.y = 0
 			sprite.frame = 0
 			sprite.playing = true
-			if target.state == target.S.DIVE:
+			if body.state == body.S.DIVE:
 				if Input.is_action_pressed("down"):
 					damage_check(body)
 				else:
-					target.bouncing = true
+					body.start_bounce()
 			else:
-				target.bouncing = true
+				body.start_bounce()
 		elif !struck:
 			damage_check(body)
 
