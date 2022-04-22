@@ -532,8 +532,6 @@ func player_control_x() -> void:
 
 
 func player_jump() -> void:
-	print(int(Input.is_action_just_pressed("right"))
-					- int(Input.is_action_just_pressed("left")))
 	if state == S.DIVE:
 		if (
 			(
@@ -851,6 +849,7 @@ func action_dive():
 			state & (
 				S.TRIPLE_JUMP
 				| S.NEUTRAL
+				| S.BACKFLIP
 			)
 			||
 			(
@@ -950,7 +949,7 @@ func manage_dive_recover():
 				dive_correct(-1)
 				hitbox.position = STAND_BOX_POS
 				hitbox.shape.extents = STAND_BOX_EXTENTS
-			if frontflip_dir_left:
+			if sprite.flip_h:
 				sprite.rotation = dive_reset_frames * PI / 2 / DIVE_RESET_TIME - PI / 2
 			else:
 				sprite.rotation = -dive_reset_frames * PI / 2 / DIVE_RESET_TIME + PI / 2
