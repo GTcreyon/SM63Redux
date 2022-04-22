@@ -532,12 +532,14 @@ func player_control_x() -> void:
 
 
 func player_jump() -> void:
+	print(int(Input.is_action_just_pressed("right"))
+					- int(Input.is_action_just_pressed("left")))
 	if state == S.DIVE:
 		if (
 			(
 				(
-					int(Input.is_action_just_pressed("right"))
-					- int(Input.is_action_just_pressed("left")) != -1
+					int(Input.is_action_pressed("right"))
+					- int(Input.is_action_pressed("left")) != -1
 				)
 				&&
 				!sprite.flip_h
@@ -545,8 +547,8 @@ func player_jump() -> void:
 			||
 			(
 				(
-					int(Input.is_action_just_pressed("right"))
-					- int(Input.is_action_just_pressed("left")) != 1
+					int(Input.is_action_pressed("right"))
+					- int(Input.is_action_pressed("left")) != 1
 				)
 				&&
 				sprite.flip_h
