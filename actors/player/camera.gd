@@ -14,7 +14,11 @@ func _ready():
 	limit_right = 10000000
 	limit_top = -10000000
 	limit_bottom = 10000000
-
+	if get_path() != "/root/Main/Player/Camera2D":
+		queue_free()
+	else:
+		current = true
+	
 
 func rezoom():
 	tween.stop_all()

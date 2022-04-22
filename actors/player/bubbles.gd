@@ -1,7 +1,7 @@
 extends Sprite
 
 onready var viewport = $"../BubbleViewport"
-onready var cam = $"../Camera2D"
+onready var cam = $"/root/Main/Player/Camera2D"
 
 func refresh():
 	#set the viewport size to the window size
