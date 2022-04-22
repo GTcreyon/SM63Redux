@@ -76,6 +76,6 @@ func _physics_process(_delta):
 			#player.switch_anim("back")
 			player.vel = Vector2.ZERO
 			player.sign_x = position.x - 16
-			player.static_v = true
+			player.locked = true
 			player.sign_cooldown = 1
 			dialog.load_lines(lines)

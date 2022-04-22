@@ -20,6 +20,6 @@ func _physics_process(_delta):
 		bodies[0].switch_anim("back")
 		bodies[0].vel = Vector2.ZERO
 		bodies[0].sign_x = position.x
-		bodies[0].static_v = true
+		bodies[0].locked = true
 		bodies[0].sign_cooldown = 1
 		dialog.load_lines(lines)

@@ -229,6 +229,8 @@ func player_physics():
 			vel.y -= GRAV * pow(FPS_MOD, 3) #Variable jump height
 	
 	player_control_x()
+	if swimming:
+		adjust_swim_x()
 	fludd_control()
 	
 	action_dive()
@@ -241,6 +243,12 @@ func player_physics():
 	
 	if state == S.POUND && is_on_floor():
 		vel.x = 0 # stop sliding down into holes
+
+
+func adjust_swim_x() -> void:
+	var swim_adjust = vel.x
+	swim_adjust = resist(swim_adjust, 0.05, 1.05)
+	vel.x += (swim_adjust - vel.x) * FPS_MOD
 
 
 var hover_sound_position = 0
@@ -414,7 +422,10 @@ func action_spin() -> void:
 		switch_state(S.SPIN)
 		switch_anim("spin")
 		if !grounded:
-			vel.y = min(-3.5 * FPS_MOD * 1.3, vel.y - 3.5 * FPS_MOD)
+			if swimming:
+				vel.y = min(-2, vel.y - 2)
+			else:
+				vel.y = min(-3.5 * FPS_MOD * 1.3, vel.y - 3.5 * FPS_MOD)
 		spin_frames = SPIN_TIME
 
 
@@ -516,7 +527,7 @@ func player_control_x() -> void:
 				)
 			):
 				sprite.flip_h = dir == -1 # flip sprite according to direction
-			if grounded:
+			if grounded && !swimming:
 				if state == S.POUND:
 					vel.x = 0
 				elif state != S.DIVE:
@@ -668,7 +679,11 @@ func coyote_behaviour() -> void:
 	if grounded: # specifically apply to when actually on the ground, not coyote time
 		manage_pound_recover()
 		vel.y = 0
-		ground_friction()
+		if swimming:
+			if state == S.DIVE:
+				vel.x = resist(vel.x, 0.2, 1.02) #Floor friction
+		else:
+			ground_friction()
 	
 		if state & (S.TRIPLE_JUMP | S.BACKFLIP): # Reset state when landing
 			switch_state(S.NEUTRAL)
@@ -701,10 +716,17 @@ func player_fall() -> void:
 		if state == S.POUND && pound_state == Pound.FALL:
 			fall_adjust += 0.814
 		else:
-			fall_adjust += GRAV
+			if swimming:
+				if !Input.is_action_pressed("spin"):
+					fall_adjust += GRAV / 3.0
+			else:
+				fall_adjust += GRAV
 		
 		if !grounded:
-			fall_adjust = air_resistance(fall_adjust)
+			if swimming:
+				fall_adjust = water_resistance(fall_adjust)
+			else:
+				fall_adjust = air_resistance(fall_adjust)
 		
 		vel.y += (fall_adjust - vel.y) * FPS_MOD # Adjust the Y velocity according to the framerate
 
@@ -722,6 +744,19 @@ func ground_friction() -> void:
 		vel.x = resist(vel.x, 0.3, 1.15) # Floor friction
 
 
+func water_resistance(fall_adjust) -> float:
+	# classic source black box
+	fall_adjust = resist(fall_adjust, 0.05, 1.01);
+	fall_adjust = resist(fall_adjust, ((GRAV/FPS_MOD)/5), 1.05)
+	fall_adjust = resist(fall_adjust, 0, 1.001)
+	
+	vel.x = resist(vel.x, 0, 1.001)
+	if Input.is_action_pressed("left") == Input.is_action_pressed("right") || state == S.DIVE:
+		vel.x = resist(vel.x, 0, 1.001)
+		
+	return fall_adjust
+
+
 func air_resistance(fall_adjust) -> float:
 	if state == S.POUND && pound_state == Pound.FALL:
 		pound_land_frames = 15
@@ -730,7 +765,7 @@ func air_resistance(fall_adjust) -> float:
 	fall_adjust = resist(fall_adjust, 0, 1.001)
 	if state == S.SPIN:
 		fall_adjust = resist(fall_adjust, 0.1, 1.03)
-	vel.x = resist(vel.x, 0, 1.001) #Air friction
+	vel.x = resist(vel.x, 0, 1.001) # Air friction
 	return fall_adjust
 
 
