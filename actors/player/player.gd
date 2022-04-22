@@ -516,7 +516,7 @@ func fludd_control():
 								vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
 								vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(FPS_MOD, 2)
 					else:
-						if Singleton.power == 100:
+						if Singleton.power == 100 && !swimming:
 							vel.y -= 2
 						
 						if Input.is_action_pressed("jump"):
@@ -525,10 +525,14 @@ func fludd_control():
 							vel.y *= 1 - (0.2 * FPS_MOD)
 						#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((Singleton.power/(175 / fps_mod))+(0.75 * fps_mod))
 						#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((Singleton.power/(175))+(0.75 * fps_mod))
-						vel.y -= (((-4*Singleton.power*vel.y * FPS_MOD * FPS_MOD) + (-525*vel.y * FPS_MOD) + (368*Singleton.power * FPS_MOD * FPS_MOD) + (48300)) / 7000) * pow(FPS_MOD, 5)
+						if swimming:
+							vel.y -= 0.75
+						else:
+							vel.y -= (((-4*Singleton.power*vel.y * FPS_MOD * FPS_MOD) + (-525*vel.y * FPS_MOD) + (368*Singleton.power * FPS_MOD * FPS_MOD) + (48300)) / 7000) * pow(FPS_MOD, 5)
 						vel.x = resist(vel.x, 0.05, 1.03)
-					Singleton.water = max(0, Singleton.water - 0.07 * FPS_MOD)
-					Singleton.power -= 1.5 * FPS_MOD
+					if !swimming:
+						Singleton.water = max(0, Singleton.water - 0.07 * FPS_MOD)
+						Singleton.power -= 1.5 * FPS_MOD
 			Singleton.n.rocket:
 				if Singleton.power == 100:
 					fludd_strain = true
@@ -550,9 +554,11 @@ func fludd_control():
 						vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
 						vel.y -= 0.5 * FPS_MOD
 					
-					Singleton.water = max(Singleton.water - 5, 0)
 					rocket_charge = 0
-					Singleton.power = 0
+					
+					if !swimming:
+						Singleton.water = max(Singleton.water - 5, 0)
+						Singleton.power = 0
 	else:
 		fludd_strain = false
 		rocket_charge = 0
