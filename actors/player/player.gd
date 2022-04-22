@@ -285,6 +285,9 @@ func action_swim() -> void:
 			action_backflip()
 	else:
 		swim_delay = false
+	
+	if Input.is_action_pressed("down"):
+		vel.y += 0.125
 
 
 func adjust_swim_x() -> void:
