@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario_sheet.png" type="Texture" id=2]
@@ -28,26 +28,6 @@ region = Rect2( 72, 0, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 168, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 2 )
-region = Rect2( 408, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 2 )
-region = Rect2( 408, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 2 )
-region = Rect2( 264, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 2 )
-region = Rect2( 288, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 2 )
-region = Rect2( 312, 0, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=39]
 atlas = ExtResource( 2 )
 region = Rect2( 264, 38, 24, 38 )
@@ -60,9 +40,45 @@ region = Rect2( 288, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 312, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=28]
+[sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 2 )
-region = Rect2( 48, 38, 24, 38 )
+region = Rect2( 216, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 2 )
+region = Rect2( 240, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 120, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 2 )
+region = Rect2( 408, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 144, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 264, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 288, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 2 )
+region = Rect2( 312, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 2 )
@@ -80,10 +96,6 @@ region = Rect2( 216, 0, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 240, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 2 )
-region = Rect2( 384, 0, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=32]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 38, 24, 38 )
@@ -96,6 +108,10 @@ region = Rect2( 24, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 168, 38, 24, 38 )
 
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 24, 38 )
+
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 24, 38 )
@@ -104,41 +120,25 @@ region = Rect2( 0, 0, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 24, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 2 )
-region = Rect2( 216, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 2 )
-region = Rect2( 240, 38, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 2 )
 region = Rect2( 120, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 2 )
-region = Rect2( 144, 0, 24, 38 )
+region = Rect2( 48, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 2 )
 region = Rect2( 192, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 2 )
-region = Rect2( 120, 0, 24, 38 )
-
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 2 )
 region = Rect2( 72, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=13]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 2 )
-region = Rect2( 96, 38, 24, 38 )
+region = Rect2( 408, 0, 24, 38 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -157,9 +157,19 @@ animations = [ {
 "name": "flip",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 16 ) ],
+"frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
 "loop": true,
-"name": "dive",
+"name": "spin_fludd",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 30 ), SubResource( 31 ) ],
+"loop": true,
+"name": "swim_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 11 ) ],
+"loop": true,
+"name": "fall",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 24 ) ],
@@ -167,20 +177,25 @@ animations = [ {
 "name": "dive_fludd",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 13 ) ],
+"loop": true,
+"name": "pound_fall",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 10 ) ],
+"loop": true,
+"name": "jump_double",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 25 ) ],
+"loop": true,
+"name": "jump_fludd",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
 "loop": true,
 "name": "spin",
 "speed": 20.0
-}, {
-"frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
-"loop": true,
-"name": "spin_fludd",
-"speed": 20.0
-}, {
-"frames": [ SubResource( 28 ) ],
-"loop": true,
-"name": "front_fludd",
-"speed": 5.0
 }, {
 "frames": [ SubResource( 17 ) ],
 "loop": true,
@@ -197,11 +212,6 @@ animations = [ {
 "name": "swim",
 "speed": 4.0
 }, {
-"frames": [ SubResource( 12 ) ],
-"loop": true,
-"name": "shine",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 32 ), SubResource( 33 ) ],
 "loop": true,
 "name": "walk_fludd",
@@ -212,24 +222,24 @@ animations = [ {
 "name": "flip_fludd",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 12 ) ],
+"loop": true,
+"name": "shine",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
-}, {
-"frames": [ SubResource( 30 ), SubResource( 31 ) ],
-"loop": true,
-"name": "swim_fludd",
-"speed": 5.0
 }, {
 "frames": [ SubResource( 27 ) ],
 "loop": true,
 "name": "fall_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 10 ) ],
+"frames": [ SubResource( 28 ) ],
 "loop": true,
-"name": "jump_double",
+"name": "front_fludd",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 34 ) ],
@@ -237,34 +247,20 @@ animations = [ {
 "name": "pound_fall_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 11 ) ],
-"loop": true,
-"name": "fall",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 23 ) ],
 "loop": true,
 "name": "back_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 13 ) ],
+"frames": [ SubResource( 16 ) ],
 "loop": true,
-"name": "pound_fall",
-"speed": 10.0
-}, {
-"frames": [ SubResource( 25 ) ],
-"loop": true,
-"name": "jump_fludd",
+"name": "dive",
 "speed": 5.0
 } ]
 
 [sub_resource type="AtlasTexture" id=35]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 28, 30 )
-
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 3 )
-region = Rect2( 28, 0, 28, 30 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 3 )
@@ -274,16 +270,15 @@ region = Rect2( 56, 0, 28, 30 )
 atlas = ExtResource( 3 )
 region = Rect2( 112, 0, 28, 30 )
 
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 3 )
+region = Rect2( 28, 0, 28, 30 )
+
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
 "frames": [ SubResource( 35 ) ],
 "loop": true,
 "name": "hover",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 42 ) ],
-"loop": true,
-"name": "hover_front",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 37 ) ],
@@ -295,6 +290,11 @@ animations = [ {
 "loop": true,
 "name": "turbo",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 42 ) ],
+"loop": true,
+"name": "hover_front",
+"speed": 5.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
@@ -305,6 +305,27 @@ extents = Vector2( 6, 14.5 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6, 0.999998 )
+
+[sub_resource type="ParticlesMaterial" id=44]
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 5.0
+gravity = Vector3( 0, 450, 0 )
+initial_velocity = 300.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=43]
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_box_extents = Vector3( 4, 0, 0 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 10.0
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 1.0
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 6
@@ -380,27 +401,23 @@ usage = 0
 render_target_v_flip = true
 render_target_update_mode = 3
 
-[node name="BubblesSmall" type="CPUParticles2D" parent="BubbleViewport"]
+[node name="BubblesSmall" type="Particles2D" parent="BubbleViewport"]
 emitting = false
 amount = 30
 lifetime = 0.5
+visibility_rect = Rect2( -14, 0, 26, 211 )
 local_coords = false
+process_material = SubResource( 44 )
 texture = ExtResource( 35 )
-direction = Vector2( 0, 1 )
-spread = 5.0
-gravity = Vector2( 0, 450 )
-initial_velocity = 300.0
 
-[node name="BubblesMedium" type="CPUParticles2D" parent="BubbleViewport"]
+[node name="BubblesMedium" type="Particles2D" parent="BubbleViewport"]
 emitting = false
 amount = 27
 lifetime = 0.5
+visibility_rect = Rect2( -14, 0, 26, 211 )
 local_coords = false
+process_material = SubResource( 44 )
 texture = ExtResource( 34 )
-direction = Vector2( 0, 1 )
-spread = 5.0
-gravity = Vector2( 0, 450 )
-initial_velocity = 300.0
 
 [node name="Bubbles" type="Sprite" parent="."]
 material = ExtResource( 38 )
@@ -421,21 +438,16 @@ stream = ExtResource( 5 )
 volume_db = -10.0
 bus = "SFX"
 
-[node name="Dust" type="CPUParticles2D" parent="."]
+[node name="Dust" type="Particles2D" parent="."]
 material = ExtResource( 20 )
 position = Vector2( 0, 11.5 )
 z_index = -1
 amount = 6
 lifetime = 0.35
-lifetime_randomness = 0.5
+visibility_rect = Rect2( -4, -12, 8, 12 )
 local_coords = false
+process_material = SubResource( 43 )
 texture = ExtResource( 18 )
-emission_shape = 2
-emission_rect_extents = Vector2( 4, 0 )
-direction = Vector2( 0, -1 )
-spread = 10.0
-gravity = Vector2( 0, 0 )
-anim_speed = 1.0
 
 [node name="StepCheck" type="RayCast2D" parent="."]
 enabled = true
