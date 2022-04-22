@@ -269,6 +269,7 @@ func fixed_visuals() -> void:
 				hover_sound_position = 0
 			if !Input.is_action_pressed("fludd") || Singleton.power > 0:
 				hover_sfx.stop()
+	
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 
