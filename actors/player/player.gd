@@ -131,6 +131,8 @@ func _on_Tween_tween_completed(_object, _key):
 	if state == S.POUND:
 		pound_state = Pound.FALL
 		vel.y = 8
+	else:
+		switch_state(S.NEUTRAL)
 
 
 func _on_BackupAngle_body_entered(_body):
