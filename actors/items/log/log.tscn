@@ -8,6 +8,7 @@ extents = Vector2( 8, 9.5 )
 
 [node name="Log" type="StaticBody2D"]
 z_index = -1
+collision_mask = 0
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 2 )
