@@ -145,6 +145,7 @@ func _on_BackupAngle_body_exited(_body):
 
 func _on_WaterCheck_area_entered(_area):
 	swimming = true
+	switch_state(S.NEUTRAL)
 	Singleton.water = max(Singleton.water, 100)
 
 
@@ -217,16 +218,21 @@ func player_physics():
 	if coyote_frames > 0:
 		coyote_behaviour()
 	else:
-		airborne_anim()
+		if !swimming:
+			airborne_anim()
 		if Input.is_action_pressed("left") == Input.is_action_pressed("right"):
 			vel.x = resist(vel.x, 0, 1.001) # Air decel
 	
+	action_spin()
 	player_fall()
-	if Input.is_action_pressed("jump"):
-		if coyote_frames > 0:
-			player_jump()
-		elif jump_vary_frames > 0 && state == S.NEUTRAL:
-			vel.y -= GRAV * pow(FPS_MOD, 3) #Variable jump height
+	if swimming:
+		action_swim()
+	else:
+		if Input.is_action_pressed("jump"):
+			if coyote_frames > 0:
+				player_jump()
+			elif jump_vary_frames > 0 && state == S.NEUTRAL:
+				vel.y -= GRAV * pow(FPS_MOD, 3) #Variable jump height
 	
 	player_control_x()
 	if swimming:
@@ -234,7 +240,6 @@ func player_physics():
 	fludd_control()
 	
 	action_dive()
-	action_spin()
 	action_pound()
 	
 	wall_stop()
@@ -245,6 +250,43 @@ func player_physics():
 		vel.x = 0 # stop sliding down into holes
 
 
+var swim_delay: bool = false
+func action_swim() -> void:
+	if Input.is_action_just_pressed("jump") || Input.is_action_pressed("semi"):
+		if state == S.NEUTRAL:
+			switch_anim("swim")
+			vel.y = min(-4.25, vel.y)
+			sprite.frame = 1
+			sprite.speed_scale = 1
+			swim_delay = true
+		elif state == S.SPIN:
+			switch_state(S.NEUTRAL)
+			vel.y = min(-4.25, vel.y)
+			vel.x = min(abs(vel.x) + 1.5, 8) * sign(vel.x)
+		elif (
+			state == S.DIVE
+			&& Input.is_action_pressed("jump")
+			&& (
+				(
+					(
+						int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+					) == 1.0
+					&& sprite.flip_h
+				)
+				||
+				(
+					(
+						int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+					) == -1.0
+					&& !sprite.flip_h
+				)
+			)
+		):
+			action_backflip()
+	else:
+		swim_delay = false
+
+
 func adjust_swim_x() -> void:
 	var swim_adjust = vel.x
 	swim_adjust = resist(swim_adjust, 0.05, 1.05)
@@ -253,6 +295,10 @@ func adjust_swim_x() -> void:
 
 var hover_sound_position = 0
 func fixed_visuals() -> void:
+	if swimming && state == S.NEUTRAL:
+		switch_anim("swim")
+		if sprite.frame == 0:
+			sprite.speed_scale = 0
 	if state == S.DIVE || swimming:
 		hover_sfx.stop()
 		if fludd_strain:
@@ -415,15 +461,15 @@ func action_spin() -> void:
 		Input.is_action_pressed("spin")
 		&& (
 			state == S.NEUTRAL
-			|| (state == S.ROLLOUT || Input.is_action_just_pressed("spin"))
+			|| (state == S.ROLLOUT && Input.is_action_just_pressed("spin"))
 		)
-		&& (vel.y > -3.3 * FPS_MOD || state == S.ROLLOUT)
+		&& (vel.y > -3.3 * FPS_MOD || state == S.ROLLOUT || swimming)
 	):
 		switch_state(S.SPIN)
 		switch_anim("spin")
 		if !grounded:
 			if swimming:
-				vel.y = min(-2, vel.y - 2)
+				vel.y = min(-2, vel.y)
 			else:
 				vel.y = min(-3.5 * FPS_MOD * 1.3, vel.y - 3.5 * FPS_MOD)
 		spin_frames = SPIN_TIME
