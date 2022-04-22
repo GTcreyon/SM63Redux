@@ -232,7 +232,7 @@ func player_physics():
 			if coyote_frames > 0:
 				player_jump()
 			elif jump_vary_frames > 0 && state == S.NEUTRAL:
-				vel.y -= GRAV * pow(FPS_MOD, 3) #Variable jump height
+				vel.y -= GRAV * pow(FPS_MOD, 3) # Variable jump height
 	
 	player_control_x()
 	if swimming:

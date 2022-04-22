@@ -21,7 +21,7 @@ func _ready():
 
 func _process(_delta):
 	for body in pound_area.get_overlapping_bodies():
-		if body.state == body.s.pound_fall || body.state == body.s.pound_land:
+		if body.state == body.S.POUND && body.pound_state != body.Pound.SPIN:
 			destroy()
 	for body in spin_area.get_overlapping_bodies():
 		if body.is_spinning(): 
@@ -29,7 +29,7 @@ func _process(_delta):
 
 
 func _on_PoundArea_body_entered(body):
-	if body.state == body.s.pound_fall || body.state == body.s.pound_land:
+	if body.state == body.S.POUND && body.pound_state != body.Pound.SPIN:
 		destroy()
 
 

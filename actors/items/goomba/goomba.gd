@@ -59,10 +59,10 @@ func _physics_process(_delta):
 			
 			if sprite.frame == 3:
 				if !struck:
-					if target.state == target.s.edive:
+					if target.state == target.S.DIVE:
 						target.coyote_time = 0
 						target.dive_correct(-1)
-						target.switch_state(target.s.diveflip)
+						target.switch_state(target.S.ROLLOUT)
 						target.switch_anim("jump")
 						target.flip_l = target.sprite.flip_h
 						target.vel.y = min(-target.set_jump_1_vel/1.5, target.vel.y)
@@ -75,7 +75,7 @@ func _physics_process(_delta):
 								target.vel.y = -6
 						else:
 							target.vel.y = -5
-						target.switch_state(target.s.walk)
+						target.switch_state(target.S.NEUTRAL)
 				dead = true #apparently queue_free() doesn't cancel the current cycle
 			
 	#code to push enemies apart - maybe come back to later?
@@ -225,19 +225,19 @@ func _on_Area2D_body_entered_hurt(body):
 			vel.y = 0
 			sprite.frame = 0
 			sprite.playing = true
-			if target.state == target.s.dive || target.state == target.s.edive:
+			if target.state == target.S.DIVE:
 				if Input.is_action_pressed("down"):
 					damage_check(body)
 				else:
-					target.call_deferred("switch_state", target.s.edive)
+					target.bouncing = true
 			else:
-				target.call_deferred("switch_state", target.s.ejump)
+				target.bouncing = true
 		elif !struck:
 			damage_check(body)
 
 
 func damage_check(body):
-	if body.is_spinning() || (body.is_diving(true) && abs(body.vel.x) > 1) || body.state == body.s.ejump:
+	if body.is_spinning() || (body.is_diving(true) && abs(body.vel.x) > 1) || body.bouncing:
 		struck = true
 		vel.y -= 2.63
 		sprite.animation = "jumping"
