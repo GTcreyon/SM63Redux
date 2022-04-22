@@ -2,10 +2,14 @@ extends Node2D
 
 onready var sm63_to_redux: SM63ToRedux = Singleton.sm63_to_redux
 onready var ld_ui = $UILayer/LDUI
+onready var ld_camera = $LDCamera
 onready var lv_template := preload("res://src/level_designer/template.tscn")
 
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
 const item_prefab = preload("res://actors/items/ld_item.tscn")
+
+signal selection_changed #only gets called when the hash changed
+signal selection_event #gets fired always whenever some calculation regarding events is done
 
 export(Dictionary) var item_classes = {}
 export(Dictionary) var items = {}
@@ -14,24 +18,35 @@ export(Dictionary) var item_scenes = {}
 
 var start_pos
 
-var selected_item
-var queue_counter = 0
-var select_queue: Array = []
-var temp_select_queue: Array = []
+var selection = {
+	active = [], #a list of all selected items
+	head = null, #the main selected item
+	
+	hit = [], #the array of all hit items on the last selection call
+	head_idx = 0, #the index of the head in the hit array
+}
 
-func reset_selected_item():
-	selected_item = null
+var selection_begin
+var selection_rect = Rect2()
 
-func get_selected_item():
-	return selected_item
+#var queue_counter = 0
+#var select_queue: Array = []
+#var temp_select_queue: Array = []
+
+func is_selected(item):
+	var is_selected = false
+	for selected in selection.hit:
+		if selected == item:
+			return true
+	return false
 
 #ld_items can request a selection when clicked
 #doing this puts them on a stack
 #the top of the stack gets selected in _process()
 #clicking again or cycling with [ and ] cycles through this stack
 #this will always work unless the stack changes, in which case it resets to the top
-func request_select(me):
-	temp_select_queue.append(me)
+#func request_select(me):
+#	temp_select_queue.append(me)
 
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = terrain_prefab.instance()
@@ -164,7 +179,6 @@ func read_items():
 	#print(items)
 	#print(item_textures)
 
-
 func _ready():
 	var template = lv_template.instance()
 	call_deferred("add_child", template)
@@ -172,25 +186,122 @@ func _ready():
 	read_items()
 	ld_ui.fill_grid()
 
+func retain_order_by_hash(a, b):
+	return hash(a) < hash(b)
 
-func _process(_delta):
-#	if temp_select_queue.empty(): #if the queue is empty
-#		if Input.is_action_just_pressed("LD_select"):
+func _unhandled_input(event: InputEvent):
+	var global_mouse_pos = ld_camera.global_position
+	if event is InputEventMouse:
+		global_mouse_pos += event.position
+	
+	if selection_begin != null:
+		var min_vec = Vector2(min(selection_begin.x, global_mouse_pos.x), min(selection_begin.y, global_mouse_pos.y))
+		var max_vec = Vector2(max(selection_begin.x, global_mouse_pos.x), max(selection_begin.y, global_mouse_pos.y))
+		selection_rect = Rect2(min_vec, max_vec - min_vec)
+	
+	#key press cycle
+	if event.is_action_pressed("LD_queue+") && len(selection.active) == 1 && len(selection.hit) != 1:
+		selection.head_idx = (selection.head_idx + 1) % len(selection.hit)
+		selection.head = selection.hit[selection.head_idx]
+		selection.active = [selection.head]
+		emit_signal("selection_changed", selection)
+		emit_signal("selection_event", selection)
+	
+	if event.is_action_pressed("LD_queue-") && len(selection.active) == 1 && len(selection.hit) != 1:
+		selection.head_idx = (selection.head_idx - 1) % len(selection.hit)
+		selection.head = selection.hit[selection.head_idx]
+		selection.active = [selection.head]
+		emit_signal("selection_changed", selection)
+		emit_signal("selection_event", selection)
+	
+	if event.is_action_pressed("LD_select"):
+		selection_begin = global_mouse_pos
+	
+	#main selection
+	if event.is_action_released("LD_select"):
+		#collect data over the covered shape
+		selection_begin = null
+		var list = []
+		
+		#rectangle selection must be bigger than 8px, otherwise we assume it's just a simple click
+		if (selection_rect.size.length() > 8):
+			#welcome to this horrible boilerplate rectangle collision detection!
+			var shape = RectangleShape2D.new()
+			shape.set_extents(selection_rect.size / 2) #extends is both ways, hence / 2
+			var query = Physics2DShapeQueryParameters.new()
+			query.collide_with_areas = true
+			query.collide_with_bodies = true
+			query.set_shape(shape)
+			query.transform = Transform2D(0, selection_rect.position + selection_rect.size / 2) #this is the center
+			list = get_world_2d().direct_space_state.intersect_shape(query, 32)
+		else:
+			list = get_world_2d().direct_space_state.intersect_point(global_mouse_pos, 32, [], 0x7FFFFFFF, true, true)
+		
+		#convert from raw hitboxes to the actual items
+		var hit = []
+		for selected in list:
+			selected = selected.collider
+			#find the top most parent of the collider
+			#this isn't guaranteed to be just get_parent() as the collider can be nested in several children
+			while selected.get_parent():
+				selected = selected.get_parent()
+				var parent_name = selected.get_parent().name
+				if parent_name == "Items" || parent_name == "Terrain" || parent_name == "Water" || parent_name == "CameraLimits":
+					hit.append(selected)
+					break
+		
+		#a slow, possibly bad idea, but unless someone stacked like a thousand items under eachother it should be fine
+		#we do this so we are sure items are always ordered in the same way
+		#this is required so we can reliably switch between items on the queue
+		hit.sort_custom(self, "retain_order_by_hash")
+		
+		selection.hit = hit
+		#make sure we don't try to select something in a null table
+		if len(selection.hit) == 0:
+			var old_hash = selection.hash()
+			selection.head_idx = 0
+			selection.head = null
+			selection.active = []
+			if selection.hash() != old_hash:
+				#our selection changed, fire selection changed
+				emit_signal("selection_changed", selection)
+		else:
+			var old_hash = selection.hash()
+			selection.head_idx = selection.head_idx % len(selection.hit)
+			selection.head = selection.hit[selection.head_idx]
+			selection.active = hit if selection_rect.size.length() > 8 else [selection.head]
+			
+			#for the cycle
+			selection.head_idx = (selection.head_idx + 1) % len(selection.hit)
+			if selection.hash() != old_hash:
+				#our selection changed, fire selection changed
+				emit_signal("selection_changed", selection)
+		emit_signal("selection_event", selection)
+
+#	if event is InputEventMouseButton && event.is_pressed():
+#		print(list)
+
+#func _process(_delta):
+##	if temp_select_queue.empty(): #if the queue is empty
+##		if Input.is_action_just_pressed("LD_select"):
+##			queue_counter = 0
+#	var size = select_queue.size()
+#	if Input.is_action_just_pressed("LD_queue+"):
+#		queue_counter = (queue_counter + 1) % size
+#			selected_item = select_queue[select_queue.size() - queue_counter - 1]
+#		emit_signal("selection_changed", selected_item)
+#	if Input.is_action_just_pressed("LD_queue-"):
+#		queue_counter = (queue_counter - 1 + size) % size
+#		selected_item = select_queue[select_queue.size() - queue_counter - 1]
+#		emit_signal("selection_changed", selected_item)
+#	if !temp_select_queue.empty(): #if there are items in the queue
+#		if temp_select_queue != select_queue: #if the queue has changed, reset
 #			queue_counter = 0
-	var size = select_queue.size()
-	if Input.is_action_just_pressed("LD_queue+"):
-		queue_counter = (queue_counter + 1) % size
-		selected_item = select_queue[select_queue.size() - queue_counter - 1]
-	if Input.is_action_just_pressed("LD_queue-"):
-		queue_counter = (queue_counter - 1 + size) % size
-		selected_item = select_queue[select_queue.size() - queue_counter - 1]
-	if !temp_select_queue.empty(): #if there are items in the queue
-		if temp_select_queue != select_queue: #if the queue has changed, reset
-			queue_counter = 0
-			select_queue = temp_select_queue.duplicate()
-		else: #if the queue is the same, cycle
-			queue_counter = (queue_counter + 1) % size
-		var new_size = select_queue.size()
-		if new_size > 0:
-			selected_item = select_queue[select_queue.size() - queue_counter - 1]
-	temp_select_queue = [] #reset the queue
+#			select_queue = temp_select_queue.duplicate()
+#		else: #if the queue is the same, cycle
+#			queue_counter = (queue_counter + 1) % size
+#		var new_size = select_queue.size()
+#		if new_size > 0:
+#			selected_item = select_queue[select_queue.size() - queue_counter - 1]
+#			emit_signal("selection_changed", selected_item)
+#	temp_select_queue = [] #reset the queue

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://src/level_designer/ld_main.gd" type="Script" id=2]
@@ -18,6 +18,7 @@
 [ext_resource path="res://scenes/ld/start.gd" type="Script" id=16]
 [ext_resource path="res://scenes/ld/save.gd" type="Script" id=17]
 [ext_resource path="res://scenes/ld/load.gd" type="Script" id=18]
+[ext_resource path="res://gui/hud/hud_shine_old.png" type="Texture" id=19]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 7 )
@@ -78,14 +79,43 @@ script = ExtResource( 5 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
+[node name="HoverUI" type="Control" parent="UILayer"]
+
+[node name="SelectionControl" type="ColorRect" parent="UILayer/HoverUI"]
+visible = false
+margin_right = 140.0
+margin_bottom = 50.0
+color = Color( 0.92549, 0.494118, 0.305882, 1 )
+
+[node name="Move" type="TextureButton" parent="UILayer/HoverUI/SelectionControl"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 45.0
+margin_bottom = 45.0
+texture_normal = ExtResource( 19 )
+expand = true
+
+[node name="Idk1" type="TextureButton" parent="UILayer/HoverUI/SelectionControl"]
+margin_left = 50.0
+margin_top = 5.0
+margin_right = 90.0
+margin_bottom = 45.0
+texture_normal = ExtResource( 19 )
+expand = true
+
+[node name="Idk2" type="TextureButton" parent="UILayer/HoverUI/SelectionControl"]
+margin_left = 95.0
+margin_top = 5.0
+margin_right = 135.0
+margin_bottom = 45.0
+texture_normal = ExtResource( 19 )
+expand = true
+
 [node name="LDUI" type="Control" parent="UILayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TopBar" type="Control" parent="UILayer/LDUI"]
 anchor_right = 1.0
@@ -325,6 +355,8 @@ __meta__ = {
 position = Vector2( 278, 331.5 )
 z_index = -1
 
+[connection signal="selection_changed" from="." to="UILayer/LDUI" method="_selection_changed"]
+[connection signal="selection_event" from="." to="UILayer/LDUI" method="_selection_event"]
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]

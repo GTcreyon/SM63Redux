@@ -5,6 +5,8 @@ const list_item = preload("res://src/level_designer/list_item.tscn")
 onready var level_editor := $"/root/Main"
 onready var ld_camera := $"/root/Main/LDCamera"
 onready var background := $"/root/Main/LDCamera/Background"
+onready var hover_ui := get_parent().get_node("HoverUI")
+onready var selection_ui := hover_ui.get_node("SelectionControl")
 onready var item_grid = $LeftBar/ColorRect/Control/ColorRect3/ColorRect4/ItemGrid
 
 var polygon_modifier = {
@@ -91,38 +93,47 @@ func get_polygon_rect(polygon):
 		vec_max.y = max(vec_max.y, vert.y)
 	return Rect2(vec_min, vec_max - vec_min)
 
-func draw_editable_rect(poly_rect):
+func draw_editable_rect(draw_on, poly_rect):
 	#draw the extends
-	draw_rect(poly_rect, Color(0.6, 0.25, 0.1), false, 2)
+	draw_on.draw_rect(poly_rect, Color(0.6, 0.25, 0.1), false, 2)
 	for x in [0, 0.5, 1]:
 		for y in [0, 0.5, 1]:
 			if x == 0.5 && y == 0.5:
 				continue
 			var coords = poly_rect.position + poly_rect.size * Vector2(x, y)
-			draw_circle(coords, 4, Color(0.6, 0.25, 0.1))
-			draw_circle(coords, 3, Color(0.8, 0.35, 0.2))
+			draw_on.draw_circle(coords, 4, Color(0.6, 0.25, 0.1))
+			draw_on.draw_circle(coords, 3, Color(0.8, 0.35, 0.2))
 
-func draw_editable_polygon(local_poly):
+func draw_editable_polygon(draw_on, local_poly):
 	#draw the polygon outline
 	#not using polyline, since it has an ugly inner joint mode
 	var p_size = local_poly.size()
 	for idx in p_size:
 		var n_idx = (idx + 1) % p_size
-		draw_line(
+		draw_on.draw_line(
 			local_poly[idx],
 			local_poly[n_idx],
 			Color(0.4, 0.2, 0),
 			3
 		)
-		draw_circle(local_poly[idx], 4, Color(0.5, 0.3, 0))
-		draw_circle(local_poly[idx], 3, Color(0.8, 0.5, 0.3))
+		draw_on.draw_circle(local_poly[idx], 4, Color(0.5, 0.3, 0))
+		draw_on.draw_circle(local_poly[idx], 3, Color(0.8, 0.5, 0.3))
 
 func _draw():
+	#draw the current rectangle selection
+	if (level_editor.selection_rect.size.length() > 8):
+		var local_rect = Rect2(level_editor.selection_rect)
+		local_rect.position -= ld_camera.global_position
+		if level_editor.selection_begin:
+			draw_rect(local_rect, Color(0.6, 0.25, 0, 0.7), false, 2)
+		else:
+			draw_editable_rect(self, local_rect)
+	
 	if polygon_modifier.state == "create":
 		var local_poly = get_local_polygon_data()
 		var poly_rect = get_polygon_rect(local_poly)
-		draw_editable_polygon(local_poly)
-		draw_editable_rect(poly_rect)
+		draw_editable_polygon(self, local_poly)
+		draw_editable_rect(self, poly_rect)
 		
 		draw_circle(
 			local_poly[local_poly.size() - 1],
@@ -130,15 +141,34 @@ func _draw():
 			Color(0, 1, 0)
 		)
 	elif polygon_modifier.state == "edit":
-		var local_poly = get_local_polygon_data()
+		var poly_data = polygon_modifier.ref.polygon
+		var local_poly = PoolVector2Array()
+		for vec in poly_data:
+			local_poly.append(vec + polygon_modifier.ref.global_position - ld_camera.global_position)
+		#var local_poly = get_local_polygon_data()
 		var poly_rect = get_polygon_rect(local_poly)
-		draw_editable_rect(poly_rect)
+		draw_editable_polygon(self, local_poly)
+		draw_editable_rect(self, poly_rect)
+	elif polygon_modifier.state == "selected":
+		var poly_data = polygon_modifier.ref.polygon
+		var local_poly = PoolVector2Array()
+		for vec in poly_data:
+			local_poly.append(vec + polygon_modifier.ref.global_position - ld_camera.global_position)
+		draw_editable_polygon(self, local_poly)
 
 func _process(_dt):
 	background.material.set_shader_param("camera_position", ld_camera.global_position)
+	if selection_ui.visible:
+		selection_ui.set_position(
+			level_editor.selection_rect.position +
+			level_editor.selection_rect.size * Vector2(0.5, 1) +
+			Vector2(0, 20) -
+			Vector2(70, 0) -
+			ld_camera.global_position
+		)
 	update()
 
-func _input(event):
+func _unhandled_input(event):
 	if polygon_modifier.state == "create":
 		var grid_px = 8
 		
@@ -164,20 +194,39 @@ func _input(event):
 			elif event.button_index == 2:
 				finish_creating_polygon()
 			update() #force _draw
-	elif polygon_modifier.state == "idle":
-		if event is InputEventMouseButton and event.pressed:
-			#level_editor.print_tree_pretty()
-			var terrain_root = level_editor.get_node("Template").get_node("Terrain")
-			for terrain in terrain_root.get_children():
-				var relative_pos = event.position + ld_camera.global_position - terrain.global_position
-				if Geometry.is_point_in_polygon(relative_pos, terrain.polygon):
-					level_editor.request_select(terrain)
+#	elif polygon_modifier.state == "idle":
+#		if event is InputEventMouseButton and event.pressed:
+#			#level_editor.print_tree_pretty()
+#			var terrain_root = level_editor.get_node("Template").get_node("Terrain")
+#			for terrain in terrain_root.get_children():
+#				var relative_pos = event.position + ld_camera.global_position - terrain.global_position
+#				if Geometry.is_point_in_polygon(relative_pos, terrain.polygon):
+#					level_editor.request_select(terrain)
 
 func _on_terrain_control_place_pressed():
-	print("Place Terrain")
 	fake_polygon_create()
-	pass # Replace with function body.
 
+func _selection_changed(selection):
+	if len(selection.active) == 1 && selection.head.get_parent().name == "Terrain":
+		polygon_modifier.ref = selection.head
+		polygon_modifier.state = "edit"
+	elif polygon_modifier.state == "edit":
+		polygon_modifier.state = "idle"
+
+func _selection_event(selection):
+	if level_editor.selection_rect.size.length() > 8:
+		selection_ui.visible = true
+	else:
+		selection_ui.visible = false
+
+#	if (polygon_modifier.state == "idle" || polygon_modifier.state == "edit") && new_selection && new_selection.get_parent().name == "Terrain":
+#		polygon_modifier.ref = new_selection
+#		polygon_modifier.state = "edit"
+#		update()
+#	elif polygon_modifier.state == "edit" && !new_selection:
+#		polygon_modifier.state = "idle"
+#		update()
+#	print(">", polygon_modifier.state)
 
 func fill_grid():
 	for key in level_editor.item_textures.keys():
@@ -208,3 +257,5 @@ func fill_grid():
 		button.texture_normal = tex
 		button.item_name = key
 		item_grid.add_child(button)
+
+
