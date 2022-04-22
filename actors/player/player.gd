@@ -1170,8 +1170,12 @@ func dive_correct(factor): # Correct the player's origin position when diving
 func play_sfx(type, group):
 	var sound_set = SFX_BANK[type][group]
 	var sound = sound_set[randi() % sound_set.size()]
-	voice.stream = sound
-	voice.play(0)
+	if type == "voice":
+		voice.stream = sound
+		voice.play(0)
+	else:
+		step.stream = sound
+		step.play(0)
 
 
 const STEP_MASK = 0b111111110000000000000000
@@ -1179,7 +1183,7 @@ func step_sound():
 	if sprite.frame == 0 && last_step == 1:
 		var collider: CollisionObject2D = step_check.get_collider()
 		if collider != null:
-			var layer = collider.collision_layer & STEP_MASK >> 16
+			var layer = (collider.collision_layer & STEP_MASK) >> 16
 			match layer:
 				0b10000000:
 					play_sfx("step", "grass")
