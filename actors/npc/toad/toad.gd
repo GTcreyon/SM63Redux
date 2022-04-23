@@ -77,5 +77,5 @@ func _physics_process(_delta):
 			player.vel = Vector2.ZERO
 			player.sign_x = position.x - 16
 			player.locked = true
-			player.sign_cooldown = 1
+			player.sign_frames = 1
 			dialog.load_lines(lines)
