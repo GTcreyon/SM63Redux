@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://src/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://src/level_designer/ld_main.gd" type="Script" id=2]
@@ -19,6 +19,10 @@
 [ext_resource path="res://scenes/ld/save.gd" type="Script" id=17]
 [ext_resource path="res://scenes/ld/load.gd" type="Script" id=18]
 [ext_resource path="res://gui/hud/hud_shine_old.png" type="Texture" id=19]
+[ext_resource path="res://gui/custom_nodes/OutlineContainer.gd" type="Script" id=20]
+[ext_resource path="res://gui/ld/drag_circle_hover.png" type="Texture" id=21]
+[ext_resource path="res://gui/ld/drag_circle_selected.png" type="Texture" id=22]
+[ext_resource path="res://gui/ld/drag_circle.png" type="Texture" id=23]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 7 )
@@ -81,13 +85,160 @@ script = ExtResource( 5 )
 
 [node name="HoverUI" type="Control" parent="UILayer"]
 
-[node name="SelectionControl" type="ColorRect" parent="UILayer/HoverUI"]
+[node name="Dragger" type="Container" parent="UILayer/HoverUI"]
 visible = false
-margin_right = 140.0
-margin_bottom = 50.0
+margin_left = 310.0
+margin_top = 67.0
+margin_right = 498.0
+margin_bottom = 176.0
+mouse_filter = 2
+script = ExtResource( 20 )
+anchor_around = PoolVector2Array( 0.5, 0, 1, 0.5, 0.5, 1, 0, 0.5, 0, 0, 0.5, 0, 1, 0, 1, 0.5, 1, 1, 0.5, 1, 0, 1, 0, 0.5, 0.5, 1, 0, 0 )
+px_offset = PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0 )
+item_anchor = PoolVector2Array( 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0, 0.5, 0.5 )
+
+[node name="OutlineTop" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
+margin_top = -1.0
+margin_right = 188.0
+margin_bottom = 1.0
+size_flags_vertical = 0
+color = Color( 0.498039, 0.247059, 0, 1 )
+
+[node name="OutlineRight" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
+margin_left = 187.0
+margin_right = 189.0
+margin_bottom = 109.0
+size_flags_horizontal = 0
+color = Color( 0.498039, 0.247059, 0, 1 )
+
+[node name="OutlineBottom" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
+margin_top = 108.0
+margin_right = 188.0
+margin_bottom = 110.0
+size_flags_vertical = 0
+color = Color( 0.498039, 0.247059, 0, 1 )
+
+[node name="OutlineLeft" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
+margin_left = -1.0
+margin_right = 1.0
+margin_bottom = 109.0
+size_flags_horizontal = 0
+color = Color( 0.498039, 0.247059, 0, 1 )
+
+[node name="TopLeft" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
+margin_left = -6.0
+margin_top = -6.0
+margin_right = 6.0
+margin_bottom = 6.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 21 )
+expand = true
+
+[node name="TopMiddle" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
+margin_left = 88.0
+margin_top = -6.0
+margin_right = 100.0
+margin_bottom = 6.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 21 )
+expand = true
+
+[node name="TopRight" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
+margin_left = 182.0
+margin_top = -6.0
+margin_right = 194.0
+margin_bottom = 6.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 21 )
+expand = true
+
+[node name="MiddleRight" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
+margin_left = 182.0
+margin_top = 48.5
+margin_right = 194.0
+margin_bottom = 60.5
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 21 )
+expand = true
+
+[node name="BottomRight" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
+margin_left = 182.0
+margin_top = 103.0
+margin_right = 194.0
+margin_bottom = 115.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 21 )
+expand = true
+
+[node name="BottomMiddle" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
+margin_left = 88.0
+margin_top = 103.0
+margin_right = 100.0
+margin_bottom = 115.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 21 )
+expand = true
+
+[node name="BottomLeft" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
+margin_left = -6.0
+margin_top = 103.0
+margin_right = 6.0
+margin_bottom = 115.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 21 )
+expand = true
+
+[node name="MiddleLeft" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
+margin_left = -6.0
+margin_top = 48.5
+margin_right = 6.0
+margin_bottom = 60.5
+size_flags_horizontal = 0
+size_flags_vertical = 0
+action_mode = 0
+texture_normal = ExtResource( 23 )
+texture_pressed = ExtResource( 22 )
+texture_hover = ExtResource( 21 )
+expand = true
+
+[node name="SelectionControl" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
+margin_left = 24.0
+margin_top = 119.0
+margin_right = 164.0
+margin_bottom = 169.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
 color = Color( 0.92549, 0.494118, 0.305882, 1 )
 
-[node name="Move" type="TextureButton" parent="UILayer/HoverUI/SelectionControl"]
+[node name="Move" type="TextureButton" parent="UILayer/HoverUI/Dragger/SelectionControl"]
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 45.0
@@ -95,7 +246,7 @@ margin_bottom = 45.0
 texture_normal = ExtResource( 19 )
 expand = true
 
-[node name="Idk1" type="TextureButton" parent="UILayer/HoverUI/SelectionControl"]
+[node name="Idk1" type="TextureButton" parent="UILayer/HoverUI/Dragger/SelectionControl"]
 margin_left = 50.0
 margin_top = 5.0
 margin_right = 90.0
@@ -103,7 +254,7 @@ margin_bottom = 45.0
 texture_normal = ExtResource( 19 )
 expand = true
 
-[node name="Idk2" type="TextureButton" parent="UILayer/HoverUI/SelectionControl"]
+[node name="Idk2" type="TextureButton" parent="UILayer/HoverUI/Dragger/SelectionControl"]
 margin_left = 95.0
 margin_top = 5.0
 margin_right = 135.0
@@ -356,7 +507,7 @@ position = Vector2( 278, 331.5 )
 z_index = -1
 
 [connection signal="selection_changed" from="." to="UILayer/LDUI" method="_selection_changed"]
-[connection signal="selection_event" from="." to="UILayer/LDUI" method="_selection_event"]
+[connection signal="selection_size_changed" from="." to="UILayer/LDUI" method="_selection_size_changed"]
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]

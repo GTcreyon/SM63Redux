@@ -12,12 +12,7 @@ var glow_factor = 1
 var pulse = 0
 var ghost = false
 
-
-func on_selection_changed(new_selection):
-	if ghost:
-		modulate.a = 1
-		ghost = false
-	
+func _selection_changed(new_selection):
 	if new_selection.head == self:
 #			if Input.is_action_pressed("LD_many"):
 #				main.place_item(item_name)
@@ -28,14 +23,19 @@ func on_selection_changed(new_selection):
 func _ready():
 	if ghost:
 		modulate.a = 0.5
-		position = get_global_mouse_position()
+		position = main.snap_vector(get_global_mouse_position())
 	$ClickArea/CollisionShape2D.shape.extents = texture.get_size() / 2
 	
-	main.connect("selection_changed", self, "on_selection_changed")
+	main.connect("selection_changed", self, "_selection_changed")
+
+func _input(event):
+	if event.is_action_released("LD_place"):
+		modulate.a = 1
+		ghost = false
 
 func _process(delta):
 	if ghost:
-		position = get_global_mouse_position()
+		position = main.snap_vector(get_global_mouse_position())
 	
 	if material:
 		pulse = fmod((pulse + 0.1), 2 * PI)

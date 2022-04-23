@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/global/base_modifier.gd"
 }, {
+"base": "Container",
+"class": "OutlineContainer",
+"language": "GDScript",
+"path": "res://gui/custom_nodes/OutlineContainer.gd"
+}, {
+"base": "Container",
+"class": "PolygonContainer",
+"language": "GDScript",
+"path": "res://gui/custom_nodes/PolygonContainer.gd"
+}, {
 "base": "Node2D",
 "class": "SM63ToRedux",
 "language": "GDScript",
@@ -31,6 +41,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
+"OutlineContainer": "",
+"PolygonContainer": "",
 "SM63ToRedux": "",
 "Serializer": "",
 "TileToPoly": ""

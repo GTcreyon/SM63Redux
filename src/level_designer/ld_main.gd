@@ -10,6 +10,7 @@ const item_prefab = preload("res://actors/items/ld_item.tscn")
 
 signal selection_changed #only gets called when the hash changed
 signal selection_event #gets fired always whenever some calculation regarding events is done
+signal selection_size_changed #gets fired whenever the selection rect changes
 
 export(Dictionary) var item_classes = {}
 export(Dictionary) var items = {}
@@ -29,9 +30,7 @@ var selection = {
 var selection_begin
 var selection_rect = Rect2()
 
-#var queue_counter = 0
-#var select_queue: Array = []
-#var temp_select_queue: Array = []
+var last_local_mouse_position = Vector2()
 
 func is_selected(item):
 	var is_selected = false
@@ -40,13 +39,11 @@ func is_selected(item):
 			return true
 	return false
 
-#ld_items can request a selection when clicked
-#doing this puts them on a stack
-#the top of the stack gets selected in _process()
-#clicking again or cycling with [ and ] cycles through this stack
-#this will always work unless the stack changes, in which case it resets to the top
-#func request_select(me):
-#	temp_select_queue.append(me)
+func snap_vector(vec, grid = 8):
+	return Vector2(
+				floor(vec.x / grid + 0.5) * grid,
+				floor(vec.y / grid + 0.5) * grid
+			)
 
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = terrain_prefab.instance()
@@ -189,15 +186,22 @@ func _ready():
 func retain_order_by_hash(a, b):
 	return hash(a) < hash(b)
 
-func _unhandled_input(event: InputEvent):
-	var global_mouse_pos = ld_camera.global_position
-	if event is InputEventMouse:
-		global_mouse_pos += event.position
-	
+func _process(_dt):
 	if selection_begin != null:
+		var global_mouse_pos = snap_vector(ld_camera.global_position + last_local_mouse_position)
 		var min_vec = Vector2(min(selection_begin.x, global_mouse_pos.x), min(selection_begin.y, global_mouse_pos.y))
 		var max_vec = Vector2(max(selection_begin.x, global_mouse_pos.x), max(selection_begin.y, global_mouse_pos.y))
-		selection_rect = Rect2(min_vec, max_vec - min_vec)
+		var new = Rect2(min_vec, max_vec - min_vec)
+		if !selection_rect.is_equal_approx(new):
+			selection_rect = new
+			emit_signal("selection_size_changed", selection_rect)
+
+func _input(event):
+	if event is InputEventMouse:
+		last_local_mouse_position = event.position
+
+func _unhandled_input(event: InputEvent):
+	var global_mouse_pos = ld_camera.global_position + last_local_mouse_position
 	
 	#key press cycle
 	if event.is_action_pressed("LD_queue+") && len(selection.active) == 1 && len(selection.hit) != 1:
@@ -214,12 +218,13 @@ func _unhandled_input(event: InputEvent):
 		emit_signal("selection_changed", selection)
 		emit_signal("selection_event", selection)
 	
+	#enable rectangle-select
 	if event.is_action_pressed("LD_select"):
 		selection_begin = global_mouse_pos
 	
 	#main selection
 	if event.is_action_released("LD_select"):
-		#collect data over the covered shape
+		#end the rectangle select
 		selection_begin = null
 		var list = []
 		
@@ -253,6 +258,8 @@ func _unhandled_input(event: InputEvent):
 		#a slow, possibly bad idea, but unless someone stacked like a thousand items under eachother it should be fine
 		#we do this so we are sure items are always ordered in the same way
 		#this is required so we can reliably switch between items on the queue
+		
+		#NOTE: change this so it orders by the X, then the Y of the object
 		hit.sort_custom(self, "retain_order_by_hash")
 		
 		selection.hit = hit
@@ -277,31 +284,27 @@ func _unhandled_input(event: InputEvent):
 				#our selection changed, fire selection changed
 				emit_signal("selection_changed", selection)
 		emit_signal("selection_event", selection)
+		
+		#change the selected area to the smallest bounding box of the newly selected items
+		if len(selection.active) > 0:
+			var min_vec = Vector2.INF
+			var max_vec = -Vector2.INF
+			for item in selection.active:
+				var vectors = []
+				#item have a rect, all other types have a polygon
+				if item.get_parent().name == "Items":
+					vectors = [
+						item.position - item.texture.get_size() / 2,
+						item.position + item.texture.get_size() / 2
+					]
+				else:
+					vectors = item.polygon
 
-#	if event is InputEventMouseButton && event.is_pressed():
-#		print(list)
-
-#func _process(_delta):
-##	if temp_select_queue.empty(): #if the queue is empty
-##		if Input.is_action_just_pressed("LD_select"):
-##			queue_counter = 0
-#	var size = select_queue.size()
-#	if Input.is_action_just_pressed("LD_queue+"):
-#		queue_counter = (queue_counter + 1) % size
-#			selected_item = select_queue[select_queue.size() - queue_counter - 1]
-#		emit_signal("selection_changed", selected_item)
-#	if Input.is_action_just_pressed("LD_queue-"):
-#		queue_counter = (queue_counter - 1 + size) % size
-#		selected_item = select_queue[select_queue.size() - queue_counter - 1]
-#		emit_signal("selection_changed", selected_item)
-#	if !temp_select_queue.empty(): #if there are items in the queue
-#		if temp_select_queue != select_queue: #if the queue has changed, reset
-#			queue_counter = 0
-#			select_queue = temp_select_queue.duplicate()
-#		else: #if the queue is the same, cycle
-#			queue_counter = (queue_counter + 1) % size
-#		var new_size = select_queue.size()
-#		if new_size > 0:
-#			selected_item = select_queue[select_queue.size() - queue_counter - 1]
-#			emit_signal("selection_changed", selected_item)
-#	temp_select_queue = [] #reset the queue
+				for vec in vectors:
+					min_vec.x = min(vec.x, min_vec.x)
+					min_vec.y = min(vec.y, min_vec.y)
+					max_vec.x = max(vec.x, max_vec.x)
+					max_vec.y = max(vec.y, max_vec.y)
+			
+			selection_rect = Rect2(min_vec, max_vec - min_vec)
+			emit_signal("selection_size_changed", selection_rect)

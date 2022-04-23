@@ -6,15 +6,14 @@ onready var level_editor := $"/root/Main"
 onready var ld_camera := $"/root/Main/LDCamera"
 onready var background := $"/root/Main/LDCamera/Background"
 onready var hover_ui := get_parent().get_node("HoverUI")
-onready var selection_ui := hover_ui.get_node("SelectionControl")
+#onready var selection_ui := hover_ui.get_node("SelectionControl")
+onready var editable_rect := hover_ui.get_node("Dragger")
+onready var rect_controls := hover_ui.get_node("Dragger").get_node("SelectionControl")
 onready var item_grid = $LeftBar/ColorRect/Control/ColorRect3/ColorRect4/ItemGrid
 
-var polygon_modifier = {
-	state = "idle", #the state of the polygon editor
-	type = "terrain", #the type of polygon (terrain / water / camera limits)
-	polygon = [], #the current polygon verts
-	ref = null #a reference to the instance
-}
+var is_creating_polygon = false
+var editable_poly = null
+var selected_polys = []
 
 #a bad, slow, O(n^2), but easy to implement algorithm
 #I should look into better algorithms
@@ -40,47 +39,37 @@ func polygon_self_intersecting(polygon):
 			return false
 	return true
 
-func snap_vector(vec, grid):
-	return Vector2(
-				floor(vec.x / grid + 0.5) * grid,
-				floor(vec.y / grid + 0.5) * grid
-			)
-
 func fake_polygon_create():
-#	var poly = Polygon2D.new()
-	polygon_modifier.clear()
-	polygon_modifier.state = "create"
-	polygon_modifier.polygon = [Vector2(0, 0)]
-#	polygon_modifier.poly = poly
+	is_creating_polygon = true
+	editable_poly = PolygonContainer.new()
+	editable_poly.head_color = Color(0, 1, 0)
+	editable_poly.foot_color = Color(1, 0, 0)
+	editable_poly.reset()
+	editable_poly.append(Vector2(0, 0))
+	hover_ui.add_child(editable_poly)
 
 func finish_creating_polygon():
 	#make sure the polygon is correctly rotated, which is counter-clockwise
-	if Geometry.is_polygon_clockwise(polygon_modifier.polygon):
-		polygon_modifier.polygon.invert()
-	
-	if polygon_modifier.polygon.back() != polygon_modifier.polygon.front():
-		polygon_modifier.polygon.append(
-			polygon_modifier.polygon.back()
+	var make_polygon = Array(editable_poly.polygon)
+	if Geometry.is_polygon_clockwise(make_polygon):
+		make_polygon.invert()
+
+	if make_polygon.back() != make_polygon.front():
+		make_polygon.append(
+			make_polygon.back()
 		)
-	
+
 	#set the terrain polygon to the actual polygon
-	polygon_modifier.ref = level_editor.place_terrain(
-		polygon_modifier.polygon,
+	level_editor.place_terrain(
+		make_polygon,
 		0,
 		0
 	)
 	
 	#reset the modifier state
-	polygon_modifier.clear()
-	polygon_modifier.state = "idle"
-
-func get_local_polygon_data():
-	var local_poly = PoolVector2Array()
-	for vert in polygon_modifier.polygon:
-		local_poly.append(
-			vert - ld_camera.global_position
-		)
-	return local_poly
+	is_creating_polygon = false
+	hover_ui.remove_child(editable_poly)
+	set_editable_rect(false)
 
 func get_polygon_rect(polygon):
 	#get the extends
@@ -93,140 +82,68 @@ func get_polygon_rect(polygon):
 		vec_max.y = max(vec_max.y, vert.y)
 	return Rect2(vec_min, vec_max - vec_min)
 
-func draw_editable_rect(draw_on, poly_rect):
-	#draw the extends
-	draw_on.draw_rect(poly_rect, Color(0.6, 0.25, 0.1), false, 2)
-	for x in [0, 0.5, 1]:
-		for y in [0, 0.5, 1]:
-			if x == 0.5 && y == 0.5:
-				continue
-			var coords = poly_rect.position + poly_rect.size * Vector2(x, y)
-			draw_on.draw_circle(coords, 4, Color(0.6, 0.25, 0.1))
-			draw_on.draw_circle(coords, 3, Color(0.8, 0.35, 0.2))
-
-func draw_editable_polygon(draw_on, local_poly):
-	#draw the polygon outline
-	#not using polyline, since it has an ugly inner joint mode
-	var p_size = local_poly.size()
-	for idx in p_size:
-		var n_idx = (idx + 1) % p_size
-		draw_on.draw_line(
-			local_poly[idx],
-			local_poly[n_idx],
-			Color(0.4, 0.2, 0),
-			3
-		)
-		draw_on.draw_circle(local_poly[idx], 4, Color(0.5, 0.3, 0))
-		draw_on.draw_circle(local_poly[idx], 3, Color(0.8, 0.5, 0.3))
-
-func _draw():
-	#draw the current rectangle selection
-	if (level_editor.selection_rect.size.length() > 8):
-		var local_rect = Rect2(level_editor.selection_rect)
-		local_rect.position -= ld_camera.global_position
-		if level_editor.selection_begin:
-			draw_rect(local_rect, Color(0.6, 0.25, 0, 0.7), false, 2)
-		else:
-			draw_editable_rect(self, local_rect)
-	
-	if polygon_modifier.state == "create":
-		var local_poly = get_local_polygon_data()
-		var poly_rect = get_polygon_rect(local_poly)
-		draw_editable_polygon(self, local_poly)
-		draw_editable_rect(self, poly_rect)
-		
-		draw_circle(
-			local_poly[local_poly.size() - 1],
-			3,
-			Color(0, 1, 0)
-		)
-	elif polygon_modifier.state == "edit":
-		var poly_data = polygon_modifier.ref.polygon
-		var local_poly = PoolVector2Array()
-		for vec in poly_data:
-			local_poly.append(vec + polygon_modifier.ref.global_position - ld_camera.global_position)
-		#var local_poly = get_local_polygon_data()
-		var poly_rect = get_polygon_rect(local_poly)
-		draw_editable_polygon(self, local_poly)
-		draw_editable_rect(self, poly_rect)
-	elif polygon_modifier.state == "selected":
-		var poly_data = polygon_modifier.ref.polygon
-		var local_poly = PoolVector2Array()
-		for vec in poly_data:
-			local_poly.append(vec + polygon_modifier.ref.global_position - ld_camera.global_position)
-		draw_editable_polygon(self, local_poly)
+func set_editable_rect(enabled, rect = Rect2(), menu_visible = true):
+	rect_controls.visible = menu_visible
+	if !enabled:
+		editable_rect.visible = false
+		return
+	if !editable_rect.visible:
+		editable_rect.visible = true
+	if editable_rect.rect_size != rect.size:
+		editable_rect.set_size(rect.size)
+	if editable_rect.rect_position != rect.position:
+		editable_rect.set_position(rect.position)
 
 func _process(_dt):
 	background.material.set_shader_param("camera_position", ld_camera.global_position)
-	if selection_ui.visible:
-		selection_ui.set_position(
-			level_editor.selection_rect.position +
-			level_editor.selection_rect.size * Vector2(0.5, 1) +
-			Vector2(0, 20) -
-			Vector2(70, 0) -
-			ld_camera.global_position
-		)
-	update()
+	
+	hover_ui.set_position(-ld_camera.global_position)
+	if editable_rect.visible && !is_creating_polygon:
+		set_editable_rect(true, level_editor.selection_rect)
+	
+	#poly edit
+	if is_creating_polygon && editable_poly.polygon.size() >= 1:
+		var real_position = level_editor.snap_vector(level_editor.last_local_mouse_position + ld_camera.global_position)
+		editable_poly.set_vert(editable_poly.polygon.size() - 1, real_position)
+		set_editable_rect(true, get_polygon_rect(editable_poly.polygon), false)
 
-func _unhandled_input(event):
-	if polygon_modifier.state == "create":
-		var grid_px = 8
-		
-		#have a dynamic moving polygon by updating the last vertex
-		if event is InputEventMouseMotion and polygon_modifier.polygon.size() >= 1:
-			var real_position = event.position + ld_camera.global_position
-			real_position = snap_vector(real_position, grid_px)
-			polygon_modifier.polygon[polygon_modifier.polygon.size() - 1] = real_position
-			update() #force _draw
-		
+func _input(event):
+	if is_creating_polygon:
 		#on click, insert a new vert in the polygon
 		if event is InputEventMouseButton and event.pressed:
 			if event.button_index == 1:
-				var real_position = event.position + ld_camera.global_position
-				real_position = snap_vector(real_position, grid_px)
-				var p_size = polygon_modifier.polygon.size()
+				var real_position = level_editor.snap_vector(event.position + ld_camera.global_position)
+				var p_size = editable_poly.polygon.size()
 				#if we have 2 vertices, cancel the placement, more than 3, we place it down
-				if p_size >= 2 && real_position == polygon_modifier.polygon[0]:
+				if p_size >= 2 && real_position == editable_poly.polygon[0]:
 					if p_size >= 3:
 						finish_creating_polygon()
 				else:
-					polygon_modifier.polygon.append(real_position)
+					editable_poly.append(real_position)
 			elif event.button_index == 2:
 				finish_creating_polygon()
-			update() #force _draw
-#	elif polygon_modifier.state == "idle":
-#		if event is InputEventMouseButton and event.pressed:
-#			#level_editor.print_tree_pretty()
-#			var terrain_root = level_editor.get_node("Template").get_node("Terrain")
-#			for terrain in terrain_root.get_children():
-#				var relative_pos = event.position + ld_camera.global_position - terrain.global_position
-#				if Geometry.is_point_in_polygon(relative_pos, terrain.polygon):
-#					level_editor.request_select(terrain)
 
 func _on_terrain_control_place_pressed():
 	fake_polygon_create()
 
 func _selection_changed(selection):
-	if len(selection.active) == 1 && selection.head.get_parent().name == "Terrain":
-		polygon_modifier.ref = selection.head
-		polygon_modifier.state = "edit"
-	elif polygon_modifier.state == "edit":
-		polygon_modifier.state = "idle"
+	for poly in selected_polys:
+		hover_ui.remove_child(poly)
+	selected_polys = []
+	
+	for item in selection.active:
+		if item.get_parent().name == "Terrain":
+			var editable_poly = PolygonContainer.new()
+			for vec in item.polygon:
+				editable_poly.append(vec)
+			hover_ui.add_child(editable_poly)
+			selected_polys.append(editable_poly)
 
-func _selection_event(selection):
-	if level_editor.selection_rect.size.length() > 8:
-		selection_ui.visible = true
+func _selection_size_changed(rect):
+	if rect.size.length() > 8:
+		set_editable_rect(true, rect)
 	else:
-		selection_ui.visible = false
-
-#	if (polygon_modifier.state == "idle" || polygon_modifier.state == "edit") && new_selection && new_selection.get_parent().name == "Terrain":
-#		polygon_modifier.ref = new_selection
-#		polygon_modifier.state = "edit"
-#		update()
-#	elif polygon_modifier.state == "edit" && !new_selection:
-#		polygon_modifier.state = "idle"
-#		update()
-#	print(">", polygon_modifier.state)
+		set_editable_rect(false)
 
 func fill_grid():
 	for key in level_editor.item_textures.keys():
@@ -257,5 +174,3 @@ func fill_grid():
 		button.texture_normal = tex
 		button.item_name = key
 		item_grid.add_child(button)
-
-
