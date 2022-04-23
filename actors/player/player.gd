@@ -707,21 +707,16 @@ func action_jump() -> void:
 		0: # Single
 			switch_state(S.NEUTRAL)
 			play_sfx("voice", "jump1")
-			if ground_override >= GROUND_OVERRIDE_THRESHOLD:
-				vel.y = -JUMP_VEL_1 * 2
-			else:
-				vel.y = -JUMP_VEL_1
+			vel.y = -JUMP_VEL_1
 			double_jump_state += 1
 		1: # Double
 			switch_state(S.NEUTRAL)
-			jump_2()
+			vel.y = -JUMP_VEL_2
+			play_sfx("voice", "jump2")
 			double_jump_state += 1
 		2: #Triple
 			if abs(vel.x) > TRIPLE_JUMP_DEADZONE:
-				if ground_override >= GROUND_OVERRIDE_THRESHOLD:
-					vel.y = -JUMP_VEL_3 * 2
-				else:
-					vel.y = -JUMP_VEL_3
+				vel.y = -JUMP_VEL_3
 				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
 				double_jump_state = 0
 				switch_state(S.TRIPLE_JUMP)
@@ -729,7 +724,8 @@ func action_jump() -> void:
 				triple_flip_frames = 0
 				frontflip_dir_left = sprite.flip_h
 			else:
-				jump_2()
+				vel.y = -JUMP_VEL_2
+				play_sfx("voice", "jump2")
 	
 	#warning-ignore:return_value_discarded
 	move_and_collide(Vector2(0, -3)) # helps jumps feel more responsive
@@ -737,14 +733,6 @@ func action_jump() -> void:
 
 func ease_out_quart(x: float) -> float: # for replacing tweens
 	return 1 - pow(1 - x, 4) # https://easings.net/#easeOutQuart <3
-
-
-func jump_2() -> void:
-	if ground_override >= GROUND_OVERRIDE_THRESHOLD:
-		vel.y = -JUMP_VEL_2 * 2
-	else:
-		vel.y = -JUMP_VEL_2
-	play_sfx("voice", "jump2")
 
 
 const BACKFLIP_FLIP_TIME: int = 36
@@ -816,7 +804,6 @@ func coyote_behaviour() -> void:
 
 func check_ground_state() -> void:
 	# failsafe to prevent getting stuck between slopes
-	grounded = is_on_floor() || ground_override >= GROUND_OVERRIDE_THRESHOLD
 	if (
 		vel.y < 0
 		|| is_on_floor()
@@ -826,6 +813,7 @@ func check_ground_state() -> void:
 		|| bouncing
 	):
 		ground_override = 0
+	grounded = is_on_floor() || ground_override >= GROUND_OVERRIDE_THRESHOLD
 
 
 func player_fall() -> void:
