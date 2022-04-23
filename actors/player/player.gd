@@ -86,7 +86,6 @@ const SFX_BANK = { #bank of sfx to be played with play_sfx()
 onready var base_modifier: BaseModifier = Singleton.base_modifier
 onready var voice = $Voice
 onready var step = $Step
-onready var tween = $Tween
 onready var sprite = $Character
 onready var fludd_sprite = $Character/Fludd
 onready var camera = $"/root/Main/Player/Camera2D"
@@ -813,7 +812,6 @@ func coyote_behaviour() -> void:
 	
 		if state & (S.TRIPLE_JUMP | S.BACKFLIP): # Reset state when landing
 			switch_state(S.NEUTRAL)
-			tween.remove_all()
 			sprite.rotation = 0
 		
 		if state == S.DIVE && abs(vel.x) < 1 && !Input.is_action_pressed("dive") && !dive_resetting:
@@ -1077,7 +1075,6 @@ func action_dive():
 					sprite.rotation = -PI / 2
 				else:
 					sprite.rotation = PI / 2
-				tween.remove_all()
 				switch_anim("dive")
 				double_jump_state = 0
 				dive_correct(1)
