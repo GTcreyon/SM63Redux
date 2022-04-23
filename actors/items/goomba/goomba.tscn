@@ -75,6 +75,7 @@ cast_to = Vector2( 0, 21 )
 visible = false
 collision_layer = 0
 collision_mask = 2
+monitoring = false
 monitorable = false
 
 [node name="EyeRight" type="CollisionPolygon2D" parent="AlertArea"]
@@ -87,6 +88,7 @@ polygon = PoolVector2Array( -208, -59, -208, 32, -160, 35, -128, 35, -96, 33, -4
 visible = false
 collision_layer = 0
 collision_mask = 2
+monitoring = false
 monitorable = false
 
 [node name="EyeFull" type="CollisionShape2D" parent="AwareArea"]

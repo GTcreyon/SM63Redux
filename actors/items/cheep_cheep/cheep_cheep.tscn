@@ -36,6 +36,7 @@ script = ExtResource( 4 )
 [node name="Following" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Following"]
 shape = SubResource( 2 )
@@ -43,6 +44,7 @@ shape = SubResource( 2 )
 [node name="Damage" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2147483650
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="Damage"]
 shape = SubResource( 3 )
@@ -53,6 +55,7 @@ shape = SubResource( 4 )
 [node name="WaterCheck" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 5 )
