@@ -43,6 +43,8 @@ one_way_collision_margin = 2.0
 
 [node name="RideArea" type="Area2D" parent="."]
 collision_mask = 4
+input_pickable = false
+monitorable = false
 
 [node name="RideShape" type="CollisionShape2D" parent="RideArea"]
 position = Vector2( 0, -8 )

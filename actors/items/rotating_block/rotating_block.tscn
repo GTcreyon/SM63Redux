@@ -6,21 +6,25 @@
 
 [sub_resource type="AtlasTexture" id=4]
 resource_local_to_scene = true
+flags = 3
 atlas = ExtResource( 2 )
 region = Rect2( 0, 9, 4, 1 )
 
 [sub_resource type="AtlasTexture" id=5]
 resource_local_to_scene = true
+flags = 3
 atlas = ExtResource( 2 )
 region = Rect2( 3, 6, 1, 4 )
 
 [sub_resource type="AtlasTexture" id=6]
 resource_local_to_scene = true
+flags = 3
 atlas = ExtResource( 2 )
 region = Rect2( 0, 6, 4, 4 )
 
 [sub_resource type="AtlasTexture" id=7]
 resource_local_to_scene = true
+flags = 3
 atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 6, 6 )
 
@@ -134,6 +138,7 @@ shape = SubResource( 1 )
 visible = false
 collision_layer = 0
 collision_mask = 4
+monitorable = false
 
 [node name="RideShape" type="CollisionShape2D" parent="RideArea"]
 shape = SubResource( 2 )

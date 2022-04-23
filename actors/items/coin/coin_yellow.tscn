@@ -44,6 +44,7 @@ shape = SubResource( 2 )
 collision_layer = 0
 collision_mask = 2
 monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource( 3 )
@@ -51,6 +52,7 @@ shape = SubResource( 3 )
 [node name="WaterCheck" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 4 )

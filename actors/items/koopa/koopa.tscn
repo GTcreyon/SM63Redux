@@ -71,6 +71,8 @@ cast_to = Vector2( 0, 21 )
 position = Vector2( 0, -14 )
 collision_layer = 0
 collision_mask = 2
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopCollision"]
 position = Vector2( 0, 6 )
@@ -85,6 +87,7 @@ bus = "SFX"
 position = Vector2( 0, 2.5 )
 collision_layer = 0
 collision_mask = 2
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="Damage"]
 shape = SubResource( 10 )
@@ -92,6 +95,8 @@ shape = SubResource( 10 )
 [node name="WaterCheck" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
+monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 11 )

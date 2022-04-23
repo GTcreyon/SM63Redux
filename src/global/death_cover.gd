@@ -3,6 +3,7 @@ extends ColorRect
 func _process(delta):
 	var dmod = 60 * delta
 	if Singleton.dead:
+		visible = true
 		color.a = min(color.a + 1.0/30.0 * dmod, 1)
 		if color.a >= 1:
 			Singleton.dead = false
@@ -11,3 +12,5 @@ func _process(delta):
 			Singleton.warp_to(get_tree().get_current_scene().get_filename())
 	else:
 		color.a = max(color.a - 1.0/30.0 * dmod, 0)
+		if color.a <= 0:
+			visible = false
