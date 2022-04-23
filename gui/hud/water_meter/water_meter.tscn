@@ -184,8 +184,6 @@ range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 4
 
-[node name="Tween" type="Tween" parent="WaterMeter"]
-
 [node name="Cover" type="Sprite" parent="WaterMeter"]
 modulate = Color( 1, 1, 1, 0 )
 position = Vector2( 1, 2 )

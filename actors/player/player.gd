@@ -126,10 +126,6 @@ func _physics_process(_delta):
 	fixed_visuals()
 
 
-func _on_Tween_tween_completed(_object, _key):
-	switch_state(S.NEUTRAL)
-
-
 func _on_BackupAngle_body_entered(_body):
 	solid_floors += 1
 
