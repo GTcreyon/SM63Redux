@@ -14,7 +14,6 @@ onready var cover = $Cover
 onready var power_mask = $PowerMask
 onready var max_sprite = $Max
 onready var icon = $Icon
-onready var tween = $Tween
 
 onready var player = $"/root/Main/Player"
 

@@ -366,9 +366,6 @@ process_mode = 0
 smoothing_enabled = true
 script = ExtResource( 25 )
 
-[node name="Tween" type="Tween" parent="Camera2D"]
-pause_mode = 1
-
 [node name="GUI" parent="Camera2D" instance=ExtResource( 15 )]
 follow_viewport_enable = false
 
