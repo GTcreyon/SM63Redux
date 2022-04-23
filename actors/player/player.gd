@@ -1285,7 +1285,7 @@ func step_sound():
 				0b00100000:
 					play_sfx("step", "snow")
 				0b00010000:
-					play_sfx("step", "soft")
+					play_sfx("step", "cloud")
 				0b00001000:
 					play_sfx("step", "ice")
 				_:
@@ -1296,7 +1296,7 @@ func invincibility_on_effect():
 	invincible = true
 
 
-func is_spinning(allow_continued: bool = true):
+func is_spinning(allow_continued: bool = false):
 	return state == S.SPIN && (spin_frames > 0 || allow_continued)
 
 
