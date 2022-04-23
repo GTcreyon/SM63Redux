@@ -128,11 +128,7 @@ func _physics_process(_delta):
 
 
 func _on_Tween_tween_completed(_object, _key):
-	if state == S.POUND:
-		pound_state = Pound.FALL
-		vel.y = 8
-	else:
-		switch_state(S.NEUTRAL)
+	switch_state(S.NEUTRAL)
 
 
 func _on_BackupAngle_body_entered(_body):
@@ -451,7 +447,20 @@ func wall_stop() -> void:
 		vel.y = max(vel.y, 0.1)
 
 
+var pound_spin_frames: int = 0
 func action_pound() -> void:
+	if state == S.POUND && pound_state == Pound.SPIN:
+		pound_spin_frames += 1
+		if sprite.flip_h:
+			sprite.rotation = -TAU * pound_spin_frames / 15
+		else:
+			sprite.rotation = TAU * pound_spin_frames / 15
+		if pound_spin_frames >= 15:
+			sprite.rotation = 0
+			pound_state = Pound.FALL
+			vel.y = 8
+			
+	
 	if Input.is_action_pressed("pound"):
 		if state == S.DIVE && gp_dive_timer > 0:
 			var mag = vel.length()
@@ -482,10 +491,8 @@ func action_pound() -> void:
 				switch_state(S.POUND)
 				pound_state = Pound.SPIN
 				switch_anim("flip")
-				sprite.rotation_degrees = 0
-				tween.remove_all()
-				tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.25)
-				tween.start()
+				sprite.rotation = 0
+				pound_spin_frames = 0
 
 
 const SPIN_TIME = 30
