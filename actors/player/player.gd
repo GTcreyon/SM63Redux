@@ -1073,7 +1073,7 @@ func manage_dive_recover():
 		dive_reset_frames += 1
 		# warning-ignore:integer_division
 		if dive_reset_frames >= DIVE_RESET_TIME / 2:
-			if sprite.animation != "jump":
+			if !sprite.animation.begins_with("jump"):
 				switch_anim("jump")
 				dive_correct(-1)
 				hitbox.position = STAND_BOX_POS
@@ -1239,7 +1239,8 @@ func take_damage_shove(amount, direction):
 
 func recieve_health(amount):
 	Singleton.hp = clamp(Singleton.hp + amount, 0, 8) # TODO - multi HP
-	
+
+
 const DIVE_CORRECTION = 7
 func dive_correct(factor): # Correct the player's origin position when diving
 	#warning-ignore:return_value_discarded
