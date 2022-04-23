@@ -201,6 +201,8 @@ func player_physics():
 	manage_invuln()
 	manage_buffers()
 	manage_dive_recover()
+	manage_triple_flip()
+	manage_backflip_flip()
 	manage_water_audio()
 	
 	if Input.is_action_just_pressed("switch_fludd"):
@@ -643,6 +645,23 @@ func player_control_x() -> void:
 					vel.x += core_vel
 
 
+const TRIPLE_FLIP_TIME: int = 54
+var triple_flip_frames: int = 0
+func manage_triple_flip() -> void:
+	if state == S.TRIPLE_JUMP:
+		triple_flip_frames += 1
+		var dir = 1
+		if sprite.flip_h:
+			dir = -1
+		var multiplier = 1
+		if Singleton.nozzle == Singleton.n.none:
+			multiplier = 2
+		sprite.rotation = dir * multiplier * TAU * ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
+		if triple_flip_frames >= TRIPLE_FLIP_TIME:
+			switch_state(S.NEUTRAL)
+			sprite.rotation = 0
+
+
 func player_jump() -> void:
 	if state == S.DIVE:
 		if (
@@ -712,12 +731,7 @@ func action_jump() -> void:
 				double_jump_state = 0
 				switch_state(S.TRIPLE_JUMP)
 				play_sfx("voice", "jump3")
-				tween.remove_all() # TODO: remove tween, bad
-				if Singleton.nozzle == Singleton.n.none:
-					tween.interpolate_property(sprite, "rotation_degrees", 0, -720 if sprite.flip_h else 720, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
-				else:
-					tween.interpolate_property(sprite, "rotation_degrees", 0, -360 if sprite.flip_h else 360, 0.9, Tween.TRANS_QUART, Tween.EASE_OUT)
-				tween.start()
+				triple_flip_frames = 0
 				frontflip_dir_left = sprite.flip_h
 			else:
 				jump_2()
@@ -726,12 +740,30 @@ func action_jump() -> void:
 	move_and_collide(Vector2(0, -3)) # helps jumps feel more responsive
 
 
+func ease_out_quart(x: float) -> float: # for replacing tweens
+	return 1 - pow(1 - x, 4) # https://easings.net/#easeOutQuart <3
+
+
 func jump_2() -> void:
 	if ground_override >= GROUND_OVERRIDE_THRESHOLD:
 		vel.y = -JUMP_VEL_2 * 2
 	else:
 		vel.y = -JUMP_VEL_2
 	play_sfx("voice", "jump2")
+
+
+const BACKFLIP_FLIP_TIME: int = 36
+var backflip_flip_frames: int = 0
+func manage_backflip_flip() -> void:
+	if state == S.BACKFLIP:
+		backflip_flip_frames += 1
+		var dir = -1
+		if sprite.flip_h:
+			dir = 1
+		sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
+		if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
+			switch_state(S.NEUTRAL)
+			sprite.rotation = 0
 
 
 func action_backflip() -> void:
@@ -745,12 +777,7 @@ func action_backflip() -> void:
 	else:
 		vel.x -= (30.0 - abs(vel.x)) / (5 / FPS_MOD)
 	dive_resetting = false
-	tween.remove_all()
-	if sprite.flip_h:
-		tween.interpolate_property(sprite, "rotation_degrees", 0, 360, 0.6, 1, Tween.EASE_OUT, 0)
-	else:
-		tween.interpolate_property(sprite, "rotation_degrees", 0, -360, 0.6, 1, Tween.EASE_OUT, 0)
-	tween.start()
+	backflip_flip_frames = 0
 	switch_anim("jump")
 	frontflip_dir_left = sprite.flip_h
 
