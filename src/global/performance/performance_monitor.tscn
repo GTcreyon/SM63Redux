@@ -3,4 +3,5 @@
 [ext_resource path="res://src/global/performance/performance_monitor.gd" type="Script" id=1]
 
 [node name="PerformanceMonitor" type="Node"]
+pause_mode = 2
 script = ExtResource( 1 )

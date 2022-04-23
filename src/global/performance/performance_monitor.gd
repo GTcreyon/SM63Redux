@@ -1,26 +1,61 @@
 extends Node
 
-var data: Dictionary = {
-#var fps: int = 60
-#var process_time: float
-#var physics_time: float
-#var objects: int = 0
-#var resources: int = 0
-#var nodes: int = 0
-#var orphans: int = 0
-#var draw_items: int = 0
-#var draw_calls: int = 0
-#var mem_texture: int = 0
-#var mem_vertex: int = 0
-#var rigids: int = 0
-#var pairs: int = 0
-#var islands: int = 0
-#var audio_latency: int = 0
-}
+const PHYSICS_DELTA: float = 1 / 60.0
+
+var data: Dictionary = {}
+var fps_lag: int = 0
+var process_lag: int = 0
+var physics_lag: int = 0
+var max_fps: int = 60
+var print_delay: int = 0
+var streak_id: int = 0
 
 func _process(delta):
-	if Input.is_action_just_pressed("dump"):
-		print_data()
+	if OS.get_ticks_msec() > 3000:
+		var fps = Performance.get_monitor(Performance.TIME_FPS)
+		var time_process = Performance.get_monitor(Performance.TIME_PROCESS)
+		var time_physics = Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)
+		
+		max_fps = max(fps, max_fps)
+		if fps < max_fps:
+			fps_lag += 1
+		else:
+			fps_lag = 0
+			
+		if Performance.get_monitor(Performance.TIME_PROCESS) > delta:
+			process_lag += 1
+		else:
+			if print_delay > 0:
+				print("Streak end: %d" % streak_id)
+			streak_id += 1
+			process_lag = 0
+			print_delay = 0
+			
+		if Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS) > PHYSICS_DELTA:
+			physics_lag += 1
+		else:
+			physics_lag = 0
+			
+		if fps_lag % 60 == 10:
+			print("FPS lag. FPS:%d Max:%d" % [fps, max_fps])
+		
+		if process_lag == 10 || process_lag == 70 + print_delay:
+			print("Process lag. Loss:%f Delta:%f ID:%d" % [
+				(time_process - delta),
+				delta,
+				streak_id,
+				])
+			print_delay += 60
+			if process_lag >= 70:
+				process_lag = 11
+		
+		if physics_lag > 0:
+			print("PHYSICS lag. Loss:%f Delta:%f" % [
+				(time_physics - PHYSICS_DELTA),
+				PHYSICS_DELTA
+				])
+		if Input.is_action_just_pressed("dump"):
+			print_data()
 
 
 func print_data():
