@@ -120,7 +120,7 @@ func _on_WaterCheck_area_exited(_area):
 
 
 func damage_check(body):
-	if body.is_spinning():
+	if body.is_spinning(true):
 		struck = true
 		if body.position.x < position.x:
 			vel.x = 10

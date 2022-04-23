@@ -1148,20 +1148,21 @@ func manage_buffers():
 	jump_vary_frames = max(jump_vary_frames - 1, -1)
 
 
+var collect_frames: int = 0
+var collect_pos_init = Vector2.INF
+var collect_pos_final = Vector2.INF
+var sign_x: float = INF
 func locked_behaviour():
-#	if sign_x != null:
-#		position.x = sign_x + (position.x - sign_x) * 0.75
-#	if collect_pos_final != Vector2():
-#		sprite.animation = "spin"
-#		position = collect_pos_init + sin(min(collect_time, 1) * PI / 2) * (collect_pos_final - collect_pos_init)
-#		if collect_time < 1:
-#			collect_time += 1.0/(60.0 * 3.835)
-#		else:
-#			collect_time += 1.0
-#			sprite.animation = "shine"
-#			if collect_time >= 80:
-#				$"/root/Singleton/WindowWarp".warp(Vector2(), "res://scenes/title/title.tscn", 40)
-	var _a = 0 # TODO
+	if sign_x != INF:
+		position.x = sign_x + (position.x - sign_x) * 0.75
+	if collect_pos_final != Vector2.INF:
+		switch_anim("spin")
+		position = collect_pos_init + sin(min(collect_frames / 230.0, 1) * PI / 2) * (collect_pos_final - collect_pos_init)
+		collect_frames += 1
+		if collect_frames >= 230:
+			switch_anim("shine")
+			if collect_frames >= 310:
+				$"/root/Singleton/WindowWarp".warp(Vector2(), "res://scenes/title/title.tscn", 40)
 
 
 func manage_invuln():
@@ -1295,8 +1296,8 @@ func invincibility_on_effect():
 	invincible = true
 
 
-func is_spinning():
-	return state == S.SPIN && spin_frames > 0
+func is_spinning(allow_continued: bool = true):
+	return state == S.SPIN && (spin_frames > 0 || allow_continued)
 
 
 func is_diving(allow_rollout):
