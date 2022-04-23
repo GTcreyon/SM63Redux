@@ -335,7 +335,7 @@ func adjust_swim_x() -> void:
 
 var hover_sound_position = 0
 func fixed_visuals() -> void:
-	if swimming && state == S.NEUTRAL:
+	if swimming && state == S.NEUTRAL && !grounded && !Input.is_action_pressed("spin"):
 		switch_anim("swim")
 		if sprite.frame == 0:
 			sprite.speed_scale = 0
