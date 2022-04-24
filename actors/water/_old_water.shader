@@ -13,13 +13,27 @@ const vec2 unit_vec = vec2(1, 1);
 
 vec2 keep_bounds(vec2 vec) {return mod(vec, unit_vec);}
 
+/*
+sin(
+	(x_offset + surface[surf_key].x) * PI / surface_wave_properties.width
+	+ elapsed_time * 2 * PI * surface_wave_properties.speed
+) * surface_wave_properties.height
+*/
+
+//void vertex() {
+//	VERTEX.y += sin(
+//		VERTEX.x * PI / 32.0
+//		+ TIME * TAU
+//	) * 1.0;
+//}
+
 void fragment() {
 	//uv setup
 	vec2 real_uv = UV * water_xy_ratio;
 	real_uv *= texture_repeat;
 	//make sure we get a number range between 0-1
 	real_uv = keep_bounds(real_uv);
-	
+
 	//handle normal map texture
 	//move the uv for animation
 	float animation_swing = animation_swing_range_px * SCREEN_PIXEL_SIZE.x;
