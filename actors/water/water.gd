@@ -201,7 +201,9 @@ func _process(dt):
 	var x_camera_edge = camera.global_position.x - x_os_size / 2
 	for surf_key in surface.keys():
 		var global_x = surface[surf_key].x + top_left_corner.x
-		if global_x >= x_camera_edge && global_x <= x_camera_edge + x_os_size:
+		if global_x >= x_camera_edge + x_os_size:
+			break
+		if global_x >= x_camera_edge:
 			surface[surf_key].y = sin(
 				global_x * PI / surface_wave_properties.width
 				+ elapsed_time * 2 * PI * surface_wave_properties.speed
