@@ -469,6 +469,8 @@ func action_pound() -> void:
 			vel = Vector2(cos(ang) * mag, sin(ang) * mag)
 		else:
 			if (
+				!swimming
+				&&
 				!grounded
 				&& (
 					state & (
@@ -808,7 +810,7 @@ func check_ground_state() -> void:
 		vel.y < 0
 		|| is_on_floor()
 		|| Input.is_action_pressed("fludd")
-		|| state == S.POUND
+		|| (state == S.POUND && pound_state == Pound.SPIN)
 		|| swimming
 		|| bouncing
 	):
