@@ -26,7 +26,7 @@ script = ExtResource( 1 )
 [node name="Hover" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
-monitoring = false
+input_pickable = false
 monitorable = false
 
 [node name="Sprite" type="Sprite" parent="Hover"]
@@ -40,7 +40,7 @@ shape = SubResource( 1 )
 visible = false
 collision_layer = 0
 collision_mask = 2
-monitoring = false
+input_pickable = false
 monitorable = false
 
 [node name="Sprite" type="Sprite" parent="Rocket"]
@@ -56,7 +56,7 @@ shape = SubResource( 2 )
 visible = false
 collision_layer = 0
 collision_mask = 2
-monitoring = false
+input_pickable = false
 monitorable = false
 
 [node name="Sprite" type="Sprite" parent="Turbo"]

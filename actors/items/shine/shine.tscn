@@ -67,7 +67,7 @@ extents = Vector2( 9, 10 )
 [node name="Shine" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
-monitoring = false
+input_pickable = false
 monitorable = false
 script = ExtResource( 2 )
 

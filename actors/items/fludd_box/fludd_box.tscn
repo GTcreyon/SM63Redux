@@ -12,7 +12,7 @@ extents = Vector2( 18, 2 )
 [node name="FluddBox" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
-monitoring = false
+input_pickable = false
 monitorable = false
 script = ExtResource( 2 )
 

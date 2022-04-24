@@ -9,7 +9,7 @@ extents = Vector2( 10, 11 )
 [node name="BottleBig" type="Area2D"]
 collision_layer = 0
 collision_mask = 2147483650
-monitoring = false
+input_pickable = false
 monitorable = false
 script = ExtResource( 1 )
 

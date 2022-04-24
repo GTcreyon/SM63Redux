@@ -134,14 +134,17 @@ func _on_BackupAngle_body_exited(_body):
 	solid_floors -= 1
 
 
-func _on_WaterCheck_area_entered(_area):
+var water_areas: int = 0
+func _on_WaterCheck_area_entered(area):
 	swimming = true
 	switch_state(S.NEUTRAL)
 	Singleton.water = max(Singleton.water, 100)
+	water_areas += 1
 
 
-func _on_WaterCheck_area_exited(_area):
-	if water_check.get_overlapping_bodies().size() == 0:
+func _on_WaterCheck_area_exited(area):
+	water_areas -= 1
+	if water_areas <= 0:
 		swimming = false
 		if vel.y < 0 && !fludd_strain && !is_spinning():
 			vel.y -= 3

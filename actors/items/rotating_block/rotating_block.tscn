@@ -138,6 +138,7 @@ shape = SubResource( 1 )
 visible = false
 collision_layer = 0
 collision_mask = 4
+input_pickable = false
 monitorable = false
 
 [node name="RideShape" type="CollisionShape2D" parent="RideArea"]

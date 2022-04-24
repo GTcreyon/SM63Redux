@@ -4,7 +4,7 @@
 [ext_resource path="res://actors/items/cloud/cloud_middle.png" type="Texture" id=2]
 [ext_resource path="res://actors/items/cloud/cloud_left.png" type="Texture" id=3]
 [ext_resource path="res://actors/items/cloud/cloud_right.png" type="Texture" id=4]
-[ext_resource path="res://actors/items/safety_net.gd" type="Script" id=5]
+[ext_resource path="res://actors/safety_net.tscn" type="PackedScene" id=5]
 [ext_resource path="res://shaders/aa.tres" type="Material" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -48,14 +48,10 @@ texture = ExtResource( 4 )
 shape = SubResource( 1 )
 one_way_collision = true
 
-[node name="SafetyNet" type="Area2D" parent="."]
+[node name="SafetyNet" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, -4 )
-collision_layer = 0
-collision_mask = 2
-script = ExtResource( 5 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SafetyNet"]
+[node name="CollisionShape2D" parent="SafetyNet" index="0"]
 shape = SubResource( 2 )
 
-[connection signal="body_entered" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_entered"]
-[connection signal="body_exited" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_exited"]
+[editable path="SafetyNet"]
