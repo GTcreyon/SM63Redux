@@ -29,7 +29,6 @@ cast_to = Vector2( 0, 33 )
 collision_layer = 4
 collision_mask = 2
 input_pickable = false
-monitoring = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]

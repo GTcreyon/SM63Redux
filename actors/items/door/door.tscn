@@ -26,7 +26,7 @@ extents = Vector2( 11, 15.9999 )
 
 [node name="Door" type="Area2D"]
 collision_mask = 2
-monitoring = false
+input_pickable = false
 monitorable = false
 script = ExtResource( 7 )
 

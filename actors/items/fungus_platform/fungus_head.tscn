@@ -26,7 +26,7 @@ texture = ExtResource( 1 )
 position = Vector2( 0, -3 )
 collision_layer = 0
 collision_mask = 2
-monitoring = false
+input_pickable = false
 monitorable = false
 script = ExtResource( 2 )
 
