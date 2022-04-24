@@ -135,6 +135,22 @@ animation = "yellow"
 position = Vector2( 864, 188 )
 animation = "yellow"
 
+[node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 607.421, 191.564 )
+animation = "yellow"
+
+[node name="Fossil15" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 508.531, 191.564 )
+animation = "yellow"
+
+[node name="Fossil16" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 509.422, 288.672 )
+animation = "yellow"
+
+[node name="Fossil17" parent="Items/Decoration" instance=ExtResource( 21 )]
+position = Vector2( 599.403, 290.453 )
+animation = "yellow"
+
 [node name="Fossil14" parent="Items/Decoration" instance=ExtResource( 21 )]
 position = Vector2( 977, 216 )
 animation = "yellow"
@@ -246,7 +262,7 @@ position = Vector2( 1864.31, 106.245 )
 
 [node name="Water2" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 105.565, 191.539 )
-polygon = PoolVector2Array( 0, 0, 2000, 0, 2000, 300, 0, 300 )
+polygon = PoolVector2Array( 0, 0, 400, 0, 400, 120, 500, 100, 500, 0, 2000, 0, 2000, 400, 0, 400 )
 outline_texture_size = Vector2( 32, 6 )
 
 [node name="Terrain" type="Node2D" parent="."]
