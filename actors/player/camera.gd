@@ -1,8 +1,12 @@
 extends Camera2D
 
-onready var tween = $Tween
-var current_zoom = 1.0
-var target_zoom = 1.0
+const ZOOM_TIME = 0.5
+
+var current_zoom: float = 1
+var prev_zoom: float = 1
+var target_zoom: float = 1
+var zoom_timer: float = 0
+var rezooming: bool = false
 var target_limit_left = -10000000
 var target_limit_right = 10000000
 var target_limit_top = -10000000
@@ -14,15 +18,34 @@ func _ready():
 	limit_right = 10000000
 	limit_top = -10000000
 	limit_bottom = 10000000
+	if get_path() != "/root/Main/Player/Camera2D":
+		queue_free()
+	else:
+		current = true
 
 
-func rezoom():
-	tween.stop_all()
-	tween.interpolate_property(self, "current_zoom", null, target_zoom, 0.5, tween.TRANS_EXPO, Tween.EASE_OUT, 0)
-	tween.start()
+func ease_out_expo(x: float) -> float:
+	return 1 - pow(2, -10 * x)
 
 
-func _process(_delta):
+func manage_zoom(delta) -> void:
+	var diff = target_zoom - prev_zoom
+	zoom_timer += delta
+	current_zoom = prev_zoom + diff * ease_out_expo(float(zoom_timer) / ZOOM_TIME)
+	if zoom_timer >= ZOOM_TIME:
+		current_zoom = target_zoom
+		rezooming = false
+
+
+func rezoom() -> void:
+	prev_zoom = current_zoom
+	zoom_timer = 0
+	rezooming = true
+
+
+func _process(delta):
+	if rezooming:
+		manage_zoom(delta)
 	if OS.window_size.x != 0:
 		var zoom_factor = 1 / max(1, round(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 		if !get_tree().paused:

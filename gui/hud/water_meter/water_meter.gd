@@ -14,7 +14,6 @@ onready var cover = $Cover
 onready var power_mask = $PowerMask
 onready var max_sprite = $Max
 onready var icon = $Icon
-onready var tween = $Tween
 
 onready var player = $"/root/Main/Player"
 
@@ -24,7 +23,7 @@ var icon_bob = 0
 var font_white = BitmapFont.new()
 
 func refresh():
-	modulate.a = 1
+	visible = true
 	match Singleton.nozzle:
 		1:
 			icon.animation = "hover"
@@ -33,7 +32,7 @@ func refresh():
 		3:
 			icon.animation = "turbo"
 		_:
-			modulate.a = 0
+			visible = false
 	if Singleton.water == 100:
 		max_sprite.visible = true
 		label.visible = false
@@ -43,7 +42,7 @@ func refresh():
 		if Singleton.water == INF:
 			label.text = "INF"
 		else:
-			#keeps the display in range 1-99
+			# keeps the display in range 1-99
 			label.text = str(floor((Singleton.water + 1) / 100 * 99))
 
 

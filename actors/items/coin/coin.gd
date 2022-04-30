@@ -33,10 +33,6 @@ func _physics_process(_delta):
 	if !picked:
 		if dropped:
 			active_timer = max(active_timer - 1, 0)
-			if active_timer == 0:
-				$PickupArea.monitoring = true
-		else:
-			$PickupArea.monitoring = true
 			
 	if dropped:
 		vel.y += 0.2

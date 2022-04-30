@@ -20,7 +20,6 @@
 [ext_resource path="res://actors/items/rocks/big_rock/big_rock.tscn" type="PackedScene" id=26]
 [ext_resource path="res://actors/items/decoration/flowers.tscn" type="PackedScene" id=27]
 
-
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 24 )

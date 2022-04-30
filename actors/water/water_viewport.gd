@@ -11,9 +11,9 @@ export var outline_texture: Texture = load("res://actors/water/water_outline_ani
 export var water_texture_size: Vector2 = Vector2(64, 64)
 export var outline_texture_size: Vector2 = Vector2(32, 12)
 export var water_color: Color = Color(0, 0.7, 1, 0.8)
-export var texture_color_impact: float = 0.2;
-export var animation_swing_range: float = 32;
-export var animation_speed: float = 1;
+#export var texture_color_impact: float = 0.2;
+#export var animation_swing_range: float = 32;
+#export var animation_speed: float = 1;
 
 var water_material = load("res://actors/water/water.tres")
 var water_viewport_material = load("res://actors/water/water_viewport.tres")
@@ -62,15 +62,17 @@ func refresh():
 	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
 	texture = tex
 	
+	water.color = Color(water_color.r, water_color.g, water_color.b, 1)
+	
 	#set the water shaders
-	var mat = water_material.duplicate()
-	mat.set_shader_param("base_water_color", water_color)
-	mat.set_shader_param("texture_repeat", (size_extends / water_texture_size).y)
-	mat.set_shader_param("water_xy_ratio", Vector2(size_extends.x / size_extends.y, 1))
-	mat.set_shader_param("normal_map_mult", texture_color_impact)
-	mat.set_shader_param("animation_swing_range_px", animation_swing_range)
-	mat.set_shader_param("animation_speed", animation_speed)
-	water.material = mat
+#	var mat = water_material.duplicate()
+#	mat.set_shader_param("base_water_color", water_color)
+#	mat.set_shader_param("texture_repeat", (size_extends / water_texture_size).y)
+#	mat.set_shader_param("water_xy_ratio", Vector2(size_extends.x / size_extends.y, 1))
+#	mat.set_shader_param("normal_map_mult", texture_color_impact)
+#	mat.set_shader_param("animation_swing_range_px", animation_swing_range)
+#	mat.set_shader_param("animation_speed", animation_speed)
+#	water.material = mat
 
 func _draw():
 	if Engine.editor_hint:

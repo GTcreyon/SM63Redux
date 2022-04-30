@@ -40,6 +40,20 @@ func format_time(overall_seconds):
 
 
 func _physics_process(_delta):
+	if Input.is_action_just_pressed("reset"):
+		Singleton.collected_nozzles = [false, false, false]
+		Singleton.nozzle = Singleton.n.none
+		Singleton.water = 100
+		Singleton.get_node("Timer").frames = 0
+		Singleton.get_node("Timer").split_frames = 0
+		Singleton.get_node("Timer").running = true
+		Singleton.set_location = Vector2(110, 153)
+		Singleton.reset_all_coindicts()
+		Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn")
+		var player = $"root/Main/Player"
+		if player != null:
+			player.position = Vector2(110, 153)
+	
 	if Input.is_action_just_pressed("timer_show") && !Singleton.meta_paused:
 		visible = !visible
 	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)

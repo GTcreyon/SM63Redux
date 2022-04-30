@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://gui/hud/water_meter/water_meter.gd" type="Script" id=1]
 [ext_resource path="res://gui/hud/water_meter/water_meter_surface.png" type="Texture" id=2]
@@ -21,6 +21,42 @@
 [ext_resource path="res://gui/hud/water_meter/water_meter_frame.png" type="Texture" id=19]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=20]
 
+[sub_resource type="ParticlesMaterial" id=7]
+emission_shape = 2
+emission_box_extents = Vector3( 15, 0, 0 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 15.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.2
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=8]
+emission_shape = 2
+emission_box_extents = Vector3( 15, 0, 0 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 15.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.2
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 2
+emission_box_extents = Vector3( 15, 0, 0 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 15.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 60.0
+initial_velocity_random = 0.2
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 16 ) ],
@@ -28,14 +64,14 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "turbo",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
 "name": "rocket",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "turbo",
 "speed": 5.0
 } ]
 
@@ -62,6 +98,8 @@ script = ExtResource( 1 )
 position = Vector2( 16, 26 )
 texture = ExtResource( 18 )
 mode = 3
+range_z_min = 2
+range_z_max = 2
 range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 2
@@ -71,6 +109,8 @@ position = Vector2( 0, 62 )
 scale = Vector2( 1, -79 )
 texture = ExtResource( 4 )
 mode = 2
+range_z_min = 2
+range_z_max = 2
 range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 2
@@ -79,6 +119,8 @@ range_item_cull_mask = 2
 position = Vector2( 0, 65.5 )
 texture = ExtResource( 3 )
 mode = 2
+range_z_min = 2
+range_z_max = 2
 range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 2
@@ -102,52 +144,37 @@ z_index = -1
 texture = ExtResource( 2 )
 centered = false
 
-[node name="BubblesBig" type="CPUParticles2D" parent="WaterMeter"]
+[node name="BubblesBig" type="Particles2D" parent="WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
 lifetime = 2.5
 preprocess = 2.0
+visibility_rect = Rect2( -15, -95, 30, 87 )
+process_material = SubResource( 7 )
 texture = ExtResource( 11 )
-emission_shape = 2
-emission_rect_extents = Vector2( 15, 0 )
-direction = Vector2( 0, -1 )
-spread = 15.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 60.0
-initial_velocity_random = 0.2
 
-[node name="BubblesMedium" type="CPUParticles2D" parent="WaterMeter"]
+[node name="BubblesMedium" type="Particles2D" parent="WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
 amount = 7
 lifetime = 2.5
 preprocess = 2.0
+visibility_rect = Rect2( -15, -95, 30, 87 )
+process_material = SubResource( 8 )
 texture = ExtResource( 13 )
-emission_shape = 2
-emission_rect_extents = Vector2( 15, 0 )
-direction = Vector2( 0, -1 )
-spread = 15.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 60.0
-initial_velocity_random = 0.2
 
-[node name="BubblesSmall" type="CPUParticles2D" parent="WaterMeter"]
+[node name="BubblesSmall" type="Particles2D" parent="WaterMeter"]
 light_mask = 2
 position = Vector2( 16, 103 )
 z_index = -2
 amount = 6
 lifetime = 2.5
 preprocess = 2.0
+visibility_rect = Rect2( -15, -95, 30, 87 )
+process_material = SubResource( 9 )
 texture = ExtResource( 10 )
-emission_shape = 2
-emission_rect_extents = Vector2( 15, 0 )
-direction = Vector2( 0, -1 )
-spread = 15.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 60.0
-initial_velocity_random = 0.2
 
 [node name="WaterMeterLabel" type="Label" parent="WaterMeter"]
 margin_left = 1.0
@@ -180,11 +207,11 @@ offset = Vector2( 0, -1 )
 [node name="PowerMask" type="Light2D" parent="WaterMeter"]
 position = Vector2( 37, 90 )
 texture = ExtResource( 6 )
+range_z_min = 4
+range_z_max = 4
 range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 4
-
-[node name="Tween" type="Tween" parent="WaterMeter"]
 
 [node name="Cover" type="Sprite" parent="WaterMeter"]
 modulate = Color( 1, 1, 1, 0 )

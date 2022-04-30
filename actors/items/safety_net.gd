@@ -1,13 +1,9 @@
 extends Area2D
 
 onready var collision = $CollisionShape2D
+var bodies = []
 
-func snap_player(check_body):
-	var bodies
-	if check_body == null:
-		bodies = get_overlapping_bodies()
-	else:
-		bodies = [check_body]
+func snap_bodies():
 	if bodies.size() > 0:
 		for body in bodies:
 			var player_box = body.get_node("Hitbox")
@@ -19,13 +15,14 @@ func snap_player(check_body):
 
 
 func _physics_process(_delta):
-	snap_player(null)
+	snap_bodies()
 
 
 func _on_SafetyNet_body_entered(body):
-	snap_player(body)
+	bodies.append(body)
 
 
 func _on_SafetyNet_body_exited(body):
+	bodies.erase(body)
 	if body.vel.y < 0 && (!Input.is_action_pressed("fludd") || Singleton.classic || Singleton.nozzle != Singleton.n.rocket):
-		Singleton.power = 100 #air rocket
+		Singleton.power = 100 # air rocket
