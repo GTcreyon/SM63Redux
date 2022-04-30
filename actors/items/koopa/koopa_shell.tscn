@@ -106,6 +106,8 @@ shape = SubResource( 18 )
 [node name="CollisionArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+input_pickable = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
 shape = SubResource( 19 )
@@ -113,6 +115,8 @@ shape = SubResource( 19 )
 [node name="WaterCheck" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 8
+input_pickable = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 20 )

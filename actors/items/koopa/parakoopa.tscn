@@ -55,6 +55,8 @@ script = ExtResource( 8 )
 position = Vector2( 2, -14 )
 collision_layer = 0
 collision_mask = 2
+input_pickable = false
+monitorable = false
 
 [node name="HitDetection" type="CollisionShape2D" parent="TopCollision"]
 position = Vector2( 0, 6 )
@@ -68,6 +70,8 @@ bus = "SFX"
 position = Vector2( 2, 3 )
 collision_layer = 0
 collision_mask = 2
+input_pickable = false
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="Damage"]
 shape = SubResource( 10 )

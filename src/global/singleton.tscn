@@ -122,9 +122,6 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Serializer" type="Node2D" parent="."]
 script = ExtResource( 4 )

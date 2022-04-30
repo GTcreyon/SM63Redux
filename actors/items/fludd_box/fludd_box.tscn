@@ -12,6 +12,8 @@ extents = Vector2( 18, 2 )
 [node name="FluddBox" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
+input_pickable = false
+monitorable = false
 script = ExtResource( 2 )
 
 [node name="Turbo" type="Sprite" parent="."]

@@ -39,7 +39,9 @@ shape = SubResource( 2 )
 [node name="PickupArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+input_pickable = false
 monitoring = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource( 3 )

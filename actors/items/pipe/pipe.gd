@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-onready var sound = $sfx #for sound effect
+onready var sound = $SFX #for sound effect
 
 var i = 0 #This is the variable that will increase until it reaches 60
 var inc = false #this variable will serve to trigger the increment as a "delay"
