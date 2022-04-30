@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://actors/water/water.tres" type="Material" id=1]
 [ext_resource path="res://actors/water/water_viewport.gd" type="Script" id=2]
 [ext_resource path="res://actors/water/water.gd" type="Script" id=3]
 [ext_resource path="res://actors/water/water_viewport.tres" type="Material" id=4]
@@ -13,13 +12,13 @@ script = ExtResource( 2 )
 polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 outline_texture = ExtResource( 6 )
 water_color = Color( 0.501961, 0.670588, 0.862745, 0.498039 )
-texture_color_impact = 0.05
 
 [node name="DetectionArea" type="Area2D" parent="."]
 pause_mode = 2
 z_index = 1
 collision_layer = 2147483656
 collision_mask = 4
+input_pickable = false
 space_override = 3
 gravity_vec = Vector2( 0, 0 )
 linear_damp = 0.5
@@ -43,7 +42,6 @@ render_target_v_flip = true
 render_target_update_mode = 3
 
 [node name="WaterPolygon" type="Polygon2D" parent="Viewport"]
-material = ExtResource( 1 )
 polygon = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 
 [node name="Splash" type="AudioStreamPlayer2D" parent="."]

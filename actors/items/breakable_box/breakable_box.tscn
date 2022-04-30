@@ -36,6 +36,8 @@ shape = SubResource( 2 )
 [node name="PoundArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+input_pickable = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PoundArea"]
 position = Vector2( 0, -17 )
@@ -44,6 +46,8 @@ shape = SubResource( 3 )
 [node name="SpinArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
+input_pickable = false
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpinArea"]
 shape = SubResource( 4 )

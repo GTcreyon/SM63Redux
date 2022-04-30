@@ -41,13 +41,15 @@ extents = Vector2( 12, 3 )
 
 [node name="Toad" type="Area2D"]
 material = ExtResource( 2 )
+input_pickable = false
+monitorable = false
 script = ExtResource( 3 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 use_parent_material = true
 z_index = -1
 frames = SubResource( 1 )
-frame = 7
+frame = 2
 playing = true
 offset = Vector2( 0, -0.5 )
 

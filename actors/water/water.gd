@@ -27,6 +27,7 @@ export var top_left_corner = Vector2() #gets automatically set by the parent scr
 #private variables
 onready var texture = $"../Viewport/WaterPolygon"
 onready var player = $"/root/Main/Player"
+onready var camera = $"/root/Main/Player/Camera2D"
 onready var splash = $"../Splash"
 
 var waves = []
@@ -196,12 +197,17 @@ func _process(dt):
 				wave_y_modifier[ind] = {[wave.id]: y_mod}
 
 	#have a default wave effect
-	var x_offset = get_global_transform().origin.x
+	var x_os_size = OS.window_size.x
+	var x_camera_edge = camera.global_position.x - x_os_size / 2
 	for surf_key in surface.keys():
-		surface[surf_key].y = sin(
-			(x_offset + surface[surf_key].x) * PI / surface_wave_properties.width
-			+ elapsed_time * 2 * PI * surface_wave_properties.speed
-		) * surface_wave_properties.height
+		var global_x = surface[surf_key].x + top_left_corner.x
+		if global_x >= x_camera_edge + x_os_size:
+			break
+		if global_x >= x_camera_edge:
+			surface[surf_key].y = sin(
+				global_x * PI / surface_wave_properties.width
+				+ elapsed_time * 2 * PI * surface_wave_properties.speed
+			) * surface_wave_properties.height
 	
 	#apply the modifier
 	for surf_key in wave_y_modifier.keys():
