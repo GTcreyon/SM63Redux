@@ -15,11 +15,10 @@ export var water_color: Color = Color(0, 0.7, 1, 0.8)
 #export var animation_swing_range: float = 32;
 #export var animation_speed: float = 1;
 
-var water_material = load("res://actors/water/water.tres")
 var water_viewport_material = load("res://actors/water/water_viewport.tres")
 
 func refresh():
-	viewport.world_2d = get_world_2d()
+	#viewport.world_2d = get_world_2d()
 	#get the extends
 	var min_vec = Vector2.INF
 	var max_vec = -Vector2.INF

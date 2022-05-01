@@ -241,11 +241,11 @@ func _physics_process(_delta):
 #			star.animation = "ready"
 		rect_size.x = DEFAULT_WIDTH + width_offset
 		if character_id == null:
-			rect_position.x = OS.window_size.x / 2 - ((DEFAULT_WIDTH + width_offset) / 2) * gui_size + 2
+			rect_position.x = OS.window_size.x / 2.0 - ((DEFAULT_WIDTH + width_offset) / 2.0) * gui_size + 2
 			edge_left.margin_left = -16
 			block_left.margin_left = 12
 		else:
-			rect_position.x = OS.window_size.x / 2 - ((DEFAULT_WIDTH - 40 + width_offset) / 2) * gui_size + 2
+			rect_position.x = OS.window_size.x / 2.0 - ((DEFAULT_WIDTH - 40 + width_offset) / 2.0) * gui_size + 2
 			edge_left.margin_left = -56
 			block_left.margin_left = -28
 		rect_position.y = OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size

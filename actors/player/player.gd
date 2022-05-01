@@ -135,14 +135,14 @@ func _on_BackupAngle_body_exited(_body):
 
 
 var water_areas: int = 0
-func _on_WaterCheck_area_entered(area):
+func _on_WaterCheck_area_entered(_area):
 	swimming = true
 	switch_state(S.NEUTRAL)
 	Singleton.water = max(Singleton.water, 100)
 	water_areas += 1
 
 
-func _on_WaterCheck_area_exited(area):
+func _on_WaterCheck_area_exited(_area):
 	water_areas -= 1
 	if water_areas <= 0:
 		swimming = false
