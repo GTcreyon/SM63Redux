@@ -101,13 +101,13 @@ frames = SubResource( 9 )
 animation = "walk"
 
 [node name="Fuse" type="AnimatedSprite" parent="Sprites"]
-position = Vector2( -1, -15 )
+position = Vector2( -5, -15 )
 frames = SubResource( 10 )
 animation = "unlit"
 centered = false
 
 [node name="Key" type="AnimatedSprite" parent="Sprites"]
-position = Vector2( 11, 0 )
+position = Vector2( -11, 0 )
 frames = SubResource( 11 )
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]

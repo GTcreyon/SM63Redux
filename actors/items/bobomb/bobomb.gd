@@ -62,21 +62,7 @@ func _physics_process(_delta):
 	if !struck:
 		#raycast2d is used here to detect if the object collided with a wall
 		#to change directions
-		if direction == 1:
-			base.flip_h = true
-			fuse.flip_h = true
-			if target != null:
-				fuse.offset.x = -1
-			else:
-				fuse.offset.x = -4
-			key.flip_h = true
-			key.offset.x = -22
-		elif direction == -1:
-			base.flip_h = false
-			fuse.flip_h = false
-			fuse.offset.x = 0
-			key.flip_h = false
-			key.offset.x = 0
+		update_sprites()
 		
 		if is_on_floor():
 			vel.y = GRAVITY
@@ -163,6 +149,24 @@ func _physics_process(_delta):
 #they also use the same trick as the directional collision
 #for hurting mario or the enemy itself, but less complicated
 #as we need only the x coordinates
+
+
+func update_sprites():
+	if direction == 1:
+		base.flip_h = false
+		fuse.flip_h = false
+		key.flip_h = false
+		key.offset.x = 0
+		if target != null:
+			fuse.offset.x = 3
+		else:
+			fuse.offset.x = 0
+	elif direction == -1:
+		base.flip_h = true
+		fuse.flip_h = true
+		fuse.offset.x = 4
+		key.flip_h = true
+		key.offset.x = 22
 
 
 func flip_ev():

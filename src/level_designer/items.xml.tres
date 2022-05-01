@@ -166,8 +166,8 @@
 	
     <item name="Bob-omb" description="An explosive enemy. When it sees a target, it will start its fuse and begin walking towards them. Once its fuse runs out, it will explode, dropping a coin. It can also be attacked to make it explode.">
 		<scene path="res://actors/items/bobomb/bobomb.tscn" />
-		<texture tag="List" path="res://actors/items/bobomb/bobomb_walk_4.png" />
-		<texture tag="Placed" path="res://actors/items/bobomb/bobomb_walk_4.png" />
+		<texture tag="List" path="res://actors/items/bobomb/bobomb_icon.png" />
+		<texture tag="Placed" path="res://actors/items/bobomb/bobomb_icon.png" />
         <inherit name="post" />
     </item>
 	
