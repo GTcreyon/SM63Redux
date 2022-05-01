@@ -119,6 +119,10 @@ func _ready():
 		sprite.flip_h = warp.flip
 
 
+func _process(delta):
+	manage_water_audio(delta)
+
+
 func _physics_process(_delta):
 	if locked:
 		locked_behaviour()
@@ -203,7 +207,6 @@ func player_physics():
 	manage_dive_recover()
 	manage_triple_flip()
 	manage_backflip_flip()
-	manage_water_audio()
 	
 	if Input.is_action_just_pressed("switch_fludd"):
 		switch_fludd()
@@ -1079,9 +1082,19 @@ func action_dive():
 				dive_correct(1)
 
 
-func manage_water_audio():
-	AudioServer.set_bus_effect_enabled(0, 0, swimming) # muffle audio underwater
-	AudioServer.set_bus_effect_enabled(0, 1, swimming) # TODO: fade the muffle effect
+const FADE_TIME = 10
+var fade_timer = 0
+onready var lowpass = AudioServer.get_bus_effect(0, 0)
+onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(0, 1)
+func manage_water_audio(delta):
+	if swimming:
+		fade_timer = min(fade_timer + delta * 60, FADE_TIME)
+	else:
+		fade_timer = max(fade_timer - delta * 60, 0)
+	reverb.wet = 0.25 * fade_timer / FADE_TIME
+	lowpass.cutoff_hz = int((2000 - 20500) * fade_timer / FADE_TIME + 20500)
+	AudioServer.set_bus_effect_enabled(0, 0, fade_timer != 0)
+	AudioServer.set_bus_effect_enabled(0, 1, fade_timer != 0)
 
 
 const ROLLOUT_TIME: int = 18
@@ -1209,7 +1222,7 @@ const STAND_BOX_POS = Vector2(0, 1.5)
 const STAND_BOX_EXTENTS = Vector2(6, 14.5)
 const DIVE_BOX_POS = Vector2(0, 3)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
-func switch_state(new_state): # TODO - bad state
+func switch_state(new_state):
 	state = new_state
 	sprite.rotation_degrees = 0
 	match state:
@@ -1256,13 +1269,13 @@ func switch_anim(new_anim):
 
 
 func take_damage(amount):
-	if invuln_frames <= 0 && !locked: # TODO - invuln frames, static
+	if invuln_frames <= 0 && !locked:
 		Singleton.hp = clamp(Singleton.hp - amount, 0, 8) #TODO - multi HP
 		invuln_frames = 180
 
 
 func take_damage_shove(amount, direction):
-	if invuln_frames <= 0 && !locked: # TODO - invuln frames, static
+	if invuln_frames <= 0 && !locked:
 		take_damage(amount)
 		switch_state(S.HURT)
 		switch_anim("hurt")
@@ -1283,7 +1296,7 @@ func recieve_health(amount):
 
 const DIVE_CORRECTION = 7
 func dive_correct(factor): # Correct the player's origin position when diving
-	#warning-ignore:return_value_discarded
+	# warning-ignore:return_value_discarded
 	move_and_slide(Vector2(0, DIVE_CORRECTION * factor * 60), Vector2(0, -1))
 	if factor == -1:
 		dust.position.y = 11.5
@@ -1298,7 +1311,7 @@ func dive_correct(factor): # Correct the player's origin position when diving
 			min(0, -DIVE_CORRECTION * factor)
 		)
 	)
-	#camera.position.y = min(0, -set_dive_correct * factor)
+	# camera.position.y = min(0, -set_dive_correct * factor)
 
 
 func play_sfx(type, group):

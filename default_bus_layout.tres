@@ -2,11 +2,12 @@
 
 [sub_resource type="AudioEffectLowPassFilter" id=1]
 resource_name = "LowPassFilter"
+cutoff_hz = 20500.0
 
 [sub_resource type="AudioEffectReverb" id=2]
 resource_name = "Reverb"
 room_size = 0.2
-wet = 0.25
+wet = 0.0
 
 [sub_resource type="AudioEffectEQ10" id=3]
 resource_name = "EQ10"
@@ -15,9 +16,9 @@ band_db/16000_hz = -60.0
 
 [resource]
 bus/0/effect/0/effect = SubResource( 1 )
-bus/0/effect/0/enabled = false
+bus/0/effect/0/enabled = true
 bus/0/effect/1/effect = SubResource( 2 )
-bus/0/effect/1/enabled = false
+bus/0/effect/1/enabled = true
 bus/1/name = "Music"
 bus/1/solo = false
 bus/1/mute = false
