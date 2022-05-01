@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://actors/player/player.gd" type="Script" id=1]
 [ext_resource path="res://actors/player/mario_sheet.png" type="Texture" id=2]
@@ -23,6 +23,10 @@ region = Rect2( 48, 0, 24, 38 )
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
 region = Rect2( 72, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 2 )
+region = Rect2( 432, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
@@ -136,6 +140,10 @@ region = Rect2( 24, 38, 24, 38 )
 atlas = ExtResource( 2 )
 region = Rect2( 48, 38, 24, 38 )
 
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 2 )
+region = Rect2( 432, 38, 24, 38 )
+
 [sub_resource type="AtlasTexture" id=23]
 atlas = ExtResource( 2 )
 region = Rect2( 72, 38, 24, 38 )
@@ -150,6 +158,11 @@ animations = [ {
 "frames": [ SubResource( 8 ) ],
 "loop": true,
 "name": "back",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 45 ) ],
+"loop": true,
+"name": "hurt",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ) ],
@@ -252,6 +265,11 @@ animations = [ {
 "name": "front_fludd",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 46 ) ],
+"loop": true,
+"name": "hurt_fludd",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 23 ) ],
 "loop": true,
 "name": "back_fludd",
@@ -337,8 +355,7 @@ __meta__ = {
 
 [node name="Character" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
-animation = "fall"
-playing = true
+animation = "walk"
 script = ExtResource( 19 )
 
 [node name="Fludd" type="AnimatedSprite" parent="Character"]

@@ -110,6 +110,7 @@ var last_step = 0
 var invuln_flash: int = 0
 
 func _ready():
+	sprite.playing = true
 	var warp = $"/root/Singleton/Warp"
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	if Singleton.set_location != null:
@@ -171,6 +172,7 @@ enum S { # state enum
 	ROLLOUT = 1 << 4,
 	POUND = 1 << 5,
 	TRIPLE_JUMP = 1 << 6,
+	HURT = 1 << 7,
 }
 
 enum Pound {
@@ -264,7 +266,7 @@ func action_bounce() -> void:
 	bounce_frames += 1
 	if bounce_frames >= 12:
 		if state == S.DIVE:
-			coyote_frames = 0
+			off_ground()
 			dive_correct(-1)
 			switch_state(S.ROLLOUT)
 			switch_anim("jump")
@@ -707,7 +709,7 @@ func action_jump() -> void:
 	jump_buffer_frames = 0
 	jump_vary_frames = JUMP_VARY_TIME
 	double_jump_frames = DOUBLE_JUMP_TIME
-	coyote_frames = 0
+	off_ground()
 	match double_jump_state:
 		0: # Single
 			switch_state(S.NEUTRAL)
@@ -757,7 +759,7 @@ func manage_backflip_flip() -> void:
 func action_backflip() -> void:
 	if !dive_resetting:
 		dive_correct(-1)
-	coyote_frames = 0
+	off_ground()
 	switch_state(S.BACKFLIP)
 	vel.y = min(-JUMP_VEL_1 - 2.5 * FPS_MOD, vel.y)
 	if sprite.flip_h:
@@ -771,7 +773,7 @@ func action_backflip() -> void:
 
 
 func action_rollout() -> void:
-	coyote_frames = 0
+	off_ground()
 	dive_correct(-1)
 	switch_state(S.ROLLOUT)
 	vel.y = min(-JUMP_VEL_1/1.5, vel.y)
@@ -791,6 +793,7 @@ func coyote_behaviour() -> void:
 		double_jump_state = 0
 	
 	if grounded: # specifically apply to when actually on the ground, not coyote time
+		manage_hurt_recover()
 		manage_pound_recover()
 		vel.y = 0
 		if swimming:
@@ -807,18 +810,30 @@ func coyote_behaviour() -> void:
 			reset_dive()
 
 
+func manage_hurt_recover():
+	if state == S.HURT:
+		switch_state(S.NEUTRAL)
+		switch_anim("walk")
+
+
+var cancel_ground: bool = false
 func check_ground_state() -> void:
-	# failsafe to prevent getting stuck between slopes
-	if (
-		vel.y < 0
-		|| is_on_floor()
-		|| Input.is_action_pressed("fludd")
-		|| (state == S.POUND && pound_state == Pound.SPIN)
-		|| swimming
-		|| bouncing
-	):
-		ground_override = 0
-	grounded = is_on_floor() || ground_override >= GROUND_OVERRIDE_THRESHOLD
+	if cancel_ground:
+		grounded = false
+		cancel_ground = false
+	else:
+		# failsafe to prevent getting stuck between slopes
+		if (
+			vel.y < 0
+			|| is_on_floor()
+			|| Input.is_action_pressed("fludd")
+			|| (state == S.POUND && pound_state == Pound.SPIN)
+			|| state == S.HURT
+			|| swimming
+			|| bouncing
+		):
+			ground_override = 0
+		grounded = is_on_floor() || ground_override >= GROUND_OVERRIDE_THRESHOLD
 
 
 func player_fall() -> void:
@@ -974,6 +989,7 @@ func get_snap() -> Vector2:
 		|| Input.is_action_just_pressed("jump")
 		|| jump_buffer_frames > 0
 		|| state == S.ROLLOUT
+		|| state == S.HURT
 		||
 		(
 			Input.is_action_just_pressed("fludd")
@@ -1023,7 +1039,7 @@ func action_dive():
 		)
 	):
 		if !swimming && coyote_frames > 0 && Input.is_action_pressed("jump") && abs(vel.x) > 1: # auto rollout
-			coyote_frames = 0
+			off_ground()
 			dive_correct(-1)
 			switch_state(S.ROLLOUT)
 			switch_anim("jump")
@@ -1044,7 +1060,7 @@ func action_dive():
 		):
 			if !grounded:
 				gp_dive_timer = 6
-				coyote_frames = 0
+				off_ground()
 				if state != S.TRIPLE_JUMP:
 					play_sfx("voice", "dive")
 				var multiplier = 1
@@ -1254,7 +1270,17 @@ func take_damage(amount):
 func take_damage_shove(amount, direction):
 	if invuln_frames <= 0 && !locked: # TODO - invuln frames, static
 		take_damage(amount)
+		switch_state(S.HURT)
+		switch_anim("hurt")
 		vel = Vector2(4 * direction, -3)
+		sprite.flip_h = direction == 1
+		off_ground()
+
+
+func off_ground():
+	coyote_frames = 0
+	grounded = false
+	cancel_ground = true
 
 
 func recieve_health(amount):
