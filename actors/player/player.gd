@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-const FPS_MOD = 32.0 / 60.0 #Multiplier to account for 60fps
+const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 
-const SFX_BANK = { #bank of sfx to be played with play_sfx()
+const SFX_BANK = { # bank of sfx to be played with play_sfx()
 	"step": {
 		"grass": [
 			preload("res://audio/sfx/step/grass/step_grass_0.wav"),
@@ -101,11 +101,11 @@ onready var hover_sfx = $HoverSFX
 onready var hover_loop_sfx = $HoverLoopSFX
 onready var dust = $Dust
 
-#vars to lock mechanics
+# vars to lock mechanics
 var invuln_frames: int = 0
 var locked: bool = false
 
-#visual vars
+# visual vars
 var last_step = 0
 var invuln_flash: int = 0
 
@@ -385,11 +385,11 @@ func fixed_visuals() -> void:
 		else:
 			bubbles_medium.position.x = -10
 			bubbles_small.position.x = -10
-	#offset bubbles to mario's center
+	# offset bubbles to mario's center
 	bubbles_medium.position += center
 	bubbles_small.position += center
 	
-	#give it shader data
+	# give it shader data
 	bubbles_small.process_material.direction = Vector3(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2), 0)
 	bubbles_medium.process_material.direction = Vector3(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2), 0)
 	
@@ -419,8 +419,6 @@ func fixed_visuals() -> void:
 	fludd_sprite.flip_h = sprite.flip_h
 	if sprite.animation.begins_with("spin"):
 		match sprite.frame:
-#			0:
-#				fludd_sprite.flip_h = sprite.flip_h
 			1:
 				if !fludd_sprite.animation.ends_with("front"):
 					fludd_sprite.animation = fludd_sprite.animation + "_front"
@@ -571,8 +569,6 @@ func fludd_control():
 							vel.y *= 1 - (0.13 * FPS_MOD)
 						else:
 							vel.y *= 1 - (0.2 * FPS_MOD)
-						#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/(10 / fps_mod))*((Singleton.power/(175 / fps_mod))+(0.75 * fps_mod))
-						#vel.y -= (((9.2 * fps_mod)-vel.y * fps_mod)/10)*((Singleton.power/(175))+(0.75 * fps_mod))
 						if swimming:
 							vel.y -= 0.75
 						else:
@@ -596,8 +592,6 @@ func fludd_control():
 						if grounded:
 							multiplier *= 2 #double power when grounded to counteract friction
 						vel += Vector2(cos(sprite.rotation)*25*FPS_MOD * FPS_MOD * multiplier, -sin(sprite.rotation - PI / 2) * 25 * FPS_MOD * FPS_MOD)
-	#					elif state == s.frontflip:
-	#						vel -= Vector2(-cos(sprite.rotation - PI / 2)*25*fps_mod, sin(sprite.rotation + PI / 2)*25*fps_mod)
 					else:
 						vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
 						vel.y -= 0.5 * FPS_MOD
@@ -685,7 +679,7 @@ func player_jump() -> void:
 				sprite.flip_h
 			)
 		):
-			if !dive_resetting && abs(vel.x) >= 1 && !is_on_wall(): #prevents static dive recover
+			if !dive_resetting && abs(vel.x) >= 1 && !is_on_wall(): # prevents static dive recover
 				action_rollout()
 		else:
 			action_backflip()
@@ -734,7 +728,7 @@ func action_jump() -> void:
 				vel.y = -JUMP_VEL_2
 				play_sfx("voice", "jump2")
 	
-	#warning-ignore:return_value_discarded
+	# warning-ignore:return_value_discarded
 	move_and_collide(Vector2(0, -3)) # helps jumps feel more responsive
 
 
@@ -798,7 +792,7 @@ func coyote_behaviour() -> void:
 		vel.y = 0
 		if swimming:
 			if state == S.DIVE:
-				vel.x = resist(vel.x, 0.2, 1.02) #Floor friction
+				vel.x = resist(vel.x, 0.2, 1.02) # Floor friction
 		else:
 			ground_friction()
 	
