@@ -98,10 +98,8 @@ script = ExtResource( 1 )
 position = Vector2( 16, 26 )
 texture = ExtResource( 18 )
 mode = 3
-range_z_min = 2
-range_z_max = 2
-range_layer_min = 1
-range_layer_max = 1
+range_layer_min = -5
+range_layer_max = 5
 range_item_cull_mask = 2
 
 [node name="BubbleMaskFiller" type="Light2D" parent="WaterMeter/BubbleMask"]
@@ -109,20 +107,16 @@ position = Vector2( 0, 62 )
 scale = Vector2( 1, -79 )
 texture = ExtResource( 4 )
 mode = 2
-range_z_min = 2
-range_z_max = 2
-range_layer_min = 1
-range_layer_max = 1
+range_layer_min = -5
+range_layer_max = 5
 range_item_cull_mask = 2
 
 [node name="BubbleMaskBottom" type="Light2D" parent="WaterMeter/BubbleMask"]
 position = Vector2( 0, 65.5 )
 texture = ExtResource( 3 )
 mode = 2
-range_z_min = 2
-range_z_max = 2
-range_layer_min = 1
-range_layer_max = 1
+range_layer_min = -5
+range_layer_max = 5
 range_item_cull_mask = 2
 
 [node name="Bottom" type="Sprite" parent="WaterMeter"]
@@ -207,8 +201,6 @@ offset = Vector2( 0, -1 )
 [node name="PowerMask" type="Light2D" parent="WaterMeter"]
 position = Vector2( 37, 90 )
 texture = ExtResource( 6 )
-range_z_min = 4
-range_z_max = 4
 range_layer_min = 1
 range_layer_max = 1
 range_item_cull_mask = 4
