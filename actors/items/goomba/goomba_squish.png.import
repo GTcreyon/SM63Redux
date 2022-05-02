@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/goomba_squish1.png-090ec81fb0f828d80732bfd48c9c38cd.stex"
+path="res://.import/goomba_squish.png-a6cc6239989b2c25612b8faff4c9c988.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://actors/items/goomba/goomba_squish1.png"
-dest_files=[ "res://.import/goomba_squish1.png-090ec81fb0f828d80732bfd48c9c38cd.stex" ]
+source_file="res://actors/items/goomba/goomba_squish.png"
+dest_files=[ "res://.import/goomba_squish.png-a6cc6239989b2c25612b8faff4c9c988.stex" ]
 
 [params]
 

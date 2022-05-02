@@ -111,12 +111,15 @@ position = Vector2( 104, 144 )
 
 [node name="Bobomb" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 369.972, 183.887 )
+direction = -1
 
 [node name="Bobomb2" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 439, 193 )
+direction = -1
 
 [node name="Bobomb3" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 1091.5, 244.758 )
+direction = -1
 
 [node name="Sign" parent="Items" instance=ExtResource( 22 )]
 material = SubResource( 1 )
@@ -241,6 +244,7 @@ flip = true
 
 [node name="Bobomb4" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 1387, 247 )
+direction = -1
 
 [node name="WarpZone" parent="." instance=ExtResource( 16 )]
 position = Vector2( -81, 92 )

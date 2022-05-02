@@ -138,8 +138,8 @@
 
     <item name="Goomba" description="A Goomba. When it sees a target, it will walk toward them and damage them by walking into them. It can be stomped or attacked to kill it, dropping a coin.">
 		<scene path="res://actors/items/goomba/goomba.tscn" />
-		<texture tag="List" path="res://actors/items/goomba/goomba_walk1.png" />
-		<texture tag="Placed" path="res://actors/items/goomba/goomba_walk1.png" />
+		<texture tag="List" path="res://actors/items/goomba/goomba_icon.png" />
+		<texture tag="Placed" path="res://actors/items/goomba/goomba_icon.png" />
         <inherit name="post" />
     </item>
 

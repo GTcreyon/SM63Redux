@@ -73,10 +73,7 @@ func _physics_process(_delta):
 	if sprite.animation != "squish" && !struck:
 		#raycast2d is used here to detect if the object collided with a wall
 		#to change directions
-		if direction == 1:
-			sprite.flip_h = true
-		elif direction == -1:
-			sprite.flip_h = false
+		sprite.flip_h = direction == -1
 		
 		if is_on_floor():
 			if is_on_wall() && target == null:

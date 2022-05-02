@@ -323,6 +323,7 @@ position = Vector2( -3, -280 )
 
 [node name="Goomba" parent="Items/Enemy" instance=ExtResource( 25 )]
 position = Vector2( 262, 179 )
+direction = -1
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource( 35 )]
 position = Vector2( -638, -668 )

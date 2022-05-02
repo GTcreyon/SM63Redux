@@ -1,49 +1,94 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://actors/items/goomba/goomba_walk1.png" type="Texture" id=1]
-[ext_resource path="res://actors/items/goomba/goomba_jump4.png" type="Texture" id=2]
-[ext_resource path="res://actors/items/goomba/goomba_squish3.png" type="Texture" id=3]
-[ext_resource path="res://actors/items/goomba/goomba_jump3.png" type="Texture" id=4]
-[ext_resource path="res://actors/items/goomba/goomba_jump2.png" type="Texture" id=5]
-[ext_resource path="res://actors/items/goomba/goomba_jump1.png" type="Texture" id=6]
-[ext_resource path="res://actors/items/goomba/goomba_walk5.png" type="Texture" id=7]
-[ext_resource path="res://actors/items/goomba/goomba_squish2.png" type="Texture" id=8]
-[ext_resource path="res://actors/items/goomba/goomba_walk4.png" type="Texture" id=9]
-[ext_resource path="res://actors/items/goomba/goomba_squish4.png" type="Texture" id=10]
-[ext_resource path="res://actors/items/goomba/goomba_walk3.png" type="Texture" id=11]
-[ext_resource path="res://actors/items/goomba/goomba_walk6.png" type="Texture" id=12]
-[ext_resource path="res://actors/items/goomba/goomba_walk2.png" type="Texture" id=13]
-[ext_resource path="res://actors/items/goomba/goomba_squish1.png" type="Texture" id=14]
+[ext_resource path="res://actors/items/goomba/goomba_walk.png" type="Texture" id=1]
+[ext_resource path="res://actors/items/goomba/goomba_jump.png" type="Texture" id=2]
+[ext_resource path="res://actors/items/goomba/goomba_squish.png" type="Texture" id=3]
 [ext_resource path="res://src/global/dejitter.gd" type="Script" id=15]
 [ext_resource path="res://actors/items/goomba/goomba.gd" type="Script" id=16]
 [ext_resource path="res://audio/sfx/items/goomba/goomba_step.wav" type="AudioStream" id=17]
 
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 19, 20 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 19, 0, 19, 20 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 38, 0, 19, 20 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 57, 0, 19, 20 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 76, 0, 19, 20 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 95, 0, 19, 20 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 35, 26 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 26, 35, 26 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 52, 35, 26 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 78, 35, 26 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 21, 26 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 21, 0, 21, 26 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 42, 0, 21, 26 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 63, 0, 21, 26 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 14 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "squish",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 1 ), ExtResource( 13 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 7 ), ExtResource( 12 ) ],
+"frames": [ SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ) ],
 "loop": true,
 "name": "walking",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 2 ) ],
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": true,
+"name": "squish",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": false,
 "name": "jumping",
 "speed": 0.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 9.5, 9.5 )
+extents = Vector2( 9, 9.5 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 288, 85 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 9.5, 10 )
+extents = Vector2( 9, 10 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 1, 1 )
@@ -59,6 +104,7 @@ script = ExtResource( 16 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "walking"
+offset = Vector2( -0.5, 0 )
 script = ExtResource( 15 )
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]

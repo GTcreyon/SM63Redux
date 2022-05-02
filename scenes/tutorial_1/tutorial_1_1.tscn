@@ -315,12 +315,15 @@ frame = 1
 
 [node name="Goomba" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1388, 85 )
+direction = -1
 
 [node name="Goomba2" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1490, 85 )
+direction = -1
 
 [node name="Goomba3" parent="Items" instance=ExtResource( 19 )]
 position = Vector2( 1593, 87 )
+direction = -1
 
 [node name="Coins" type="Node2D" parent="Items"]
 
