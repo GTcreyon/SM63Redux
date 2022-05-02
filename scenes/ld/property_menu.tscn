@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://gui/ld/property_box.tres" type="StyleBox" id=1]
 [ext_resource path="res://gui/ld/close_button.png" type="Texture" id=2]
 [ext_resource path="res://gui/ld/close_button_pressed.png" type="Texture" id=3]
+[ext_resource path="res://scenes/ld/property_menu.gd" type="Script" id=4]
 
 [node name="PropertyMenu" type="Panel"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 1 )
+script = ExtResource( 4 )
 
 [node name="CloseButton" type="TextureButton" parent="."]
 anchor_left = 1.0
@@ -18,3 +20,11 @@ rect_clip_content = true
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
+
+[node name="PropertyList" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 18.0
+margin_top = 18.0
+margin_right = -18.0
+margin_bottom = -18.0

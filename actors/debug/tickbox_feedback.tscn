@@ -31,9 +31,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 mouse_filter = 2
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="."]
 margin_left = -81.0
@@ -43,9 +40,6 @@ margin_bottom = 35.0
 custom_fonts/font = ExtResource( 3 )
 text = "Lag"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0, 10 )

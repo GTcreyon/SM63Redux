@@ -56,6 +56,8 @@ func place_item(item_name):
 	inst.ghost = true
 	inst.texture = load(item_textures[item_name]["Placed"])
 	inst.item_name = item_name
+	var props = items[item_name]
+	inst.properties = props
 	$Template/Items.add_child(inst)
 	return inst
 
@@ -112,7 +114,7 @@ func read_items():
 				if parent_name == "class":
 					match node_name:
 						"property":
-							var item_class = item_classes[parent_subname]
+							var item_class: Array = item_classes[parent_subname]
 							var link_txt = parser.get_named_attribute_value_safe("link")
 							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
 							
@@ -122,13 +124,13 @@ func read_items():
 								link = link_txt,
 								description = parser.get_named_attribute_value("description")
 							}
-							
 							item_class.append(properties)
 						"inherit":
 							var item_class = item_classes[parent_subname]
 							var parent_class = item_classes[parser.get_named_attribute_value("name")]
 							for property in parent_class:
-								item_class.append(property)
+								if !item_class.has(property):
+									item_class.append(property)
 				elif parent_name == "item":
 					match node_name:
 						"scene":
@@ -145,7 +147,6 @@ func read_items():
 								link = link_txt,
 								description = parser.get_named_attribute_value("description")
 							}
-							
 							item_class.append(properties)
 						"texture":
 							if !item_textures.has(parent_subname):
@@ -156,7 +157,8 @@ func read_items():
 							var item_class = items[parent_subname]
 							var parent_class = item_classes[parser.get_named_attribute_value("name")]
 							for property in parent_class:
-								item_class.append(property)
+								if !item_class.has(property):
+									item_class.append(property)
 				
 				if allow_reparent:
 					var subname = parser.get_named_attribute_value_safe("name")

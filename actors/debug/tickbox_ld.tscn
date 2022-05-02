@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://actors/debug/tickbox_ld.png" type="Texture" id=1]
 [ext_resource path="res://actors/debug/tickbox.gd" type="Script" id=2]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=3]
 
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
@@ -26,10 +27,21 @@ animations = [ {
 [sub_resource type="StyleBoxEmpty" id=6]
 
 [node name="Tickbox" type="Control"]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 0, 20 )
 mouse_filter = 2
 script = ExtResource( 2 )
 
+[node name="Label" type="Label" parent="."]
+margin_left = 23.0
+margin_top = 2.0
+margin_right = 32.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 3 )
+
 [node name="Sprite" type="AnimatedSprite" parent="."]
+position = Vector2( 10, 10 )
 frames = SubResource( 5 )
 
 [node name="Button" type="Button" parent="Sprite"]
