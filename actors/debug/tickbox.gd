@@ -1,6 +1,6 @@
 extends Control
 
-onready var sprite = $Sprite
+onready var sprite = $Button/Sprite
 var pressed = false
 
 func _on_Button_pressed():

@@ -4,6 +4,8 @@
 [ext_resource path="res://actors/debug/tickbox.gd" type="Script" id=2]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=3]
 
+[sub_resource type="StyleBoxEmpty" id=6]
+
 [sub_resource type="AtlasTexture" id=7]
 atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 20, 20 )
@@ -24,31 +26,17 @@ animations = [ {
 "speed": 16.0
 } ]
 
-[sub_resource type="StyleBoxEmpty" id=6]
-
-[node name="Tickbox" type="Control"]
+[node name="Tickbox" type="HBoxContainer"]
 margin_right = 20.0
 margin_bottom = 20.0
-rect_min_size = Vector2( 0, 20 )
 mouse_filter = 2
+custom_constants/separation = 3
 script = ExtResource( 2 )
 
-[node name="Label" type="Label" parent="."]
-margin_left = 23.0
-margin_top = 2.0
-margin_right = 32.0
-margin_bottom = 17.0
-custom_fonts/font = ExtResource( 3 )
-
-[node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 10, 10 )
-frames = SubResource( 5 )
-
-[node name="Button" type="Button" parent="Sprite"]
-margin_left = -10.0
-margin_top = -10.0
-margin_right = 10.0
-margin_bottom = 10.0
+[node name="Button" type="Button" parent="."]
+margin_right = 20.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 20, 20 )
 mouse_default_cursor_shape = 2
 custom_styles/hover = SubResource( 6 )
 custom_styles/pressed = SubResource( 6 )
@@ -56,4 +44,16 @@ custom_styles/focus = SubResource( 6 )
 custom_styles/disabled = SubResource( 6 )
 custom_styles/normal = SubResource( 6 )
 
-[connection signal="pressed" from="Sprite/Button" to="." method="_on_Button_pressed"]
+[node name="Sprite" type="AnimatedSprite" parent="Button"]
+position = Vector2( 10, 10 )
+frames = SubResource( 5 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 23.0
+margin_top = 2.0
+margin_right = 59.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 3 )
+text = "AAAA"
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
