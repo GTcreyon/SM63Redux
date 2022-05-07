@@ -56,10 +56,19 @@ func place_item(item_name):
 	inst.ghost = true
 	inst.texture = load(item_textures[item_name]["Placed"])
 	inst.item_name = item_name
-	var props = items[item_name]
-	inst.properties = props
+	var properties: Dictionary = items[item_name]
+	for key in properties:
+		properties[key]["value"] = default_of_type(properties[key]["type"])
+	inst.properties = properties.duplicate(true) # gotta duplicate this or all items share the same props
 	$Template/Items.add_child(inst)
 	return inst
+
+
+func default_of_type(type):
+	match type:
+		"bool":
+			return false
+
 
 func _old_place_item(item):
 	var item_ref = item_prefab.instance()
@@ -114,23 +123,21 @@ func read_items():
 				if parent_name == "class":
 					match node_name:
 						"property":
-							var item_class: Array = item_classes[parent_subname]
+							var item_class = item_classes[parent_subname]
 							var link_txt = parser.get_named_attribute_value_safe("link")
 							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
 							
 							var properties = {
-								label = parser.get_named_attribute_value("label"),
 								type = parser.get_named_attribute_value("type"),
 								link = link_txt,
 								description = parser.get_named_attribute_value("description")
 							}
-							item_class.append(properties)
+							item_class[parser.get_named_attribute_value("label")] = properties
 						"inherit":
 							var item_class = item_classes[parent_subname]
 							var parent_class = item_classes[parser.get_named_attribute_value("name")]
 							for property in parent_class:
-								if !item_class.has(property):
-									item_class.append(property)
+								item_class[property] = parent_class[property]
 				elif parent_name == "item":
 					match node_name:
 						"scene":
@@ -142,12 +149,11 @@ func read_items():
 							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
 							
 							var properties = {
-								label = parser.get_named_attribute_value("label"),
 								type = parser.get_named_attribute_value("type"),
 								link = link_txt,
 								description = parser.get_named_attribute_value("description")
 							}
-							item_class.append(properties)
+							item_class[parser.get_named_attribute_value("label")] = properties
 						"texture":
 							if !item_textures.has(parent_subname):
 								item_textures[parent_subname] = {"Placed": null, "List": null}
@@ -157,17 +163,16 @@ func read_items():
 							var item_class = items[parent_subname]
 							var parent_class = item_classes[parser.get_named_attribute_value("name")]
 							for property in parent_class:
-								if !item_class.has(property):
-									item_class.append(property)
+								item_class[property] = parent_class[property]
 				
 				if allow_reparent:
 					var subname = parser.get_named_attribute_value_safe("name")
 					parent_subname = subname
 					if node_name == "class":
-						item_classes[subname] = []
+						item_classes[subname] = {}
 						allow_reparent = false
 					elif node_name == "item":
-						items[subname] = []
+						items[subname] = {}
 						allow_reparent = false
 					parent_name = node_name
 			parser.NODE_ELEMENT_END:

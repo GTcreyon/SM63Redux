@@ -1,7 +1,8 @@
 extends Panel
 
 const TICKBOX = preload("res://actors/debug/tickbox_ld.tscn")
-var properties: Array = []
+var properties: Dictionary = {}
+var target_node: Node = null
 onready var list: VBoxContainer = $PropertyList
 
 
@@ -11,7 +12,6 @@ func _on_CloseButton_pressed():
 
 func hide():
 	visible = false
-	clear_children()
 
 
 func show():
@@ -26,24 +26,28 @@ func clear_children():
 		child.queue_free()
 
 
-func set_properties(new_properties):
-	if properties != new_properties:
-		properties = new_properties
-		clear_children()
-		
-		for property in new_properties:
-			var inst = null
-			match property["type"]:
-				"bool":
-					inst = TICKBOX.instance()
-					inst.get_node("Label").text = property["label"]
-			if inst != null:
-				list.add_child(inst)
-		call_deferred("resize_box")
+func set_properties(new_properties, node):
+	properties = new_properties
+	clear_children()
+	
+	for key in new_properties:
+		var inst = null
+		match new_properties[key]["type"]:
+			"bool":
+				inst = TICKBOX.instance()
+				inst.get_node("Label").text = key
+				inst.pressed = new_properties[key]["value"]
+		if inst != null:
+			list.add_child(inst)
+	
+	target_node = node
+	
+	call_deferred("resize_box")
 
 
 func resize_box():
-	print(list.margin_right)
 	rect_size = Vector2(list.rect_size.x + 36, list.rect_size.y + 36)
 
 
+func on_value_changed(label, value):
+	target_node.properties[label]["value"] = value

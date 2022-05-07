@@ -40,7 +40,7 @@ func format_time(overall_seconds):
 
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("reset"):
+	if Input.is_action_just_pressed("reset") && get_tree().get_current_scene().get_filename().count("tutorial"):
 		Singleton.collected_nozzles = [false, false, false]
 		Singleton.nozzle = Singleton.n.none
 		Singleton.water = 100

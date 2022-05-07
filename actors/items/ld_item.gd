@@ -13,7 +13,7 @@ export(String) var item_name
 var glow_factor = 1
 var pulse = 0
 var ghost = false
-var properties: Array = []
+var properties: Dictionary = {}
 
 func _selection_changed(new_selection):
 	if new_selection.head == self:
@@ -37,6 +37,7 @@ func _input(event):
 		ghost = false
 
 func _process(delta):
+	print(name + str(properties["Disabled"]["value"]))
 	if ghost:
 		position = main.snap_vector(get_global_mouse_position())
 	
@@ -45,5 +46,6 @@ func _process(delta):
 		material.set_shader_param("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
 		
 		if Input.is_action_just_pressed("ui_select"):
-			property_menu.set_properties(properties)
+			print(properties["Disabled"]["value"])
+			property_menu.set_properties(properties, self)
 			property_menu.show()
