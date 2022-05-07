@@ -37,7 +37,6 @@ func _input(event):
 		ghost = false
 
 func _process(delta):
-	print(name + str(properties["Disabled"]["value"]))
 	if ghost:
 		position = main.snap_vector(get_global_mouse_position())
 	
