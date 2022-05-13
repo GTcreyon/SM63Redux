@@ -2,9 +2,9 @@ shader_type canvas_item;
 
 uniform vec2 camera_position = vec2(0, 0);
 
-const float outline_thickness = 1f;
-const float origin_thickness = 2f;
-const float outline_spacing = 32f;
+const float outline_thickness = 1.;
+const float origin_thickness = 2.;
+const float outline_spacing = 32.;
 
 float modf_gles2(float x, float range) {
 	return x - range * floor(x / range);
@@ -22,21 +22,21 @@ void fragment()
 	
 	//half outlines
 	is_outline = is_outline ||
-		modf_gles2(UV.y + camera_position.y * TEXTURE_PIXEL_SIZE.y, TEXTURE_PIXEL_SIZE.y * outline_spacing * 0.5f)
+		modf_gles2(UV.y + camera_position.y * TEXTURE_PIXEL_SIZE.y, TEXTURE_PIXEL_SIZE.y * outline_spacing * 0.5)
 			<= TEXTURE_PIXEL_SIZE.y * outline_thickness &&
 		modf_gles2(
-				UV.x + camera_position.x * TEXTURE_PIXEL_SIZE.x + TEXTURE_PIXEL_SIZE.x * outline_spacing * 0.125f,
-				TEXTURE_PIXEL_SIZE.x * outline_spacing * 0.5f
+				UV.x + camera_position.x * TEXTURE_PIXEL_SIZE.x + TEXTURE_PIXEL_SIZE.x * outline_spacing * 0.125,
+				TEXTURE_PIXEL_SIZE.x * outline_spacing * 0.5
 			)
-			<= TEXTURE_PIXEL_SIZE.x * outline_spacing * 0.25f;
+			<= TEXTURE_PIXEL_SIZE.x * outline_spacing * 0.25;
 	is_outline = is_outline ||
-		modf_gles2(UV.x + camera_position.x * TEXTURE_PIXEL_SIZE.x, TEXTURE_PIXEL_SIZE.x * outline_spacing * 0.5f)
+		modf_gles2(UV.x + camera_position.x * TEXTURE_PIXEL_SIZE.x, TEXTURE_PIXEL_SIZE.x * outline_spacing * 0.5)
 			<= TEXTURE_PIXEL_SIZE.x * outline_thickness &&
 		modf_gles2(
-				UV.y + camera_position.y * TEXTURE_PIXEL_SIZE.y + TEXTURE_PIXEL_SIZE.y * outline_spacing * 0.125f,
-				TEXTURE_PIXEL_SIZE.y * outline_spacing * 0.5f
+				UV.y + camera_position.y * TEXTURE_PIXEL_SIZE.y + TEXTURE_PIXEL_SIZE.y * outline_spacing * 0.125,
+				TEXTURE_PIXEL_SIZE.y * outline_spacing * 0.5
 			)
-			<= TEXTURE_PIXEL_SIZE.y * outline_spacing * 0.25f;
+			<= TEXTURE_PIXEL_SIZE.y * outline_spacing * 0.25;
 	
 	//origin outlines
 	is_outline = is_outline ||
@@ -51,5 +51,5 @@ void fragment()
 			>= -TEXTURE_PIXEL_SIZE.y * origin_thickness;
 	
 	//we do 1 - y component of the SCREEN_UV because otherwise the image is flipped
-	COLOR = is_outline ? vec4(0, 0, 0, 1) : texture(TEXTURE, vec2(SCREEN_UV.x, 1f - SCREEN_UV.y));
+	COLOR = is_outline ? vec4(0, 0, 0, 1) : texture(TEXTURE, vec2(SCREEN_UV.x, 1. - SCREEN_UV.y));
 }
