@@ -11,6 +11,11 @@ func _on_Options_pressed():
 		inst.texture = load(main.item_textures[item.name]["Placed"])
 		inst.item_name = item.name
 		inst.position = str2var(item.position)
+		for key in main.items[item.name]:
+			if key != "Position":
+				var property = main.items[item.name][key]
+				property["value"] = item.properties[key]
+				inst.properties[key] = property
 		$"/root/Main/Template/Items".add_child(inst)
 	for poly in load_dict["terrain"]:
 		var inst = main.terrain_prefab.instance()
