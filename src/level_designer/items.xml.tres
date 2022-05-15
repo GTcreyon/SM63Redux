@@ -150,22 +150,22 @@
 
     <item name="Parakoopa" description="A flying Koopa. It will hover in place. It can be stomped or attacked, knocking off its wings.">
 	<scene path="res://actors/items/koopa/parakoopa.tscn" />
-	<texture tag="List" path="res://actors/items/koopa/parakoopa.png" />
-	<texture tag="Placed" path="res://actors/items/koopa/parakoopa.png" />
+	<texture tag="List" path="res://actors/items/koopa/parakoopa_icon.png" />
+	<texture tag="Placed" path="res://actors/items/koopa/parakoopa_placed.png" />
         <inherit name="post" />
     </item>
 	
     <item name="Koopa" description="A Koopa. It will damage you if you walk into it. It can be stomped or attacked, putting it in its shell.">
 	<scene path="res://actors/items/koopa/koopa.tscn" />
-	<texture tag="List" path="res://actors/items/koopa/koopa_walk.png" />
-	<texture tag="Placed" path="res://actors/items/koopa/koopa_walk.png" />
+	<texture tag="List" path="res://actors/items/koopa/koopa_icon.png" />
+	<texture tag="Placed" path="res://actors/items/koopa/koopa_placed.png" />
         <inherit name="post" />
     </item>
 	
     <item name="Koopa Shell" description="A Koopa shell. It can be kicked or stomped to make it slide. Stomping on it will give you extra height.">
 	<scene path="res://actors/items/koopa/koopa_shell.tscn" />
-	<texture tag="List" path="res://actors/items/koopa/shell.png" />
-	<texture tag="Placed" path="res://actors/items/koopa/shell.png" />
+	<texture tag="List" path="res://actors/items/koopa/shell_icon.png" />
+	<texture tag="Placed" path="res://actors/items/koopa/shell_icon.png" />
         <inherit name="post" />
     </item>
 	
