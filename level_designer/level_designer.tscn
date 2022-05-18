@@ -4,7 +4,7 @@
 [ext_resource path="res://level_designer/ld_main.gd" type="Script" id=2]
 [ext_resource path="res://level_designer/ld_camera.gd" type="Script" id=3]
 [ext_resource path="res://level_designer/background.tres" type="Material" id=4]
-[ext_resource path="res://scenes/ld/music.gd" type="Script" id=5]
+[ext_resource path="res://level_designer/music.gd" type="Script" id=5]
 [ext_resource path="res://level_designer/background.png" type="Texture" id=6]
 [ext_resource path="res://gui/ld/top_buttons.png" type="Texture" id=7]
 [ext_resource path="res://gui/ld/palette.png" type="Texture" id=8]
@@ -15,15 +15,15 @@
 [ext_resource path="res://gui/ld/scroll_block_v.png" type="Texture" id=13]
 [ext_resource path="res://gui/ld/scroll_block_h.png" type="Texture" id=14]
 [ext_resource path="res://item_grid.gd" type="Script" id=15]
-[ext_resource path="res://scenes/ld/start.gd" type="Script" id=16]
-[ext_resource path="res://scenes/ld/save.gd" type="Script" id=17]
-[ext_resource path="res://scenes/ld/load.gd" type="Script" id=18]
+[ext_resource path="res://level_designer/start.gd" type="Script" id=16]
+[ext_resource path="res://level_designer/save.gd" type="Script" id=17]
+[ext_resource path="res://level_designer/load.gd" type="Script" id=18]
 [ext_resource path="res://gui/hud/hud_shine_old.png" type="Texture" id=19]
 [ext_resource path="res://gui/custom_nodes/OutlineContainer.gd" type="Script" id=20]
 [ext_resource path="res://gui/ld/drag_circle_hover.png" type="Texture" id=21]
 [ext_resource path="res://gui/ld/drag_circle_selected.png" type="Texture" id=22]
 [ext_resource path="res://gui/ld/drag_circle.png" type="Texture" id=23]
-[ext_resource path="res://scenes/ld/property_menu.tscn" type="PackedScene" id=24]
+[ext_resource path="res://level_designer/property_menu.tscn" type="PackedScene" id=24]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 7 )
@@ -510,8 +510,6 @@ z_index = -1
 [node name="PropertyMenu" parent="UILayer" instance=ExtResource( 24 )]
 visible = false
 
-[connection signal="selection_changed" from="." to="UILayer/LDUI" method="_selection_changed"]
-[connection signal="selection_size_changed" from="." to="UILayer/LDUI" method="_selection_size_changed"]
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]
