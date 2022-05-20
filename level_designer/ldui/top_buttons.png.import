@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/scroll_h.png-5b51dad43a38ab7d032eaeff681d7187.stex"
+path="res://.import/top_buttons.png-3cbf68a38f7392c9c26582c7d161c206.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/ld/scroll_h.png"
-dest_files=[ "res://.import/scroll_h.png-5b51dad43a38ab7d032eaeff681d7187.stex" ]
+source_file="res://level_designer/ldui/top_buttons.png"
+dest_files=[ "res://.import/top_buttons.png-3cbf68a38f7392c9c26582c7d161c206.stex" ]
 
 [params]
 

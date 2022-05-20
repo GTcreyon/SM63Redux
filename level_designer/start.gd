@@ -1,6 +1,6 @@
 extends Button
 
-const TEMPLATE_SCENE = preload("res://src/level_designer/template.tscn")
+const TEMPLATE_SCENE = preload("res://level_designer/template.tscn")
 const PLAYER_SCENE = preload("res://actors/player/player.tscn")
 
 onready var main = $"/root/Main"

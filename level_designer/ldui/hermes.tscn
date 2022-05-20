@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://gui/ld/hermes.png" type="Texture" id=1]
-[ext_resource path="res://gui/ld/hermes.gd" type="Script" id=2]
+[ext_resource path="res://level_designer/ldui/hermes.png" type="Texture" id=1]
+[ext_resource path="res://level_designer/ldui/hermes.gd" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )

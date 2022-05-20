@@ -1,6 +1,6 @@
 extends Control
 
-const list_item = preload("res://src/level_designer/list_item.tscn")
+const list_item = preload("res://level_designer/ldui/list_item.tscn")
 
 onready var level_editor := $"/root/Main"
 onready var ld_camera := $"/root/Main/LDCamera"

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/start_sign.png-3546ad2c6f3dbc8db46377c8159f66bb.stex"
+path="res://.import/text_input.png-6dfe1488341bcbd763dfa45a0c717864.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/ld/start_sign.png"
-dest_files=[ "res://.import/start_sign.png-3546ad2c6f3dbc8db46377c8159f66bb.stex" ]
+source_file="res://level_designer/fields/text_input.png"
+dest_files=[ "res://.import/text_input.png-6dfe1488341bcbd763dfa45a0c717864.stex" ]
 
 [params]
 

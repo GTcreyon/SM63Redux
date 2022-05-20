@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/close_button.png-d0fc751845f7d0ec82ed5a3eb7f9c9b5.stex"
+path="res://.import/scroll_v.png-0657f7c2881cfba18b99235c670b49a8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/ld/close_button.png"
-dest_files=[ "res://.import/close_button.png-d0fc751845f7d0ec82ed5a3eb7f9c9b5.stex" ]
+source_file="res://level_designer/ldui/scroll_v.png"
+dest_files=[ "res://.import/scroll_v.png-0657f7c2881cfba18b99235c670b49a8.stex" ]
 
 [params]
 

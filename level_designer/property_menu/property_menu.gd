@@ -1,6 +1,7 @@
 extends Panel
 
-const TICKBOX = preload("res://actors/debug/tickbox_ld.tscn")
+const TICKBOX = preload("res://level_designer/fields/boolean/tickbox_ld.tscn")
+const INPUT_NUMBER = preload("res://level_designer/fields/number/input_number.tscn")
 var properties: Dictionary = {}
 var target_node: Node = null
 onready var list: VBoxContainer = $PropertyList
@@ -32,11 +33,20 @@ func set_properties(new_properties, node):
 	
 	for key in new_properties:
 		var inst = null
+		var val = new_properties[key]["value"]
 		match new_properties[key]["type"]:
 			"bool":
 				inst = TICKBOX.instance()
 				inst.get_node("Label").text = key
 				inst.pressed = new_properties[key]["value"]
+			"int":
+				inst = INPUT_NUMBER.instance()
+				inst.get_node("Label").text = key
+				inst.pre_text = str(0 if val == null else val)
+			"float":
+				inst = INPUT_NUMBER.instance()
+				inst.get_node("Label").text = key
+				inst.pre_text = str(0 if val == null else val)
 		if inst != null:
 			list.add_child(inst)
 	

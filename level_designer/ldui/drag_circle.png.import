@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/drag_circle_hover.png-395dd493c279556973afeeb58db1ceee.stex"
+path="res://.import/drag_circle.png-b738109772b685e471326798f9201777.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/ld/drag_circle_hover.png"
-dest_files=[ "res://.import/drag_circle_hover.png-395dd493c279556973afeeb58db1ceee.stex" ]
+source_file="res://level_designer/ldui/drag_circle.png"
+dest_files=[ "res://.import/drag_circle.png-b738109772b685e471326798f9201777.stex" ]
 
 [params]
 

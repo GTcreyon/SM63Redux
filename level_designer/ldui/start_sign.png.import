@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/property_box.png-31be8b43d640f0da364cc1b264b7f6d6.stex"
+path="res://.import/start_sign.png-bafb116b7182ba91ae825a17ee4e9e4c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/ld/property_box.png"
-dest_files=[ "res://.import/property_box.png-31be8b43d640f0da364cc1b264b7f6d6.stex" ]
+source_file="res://level_designer/ldui/start_sign.png"
+dest_files=[ "res://.import/start_sign.png-bafb116b7182ba91ae825a17ee4e9e4c.stex" ]
 
 [params]
 

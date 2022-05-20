@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/close_button_pressed.png-a07b23874c2cadaf1fe896ecf6741007.stex"
+path="res://.import/property_box.png-a0cb06a8d2b57d46a415a361b7175507.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/ld/close_button_pressed.png"
-dest_files=[ "res://.import/close_button_pressed.png-a07b23874c2cadaf1fe896ecf6741007.stex" ]
+source_file="res://level_designer/property_menu/property_box.png"
+dest_files=[ "res://.import/property_box.png-a0cb06a8d2b57d46a415a361b7175507.stex" ]
 
 [params]
 

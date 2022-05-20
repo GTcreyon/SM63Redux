@@ -3,7 +3,7 @@ extends Node2D
 onready var sm63_to_redux: SM63ToRedux = Singleton.sm63_to_redux
 onready var ld_ui = $UILayer/LDUI
 onready var ld_camera = $LDCamera
-onready var lv_template := preload("res://src/level_designer/template.tscn")
+onready var lv_template := preload("res://level_designer/template.tscn")
 
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
 const item_prefab = preload("res://actors/items/ld_item.tscn")
@@ -95,7 +95,7 @@ func _disabled_draw():
 
 func read_items():
 	var parser = XMLParser.new()
-	parser.open("res://src/level_designer/items.xml.tres")
+	parser.open("res://level_designer/items.xml.tres")
 	
 	var parent_name
 	var parent_subname
