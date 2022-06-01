@@ -208,6 +208,11 @@ func _input(event):
 		last_local_mouse_position = event.position
 
 func _unhandled_input(event: InputEvent):
+	if weakref(ld_camera).get_ref(): # avoid handling input if the ld camera doesn't exist
+		handle_mouse_input(event)
+
+
+func handle_mouse_input(event):
 	var global_mouse_pos = ld_camera.global_position + last_local_mouse_position
 	
 	#key press cycle

@@ -246,12 +246,10 @@ use_parent_material = true
 texture = SubResource( 18 )
 
 [node name="SelectorLevelDesigner" type="Sprite" parent="."]
-material = ExtResource( 14 )
 position = Vector2( 636, 233 )
 texture = ExtResource( 7 )
 
 [node name="LevelDesigner" type="Sprite" parent="."]
-material = ExtResource( 14 )
 position = Vector2( 636, 188 )
 texture = SubResource( 2 )
 

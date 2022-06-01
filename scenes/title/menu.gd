@@ -119,11 +119,17 @@ func press_button(button):
 	if !get_parent().dampen:
 		match button:
 			0:
-				get_parent().dampen = true
-				Singleton.get_node("WindowWarp").warp(Vector2(110, 153), "res://scenes/tutorial_1/tutorial_1_1.tscn")
-				Singleton.get_node("SFX/Start").play()
-				if Singleton.touch_controls():
-					Singleton.controls.visible = true
+				menu_to_scene("res://scenes/tutorial_1/tutorial_1_1.tscn")
+			1:
+				menu_to_scene("res://level_designer/level_designer.tscn")
+
+
+func menu_to_scene(scene: String) -> void:
+	get_parent().dampen = true
+	Singleton.get_node("WindowWarp").warp(Vector2(110, 153), scene)
+	Singleton.get_node("SFX/Start").play()
+	if Singleton.touch_controls():
+		Singleton.controls.visible = true
 
 
 func step(direction):
