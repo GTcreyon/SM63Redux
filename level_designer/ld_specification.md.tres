@@ -76,3 +76,11 @@ Version 000
 - Classes can have a placement flag with an item ID assigned in order to place them in the level
 - Classes can have multiple placement marks, on the off chance that the creator wants two identical items stacked in the same position
 - TODO: bit arrangement
+
+### Polygons
+- Polygons are drastically different from any other kind of item, so require their own treatment
+	+ Material ID (decides both the texture set and how the player interacts with it, e.g. ice material has ice texture and ice physics)
+	+ Point array
+	
+### Pipescript
+- TODO: IDK
