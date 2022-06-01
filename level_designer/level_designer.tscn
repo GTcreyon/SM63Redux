@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://level_designer/ld_main.gd" type="Script" id=2]
@@ -14,7 +14,6 @@
 [ext_resource path="res://level_designer/ldui/hermes.tscn" type="PackedScene" id=12]
 [ext_resource path="res://level_designer/ldui/scroll_block_v.png" type="Texture" id=13]
 [ext_resource path="res://level_designer/ldui/scroll_block_h.png" type="Texture" id=14]
-[ext_resource path="res://item_grid.gd" type="Script" id=15]
 [ext_resource path="res://level_designer/start.gd" type="Script" id=16]
 [ext_resource path="res://level_designer/save.gd" type="Script" id=17]
 [ext_resource path="res://level_designer/load.gd" type="Script" id=18]
@@ -385,10 +384,6 @@ margin_bottom = -2.0
 rect_clip_content = true
 custom_constants/hseparation = 3
 columns = 3
-script = ExtResource( 15 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="BottomBar" type="ColorRect" parent="UILayer/LDUI"]
 anchor_top = 1.0
