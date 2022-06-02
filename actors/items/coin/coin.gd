@@ -1,8 +1,11 @@
 extends KinematicBody2D
 
+export var disabled = false setget set_disabled
+
 onready var main = $"/root/Main"
 onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
+onready var pickup_area = $PickupArea
 var dropped = false
 var indexed = true
 var vel : Vector2 = Vector2.INF
@@ -26,10 +29,40 @@ func _ready():
 	if vel == Vector2.INF:
 		vel.x = (Singleton.rng.randf() * 4 - 2) * 0.53
 		vel.y = -7 * 0.53
-	sprite.playing = true
+	sprite.playing = !disabled
 
 
 func _physics_process(_delta):
+	if !disabled:
+		physics_step()
+
+
+func _on_WaterCheck_area_entered(_body):
+	water_bodies += 1
+
+
+func _on_WaterCheck_area_exited(_body):
+	water_bodies -= 1
+
+
+func _on_PickupArea_body_entered(_body):
+	Singleton.coin_total += yellow
+	if Singleton.hp < 8:
+		Singleton.internal_coin_counter += yellow
+	Singleton.red_coin_total += red
+	if !dropped:
+		Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
+	Singleton.collect_count += 1
+	picked = true
+	Singleton.get_node("SFX/Coin").play()
+	pickup_area.queue_free() #clears up the acting segments of the coin so only the SFX is left
+	var inst = sparkle.instance()
+	inst.position = position
+	main.add_child(inst)
+	queue_free()
+
+
+func physics_step():
 	if !picked:
 		if dropped:
 			active_timer = max(active_timer - 1, 0)
@@ -54,26 +87,7 @@ func _physics_process(_delta):
 		move_and_slide(vel * 60, Vector2.UP)
 
 
-func _on_WaterCheck_area_entered(_body):
-	water_bodies += 1
-
-
-func _on_WaterCheck_area_exited(_body):
-	water_bodies -= 1
-
-
-func _on_PickupArea_body_entered(_body):
-	Singleton.coin_total += yellow
-	if Singleton.hp < 8:
-		Singleton.internal_coin_counter += yellow
-	Singleton.red_coin_total += red
-	if !dropped:
-		Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
-	Singleton.collect_count += 1
-	picked = true
-	Singleton.get_node("SFX/Coin").play()
-	$PickupArea.queue_free() #clears up the acting segments of the coin so only the SFX is left
-	var inst = sparkle.instance()
-	inst.position = position
-	main.add_child(inst)
-	queue_free()
+func set_disabled(value):
+	disabled = value
+	sprite.playing = !value
+	pickup_area.monitoring = !value

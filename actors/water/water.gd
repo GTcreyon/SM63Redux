@@ -27,7 +27,7 @@ export var top_left_corner = Vector2() #gets automatically set by the parent scr
 #private variables
 onready var texture = $"../Viewport/WaterPolygon"
 onready var player = $"/root/Main/Player"
-onready var camera = $"/root/Main/Player/Camera2D"
+onready var camera = $"/root/Main/Player/Camera"
 onready var splash = $"../Splash"
 
 var waves = []

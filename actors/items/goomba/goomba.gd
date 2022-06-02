@@ -11,6 +11,7 @@ const sfx = {
 var vel = Vector2.ZERO
 
 export var mirror = false
+export var disabled = false
 
 var is_jumping = false #this is for stopping goomba's movement and then
 #transition to higher speed.
@@ -35,10 +36,15 @@ onready var main = $"/root/Main"
 func _ready():
 	collect_id = Singleton.get_collect_id()
 	sprite.frame = hash(position.x + position.y * PI) % 4
-	sprite.playing = true
 
 
 func _physics_process(_delta):
+	sprite.playing = !disabled
+	if !disabled:
+		physics_step()
+
+
+func physics_step():
 	if target != null && target.locked:
 		target = null
 	if sprite.animation == "squish":

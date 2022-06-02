@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://level_designer/ld_main.gd" type="Script" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://level_designer/ldui/hermes.tscn" type="PackedScene" id=12]
 [ext_resource path="res://level_designer/ldui/scroll_block_v.png" type="Texture" id=13]
 [ext_resource path="res://level_designer/ldui/scroll_block_h.png" type="Texture" id=14]
+[ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=15]
 [ext_resource path="res://level_designer/start.gd" type="Script" id=16]
 [ext_resource path="res://level_designer/save.gd" type="Script" id=17]
 [ext_resource path="res://level_designer/load.gd" type="Script" id=18]
@@ -23,52 +24,54 @@
 [ext_resource path="res://level_designer/ldui/drag_circle_selected.png" type="Texture" id=22]
 [ext_resource path="res://level_designer/ldui/drag_circle.png" type="Texture" id=23]
 [ext_resource path="res://level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 42, 30 )
-
-[sub_resource type="StyleBoxTexture" id=5]
-texture = SubResource( 4 )
-region_rect = Rect2( 0, 0, 42, 30 )
+[ext_resource path="res://level_designer/dummy.png" type="Texture" id=25]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
-region = Rect2( 42, 0, 42, 30 )
+region = Rect2( 0, 0, 42, 30 )
 
-[sub_resource type="StyleBoxTexture" id=3]
+[sub_resource type="StyleBoxTexture" id=2]
 texture = SubResource( 1 )
 region_rect = Rect2( 0, 0, 42, 30 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 7 )
+region = Rect2( 42, 0, 42, 30 )
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = SubResource( 3 )
+region_rect = Rect2( 0, 0, 42, 30 )
+
+[sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 7 )
 region = Rect2( 84, 0, 42, 30 )
 
-[sub_resource type="StyleBoxTexture" id=7]
-texture = SubResource( 6 )
+[sub_resource type="StyleBoxTexture" id=6]
+texture = SubResource( 5 )
 region_rect = Rect2( 0, 0, 42, 30 )
 
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=7]
 texture = ExtResource( 10 )
 region_rect = Rect2( 0, 0, 66, 65 )
 
-[sub_resource type="StyleBoxTexture" id=9]
+[sub_resource type="StyleBoxTexture" id=8]
 texture = ExtResource( 9 )
 region_rect = Rect2( 0, 0, 45, 36 )
 
-[sub_resource type="StyleBoxTexture" id=10]
+[sub_resource type="StyleBoxTexture" id=9]
 texture = ExtResource( 11 )
 region_rect = Rect2( 0, 0, 70, 70 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="LDCamera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
 script = ExtResource( 3 )
 
-[node name="Background" type="Sprite" parent="LDCamera"]
+[node name="Background" type="Sprite" parent="Camera"]
+visible = false
 material = ExtResource( 4 )
 texture = ExtResource( 6 )
 centered = false
@@ -283,14 +286,14 @@ color = Color( 0.223529, 0.0941176, 0, 1 )
 [node name="File" type="Button" parent="UILayer/LDUI/TopBar"]
 margin_right = 42.0
 margin_bottom = 30.0
-custom_styles/normal = SubResource( 5 )
+custom_styles/normal = SubResource( 2 )
 script = ExtResource( 17 )
 
 [node name="Mode" type="Button" parent="UILayer/LDUI/TopBar"]
 margin_left = 46.0
 margin_right = 88.0
 margin_bottom = 30.0
-custom_styles/normal = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -299,7 +302,7 @@ __meta__ = {
 margin_left = 92.0
 margin_right = 134.0
 margin_bottom = 30.0
-custom_styles/normal = SubResource( 7 )
+custom_styles/normal = SubResource( 6 )
 script = ExtResource( 18 )
 
 [node name="LeftBar" type="Control" parent="UILayer/LDUI"]
@@ -474,14 +477,14 @@ __meta__ = {
 [node name="Start" type="Button" parent="UILayer/LDUI/StartButtons"]
 margin_left = -66.0
 margin_top = -65.0
-custom_styles/normal = SubResource( 8 )
+custom_styles/normal = SubResource( 7 )
 script = ExtResource( 16 )
 
 [node name="FromPos" type="Button" parent="UILayer/LDUI/StartButtons"]
 margin_left = -111.0
 margin_top = -36.0
 margin_right = -66.0
-custom_styles/normal = SubResource( 9 )
+custom_styles/normal = SubResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -493,7 +496,7 @@ margin_left = -48.0
 margin_top = -22.0
 margin_right = 22.0
 margin_bottom = 48.0
-custom_styles/normal = SubResource( 10 )
+custom_styles/normal = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -504,6 +507,15 @@ z_index = -1
 
 [node name="PropertyMenu" parent="UILayer" instance=ExtResource( 24 )]
 visible = false
+
+[node name="BGT1" parent="." instance=ExtResource( 15 )]
+
+[node name="ColorRect" type="TextureRect" parent="BGT1"]
+material = ExtResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 25 )
+stretch_mode = 2
 
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]

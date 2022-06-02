@@ -3,8 +3,8 @@ extends Control
 const list_item = preload("res://level_designer/ldui/list_item.tscn")
 
 onready var level_editor := $"/root/Main"
-onready var ld_camera := $"/root/Main/LDCamera"
-onready var background := $"/root/Main/LDCamera/Background"
+onready var ld_camera := $"/root/Main/Camera"
+onready var background := $"/root/Main/Camera/Background"
 onready var hover_ui := get_parent().get_node("HoverUI")
 #onready var selection_ui := hover_ui.get_node("SelectionControl")
 onready var editable_rect := hover_ui.get_node("Dragger")

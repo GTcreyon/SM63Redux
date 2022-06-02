@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var dialog = $"/root/Main/Player/Camera2D/GUI/DialogBox"
+onready var dialog = $"/root/Main/Player/Camera/GUI/DialogBox"
 onready var player = $"/root/Main/Player"
 onready var sfx_open = $Open
 

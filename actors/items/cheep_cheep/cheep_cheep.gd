@@ -17,7 +17,10 @@ onready var sprite = $AnimatedSprite
 onready var hurtbox = $Damage
 var rng = RandomNumberGenerator.new()
 
+export var mirror = false
+
 func _ready():
+	sprite.flip_h = mirror
 	collect_id = Singleton.get_collect_id()
 	rng.seed = hash(position.x + position.y * PI)
 	sprite.frame = rng.seed % 2

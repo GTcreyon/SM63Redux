@@ -1,6 +1,4 @@
-extends Node2D
+extends "res://actors/items/bottle/bottle.gd"
 
-func _on_BottleSmall_body_entered(_body):
-	if Singleton.water < 100:
-		Singleton.water = min(Singleton.water + 15, 100)
-		queue_free()
+func _ready():
+	amount = 15

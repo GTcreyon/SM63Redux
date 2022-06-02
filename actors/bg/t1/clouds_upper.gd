@@ -1,6 +1,6 @@
 extends TextureRect
 
-onready var cam = $"/root/Main/Player/Camera2D"
+onready var cam = $"/root/Main".find_node("Camera")
 var scroll = 0
 
 func _process(delta):

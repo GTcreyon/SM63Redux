@@ -2,7 +2,7 @@ extends Node2D
 
 onready var sm63_to_redux: SM63ToRedux = Singleton.sm63_to_redux
 onready var ld_ui = $UILayer/LDUI
-onready var ld_camera = $LDCamera
+onready var ld_camera = $Camera
 onready var lv_template := preload("res://level_designer/template.tscn")
 
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
@@ -41,9 +41,9 @@ func is_selected(item):
 
 func snap_vector(vec, grid = 8):
 	return Vector2(
-				floor(vec.x / grid + 0.5) * grid,
-				floor(vec.y / grid + 0.5) * grid
-			)
+		floor(vec.x / grid + 0.5) * grid,
+		floor(vec.y / grid + 0.5) * grid
+	)
 
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = terrain_prefab.instance()

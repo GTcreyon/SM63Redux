@@ -12,6 +12,7 @@ const sfx = {
 var vel = Vector2.ZERO
 
 export var mirror = false
+export var disabled = false
 
 var target = null
 var wander_dist = 0
@@ -24,6 +25,7 @@ var collect_id
 var water_bodies : int = 0
 
 onready var hurtbox = $Hurtbox
+onready var alert_area = $AlertArea
 onready var base = $Sprites/Base
 onready var fuse = $Sprites/Fuse
 onready var key = $Sprites/Key
@@ -36,9 +38,6 @@ onready var lm_counter = $"/root/Singleton".hp
 
 func _ready():
 	collect_id = Singleton.get_collect_id()
-	base.play()
-	fuse.play()
-	key.play()
 
 
 func _process(_delta):
@@ -51,6 +50,20 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
+	update_disable()
+	if !disabled:
+		physics_step()
+
+
+func update_disable():
+	base.playing = !disabled
+	fuse.playing = !disabled
+	key.playing = !disabled
+	hurtbox.monitoring = !disabled
+	alert_area.monitoring = !disabled
+
+
+func physics_step():
 	if !is_on_floor():
 		raycast.enabled = false
 	
