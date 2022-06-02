@@ -73,8 +73,8 @@ Version 000
 ### Item Dictionary
 - Classes are defined in terms of each other
 - Each new class is a reference to another class plus some additional data
-- Classes can have a placement flag with an item ID assigned in order to place them in the level
-- Classes can have multiple placement marks, on the off chance that the author wants two identical items stacked in the same position
+- Classes can have a placement flag in order to place them in the level (any missing properties take default value)
+- Classes can have multiple placement flags, on the off chance that the author wants two identical items stacked in the same position
 - TODO: bit arrangement
 
 ### Polygons
