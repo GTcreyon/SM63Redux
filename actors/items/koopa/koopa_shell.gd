@@ -7,7 +7,7 @@ var speed = 5
 var vel = Vector2.ZERO
 var water_bodies : int = 0
 
-export var direction = 1
+export var mirror = false
 
 func _ready():
 	sprite.playing = true
@@ -24,7 +24,7 @@ func _physics_process(_delta):
 	if is_on_floor():
 		vel.y = 0
 	if is_on_wall(): #flip when hitting wall
-		direction *= -1
+		mirror = !mirror
 		vel.x *= -1
 	sprite.speed_scale = abs(vel.x)
 	if vel.x > 0:

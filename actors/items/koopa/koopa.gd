@@ -14,11 +14,7 @@ var speed = 0.9
 var init_position = 0
 var water_bodies : int = 0
 
-export var direction = 1
-#It's supposed to walk from left to right for some certain distance.
-#And then... completely change the scene from Koopa to shell itself when stepped on?
-#It doesn't really change from shell to Koopa back, it just permanently stays there.
-#Start from zero, whenever it turns back after reaching a certain point, reset and start over again.
+export var mirror = false
 
 func _ready():
 	init_position = position
@@ -27,7 +23,7 @@ func _ready():
 
 
 func _physics_process(_delta):
-	vel.x = speed * direction
+	vel.x = -speed if mirror else speed
 	if water_bodies > 0:
 		vel.y = min(vel.y + GRAVITY, 2)
 	else:
@@ -47,7 +43,7 @@ func _physics_process(_delta):
 		vel.x = 0
 		flip_ev()
 	
-	sprite.flip_h = direction == -1
+	sprite.flip_h = mirror
 	if position.x - init_position.x > 100 or position.x - init_position.x < -100:
 		flip_ev()
 	
@@ -58,7 +54,7 @@ func _physics_process(_delta):
 
 
 func flip_ev():
-	direction *= -1
+	mirror = !mirror
 	$RayCast2D.position.x *= -1
 
 
