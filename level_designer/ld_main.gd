@@ -124,12 +124,12 @@ func read_items():
 					match node_name:
 						"property":
 							var item_class = item_classes[parent_subname]
-							var link_txt = parser.get_named_attribute_value_safe("link")
-							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
+							var var_txt = parser.get_named_attribute_value_safe("var")
+							var_txt = "#" if var_txt == "" else var_txt
 							
 							var properties = {
 								type = parser.get_named_attribute_value("type"),
-								link = link_txt,
+								var_name = var_txt,
 								description = parser.get_named_attribute_value("description")
 							}
 							item_class[parser.get_named_attribute_value("label")] = properties
@@ -145,12 +145,12 @@ func read_items():
 							item_scenes[parent_subname] = path
 						"property":
 							var item_class = items[parent_subname]
-							var link_txt = parser.get_named_attribute_value_safe("link")
-							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
+							var var_txt = parser.get_named_attribute_value_safe("var")
+							var_txt = "#" if var_txt == "" else var_txt
 							
 							var properties = {
 								type = parser.get_named_attribute_value("type"),
-								link = link_txt,
+								var_name = var_txt,
 								description = parser.get_named_attribute_value("description")
 							}
 							item_class[parser.get_named_attribute_value("label")] = properties
