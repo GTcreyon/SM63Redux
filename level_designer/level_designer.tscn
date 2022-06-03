@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://level_designer/ld_main.gd" type="Script" id=2]
@@ -25,6 +25,7 @@
 [ext_resource path="res://level_designer/ldui/drag_circle.png" type="Texture" id=23]
 [ext_resource path="res://level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
 [ext_resource path="res://level_designer/dummy.png" type="Texture" id=25]
+[ext_resource path="res://level_designer/bg_grid.gd" type="Script" id=26]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -510,12 +511,14 @@ visible = false
 
 [node name="BGT1" parent="." instance=ExtResource( 15 )]
 
-[node name="ColorRect" type="TextureRect" parent="BGT1"]
+[node name="BGGrid" type="TextureRect" parent="BGT1"]
 material = ExtResource( 4 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 25 )
 stretch_mode = 2
+script = ExtResource( 26 )
 
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]

@@ -1151,7 +1151,7 @@ func switch_fludd():
 		Singleton.nozzle = 0
 	if Singleton.nozzle != save_nozzle:
 		# lazy way to refresh fludd anim
-		var anim = (sprite.animation.replace("hover_", "").replace("rocket_", "").replace("turbo_", ""))
+		var anim = sprite.animation.replace("fludd_", "")
 		switch_anim(anim)
 		fludd_strain = false
 		switch_sfx.play()

@@ -2,6 +2,7 @@ extends Button
 
 const TEMPLATE_SCENE = preload("res://level_designer/template.tscn")
 const PLAYER_SCENE = preload("res://actors/player/player.tscn")
+const BG_SCENE = preload("res://actors/bg/t1/bg_t1.tscn")
 
 onready var main = $"/root/Main"
 
@@ -21,6 +22,7 @@ func _on_Start_pressed():
 		
 	scoop_children(main, template_inst)
 	main.add_child(PLAYER_SCENE.instance())
+	main.add_child(BG_SCENE.instance())
 
 
 func apply_properties(inst, item_data) -> void:
