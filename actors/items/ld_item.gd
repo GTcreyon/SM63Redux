@@ -36,7 +36,7 @@ func _input(event):
 		modulate.a = 1
 		ghost = false
 
-func _process(delta):
+func _process(_delta):
 	if ghost:
 		position = main.snap_vector(get_global_mouse_position())
 	
@@ -67,7 +67,7 @@ func update_visual_property(label, value) -> void:
 
 
 func item_disabled_tint(disabled) -> void:
-	var val = 0.5 if disabled else 1
+	var val = 0.5 if disabled else 1.0
 	modulate.r = val
 	modulate.g = val
 	modulate.b = val

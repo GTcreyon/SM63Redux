@@ -2,18 +2,22 @@ extends KinematicBody2D
 
 const GRAVITY = 0.17
 onready var sprite = $AnimatedSprite
+onready var collision_area = $CollisionArea
 
 var speed = 5
 var vel = Vector2.ZERO
 var water_bodies : int = 0
 
+export var disabled = false setget set_disabled
 export var mirror = false
-
-func _ready():
-	sprite.playing = true
 
 
 func _physics_process(_delta):
+	if !disabled:
+		physics_step()
+
+
+func physics_step():
 	if water_bodies > 0:
 		vel.y = min(vel.y + GRAVITY, 2)
 	else:
@@ -23,7 +27,7 @@ func _physics_process(_delta):
 	vel.x = lerp(vel.x, 0, 0.00625)
 	if is_on_floor():
 		vel.y = 0
-	if is_on_wall(): #flip when hitting wall
+	if is_on_wall(): # flip when hitting wall
 		mirror = !mirror
 		vel.x *= -1
 	sprite.speed_scale = abs(vel.x)
@@ -55,3 +59,13 @@ func _on_WaterCheck_area_entered(_area):
 
 func _on_WaterCheck_area_exited(_area):
 	water_bodies -= 1
+
+
+func set_disabled(val):
+	disabled = val
+	if collision_area == null:
+		collision_area = $CollisionArea
+	if sprite == null:
+		sprite = $AnimatedSprite
+	collision_area.monitoring = !val
+	sprite.playing = !val

@@ -12,8 +12,8 @@ func _on_Start_pressed():
 	var template_inst = TEMPLATE_SCENE.instance()
 	for item in template.get_node("Items").get_children():
 		var item_inst = load(main.item_scenes[item.item_name]).instance()
-		apply_properties(item_inst, item)
 		template_inst.add_child(item_inst)
+		apply_properties(item_inst, item)
 		
 	var terrain = template.get_node("Terrain")
 	for item in terrain.get_children():

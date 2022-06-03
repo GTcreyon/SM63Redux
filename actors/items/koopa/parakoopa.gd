@@ -1,7 +1,12 @@
 extends AnimatedSprite
+
+onready var hurtbox = $Damage
+onready var top_collision = $TopCollision
+
 var koopa = preload("koopa.tscn").instance()
 var shell = preload("koopa_shell.tscn").instance()
 
+export var disabled = false setget set_disabled
 export var mirror = false
 
 func _ready():
@@ -57,3 +62,14 @@ func spawn_shell(body):
 	$TopCollision.set_deferred("monitoring", false)
 	$Damage.monitoring = false
 	set_deferred("visible", false)
+
+
+func set_disabled(val):
+	disabled = val
+	if hurtbox == null:
+		hurtbox = $Damage
+	if top_collision == null:
+		top_collision = $TopCollision
+	hurtbox.monitoring = !val
+	top_collision.monitoring = !val
+	playing = !val

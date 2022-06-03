@@ -1,6 +1,9 @@
 tool
 extends StaticBody2D
 
+onready var safety_net = $SafetyNet
+
+export var disabled = false setget set_disabled
 export var width = 1 setget set_width
 
 func _ready():
@@ -20,4 +23,11 @@ func set_width(new_width):
 	
 	$Left.position.x = -8 * width - 8
 	$Right.position.x = 8 * width + 8
-	
+
+
+func set_disabled(val):
+	disabled = val
+	if safety_net == null:
+		safety_net = $SafetyNet
+	set_collision_layer_bit(0, 0 if val else 1)
+	safety_net.monitoring = !val

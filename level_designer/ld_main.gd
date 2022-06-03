@@ -33,7 +33,6 @@ var selection_rect = Rect2()
 var last_local_mouse_position = Vector2()
 
 func is_selected(item):
-	var is_selected = false
 	for selected in selection.hit:
 		if selected == item:
 			return true

@@ -10,8 +10,8 @@ const sfx = {
 
 var vel = Vector2.ZERO
 
+export var disabled = false setget set_disabled
 export var mirror = false
-export var disabled = false
 
 var is_jumping = false #this is for stopping goomba's movement and then
 #transition to higher speed.
@@ -35,11 +35,11 @@ onready var main = $"/root/Main"
 
 func _ready():
 	collect_id = Singleton.get_collect_id()
-	sprite.frame = hash(position.x + position.y * PI) % 4
+	if !disabled:
+		sprite.frame = hash(position.x + position.y * PI) % 4
 
 
 func _physics_process(_delta):
-	sprite.playing = !disabled
 	if !disabled:
 		physics_step()
 
@@ -57,7 +57,7 @@ func physics_step():
 			queue_free()
 		else:
 			if sprite.frame == 3:
-				dead = true #apparently queue_free() doesn't cancel the current cycle
+				dead = true
 			
 	#code to push enemies apart - maybe come back to later?
 #	for area in get_overlapping_areas():
@@ -77,8 +77,8 @@ func physics_step():
 		vel.y = min(vel.y + GRAVITY, 6)
 	
 	if sprite.animation != "squish" && !struck:
-		#raycast2d is used here to detect if the object collided with a wall
-		#to change directions
+		# raycast2d is used here to detect if the object collided with a wall
+		# to change directions
 		sprite.flip_h = mirror
 		
 		if is_on_floor():
@@ -102,7 +102,7 @@ func physics_step():
 					sprite.frame = 0
 					sprite.animation = "walking"
 				else:
-					sprite.frame = 2 + land_timer #finish up jumping anim
+					sprite.frame = 2 + land_timer # finish up jumping anim
 			else:
 				vel.y = GRAVITY
 				if sprite.frame == 0 || sprite.frame == 3:
@@ -227,3 +227,17 @@ func _on_WaterCheck_area_entered(_area):
 
 func _on_WaterCheck_area_exited(_area):
 	water_bodies -= 1
+
+
+func set_disabled(val):
+	disabled = val
+	set_collision_layer_bit(0, 0 if val else 1)
+	if hurtbox == null:
+		hurtbox = $Hurtbox
+	if raycast == null:
+		raycast = $RayCast2D
+	if sprite == null:
+		sprite = $AnimatedSprite
+	raycast.enabled = !val
+	hurtbox.monitoring = !val
+	sprite.playing = !val

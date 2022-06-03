@@ -1,8 +1,9 @@
 extends KinematicBody2D
 
-onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
 onready var hurtbox = $Damage
+onready var top_collision = $TopCollision
+onready var raycast = $RayCast2D
 
 var shell = preload("koopa_shell.tscn").instance()
 const FLOOR = Vector2(0, -1)
@@ -14,6 +15,7 @@ var speed = 0.9
 var init_position = 0
 var water_bodies : int = 0
 
+export var disabled = false setget set_disabled
 export var mirror = false
 
 func _ready():
@@ -23,6 +25,11 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if !disabled:
+		physics_step()
+
+
+func physics_step():
 	vel.x = -speed if mirror else speed
 	if water_bodies > 0:
 		vel.y = min(vel.y + GRAVITY, 2)
@@ -52,21 +59,20 @@ func _physics_process(_delta):
 		if bodies.size() > 0:
 			damage_check(bodies[0])
 
-
 func flip_ev():
 	mirror = !mirror
-	$RayCast2D.position.x *= -1
+	raycast.position.x *= -1
 
 
-func _on_TopCollision_body_entered(_body):
-	if player.position.y < position.y:
+func _on_TopCollision_body_entered(body):
+	if body.position.y < position.y:
 		#print("collided from top")
 		$Kick.play()
-		$"/root/Main/Player".vel.y = -5
+		body.vel.y = -5
 		get_parent().call_deferred("add_child", shell)
 		shell.position = position + Vector2(0, 7.5)
-		$TopCollision.set_deferred("monitoring", false)
-		$Damage.monitoring = false
+		top_collision.set_deferred("monitoring", false)
+		hurtbox.monitoring = false
 		set_deferred("visible", false)
 
 
@@ -87,8 +93,8 @@ func damage_check(body):
 			shell.vel.x = 5
 		else:
 			shell.vel.x = -5
-		$TopCollision.set_deferred("monitoring", false)
-		$Damage.monitoring = false
+		top_collision.set_deferred("monitoring", false)
+		hurtbox.monitoring = false
 		set_deferred("visible", false)
 	else:
 		if body.global_position.x < global_position.x:
@@ -105,3 +111,19 @@ func _on_WaterCheck_area_entered(_area):
 
 func _on_WaterCheck_area_exited(_area):
 	water_bodies -= 1
+
+
+func set_disabled(val):
+	disabled = val
+	if hurtbox == null:
+		hurtbox = $Damage
+	if top_collision == null:
+		top_collision = $TopCollision
+	if raycast == null:
+		raycast = $RayCast2D
+	if sprite == null:
+		sprite = $AnimatedSprite
+	hurtbox.monitoring = !val
+	top_collision.monitoring = !val
+	raycast.enabled = !val
+	sprite.playing = !val

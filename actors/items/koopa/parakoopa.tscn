@@ -4,37 +4,37 @@
 [ext_resource path="res://actors/items/koopa/parakoopa.gd" type="Script" id=8]
 [ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=9]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 43, 43 )
+region = Rect2( 0, 0, 44, 44 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 43, 0, 43, 43 )
+region = Rect2( 44, 0, 44, 44 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 86, 0, 43, 43 )
+region = Rect2( 88, 0, 44, 44 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
-region = Rect2( 129, 0, 43, 43 )
+region = Rect2( 132, 0, 44, 44 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 172, 0, 43, 43 )
+region = Rect2( 176, 0, 44, 44 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 215, 0, 43, 43 )
+region = Rect2( 220, 0, 44, 44 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
-region = Rect2( 258, 0, 43, 43 )
+region = Rect2( 264, 0, 44, 44 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"frames": [ SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
 "name": "flying",
 "speed": 10.0

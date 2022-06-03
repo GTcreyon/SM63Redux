@@ -89,5 +89,9 @@ func physics_step():
 
 func set_disabled(value):
 	disabled = value
-	sprite.playing = !value
-	pickup_area.monitoring = !value
+	if sprite == null:
+		sprite = $AnimatedSprite
+	if pickup_area == null:
+		pickup_area = $PickupArea
+	$AnimatedSprite.playing = !value
+	$PickupArea.monitoring = !value
