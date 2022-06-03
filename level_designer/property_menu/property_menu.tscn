@@ -30,11 +30,11 @@ margin_right = 38.0
 margin_bottom = 38.0
 
 [node name="Tickbox" parent="PropertyList" instance=ExtResource( 5 )]
-margin_right = 59.0
+margin_right = 23.0
 
 [node name="Tickbox2" parent="PropertyList" instance=ExtResource( 5 )]
 margin_top = 24.0
-margin_right = 59.0
+margin_right = 23.0
 margin_bottom = 44.0
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_CloseButton_pressed"]
