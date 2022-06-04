@@ -4,7 +4,6 @@ const list_item = preload("res://level_designer/ldui/list_item.tscn")
 
 onready var level_editor := $"/root/Main"
 onready var ld_camera := $"/root/Main/Camera"
-onready var background := $"/root/Main/Camera/Background"
 onready var hover_ui := get_parent().get_node("HoverUI")
 #onready var selection_ui := hover_ui.get_node("SelectionControl")
 onready var editable_rect := hover_ui.get_node("Dragger")
@@ -95,8 +94,6 @@ func set_editable_rect(enabled, rect = Rect2(), menu_visible = true):
 		editable_rect.set_position(rect.position)
 
 func _process(_dt):
-	background.material.set_shader_param("camera_position", ld_camera.global_position)
-	
 	hover_ui.set_position(-ld_camera.global_position)
 	if editable_rect.visible && !is_creating_polygon:
 		set_editable_rect(true, level_editor.selection_rect)
