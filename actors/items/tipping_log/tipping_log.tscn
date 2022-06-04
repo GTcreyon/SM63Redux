@@ -1,51 +1,57 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://actors/items/tipping_log/tipping_log_middle.png" type="Texture" id=1]
-[ext_resource path="res://actors/items/tipping_log/tipping_log_right.png" type="Texture" id=2]
-[ext_resource path="res://actors/items/tipping_log/tipping_log_left.png" type="Texture" id=3]
-[ext_resource path="res://actors/items/tipping_log/tipping_log.gd" type="Script" id=4]
+[ext_resource path="res://actors/items/tipping_log/tipping_log_right.png" type="Texture" id=1]
+[ext_resource path="res://actors/items/tipping_log/tipping_log.gd" type="Script" id=2]
+[ext_resource path="res://actors/items/tipping_log/tipping_log_middle.png" type="Texture" id=3]
+[ext_resource path="res://actors/items/tipping_log/tipping_log_left.png" type="Texture" id=4]
+[ext_resource path="res://actors/items/tipping_log/log_pivot.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
-extents = Vector2( 40, 7 )
+extents = Vector2( 19, 7 )
 
 [sub_resource type="RectangleShape2D" id=2]
 resource_local_to_scene = true
-extents = Vector2( 40, 1 )
+extents = Vector2( 19, 1 )
 
-[node name="TiltingPlatform" type="StaticBody2D"]
+[node name="TippingLog" type="Sprite"]
+texture = ExtResource( 5 )
+script = ExtResource( 2 )
+
+[node name="Rod" type="StaticBody2D" parent="."]
+show_behind_parent = true
 collision_mask = 0
-script = ExtResource( 4 )
 
-[node name="Left" type="Sprite" parent="."]
-position = Vector2( -32, 0 )
-texture = ExtResource( 3 )
+[node name="Left" type="Sprite" parent="Rod"]
+position = Vector2( -16, 0 )
+texture = ExtResource( 4 )
+centered = false
+offset = Vector2( -3, -8 )
 
-[node name="Middle" type="TextureRect" parent="."]
-margin_left = -24.0
+[node name="Middle" type="TextureRect" parent="Rod"]
+margin_left = -16.0
 margin_top = -8.0
-margin_right = 24.0
+margin_right = 16.0
 margin_bottom = 8.0
-texture = ExtResource( 1 )
+texture = ExtResource( 3 )
 stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Right" type="Sprite" parent="."]
-position = Vector2( 32, 0 )
-texture = ExtResource( 2 )
+[node name="Right" type="Sprite" parent="Rod"]
+position = Vector2( 16, 0 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0, -8 )
 
-[node name="Collision" type="CollisionShape2D" parent="."]
+[node name="Collision" type="CollisionShape2D" parent="Rod"]
 shape = SubResource( 1 )
 one_way_collision = true
 one_way_collision_margin = 2.0
 
-[node name="RideArea" type="Area2D" parent="."]
+[node name="RideArea" type="Area2D" parent="Rod"]
 collision_mask = 4
 input_pickable = false
 monitorable = false
 
-[node name="RideShape" type="CollisionShape2D" parent="RideArea"]
+[node name="RideShape" type="CollisionShape2D" parent="Rod/RideArea"]
 position = Vector2( 0, -8 )
 shape = SubResource( 2 )
