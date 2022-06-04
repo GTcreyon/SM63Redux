@@ -21,7 +21,7 @@ export var mirror = false
 func _ready():
 	init_position = position
 	sprite.frame = hash(position.x + position.y * PI) % 6
-	sprite.playing = true
+	sprite.playing = !disabled
 
 
 func _physics_process(_delta):

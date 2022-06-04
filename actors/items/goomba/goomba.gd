@@ -35,6 +35,7 @@ onready var main = $"/root/Main"
 
 func _ready():
 	collect_id = Singleton.get_collect_id()
+	sprite.playing = !disabled
 	if !disabled:
 		sprite.frame = hash(position.x + position.y * PI) % 4
 

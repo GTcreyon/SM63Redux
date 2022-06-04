@@ -12,7 +12,7 @@ export var mirror = false
 func _ready():
 	flip_h = mirror
 	frame = hash(position.x + position.y * PI) % 6
-	playing = true
+	playing = !disabled
 
 
 func _on_TopCollision_body_entered(body):

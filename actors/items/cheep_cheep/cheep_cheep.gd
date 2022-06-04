@@ -25,6 +25,7 @@ func _ready():
 	collect_id = Singleton.get_collect_id()
 	rng.seed = hash(position.x + position.y * PI)
 	sprite.frame = rng.seed % 2
+	sprite.playing = !disabled
 
 
 func _physics_process(_delta):
