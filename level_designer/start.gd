@@ -30,7 +30,7 @@ func apply_properties(inst, item_data) -> void:
 	for key in item_data.properties:
 		var prop = item_data.properties[key]
 		var var_name = prop.var_name
-		if var_name == "#": # default value, no var name specified
+		if var_name == null: # default value, no var name specified
 			var_name = to_var_name(key)
 		inst.set(var_name, prop.value)
 

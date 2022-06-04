@@ -9,22 +9,18 @@ onready var ride_area = $Rod/RideArea
 
 export var disabled = false setget set_disabled
 export var pivot_offset = 0 setget set_pivot_offset
-export var length = 1 setget set_length
+export(int, 1, 100) var length = 1 setget set_length
 
 var ang_vel = 0
 
 func set_length(val):
 	length = val
-	if length <= 0:
-		$Rod/Middle.visible = false #can't use the variable cuz the node isn't ready yet
-		$Rod/MiddleCollision.disabled = true
-	else:
-		$Rod/Middle.visible = true
-		$Rod/Collision.disabled = false
-		$Rod/Middle.rect_size.x = MIDDLE_WIDTH * val
-		$Rod/Middle.rect_position.x = -MIDDLE_WIDTH / 2 * val
-		$Rod/Collision.shape.extents.x = MIDDLE_WIDTH / 2 * val + EDGE_WIDTH
-		$Rod/RideArea/RideShape.shape.extents.x = MIDDLE_WIDTH / 2 * val + EDGE_WIDTH
+	$Rod/Middle.visible = true
+	$Rod/Collision.disabled = false
+	$Rod/Middle.rect_size.x = MIDDLE_WIDTH * val
+	$Rod/Middle.rect_position.x = -MIDDLE_WIDTH / 2 * val
+	$Rod/Collision.shape.extents.x = MIDDLE_WIDTH / 2 * val + EDGE_WIDTH
+	$Rod/RideArea/RideShape.shape.extents.x = MIDDLE_WIDTH / 2 * val + EDGE_WIDTH
 	$Rod/Left.position.x = -MIDDLE_WIDTH / 2 * val
 	$Rod/Right.position.x = MIDDLE_WIDTH / 2 * val
 
