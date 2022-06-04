@@ -172,5 +172,5 @@ func fill_grid():
 		)
 			
 		button.texture_normal = tex
-		button.item_name = key
+		button.item_id = key
 		item_grid.add_child(button)

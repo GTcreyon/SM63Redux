@@ -17,7 +17,8 @@ func generate_level_binary() -> PoolByteArray:
 	output.append_array(generate_mission_list([["blj the thwomp's block", "i'm not doing this ben"], ["mission 2", "desc"]]))
 	
 	# item dictionary
-	# TODO
+	for item in $"/root/Main/Template/Items".get_children():
+		print(item.item_id)
 	
 	# polygons
 	# TODO

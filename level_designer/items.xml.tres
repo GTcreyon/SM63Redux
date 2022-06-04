@@ -62,30 +62,30 @@
         <property label="Z Index" type="int" description="Items with a higher layer will be displayed in front of items with a lower layer." />
     </class>
 
-    <item name="Yellow Coin" description="A single coin.">
+    <item id="0" name="Yellow Coin" description="A single coin.">
 		<scene path="res://actors/items/coin/coin_yellow.tscn" />
 		<texture tag="Placed" path="res://actors/items/coin/coin0.png" />
         <inherit name="ball" />
     </item>
 
-    <item name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!" />
+    <item id="1" name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!" />
 		<scene path="res://actors/items/coin/coin_red.tscn" />
 		<texture tag="Placed" path="res://actors/items/coin/red_coin0.png" />
         <inherit name="ball" />
     </item>
 
-    <item name="Blue Coin" description="Counts for 5 yellow coins!">
+    <item id="2" name="Blue Coin" description="Counts for 5 yellow coins!">
 		<scene path="res://actors/items/coin/coin_blue.tscn" />
 		<texture tag="Placed" path="res://actors/items/coin/blue_coin0.png" />
         <inherit name="ball" />
     </item>
 
-    <item name="Silver Shine" description="Collect them all to summon a Shine Sprite!">
+    <item id="3" name="Silver Shine" description="Collect them all to summon a Shine Sprite!">
 		<texture tag="List" path="res://gui/hud/hud_silver_shine.png" />
         <inherit name="ball" />
     </item>
 
-    <item name="Shine Sprite" description="The level goal!">
+    <item id="4" name="Shine Sprite" description="The level goal!">
 		<scene path="res://actors/items/shine/shine.tscn" />
 		<texture tag="Placed" path="res://actors/items/shine/shine_placed.png" />
 		<texture tag="List" path="res://gui/hud/hud_shine_small.png" />
@@ -93,26 +93,26 @@
         <inherit name="ball" />
     </item>
 
-    <item name="Spin Block" description="A spinning block.">
+    <item id="5" name="Spin Block" description="A spinning block.">
 		<!--TODO: all properties lol-->
 		<scene path="res://actors/items/rotating_block/rotating_block.tscn" />
         <inherit name="ball" />
     </item>
 
-    <item name="Log" description="A wooden log.">
+    <item id="6" name="Log" description="A wooden log.">
 		<scene path="res://actors/items/log/log.tscn" />
 		<texture tag="Placed" path="res://actors/items/log/log.png" />
         <inherit name="ball" />
     </item>
 
-    <item name="Falling Log" description="An unstable wooden log. It falls when stepped on!">
+    <item id="7" name="Falling Log" description="An unstable wooden log. It falls when stepped on!">
 		<scene path="res://actors/items/log/log_fall.tscn" />
 		<texture tag="Placed" path="res://actors/items/log/log_fall.png" />
         <inherit name="ball" />
 		<property label="Wait Time" type="float" description="The time taken in seconds for the log to fall after being stepped on. Setting the time to -1 will cause the log to fall immediately, with no collision." />
     </item>
 
-    <item name="Tipping Log" description="A log that tips to one side when stepped on.">
+    <item id="8" name="Tipping Log" description="A log that tips to one side when stepped on.">
 		<scene path="res://actors/items/tipping_log/tipping_log.tscn" />
 		<texture tag="List" path="res://actors/items/tipping_log/tipping_log_middle.png" />
 		<texture tag="Placed" path="res://actors/items/tipping_log/tipping_log_middle.png" />
@@ -120,77 +120,77 @@
 		<property label="Pivot Offset" type="float" description="The offset from the center upon which the log will pivot when it rotates." />
     </item>
 
-    <item name="Cloud" description="A cloud. Semisolid.">
+    <item id="9" name="Cloud" description="A cloud. Semisolid.">
 		<scene path="res://actors/items/cloud/cloud.tscn" />
 		<texture tag="List" path="res://actors/items/cloud/cloud_right.png" />
 		<texture tag="Placed" path="res://actors/items/cloud/cloud_right.png" />
         <inherit name="telescoping" />
     </item>
 
-    <item name="Wooden Platform" description="A wooden platform. Semisolid.">
+    <item id="10" name="Wooden Platform" description="A wooden platform. Semisolid.">
 		<scene path="res://actors/items/wooden_platform/wooden_platform.tscn" />
 		<texture tag="List" path="res://actors/items/wooden_platform/wooden_platform.png" />
 		<texture tag="Placed" path="res://actors/items/wooden_platform/wooden_platform.png" />
         <inherit name="plane" />
     </item>
 
-    <item name="Pipe" description="A warp pipe. It can be used to warp between parts of the level.">
+    <item id="11" name="Pipe" description="A warp pipe. It can be used to warp between parts of the level.">
 		<scene path="res://actors/items/pipe/pipe.tscn" />
 		<texture tag="List" path="res://actors/items/pipe/pipe.png" />
 		<texture tag="Placed" path="res://actors/items/pipe/pipe.png" />
         <inherit name="plane" />
     </item>
 
-    <item name="Goomba" description="A Goomba. When it sees a target, it will walk toward them and damage them by walking into them. It can be stomped or attacked to kill it, dropping a coin.">
+    <item id="12" name="Goomba" description="A Goomba. When it sees a target, it will walk toward them and damage them by walking into them. It can be stomped or attacked to kill it, dropping a coin.">
 		<scene path="res://actors/items/goomba/goomba.tscn" />
 		<texture tag="List" path="res://actors/items/goomba/goomba_icon.png" />
 		<texture tag="Placed" path="res://actors/items/goomba/goomba_icon.png" />
         <inherit name="post" />
     </item>
 
-    <item name="Parakoopa" description="A flying Koopa. It will hover in place. It can be stomped or attacked, knocking off its wings.">
+    <item id="13" name="Parakoopa" description="A flying Koopa. It will hover in place. It can be stomped or attacked, knocking off its wings.">
 		<scene path="res://actors/items/koopa/parakoopa.tscn" />
 		<texture tag="List" path="res://actors/items/koopa/parakoopa_icon.png" />
 		<texture tag="Placed" path="res://actors/items/koopa/parakoopa_placed.png" />
         <inherit name="post" />
     </item>
 	
-    <item name="Koopa" description="A Koopa. It will damage you if you walk into it. It can be stomped or attacked, putting it in its shell.">
+    <item id="14" name="Koopa" description="A Koopa. It will damage you if you walk into it. It can be stomped or attacked, putting it in its shell.">
 		<scene path="res://actors/items/koopa/koopa.tscn" />
 		<texture tag="List" path="res://actors/items/koopa/koopa_icon.png" />
 		<texture tag="Placed" path="res://actors/items/koopa/koopa_placed.png" />
         <inherit name="post" />
     </item>
 	
-    <item name="Koopa Shell" description="A Koopa shell. It can be kicked or stomped to make it slide. Stomping on it will give you extra height.">
+    <item id="15" name="Koopa Shell" description="A Koopa shell. It can be kicked or stomped to make it slide. Stomping on it will give you extra height.">
 		<scene path="res://actors/items/koopa/koopa_shell.tscn" />
 		<texture tag="List" path="res://actors/items/koopa/shell_icon.png" />
 		<texture tag="Placed" path="res://actors/items/koopa/shell_icon.png" />
         <inherit name="post" />
     </item>
 	
-    <item name="Bob-omb" description="An explosive enemy. When it sees a target, it will start its fuse and begin walking towards them. Once its fuse runs out, it will explode, dropping a coin. It can also be attacked to make it explode.">
+    <item id="16" name="Bob-omb" description="An explosive enemy. When it sees a target, it will start its fuse and begin walking towards them. Once its fuse runs out, it will explode, dropping a coin. It can also be attacked to make it explode.">
 		<scene path="res://actors/items/bobomb/bobomb.tscn" />
 		<texture tag="List" path="res://actors/items/bobomb/bobomb_icon.png" />
 		<texture tag="Placed" path="res://actors/items/bobomb/bobomb_icon.png" />
         <inherit name="post" />
     </item>
 	
-    <item name="Cheep Cheep" description="A fish. It will swim through water, and hop on land. When it sees a target, it will swim toward them and damage them by touching them. It can be attacked to kill it, dropping a coin.">
+    <item id="17" name="Cheep Cheep" description="A fish. It will swim through water, and hop on land. When it sees a target, it will swim toward them and damage them by touching them. It can be attacked to kill it, dropping a coin.">
 		<scene path="res://actors/items/cheep_cheep/cheep_cheep.tscn" />
 		<texture tag="List" path="res://actors/items/cheep_cheep/cheep_cheep1.png" />
 		<texture tag="Placed" path="res://actors/items/cheep_cheep/cheep_cheep1.png" />
         <inherit name="post" />
     </item>
 	
-    <item name="Goonie" description="A bird. It will fly through the level, moving up and down randomly. Standing on it will cause it to descend. Semisolid.">
+    <item id="18" name="Goonie" description="A bird. It will fly through the level, moving up and down randomly. Standing on it will cause it to descend. Semisolid.">
 		<scene path="res://actors/items/goonie/goonie.tscn" />
 		<texture tag="List" path="res://actors/items/goonie/goonie_flap1.png" />
 		<texture tag="Placed" path="res://actors/items/goonie/goonie_flap1.png" />
         <inherit name="post" />
     </item>
 	
-    <item name="Butterfly" description="A butterfly. It will float gently in one direction, then the other. Decorative.">
+    <item id="19" name="Butterfly" description="A butterfly. It will float gently in one direction, then the other. Decorative.">
 		<scene path="res://actors/items/butterfly/butterfly.tscn" />
 		<texture tag="List" path="res://actors/items/butterfly/butterfly_icon.png" />
 		<texture tag="Placed" path="res://actors/items/butterfly/butterfly_placed.png" />
@@ -200,70 +200,70 @@
         <property label="Speed" type="Vector2" default="Vector2(2, 3.25)" description="The speed at which the butterfly floats up/down and left/right." />
     </item>
 	
-    <item name="Sign" description="A readable sign.">
+    <item id="20" name="Sign" description="A readable sign.">
 		<scene path="res://actors/items/sign/sign.tscn" />
 		<texture tag="List" path="res://actors/items/sign/sign.png" />
 		<texture tag="Placed" path="res://actors/items/sign/sign.png" />
         <inherit name="plane" />
     </item>
 	
-    <item name="Water Bottle (Small)" description="A small bottle of water. Contains 15 flubs of water.">
+    <item id="21" name="Water Bottle (Small)" description="A small bottle of water. Contains 15 flubs of water.">
 		<scene path="res://actors/items/bottle/bottle_small.tscn" />
 		<texture tag="List" path="res://actors/items/bottle/bottle_small.png" />
 		<texture tag="Placed" path="res://actors/items/bottle/bottle_small.png" />
         <inherit name="plane" />
     </item>
 	
-    <item name="Water Bottle (Large)" description="A large bottle of water. Contains 50 flubs of water.">
+    <item id="22" name="Water Bottle (Large)" description="A large bottle of water. Contains 50 flubs of water.">
 		<scene path="res://actors/items/bottle/bottle_big.tscn" />
 		<texture tag="List" path="res://actors/items/bottle/bottle_big.png" />
 		<texture tag="Placed" path="res://actors/items/bottle/bottle_big.png" />
         <inherit name="plane" />
     </item>
 	
-    <item name="Fludd Box" description="A box containing a FLUDD nozzle. Breaks open when stomped, dropping the nozzle.">
+    <item id="23" name="Fludd Box" description="A box containing a FLUDD nozzle. Breaks open when stomped, dropping the nozzle.">
 		<scene path="res://actors/items/fludd_box/fludd_box.tscn" />
 		<texture tag="List" path="res://actors/items/fludd_box/box_hover.png" />
 		<texture tag="Placed" path="res://actors/items/fludd_box/box_hover.png" />
         <inherit name="ball" />
     </item>
 	
-    <item name="Big Tree" description="A large tree. Decorative.">
+    <item id="24" name="Big Tree" description="A large tree. Decorative.">
 		<scene path="res://actors/items/decoration/big_tree.tscn" />
 		<texture tag="List" path="res://actors/items/decoration/big_tree.png" />
 		<texture tag="Placed" path="res://actors/items/decoration/big_tree.png" />
         <inherit name="deco" />
     </item>
 	
-    <item name="Small Tree" description="A small tree. Decorative.">
+    <item id="25" name="Small Tree" description="A small tree. Decorative.">
 		<scene path="res://actors/items/decoration/small_tree.tscn" />
 		<texture tag="List" path="res://actors/items/decoration/small_tree.png" />
 		<texture tag="Placed" path="res://actors/items/decoration/small_tree.png" />
         <inherit name="deco" />
     </item>
 	
-    <item name="Rock" description="A large rock.">
+    <item id="26" name="Rock" description="A large rock.">
 		<scene path="res://actors/items/rocks/big_rock/big_rock.tscn" />
 		<texture tag="List" path="res://actors/items/rocks/big_rock/big_rock_icon.png" />
 		<texture tag="Placed" path="res://actors/items/rocks/big_rock/big_rock.png" />
         <inherit name="plane" />
     </item>
 	
-    <item name="Arrow" description="An arrow. Decorative.">
+    <item id="27" name="Arrow" description="An arrow. Decorative.">
 		<scene path="res://actors/items/arrow/arrow.tscn" />
 		<texture tag="List" path="res://actors/items/arrow/arrow.png" />
 		<texture tag="Placed" path="res://actors/items/arrow/arrow.png" />
         <inherit name="plane" />
     </item>
 	
-    <item name="Twirling Heart" description="A spinning heart. Moving through it will heal you. The amount of HP healed will be proportional to the speed at which you move through it.">
+    <item id="28" name="Twirling Heart" description="A spinning heart. Moving through it will heal you. The amount of HP healed will be proportional to the speed at which you move through it.">
 		<scene path="res://actors/items/twirl_heart/twirl_heart.tscn" />
 		<texture tag="List" path="res://actors/items/twirl_heart/twirl_heart_icon.png" />
 		<texture tag="Placed" path="res://actors/items/twirl_heart/twirl_heart_icon.png" />
         <inherit name="pole" />
     </item>
 	
-    <item name="Breakable Box" description="A box that can be broken by attacking it. It can drop coins when destroyed.">
+    <item id="29" name="Breakable Box" description="A box that can be broken by attacking it. It can drop coins when destroyed.">
 		<scene path="res://actors/items/breakable_box/breakable_box.tscn" />
 		<texture tag="List" path="res://actors/items/breakable_box/box1.png" />
 		<texture tag="Placed" path="res://actors/items/breakable_box/box1.png" />

@@ -50,12 +50,13 @@ func place_terrain(poly, texture_type, textures):
 	$Template/Terrain.add_child(terrain_ref)
 	return terrain_ref
 
-func place_item(item_name):
+func place_item(item_id):
+	print(item_id)
 	var inst = item_prefab.instance()
 	inst.ghost = true
-	inst.texture = load(item_textures[item_name]["Placed"])
-	inst.item_name = item_name
-	var properties: Dictionary = items[item_name]
+	inst.texture = load(item_textures[item_id]["Placed"])
+	inst.item_id = item_id
+	var properties: Dictionary = items[item_id].properties
 	for key in properties:
 		if properties[key]["default"] == null:
 			properties[key]["value"] = default_of_type(properties[key]["type"])
@@ -131,32 +132,37 @@ func read_items():
 				if parent_name == "class":
 					match node_name:
 						"property":
-							register_property(item_classes, parent_subname, parser)
+							register_property(item_classes, parent_subname, parent_name, parser)
 						"inherit":
-							inherit_class(item_classes, parent_subname, parser)
+							inherit_class(item_classes, parent_subname, parent_name, parser)
 				elif parent_name == "item":
 					match node_name:
 						"scene":
 							var path = parser.get_named_attribute_value_safe("path")
 							item_scenes[parent_subname] = path
 						"property":
-							register_property(items, parent_subname, parser)
+							register_property(items, parent_subname, parent_name, parser)
 						"texture":
 							if !item_textures.has(parent_subname):
 								item_textures[parent_subname] = {"Placed": null, "List": null}
 							var path = parser.get_named_attribute_value_safe("path")
 							item_textures[parent_subname][parser.get_named_attribute_value_safe("tag")] = path
 						"inherit":
-							inherit_class(items, parent_subname, parser)
+							inherit_class(items, parent_subname, parent_name, parser)
 				
 				if allow_reparent:
-					var subname = parser.get_named_attribute_value_safe("name")
-					parent_subname = subname
 					if node_name == "class":
+						var subname = parser.get_named_attribute_value_safe("name")
+						parent_subname = subname
 						item_classes[subname] = {}
 						allow_reparent = false
 					elif node_name == "item":
-						items[subname] = {}
+						var subname = parser.get_named_attribute_value_safe("id")
+						parent_subname = subname
+						items[subname] = {
+							name = parser.get_named_attribute_value_safe("name"),
+							properties = {},
+						}
 						allow_reparent = false
 					parent_name = node_name
 			parser.NODE_ELEMENT_END:
@@ -167,8 +173,12 @@ func read_items():
 	#print(items)
 	#print(item_textures)
 
-func register_property(target: Dictionary, subname: String, parser: XMLParser):
-	var item_class = target[subname]
+func register_property(target: Dictionary, subname: String, type: String, parser: XMLParser):
+	var item_class_properties
+	if type == "item":
+		item_class_properties = target[subname].properties
+	else:
+		item_class_properties = target[subname]
 	var var_txt = parser.get_named_attribute_value_safe("var")
 	var default = parser.get_named_attribute_value_safe("default")
 	var properties = {
@@ -177,14 +187,18 @@ func register_property(target: Dictionary, subname: String, parser: XMLParser):
 		default = null if default == "" else default,
 		description = parser.get_named_attribute_value("description")
 	}
-	item_class[parser.get_named_attribute_value("label")] = properties
+	item_class_properties[parser.get_named_attribute_value("label")] = properties
 
 
-func inherit_class(target: Dictionary, subname: String, parser: XMLParser):
-	var item_class = target[subname]
+func inherit_class(target: Dictionary, subname: String, type: String, parser: XMLParser):
+	var item_class_properties
+	if type == "item":
+		item_class_properties = target[subname].properties
+	else:
+		item_class_properties = target[subname]
 	var parent_class = item_classes[parser.get_named_attribute_value("name")]
-	for property in parent_class:
-		item_class[property] = parent_class[property]
+	for key in parent_class:
+		item_class_properties[key] = parent_class[key]
 
 
 func _ready():

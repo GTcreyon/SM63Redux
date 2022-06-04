@@ -8,7 +8,7 @@ onready var control = $"/root/Main/UILayer/LDUI"
 onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
 
 
-export(String) var item_name
+export(String) var item_id
 
 var glow_factor = 1
 var pulse = 0
@@ -18,7 +18,7 @@ var properties: Dictionary = {}
 func _selection_changed(new_selection):
 	if new_selection.head == self:
 #			if Input.is_action_pressed("LD_many"):
-#				main.place_item(item_name)
+#				main.place_item(item_id)
 		material = GLOW_MATERIAL
 	else:
 		material = null

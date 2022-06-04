@@ -11,7 +11,7 @@ func _on_Start_pressed():
 	var template = $"/root/Main/Template"
 	var template_inst = TEMPLATE_SCENE.instance()
 	for item in template.get_node("Items").get_children():
-		var item_inst = load(main.item_scenes[item.item_name]).instance()
+		var item_inst = load(main.item_scenes[item.item_id]).instance()
 		template_inst.add_child(item_inst)
 		apply_properties(item_inst, item)
 		
