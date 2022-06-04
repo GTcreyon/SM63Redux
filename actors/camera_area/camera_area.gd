@@ -2,7 +2,7 @@ tool
 extends Polygon2D
 
 onready var player = $"/root/Main/Player"
-onready var camera = player.get_node("Camera2D")
+onready var camera = player.get_node("Camera")
 
 onready var base_modifier: BaseModifier = Singleton.base_modifier
 

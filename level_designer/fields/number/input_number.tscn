@@ -56,6 +56,6 @@ custom_fonts/font = ExtResource( 2 )
 text = "AAAAA"
 align = 2
 
-[connection signal="text_changed" from="LineEdit" to="LineEdit" method="_on_Number_text_changed"]
+[connection signal="text_changed" from="LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Up" to="." method="_on_Up_pressed"]
 [connection signal="pressed" from="Up/Down" to="." method="_on_Down_pressed"]

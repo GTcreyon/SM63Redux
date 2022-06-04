@@ -11,10 +11,11 @@ extents = Vector2( 4.36713, 8 )
 extents = Vector2( 15.9792, 16.0339 )
 
 [node name="Pipe" type="StaticBody2D"]
-collision_mask = 2
+collision_mask = 0
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -28,6 +29,7 @@ position = Vector2( 0, -16 )
 shape = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
 shape = SubResource( 2 )
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]

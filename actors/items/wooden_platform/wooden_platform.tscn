@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://actors/items/safety_net.gd" type="Script" id=1]
 [ext_resource path="res://actors/items/wooden_platform/wooden_platform.png" type="Texture" id=2]
+[ext_resource path="res://actors/items/wooden_platform/wooden_platform.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 3 )
@@ -11,6 +12,7 @@ extents = Vector2( 32, 4 )
 
 [node name="WoodenPlatform" type="StaticBody2D"]
 collision_mask = 0
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

@@ -3,7 +3,8 @@ extends StaticBody2D
 const up_time = 250.0*60/32 #maximum time a bird will flap up
 const down_time = 45.0*60/32 #maximum time a bird will swoop down
 
-export var flip = false
+export var disabled = false setget set_disabled
+export var mirror = false
 
 var rng = RandomNumberGenerator.new()
 var time_count = 0
@@ -17,9 +18,10 @@ var camera_polygon
 onready var camera_area = $"/root/Main/CameraArea"
 onready var sprite = $AnimatedSprite
 onready var ride_area = $RideArea
+onready var safety_net = $SafetyNet
 
 func _ready():
-	sprite.flip_h = flip
+	sprite.flip_h = mirror
 	if camera_area != null:
 		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
 		var points = camera_polygon.size()
@@ -31,7 +33,7 @@ func _ready():
 				reset_position = intersect + Vector2.LEFT * 20
 	rng.seed = hash(position.x + position.y * PI) #each bird will be different, but behave the same way each time
 	sprite.frame = rng.seed % 7
-	sprite.playing = true
+	sprite.playing = !disabled
 	
 	time_count = rng.randi_range(0, up_time/2)
 	vel.x = 2 + rng.randf() * 0.5
@@ -39,10 +41,15 @@ func _ready():
 
 
 func _physics_process(_delta):
+	if !disabled:
+		physics_step()
+
+
+func physics_step() -> void:
 	var move_vec = Vector2.ZERO
 	var flip_sign = 1
-	if flip:
-		flip_sign = -1 #flip the movement direction
+	if mirror:
+		flip_sign = -1 # flip the movement direction
 	
 	for body in block_riders:
 		if body.vel.y > 0:
@@ -102,3 +109,17 @@ func _on_RideArea_body_exited(body):
 		riding -= 1
 		if riding <= 0:
 			sprite.speed_scale = 1
+
+
+func set_disabled(val):
+	disabled = val
+	set_collision_layer_bit(0, 0 if val else 1)
+	if safety_net == null:
+		safety_net = $SafetyNet
+	if ride_area == null:
+		ride_area = $RideArea
+	if sprite == null:
+		sprite = $AnimatedSprite
+	safety_net.monitoring = !val
+	ride_area.monitoring = !val
+	sprite.playing = !val

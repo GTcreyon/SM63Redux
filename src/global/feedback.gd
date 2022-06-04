@@ -103,7 +103,7 @@ func assemble_package() -> String:
 	else:
 		package += add_data("pos", player.position)
 		package += add_data("rot", player.rotation)
-		package += add_data("zoom", player.get_node("Camera2D").zoom)
+		package += add_data("zoom", player.get_node("Camera").zoom)
 	return package
 	
 

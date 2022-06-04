@@ -3,8 +3,7 @@ extends KinematicBody2D
 const coin = preload("res://actors/items/coin/coin_yellow.tscn")
 const speed = 32.0/60.0
 
-var follow = false
-var can_follow = false
+var follow_targets = []
 var vel = Vector2.ZERO
 var direction = null
 var idle_time = 0
@@ -12,19 +11,29 @@ var in_water = false
 var struck = false
 var struck_timer = 60
 var collect_id
-onready var player = $"/root/Main/Player"
-onready var sprite = $AnimatedSprite
-onready var hurtbox = $Damage
 var rng = RandomNumberGenerator.new()
 
+onready var sprite = $AnimatedSprite
+onready var hurtbox = $Damage
+onready var follow_area = $FollowArea
+
+export var disabled = false setget set_disabled
+export var mirror = false
+
 func _ready():
+	sprite.flip_h = mirror
 	collect_id = Singleton.get_collect_id()
 	rng.seed = hash(position.x + position.y * PI)
 	sprite.frame = rng.seed % 2
-	sprite.playing = true
+	sprite.playing = !disabled
 
 
 func _physics_process(_delta):
+	if !disabled:
+		physics_step()
+
+
+func physics_step():
 	if struck:
 		vel *= 0.9
 		rotation += vel.length() * sign(vel.x) * 0.1
@@ -37,10 +46,11 @@ func _physics_process(_delta):
 			queue_free()
 	else:
 		if in_water:
-			if follow:
-				direction = player.position - position
-				vel = position.direction_to(player.position) * speed
-				if player.position.x < position.x:
+			if follow_targets.size() > 0:
+				var target = follow_targets[0]
+				direction = target.position - position
+				vel = position.direction_to(target.position) * speed
+				if target.position.x < position.x:
 					if !sprite.flip_h:
 						rotation = -rotation
 						sprite.flip_h = true
@@ -73,8 +83,6 @@ func _physics_process(_delta):
 					else:
 						idle_time = 0
 					vel.x = -sign(vel.x)
-					
-				follow = abs(vel.y) < 1 && can_follow
 		else:
 			vel.y = min(vel.y + 0.25, 5)
 			if is_on_floor():
@@ -90,13 +98,12 @@ func _physics_process(_delta):
 	move_and_slide(vel * 60, Vector2.UP)
 
 
-func _on_Following_body_entered(_body):
-	can_follow = true
+func _on_Following_body_entered(body):
+	follow_targets.append(body)
 
 
-func _on_Following_body_exited(_body):
-	can_follow = false
-	follow = false
+func _on_Following_body_exited(body):
+	follow_targets.erase(body)
 	if sprite.flip_h:
 		idle_time = 241
 	else:
@@ -114,8 +121,6 @@ func _on_WaterCheck_area_entered(_area):
 
 func _on_WaterCheck_area_exited(_area):
 	in_water = false
-	follow = false
-	can_follow = false
 	vel.y = -5.0
 
 
@@ -132,3 +137,16 @@ func damage_check(body):
 			body.take_damage_shove(1, -1)
 		elif body.position.x > position.x:
 			body.take_damage_shove(1, 1)
+
+
+func set_disabled(val):
+	disabled = val
+	if hurtbox == null:
+		hurtbox = $Damage
+	if follow_area == null:
+		follow_area = $FollowArea
+	if sprite == null:
+		sprite = $AnimatedSprite
+	hurtbox.monitoring = !val
+	follow_area.monitoring = !val
+	sprite.playing = !val

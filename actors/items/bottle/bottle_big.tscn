@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://actors/items/bottle/bottle_big.gd" type="Script" id=1]
+[ext_resource path="res://actors/items/bottle/bottle.gd" type="Script" id=1]
 [ext_resource path="res://actors/items/bottle/bottle_big.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -21,4 +21,4 @@ texture = ExtResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[connection signal="body_entered" from="." to="." method="_on_BottleBig_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]

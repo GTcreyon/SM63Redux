@@ -1,16 +1,17 @@
 extends StaticBody2D
 
-onready var sound = $SFX #for sound effect
+onready var sound = $SFX # for sound effect
+onready var ride_area = $Area2D
 
-var i = 0 #This is the variable that will increase until it reaches 60
-var inc = false #this variable will serve to trigger the increment as a "delay"
-var can_warp = false #this variable is changed when mario enters the pipe's small area2D
-var slid = false #this is necessary to tell godot to change mario's Y position to slide down
+var i = 0 # This is the variable that will increase until it reaches 60
+var inc = false # this variable will serve to trigger the increment as a "delay"
+var can_warp = false # this variable is changed when mario enters the pipe's small area2D
+var slid = false # this is necessary to tell godot to change mario's Y position to slide down
 var store_state = 0
 var target = null
 
-export var target_x_pos = 0 #the x value where mario will get teleported
-export var target_y_pos = 0 #the y value where mario will get teleported
+export var disabled = false setget set_disabled
+export var target_pos = Vector2.ZERO
 
 func _physics_process(_delta):
 	if slid:
@@ -53,7 +54,7 @@ func _physics_process(_delta):
 	if i == 60: #mario then will be teleported as the "true" variables return to false
 		target.get_node("Voice").volume_db = -5
 		sound.stop()
-		target.position = Vector2(target_x_pos, target_y_pos)
+		target.position = target_pos
 		target.locked = false
 		target.switch_state(target.S.NEUTRAL)
 		target.switch_anim("walk")
@@ -62,14 +63,22 @@ func _physics_process(_delta):
 		inc = false
 		slid = false
 
+
 func _on_mario_top(body):
 	if body.global_position.y < global_position.y:
-		#print("on top")
 		if body.state == body.S.NEUTRAL:
 			can_warp = true
 			target = body
 
+
 func _on_mario_off(_body):
-		#print("not on top")
 		can_warp = false #or else he won't
 		target = null
+
+
+func set_disabled(val):
+	disabled = val
+	set_collision_layer_bit(0, 0 if val else 1)
+	if ride_area == null:
+		ride_area = $Area2D
+	ride_area.monitoring = !val

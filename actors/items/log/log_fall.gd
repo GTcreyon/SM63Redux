@@ -7,8 +7,10 @@ const JITTER = 2
 onready var camera_area = $"/root/Main/CameraArea"
 onready var sprite = $Sprite
 onready var visibility = $VisibilityNotifier2D
+onready var ride_area = $Area2D
 
-export var fall_timer : int = 60
+export var disabled = false setget set_disabled
+export var wait_time : int = 60
 
 var vel = Vector2.ZERO
 var falling : bool = false
@@ -21,12 +23,12 @@ func _ready():
 		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
 
 func _physics_process(_delta):
-	if falling:
-		if fall_timer > 0:
-			fall_timer -= 1
-			sprite.position = Vector2((rng.randi() % JITTER) - JITTER / 2.0, (rng.randi() % JITTER) - JITTER / 2.0)
-		elif fall_timer <= 0:
-			sprite.position = Vector2.ZERO
+	if falling && !disabled:
+		if wait_time > 0:
+			wait_time -= 1
+			sprite.offset = Vector2((rng.randi() % (JITTER + 1)) - JITTER / 2.0, (rng.randi() % (JITTER + 1)) - JITTER / 2.0)
+		elif wait_time <= 0:
+			sprite.offset = Vector2.ZERO
 			vel.y += GRAVITY
 			position += vel
 			
@@ -36,3 +38,11 @@ func _physics_process(_delta):
 func _on_Area2D_body_entered(_body):
 	falling = true
 	$Area2D.queue_free()
+
+
+func set_disabled(val):
+	disabled = val
+	if ride_area == null:
+		ride_area = $Area2D
+	set_collision_layer_bit(0, 0 if val else 1)
+	ride_area.monitoring = !val

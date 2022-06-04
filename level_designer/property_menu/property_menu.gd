@@ -60,4 +60,4 @@ func resize_box():
 
 
 func on_value_changed(label, value):
-	target_node.properties[label]["value"] = value
+	target_node.set_property(label, value)

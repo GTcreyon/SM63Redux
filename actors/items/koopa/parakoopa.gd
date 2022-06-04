@@ -1,10 +1,18 @@
 extends AnimatedSprite
+
+onready var hurtbox = $Damage
+onready var top_collision = $TopCollision
+
 var koopa = preload("koopa.tscn").instance()
 var shell = preload("koopa_shell.tscn").instance()
 
+export var disabled = false setget set_disabled
+export var mirror = false
+
 func _ready():
+	flip_h = mirror
 	frame = hash(position.x + position.y * PI) % 6
-	playing = true
+	playing = !disabled
 
 
 func _on_TopCollision_body_entered(body):
@@ -15,10 +23,7 @@ func _on_TopCollision_body_entered(body):
 			$Kick.play()
 			koopa.position = Vector2(position.x, body.position.y + 33)
 			koopa.vel.y = body.vel.y
-			if flip_h:
-				koopa.direction = -1
-			else:
-				koopa.direction = 1
+			koopa.mirror = flip_h
 			body.vel.y = -5.5
 			body.vel.x *= 1.2
 			get_parent().call_deferred("add_child", koopa)
@@ -57,3 +62,14 @@ func spawn_shell(body):
 	$TopCollision.set_deferred("monitoring", false)
 	$Damage.monitoring = false
 	set_deferred("visible", false)
+
+
+func set_disabled(val):
+	disabled = val
+	if hurtbox == null:
+		hurtbox = $Damage
+	if top_collision == null:
+		top_collision = $TopCollision
+	hurtbox.monitoring = !val
+	top_collision.monitoring = !val
+	playing = !val
