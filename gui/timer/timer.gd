@@ -50,7 +50,7 @@ func _physics_process(_delta):
 		Singleton.set_location = Vector2(110, 153)
 		Singleton.reset_all_coindicts()
 		Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn")
-		var player = $"root/Main/Player"
+		var player = get_node_or_null("root/Main/Player")
 		if player != null:
 			player.position = Vector2(110, 153)
 	
