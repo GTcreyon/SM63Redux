@@ -39,7 +39,7 @@
 	
     <class name="pole">
 		<inherit name="ball" />
-        <property label="Rotation" type="float" description="Rotation in degrees." />
+        <property label="Rotation" type="float" var="rotation_degrees" description="Rotation in degrees." />
     </class>
 	
     <class name="post">
