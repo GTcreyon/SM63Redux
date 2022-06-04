@@ -88,7 +88,7 @@
     <item name="Shine Sprite" description="The level goal!">
 		<scene path="res://actors/items/shine/shine.tscn" />
 		<texture tag="Placed" path="res://actors/items/shine/shine_placed.png" />
-		<texture tag="List" path="res://gui/hud/hud_shine_old.png" />
+		<texture tag="List" path="res://gui/hud/hud_shine_small.png" />
 		<!--TODO: trigger properties (e.g. red coins, silver shines, boss - pipescript?), shine ID for missions-->
         <inherit name="ball" />
     </item>
