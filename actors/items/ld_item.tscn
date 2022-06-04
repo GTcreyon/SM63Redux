@@ -15,7 +15,6 @@ shader_param/outline_color = null
 [node name="LDItem" type="Sprite"]
 material = SubResource( 2 )
 texture = ExtResource( 1 )
-flip_h = true
 script = ExtResource( 21 )
 
 [node name="ClickArea" type="Area2D" parent="."]
