@@ -7,7 +7,6 @@
 
 [node name="LDItem" type="Sprite"]
 texture = ExtResource( 1 )
-flip_h = true
 script = ExtResource( 21 )
 
 [node name="ClickArea" type="Area2D" parent="."]

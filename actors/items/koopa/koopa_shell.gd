@@ -12,6 +12,11 @@ export var disabled = false setget set_disabled
 export var mirror = false
 
 
+func _ready():
+	sprite.playing = !disabled
+	sprite.speed_scale = 0
+
+
 func _physics_process(_delta):
 	if !disabled:
 		physics_step()

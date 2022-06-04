@@ -33,6 +33,7 @@ func _ready():
 				reset_position = intersect + Vector2.LEFT * 20
 	rng.seed = hash(position.x + position.y * PI) #each bird will be different, but behave the same way each time
 	sprite.frame = rng.seed % 7
+	sprite.playing = !disabled
 	
 	time_count = rng.randi_range(0, up_time/2)
 	vel.x = 2 + rng.randf() * 0.5

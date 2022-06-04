@@ -100,6 +100,7 @@ onready var switch_sfx = $SwitchSFX
 onready var hover_sfx = $HoverSFX
 onready var hover_loop_sfx = $HoverLoopSFX
 onready var dust = $Dust
+onready var ground_failsafe_check: Area2D = $GroundFailsafe
 
 # vars to lock mechanics
 var invuln_frames: int = 0
@@ -156,7 +157,7 @@ func _on_WaterCheck_area_exited(_area):
 
 # player physics constants
 const GP_DIVE_TIME = 6
-const GROUND_OVERRIDE_THRESHOLD: int = 10
+const GROUND_FAILSAFE_THRESHOLD: int = 10
 
 # player physics var
 var vel = Vector2.ZERO
@@ -828,9 +829,10 @@ func check_ground_state() -> void:
 			|| state == S.HURT
 			|| swimming
 			|| bouncing
+			|| ground_failsafe_check.get_overlapping_bodies().size() <= 0
 		):
-			ground_override = 0
-		grounded = is_on_floor() || ground_override >= GROUND_OVERRIDE_THRESHOLD
+			ground_failsafe_timer = 0
+		grounded = is_on_floor() || ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD
 
 
 func player_fall() -> void:
@@ -966,9 +968,9 @@ func player_move() -> void:
 	# check how far that moved the player
 	var slide_vec = position-save_pos
 	# if the player isn't grounded despite being stopped moving downwards, increment the failsafe
-	if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor():
+	if abs(slide_vec.y) < 0.5 && vel.y > 0 && !is_on_floor() && ground_failsafe_check.get_overlapping_bodies().size() > 0:
 		# warning-ignore:narrowing_conversion
-		ground_override = min(ground_override + 1, GROUND_OVERRIDE_THRESHOLD)
+		ground_failsafe_timer = min(ground_failsafe_timer + 1, GROUND_FAILSAFE_THRESHOLD)
 	
 	# ensure the player moves the intended horizontal distance
 	if (
@@ -1160,7 +1162,7 @@ func switch_fludd():
 const COYOTE_TIME: int = 5
 const JUMP_VARY_TIME: int = 13
 var sign_frames: int = 0
-var ground_override: int = 0
+var ground_failsafe_timer: int = 0
 var gp_dive_timer: int = 0
 var coyote_frames: int = 0
 var jump_buffer_frames: int = 0
@@ -1300,8 +1302,10 @@ func dive_correct(factor): # Correct the player's origin position when diving
 	move_and_slide(Vector2(0, DIVE_CORRECTION * factor * 60), Vector2(0, -1))
 	if factor == -1:
 		dust.position.y = 11.5
+		ground_failsafe_check.position.y = 17
 	else:
 		dust.position.y = 11.5 - DIVE_CORRECTION
+		ground_failsafe_check.position.y = 17 - DIVE_CORRECTION
 	base_modifier.add_modifier(
 		camera,
 		"position",
