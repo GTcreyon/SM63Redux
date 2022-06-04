@@ -26,9 +26,7 @@ func _physics_process(_delta):
 	if falling && !disabled:
 		if wait_time > 0:
 			wait_time -= 1
-			print(sprite.position)
 			sprite.offset = Vector2((rng.randi() % (JITTER + 1)) - JITTER / 2.0, (rng.randi() % (JITTER + 1)) - JITTER / 2.0)
-			print(sprite.position)
 		elif wait_time <= 0:
 			sprite.offset = Vector2.ZERO
 			vel.y += GRAVITY
