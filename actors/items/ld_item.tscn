@@ -1,19 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://actors/items/arrow/arrow.png" type="Texture" id=1]
-[ext_resource path="res://shaders/glow.shader" type="Shader" id=2]
 [ext_resource path="res://actors/items/ld_item.gd" type="Script" id=21]
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 2 )
-shader_param/width = 1
-shader_param/radial = null
-shader_param/outline_color = null
 
 [sub_resource type="RectangleShape2D" id=1]
 
 [node name="LDItem" type="Sprite"]
-material = SubResource( 2 )
 texture = ExtResource( 1 )
 script = ExtResource( 21 )
 

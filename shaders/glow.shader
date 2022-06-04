@@ -2,16 +2,16 @@
 shader_type canvas_item;
 render_mode unshaded;
 
-uniform int width = 1;
+uniform float width = 1.;
 uniform bool radial;
-uniform vec4 outline_color : hint_color;
+uniform vec4 outline_color : hint_color = vec4(1);
 
 varying vec2 extra_movement;
 
 void vertex()
 {
 	// increase the size by the the width, this extra space is needed for the outline
-	extra_movement = TEXTURE_PIXEL_SIZE * float(width) * 2.;
+	extra_movement = TEXTURE_PIXEL_SIZE * width * 2.;
 	VERTEX *= 1. + extra_movement;
 }
 
@@ -21,11 +21,9 @@ void fragment(){
 	// yes it's important to FIRST recenter, THEN inverse the size increase
 	// otherwise the texture will shrink a bit
 	// recenter
-	REALUV -= extra_movement * .5;
+	REALUV -= extra_movement * .5 - TEXTURE_PIXEL_SIZE * .25;
 	// inverse the vertex size increase
-	REALUV /= 1. - extra_movement;
-	
-	COLOR = vec4(UV.x, UV.y, 0, 1);
+	REALUV /= 1. - extra_movement + TEXTURE_PIXEL_SIZE * .5;
 	
 	COLOR = texture(TEXTURE, REALUV);
 	if(COLOR.a <= 0. || REALUV.x > 1. || REALUV.x < 0. || REALUV.y > 1. || REALUV.y < 0.){
