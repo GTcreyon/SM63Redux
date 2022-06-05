@@ -38,14 +38,16 @@ func store_value_of_type(type: String, val) -> PoolByteArray:
 			return store_int_bytes(val, 3)
 		"float":
 			return store_float_bytes(val, 4)
-#		"Vector2":
-#			return store_vector2_bytes(val)
+		"Vector2":
+			return store_vector2_bytes(val)
 		_:
 			return PoolByteArray([])
 
 
 func store_vector2_bytes(val: Vector2) -> PoolByteArray:
-	return PoolByteArray([])
+	var output = store_int_bytes(int(val.x), 3)
+	output.append_arrray(store_int_bytes(int(val.y), 3))
+	return output
 
 
 func store_float_bytes(val: float, num: int) -> PoolByteArray:
