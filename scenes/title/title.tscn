@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scenes/title/logo.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/title/title_bg/space_loop.png" type="Texture" id=2]
@@ -20,8 +20,6 @@
 [ext_resource path="res://scenes/title/menu_day.mp3" type="AudioStream" id=18]
 [ext_resource path="res://scenes/title/title_loop.gd" type="Script" id=19]
 [ext_resource path="res://scenes/title/title_cover.gd" type="Script" id=20]
-[ext_resource path="res://actors/items/tipping_log/tipping_log_left.png" type="Texture" id=21]
-[ext_resource path="res://actors/items/tipping_log/tipping_log.tscn" type="PackedScene" id=22]
 
 [node name="TitleScreen" type="Control"]
 anchor_right = 1.0
@@ -123,11 +121,3 @@ margin_top = -15.0
 rect_pivot_offset = Vector2( -2, 15 )
 custom_fonts/font = ExtResource( 14 )
 text = "v0.X.X"
-
-[node name="TippingLogLeft" type="Sprite" parent="."]
-position = Vector2( -114, 246 )
-texture = ExtResource( 21 )
-
-[node name="TiltingPlatform" parent="." instance=ExtResource( 22 )]
-position = Vector2( -118, 263 )
-pivot_offset = 3
