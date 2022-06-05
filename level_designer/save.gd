@@ -18,13 +18,60 @@ func generate_level_binary() -> PoolByteArray:
 	
 	# item dictionary
 	for item in $"/root/Main/Template/Items".get_children():
-		print(item.item_id)
-	
+		output.append_array(store_int_bytes(item.item_id, 2))
+		for key in item.properties:
+			var val = store_value_of_type(item.properties[key].type, item.properties[key].value)
+			output.append_array(val)
 	# polygons
 	# TODO
 	
 	# pipescript
 	# TODO
+	return output
+
+
+func store_value_of_type(type: String, val) -> PoolByteArray:
+	match type:
+		"bool":
+			return PoolByteArray([val])
+		"int":
+			return store_int_bytes(val, 3)
+		"float":
+			return store_float_bytes(val, 4)
+#		"Vector2":
+#			return store_vector2_bytes(val)
+		_:
+			return PoolByteArray([])
+
+
+func store_vector2_bytes(val: Vector2) -> PoolByteArray:
+	return PoolByteArray([])
+
+
+func store_float_bytes(val: float, num: int) -> PoolByteArray:
+	var output = PoolByteArray([])
+	if num > 7:
+		printerr("Cannot store float in this many bytes due to Godot limitations!")
+		num = 7
+	
+	var arr = var2bytes(val) # cut off icky variant data
+	var size = arr.size()
+	return arr.subarray(size - num, size - 1)
+
+
+func store_int_bytes(val: int, num: int) -> PoolByteArray:
+	# val - value to encode
+	# num - number of bytes
+	var output = PoolByteArray([])
+	for i in range(num):
+		output.append(
+			val >> (
+				8 * (
+					num - i - 1
+				)
+			) # cut off everything before this byte
+			& 255 # cut off everything after this byte
+		)
 	return output
 
 

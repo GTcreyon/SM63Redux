@@ -8,7 +8,7 @@ onready var control = $"/root/Main/UILayer/LDUI"
 onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
 
 
-export(String) var item_id
+var item_id: int
 
 var glow_factor = 1
 var pulse = 0
