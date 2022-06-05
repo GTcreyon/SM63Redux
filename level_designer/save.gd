@@ -1,6 +1,6 @@
 extends Button
 
-onready var dialog = $"/root/Main/UILayer/FileDialog"
+onready var dialog = $"/root/Main/UILayer/SaveDialog"
 
 
 func _on_File_pressed():

@@ -1,8 +1,8 @@
 extends FileDialog
 
 var load_dict: Dictionary
-
-
+var pointer: int = 0
+var buffer: PoolByteArray
 #func _on_Options_pressed():
 #	load_dict = JSON.parse(OS.get_clipboard()).result
 #	for item in load_dict["items"]:
@@ -25,16 +25,18 @@ var load_dict: Dictionary
 func _on_OpenDialog_file_selected(path):
 	var file = File.new()
 	file.open(path, File.READ)
-	var buffer = file.get_buffer(file.get_len())
+	buffer = file.get_buffer(file.get_len())
 	file.close()
 	load_buffer(buffer)
 
 
 func load_buffer(buffer: PoolByteArray):
 	var output = PoolByteArray([Singleton.LD_VERSION % 256])
-#	# level info
-#	output.append_array(generate_unistring("2 hour blj"))
-#	output.append_array(generate_unistring("ben"))
+	# level info
+	print("version: ", decode_int_bytes(1))
+	print("title: ", decode_string_bytes())
+	print("author: ", decode_string_bytes())
+	print("missions: ", decode_mission_list())
 #	output.append_array(generate_mission_list([["blj the thwomp's block", "i'm not doing this ben"], ["mission 2", "desc"]]))
 #
 #	# item dictionary
@@ -58,8 +60,8 @@ func load_buffer(buffer: PoolByteArray):
 #	# pipescript
 #	# TODO
 #	return output
-#
-#
+
+
 #func store_value_of_type(type: String, val) -> PoolByteArray:
 #	match type:
 #		"bool":
@@ -72,51 +74,48 @@ func load_buffer(buffer: PoolByteArray):
 #			return store_vector2_bytes(val)
 #		_:
 #			return PoolByteArray([])
-#
-#
-#func store_vector2_bytes(val: Vector2) -> PoolByteArray:
-#	var output = store_int_bytes(int(val.x), 3)
-#	output.append_array(store_int_bytes(int(val.y), 3))
-#	return output
-#
-#
-#func store_float_bytes(val: float, num: int) -> PoolByteArray:
-#	var output = PoolByteArray([])
-#	if num > 7:
-#		printerr("Cannot store float in this many bytes due to Godot limitations!")
-#		num = 7
-#
-#	var arr = var2bytes(val) # cut off icky variant data
-#	var size = arr.size()
-#	return arr.subarray(size - num, size - 1)
-#
-#
-#func store_int_bytes(val: int, num: int) -> PoolByteArray:
-#	# val - value to encode
-#	# num - number of bytes
-#	var output = PoolByteArray([])
-#	for i in range(num):
-#		output.append(
-#			val >> (
-#				8 * (
-#					num - i - 1
-#				)
-#			) # cut off everything before this byte
-#			& 255 # cut off everything after this byte
-#		)
-#	return output
-#
-#
-#func generate_mission_list(missions: Array) -> PoolByteArray:
-#	var arr = PoolByteArray([])
-#	for mission in missions:
-#		arr.append_array(generate_unistring(mission[0]))
-#		arr.append_array(generate_unistring(mission[1]))
-#	arr.append(0)
-#	return arr
-#
-#
-#func generate_unistring(txt: String) -> PoolByteArray:
-#	var arr = txt.to_utf8()
-#	arr.append(0) # terminating character
-#	return arr
+
+
+func decode_vector2_bytes(num: int) -> Vector2:
+	return Vector2(decode_int_bytes(3), decode_int_bytes(3))
+
+
+func decode_float_bytes(num: int) -> float:
+	if num > 7:
+		printerr("Cannot store float in this many bytes due to Godot limitations!")
+		num = 7
+	
+	var variant_buffer = PoolByteArray([3])
+	while variant_buffer.size() + num < 8:
+		variant_buffer.append(0)
+	variant_buffer.append_array(buffer.subarray(pointer, pointer + num - 1))
+	var output = bytes2var(variant_buffer)
+	
+	pointer += num
+	return output
+
+
+func decode_int_bytes(num: int) -> int:
+	var output: int = 0
+	var section: PoolByteArray = buffer.subarray(pointer, pointer + num - 1)
+	section.invert()
+	for i in range(num):
+		output += section[i] << (i << 3)
+	pointer += num
+	return output
+
+
+func decode_mission_list() -> Array:
+	var output = []
+	var length = decode_int_bytes(1)
+	for i in range(length):
+		output.append([decode_string_bytes(), decode_string_bytes()])
+	return output
+
+
+func decode_string_bytes() -> String:
+	var length = decode_int_bytes(3)
+	var output = buffer.subarray(pointer, pointer + length - 1).get_string_from_utf8()
+	pointer += length
+	
+	return output

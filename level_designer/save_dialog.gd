@@ -12,10 +12,10 @@ func _on_SaveDialog_file_selected(path):
 
 
 func generate_level_binary() -> PoolByteArray:
-	var output = PoolByteArray([Singleton.LD_VERSION % 256])
 	# level info
-	output.append_array(generate_unistring("2 hour blj"))
-	output.append_array(generate_unistring("ben"))
+	var output = store_int_bytes(Singleton.LD_VERSION, 1)
+	output.append_array(store_string_bytes("2 hour blj"))
+	output.append_array(store_string_bytes("ben"))
 	output.append_array(generate_mission_list([["blj the thwomp's block", "i'm not doing this ben"], ["mission 2", "desc"]]))
 	
 	# item dictionary
@@ -34,7 +34,7 @@ func generate_level_binary() -> PoolByteArray:
 		output.append_array(store_int_bytes(polygon.z_index, 2))
 		output.append_array(store_int_bytes(polygon.polygon.size(), 2))
 		for vertex in polygon.polygon:
-			output.append_array(store_vector2_bytes(vertex))
+			output.append_array(store_vector2_bytes(vertex, 3))
 	
 	# pipescript
 	# TODO
@@ -50,14 +50,14 @@ func store_value_of_type(type: String, val) -> PoolByteArray:
 		"float":
 			return store_float_bytes(val, 4)
 		"Vector2":
-			return store_vector2_bytes(val)
+			return store_vector2_bytes(val, 3)
 		_:
 			return PoolByteArray([])
 
 
-func store_vector2_bytes(val: Vector2) -> PoolByteArray:
-	var output = store_int_bytes(int(val.x), 3)
-	output.append_array(store_int_bytes(int(val.y), 3))
+func store_vector2_bytes(val: Vector2, num: int) -> PoolByteArray:
+	var output = store_int_bytes(int(val.x), num)
+	output.append_array(store_int_bytes(int(val.y), num))
 	return output
 
 
@@ -75,13 +75,16 @@ func store_float_bytes(val: float, num: int) -> PoolByteArray:
 func store_int_bytes(val: int, num: int) -> PoolByteArray:
 	# val - value to encode
 	# num - number of bytes
+	if abs(val) > (1 << (num << 3)):
+		printerr(val, " is too big to fit in ", num, " bytes! Corruption may occur!")
+	
 	var output = PoolByteArray([])
 	for i in range(num):
 		output.append(
 			val >> (
-				8 * (
+				(
 					num - i - 1
-				)
+				) << 3
 			) # cut off everything before this byte
 			& 255 # cut off everything after this byte
 		)
@@ -89,18 +92,18 @@ func store_int_bytes(val: int, num: int) -> PoolByteArray:
 
 
 func generate_mission_list(missions: Array) -> PoolByteArray:
-	var arr = PoolByteArray([])
+	var output = store_int_bytes(missions.size(), 1)
 	for mission in missions:
-		arr.append_array(generate_unistring(mission[0]))
-		arr.append_array(generate_unistring(mission[1]))
-	arr.append(0)
-	return arr
+		output.append_array(store_string_bytes(mission[0]))
+		output.append_array(store_string_bytes(mission[1]))
+	return output
 
 
-func generate_unistring(txt: String) -> PoolByteArray:
+func store_string_bytes(txt: String) -> PoolByteArray:
 	var arr = txt.to_utf8()
-	arr.append(0) # terminating character
-	return arr
+	var output = store_int_bytes(arr.size(), 3)
+	output.append_array(arr)
+	return output
 
 
 func save_json():

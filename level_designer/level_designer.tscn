@@ -102,6 +102,7 @@ popup_exclusive = true
 window_title = "Save Level"
 resizable = true
 mode_overrides_title = false
+mode = 0
 access = 2
 filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
 current_dir = "/home/tricia/Documents/Godot/SM63Redux"
