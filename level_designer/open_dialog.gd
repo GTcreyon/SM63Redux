@@ -34,13 +34,13 @@ func _on_OpenDialog_file_selected(path):
 func load_buffer(buffer: PoolByteArray):
 	pointer = 0
 	# level info
-	print("version: ", decode_int_bytes(1))
+	print("version: ", decode_uint_bytes(1))
 	print("title: ", decode_string_bytes())
 	print("author: ", decode_string_bytes())
 	print("missions: ", decode_mission_list())
 
 	# item dictionary
-	var item_id = decode_int_bytes(2)
+	var item_id = decode_uint_bytes(2)
 	while item_id != 65535: # end character, [255, 255]
 		var inst = main.ITEM_PREFAB.instance()
 		var props = main.items[item_id].properties
@@ -52,17 +52,17 @@ func load_buffer(buffer: PoolByteArray):
 		inst.item_id = item_id
 		inst.position = inst.properties["Position"]
 		$"/root/Main/Template/Items".add_child(inst)
-		item_id = decode_int_bytes(2)
+		item_id = decode_uint_bytes(2)
 #
 #	# polygons
-	for i in range(decode_int_bytes(3)):
+	for i in range(decode_uint_bytes(3)):
 		var inst = main.TERRAIN_PREFAB.instance()
-		inst.terrain_material = decode_int_bytes(2)
-		print(inst.terrain_material)
-		inst.z_index = decode_int_bytes(2)
-		print(inst.z_index)
-		for j in range(decode_int_bytes(2)):
-			inst.polygon.append(decode_vector2_bytes(3))
+		inst.terrain_material = decode_uint_bytes(2)
+		inst.z_index = decode_sint_bytes(2)
+		var polygon = PoolVector2Array([])
+		for j in range(decode_uint_bytes(2)):
+			polygon.append(decode_vector2_bytes(3))
+		inst.polygon = polygon
 		$"/root/Main/Template/Terrain".add_child(inst)
 #
 #	# pipescript
@@ -73,9 +73,9 @@ func load_buffer(buffer: PoolByteArray):
 func decode_value_of_type(type: String):
 	match type:
 		"bool":
-			return bool(decode_int_bytes(1))
+			return bool(decode_uint_bytes(1))
 		"int":
-			return decode_int_bytes(3)
+			return decode_uint_bytes(3)
 		"float":
 			return decode_float_bytes(4)
 		"Vector2":
@@ -86,7 +86,7 @@ func decode_value_of_type(type: String):
 
 
 func decode_vector2_bytes(num: int) -> Vector2:
-	return Vector2(decode_int_bytes(3), decode_int_bytes(3))
+	return Vector2(decode_sint_bytes(3), decode_sint_bytes(3))
 
 
 func decode_float_bytes(num: int) -> float:
@@ -104,7 +104,7 @@ func decode_float_bytes(num: int) -> float:
 	return output
 
 
-func decode_int_bytes(num: int) -> int:
+func decode_uint_bytes(num: int) -> int:
 	var output: int = 0
 	var section: PoolByteArray = buffer.subarray(pointer, pointer + num - 1)
 	section.invert()
@@ -114,16 +114,30 @@ func decode_int_bytes(num: int) -> int:
 	return output
 
 
+func decode_sint_bytes(num: int) -> int:
+	var output: int = 0
+	var section: PoolByteArray = buffer.subarray(pointer, pointer + num - 1)
+	section.invert()
+	for i in range(num):
+		output += section[i] << (i << 3)
+	var max_int = 1 << ((num << 3) - 1)
+	if output > max_int:
+		output = (max_int << 1) - output
+		output *= -1
+	pointer += num
+	return output
+
+
 func decode_mission_list() -> Array:
 	var output = []
-	var length = decode_int_bytes(1)
+	var length = decode_uint_bytes(1)
 	for i in range(length):
 		output.append([decode_string_bytes(), decode_string_bytes()])
 	return output
 
 
 func decode_string_bytes() -> String:
-	var length = decode_int_bytes(3)
+	var length = decode_uint_bytes(3)
 	var output = buffer.subarray(pointer, pointer + length - 1).get_string_from_utf8()
 	pointer += length
 	

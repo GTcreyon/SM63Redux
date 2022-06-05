@@ -6,7 +6,7 @@ Version 000
 - LD - Level Designer program
 - Author - Agent using the LD to create a level
 - Player - Agent playing the resulting level
-- UniString - Unicode text string terminating in U+0000
+- UniString - Unicode text string with 3 length bytes at the start
 - AscString - ASCII text string terminating in asc0 [NULL]
 
 ## Structure Overview
