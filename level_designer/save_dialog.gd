@@ -24,7 +24,7 @@ func generate_level_binary() -> PoolByteArray:
 		for key in item.properties:
 			var val = store_value_of_type(item.properties[key].type, item.properties[key].value)
 			output.append_array(val)
-		output.append_array([255, 255]) # end character, replaces ID
+	output.append_array([255, 255]) # end character, replaces ID
 		
 	# polygons
 	var polygon_list = $"/root/Main/Template/Terrain".get_children()
@@ -52,6 +52,7 @@ func store_value_of_type(type: String, val) -> PoolByteArray:
 		"Vector2":
 			return store_vector2_bytes(val, 3)
 		_:
+			printerr("Unknown datatype!")
 			return PoolByteArray([])
 
 

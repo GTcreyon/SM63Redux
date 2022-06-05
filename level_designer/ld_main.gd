@@ -5,8 +5,8 @@ onready var ld_ui = $UILayer/LDUI
 onready var ld_camera = $Camera
 onready var lv_template := preload("res://level_designer/template.tscn")
 
-const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
-const item_prefab = preload("res://actors/items/ld_item.tscn")
+const TERRAIN_PREFAB = preload("res://actors/terrain/terrain_polygon.tscn")
+const ITEM_PREFAB = preload("res://actors/items/ld_item.tscn")
 
 signal selection_changed #only gets called when the hash changed
 signal selection_event #gets fired always whenever some calculation regarding events is done
@@ -44,19 +44,22 @@ func snap_vector(vec, grid = 8):
 		floor(vec.y / grid + 0.5) * grid
 	)
 
+
 func place_terrain(poly, texture_type, textures):
-	var terrain_ref = terrain_prefab.instance()
+	var terrain_ref = TERRAIN_PREFAB.instance()
 	terrain_ref.polygon = poly
 	$Template/Terrain.add_child(terrain_ref)
 	return terrain_ref
 
+
 func place_item(item_id):
 	print(item_id)
-	var inst = item_prefab.instance()
+	var inst = ITEM_PREFAB.instance()
 	inst.ghost = true
 	inst.texture = load(item_textures[item_id]["Placed"])
 	inst.item_id = item_id
 	var properties: Dictionary = items[item_id].properties
+	print(properties)
 	for key in properties:
 		if properties[key]["default"] == null:
 			properties[key]["value"] = default_of_type(properties[key]["type"])
@@ -80,7 +83,7 @@ func default_of_type(type):
 
 
 func _old_place_item(item):
-	var item_ref = item_prefab.instance()
+	var item_ref = ITEM_PREFAB.instance()
 	item_ref.set("id", item.id)
 	item_ref.set("data", item.data)
 	item_ref.position = item.pos
