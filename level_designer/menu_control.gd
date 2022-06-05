@@ -146,31 +146,32 @@ func _selection_size_changed(rect):
 		set_editable_rect(false)
 
 func fill_grid():
-	for key in level_editor.item_textures.keys():
-		var button = list_item.instance()
-		var tex : AtlasTexture = AtlasTexture.new()
-		
-		var path = level_editor.item_textures[key]["List"]
-		if path == null:
-			path = level_editor.item_textures[key]["Placed"]
-		
-		var stream: StreamTexture = load(path)
-		tex.atlas = stream
-		var min_size = Vector2(
-			min(
-				stream.get_width(),
-				16
-			),
-			min(
-				stream.get_height(),
-				16
-			)
-		)
-		tex.region = Rect2(
-			stream.get_size() / 2 - min_size / 2,
-			min_size
-		)
+	for item_id in range(level_editor.item_textures.size()):
+		if level_editor.item_textures[item_id] != null:
+			var button = list_item.instance()
+			var tex : AtlasTexture = AtlasTexture.new()
 			
-		button.texture_normal = tex
-		button.item_id = key
-		item_grid.add_child(button)
+			var path = level_editor.item_textures[item_id]["List"]
+			if path == null:
+				path = level_editor.item_textures[item_id]["Placed"]
+			
+			var stream: StreamTexture = load(path)
+			tex.atlas = stream
+			var min_size = Vector2(
+				min(
+					stream.get_width(),
+					16
+				),
+				min(
+					stream.get_height(),
+					16
+				)
+			)
+			tex.region = Rect2(
+				stream.get_size() / 2 - min_size / 2,
+				min_size
+			)
+				
+			button.texture_normal = tex
+			button.item_id = item_id
+			item_grid.add_child(button)

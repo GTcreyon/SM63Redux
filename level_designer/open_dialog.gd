@@ -43,27 +43,27 @@ func load_buffer(buffer: PoolByteArray):
 	var item_id = decode_int_bytes(2)
 	while item_id != 65535: # end character, [255, 255]
 		var inst = main.ITEM_PREFAB.instance()
-		var props = main.items[str(item_id)].properties
+		var props = main.items[item_id].properties
 		for key in props:
-			inst.properties[key] = {}
-			inst.properties[key]["value"] = decode_value_of_type(props[key]["type"])
-#			var val = store_value_of_type(item.properties[key].type, item.properties[key].value)
-#			output.append_array(val)
-		inst.texture = load(main.item_textures[str(item_id)]["Placed"])
+			var val = decode_value_of_type(props[key]["type"])
+			inst.properties[key] = val
+			inst.update_visual_property(key, val)
+		inst.texture = load(main.item_textures[item_id]["Placed"])
 		inst.item_id = item_id
-		inst.position = inst.properties["Position"].value
-		main.add_child(inst)
+		inst.position = inst.properties["Position"]
+		$"/root/Main/Template/Items".add_child(inst)
 		item_id = decode_int_bytes(2)
 #
 #	# polygons
-#	var polygon_list = $"/root/Main/Template/Terrain".get_children()
-#	output.append_array(store_int_bytes(polygon_list.size(), 3))
-#	for polygon in polygon_list:
-#		output.append_array(store_int_bytes(0, 2)) # TODO: material
-#		output.append_array(store_int_bytes(polygon.z_index, 2))
-#		output.append_array(store_int_bytes(polygon.polygon.size(), 2))
-#		for vertex in polygon.polygon:
-#			output.append_array(store_vector2_bytes(vertex))
+	for i in range(decode_int_bytes(3)):
+		var inst = main.TERRAIN_PREFAB.instance()
+		inst.terrain_material = decode_int_bytes(2)
+		print(inst.terrain_material)
+		inst.z_index = decode_int_bytes(2)
+		print(inst.z_index)
+		for j in range(decode_int_bytes(2)):
+			inst.polygon.append(decode_vector2_bytes(3))
+		$"/root/Main/Template/Terrain".add_child(inst)
 #
 #	# pipescript
 #	# TODO

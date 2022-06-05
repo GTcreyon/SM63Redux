@@ -39,7 +39,7 @@ func _input(event):
 func _process(_delta):
 	if ghost:
 		position = main.snap_vector(get_global_mouse_position())
-		properties["Position"].value = position
+		properties["Position"] = position
 	
 	if material != null:
 		pulse = fmod((pulse + 0.1), 2 * PI)
@@ -51,7 +51,7 @@ func _process(_delta):
 
 
 func set_property(label, value) -> void:
-	properties[label]["value"] = value
+	properties[label] = value
 	update_visual_property(label, value)
 
 

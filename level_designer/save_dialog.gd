@@ -1,7 +1,7 @@
 extends FileDialog
 
 var save_dict: Dictionary
-
+onready var main = $"/root/Main"
 
 func _on_SaveDialog_file_selected(path):
 	var file = File.new()
@@ -22,7 +22,10 @@ func generate_level_binary() -> PoolByteArray:
 	for item in $"/root/Main/Template/Items".get_children():
 		output.append_array(store_int_bytes(item.item_id, 2))
 		for key in item.properties:
-			var val = store_value_of_type(item.properties[key].type, item.properties[key].value)
+			var val = store_value_of_type(main.items[item.item_id].properties[key].type, item.properties[key])
+			print(item.properties[key])
+			print(main.items[item.item_id].properties[key].type)
+			print(val)
 			output.append_array(val)
 	output.append_array([255, 255]) # end character, replaces ID
 		

@@ -12,10 +12,10 @@ signal selection_changed #only gets called when the hash changed
 signal selection_event #gets fired always whenever some calculation regarding events is done
 signal selection_size_changed #gets fired whenever the selection rect changes
 
-export(Dictionary) var item_classes = {}
-export(Dictionary) var items = {}
-export(Dictionary) var item_textures = {}
-export(Dictionary) var item_scenes = {}
+var item_classes = {}
+var items = []
+var item_textures = []
+var item_scenes = {}
 
 var start_pos
 
@@ -52,20 +52,19 @@ func place_terrain(poly, texture_type, textures):
 	return terrain_ref
 
 
-func place_item(item_id):
-	print(item_id)
+func place_item(item_id: int):
 	var inst = ITEM_PREFAB.instance()
 	inst.ghost = true
 	inst.texture = load(item_textures[item_id]["Placed"])
 	inst.item_id = item_id
 	var properties: Dictionary = items[item_id].properties
-	print(properties)
+	var item_properties: Dictionary = {}
 	for key in properties:
 		if properties[key]["default"] == null:
-			properties[key]["value"] = default_of_type(properties[key]["type"])
+			item_properties[key] = default_of_type(properties[key]["type"])
 		else:
-			properties[key]["value"] = str2var(properties[key]["default"])
-	inst.properties = properties.duplicate(true) # duplicate this or all items share the same props
+			item_properties[key] = str2var(properties[key]["default"])
+	inst.properties = item_properties
 	$Template/Items.add_child(inst)
 	return inst
 
@@ -114,7 +113,6 @@ func read_items():
 	var allow_reparent: bool = true
 	while (!parser.read()):
 		var node_type = parser.get_node_type()
-		
 		match node_type:
 			#unused nodes
 			parser.NODE_NONE:
@@ -146,10 +144,13 @@ func read_items():
 						"property":
 							register_property(items, parent_subname, parent_name, parser)
 						"texture":
-							if !item_textures.has(parent_subname):
-								item_textures[parent_subname] = {"Placed": null, "List": null}
+							var item_id = int(parent_subname)
+							if item_textures.size() < item_id + 1:
+								item_textures.resize(item_id + 1)
+							if item_textures[item_id] == null:
+								item_textures[item_id] = {"Placed": null, "List": null}
 							var path = parser.get_named_attribute_value_safe("path")
-							item_textures[parent_subname][parser.get_named_attribute_value_safe("tag")] = path
+							item_textures[item_id][parser.get_named_attribute_value_safe("tag")] = path
 						"inherit":
 							inherit_class(items, parent_subname, parent_name, parser)
 				
@@ -162,7 +163,10 @@ func read_items():
 					elif node_name == "item":
 						var subname = parser.get_named_attribute_value_safe("id")
 						parent_subname = subname
-						items[subname] = {
+						var item_id = int(subname)
+						if items.size() < item_id + 1:
+							items.resize(item_id + 1)
+						items[item_id] = {
 							name = parser.get_named_attribute_value_safe("name"),
 							properties = {},
 						}
@@ -176,10 +180,10 @@ func read_items():
 	#print(items)
 	#print(item_textures)
 
-func register_property(target: Dictionary, subname: String, type: String, parser: XMLParser):
+func register_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
 	if type == "item":
-		item_class_properties = target[subname].properties
+		item_class_properties = target[int(subname)].properties
 	else:
 		item_class_properties = target[subname]
 	var var_txt = parser.get_named_attribute_value_safe("var")
@@ -193,10 +197,10 @@ func register_property(target: Dictionary, subname: String, type: String, parser
 	item_class_properties[parser.get_named_attribute_value("label")] = properties
 
 
-func inherit_class(target: Dictionary, subname: String, type: String, parser: XMLParser):
+func inherit_class(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
 	if type == "item":
-		item_class_properties = target[subname].properties
+		item_class_properties = target[int(subname)].properties
 	else:
 		item_class_properties = target[subname]
 	var parent_class = item_classes[parser.get_named_attribute_value("name")]

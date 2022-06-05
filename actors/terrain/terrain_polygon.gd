@@ -9,6 +9,7 @@ export(Texture) var top_corner_shade
 export(Texture) var edge
 export(Texture) var bottom
 
+export(int) var terrain_material = 0
 export(Vector2) var up_direction = Vector2(0, -1) setget set_down_direction
 export(Vector2) var down_direction = Vector2(0, 1) setget set_null
 export(int) var max_deviation = 60
