@@ -33,7 +33,7 @@ func set_pos(edge, progress) -> bool:
 
 func _process(delta):
 	var dmod = 60 * delta
-	if Input.is_action_just_pressed("LD_place"):
+	if Input.is_action_just_pressed("LD_select"):
 		playing = true
 	if !playing:
 		if flip_h:

@@ -21,8 +21,6 @@ func _process(_delta):
 	var i_up = Input.is_action_pressed("LD_cam_up")
 	var i_down = Input.is_action_pressed("LD_cam_down")
 	var i_pan = Input.is_action_pressed("LD_cam_pan")
-	var i_place = Input.is_action_pressed("LD_place")
-	var i_delete = Input.is_action_pressed("LD_delete")
 	mouse_pos = get_local_mouse_position()
 	
 	if i_pan:
