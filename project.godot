@@ -22,12 +22,12 @@ _global_script_classes=[ {
 "base": "Container",
 "class": "OutlineContainer",
 "language": "GDScript",
-"path": "res://gui/custom_nodes/OutlineContainer.gd"
+"path": "res://gui/custom_nodes/outline_container.gd"
 }, {
 "base": "Container",
 "class": "PolygonContainer",
 "language": "GDScript",
-"path": "res://gui/custom_nodes/PolygonContainer.gd"
+"path": "res://gui/custom_nodes/polygon_container.gd"
 }, {
 "base": "Node",
 "class": "SM63ToRedux",
