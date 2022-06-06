@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name SM63ToRedux
 
 onready var tile_to_poly: TileToPoly = $"../TileToPoly"

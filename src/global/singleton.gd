@@ -49,6 +49,7 @@ var pause_menu = false
 var line_count: int = 0
 var disable_limits = false
 var force_touch = false
+var ld_buffer = PoolByteArray([])
 var meta_paused = false
 var meta_pauses = {
 	"feedback":false,

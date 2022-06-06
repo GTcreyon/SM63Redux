@@ -5,9 +5,12 @@ const PLAYER_SCENE = preload("res://actors/player/player.tscn")
 const BG_SCENE = preload("res://actors/bg/t1/bg_t1.tscn")
 
 onready var main = $"/root/Main"
+onready var save = $"/root/Main/UILayer/SaveDialog"
 
 
 func _on_Start_pressed():
+	var serializer = LevelBuffer.new()
+	Singleton.ld_buffer = serializer.generate_level_binary($"/root/Main/Template/Items".get_children(), $"/root/Main/Template/Terrain".get_children(), main)
 	var template = $"/root/Main/Template"
 	var template_inst = TEMPLATE_SCENE.instance()
 	for item in template.get_node("Items").get_children():
@@ -23,6 +26,7 @@ func _on_Start_pressed():
 	scoop_children(main, template_inst)
 	main.add_child(PLAYER_SCENE.instance())
 	main.add_child(BG_SCENE.instance())
+	main.in_level = true
 
 
 func apply_properties(inst, item_data) -> void:

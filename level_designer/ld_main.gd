@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var open = $"/root/Main/UILayer/OpenDialog"
 onready var sm63_to_redux: SM63ToRedux = Singleton.sm63_to_redux
 onready var ld_ui = $UILayer/LDUI
 onready var ld_camera = $Camera
@@ -16,7 +17,7 @@ var item_classes = {}
 var items = []
 var item_textures = []
 var item_scenes = []
-
+var in_level = false
 var start_pos
 
 var selection = {
@@ -214,10 +215,14 @@ func inherit_class(target, subname: String, type: String, parser: XMLParser):
 
 func _ready():
 	var template = lv_template.instance()
-	call_deferred("add_child", template)
-	
+	add_child(template)
 	read_items()
 	ld_ui.fill_grid()
+	
+	if Singleton.ld_buffer != PoolByteArray([]):
+		var serializer = LevelBuffer.new()
+		serializer.load_buffer(Singleton.ld_buffer)
+		Singleton.ld_buffer = PoolByteArray([])
 
 func retain_order_by_hash(a, b):
 	return hash(a) < hash(b)
@@ -231,6 +236,11 @@ func _process(_dt):
 		if !selection_rect.is_equal_approx(new):
 			selection_rect = new
 			emit_signal("selection_size_changed", selection_rect)
+	
+	if Input.is_action_just_pressed("LD_exit"): # return to designer
+		if in_level:
+			in_level = false
+			get_tree().change_scene("res://level_designer/level_designer.tscn")
 
 func _input(event):
 	if event is InputEventMouse:
