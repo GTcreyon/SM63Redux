@@ -13,6 +13,8 @@ onready var spin_area = $SpinArea
 var rng = RandomNumberGenerator.new()
 var collect_id
 
+export var coin_count = 5
+
 func _ready():
 	collect_id = Singleton.get_collect_id()
 	rng.seed = hash(position.x + position.y * PI)
@@ -46,7 +48,7 @@ func destroy():
 		inst.get_node("AnimatedSprite").frame = rng.randi() % 7
 		main.call_deferred("add_child", inst)
 	if Singleton.request_coin(collect_id):
-		for _i in range(5):
+		for _i in range(coin_count):
 			var inst = coin.instance()
 			inst.position = position# + Vector2((rng.randf() - 0.5) * 27, (rng.randf() - 0.5) * 27)
 			inst.vel = Vector2((rng.randf() - 0.5) * 5.0, rng.randf() * -2.5)

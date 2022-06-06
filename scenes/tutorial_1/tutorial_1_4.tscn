@@ -31,7 +31,6 @@
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 32 )
-shader_param/atlas_dimensions = Vector2( 1, 1 )
 shader_param/width = 2
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -39,7 +38,6 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 32 )
-shader_param/atlas_dimensions = Vector2( 1, 1 )
 shader_param/width = 2
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -47,7 +45,6 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 [sub_resource type="ShaderMaterial" id=3]
 resource_local_to_scene = true
 shader = ExtResource( 32 )
-shader_param/atlas_dimensions = Vector2( 1, 1 )
 shader_param/width = 2
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -67,6 +64,7 @@ shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
 [node name="BGT1" parent="." instance=ExtResource( 34 )]
 
 [node name="CameraArea" parent="." instance=ExtResource( 36 )]
+position = Vector2( 7, 0 )
 polygon = PoolVector2Array( -389, -160, -1008, -160, -1008, -848, 1168, -848, 1168, -400, 816, -400, 747.278, -319.208, 752, 288, -320, 288, -322, -92 )
 
 [node name="Player" parent="." instance=ExtResource( 18 )]
@@ -179,15 +177,16 @@ count = 1
 [node name="TiltingPlatforms" type="Node2D" parent="Items"]
 
 [node name="TiltingPlatform" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
-position = Vector2( 81, -241 )
+position = Vector2( 86, -241 )
+length = 3
 
 [node name="TiltingPlatform2" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
-position = Vector2( -135, -269 )
-width = 3
+position = Vector2( -135, -270 )
+length = 6
 
 [node name="TiltingPlatform3" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
-position = Vector2( -285, -641 )
-width = 3
+position = Vector2( -278, -641 )
+length = 6
 
 [node name="RotatingBlocks" type="Node2D" parent="Items"]
 
@@ -282,7 +281,7 @@ position = Vector2( 487, -202 )
 position = Vector2( 473, -166 )
 
 [node name="Coin17" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -138, -298 )
+position = Vector2( -135, -298 )
 
 [node name="Coin18" parent="Items/Coins" instance=ExtResource( 24 )]
 position = Vector2( -535, -386 )
@@ -294,7 +293,7 @@ position = Vector2( -356, -375 )
 position = Vector2( -635, -386 )
 
 [node name="Coin20" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -259, -669 )
+position = Vector2( -252, -669 )
 
 [node name="Coin22" parent="Items/Coins" instance=ExtResource( 24 )]
 position = Vector2( 401, -627 )
@@ -306,7 +305,7 @@ position = Vector2( 503, -627 )
 position = Vector2( 452, -627 )
 
 [node name="Coin21" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -312, -669 )
+position = Vector2( -305, -669 )
 
 [node name="Bottles" type="Node2D" parent="Items"]
 
@@ -323,7 +322,6 @@ position = Vector2( -3, -280 )
 
 [node name="Goomba" parent="Items/Enemy" instance=ExtResource( 25 )]
 position = Vector2( 262, 179 )
-direction = -1
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource( 35 )]
 position = Vector2( -638, -668 )

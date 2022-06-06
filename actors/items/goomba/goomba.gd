@@ -10,7 +10,8 @@ const sfx = {
 
 var vel = Vector2.ZERO
 
-export var direction = 1
+export var disabled = false setget set_disabled
+export var mirror = false
 
 var is_jumping = false #this is for stopping goomba's movement and then
 #transition to higher speed.
@@ -34,11 +35,17 @@ onready var main = $"/root/Main"
 
 func _ready():
 	collect_id = Singleton.get_collect_id()
-	sprite.frame = hash(position.x + position.y * PI) % 4
-	sprite.playing = true
+	sprite.playing = !disabled
+	if !disabled:
+		sprite.frame = hash(position.x + position.y * PI) % 4
 
 
 func _physics_process(_delta):
+	if !disabled:
+		physics_step()
+
+
+func physics_step():
 	if target != null && target.locked:
 		target = null
 	if sprite.animation == "squish":
@@ -51,7 +58,7 @@ func _physics_process(_delta):
 			queue_free()
 		else:
 			if sprite.frame == 3:
-				dead = true #apparently queue_free() doesn't cancel the current cycle
+				dead = true
 			
 	#code to push enemies apart - maybe come back to later?
 #	for area in get_overlapping_areas():
@@ -71,9 +78,9 @@ func _physics_process(_delta):
 		vel.y = min(vel.y + GRAVITY, 6)
 	
 	if sprite.animation != "squish" && !struck:
-		#raycast2d is used here to detect if the object collided with a wall
-		#to change directions
-		sprite.flip_h = direction == -1
+		# raycast2d is used here to detect if the object collided with a wall
+		# to change directions
+		sprite.flip_h = mirror
 		
 		if is_on_floor():
 			if is_on_wall() && target == null:
@@ -96,7 +103,7 @@ func _physics_process(_delta):
 					sprite.frame = 0
 					sprite.animation = "walking"
 				else:
-					sprite.frame = 2 + land_timer #finish up jumping anim
+					sprite.frame = 2 + land_timer # finish up jumping anim
 			else:
 				vel.y = GRAVITY
 				if sprite.frame == 0 || sprite.frame == 3:
@@ -110,12 +117,12 @@ func _physics_process(_delta):
 					sprite.speed_scale = abs(vel.x) / 2 + 1
 					if target.position.x - position.x < -20 || (target.position.x < position.x && abs(target.position.y - position.y) < 26):
 						vel.x = max(vel.x - 0.1, -2)
-						direction = -1
+						mirror = true
 						raycast.position.x = -9
 						sprite.playing = true
 					elif target.position.x - position.x > 20 || (target.position.x > position.x && abs(target.position.y - position.y) < 26):
 						vel.x = min(vel.x + 0.1, 2)
-						direction = 1
+						mirror = false
 						raycast.position.x = 9
 						sprite.playing = true
 					else:
@@ -125,14 +132,14 @@ func _physics_process(_delta):
 				else:
 					sprite.speed_scale = 1
 					sprite.playing = true
-					if direction == 1:
-						vel.x = min(vel.x + 0.1, 1)
-					else:
+					if mirror:
 						vel.x = max(vel.x - 0.1, -1)
+					else:
+						vel.x = min(vel.x + 0.1, 1)
 					wander_dist += 1
 					if wander_dist >= 120 && sprite.frame == 0:
 						wander_dist = 0
-						direction *= -1
+						mirror = !mirror
 		else:
 			sprite.animation = "jumping"
 			if !is_jumping:
@@ -165,10 +172,7 @@ func _physics_process(_delta):
 
 func _on_Collision_mario_detected(body):
 	if target == null && sprite.animation != "squish" && !body.locked:
-		if body.position.x > position.x:
-			direction = 1
-		else:
-			direction = -1
+		mirror = body.position.x < position.x
 		target = body
 		if is_on_floor():
 			sprite.animation = "jumping"
@@ -181,7 +185,7 @@ func _on_Collision_mario_detected(body):
 
 
 func flip_ev():
-	direction *= -1
+	mirror = !mirror
 	raycast.position.x *= -1
 
 
@@ -224,3 +228,17 @@ func _on_WaterCheck_area_entered(_area):
 
 func _on_WaterCheck_area_exited(_area):
 	water_bodies -= 1
+
+
+func set_disabled(val):
+	disabled = val
+	set_collision_layer_bit(0, 0 if val else 1)
+	if hurtbox == null:
+		hurtbox = $Hurtbox
+	if raycast == null:
+		raycast = $RayCast2D
+	if sprite == null:
+		sprite = $AnimatedSprite
+	raycast.enabled = !val
+	hurtbox.monitoring = !val
+	sprite.playing = !val

@@ -33,13 +33,13 @@ script = ExtResource( 3 )
 frames = SubResource( 1 )
 script = ExtResource( 4 )
 
-[node name="Following" type="Area2D" parent="."]
+[node name="FollowArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Following"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea"]
 shape = SubResource( 2 )
 
 [node name="Damage" type="Area2D" parent="."]
@@ -63,8 +63,8 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 5 )
 
-[connection signal="body_entered" from="Following" to="." method="_on_Following_body_entered"]
-[connection signal="body_exited" from="Following" to="." method="_on_Following_body_exited"]
+[connection signal="body_entered" from="FollowArea" to="." method="_on_Following_body_entered"]
+[connection signal="body_exited" from="FollowArea" to="." method="_on_Following_body_exited"]
 [connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered"]
 [connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
 [connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]

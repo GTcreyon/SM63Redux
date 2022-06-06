@@ -13,63 +13,50 @@ pause_mode = 2
 process_priority = 1
 layer = -100
 
-[node name="SkyOld" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 2 )
-centered = false
-offset = Vector2( -320, -180 )
-
-[node name="Sky" type="TextureRect" parent="."]
+[node name="BGParent" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Sky" type="TextureRect" parent="BGParent"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 2 )
 expand = true
 
-[node name="Layer1" type="Polygon2D" parent="."]
-visible = false
-position = Vector2( 0, 267 )
-texture = ExtResource( 1 )
-polygon = PoolVector2Array( 0, 0, 640, 0, 640, 93, 0, 93 )
-
-[node name="Layer2" type="Polygon2D" parent="."]
-visible = false
-texture = ExtResource( 3 )
-polygon = PoolVector2Array( 0, 0, 640, 0, 640, 176, 0, 176 )
-
-[node name="Layer3" type="Polygon2D" parent="."]
-visible = false
-position = Vector2( 0, 132 )
-texture = ExtResource( 5 )
-polygon = PoolVector2Array( 0, 0, 640, 0, 640, 228, 0, 228 )
-
-[node name="CloudsLower" type="TextureRect" parent="."]
+[node name="CloudsLower" type="TextureRect" parent="BGParent"]
 anchor_top = 0.625
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 texture = ExtResource( 1 )
 stretch_mode = 2
 script = ExtResource( 6 )
 
-[node name="ColorRect" type="ColorRect" parent="CloudsLower"]
+[node name="ColorRect" type="ColorRect" parent="BGParent/CloudsLower"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 93.0
+mouse_filter = 2
 color = Color( 0.701961, 0.776471, 0.894118, 1 )
 
-[node name="CloudsUpper" type="TextureRect" parent="."]
+[node name="CloudsUpper" type="TextureRect" parent="BGParent"]
 anchor_right = 1.0
 margin_right = 9.0
 margin_bottom = 177.0
+mouse_filter = 2
 texture = ExtResource( 3 )
 stretch_mode = 2
 script = ExtResource( 7 )
 
-[node name="Hills" type="TextureRect" parent="."]
+[node name="Hills" type="TextureRect" parent="BGParent"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -248.0
 rect_pivot_offset = Vector2( 0, 228 )
+mouse_filter = 2
 texture = ExtResource( 5 )
 stretch_mode = 2
 script = ExtResource( 8 )

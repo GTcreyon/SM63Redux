@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://actors/items/rocks/big_rock/big_rock.png" type="Texture" id=1]
+[ext_resource path="res://actors/items/rocks/big_rock/big_rock.gd" type="Script" id=2]
 
 [node name="BigRock" type="StaticBody2D"]
+script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )

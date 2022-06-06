@@ -4,7 +4,7 @@ extends Area2D
 export(Array, String, MULTILINE) var lines = [""]
 
 onready var player = $"/root/Main/Player"
-onready var dialog = $"/root/Main/Player/Camera2D/GUI/DialogBox"
+onready var dialog = $"/root/Main/Player/Camera/GUI/DialogBox"
 
 const spot_presets = [
 	[ #red

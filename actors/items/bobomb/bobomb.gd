@@ -11,7 +11,8 @@ const sfx = {
 
 var vel = Vector2.ZERO
 
-export var direction = 1
+export var mirror = false
+export var disabled = false
 
 var target = null
 var wander_dist = 0
@@ -24,6 +25,7 @@ var collect_id
 var water_bodies : int = 0
 
 onready var hurtbox = $Hurtbox
+onready var alert_area = $AlertArea
 onready var base = $Sprites/Base
 onready var fuse = $Sprites/Fuse
 onready var key = $Sprites/Key
@@ -36,9 +38,6 @@ onready var lm_counter = $"/root/Singleton".hp
 
 func _ready():
 	collect_id = Singleton.get_collect_id()
-	base.play()
-	fuse.play()
-	key.play()
 
 
 func _process(_delta):
@@ -51,6 +50,20 @@ func _process(_delta):
 
 
 func _physics_process(_delta):
+	update_disable()
+	if !disabled:
+		physics_step()
+
+
+func update_disable():
+	base.playing = !disabled
+	fuse.playing = !disabled
+	key.playing = !disabled
+	hurtbox.monitoring = !disabled
+	alert_area.monitoring = !disabled
+
+
+func physics_step():
 	if !is_on_floor():
 		raycast.enabled = false
 	
@@ -85,12 +98,12 @@ func _physics_process(_delta):
 				base.speed_scale = abs(vel.x) / 2 + 1
 				if target.position.x - position.x < -20 || (target.position.x < position.x && abs(target.position.y - position.y) < 26):
 					vel.x = max(vel.x - 0.1, -2)
-					direction = -1
+					mirror = true
 					raycast.position.x = -9
 					base.playing = true
 				elif target.position.x - position.x > 20 || (target.position.x > position.x && abs(target.position.y - position.y) < 26):
 					vel.x = min(vel.x + 0.1, 2)
-					direction = 1
+					mirror = false
 					raycast.position.x = 9
 					base.playing = true
 				else:
@@ -100,14 +113,14 @@ func _physics_process(_delta):
 			else:
 				base.speed_scale = 1
 				base.playing = true
-				if direction == 1:
-					vel.x = min(vel.x + 0.1, 1)
-				else:
+				if mirror:
 					vel.x = max(vel.x - 0.1, -1)
+				else:
+					vel.x = min(vel.x + 0.1, 1)
 				wander_dist += 1
 				if wander_dist >= 120 && base.frame == 0:
 					wander_dist = 0
-					direction *= -1
+					mirror = !mirror
 	
 	var snap
 	if !is_on_floor() || base.animation == "struck":
@@ -152,7 +165,13 @@ func _physics_process(_delta):
 
 
 func update_sprites():
-	if direction == 1:
+	if mirror:
+		base.flip_h = true
+		fuse.flip_h = true
+		fuse.offset.x = 4
+		key.flip_h = true
+		key.offset.x = 22
+	else:
 		base.flip_h = false
 		fuse.flip_h = false
 		key.flip_h = false
@@ -161,25 +180,16 @@ func update_sprites():
 			fuse.offset.x = 3
 		else:
 			fuse.offset.x = 0
-	elif direction == -1:
-		base.flip_h = true
-		fuse.flip_h = true
-		fuse.offset.x = 4
-		key.flip_h = true
-		key.offset.x = 22
 
 
 func flip_ev():
-	direction *= -1
+	mirror = !mirror
 	raycast.position.x *= -1
 
 
 func _on_AlertArea_body_entered(body):
 	if target == null:
-		if body.position.x > position.x:
-			direction = 1
-		else:
-			direction = -1
+		mirror = body.position.x < position.x
 		target = body
 		fuse.animation = "lit"
 		wander_dist = 0

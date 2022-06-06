@@ -2,7 +2,7 @@ extends Node2D
 
 onready var sm63_to_redux: SM63ToRedux = Singleton.sm63_to_redux
 onready var ld_ui = $UILayer/LDUI
-onready var ld_camera = $LDCamera
+onready var ld_camera = $Camera
 onready var lv_template := preload("res://level_designer/template.tscn")
 
 const terrain_prefab = preload("res://actors/terrain/terrain_polygon.tscn")
@@ -33,7 +33,6 @@ var selection_rect = Rect2()
 var last_local_mouse_position = Vector2()
 
 func is_selected(item):
-	var is_selected = false
 	for selected in selection.hit:
 		if selected == item:
 			return true
@@ -41,9 +40,9 @@ func is_selected(item):
 
 func snap_vector(vec, grid = 8):
 	return Vector2(
-				floor(vec.x / grid + 0.5) * grid,
-				floor(vec.y / grid + 0.5) * grid
-			)
+		floor(vec.x / grid + 0.5) * grid,
+		floor(vec.y / grid + 0.5) * grid
+	)
 
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = terrain_prefab.instance()
@@ -58,8 +57,11 @@ func place_item(item_name):
 	inst.item_name = item_name
 	var properties: Dictionary = items[item_name]
 	for key in properties:
-		properties[key]["value"] = default_of_type(properties[key]["type"])
-	inst.properties = properties.duplicate(true) # gotta duplicate this or all items share the same props
+		if properties[key]["default"] == null:
+			properties[key]["value"] = default_of_type(properties[key]["type"])
+		else:
+			properties[key]["value"] = str2var(properties[key]["default"])
+	inst.properties = properties.duplicate(true) # duplicate this or all items share the same props
 	$Template/Items.add_child(inst)
 	return inst
 
@@ -68,6 +70,12 @@ func default_of_type(type):
 	match type:
 		"bool":
 			return false
+		"int":
+			return 0
+		"float":
+			return 0.0
+		"Vector2":
+			return Vector2.ZERO
 
 
 func _old_place_item(item):
@@ -123,47 +131,23 @@ func read_items():
 				if parent_name == "class":
 					match node_name:
 						"property":
-							var item_class = item_classes[parent_subname]
-							var link_txt = parser.get_named_attribute_value_safe("link")
-							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
-							
-							var properties = {
-								type = parser.get_named_attribute_value("type"),
-								link = link_txt,
-								description = parser.get_named_attribute_value("description")
-							}
-							item_class[parser.get_named_attribute_value("label")] = properties
+							register_property(item_classes, parent_subname, parser)
 						"inherit":
-							var item_class = item_classes[parent_subname]
-							var parent_class = item_classes[parser.get_named_attribute_value("name")]
-							for property in parent_class:
-								item_class[property] = parent_class[property]
+							inherit_class(item_classes, parent_subname, parser)
 				elif parent_name == "item":
 					match node_name:
 						"scene":
 							var path = parser.get_named_attribute_value_safe("path")
 							item_scenes[parent_subname] = path
 						"property":
-							var item_class = items[parent_subname]
-							var link_txt = parser.get_named_attribute_value_safe("link")
-							link_txt = "#DEFAULT#" if link_txt == "" else link_txt
-							
-							var properties = {
-								type = parser.get_named_attribute_value("type"),
-								link = link_txt,
-								description = parser.get_named_attribute_value("description")
-							}
-							item_class[parser.get_named_attribute_value("label")] = properties
+							register_property(items, parent_subname, parser)
 						"texture":
 							if !item_textures.has(parent_subname):
 								item_textures[parent_subname] = {"Placed": null, "List": null}
 							var path = parser.get_named_attribute_value_safe("path")
 							item_textures[parent_subname][parser.get_named_attribute_value_safe("tag")] = path
 						"inherit":
-							var item_class = items[parent_subname]
-							var parent_class = item_classes[parser.get_named_attribute_value("name")]
-							for property in parent_class:
-								item_class[property] = parent_class[property]
+							inherit_class(items, parent_subname, parser)
 				
 				if allow_reparent:
 					var subname = parser.get_named_attribute_value_safe("name")
@@ -182,6 +166,26 @@ func read_items():
 	#print(item_classes)
 	#print(items)
 	#print(item_textures)
+
+func register_property(target: Dictionary, subname: String, parser: XMLParser):
+	var item_class = target[subname]
+	var var_txt = parser.get_named_attribute_value_safe("var")
+	var default = parser.get_named_attribute_value_safe("default")
+	var properties = {
+		type = parser.get_named_attribute_value("type"),
+		var_name = null if var_txt == "" else var_txt,
+		default = null if default == "" else default,
+		description = parser.get_named_attribute_value("description")
+	}
+	item_class[parser.get_named_attribute_value("label")] = properties
+
+
+func inherit_class(target: Dictionary, subname: String, parser: XMLParser):
+	var item_class = target[subname]
+	var parent_class = item_classes[parser.get_named_attribute_value("name")]
+	for property in parent_class:
+		item_class[property] = parent_class[property]
+
 
 func _ready():
 	var template = lv_template.instance()
