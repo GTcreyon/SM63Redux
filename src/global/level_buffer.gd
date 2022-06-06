@@ -281,6 +281,7 @@ func log_error(txt: String):
 
 func run_tests(verbose: bool): # a set of unit tests to be run to check if the serialisation is working correctly
 	# arrange
+	print("Serializer tests start! Errors are normal - the tests are checking if the warnings work correctly. Only worry if you see full caps.")
 	var fail = false
 	var tests = {
 		"bool": {
@@ -316,12 +317,14 @@ func run_tests(verbose: bool): # a set of unit tests to be run to check if the s
 	}
 	# act
 	for key in tests:
-		print("Valid tests for ", key, ":")
+		if verbose:
+			print("Valid tests for ", key, ":")
 		for input in tests[key].data.valid:
-			fail = fail || test_data(input, key, tests[key].bytes, true, true)
-		print("Error tests for ", key, ":")
+			fail = fail || test_data(input, key, tests[key].bytes, true, verbose)
+		if verbose:
+			print("Error tests for ", key, ":")
 		for input in tests[key].data.error:
-			var test_result = test_data(input, key, tests[key].bytes, false, true)
+			var test_result = test_data(input, key, tests[key].bytes, false, verbose)
 			fail = test_result || fail # done like this to avoid issues with lazy evaluation
 	# assert ???
 	if fail:
@@ -336,16 +339,18 @@ func test_data(input, type: String, num: int, valid: bool, verbose: bool):
 	var decoded = decode_value_of_type(encoded, type)
 	if valid:
 		if decoded != input || logged_errors.size() > 0:
-			printerr("TEST FAIL. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
-			printerr("Logged errors: ", logged_errors)
 			fail = true
+			if verbose:
+				printerr("TEST FAIL. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
+				printerr("Logged errors: ", logged_errors)
 		elif verbose:
 			print("Test pass. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
 	else:
 		if logged_errors.size() == 0:
-			printerr("TEST VOID. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
-			printerr("No errors logged, despite data being intentionally invalid.")
 			fail = true
+			if verbose:
+				printerr("TEST VOID. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
+				printerr("No errors logged, despite data being intentionally invalid.")
 		elif verbose:
 			print("Test fail as expected. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
 	logged_errors = PoolStringArray([])
