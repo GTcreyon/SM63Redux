@@ -15,7 +15,7 @@ signal selection_size_changed #gets fired whenever the selection rect changes
 var item_classes = {}
 var items = []
 var item_textures = []
-var item_scenes = {}
+var item_scenes = []
 
 var start_pos
 
@@ -73,7 +73,7 @@ func default_of_type(type):
 	match type:
 		"bool":
 			return false
-		"int":
+		"uint", "sint":
 			return 0
 		"float":
 			return 0.0
@@ -141,7 +141,10 @@ func read_items():
 					match node_name:
 						"scene":
 							var path = parser.get_named_attribute_value_safe("path")
-							item_scenes[parent_subname] = path
+							var item_id = int(parent_subname)
+							if item_scenes.size() < item_id + 1:
+								item_scenes.resize(item_id + 1)
+							item_scenes[item_id] = path
 						"property":
 							register_property(items, parent_subname, parent_name, parser)
 						"texture":

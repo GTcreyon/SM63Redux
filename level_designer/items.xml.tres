@@ -54,12 +54,12 @@
 	
     <class name="telescoping">
         <inherit name="plane" />
-		<property label="Length" type="int" description="The length of the item." />
+		<property label="Length" type="uint" description="The length of the item." />
     </class>
 	
     <class name="deco">
 		<inherit name="plane" />
-        <property label="Z Index" type="int" description="Items with a higher layer will be displayed in front of items with a lower layer." />
+        <property label="Z Index" type="sint" description="Items with a higher layer will be displayed in front of items with a lower layer." />
     </class>
 
     <item id="0" name="Yellow Coin" description="A single coin.">
@@ -117,7 +117,7 @@
 		<texture tag="List" path="res://actors/items/tipping_log/tipping_log_middle.png" />
 		<texture tag="Placed" path="res://actors/items/tipping_log/tipping_log_middle.png" />
         <inherit name="telescoping" />
-		<property label="Pivot Offset" type="int" description="The offset from the center upon which the log will pivot when it rotates." />
+		<property label="Pivot Offset" type="sint" description="The offset from the center upon which the log will pivot when it rotates." />
     </item>
 
     <item id="9" name="Cloud" description="A cloud. Semisolid.">
@@ -195,7 +195,7 @@
 		<texture tag="List" path="res://actors/items/butterfly/butterfly_icon.png" />
 		<texture tag="Placed" path="res://actors/items/butterfly/butterfly_placed.png" />
         <inherit name="ball" />
-        <property label="Color" type="int" interface="butterfly_color" description="The butterfly's color." />
+        <property label="Color" type="uint" interface="butterfly_color" description="The butterfly's color." />
         <property label="Area" type="Vector2" default="Vector2(20, 10)" description="The area in which the butterfly is allowed to move." />
         <property label="Speed" type="Vector2" default="Vector2(2, 3.25)" description="The speed at which the butterfly floats up/down and left/right." />
     </item>
@@ -267,7 +267,7 @@
 		<scene path="res://actors/items/breakable_box/breakable_box.tscn" />
 		<texture tag="List" path="res://actors/items/breakable_box/box1.png" />
 		<texture tag="Placed" path="res://actors/items/breakable_box/box1.png" />
-		<property label="Coin Count" type="int" description="The number of coins the box will drop when destroyed." />
+		<property label="Coin Count" type="uint" description="The number of coins the box will drop when destroyed." />
         <inherit name="ball" />
     </item>
 </items>

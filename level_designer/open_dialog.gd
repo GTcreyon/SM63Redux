@@ -74,8 +74,10 @@ func decode_value_of_type(type: String):
 	match type:
 		"bool":
 			return bool(decode_uint_bytes(1))
-		"int":
+		"uint":
 			return decode_uint_bytes(3)
+		"sint":
+			return decode_sint_bytes(3)
 		"float":
 			return decode_float_bytes(4)
 		"Vector2":

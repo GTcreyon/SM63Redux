@@ -35,13 +35,12 @@ func set_properties(new_properties, node):
 	for key in new_properties:
 		var inst = null
 		var val = new_properties[key]
-		print(main.items[node.item_id].properties)
 		match main.items[node.item_id].properties[key]["type"]:
 			"bool":
 				inst = TICKBOX.instance()
 				inst.get_node("Label").text = key
 				inst.pressed = new_properties[key]
-			"int":
+			"uint", "sint":
 				inst = INPUT_NUMBER.instance()
 				inst.get_node("Label").text = key
 				inst.pre_text = str(0 if val == null else val)

@@ -45,7 +45,9 @@ func store_value_of_type(type: String, val) -> PoolByteArray:
 	match type:
 		"bool":
 			return PoolByteArray([val])
-		"int":
+		"uint":
+			return store_uint_bytes(val, 3)
+		"sint":
 			return store_sint_bytes(val, 3)
 		"float":
 			return store_float_bytes(val, 4)
