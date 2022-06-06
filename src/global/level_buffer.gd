@@ -27,7 +27,7 @@ func generate_level_binary(items, polygons, main) -> PoolByteArray:
 	for polygon in polygons:
 		output.append_array(encode_uint_bytes(0, 2)) # TODO: material
 		output.append_array(encode_sint_bytes(polygon.z_index, 2))
-		output.append_array(encode_uint_bytes(polygon.polygon.size() - 1, 2))
+		output.append_array(encode_uint_bytes(polygon.polygon.size(), 2))
 		for vertex in polygon.polygon:
 			output.append_array(encode_vector2_bytes(vertex, 6))
 	
@@ -48,6 +48,8 @@ func encode_value_of_type(val, type: String, num: int) -> PoolByteArray:
 			return encode_float_bytes(val, num)
 		"Vector2":
 			return encode_vector2_bytes(val, num)
+		"String":
+			return encode_string_bytes(val)
 		_:
 			log_error("Unknown datatype!")
 			return PoolByteArray([])
@@ -169,6 +171,8 @@ func get_value_length_from_type(type: String):
 			return 4
 		"Vector2":
 			return 6
+		"String":
+			return 0
 		_:
 			log_error("Unknown datatype!")
 			return null
@@ -190,6 +194,8 @@ func decode_value_of_type(bytes: PoolByteArray, type: String):
 			return decode_float_bytes(bytes)
 		"Vector2":
 			return decode_vector2_bytes(bytes)
+		"String":
+			return decode_string_bytes()
 		_:
 			log_error("Unknown datatype!")
 			return null
@@ -277,6 +283,13 @@ func run_tests(verbose: bool): # a set of unit tests to be run to check if the s
 	# arrange
 	var fail = false
 	var tests = {
+		"bool": {
+			"bytes": 1,
+			"data": {
+				"valid": [true, false],
+				"error": [],
+			},
+		},
 		"uint": {
 			"bytes": 3,
 			"data": {
@@ -298,6 +311,8 @@ func run_tests(verbose: bool): # a set of unit tests to be run to check if the s
 				"error": [],
 			},
 		},
+		# do NOT try to test strings, they're handled differently, don't waste your time
+		# there's barely anything to test anyway
 	}
 	# act
 	for key in tests:
@@ -308,11 +323,11 @@ func run_tests(verbose: bool): # a set of unit tests to be run to check if the s
 		for input in tests[key].data.error:
 			var test_result = test_data(input, key, tests[key].bytes, false, true)
 			fail = test_result || fail # done like this to avoid issues with lazy evaluation
+	# assert ???
 	if fail:
 		printerr("SERIALIZER TEST FAILED.")
 	else:
 		print("Serializer tests OK!")
-	# assert
 
 
 func test_data(input, type: String, num: int, valid: bool, verbose: bool):
