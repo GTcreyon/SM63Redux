@@ -9,9 +9,9 @@ var logged_errors = PoolStringArray([])
 func generate_level_binary(items, polygons, main) -> PoolByteArray:
 	# level info
 	var output = encode_uint_bytes(Singleton.LD_VERSION, 1)
-	output.append_array(encode_string_bytes("2 hour blj"))
-	output.append_array(encode_string_bytes("ben"))
-	output.append_array(generate_mission_list([["blj the thwomp's block", "i'm not doing this ben"], ["mission 2", "desc"]]))
+	output.append_array(encode_string_bytes("")) # title
+	output.append_array(encode_string_bytes("")) # author
+	output.append_array(generate_mission_list([["", ""]])) # missions
 	
 	# item dictionary
 	for item in items:
