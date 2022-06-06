@@ -12,4 +12,4 @@ func _on_OpenDialog_file_selected(path):
 	buffer = file.get_buffer(file.get_len())
 	file.close()
 	var serializer = LevelBuffer.new()
-	serializer.load_buffer(buffer)
+	serializer.load_buffer(buffer, main)

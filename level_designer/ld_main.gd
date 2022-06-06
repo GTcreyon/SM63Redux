@@ -218,10 +218,11 @@ func _ready():
 	add_child(template)
 	read_items()
 	ld_ui.fill_grid()
+	var serializer = LevelBuffer.new()
+	serializer.run_tests(false)
 	
 	if Singleton.ld_buffer != PoolByteArray([]):
-		var serializer = LevelBuffer.new()
-		serializer.load_buffer(Singleton.ld_buffer)
+		serializer.load_buffer(Singleton.ld_buffer, self)
 		Singleton.ld_buffer = PoolByteArray([])
 
 func retain_order_by_hash(a, b):
