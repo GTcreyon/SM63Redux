@@ -1,10 +1,11 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://level_designer/ld_main.gd" type="Script" id=2]
 [ext_resource path="res://level_designer/ldui/ld_camera.gd" type="Script" id=3]
 [ext_resource path="res://level_designer/background.tres" type="Material" id=4]
 [ext_resource path="res://level_designer/music.gd" type="Script" id=5]
+[ext_resource path="res://level_designer/save_dialog.gd" type="Script" id=6]
 [ext_resource path="res://level_designer/ldui/top_buttons.png" type="Texture" id=7]
 [ext_resource path="res://level_designer/ldui/palette.png" type="Texture" id=8]
 [ext_resource path="res://level_designer/ldui/start_pipe.png" type="Texture" id=9]
@@ -25,6 +26,7 @@
 [ext_resource path="res://level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
 [ext_resource path="res://level_designer/dummy.png" type="Texture" id=25]
 [ext_resource path="res://level_designer/bg_grid.gd" type="Script" id=26]
+[ext_resource path="res://level_designer/open_dialog.gd" type="Script" id=27]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -79,6 +81,33 @@ script = ExtResource( 5 )
 [node name="FadeIn" type="Tween" parent="Music"]
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="SaveDialog" type="FileDialog" parent="UILayer"]
+margin_right = 315.0
+margin_bottom = 130.0
+popup_exclusive = true
+window_title = "Save Level"
+resizable = true
+mode_overrides_title = false
+access = 2
+filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
+current_dir = "/home/tricia/Documents/Godot/SM63Redux"
+current_path = "/home/tricia/Documents/Godot/SM63Redux/"
+script = ExtResource( 6 )
+
+[node name="OpenDialog" type="FileDialog" parent="UILayer"]
+margin_right = 315.0
+margin_bottom = 130.0
+popup_exclusive = true
+window_title = "Save Level"
+resizable = true
+mode_overrides_title = false
+mode = 0
+access = 2
+filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
+current_dir = "/home/tricia/Documents/Godot/SM63Redux"
+current_path = "/home/tricia/Documents/Godot/SM63Redux/"
+script = ExtResource( 27 )
 
 [node name="HoverUI" type="Control" parent="UILayer"]
 
@@ -516,7 +545,9 @@ script = ExtResource( 26 )
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]
+[connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
+[connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_terrain_control_place_pressed"]
-[connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Options_pressed"]
+[connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]

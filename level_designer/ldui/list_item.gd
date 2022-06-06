@@ -1,10 +1,11 @@
 extends TextureButton
 
-onready var main = $"/root/Main"
-onready var placed_path = main.item_textures[item_name]["Placed"]
+var item_id
 
-var item_name
+onready var main = $"/root/Main"
+onready var placed_path = main.item_textures[item_id]["Placed"]
+
 
 func _on_ListItem_pressed():
 	if placed_path != null:
-		main.place_item(item_name)
+		main.place_item(item_id)

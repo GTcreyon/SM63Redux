@@ -8,7 +8,7 @@ onready var control = $"/root/Main/UILayer/LDUI"
 onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
 
 
-export(String) var item_name
+var item_id: int
 
 var glow_factor = 1
 var pulse = 0
@@ -18,7 +18,7 @@ var properties: Dictionary = {}
 func _selection_changed(new_selection):
 	if new_selection.head == self:
 #			if Input.is_action_pressed("LD_many"):
-#				main.place_item(item_name)
+#				main.place_item(item_id)
 		material = GLOW_MATERIAL
 	else:
 		material = null
@@ -39,7 +39,7 @@ func _input(event):
 func _process(_delta):
 	if ghost:
 		position = main.snap_vector(get_global_mouse_position())
-		properties["Position"].value = position
+		properties["Position"] = position
 	
 	if material != null:
 		pulse = fmod((pulse + 0.1), 2 * PI)
@@ -51,7 +51,7 @@ func _process(_delta):
 
 
 func set_property(label, value) -> void:
-	properties[label]["value"] = value
+	properties[label] = value
 	update_visual_property(label, value)
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://src/global/warp.gd" type="Script" id=1]
 [ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://gui/timer/timer.tscn" type="PackedScene" id=19]
 [ext_resource path="res://src/global/input_manager.gd" type="Script" id=20]
 [ext_resource path="res://src/global/window_warp.gd" type="Script" id=21]
+[ext_resource path="res://src/global/level_buffer.gd" type="Script" id=22]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 12 )
@@ -123,15 +124,18 @@ mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 script = ExtResource( 3 )
 
-[node name="Serializer" type="Node2D" parent="."]
+[node name="Serializer" type="Node" parent="."]
 script = ExtResource( 4 )
 
 [node name="TileToPoly" type="Node2D" parent="Serializer"]
 script = ExtResource( 10 )
 
-[node name="SM63ToRedux" type="Node2D" parent="Serializer"]
+[node name="SM63ToRedux" type="Node" parent="Serializer"]
 script = ExtResource( 11 )
 tile_groupings = "res://src/global/serializers/tile_groupings.xml"
+
+[node name="LevelBuffer" type="Node" parent="Serializer"]
+script = ExtResource( 22 )
 
 [node name="BaseModifier" type="Node2D" parent="."]
 script = ExtResource( 5 )

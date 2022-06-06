@@ -6,7 +6,8 @@ Version 000
 - LD - Level Designer program
 - Author - Agent using the LD to create a level
 - Player - Agent playing the resulting level
-- UniString - Unicode text string terminating in U+0000
+- UniString - Unicode text string with 3 length bytes at the start
+- AscString - ASCII text string terminating in asc0 [NULL]
 
 ## Structure Overview
 - Header
@@ -78,9 +79,21 @@ Version 000
 - TODO: bit arrangement
 
 ### Polygons
-- Polygons are drastically different from any other kind of item, so require their own treatment
-	+ Material ID (decides both the texture set and how the player interacts with it, e.g. ice material has ice texture and ice physics)
-	+ Point array
+- Material
+	+ 1 byte
+	+ ID that refers to both the polygon's texture set and material properties (e.g. slippery, hot, quicksand, etc.)
+- Z Index
+	+ 2 bytes, signed
+- Vertex count
+	+ 4 bytes
+- Vertex
+	+ 8 bytes
+	+ 3 bytes for each coordinate
+	+ 24-bit integers
 	
 ### Pipescript
-- TODO: IDK
+- Script
+	+ Script name
+		* Ascstring
+	+ Script content
+		* Ascstring

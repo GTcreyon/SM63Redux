@@ -5,6 +5,7 @@ const INPUT_NUMBER = preload("res://level_designer/fields/number/input_number.ts
 var properties: Dictionary = {}
 var target_node: Node = null
 onready var list: VBoxContainer = $PropertyList
+onready var main = $"/root/Main"
 
 
 func _on_CloseButton_pressed():
@@ -33,13 +34,13 @@ func set_properties(new_properties, node):
 	
 	for key in new_properties:
 		var inst = null
-		var val = new_properties[key]["value"]
-		match new_properties[key]["type"]:
+		var val = new_properties[key]
+		match main.items[node.item_id].properties[key]["type"]:
 			"bool":
 				inst = TICKBOX.instance()
 				inst.get_node("Label").text = key
-				inst.pressed = new_properties[key]["value"]
-			"int":
+				inst.pressed = new_properties[key]
+			"uint", "sint":
 				inst = INPUT_NUMBER.instance()
 				inst.get_node("Label").text = key
 				inst.pre_text = str(0 if val == null else val)
