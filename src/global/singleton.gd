@@ -18,9 +18,6 @@ enum n { #fludd enum
 	turbo,
 }
 
-onready var serializer: Serializer = $Serializer
-onready var sm63_to_redux: SM63ToRedux = $"Serializer/SM63ToRedux"
-onready var base_modifier: BaseModifier = $BaseModifier
 onready var console = $Console
 onready var timer = $Timer
 onready var controls = $TouchControls

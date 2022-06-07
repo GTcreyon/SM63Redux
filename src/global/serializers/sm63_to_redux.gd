@@ -1,7 +1,4 @@
-extends Node
 class_name SM63ToRedux
-
-onready var tile_to_poly: TileToPoly = $"../TileToPoly"
 
 export(String, FILE) var tile_groupings
 
@@ -131,10 +128,10 @@ func convert_xml_to_readable():
 			node_name = parser.get_node_name()
 			if node_name == "textures":
 				is_in_textures = false
-	
 	return root
 
 func deserialize_tiles(level_data):
+	var tile_to_poly = TileToPoly.new()
 	#create an tile array
 	var pointer = Vector2()
 	var tiles = []
@@ -198,6 +195,7 @@ func deserialize_tiles(level_data):
 			textures = actual_texture_paths,
 			polygons = polygons,
 		})
+	tile_to_poly.queue_free()
 	return result
 
 func deserialize_items(level_data):

@@ -83,7 +83,7 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 	}
 }
 
-onready var base_modifier: BaseModifier = Singleton.base_modifier
+onready var base_modifier = BaseModifier.new()
 onready var voice = $Voice
 onready var step = $Step
 onready var sprite = $Character

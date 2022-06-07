@@ -2,7 +2,6 @@ extends Control
 
 onready var logger = $Logger
 onready var input_line = $Input
-onready var serializer = Singleton.serializer
 
 var history : PoolStringArray = []
 var hist_index = 0

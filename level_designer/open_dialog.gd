@@ -11,5 +11,5 @@ func _on_OpenDialog_file_selected(path):
 	file.open(path, File.READ)
 	buffer = file.get_buffer(file.get_len())
 	file.close()
-	var serializer = LevelBuffer.new()
+	var serializer = Serializer.new()
 	serializer.load_buffer(buffer, main)

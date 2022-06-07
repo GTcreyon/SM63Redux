@@ -9,7 +9,7 @@ onready var save = $"/root/Main/UILayer/SaveDialog"
 
 
 func _on_Start_pressed():
-	var serializer = LevelBuffer.new()
+	var serializer = Serializer.new()
 	Singleton.ld_buffer = serializer.generate_level_binary($"/root/Main/Template/Items".get_children(), $"/root/Main/Template/Terrain".get_children(), main)
 	var template = $"/root/Main/Template"
 	var template_inst = TEMPLATE_SCENE.instance()

@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var open = $"/root/Main/UILayer/OpenDialog"
-onready var sm63_to_redux: SM63ToRedux = Singleton.sm63_to_redux
+onready var sm63_to_redux = SM63ToRedux.new()
 onready var ld_ui = $UILayer/LDUI
 onready var ld_camera = $Camera
 onready var lv_template := preload("res://level_designer/template.tscn")
@@ -218,7 +218,7 @@ func _ready():
 	add_child(template)
 	read_items()
 	ld_ui.fill_grid()
-	var serializer = LevelBuffer.new()
+	var serializer = Serializer.new()
 	serializer.run_tests(false)
 	
 	if Singleton.ld_buffer != PoolByteArray([]):
