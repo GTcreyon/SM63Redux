@@ -1,7 +1,5 @@
 extends CanvasLayer
 
-#var font_red = BitmapFont.new()
-
 #absolute cache
 onready var player = $"/root/Main/Player"
 

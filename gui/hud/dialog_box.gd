@@ -62,6 +62,7 @@ func insert_keybind_strings(input: String) -> String:
 	if err != OK:
 		Singleton.log_msg(err, Singleton.LogType.ERROR)
 	var bind_tags: Array = regex.search_all(input)
+	regex.queue_free()
 	for tag_match in bind_tags:
 		var tag_string: String = tag_match.get_string()
 		var tag_bind = tag_string.substr(4, tag_string.length() - 5)

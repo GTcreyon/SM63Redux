@@ -184,6 +184,7 @@ func read_items():
 	#print(item_classes)
 	#print(items)
 	#print(item_textures)
+	parser.queue_free()
 
 func register_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
@@ -224,9 +225,12 @@ func _ready():
 	if Singleton.ld_buffer != PoolByteArray([]):
 		serializer.load_buffer(Singleton.ld_buffer, self)
 		Singleton.ld_buffer = PoolByteArray([])
+	serializer.queue_free()
+
 
 func retain_order_by_hash(a, b):
 	return hash(a) < hash(b)
+
 
 func _process(_dt):
 	if selection_begin != null:
@@ -243,9 +247,11 @@ func _process(_dt):
 			in_level = false
 			get_tree().change_scene("res://level_designer/level_designer.tscn")
 
+
 func _input(event):
 	if event is InputEventMouse:
 		last_local_mouse_position = event.position
+
 
 func _unhandled_input(event: InputEvent):
 	if weakref(ld_camera).get_ref(): # avoid handling input if the ld camera doesn't exist

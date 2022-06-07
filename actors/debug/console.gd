@@ -68,6 +68,7 @@ func run_command(cmd: String):
 						Singleton.log_msg("Error: " + err, Singleton.LogType.ERROR)
 				else:
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
+				file_check.queue_free()
 			"water":
 				if args[1].to_lower() == "inf":
 					Singleton.water = INF
