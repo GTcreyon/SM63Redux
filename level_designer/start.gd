@@ -27,7 +27,6 @@ func _on_Start_pressed():
 	main.add_child(PLAYER_SCENE.instance())
 	main.add_child(BG_SCENE.instance())
 	main.in_level = true
-	serializer.queue_free()
 
 
 func apply_properties(inst, item_data) -> void:

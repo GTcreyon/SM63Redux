@@ -184,7 +184,6 @@ func read_items():
 	#print(item_classes)
 	#print(items)
 	#print(item_textures)
-	parser.queue_free()
 
 func register_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
@@ -225,7 +224,6 @@ func _ready():
 	if Singleton.ld_buffer != PoolByteArray([]):
 		serializer.load_buffer(Singleton.ld_buffer, self)
 		Singleton.ld_buffer = PoolByteArray([])
-	serializer.queue_free()
 
 
 func retain_order_by_hash(a, b):

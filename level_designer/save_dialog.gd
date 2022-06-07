@@ -10,5 +10,3 @@ func _on_SaveDialog_file_selected(path):
 	file.open(path, File.WRITE)
 	file.store_buffer(buffer)
 	file.close()
-	serializer.queue_free()
-	file.queue_free()

@@ -1,4 +1,3 @@
-extends Node
 class_name LevelBuffer
 
 var pointer: int = 0
