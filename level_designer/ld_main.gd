@@ -193,10 +193,12 @@ func register_property(target, subname: String, type: String, parser: XMLParser)
 		item_class_properties = target[subname]
 	var var_txt = parser.get_named_attribute_value_safe("var")
 	var default = parser.get_named_attribute_value_safe("default")
+	var increment = parser.get_named_attribute_value_safe("increment")
 	var properties = {
 		type = parser.get_named_attribute_value("type"),
 		var_name = null if var_txt == "" else var_txt,
 		default = null if default == "" else default,
+		increment = 1 if increment == "" else increment,
 		description = parser.get_named_attribute_value("description")
 	}
 	item_class_properties[parser.get_named_attribute_value("label")] = properties

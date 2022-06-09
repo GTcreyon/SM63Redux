@@ -1,8 +1,8 @@
 <?xml version="1.1" encoding="UTF-8"?>
-<items>
+<items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <!-- 
         <class name="class name">
-            [OPTIONAL] <property label="label name" type="property type" [OPTIONAL] var="see var documentation" [OPTIONAL] link="see link documentation" [OPTIONAL] description="description to show" />
+            [OPTIONAL] <property label="label name" type="property type" [OPTIONAL] var="see var documentation" [OPTIONAL] increment="how much buttons increment the value" [OPTIONAL] link="see link documentation" [OPTIONAL] description="description to show" />
         </class>
 
         <item name="item name" description="item description">
@@ -28,18 +28,18 @@
             List: this tag means that this texture should be used in the item list menu.
     -->
     <class name="point">
-        <property label="Position" type="Vector2" description="Position in the level." />
+        <property label="Position" type="Vector2" increment="Vector2(16, 16)" description="Position in the level." />
         <property label="Disabled" type="bool" description="Disables the item." />
     </class>
 	
     <class name="ball">
 		<inherit name="point" />
-        <property label="Scale" type="Vector2" default="Vector2(1, 1)" description="The item's scale." />
+        <property label="Scale" type="Vector2" default="Vector2(1, 1)" increment="Vector2(0.1, 0.1)" description="The item's scale." />
     </class>
 	
     <class name="pole">
 		<inherit name="ball" />
-        <property label="Rotation" type="float" var="rotation_degrees" description="Rotation in degrees." />
+        <property label="Rotation" type="float" var="rotation_degrees" increment="15" description="Rotation in degrees." />
     </class>
 	
     <class name="post">
@@ -72,7 +72,7 @@
 		<scene path="res://actors/items/coin/coin_red.tscn" />
 		<texture tag="Placed" path="res://actors/items/coin/red_coin0.png" />
         <inherit name="ball" />
-    </item>
+	</item>
 
     <item id="2" name="Blue Coin" description="Counts for 5 yellow coins!">
 		<scene path="res://actors/items/coin/coin_blue.tscn" />
