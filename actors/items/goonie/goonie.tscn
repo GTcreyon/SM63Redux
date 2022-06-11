@@ -25,7 +25,7 @@ animations = [ {
 "name": "swoop",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 7 ), ExtResource( 4 ), ExtResource( 1 ), ExtResource( 8 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 8 ), ExtResource( 1 ), ExtResource( 4 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
 "name": "flap",
 "speed": 10.0

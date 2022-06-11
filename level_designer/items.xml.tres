@@ -88,7 +88,7 @@
     <item id="4" name="Shine Sprite" description="The level goal!">
 		<scene path="res://actors/items/shine/shine.tscn" />
 		<texture tag="Placed" path="res://actors/items/shine/shine_placed.png" />
-		<texture tag="List" path="res://gui/hud/hud_shine_small.png" />
+		<texture tag="List" path="res://actors/items/shine/shine_placed.png" />
 		<!--TODO: trigger properties (e.g. red coins, silver shines, boss - pipescript?), shine ID for missions-->
         <inherit name="ball" />
     </item>
@@ -122,8 +122,8 @@
 
     <item id="9" name="Cloud" description="A cloud. Semisolid.">
 		<scene path="res://actors/items/cloud/cloud.tscn" />
-		<texture tag="List" path="res://actors/items/cloud/cloud_right.png" />
-		<texture tag="Placed" path="res://actors/items/cloud/cloud_right.png" />
+		<texture tag="List" path="res://actors/items/cloud/cloud_icon.png" />
+		<texture tag="Placed" path="res://actors/items/cloud/cloud_icon.png" />
         <inherit name="telescoping" />
     </item>
 
@@ -150,14 +150,14 @@
 
     <item id="13" name="Parakoopa" description="A flying Koopa. It will hover in place. It can be stomped or attacked, knocking off its wings.">
 		<scene path="res://actors/items/koopa/parakoopa.tscn" />
-		<texture tag="List" path="res://actors/items/koopa/parakoopa_icon.png" />
+		<texture tag="List" path="res://actors/items/koopa/parakoopa_placed.png" />
 		<texture tag="Placed" path="res://actors/items/koopa/parakoopa_placed.png" />
         <inherit name="post" />
     </item>
 	
     <item id="14" name="Koopa" description="A Koopa. It will damage you if you walk into it. It can be stomped or attacked, putting it in its shell.">
 		<scene path="res://actors/items/koopa/koopa.tscn" />
-		<texture tag="List" path="res://actors/items/koopa/koopa_icon.png" />
+		<texture tag="List" path="res://actors/items/koopa/koopa_placed.png" />
 		<texture tag="Placed" path="res://actors/items/koopa/koopa_placed.png" />
         <inherit name="post" />
     </item>

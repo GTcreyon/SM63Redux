@@ -62,10 +62,6 @@ config/windows_native_icon="res://icon_windows.ico"
 Singleton="*res://src/global/singleton.tscn"
 PerformanceMonitor="*res://src/global/performance/performance_monitor.tscn"
 
-[debug]
-
-settings/fps/force_fps=60
-
 [display]
 
 window/size/width=640

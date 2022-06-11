@@ -13,7 +13,7 @@
 [ext_resource path="res://level_designer/ldui/big_cog.png" type="Texture" id=11]
 [ext_resource path="res://level_designer/ldui/hermes.tscn" type="PackedScene" id=12]
 [ext_resource path="res://level_designer/ldui/scroll_block_v.png" type="Texture" id=13]
-[ext_resource path="res://level_designer/ldui/scroll_block_h.png" type="Texture" id=14]
+[ext_resource path="res://level_designer/item_pane.gd" type="Script" id=14]
 [ext_resource path="res://actors/bg/t1/bg_t1.tscn" type="PackedScene" id=15]
 [ext_resource path="res://level_designer/start.gd" type="Script" id=16]
 [ext_resource path="res://level_designer/save.gd" type="Script" id=17]
@@ -80,6 +80,17 @@ script = ExtResource( 5 )
 
 [node name="FadeIn" type="Tween" parent="Music"]
 
+[node name="BGT1" parent="." instance=ExtResource( 15 )]
+
+[node name="BGGrid" type="TextureRect" parent="BGT1"]
+material = ExtResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 25 )
+stretch_mode = 2
+script = ExtResource( 26 )
+
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="SaveDialog" type="FileDialog" parent="UILayer"]
@@ -91,8 +102,8 @@ resizable = true
 mode_overrides_title = false
 access = 2
 filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
-current_dir = "/Users/jasch/OneDrive/Documenten/GitHub/SM63Redux"
-current_path = "/Users/jasch/OneDrive/Documenten/GitHub/SM63Redux/"
+current_dir = "/home/tricia/Documents/Godot/SM63Redux"
+current_path = "/home/tricia/Documents/Godot/SM63Redux/"
 script = ExtResource( 6 )
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
@@ -105,8 +116,8 @@ mode_overrides_title = false
 mode = 0
 access = 2
 filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
-current_dir = "/Users/jasch/OneDrive/Documenten/GitHub/SM63Redux"
-current_path = "/Users/jasch/OneDrive/Documenten/GitHub/SM63Redux/"
+current_dir = "/home/tricia/Documents/Godot/SM63Redux"
+current_path = "/home/tricia/Documents/Godot/SM63Redux/"
 script = ExtResource( 27 )
 
 [node name="HoverUI" type="Control" parent="UILayer"]
@@ -331,7 +342,7 @@ script = ExtResource( 18 )
 [node name="LeftBar" type="Control" parent="UILayer/LDUI"]
 anchor_bottom = 1.0
 margin_top = 32.0
-margin_right = 80.0
+margin_right = 96.0
 
 [node name="ColorRect2" type="ColorRect" parent="UILayer/LDUI/LeftBar"]
 anchor_right = 1.0
@@ -365,22 +376,21 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -14.0
 color = Color( 0.141176, 0.52549, 0.47451, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Control" type="Control" parent="UILayer/LDUI/LeftBar/ColorRect"]
+[node name="ItemPane" type="Control" parent="UILayer/LDUI/LeftBar/ColorRect"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
 margin_top = 3.0
 margin_right = -3.0
 margin_bottom = -93.0
+mouse_filter = 1
+script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect3" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/Control"]
+[node name="Back" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/ItemPane"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.231373, 0.117647, 0, 1 )
@@ -388,98 +398,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect4" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/Control/ColorRect3"]
+[node name="Base" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/ItemPane/Back"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
 margin_top = 1.0
 margin_right = -1.0
 margin_bottom = -1.0
+rect_clip_content = true
 color = Color( 0.168627, 0.290196, 0.239216, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/LeftBar/ColorRect/Control/ColorRect3/ColorRect4"]
+[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/LeftBar/ColorRect/ItemPane/Back/Base"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = -2.0
-rect_clip_content = true
-custom_constants/hseparation = 3
-columns = 3
-
-[node name="BottomBar" type="ColorRect" parent="UILayer/LDUI"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -22.0
-color = Color( 0.231373, 0.117647, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control" type="Control" parent="UILayer/LDUI/BottomBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 86.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="UILayer/LDUI/BottomBar/Control"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 7.0
-margin_bottom = 21.0
-texture = ExtResource( 14 )
-
-[node name="TextureRect2" type="TextureRect" parent="UILayer/LDUI/BottomBar/Control"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -116.0
-margin_top = 1.0
-margin_right = -110.0
-margin_bottom = 21.0
-texture = ExtResource( 14 )
-flip_h = true
-
-[node name="RightBar" type="ColorRect" parent="UILayer/LDUI"]
-anchor_left = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -22.0
-color = Color( 0.231373, 0.117647, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control" type="Control" parent="UILayer/LDUI/RightBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 48.0
-margin_bottom = -56.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextureRect" type="TextureRect" parent="UILayer/LDUI/RightBar/Control"]
-margin_left = 21.0
-margin_top = 1.0
-margin_right = 27.0
-margin_bottom = 21.0
-rect_rotation = 90.0
-texture = ExtResource( 14 )
-
-[node name="TextureRect2" type="TextureRect" parent="UILayer/LDUI/RightBar/Control"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = -1.0
-rect_rotation = 270.0
-texture = ExtResource( 14 )
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+columns = 2
 
 [node name="Palette" type="TextureRect" parent="UILayer/LDUI"]
 anchor_top = 1.0
@@ -525,22 +466,11 @@ __meta__ = {
 }
 
 [node name="Hermes" parent="UILayer/LDUI" instance=ExtResource( 12 )]
-position = Vector2( 278, 331.5 )
+position = Vector2( 278, 353.5 )
 z_index = -1
 
 [node name="PropertyMenu" parent="UILayer" instance=ExtResource( 24 )]
 visible = false
-
-[node name="BGT1" parent="." instance=ExtResource( 15 )]
-
-[node name="BGGrid" type="TextureRect" parent="BGT1"]
-material = ExtResource( 4 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-texture = ExtResource( 25 )
-stretch_mode = 2
-script = ExtResource( 26 )
 
 [connection signal="selection_changed" from="." to="UILayer/LDUI" method="_selection_changed"]
 [connection signal="selection_size_changed" from="." to="UILayer/LDUI" method="_selection_size_changed"]
@@ -552,4 +482,5 @@ script = ExtResource( 26 )
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_terrain_control_place_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
+[connection signal="gui_input" from="UILayer/LDUI/LeftBar/ColorRect/ItemPane" to="UILayer/LDUI/LeftBar/ColorRect/ItemPane" method="_on_ItemPane_gui_input"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]

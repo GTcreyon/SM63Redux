@@ -1,31 +1,35 @@
 extends AnimatedSprite
 
-const edge_v_length = OS.window_size.y - 22
-const edge_h_length = OS.window_size.x - 80 - 22
+const EDGE_V_LENGTH = OS.window_size.y - 22
+const EDGE_H_LENGTH = OS.window_size.x - 80 - 22
+const EDGE_L_POS = 96
+const EDGE_M_POS = 0
+const EDGE_R_POS = 0
+const CENTRE_OFFSET = 6.5
 
 var speed = 0.2
 var edge = 1
-var progress = edge_h_length / 2
+var progress = EDGE_H_LENGTH / 2
 
 func set_pos(edge, progress) -> bool:
 	match edge:
 		0:
-			position.x = 86.5
-			position.y = progress
+			position.x = EDGE_L_POS + CENTRE_OFFSET
+			position.y = progress + CENTRE_OFFSET
 			rotation_degrees = 90
-			if progress > edge_v_length || progress < 0:
+			if progress > EDGE_V_LENGTH || progress < 0:
 				return true
 		1:
-			position.x = 80 + progress
-			position.y = OS.window_size.y - 22 - 6.5
+			position.x = EDGE_L_POS + progress
+			position.y = OS.window_size.y - EDGE_M_POS - CENTRE_OFFSET
 			rotation_degrees = 0
-			if progress > edge_h_length || progress < 0:
+			if progress > EDGE_H_LENGTH || progress < 0:
 				return true
 		2:
-			position.x = OS.window_size.x - 22 - 6.5
-			position.y = OS.window_size.y - 22 - progress
+			position.x = OS.window_size.x - EDGE_R_POS - CENTRE_OFFSET
+			position.y = OS.window_size.y - EDGE_R_POS - progress
 			rotation_degrees = 270
-			if progress > edge_v_length || progress < 0:
+			if progress > EDGE_V_LENGTH || progress < 0:
 				return true
 	
 	return false
@@ -46,11 +50,11 @@ func _process(delta):
 			edge -= 1
 			match edge:
 				0:
-					progress = edge_v_length
+					progress = EDGE_V_LENGTH
 				1:
-					progress = edge_h_length
+					progress = EDGE_H_LENGTH
 				-1:
-					progress = edge_v_length
+					progress = EDGE_V_LENGTH
 					edge = 2
 		else:
 			edge += 1

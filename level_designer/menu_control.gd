@@ -9,7 +9,7 @@ onready var hover_ui := get_parent().get_node("HoverUI")
 #onready var selection_ui := hover_ui.get_node("SelectionControl")
 onready var editable_rect := hover_ui.get_node("Dragger")
 onready var rect_controls := hover_ui.get_node("Dragger").get_node("SelectionControl")
-onready var item_grid = $LeftBar/ColorRect/Control/ColorRect3/ColorRect4/ItemGrid
+onready var item_grid = $LeftBar/ColorRect/ItemPane/Back/Base/ItemGrid
 
 var is_creating_polygon = false
 var editable_poly = null
@@ -160,18 +160,18 @@ func fill_grid():
 			var min_size = Vector2(
 				min(
 					stream.get_width(),
-					16
+					32
 				),
 				min(
 					stream.get_height(),
-					16
+					32
 				)
 			)
 			tex.region = Rect2(
 				stream.get_size() / 2 - min_size / 2,
 				min_size
 			)
-				
+			button.rect_min_size = Vector2(32, 32)
 			button.texture_normal = tex
 			button.item_id = item_id
 			item_grid.add_child(button)
