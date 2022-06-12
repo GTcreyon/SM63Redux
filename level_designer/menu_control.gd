@@ -9,7 +9,7 @@ onready var hover_ui := get_parent().get_node("HoverUI")
 #onready var selection_ui := hover_ui.get_node("SelectionControl")
 onready var editable_rect := hover_ui.get_node("Dragger")
 onready var rect_controls := hover_ui.get_node("Dragger").get_node("SelectionControl")
-onready var item_grid = $LeftBar/ColorRect/ItemPane/Back/Base/ItemGrid
+onready var item_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid
 
 var is_creating_polygon = false
 var editable_poly = null

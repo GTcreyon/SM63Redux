@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://level_designer/ld_main.gd" type="Script" id=2]
@@ -27,6 +27,9 @@
 [ext_resource path="res://level_designer/dummy.png" type="Texture" id=25]
 [ext_resource path="res://level_designer/bg_grid.gd" type="Script" id=26]
 [ext_resource path="res://level_designer/open_dialog.gd" type="Script" id=27]
+[ext_resource path="res://level_designer/ldui/scroll_v_top.tres" type="StyleBox" id=28]
+[ext_resource path="res://level_designer/ldui/scroll_v_bottom.tres" type="StyleBox" id=29]
+[ext_resource path="res://level_designer/scroller.gd" type="Script" id=30]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -339,45 +342,74 @@ margin_bottom = 30.0
 custom_styles/normal = SubResource( 6 )
 script = ExtResource( 18 )
 
-[node name="LeftBar" type="Control" parent="UILayer/LDUI"]
+[node name="ItemPane" type="Control" parent="UILayer/LDUI"]
 anchor_bottom = 1.0
 margin_top = 32.0
 margin_right = 96.0
+script = ExtResource( 14 )
 
-[node name="ColorRect2" type="ColorRect" parent="UILayer/LDUI/LeftBar"]
+[node name="ItemScrollBar" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 66.0
+margin_left = 82.0
 color = Color( 0.231373, 0.117647, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect" type="TextureRect" parent="UILayer/LDUI/LeftBar/ColorRect2"]
+[node name="ScrollRegion" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 4.0
+margin_bottom = -93.0
+
+[node name="StopperTop" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
 margin_left = 2.0
+margin_top = -2.0
+margin_right = 12.0
+margin_bottom = 3.0
 texture = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect2" type="TextureRect" parent="UILayer/LDUI/LeftBar/ColorRect2"]
+[node name="StopperBottom" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
-margin_top = -86.0
+margin_top = -3.0
+margin_right = 12.0
+margin_bottom = 2.0
 texture = ExtResource( 13 )
 flip_v = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ColorRect" type="ColorRect" parent="UILayer/LDUI/LeftBar"]
+[node name="Scroller" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+anchor_right = 1.0
+margin_left = 2.0
+margin_right = -2.0
+margin_bottom = 60.0
+script = ExtResource( 30 )
+
+[node name="ScrollerTop" type="Panel" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion/Scroller"]
+anchor_right = 1.0
+anchor_bottom = 0.5
+rect_min_size = Vector2( 10, 15 )
+custom_styles/panel = ExtResource( 28 )
+
+[node name="ScrollerBottom" type="Panel" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion/Scroller"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 10, 15 )
+custom_styles/panel = ExtResource( 29 )
+
+[node name="ItemBlock" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -14.0
 color = Color( 0.141176, 0.52549, 0.47451, 1 )
 
-[node name="ItemPane" type="Control" parent="UILayer/LDUI/LeftBar/ColorRect"]
+[node name="ItemDisplay" type="Control" parent="UILayer/LDUI/ItemPane/ItemBlock"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
@@ -385,12 +417,11 @@ margin_top = 3.0
 margin_right = -3.0
 margin_bottom = -93.0
 mouse_filter = 1
-script = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Back" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/ItemPane"]
+[node name="Back" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0.231373, 0.117647, 0, 1 )
@@ -398,7 +429,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Base" type="ColorRect" parent="UILayer/LDUI/LeftBar/ColorRect/ItemPane/Back"]
+[node name="Base" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -411,7 +442,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/LeftBar/ColorRect/ItemPane/Back/Base"]
+[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.0
@@ -482,5 +513,5 @@ visible = false
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_terrain_control_place_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
-[connection signal="gui_input" from="UILayer/LDUI/LeftBar/ColorRect/ItemPane" to="UILayer/LDUI/LeftBar/ColorRect/ItemPane" method="_on_ItemPane_gui_input"]
+[connection signal="gui_input" from="UILayer/LDUI/ItemPane" to="UILayer/LDUI/ItemPane" method="_on_LeftBar_gui_input"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]
