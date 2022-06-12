@@ -172,6 +172,6 @@ func fill_grid():
 				min_size
 			)
 			button.rect_min_size = Vector2(32, 32)
-			button.texture_normal = tex
+			button.get_node("Icon").texture = tex
 			button.item_id = item_id
 			item_grid.add_child(button)

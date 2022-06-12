@@ -1,4 +1,4 @@
-extends TextureButton
+extends Button
 
 var item_id
 
