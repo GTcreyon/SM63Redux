@@ -1,13 +1,13 @@
 extends Control
 
-onready var camera_fix = $Margin/CameraFix
-onready var touch_controls = $Margin/TouchControls
+onready var camera_fix = $CameraFix
+onready var touch_controls = $TouchControls
 
 
 func _ready():
 	camera_fix.pressed = Singleton.disable_limits
 	touch_controls.pressed = Singleton.touch_controls()
-	$Margin/TouchControls/Sprite.playing = touch_controls.pressed
+	$TouchControls/Sprite.playing = touch_controls.pressed
 
 
 func _process(_delta):

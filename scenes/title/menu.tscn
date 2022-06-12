@@ -386,14 +386,17 @@ color = Color( 0, 0, 0, 1 )
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_top = -64.0
+anchor_bottom = 1.087
+margin_left = -10.0
+margin_top = -80.0
+margin_right = 10.0
 
-[node name="Label" type="Label" parent="ForceTouch"]
-margin_left = -300.0
-margin_top = 12.0
-margin_right = 300.0
-margin_bottom = 14.0
+[node name="TouchLabel" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -52.0
+rect_pivot_offset = Vector2( 320, 52 )
 custom_fonts/font = ExtResource( 16 )
 text = "Force touch controls
 (Experimental)"

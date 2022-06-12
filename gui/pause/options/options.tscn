@@ -8,50 +8,42 @@
 [ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=6]
 [ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=7]
 
-[node name="OptionsMenu" type="Control"]
+[node name="OptionsMenu" type="VBoxContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
 mouse_filter = 2
 script = ExtResource( 3 )
 
-[node name="Margin" type="VBoxContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 14.0
-margin_top = 14.0
-margin_right = -4.0
-margin_bottom = -4.0
-mouse_filter = 2
-custom_constants/separation = 22
+[node name="CameraFix" parent="." instance=ExtResource( 1 )]
+margin_right = 624.0
+margin_bottom = 20.0
 
-[node name="CameraFix" parent="Margin" instance=ExtResource( 1 )]
-margin_right = 622.0
-
-[node name="Label" type="Label" parent="Margin/CameraFix"]
-margin_left = 14.0
-margin_top = -8.0
-margin_right = 188.0
-margin_bottom = 7.0
+[node name="Label" type="Label" parent="CameraFix"]
+margin_left = 23.0
+margin_top = 2.0
 custom_fonts/font = ExtResource( 2 )
 text = "Disable camera limiting [Try this if the camera is broken]"
 
-[node name="TouchControls" parent="Margin" instance=ExtResource( 1 )]
-margin_top = 22.0
-margin_right = 622.0
-margin_bottom = 22.0
+[node name="TouchControls" parent="." instance=ExtResource( 1 )]
+margin_top = 24.0
+margin_right = 624.0
+margin_bottom = 44.0
 
-[node name="Label" type="Label" parent="Margin/TouchControls"]
-margin_left = 14.0
-margin_top = -8.0
-margin_right = 188.0
-margin_bottom = 7.0
+[node name="Label" type="Label" parent="TouchControls"]
+margin_left = 23.0
+margin_top = 2.0
 custom_fonts/font = ExtResource( 2 )
 text = "Enable touch controls"
 
-[node name="LocaleSelect" type="OptionButton" parent="Margin"]
-margin_top = 44.0
-margin_right = 622.0
-margin_bottom = 72.0
+[node name="LocaleSelect" type="OptionButton" parent="."]
+margin_top = 48.0
+margin_right = 624.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 32 )
 mouse_default_cursor_shape = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/hover = ExtResource( 6 )
@@ -60,4 +52,4 @@ custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 5 )
 script = ExtResource( 4 )
 
-[connection signal="item_selected" from="Margin/LocaleSelect" to="Margin/LocaleSelect" method="_on_Locale_item_selected"]
+[connection signal="item_selected" from="LocaleSelect" to="LocaleSelect" method="_on_Locale_item_selected"]

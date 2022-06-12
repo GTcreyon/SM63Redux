@@ -15,6 +15,7 @@ onready var border = $Border
 onready var description_box = $Border/DescriptionBox
 
 onready var force_touch = $ForceTouch
+onready var force_touch_label = $TouchLabel
 
 var cycle_progress = 0
 var cycle_direction = 0
@@ -106,9 +107,13 @@ func _process(delta):
 			visible = false
 			Singleton.get_node("SFX/Back").play()
 		
+		force_touch.rect_pivot_offset = Vector2(10, 20)
 		force_touch.rect_scale = scale * Vector2.ONE
-		force_touch.margin_top = -64 * scale
+		force_touch.margin_top = -74 * scale
 		Singleton.force_touch = force_touch.pressed
+		
+		force_touch_label.rect_pivot_offset.x = OS.window_size.x / 2
+		force_touch_label.rect_scale = scale * Vector2.ONE
 		
 		modulate.a = min(modulate.a + 0.125 * dmod, 1)
 	else:
