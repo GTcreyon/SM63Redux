@@ -64,6 +64,7 @@ func _ready():
 func _input(event):
 	if pressed:
 		if event is InputEventKey || event is InputEventJoypadButton || event is InputEventJoypadMotion:
+			Singleton.get_node("SFX/Confirm").play()
 			InputMap.action_add_event(action_id, event)
 			unpress()
 			update_list()
@@ -91,12 +92,15 @@ func join_action_array(actions) -> String:
 
 
 func _on_RebindOption_pressed():
-	action_name.add_color_override("font_color", Color.green)
-	key_list.add_color_override("font_color", Color.green)
 	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
+		Singleton.get_node("SFX/Back").play()
 		InputMap.action_erase_events(action_id)
 		update_list()
-
+	else:
+		Singleton.get_node("SFX/Next").play()
+		action_name.add_color_override("font_color", Color.green)
+		key_list.add_color_override("font_color", Color.green)
+		
 
 func get_brand_id(id: int = 0) -> int: # need to get the gamepad brand so we can display correct button icons
 	var guid = Input.get_joy_guid(id)

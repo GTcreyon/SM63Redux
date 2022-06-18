@@ -131,6 +131,7 @@ func press_button(button):
 			1:
 				menu_to_scene("res://level_designer/level_designer.tscn")
 			3:
+				Singleton.get_node("SFX/Confirm").play()
 				show_options = true
 
 
@@ -206,4 +207,5 @@ func touch_cycle(step):
 
 
 func _on_BackButton_pressed():
+	Singleton.get_node("SFX/Back").play()
 	show_options = false
