@@ -12,6 +12,22 @@ const ACTION_MAP = {
 	"pause":"Pause",
 	"interact":"Interact",
 	"skip":"Skip Text",
+	"zoom+":"Zoom In",
+	"zoom-":"Zoom Out",
+	"semi":"Power Swim",
+	"reset":"Reset Run",
+	"timer_show":"Show Timer",
+	"mute_music":"Mute Music",
+	"mute_sfx":"Mute SFX",
+	"volume_music+":"Music Volume +",
+	"volume_music-":"Music Volume -",
+	"volume_sfx+":"SFX Volume +",
+	"volume_sfx-":"SFX Volume -",
+	"fullscreen":"Fullscreen",
+	"screen+":"Screen Size +",
+	"screen-":"Screen Size -",
+	"feedback":"Open Feedback Menu",
+	"debug":"Open Debug Console",
 }
 
 const JOYPAD_BUTTONS = [
