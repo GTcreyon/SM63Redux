@@ -8,41 +8,66 @@
 [ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=6]
 [ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=7]
 
-[node name="OptionsMenu" type="VBoxContainer"]
+[node name="OptionsMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="List" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -8.0
-mouse_filter = 2
-script = ExtResource( 3 )
 
-[node name="CameraFix" parent="." instance=ExtResource( 1 )]
+[node name="CameraFix" parent="List" instance=ExtResource( 1 )]
 margin_right = 624.0
 margin_bottom = 20.0
 
-[node name="Label" type="Label" parent="CameraFix"]
+[node name="Label" type="Label" parent="List/CameraFix"]
 margin_left = 23.0
 margin_top = 2.0
 custom_fonts/font = ExtResource( 2 )
 text = "Disable camera limiting [Try this if the camera is broken]"
 
-[node name="TouchControls" parent="." instance=ExtResource( 1 )]
+[node name="TouchControls" parent="List" instance=ExtResource( 1 )]
 margin_top = 24.0
 margin_right = 624.0
 margin_bottom = 44.0
 
-[node name="Label" type="Label" parent="TouchControls"]
+[node name="Label" type="Label" parent="List/TouchControls"]
 margin_left = 23.0
 margin_top = 2.0
 custom_fonts/font = ExtResource( 2 )
 text = "Enable touch controls"
 
-[node name="LocaleSelect" type="OptionButton" parent="."]
+[node name="MuteMusic" parent="List" instance=ExtResource( 1 )]
 margin_top = 48.0
 margin_right = 624.0
-margin_bottom = 80.0
+margin_bottom = 68.0
+
+[node name="Label" type="Label" parent="List/MuteMusic"]
+margin_left = 23.0
+margin_top = 2.0
+custom_fonts/font = ExtResource( 2 )
+text = "Mute music"
+
+[node name="MuteSFX" parent="List" instance=ExtResource( 1 )]
+margin_top = 72.0
+margin_right = 624.0
+margin_bottom = 92.0
+
+[node name="Label" type="Label" parent="List/MuteSFX"]
+margin_left = 23.0
+margin_top = 2.0
+custom_fonts/font = ExtResource( 2 )
+text = "Mute SFX"
+
+[node name="LocaleSelect" type="OptionButton" parent="List"]
+margin_top = 96.0
+margin_right = 624.0
+margin_bottom = 128.0
 rect_min_size = Vector2( 0, 32 )
 mouse_default_cursor_shape = 2
 custom_fonts/font = ExtResource( 2 )
@@ -52,4 +77,11 @@ custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 5 )
 script = ExtResource( 4 )
 
-[connection signal="item_selected" from="LocaleSelect" to="LocaleSelect" method="_on_Locale_item_selected"]
+[node name="Button" type="TextureButton" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -22.0
+
+[connection signal="gui_input" from="." to="." method="_on_OptionsMenu_gui_input"]
+[connection signal="item_selected" from="List/LocaleSelect" to="List/LocaleSelect" method="_on_Locale_item_selected"]

@@ -6,6 +6,10 @@ const ACTION_MAP = {
 	"jump":"Jump",
 	"dive":"Dive",
 	"spin":"Spin",
+	"pound":"Ground Pound",
+	"fludd":"Use FLUDD",
+	"switch_fludd":"Switch FLUDD Nozzle",
+	"pause":"Pause",
 	"interact":"Interact",
 	"skip":"Skip Text",
 }
@@ -30,16 +34,6 @@ const JOYPAD_BUTTONS = [
 	["(D-Right)", "(D-Right)", "(D-Right)"],
 ]
 
-const PAD_IDS = {
-	"nintendo":0,
-	"switch":0,
-	"wii":0,
-	"xinput":1,
-	"xbox":1,
-	"ps":2,
-	"sony":2,
-}
-
 export(String) var action_id = ""
 
 onready var key_list = $KeyList
@@ -61,7 +55,6 @@ func _input(event):
 
 func update_list():
 	key_list.text = join_action_array(InputMap.get_action_list(action_id))
-	print(key_list.text)
 
 
 func join_action_array(actions) -> String:
