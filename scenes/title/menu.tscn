@@ -1,10 +1,11 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://gui/main_menu/selection_frame.png" type="Texture" id=1]
 [ext_resource path="res://gui/main_menu/selection_content.png" type="Texture" id=2]
 [ext_resource path="res://scenes/title/menu.gd" type="Script" id=3]
 [ext_resource path="res://gui/main_menu/border.tres" type="StyleBox" id=4]
 [ext_resource path="res://gui/main_menu/icon.png" type="Texture" id=5]
+[ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://gui/main_menu/selector.png" type="Texture" id=7]
 [ext_resource path="res://gui/main_menu/crystal.png" type="Texture" id=8]
 [ext_resource path="res://gui/main_menu/menu_titles.png" type="Texture" id=9]
@@ -15,6 +16,7 @@
 [ext_resource path="res://shaders/desaturate.tres" type="Material" id=14]
 [ext_resource path="res://actors/debug/tickbox.tscn" type="PackedScene" id=15]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=16]
+[ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=17]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -95,6 +97,14 @@ region = Rect2( 0, 32, 56, 33 )
 atlas = ExtResource( 9 )
 region = Rect2( 2, 23, 122, 23 )
 
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 17 )
+region = Rect2( 0, 105, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 17 )
+region = Rect2( 20, 105, 20, 21 )
+
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -107,11 +117,11 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.027451, 0, 0.0941176, 0.501961 )
 
-[node name="SelectorStory" type="Sprite" parent="."]
+[node name="SelectorStory" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 320, 169 )
 texture = ExtResource( 7 )
 
-[node name="Story" type="Sprite" parent="."]
+[node name="Story" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 320, 124 )
 texture = SubResource( 1 )
 
@@ -149,13 +159,11 @@ centered = false
 [node name="Title" type="Sprite" parent="Story"]
 texture = SubResource( 16 )
 
-[node name="SelectorSettings" type="Sprite" parent="."]
-material = ExtResource( 14 )
+[node name="SelectorSettings" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 4, 233 )
 texture = ExtResource( 7 )
 
-[node name="Settings" type="Sprite" parent="."]
-material = ExtResource( 14 )
+[node name="Settings" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 4, 188 )
 texture = SubResource( 4 )
 
@@ -197,12 +205,12 @@ centered = false
 use_parent_material = true
 texture = SubResource( 17 )
 
-[node name="SelectorExtras" type="Sprite" parent="."]
+[node name="SelectorExtras" type="Sprite" parent="." groups=["menu_hide"]]
 material = ExtResource( 14 )
 position = Vector2( 320, 645 )
 texture = ExtResource( 7 )
 
-[node name="Extras" type="Sprite" parent="."]
+[node name="Extras" type="Sprite" parent="." groups=["menu_hide"]]
 material = ExtResource( 14 )
 position = Vector2( 320, 600 )
 texture = SubResource( 3 )
@@ -245,11 +253,11 @@ centered = false
 use_parent_material = true
 texture = SubResource( 18 )
 
-[node name="SelectorLevelDesigner" type="Sprite" parent="."]
+[node name="SelectorLevelDesigner" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 636, 233 )
 texture = ExtResource( 7 )
 
-[node name="LevelDesigner" type="Sprite" parent="."]
+[node name="LevelDesigner" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 636, 188 )
 texture = SubResource( 2 )
 
@@ -291,7 +299,7 @@ centered = false
 use_parent_material = true
 texture = SubResource( 19 )
 
-[node name="Icon" type="Sprite" parent="."]
+[node name="Icon" type="Sprite" parent="." groups=["menu_hide"]]
 texture = ExtResource( 5 )
 centered = false
 offset = Vector2( 9, 33 )
@@ -382,7 +390,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
-[node name="ForceTouch" parent="." instance=ExtResource( 15 )]
+[node name="ForceTouch" parent="." groups=["menu_hide"] instance=ExtResource( 15 )]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -391,7 +399,7 @@ margin_left = -10.0
 margin_top = -80.0
 margin_right = 10.0
 
-[node name="TouchLabel" type="Label" parent="."]
+[node name="TouchLabel" type="Label" parent="." groups=["menu_hide"]]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -402,7 +410,29 @@ text = "Force touch controls
 (Experimental)"
 align = 1
 
+[node name="OptionsControl" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 26.0
+margin_right = -4.0
+margin_bottom = -4.0
+rect_clip_content = true
+
+[node name="OptionsMenu" parent="OptionsControl" instance=ExtResource( 6 )]
+
+[node name="BackButton" type="TextureButton" parent="OptionsControl"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -40.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 40, 44 )
+texture_normal = SubResource( 22 )
+texture_pressed = SubResource( 21 )
+expand = true
+
 [connection signal="pressed" from="Story/Frame/StoryButton" to="." method="_on_StoryButton_pressed"]
 [connection signal="pressed" from="Settings/Frame/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="Extras/Frame/ExtrasButton" to="." method="_on_ExtrasButton_pressed"]
 [connection signal="pressed" from="LevelDesigner/Frame/LDButton" to="." method="_on_LDButton_pressed"]
+[connection signal="pressed" from="OptionsControl/BackButton" to="." method="_on_BackButton_pressed"]

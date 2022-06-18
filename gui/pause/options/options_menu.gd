@@ -37,7 +37,7 @@ onready var camera_fix = $List/CameraFix
 onready var touch_controls = $List/TouchControls
 onready var mute_music = $List/MuteMusic
 onready var mute_sfx = $List/MuteSFX
-onready var show_timer = $List/ShowTimer
+onready var locale_select = $List/LocaleSelect
 var bus_music = AudioServer.get_bus_index("Music")
 var bus_sfx = AudioServer.get_bus_index("SFX")
 var height_set = false
@@ -59,10 +59,12 @@ func _ready():
 	for action in WHITELISTED_ACTIONS:
 		var inst = PREFAB_REBIND_OPTION.instance()
 		inst.action_id = action
+		inst.add_to_group("rebinds")
 		list.add_child(inst)
 
 
 func _process(_delta):
+	manage_sizes()
 	max_height = list.rect_size.y
 	Singleton.disable_limits = camera_fix.pressed
 	Singleton.force_touch = touch_controls.pressed
@@ -83,3 +85,26 @@ func _on_OptionsMenu_gui_input(event):
 func _notification(what):
 	if what == NOTIFICATION_RESIZED && height_set:
 		start_height = rect_size.y - list.margin_top + list.margin_bottom
+
+
+var prev_scale = 1
+func manage_sizes():
+	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
+	camera_fix.rect_scale = Vector2.ONE * scale
+	touch_controls.rect_scale = Vector2.ONE * scale
+	mute_music.rect_scale = Vector2.ONE * scale
+	mute_sfx.rect_scale = Vector2.ONE * scale
+	#locale_select.rect_scale = Vector2.ONE * scale
+	#locale_select.margin_right = 0
+	for node in get_tree().get_nodes_in_group("rebinds"):
+		node.scale = scale
+	if prev_scale != scale:
+		camera_fix.rect_min_size = camera_fix.rect_min_size / prev_scale * scale
+		touch_controls.rect_min_size = touch_controls.rect_min_size / prev_scale * scale
+		mute_music.rect_min_size = mute_music.rect_min_size / prev_scale * scale
+		mute_sfx.rect_min_size = mute_sfx.rect_min_size / prev_scale * scale
+		#locale_select.rect_min_size.y = 32# * scale
+		for node in get_tree().get_nodes_in_group("rebinds"):
+			node.rect_min_size.y = node.rect_min_size.y / prev_scale * scale
+			
+		prev_scale = scale

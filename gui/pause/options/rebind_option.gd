@@ -54,7 +54,7 @@ export(String) var action_id = ""
 
 onready var key_list = $KeyList
 onready var action_name = $ActionName
-
+var scale: float setget set_scale
 
 func _ready():
 	action_name.text = ACTION_MAP[action_id]
@@ -145,4 +145,10 @@ func get_joypad_motion_name(axis: int, value: int):
 			return "(Right Stick Left)" if value == -1 else "(Right Stick Right)"
 		JOY_AXIS_3:
 			return "(Right Stick Up)" if value == -1 else "(Right Stick Down)"
-			
+
+
+func set_scale(new_scale):
+	scale = new_scale
+	action_name.rect_scale = Vector2.ONE * new_scale
+	key_list.rect_scale = Vector2.ONE * new_scale
+	key_list.rect_pivot_offset.x = key_list.rect_size.x
