@@ -16,11 +16,11 @@ func _ready():
 	position = Vector2(-120, -OS.window_size.y + 60)
 
 func _process(_delta):
-	var i_left = Input.is_action_pressed("LD_cam_left")
-	var i_right = Input.is_action_pressed("LD_cam_right")
-	var i_up = Input.is_action_pressed("LD_cam_up")
-	var i_down = Input.is_action_pressed("LD_cam_down")
-	var i_pan = Input.is_action_pressed("LD_cam_pan")
+	var i_left = Input.is_action_pressed("ld_cam_left")
+	var i_right = Input.is_action_pressed("ld_cam_right")
+	var i_up = Input.is_action_pressed("ld_cam_up")
+	var i_down = Input.is_action_pressed("ld_cam_down")
+	var i_pan = Input.is_action_pressed("ld_cam_pan")
 	mouse_pos = get_local_mouse_position()
 	
 	if i_pan:

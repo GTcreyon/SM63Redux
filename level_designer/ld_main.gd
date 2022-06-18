@@ -242,7 +242,7 @@ func _process(_dt):
 			selection_rect = new
 			emit_signal("selection_size_changed", selection_rect)
 	
-	if Input.is_action_just_pressed("LD_exit"): # return to designer
+	if Input.is_action_just_pressed("ld_exit"): # return to designer
 		if in_level:
 			in_level = false
 			get_tree().change_scene("res://level_designer/level_designer.tscn")
@@ -262,14 +262,14 @@ func handle_mouse_input(event):
 	var global_mouse_pos = ld_camera.global_position + last_local_mouse_position
 	
 	#key press cycle
-	if event.is_action_pressed("LD_queue+") && len(selection.active) == 1 && len(selection.hit) != 1:
+	if event.is_action_pressed("ld_queue+") && len(selection.active) == 1 && len(selection.hit) != 1:
 		selection.head_idx = (selection.head_idx + 1) % len(selection.hit)
 		selection.head = selection.hit[selection.head_idx]
 		selection.active = [selection.head]
 		emit_signal("selection_changed", selection)
 		emit_signal("selection_event", selection)
 	
-	if event.is_action_pressed("LD_queue-") && len(selection.active) == 1 && len(selection.hit) != 1:
+	if event.is_action_pressed("ld_queue-") && len(selection.active) == 1 && len(selection.hit) != 1:
 		selection.head_idx = (selection.head_idx - 1) % len(selection.hit)
 		selection.head = selection.hit[selection.head_idx]
 		selection.active = [selection.head]
@@ -277,11 +277,11 @@ func handle_mouse_input(event):
 		emit_signal("selection_event", selection)
 	
 	#enable rectangle-select
-	if event.is_action_pressed("LD_select"):
+	if event.is_action_pressed("ld_select"):
 		selection_begin = global_mouse_pos
 	
 	#main selection
-	if event.is_action_released("LD_select"):
+	if event.is_action_released("ld_select"):
 		#end the rectangle select
 		selection_begin = null
 		var list = []

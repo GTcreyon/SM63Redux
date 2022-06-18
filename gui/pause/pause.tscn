@@ -42,6 +42,7 @@ __meta__ = {
 }
 
 [node name="OptionsMenu" parent="." instance=ExtResource( 3 )]
+visible = false
 
 [node name="ExitMenu" type="Control" parent="."]
 visible = false

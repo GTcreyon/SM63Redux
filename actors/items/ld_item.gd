@@ -17,7 +17,7 @@ var properties: Dictionary = {}
 
 func _selection_changed(new_selection):
 	if new_selection.head == self:
-#			if Input.is_action_pressed("LD_many"):
+#			if Input.is_action_pressed("ld_many"):
 #				main.place_item(item_id)
 		material = GLOW_MATERIAL
 	else:
@@ -32,7 +32,7 @@ func _ready():
 	main.connect("selection_changed", self, "_selection_changed")
 
 func _input(event):
-	if event.is_action_released("LD_place"):
+	if event.is_action_released("ld_place"):
 		modulate.a = 1
 		ghost = false
 
@@ -42,7 +42,7 @@ func _process(_delta):
 		properties["Position"] = position
 	
 	if ghost || material != null:
-		if Input.is_action_just_pressed("LD_delete"):
+		if Input.is_action_just_pressed("ld_delete"):
 			queue_free()
 	
 	if material != null:
