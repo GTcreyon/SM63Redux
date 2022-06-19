@@ -75,10 +75,22 @@ margin_top = 2.0
 custom_fonts/font = ExtResource( 2 )
 text = "Mute SFX"
 
-[node name="LocaleSelect" type="OptionButton" parent="List"]
+[node name="ShowTimer" parent="List" instance=ExtResource( 1 )]
 margin_top = 96.0
 margin_right = 624.0
-margin_bottom = 128.0
+margin_bottom = 116.0
+
+[node name="Label" type="Label" parent="List/ShowTimer"]
+margin_left = 23.0
+margin_top = 2.0
+custom_fonts/font = ExtResource( 2 )
+text = "Show timer
+"
+
+[node name="LocaleSelect" type="OptionButton" parent="List"]
+margin_top = 120.0
+margin_right = 624.0
+margin_bottom = 152.0
 rect_min_size = Vector2( 0, 32 )
 mouse_default_cursor_shape = 2
 custom_fonts/font = ExtResource( 2 )
@@ -89,9 +101,9 @@ custom_styles/normal = ExtResource( 5 )
 script = ExtResource( 4 )
 
 [node name="ResetBinds" type="TextureButton" parent="List"]
-margin_top = 132.0
+margin_top = 156.0
 margin_right = 624.0
-margin_bottom = 153.0
+margin_bottom = 177.0
 rect_min_size = Vector2( 20, 21 )
 texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )

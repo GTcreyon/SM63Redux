@@ -8,6 +8,7 @@ onready var camera_fix = $List/CameraFix
 onready var touch_controls = $List/TouchControls
 onready var mute_music = $List/MuteMusic
 onready var mute_sfx = $List/MuteSFX
+onready var show_timer = $List/ShowTimer
 onready var locale_select = $List/LocaleSelect
 onready var reset_binds = $List/ResetBinds
 var bus_music = AudioServer.get_bus_index("Music")
@@ -22,10 +23,12 @@ func _ready():
 	touch_controls.pressed = Singleton.touch_controls()
 	mute_music.pressed = AudioServer.is_bus_mute(bus_music)
 	mute_sfx.pressed = AudioServer.is_bus_mute(bus_sfx)
+	show_timer.pressed = Singleton.timer.visible
 	$List/CameraFix/Sprite.playing = camera_fix.pressed
 	$List/TouchControls/Sprite.playing = touch_controls.pressed
 	$List/MuteMusic/Sprite.playing = mute_music.pressed
 	$List/MuteSFX/Sprite.playing = mute_sfx.pressed
+	$List/ShowTimer/Sprite.playing = show_timer.pressed
 	start_height = rect_size.y - list.margin_top + list.margin_bottom
 	height_set = true
 	for action in Singleton.WHITELISTED_ACTIONS:
@@ -42,6 +45,7 @@ func _process(_delta):
 	Singleton.force_touch = touch_controls.pressed
 	AudioServer.set_bus_mute(bus_music, mute_music.pressed)
 	AudioServer.set_bus_mute(bus_sfx, mute_sfx.pressed)
+	Singleton.timer.visible = show_timer.pressed
 
 
 func _on_OptionsMenu_gui_input(event):
