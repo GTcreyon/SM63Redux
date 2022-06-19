@@ -54,6 +54,7 @@ export(String) var action_id = ""
 
 onready var key_list = $KeyList
 onready var action_name = $ActionName
+onready var parent = $"../.."
 var scale: float setget set_scale
 
 func _ready():
@@ -63,10 +64,11 @@ func _ready():
 
 func _input(event):
 	if pressed:
-		if event is InputEventKey || event is InputEventJoypadButton || event is InputEventJoypadMotion:
+		if event is InputEventKey || event is InputEventJoypadButton || (event is InputEventJoypadMotion && abs(event.axis_value) > 0.25):
 			Singleton.get_node("SFX/Confirm").play()
 			InputMap.action_add_event(action_id, event)
 			unpress()
+			Singleton.save_input_map(Singleton.get_input_map_json_current())
 			update_list()
 
 
@@ -95,6 +97,7 @@ func _on_RebindOption_pressed():
 	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
 		Singleton.get_node("SFX/Back").play()
 		InputMap.action_erase_events(action_id)
+		Singleton.save_input_map(Singleton.get_input_map_json_current())
 		update_list()
 	else:
 		Singleton.get_node("SFX/Next").play()
@@ -116,10 +119,6 @@ func get_brand_id(id: int = 0) -> int: # need to get the gamepad brand so we can
 			return 0
 
 
-func _on_RebindOption_focus_exited():
-	unpress()
-
-
 func _on_RebindOption_mouse_entered():
 	if !pressed:
 		action_name.add_color_override("font_color", Color.aqua)
@@ -138,17 +137,17 @@ func unpress():
 	key_list.add_color_override("font_color", Color.white)
 
 
-func get_joypad_motion_name(axis: int, value: int):
+func get_joypad_motion_name(axis: int, value: float):
 	var output
 	match axis:
 		JOY_AXIS_0:
-			return "(Left Stick Left)" if value == -1 else "(Left Stick Right)"
+			return "(Left Stick Left)" if value < 0 else "(Left Stick Right)"
 		JOY_AXIS_1:
-			return "(Left Stick Up)" if value == -1 else "(Left Stick Down)"
+			return "(Left Stick Up)" if value < 0 else "(Left Stick Down)"
 		JOY_AXIS_2:
-			return "(Right Stick Left)" if value == -1 else "(Right Stick Right)"
+			return "(Right Stick Left)" if value < 0 else "(Right Stick Right)"
 		JOY_AXIS_3:
-			return "(Right Stick Up)" if value == -1 else "(Right Stick Down)"
+			return "(Right Stick Up)" if value < 0 else "(Right Stick Down)"
 
 
 func set_scale(new_scale):
@@ -156,3 +155,7 @@ func set_scale(new_scale):
 	action_name.rect_scale = Vector2.ONE * new_scale
 	key_list.rect_scale = Vector2.ONE * new_scale
 	key_list.rect_pivot_offset.x = key_list.rect_size.x
+
+
+func _process(_delta):
+	update_list()

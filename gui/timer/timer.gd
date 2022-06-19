@@ -54,8 +54,6 @@ func _physics_process(_delta):
 		if player != null:
 			player.position = Vector2(110, 153)
 	
-	if Input.is_action_just_pressed("timer_show") && !Singleton.meta_paused:
-		visible = !visible
 	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if !Singleton.meta_paused && running:
 		frames += 1

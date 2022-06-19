@@ -42,7 +42,6 @@ func physics_step():
 		if body.is_on_floor():
 			riders.append(body)
 	
-	var pivot_pos = Vector2(position.x + cos(rotation) * pivot_offset, position.y + sin(rotation) * pivot_offset)
 	for body in riders:
 		var angle = get_angle_to(body.position)
 		var dist = position.distance_to(body.position)

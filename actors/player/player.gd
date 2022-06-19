@@ -1306,15 +1306,15 @@ func dive_correct(factor): # Correct the player's origin position when diving
 	else:
 		dust.position.y = 11.5 - DIVE_CORRECTION
 		ground_failsafe_check.position.y = 17 - DIVE_CORRECTION
-	base_modifier.add_modifier(
-		camera,
-		"position",
-		"dive_correction",
-		Vector2(
-			0,
-			min(0, -DIVE_CORRECTION * factor)
-		)
-	)
+#	base_modifier.add_modifier(
+#		camera,
+#		"position",
+#		"dive_correction",
+#		Vector2(
+#			0,
+#			min(0, -DIVE_CORRECTION * factor)
+#		)
+#	)
 	# camera.position.y = min(0, -set_dive_correct * factor)
 
 

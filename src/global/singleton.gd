@@ -10,6 +10,32 @@ const LOCALES = [
 	["it", "Italiano"],
 	["nl", "Nederlands"],
 ]
+const WHITELISTED_ACTIONS = [
+	"left",
+	"right",
+	"jump",
+	"dive",
+	"spin",
+	"pound",
+	"fludd",
+	"switch_fludd",
+	"pause",
+	"interact",
+	"skip",
+	"zoom+",
+	"zoom-",
+	"semi",
+	"reset",
+	"volume_music+",
+	"volume_music-",
+	"volume_sfx+",
+	"volume_sfx-",
+	"fullscreen",
+	"screen+",
+	"screen-",
+	"feedback",
+	"debug",
+]
 
 enum n { #fludd enum
 	none,
@@ -52,6 +78,7 @@ var meta_pauses = {
 	"feedback":false,
 	"console":false,
 }
+var default_input_map: String
 
 enum LogType {
 	INFO,
@@ -76,25 +103,21 @@ func log_msg(msg: String, type: int = LogType.INFO):
 	
 
 func _ready():
-	#create_coindict(get_tree().get_current_scene().get_filename())
 	rng.seed = hash("2401")
 	collect_count = 0 # reset the collect count on every room load
-#	if enter != 0:
-#		$"/root/Main/Player/Camera2D/GUI/SweepEffect".enter = enter
-#		$"/root/Main/Player/Camera2D/GUI/SweepEffect".enter = direction
+	default_input_map = get_input_map_json_current()
+	var file = File.new()
+	if file.file_exists("user://controls.json"):
+		load_input_map(get_input_map_json_saved())
 
 
 func _process(_delta):
 	var sfx = AudioServer.get_bus_index("SFX")
 	var music = AudioServer.get_bus_index("Music")
-	if Input.is_action_just_pressed("mute_sfx"):
-		AudioServer.set_bus_mute(sfx, !AudioServer.is_bus_mute(sfx))
 	if Input.is_action_just_pressed("volume_sfx-"):
 		AudioServer.set_bus_volume_db(sfx, AudioServer.get_bus_volume_db(sfx) - 1)
 	if Input.is_action_just_pressed("volume_sfx+"):
 		AudioServer.set_bus_volume_db(sfx, AudioServer.get_bus_volume_db(sfx) + 1)
-	if Input.is_action_just_pressed("mute_music"):
-		AudioServer.set_bus_mute(music, !AudioServer.is_bus_mute(music))
 	if Input.is_action_just_pressed("volume_music-"):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) - 1)
 	if Input.is_action_just_pressed("volume_music+"):
@@ -147,3 +170,59 @@ func set_pause(label: String, set: bool):
 	meta_paused = false
 	for pause in meta_pauses:
 		meta_paused = meta_paused || meta_pauses[pause]
+
+
+func get_input_map_json_saved():
+	var file = File.new()
+	file.open("user://controls.json", File.READ)
+	var content = file.get_as_text()
+	file.close()
+	return content
+
+
+func load_input_map(input_json):
+	var load_dict = parse_json(input_json)
+	for key in load_dict:
+		InputMap.action_erase_events(key)
+		for action in load_dict[key]:
+			var type = action[0]
+			var body = action.substr(2)
+			var event
+			match type:
+				"k":
+					event = InputEventKey.new()
+					event.scancode = int(body)
+				"b":
+					event = InputEventJoypadButton.new()
+					event.button_index = int(body)
+				"a":
+					var args = body.split(";")
+					event = InputEventJoypadMotion.new()
+					event.axis = int(args[0])
+					event.axis_value = int(args[1])
+			InputMap.action_add_event(key, event)
+
+
+func get_input_map_json_current():
+	var save_dict = {}
+	for key in InputMap.get_actions():
+		if WHITELISTED_ACTIONS.has(key):
+			for action in InputMap.get_action_list(key):
+				if !save_dict.has(key):
+					save_dict[key] = []
+				var key_entry = save_dict[key]
+				match action.get_class():
+					"InputEventKey":
+						key_entry.append("k:%d" % action.scancode)
+					"InputEventJoypadButton":
+						key_entry.append("b:%d" % action.button_index)
+					"InputEventJoypadMotion":
+						key_entry.append("a:%d;%d" % [action.axis, action.axis_value])
+	return to_json(save_dict)
+
+
+func save_input_map(input_json):
+	var file = File.new()
+	file.open("user://controls.json", File.WRITE)
+	file.store_string(input_json) # minimise the amount of time spent with the file open
+	file.close()
