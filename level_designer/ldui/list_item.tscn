@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://level_designer/ldui/list_item.gd" type="Script" id=1]
-[ext_resource path="res://level_designer/ldui/list_item_box.tres" type="StyleBox" id=2]
+[ext_resource path="res://level_designer/ldui/list_item_box_normal.tres" type="StyleBox" id=2]
+[ext_resource path="res://level_designer/ldui/list_item_box_hover.tres" type="StyleBox" id=3]
+[ext_resource path="res://level_designer/ldui/list_item_box_press.tres" type="StyleBox" id=4]
 
 [node name="ListItem" type="Button"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
+custom_styles/hover = ExtResource( 3 )
+custom_styles/pressed = ExtResource( 4 )
 custom_styles/normal = ExtResource( 2 )
 script = ExtResource( 1 )
 
