@@ -73,12 +73,13 @@ func _process(_delta):
 
 
 func _on_OptionsMenu_gui_input(event):
+	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_WHEEL_DOWN:
-			list.margin_top = max(list.margin_top - SCROLL_SPEED, -(max_height - start_height) + list.margin_left)
+			list.margin_top = max(list.margin_top - SCROLL_SPEED * scale, -(max_height - start_height) + list.margin_left)
 			list.margin_bottom = list.margin_top - 16
 		elif event.button_index == BUTTON_WHEEL_UP:
-			list.margin_top = min(list.margin_top + SCROLL_SPEED, 8)
+			list.margin_top = min(list.margin_top + SCROLL_SPEED * scale, 8)
 			list.margin_bottom = list.margin_top - 16
 
 
