@@ -54,6 +54,7 @@ export(String) var action_id = ""
 
 onready var key_list = $KeyList
 onready var action_name = $ActionName
+onready var parent = $"../.."
 var scale: float setget set_scale
 
 func _ready():
@@ -67,6 +68,7 @@ func _input(event):
 			Singleton.get_node("SFX/Confirm").play()
 			InputMap.action_add_event(action_id, event)
 			unpress()
+			parent.save_input_map()
 			update_list()
 
 
@@ -95,6 +97,7 @@ func _on_RebindOption_pressed():
 	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
 		Singleton.get_node("SFX/Back").play()
 		InputMap.action_erase_events(action_id)
+		parent.save_input_map()
 		update_list()
 	else:
 		Singleton.get_node("SFX/Next").play()

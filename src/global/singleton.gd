@@ -52,6 +52,7 @@ var meta_pauses = {
 	"feedback":false,
 	"console":false,
 }
+var default_input_map: Dictionary
 
 enum LogType {
 	INFO,
@@ -76,12 +77,10 @@ func log_msg(msg: String, type: int = LogType.INFO):
 	
 
 func _ready():
-	#create_coindict(get_tree().get_current_scene().get_filename())
 	rng.seed = hash("2401")
 	collect_count = 0 # reset the collect count on every room load
-#	if enter != 0:
-#		$"/root/Main/Player/Camera2D/GUI/SweepEffect".enter = enter
-#		$"/root/Main/Player/Camera2D/GUI/SweepEffect".enter = direction
+	save_default_input_map()
+	load_input_map()
 
 
 func _process(_delta):
@@ -147,3 +146,38 @@ func set_pause(label: String, set: bool):
 	meta_paused = false
 	for pause in meta_pauses:
 		meta_paused = meta_paused || meta_pauses[pause]
+
+
+func load_input_map():
+	var file = File.new()
+	if file.file_exists("user://controls.json"):
+		var load_dict: Dictionary
+		var content: String
+		file.open("user://controls.json", File.READ)
+		content = file.get_as_text()
+		file.close()
+		load_dict = parse_json(content)
+		for key in load_dict:
+			InputMap.action_erase_events(key)
+			for action in load_dict[key]:
+				var type = action[0]
+				var body = int(action.substr(2))
+				var event
+				match type:
+					"k":
+						event = InputEventKey.new()
+						event.scancode = body
+					"b":
+						event = InputEventJoypadButton.new()
+						event.button_index = body
+					"b":
+						var args = body.split(";")
+						event = InputEventJoypadMotion.new()
+						event.axis = args[0]
+						event.axis_value = args[1]
+				InputMap.action_add_event(key, event)
+
+
+func save_default_input_map():
+	for action in InputMap.get_actions():
+		default_input_map[action] = InputMap.get_action_list(action)

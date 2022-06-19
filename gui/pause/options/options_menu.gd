@@ -109,3 +109,25 @@ func manage_sizes():
 			node.rect_min_size.y = node.rect_min_size.y / prev_scale * scale
 			
 		prev_scale = scale
+
+
+func save_input_map():
+	var save_dict = {}
+	for key in InputMap.get_actions():
+		if WHITELISTED_ACTIONS.has(key):
+			for action in InputMap.get_action_list(key):
+				if !save_dict.has(key):
+					save_dict[key] = []
+				var key_entry = save_dict[key]
+				match action.get_class():
+					"InputEventKey":
+						key_entry.append("k:%d" % action.scancode)
+					"InputEventJoypadButton":
+						key_entry.append("b:%d" % action.button_index)
+					"InputEventJoypadMotion":
+						key_entry.append("a:%d;%d" % [action.axis, action.axis_value])
+	var content = to_json(save_dict)
+	var file = File.new()
+	file.open("user://controls.json", File.WRITE)
+	file.store_string(content) # minimise the amount of time spent with the file open
+	file.close()
