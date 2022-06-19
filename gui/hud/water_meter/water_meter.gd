@@ -54,9 +54,9 @@ func _process(delta):
 	var dmod = 60 * delta
 	refresh()
 	if player.fludd_strain:
-		icon_bob = fmod(icon_bob + 0.5, 120)
+		icon_bob = fmod(icon_bob + 0.5 * dmod, 120)
 	else:
-		icon_bob = fmod(icon_bob + 0.1, 120)
+		icon_bob = fmod(icon_bob + 0.1 * dmod, 120)
 	icon.offset.y = sin(icon_bob) * 2
 	if Singleton.water == INF:
 		filler.scale.y = 79
@@ -81,7 +81,8 @@ func _process(delta):
 		bubbles_medium.visible = false
 		bubbles_small.visible = false
 		
-	power_mask.offset.y = int(power_mask.offset.y - 1) % 83
+	power_mask.offset.y -= 1 * dmod
+	if(power_mask.offset.y < -83): power_mask.offset.y += 83
 	power_mask.energy = 1.4 if player.fludd_strain else 1.0
 	if Singleton.power == 100 && power_prev != 100:
 		power_filler_cover.modulate.a = 1
