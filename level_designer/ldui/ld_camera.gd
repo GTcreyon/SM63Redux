@@ -30,13 +30,7 @@ func _process(_delta):
 		position += Vector2((int(i_right) - int(i_left))*scroll_speed, (int(i_down) - int(i_up))*scroll_speed)
 		
 	mouse_pos_store = mouse_pos
-	
-#	if i_place:
-#		map.set_cellv(map.world_to_map(get_global_mouse_position()), 0)
-#
-#	if i_delete:
-#		map.set_cellv(map.world_to_map(get_global_mouse_position()), -1)
-#
+
 	if i_down && Input.is_action_just_pressed("debug"):
 		var player_spawn = player.instance()
 		player_spawn.position = get_parent().start_pos
@@ -50,3 +44,8 @@ func object_load(id):
 	if !objects_loaded.has(id):
 		objects_loaded[id] = load("res://actors/items/" + str(id) + "/" + str(id) + ".tscn")
 	return objects_loaded[id]
+
+
+func _input(event):
+	if event is InputEventScreenDrag:
+		position -= event.relative
