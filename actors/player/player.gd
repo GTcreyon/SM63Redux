@@ -369,29 +369,23 @@ func fixed_visuals() -> void:
 	bubbles_medium.emitting = fludd_strain
 	bubbles_small.emitting = fludd_strain
 
-	var center = position
+	var bubblepos = position
 	if state == S.DIVE:
-		bubbles_medium.position.y = -9
-		bubbles_small.position.y = -9
+		bubblepos.y += -9
 		if sprite.flip_h:
-			bubbles_medium.position.x = -1
-			bubbles_small.position.x = -1
+			bubblepos.x += -1
 
 		else:
-			bubbles_medium.position.x = 1
-			bubbles_small.position.x = 1
+			bubblepos.x += 1
 	else:
-		bubbles_medium.position.y = -2
-		bubbles_small.position.y = -2
+		bubblepos.y += -2
 		if sprite.flip_h:
-			bubbles_medium.position.x = 10
-			bubbles_small.position.x = 10
+			bubblepos.x += 10
 		else:
-			bubbles_medium.position.x = -10
-			bubbles_small.position.x = -10
+			bubblepos.x += -10
 	# offset bubbles to mario's center
-	bubbles_medium.position += center
-	bubbles_small.position += center
+	bubbles_medium.position = bubblepos
+	bubbles_small.position = bubblepos
 	
 	# give it shader data
 	bubbles_small.process_material.direction = Vector3(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2), 0)
