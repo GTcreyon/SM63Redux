@@ -507,7 +507,6 @@ visible = false
 [connection signal="selection_size_changed" from="." to="UILayer/LDUI" method="_selection_size_changed"]
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
-[connection signal="tween_completed" from="Music/FadeIn" to="Music" method="_on_Fade_tween_completed"]
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
 [connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
