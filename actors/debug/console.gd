@@ -64,7 +64,7 @@ func run_command(cmd: String):
 					if err == OK:
 						Singleton.log_msg("Warped to " + scene)
 					else:
-						Singleton.log_msg("Error: " + err, Singleton.LogType.ERROR)
+						Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
 				else:
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 			"water":
