@@ -105,18 +105,21 @@ func _on_RebindOption_pressed():
 		key_list.add_color_override("font_color", Color.green)
 		
 
-func get_brand_id(id: int = 0) -> int: # need to get the gamepad brand so we can display correct button icons
-	var guid = Input.get_joy_guid(id)
-	var vendor_id = guid.substr(8, 4)
-	match vendor_id:
-		"7e05": # nintendo
-			return 0
-		"5e04": # microsoft
-			return 1
-		"1716", "7264", "4c05", "510a", "ce0f", "ba12": # sony
-			return 2
-		_:
-			return 0
+func get_brand_id(): # need to get the gamepad brand so we can display correct button icons
+	if Input.get_connected_joypads().size() > 0:
+		var guid = Input.get_joy_guid(0)
+		var vendor_id = guid.substr(8, 4)
+		match vendor_id:
+			"7e05": # nintendo
+				return 0
+			"5e04": # microsoft
+				return 1
+			"1716", "7264", "4c05", "510a", "ce0f", "ba12": # sony
+				return 2
+			_:
+				return 0
+	else:
+		return 0
 
 
 func _on_RebindOption_mouse_entered():
