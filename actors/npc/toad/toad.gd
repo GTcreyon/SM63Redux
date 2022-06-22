@@ -72,7 +72,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if !Engine.editor_hint:
-		if Input.is_action_just_pressed("interact") && overlaps_body(player) && player.state == player.S.NEUTRAL && player.sign_cooldown <= 0:
+		if Input.is_action_just_pressed("interact") && overlaps_body(player) && player.state == player.S.NEUTRAL && player.sign_frames <= 0:
 			#player.switch_anim("back")
 			player.vel = Vector2.ZERO
 			player.sign_x = position.x - 16
