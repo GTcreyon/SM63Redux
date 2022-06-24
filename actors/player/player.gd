@@ -103,6 +103,8 @@ onready var hover_loop_sfx = $HoverLoopSFX
 onready var dust = $Dust
 onready var ground_failsafe_check: Area2D = $GroundFailsafe
 
+var ground_pound_effect = preload("res://actors/player/ground_pound_effect.tscn")
+
 # vars to lock mechanics
 var invuln_frames: int = 0
 var locked: bool = false
@@ -956,6 +958,12 @@ func manage_pound_recover() -> void:
 		if pound_land_frames == 12:
 			pound_state = Pound.LAND
 			switch_anim("flip")
+			
+			#dispatch star effect
+			var fx = ground_pound_effect.instance()
+			get_parent().add_child(fx)
+			fx.global_position = sprite.global_position + Vector2.DOWN * 11
+			fx.find_node("StarsAnim").play("GroundPound")
 		elif pound_land_frames <= 0:
 			switch_state(S.NEUTRAL)
 		# warning-ignore:narrowing_conversion
