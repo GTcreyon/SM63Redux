@@ -373,7 +373,6 @@ func fixed_visuals() -> void:
 	
 	if fludd_strain:
 		nozzle_fx_scale = min(lerp(0.3, 1, Singleton.power / 100), nozzle_fx_scale + 0.1)
-		nozzle_fx.flip_h = !nozzle_fx.flip_h
 	else:
 		nozzle_fx_scale = max(0, nozzle_fx_scale - 0.25)
 	nozzle_fx.visible = nozzle_fx_scale > 0
