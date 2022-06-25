@@ -54,10 +54,9 @@ texture = ExtResource( 13 )
 script = ExtResource( 12 )
 
 [node name="Planet" type="TextureRect" parent="."]
-anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -194.0
+margin_top = 166.0
+margin_bottom = 360.0
 rect_pivot_offset = Vector2( 0, 194 )
 texture = ExtResource( 3 )
 expand = true
@@ -96,6 +95,7 @@ volume_db = -80.0
 bus = "Music"
 
 [node name="StartText" type="Label" parent="."]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 265.0

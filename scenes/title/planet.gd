@@ -9,8 +9,10 @@ onready var flash = $Flash
 func _process(delta):
 	var scale = get_parent().scale
 	margin_left -= SCROLL_SPEED * scale.x * 60 * delta
-	margin_top = -194 * ease_out_quart(min(progress, 60) / 60)
-	rect_scale = scale * Vector2.ONE
+	margin_top = (OS.window_size.y - 194 * ease_out_quart(min(progress, 60) / 60))
+	margin_bottom = OS.window_size.y
+	rect_pivot_offset.y = rect_size.y
+	rect_scale = scale
 	if wait < 50:
 		wait += 1
 	else:

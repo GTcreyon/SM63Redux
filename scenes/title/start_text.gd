@@ -9,7 +9,6 @@ func _init():
 
 
 func _process(delta):
-	modulate.a = 0
 	var scale = get_parent().scale
 	rect_scale = scale * 2 * Vector2.ONE
 	rect_pivot_offset.x = OS.window_size.x / 2
@@ -18,5 +17,5 @@ func _process(delta):
 		wait += 1
 	else:
 		progress = min(progress + 60 * delta, 10)
-		modulate.a = progress / 10
+		self_modulate.a = progress / 10
 	
