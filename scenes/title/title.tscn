@@ -7,7 +7,7 @@
 [ext_resource path="res://scenes/title/planet.gd" type="Script" id=5]
 [ext_resource path="res://scenes/title/title.ogg" type="AudioStream" id=6]
 [ext_resource path="res://scenes/title/title_bg/silhouettes.png" type="Texture" id=7]
-[ext_resource path="res://scenes/title/silhouettes.gd" type="Script" id=8]
+[ext_resource path="res://scenes/title/logo_outline.png" type="Texture" id=8]
 [ext_resource path="res://scenes/title/title_bg/light_beam.png" type="Texture" id=9]
 [ext_resource path="res://scenes/title/title_bg/magmoon.png" type="Texture" id=10]
 [ext_resource path="res://scenes/title/magmoon.gd" type="Script" id=11]
@@ -32,14 +32,10 @@ script = ExtResource( 17 )
 [node name="Space" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -194.0
 texture = ExtResource( 2 )
 expand = true
 stretch_mode = 2
 script = ExtResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="LightBeam" type="TextureRect" parent="Space"]
 anchor_right = 1.0
@@ -68,18 +64,25 @@ expand = true
 stretch_mode = 2
 script = ExtResource( 5 )
 
-[node name="Silhouettes" type="TextureRect" parent="."]
-anchor_top = 1.0
+[node name="Silhouettes" type="TextureRect" parent="Planet"]
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -75.0
+margin_top = 119.0
 rect_pivot_offset = Vector2( 0, 75 )
 texture = ExtResource( 7 )
 stretch_mode = 2
-script = ExtResource( 8 )
+
+[node name="Flash" type="ColorRect" parent="Planet"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 16.0
+color = Color( 0.976471, 0.909804, 0.909804, 0 )
 
 [node name="Logo" parent="." instance=ExtResource( 1 )]
 position = Vector2( 302, 109 )
+
+[node name="Flash" type="Sprite" parent="Logo"]
+modulate = Color( 1, 1, 1, 0 )
+texture = ExtResource( 8 )
 
 [node name="TitleLoop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
