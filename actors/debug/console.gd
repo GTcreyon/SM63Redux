@@ -104,6 +104,9 @@ func run_command(cmd: String):
 				Singleton.log_msg("Warped to title.")
 				#warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/title/title.tscn")
+			"vps":
+				Singleton.log_msg("Entering VPS editor.")
+				get_tree().change_scene("res://level_designer/visual_pipescript/editor.tscn")
 			"fludd":
 				match args[1]:
 					"h", "hover", "0":

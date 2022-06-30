@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://level_designer/visual_pipescript/node_placer.gd" type="Script" id=1]
+[ext_resource path="res://level_designer/visual_pipescript/Builder.gd" type="Script" id=2]
+
+[node name="Main" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Camera" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+
+[node name="CanvasLayer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="GraphEdit" type="GraphEdit" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 40.0
+right_disconnects = true
+scroll_offset = Vector2( -319, -140 )
+snap_distance = 16
+zoom_min = 0.2
+zoom_max = 2.0
+minimap_enabled = false
+
+[node name="Titlebar" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+margin_bottom = 40.0
+color = Color( 0.403957, 0.3818, 0.46, 1 )
+script = ExtResource( 2 )
+
+[node name="Run" type="Button" parent="CanvasLayer/Titlebar"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -46.0
+margin_top = -30.0
+margin_right = -10.0
+margin_bottom = -10.0
+text = "Run"
+
+[node name="Save" type="Button" parent="CanvasLayer/Titlebar"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -30.0
+margin_bottom = -10.0
+text = "Save"
+
+[node name="Load" type="Button" parent="CanvasLayer/Titlebar"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 61.0
+margin_top = -30.0
+margin_bottom = -10.0
+text = "Load"
+
+[node name="Place" type="OptionButton" parent="CanvasLayer"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = -305.0
+margin_right = 106.0
+margin_bottom = -285.0
+text = "Place Node"
+script = ExtResource( 1 )
+
+[connection signal="connection_request" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_connection_request"]
+[connection signal="delete_nodes_request" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_delete_nodes_request"]
+[connection signal="node_selected" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_node_selected"]
+[connection signal="node_unselected" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_node_unselected"]
+[connection signal="pressed" from="CanvasLayer/Titlebar/Run" to="CanvasLayer/Titlebar" method="_on_Run_pressed"]
+[connection signal="item_selected" from="CanvasLayer/Place" to="CanvasLayer/Place" method="_on_Place_item_selected"]

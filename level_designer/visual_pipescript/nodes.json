@@ -1,0 +1,55 @@
+[
+	{
+		"name": "Start",
+		"flow": { "input": false, "output": true },
+		"attributes": [],
+		"slots": [
+			{ "type": "connector", "input": false, "output": true, "value": null, "label": "Subroutine Entrance" }
+		]
+	},
+	{
+		"name": "End",
+		"flow": { "input": true, "output": false },
+		"attributes": [],
+		"slots": [
+			{ "type": "connector", "input": false, "output": true, "value": null, "label": "Subroutine Exit" }
+		]
+	},
+	{
+		"name": "Repeat",
+		"flow": { "input": true, "output": true },
+		"attributes": [
+			{ "type": "equation", "value": "", "label": "Repeat Until" }
+		],
+		"slots": [
+			{ "type": "connector", "input": true, "output": false, "value": null, "label": "Subroutine Entrance" },
+			{ "type": "connector", "input": true, "output": false, "value": null, "label": "Subroutine Exit" }
+		]
+	},
+	{
+		"name": "Create Variable",
+		"flow": { "input": true, "output": true },
+		"attributes": [
+			{ "type": "variable", "value": "", "label": "Variable Name" },
+			{ "type": "equation", "value": "", "label": "Variable Value" }
+		],
+		"slots": []
+	},
+	{
+		"name": "Modify Variable",
+		"flow": { "input": true, "output": true },
+		"attributes": [
+			{ "type": "variable", "value": "", "label": "Variable Name" },
+			{ "type": "equation", "value": "", "label": "New Value" }
+		],
+		"slots": []
+	},
+	{
+		"name": "Print",
+		"flow": { "input": true, "output": true },
+		"attributes": [
+			{ "type": "variable", "value": "", "label": "Variable Name" }
+		],
+		"slots": []
+	}
+]
