@@ -47,8 +47,7 @@ func physics_step():
 		snap = Vector2.ZERO
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
-	#raycast2d is used here to detect if the object collided with a wall
-	#to change directions
+	
 	if is_on_wall() or is_on_floor() and detect_edges and !raycast.is_colliding():
 		vel.x = 0
 		flip_ev()
