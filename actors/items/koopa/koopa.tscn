@@ -65,7 +65,7 @@ shape = SubResource( 8 )
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2( 9, 0 )
 enabled = true
-cast_to = Vector2( 0, 21 )
+cast_to = Vector2( 0, 35 )
 
 [node name="TopCollision" type="Area2D" parent="."]
 position = Vector2( 0, -14 )
