@@ -22,6 +22,8 @@ func _ready():
 	init_position = position
 	sprite.frame = hash(position.x + position.y * PI) % 6
 	sprite.playing = !disabled
+	
+	if mirror: raycast.position.x *= -1
 
 
 func _physics_process(_delta):
