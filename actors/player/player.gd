@@ -195,6 +195,7 @@ const JUMP_VEL_2: float = 12.5 * FPS_MOD
 const JUMP_VEL_3: float = 15 * FPS_MOD
 const DOUBLE_JUMP_TIME: int = 8
 var grounded: bool = false
+var ground_except: bool = false
 var dive_resetting: bool = false
 var frontflip_dir_left: bool = false
 var double_anim_cancel: bool = false
@@ -635,7 +636,7 @@ func player_control_x() -> void:
 				)
 			):
 				sprite.flip_h = dir == -1 # flip sprite according to direction
-			if grounded && !swimming:
+			if (grounded || (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) && ground_except)) && !swimming:
 				if state == S.POUND:
 					vel.x = 0
 				elif state != S.DIVE:
@@ -726,7 +727,7 @@ func action_jump() -> void:
 			vel.y = -JUMP_VEL_2
 			play_sfx("voice", "jump2")
 			double_jump_state += 1
-		2: #Triple
+		2: # Triple
 			if abs(vel.x) > TRIPLE_JUMP_DEADZONE:
 				vel.y = -JUMP_VEL_3
 				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
@@ -840,6 +841,7 @@ func check_ground_state() -> void:
 		):
 			ground_failsafe_timer = 0
 		grounded = is_on_floor() || ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD
+	ground_except = grounded
 
 
 func player_fall() -> void:
@@ -1123,7 +1125,7 @@ func manage_dive_recover():
 			sprite.rotation = -rollout_frames * TAU / ROLLOUT_TIME
 		else:
 			sprite.rotation = rollout_frames * TAU / ROLLOUT_TIME
-		if rollout_frames >= 18 || grounded:
+		if rollout_frames >= ROLLOUT_TIME || grounded:
 			switch_state(S.NEUTRAL)
 			sprite.rotation = 0
 			rollout_frames = 0
