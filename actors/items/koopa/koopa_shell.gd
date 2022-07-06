@@ -1,3 +1,4 @@
+tool
 extends KinematicBody2D
 
 const GRAVITY = 0.17
@@ -8,19 +9,40 @@ var speed = 5
 var vel = Vector2.ZERO
 var water_bodies : int = 0
 
+const color_presets = [
+	[ # green
+		Color("9cc56d"),
+		Color("1f887a"),
+		Color("2b4a3d"),
+	],
+	[ # red
+		Color("CB5E09"),
+		Color("911230"),
+		Color("7A4234"),
+	],
+]
+
 export var disabled = false setget set_disabled
 export var mirror = false
+export(int, "green", "red") var color = 0 setget set_color
 
+func set_color(new_color):
+	for i in range(3):
+		material.set_shader_param("color" + str(i), color_presets[new_color][i])
+	color = new_color
 
 func _ready():
-	sprite.playing = !disabled
-	sprite.speed_scale = 0
-
+	if !Engine.editor_hint:
+		sprite.playing = !disabled
+		sprite.speed_scale = 0
+		
+	# 'local to scene' doesn't work if the instance is duplicated with ctrl+d
+	# so this protects against ents sharing materials and therefore visual colors
+	material = material.duplicate()
 
 func _physics_process(_delta):
-	if !disabled:
+	if !disabled and !Engine.editor_hint:
 		physics_step()
-
 
 func physics_step():
 	if water_bodies > 0:

@@ -1,9 +1,11 @@
+tool
 extends KinematicBody2D
 
 onready var sprite = $AnimatedSprite
 onready var hurtbox = $Damage
 onready var top_collision = $TopCollision
 onready var raycast = $RayCast2D
+onready var raycastcenter = $CenterRayCast2D
 
 var shell = preload("koopa_shell.tscn").instance()
 const FLOOR = Vector2(0, -1)
@@ -15,20 +17,41 @@ var speed = 0.9
 var init_position = 0
 var water_bodies : int = 0
 
+const color_presets = [
+	[ # green
+		Color("9cc56d"),
+		Color("1f887a"),
+		Color("2b4a3d"),
+	],
+	[ # red
+		Color("CB5E09"),
+		Color("911230"),
+		Color("7A4234"),
+	],
+]
+
 export var disabled = false setget set_disabled
-export var detect_edges = false
 export var mirror = false
+export(int, "green", "red") var color = 0 setget set_color
+
+func set_color(new_color):
+	for i in range(3):
+		material.set_shader_param("color" + str(i), color_presets[new_color][i])
+	color = new_color
 
 func _ready():
-	init_position = position
-	sprite.frame = hash(position.x + position.y * PI) % 6
-	sprite.playing = !disabled
+	if !Engine.editor_hint:
+		init_position = position
+		sprite.frame = hash(position.x + position.y * PI) % 6
+		sprite.playing = !disabled
+		if mirror: raycast.position.x *= -1
 	
-	if mirror: raycast.position.x *= -1
-
+	# 'local to scene' doesn't work if the instance is duplicated with ctrl+d
+	# so this protects against ents sharing materials and therefore visual colors
+	material = material.duplicate()
 
 func _physics_process(_delta):
-	if !disabled:
+	if !disabled and !Engine.editor_hint:
 		physics_step()
 
 
@@ -48,7 +71,7 @@ func physics_step():
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	
-	if is_on_wall() or is_on_floor() and detect_edges and !raycast.is_colliding():
+	if is_on_wall() or is_on_floor() and color == 1 and !raycast.is_colliding():
 		vel.x = 0
 		flip_ev()
 	
@@ -73,6 +96,7 @@ func _on_TopCollision_body_entered(body):
 		body.vel.y = -5
 		get_parent().call_deferred("add_child", shell)
 		shell.position = position + Vector2(0, 7.5)
+		shell.color = color
 		top_collision.set_deferred("monitoring", false)
 		hurtbox.monitoring = false
 		set_deferred("visible", false)
@@ -128,4 +152,6 @@ func set_disabled(val):
 	hurtbox.monitoring = !val
 	top_collision.monitoring = !val
 	raycast.enabled = !val
-	sprite.playing = !val
+	
+	if !Engine.editor_hint:
+		sprite.playing = !val

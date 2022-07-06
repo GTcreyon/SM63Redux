@@ -1,3 +1,4 @@
+tool
 extends AnimatedSprite
 
 onready var hurtbox = $Damage
@@ -6,14 +7,37 @@ onready var top_collision = $TopCollision
 var koopa = preload("koopa.tscn").instance()
 var shell = preload("koopa_shell.tscn").instance()
 
+const color_presets = [
+	[ # green
+		Color("9cc56d"),
+		Color("1f887a"),
+		Color("2b4a3d"),
+	],
+	[ # red
+		Color("CB5E09"),
+		Color("911230"),
+		Color("7A4234"),
+	],
+]
+
 export var disabled = false setget set_disabled
 export var mirror = false
+export(int, "green", "red") var color = 0 setget set_color
+
+func set_color(new_color):
+	for i in range(3):
+		material.set_shader_param("color" + str(i), color_presets[new_color][i])
+	color = new_color
 
 func _ready():
-	flip_h = mirror
-	frame = hash(position.x + position.y * PI) % 6
-	playing = !disabled
-
+	if !Engine.editor_hint:
+		flip_h = mirror
+		frame = hash(position.x + position.y * PI) % 6
+		playing = !disabled
+	
+	# 'local to scene' doesn't work if the instance is duplicated with ctrl+d
+	# so this protects against ents sharing materials and therefore visual colors
+	material = material.duplicate()
 
 func _on_TopCollision_body_entered(body):
 	if body.is_spinning():
@@ -24,6 +48,7 @@ func _on_TopCollision_body_entered(body):
 			koopa.position = Vector2(position.x, body.position.y + 33)
 			koopa.vel.y = body.vel.y
 			koopa.mirror = flip_h
+			koopa.color = color
 			body.vel.y = -5.5
 			body.vel.x *= 1.2
 			get_parent().call_deferred("add_child", koopa)
@@ -55,6 +80,7 @@ func spawn_shell(body):
 	body.vel.y = -5
 	get_parent().call_deferred("add_child", shell)
 	shell.position = position + Vector2(0, 7.5)
+	shell.color = color
 	if body.global_position.x < global_position.x:
 		shell.vel.x = 5
 	else:
@@ -72,4 +98,5 @@ func set_disabled(val):
 		top_collision = $TopCollision
 	hurtbox.monitoring = !val
 	top_collision.monitoring = !val
-	playing = !val
+	if !Engine.editor_hint:
+		playing = !val
