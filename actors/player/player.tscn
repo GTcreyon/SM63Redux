@@ -469,8 +469,6 @@ visible = false
 show_behind_parent = true
 position = Vector2( -9, -1 )
 frames = SubResource( 51 )
-frame = 1
-playing = true
 offset = Vector2( 0, 9 )
 
 [node name="Bubbles" type="Sprite" parent="."]

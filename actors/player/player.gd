@@ -115,6 +115,7 @@ var invuln_flash: int = 0
 
 func _ready():
 	sprite.playing = true
+	nozzle_fx.playing = true
 	var warp = $"/root/Singleton/Warp"
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	if Singleton.set_location != null:
