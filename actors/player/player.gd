@@ -213,6 +213,7 @@ func player_physics():
 	manage_dive_recover()
 	manage_triple_flip()
 	manage_backflip_flip()
+	manage_hurt_recover()
 	
 	if Input.is_action_just_pressed("switch_fludd"):
 		switch_fludd()
@@ -644,7 +645,7 @@ func player_control_x() -> void:
 					vel.x += dir * WALK_ACCEL
 			else:
 				var core_vel = dir * max((AIR_ACCEL - dir * vel.x) / (AIR_SPEED_CAP / (3 * FPS_MOD)), 0)
-				if state & (S.TRIPLE_JUMP | S.SPIN | S.BACKFLIP):
+				if state & (S.TRIPLE_JUMP | S.SPIN | S.BACKFLIP | S.HURT):
 					vel.x += core_vel / (1.5 / FPS_MOD)
 				elif state & (S.DIVE | S.ROLLOUT):
 					vel.x += core_vel / (8 / FPS_MOD)
@@ -800,7 +801,6 @@ func coyote_behaviour() -> void:
 		double_jump_state = 0
 	
 	if grounded: # specifically apply to when actually on the ground, not coyote time
-		manage_hurt_recover()
 		manage_pound_recover()
 		vel.y = 0
 		if swimming:
@@ -817,10 +817,14 @@ func coyote_behaviour() -> void:
 			reset_dive()
 
 
+var hurt_timer = 0
 func manage_hurt_recover():
 	if state == S.HURT:
-		switch_state(S.NEUTRAL)
-		switch_anim("walk")
+		if grounded || hurt_timer <= 0:
+			switch_state(S.NEUTRAL)
+			switch_anim("walk")
+		else:
+			hurt_timer -= 1
 
 
 var cancel_ground: bool = false
@@ -1296,6 +1300,7 @@ func take_damage_shove(amount, direction):
 	if invuln_frames <= 0 && !locked:
 		take_damage(amount)
 		switch_state(S.HURT)
+		hurt_timer = 30
 		switch_anim("hurt")
 		vel = Vector2(4 * direction, -3)
 		sprite.flip_h = direction == 1
