@@ -1,37 +1,38 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=1]
 [ext_resource path="res://actors/items/koopa/koopa.gd" type="Script" id=2]
 [ext_resource path="res://actors/items/koopa/koopa_walk.png" type="Texture" id=3]
 [ext_resource path="res://src/global/dejitter.gd" type="Script" id=4]
+[ext_resource path="res://shaders/palette.tres" type="Material" id=5]
 
-[sub_resource type="AtlasTexture" id=1]
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=2]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 3 )
 region = Rect2( 22, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=3]
+[sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 3 )
 region = Rect2( 44, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 3 )
 region = Rect2( 66, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 3 )
 region = Rect2( 88, 0, 22, 35 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 3 )
 region = Rect2( 110, 0, 22, 35 )
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ) ],
 "loop": true,
 "name": "walk",
 "speed": 8.0
@@ -50,12 +51,15 @@ extents = Vector2( 5, 14.5 )
 extents = Vector2( 1, 1 )
 
 [node name="Koopa" type="KinematicBody2D"]
+material = ExtResource( 5 )
 collision_layer = 4
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+use_parent_material = true
 frames = SubResource( 7 )
 animation = "walk"
+frame = 2
 script = ExtResource( 4 )
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
