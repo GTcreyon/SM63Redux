@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://actors/terrain/terrain_polygon.tscn" type="PackedScene" id=14]
 [ext_resource path="res://actors/items/moving_platform/pivot.tscn" type="PackedScene" id=15]
@@ -27,6 +27,26 @@
 [ext_resource path="res://actors/items/decoration/fossil/fossil.tscn" type="PackedScene" id=39]
 [ext_resource path="res://shaders/palette.shader" type="Shader" id=40]
 [ext_resource path="res://actors/npc/toad/toad.tscn" type="PackedScene" id=41]
+
+[sub_resource type="ShaderMaterial" id=5]
+resource_local_to_scene = true
+shader = ExtResource( 40 )
+shader_param/color0 = Color( 0.796078, 0.368627, 0.0352941, 1 )
+shader_param/color1 = Color( 0.568627, 0.0705882, 0.188235, 1 )
+shader_param/color2 = Color( 0.478431, 0.258824, 0.203922, 1 )
+shader_param/color3 = Color( 1, 1, 0, 1 )
+shader_param/color4 = Color( 1, 0, 1, 1 )
+shader_param/color5 = Color( 0, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=6]
+resource_local_to_scene = true
+shader = ExtResource( 40 )
+shader_param/color0 = Color( 0.611765, 0.772549, 0.427451, 1 )
+shader_param/color1 = Color( 0.121569, 0.533333, 0.478431, 1 )
+shader_param/color2 = Color( 0.168627, 0.290196, 0.239216, 1 )
+shader_param/color3 = Color( 1, 1, 0, 1 )
+shader_param/color4 = Color( 1, 0, 1, 1 )
+shader_param/color5 = Color( 0, 1, 1, 1 )
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -324,10 +344,12 @@ position = Vector2( -3, -280 )
 position = Vector2( 262, 179 )
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource( 35 )]
+material = SubResource( 5 )
 position = Vector2( -638, -668 )
 frame = 2
 
 [node name="Parakoopa2" parent="Items/Enemy" instance=ExtResource( 35 )]
+material = SubResource( 6 )
 position = Vector2( -57, -330 )
 frame = 1
 
