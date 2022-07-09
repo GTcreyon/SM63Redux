@@ -51,7 +51,7 @@ extents = Vector2( 5, 15 )
 material = ExtResource( 2 )
 frames = SubResource( 8 )
 animation = "flying"
-frame = 3
+frame = 1
 script = ExtResource( 8 )
 
 [node name="TopCollision" type="Area2D" parent="."]
