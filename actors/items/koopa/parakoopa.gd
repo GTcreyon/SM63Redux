@@ -34,10 +34,6 @@ func _ready():
 		flip_h = mirror
 		frame = hash(position.x + position.y * PI) % 6
 		playing = !disabled
-	
-	# 'local to scene' doesn't work if the instance is duplicated with ctrl+d
-	# so this protects against ents sharing materials and therefore visual colors
-	material = material.duplicate()
 
 func _on_TopCollision_body_entered(body):
 	if body.is_spinning():

@@ -35,10 +35,6 @@ func _ready():
 	if !Engine.editor_hint:
 		sprite.playing = !disabled
 		sprite.speed_scale = 0
-		
-	# 'local to scene' doesn't work if the instance is duplicated with ctrl+d
-	# so this protects against ents sharing materials and therefore visual colors
-	material = material.duplicate()
 
 func _physics_process(_delta):
 	if !disabled and !Engine.editor_hint:

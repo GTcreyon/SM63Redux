@@ -44,10 +44,6 @@ func _ready():
 		sprite.frame = hash(position.x + position.y * PI) % 6
 		sprite.playing = !disabled
 		if mirror: raycast.position.x *= -1
-	
-	# 'local to scene' doesn't work if the instance is duplicated with ctrl+d
-	# so this protects against ents sharing materials and therefore visual colors
-	material = material.duplicate()
 
 func _physics_process(_delta):
 	if !disabled and !Engine.editor_hint:
