@@ -5,7 +5,6 @@ onready var sprite = $AnimatedSprite
 onready var hurtbox = $Damage
 onready var top_collision = $TopCollision
 onready var raycast = $RayCast2D
-onready var raycastcenter = $CenterRayCast2D
 
 var shell = preload("koopa_shell.tscn").instance()
 const FLOOR = Vector2(0, -1)
