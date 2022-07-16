@@ -100,7 +100,7 @@ func log_msg(msg: String, type: int = LogType.INFO):
 	console.logger.append_bbcode("\n" + color_tag + str(msg) + "[/color]")
 	line_count += 1
 	print(msg)
-	
+
 
 func _ready():
 	rng.seed = hash("2401")
