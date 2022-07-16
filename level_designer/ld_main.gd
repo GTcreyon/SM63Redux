@@ -14,6 +14,7 @@ signal selection_event #gets fired always whenever some calculation regarding ev
 signal selection_size_changed #gets fired whenever the selection rect changes
 
 var item_classes = {}
+var item_static_properties = {}
 var items = []
 var item_textures = []
 var item_scenes = []
@@ -136,6 +137,8 @@ func read_items():
 					match node_name:
 						"property":
 							register_property(item_classes, parent_subname, parent_name, parser)
+						"implement":
+							implement_property(item_classes, parent_subname, parent_name, parser)
 						"inherit":
 							inherit_class(item_classes, parent_subname, parent_name, parser)
 				elif parent_name == "item":
@@ -156,6 +159,8 @@ func read_items():
 								item_textures[item_id] = {"Placed": null, "List": null}
 							var path = parser.get_named_attribute_value_safe("path")
 							item_textures[item_id][parser.get_named_attribute_value_safe("tag")] = path
+						"implement":
+							implement_property(items, parent_subname, parent_name, parser)
 						"inherit":
 							inherit_class(items, parent_subname, parent_name, parser)
 				
@@ -176,14 +181,18 @@ func read_items():
 							properties = {},
 						}
 						allow_reparent = false
+					elif node_name == "static":
+						var prop_name = parser.get_named_attribute_value_safe("label")
+						item_static_properties[prop_name] = collect_property_values(parser)
+						# idk if I should add allow_reparent, I don't think so since it's a single tag
 					parent_name = node_name
 			parser.NODE_ELEMENT_END:
 				var node_name = parser.get_node_name()
 				if node_name == "class" || node_name == "item":
 					allow_reparent = true
-	#print(item_classes)
-	#print(items)
-	#print(item_textures)
+#	print(item_classes)
+#	print(items)
+#	print(item_textures)
 
 func register_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
@@ -191,6 +200,20 @@ func register_property(target, subname: String, type: String, parser: XMLParser)
 		item_class_properties = target[int(subname)].properties
 	else:
 		item_class_properties = target[subname]
+	item_class_properties[parser.get_named_attribute_value("label")] = collect_property_values(parser)
+
+func implement_property(target, subname: String, type: String, parser: XMLParser):
+	var item_class_properties
+	if type == "item":
+		item_class_properties = target[int(subname)].properties
+	else:
+		item_class_properties = target[subname]
+	var prop_name = parser.get_named_attribute_value("label")
+	var get_prop = parser.get_named_attribute_value("name")
+	 #NOTE: should we dupe this?
+	item_class_properties[prop_name] = item_static_properties[get_prop].duplicate()
+
+func collect_property_values(parser: XMLParser):
 	var var_txt = parser.get_named_attribute_value_safe("var")
 	var default = parser.get_named_attribute_value_safe("default")
 	var increment = parser.get_named_attribute_value_safe("increment")
@@ -201,8 +224,7 @@ func register_property(target, subname: String, type: String, parser: XMLParser)
 		increment = 1 if increment == "" else increment,
 		description = parser.get_named_attribute_value("description")
 	}
-	item_class_properties[parser.get_named_attribute_value("label")] = properties
-
+	return properties
 
 func inherit_class(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties

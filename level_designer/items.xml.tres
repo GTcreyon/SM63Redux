@@ -1,13 +1,17 @@
 <?xml version="1.1" encoding="UTF-8"?>
 <items xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <!-- 
+		<static label="label name" type="property type" [OPTIONAL] var="see var documentation" [OPTIONAL] increment="how much buttons increment the value" [OPTIONAL] link="see link documentation" [OPTIONAL] description="description to show" />
+
         <class name="class name">
+            [OPTIONAL] <implement name="static property name to implement" />
             [OPTIONAL] <property label="label name" type="property type" [OPTIONAL] var="see var documentation" [OPTIONAL] increment="how much buttons increment the value" [OPTIONAL] link="see link documentation" [OPTIONAL] description="description to show" />
         </class>
 
         <item name="item name" description="item description">
             <texture tag="see tag documentation" path="res://somewhere/texture.png">
             [OPTIONAL] <inherit name="class name to inherit from" />
+            [OPTIONAL] <implement name="static property name to implement" />
             [OPTIONAL] <property label="label name" type="property type" [OPTIONAL] var="see var documentation" [OPTIONAL] link="see link documentation" [OPTIONAL] description="description to show" />
         </item>
 
@@ -27,6 +31,7 @@
             Placed: this tag means that this is the sprite showing up when placed in the ld.
             List: this tag means that this texture should be used in the item list menu.
     -->
+
     <class name="point">
         <property label="Position" type="Vector2" increment="Vector2(16, 16)" description="Position in the level." />
         <property label="Disabled" type="bool" description="Disables the item." />
