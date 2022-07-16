@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/border.png-52de4cfaa2077c8158b372ab88c4a101.stex"
+path="res://.import/selector.png-f89ce762413c52ca220181d75d8fdc7d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/main_menu/border.png"
-dest_files=[ "res://.import/border.png-52de4cfaa2077c8158b372ab88c4a101.stex" ]
+source_file="res://scenes/menus/title/main_menu/selector.png"
+dest_files=[ "res://.import/selector.png-f89ce762413c52ca220181d75d8fdc7d.stex" ]
 
 [params]
 

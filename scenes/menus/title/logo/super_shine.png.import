@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/selector.png-42d72fc24c7b842413598f288c7b836e.stex"
+path="res://.import/super_shine.png-87c59b31dc2fe44adb76bd30a41ca800.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/main_menu/selector.png"
-dest_files=[ "res://.import/selector.png-42d72fc24c7b842413598f288c7b836e.stex" ]
+source_file="res://scenes/menus/title/logo/super_shine.png"
+dest_files=[ "res://.import/super_shine.png-87c59b31dc2fe44adb76bd30a41ca800.stex" ]
 
 [params]
 

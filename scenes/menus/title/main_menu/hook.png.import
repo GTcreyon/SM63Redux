@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-1bfb9715aced0a68db7860a46e54aa15.stex"
+path="res://.import/hook.png-a7eeb48715b32267aea596e88aae2e3b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/main_menu/icon.png"
-dest_files=[ "res://.import/icon.png-1bfb9715aced0a68db7860a46e54aa15.stex" ]
+source_file="res://scenes/menus/title/main_menu/hook.png"
+dest_files=[ "res://.import/hook.png-a7eeb48715b32267aea596e88aae2e3b.stex" ]
 
 [params]
 

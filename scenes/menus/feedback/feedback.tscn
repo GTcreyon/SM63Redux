@@ -9,7 +9,7 @@
 [ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=7]
 [ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=8]
 [ext_resource path="res://scenes/menus/feedback/feedback.gd" type="Script" id=9]
-[ext_resource path="res://src/global/cancel.gd" type="Script" id=10]
+[ext_resource path="res://scenes/menus/feedback/cancel.gd" type="Script" id=10]
 [ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=11]
 
 [sub_resource type="StyleBoxEmpty" id=15]

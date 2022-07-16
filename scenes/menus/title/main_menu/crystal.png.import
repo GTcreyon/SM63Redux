@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/selection_frame.png-d6ed65b03c3b7cb8c0841a1830feb34e.stex"
+path="res://.import/crystal.png-02c54d2debc83f364ee3c603575b77b4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/main_menu/selection_frame.png"
-dest_files=[ "res://.import/selection_frame.png-d6ed65b03c3b7cb8c0841a1830feb34e.stex" ]
+source_file="res://scenes/menus/title/main_menu/crystal.png"
+dest_files=[ "res://.import/crystal.png-02c54d2debc83f364ee3c603575b77b4.stex" ]
 
 [params]
 

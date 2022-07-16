@@ -1,52 +1,52 @@
 [gd_scene load_steps=39 format=2]
 
-[ext_resource path="res://gui/main_menu/selection_frame.png" type="Texture" id=1]
-[ext_resource path="res://gui/main_menu/selection_content.png" type="Texture" id=2]
-[ext_resource path="res://scenes/menus/title/menu.gd" type="Script" id=3]
-[ext_resource path="res://gui/main_menu/border.tres" type="StyleBox" id=4]
-[ext_resource path="res://gui/main_menu/icon.png" type="Texture" id=5]
-[ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=6]
-[ext_resource path="res://gui/main_menu/selector.png" type="Texture" id=7]
-[ext_resource path="res://gui/main_menu/crystal.png" type="Texture" id=8]
-[ext_resource path="res://gui/main_menu/menu_titles.png" type="Texture" id=9]
-[ext_resource path="res://gui/main_menu/rope.png" type="Texture" id=10]
-[ext_resource path="res://gui/main_menu/hook.png" type="Texture" id=11]
-[ext_resource path="res://gui/main_menu/sheen.png" type="Texture" id=12]
-[ext_resource path="res://scenes/menus/title/sheen.gd" type="Script" id=13]
-[ext_resource path="res://shaders/desaturate.tres" type="Material" id=14]
-[ext_resource path="res://scenes/menus/feedback/tickbox.tscn" type="PackedScene" id=15]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=16]
-[ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=17]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
+[ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=2]
+[ext_resource path="res://scenes/menus/title/main_menu/border.tres" type="StyleBox" id=3]
+[ext_resource path="res://scenes/menus/title/main_menu/selection_content.png" type="Texture" id=4]
+[ext_resource path="res://scenes/menus/title/main_menu/menu_titles.png" type="Texture" id=5]
+[ext_resource path="res://scenes/menus/title/main_menu/crystal.png" type="Texture" id=6]
+[ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/menus/feedback/tickbox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/menus/title/main_menu/selector.png" type="Texture" id=9]
+[ext_resource path="res://shaders/desaturate.tres" type="Material" id=10]
+[ext_resource path="res://scenes/menus/title/main_menu/main_menu.gd" type="Script" id=11]
+[ext_resource path="res://scenes/menus/title/sheen.gd" type="Script" id=12]
+[ext_resource path="res://scenes/menus/title/main_menu/rope.png" type="Texture" id=13]
+[ext_resource path="res://scenes/menus/title/main_menu/selection_frame.png" type="Texture" id=14]
+[ext_resource path="res://scenes/menus/title/main_menu/hook.png" type="Texture" id=15]
+[ext_resource path="res://scenes/menus/title/main_menu/sheen.png" type="Texture" id=16]
+[ext_resource path="res://scenes/menus/title/main_menu/icon.png" type="Texture" id=17]
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 126, 36 )
 
 [sub_resource type="RectangleShape2D" id=20]
 extents = Vector2( 74, 28 )
 
 [sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 15 )
 region = Rect2( 0, 0, 56, 32 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 21, 21 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 6 )
 region = Rect2( 0, 21, 21, 21 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 6 )
 region = Rect2( 0, 42, 21, 21 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 6 )
 region = Rect2( 0, 63, 21, 21 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 8 )
+atlas = ExtResource( 6 )
 region = Rect2( 0, 84, 21, 21 )
 
 [sub_resource type="SpriteFrames" id=15]
@@ -58,58 +58,58 @@ animations = [ {
 } ]
 
 [sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 9 )
+atlas = ExtResource( 5 )
 region = Rect2( 7, 0, 112, 23 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 108, 126, 36 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 15 )
 region = Rect2( 0, 96, 56, 32 )
 
 [sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 9 )
+atlas = ExtResource( 5 )
 region = Rect2( 21, 69, 81, 23 )
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 72, 126, 36 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 15 )
 region = Rect2( 0, 65, 56, 32 )
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 9 )
+atlas = ExtResource( 5 )
 region = Rect2( 30, 46, 65, 23 )
 
 [sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 36, 126, 36 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 11 )
+atlas = ExtResource( 15 )
 region = Rect2( 0, 32, 56, 33 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 9 )
+atlas = ExtResource( 5 )
 region = Rect2( 2, 23, 122, 23 )
 
 [sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 17 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 105, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 17 )
+atlas = ExtResource( 2 )
 region = Rect2( 20, 105, 20, 21 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = ExtResource( 3 )
+script = ExtResource( 11 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
@@ -119,20 +119,20 @@ color = Color( 0.027451, 0, 0.0941176, 0.501961 )
 
 [node name="SelectorStory" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 320, 169 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 
 [node name="Story" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 320, 124 )
 texture = SubResource( 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Story"]
-texture = ExtResource( 12 )
+texture = ExtResource( 16 )
 polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
-script = ExtResource( 13 )
+script = ExtResource( 12 )
 
 [node name="Frame" type="Sprite" parent="Story"]
 position = Vector2( -75, -32 )
-texture = ExtResource( 1 )
+texture = ExtResource( 14 )
 centered = false
 
 [node name="StoryButton" type="TouchScreenButton" parent="Story/Frame"]
@@ -161,7 +161,7 @@ texture = SubResource( 16 )
 
 [node name="SelectorSettings" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 4, 233 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 
 [node name="Settings" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 4, 188 )
@@ -169,14 +169,14 @@ texture = SubResource( 4 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Settings"]
 use_parent_material = true
-texture = ExtResource( 12 )
+texture = ExtResource( 16 )
 polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
-script = ExtResource( 13 )
+script = ExtResource( 12 )
 
 [node name="Frame" type="Sprite" parent="Settings"]
 use_parent_material = true
 position = Vector2( -75, -32 )
-texture = ExtResource( 1 )
+texture = ExtResource( 14 )
 centered = false
 
 [node name="SettingsButton" type="TouchScreenButton" parent="Settings/Frame"]
@@ -206,25 +206,25 @@ use_parent_material = true
 texture = SubResource( 17 )
 
 [node name="SelectorExtras" type="Sprite" parent="." groups=["menu_hide"]]
-material = ExtResource( 14 )
+material = ExtResource( 10 )
 position = Vector2( 320, 645 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 
 [node name="Extras" type="Sprite" parent="." groups=["menu_hide"]]
-material = ExtResource( 14 )
+material = ExtResource( 10 )
 position = Vector2( 320, 600 )
 texture = SubResource( 3 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Extras"]
 use_parent_material = true
-texture = ExtResource( 12 )
+texture = ExtResource( 16 )
 polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
-script = ExtResource( 13 )
+script = ExtResource( 12 )
 
 [node name="Frame" type="Sprite" parent="Extras"]
 use_parent_material = true
 position = Vector2( -75, -32 )
-texture = ExtResource( 1 )
+texture = ExtResource( 14 )
 centered = false
 
 [node name="ExtrasButton" type="TouchScreenButton" parent="Extras/Frame"]
@@ -255,7 +255,7 @@ texture = SubResource( 18 )
 
 [node name="SelectorLevelDesigner" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 636, 233 )
-texture = ExtResource( 7 )
+texture = ExtResource( 9 )
 
 [node name="LevelDesigner" type="Sprite" parent="." groups=["menu_hide"]]
 position = Vector2( 636, 188 )
@@ -263,14 +263,14 @@ texture = SubResource( 2 )
 
 [node name="Polygon2D" type="Polygon2D" parent="LevelDesigner"]
 use_parent_material = true
-texture = ExtResource( 12 )
+texture = ExtResource( 16 )
 polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
-script = ExtResource( 13 )
+script = ExtResource( 12 )
 
 [node name="Frame" type="Sprite" parent="LevelDesigner"]
 use_parent_material = true
 position = Vector2( -75, -32 )
-texture = ExtResource( 1 )
+texture = ExtResource( 14 )
 centered = false
 
 [node name="LDButton" type="TouchScreenButton" parent="LevelDesigner/Frame"]
@@ -300,7 +300,7 @@ use_parent_material = true
 texture = SubResource( 19 )
 
 [node name="Icon" type="Sprite" parent="." groups=["menu_hide"]]
-texture = ExtResource( 5 )
+texture = ExtResource( 17 )
 centered = false
 offset = Vector2( 9, 33 )
 
@@ -308,7 +308,7 @@ offset = Vector2( 9, 33 )
 margin_right = 640.0
 margin_bottom = 360.0
 mouse_filter = 2
-custom_styles/panel = ExtResource( 4 )
+custom_styles/panel = ExtResource( 3 )
 
 [node name="DescriptionBox" type="Control" parent="Border"]
 anchor_right = 1.0
@@ -323,7 +323,7 @@ anchor_right = 1.0
 margin_right = -10.0
 margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 text = "Take the light back from Bowser and save the Mushroom Kingdom!"
 align = 1
 __meta__ = {
@@ -335,7 +335,7 @@ anchor_right = 1.0
 margin_right = -10.0
 margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 text = "Create your own worlds in this in-depth Level Designer!"
 align = 1
 __meta__ = {
@@ -347,7 +347,7 @@ anchor_right = 1.0
 margin_right = -10.0
 margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 text = "Enjoy a collection of trinkets and goodies!"
 align = 1
 __meta__ = {
@@ -359,7 +359,7 @@ anchor_right = 1.0
 margin_right = -10.0
 margin_bottom = 14.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 text = "Adjust anything and everything to your liking!"
 align = 1
 __meta__ = {
@@ -372,7 +372,7 @@ position = Vector2( 387, 0 )
 points = PoolVector2Array( 2, 1, -1, 6, -3, 12, -4, 17, -3, 22, -1, 29, 2, 34, 7, 38, 15, 42, 26, 28, 69, 43 )
 width = 7.0
 default_color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 10 )
+texture = ExtResource( 13 )
 texture_mode = 1
 joint_mode = 2
 begin_cap_mode = 2
@@ -380,7 +380,7 @@ end_cap_mode = 2
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 visible = false
-texture = ExtResource( 12 )
+texture = ExtResource( 16 )
 polygon = PoolVector2Array( 0, 0, 0, 304, 448, 304, 448, 0 )
 
 [node name="FadeOut" type="ColorRect" parent="."]
@@ -390,7 +390,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
-[node name="ForceTouch" parent="." groups=["menu_hide"] instance=ExtResource( 15 )]
+[node name="ForceTouch" parent="." groups=["menu_hide"] instance=ExtResource( 8 )]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -405,7 +405,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -52.0
 rect_pivot_offset = Vector2( 320, 52 )
-custom_fonts/font = ExtResource( 16 )
+custom_fonts/font = ExtResource( 1 )
 text = "Force touch controls
 (Experimental)"
 align = 1
@@ -419,7 +419,7 @@ margin_right = -4.0
 margin_bottom = -4.0
 rect_clip_content = true
 
-[node name="OptionsMenu" parent="OptionsControl" instance=ExtResource( 6 )]
+[node name="OptionsMenu" parent="OptionsControl" instance=ExtResource( 7 )]
 
 [node name="BackButton" type="TextureButton" parent="OptionsControl"]
 anchor_left = 1.0

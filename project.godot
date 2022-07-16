@@ -59,7 +59,7 @@ config/windows_native_icon="res://icon_windows.ico"
 
 [autoload]
 
-Singleton="*res://src/global/singleton.tscn"
+Singleton="*res://src/global/singleton/singleton.tscn"
 PerformanceMonitor="*res://src/global/performance/performance_monitor.tscn"
 
 [display]

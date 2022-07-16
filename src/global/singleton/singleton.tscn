@@ -1,12 +1,12 @@
 [gd_scene load_steps=36 format=2]
 
-[ext_resource path="res://src/global/warp.gd" type="Script" id=1]
-[ext_resource path="res://src/global/singleton.gd" type="Script" id=2]
-[ext_resource path="res://src/global/death_cover.gd" type="Script" id=3]
+[ext_resource path="res://src/global/singleton/warp.gd" type="Script" id=1]
+[ext_resource path="res://src/global/singleton/singleton.gd" type="Script" id=2]
+[ext_resource path="res://src/global/singleton/death_cover.gd" type="Script" id=3]
 [ext_resource path="res://audio/music/mushroom_kingdom/tutorial_1.mp3" type="AudioStream" id=6]
-[ext_resource path="res://src/global/music.gd" type="Script" id=7]
+[ext_resource path="res://src/global/singleton/music.gd" type="Script" id=7]
 [ext_resource path="res://classes/pickup/coin/coin_collect.wav" type="AudioStream" id=8]
-[ext_resource path="res://src/global/touch_controls.gd" type="Script" id=9]
+[ext_resource path="res://src/global/singleton/touch_controls.gd" type="Script" id=9]
 [ext_resource path="res://gui/hud/buttons/mobile_buttons.png" type="Texture" id=12]
 [ext_resource path="res://gui/sfx/start.wav" type="AudioStream" id=13]
 [ext_resource path="res://gui/sfx/confirm.wav" type="AudioStream" id=14]
@@ -15,8 +15,8 @@
 [ext_resource path="res://classes/console/console.tscn" type="PackedScene" id=17]
 [ext_resource path="res://scenes/menus/feedback/feedback.tscn" type="PackedScene" id=18]
 [ext_resource path="res://gui/timer/timer.tscn" type="PackedScene" id=19]
-[ext_resource path="res://src/global/input_manager.gd" type="Script" id=20]
-[ext_resource path="res://src/global/window_warp.gd" type="Script" id=21]
+[ext_resource path="res://src/global/singleton/input_manager.gd" type="Script" id=20]
+[ext_resource path="res://src/global/singleton/window_warp.gd" type="Script" id=21]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 12 )
