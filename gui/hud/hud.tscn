@@ -1,0 +1,492 @@
+[gd_scene load_steps=46 format=2]
+
+[ext_resource path="res://gui/dialog/dialog_box.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
+[ext_resource path="res://gui/pause/buttons/button_fludd_1.tres" type="StyleBox" id=3]
+[ext_resource path="res://gui/pause/buttons/button_options_0.tres" type="StyleBox" id=4]
+[ext_resource path="res://gui/pause/buttons/button_options_1.tres" type="StyleBox" id=5]
+[ext_resource path="res://gui/pause/buttons/button_map_1.tres" type="StyleBox" id=6]
+[ext_resource path="res://gui/pause/pause.tscn" type="PackedScene" id=7]
+[ext_resource path="res://gui/pause/buttons/button_exit_1.tres" type="StyleBox" id=8]
+[ext_resource path="res://gui/pause/buttons/button_exit_0.tres" type="StyleBox" id=9]
+[ext_resource path="res://gui/pause/buttons/button_fludd_0.tres" type="StyleBox" id=10]
+[ext_resource path="res://gui/water_meter/water_meter.tscn" type="PackedScene" id=11]
+[ext_resource path="res://gui/life_meter/life_meter.tscn" type="PackedScene" id=13]
+[ext_resource path="res://gui/hud/hud.gd" type="Script" id=14]
+[ext_resource path="res://gui/pause/buttons/pause_button.gd" type="Script" id=17]
+[ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
+[ext_resource path="res://shaders/flash.shader" type="Shader" id=28]
+[ext_resource path="res://gui/hud/hud_red_coin.png" type="Texture" id=33]
+[ext_resource path="res://gui/hud/hud_coin.png" type="Texture" id=50]
+[ext_resource path="res://gui/hud/hud_shine_coin.png" type="Texture" id=53]
+[ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=63]
+[ext_resource path="res://gui/hud/hud_silver_shine.png" type="Texture" id=71]
+[ext_resource path="res://gui/hud/hud_shine.png" type="Texture" id=79]
+[ext_resource path="res://gui/pause/buttons/star_exit_0.png" type="Texture" id=81]
+[ext_resource path="res://gui/pause/buttons/text_map.png" type="Texture" id=82]
+[ext_resource path="res://gui/pause/pause_left_corner_bottom.png" type="Texture" id=89]
+[ext_resource path="res://gui/pause/pause_right_corner_bottom.png" type="Texture" id=94]
+[ext_resource path="res://gui/pause/buttons/star_map_1.png" type="Texture" id=95]
+[ext_resource path="res://gui/pause/buttons/star_fludd_0.png" type="Texture" id=96]
+[ext_resource path="res://gui/pause/buttons/text_fludd.png" type="Texture" id=99]
+[ext_resource path="res://gui/pause/buttons/star_exit_1.png" type="Texture" id=103]
+[ext_resource path="res://gui/pause/buttons/star_map_0.png" type="Texture" id=104]
+[ext_resource path="res://gui/pause/buttons/star_options_1.png" type="Texture" id=105]
+[ext_resource path="res://gui/pause/pause_right_middle.png" type="Texture" id=106]
+[ext_resource path="res://gui/pause/pause_right_corner_top.png" type="Texture" id=107]
+[ext_resource path="res://gui/pause/buttons/text_exit.png" type="Texture" id=108]
+[ext_resource path="res://gui/pause/pause_top.png" type="Texture" id=110]
+[ext_resource path="res://gui/pause/pause_left_middle.png" type="Texture" id=111]
+[ext_resource path="res://gui/pause/buttons/text_options.png" type="Texture" id=112]
+[ext_resource path="res://gui/pause/buttons/star_fludd_1.png" type="Texture" id=113]
+[ext_resource path="res://gui/pause/buttons/star_options_0.png" type="Texture" id=114]
+[ext_resource path="res://gui/pause/pause_left_corner_top.png" type="Texture" id=115]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 28 )
+shader_param/flash_factor = 0.0
+
+[sub_resource type="StyleBoxEmpty" id=28]
+
+[sub_resource type="StyleBoxEmpty" id=29]
+
+[sub_resource type="StyleBoxEmpty" id=30]
+
+[node name="GUI" type="CanvasLayer"]
+follow_viewport_enable = true
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ],
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="DialogBox" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="BG" type="ColorRect" parent="." groups=["pause"]]
+visible = false
+margin_right = 448.0
+margin_bottom = 304.0
+mouse_filter = 2
+color = Color( 0.584314, 0.372549, 0.772549, 0.74902 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsTL" type="VBoxContainer" parent="." groups=["stats"]]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 40.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( -8, -8 )
+mouse_filter = 2
+custom_constants/separation = 21
+
+[node name="CoinRow" type="Control" parent="StatsTL"]
+margin_right = 32.0
+
+[node name="Sprite" type="Sprite" parent="StatsTL/CoinRow"]
+texture = ExtResource( 50 )
+centered = false
+
+[node name="X" type="Sprite" parent="StatsTL/CoinRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 63 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTL/CoinRow"]
+material = SubResource( 1 )
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 72.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RedCoinRow" type="Control" parent="StatsTL"]
+margin_top = 21.0
+margin_right = 32.0
+margin_bottom = 21.0
+
+[node name="Sprite" type="Sprite" parent="StatsTL/RedCoinRow"]
+texture = ExtResource( 33 )
+centered = false
+
+[node name="X" type="Sprite" parent="StatsTL/RedCoinRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 63 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTL/RedCoinRow"]
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 80.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SilverShineRow" type="Control" parent="StatsTL"]
+margin_top = 42.0
+margin_right = 32.0
+margin_bottom = 42.0
+
+[node name="Sprite" type="Sprite" parent="StatsTL/SilverShineRow"]
+texture = ExtResource( 71 )
+centered = false
+
+[node name="X" type="Sprite" parent="StatsTL/SilverShineRow"]
+position = Vector2( 19, 4 )
+texture = ExtResource( 63 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTL/SilverShineRow"]
+margin_left = 32.0
+margin_top = 1.0
+margin_right = 112.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StatsTR" type="VBoxContainer" parent="." groups=["stats"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -8.0
+margin_top = 8.0
+rect_pivot_offset = Vector2( 8, -8 )
+mouse_filter = 2
+custom_constants/separation = 21
+
+[node name="ShineRow" type="Control" parent="StatsTR"]
+margin_right = 8.0
+
+[node name="Sprite" type="Sprite" parent="StatsTR/ShineRow"]
+position = Vector2( -40.5, 7.5 )
+texture = ExtResource( 79 )
+
+[node name="X" type="Sprite" parent="StatsTR/ShineRow"]
+position = Vector2( -29, 4 )
+texture = ExtResource( 63 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTR/ShineRow"]
+margin_left = -15.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ShineCoinRow" type="Control" parent="StatsTR"]
+margin_top = 21.0
+margin_right = 8.0
+margin_bottom = 21.0
+
+[node name="Sprite" type="Sprite" parent="StatsTR/ShineCoinRow"]
+position = Vector2( -40, 9.5 )
+texture = ExtResource( 53 )
+
+[node name="X" type="Sprite" parent="StatsTR/ShineCoinRow"]
+position = Vector2( -29, 4 )
+texture = ExtResource( 63 )
+centered = false
+
+[node name="Count" type="Label" parent="StatsTR/ShineCoinRow"]
+margin_left = -15.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 26 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LifeMeter" parent="." instance=ExtResource( 13 )]
+
+[node name="MeterControl" parent="." instance=ExtResource( 11 )]
+
+[node name="PauseContent" parent="." instance=ExtResource( 7 )]
+visible = false
+
+[node name="Top" type="TextureRect" parent="." groups=["pause"]]
+visible = false
+margin_right = 381.0
+margin_bottom = 19.0
+mouse_filter = 2
+texture = ExtResource( 110 )
+expand = true
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftCornerTop" type="TextureRect" parent="." groups=["pause"]]
+visible = false
+margin_right = 37.0
+margin_bottom = 17.0
+mouse_filter = 2
+texture = ExtResource( 115 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftCornerBottom" type="TextureRect" parent="." groups=["pause"]]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -33.0
+margin_right = 37.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 2
+texture = ExtResource( 89 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightCornerTop" type="TextureRect" parent="." groups=["pause"]]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -38.0
+margin_bottom = 17.0
+rect_pivot_offset = Vector2( 38, 0 )
+mouse_filter = 2
+texture = ExtResource( 107 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightCornerBottom" type="TextureRect" parent="." groups=["pause"]]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -37.0
+margin_top = -33.0
+margin_right = 448.0
+margin_bottom = 284.0
+rect_pivot_offset = Vector2( 37, 33 )
+mouse_filter = 2
+texture = ExtResource( 94 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="TextureRect" parent="." groups=["pause"]]
+visible = false
+margin_right = 37.0
+margin_bottom = 254.0
+mouse_filter = 2
+texture = ExtResource( 111 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Right" type="TextureRect" parent="." groups=["pause"]]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -37.0
+margin_top = 17.0
+margin_bottom = 271.0
+rect_pivot_offset = Vector2( 37, 0 )
+mouse_filter = 2
+texture = ExtResource( 106 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonMap" type="Button" parent="." groups=["pause"]]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 29.0
+margin_top = -33.0
+margin_right = 125.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 2 )
+custom_styles/pressed = ExtResource( 6 )
+custom_styles/focus = SubResource( 28 )
+custom_styles/disabled = ExtResource( 2 )
+custom_styles/normal = ExtResource( 2 )
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 17 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonMap"]
+texture = ExtResource( 104 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonMap"]
+texture = ExtResource( 95 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="Text" type="TextureRect" parent="ButtonMap"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -19.0
+margin_top = -8.0
+mouse_filter = 2
+texture = ExtResource( 82 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonFludd" type="Button" parent="." groups=["pause"]]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 124.0
+margin_top = -33.0
+margin_right = 221.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 10 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = SubResource( 29 )
+custom_styles/disabled = ExtResource( 10 )
+custom_styles/normal = ExtResource( 10 )
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonFludd"]
+texture = ExtResource( 96 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonFludd"]
+texture = ExtResource( 113 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="Text" type="TextureRect" parent="ButtonFludd"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -8.0
+margin_right = -76.5
+margin_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource( 99 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonOptions" type="Button" parent="." groups=["pause"]]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 220.0
+margin_top = -33.0
+margin_right = 316.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 4 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = SubResource( 30 )
+custom_styles/disabled = ExtResource( 4 )
+custom_styles/normal = ExtResource( 4 )
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonOptions"]
+texture = ExtResource( 114 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonOptions"]
+texture = ExtResource( 105 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="Text" type="TextureRect" parent="ButtonOptions"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -8.0
+margin_right = -172.0
+margin_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource( 112 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonExit" type="Button" parent="." groups=["pause"]]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 315.0
+margin_top = -33.0
+margin_right = 411.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 8 )
+custom_styles/focus = SubResource( 30 )
+custom_styles/disabled = ExtResource( 9 )
+custom_styles/normal = ExtResource( 9 )
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 17 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonExit"]
+texture = ExtResource( 81 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonExit"]
+texture = ExtResource( 103 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="Text" type="TextureRect" parent="ButtonExit"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -8.0
+margin_right = -267.0
+margin_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource( 108 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
+[connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
+[connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]
+[connection signal="toggled" from="ButtonFludd" to="ButtonFludd" method="_on_Button_toggled"]
+[connection signal="button_down" from="ButtonOptions" to="." method="_on_ButtonOptions_button_down"]
+[connection signal="toggled" from="ButtonOptions" to="ButtonOptions" method="_on_Button_toggled"]
+[connection signal="button_down" from="ButtonExit" to="." method="_on_ButtonExit_button_down"]
+[connection signal="toggled" from="ButtonExit" to="ButtonExit" method="_on_Button_toggled"]

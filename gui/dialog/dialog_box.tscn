@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://gui/hud/dialog_box.gd" type="Script" id=1]
+[ext_resource path="res://gui/dialog/dialog_box.gd" type="Script" id=1]
 [ext_resource path="res://gui/dialog/faces/toad/anger.png" type="Texture" id=2]
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_name_edge.png" type="Texture" id=3]
-[ext_resource path="res://gui/hud/dialog_star_closed.png" type="Texture" id=4]
-[ext_resource path="res://gui/hud/dialog_star_open.png" type="Texture" id=5]
+[ext_resource path="res://gui/dialog/dialog_star_closed.png" type="Texture" id=4]
+[ext_resource path="res://gui/dialog/dialog_star_open.png" type="Texture" id=5]
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_edge.png" type="Texture" id=6]
 [ext_resource path="res://gui/dialog/boxes/neutral/neutral_middle.png" type="Texture" id=7]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=8]

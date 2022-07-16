@@ -20,7 +20,7 @@
 [ext_resource path="res://gui/pause/map/pin.png" type="Texture" id=18]
 [ext_resource path="res://gui/pause/map/divider_edge.png" type="Texture" id=19]
 [ext_resource path="res://gui/pause/map/map_shine_1.png" type="Texture" id=20]
-[ext_resource path="res://gui/map.gd" type="Script" id=21]
+[ext_resource path="res://gui/hud/shine_map.gd" type="Script" id=21]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=22]
 [ext_resource path="res://gui/pause/map_course.gd" type="Script" id=23]
 

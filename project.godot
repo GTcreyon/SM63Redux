@@ -66,7 +66,7 @@ PerformanceMonitor="*res://src/global/performance/performance_monitor.tscn"
 
 window/size/width=640
 window/size/height=360
-mouse_cursor/custom_image="res://gui/cursor.png"
+mouse_cursor/custom_image="res://gui/hud/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2( 1, 1 )
 
 [importer_defaults]
