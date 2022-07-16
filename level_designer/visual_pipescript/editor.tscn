@@ -20,7 +20,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 40.0
 right_disconnects = true
-scroll_offset = Vector2( -319, -140 )
 snap_distance = 16
 zoom_min = 0.2
 zoom_max = 2.0
@@ -72,6 +71,7 @@ script = ExtResource( 1 )
 
 [connection signal="connection_request" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_connection_request"]
 [connection signal="delete_nodes_request" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_delete_nodes_request"]
+[connection signal="disconnection_request" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_disconnection_request"]
 [connection signal="node_selected" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_node_selected"]
 [connection signal="node_unselected" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_node_unselected"]
 [connection signal="pressed" from="CanvasLayer/Titlebar/Run" to="CanvasLayer/Titlebar" method="_on_Run_pressed"]

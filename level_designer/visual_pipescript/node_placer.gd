@@ -5,7 +5,7 @@ onready var graph = $"../GraphEdit"
 var default_text = "Place Node"
 var selected_nodes = {}
 var nodes
-var created_nodes = {}
+var nodes_dict
 
 var node_types = {
 	connector = {
@@ -25,6 +25,11 @@ var node_types = {
 	}
 }
 
+func get_node_data(node):
+	for looping in nodes:
+		if looping.name == node:
+			return looping
+
 func _input(event):
 	if event.is_action_pressed("ld_alt_click"):
 		visible = true
@@ -43,6 +48,9 @@ func _ready():
 	var content = file.get_as_text()
 	file.close()
 	nodes = parse_json(content)
+	nodes_dict = {}
+	for node in nodes:
+		nodes_dict[node.name] = node
 	# add the buttons
 	add_buttons()
 
@@ -70,8 +78,7 @@ func _on_Place_item_selected(index):
 	slot_idx += 1
 	
 	# add the attributes
-	for idx in node_data.attributes.size():
-		var slot = node_data.attributes[idx]
+	for slot in node_data.attributes.values():
 		var type = node_types[slot.type]
 		var control = type.create.new()
 		if control is Label:
@@ -85,8 +92,7 @@ func _on_Place_item_selected(index):
 		slot_idx += 1
 	
 	# add connectors
-	for idx in node_data.slots.size():
-		var slot = node_data.slots[idx]
+	for slot in node_data.slots.values():
 		var type = node_types[slot.type]
 		var control = type.create.new()
 		if control is Label:
@@ -104,11 +110,6 @@ func _on_Place_item_selected(index):
 	
 	node.offset = graph.get_local_mouse_position() + graph.scroll_offset
 	graph.add_child(node)
-	# make note of the node
-	created_nodes[node] = {
-		type = target,
-		ref = node
-	}
 	
 	text = default_text
 	visible = false
@@ -116,6 +117,7 @@ func _on_Place_item_selected(index):
 # code below copied from:
 # https://gdscript.com/solutions/godot-graphnode-and-graphedit-tutorial/
 
+#TODO: make sure only 1 connection can be made
 func _on_GraphEdit_connection_request(from, from_slot, to, to_slot):
 	graph.connect_node(from, from_slot, to, to_slot)
 
@@ -136,3 +138,6 @@ func _on_GraphEdit_node_selected(node):
 
 func _on_GraphEdit_node_unselected(node):
 	selected_nodes[node] = false
+
+func _on_GraphEdit_disconnection_request(from, from_slot, to, to_slot):
+	graph.disconnect_node(from, from_slot, to, to_slot)
