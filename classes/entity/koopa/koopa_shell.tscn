@@ -1,0 +1,135 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://src/global/dejitter.gd" type="Script" id=1]
+[ext_resource path="res://classes/entity/koopa/shell.png" type="Texture" id=2]
+[ext_resource path="res://classes/entity/koopa/koopa_shell.gd" type="Script" id=3]
+[ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=4]
+[ext_resource path="res://shaders/palette.tres" type="Material" id=5]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 126, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 108, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 90, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 72, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 54, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 36, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 18, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 18, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 36, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 54, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 72, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 90, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 108, 22, 18 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 126, 22, 18 )
+
+[sub_resource type="SpriteFrames" id=17]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "clockwise",
+"speed": 6.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ) ],
+"loop": true,
+"name": "counterclockwise",
+"speed": 6.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 11, 9 )
+
+[sub_resource type="RectangleShape2D" id=19]
+extents = Vector2( 11, 9 )
+
+[sub_resource type="RectangleShape2D" id=20]
+extents = Vector2( 1, 1 )
+
+[node name="Shell" type="KinematicBody2D"]
+material = ExtResource( 5 )
+collision_layer = 4
+script = ExtResource( 3 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+use_parent_material = true
+frames = SubResource( 17 )
+animation = "clockwise"
+frame = 3
+playing = true
+script = ExtResource( 1 )
+
+[node name="KinematicShape" type="CollisionShape2D" parent="."]
+shape = SubResource( 18 )
+
+[node name="CollisionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionArea"]
+shape = SubResource( 19 )
+
+[node name="WaterCheck" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
+shape = SubResource( 20 )
+
+[node name="Kick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[connection signal="body_entered" from="CollisionArea" to="." method="_on_CollisionArea_body_entered"]
+[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
+[connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]

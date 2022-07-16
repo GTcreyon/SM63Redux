@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://classes/decorative/flowers.png" type="Texture" id=1]
+
+[node name="Flowers" type="Sprite"]
+position = Vector2( 0, -6.5 )
+z_index = -1
+texture = ExtResource( 1 )

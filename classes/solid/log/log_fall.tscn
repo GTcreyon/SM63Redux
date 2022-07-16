@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://classes/solid/log/log_fall.png" type="Texture" id=1]
+[ext_resource path="res://classes/solid/log/log_fall.gd" type="Script" id=2]
+[ext_resource path="res://src/global/dejitter.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 8, 9.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 1 )
+
+[node name="LogFall" type="StaticBody2D"]
+z_index = -1
+collision_mask = 0
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2.5 )
+shape = SubResource( 1 )
+one_way_collision = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -8 )
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+rect = Rect2( -8, -12, 16, 24 )
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
