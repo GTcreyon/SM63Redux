@@ -15,7 +15,6 @@ onready var water_meter = $MeterControl
 onready var icon = $MeterControl/WaterMeter/Icon
 onready var stats_tl = $StatsTL
 onready var stats_tr = $StatsTR
-onready var stats_bl = $StatsBL
 
 #pause cache
 onready var bg = $BG
@@ -118,7 +117,6 @@ func set_size(lin_size):
 	water_meter.rect_scale = Vector2.ONE * lin_size
 	stats_tl.rect_scale = Vector2.ONE * lin_size
 	stats_tr.rect_scale = Vector2.ONE * lin_size
-	stats_bl.rect_scale = Vector2.ONE * lin_size
 	life_meter.scale = Vector2.ONE * lin_size
 	life_meter.position.x = OS.window_size.x / 2
 	dialog_box.gui_size = lin_size
@@ -174,8 +172,6 @@ func _process(delta):
 	stats_tl.margin_top = 8 + (19 * gui_scale) * pause_offset
 	stats_tr.margin_left = -8 - (37 * gui_scale) * pause_offset
 	stats_tr.margin_top = 8 + (19 * gui_scale) * pause_offset
-	stats_bl.margin_left = 8 + (37 * gui_scale) * pause_offset
-	stats_bl.margin_top = -8 - (33 * gui_scale) * pause_offset
 	water_meter.margin_left = -57 - (37 * gui_scale) * pause_offset
 	water_meter.margin_top = -113 - (33 * gui_scale) * pause_offset
 
