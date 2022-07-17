@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://classes/pickup/coin/coin_particles.gd" type="Script" id=1]
+
+[sub_resource type="CanvasItemMaterial" id=2]
+particles_animation = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 4
+particles_anim_loop = false
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+anim_speed = 6.0
+anim_speed_random = 0.5
+
+[node name="CoinParticles" type="Particles2D"]
+material = SubResource( 2 )
+z_index = -1
+amount = 3
+explosiveness = 1.0
+process_material = SubResource( 3 )
+script = ExtResource( 1 )

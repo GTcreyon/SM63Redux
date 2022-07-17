@@ -1,10 +1,10 @@
 extends KinematicBody2D
 
 const GRAVITY = 0.17
-const coin = preload("res://actors/items/coin/coin_yellow.tscn")
+const coin = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 const sfx = {
-	"jump": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
-	"step": preload("res://audio/sfx/items/goomba/goomba_step.wav"),
+	"jump": preload("res://classes/entity/enemy/goomba/goomba_jump.ogg"),
+	"step": preload("res://classes/entity/enemy/goomba/goomba_step.wav"),
 	#"squish": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
 	}
 

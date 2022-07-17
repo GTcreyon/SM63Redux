@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-const coin = preload("res://actors/items/coin/coin_yellow.tscn")
+const coin = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 const speed = 32.0/60.0
 
 var follow_targets = []

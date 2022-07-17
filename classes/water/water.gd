@@ -2,16 +2,16 @@ extends Area2D
 
 const splash_bank = {
 	"big": [
-		preload("res://actors/water/splash_big_0.wav"),
-		preload("res://actors/water/splash_big_1.wav"),
+		preload("res://classes/water/splash_big_0.wav"),
+		preload("res://classes/water/splash_big_1.wav"),
 	],
 	"medium": [
-		preload("res://actors/water/splash_medium_0.wav"),
-		preload("res://actors/water/splash_medium_1.wav"),
+		preload("res://classes/water/splash_medium_0.wav"),
+		preload("res://classes/water/splash_medium_1.wav"),
 	],
 	"small": [
-		preload("res://actors/water/splash_small_0.wav"),
-		preload("res://actors/water/splash_small_1.wav"),
+		preload("res://classes/water/splash_small_0.wav"),
+		preload("res://classes/water/splash_small_1.wav"),
 	],
 }
 

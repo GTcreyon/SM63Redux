@@ -1,12 +1,9 @@
-extends CPUParticles2D
-
-var time = 0
+extends Particles2D
 
 func _ready():
 	emitting = true
 
 
 func _process(delta):
-	time += 1 * 60 * delta
-	if time > 30:
+	if !emitting:
 		queue_free()

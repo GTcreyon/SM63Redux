@@ -1,9 +1,10 @@
+class_name Coin
 extends KinematicBody2D
+
+const PARTICLE_SCENE = preload("res://classes/pickup/coin/coin_particles.tscn")
 
 export var disabled = false setget set_disabled
 
-onready var main = $"/root/Main"
-onready var player = $"/root/Main/Player"
 onready var sprite = $AnimatedSprite
 onready var pickup_area = $PickupArea
 var dropped = false
@@ -15,7 +16,7 @@ var yellow = 0
 var red = 0
 var water_bodies = 0
 var collect_id
-var sparkle : Resource
+var particle_texture: StreamTexture
 
 
 func _ready():
@@ -56,9 +57,10 @@ func _on_PickupArea_body_entered(_body):
 	picked = true
 	Singleton.get_node("SFX/Coin").play()
 	pickup_area.queue_free() #clears up the acting segments of the coin so only the SFX is left
-	var inst = sparkle.instance()
+	var inst = PARTICLE_SCENE.instance()
+	inst.texture = particle_texture
 	inst.position = position
-	main.add_child(inst)
+	get_parent().add_child(inst)
 	queue_free()
 
 

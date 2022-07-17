@@ -1,3 +1,4 @@
+class_name Bottle
 extends Area2D
 
 export var disabled = false setget set_disabled

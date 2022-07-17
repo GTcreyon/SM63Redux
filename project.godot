@@ -14,6 +14,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/base_modifier.gd"
 }, {
+"base": "Area2D",
+"class": "Bottle",
+"language": "GDScript",
+"path": "res://classes/pickup/bottle/bottle.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Coin",
+"language": "GDScript",
+"path": "res://classes/pickup/coin/coin.gd"
+}, {
 "base": "Node2D",
 "class": "DejitterGroup",
 "language": "GDScript",
@@ -46,6 +56,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
+"Bottle": "",
+"Coin": "",
 "DejitterGroup": "res://classes/dejitter_group/dejitter_group.svg",
 "OutlineContainer": "",
 "PolygonContainer": "",

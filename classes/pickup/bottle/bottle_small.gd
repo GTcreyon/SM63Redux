@@ -1,4 +1,4 @@
-extends "res://actors/items/bottle/bottle.gd"
+extends Bottle
 
-func _ready():
+func _init():
 	amount = 15
