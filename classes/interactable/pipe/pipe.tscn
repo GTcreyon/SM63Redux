@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://audio/sfx/items/sm64_pipe.ogg" type="AudioStream" id=1]
+[ext_resource path="res://classes/interactable/pipe/pipe_enter.ogg" type="AudioStream" id=1]
 [ext_resource path="res://classes/interactable/pipe/pipe.png" type="Texture" id=2]
 [ext_resource path="res://classes/interactable/pipe/pipe.gd" type="Script" id=3]
 

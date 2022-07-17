@@ -6,7 +6,6 @@ var wait = 0.0
 onready var flash = $Flash
 
 func _process(delta):
-	print(delta)
 	var dmod = 60 * delta
 	scale = get_parent().scale
 	position.x = round(OS.window_size.x / 2)

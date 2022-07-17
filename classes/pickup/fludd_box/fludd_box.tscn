@@ -4,7 +4,7 @@
 [ext_resource path="res://classes/pickup/fludd_box/fludd_box.gd" type="Script" id=2]
 [ext_resource path="res://classes/pickup/fludd_box/box_turbo_green.png" type="Texture" id=3]
 [ext_resource path="res://classes/pickup/fludd_box/box_rocket.png" type="Texture" id=4]
-[ext_resource path="res://audio/sfx/fludd/nozzlebox.wav" type="AudioStream" id=5]
+[ext_resource path="res://classes/pickup/fludd_box/fludd_box_break.wav" type="AudioStream" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 18, 2 )

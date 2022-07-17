@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/goomba_jump.ogg-d7a357d97a09151503af784441163e0c.oggstr"
+
+[deps]
+
+source_file="res://classes/entity/enemy/goomba/goomba_jump.ogg"
+dest_files=[ "res://.import/goomba_jump.ogg-d7a357d97a09151503af784441163e0c.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

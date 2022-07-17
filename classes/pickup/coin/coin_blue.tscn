@@ -7,7 +7,7 @@
 [ext_resource path="res://classes/pickup/coin/blue_coin2.png" type="Texture" id=8]
 [ext_resource path="res://classes/pickup/coin/blue_coin1.png" type="Texture" id=9]
 [ext_resource path="res://classes/pickup/coin/blue_coin3.png" type="Texture" id=12]
-[ext_resource path="res://src/global/dejitter.gd" type="Script" id=13]
+[ext_resource path="res://classes/dejitter.gd" type="Script" id=13]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

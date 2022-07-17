@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/goomba_step.wav-d6dc7e07d12f33530db59f23b4279d4b.sample"
+
+[deps]
+
+source_file="res://classes/entity/enemy/goomba/goomba_step.wav"
+dest_files=[ "res://.import/goomba_step.wav-d6dc7e07d12f33530db59f23b4279d4b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

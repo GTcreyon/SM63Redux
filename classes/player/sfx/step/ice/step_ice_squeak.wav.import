@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/step_ice_squeak.wav-f32f7dc56b567616421fb1dbad3a2bff.sample"
+
+[deps]
+
+source_file="res://classes/player/sfx/step/ice/step_ice_squeak.wav"
+dest_files=[ "res://.import/step_ice_squeak.wav-f32f7dc56b567616421fb1dbad3a2bff.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

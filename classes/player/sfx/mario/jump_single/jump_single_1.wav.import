@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jump_single_1.wav-c790120238b2ef9da908dd434dbcbcc4.sample"
+
+[deps]
+
+source_file="res://classes/player/sfx/mario/jump_single/jump_single_1.wav"
+dest_files=[ "res://.import/jump_single_1.wav-c790120238b2ef9da908dd434dbcbcc4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

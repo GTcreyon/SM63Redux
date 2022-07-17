@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/dive_3.wav-0cae491d33aaed2dd3391da15c291534.sample"
+
+[deps]
+
+source_file="res://classes/player/sfx/mario/dive/dive_3.wav"
+dest_files=[ "res://.import/dive_3.wav-0cae491d33aaed2dd3391da15c291534.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/editor4.ogg-7f4c3ca36e68d0f8f09cfb3868850d3e.oggstr"
+
+[deps]
+
+source_file="res://scenes/menus/level_designer/music/editor4.ogg"
+dest_files=[ "res://.import/editor4.ogg-7f4c3ca36e68d0f8f09cfb3868850d3e.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=7.2

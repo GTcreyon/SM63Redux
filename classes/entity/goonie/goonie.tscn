@@ -10,7 +10,7 @@
 [ext_resource path="res://classes/entity/goonie/goonie_flap5.png" type="Texture" id=8]
 [ext_resource path="res://classes/entity/goonie/goonie.gd" type="Script" id=9]
 [ext_resource path="res://classes/safety_net/safety_net.gd" type="Script" id=10]
-[ext_resource path="res://src/global/dejitter.gd" type="Script" id=11]
+[ext_resource path="res://classes/dejitter.gd" type="Script" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 1 )

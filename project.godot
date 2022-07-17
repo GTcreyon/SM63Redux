@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "BaseModifier",
 "language": "GDScript",
-"path": "res://src/global/base_modifier.gd"
+"path": "res://classes/base_modifier.gd"
 }, {
 "base": "Container",
 "class": "OutlineContainer",
@@ -27,17 +27,17 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "SM63ToRedux",
 "language": "GDScript",
-"path": "res://src/global/serializers/sm63_to_redux.gd"
+"path": "res://classes/serializers/sm63_to_redux.gd"
 }, {
 "base": "Reference",
 "class": "Serializer",
 "language": "GDScript",
-"path": "res://src/global/serializers/serializer.gd"
+"path": "res://classes/serializers/serializer.gd"
 }, {
 "base": "Node2D",
 "class": "TileToPoly",
 "language": "GDScript",
-"path": "res://src/global/serializers/tile_to_poly.gd"
+"path": "res://classes/serializers/tile_to_poly.gd"
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
@@ -59,8 +59,8 @@ config/windows_native_icon="res://icon_windows.ico"
 
 [autoload]
 
-Singleton="*res://src/global/singleton/singleton.tscn"
-PerformanceMonitor="*res://src/global/performance/performance_monitor.tscn"
+Singleton="*res://classes/global/singleton/singleton.tscn"
+PerformanceMonitor="*res://classes/global/performance/performance_monitor.gd"
 
 [display]
 
