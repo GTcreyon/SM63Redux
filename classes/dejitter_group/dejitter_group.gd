@@ -1,3 +1,4 @@
+class_name DejitterGroup, "./dejitter_group.svg"
 extends Node2D
 
 onready var parent = get_parent()

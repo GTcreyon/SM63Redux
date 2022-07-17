@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://classes/dejitter.gd" type="Script" id=1]
+[ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/pickup/coin/red_coin4.png" type="Texture" id=3]
 [ext_resource path="res://classes/pickup/coin/red_coin0.png" type="Texture" id=4]
 [ext_resource path="res://classes/pickup/coin/red_coin3.png" type="Texture" id=5]

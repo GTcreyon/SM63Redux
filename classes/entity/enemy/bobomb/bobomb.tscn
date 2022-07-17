@@ -7,7 +7,7 @@
 [ext_resource path="res://classes/entity/enemy/bobomb/bobomb_key_0.png" type="Texture" id=5]
 [ext_resource path="res://classes/entity/enemy/bobomb/bobomb_key_1.png" type="Texture" id=6]
 [ext_resource path="res://classes/entity/enemy/bobomb/bobomb.gd" type="Script" id=7]
-[ext_resource path="res://classes/dejitter.gd" type="Script" id=8]
+[ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=8]
 [ext_resource path="res://classes/entity/enemy/bobomb/bobomb_struck.png" type="Texture" id=14]
 [ext_resource path="res://classes/entity/enemy/goomba/goomba_step.wav" type="AudioStream" id=15]
 
@@ -45,27 +45,27 @@ region = Rect2( 126, 0, 18, 18 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "struck",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "struck",
+"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "unlit",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "unlit",
 "speed": 5.0
 } ]
 

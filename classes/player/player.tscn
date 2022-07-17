@@ -1,6 +1,6 @@
 [gd_scene load_steps=66 format=2]
 
-[ext_resource path="res://classes/dejitter.gd" type="Script" id=1]
+[ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/bubbles.gd" type="Script" id=2]
 [ext_resource path="res://classes/player/player.gd" type="Script" id=3]
 [ext_resource path="res://classes/player/fludd_nozzlefx.png" type="Texture" id=4]

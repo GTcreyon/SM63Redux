@@ -1,4 +1,5 @@
 class_name BaseModifier
+extends Reference
 
 var items = {}
 

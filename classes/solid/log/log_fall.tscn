@@ -2,7 +2,7 @@
 
 [ext_resource path="res://classes/solid/log/log_fall.png" type="Texture" id=1]
 [ext_resource path="res://classes/solid/log/log_fall.gd" type="Script" id=2]
-[ext_resource path="res://classes/dejitter.gd" type="Script" id=3]
+[ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 9.5 )
