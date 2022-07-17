@@ -1,21 +1,21 @@
 tool
 extends Sprite
 
+const WATER_VIEWPORT_MATERIAL = preload("res://classes/water/water_viewport.tres")
+
 onready var viewport: Viewport = $Viewport
 onready var water: Polygon2D = $Viewport/WaterPolygon
 onready var detection_area: Area2D = $DetectionArea
 onready var collision: CollisionPolygon2D = $DetectionArea/Collision
 
 export var polygon: PoolVector2Array = PoolVector2Array()
-export var outline_texture: Texture = load("res://actors/water/water_outline_anim.png")
+export var outline_texture: Texture = load("res://classes/water/water_outline_anim.png")
 export var water_texture_size: Vector2 = Vector2(64, 64)
 export var outline_texture_size: Vector2 = Vector2(32, 12)
 export var water_color: Color = Color(0, 0.7, 1, 0.8)
 #export var texture_color_impact: float = 0.2;
 #export var animation_swing_range: float = 32;
 #export var animation_speed: float = 1;
-
-var water_viewport_material = load("res://actors/water/water_viewport.tres")
 
 func refresh():
 	#viewport.world_2d = get_world_2d()
@@ -49,7 +49,7 @@ func refresh():
 	detection_area.on_ready()
 	
 	#now give the shader our viewport texture
-	var root_mat = water_viewport_material.duplicate()
+	var root_mat = WATER_VIEWPORT_MATERIAL.duplicate()
 	root_mat.set_shader_param("viewport_texture", viewport.get_texture())
 	root_mat.set_shader_param("base_water_color", water_color)
 	root_mat.set_shader_param("outline_texture", outline_texture)

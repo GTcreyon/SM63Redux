@@ -22,6 +22,7 @@ anim_speed_random = 0.5
 material = SubResource( 2 )
 z_index = -1
 amount = 3
+one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 3 )
 script = ExtResource( 1 )
