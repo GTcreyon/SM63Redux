@@ -23,7 +23,6 @@
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 24 )
-shader_param/atlas_dimensions = Vector2( 1, 1 )
 shader_param/width = 2
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -31,7 +30,6 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 24 )
-shader_param/atlas_dimensions = Vector2( 1, 1 )
 shader_param/width = 2
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -197,7 +195,6 @@ animation = "green"
 position = Vector2( 1200, 199 )
 animation = "orange"
 frame = 1
-vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Flowers3" parent="Items/Decoration" instance=ExtResource( 27 )]
 position = Vector2( 1221, 259.5 )
@@ -225,22 +222,18 @@ position = Vector2( 461, 270 )
 
 [node name="Goonie3" parent="Items/Goonies" instance=ExtResource( 21 )]
 position = Vector2( 630, 305 )
-flip = true
 
 [node name="Goonie4" parent="Items/Goonies" instance=ExtResource( 21 )]
 position = Vector2( 966.73, 111.522 )
 
 [node name="Goonie7" parent="Items/Goonies" instance=ExtResource( 21 )]
 position = Vector2( 1072.73, 259.522 )
-flip = true
 
 [node name="Goonie5" parent="Items/Goonies" instance=ExtResource( 21 )]
 position = Vector2( 800, 360 )
-flip = true
 
 [node name="Goonie6" parent="Items/Goonies" instance=ExtResource( 21 )]
 position = Vector2( 855, 258 )
-flip = true
 
 [node name="Bobomb4" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 1387, 247 )
@@ -250,12 +243,12 @@ direction = -1
 position = Vector2( -81, 92 )
 sweep_direction = Vector2( 1, 0 )
 spawn_location = Vector2( 1843, 24 )
-scene_path = "res://scenes/tutorial_1/tutorial_1_1.tscn"
+scene_path = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
 size = Vector2( 20, 800 )
 
 [node name="WarpZone2" parent="." instance=ExtResource( 16 )]
 position = Vector2( 1749, 47 )
 sweep_direction = Vector2( -1, 0 )
 spawn_location = Vector2( 64, 159 )
-scene_path = "res://scenes/tutorial_1/tutorial_1_3.tscn"
+scene_path = "res://scenes/levels/tutorial_1/tutorial_1_3.tscn"
 size = Vector2( 20, 600 )

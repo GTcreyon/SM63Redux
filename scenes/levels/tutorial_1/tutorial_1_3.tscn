@@ -1,5 +1,6 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
+[ext_resource path="res://shaders/palette.shader" type="Shader" id=1]
 [ext_resource path="res://classes/terrain/terrain_polygon.tscn" type="PackedScene" id=7]
 [ext_resource path="res://classes/water/water.tscn" type="PackedScene" id=8]
 [ext_resource path="res://shaders/glow.shader" type="Shader" id=9]
@@ -37,6 +38,16 @@ shader = ExtResource( 9 )
 shader_param/width = 2
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+resource_local_to_scene = true
+shader = ExtResource( 1 )
+shader_param/color0 = Color( 0.796078, 0.368627, 0.0352941, 1 )
+shader_param/color1 = Color( 0.568627, 0.0705882, 0.188235, 1 )
+shader_param/color2 = Color( 0.478431, 0.258824, 0.203922, 1 )
+shader_param/color3 = Color( 1, 1, 0, 1 )
+shader_param/color4 = Color( 1, 0, 1, 1 )
+shader_param/color5 = Color( 0, 1, 1, 1 )
 
 [node name="Main" type="Node2D"]
 
@@ -165,6 +176,7 @@ lines = [ "[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, j
 [node name="Enemy" type="Node2D" parent="Items"]
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource( 20 )]
+material = SubResource( 3 )
 position = Vector2( 1335.47, -15.5049 )
 frame = 4
 color = 1
@@ -320,12 +332,12 @@ position = Vector2( 1669, 55 )
 position = Vector2( 20, 111 )
 sweep_direction = Vector2( 1, 0 )
 spawn_location = Vector2( 1713, 127 )
-scene_path = "res://scenes/tutorial_1/tutorial_1_2.tscn"
+scene_path = "res://scenes/levels/tutorial_1/tutorial_1_2.tscn"
 size = Vector2( 20, 800 )
 
 [node name="WarpZone2" parent="." instance=ExtResource( 18 )]
 position = Vector2( 1825, -64 )
 sweep_direction = Vector2( -1, 0 )
 spawn_location = Vector2( 18, 193 )
-scene_path = "res://scenes/tutorial_1/tutorial_1_4.tscn"
+scene_path = "res://scenes/levels/tutorial_1/tutorial_1_4.tscn"
 size = Vector2( 20, 800 )
