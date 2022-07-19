@@ -3,13 +3,12 @@ extends Node2D
 
 export(int, 2) var type = 0 setget set_type
 
-onready var main = $"/root/Main/Items"
 onready var hover = $Hover
 onready var rocket = $Rocket
 onready var turbo = $Turbo
 
-var fludd = preload("res://actors/items/fludd_box/fludd_pickup.tscn").instance()
-var break_anim = preload("res://actors/items/fludd_box/box_break.tscn").instance()
+var fludd = preload("./fludd_pickup.tscn").instance()
+var break_anim = preload("./box_break.tscn").instance()
 
 func set_type(new_type):
 	type = new_type
@@ -30,7 +29,7 @@ func set_type(new_type):
 
 func _on_FluddBox_body_entered(body):
 	if body.vel.y > -2 && body.position.y < position.y: #TODO: give mario feet collision
-		main.call_deferred("add_child", break_anim)
+		get_parent().call_deferred("add_child", break_anim)
 		break_anim.position = Vector2(position.x, position.y)
 		match type:
 			2:
@@ -39,7 +38,7 @@ func _on_FluddBox_body_entered(body):
 				break_anim.animation = "bounce_rocket"
 			_:
 				break_anim.animation = "bounce_hover"
-		main.call_deferred("add_child", fludd)
+		get_parent().call_deferred("add_child", fludd)
 		fludd.position = Vector2(position.x, position.y + 8.5)
 		fludd.call_deferred("switch_type", type)
 		Singleton.collected_nozzles[type] = true

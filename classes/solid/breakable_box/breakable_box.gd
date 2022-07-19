@@ -1,12 +1,11 @@
 extends StaticBody2D
 
-const coin = preload("res://actors/items/coin/coin_yellow.tscn")
-const particle = preload("res://actors/items/breakable_box/box_particle.tscn")
-const residual = preload("res://actors/residual_sfx.tscn")
-const boom0 = preload("res://actors/items/breakable_box/boom.wav")
-const boom1 = preload("res://actors/items/breakable_box/box_break.wav")
+const coin = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
+const particle = preload("./box_particle.tscn")
+const residual = preload("res://classes/residual_sfx/residual_sfx.tscn")
+const boom0 = preload("./boom.wav")
+const boom1 = preload("./box_break.wav")
 
-onready var main = $"/root/Main"
 onready var pound_area = $PoundArea
 onready var spin_area = $SpinArea
 
@@ -46,18 +45,18 @@ func destroy():
 		inst.position = position + Vector2((rng.randf() - 0.5) * 27, (rng.randf() - 0.5) * 27)
 		inst.vel = Vector2((rng.randf() - 0.5) * 5, rng.randf() * -2.5)
 		inst.get_node("AnimatedSprite").frame = rng.randi() % 7
-		main.call_deferred("add_child", inst)
+		get_parent().call_deferred("add_child", inst)
 	if Singleton.request_coin(collect_id):
 		for _i in range(coin_count):
 			var inst = coin.instance()
 			inst.position = position# + Vector2((rng.randf() - 0.5) * 27, (rng.randf() - 0.5) * 27)
 			inst.vel = Vector2((rng.randf() - 0.5) * 5.0, rng.randf() * -2.5)
 			inst.dropped = true
-			main.call_deferred("add_child", inst)
+			get_parent().call_deferred("add_child", inst)
 	var inst = residual.instance()
 	if rng.randi() % 2 < 1:
 		inst.sound = boom0
 	else:
 		inst.sound = boom1
-	main.call_deferred("add_child", inst)
+	get_parent().call_deferred("add_child", inst)
 	queue_free()

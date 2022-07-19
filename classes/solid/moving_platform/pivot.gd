@@ -2,7 +2,7 @@ tool
 extends Node2D
 
 const dot_tex = preload("./dot.png")
-const platform = preload("res://classes/items/moving_platform/moving_platform.tscn")
+const platform = preload("./moving_platform.tscn")
 
 onready var group_platforms = $Platforms
 onready var group_dots = $Dots
