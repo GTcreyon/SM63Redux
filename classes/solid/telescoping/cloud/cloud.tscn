@@ -4,7 +4,7 @@
 [ext_resource path="res://classes/solid/telescoping/cloud/cloud_middle.png" type="Texture" id=2]
 [ext_resource path="res://classes/solid/telescoping/cloud/cloud_left.png" type="Texture" id=3]
 [ext_resource path="res://classes/solid/telescoping/cloud/cloud_right.png" type="Texture" id=4]
-[ext_resource path="res://classes/safety_net/safety_net.tscn" type="PackedScene" id=5]
+[ext_resource path="res://classes/zone/safety_net/safety_net.tscn" type="PackedScene" id=5]
 [ext_resource path="res://shaders/aa.tres" type="Material" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]

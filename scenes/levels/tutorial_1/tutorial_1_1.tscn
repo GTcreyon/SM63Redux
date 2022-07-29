@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=2]
 
-[ext_resource path="res://classes/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://classes/solid/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://classes/solid/log/log.tscn" type="PackedScene" id=2]
 [ext_resource path="res://classes/solid/log/log_fall.tscn" type="PackedScene" id=3]
 [ext_resource path="res://classes/player/player.tscn" type="PackedScene" id=4]
@@ -16,12 +16,12 @@
 [ext_resource path="res://classes/pickup/coin/blue/coin_blue.tscn" type="PackedScene" id=23]
 [ext_resource path="res://shaders/glow.shader" type="Shader" id=24]
 [ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=25]
-[ext_resource path="res://classes/trigger/warpzone/warp_zone.tscn" type="PackedScene" id=26]
-[ext_resource path="res://classes/camera_area/camera_area.tscn" type="PackedScene" id=27]
+[ext_resource path="res://classes/zone/trigger/warpzone/warp_zone.tscn" type="PackedScene" id=26]
+[ext_resource path="res://classes/zone/camera_area/camera_area.tscn" type="PackedScene" id=27]
 [ext_resource path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=28]
 [ext_resource path="res://classes/decorative/arrow/arrow.tscn" type="PackedScene" id=29]
 [ext_resource path="res://classes/decorative/butterfly/butterfly.tscn" type="PackedScene" id=30]
-[ext_resource path="res://classes/entity/goonie/goonie.tscn" type="PackedScene" id=31]
+[ext_resource path="res://classes/entity/passive/goonie/goonie.tscn" type="PackedScene" id=31]
 
 [sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true

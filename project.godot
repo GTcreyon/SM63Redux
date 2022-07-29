@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/dejitter_group/dejitter_group.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Entity",
+"language": "GDScript",
+"path": "res://classes/entity/entity.gd"
+}, {
 "base": "Container",
 "class": "OutlineContainer",
 "language": "GDScript",
@@ -59,6 +64,7 @@ _global_script_class_icons={
 "Bottle": "",
 "Coin": "",
 "DejitterGroup": "res://classes/dejitter_group/dejitter_group.svg",
+"Entity": "",
 "OutlineContainer": "",
 "PolygonContainer": "",
 "SM63ToRedux": "",

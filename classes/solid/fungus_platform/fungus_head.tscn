@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://classes/solid/fungus_platform/fungus_head.png" type="Texture" id=1]
-[ext_resource path="res://classes/safety_net/safety_net.gd" type="Script" id=2]
+[ext_resource path="res://classes/zone/safety_net/safety_net.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 28, 8.5 )
