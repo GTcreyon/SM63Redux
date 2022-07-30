@@ -51,14 +51,16 @@ vframes = 5
 visible = false
 shape = SubResource( 1 )
 
-[node name="RayCast1" type="RayCast2D" parent="."]
+[node name="Raycasters" type="Node2D" parent="."]
+
+[node name="RayCast1" type="RayCast2D" parent="Raycasters"]
 cast_to = Vector2( 0, 16 )
 
-[node name="RayCast2" type="RayCast2D" parent="."]
+[node name="RayCast2" type="RayCast2D" parent="Raycasters"]
 position = Vector2( -15, 0 )
 cast_to = Vector2( 0, 16 )
 
-[node name="RayCast3" type="RayCast2D" parent="."]
+[node name="RayCast3" type="RayCast2D" parent="Raycasters"]
 position = Vector2( 15, 0 )
 cast_to = Vector2( 0, 16 )
 

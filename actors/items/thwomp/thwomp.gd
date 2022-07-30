@@ -11,11 +11,7 @@ onready var sfx = $SFXUmph
 onready var dustleft = $DustLeft
 onready var dustright = $DustRight
 
-onready var raycasters = [
-	$RayCast1,
-	$RayCast2,
-	$RayCast3,
-]
+onready var raycasters = $Raycasters.get_children()
 
 enum MODE {
 	AWAIT_PLAYER = 0,
@@ -87,6 +83,9 @@ func switch_state(s):
 func attack():
 	if state==S.WAITING: switch_state(S.ALERTED)
 
+func _ready():
+	for raycast in raycasters:
+		raycast.add_exception(self)
 
 func _physics_process(delta):
 	if Engine.is_editor_hint(): return
@@ -112,7 +111,7 @@ func _physics_process(delta):
 				switch_state(S.ALERTED)
 		# need this state because otherwise player could walk out of the zone before the thwomp attacks
 		S.ALERTED:
-			sprite.frame = F.BLINK
+			sprite.frame = F.IDLE
 			if timer > attack_delay:
 				sprite.frame = F.ANGRY
 				switch_state(S.FALLING)
