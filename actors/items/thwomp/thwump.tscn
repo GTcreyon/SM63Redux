@@ -37,10 +37,8 @@ anim_speed = 1.0
 anim_offset = 0.25
 anim_offset_random = 1.0
 
-[node name="Thwump" type="KinematicBody2D"]
+[node name="Thwump" type="StaticBody2D"]
 script = ExtResource( 2 )
-attack_delay = 0.25
-detection_range = Vector2( 24, 200 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 2.38419e-07 )
@@ -114,7 +112,8 @@ texture = ExtResource( 3 )
 [node name="DustRight" type="Particles2D" parent="."]
 material = SubResource( 5 )
 position = Vector2( 20, 24 )
-scale = Vector2( -1, 1 )
+rotation = -3.14159
+scale = Vector2( 1, -1 )
 emitting = false
 amount = 4
 one_shot = true

@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends StaticBody2D
 tool
 
 onready var detect_area = $DetectionBox
@@ -51,14 +51,14 @@ enum F {
 	LOOKRIGHT = 4
 }
 
-onready var original_pos = position
-onready var groundref = raycasters[0].cast_to.y #distance from center to bottom
+onready var _original_pos = position
+onready var _groundref = raycasters[0].cast_to.y #distance from center to bottom
 
-var state = S.WAITING
-var velocity = 0.0 # float because no horizontal motion, only vertical !!
-var timer = 0.0
-var blinktimer = rand_range(3.0, 5.0)
-var first_attack = true
+var _state = S.WAITING
+var _velocity = 0.0 # float because no horizontal motion, only vertical !!
+var _timer = 0.0
+var _blinktimer = rand_range(3.0, 5.0)
+var _first_attack = true
 
 func set_detection_range(val: Vector2):
 	detection_range = val
@@ -71,34 +71,38 @@ func set_detection_range(val: Vector2):
 	peek_shape.shape.extents = val + Vector2(32, 0)
 	peek_shape.position.y = val.y
 
-func _on_body_enter(body):
-	body.take_damage_shove(2, 1 if body.position.x > position.x else -1)
-
-func switch_state(s):
-	state = s
-	timer = 0.0
-	velocity = 0.0
-
-# convenience function for remotely attacking
-func attack():
-	if state==S.WAITING: switch_state(S.ALERTED)
 
 func _ready():
 	for raycast in raycasters:
 		raycast.add_exception(self)
 
+
+func _on_body_enter(body):
+	body.take_damage_shove(2, 1 if body.position.x > position.x else -1)
+
+
+func _switch_state(s):
+	_state = s
+	_timer = 0.0
+	_velocity = 0.0
+
+# convenience function for remotely attacking
+func attack():
+	if _state==S.WAITING: _switch_state(S.ALERTED)
+
+
 func _physics_process(delta):
 	if Engine.is_editor_hint(): return
 	
-	timer += delta
+	_timer += delta
 	
-	match state:
+	match _state:
 		S.WAITING:
 			if peek_zone.get_overlapping_bodies().size() == 0:
-				blinktimer-=delta
-				sprite.frame = F.IDLE if blinktimer > 0.15 else F.BLINK
+				_blinktimer-=delta
+				sprite.frame = F.IDLE if _blinktimer > 0.15 else F.BLINK
 				
-				if blinktimer < 0: blinktimer = rand_range(3.0, 5.0)
+				if _blinktimer < 0: _blinktimer = rand_range(3.0, 5.0)
 			else:
 				if peek_zone.get_overlapping_bodies()[0].global_position.x < global_position.x:
 					sprite.frame = F.LOOKLEFT
@@ -106,21 +110,21 @@ func _physics_process(delta):
 					sprite.frame = F.LOOKRIGHT
 				
 			if (attack_mode == MODE.AWAIT_PLAYER and detect_area.get_overlapping_bodies().size()
-			or attack_mode == MODE.ALWAYS_ATTACK and (!first_attack or timer > always_attack_initial_delay) ):
-				first_attack = false
-				switch_state(S.ALERTED)
+			or attack_mode == MODE.ALWAYS_ATTACK and (!_first_attack or _timer > always_attack_initial_delay) ):
+				_first_attack = false
+				_switch_state(S.ALERTED)
 		# need this state because otherwise player could walk out of the zone before the thwomp attacks
 		S.ALERTED:
 			sprite.frame = F.IDLE
-			if timer > attack_delay:
+			if _timer > attack_delay:
 				sprite.frame = F.ANGRY
-				switch_state(S.FALLING)
+				_switch_state(S.FALLING)
 		
 		S.FALLING:
-			velocity = min(velocity+falling_accel*delta, falling_speed)
+			_velocity = min(_velocity+falling_accel*delta, falling_speed)
 			
 			# position is written to directly to prevent any and all blockages
-			position += Vector2.DOWN*velocity*delta
+			position += Vector2.DOWN*_velocity*delta
 			
 			for raycast in raycasters:
 				raycast.force_raycast_update() # removes need for them to be Enabled
@@ -136,25 +140,23 @@ func _physics_process(delta):
 						pushup = raycast.get_collision_point().y
 			
 			if landed:
-				global_position.y = pushup-groundref
+				global_position.y = pushup-_groundref
 				sprite.frame = F.BLINK
 				sfx.play()
 				dustleft.emitting = true
 				dustright.emitting = true
-				switch_state(S.GROUNDED)
+				_switch_state(S.GROUNDED)
 		
 		S.GROUNDED:
-			if timer > ground_wait:
-				switch_state(S.RISING)
+			if _timer > ground_wait:
+				_switch_state(S.RISING)
 		
 		S.RISING:
-			var speedlimit = lerp(4.0, rising_speed, min(1.0, (position.y-original_pos.y) / 24 ) )
+			var speedlimit = lerp(4.0, rising_speed, min(1.0, (position.y-_original_pos.y) / 24 ) )
 			
-			velocity = min(velocity+rising_accel*delta, speedlimit)
+			_velocity = min(_velocity+rising_accel*delta, speedlimit)
 			
-			position += Vector2.UP*velocity*delta
-			if position.y <= original_pos.y:
-				position.y = original_pos.y
-				switch_state(S.WAITING)
-	# protect against odd collisions pushing the thwomp to the side
-	# position.x = original_pos.x
+			position += Vector2.UP*_velocity*delta
+			if position.y <= _original_pos.y:
+				position.y = _original_pos.y
+				_switch_state(S.WAITING)
