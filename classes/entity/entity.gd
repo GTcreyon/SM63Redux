@@ -33,7 +33,7 @@ func _physics_step():
 				_wall_contact()
 		
 		var snap
-		if is_on_floor():
+		if is_on_floor() && vel.y >= 0:
 			snap = Vector2(0, 4)
 		else:
 			snap = Vector2.ZERO

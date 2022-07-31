@@ -7,30 +7,6 @@
 [ext_resource path="res://classes/entity/enemy/goomba/goomba.gd" type="Script" id=16]
 [ext_resource path="res://classes/entity/enemy/goomba/goomba_step.wav" type="AudioStream" id=17]
 
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 20, 20 )
-
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 1 )
-region = Rect2( 20, 0, 20, 20 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 1 )
-region = Rect2( 40, 0, 20, 20 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 1 )
-region = Rect2( 60, 0, 20, 20 )
-
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 1 )
-region = Rect2( 80, 0, 20, 20 )
-
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 1 )
-region = Rect2( 100, 0, 20, 20 )
-
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 35, 26 )
@@ -63,13 +39,32 @@ region = Rect2( 42, 0, 21, 26 )
 atlas = ExtResource( 2 )
 region = Rect2( 63, 0, 21, 26 )
 
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 0, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 1 )
+region = Rect2( 40, 0, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 1 )
+region = Rect2( 60, 0, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 20, 20 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 1 )
+region = Rect2( 100, 0, 20, 20 )
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
-"loop": true,
-"name": "walking",
-"speed": 10.0
-}, {
 "frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
 "loop": true,
 "name": "squish",
@@ -79,6 +74,11 @@ animations = [ {
 "loop": false,
 "name": "jumping",
 "speed": 0.0
+}, {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ) ],
+"loop": true,
+"name": "walking",
+"speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
@@ -110,7 +110,7 @@ script = ExtResource( 15 )
 position = Vector2( 0, 0.5 )
 shape = SubResource( 2 )
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="EdgeCheck" type="RayCast2D" parent="."]
 visible = false
 position = Vector2( 9, 0 )
 enabled = true
@@ -157,11 +157,11 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 6 )
 
-[node name="SFXActive" type="AudioStreamPlayer2D" parent="."]
+[node name="SFXJump" type="AudioStreamPlayer2D" parent="."]
 stream = SubResource( 5 )
 bus = "SFX"
 
-[node name="SFXPassive" type="AudioStreamPlayer2D" parent="."]
+[node name="SFXStep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 17 )
 volume_db = -6.0
 attenuation = 10.0

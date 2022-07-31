@@ -1,23 +1,11 @@
 class_name Goomba
 extends EntityEnemyWander
 
-const sfx = {
-	"jump": preload("res://classes/entity/enemy/goomba/goomba_jump.ogg"),
-	"step": preload("res://classes/entity/enemy/goomba/goomba_step.wav"),
-}
-
 var is_jumping = false
 var full_jump = false
 var land_timer = 0
-var collect_id
 
 onready var sfx_jump = $SFXJump
-
-func _ready():
-	collect_id = Singleton.get_collect_id()
-	sprite.playing = !disabled
-	if !disabled:
-		sprite.frame = hash(position.x + position.y * PI) % 4
 
 
 func _physics_process(_delta):
@@ -39,23 +27,10 @@ func physics_step():
 		else:
 			if sprite.frame == 3:
 				dead = true
-			
-	#code to push enemies apart - maybe come back to later?
-#	for area in get_overlapping_areas():
-#		if area != target:
-#			if global_position.x > area.global_position.x || (global_position.x == area.global_position.x && id > area.id):
-#				get_parent().vel.x += 7.5
-#			else:
-#				get_parent().vel.x -= 7.5
 
 	if !is_on_floor() && sprite.animation != "squish":
 		sprite.frame = 1
 		edge_check.enabled = false
-	
-	if _water_bodies > 0:
-		vel.y = min(vel.y + GRAVITY, 2)
-	else:
-		vel.y = min(vel.y + GRAVITY, 6)
 	
 	if sprite.animation != "squish" && !struck:
 		# raycast2d is used here to detect if the object collided with a wall
@@ -133,8 +108,8 @@ func physics_step():
 		snap = Vector2.ZERO
 	else:
 		snap = Vector2(0, 4)
-	#warning-ignore:RETURN_VALUE_DISCARDED
-	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
+#	#warning-ignore:RETURN_VALUE_DISCARDED
+#	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	if is_on_floor() && struck && sprite.animation != "squish":
 		sprite.animation = "squish"
 		sprite.frame = 0
@@ -156,7 +131,6 @@ func _on_Collision_mario_detected(body):
 		target = body
 		if is_on_floor():
 			sprite.animation = "jumping"
-			sfx_jump.stream = sfx["jump"]
 			sfx_jump.play()
 			sprite.frame = 0
 			is_jumping = true
