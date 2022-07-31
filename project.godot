@@ -34,6 +34,26 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/entity/entity.gd"
 }, {
+"base": "EntityMirrorable",
+"class": "EntityEnemy",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/entity_enemy.gd"
+}, {
+"base": "EntityEnemy",
+"class": "EntityEnemyWander",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/enemy_wander.gd"
+}, {
+"base": "Entity",
+"class": "EntityMirrorable",
+"language": "GDScript",
+"path": "res://classes/entity/entity_mirrorable.gd"
+}, {
+"base": "EntityEnemyWander",
+"class": "Goomba",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/goomba/goomba.gd"
+}, {
 "base": "Container",
 "class": "OutlineContainer",
 "language": "GDScript",
@@ -65,6 +85,10 @@ _global_script_class_icons={
 "Coin": "",
 "DejitterGroup": "res://classes/dejitter_group/dejitter_group.svg",
 "Entity": "",
+"EntityEnemy": "",
+"EntityEnemyWander": "",
+"EntityMirrorable": "",
+"Goomba": "",
 "OutlineContainer": "",
 "PolygonContainer": "",
 "SM63ToRedux": "",
@@ -90,7 +114,7 @@ PerformanceMonitor="*res://classes/global/performance/performance_monitor.gd"
 
 window/size/width=640
 window/size/height=360
-mouse_cursor/custom_image="res://gui/hud/cursor.png"
+mouse_cursor/custom_image="res://gui/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2( 1, 1 )
 
 [importer_defaults]

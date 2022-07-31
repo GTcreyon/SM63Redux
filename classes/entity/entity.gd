@@ -2,6 +2,7 @@ class_name Entity
 extends KinematicBody2D
 # Root class for all entities that move in any way.
 # Entities have the Entity collision layer bit enabled, so they can influence weights.
+# They have water collision built-in.
 
 const GRAVITY = 0.17
 const TERM_VEL_AIR = 6
@@ -10,10 +11,6 @@ const TERM_VEL_WATER = 2
 export var disabled = false setget set_disabled
 var vel = Vector2.ZERO
 var _water_bodies: int = 0
-
-
-func _get_configuration_warning():
-	pass
 
 
 func _physics_process(_delta):
@@ -53,5 +50,10 @@ func _on_WaterCheck_area_exited(_area):
 	_water_bodies -= 1
 
 
-func set_disabled(val):
+func _entity_disabled(val):
 	disabled = val
+	set_collision_layer_bit(0, 0 if val else 1)
+
+
+func set_disabled(val):
+	_entity_disabled(val)

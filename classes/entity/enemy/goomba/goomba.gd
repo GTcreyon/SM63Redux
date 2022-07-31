@@ -1,37 +1,17 @@
-extends KinematicBody2D
+class_name Goomba
+extends EntityEnemyWander
 
-const GRAVITY = 0.17
-const coin = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 const sfx = {
 	"jump": preload("res://classes/entity/enemy/goomba/goomba_jump.ogg"),
 	"step": preload("res://classes/entity/enemy/goomba/goomba_step.wav"),
-	#"squish": preload("res://audio/sfx/items/goomba/goomba_jump.ogg"),
-	}
+}
 
-var vel = Vector2.ZERO
-
-export var disabled = false setget set_disabled
-export var mirror = false
-
-var is_jumping = false #this is for stopping goomba's movement and then
-#transition to higher speed.
-
-var target = null
-var wander_dist = 0
-var stepped = false
+var is_jumping = false
 var full_jump = false
-var dead = false
-var struck = false
 var land_timer = 0
 var collect_id
-var water_bodies : int = 0
 
-onready var hurtbox = $Hurtbox
-onready var sprite = $AnimatedSprite
-onready var raycast = $RayCast2D
-onready var sfx_active = $SFXActive
-onready var sfx_passive = $SFXPassive
-onready var main = $"/root/Main"
+onready var sfx_jump = $SFXJump
 
 func _ready():
 	collect_id = Singleton.get_collect_id()
@@ -54,7 +34,7 @@ func physics_step():
 				var spawn = coin.instance()
 				spawn.position = position
 				spawn.dropped = true
-				main.add_child(spawn)
+				get_parent().add_child(spawn)
 			queue_free()
 		else:
 			if sprite.frame == 3:
@@ -70,9 +50,9 @@ func physics_step():
 
 	if !is_on_floor() && sprite.animation != "squish":
 		sprite.frame = 1
-		raycast.enabled = false
+		edge_check.enabled = false
 	
-	if water_bodies > 0:
+	if _water_bodies > 0:
 		vel.y = min(vel.y + GRAVITY, 2)
 	else:
 		vel.y = min(vel.y + GRAVITY, 6)
@@ -88,7 +68,7 @@ func physics_step():
 				flip_ev()
 				wander_dist = 0
 			
-			if !raycast.is_colliding() && raycast.enabled:
+			if !edge_check.is_colliding() && edge_check.enabled:
 				flip_ev()
 				
 			if sprite.animation == "jumping":
@@ -96,7 +76,7 @@ func physics_step():
 					sprite.frame = 2
 					land_timer = 0
 					is_jumping = false
-					raycast.enabled = true
+					edge_check.enabled = true
 				
 				land_timer += 0.2
 				if land_timer >= 1.8:
@@ -108,8 +88,8 @@ func physics_step():
 				vel.y = GRAVITY
 				if sprite.frame == 0 || sprite.frame == 3:
 					if !stepped:
-						sfx_passive.pitch_scale = rand_range(0.9, 1.1)
-						sfx_passive.play()
+						sfx_step.pitch_scale = rand_range(0.9, 1.1)
+						sfx_step.play()
 						stepped = true
 				else:
 					stepped = false
@@ -118,12 +98,12 @@ func physics_step():
 					if target.position.x - position.x < -20 || (target.position.x < position.x && abs(target.position.y - position.y) < 26):
 						vel.x = max(vel.x - 0.1, -2)
 						mirror = true
-						raycast.position.x = -9
+						edge_check.position.x = -9
 						sprite.playing = true
 					elif target.position.x - position.x > 20 || (target.position.x > position.x && abs(target.position.y - position.y) < 26):
 						vel.x = min(vel.x + 0.1, 2)
 						mirror = false
-						raycast.position.x = 9
+						edge_check.position.x = 9
 						sprite.playing = true
 					else:
 						vel.x *= 0.85
@@ -176,8 +156,8 @@ func _on_Collision_mario_detected(body):
 		target = body
 		if is_on_floor():
 			sprite.animation = "jumping"
-			sfx_active.stream = sfx["jump"]
-			sfx_active.play()
+			sfx_jump.stream = sfx["jump"]
+			sfx_jump.play()
 			sprite.frame = 0
 			is_jumping = true
 			vel.y = -2.5
@@ -186,7 +166,7 @@ func _on_Collision_mario_detected(body):
 
 func flip_ev():
 	mirror = !mirror
-	raycast.position.x *= -1
+	edge_check.position.x *= -1
 
 
 func _on_AwareArea_body_exited(_body):
@@ -220,25 +200,3 @@ func damage_check(body):
 		vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
 	else:
 		body.take_damage_shove(1, sign(body.position.x - position.x))
-
-
-func _on_WaterCheck_area_entered(_area):
-	water_bodies += 1
-
-
-func _on_WaterCheck_area_exited(_area):
-	water_bodies -= 1
-
-
-func set_disabled(val):
-	disabled = val
-	set_collision_layer_bit(0, 0 if val else 1)
-	if hurtbox == null:
-		hurtbox = $Hurtbox
-	if raycast == null:
-		raycast = $RayCast2D
-	if sprite == null:
-		sprite = $AnimatedSprite
-	raycast.enabled = !val
-	hurtbox.monitoring = !val
-	sprite.playing = !val
