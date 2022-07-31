@@ -13,8 +13,17 @@ var vel = Vector2.ZERO
 var _water_bodies: int = 0
 
 
+func _ready():
+	_ready_override()
+
+
+func _ready_override():
+	pass
+
+
 func _physics_process(_delta):
-	_physics_step()
+	if !disabled:
+		_physics_step()
 
 
 func _wall_contact():
@@ -22,24 +31,27 @@ func _wall_contact():
 
 
 func _physics_step():
-	if !disabled:
-		if _water_bodies > 0:
-			vel.y = min(vel.y + GRAVITY, TERM_VEL_WATER)
-		else:
-			vel.y = min(vel.y + GRAVITY, TERM_VEL_AIR)
-		
-		if is_on_floor():
-			if is_on_wall():
-				_wall_contact()
-		
-		var snap
-		if is_on_floor() && vel.y >= 0:
-			snap = Vector2(0, 4)
-		else:
-			snap = Vector2.ZERO
-		
-		#warning-ignore:RETURN_VALUE_DISCARDED
-		move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
+	_entity_physics_step()
+
+
+func _entity_physics_step():
+	if _water_bodies > 0:
+		vel.y = min(vel.y + GRAVITY, TERM_VEL_WATER)
+	else:
+		vel.y = min(vel.y + GRAVITY, TERM_VEL_AIR)
+	
+	if is_on_floor():
+		if is_on_wall():
+			_wall_contact()
+	
+	var snap
+	if is_on_floor() && vel.y >= 0:
+		snap = Vector2(0, 4)
+	else:
+		snap = Vector2.ZERO
+	
+	# warning-ignore:RETURN_VALUE_DISCARDED
+	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 
 
 func _on_WaterCheck_area_entered(_area):

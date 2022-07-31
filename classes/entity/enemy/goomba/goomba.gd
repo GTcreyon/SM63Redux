@@ -1,5 +1,5 @@
 class_name Goomba
-extends EntityEnemyWander
+extends EntityEnemyTarget
 
 var is_jumping = false
 var full_jump = false
@@ -8,12 +8,7 @@ var land_timer = 0
 onready var sfx_jump = $SFXJump
 
 
-func _physics_process(_delta):
-	if !disabled:
-		physics_step()
-
-
-func physics_step():
+func _physics_step():
 	if target != null && target.locked:
 		target = null
 	if sprite.animation == "squish":
@@ -99,78 +94,50 @@ func physics_step():
 			sprite.animation = "jumping"
 			if !is_jumping:
 				sprite.frame = 1
-		var bodies = hurtbox.get_overlapping_bodies()
-		if bodies.size() > 0:
-			damage_check(bodies[0])
-				
-	var snap
-	if !is_on_floor() || sprite.animation == "jumping":
-		snap = Vector2.ZERO
-	else:
-		snap = Vector2(0, 4)
-#	#warning-ignore:RETURN_VALUE_DISCARDED
-#	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
+#		var bodies = hurtbox.get_overlapping_bodies()
+#		if bodies.size() > 0:
+#			_damage_check(bodies[0])
+	
+	
 	if is_on_floor() && struck && sprite.animation != "squish":
 		sprite.animation = "squish"
 		sprite.frame = 0
 		sprite.playing = true
-		
-#the next signals are used for the aggresive trigger
-#behaviour, it changes the vel and goes towards
-#the target, it also changes the raycast2d because
-#after mario goes away, the enemy returns to its
-#pacific state
+	
+	_entity_physics_step()
 
-#they also use the same trick as the directional collision
-#for hurting mario or the enemy itself, but less complicated
-#as we need only the x coordinates
 
-func _on_Collision_mario_detected(body):
-	if target == null && sprite.animation != "squish" && !body.locked:
-		mirror = body.position.x < position.x
-		target = body
-		if is_on_floor():
-			sprite.animation = "jumping"
-			sfx_jump.play()
-			sprite.frame = 0
-			is_jumping = true
-			vel.y = -2.5
-		wander_dist = 0
+func _target_alert():
+	if is_on_floor():
+		sprite.animation = "jumping"
+		sfx_jump.play()
+		sprite.frame = 0
+		is_jumping = true
+		vel.y = -2.5
+
+
+func _hurt_stomp(area):
+	var body = area.get_parent()
+	sprite.animation = "squish"
+	struck = false
+	vel.y = 0
+	sprite.frame = 0
+	sprite.playing = true
+	if body.state == body.S.DIVE:
+		if Input.is_action_pressed("down"):
+			_hurt_struck(body)
+		else:
+			body.start_bounce()
+	else:
+		body.start_bounce()
+
+
+func _hurt_struck(body):
+	vel.y -= 2.63
+	sprite.animation = "jumping"
+	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
 
 
 func flip_ev():
 	mirror = !mirror
 	edge_check.position.x *= -1
-
-
-func _on_AwareArea_body_exited(_body):
-	target = null
-	
-
-func _on_Area2D_body_entered_hurt(body):
-	if sprite.animation != "squish":
-		if body.hitbox.global_position.y + body.hitbox.shape.extents.y - body.vel.y - 6 < position.y && body.vel.y > 0:
-			sprite.animation = "squish"
-			struck = false
-			vel.y = 0
-			sprite.frame = 0
-			sprite.playing = true
-			if body.state == body.S.DIVE:
-				if Input.is_action_pressed("down"):
-					damage_check(body)
-				else:
-					body.start_bounce()
-			else:
-				body.start_bounce()
-		elif !struck:
-			damage_check(body)
-
-
-func damage_check(body):
-	if body.is_spinning() || (body.is_diving(true) && abs(body.vel.x) > 1) || body.bouncing:
-		struck = true
-		vel.y -= 2.63
-		sprite.animation = "jumping"
-		vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
-	else:
-		body.take_damage_shove(1, sign(body.position.x - position.x))
