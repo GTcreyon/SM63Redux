@@ -22,11 +22,22 @@ export var _hitbox_path: NodePath = "Hitbox"
 onready var hitbox = get_node_or_null(_hitbox_path)
 
 
+func enemy_die():
+	if Singleton.request_coin(collect_id):
+		for _i in range(coin_count):
+			var spawn = coin.instance()
+			spawn.position = position
+			spawn.dropped = true
+			get_parent().add_child(spawn)
+	queue_free()
+
+
 func _ready_override():
 	_entity_enemy_ready()
 
 
 func _entity_enemy_ready():
+	_entity_ready()
 	_setup_collect_id()
 	_init_animation()
 	_connect_entity_enemy_signals()

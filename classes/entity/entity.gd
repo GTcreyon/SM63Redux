@@ -12,22 +12,36 @@ export var disabled = false setget set_disabled
 var vel = Vector2.ZERO
 var _water_bodies: int = 0
 
+export var _water_check_path: NodePath = "WaterCheck"
+onready var water_check = get_node_or_null(_water_check_path)
 
 func _ready():
 	_ready_override()
 
 
 func _ready_override():
-	pass
+	_entity_ready()
+
+
+func _entity_ready():
+	_connect_entity_signals()
+
+
+func _connect_entity_signals():
+	_entity_readyup_nodes()
+	if water_check != null:
+		water_check.connect("area_entered", self, "_on_WaterCheck_area_entered")
+		water_check.connect("area_exited", self, "_on_WaterCheck_area_exited")
+
+
+func _entity_readyup_nodes():
+	if water_check == null:
+		water_check = get_node_or_null(_water_check_path)
 
 
 func _physics_process(_delta):
 	if !disabled:
 		_physics_step()
-
-
-func _wall_contact():
-	pass
 
 
 func _physics_step():
@@ -41,8 +55,7 @@ func _entity_physics_step():
 		vel.y = min(vel.y + GRAVITY, TERM_VEL_AIR)
 	
 	if is_on_floor():
-		if is_on_wall():
-			_wall_contact()
+		vel.y = min(vel.y, GRAVITY)
 	
 	var snap
 	if is_on_floor() && vel.y >= 0:
