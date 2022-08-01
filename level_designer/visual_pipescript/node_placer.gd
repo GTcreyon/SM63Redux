@@ -1,29 +1,12 @@
 extends OptionButton
 
-onready var graph = $"../GraphEdit"
+onready var graph = $"../Graph"
+onready var VPSGraphNode = preload("res://level_designer/visual_pipescript/node.tscn")
 
 var default_text = "Place Node"
 var selected_nodes = {}
 var nodes
 var nodes_dict
-
-var node_types = {
-	connector = {
-		create = Label,
-		color = Color(0, 0.5, 0.7),
-		type = 1
-	},
-	variable = {
-		create = LineEdit,
-		color = Color(1, 1, 1),
-		type = 2
-	},
-	equation = {
-		create = LineEdit,
-		color = Color(1, 1, 1),
-		type = 3
-	}
-}
 
 func get_node_data(node):
 	for looping in nodes:
@@ -63,3 +46,21 @@ func _on_Place_item_selected(index):
 	
 	var node_data = nodes[index - 1]
 	print("pressed: ", get_item_text(index))
+	print(node_data)
+	
+	var graph_node = VPSGraphNode.instance()
+	graph.add_child(graph_node)
+	
+	for attribute_key in node_data.attributes:
+		var attribute = node_data.attributes[attribute_key]
+		graph_node.add_field(attribute.label)
+	
+	for slot_key in node_data.slots:
+		var slot = node_data.slots[slot_key]
+		graph_node.add_label(slot.label)
+	
+	graph_node.rect_global_position = get_global_mouse_position()
+	
+	# Close the menu
+	text = default_text
+	visible = false

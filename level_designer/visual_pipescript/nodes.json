@@ -4,7 +4,7 @@
 		"flow": { "input": false, "output": true },
 		"attributes": {},
 		"slots": {
-			"route": { "type": "connector", "input": false, "output": true, "value": null, "label": "Subroutine Entrance" }
+			"route": { "input": false, "output": true, "value": null, "label": "Subroutine Entrance" }
 		}
 	},
 	{
@@ -12,26 +12,26 @@
 		"flow": { "input": true, "output": false },
 		"attributes": {},
 		"slots": {
-			"route": { "type": "connector", "input": false, "output": true, "value": null, "label": "Subroutine Exit" }
+			"route": { "input": false, "output": true, "value": null, "label": "Subroutine Exit" }
 		}
 	},
 	{
 		"name": "Repeat",
 		"flow": { "input": true, "output": true },
 		"attributes": {
-			"condition": { "type": "equation", "value": "", "label": "Repeat Until" }
+			"condition": { "value": "", "label": "Repeat Until" }
 		},
 		"slots": {
-			"start": { "type": "connector", "input": true, "output": false, "value": null, "label": "Subroutine Entrance" },
-			"end": { "type": "connector", "input": true, "output": false, "value": null, "label": "Subroutine Exit" }
+			"start": { "input": true, "output": false, "value": null, "label": "Subroutine Entrance" },
+			"end": { "input": true, "output": false, "value": null, "label": "Subroutine Exit" }
 		}
 	},
 	{
 		"name": "Create Variable",
 		"flow": { "input": true, "output": true },
 		"attributes": {
-			"name": { "type": "variable", "value": "", "label": "Variable Name" },
-			"value": { "type": "equation", "value": "", "label": "Variable Value" }
+			"name": { "value": "", "label": "Variable Name" },
+			"value": { "value": "", "label": "Variable Value" }
 		},
 		"slots": {}
 	},
@@ -39,8 +39,8 @@
 		"name": "Modify Variable",
 		"flow": { "input": true, "output": true },
 		"attributes": {
-			"name": { "type": "variable", "value": "", "label": "Variable Name" },
-			"value": { "type": "equation", "value": "", "label": "New Value" }
+			"name": { "value": "", "label": "Variable Name" },
+			"value": { "value": "", "label": "New Value" }
 		},
 		"slots": {}
 	},
@@ -48,7 +48,7 @@
 		"name": "Print",
 		"flow": { "input": true, "output": true },
 		"attributes": {
-			"variable": { "type": "variable", "value": "", "label": "Variable Name" }
+			"variable": { "value": "", "label": "Variable Name" }
 		},
 		"slots": {}
 	}
