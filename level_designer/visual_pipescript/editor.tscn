@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=2]
 
 [ext_resource path="res://level_designer/visual_pipescript/node_placer.gd" type="Script" id=1]
-[ext_resource path="res://level_designer/visual_pipescript/Builder.gd" type="Script" id=2]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -15,21 +14,68 @@ current = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="GraphEdit" type="GraphEdit" parent="CanvasLayer"]
+[node name="GraphEdit" type="Panel" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 40.0
-right_disconnects = true
-snap_distance = 16
-zoom_min = 0.2
-zoom_max = 2.0
-minimap_enabled = false
+
+[node name="Node" type="ColorRect" parent="CanvasLayer/GraphEdit"]
+margin_left = 100.0
+margin_top = 168.0
+margin_right = 195.0
+margin_bottom = 275.0
+
+[node name="Title" type="Label" parent="CanvasLayer/GraphEdit/Node"]
+self_modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+margin_bottom = 16.0
+text = "Hello World!"
+align = 1
+valign = 1
+clip_text = true
+
+[node name="Color" type="ColorRect" parent="CanvasLayer/GraphEdit/Node/Title"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.74902, 0.74902, 0.74902, 1 )
+
+[node name="Properties" type="VBoxContainer" parent="CanvasLayer/GraphEdit/Node"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 16.0
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/GraphEdit/Node/Properties"]
+margin_right = 95.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 16 )
+color = Color( 0.376471, 0.0470588, 0.0470588, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/GraphEdit/Node/Properties"]
+margin_top = 20.0
+margin_right = 95.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 0, 16 )
+color = Color( 0.376471, 0.0470588, 0.0470588, 1 )
+
+[node name="ColorRect5" type="ColorRect" parent="CanvasLayer/GraphEdit/Node/Properties"]
+margin_top = 40.0
+margin_right = 95.0
+margin_bottom = 56.0
+rect_min_size = Vector2( 0, 16 )
+color = Color( 0.376471, 0.0470588, 0.0470588, 1 )
+
+[node name="ColorRect6" type="ColorRect" parent="CanvasLayer/GraphEdit/Node/Properties"]
+margin_top = 60.0
+margin_right = 95.0
+margin_bottom = 76.0
+rect_min_size = Vector2( 0, 16 )
+color = Color( 0.376471, 0.0470588, 0.0470588, 1 )
 
 [node name="Titlebar" type="ColorRect" parent="CanvasLayer"]
 anchor_right = 1.0
 margin_bottom = 40.0
 color = Color( 0.403957, 0.3818, 0.46, 1 )
-script = ExtResource( 2 )
 
 [node name="Run" type="Button" parent="CanvasLayer/Titlebar"]
 anchor_left = 1.0
@@ -69,10 +115,5 @@ margin_bottom = -285.0
 text = "Place Node"
 script = ExtResource( 1 )
 
-[connection signal="connection_request" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_connection_request"]
-[connection signal="delete_nodes_request" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_delete_nodes_request"]
-[connection signal="disconnection_request" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_disconnection_request"]
-[connection signal="node_selected" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_node_selected"]
-[connection signal="node_unselected" from="CanvasLayer/GraphEdit" to="CanvasLayer/Place" method="_on_GraphEdit_node_unselected"]
 [connection signal="pressed" from="CanvasLayer/Titlebar/Run" to="CanvasLayer/Titlebar" method="_on_Run_pressed"]
 [connection signal="item_selected" from="CanvasLayer/Place" to="CanvasLayer/Place" method="_on_Place_item_selected"]
