@@ -1,0 +1,14 @@
+[
+	{
+		"segments": "if $expression then",
+		"display": "holster"
+	},
+	{
+		"segments": "set $label to $variable",
+		"display": "normal"
+	},
+	{
+		"segments": "program start",
+		"display": "begin"
+	}
+]

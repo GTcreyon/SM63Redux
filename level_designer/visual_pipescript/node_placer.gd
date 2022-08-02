@@ -1,17 +1,14 @@
 extends OptionButton
 
 onready var graph = $"../Graph"
-onready var VPSGraphNode = preload("res://level_designer/visual_pipescript/node.tscn")
 
-var default_text = "Place Node"
-var selected_nodes = {}
-var nodes
-var nodes_dict
+onready var piece_instances = {
+	holster = preload("res://level_designer/visual_pipescript/vps_holster_piece.tscn"),
+	normal = preload("res://level_designer/visual_pipescript/vps_piece.tscn"),
+	begin = preload("res://level_designer/visual_pipescript/vps_begin.tscn")
+}
 
-func get_node_data(node):
-	for looping in nodes:
-		if looping.name == node:
-			return looping
+var pieces
 
 func _input(event):
 	if event.is_action_pressed("ld_alt_click"):
@@ -20,47 +17,35 @@ func _input(event):
 
 func add_buttons():
 	add_item("Close")
-	for node in nodes:
-		add_item(node.name)
-	text = default_text
+	for piece in pieces:
+		add_item(piece.segments)
+	text = "Close"
 
 func _ready():
 	# get the nodes from our nodes file
 	var file = File.new()
-	file.open("res://level_designer/visual_pipescript/nodes.json", File.READ)
+	file.open("res://level_designer/visual_pipescript/pieces.json", File.READ)
 	var content = file.get_as_text()
 	file.close()
-	nodes = parse_json(content)
-	nodes_dict = {}
-	for node in nodes:
-		nodes_dict[node.name] = node
+	pieces = parse_json(content)
 	# add the buttons
 	add_buttons()
 
 func _on_Place_item_selected(index):
 	var target = get_item_text(index)
 	if target == "Close":
-		text = default_text
+		text = "Close"
 		visible = false
 		return
 	
-	var node_data = nodes[index - 1]
-	print("pressed: ", get_item_text(index))
-	print(node_data)
+	var piece_json_data = pieces[index - 1]
+	var instance: NinePatchRect = piece_instances[piece_json_data.display].instance()
+	graph.add_child(instance)
 	
-	var graph_node = VPSGraphNode.instance()
-	graph.add_child(graph_node)
-	
-	for attribute_key in node_data.attributes:
-		var attribute = node_data.attributes[attribute_key]
-		graph_node.add_field(attribute.label)
-	
-	for slot_key in node_data.slots:
-		var slot = node_data.slots[slot_key]
-		graph_node.add_label(slot.label)
-	
-	graph_node.rect_global_position = get_global_mouse_position()
+	instance.setup(piece_json_data.segments)
+	instance.rect_global_position = rect_global_position
+#	instance.rect_size = Vector2(50, 50)
 	
 	# Close the menu
-	text = default_text
+	text = "Close"
 	visible = false

@@ -5,6 +5,7 @@
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
@@ -13,11 +14,13 @@ current = true
 [node name="CanvasLayer" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="Graph" type="Panel" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 40.0
+mouse_filter = 2
 
 [node name="Titlebar" type="ColorRect" parent="CanvasLayer"]
 anchor_right = 1.0
