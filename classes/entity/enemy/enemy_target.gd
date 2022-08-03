@@ -31,7 +31,7 @@ func _entity_enemy_target_physics_step():
 func _entity_enemy_target_behavior():
 	if is_on_wall():
 		vel.x = 0
-	if jump_state == JumpStates.FLOOR:
+	if _move_condition():
 		_chase_target()
 
 

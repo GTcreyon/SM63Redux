@@ -1,13 +1,6 @@
 class_name EntityEnemyWander
 extends EntityEnemy
 
-enum JumpStates {
-	FLOOR,
-	LANDING,
-	AIRBORNE,
-}
-
-var jump_state: int = JumpStates.FLOOR
 var stepped = false
 var wander_dist = 0
 
@@ -36,7 +29,7 @@ func _entity_enemy_wander_physics_step():
 
 
 func _entity_enemy_wander_behavior():
-	if jump_state == JumpStates.FLOOR:
+	if _move_condition():
 		if is_on_wall():
 			vel.x = 0
 			turn_around()
@@ -48,6 +41,10 @@ func _entity_enemy_wander_behavior():
 			turn_around()
 		
 		_wander()
+
+
+func _move_condition() -> bool:
+	return is_on_floor()
 
 
 func _wander():

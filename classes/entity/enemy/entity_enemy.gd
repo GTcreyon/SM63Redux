@@ -6,6 +6,7 @@ extends EntityMirrorable
 
 const coin = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 
+
 export var coin_count: int = 1
 var collect_id: int = -1
 var dead: bool = false

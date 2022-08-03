@@ -1,6 +1,13 @@
 class_name Goomba
 extends EntityEnemyTarget
 
+enum JumpStates {
+	FLOOR,
+	LANDING,
+	AIRBORNE,
+}
+
+var jump_state: int = JumpStates.FLOOR
 var land_timer = 0
 
 onready var sfx_jump = $SFXJump
@@ -77,5 +84,10 @@ func _hurt_struck(body):
 
 
 func _struck_land():
+	target = null
 	stomped = true
 	_hurt_stomp(null)
+
+
+func _move_condition() -> bool:
+	return jump_state == JumpStates.FLOOR
