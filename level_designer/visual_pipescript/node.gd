@@ -24,16 +24,41 @@ var piece_anchor_points = {
 }
 
 # Connection places
-var top_connection setget top_connect
+# Do NOT manually set top_connection, invoke the set_top_connection function for that
+var top_connection setget set_top_connection
 var inner_connection
 var bottom_connection
-
-func top_connect(conn):
-	top_connection = conn
 
 var being_dragged = false
 var holster_size_y = 0
 var json_data
+
+# Make sure that when we get added to a holster piece, we notify that it should increase it's size
+func set_top_connection(conn):
+	# Make sure top_connection is a valid piece
+	if conn:
+		top_connection = conn
+	var piece = self.top_connection
+	while piece:
+		piece.update_to_fit_pieces()
+		piece = piece.top_connection
+	# Now we set it to the true value
+	top_connection = conn
+
+# This function resizes the block to fit the pieces within it, only call for holster pieces.
+func update_to_fit_pieces():
+	if json_data.display != "holster":
+		return
+	var original_size = rect_size.y
+	rect_size.y = holster_size_y
+	var piece = self.inner_connection
+	while piece:
+		rect_size.y += piece.rect_size.y
+		piece = piece.bottom_connection
+	if bottom_connection:
+		bottom_connection.move_piece(
+			bottom_connection.rect_global_position + Vector2(0, rect_size.y - original_size)
+		)
 
 func get_anchor_position(type: String) -> Vector2:
 	match type:
@@ -118,14 +143,14 @@ func _gui_input(event):
 				top_connection.bottom_connection = null
 			if top_connection.inner_connection == self:
 				top_connection.inner_connection = null
-		top_connection = null
+		set_top_connection(null)
 	if event is InputEventMouseButton and not event.pressed:
 		being_dragged = false
 		# Connect to the node on top
 		var connection = snap_to_others()
 		if connection:
-			top_connection = connection[0]
 			connection[0][connection[1]] = self
+			set_top_connection(connection[0])
 	if being_dragged and event is InputEventMouseMotion:
 		move_piece(get_global_mouse_position() + being_dragged)
 		snap_to_others()
