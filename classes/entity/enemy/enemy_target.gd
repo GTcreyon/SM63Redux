@@ -4,10 +4,11 @@ extends EntityEnemyWander
 var target = null
 
 export var _alert_area_path: NodePath = "AlertArea"
-onready var alert_area = get_node(_alert_area_path)
+onready var alert_area = get_node_or_null(_alert_area_path)
 
 export var _aware_area_path: NodePath = "AwareArea"
-onready var aware_area = get_node(_aware_area_path)
+onready var aware_area = get_node_or_null(_aware_area_path)
+
 
 func _ready_override():
 	_entity_enemy_target_ready()
@@ -18,7 +19,7 @@ func _physics_step():
 
 
 func _entity_enemy_target_physics_step():
-	_entity_physics_step()
+	_entity_enemy_physics_step()
 	if target != null && target.locked:
 		target = null
 	if target == null:
@@ -28,6 +29,8 @@ func _entity_enemy_target_physics_step():
 
 
 func _entity_enemy_target_behavior():
+	if is_on_wall():
+		vel.x = 0
 	if jump_state == JumpStates.FLOOR:
 		_chase_target()
 
@@ -59,20 +62,24 @@ func _on_AlertArea_body_entered(body):
 		mirror = body.position.x < position.x
 		target = body
 		wander_dist = 0
-		_target_alert()
+		_target_alert(body)
 
 
-func _target_alert():
+func _target_alert(_body):
 	pass
 
 
 func _entity_enemy_target_ready():
 	_entity_enemy_ready()
-	if alert_area == null:
-		alert_area = get_node_or_null(_alert_area_path)
-	if aware_area == null:
-		aware_area = get_node_or_null(_aware_area_path)
-	if alert_area != null:
-		alert_area.connect("body_entered", self, "_on_AlertArea_body_entered")
-	if aware_area != null:
-		aware_area.connect("body_exited", self, "_on_AwareArea_body_exited")
+	alert_area = _preempt_node_ready(alert_area, _alert_area_path)
+	aware_area = _preempt_node_ready(aware_area, _aware_area_path)
+	_connect_node_signal_if_exists(alert_area, "body_entered", self, "_on_AlertArea_body_entered")
+	_connect_node_signal_if_exists(aware_area, "body_exited", self, "_on_AwareArea_body_exited")
+
+
+func _entity_enemy_target_disabled(val):
+	_entity_enemy_wander_disabled(val)
+	alert_area = _preempt_node_ready(alert_area, _alert_area_path)
+	aware_area = _preempt_node_ready(aware_area, _aware_area_path)
+	_set_node_disable_if_exists(alert_area, val)
+	_set_node_disable_if_exists(aware_area, val)

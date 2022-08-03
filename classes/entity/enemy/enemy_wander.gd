@@ -51,7 +51,17 @@ func _entity_enemy_wander_behavior():
 
 
 func _wander():
-	pass
+	if sprite != null:
+		sprite.speed_scale = 1
+		sprite.playing = true
+	if mirror:
+		vel.x = max(vel.x - 0.1, -1)
+	else:
+		vel.x = min(vel.x + 0.1, 1)
+	wander_dist += 1
+	if wander_dist >= 120 && sprite.frame == 0:
+		wander_dist = 0
+		mirror = !mirror
 
 
 func _entity_enemy_wander_disabled(val):

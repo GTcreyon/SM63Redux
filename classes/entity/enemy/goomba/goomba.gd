@@ -35,7 +35,7 @@ func _physics_step():
 						sprite.frame = 2 + land_timer # finish up jumping anim
 	
 	
-	if is_on_floor() && struck && !stomped:
+	if is_on_floor() && struck && !stomped && vel.y > 0:
 		stomped = true
 		sprite.animation = "squish"
 		sprite.frame = 0
@@ -44,20 +44,7 @@ func _physics_step():
 	_entity_enemy_target_physics_step()
 
 
-func _wander():
-	sprite.speed_scale = 1
-	sprite.playing = true
-	if mirror:
-		vel.x = max(vel.x - 0.1, -1)
-	else:
-		vel.x = min(vel.x + 0.1, 1)
-	wander_dist += 1
-	if wander_dist >= 120 && sprite.frame == 0:
-		wander_dist = 0
-		mirror = !mirror
-
-
-func _target_alert():
+func _target_alert(_body):
 	if is_on_floor():
 		sprite.animation = "jumping"
 		sfx_jump.play()
@@ -67,23 +54,28 @@ func _target_alert():
 
 
 func _hurt_stomp(area):
-	var body = area.get_parent()
 	sprite.animation = "squish"
 	struck = false
 	vel.y = 0
 	sprite.frame = 0
 	sprite.playing = true
-	if body.state == body.S.DIVE:
-		if Input.is_action_pressed("down"):
-			_hurt_struck(body)
+	if area != null:
+		var body = area.get_parent()
+		if body.state == body.S.DIVE:
+			if Input.is_action_pressed("down"):
+				_hurt_struck(body)
+			else:
+				body.start_bounce()
 		else:
 			body.start_bounce()
-	else:
-		body.start_bounce()
 
 
 func _hurt_struck(body):
-	vel.y -= 2.63
+	_default_enemy_struck(body)
 	sprite.animation = "jumping"
 	jump_state = JumpStates.AIRBORNE
-	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
+
+
+func _struck_land():
+	stomped = true
+	_hurt_stomp(null)

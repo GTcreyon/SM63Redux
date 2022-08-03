@@ -28,20 +28,22 @@ func _entity_ready():
 
 
 func _connect_entity_signals():
-	_entity_readyup_nodes()
-	if water_check != null:
-		water_check.connect("area_entered", self, "_on_WaterCheck_area_entered")
-		water_check.connect("area_exited", self, "_on_WaterCheck_area_exited")
+	water_check = _preempt_node_ready(water_check, _water_check_path)
+	_connect_node_signal_if_exists(water_check, "area_entered", self, "_on_WaterCheck_area_entered")
+	_connect_node_signal_if_exists(water_check, "area_exited", self, "_on_WaterCheck_area_exited")
 
 
-func _entity_readyup_nodes():
-	if water_check == null:
-		water_check = get_node_or_null(_water_check_path)
+func _process(delta):
+	_process_override(delta)
 
 
 func _physics_process(_delta):
 	if !disabled:
 		_physics_step()
+
+
+func _process_override(_delta):
+	pass
 
 
 func _physics_step():
@@ -82,3 +84,17 @@ func _entity_disabled(val):
 
 func set_disabled(val):
 	_entity_disabled(val)
+
+
+func _preempt_node_ready(node, path: NodePath) -> Node:
+	return get_node_or_null(path) if node == null else node
+
+
+func _set_node_disable_if_exists(node: Node, disabled: bool) -> void:
+	if node != null:
+		node.enabled = !disabled
+
+
+func _connect_node_signal_if_exists(node, signame: String, target, method: String) -> void:
+	if node != null:
+		node.connect(signame, target, method)
