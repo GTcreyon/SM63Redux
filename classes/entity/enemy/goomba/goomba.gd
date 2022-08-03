@@ -1,5 +1,5 @@
 class_name Goomba
-extends EntityEnemyTarget
+extends EntityEnemyWalk
 
 enum JumpStates {
 	FLOOR,

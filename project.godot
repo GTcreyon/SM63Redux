@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/base_modifier.gd"
 }, {
-"base": "EntityEnemyTarget",
+"base": "EntityEnemyWalk",
 "class": "Bobomb",
 "language": "GDScript",
 "path": "res://classes/entity/enemy/bobomb/bobomb.gd"
@@ -45,16 +45,16 @@ _global_script_classes=[ {
 "path": "res://classes/entity/enemy/entity_enemy.gd"
 }, {
 "base": "EntityEnemy",
-"class": "EntityEnemyTarget",
+"class": "EntityEnemyWalk",
 "language": "GDScript",
-"path": "res://classes/entity/enemy/enemy_target.gd"
+"path": "res://classes/entity/enemy/entity_enemy_walk.gd"
 }, {
 "base": "Entity",
 "class": "EntityMirrorable",
 "language": "GDScript",
 "path": "res://classes/entity/entity_mirrorable.gd"
 }, {
-"base": "EntityEnemyTarget",
+"base": "EntityEnemyWalk",
 "class": "Goomba",
 "language": "GDScript",
 "path": "res://classes/entity/enemy/goomba/goomba.gd"
@@ -92,7 +92,7 @@ _global_script_class_icons={
 "DejitterGroup": "res://classes/dejitter_group/dejitter_group.svg",
 "Entity": "",
 "EntityEnemy": "",
-"EntityEnemyTarget": "",
+"EntityEnemyWalk": "",
 "EntityMirrorable": "",
 "Goomba": "",
 "OutlineContainer": "",

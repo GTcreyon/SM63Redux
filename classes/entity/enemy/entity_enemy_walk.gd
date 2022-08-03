@@ -1,4 +1,4 @@
-class_name EntityEnemyTarget
+class_name EntityEnemyWalk
 extends EntityEnemy
 
 var stepped = false

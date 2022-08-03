@@ -1,5 +1,5 @@
 class_name Bobomb
-extends EntityEnemyTarget
+extends EntityEnemyWalk
 # Bobombs wander until a player enters their alert area.
 # This will begin their fuse, and they will pursue the player at a higher speed.
 # They will explode, dropping a coin once their fuse runs out.
