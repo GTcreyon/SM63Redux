@@ -6,7 +6,7 @@ extends EntityEnemyTarget
 # When their fuse is lit, they do not lose focus on the player.
 # They can be struck to send them flying a short distance before exploding.
 
-const explosion = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
+const EXPLOSION = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
 
 var fuse_time = 240
 
@@ -17,11 +17,7 @@ onready var sfx_fuse = $SFXFuse
 
 
 func _ready_override():
-	_bobomb_ready()
-
-
-func _bobomb_ready():
-	_entity_enemy_ready()
+	._ready_override()
 	fuse = _preempt_node_ready(fuse, "Sprites/Fuse")
 	key = _preempt_node_ready(key, "Sprites/Key")
 	fuse.playing = !disabled
@@ -38,7 +34,7 @@ func _physics_step() -> void:
 	if fuse_time <= 0:
 		explode()
 	
-	_entity_enemy_target_physics_step()
+	._physics_step()
 
 
 func _update_sprites() -> void:
@@ -71,7 +67,9 @@ func _target_alert(body) -> void:
 
 
 func set_disabled(val) -> void:
-	_bobomb_disabled(val)
+	.set_disabled(val)
+	fuse.playing = !disabled
+	key.playing = !disabled
 
 
 func _hurt_struck(body) -> void:
@@ -81,18 +79,12 @@ func _hurt_struck(body) -> void:
 	key.visible = false
 
 
-func _bobomb_disabled(val):
-	_entity_enemy_disabled(val)
-	fuse.playing = !disabled
-	key.playing = !disabled
-
-
 func _struck_land():
 	explode()
 
 
 func explode():
-	var spawn = explosion.instance()
+	var spawn = EXPLOSION.instance()
 	spawn.position = position
 	get_parent().add_child(spawn)
 	enemy_die()

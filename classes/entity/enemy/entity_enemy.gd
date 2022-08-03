@@ -1,6 +1,6 @@
 class_name EntityEnemy
 extends EntityMirrorable
-# Root class for enemy entities.
+# Parent class for enemy entities.
 # Enemies are able to hurt the player with a hitbox, and be hurt/killed with a hurtbox.
 # Enemies can drop a specified number of coins when killed.
 
@@ -33,15 +33,13 @@ func enemy_die():
 
 
 func _ready_override():
-	_entity_enemy_ready()
+	._ready_override()
+	_setup_collect_id()
+	_init_animation()
 
 
 func _physics_step():
-	_entity_enemy_physics_step()
-
-
-func _entity_enemy_physics_step():
-	_entity_physics_step()
+	._physics_step()
 	
 	if is_on_floor() && struck && !stomped && vel.y > 0:
 		_struck_land()
@@ -55,38 +53,27 @@ func _struck_land():
 	pass
 
 
-func _entity_enemy_ready():
-	_entity_ready()
-	_setup_collect_id()
-	_init_animation()
-	_connect_entity_enemy_signals()
-
-
-func _connect_entity_enemy_signals():
-	_entity_enemy_readyup_nodes()
+func _connect_signals():
+	._connect_signals()
 	_connect_node_signal_if_exists(hurtbox_stomp, "area_entered", self, "_on_HurtboxStomp_area_entered")
 	_connect_node_signal_if_exists(hurtbox_strike, "body_entered", self, "_on_HurtboxStrike_body_entered")
 	_connect_node_signal_if_exists(hitbox, "body_entered", self, "_on_Hitbox_body_entered")
 
 
 func set_disabled(val):
-	_entity_enemy_disabled(val)
+	.set_disabled(val)
+	_set_node_property_if_exists(hurtbox_stomp, "monitoring", !val)
+	_set_node_property_if_exists(hurtbox_strike, "monitoring", !val)
+	_set_node_property_if_exists(hitbox, "monitoring", !val)
+	_set_node_property_if_exists(sprite, "playing", !val)
 
 
-func _entity_enemy_readyup_nodes():
+func _preempt_all_node_readies():
+	._preempt_all_node_readies()
 	hurtbox_stomp = _preempt_node_ready(hurtbox_stomp, _hurtbox_stomp_path)
 	hurtbox_strike = _preempt_node_ready(hurtbox_strike, _hurtbox_strike_path)
 	hitbox = _preempt_node_ready(hitbox, _hitbox_path)
 	sprite = _preempt_node_ready(sprite, _sprite_path)
-
-
-func _entity_enemy_disabled(val):
-	_entity_disabled(val)
-	_entity_enemy_readyup_nodes()
-	hurtbox_stomp.monitoring = !val
-	hurtbox_strike.monitoring = !val
-	hitbox.monitoring = !val
-	sprite.playing = !val
 
 
 func _setup_collect_id():

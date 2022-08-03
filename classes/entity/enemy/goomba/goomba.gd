@@ -48,7 +48,7 @@ func _physics_step():
 		sprite.frame = 0
 		sprite.playing = true
 	
-	_entity_enemy_target_physics_step()
+	._physics_step()
 
 
 func _target_alert(_body):

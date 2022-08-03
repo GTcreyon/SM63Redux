@@ -44,15 +44,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/entity/enemy/entity_enemy.gd"
 }, {
-"base": "EntityEnemyWander",
+"base": "EntityEnemy",
 "class": "EntityEnemyTarget",
 "language": "GDScript",
 "path": "res://classes/entity/enemy/enemy_target.gd"
-}, {
-"base": "EntityEnemy",
-"class": "EntityEnemyWander",
-"language": "GDScript",
-"path": "res://classes/entity/enemy/enemy_wander.gd"
 }, {
 "base": "Entity",
 "class": "EntityMirrorable",
@@ -98,7 +93,6 @@ _global_script_class_icons={
 "Entity": "",
 "EntityEnemy": "",
 "EntityEnemyTarget": "",
-"EntityEnemyWander": "",
 "EntityMirrorable": "",
 "Goomba": "",
 "OutlineContainer": "",
