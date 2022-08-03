@@ -1,10 +1,9 @@
 extends StaticBody2D
 
-const coin = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
-const particle = preload("./box_particle.tscn")
-const residual = preload("res://classes/misc/residual_sfx/residual_sfx.tscn")
-const boom0 = preload("./boom.wav")
-const boom1 = preload("./box_break.wav")
+const COIN_PREFAB = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
+const PARTICLE_PREFAB = preload("./box_particle.tscn")
+const BOOM_A = preload("./boom.wav")
+const BOOM_B = preload("./box_break.wav")
 
 onready var pound_area = $PoundArea
 onready var spin_area = $SpinArea
@@ -41,22 +40,23 @@ func _on_SpinArea_body_entered(body):
 
 func destroy():
 	for _i in range(5):
-		var inst = particle.instance()
+		var inst = PARTICLE_PREFAB.instance()
 		inst.position = position + Vector2((rng.randf() - 0.5) * 27, (rng.randf() - 0.5) * 27)
 		inst.vel = Vector2((rng.randf() - 0.5) * 5, rng.randf() * -2.5)
 		inst.get_node("AnimatedSprite").frame = rng.randi() % 7
 		get_parent().call_deferred("add_child", inst)
 	if Singleton.request_coin(collect_id):
 		for _i in range(coin_count):
-			var inst = coin.instance()
+			var inst = COIN_PREFAB.instance()
 			inst.position = position# + Vector2((rng.randf() - 0.5) * 27, (rng.randf() - 0.5) * 27)
 			inst.vel = Vector2((rng.randf() - 0.5) * 5.0, rng.randf() * -2.5)
 			inst.dropped = true
 			get_parent().call_deferred("add_child", inst)
-	var inst = residual.instance()
+	
+	var sound
 	if rng.randi() % 2 < 1:
-		inst.sound = boom0
+		sound = BOOM_A
 	else:
-		inst.sound = boom1
-	get_parent().call_deferred("add_child", inst)
+		sound = BOOM_B
+	get_parent().add_child(ResidualSFX.new(sound, position))
 	queue_free()

@@ -47,6 +47,8 @@ func turn_around():
 
 func _ready_override():
 	._ready_override()
+	if mirror:
+		edge_check.position.x *= -1
 
 
 func _physics_step():

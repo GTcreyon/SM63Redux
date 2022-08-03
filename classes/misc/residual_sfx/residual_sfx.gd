@@ -1,10 +1,17 @@
-extends AudioStreamPlayer
+class_name ResidualSFX
+extends AudioStreamPlayer2D
 
-var sound : AudioStreamSample
 
 func _ready():
-	stream = sound
+	# warning-ignore:return_value_discarded
+	connect("finished", self, "_on_ResidualSFX_finished")
 	play()
+
 
 func _on_ResidualSFX_finished():
 	queue_free()
+
+
+func _init(sound: AudioStream, pos: Vector2):
+	position = pos
+	stream = sound

@@ -1,22 +1,13 @@
-tool
-extends KinematicBody2D
+class_name Koopa
+extends EntityEnemyWalk
 
-onready var sprite = $AnimatedSprite
-onready var hurtbox = $Damage
-onready var top_collision = $TopCollision
-onready var raycast = $RayCast2D
+const KICK_SFX = preload("./shell_kick.ogg")
+var SHELL_PREFAB = preload("./koopa_shell.tscn")
 
-var shell = preload("koopa_shell.tscn").instance()
-const FLOOR = Vector2(0, -1)
-const GRAVITY = 0.17
-
-var vel = Vector2.ZERO
-var distance_detector = Vector2()
 var speed = 0.9
 var init_position = 0
-var water_bodies : int = 0
 
-const color_presets = [
+const COLOR_PRESETS = [
 	[ # green
 		Color("9cc56d"),
 		Color("1f887a"),
@@ -29,124 +20,53 @@ const color_presets = [
 	],
 ]
 
-export var disabled = false setget set_disabled
-export var mirror = false
-export(int, "green", "red") var color = 0 setget set_color
+enum ShellColor {
+	GREEN,
+	RED,
+}
+
+export(ShellColor) var color = 0 setget set_color
+
 
 func set_color(new_color):
 	for i in range(3):
-		material.set_shader_param("color" + str(i), color_presets[new_color][i])
+		material.set_shader_param("color" + str(i), COLOR_PRESETS[new_color][i])
 	color = new_color
 
-func _ready():
-	if !Engine.editor_hint:
-		init_position = position
-		sprite.frame = hash(position.x + position.y * PI) % 6
-		sprite.playing = !disabled
-		if mirror: raycast.position.x *= -1
 
-func _physics_process(_delta):
-	if !disabled and !Engine.editor_hint:
-		physics_step()
+func _ready_override():
+	._ready_override()
+	init_position = position
+	if color != ShellColor.RED:
+		edge_check.free()
+		edge_check = null
 
 
-func physics_step():
+func _wander():
 	vel.x = -speed if mirror else speed
-	if water_bodies > 0:
-		vel.y = min(vel.y + GRAVITY, 2)
-	else:
-		vel.y = min(vel.y + GRAVITY, 6)
-	var snap
-	if is_on_floor():
-		init_position = position
-		vel.y = GRAVITY
-		snap = Vector2(0, 4)
-	else:
-		snap = Vector2.ZERO
-	#warning-ignore:RETURN_VALUE_DISCARDED
-	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
 	
-	if is_on_wall() or is_on_floor() and color == 1 and !raycast.is_colliding():
-		vel.x = 0
-		flip_ev()
-	
-	sprite.flip_h = mirror
 	if position.x - init_position.x > 100 or position.x - init_position.x < -100:
-		flip_ev()
-	
-	if hurtbox.monitoring:
-		var bodies = hurtbox.get_overlapping_bodies()
-		if bodies.size() > 0:
-			damage_check(bodies[0])
-
-func flip_ev():
-	mirror = !mirror
-	raycast.position.x *= -1
+		turn_around()
 
 
-func _on_TopCollision_body_entered(body):
-	if body.position.y < position.y:
-		#print("collided from top")
-		$Kick.play()
-		body.vel.y = -5
-		get_parent().call_deferred("add_child", shell)
-		shell.position = position + Vector2(0, 7.5)
-		shell.color = color
-		top_collision.set_deferred("monitoring", false)
-		hurtbox.monitoring = false
-		set_deferred("visible", false)
-
-
-func _on_Kick_finished():
+func _hurt_stomp(area):
+	get_parent().add_child(ResidualSFX.new(KICK_SFX, position))
+	var body = area.get_parent()
+	body.vel.y = -5
+	var inst = SHELL_PREFAB.instance()
+	get_parent().add_child(inst)
+	inst.position = position + Vector2(0, 7.5)
+	inst.color = color
 	queue_free()
 
 
-func _on_Damage_body_entered(body):
-	damage_check(body)
-	
-
-func damage_check(body):
-	if body.is_spinning():
-		$Kick.play()
-		get_parent().call_deferred("add_child", shell)
-		shell.position = position + Vector2(0, 7.5)
-		if body.global_position.x < global_position.x:
-			shell.vel.x = 5
-		else:
-			shell.vel.x = -5
-		top_collision.set_deferred("monitoring", false)
-		hurtbox.monitoring = false
-		set_deferred("visible", false)
+func _hurt_struck(body):
+	get_parent().add_child(ResidualSFX.new(KICK_SFX, position))
+	var inst = SHELL_PREFAB.instance()
+	inst.position = position + Vector2(0, 7.5)
+	if body.global_position.x < global_position.x:
+		inst.vel.x = 5
 	else:
-		if body.global_position.x < global_position.x:
-			#print("collided from left")
-			body.take_damage_shove(1, -1)
-		elif body.global_position.x > global_position.x:
-			#print("collided from right")
-			body.take_damage_shove(1, 1)
-
-
-func _on_WaterCheck_area_entered(_area):
-	water_bodies += 1
-
-
-func _on_WaterCheck_area_exited(_area):
-	water_bodies -= 1
-
-
-func set_disabled(val):
-	disabled = val
-	if hurtbox == null:
-		hurtbox = $Damage
-	if top_collision == null:
-		top_collision = $TopCollision
-	if raycast == null:
-		raycast = $RayCast2D
-	if sprite == null:
-		sprite = $AnimatedSprite
-	hurtbox.monitoring = !val
-	top_collision.monitoring = !val
-	raycast.enabled = !val
-	
-	if !Engine.editor_hint:
-		sprite.playing = !val
+		inst.vel.x = -5
+	get_parent().add_child(inst)
+	queue_free()

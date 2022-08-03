@@ -1,8 +1,8 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/entity/enemy/koopa/koopa.gd" type="Script" id=2]
-[ext_resource path="res://classes/entity/enemy/koopa/shell_kick.ogg" type="AudioStream" id=3]
+[ext_resource path="res://classes/entity/enemy/goomba/goomba_step.wav" type="AudioStream" id=3]
 [ext_resource path="res://shaders/palette.tres" type="Material" id=4]
 [ext_resource path="res://classes/entity/enemy/koopa/koopa_walk.png" type="Texture" id=5]
 
@@ -44,6 +44,9 @@ extents = Vector2( 11, 16.5 )
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 11, 7.5 )
 
+[sub_resource type="RectangleShape2D" id=18]
+extents = Vector2( 11, 16.5 )
+
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 5, 14.5 )
 
@@ -54,6 +57,7 @@ extents = Vector2( 1, 1 )
 material = ExtResource( 4 )
 collision_layer = 4
 script = ExtResource( 2 )
+step_indexes = [ false, true, false, false, true, false ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 use_parent_material = true
@@ -72,30 +76,36 @@ position = Vector2( 9, 0 )
 enabled = true
 cast_to = Vector2( 0, 35 )
 
-[node name="TopCollision" type="Area2D" parent="."]
-position = Vector2( 0, -14 )
+[node name="HurtboxStomp" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 16
 input_pickable = false
 monitorable = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopCollision"]
-position = Vector2( 0, 6.5 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStomp"]
+position = Vector2( 0, -7.5 )
 shape = SubResource( 9 )
 one_way_collision = true
 
-[node name="Kick" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 3 )
-bus = "SFX"
-
-[node name="Damage" type="Area2D" parent="."]
+[node name="HurtboxStrike" type="Area2D" parent="."]
 position = Vector2( 0, 2.5 )
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
 
-[node name="Collision" type="CollisionShape2D" parent="Damage"]
+[node name="Collision" type="CollisionShape2D" parent="HurtboxStrike"]
+position = Vector2( 0, -1 )
+shape = SubResource( 18 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2( 0, 2.5 )
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 10 )
 
 [node name="WaterCheck" type="Area2D" parent="."]
@@ -107,8 +117,8 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 11 )
 
-[connection signal="body_entered" from="TopCollision" to="." method="_on_TopCollision_body_entered"]
-[connection signal="finished" from="Kick" to="." method="_on_Kick_finished"]
-[connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered"]
-[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
-[connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]
+[node name="SFXStep" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -6.0
+attenuation = 10.0
+bus = "SFX"

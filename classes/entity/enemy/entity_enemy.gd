@@ -86,7 +86,7 @@ func _setup_collect_id():
 
 # Start the sprite's animation and pseudorandomise its start point depending on position in the level
 func _init_animation():
-	if sprite != null && sprite.has_method("set_playing"):
+	if sprite != null and sprite.get("playing") != null:
 		sprite.playing = !disabled
 		if !disabled:
 			sprite.frame = hash(position.x + position.y * PI) % sprite.frames.get_frame_count(sprite.animation)
