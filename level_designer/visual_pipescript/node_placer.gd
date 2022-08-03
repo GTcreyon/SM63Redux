@@ -10,6 +10,9 @@ onready var piece_instances = {
 
 var pieces
 
+func compile():
+	pass
+
 func _input(event):
 	if event.is_action_pressed("ld_alt_click"):
 		visible = true
@@ -36,16 +39,18 @@ func _on_Place_item_selected(index):
 	if target == "Close":
 		text = "Close"
 		visible = false
+		select(0)
 		return
 	
 	var piece_json_data = pieces[index - 1]
 	var instance: NinePatchRect = piece_instances[piece_json_data.display].instance()
 	graph.add_child(instance)
 	
-	instance.setup(piece_json_data.segments)
+	instance.setup(piece_json_data)
 	instance.rect_global_position = rect_global_position
 #	instance.rect_size = Vector2(50, 50)
 	
 	# Close the menu
 	text = "Close"
 	visible = false
+	select(0)

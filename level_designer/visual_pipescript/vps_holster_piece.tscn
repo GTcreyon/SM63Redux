@@ -4,6 +4,8 @@
 [ext_resource path="res://level_designer/visual_pipescript/node.gd" type="Script" id=2]
 
 [node name="Holster" type="NinePatchRect"]
+margin_right = 74.0
+margin_bottom = 48.0
 mouse_filter = 0
 texture = ExtResource( 1 )
 patch_margin_left = 71

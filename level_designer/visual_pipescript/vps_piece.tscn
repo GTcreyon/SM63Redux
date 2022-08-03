@@ -5,11 +5,11 @@
 
 [node name="Normal" type="NinePatchRect"]
 margin_right = 54.0
-margin_bottom = 41.0
+margin_bottom = 12.0
 mouse_filter = 0
 texture = ExtResource( 1 )
 patch_margin_left = 51
-patch_margin_top = 20
+patch_margin_top = 5
 patch_margin_right = 3
-patch_margin_bottom = 21
+patch_margin_bottom = 7
 script = ExtResource( 2 )
