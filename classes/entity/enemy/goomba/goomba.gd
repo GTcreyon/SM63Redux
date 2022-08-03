@@ -78,7 +78,7 @@ func _hurt_stomp(area):
 
 
 func _hurt_struck(body):
-	_default_enemy_struck(body)
+	._hurt_struck(body)
 	sprite.animation = "jumping"
 	jump_state = JumpStates.AIRBORNE
 

@@ -73,7 +73,7 @@ func set_disabled(val) -> void:
 
 
 func _hurt_struck(body) -> void:
-	_default_enemy_struck(body)
+	._hurt_struck(body)
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false

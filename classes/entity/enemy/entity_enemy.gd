@@ -22,6 +22,7 @@ export var _hitbox_path: NodePath = "Hitbox"
 onready var hitbox = get_node_or_null(_hitbox_path)
 
 
+# Make the enemy die and drop its coins.
 func enemy_die():
 	if Singleton.request_coin(collect_id):
 		for _i in range(coin_count):
@@ -41,11 +42,12 @@ func _ready_override():
 func _physics_step():
 	._physics_step()
 	
+	# Triggered when landing on the floor after being struck by a spin
 	if is_on_floor() && struck && !stomped && vel.y > 0:
 		_struck_land()
 	
 	for body in hurtbox_strike.get_overlapping_bodies():
-		if _damage_check(body):
+		if _strike_check(body):
 			_hurt_struck(body)
 
 
@@ -76,10 +78,13 @@ func _preempt_all_node_readies():
 	sprite = _preempt_node_ready(sprite, _sprite_path)
 
 
+# Get a collect ID from the collect server
 func _setup_collect_id():
-	collect_id = Singleton.get_collect_id()
+	if coin_count > 0:
+		collect_id = Singleton.get_collect_id()
 
 
+# Start the sprite's animation and pseudorandomise its start point depending on position in the level
 func _init_animation():
 	if sprite != null && sprite.has_method("set_playing"):
 		sprite.playing = !disabled
@@ -94,7 +99,7 @@ func _on_HurtboxStomp_area_entered(area):
 
 
 func _on_HurtboxStrike_body_entered(body):
-	if _damage_check(body):
+	if _strike_check(body):
 		_hurt_struck(body)
 
 
@@ -103,7 +108,8 @@ func _on_Hitbox_body_entered(body):
 		body.take_damage_shove(1, sign(body.position.x - position.x))
 
 
-func _damage_check(body):
+# Check if the colliding body can strike this enemy
+func _strike_check(body):
 	return !struck && (body.is_spinning() || (body.is_diving(true) && abs(body.vel.x) > 1))
 
 
@@ -111,11 +117,8 @@ func _hurt_stomp(area):
 	pass
 
 
+# Pop the enemy up into the air and off to the side, away from the body that issued the strike
 func _hurt_struck(body):
-	_default_enemy_struck(body)
-
-
-func _default_enemy_struck(body):
 	struck = true
 	vel.y -= 2.63
 	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
