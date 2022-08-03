@@ -4,8 +4,7 @@ extends EntityMirrorable
 # Enemies are able to hurt the player with a hitbox, and be hurt/killed with a hurtbox.
 # Enemies can drop a specified number of coins when killed.
 
-const coin = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
-
+const COIN_PREFAB = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 
 export var coin_count: int = 1
 var collect_id: int = -1
@@ -26,7 +25,7 @@ onready var hitbox = get_node_or_null(_hitbox_path)
 func enemy_die():
 	if Singleton.request_coin(collect_id):
 		for _i in range(coin_count):
-			var spawn = coin.instance()
+			var spawn = COIN_PREFAB.instance()
 			spawn.position = position
 			spawn.dropped = true
 			get_parent().add_child(spawn)
