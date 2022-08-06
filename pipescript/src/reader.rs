@@ -1,19 +1,16 @@
-use std::io::{BufReader, BufRead};
-use std::fs::File;
 use std::collections::HashMap;
 
 use crate::ps_env::*;
 
-pub fn source_to_instructions(buffer: BufReader<File>) -> (Vec<Vec<PSValue>>, HashMap<String, usize>, Vec<PSValue>) {
+pub fn source_to_instructions(buffer: String) -> (Vec<Vec<PSValue>>, HashMap<String, usize>, Vec<PSValue>) {
 	let mut env = Vec::<PSValue>::new();
 
 	// Convert the raw text into commands
 	let mut variable_hash = HashMap::<String, usize>::new();
 	let mut lines: Vec<Vec<PSValue>> = vec![ vec![PSValue::Instruction(PSInstructionSet::HashToken)] ]; // First instruction is always a comment
 	for line in buffer.lines() {
-		let line_inner = line.unwrap();
-		if !line_inner.is_empty() {
-			let line_commands: Vec<&str> = line_inner
+		if !line.is_empty() {
+			let line_commands: Vec<&str> = line
 				.split(' ')
 				.map(|segment| segment.trim())
 				.collect();

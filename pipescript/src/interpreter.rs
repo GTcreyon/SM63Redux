@@ -1,5 +1,6 @@
 
 use crate::ps_env::*;
+use gdnative::prelude::godot_print;
 
 pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSValue>) {
 	let line_count = lines.len();
@@ -9,7 +10,7 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 		let instruction = line.first().unwrap().expect_instruction(); // So should this
 		line_idx += 1; // KEEP IN MIND! We iterate AT THE START NOT AT THE END!
 
-		// println!("{}: {}", line_idx, instruction.as_ref());
+		// godot_print!("{}: {}", line_idx, instruction.as_ref());
 
 		// Execute the current instruction
 		match instruction {
@@ -121,33 +122,33 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 			PSInstructionSet::PrintNoLn => {
 				if line.len() < 2 { panic!("{}", PSError::error_message(PSError::MissingArgument)) }
 				for arg in line.split_at(1).1 {
-					print!("{} ", get_variable(arg, env).to_string());
+					godot_print!("{} ", get_variable(arg, env).to_string());
 				}
 			},
 			PSInstructionSet::Print => {
 				if line.len() < 2 { panic!("{}", PSError::error_message(PSError::MissingArgument)) }
 				for arg in line.split_at(1).1 {
-					println!("{} ", get_variable(arg, env).to_string());
+					godot_print!("{} ", get_variable(arg, env).to_string());
 				}
 			},
 			// Debug library, useful for figuring out the current scope & instruction set.
 			PSInstructionSet::DebugAll => {
-				println!("--- ALL VARS ---");
+				godot_print!("--- ALL VARS ---");
 				for (key, value) in env.into_iter().enumerate() {
-					println!(" {}: {} ({})", key, value.to_string(), value.get_type_as_text());
+					godot_print!(" {}: {} ({})", key, value.to_string(), value.get_type_as_text());
 				}
-				println!("--- -------- ---");
+				godot_print!("--- -------- ---");
 			}
 			PSInstructionSet::DebugCmds => {
-				println!("--- PRINT CMDS ---");
+				godot_print!("--- PRINT CMDS ---");
 				for idx in 0..lines.len() {
-					print!(" {}: ", idx);
+					godot_print!(" {}: ", idx);
 					for str in lines.get(idx).unwrap() {
-						print!("{} ", str.to_string()); //TODO: fix this
+						godot_print!("{} ", str.to_string()); //TODO: fix this
 					};
-					println!("");
+					godot_print!("");
 				};
-				println!("--- ---------- ---");
+				godot_print!("--- ---------- ---");
 			}
 			// If statements
 			PSInstructionSet::If => {

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://level_designer/visual_pipescript/node_placer.gd" type="Script" id=1]
+[ext_resource path="res://pipescript/bin/pipescript.gdns" type="Script" id=2]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -65,5 +66,8 @@ margin_bottom = -285.0
 text = "Place Node"
 script = ExtResource( 1 )
 
-[connection signal="pressed" from="CanvasLayer/Titlebar/Run" to="CanvasLayer/Titlebar" method="_on_Run_pressed"]
+[node name="PipeScript" type="Node" parent="CanvasLayer"]
+script = ExtResource( 2 )
+
+[connection signal="pressed" from="CanvasLayer/Titlebar/Run" to="CanvasLayer/Place" method="_on_Run_pressed"]
 [connection signal="item_selected" from="CanvasLayer/Place" to="CanvasLayer/Place" method="_on_Place_item_selected"]

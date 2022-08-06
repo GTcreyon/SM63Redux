@@ -1,7 +1,7 @@
 extends OptionButton
 
 onready var graph = $"../Graph"
-
+onready var pipescript = $"../PipeScript"
 onready var piece_instances = {
 	holster = preload("res://level_designer/visual_pipescript/vps_holster_piece.tscn"),
 	normal = preload("res://level_designer/visual_pipescript/vps_piece.tscn"),
@@ -94,3 +94,12 @@ func _on_Place_item_selected(index):
 	text = "Close"
 	visible = false
 	select(0)
+
+
+func _on_Run_pressed():
+	pipescript.interpret("""set x 5
+set y 5
+calc z x * y / 2
+print x y z
+debug-all
+""")
