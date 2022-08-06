@@ -8,3 +8,6 @@ export_presets.cfg
 .mono/
 data_*/
 main.tscn
+
+# Pipescript Target Ignores
+./pipescript/target

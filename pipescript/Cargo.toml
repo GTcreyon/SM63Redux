@@ -1,0 +1,17 @@
+# Project settings
+[package]
+name = "test_prog_lang"
+version = "0.1.0"
+edition = "2021"
+
+# Dependencies
+[dependencies]
+strum = "0.24"
+strum_macros = "0.24"
+
+# Compile to a binary
+[[bin]]
+name = "pipe_script"
+path = "src/main.rs"
+test = false
+bench = false
