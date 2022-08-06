@@ -9,9 +9,49 @@ onready var piece_instances = {
 }
 
 var pieces
+var source_code = ""
+
+var id = 0
+func get_unique_variable_name():
+	id += 1
+	return "UNIQUE_VAR#%d#" % id
+
+func compile_to_source(start_piece):
+	var queue = [start_piece]
+	while !queue.empty():
+		var piece = queue.pop_front()
+		
+		match piece.json_data.type:
+			"if":
+				var condition = get_unique_variable_name()
+				source_code += "set %s $CONDITION$" % condition
+				source_code += "if %s" % condition
+				compile_to_source(piece.inner_connection)
+				source_code += "end"
+			"loop":
+				var condition = get_unique_variable_name()
+				var label = get_unique_variable_name()
+				source_code += "set %s $CONDITION$" % condition
+				source_code += "label %s" % label
+				source_code += "if %s" % condition
+				compile_to_source(piece.inner_connection)
+				source_code += "goto %s" % label
+				source_code += "end"
+			_:
+				print("Unknown piece ", piece.json_data.type)
+		
+		if piece.bottom_connection:
+			queue.append(piece.bottom_connection)
 
 func compile():
-	pass
+	# First find the start piece
+	var start_piece
+	for piece in graph.get_children():
+		if piece.json_data.type == "start":
+			start_piece = piece
+			break
+	compile_to_source(start_piece)
+	
 
 func _input(event):
 	if event.is_action_pressed("ld_alt_click"):

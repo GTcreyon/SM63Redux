@@ -1,14 +1,27 @@
 [
 	{
 		"segments": "if $expression then",
+		"type": "if",
 		"display": "holster"
 	},
 	{
-		"segments": "set $label to $variable",
+		"segments": "while $expression",
+		"type": "loop",
+		"display": "holster"
+	},
+	{
+		"segments": "set $label to $expression",
+		"type": "set",
+		"display": "normal"
+	},
+	{
+		"segments": "print $label",
+		"type": "print",
 		"display": "normal"
 	},
 	{
 		"segments": "program start",
+		"type": "start",
 		"display": "begin"
 	}
 ]

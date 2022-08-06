@@ -3,6 +3,7 @@ extends NinePatchRect
 onready var graph = get_parent()
 
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
+const STYLEBOX = preload("res://level_designer/visual_pipescript/line_edit_style.stylebox")
 
 # Anchor points
 var piece_anchor_points = {
@@ -80,28 +81,30 @@ func setup(data):
 	var x_position = 0
 	for segment in segments:
 		var text_size = get_text_width(segment)
-		match segment:
-			"$expression":
-				print("Woo!")
-			"$label":
-				print("Variable labels, cool!")
-			"$variable":
-				print("Wow this is a variable.")
-			_:
-				var label = Label.new()
-				label.add_font_override("font", BYLIGHT)
-				label.text = segment
-				label.rect_size = text_size + Vector2(0, 8)
-				label.valign = Label.VALIGN_CENTER
-				label.rect_position.x = x_position
-				add_child(label)
+		if segment.begins_with("$"):
+			var label = LineEdit.new()
+			label.add_font_override("font", BYLIGHT)
+			label.add_stylebox_override("normal", STYLEBOX)
+			label.text = segment.substr(1)
+			label.rect_size = text_size + Vector2(-8, 0)
+			label.rect_position = Vector2(x_position, 4)
+			add_child(label)
+			print(label.get_stylebox("normal"))
+		else:
+			var label = Label.new()
+			label.add_font_override("font", BYLIGHT)
+			label.text = segment
+			label.rect_size = text_size + Vector2(0, 8)
+			label.valign = Label.VALIGN_CENTER
+			label.rect_position.x = x_position
+			add_child(label)
 		x_position += text_size.x
 	
 	# Resize the main block
 	rect_min_size = Vector2()
 	rect_size = Vector2(x_position + 20, BYLIGHT.get_height() + 15)
 	if data.display == "holster":
-		rect_size.y += 60
+		rect_size.y += 30
 	holster_size_y = rect_size.y
 
 func move_piece(position):
