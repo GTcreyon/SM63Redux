@@ -10,4 +10,4 @@ data_*/
 main.tscn
 
 # Pipescript Target Ignores
-./pipescript/target
+pipescript/target
