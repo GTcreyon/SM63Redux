@@ -209,7 +209,7 @@ pub fn string_to_ps_value(cmd: &str, env: &mut Vec<PSValue>, variable_hash: &mut
 #[inline]
 pub fn get_variable<'a>(value: &'a PSValue, env: &'a mut Vec<PSValue>) -> &'a PSValue {
 	match value {
-		PSValue::VarIndex(index) => &env[*index],
+		PSValue::VarIndex(index) => &env.get(*index).expect(PSError::error_message(PSError::NotFound)),
 		_ => value
 	}
 }

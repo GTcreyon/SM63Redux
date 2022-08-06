@@ -46,7 +46,7 @@ fn statement_configure(lines: &mut Vec<Vec<PSValue>>) {
 				lines.get_mut(line_idx).unwrap().push(PSValue::LinePointer(inner_idx));
 			} else {
 				panic!("{}", PSError::error_message(PSError::UnfinishedIfStatement))
-			};
+			}
 		} else if instruction == &PSInstructionSet::Function {
 			let mut inner_idx = line_idx;
 			while inner_idx < line_count {
@@ -59,13 +59,18 @@ fn statement_configure(lines: &mut Vec<Vec<PSValue>>) {
 					// Make sure the 'function' instruction has a link back to the return, this is so the interpreter skips the function
 					lines.get_mut(line_idx).unwrap().push(PSValue::LinePointer(inner_idx + 1));
 					break;
-				};
+				} else if inner_instruction == &PSInstructionSet::Function {
+					panic!("{}", PSError::error_message(PSError::NestedFunctionStatement));
+				}
 				inner_idx += 1;
-			};
-		};
+			}
+			if inner_idx < line_count {
+				panic!("{}", PSError::error_message(PSError::UnfinishedFunctionStatement));
+			}
+		}
 		
 		line_idx += 1
-	};
+	}
 }
 
 fn expression_unfolder(lines: &mut Vec<Vec<PSValue>>, env: &mut Vec<PSValue>, variable_hash: &mut HashMap<String, usize>) {
