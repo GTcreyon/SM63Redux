@@ -64,6 +64,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/entity/enemy/koopa/koopa.gd"
 }, {
+"base": "EntityEnemy",
+"class": "KoopaShell",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/koopa/koopa_shell.gd"
+}, {
 "base": "Container",
 "class": "OutlineContainer",
 "language": "GDScript",
@@ -106,6 +111,7 @@ _global_script_class_icons={
 "EntityMirrorable": "",
 "Goomba": "",
 "Koopa": "",
+"KoopaShell": "",
 "OutlineContainer": "",
 "PolygonContainer": "",
 "ResidualSFX": "",

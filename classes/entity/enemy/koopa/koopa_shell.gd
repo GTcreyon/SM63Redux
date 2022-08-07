@@ -1,13 +1,7 @@
-tool
-extends KinematicBody2D
-
-const GRAVITY = 0.17
-onready var sprite = $AnimatedSprite
-onready var collision_area = $CollisionArea
+class_name KoopaShell
+extends EntityEnemy
 
 var speed = 5
-var vel = Vector2.ZERO
-var water_bodies : int = 0
 
 const color_presets = [
 	[ # green
@@ -22,31 +16,21 @@ const color_presets = [
 	],
 ]
 
-export var disabled = false setget set_disabled
-export var mirror = false
-export(int, "green", "red") var color = 0 setget set_color
+enum ShellColor {
+	GREEN,
+	RED,
+}
+
+export(ShellColor) var color = 0 setget set_color
+
 
 func set_color(new_color):
 	for i in range(3):
 		material.set_shader_param("color" + str(i), color_presets[new_color][i])
 	color = new_color
 
-func _ready():
-	if !Engine.editor_hint:
-		sprite.playing = !disabled
-		sprite.speed_scale = 0
-
-func _physics_process(_delta):
-	if !disabled and !Engine.editor_hint:
-		physics_step()
 
 func physics_step():
-	if water_bodies > 0:
-		vel.y = min(vel.y + GRAVITY, 2)
-	else:
-		vel.y = min(vel.y + GRAVITY, 6)
-	# warning-ignore:RETURN_VALUE_DISCARDED
-	move_and_slide(vel * 60, Vector2.UP)
 	vel.x = lerp(vel.x, 0, 0.00625)
 	if is_on_floor():
 		vel.y = 0
@@ -74,21 +58,3 @@ func _on_CollisionArea_body_entered(body):
 	elif body.global_position.x > global_position.x:
 		$Kick.play()
 		vel.x = -speed
-
-
-func _on_WaterCheck_area_entered(_area):
-	water_bodies += 1
-
-
-func _on_WaterCheck_area_exited(_area):
-	water_bodies -= 1
-
-
-func set_disabled(val):
-	disabled = val
-	if collision_area == null:
-		collision_area = $CollisionArea
-	if sprite == null:
-		sprite = $AnimatedSprite
-	collision_area.monitoring = !val
-	sprite.playing = !val
