@@ -54,7 +54,7 @@ func _hurt_stomp(area):
 	var body = area.get_parent()
 	body.vel.y = -5
 	var inst = SHELL_PREFAB.instance()
-	get_parent().add_child(inst)
+	get_parent().call_deferred("add_child", inst)
 	inst.position = position + Vector2(0, 7.5)
 	inst.color = color
 	queue_free()

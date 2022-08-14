@@ -2,6 +2,7 @@ class_name KoopaShell
 extends EntityEnemy
 
 var speed = 5
+onready var kick_sfx = $Kick
 
 const color_presets = [
 	[ # green
@@ -30,7 +31,7 @@ func set_color(new_color):
 	color = new_color
 
 
-func physics_step():
+func _physics_step():
 	vel.x = lerp(vel.x, 0, 0.00625)
 	if is_on_floor():
 		vel.y = 0
@@ -42,19 +43,28 @@ func physics_step():
 		sprite.animation = "counterclockwise"
 	else:
 		sprite.animation = "clockwise"
+	._physics_step()
 
 
-func _on_CollisionArea_body_entered(body):
-	if body.hitbox.global_position.y + body.hitbox.shape.extents.y < global_position.y && body.vel.y > 0:
-		$Kick.play()
-		$"/root/Main/Player".vel.y = -5
-		if body.global_position.x < global_position.x:
-			vel.x = speed
-		else:
-			vel.x = -speed
-	elif body.global_position.x < global_position.x:
-		$Kick.play()
+# Stub the strike check so the player doesn't have to spin to hit the shell
+func _strike_check(_body):
+	return true
+
+
+func _hurt_stomp(area):
+	kick_sfx.play()
+	var body = area.get_parent()
+	body.vel.y = -5
+	if body.position.x < position.x:
 		vel.x = speed
-	elif body.global_position.x > global_position.x:
-		$Kick.play()
+	else:
+		vel.x = -speed
+
+
+func _hurt_struck(body):
+	if body.position.x < position.x:
+		kick_sfx.play()
+		vel.x = speed
+	elif body.position.x > position.x:
+		kick_sfx.play()
 		vel.x = -speed

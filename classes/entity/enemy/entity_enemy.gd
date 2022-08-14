@@ -7,6 +7,8 @@ extends EntityMirrorable
 const COIN_PREFAB = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 
 export var coin_count: int = 1
+export var inside_check: bool = true
+export var multi_stomp: bool = false
 var collect_id: int = -1
 var dead: bool = false
 var stomped: bool = false
@@ -46,9 +48,10 @@ func _physics_step():
 	if is_on_floor() && struck && !stomped && vel.y > 0:
 		_struck_land()
 	
-	for body in hurtbox_strike.get_overlapping_bodies():
-		if _strike_check(body):
-			_hurt_struck(body)
+	if inside_check:
+		for body in hurtbox_strike.get_overlapping_bodies():
+			if _strike_check(body):
+				_hurt_struck(body)
 
 
 func _struck_land():
@@ -93,7 +96,7 @@ func _init_animation():
 
 
 func _on_HurtboxStomp_area_entered(area):
-	if !stomped:
+	if !stomped || multi_stomp:
 		stomped = true
 		_hurt_stomp(area)
 
