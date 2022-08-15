@@ -58,14 +58,14 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=10]
 animations = [ {
-"frames": [ ExtResource( 1 ) ],
-"loop": true,
-"name": "unlit",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
 "loop": true,
 "name": "lit",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "unlit",
 "speed": 5.0
 } ]
 
@@ -160,7 +160,3 @@ stream = ExtResource( 15 )
 volume_db = -6.0
 attenuation = 10.0
 bus = "SFX"
-
-[connection signal="body_entered" from="AlertArea" to="." method="_on_AlertArea_body_entered"]
-[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
-[connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]
