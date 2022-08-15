@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://classes/entity/enemy/cheep_cheep/cheep_cheep1.png" type="Texture" id=1]
 [ext_resource path="res://classes/entity/enemy/cheep_cheep/cheep_cheep2.png" type="Texture" id=2]
@@ -13,14 +13,17 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 9.5, 9.5 )
+
 [sub_resource type="CircleShape2D" id=2]
 radius = 80.0
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 8, 8 )
+extents = Vector2( 8.5, 8.5 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 10, 9 )
+extents = Vector2( 9.5, 9.5 )
 
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 1, 1 )
@@ -28,27 +31,37 @@ extents = Vector2( 1, 1 )
 [node name="CheepCheep" type="KinematicBody2D"]
 collision_layer = 4
 script = ExtResource( 3 )
+_hurtbox_stomp_path = NodePath("")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 script = ExtResource( 4 )
 
-[node name="FollowArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-input_pickable = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowArea"]
-shape = SubResource( 2 )
-
-[node name="Damage" type="Area2D" parent="."]
+[node name="HurtboxStrike" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2147483650
 input_pickable = false
 monitorable = false
 
-[node name="Collision" type="CollisionShape2D" parent="Damage"]
+[node name="Collision" type="CollisionShape2D" parent="HurtboxStrike"]
+shape = SubResource( 6 )
+
+[node name="AlertArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AlertArea"]
+shape = SubResource( 2 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2147483650
+input_pickable = false
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -63,8 +76,5 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 5 )
 
-[connection signal="body_entered" from="FollowArea" to="." method="_on_Following_body_entered"]
-[connection signal="body_exited" from="FollowArea" to="." method="_on_Following_body_exited"]
-[connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered"]
-[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
-[connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]
+[connection signal="body_entered" from="AlertArea" to="." method="_on_AlertArea_body_entered"]
+[connection signal="body_exited" from="AlertArea" to="." method="_on_AlertArea_body_exited"]

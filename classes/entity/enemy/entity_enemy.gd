@@ -49,6 +49,11 @@ func _physics_step():
 		_struck_land()
 	
 	if inside_check:
+		_hurtbox_check()
+
+
+func _hurtbox_check():
+	if hurtbox_strike != null:
 		for body in hurtbox_strike.get_overlapping_bodies():
 			if _strike_check(body):
 				_hurt_struck(body)

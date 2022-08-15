@@ -24,6 +24,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/pickup/bottle/bottle.gd"
 }, {
+"base": "EntityEnemy",
+"class": "CheepCheep",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/cheep_cheep/cheep_cheep.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Coin",
 "language": "GDScript",
@@ -103,6 +108,7 @@ _global_script_class_icons={
 "BaseModifier": "",
 "Bobomb": "",
 "Bottle": "",
+"CheepCheep": "",
 "Coin": "",
 "DejitterGroup": "res://classes/dejitter_group/dejitter_group.svg",
 "Entity": "",
