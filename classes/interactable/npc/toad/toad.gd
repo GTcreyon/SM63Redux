@@ -1,29 +1,27 @@
-tool
-extends Area2D
+extends Interactable
 
 export(Array, String, MULTILINE) var lines = [""]
 
-onready var player = $"/root/Main/Player"
 onready var dialog = $"/root/Main/Player/Camera/GUI/DialogBox"
 
 const spot_presets = [
-	[ #red
+	[ # Red
 		Color("df6042"),
 		Color("b64728"),
 	],
-	[ #green
+	[ # Green
 		Color("9cc56d"),
 		Color("597b5c"),
 	],
-	[ #blue
+	[ # Blue
 		Color("5f75c5"),
 		Color("443695"),
 	],
-	[ #yellow
+	[ # Yellow
 		Color("f7c55f"),
 		Color("e59f53"),
 	],
-	[ #purple
+	[ # Purple
 		Color("c779db"),
 		Color("955fc5"),
 	],
@@ -49,15 +47,18 @@ export(int, 1) var skin = 0 setget set_skin
 var temp_skin
 var temp_spot
 
+
 func _init():
 	temp_skin = skin
 	temp_spot = spot
+
 
 func set_spot(new_spot):
 	for i in range(2):
 		material.set_shader_param("color" + str(i), spot_presets[new_spot][i])
 	spot = new_spot
 	temp_spot = new_spot
+
 
 func set_skin(new_skin):
 	for i in range(4):
@@ -71,12 +72,9 @@ func _ready():
 	$Sprite.play()
 
 
-func _physics_process(_delta):
-	if !Engine.editor_hint:
-		if Input.is_action_just_pressed("interact") && overlaps_body(player) && player.state == player.S.NEUTRAL && player.sign_frames <= 0:
-			#player.switch_anim("back")
-			player.vel = Vector2.ZERO
-			player.sign_x = position.x - 16
-			player.locked = true
-			player.sign_frames = 1
-			dialog.load_lines(lines)
+func _interact_with(body):
+	body.vel = Vector2.ZERO
+	body.sign_x = position.x - 16
+	body.locked = true
+	body.sign_frames = 1
+	dialog.load_lines(lines)

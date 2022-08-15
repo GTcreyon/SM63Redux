@@ -85,7 +85,6 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStomp"]
 position = Vector2( 0, -7.5 )
 shape = SubResource( 9 )
-one_way_collision = true
 
 [node name="HurtboxStrike" type="Area2D" parent="."]
 position = Vector2( 0, 2.5 )

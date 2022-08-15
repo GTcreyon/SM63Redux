@@ -49,6 +49,8 @@ script = ExtResource( 3 )
 use_parent_material = true
 z_index = -1
 frames = SubResource( 1 )
+frame = 7
+playing = true
 offset = Vector2( 0, -0.5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

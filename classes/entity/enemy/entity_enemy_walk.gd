@@ -14,10 +14,10 @@ export var _aware_area_path: NodePath = "AwareArea"
 onready var aware_area = get_node_or_null(_aware_area_path)
 
 export var _edge_check_path: NodePath = "EdgeCheck"
-onready var edge_check = get_node(_edge_check_path)
+onready var edge_check = get_node_or_null(_edge_check_path)
 
 export var _sfx_step_path: NodePath = "SFXStep"
-onready var sfx_step = get_node(_sfx_step_path)
+onready var sfx_step = get_node_or_null(_sfx_step_path)
 
 
 func _preempt_all_node_readies():

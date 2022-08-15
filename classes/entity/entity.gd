@@ -1,6 +1,6 @@
 class_name Entity
 extends KinematicBody2D
-# Root class for all entities that move in any way.
+# Root class for entities that move in any way.
 # Entities have the Entity collision layer bit enabled, so they can influence weights.
 # They have water collision built-in.
 
