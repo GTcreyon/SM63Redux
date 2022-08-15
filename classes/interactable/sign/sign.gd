@@ -1,34 +1,24 @@
-extends Area2D
+extends InteractableDialog
 
-onready var dialog = $"/root/Main/Player/Camera/GUI/DialogBox"
-onready var player = $"/root/Main/Player"
-onready var sfx_open = $Open
+onready var sfx_open: AudioStreamPlayer = $Open
+onready var glow_check: Area2D = $GlowCheck
 
-export(Array, String, MULTILINE) var lines = [""]
+var pulse: float = 0.0
 
-var pulse = 0.0
-var glow_factor = 0.0
-
-func _physics_process(_delta):
-	if player != null:
-		glow_factor = max((100 - position.distance_to(player.position)) / 50, 0)
-	pulse += 0.1
+func _process(delta):
+	var glow_factor = 0
+	for body in glow_check.get_overlapping_bodies():
+		glow_factor = max(max((100 - position.distance_to(body.position)) / 50, 0), glow_factor)
+	
+	pulse += 0.1 * delta * 60
 	material.set_shader_param("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
-	var bodies = get_overlapping_bodies()
-	if (
-		Input.is_action_just_pressed("interact")
-		&& bodies.size() > 0
-		&&
-		(
-			bodies[0].state == bodies[0].S.NEUTRAL
-			|| bodies[0].state == bodies[0].S.SPIN
-		)
-		&& bodies[0].sign_frames <= 0
-	):
-		sfx_open.play()
-		bodies[0].switch_anim("back")
-		bodies[0].vel = Vector2.ZERO
-		bodies[0].sign_x = position.x
-		bodies[0].locked = true
-		bodies[0].sign_frames = 1
-		dialog.load_lines(lines)
+
+
+func _state_check(body) -> bool:
+	return (body.state == body.S.NEUTRAL or body.state == body.S.SPIN) and body.sign_frames <= 0
+
+
+func _interact_with(body):
+	._interact_with(body)
+	sfx_open.play()
+	body.switch_anim("back")

@@ -2,6 +2,7 @@ class_name Interactable
 extends Area2D
 # Root class for objects that can be interacted with by entering an area and performing an action.
 
+
 func _physics_process(_delta):
 	_physics_override()
 

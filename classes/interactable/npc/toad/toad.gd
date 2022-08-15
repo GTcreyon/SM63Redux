@@ -1,8 +1,4 @@
-extends Interactable
-
-export(Array, String, MULTILINE) var lines = [""]
-
-onready var dialog = $"/root/Main/Player/Camera/GUI/DialogBox"
+extends InteractableDialog
 
 const spot_presets = [
 	[ # Red
@@ -70,11 +66,3 @@ func set_skin(new_skin):
 func _ready():
 	$Sprite.frame = fmod(position.x + position.y * PI, 7)
 	$Sprite.play()
-
-
-func _interact_with(body):
-	body.vel = Vector2.ZERO
-	body.sign_x = position.x - 16
-	body.locked = true
-	body.sign_frames = 1
-	dialog.load_lines(lines)

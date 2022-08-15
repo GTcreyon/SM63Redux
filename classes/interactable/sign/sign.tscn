@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://classes/interactable/sign/sign.png" type="Texture" id=1]
 [ext_resource path="res://classes/interactable/sign/sign.gd" type="Script" id=2]
@@ -7,6 +7,9 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 8 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 100.0
 
 [node name="Sign" type="Area2D"]
 material = ExtResource( 3 )
@@ -29,3 +32,10 @@ shape = SubResource( 1 )
 stream = ExtResource( 6 )
 volume_db = -15.0
 bus = "SFX"
+
+[node name="GlowCheck" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GlowCheck"]
+shape = SubResource( 2 )
