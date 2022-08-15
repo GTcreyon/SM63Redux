@@ -1,24 +1,24 @@
 extends StaticBody2D
 
-const up_time = 250.0*60/32 #maximum time a bird will flap up
-const down_time = 45.0*60/32 #maximum time a bird will swoop down
+const TIME_UP: int = 469 # Maximum time a bird will flap up
+const TIME_DOWN: int = 84 # Maximum time a bird will swoop down
 
-export var disabled = false setget set_disabled
-export var mirror = false
+export var disabled: bool = false setget set_disabled
+export var mirror: bool = false
 
 var rng = RandomNumberGenerator.new()
-var time_count = 0
-var vel = Vector2.ZERO
-var riding = 0
-var block_riders = []
-var reset_position = position
-var reset_timer = 90
-var camera_polygon
+var vel: Vector2 = Vector2.ZERO
+var reset_position: Vector2 = position
+var camera_polygon: PoolVector2Array
+var block_riders: Array = []
+var time_count: int = 0
+var riding: int = 0
+var reset_timer: int = 90
 
-onready var camera_area = $"/root/Main/CameraArea"
-onready var sprite = $AnimatedSprite
-onready var ride_area = $RideArea
-onready var safety_net = $SafetyNet
+onready var camera_area: Polygon2D = $"/root/Main/CameraArea"
+onready var sprite: AnimatedSprite = $AnimatedSprite
+onready var ride_area: Area2D = $RideArea
+onready var safety_net: Area2D = $SafetyNet
 
 func _ready():
 	sprite.flip_h = mirror
@@ -28,19 +28,22 @@ func _ready():
 		for i in range(points):
 			var from : Vector2 = camera_polygon[i]
 			var to : Vector2 = camera_polygon[(i + 1) % points]
-			var intersect = Geometry.segment_intersects_segment_2d(from, to, position, Vector2(-99999, 0))
+			var back_vec = Vector2(-99999, 0)
+			if mirror:
+				back_vec.x *= -1
+			var intersect = Geometry.segment_intersects_segment_2d(from, to, position, back_vec)
 			if intersect != null:
 				reset_position = intersect + Vector2.LEFT * 20
-	rng.seed = hash(position.x + position.y * PI) #each bird will be different, but behave the same way each time
+	rng.seed = hash(position.x + position.y * PI) # Each bird will be different, but deterministic
 	sprite.frame = rng.seed % 7
 	sprite.playing = !disabled
 	
-	time_count = rng.randi_range(0, up_time/2)
+	time_count = rng.randi_range(0, TIME_UP/2)
 	vel.x = 2 + rng.randf() * 0.5
 	vel.y = -0.7 - rng.randf() * 0.25
 
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	if !disabled:
 		physics_step()
 
@@ -49,7 +52,7 @@ func physics_step() -> void:
 	var move_vec = Vector2.ZERO
 	var flip_sign = 1
 	if mirror:
-		flip_sign = -1 # flip the movement direction
+		flip_sign = -1 # Flip the movement direction
 	
 	for body in block_riders:
 		if body.vel.y > 0:
@@ -66,17 +69,17 @@ func physics_step() -> void:
 		if sprite.animation == "flap":
 			move_vec = Vector2(vel.x * 32/60 * flip_sign, vel.y*32/60)
 			position += move_vec
-			if time_count >= up_time && sprite.frame == 2:
+			if time_count >= TIME_UP && sprite.frame == 2:
 				sprite.animation = "swoop"
 				
-				time_count = rng.randi_range(0, down_time/2)
+				time_count = rng.randi_range(0, TIME_DOWN/2)
 		else:
 			move_vec = Vector2(vel.x * 1.5 * 32/60 * flip_sign, 1.5*32/60)
 			position += move_vec
-			if time_count >= down_time:
+			if time_count >= TIME_DOWN:
 				sprite.animation = "flap"
 				sprite.frame = 5
-				time_count = rng.randi_range(0, up_time/2)
+				time_count = rng.randi_range(0, TIME_UP/2)
 	
 	if riding <= 0:
 		time_count += 1
@@ -91,7 +94,7 @@ func physics_step() -> void:
 				reset_timer = 90
 
 
-func _on_RideArea_body_entered(body):
+func _on_RideArea_body_entered(body) -> void:
 	if body.vel.y > 0:
 		sprite.animation = "flap"
 		sprite.speed_scale = 3
@@ -100,7 +103,7 @@ func _on_RideArea_body_entered(body):
 		block_riders.append(body)
 
 
-func _on_RideArea_body_exited(body):
+func _on_RideArea_body_exited(body) -> void:
 	if block_riders.has(body):
 		block_riders.erase(body)
 	else:
@@ -111,7 +114,7 @@ func _on_RideArea_body_exited(body):
 			sprite.speed_scale = 1
 
 
-func set_disabled(val):
+func set_disabled(val) -> void:
 	disabled = val
 	set_collision_layer_bit(0, 0 if val else 1)
 	if safety_net == null:
