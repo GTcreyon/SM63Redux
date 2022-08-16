@@ -8,14 +8,13 @@ edition = "2021"
 # https://releases.llvm.org/download.html
 [lib]
 name = "pipescript"
-path = "src/library.rs"
 crate-type = ["cdylib"]
 
 # Dependencies
 [dependencies]
 strum = "0.24"
 strum_macros = "0.24"
-gdnative = "0.10"
+gdnative = { git = "https://github.com/godot-rust/godot-rust.git" }
 
 # # Compile to a binary
 # [[bin]]

@@ -16,8 +16,14 @@ impl PipeScript {
         PipeScript
     }
 
-	#[export]
-	fn interpret(&self, _owner: &Node, source: GodotString) {
+	#[godot]
+	fn i_take_a_node(&self, #[base] _owner: &Node, hello: Ref<Object>) {
+		let node = unsafe { hello.assume_unique() };
+		unsafe { node.call("test_call", &["some string idk".to_variant()]); }
+	}
+
+	#[godot]
+	fn interpret(&self, #[base] _owner: &Node, source: GodotString) {
 		godot_print!("Sup. I'm cool");
 
 		let (mut lines, mut variable_hash, mut env) = reader::source_to_instructions(
@@ -32,8 +38,8 @@ impl PipeScript {
 		godot_print!("Ended.");
 	}
 
-	#[export]
-    fn _ready(&self, _owner: &Node) {
+	#[godot]
+    fn _ready(&self, #[base] _owner: &Node) {
         godot_print!("hello, world.")
     }
 }

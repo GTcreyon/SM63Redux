@@ -95,8 +95,11 @@ func _on_Place_item_selected(index):
 	visible = false
 	select(0)
 
+func test_call(arg):
+	print("Yoo called from rust: ", arg)
 
 func _on_Run_pressed():
+	pipescript.i_take_a_node(self)
 	pipescript.interpret("""set x 5
 set y 5
 calc z x * y / 2

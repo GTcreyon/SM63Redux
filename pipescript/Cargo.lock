@@ -4,10 +4,11 @@ version = 3
 
 [[package]]
 name = "ahash"
-version = "0.7.6"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fcb51a0695d8f838b1ee009b3fbf66bda078cd64590202a864a8f3e8c4315c47"
+checksum = "57e6e951cfbb2db8de1828d49073a113a29fd7117b1596caa781a258c7e38d72"
 dependencies = [
+ "cfg-if",
  "getrandom",
  "once_cell",
  "version_check",
@@ -36,9 +37,9 @@ checksum = "d468802bab17cbc0cc575e9b053f41e72aa36bfa6b7f55e3529ffa43161b97fa"
 
 [[package]]
 name = "bindgen"
-version = "0.59.2"
+version = "0.60.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2bd2a9a458e8f4304c52c43ebb0cfbd520289f8379a52e329a38afda99bf8eb8"
+checksum = "062dddbc1ba4aca46de6338e2bf87771414c335f7b2f2036e8f3e9befebf88e6"
 dependencies = [
  "bitflags",
  "cexpr",
@@ -88,8 +89,7 @@ dependencies = [
 [[package]]
 name = "gdnative"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "629bee0adcf738df35857b2138d19fc06c08dda52dc436f174d706598014a75f"
+source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
 dependencies = [
  "gdnative-bindings",
  "gdnative-core",
@@ -99,12 +99,9 @@ dependencies = [
 [[package]]
 name = "gdnative-bindings"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3b64c284f6fb4e9773ac36be7a20b942562d142979703568fedf4b04a65f6991"
+source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
 dependencies = [
- "bitflags",
  "gdnative-core",
- "gdnative-sys",
  "gdnative_bindings_generator",
  "libc",
 ]
@@ -112,8 +109,7 @@ dependencies = [
 [[package]]
 name = "gdnative-core"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ab96ca7f3484ee0c36518237ba79165c7ca5dc8c9922722e55a9d71f50dce1e5"
+source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
 dependencies = [
  "ahash",
  "approx",
@@ -131,8 +127,7 @@ dependencies = [
 [[package]]
 name = "gdnative-derive"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8f1d2921c7d2ecb418346761766f441b190a3293327228a1cd8491a1ff60a973"
+source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -142,8 +137,7 @@ dependencies = [
 [[package]]
 name = "gdnative-impl-proc-macros"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b3fd167778dd006489c1995c24429ecee16b8ebe53a5e2b76a6796a5ff697e2c"
+source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -153,8 +147,7 @@ dependencies = [
 [[package]]
 name = "gdnative-sys"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "813a974fadc7287d4afc6ea3caeba123ebdd9292e672d8886fd7542329f01ade"
+source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
 dependencies = [
  "bindgen",
  "libc",
@@ -167,11 +160,9 @@ dependencies = [
 [[package]]
 name = "gdnative_bindings_generator"
 version = "0.10.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b0a0ebb63923612b59efe96d76b26053a3124e42ddb329028eecedc1ceb792be"
+source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
 dependencies = [
  "heck",
- "memchr",
  "miniserde",
  "proc-macro2",
  "quote",
@@ -411,9 +402,9 @@ checksum = "a3f87b73ce11b1619a3c6332f45341e0047173771e8b8b73f87bfeefb7b56244"
 
 [[package]]
 name = "roxmltree"
-version = "0.14.1"
+version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "921904a62e410e37e215c40381b7117f830d9d89ba60ab5236170541dd25646b"
+checksum = "112908c3ac4711a1554b3948432ecaf5f061a951aa326977b63f7f72a86a4c0e"
 dependencies = [
  "xmlparser",
 ]
