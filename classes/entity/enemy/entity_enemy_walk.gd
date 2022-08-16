@@ -42,12 +42,13 @@ func set_disabled(val):
 
 func turn_around():
 	mirror = !mirror
-	edge_check.position.x *= -1
+	if edge_check != null:
+		edge_check.position.x *= -1
 
 
 func _ready_override():
 	._ready_override()
-	if mirror:
+	if edge_check != null and mirror:
 		edge_check.position.x *= -1
 
 
@@ -92,10 +93,11 @@ func _wander_behavior():
 			turn_around()
 			wander_dist = 0
 		
-		edge_check.enabled = is_on_floor()
-		
-		if edge_check.enabled && !edge_check.is_colliding():
-			turn_around()
+		if edge_check != null:
+			edge_check.enabled = is_on_floor()
+			
+			if edge_check.enabled && !edge_check.is_colliding():
+				turn_around()
 		
 		_wander()
 
@@ -105,13 +107,15 @@ func _chase_target():
 	if target.position.x - position.x < -20 || (target.position.x < position.x && abs(target.position.y - position.y) < 26):
 		vel.x = max(vel.x - 0.1, -2)
 		mirror = true
-		edge_check.position.x = -9
 		sprite.playing = true
+		if edge_check != null:
+			edge_check.position.x = -9
 	elif target.position.x - position.x > 20 || (target.position.x > position.x && abs(target.position.y - position.y) < 26):
 		vel.x = min(vel.x + 0.1, 2)
 		mirror = false
-		edge_check.position.x = 9
 		sprite.playing = true
+		if edge_check != null:
+			edge_check.position.x = 9
 	else:
 		vel.x *= 0.85
 		if sprite.frame == 0:

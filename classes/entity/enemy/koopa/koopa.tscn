@@ -58,6 +58,8 @@ material = ExtResource( 4 )
 collision_layer = 4
 script = ExtResource( 2 )
 step_indexes = [ false, true, false, false, true, false ]
+_alert_area_path = NodePath("")
+_aware_area_path = NodePath("")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 use_parent_material = true

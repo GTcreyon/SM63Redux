@@ -38,7 +38,8 @@ func _ready_override():
 	._ready_override()
 	init_position = position
 	if color != ShellColor.RED:
-		edge_check.free()
+		_edge_check_path = ""
+		edge_check.queue_free()
 		edge_check = null
 
 
