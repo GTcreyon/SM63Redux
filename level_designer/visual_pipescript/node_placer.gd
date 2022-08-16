@@ -99,10 +99,24 @@ func test_call(arg):
 	print("Yoo called from rust: ", arg)
 
 func _on_Run_pressed():
-	pipescript.i_take_a_node(self)
-	pipescript.interpret("""set x 5
-set y 5
-calc z x * y / 2
-print x y z
+#	pipescript.i_take_a_node(self)
+	pipescript.interpret("""
+set x 5
+set y 3
+calc z x / y
+
+gd-call object
 debug-all
 """)
+	
+	# Before executing the code, insert an object variable
+	pipescript.set_object_variable("object", get_node("Test1"))
+	pipescript.execute() # And run!
+	print()
+	# Change our object variable
+	pipescript.set_object_variable("object", get_node("Test2"))
+	pipescript.execute() # And run!
+	print()
+	# And again, change our object variable
+	pipescript.set_object_variable("object", get_node("Test3"))
+	pipescript.execute() # And run!

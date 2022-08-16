@@ -209,6 +209,12 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 					env
 				);
 			},
+			// Godot object handler
+			PSInstructionSet::GodotCall => {
+				let object = unsafe { get_variable(&line[1], env).expect_godot_object_ref().assume_safe() };
+				let func_name = String::from("test"); // get_variable(&line[2], env).expect_string(); //TODO: make strings work dangit.
+				unsafe { object.call(func_name, &[]); };
+			},
 			// Instructions which should do nothing.
 			PSInstructionSet::End => (),
 			PSInstructionSet::Calc => (),

@@ -54,6 +54,7 @@ pub fn source_to_instructions(buffer: String) -> (Vec<Vec<PSValue>>, HashMap<Str
 					"end" => PSValue::Instruction(PSInstructionSet::End),
 					"#" => PSValue::Instruction(PSInstructionSet::HashToken),
 					"calc" => PSValue::Instruction(PSInstructionSet::Calc),
+					"gd-call" => PSValue::Instruction(PSInstructionSet::GodotCall),
 					_ => panic!("{}", PSError::error_message(PSError::InvalidCommand))
 				}
 			);

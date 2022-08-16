@@ -1,5 +1,6 @@
 
 use std::collections::HashMap;
+use gdnative::prelude::{Object, Ref};
 use strum_macros::AsRefStr;
 
 #[derive(Clone, Copy, PartialEq, Eq, AsRefStr)]
@@ -38,7 +39,8 @@ pub enum PSInstructionSet {
 	DangerToLinePointer = 32,
 	End = 33,
 	HashToken = 34,
-	Calc = 35
+	Calc = 35,
+	GodotCall = 36
 }
 
 pub enum PSError {
@@ -82,6 +84,7 @@ pub enum PSValue {
 	LinePointer(usize),
 	VarIndex(usize),
 	Instruction(PSInstructionSet),
+	GodotObject(Ref<Object>),
 	None
 }
 
@@ -94,6 +97,7 @@ impl From<&PSValue> for String {
 			PSValue::LinePointer(v) => v.to_string(),
 			PSValue::VarIndex(v) => v.to_string(),
 			PSValue::Instruction(v) => v.as_ref().to_string(),
+			PSValue::GodotObject(_) => String::from("ObjectRef#????"),
 			PSValue::None => String::from("None")
 		}
 	}
@@ -114,6 +118,7 @@ impl Clone for PSValue {
 			PSValue::LinePointer(v) => PSValue::LinePointer(v.to_owned()),
 			PSValue::VarIndex(v) => PSValue::VarIndex(v.to_owned()),
 			PSValue::Instruction(_) => PSValue::None, // Instruction sets are not duplicatable
+			PSValue::GodotObject(_) => PSValue::None, // GodotObjects sets are not duplicatable
 			PSValue::None => PSValue::None
 		}
 	}
@@ -156,6 +161,13 @@ impl PSValue {
 		}
 	}
 
+	pub fn expect_godot_object_ref(&self) -> &Ref<Object> {
+		match self {
+			PSValue::GodotObject(val) => val,
+			_ => panic!("{} (got {}, expected GodotObject): Value {}", PSError::error_message(PSError::WrongType), self.get_type_as_text(), String::from(self))
+		}
+	}
+
 	pub fn is_defined(&self) -> bool {
 		match self {
 			PSValue::None => false,
@@ -171,6 +183,7 @@ impl PSValue {
 			PSValue::LinePointer(_) => "LinePointer",
 			PSValue::VarIndex(_) => "VarIndex",
 			PSValue::Instruction(_) => "Instruction",
+			PSValue::GodotObject(_) => "GodotObject",
 			PSValue::None => "None"
 		}
 	}
