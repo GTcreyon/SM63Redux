@@ -46,28 +46,28 @@ func _ready_override():
 func _wander():
 	vel.x = -speed if mirror else speed
 	
-	if position.x - init_position.x > 100 or position.x - init_position.x < -100:
+	if (position.x - init_position.x > 100 and vel.x > 0) or (position.x - init_position.x < -100 and vel.x < 0):
 		turn_around()
 
 
 func _hurt_stomp(area):
-	get_parent().add_child(ResidualSFX.new(KICK_SFX, position))
 	var body = area.get_parent()
 	body.vel.y = -5
-	var inst = SHELL_PREFAB.instance()
-	get_parent().call_deferred("add_child", inst)
-	inst.position = position + Vector2(0, 7.5)
-	inst.color = color
-	queue_free()
+	into_shell(0)
 
 
 func _hurt_struck(body):
+	if body.global_position.x < global_position.x:
+		into_shell(5)
+	else:
+		into_shell(-5)
+
+
+func into_shell(vel_x):
 	get_parent().add_child(ResidualSFX.new(KICK_SFX, position))
 	var inst = SHELL_PREFAB.instance()
 	inst.position = position + Vector2(0, 7.5)
-	if body.global_position.x < global_position.x:
-		inst.vel.x = 5
-	else:
-		inst.vel.x = -5
-	get_parent().add_child(inst)
+	inst.color = color
+	inst.vel = Vector2(vel_x, 0)
+	get_parent().call_deferred("add_child", inst)
 	queue_free()
