@@ -55,6 +55,7 @@ pub fn source_to_instructions(buffer: String) -> (Vec<Vec<PSValue>>, HashMap<Str
 					"#" => PSValue::Instruction(PSInstructionSet::HashToken),
 					"calc" => PSValue::Instruction(PSInstructionSet::Calc),
 					"gd-call" => PSValue::Instruction(PSInstructionSet::GodotCall),
+					"gd-call-set" => PSValue::Instruction(PSInstructionSet::GodotCallReturns),
 					_ => panic!("{}", PSError::error_message(PSError::InvalidCommand))
 				}
 			);
@@ -67,14 +68,20 @@ pub fn source_to_instructions(buffer: String) -> (Vec<Vec<PSValue>>, HashMap<Str
 					&mut variable_hash
 				));
 				commands.push(PSValue::String(expression.join(" ")));
+			} else if first[0] == "string-literal" {
+				let (varname, literal) = args.split_at(1);
+				commands.push(string_to_ps_value(varname[0], &mut env, &mut variable_hash));
+				commands.push(PSValue::String(literal.join(" ")));
+			} else if first[0] == "#" {
+				// We do nothing if it's a comment
 			} else {
-				for cmd in args.to_owned() {
+				for cmd in args {
 					commands.push(string_to_ps_value(cmd, &mut env, &mut variable_hash));
-				};
-			};
+				}
+			}
 
 			lines.push(commands);
-		};
+		}
 	}
 	(lines, variable_hash, env)
 }

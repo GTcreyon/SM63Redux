@@ -1,6 +1,6 @@
 
 use crate::ps_env::*;
-use gdnative::prelude::godot_print;
+use gdnative::prelude::{godot_print, OwnedToVariant, Variant, FromVariant};
 
 pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSValue>) {
 	let line_count = lines.len();
@@ -32,25 +32,12 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 				);
 			},
 			PSInstructionSet::StringLiteral => {
-				// // To store empty strings, just provide a second argument
-				// let mut literal_string = String::new();
-				// for text in line.split_at(2).1 {
-				// 	literal_string += text;
-				// 	literal_string += " ";
-				// };
-				// literal_string.pop();
-				// env.insert(
-				// 	get_variable_name(commands, 1),
-				// 	PSValue::String(literal_string)
-				// );
+				set_variable(&line[1], line[2].to_owned(), env);
 			},
 			PSInstructionSet::Concat => {
-				// env.insert(
-				// 	get_variable_name(commands, 1),
-				// 	PSValue::String(
-				// 		get_variable(commands, 2, env).to_string() + &get_variable(commands, 3, env).to_string()
-				// 	)
-				// );
+				let a = get_variable(&line[2], env).expect_string();
+				let b = get_variable(&line[3], env).expect_string();
+				set_variable(&line[1], PSValue::String(a + b.as_str()), env);
 			},
 			// Maths operations
 			PSInstructionSet::Add => {
@@ -212,8 +199,29 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 			// Godot object handler
 			PSInstructionSet::GodotCall => {
 				let object = unsafe { get_variable(&line[1], env).expect_godot_object_ref().assume_safe() };
-				let func_name = String::from("test"); // get_variable(&line[2], env).expect_string(); //TODO: make strings work dangit.
-				unsafe { object.call(func_name, &[]); };
+				let func_name = get_variable(&line[2], env).expect_string();
+				let args = line.split_at(3).1.iter().map(|v| 
+					match v {
+						PSValue::VarIndex(_) => get_variable(&v, env).owned_to_variant(),
+						_ => v.owned_to_variant()
+					}
+				).collect::<Vec<Variant>>();
+				unsafe { object.call(func_name, &args); };
+			},
+			PSInstructionSet::GodotCallReturns => {
+				let object = unsafe { get_variable(&line[2], env).expect_godot_object_ref().assume_safe() };
+				let func_name = get_variable(&line[3], env).expect_string();
+				let args = line.split_at(4).1.iter().map(|v| 
+					match v {
+						PSValue::VarIndex(_) => get_variable(&v, env).owned_to_variant(),
+						_ => v.owned_to_variant()
+					}
+				).collect::<Vec<Variant>>();
+				let return_value = unsafe { object.call(func_name, &args) };
+				match PSValue::from_variant(&return_value) {
+					Ok(val) => set_variable(&line[1], val, env),
+					Err(err) => panic!("{}", err.to_string())
+				}
 			},
 			// Instructions which should do nothing.
 			PSInstructionSet::End => (),

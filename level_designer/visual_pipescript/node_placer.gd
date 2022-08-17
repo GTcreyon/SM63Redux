@@ -99,24 +99,13 @@ func test_call(arg):
 	print("Yoo called from rust: ", arg)
 
 func _on_Run_pressed():
-#	pipescript.i_take_a_node(self)
 	pipescript.interpret("""
-set x 5
-set y 3
-calc z x / y
+string-literal func_name foo
+string-literal get_parent get_parent
 
-gd-call object
-debug-all
+gd-call-set parent self get_parent
+gd-call self func_name parent
 """)
-	
-	# Before executing the code, insert an object variable
-	pipescript.set_object_variable("object", get_node("Test1"))
-	pipescript.execute() # And run!
-	print()
-	# Change our object variable
-	pipescript.set_object_variable("object", get_node("Test2"))
-	pipescript.execute() # And run!
-	print()
-	# And again, change our object variable
-	pipescript.set_object_variable("object", get_node("Test3"))
-	pipescript.execute() # And run!
+	get_parent()
+	pipescript.set_object_variable("self", get_node("Test1"))
+	pipescript.execute()

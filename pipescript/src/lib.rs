@@ -26,8 +26,7 @@ impl PipeScript {
 	#[godot]
 	fn set_object_variable(&mut self, #[base] _owner: &Node, key_gd: GodotString, obj_ref: Ref<Object>) {
 		assert!(self.lines.is_some(), "Cannot insert variables, source isn't ready yet! Make sure to invoke `pipescript.interpret(source: String)` first.");
-		let (lines, variable_hash, env) = (
-			self.lines.as_mut().unwrap(),
+		let (variable_hash, env) = (
 			self.variable_hash.as_mut().unwrap(),
 			self.env.as_mut().unwrap()
 		);

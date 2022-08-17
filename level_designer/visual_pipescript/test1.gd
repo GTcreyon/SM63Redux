@@ -1,4 +1,5 @@
 extends Node
 
-func test():
-	print("This is object nr 1")
+func foo(node):
+	print("The following message has been sent via PipeScript:")
+	print(node.name)
