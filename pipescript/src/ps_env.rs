@@ -93,7 +93,6 @@ impl FromVariant for PSValue {
     fn from_variant(variant: &Variant) -> Result<Self, gdnative::prelude::FromVariantError> {
 		if variant.is_nil() { return Ok(PSValue::None); }
 		if let Ok(v) = f32::from_variant(variant) { return Ok(PSValue::Number(v)); }
-		if let Ok(v) = f32::from_variant(variant) { return Ok(PSValue::Number(v)); }
 		if let Ok(v) = String::from_variant(variant) { return Ok(PSValue::String(v)); }
 		if let Ok(v) = Ref::<Object, Shared>::from_variant(variant) { return Ok(PSValue::GodotObject(v)); }
 		Err(FromVariantError::CannotCast { class: variant.to_string(), to: "PSValue" })
@@ -224,6 +223,11 @@ pub fn string_to_ps_value(cmd: &str, env: &mut Vec<PSValue>, variable_hash: &mut
 			Ok(val) => PSValue::LinePointer(val),
 			Err(_) => panic!("{}", PSError::error_message(PSError::MalformattedVariable)) 
 		}
+	} else if cmd.ends_with(".S") {
+		let mut result = cmd.to_owned();
+		result.pop();
+		result.pop();
+		PSValue::String(result)
 	} else {
 		match cmd.parse::<f32>() {
 			// If we can convert to a number, do that

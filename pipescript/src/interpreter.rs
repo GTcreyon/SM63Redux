@@ -10,8 +10,6 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 		let instruction = line.first().unwrap().expect_instruction(); // So should this
 		line_idx += 1; // KEEP IN MIND! We iterate AT THE START NOT AT THE END!
 
-		// godot_print!("{}: {}", line_idx, instruction.as_ref());
-
 		// Execute the current instruction
 		match instruction {
 			// Variable control
@@ -109,7 +107,7 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 			PSInstructionSet::PrintNoLn => {
 				if line.len() < 2 { panic!("{}", PSError::error_message(PSError::MissingArgument)) }
 				for arg in line.split_at(1).1 {
-					godot_print!("{} ", get_variable(arg, env).to_string());
+					gdnative::log::print(get_variable(arg, env).to_string());
 				}
 			},
 			PSInstructionSet::Print => {
@@ -129,11 +127,12 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 			PSInstructionSet::DebugCmds => {
 				godot_print!("--- PRINT CMDS ---");
 				for idx in 0..lines.len() {
-					godot_print!(" {}: ", idx);
+					let mut print_msg = format!(" {}: ", idx);
 					for str in lines.get(idx).unwrap() {
-						godot_print!("{} ", str.to_string()); //TODO: fix this
+						print_msg += str.to_string().as_str();
+						print_msg += " ";
 					};
-					godot_print!("");
+					godot_print!("{}", print_msg);
 				};
 				godot_print!("--- ---------- ---");
 			}

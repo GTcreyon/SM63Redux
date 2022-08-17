@@ -100,11 +100,9 @@ func test_call(arg):
 
 func _on_Run_pressed():
 	pipescript.interpret("""
-string-literal func_name foo
-string-literal get_parent get_parent
-
-gd-call-set parent self get_parent
-gd-call self func_name parent
+debug-cmds
+gd-call-set parent self get_parent.S
+gd-call self foo.S parent
 """)
 	get_parent()
 	pipescript.set_object_variable("self", get_node("Test1"))
