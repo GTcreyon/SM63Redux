@@ -103,7 +103,13 @@ func _on_Run_pressed():
 debug-cmds
 gd-call-set parent self get_parent.S
 gd-call self foo.S parent
+
+gd-call-set new_pos button get_position.S
+gd-vec2-get new_pos_x new_pos x.S
+add new_pos_x new_pos_x 20
+gd-vec2-set new_pos_x new_pos x.S
+gd-call button set_position.S new_pos
 """)
-	get_parent()
 	pipescript.set_object_variable("self", get_node("Test1"))
+	pipescript.set_object_variable("button", get_parent().get_child(1).get_child(0))
 	pipescript.execute()

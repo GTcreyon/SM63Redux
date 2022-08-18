@@ -56,6 +56,9 @@ pub fn source_to_instructions(buffer: String) -> (Vec<Vec<PSValue>>, HashMap<Str
 					"calc" => PSValue::Instruction(PSInstructionSet::Calc),
 					"gd-call" => PSValue::Instruction(PSInstructionSet::GodotCall),
 					"gd-call-set" => PSValue::Instruction(PSInstructionSet::GodotCallReturns),
+					"gd-vec2-new" => PSValue::Instruction(PSInstructionSet::GodotVector2Create),
+					"gd-vec2-get" => PSValue::Instruction(PSInstructionSet::GodotVector2GetAxis),
+					"gd-vec2-set" => PSValue::Instruction(PSInstructionSet::GodotVector2SetAxis),
 					_ => panic!("{}", PSError::error_message(PSError::InvalidCommand))
 				}
 			);

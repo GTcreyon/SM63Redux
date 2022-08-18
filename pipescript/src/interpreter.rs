@@ -1,6 +1,6 @@
 
 use crate::ps_env::*;
-use gdnative::prelude::{godot_print, OwnedToVariant, Variant, FromVariant};
+use gdnative::prelude::{godot_print, OwnedToVariant, Variant, FromVariant, Vector2};
 
 pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSValue>) {
 	let line_count = lines.len();
@@ -222,6 +222,37 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 					Err(err) => panic!("{}", err.to_string())
 				}
 			},
+			// Godot Vector2 Library
+			PSInstructionSet::GodotVector2Create => {
+				let x = get_variable(&line[2], env).expect_number();
+				let y = get_variable(&line[3], env).expect_number();
+				set_variable(&line[1], PSValue::GodotVector2(Vector2::new(x, y)), env);
+			},
+			PSInstructionSet::GodotVector2GetAxis => {
+				let vector = get_variable(&line[2], env).expect_vector2();
+				let axis = get_variable(&line[3], env).expect_string();
+				set_variable(&line[1], PSValue::Number( if axis == "x" {
+					vector.x
+				} else if axis == "y" {
+					vector.y
+				} else {
+					panic!("{}", PSError::error_message(PSError::InvalidVector2Axis));
+				} ), env);
+			},
+			PSInstructionSet::GodotVector2SetAxis => {
+				let number = get_variable(&line[1], env).expect_number();
+				let axis = get_variable(&line[3], env).expect_string();
+				let mut vector = get_variable(&line[2], env).expect_vector2();
+				if axis == "x" {
+					vector.x = number;
+				} else if axis == "y" {
+					vector.y = number;
+				} else {
+					panic!("{}", PSError::error_message(PSError::InvalidVector2Axis));
+				}
+				// Since .expect_* clone the values, we have to re-assign them
+				set_variable(&line[2], PSValue::GodotVector2(vector), env);
+			}
 			// Instructions which should do nothing.
 			PSInstructionSet::End => (),
 			PSInstructionSet::Calc => (),

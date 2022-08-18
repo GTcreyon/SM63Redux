@@ -1,6 +1,6 @@
 
 use std::collections::HashMap;
-use gdnative::prelude::{Object, Ref, ToVariant, Variant, FromVariant, FromVariantError, Shared};
+use gdnative::prelude::{Object, Ref, ToVariant, Variant, FromVariant, FromVariantError, Shared, Vector2};
 use strum_macros::AsRefStr;
 
 #[derive(Clone, Copy, PartialEq, Eq, AsRefStr)]
@@ -41,7 +41,10 @@ pub enum PSInstructionSet {
 	HashToken = 34,
 	Calc = 35,
 	GodotCall = 36,
-	GodotCallReturns = 37
+	GodotCallReturns = 37,
+	GodotVector2Create = 38,
+	GodotVector2SetAxis = 39,
+	GodotVector2GetAxis = 40
 }
 
 pub enum PSError {
@@ -56,7 +59,8 @@ pub enum PSError {
 	ReturnFromNoCaller,
 	MalformattedVariable,
 	InvalidOperator,
-	MalformattedCalculation
+	MalformattedCalculation,
+	InvalidVector2Axis
 }
 
 // TODO: Give error messages line (& character information)
@@ -74,7 +78,8 @@ impl PSError {
 			PSError::ReturnFromNoCaller => "Attempted to return from a function which hasn't been called.",
 			PSError::MalformattedVariable => "Malformatted variable name and or number literal. The use of literal strings is prohibited. Input must be a valid variable name or number.",
 			PSError::InvalidOperator => "Invalid operator found in calculation instruction.",
-			PSError::MalformattedCalculation => "Malformatted calculation instruction (make sure the structure is OK)."
+			PSError::MalformattedCalculation => "Malformatted calculation instruction (make sure the structure is OK).",
+			PSError::InvalidVector2Axis => "Only valid axis are 'x' or 'y'. Written down like 'x.S' or 'y.S' in code."
 		}
 	}
 }
@@ -86,6 +91,7 @@ pub enum PSValue {
 	VarIndex(usize),
 	Instruction(PSInstructionSet),
 	GodotObject(Ref<Object>),
+	GodotVector2(Vector2),
 	None
 }
 
@@ -94,6 +100,7 @@ impl FromVariant for PSValue {
 		if variant.is_nil() { return Ok(PSValue::None); }
 		if let Ok(v) = f32::from_variant(variant) { return Ok(PSValue::Number(v)); }
 		if let Ok(v) = String::from_variant(variant) { return Ok(PSValue::String(v)); }
+		if let Ok(v) = Vector2::from_variant(variant) { return Ok(PSValue::GodotVector2(v)); }
 		if let Ok(v) = Ref::<Object, Shared>::from_variant(variant) { return Ok(PSValue::GodotObject(v)); }
 		Err(FromVariantError::CannotCast { class: variant.to_string(), to: "PSValue" })
     }
@@ -108,6 +115,7 @@ impl ToVariant for PSValue {
             PSValue::VarIndex(_) => Variant::nil(), // Variable pointers cannot be exported
             PSValue::Instruction(_) => Variant::nil(), // Instructions cannot be exported
             PSValue::GodotObject(v) => v.to_variant(),
+            PSValue::GodotVector2(v) => v.to_variant(),
 			PSValue::None => Variant::nil()
 		}
     }
@@ -123,6 +131,7 @@ impl From<&PSValue> for String {
 			PSValue::VarIndex(v) => v.to_string(),
 			PSValue::Instruction(v) => v.as_ref().to_string(),
 			PSValue::GodotObject(_) => String::from("ObjectRef#????"),
+			PSValue::GodotVector2(v) => format!("Vec2({}, {})", v.x, v.y),
 			PSValue::None => String::from("None")
 		}
 	}
@@ -144,6 +153,7 @@ impl Clone for PSValue {
 			PSValue::VarIndex(v) => PSValue::VarIndex(v.to_owned()),
 			PSValue::Instruction(_) => PSValue::None, // Instruction sets are not duplicatable
 			PSValue::GodotObject(_) => PSValue::None, // GodotObjects sets are not duplicatable
+			PSValue::GodotVector2(v) => PSValue::GodotVector2(v.to_owned()),
 			PSValue::None => PSValue::None
 		}
 	}
@@ -193,6 +203,13 @@ impl PSValue {
 		}
 	}
 
+	pub fn expect_vector2(&self) -> Vector2 {
+		match self {
+			PSValue::GodotVector2(val) => val.to_owned(),
+			_ => panic!("{} (got {}, expected Vector2): Value {}", PSError::error_message(PSError::WrongType), self.get_type_as_text(), String::from(self))
+		}
+	}
+
 	pub fn is_defined(&self) -> bool {
 		match self {
 			PSValue::None => false,
@@ -209,6 +226,7 @@ impl PSValue {
 			PSValue::VarIndex(_) => "VarIndex",
 			PSValue::Instruction(_) => "Instruction",
 			PSValue::GodotObject(_) => "GodotObject",
+			PSValue::GodotVector2(_) => "GodotVector2",
 			PSValue::None => "None"
 		}
 	}
