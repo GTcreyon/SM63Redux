@@ -30,7 +30,7 @@
 		"display": "normal"
 	},
 	{
-		"segments": "function $+label",
+		"segments": "function $function_name $+label",
 		"type": "function",
 		"display": "begin"
 	},
@@ -46,7 +46,7 @@
 	},
 	{
 		"segments": "godot call with return $function_name $+expression",
-		"type": "gd-call",
+		"type": "gd-call-return",
 		"display": "normal"
 	}
 ]

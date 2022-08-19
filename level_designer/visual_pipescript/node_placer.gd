@@ -48,8 +48,14 @@ func compile_to_source(start_piece):
 				pass
 			"exit":
 				source_code += "exit!\n"
+			"function":
+				source_code += "function %s\n" % piece.get_input_text(0)
+				compile_to_source(piece.bottom_connection)
+				source_code += "return\n"
+			"call":
+				source_code += "call %s\n" % piece.get_input_text(0)
 			_:
-				print("Unknown piece ", piece.json_data.type)
+				printerr("Unknown piece ", piece.json_data.type)
 		
 		if piece.bottom_connection != null:
 			queue.append(piece.bottom_connection)
@@ -110,15 +116,23 @@ func test_call(arg):
 	print("Yoo called from rust: ", arg)
 
 func _on_Run_pressed():
+		# Make sure to empty the code holder
+	source_code = "debug-cmds\n"
+	
+	# First compile functions
+	for node in graph.get_children():
+		if node.json_data.type == "function":
+			compile_to_source(node)
+	
+	# Find a starter node
 	var start_node
 	for node in graph.get_children():
 		if node.json_data.type == "start":
 			start_node = node
 			break
 	
+	# If we found a starters node, then compile from there too
 	if start_node:
-		# Make sure to empty the code holder
-		source_code = ""
 		compile_to_source(start_node)
 
 		print("-- SRC --")

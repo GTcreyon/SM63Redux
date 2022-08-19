@@ -48,7 +48,7 @@ fn statement_configure(lines: &mut Vec<Vec<PSValue>>) {
 				panic!("{}", PSError::error_message(PSError::UnfinishedIfStatement))
 			}
 		} else if instruction == &PSInstructionSet::Function {
-			let mut inner_idx = line_idx;
+			let mut inner_idx = line_idx + 1;
 			while inner_idx < line_count {
 				let inner_commands = lines.get_mut(inner_idx).unwrap();
 				let inner_instruction = inner_commands.first().unwrap().expect_instruction();
@@ -64,7 +64,7 @@ fn statement_configure(lines: &mut Vec<Vec<PSValue>>) {
 				}
 				inner_idx += 1;
 			}
-			if inner_idx < line_count {
+			if inner_idx >= line_count {
 				panic!("{}", PSError::error_message(PSError::UnfinishedFunctionStatement));
 			}
 		}

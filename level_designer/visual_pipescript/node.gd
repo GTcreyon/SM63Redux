@@ -83,8 +83,22 @@ func get_anchor_position(type: String) -> Vector2:
 func get_text_width(text: String) -> Vector2:
 	var width = 0
 	for c in text:
-		width += BYLIGHT.get_char_size(c as int).x
+		if c != " ":
+			width += BYLIGHT.get_char_size(c as int).x
 	return Vector2(width, BYLIGHT.get_height())
+
+func add_input_field_on_press(button, field_text):
+	var text_size = get_text_width(field_text)
+	var label = LineEdit.new()
+	label.add_font_override("font", BYLIGHT)
+	label.add_stylebox_override("normal", STYLEBOX)
+	label.placeholder_text = field_text
+	label.rect_size = text_size - Vector2(8, 0)
+	label.rect_position = Vector2(button.rect_position.x, 4)
+	add_child(label)
+	line_edits.append(label)
+	button.rect_position.x += text_size.x
+	rect_size.x += text_size.x
 
 func setup(data):
 	line_edits = []
@@ -95,12 +109,22 @@ func setup(data):
 	for segment in segments:
 		var text_size = get_text_width(segment)
 		if segment.begins_with("$+"):
-			pass
+			var button = Button.new()
+			button.add_font_override("font", BYLIGHT)
+			button.add_stylebox_override("normal", STYLEBOX)
+			button.text = "+"
+			text_size = get_text_width(button.text)
+			button.align = Button.ALIGN_CENTER
+			button.rect_size = Vector2(text_size.y, text_size.y)
+			button.rect_position = Vector2(x_position, 4)
+			button.connect("pressed", self, "add_input_field_on_press", [button, segment.substr(2)])
+			add_child(button)
 		elif segment.begins_with("$"):
 			var label = LineEdit.new()
 			label.add_font_override("font", BYLIGHT)
 			label.add_stylebox_override("normal", STYLEBOX)
 			label.placeholder_text = segment.substr(1)
+			text_size = get_text_width(label.placeholder_text)
 			label.rect_size = text_size + Vector2(-8, 0)
 			label.rect_position = Vector2(x_position, 4)
 			add_child(label)
