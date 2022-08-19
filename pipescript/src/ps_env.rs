@@ -44,7 +44,8 @@ pub enum PSInstructionSet {
 	GodotCallReturns = 37,
 	GodotVector2Create = 38,
 	GodotVector2SetAxis = 39,
-	GodotVector2GetAxis = 40
+	GodotVector2GetAxis = 40,
+	Exit = 41
 }
 
 pub enum PSError {

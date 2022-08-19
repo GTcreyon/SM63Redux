@@ -253,6 +253,10 @@ pub fn execute_commands<'a>(lines: &'a mut Vec<Vec<PSValue>>, env: &mut Vec<PSVa
 				// Since .expect_* clone the values, we have to re-assign them
 				set_variable(&line[2], PSValue::GodotVector2(vector), env);
 			}
+			// Exit
+			PSInstructionSet::Exit => {
+				break;
+			},
 			// Instructions which should do nothing.
 			PSInstructionSet::End => (),
 			PSInstructionSet::Calc => (),

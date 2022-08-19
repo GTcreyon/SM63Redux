@@ -34,6 +34,18 @@ var being_dragged = false
 var holster_size_y = 0
 var json_data
 
+var line_edits = []
+
+func get_input_text(idx):
+	# TODO: Make to validate user data, you can do this by
+	# reading the tags inside of segments in pieces.json
+	# and then checking if it's valid or not
+	if line_edits[idx]:
+		if line_edits[idx].text.empty():
+			printerr("%s is not filled in!" % name)
+		return line_edits[idx].text
+	printerr("%s does not have index %s." % [name, idx])
+
 # Make sure that when we get added to a holster piece, we notify that it should increase it's size
 func set_top_connection(conn):
 	# Make sure top_connection is a valid piece
@@ -75,21 +87,24 @@ func get_text_width(text: String) -> Vector2:
 	return Vector2(width, BYLIGHT.get_height())
 
 func setup(data):
+	line_edits = []
 	json_data = data
 	# Create the labels within the block
 	var segments = data.segments.split(" ", false)
 	var x_position = 0
 	for segment in segments:
 		var text_size = get_text_width(segment)
-		if segment.begins_with("$"):
+		if segment.begins_with("$+"):
+			pass
+		elif segment.begins_with("$"):
 			var label = LineEdit.new()
 			label.add_font_override("font", BYLIGHT)
 			label.add_stylebox_override("normal", STYLEBOX)
-			label.text = segment.substr(1)
+			label.placeholder_text = segment.substr(1)
 			label.rect_size = text_size + Vector2(-8, 0)
 			label.rect_position = Vector2(x_position, 4)
 			add_child(label)
-			print(label.get_stylebox("normal"))
+			line_edits.append(label)
 		else:
 			var label = Label.new()
 			label.add_font_override("font", BYLIGHT)

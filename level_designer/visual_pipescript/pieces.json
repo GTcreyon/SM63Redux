@@ -23,5 +23,30 @@
 		"segments": "program start",
 		"type": "start",
 		"display": "begin"
+	},
+	{
+		"segments": "program forced exit",
+		"type": "exit",
+		"display": "normal"
+	},
+	{
+		"segments": "function $+label",
+		"type": "function",
+		"display": "begin"
+	},
+	{
+		"segments": "call $function_name $+expression",
+		"type": "call",
+		"display": "normal"
+	},
+	{
+		"segments": "godot call $function_name $+expression",
+		"type": "gd-call",
+		"display": "normal"
+	},
+	{
+		"segments": "godot call with return $function_name $+expression",
+		"type": "gd-call",
+		"display": "normal"
 	}
 ]

@@ -48,12 +48,6 @@ impl PipeScript {
 	}
 
 	#[godot]
-	fn i_take_a_node(&self, #[base] _owner: &Node, hello: Ref<Object>) {
-		let node = unsafe { hello.assume_unique() };
-		unsafe { node.call("test_call", &["some string idk".to_variant()]); }
-	}
-
-	#[godot]
 	fn execute(&mut self, #[base] _owner: &Node) {
 		assert!(self.lines.is_some(), "Cannot execute, source isn't ready yet! Make sure to invoke `pipescript.interpret(source: String)` first.");
 		let (lines, variable_hash, env) = (
@@ -68,6 +62,22 @@ impl PipeScript {
 	}
 
 	#[godot]
+	fn debug_print_commands(&self, #[base] _owner: &Node) {
+		assert!(self.lines.is_some(), "Cannot execute, source isn't ready yet! Make sure to invoke `pipescript.interpret(source: String)` first.");
+		let lines = self.lines.as_ref().unwrap();
+		godot_print!("--- PRINT CMDS ---");
+		for idx in 0..lines.len() {
+			let mut print_msg = format!(" {}: ", idx);
+			for str in lines.get(idx).unwrap() {
+				print_msg += str.to_string().as_str();
+				print_msg += " ";
+			};
+			godot_print!("{}", print_msg);
+		};
+		godot_print!("--- ---------- ---");
+	}
+
+	#[godot]
 	fn interpret(&mut self, #[base] _owner: &Node, source: GodotString) {
 		let (lines, variable_hash, env) = reader::source_to_instructions(
 			source.to_string()
@@ -77,11 +87,6 @@ impl PipeScript {
 		self.variable_hash = Some(variable_hash);
 		self.env = Some(env);
 	}
-
-	#[godot]
-    fn _ready(&self, #[base] _owner: &Node) {
-        godot_print!("hello, world.")
-    }
 }
 
 fn init(handle: InitHandle) {

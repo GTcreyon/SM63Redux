@@ -17,6 +17,9 @@ func get_unique_variable_name():
 	return "UNIQUE_VAR#%d#" % id
 
 func compile_to_source(start_piece):
+	if !start_piece:
+		return
+	
 	var queue = [start_piece]
 	while !queue.empty():
 		var piece = queue.pop_front()
@@ -24,23 +27,31 @@ func compile_to_source(start_piece):
 		match piece.json_data.type:
 			"if":
 				var condition = get_unique_variable_name()
-				source_code += "set %s $CONDITION$" % condition
-				source_code += "if %s" % condition
+				source_code += "calc %s %s\n" % [condition, piece.get_input_text(0)]
+				source_code += "if %s\n" % condition
 				compile_to_source(piece.inner_connection)
-				source_code += "end"
+				source_code += "end\n"
 			"loop":
 				var condition = get_unique_variable_name()
 				var label = get_unique_variable_name()
-				source_code += "set %s $CONDITION$" % condition
-				source_code += "label %s" % label
-				source_code += "if %s" % condition
+				source_code += "label %s\n" % label
+				source_code += "calc %s %s\n" % [condition, piece.get_input_text(0)]
+				source_code += "if %s\n" % condition
 				compile_to_source(piece.inner_connection)
-				source_code += "goto %s" % label
-				source_code += "end"
+				source_code += "goto %s\n" % label
+				source_code += "end\n"
+			"set":
+				source_code += "calc %s %s\n" % [piece.get_input_text(0), piece.get_input_text(1)]
+			"print":
+				source_code += "print %s\n" % piece.get_input_text(0)
+			"start":
+				pass
+			"exit":
+				source_code += "exit!\n"
 			_:
 				print("Unknown piece ", piece.json_data.type)
 		
-		if piece.bottom_connection:
+		if piece.bottom_connection != null:
 			queue.append(piece.bottom_connection)
 
 func compile():
@@ -99,17 +110,35 @@ func test_call(arg):
 	print("Yoo called from rust: ", arg)
 
 func _on_Run_pressed():
-	pipescript.interpret("""
-debug-cmds
-gd-call-set parent self get_parent.S
-gd-call self foo.S parent
+	var start_node
+	for node in graph.get_children():
+		if node.json_data.type == "start":
+			start_node = node
+			break
+	
+	if start_node:
+		# Make sure to empty the code holder
+		source_code = ""
+		compile_to_source(start_node)
 
-gd-call-set new_pos button get_position.S
-gd-vec2-get new_pos_x new_pos x.S
-add new_pos_x new_pos_x 20
-gd-vec2-set new_pos_x new_pos x.S
-gd-call button set_position.S new_pos
-""")
-	pipescript.set_object_variable("self", get_node("Test1"))
-	pipescript.set_object_variable("button", get_parent().get_child(1).get_child(0))
-	pipescript.execute()
+		print("-- SRC --")
+		print(source_code)
+		print("--     --")
+		
+		pipescript.interpret(source_code)
+		pipescript.execute()
+		
+#	pipescript.interpret("""
+#debug-cmds
+#gd-call-set parent self get_parent.S
+#gd-call self foo.S parent
+#
+#gd-call-set new_pos button get_position.S
+#gd-vec2-get new_pos_x new_pos x.S
+#add new_pos_x new_pos_x 20
+#gd-vec2-set new_pos_x new_pos x.S
+#gd-call button set_position.S new_pos
+#""")
+#	pipescript.set_object_variable("self", get_node("Test1"))
+#	pipescript.set_object_variable("button", get_parent().get_child(1).get_child(0))
+#	pipescript.execute()

@@ -59,6 +59,7 @@ pub fn source_to_instructions(buffer: String) -> (Vec<Vec<PSValue>>, HashMap<Str
 					"gd-vec2-new" => PSValue::Instruction(PSInstructionSet::GodotVector2Create),
 					"gd-vec2-get" => PSValue::Instruction(PSInstructionSet::GodotVector2GetAxis),
 					"gd-vec2-set" => PSValue::Instruction(PSInstructionSet::GodotVector2SetAxis),
+					"exit!" => PSValue::Instruction(PSInstructionSet::Exit),
 					_ => panic!("{}", PSError::error_message(PSError::InvalidCommand))
 				}
 			);
@@ -70,7 +71,12 @@ pub fn source_to_instructions(buffer: String) -> (Vec<Vec<PSValue>>, HashMap<Str
 					&mut env,
 					&mut variable_hash
 				));
-				commands.push(PSValue::String(expression.join(" ")));
+				if expression.len() == 1 {
+					commands[0] = PSValue::Instruction(PSInstructionSet::Set);
+					commands.push(string_to_ps_value(expression[0], &mut env, &mut variable_hash));
+				} else {
+					commands.push(PSValue::String(expression.join(" ")));
+				}
 			} else if first[0] == "string-literal" {
 				let (varname, literal) = args.split_at(1);
 				commands.push(string_to_ps_value(varname[0], &mut env, &mut variable_hash));
