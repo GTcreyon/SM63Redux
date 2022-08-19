@@ -2,6 +2,8 @@ class_name Interactable
 extends Area2D
 # Root class for objects that can be interacted with by entering an area and performing an action.
 
+export var disabled: bool = false setget set_disabled
+
 
 func _physics_process(_delta):
 	_physics_override()
@@ -23,3 +25,8 @@ func _interact_check() -> bool:
 
 func _state_check(body) -> bool:
 	return body.state == body.S.NEUTRAL and body.sign_frames <= 0
+
+
+func set_disabled(val):
+	disabled = val
+	monitoring = !val
