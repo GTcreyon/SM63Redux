@@ -1,51 +1,66 @@
 [
 	{
-		"segments": "if $expression then",
+		"segments": "If $expression then",
 		"type": "if",
 		"display": "holster"
 	},
 	{
-		"segments": "while $expression",
+		"segments": "While $expression",
 		"type": "loop",
 		"display": "holster"
 	},
 	{
-		"segments": "set $label to $expression",
+		"segments": "Set $label to $expression",
 		"type": "set",
 		"display": "normal"
 	},
 	{
-		"segments": "print $label",
+		"segments": "Print $label",
 		"type": "print",
 		"display": "normal"
 	},
 	{
-		"segments": "program start",
+		"segments": "Program start",
 		"type": "start",
 		"display": "begin"
 	},
 	{
-		"segments": "program forced exit",
+		"segments": "Program forced exit",
 		"type": "exit",
 		"display": "normal"
 	},
 	{
-		"segments": "function $function_name $+label",
+		"segments": "Function $function_name",
 		"type": "function",
 		"display": "begin"
 	},
 	{
-		"segments": "call $function_name $+expression",
+		"segments": "Create vector2 $label with x: $single and y: $single",
+		"type": "create-vector",
+		"display": "normal"
+	},
+	{
+		"segments": "Unwrap vector2 $label",
+		"type": "unwrap-vector",
+		"display": "normal"
+	},
+	{
+		"segments": "Update vector2 $label",
+		"type": "update-vector",
+		"display": "normal"
+	},
+	{
+		"segments": "Call $function_name",
 		"type": "call",
 		"display": "normal"
 	},
 	{
-		"segments": "godot call $function_name $+expression",
+		"segments": "Object $label call $function_name with $+single",
 		"type": "gd-call",
 		"display": "normal"
 	},
 	{
-		"segments": "godot call with return $function_name $+expression",
+		"segments": "Object $label call $function_name and store the return value in $label with $+single",
 		"type": "gd-call-return",
 		"display": "normal"
 	}
