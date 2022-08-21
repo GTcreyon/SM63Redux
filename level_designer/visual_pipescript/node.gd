@@ -115,7 +115,6 @@ func setup(data):
 			button.text = "+"
 			text_size = get_text_width(button.text)
 			button.align = Button.ALIGN_CENTER
-			button.rect_size = Vector2(text_size.y, text_size.y)
 			button.rect_position = Vector2(x_position, 4)
 			button.connect("pressed", self, "add_input_field_on_press", [button, segment.substr(2)])
 			add_child(button)
@@ -124,7 +123,6 @@ func setup(data):
 			label.add_font_override("font", BYLIGHT)
 			label.add_stylebox_override("normal", STYLEBOX)
 			label.placeholder_text = segment.substr(1)
-			text_size = get_text_width(label.placeholder_text)
 			label.rect_size = text_size + Vector2(-8, 0)
 			label.rect_position = Vector2(x_position, 4)
 			add_child(label)

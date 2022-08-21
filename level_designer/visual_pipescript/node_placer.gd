@@ -1,6 +1,7 @@
-extends OptionButton
+extends Node
 
-onready var graph = $"../Graph"
+onready var graph = $"/root/Main/Graph"
+onready var selection_container = $"../SelectionMenu/VBox"
 onready var pipescript = $"../PipeScript"
 onready var piece_instances = {
 	holster = preload("res://level_designer/visual_pipescript/vps_holster_piece.tscn"),
@@ -10,6 +11,8 @@ onready var piece_instances = {
 
 var pieces
 var source_code = ""
+
+var is_being_held_down = null
 
 var id = 0
 func get_unique_variable_name():
@@ -103,26 +106,38 @@ func compile_to_source(start_piece, prefix = ""):
 		if piece.bottom_connection != null:
 			queue.append(piece.bottom_connection)
 
-func compile():
-	# First find the start piece
-	var start_piece
-	for piece in graph.get_children():
-		if piece.json_data.type == "start":
-			start_piece = piece
-			break
-	compile_to_source(start_piece)
-	
-
 func _input(event):
-	if event.is_action_pressed("ld_alt_click"):
-		visible = true
-		set_position(event.position)
+	if event is InputEventMouseMotion && is_being_held_down:
+		is_being_held_down.rect_position = event.global_position
+	if event.is_action_released("ld_place") && is_being_held_down:
+		is_being_held_down = null
+
+func drag_begin(piece):
+	var instance: NinePatchRect = piece_instances[piece.display].instance()
+	graph.add_child(instance)
+	instance.setup(piece)
+	is_being_held_down = instance
 
 func add_buttons():
-	add_item("Close")
-	for piece in pieces:
-		add_item(piece.segments)
-	text = "Close"
+	var categories = [
+		"Flow",
+		"Maths",
+		"Objects",
+		"Advanced"
+	]
+	
+	for category in categories:
+		var heading = Label.new()
+		heading.align = Label.ALIGN_CENTER
+		heading.text = category
+		selection_container.add_child(heading)
+		for piece in pieces:
+			if piece.category == category:
+				var item = Button.new()
+				item.text = piece["display-name"]
+				item.align = Button.ALIGN_RIGHT
+				item.connect("button_down", self, "drag_begin", [piece])
+				selection_container.add_child(item)
 
 func _ready():
 	# get the nodes from our nodes file
@@ -134,33 +149,9 @@ func _ready():
 	# add the buttons
 	add_buttons()
 
-func _on_Place_item_selected(index):
-	var target = get_item_text(index)
-	if target == "Close":
-		text = "Close"
-		visible = false
-		select(0)
-		return
-	
-	var piece_json_data = pieces[index - 1]
-	var instance: NinePatchRect = piece_instances[piece_json_data.display].instance()
-	graph.add_child(instance)
-	
-	instance.setup(piece_json_data)
-	instance.rect_global_position = rect_global_position
-#	instance.rect_size = Vector2(50, 50)
-	
-	# Close the menu
-	text = "Close"
-	visible = false
-	select(0)
-
-func test_call(arg):
-	print("Yoo called from rust: ", arg)
-
 func _on_Run_pressed():
 		# Make sure to empty the code holder
-	source_code = "debug-cmds\n"
+	source_code = ""
 	
 	# First compile functions
 	for node in graph.get_children():
@@ -177,23 +168,7 @@ func _on_Run_pressed():
 	# If we found a starters node, then compile from there too
 	if start_node:
 		compile_to_source(start_node)
-		print("-- SRC --")
-		print(source_code)
-		print("--     --")
 		pipescript.interpret(source_code)
 		pipescript.set_object_variable("self", get_parent().get_child(1).get_child(0))
 		pipescript.execute()
 		
-#	pipescript.interpret("""
-#debug-cmds
-#gd-call-set parent self get_parent.S
-#gd-call self foo.S parent
-#
-#gd-call-set new_pos button get_position.S
-#gd-vec2-get new_pos_x new_pos x.S
-#add new_pos_x new_pos_x 20
-#gd-vec2-set new_pos_x new_pos x.S
-#gd-call button set_position.S new_pos
-#""")
-#	pipescript.set_object_variable("button", get_parent().get_child(1).get_child(0))
-#	pipescript.execute()

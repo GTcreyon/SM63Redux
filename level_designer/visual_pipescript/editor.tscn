@@ -2,9 +2,8 @@
 
 [ext_resource path="res://level_designer/visual_pipescript/node_placer.gd" type="Script" id=1]
 [ext_resource path="res://pipescript/bin/pipescript.gdns" type="Script" id=2]
-[ext_resource path="res://level_designer/visual_pipescript/test1.gd" type="Script" id=3]
-
-[sub_resource type="Theme" id=1]
+[ext_resource path="res://level_designer/visual_pipescript/camera_mover.gd" type="Script" id=3]
+[ext_resource path="res://level_designer/visual_pipescript/visual_editor_theme.tres" type="Theme" id=4]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -15,23 +14,27 @@ mouse_filter = 2
 anchor_mode = 0
 current = true
 
-[node name="CanvasLayer" type="Control" parent="."]
+[node name="Graph" type="CanvasLayer" parent="."]
+layer = 0
+follow_viewport_enable = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Theme" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+theme = ExtResource( 4 )
 
-[node name="Graph" type="Panel" parent="CanvasLayer"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 40.0
-mouse_filter = 2
+[node name="Place" type="Node" parent="CanvasLayer/Theme"]
+script = ExtResource( 1 )
 
-[node name="Titlebar" type="ColorRect" parent="CanvasLayer"]
+[node name="Titlebar" type="ColorRect" parent="CanvasLayer/Theme"]
 anchor_right = 1.0
 margin_bottom = 40.0
 color = Color( 0.403957, 0.3818, 0.46, 1 )
 
-[node name="Run" type="Button" parent="CanvasLayer/Titlebar"]
+[node name="Run" type="Button" parent="CanvasLayer/Theme/Titlebar"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -42,16 +45,15 @@ margin_right = -10.0
 margin_bottom = -10.0
 text = "Run"
 
-[node name="Save" type="Button" parent="CanvasLayer/Titlebar"]
+[node name="Save" type="Button" parent="CanvasLayer/Theme/Titlebar"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 10.0
 margin_top = -30.0
 margin_bottom = -10.0
-theme = SubResource( 1 )
 text = "Save"
 
-[node name="Load" type="Button" parent="CanvasLayer/Titlebar"]
+[node name="Load" type="Button" parent="CanvasLayer/Theme/Titlebar"]
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 61.0
@@ -59,22 +61,26 @@ margin_top = -30.0
 margin_bottom = -10.0
 text = "Load"
 
-[node name="Place" type="OptionButton" parent="CanvasLayer"]
-visible = false
-anchor_top = 1.0
+[node name="SelectionMenu" type="ScrollContainer" parent="CanvasLayer/Theme"]
 anchor_bottom = 1.0
-margin_left = 5.0
-margin_top = -305.0
-margin_right = 106.0
-margin_bottom = -285.0
-text = "Place Node"
-script = ExtResource( 1 )
+margin_top = 40.0
+scroll_horizontal_enabled = false
 
-[node name="Test1" type="Node" parent="CanvasLayer/Place"]
-script = ExtResource( 3 )
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/Theme/SelectionMenu"]
+margin_bottom = 320.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="PipeScript" type="Node" parent="CanvasLayer"]
+[node name="PipeScript" type="Node" parent="CanvasLayer/Theme"]
 script = ExtResource( 2 )
 
-[connection signal="pressed" from="CanvasLayer/Titlebar/Run" to="CanvasLayer/Place" method="_on_Run_pressed"]
-[connection signal="item_selected" from="CanvasLayer/Place" to="CanvasLayer/Place" method="_on_Place_item_selected"]
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="Graph" type="Panel" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[connection signal="pressed" from="CanvasLayer/Theme/Titlebar/Run" to="CanvasLayer/Theme/Place" method="_on_Run_pressed"]
+[connection signal="gui_input" from="Background/Graph" to="Background/Graph" method="_on_Graph_gui_input"]
