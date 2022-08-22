@@ -105,8 +105,6 @@ resizable = true
 mode_overrides_title = false
 access = 2
 filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
-current_dir = "/Users/jasch/OneDrive/Documenten/GitHub/SM63Redux"
-current_path = "/Users/jasch/OneDrive/Documenten/GitHub/SM63Redux/"
 script = ExtResource( 6 )
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
@@ -119,8 +117,6 @@ mode_overrides_title = false
 mode = 0
 access = 2
 filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
-current_dir = "/Users/jasch/OneDrive/Documenten/GitHub/SM63Redux"
-current_path = "/Users/jasch/OneDrive/Documenten/GitHub/SM63Redux/"
 script = ExtResource( 27 )
 
 [node name="HoverUI" type="Control" parent="UILayer"]

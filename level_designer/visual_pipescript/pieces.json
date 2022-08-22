@@ -80,6 +80,7 @@
 	},
 
 	
+
 	{
 		"segments": "Object $label call $function_name with $+single",
 		"type": "gd-call",

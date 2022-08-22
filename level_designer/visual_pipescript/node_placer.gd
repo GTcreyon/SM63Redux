@@ -1,8 +1,9 @@
 extends Node
 
-onready var graph = $"/root/Main/Graph"
-onready var selection_container = $"../SelectionMenu/VBox"
-onready var pipescript = $"../PipeScript"
+onready var graph = $Graph
+onready var camera := $Camera
+onready var selection_container = $CanvasLayer/Theme/SelectionMenu/VBox
+onready var pipescript = $PipeScript
 onready var piece_instances = {
 	holster = preload("res://level_designer/visual_pipescript/vps_holster_piece.tscn"),
 	normal = preload("res://level_designer/visual_pipescript/vps_piece.tscn"),
@@ -106,17 +107,18 @@ func compile_to_source(start_piece, prefix = ""):
 		if piece.bottom_connection != null:
 			queue.append(piece.bottom_connection)
 
-func _input(event):
-	if event is InputEventMouseMotion && is_being_held_down:
-		is_being_held_down.rect_position = event.global_position
-	if event.is_action_released("ld_place") && is_being_held_down:
-		is_being_held_down = null
+#func _input(event):
+#	if event is InputEventMouseMotion && is_being_held_down:
+#		is_being_held_down.rect_position = event.position + camera.position
+#	if event.is_action_released("ld_place") && is_being_held_down:
+#		is_being_held_down = null
 
 func drag_begin(piece):
 	var instance: NinePatchRect = piece_instances[piece.display].instance()
-	graph.add_child(instance)
 	instance.setup(piece)
-	is_being_held_down = instance
+	instance.creation_drag = true
+	graph.add_child(instance)
+#	is_being_held_down = instance
 
 func add_buttons():
 	var categories = [

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=2]
+[gd_resource type="Theme" load_steps=9 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
 
@@ -64,8 +64,23 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 2
 
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.913725, 0.913725, 0.913725, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
+
 [sub_resource type="StyleBoxFlat" id=6]
-bg_color = Color( 0.30835, 0.2905, 0.35, 1 )
+bg_color = Color( 0.913725, 0.913725, 0.913725, 1 )
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color( 0, 0, 0, 1 )
+border_blend = true
 
 [resource]
 default_font = ExtResource( 1 )
@@ -76,4 +91,5 @@ Button/styles/focus = SubResource( 3 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 1 )
 Button/styles/pressed = SubResource( 5 )
+Panel/styles/panel = SubResource( 7 )
 ScrollContainer/styles/bg = SubResource( 6 )

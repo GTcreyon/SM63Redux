@@ -1,5 +1,6 @@
 extends NinePatchRect
 
+onready var camera = $"root/Main/Camera"
 onready var graph = get_parent()
 
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
@@ -31,6 +32,7 @@ var inner_connection
 var bottom_connection
 
 var being_dragged = false
+var creation_drag = false
 var holster_size_y = 0
 var json_data
 
@@ -173,9 +175,25 @@ func snap_to_others():
 				move_piece(inner - piece_anchor_points[json_data.display].top_connection)
 				return [piece, "inner_connection"]
 
+# Creation drag
+func _input(event):
+	if creation_drag:
+		if event is InputEventMouseButton and event.is_action_released("ld_place"):
+			creation_drag = false
+			# Connect to the node on top
+			var connection = snap_to_others()
+			if connection:
+				connection[0][connection[1]] = self
+				set_top_connection(connection[0])
+			accept_event()
+		if event is InputEventMouseMotion:
+			move_piece(get_global_mouse_position())
+			snap_to_others()
+			accept_event()
+
 # Handle being dragged.
 func _gui_input(event):
-	if event is InputEventMouseButton and event.pressed:
+	if event is InputEventMouseButton and event.is_action_pressed("ld_place"):
 		being_dragged = rect_global_position - get_global_mouse_position()
 		# Disconnect the node from our top connection
 		if top_connection:
@@ -184,13 +202,16 @@ func _gui_input(event):
 			if top_connection.inner_connection == self:
 				top_connection.inner_connection = null
 		set_top_connection(null)
-	if event is InputEventMouseButton and not event.pressed:
+		accept_event()
+	if event is InputEventMouseButton and event.is_action_released("ld_place"):
 		being_dragged = false
 		# Connect to the node on top
 		var connection = snap_to_others()
 		if connection:
 			connection[0][connection[1]] = self
 			set_top_connection(connection[0])
+		accept_event()
 	if being_dragged and event is InputEventMouseMotion:
 		move_piece(get_global_mouse_position() + being_dragged)
 		snap_to_others()
+		accept_event()
