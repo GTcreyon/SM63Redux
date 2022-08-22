@@ -1,10 +1,10 @@
 extends NinePatchRect
 
-onready var camera = $"root/Main/Camera"
 onready var graph = get_parent()
 
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
 const STYLEBOX = preload("res://level_designer/visual_pipescript/line_edit_style.stylebox")
+const EDITOR_THEME = preload("res://level_designer/visual_pipescript/visual_editor_theme.tres")
 
 # Anchor points
 var piece_anchor_points = {
@@ -191,8 +191,25 @@ func _input(event):
 			snap_to_others()
 			accept_event()
 
-# Handle being dragged.
+func dropdown_pressed(index, text):
+	print(index, text)
+
 func _gui_input(event):
+	# Enable the dropdown menu for the nodes
+	if event.is_action_pressed("ld_alt_click"):
+		var dropdown = DropdownMenu.new()
+		dropdown.options = [
+			"Duplicate",
+			"Delete"
+		]
+		dropdown.rect_global_position = get_global_mouse_position() - rect_global_position
+		dropdown.theme = EDITOR_THEME
+		dropdown.connect("button_pressed", self, "dropdown_pressed")
+		add_child(dropdown)
+		
+		accept_event()
+	
+	# Handle being dragged.
 	if event is InputEventMouseButton and event.is_action_pressed("ld_place"):
 		being_dragged = rect_global_position - get_global_mouse_position()
 		# Disconnect the node from our top connection

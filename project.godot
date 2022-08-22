@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://src/global/base_modifier.gd"
 }, {
 "base": "Container",
+"class": "DropdownMenu",
+"language": "GDScript",
+"path": "res://gui/custom_nodes/dropdown_menu.gd"
+}, {
+"base": "Container",
 "class": "OutlineContainer",
 "language": "GDScript",
 "path": "res://gui/custom_nodes/outline_container.gd"
@@ -41,6 +46,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
+"DropdownMenu": "",
 "OutlineContainer": "",
 "PolygonContainer": "",
 "SM63ToRedux": "",

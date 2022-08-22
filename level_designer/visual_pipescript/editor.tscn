@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://level_designer/visual_pipescript/node_placer.gd" type="Script" id=1]
 [ext_resource path="res://pipescript/bin/pipescript.gdns" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://level_designer/visual_pipescript/visual_editor_theme.tres" type="Theme" id=4]
 [ext_resource path="res://level_designer/background.tres" type="Material" id=5]
 [ext_resource path="res://level_designer/visual_pipescript/editor_background.png" type="Texture" id=6]
+[ext_resource path="res://level_designer/visual_pipescript/visual_compiler.gd" type="Script" id=7]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -15,6 +16,11 @@ script = ExtResource( 1 )
 
 [node name="PipeScript" type="Node" parent="."]
 script = ExtResource( 2 )
+
+[node name="VisualCompiler" type="Node" parent="PipeScript"]
+script = ExtResource( 7 )
+
+[node name="FunctionHandler" type="Node" parent="PipeScript"]
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
