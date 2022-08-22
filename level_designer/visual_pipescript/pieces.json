@@ -42,6 +42,36 @@
 		"display-name": "Call function"
 	},
 
+	
+	{
+		"segments": "Move $label its $[x|y] position forward by $expression",
+		"type": "duplicate",
+		"display": "normal",
+		"category": "Objects",
+		"display-name": "Move object"
+	},
+	{
+		"segments": "Set $label its $[x|y] position to $expression",
+		"type": "duplicate",
+		"display": "normal",
+		"category": "Objects",
+		"display-name": "Set position of object"
+	},
+	{
+		"segments": "Duplicate $label",
+		"type": "duplicate",
+		"display": "normal",
+		"category": "Objects",
+		"display-name": "Duplicate object"
+	},
+	{
+		"segments": "Remove $label",
+		"type": "remove",
+		"display": "normal",
+		"category": "Objects",
+		"display-name": "Remove object"
+	},
+
 
 	{
 		"segments": "Set $label to $expression",
