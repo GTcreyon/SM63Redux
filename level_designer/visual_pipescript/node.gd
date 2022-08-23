@@ -90,6 +90,12 @@ func get_text_width(text: String) -> Vector2:
 			width += BYLIGHT.get_char_size(c as int).x
 	return Vector2(width, BYLIGHT.get_height())
 
+func focus_changed(is_focus, index):
+	if is_focus:
+		node_placer.selected_node = self
+		node_placer.selected_index = index
+
+# This gets called whenever the user pressed on "+" on function arguments
 func add_input_field_on_press(button, field_text):
 	var text_size = get_text_width(field_text)
 	var label = LineEdit.new()
@@ -98,11 +104,15 @@ func add_input_field_on_press(button, field_text):
 	label.placeholder_text = field_text
 	label.rect_size = text_size - Vector2(8, 0)
 	label.rect_position = Vector2(button.rect_position.x, 4)
+	label.connect("focus_entered", self, "focus_changed", [true, len(line_edits)])
+	label.connect("focus_exited", self, "focus_changed", [false, len(line_edits)])
 	add_child(label)
 	line_edits.append(label)
 	button.rect_position.x += text_size.x
 	rect_size.x += text_size.x
 
+# Call this to configure the node with json_data
+# Do not call twice on a node
 func setup(data):
 	line_edits = []
 	json_data = data
@@ -128,6 +138,8 @@ func setup(data):
 			label.placeholder_text = segment.substr(1)
 			label.rect_size = text_size + Vector2(-8, 0)
 			label.rect_position = Vector2(x_position, 4)
+			label.connect("focus_entered", self, "focus_changed", [true, len(line_edits)])
+			label.connect("focus_exited", self, "focus_changed", [false, len(line_edits)])
 			add_child(label)
 			line_edits.append(label)
 		else:
@@ -192,6 +204,8 @@ func _input(event):
 			snap_to_others()
 			accept_event()
 
+# A catch-all delete function for this node
+# It's a bit wierd but it enscures all connections are properly dealt with
 func delete_self(recursive):
 	if top_connection:
 		if top_connection.bottom_connection == self:
@@ -213,6 +227,8 @@ func delete_self(recursive):
 			bottom_connection = null
 	queue_free()
 
+# Duplicate the node
+# It does not duplicate function arguments
 func clone():
 	var dupe = node_placer.drag_begin(json_data)
 	# We use len(dupe.line_edits) not len(line_edits) since dynamic function arguments might error
@@ -239,28 +255,35 @@ func dropdown_pressed(index, text):
 				inner_connection = null
 		# TODO: Do the keyboard mode thingy
 		"Insert below":
-			pass
+			node_placer.selected_node = self
+			node_placer.selected_index = -1
 		"Insert inner":
-			pass
+			node_placer.selected_node = self
+			node_placer.selected_index = -2
 
 func _gui_input(event):
 	# Enable the dropdown menu for the nodes
 	if event.is_action_pressed("ld_alt_click"):
 		var dropdown = DropdownMenu.new()
-		dropdown.options = [
+		var options = [
 			"Duplicate",
 			"Delete",
 			"Delete all",
 			"---",
 			"Insert below",
-			"Insert inner",
+		]
+		# Only holsters can have the inner option
+		if json_data.display == "holster":
+			options.append("Insert inner")
+		options.append_array([
 			("" if bottom_connection else "---#") + "Disconnect below",
 			("" if inner_connection else "---#") + "Disconnect inner"
-		]
+		])
+		dropdown.options = options
 		dropdown.rect_global_position = get_global_mouse_position()# - rect_global_position
 		dropdown.theme = EDITOR_THEME
 		dropdown.connect("button_pressed", self, "dropdown_pressed")
-		get_parent().get_parent().add_child(dropdown)
+		node_placer.add_child(dropdown)
 		
 		accept_event()
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://level_designer/visual_pipescript/node_placer.gd" type="Script" id=1]
 [ext_resource path="res://pipescript/bin/pipescript.gdns" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://level_designer/background.tres" type="Material" id=5]
 [ext_resource path="res://level_designer/visual_pipescript/editor_background.png" type="Texture" id=6]
 [ext_resource path="res://level_designer/visual_pipescript/visual_compiler.gd" type="Script" id=7]
+[ext_resource path="res://level_designer/visual_pipescript/phantom_style.tres" type="StyleBox" id=8]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -70,6 +71,11 @@ margin_left = 61.0
 margin_top = -30.0
 margin_bottom = -10.0
 text = "Load"
+
+[node name="LineEdit" type="LineEdit" parent="CanvasLayer/Theme/Titlebar"]
+margin_right = 70.0
+margin_bottom = 25.0
+custom_styles/normal = ExtResource( 8 )
 
 [node name="SelectionMenu" type="ScrollContainer" parent="CanvasLayer/Theme"]
 anchor_bottom = 1.0
