@@ -84,7 +84,11 @@ border_blend = true
 
 [resource]
 default_font = ExtResource( 1 )
-Button/colors/font_color_disabled = Color( 0.717647, 0.717647, 0.717647, 1 )
+Button/colors/font_color = Color( 1, 1, 1, 1 )
+Button/colors/font_color_disabled = Color( 0.38, 0.38, 0.38, 1 )
+Button/colors/font_color_focus = Color( 1, 1, 1, 1 )
+Button/colors/font_color_hover = Color( 0.75, 0.75, 0.75, 1 )
+Button/colors/font_color_pressed = Color( 0.65098, 0.65098, 0.65098, 1 )
 Button/constants/hseparation = 3
 Button/styles/disabled = SubResource( 2 )
 Button/styles/focus = SubResource( 3 )

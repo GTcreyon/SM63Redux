@@ -1,5 +1,6 @@
 extends NinePatchRect
 
+onready var node_placer = $"/root/Main"
 onready var graph = get_parent()
 
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
@@ -191,8 +192,56 @@ func _input(event):
 			snap_to_others()
 			accept_event()
 
+func delete_self(recursive):
+	if top_connection:
+		if top_connection.bottom_connection == self:
+			top_connection.bottom_connection = null
+		if top_connection.inner_connection == self:
+			top_connection.inner_connection = null
+		set_top_connection(null)
+	if inner_connection:
+		if recursive:
+			inner_connection.delete_self(true)
+		else:
+			inner_connection.set_top_connection(null)
+			inner_connection = null
+	if bottom_connection:
+		if recursive:
+			bottom_connection.delete_self(true)
+		else:
+			bottom_connection.set_top_connection(null)
+			bottom_connection = null
+	queue_free()
+
+func clone():
+	var dupe = node_placer.drag_begin(json_data)
+	# We use len(dupe.line_edits) not len(line_edits) since dynamic function arguments might error
+	for index in len(dupe.line_edits):
+		dupe.line_edits[index].text = line_edits[index].text
+
 func dropdown_pressed(index, text):
-	print(index, text)
+	match text:
+		"Duplicate":
+			clone()
+		"Delete":
+			delete_self(false)
+		"Delete all":
+			delete_self(true)
+		"Disconnect below":
+			if bottom_connection:
+				bottom_connection.move_piece(bottom_connection.rect_global_position + Vector2(8, 8))
+				bottom_connection.set_top_connection(null)
+				bottom_connection = null
+		"Disconnect inner":
+			if inner_connection:
+				inner_connection.move_piece(inner_connection.rect_global_position + Vector2(8, 8))
+				inner_connection.set_top_connection(null)
+				inner_connection = null
+		# TODO: Do the keyboard mode thingy
+		"Insert below":
+			pass
+		"Insert inner":
+			pass
 
 func _gui_input(event):
 	# Enable the dropdown menu for the nodes
@@ -200,12 +249,18 @@ func _gui_input(event):
 		var dropdown = DropdownMenu.new()
 		dropdown.options = [
 			"Duplicate",
-			"Delete"
+			"Delete",
+			"Delete all",
+			"---",
+			"Insert below",
+			"Insert inner",
+			("" if bottom_connection else "---#") + "Disconnect below",
+			("" if inner_connection else "---#") + "Disconnect inner"
 		]
-		dropdown.rect_global_position = get_global_mouse_position() - rect_global_position
+		dropdown.rect_global_position = get_global_mouse_position()# - rect_global_position
 		dropdown.theme = EDITOR_THEME
 		dropdown.connect("button_pressed", self, "dropdown_pressed")
-		add_child(dropdown)
+		get_parent().get_parent().add_child(dropdown)
 		
 		accept_event()
 	

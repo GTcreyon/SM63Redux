@@ -17,6 +17,7 @@ func drag_begin(piece):
 	instance.setup(piece)
 	instance.creation_drag = true
 	graph.add_child(instance)
+	return instance
 
 func add_buttons():
 	var categories = [

@@ -22,6 +22,7 @@ func button_pressed(index, text):
 	queue_free()
 
 func update_options(new):
+	new.append("---")
 	new.append("Close")
 	options = new
 	refresh()
@@ -36,6 +37,9 @@ func update_spacing(new):
 
 func refresh():
 	clear_all_children()
+	
+	var transparent_background = StyleBoxFlat.new()
+	transparent_background.bg_color = Color(0, 0, 0, 0)
 	
 	var panel = Panel.new()
 	add_child(panel)
@@ -68,6 +72,16 @@ func refresh():
 			var label = Button.new()
 			label.align = Button.ALIGN_CENTER
 			label.text = option
+			# Handle disabled options
+			if option.begins_with("---!"):
+				label.disabled = true
+			
+			# Make sure the background is transparent
+			label.add_stylebox_override("normal", transparent_background)
+			label.add_stylebox_override("focus", transparent_background)
+			label.add_stylebox_override("hover", transparent_background)
+			label.add_stylebox_override("disabled", transparent_background)
+			label.add_stylebox_override("pressed", transparent_background)
 			label.connect("pressed", self, "button_pressed", [option_idx, option])
 			add_child(label)
 	should_update = true
