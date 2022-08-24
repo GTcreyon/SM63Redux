@@ -90,10 +90,19 @@ func get_text_width(text: String) -> Vector2:
 			width += BYLIGHT.get_char_size(c as int).x
 	return Vector2(width, BYLIGHT.get_height())
 
+# Make sure the node_placer knows which node is currently selected
 func focus_changed(is_focus, index):
 	if is_focus:
 		node_placer.selected_node = self
 		node_placer.selected_index = index
+
+# Handle switching focus on enter
+func text_entered(_text, index):
+	if index + 1 < len(line_edits):
+		line_edits[index + 1].grab_focus()
+	else:
+		node_placer.selected_node = self
+		node_placer.selected_index = -2 if json_data.display == "holster" else -1
 
 # This gets called whenever the user pressed on "+" on function arguments
 func add_input_field_on_press(button, field_text):
@@ -106,6 +115,7 @@ func add_input_field_on_press(button, field_text):
 	label.rect_position = Vector2(button.rect_position.x, 4)
 	label.connect("focus_entered", self, "focus_changed", [true, len(line_edits)])
 	label.connect("focus_exited", self, "focus_changed", [false, len(line_edits)])
+	label.connect("text_entered", self, "text_entered", [len(line_edits)])
 	add_child(label)
 	line_edits.append(label)
 	button.rect_position.x += text_size.x
@@ -114,6 +124,8 @@ func add_input_field_on_press(button, field_text):
 # Call this to configure the node with json_data
 # Do not call twice on a node
 func setup(data):
+	focus_mode = Control.FOCUS_NONE
+	
 	line_edits = []
 	json_data = data
 	# Create the labels within the block
@@ -140,6 +152,7 @@ func setup(data):
 			label.rect_position = Vector2(x_position, 4)
 			label.connect("focus_entered", self, "focus_changed", [true, len(line_edits)])
 			label.connect("focus_exited", self, "focus_changed", [false, len(line_edits)])
+			label.connect("text_entered", self, "text_entered", [len(line_edits)])
 			add_child(label)
 			line_edits.append(label)
 		else:
