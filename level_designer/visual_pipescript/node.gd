@@ -1,6 +1,7 @@
 extends NinePatchRect
 
 onready var node_placer = $"/root/Main"
+onready var compiler = $"/root/Main/PipeScript/VisualCompiler"
 onready var graph = get_parent()
 
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
@@ -39,14 +40,41 @@ var json_data
 
 var line_edits = []
 
+func validate_varname(word, should_flag = true):
+	for c in word.to_lower():
+		if !(c in "abcdefghijklmnopqrstuvwxyz_"):
+			if should_flag:
+				compiler.error_flagged = "Validation failed for %s" % json_data["display-name"]
+				compiler.node_which_flagged = self
+			return false
+	return true
+
 func get_input_text(idx):
 	# TODO: Make to validate user data, you can do this by
 	# reading the tags inside of segments in pieces.json
 	# and then checking if it's valid or not
 	if line_edits[idx]:
-		if line_edits[idx].text.empty():
-			printerr("%s is not filled in!" % name)
-		return line_edits[idx].text
+		var text = line_edits[idx].text
+		if text.empty():
+			compiler.error_flagged = "Input field is empty for %s" % json_data["display-name"]
+			compiler.node_which_flagged = self
+		
+		# Validation
+		match line_edits[idx].placeholder_text:
+			"expression":
+				pass
+			"function_name":
+				validate_varname(text)
+				# Strings must be postfixed with .S
+				text += ".S"
+			"label":
+				validate_varname(text)
+			"single":
+				if !text.is_valid_float() || !validate_varname(text):
+					compiler.error_flagged = "Input field type 'single' is not a number nor variable. At %s" % json_data["display-name"]
+					compiler.node_which_flagged = self
+					
+		return text
 	printerr("%s does not have index %s." % [name, idx])
 
 # Make sure that when we get added to a holster piece, we notify that it should increase it's size

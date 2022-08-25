@@ -27,12 +27,19 @@ var phantom_selected_option = 0
 
 func set_selected_node(new):
 	selected_node = new
+	# If there's an error, we modulate the color, we make that modulation go away when we select it
+	if selected_node:
+		selected_node.modulate = Color(1, 1, 1)
+	
 	handle_phantom_node()
 
 func set_selected_index(new):
 	selected_index = new
 	if selected_node && selected_index >= 0 && selected_index < len(selected_node.line_edits):
 		selected_node.line_edits[selected_index].grab_focus()
+	# If there's an error, we modulate the color, we make that modulation go away when we select it
+	if selected_node:
+		selected_node.modulate = Color(1, 1, 1)
 	handle_phantom_node()
 
 func get_text_width(text: String) -> float:

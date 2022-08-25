@@ -6,11 +6,13 @@ onready var graph = $"/root/Main/Graph"
 onready var test = $"/root/Main/CanvasLayer/Theme/Titlebar/Run"
 
 var source_code = ""
+var error_flagged = false
+var node_which_flagged = null
 
 var id = 0
 func get_unique_variable_name():
 	id += 1
-	return "UNIQUE_VAR#%d#" % id
+	return "auto_variable#%d" % id
 
 func add_line(txt, prefix):
 	source_code += prefix + txt + "\n"
@@ -26,6 +28,10 @@ func compile_to_source(start_piece, prefix = ""):
 	var queue = [start_piece]
 	while !queue.empty():
 		var piece = queue.pop_front()
+		
+		# Make sure to cancel compilation if we reached an error
+		if error_flagged:
+			return
 		
 		# We first match the category then we match the type
 		# This is done for no other reason besides organisational purposes
@@ -117,6 +123,8 @@ func compile_to_source(start_piece, prefix = ""):
 func compile(debug = false, print_source = false):
 	# Make sure to empty the code holder
 	source_code = "" if not debug else "debug-cmds\n"
+	error_flagged = false
+	node_which_flagged = null
 	
 	# First compile functions
 	for node in graph.get_children():
@@ -133,6 +141,12 @@ func compile(debug = false, print_source = false):
 	# If we found a starters node, then compile from there too
 	if start_node:
 		compile_to_source(start_node)
+		# Error handling
+		if error_flagged:
+			printerr("VisualPipeScript Error:\n%s\nNode which flagged:\n%s" % [error_flagged, node_which_flagged])
+			if node_which_flagged:
+				node_which_flagged.modulate = Color(1, .4, .4)
+			return
 		if print_source:
 			print(source_code)
 		pipescript.interpret(source_code)
