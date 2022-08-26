@@ -81,15 +81,87 @@ func compile_to_source(start_piece, prefix = ""):
 						var var_name = piece.get_input_text(0)
 						add_line("gd-vec2-set %s %s x.S" % [var_name + ".x", var_name], prefix)
 						add_line("gd-vec2-set %s %s y.S" % [var_name + ".y", var_name], prefix)
+					"get-pos":
+						var object = piece.get_input_text(0)
+						var axis = piece.get_input_text(1).substr(0, 1)
+						var var_name = piece.get_input_text(2)
+						# This only creates 1 variable, we overwrite the vector variable
+						add_line("gd-call-set %s %s get_position.S" % [var_name, object], prefix)
+						add_line("gd-vec2-get %s %s %s.S" % [var_name, var_name, axis], prefix)
+					"move-pos":
+						var var_name = get_unique_variable_name()
+						var move_by = get_unique_variable_name()
+						var object = piece.get_input_text(0)
+						var axis_var = var_name + "." + piece.get_input_text(1).substr(0, 1)
+						# Isolate the expression
+						add_line("calc %s %s" % [move_by, piece.get_input_text(2)], prefix)
+						# Get the position
+						add_line("gd-call-set %s %s get_position.S" % [var_name, object], prefix)
+						# Unwrap it
+						add_line("gd-vec2-get %s %s x.S" % [var_name + ".x", var_name], prefix)
+						add_line("gd-vec2-get %s %s y.S" % [var_name + ".y", var_name], prefix)
+						# Modify it
+						add_line("calc %s %s + %s" % [axis_var, axis_var, move_by], prefix)
+						# Wrap it again
+						add_line("gd-vec2-set %s %s x.S" % [var_name + ".x", var_name], prefix)
+						add_line("gd-vec2-set %s %s y.S" % [var_name + ".y", var_name], prefix)
+						# Finally update the actual position
+						add_line("gd-call %s set_position.S %s" % [object, var_name], prefix)
+					"set-pos": # The 'set' is very similar to the 'move' command
+						var var_name = get_unique_variable_name()
+						var object = piece.get_input_text(0)
+						var axis_var = var_name + "." + piece.get_input_text(1).substr(0, 1)
+						# Get the position
+						add_line("gd-call-set %s %s get_position.S" % [var_name, object], prefix)
+						# Unwrap it
+						add_line("gd-vec2-get %s %s x.S" % [var_name + ".x", var_name], prefix)
+						add_line("gd-vec2-get %s %s y.S" % [var_name + ".y", var_name], prefix)
+						# Modify it
+						add_line("calc %s %s" % [axis_var, piece.get_input_text(2)], prefix)
+						# Wrap it again
+						add_line("gd-vec2-set %s %s x.S" % [var_name + ".x", var_name], prefix)
+						add_line("gd-vec2-set %s %s y.S" % [var_name + ".y", var_name], prefix)
+						# Finally update the actual position
+						add_line("gd-call %s set_position.S %s" % [object, var_name], prefix)
 					"print":
 						add_line("print %s" % piece.get_input_text(0), prefix)
 			"objects":
-				pass
-			"advances":
+				match piece.json_data.type:
+					"duplicate":
+						var dupe_name = piece.get_input_text(1)
+						var parent_name = get_unique_variable_name()
+						add_line("gd-call-set %s %s duplicate.S" % [dupe_name, piece.get_input_text(0)], prefix)
+						add_line("gd-call-set %s %s get_parent.S" % [parent_name, piece.get_input_text(0)], prefix)
+						add_line("gd-call %s add_child.S %s" % [parent_name, dupe_name], prefix)
+					"remove":
+						add_line("gd-call %s queue_free.S" % piece.get_input_text(0), prefix)
+					"parent":
+						add_line("gd-call-set %s %s get_parent.S" % [piece.get_input_text(1), piece.get_input_text(0)], prefix)
+					"repeat-children":
+						var child_count_var = get_unique_variable_name()
+						var child_variable = piece.get_input_text(0)
+						var parent = piece.get_input_text(1)
+						var label = get_unique_variable_name()
+						add_line("gd-call-set %s %s get_child_count.S" % [child_count_var, parent], prefix)
+						add_line("label %s" % label, prefix)
+						add_line("if %s" % child_count_var, prefix)
+						add_line("sub %s %s 1" % [child_count_var, child_count_var], prefix)
+						add_line("print %s" % child_count_var, prefix)
+						add_line("gd-call-set %s %s get_child.S %s" % [child_variable, parent, child_count_var], prefix)
+						compile_to_source(piece.inner_connection, prefix + "\t")
+						add_line("goto %s" % label, prefix)
+						add_line("end", prefix)
+			"advanced":
 				match piece.json_data.type:
 					"gd-call":
-						var args = []
-						for editor in piece.line_edits:
+						var args = [
+							piece.get_input_text(0),
+							piece.get_input_text(1)
+						]
+						for editor_idx in len(piece.line_edits):
+							if editor_idx < 2:
+								continue
+							var editor = piece.line_edits[editor_idx]
 							if editor.text.empty():
 								printerr("%s is not filled in!" % name)
 							args.append(editor.text)
@@ -114,6 +186,8 @@ func compile_to_source(start_piece, prefix = ""):
 							("gd-call-set" + " %s".repeat(len(args))) % args,
 							prefix
 						)
+					"string":
+						add_line("string-literal %s %s" % [piece.get_input_text(0), piece.get_input_text(1)], prefix)
 			_:
 				printerr("Unknown piece ", piece.json_data.type)
 		
@@ -122,7 +196,7 @@ func compile_to_source(start_piece, prefix = ""):
 
 func compile(debug = false, print_source = false):
 	# Make sure to empty the code holder
-	source_code = "" if not debug else "debug-cmds\n"
+	source_code = "" if not debug else "debug-cmds\ndebug-all\n"
 	error_flagged = false
 	node_which_flagged = null
 	

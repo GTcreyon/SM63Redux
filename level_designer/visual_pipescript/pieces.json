@@ -44,21 +44,7 @@
 
 	
 	{
-		"segments": "Move $label its $[x|y] position forward by $expression",
-		"type": "duplicate",
-		"display": "normal",
-		"category": "Objects",
-		"display-name": "Move object"
-	},
-	{
-		"segments": "Set $label its $[x|y] position to $expression",
-		"type": "duplicate",
-		"display": "normal",
-		"category": "Objects",
-		"display-name": "Set position of object"
-	},
-	{
-		"segments": "Duplicate $label",
+		"segments": "Duplicate $label and name it $label",
 		"type": "duplicate",
 		"display": "normal",
 		"category": "Objects",
@@ -71,6 +57,20 @@
 		"category": "Objects",
 		"display-name": "Remove object"
 	},
+	{
+		"segments": "Get parent of $label and name it $label",
+		"type": "parent",
+		"display": "normal",
+		"category": "Objects",
+		"display-name": "Get parent"
+	},
+	{
+		"segments": "For every child (referred to as $label) of $label do",
+		"type": "repeat-children",
+		"display": "holster",
+		"category": "Objects",
+		"display-name": "Loop children"
+	},
 
 
 	{
@@ -79,6 +79,27 @@
 		"display": "normal",
 		"category": "Maths",
 		"display-name": "Assign variable"
+	},
+	{
+		"segments": "Get $label its $[x|y] position and name it $label",
+		"type": "get-pos",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Get object position"
+	},
+	{
+		"segments": "Move $label its $[x|y] position forward by $expression",
+		"type": "move-pos",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Move object"
+	},
+	{
+		"segments": "Set $label its $[x|y] position to $expression",
+		"type": "set-pos",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Set position of object"
 	},
 	{
 		"segments": "Print $label",
@@ -124,5 +145,12 @@
 		"display": "normal",
 		"category": "Advanced",
 		"display-name": "Invoke returnable godot function"
+	},
+	{
+		"segments": "Create string $label with $anything",
+		"type": "string",
+		"display": "normal",
+		"category": "Advanced",
+		"display-name": "Assign variable"
 	}
 ]

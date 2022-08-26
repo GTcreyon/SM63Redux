@@ -42,9 +42,9 @@ var line_edits = []
 
 func validate_varname(word, should_flag = true):
 	for c in word.to_lower():
-		if !(c in "abcdefghijklmnopqrstuvwxyz_"):
+		if !(c in "abcdefghijklmnopqrstuvwxyz_."):
 			if should_flag:
-				compiler.error_flagged = "Validation failed for %s" % json_data["display-name"]
+				compiler.error_flagged = "%s is not a valid variable name! At %s" % [word, json_data["display-name"]]
 				compiler.node_which_flagged = self
 			return false
 	return true
@@ -60,7 +60,8 @@ func get_input_text(idx):
 			compiler.node_which_flagged = self
 		
 		# Validation
-		match line_edits[idx].placeholder_text:
+		var edit_type = line_edits[idx].placeholder_text
+		match edit_type:
 			"expression":
 				pass
 			"function_name":
@@ -73,7 +74,20 @@ func get_input_text(idx):
 				if !text.is_valid_float() || !validate_varname(text):
 					compiler.error_flagged = "Input field type 'single' is not a number nor variable. At %s" % json_data["display-name"]
 					compiler.node_which_flagged = self
-					
+		if edit_type.begins_with("[") && edit_type.ends_with("]"):
+			# Check if the inputted text is a valid substring
+			var words = edit_type.substr(1, edit_type.length() - 2).split("|", false)
+			var success = false
+			for word in words:
+				if word == text:
+					success = true
+			if !success:
+				compiler.error_flagged = "%s is not a valid input! At %s" % [text, json_data["display-name"]]
+				compiler.node_which_flagged = self
+			# Strings must be postfixed with .S
+			text += ".S"
+		
+		print(">>> ", text)
 		return text
 	printerr("%s does not have index %s." % [name, idx])
 

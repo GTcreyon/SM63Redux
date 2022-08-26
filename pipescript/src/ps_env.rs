@@ -99,6 +99,7 @@ pub enum PSValue {
 impl FromVariant for PSValue {
     fn from_variant(variant: &Variant) -> Result<Self, gdnative::prelude::FromVariantError> {
 		if variant.is_nil() { return Ok(PSValue::None); }
+		if let Ok(v) = i32::from_variant(variant) { return Ok(PSValue::Number(v as f32)); }
 		if let Ok(v) = f32::from_variant(variant) { return Ok(PSValue::Number(v)); }
 		if let Ok(v) = String::from_variant(variant) { return Ok(PSValue::String(v)); }
 		if let Ok(v) = Vector2::from_variant(variant) { return Ok(PSValue::GodotVector2(v)); }
