@@ -12,6 +12,7 @@ collision_mask = 2147483650
 input_pickable = false
 monitorable = false
 script = ExtResource( 1 )
+amount = 50
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -2 )
@@ -20,5 +21,3 @@ texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-
-[connection signal="body_entered" from="." to="." method="_on_Area_body_entered"]

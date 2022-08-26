@@ -19,7 +19,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/entity/enemy/bobomb/bobomb.gd"
 }, {
-"base": "Area2D",
+"base": "Pickup",
 "class": "Bottle",
 "language": "GDScript",
 "path": "res://classes/pickup/bottle/bottle.gd"

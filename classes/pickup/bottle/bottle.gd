@@ -1,11 +1,11 @@
 class_name Bottle
-extends Area2D
+extends Pickup
 
-export var disabled = false setget set_disabled
 
-var amount = 15
+export var amount: int = 15
 
-func _on_Area_body_entered(_body):
+
+func _award_pickup() -> void:
 	if Singleton.water < 100:
 		Singleton.water = min(Singleton.water + amount, 100)
 		queue_free()
