@@ -65,7 +65,7 @@
 		"display-name": "Get parent"
 	},
 	{
-		"segments": "For every child (referred to as $label) of $label do",
+		"segments": "For every child (referred to as $label ) of $label do",
 		"type": "repeat-children",
 		"display": "holster",
 		"category": "Objects",
