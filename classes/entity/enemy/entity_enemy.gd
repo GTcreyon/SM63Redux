@@ -31,6 +31,7 @@ func enemy_die():
 			var spawn = COIN_PREFAB.instance()
 			spawn.position = position
 			spawn.dropped = true
+			spawn.pop_velocity()
 			get_parent().add_child(spawn)
 	queue_free()
 

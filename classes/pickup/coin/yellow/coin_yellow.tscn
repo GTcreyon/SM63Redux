@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/pickup/coin/yellow/coin0.png" type="Texture" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://classes/pickup/coin/yellow/coin5.png" type="Texture" id=7]
 [ext_resource path="res://classes/pickup/coin/yellow/coin1.png" type="Texture" id=8]
 [ext_resource path="res://classes/pickup/coin/yellow/coin_yellow.gd" type="Script" id=9]
+[ext_resource path="res://classes/pickup/coin/coin_entity.gd" type="Script" id=10]
+[ext_resource path="res://classes/pickup/coin/yellow/coin_particles_yellow.png" type="Texture" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -29,7 +31,7 @@ extents = Vector2( 1, 1 )
 
 [node name="Coin" type="KinematicBody2D"]
 collision_layer = 4
-script = ExtResource( 9 )
+script = ExtResource( 10 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = ExtResource( 3 )
@@ -45,6 +47,10 @@ collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
+script = ExtResource( 9 )
+parent_is_root = true
+_sprite_path = NodePath("../AnimatedSprite")
+particle_texture = ExtResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource( 3 )
@@ -57,7 +63,3 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 4 )
-
-[connection signal="body_entered" from="PickupArea" to="." method="_on_PickupArea_body_entered"]
-[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
-[connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]

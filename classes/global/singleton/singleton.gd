@@ -126,7 +126,6 @@ func _process(_delta):
 
 func warp_to(path):
 	collect_count = 0
-	#create_coindict(path)
 	if path == "res://scenes/tutorial_1/tutorial_1_1.tscn":
 		timer.running = true
 		timer.frames = 0
@@ -139,7 +138,7 @@ func warp_to(path):
 func get_collect_id():
 	var path = get_tree().get_current_scene().get_filename()
 	create_coindict(path)
-	Singleton.collected_dict[path].append(false)
+	collected_dict[path].append(false)
 	collect_count += 1
 	return collect_count - 1
 
@@ -155,8 +154,8 @@ func reset_all_coindicts():
 
 func request_coin(collect_id):
 	var room = get_tree().get_current_scene().get_filename()
-	if !Singleton.collected_dict[room][collect_id]:
-		Singleton.collected_dict[room][collect_id] = true
+	if !collected_dict[room][collect_id]:
+		collected_dict[room][collect_id] = true
 		return true
 
 

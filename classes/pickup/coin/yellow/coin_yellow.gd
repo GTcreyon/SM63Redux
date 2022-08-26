@@ -1,5 +1,6 @@
-extends Coin
+class_name CoinPickupYellow
+extends CoinPickup
 
-func _ready():
-	yellow = 1
-	particle_texture = preload("./coin_particles_yellow.png")
+
+func _award_pickup() -> void:
+	_add_coins(1)

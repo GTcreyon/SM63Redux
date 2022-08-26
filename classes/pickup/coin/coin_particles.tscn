@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://classes/pickup/coin/coin_particles.gd" type="Script" id=1]
+[ext_resource path="res://classes/pickup/coin/yellow/coin_particles_yellow.png" type="Texture" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=2]
 particles_animation = true
@@ -21,8 +22,10 @@ anim_speed_random = 0.5
 [node name="CoinParticles" type="Particles2D"]
 material = SubResource( 2 )
 z_index = -1
+emitting = false
 amount = 3
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 3 )
+texture = ExtResource( 2 )
 script = ExtResource( 1 )
