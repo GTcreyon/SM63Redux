@@ -1,54 +1,49 @@
-tool
-extends Node2D
+class_name FluddBox
+extends Area2D
 
-export(int, 2) var type = 0 setget set_type
+export(Singleton.n) var nozzle: int
 
-onready var hover = $Hover
-onready var rocket = $Rocket
-onready var turbo = $Turbo
+var PICKUP_PREFABS = [
+	preload("./fludd_pickup_hover.tscn"),
+	preload("./fludd_pickup_rocket.tscn"),
+	preload("./fludd_pickup_turbo.tscn"),
+]
+onready var sprite: AnimatedSprite = $AnimatedSprite
 
-var fludd = preload("./fludd_pickup.tscn").instance()
-var break_anim = preload("./box_break.tscn").instance()
 
-func set_type(new_type):
-	type = new_type
-	match new_type:
-		2:
-			hover.visible = false
-			rocket.visible = false
-			turbo.visible = true
+func _ready():
+	sprite.animation = "stand_" + _get_nozzle_label(nozzle)
+
+
+func _get_nozzle_label(id):
+	match id:
 		1:
-			hover.visible = false
-			rocket.visible = true
-			turbo.visible = false
+			return "hover"
+		2:
+			return "rocket"
+		3:
+			return "turbo"
 		_:
-			hover.visible = true
-			rocket.visible = false
-			turbo.visible = false
+			Singleton.log_msg("Invalid nozzle type!", Singleton.LogType.ERROR)
+			return null
 
 
 func _on_FluddBox_body_entered(body):
-	if body.vel.y > -2 && body.position.y < position.y: #TODO: give mario feet collision
-		get_parent().call_deferred("add_child", break_anim)
-		break_anim.position = Vector2(position.x, position.y)
-		match type:
-			2:
-				break_anim.animation = "bounce_turbo"
-			1:
-				break_anim.animation = "bounce_rocket"
-			_:
-				break_anim.animation = "bounce_hover"
-		get_parent().call_deferred("add_child", fludd)
-		fludd.position = Vector2(position.x, position.y + 8.5)
-		fludd.call_deferred("switch_type", type)
-		Singleton.collected_nozzles[type] = true
+	if body.vel.y > -2 and body.position.y < position.y: #TODO: give mario feet collision
+		sprite.animation = "bounce_" + _get_nozzle_label(nozzle)
+		
+		var inst = PICKUP_PREFABS[nozzle - 1].instance()
+		inst.position = Vector2(position.x, position.y + 8.5)
+		get_parent().call_deferred("add_child", inst)
+		
+		Singleton.collected_nozzles[nozzle - 1] = true
 		body.vel.y = -6 * 32 / 60
 		$Open.play()
-		$CollisionShape2D.queue_free()
-		hover.visible = false
-		rocket.visible = false
-		turbo.visible = false
+		set_deferred("monitoring", false)
 
 
-func _on_Open_finished():
-	queue_free()
+func _on_AnimatedSprite_animation_finished():
+	if sprite.animation.begins_with("bounce_"):
+		sprite.animation = "open_" + _get_nozzle_label(nozzle)
+	elif sprite.animation.begins_with("open_"):
+		queue_free()

@@ -127,6 +127,7 @@ points = PoolVector2Array( -6, -3, -6, 1, -7, 5, -6, 10, -4, 14, -1, 18, 1, 25, 
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 548, 187 )
+nozzle = 1
 
 [node name="Coins" type="Node2D" parent="Items"]
 position = Vector2( 0, 2 )

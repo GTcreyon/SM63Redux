@@ -21,7 +21,7 @@ func _ready():
 
 
 func _ready_override() -> void:
-	if sprite != null:
+	if sprite != null and sprite.get("playing") != null:
 		sprite.playing = !disabled
 	if persistent_collect:
 		_pickup_id_setup()
@@ -49,8 +49,8 @@ func _pickup_id_setup() -> void:
 		Singleton.collected_dict[room].append(false)
 
 
-func pickup(_body) -> void:
-	_award_pickup()
+func pickup(body) -> void:
+	_award_pickup(body)
 	_mark_collected()
 	_pickup_effect()
 	_kill_pickup()
@@ -73,5 +73,5 @@ func _mark_collected() -> void:
 	Singleton.collect_count += 1
 
 
-func _award_pickup() -> void:
+func _award_pickup(_body) -> void:
 	pass
