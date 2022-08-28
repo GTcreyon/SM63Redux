@@ -75,15 +75,15 @@ func refresh_returns(line):
 	var i = 0
 	while i < line.length():
 #		if line[i] == "[":
-#			while line[i] != "]" || line[i+1] == "[":
+#			while line[i] != "]" or line[i+1] == "[":
 #				i += 1
 #			i += 1
 		var j = 0
 		var word = " "
 		var loop = true
-		while i + j < line.length() && line[i + j] != " " && line[i + j] != "\n" && loop:
+		while i + j < line.length() and line[i + j] != " " and line[i + j] != "\n" and loop:
 			if line[i + j] == "[":
-				while i + j < line.length() - 1 && (line[i + j - 1] != "]" || line[i + j] == "["):
+				while i + j < line.length() - 1 and (line[i + j - 1] != "]" or line[i + j] == "["):
 					j += 1
 				if line[i + j] == " ":
 					loop = false
@@ -95,12 +95,12 @@ func refresh_returns(line):
 			
 			
 		#word += line[i + j]
-		if i + j < line.length() && line[i + j] == "\n":
+		if i + j < line.length() and line[i + j] == "\n":
 			cumulative_length = 0
 		else:
 			var added_length = font.get_string_size(word).x
 			cumulative_length += added_length
-			if cumulative_length >= DEFAULT_WIDTH - 25 + width_offset:# || (character_id != null && cumulative_length >= 233 - (47 - 8)):
+			if cumulative_length >= DEFAULT_WIDTH - 25 + width_offset:# or (character_id != null and cumulative_length >= 233 - (47 - 8)):
 				cumulative_length = added_length
 				line = line.insert(i, "\n")
 				i += 1
@@ -137,7 +137,7 @@ func load_lines(lines):
 
 func _physics_process(_delta):
 	if active:
-		if star.animation == "ready" || star.offset.y != 0:
+		if star.animation == "ready" or star.offset.y != 0:
 			star_wobble += 0.1
 			star.offset.y = round(sin(-star_wobble) * 2)
 		else:
@@ -155,7 +155,7 @@ func _physics_process(_delta):
 				if floor(char_roll) > char_index:
 					var looping = true
 					var skip_char = false
-					while looping && char_index < target_line.length(): #prevents lag on tags
+					while looping and char_index < target_line.length(): #prevents lag on tags
 						match target_line[char_index]:
 							"[":
 								var tag = ""

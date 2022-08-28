@@ -23,7 +23,7 @@ func _ready():
 		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
 
 func _physics_process(_delta):
-	if falling && !disabled:
+	if falling and !disabled:
 		if wait_time > 0:
 			wait_time -= 1
 			sprite.offset = Vector2((rng.randi() % (JITTER + 1)) - JITTER / 2.0, (rng.randi() % (JITTER + 1)) - JITTER / 2.0)

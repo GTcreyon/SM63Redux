@@ -31,13 +31,13 @@ func _process(_delta):
 		
 	mouse_pos_store = mouse_pos
 
-	if i_down && Input.is_action_just_pressed("debug"):
+	if i_down and Input.is_action_just_pressed("debug"):
 		var player_spawn = player.instance()
 		player_spawn.position = get_parent().start_pos
 		get_parent().add_child(player_spawn)
 		emit_signal("test_level")
 		
-	if i_right && Input.is_action_pressed("debug"):
+	if i_right and Input.is_action_pressed("debug"):
 		LD.save_code()
 
 func object_load(id):

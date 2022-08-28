@@ -99,7 +99,7 @@ func set_physics_polygon(poly):
 	var did_inject = false
 	for ind in range(p_size):
 		real.append(inject[ind])
-		if !did_inject && ind >= inject_index:
+		if !did_inject and ind >= inject_index:
 			
 			#add our injection vector
 			real.append(inject_vector)

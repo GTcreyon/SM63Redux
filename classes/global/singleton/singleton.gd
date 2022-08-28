@@ -160,7 +160,7 @@ func request_coin(collect_id):
 
 
 func touch_controls():
-	return OS.get_name() == "Android" || force_touch
+	return OS.get_name() == "Android" or force_touch
 
 
 #sets a certain pause label - when all pause labels are false, gameplay takes place
@@ -168,7 +168,7 @@ func set_pause(label: String, set: bool):
 	meta_pauses[label] = set
 	meta_paused = false
 	for pause in meta_pauses:
-		meta_paused = meta_paused || meta_pauses[pause]
+		meta_paused = meta_paused or meta_pauses[pause]
 
 
 func get_input_map_json_saved():

@@ -65,29 +65,29 @@ func _process(delta):
 					progress -= 0.1 * dmod
 				else:
 					rechange_moving = false #and now everything is back to place
-			elif !act && !rechange_trigger && Singleton.hp >= 8:
+			elif !act and !rechange_trigger and Singleton.hp >= 8:
 				position.y = start_pos * gui_scale
 		else:
 			rechange_moving = false
 
 		filler.frame = Singleton.hp #for the HUD with its respective frame
-		if Singleton.internal_coin_counter >= 5 && Singleton.hp < 8:
+		if Singleton.internal_coin_counter >= 5 and Singleton.hp < 8:
 			Singleton.hp += 1
 			Singleton.internal_coin_counter = 0
 			coin_save = 0
 			coin_meter.frame = 0
 			coin_meter.animation = "flash"
 		else:
-			if coin_meter.animation == "charge" || coin_save != Singleton.internal_coin_counter:
+			if coin_meter.animation == "charge" or coin_save != Singleton.internal_coin_counter:
 				coin_meter.animation = "charge"
 				coin_meter.frame = Singleton.internal_coin_counter
 				coin_save = Singleton.internal_coin_counter
 		
-		if coin_meter.animation == "flash" && coin_meter.frame == 6:
+		if coin_meter.animation == "flash" and coin_meter.frame == 6:
 			coin_meter.animation = "charge"
 		
 		
 		
-		coin_ring.visible = (coin_meter.animation == "flash" && coin_meter.frame == 0)
+		coin_ring.visible = (coin_meter.animation == "flash" and coin_meter.frame == 0)
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * scale.y
 	Singleton.meter_progress = progress

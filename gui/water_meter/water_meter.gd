@@ -84,7 +84,7 @@ func _process(delta):
 	power_mask.offset.y -= 1 * dmod
 	if(power_mask.offset.y < -83): power_mask.offset.y += 83
 	power_mask.energy = 1.4 if player.fludd_strain else 1.0
-	if Singleton.power == 100 && power_prev != 100:
+	if Singleton.power == 100 and power_prev != 100:
 		power_filler_cover.modulate.a = 1
 	elif power_filler_cover.modulate.a > 0:
 		power_filler_cover.modulate.a -= 0.1 * dmod

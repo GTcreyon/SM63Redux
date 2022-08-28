@@ -57,7 +57,7 @@ func _physics_step():
 	
 	_manage_footsteps()
 	
-	if target != null && target.locked:
+	if target != null and target.locked:
 		target = null
 	if target == null:
 		_wander_behavior()
@@ -96,7 +96,7 @@ func _wander_behavior():
 		if edge_check != null:
 			edge_check.enabled = is_on_floor()
 			
-			if edge_check.enabled && !edge_check.is_colliding():
+			if edge_check.enabled and !edge_check.is_colliding():
 				turn_around()
 		
 		_wander()
@@ -104,13 +104,13 @@ func _wander_behavior():
 
 func _chase_target():
 	sprite.speed_scale = abs(vel.x) / 2 + 1
-	if target.position.x - position.x < -20 || (target.position.x < position.x && abs(target.position.y - position.y) < 26):
+	if target.position.x - position.x < -20 or (target.position.x < position.x and abs(target.position.y - position.y) < 26):
 		vel.x = max(vel.x - 0.1, -2)
 		mirror = true
 		sprite.playing = true
 		if edge_check != null:
 			edge_check.position.x = -9
-	elif target.position.x - position.x > 20 || (target.position.x > position.x && abs(target.position.y - position.y) < 26):
+	elif target.position.x - position.x > 20 or (target.position.x > position.x and abs(target.position.y - position.y) < 26):
 		vel.x = min(vel.x + 0.1, 2)
 		mirror = false
 		sprite.playing = true
@@ -131,7 +131,7 @@ func _wander():
 	else:
 		vel.x = min(vel.x + 0.1, 1)
 	wander_dist += 1
-	if wander_dist >= 120 && sprite.frame == 0:
+	if wander_dist >= 120 and sprite.frame == 0:
 		wander_dist = 0
 		mirror = !mirror
 
@@ -141,7 +141,7 @@ func _on_AwareArea_body_exited(_body):
 
 
 func _on_AlertArea_body_entered(body):
-	if target == null && !stomped && !body.locked:
+	if target == null and !stomped and !body.locked:
 		mirror = body.position.x < position.x
 		target = body
 		wander_dist = 0

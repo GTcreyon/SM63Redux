@@ -49,10 +49,10 @@ func _process(delta):
 	if OS.window_size.x != 0:
 		var zoom_factor = 1 / max(1, round(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 		if !get_tree().paused:
-			if Input.is_action_just_pressed("zoom+") && target_zoom > 0.25:
+			if Input.is_action_just_pressed("zoom+") and target_zoom > 0.25:
 				target_zoom /= 2
 				rezoom()
-			if Input.is_action_just_pressed("zoom-") && target_zoom < 1:
+			if Input.is_action_just_pressed("zoom-") and target_zoom < 1:
 				target_zoom *= 2
 				rezoom()
 		zoom = Vector2.ONE * zoom_factor * current_zoom

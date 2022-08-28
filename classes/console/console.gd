@@ -42,7 +42,7 @@ func run_command(cmd: String):
 				else:
 					Singleton.set_location = null
 					var err = Singleton.warp_to(path)
-					if err == OK || err == null:
+					if err == OK or err == null:
 						Singleton.log_msg("Warped to " + path)
 					else:
 						Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)

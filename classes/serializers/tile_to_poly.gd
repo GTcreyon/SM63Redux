@@ -278,7 +278,7 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 		#draw_line(debug_vec_deform(start_pos), debug_vec_deform(end_pos), Color(1, 0, 1), 2)
 		if point:
 			#if we marked the start for exclusion, don't add it
-			if exclude_start && point.is_equal_approx(start_pos):
+			if exclude_start and point.is_equal_approx(start_pos):
 				continue
 			var dist = (point - start_pos).length()
 			if dist <= nearest_injection:
@@ -377,11 +377,11 @@ func get_individual_shape(grid, filter, set_after = 0):
 		check_queue.pop_front()
 		
 		#make sure we don't double check already existing items
-		if filtered[current.x] && filtered[current.x][current.y]:
+		if filtered[current.x] and filtered[current.x][current.y]:
 			continue
 		
 		#make sure this current item is the one we're searching for
-		if grid[current.x] && grid[current.x][current.y] == filter:
+		if grid[current.x] and grid[current.x][current.y] == filter:
 			#add it to our filtered list
 			filtered[current.x][current.y] = 1
 			#set the grid to our new value
@@ -431,7 +431,7 @@ func step_get_polygon_from_grid(grid, filter):
 		var _has_holes = false
 		for hole_ind in holes:
 			var is_inside = are_polygons_inside_eachother(contours[body_ind], contours[hole_ind])
-			if is_inside[0] || is_inside[1]:
+			if is_inside[0] or is_inside[1]:
 				_has_holes = true
 				#split modifies the reference, does not recreate the polygon, so yeah
 				split_polygon_with_holes(contours[body_ind], contours[hole_ind])

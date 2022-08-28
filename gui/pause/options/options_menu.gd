@@ -60,7 +60,7 @@ func _on_OptionsMenu_gui_input(event):
 
 
 func _notification(what):
-	if what == NOTIFICATION_RESIZED && height_set:
+	if what == NOTIFICATION_RESIZED and height_set:
 		start_height = rect_size.y - list.margin_top + list.margin_bottom
 
 

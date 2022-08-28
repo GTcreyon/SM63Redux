@@ -34,7 +34,7 @@ func polygon_self_intersecting(polygon):
 			a, b
 		)
 		
-		if result && result != start && result != end:
+		if result and result != start and result != end:
 			draw_circle(result, 5, Color(1, 0, 0))
 			return false
 	return true
@@ -103,11 +103,11 @@ func _process(_dt):
 	background.material.set_shader_param("camera_position", ld_camera.global_position)
 	
 	hover_ui.set_position(-ld_camera.global_position)
-	if editable_rect.visible && !is_creating_polygon:
+	if editable_rect.visible and !is_creating_polygon:
 		set_editable_rect(true, level_editor.selection_rect)
 	
 	# Poly edit
-	if is_creating_polygon && editable_poly.polygon.size() >= 1:
+	if is_creating_polygon and editable_poly.polygon.size() >= 1:
 		var real_position = level_editor.snap_vector(level_editor.last_local_mouse_position + ld_camera.global_position)
 		editable_poly.set_vert(editable_poly.polygon.size() - 1, real_position)
 		set_editable_rect(true, get_polygon_rect(editable_poly.polygon), false)
@@ -121,7 +121,7 @@ func _input(event):
 				var real_position = level_editor.snap_vector(event.position + ld_camera.global_position)
 				var p_size = editable_poly.polygon.size()
 				# If we have 2 vertices, cancel the placement, more than 3, we place it down
-				if p_size >= 2 && real_position == editable_poly.polygon[0]:
+				if p_size >= 2 and real_position == editable_poly.polygon[0]:
 					if p_size >= 3:
 						finish_creating_polygon()
 				else:

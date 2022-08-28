@@ -10,7 +10,7 @@ func _physics_process(_delta):
 		vel.y = -0.5 * vel.y
 		if round(vel.y) == 0:
 			vel.y = 0
-	if is_on_ceiling() && vel.y < 0:
+	if is_on_ceiling() and vel.y < 0:
 		vel.y = 0
 	if is_on_wall():
 		vel.x = -0.5 * vel.x

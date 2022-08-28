@@ -15,7 +15,7 @@ func set_width(val):
 
 
 func _physics_process(_delta):
-	if !Engine.editor_hint && !disabled:
+	if !Engine.editor_hint and !disabled:
 		physics_step()
 
 

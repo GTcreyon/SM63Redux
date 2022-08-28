@@ -41,7 +41,7 @@ func warp(dir, location, path):
 func _physics_process(_delta):
 	if enter != 0:
 		anim_timer += 1
-	if (enter == 1 && anim_timer >= 44):
+	if (enter == 1 and anim_timer >= 44):
 		anim_timer = 0
 		Singleton.warp_to(scene_path)
 		curve.clear_points()
@@ -62,7 +62,7 @@ func _physics_process(_delta):
 		
 		enter = -1
 		Singleton.flip = $"/root/Main/Player/Character".flip_h
-	elif enter == -1 && anim_timer >= 44:
+	elif enter == -1 and anim_timer >= 44:
 		anim_timer = 0
 		enter = 0
 		visible = false

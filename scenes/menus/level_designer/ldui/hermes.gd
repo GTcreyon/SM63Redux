@@ -17,19 +17,19 @@ func set_pos(edge, progress) -> bool:
 			position.x = EDGE_L_POS + CENTRE_OFFSET
 			position.y = progress + CENTRE_OFFSET
 			rotation_degrees = 90
-			if progress > EDGE_V_LENGTH || progress < 0:
+			if progress > EDGE_V_LENGTH or progress < 0:
 				return true
 		1:
 			position.x = EDGE_L_POS + progress
 			position.y = OS.window_size.y - EDGE_M_POS - CENTRE_OFFSET
 			rotation_degrees = 0
-			if progress > EDGE_H_LENGTH || progress < 0:
+			if progress > EDGE_H_LENGTH or progress < 0:
 				return true
 		2:
 			position.x = OS.window_size.x - EDGE_R_POS - CENTRE_OFFSET
 			position.y = OS.window_size.y - EDGE_R_POS - progress
 			rotation_degrees = 270
-			if progress > EDGE_V_LENGTH || progress < 0:
+			if progress > EDGE_V_LENGTH or progress < 0:
 				return true
 	
 	return false

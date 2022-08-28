@@ -32,6 +32,6 @@ func _on_LineEdit_text_changed(new_text: String):
 	var caret_store = line_edit.caret_position # we have to mess around with the caret a bit here otherwise it gets reset
 	line_edit.text = mask.sub(new_text, "", true)
 	line_edit.caret_position = caret_store
-	if line_edit.text != new_text && line_edit.caret_position != new_text.length() - 1:
+	if line_edit.text != new_text and line_edit.caret_position != new_text.length() - 1:
 		line_edit.caret_position -= 1
 	parent_menu.on_value_changed(label.text, float(line_edit.text))

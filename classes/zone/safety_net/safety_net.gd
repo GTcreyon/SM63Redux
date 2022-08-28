@@ -8,7 +8,7 @@ func snap_bodies():
 		for body in bodies:
 			var player_box = body.get_node("Hitbox")
 			if (body.vel.y > 0
-			&& body.position.y + player_box.shape.extents.y + player_box.position.y - 4 < global_position.y + collision.shape.extents.y
+			and body.position.y + player_box.shape.extents.y + player_box.position.y - 4 < global_position.y + collision.shape.extents.y
 			):
 				body.position.y = global_position.y - collision.shape.extents.y - player_box.shape.extents.y - player_box.position.y
 				body.vel.y = 1
@@ -24,5 +24,5 @@ func _on_SafetyNet_body_entered(body):
 
 func _on_SafetyNet_body_exited(body):
 	bodies.erase(body)
-	if body.vel.y < 0 && (!Input.is_action_pressed("fludd") || Singleton.classic || Singleton.nozzle != Singleton.n.rocket):
+	if body.vel.y < 0 and (!Input.is_action_pressed("fludd") or Singleton.classic or Singleton.nozzle != Singleton.n.rocket):
 		Singleton.power = 100 # air rocket

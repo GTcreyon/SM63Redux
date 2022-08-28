@@ -69,7 +69,7 @@ func physics_step() -> void:
 		if sprite.animation == "flap":
 			move_vec = Vector2(vel.x * 32/60 * flip_sign, vel.y*32/60)
 			position += move_vec
-			if time_count >= TIME_UP && sprite.frame == 2:
+			if time_count >= TIME_UP and sprite.frame == 2:
 				sprite.animation = "swoop"
 				
 				time_count = rng.randi_range(0, TIME_DOWN/2)

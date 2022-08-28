@@ -41,7 +41,7 @@ func _process(_delta):
 		position = main.snap_vector(get_global_mouse_position())
 		properties["Position"] = position
 	
-	if ghost || material != null:
+	if ghost or material != null:
 		if Input.is_action_just_pressed("ld_delete"):
 			queue_free()
 	

@@ -63,7 +63,7 @@ func get_surface_verts():
 	var vertices = {}
 	var size = texture.polygon.size()
 	for i in size:
-		if texture.polygon[i].direction_to(texture.polygon[(i + 1) % size]) == Vector2.RIGHT || texture.polygon[((i - 1) + size) % size].direction_to(texture.polygon[i]) == Vector2.RIGHT:
+		if texture.polygon[i].direction_to(texture.polygon[(i + 1) % size]) == Vector2.RIGHT or texture.polygon[((i - 1) + size) % size].direction_to(texture.polygon[i]) == Vector2.RIGHT:
 			vertices[i] = texture.polygon[i]
 	return vertices
 
@@ -160,13 +160,13 @@ func _process(dt):
 		wave.height -= wave.reduce * dt
 		wave.width -= wave.reduce_width * dt
 		#if our wave has become incredibly small, remove him
-		if wave.height <= 2 || wave.width <= 2:
+		if wave.height <= 2 or wave.width <= 2:
 			waves.erase(wave)
 			wave.height = 0 #do not skip the rest of the code, we set the wave height to 0 and it will clear itself up
 		wave.current_position.x += wave.speed * wave.direction * dt
 		wave.travelled_distance += abs(wave.speed * wave.direction * dt)
 		#update the current and next vertex position, also flip the direction if needed
-		if (wave.speed * wave.direction >= 0 && wave.current_position.x >= surface[wave.next_vertex_key].x) || (wave.speed * wave.direction <= 0 && wave.current_position.x <= surface[wave.next_vertex_key].x):
+		if (wave.speed * wave.direction >= 0 and wave.current_position.x >= surface[wave.next_vertex_key].x) or (wave.speed * wave.direction <= 0 and wave.current_position.x <= surface[wave.next_vertex_key].x):
 			wave.current_vertex_key = wave.next_vertex_key
 			wave.next_vertex_key = get_next_vertex_key_for_wave(wave)
 			wave.speed *= (1 if wave.next_vertex_key >= wave.current_vertex_key else -1) * sign(wave.speed * wave.direction)
@@ -218,8 +218,8 @@ func _process(dt):
 	set_surface_verts(surface)
 
 func handle_impact(body, is_exit):
-	if elapsed_time > 0 && (body.get("vel") == null || body.vel.y > 0): #avoid objects triggering waves when spawning
-		if !(body is KinematicBody2D || body is RigidBody2D):
+	if elapsed_time > 0 and (body.get("vel") == null or body.vel.y > 0): #avoid objects triggering waves when spawning
+		if !(body is KinematicBody2D or body is RigidBody2D):
 			return
 		var this_shape = shape_owner_get_shape(0, 0) #get our shape
 		var other_shape; var other_owner #get the other shape and owner_id
@@ -303,6 +303,6 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	handle_impact(body, true)
 	#print(get_overlapping_bodies().count(player))
-	if body == player && get_overlapping_bodies().count(player) == 1:
+	if body == player and get_overlapping_bodies().count(player) == 1:
 		#print(get_overlapping_bodies())
 		player.call_deferred("switch_state", player.s.walk)

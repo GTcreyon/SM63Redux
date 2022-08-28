@@ -24,7 +24,7 @@ func _physics_process(_delta):
 				target.position.y += 0.7
 	
 	if can_warp:
-		if Input.is_action_pressed("down") && store_state == target.S.NEUTRAL && target.is_on_floor():
+		if Input.is_action_pressed("down") and store_state == target.S.NEUTRAL and target.is_on_floor():
 			target.get_node("Voice").volume_db = -INF #dumb solution to mario making dive sounds
 			sound.play()
 			target.locked = true #affects mario's whole input process
@@ -34,7 +34,7 @@ func _physics_process(_delta):
 			can_warp = false
 			inc = true
 			slid = true
-		elif (target.state == target.S.POUND && target.pound_state != target.Pound.SPIN):
+		elif (target.state == target.S.POUND and target.pound_state != target.Pound.SPIN):
 			sound.play()
 			target.locked = true #affects mario's whole input process
 			#target.position = Vector2(position.x, position.y - 30)

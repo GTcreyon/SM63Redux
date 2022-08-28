@@ -10,7 +10,7 @@ const TILE_SIZE_Y = TILE_SIZE * Vector2(0, 1)
 func debug_print_tiles(tiles):
 	var did_send = false
 	for x in tiles.size():
-		if x > 3 && x < tiles.size() - 3:
+		if x > 3 and x < tiles.size() - 3:
 			if !did_send:
 				print("[ -- REDUCED -- ]")
 				did_send = true
@@ -74,7 +74,7 @@ func convert_xml_to_readable():
 				"do_not_convert":
 					current_group.do_not_convert = true
 			
-			if global_state == "tile_shapes" && node_name != "vec":
+			if global_state == "tile_shapes" and node_name != "vec":
 				lastest_tile_shape = node_name
 				root.tile_shapes[lastest_tile_shape] = []
 			
@@ -200,7 +200,7 @@ func deserialize_tiles(level_data):
 
 func deserialize_items(level_data):
 	var items_expression = RegEx.new()
-	items_expression.compile("(?<id>\\d+),(?<x>\\d+),(?<y>\\d+),?(?<item>.*?)(\\||$)")
+	items_expression.compile("(?<id>\\d+),(?<x>\\d+),(?<y>\\d+),?(?<item>.*?)(\\or$)")
 	var data_expression = RegEx.new()
 	data_expression.compile("(.+?)(,|$)")
 	var items = []

@@ -42,7 +42,7 @@ func _physics_step():
 						sprite.frame = 2 + land_timer # finish up jumping anim
 	
 	
-	if is_on_floor() && struck && !stomped && vel.y > 0:
+	if is_on_floor() and struck and !stomped and vel.y > 0:
 		stomped = true
 		sprite.animation = "squish"
 		sprite.frame = 0

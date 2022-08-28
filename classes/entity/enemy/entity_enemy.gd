@@ -46,7 +46,7 @@ func _physics_step():
 	._physics_step()
 	
 	# Triggered when landing on the floor after being struck by a spin
-	if is_on_floor() && struck && !stomped && vel.y > 0:
+	if is_on_floor() and struck and !stomped and vel.y > 0:
 		_struck_land()
 	
 	if inside_check:
@@ -102,7 +102,7 @@ func _init_animation():
 
 
 func _on_HurtboxStomp_area_entered(area):
-	if !stomped || multi_stomp:
+	if !stomped or multi_stomp:
 		stomped = true
 		_hurt_stomp(area)
 
@@ -113,13 +113,13 @@ func _on_HurtboxStrike_body_entered(body):
 
 
 func _on_Hitbox_body_entered(body):
-	if !struck && !stomped:
+	if !struck and !stomped:
 		body.take_damage_shove(1, sign(body.position.x - position.x))
 
 
 # Check if the colliding body can strike this enemy
 func _strike_check(body):
-	return !struck && (body.is_spinning() || (body.is_diving(true) && abs(body.vel.x) > 1))
+	return !struck and (body.is_spinning() or (body.is_diving(true) and abs(body.vel.x) > 1))
 
 
 func _hurt_stomp(area):

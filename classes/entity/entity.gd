@@ -74,7 +74,7 @@ func _physics_step():
 		vel.y = min(vel.y, GRAVITY)
 	
 	var snap
-	if is_on_floor() && vel.y >= 0:
+	if is_on_floor() and vel.y >= 0:
 		snap = Vector2(0, 4)
 	else:
 		snap = Vector2.ZERO

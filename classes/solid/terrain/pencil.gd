@@ -165,7 +165,7 @@ func draw_top_from_connected_lines(lines):
 		if area.type == "trio":
 			var dist = area.verts[0].distance_to(area.verts.back())
 			poly2d.texture_scale.y = 18 / dist
-		if area.clock_dir == -1 && area.type == "trio":
+		if area.clock_dir == -1 and area.type == "trio":
 			pos = area.verts[0]
 
 		#set the offset
@@ -271,7 +271,7 @@ func get_connected_lines_directional(lines, add_onto_blacklist, direction, poly,
 		var normal: Vector2 = vert.direction_to(next).tangent()
 		var angle: float = normal.angle_to(direction) / PI * 180
 		
-		if angle >= -root.max_deviation && angle <= root.max_deviation:
+		if angle >= -root.max_deviation and angle <= root.max_deviation:
 			added = true
 			add_onto_blacklist[ind] = true
 			lines.append(vert)

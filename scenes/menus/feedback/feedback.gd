@@ -11,7 +11,7 @@ func _process(_delta):
 	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if Input.is_action_just_pressed("feedback"):
 		visible = !visible
-		get_tree().paused = visible || Singleton.pause_menu
+		get_tree().paused = visible or Singleton.pause_menu
 		Singleton.set_pause("feedback", visible)
 
 

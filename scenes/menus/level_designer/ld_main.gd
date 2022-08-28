@@ -190,7 +190,7 @@ func read_items():
 					parent_name = node_name
 			parser.NODE_ELEMENT_END:
 				var node_name = parser.get_node_name()
-				if node_name == "class" || node_name == "item":
+				if node_name == "class" or node_name == "item":
 					allow_reparent = true
 
 
@@ -287,14 +287,14 @@ func handle_mouse_input(event):
 	var global_mouse_pos = ld_camera.global_position + last_local_mouse_position
 	
 	# Key press cycle
-	if event.is_action_pressed("ld_queue+") && len(selection.active) == 1 && len(selection.hit) != 1:
+	if event.is_action_pressed("ld_queue+") and len(selection.active) == 1 and len(selection.hit) != 1:
 		selection.head_idx = (selection.head_idx + 1) % len(selection.hit)
 		selection.head = selection.hit[selection.head_idx]
 		selection.active = [selection.head]
 		emit_signal("selection_changed", selection)
 		emit_signal("selection_event", selection)
 	
-	if event.is_action_pressed("ld_queue-") && len(selection.active) == 1 && len(selection.hit) != 1:
+	if event.is_action_pressed("ld_queue-") and len(selection.active) == 1 and len(selection.hit) != 1:
 		selection.head_idx = (selection.head_idx - 1) % len(selection.hit)
 		selection.head = selection.hit[selection.head_idx]
 		selection.active = [selection.head]
@@ -334,7 +334,7 @@ func handle_mouse_input(event):
 			while selected.get_parent():
 				selected = selected.get_parent()
 				var parent_name = selected.get_parent().name
-				if parent_name == "Items" || parent_name == "Terrain" || parent_name == "Water" || parent_name == "CameraLimits":
+				if parent_name == "Items" or parent_name == "Terrain" or parent_name == "Water" or parent_name == "CameraLimits":
 					hit.append(selected)
 					break
 		

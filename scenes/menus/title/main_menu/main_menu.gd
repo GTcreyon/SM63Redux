@@ -103,7 +103,7 @@ func _process(delta):
 				desc.visible = i == posmod(cycle_step + cycle_direction, 4)
 				i += 1
 			
-			if (Input.is_action_just_pressed("ui_accept") || Input.is_action_just_pressed("interact")) && modulate.a > 0:
+			if (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact")) and modulate.a > 0:
 				press_button(posmod(cycle_step + cycle_direction, 4))
 						
 			if Input.is_action_just_pressed("ui_cancel"):

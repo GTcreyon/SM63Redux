@@ -319,12 +319,12 @@ func run_tests(verbose: bool): # a set of unit tests to be run to check if the s
 		if verbose:
 			print("Valid tests for ", key, ":")
 		for input in tests[key].data.valid:
-			fail = fail || test_data(input, key, tests[key].bytes, true, verbose)
+			fail = fail or test_data(input, key, tests[key].bytes, true, verbose)
 		if verbose:
 			print("Error tests for ", key, ":")
 		for input in tests[key].data.error:
 			var test_result = test_data(input, key, tests[key].bytes, false, verbose)
-			fail = test_result || fail # done like this to avoid issues with lazy evaluation
+			fail = test_result or fail # done like this to avoid issues with lazy evaluation
 	# assert ???
 	if fail:
 		printerr("SERIALIZER TEST FAILED.")
@@ -337,7 +337,7 @@ func test_data(input, type: String, num: int, valid: bool, verbose: bool):
 	var encoded = encode_value_of_type(input, type, num)
 	var decoded = decode_value_of_type(encoded, type)
 	if valid:
-		if decoded != input || logged_errors.size() > 0:
+		if decoded != input or logged_errors.size() > 0:
 			fail = true
 			if verbose:
 				printerr("TEST FAIL. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
