@@ -155,9 +155,19 @@ _global_script_classes=[ {
 "path": "res://classes/serializers/serializer.gd"
 }, {
 "base": "Node2D",
+"class": "Telescoping",
+"language": "GDScript",
+"path": "res://classes/solid/telescoping/telescoping.gd"
+}, {
+"base": "Node2D",
 "class": "TileToPoly",
 "language": "GDScript",
 "path": "res://classes/serializers/tile_to_poly.gd"
+}, {
+"base": "Telescoping",
+"class": "TippingLog",
+"language": "GDScript",
+"path": "res://classes/solid/telescoping/tipping_log/tipping_log.gd"
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
@@ -189,7 +199,9 @@ _global_script_class_icons={
 "ResidualSFX": "",
 "SM63ToRedux": "",
 "Serializer": "",
-"TileToPoly": ""
+"Telescoping": "",
+"TileToPoly": "",
+"TippingLog": ""
 }
 
 [application]

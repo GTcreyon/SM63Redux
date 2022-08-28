@@ -1,28 +1,17 @@
 tool
-extends Sprite
-
-const MIDDLE_WIDTH = 32
-const EDGE_WIDTH = 3
+class_name TippingLog
+extends Telescoping
 
 onready var rod = $Rod
 onready var ride_area = $Rod/RideArea
 
-export var disabled = false setget set_disabled
 export var pivot_offset = 0 setget set_pivot_offset
-export(int, 1, 100) var length = 1 setget set_length
 
 var ang_vel = 0
 
-func set_length(val):
-	length = val
-	$Rod/Middle.visible = true
-	$Rod/Collision.disabled = false
-	$Rod/Middle.rect_size.x = MIDDLE_WIDTH * val
-	$Rod/Middle.rect_position.x = -MIDDLE_WIDTH / 2 * val
-	$Rod/Collision.shape.extents.x = MIDDLE_WIDTH / 2 * val + EDGE_WIDTH
-	$Rod/RideArea/RideShape.shape.extents.x = MIDDLE_WIDTH / 2 * val + EDGE_WIDTH
-	$Rod/Left.position.x = -MIDDLE_WIDTH / 2 * val
-	$Rod/Right.position.x = MIDDLE_WIDTH / 2 * val
+func set_width(val):
+	.set_width(val)
+	$Rod/RideArea/RideShape.shape.extents.x = middle_segment_width / 2 * val + end_segment_width
 
 
 func _physics_process(_delta):
@@ -46,7 +35,7 @@ func physics_step():
 		var angle = get_angle_to(body.position)
 		var dist = position.distance_to(body.position)
 		var perpendicular_dist = cos(angle) * dist #calculate perpendicular distance from pivot
-		ang_vel += perpendicular_dist / 8000 / length
+		ang_vel += perpendicular_dist / 8000 / width
 	
 	rotation += ang_vel
 	if rotation > deg2rad(1):
