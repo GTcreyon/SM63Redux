@@ -1,11 +1,11 @@
 shader_type canvas_item;
 
-uniform vec4 color0 : hint_color;
-uniform vec4 color1 : hint_color;
-uniform vec4 color2 : hint_color;
-uniform vec4 color3 : hint_color;
-uniform vec4 color4 : hint_color;
-uniform vec4 color5 : hint_color;
+uniform vec4 color0 : hint_color = vec4(1, 0, 0, 1);
+uniform vec4 color1 : hint_color = vec4(0, 1, 0, 1);
+uniform vec4 color2 : hint_color = vec4(0, 0, 1, 1);
+uniform vec4 color3 : hint_color = vec4(1, 1, 0, 1);
+uniform vec4 color4 : hint_color = vec4(1, 0, 1, 1);
+uniform vec4 color5 : hint_color = vec4(0, 1, 1, 1);
 
 void fragment(){
 	COLOR = texture(TEXTURE, UV);

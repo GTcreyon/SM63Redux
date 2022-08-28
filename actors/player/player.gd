@@ -115,6 +115,7 @@ var invuln_flash: int = 0
 
 func _ready():
 	sprite.playing = true
+	nozzle_fx.playing = true
 	var warp = $"/root/Singleton/Warp"
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	if Singleton.set_location != null:
@@ -195,6 +196,7 @@ const JUMP_VEL_2: float = 12.5 * FPS_MOD
 const JUMP_VEL_3: float = 15 * FPS_MOD
 const DOUBLE_JUMP_TIME: int = 8
 var grounded: bool = false
+var ground_except: bool = false
 var dive_resetting: bool = false
 var frontflip_dir_left: bool = false
 var double_anim_cancel: bool = false
@@ -211,6 +213,7 @@ func player_physics():
 	manage_dive_recover()
 	manage_triple_flip()
 	manage_backflip_flip()
+	manage_hurt_recover()
 	
 	if Input.is_action_just_pressed("switch_fludd"):
 		switch_fludd()
@@ -635,14 +638,14 @@ func player_control_x() -> void:
 				)
 			):
 				sprite.flip_h = dir == -1 # flip sprite according to direction
-			if grounded && !swimming:
+			if (grounded || (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) && ground_except)) && !swimming:
 				if state == S.POUND:
 					vel.x = 0
 				elif state != S.DIVE:
 					vel.x += dir * WALK_ACCEL
 			else:
 				var core_vel = dir * max((AIR_ACCEL - dir * vel.x) / (AIR_SPEED_CAP / (3 * FPS_MOD)), 0)
-				if state & (S.TRIPLE_JUMP | S.SPIN | S.BACKFLIP):
+				if state & (S.TRIPLE_JUMP | S.SPIN | S.BACKFLIP | S.HURT):
 					vel.x += core_vel / (1.5 / FPS_MOD)
 				elif state & (S.DIVE | S.ROLLOUT):
 					vel.x += core_vel / (8 / FPS_MOD)
@@ -726,7 +729,7 @@ func action_jump() -> void:
 			vel.y = -JUMP_VEL_2
 			play_sfx("voice", "jump2")
 			double_jump_state += 1
-		2: #Triple
+		2: # Triple
 			if abs(vel.x) > TRIPLE_JUMP_DEADZONE:
 				vel.y = -JUMP_VEL_3
 				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
@@ -798,7 +801,6 @@ func coyote_behaviour() -> void:
 		double_jump_state = 0
 	
 	if grounded: # specifically apply to when actually on the ground, not coyote time
-		manage_hurt_recover()
 		manage_pound_recover()
 		vel.y = 0
 		if swimming:
@@ -815,10 +817,14 @@ func coyote_behaviour() -> void:
 			reset_dive()
 
 
+var hurt_timer = 0
 func manage_hurt_recover():
 	if state == S.HURT:
-		switch_state(S.NEUTRAL)
-		switch_anim("walk")
+		if grounded || hurt_timer <= 0:
+			switch_state(S.NEUTRAL)
+			switch_anim("walk")
+		else:
+			hurt_timer -= 1
 
 
 var cancel_ground: bool = false
@@ -840,6 +846,7 @@ func check_ground_state() -> void:
 		):
 			ground_failsafe_timer = 0
 		grounded = is_on_floor() || ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD
+	ground_except = grounded
 
 
 func player_fall() -> void:
@@ -1123,7 +1130,7 @@ func manage_dive_recover():
 			sprite.rotation = -rollout_frames * TAU / ROLLOUT_TIME
 		else:
 			sprite.rotation = rollout_frames * TAU / ROLLOUT_TIME
-		if rollout_frames >= 18 || grounded:
+		if rollout_frames >= ROLLOUT_TIME || grounded:
 			switch_state(S.NEUTRAL)
 			sprite.rotation = 0
 			rollout_frames = 0
@@ -1293,6 +1300,7 @@ func take_damage_shove(amount, direction):
 	if invuln_frames <= 0 && !locked:
 		take_damage(amount)
 		switch_state(S.HURT)
+		hurt_timer = 30
 		switch_anim("hurt")
 		vel = Vector2(4 * direction, -3)
 		sprite.flip_h = direction == 1

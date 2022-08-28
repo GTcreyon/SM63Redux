@@ -68,6 +68,7 @@ func set_skin(new_skin):
 
 func _ready():
 	$Sprite.frame = fmod(position.x + position.y * PI, 7)
+	$Sprite.play()
 
 
 func _physics_process(_delta):

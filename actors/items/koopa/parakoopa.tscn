@@ -1,20 +1,21 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://actors/items/koopa/parakoopa.png" type="Texture" id=1]
+[ext_resource path="res://shaders/palette.tres" type="Material" id=2]
 [ext_resource path="res://actors/items/koopa/parakoopa.gd" type="Script" id=8]
 [ext_resource path="res://audio/sfx/items/koopa/smw_kick.ogg" type="AudioStream" id=9]
 
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 44, 44 )
+region = Rect2( 264, 0, 44, 44 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 1 )
-region = Rect2( 44, 0, 44, 44 )
+region = Rect2( 220, 0, 44, 44 )
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 1 )
-region = Rect2( 88, 0, 44, 44 )
+region = Rect2( 176, 0, 44, 44 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 1 )
@@ -22,15 +23,15 @@ region = Rect2( 132, 0, 44, 44 )
 
 [sub_resource type="AtlasTexture" id=15]
 atlas = ExtResource( 1 )
-region = Rect2( 176, 0, 44, 44 )
+region = Rect2( 88, 0, 44, 44 )
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 1 )
-region = Rect2( 220, 0, 44, 44 )
+region = Rect2( 44, 0, 44, 44 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 1 )
-region = Rect2( 264, 0, 44, 44 )
+region = Rect2( 0, 0, 44, 44 )
 
 [sub_resource type="SpriteFrames" id=8]
 animations = [ {
@@ -47,8 +48,10 @@ extents = Vector2( 10, 8 )
 extents = Vector2( 5, 15 )
 
 [node name="Parakoopa" type="AnimatedSprite"]
+material = ExtResource( 2 )
 frames = SubResource( 8 )
 animation = "flying"
+frame = 1
 script = ExtResource( 8 )
 
 [node name="TopCollision" type="Area2D" parent="."]

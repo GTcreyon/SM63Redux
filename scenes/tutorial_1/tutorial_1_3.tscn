@@ -27,7 +27,6 @@
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
 shader = ExtResource( 9 )
-shader_param/atlas_dimensions = Vector2( 1, 1 )
 shader_param/width = 2
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -35,7 +34,6 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 9 )
-shader_param/atlas_dimensions = Vector2( 1, 1 )
 shader_param/width = 2
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
@@ -169,6 +167,7 @@ lines = [ "[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, j
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource( 20 )]
 position = Vector2( 1335.47, -15.5049 )
 frame = 4
+color = 1
 
 [node name="Goomba" parent="Items/Enemy" instance=ExtResource( 14 )]
 position = Vector2( 261, 183 )
@@ -283,12 +282,10 @@ frame = 1
 position = Vector2( 291, 95.8 )
 animation = "orange"
 frame = 1
-vel_multipliers = Vector2( 2.5, 3.5 )
 
 [node name="Butterfly3" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
 position = Vector2( 421, 177 )
 animation = "green"
-vel_multipliers = Vector2( 2.75, 2.5 )
 
 [node name="Goonies" type="Node2D" parent="Items"]
 

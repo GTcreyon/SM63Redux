@@ -1,3 +1,4 @@
+tool
 extends KinematicBody2D
 
 onready var sprite = $AnimatedSprite
@@ -15,17 +16,37 @@ var speed = 0.9
 var init_position = 0
 var water_bodies : int = 0
 
+const color_presets = [
+	[ # green
+		Color("9cc56d"),
+		Color("1f887a"),
+		Color("2b4a3d"),
+	],
+	[ # red
+		Color("CB5E09"),
+		Color("911230"),
+		Color("7A4234"),
+	],
+]
+
 export var disabled = false setget set_disabled
 export var mirror = false
+export(int, "green", "red") var color = 0 setget set_color
+
+func set_color(new_color):
+	for i in range(3):
+		material.set_shader_param("color" + str(i), color_presets[new_color][i])
+	color = new_color
 
 func _ready():
-	init_position = position
-	sprite.frame = hash(position.x + position.y * PI) % 6
-	sprite.playing = !disabled
-
+	if !Engine.editor_hint:
+		init_position = position
+		sprite.frame = hash(position.x + position.y * PI) % 6
+		sprite.playing = !disabled
+		if mirror: raycast.position.x *= -1
 
 func _physics_process(_delta):
-	if !disabled:
+	if !disabled and !Engine.editor_hint:
 		physics_step()
 
 
@@ -44,9 +65,8 @@ func physics_step():
 		snap = Vector2.ZERO
 	#warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
-	#raycast2d is used here to detect if the object collided with a wall
-	#to change directions
-	if is_on_wall():
+	
+	if is_on_wall() or is_on_floor() and color == 1 and !raycast.is_colliding():
 		vel.x = 0
 		flip_ev()
 	
@@ -71,6 +91,7 @@ func _on_TopCollision_body_entered(body):
 		body.vel.y = -5
 		get_parent().call_deferred("add_child", shell)
 		shell.position = position + Vector2(0, 7.5)
+		shell.color = color
 		top_collision.set_deferred("monitoring", false)
 		hurtbox.monitoring = false
 		set_deferred("visible", false)
@@ -126,4 +147,6 @@ func set_disabled(val):
 	hurtbox.monitoring = !val
 	top_collision.monitoring = !val
 	raycast.enabled = !val
-	sprite.playing = !val
+	
+	if !Engine.editor_hint:
+		sprite.playing = !val
