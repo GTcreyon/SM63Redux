@@ -116,7 +116,7 @@ func read_items():
 	var parent_name
 	var parent_subname
 	var allow_reparent: bool = true
-	while (!parser.read()):
+	while (not parser.read()):
 		var node_type = parser.get_node_type()
 		match node_type:
 			# Unused nodes
@@ -263,7 +263,7 @@ func _process(_dt):
 		var min_vec = Vector2(min(selection_begin.x, global_mouse_pos.x), min(selection_begin.y, global_mouse_pos.y))
 		var max_vec = Vector2(max(selection_begin.x, global_mouse_pos.x), max(selection_begin.y, global_mouse_pos.y))
 		var new = Rect2(min_vec, max_vec - min_vec)
-		if !selection_rect.is_equal_approx(new):
+		if not selection_rect.is_equal_approx(new):
 			selection_rect = new
 			emit_signal("selection_size_changed", selection_rect)
 	

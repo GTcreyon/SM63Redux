@@ -41,7 +41,7 @@ func _process(_delta):
 		LD.save_code()
 
 func object_load(id):
-	if !objects_loaded.has(id):
+	if not objects_loaded.has(id):
 		objects_loaded[id] = load("res://classes/items/" + str(id) + "/" + str(id) + ".tscn")
 	return objects_loaded[id]
 

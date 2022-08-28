@@ -4,7 +4,7 @@ onready var cam = $"/root/Main".find_node("Camera", true, false)
 var scroll = 0
 
 func _process(delta):
-	if !weakref(cam).get_ref(): # DO NOT use an else statement, this has to happen sequentially
+	if not weakref(cam).get_ref(): # DO NOT use an else statement, this has to happen sequentially
 		cam = $"/root/Main".find_node("Camera", true, false)
 	if weakref(cam).get_ref():
 		var cam_pos = cam.get_camera_position()

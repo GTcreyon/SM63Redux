@@ -115,7 +115,7 @@ func debug_draw_edges(sorted, offset = Vector2(10, 10)):
 		verts.append(a)
 		colors.append(color)
 		
-		if !t_offset.has(a):
+		if not t_offset.has(a):
 			t_offset[a] = -1
 		
 		t_offset[a] += 1
@@ -169,7 +169,7 @@ func glue_together_contour(edges):
 			if line[line.size() - 1].is_equal_approx(edges[c_ind][0]):
 				next_line = c_ind
 		#if we looped all lines, break
-		if !next_line:
+		if not next_line:
 			break
 		s_ind = next_line
 	return [sorted_edges, watched_edges]
@@ -189,12 +189,12 @@ func get_all_contours(grid):
 		#remove duplicate edges
 		var new_edges = []
 		for ind in edges.size():
-			if !remove_indices.has(ind):
+			if not remove_indices.has(ind):
 				new_edges.append(edges[ind])
 		edges = new_edges
 		
 		#if we don't have any edges left cancel
-		if !edges.size():
+		if not edges.size():
 			break
 		
 		#get the new data
@@ -215,7 +215,7 @@ func remove_duplicate_points(input):
 		#this prevents the deletion of injected points
 		var this = input[ind]
 		var next = input[(ind + 1) % input_size]
-		if !this.is_equal_approx(next):
+		if not this.is_equal_approx(next):
 			polygon.append(this)
 	return polygon
 
@@ -234,7 +234,7 @@ func remove_collinear_points(polygon):
 		var dir = this.direction_to(next)
 		var cur_dir = next.direction_to(third)
 		#if the two directions are equal, it's collinear
-		if !dir.is_equal_approx(cur_dir):
+		if not dir.is_equal_approx(cur_dir):
 			build_poly.append(next)
 	return build_poly
 
@@ -242,12 +242,12 @@ func remove_collinear_points(polygon):
 func are_polygons_inside_eachother(a, b):
 	var a_succes = true
 	for vec in a:
-		if !Geometry.is_point_in_polygon(vec, b):
+		if not Geometry.is_point_in_polygon(vec, b):
 			a_succes = false
 			break
 	var b_succes = true
 	for vec in b:
-		if !Geometry.is_point_in_polygon(vec, a):
+		if not Geometry.is_point_in_polygon(vec, a):
 			b_succes = false
 			break
 	return [a_succes, b_succes]
@@ -286,7 +286,7 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 				injection_index = ind
 				injection_point = point
 	#backup for no other point was found
-	if injection_index == null: #we specifically check for null, because !0 = true
+	if injection_index == null: #we specifically check for null, because not 0 = true
 		injection_index = start_ind
 		injection_point = start_pos
 	if injection_index == null:
@@ -361,7 +361,7 @@ func get_individual_shape(grid, filter, set_after = 0):
 				corner = Vector2(x, y)
 				break
 	
-	if !corner:
+	if not corner:
 		return
 	
 	#flood fill algorithm
@@ -369,7 +369,7 @@ func get_individual_shape(grid, filter, set_after = 0):
 	while true:
 		#stop if the stack is equal to 0, aka, no more stack :(
 		var queue_size = check_queue.size()
-		if !queue_size:
+		if not queue_size:
 			break
 		
 		#get the current stack item + pop the top of the stack
@@ -402,7 +402,7 @@ func get_individual_shape(grid, filter, set_after = 0):
 func step_get_polygon_from_grid(grid, filter):
 	var shape = get_individual_shape(grid, filter, 0)
 	#check if there's even a shape
-	if !shape:
+	if not shape:
 		return
 	#if there is, shift the grid for marching squares to work properly
 	shift_and_incease_2d_grid(shape, 1, 1)
@@ -449,7 +449,7 @@ func get_all_polygons_from_grid(grid, filter):
 	var polygons = []
 	while true:
 		var collection = step_get_polygon_from_grid(grid, filter)
-		if !collection:
+		if not collection:
 			break
 		for poly in collection:
 			polygons.append(poly)

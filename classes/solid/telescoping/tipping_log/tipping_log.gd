@@ -15,7 +15,7 @@ func set_width(val):
 
 
 func _physics_process(_delta):
-	if !Engine.editor_hint and !disabled:
+	if not Engine.editor_hint and not disabled:
 		physics_step()
 
 
@@ -57,7 +57,7 @@ func set_disabled(val):
 	if ride_area == null:
 		ride_area = $Rod/RideArea
 	rod.set_collision_layer_bit(0, 0 if val else 1)
-	ride_area.monitoring = !val
+	ride_area.monitoring = not val
 
 
 func set_pivot_offset(val):

@@ -124,7 +124,7 @@ func _process(delta):
 
 
 func press_button(button):
-	if !get_parent().dampen:
+	if not get_parent().dampen:
 		match button:
 			0:
 				menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
@@ -196,7 +196,7 @@ func _on_StoryButton_pressed():
 
 
 func touch_cycle(step):
-	if !show_options:
+	if not show_options:
 		if step == posmod(cycle_step, 4):
 			press_button(step)
 		else:

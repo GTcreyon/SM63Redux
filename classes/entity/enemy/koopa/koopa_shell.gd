@@ -36,7 +36,7 @@ func _physics_step():
 	if is_on_floor():
 		vel.y = 0
 	if is_on_wall(): # flip when hitting wall
-		mirror = !mirror
+		mirror = not mirror
 		vel.x *= -1
 	sprite.speed_scale = abs(vel.x)
 	if vel.x > 0:

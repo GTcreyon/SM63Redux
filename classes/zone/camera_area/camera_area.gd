@@ -99,7 +99,7 @@ func set_physics_polygon(poly):
 	var did_inject = false
 	for ind in range(p_size):
 		real.append(inject[ind])
-		if !did_inject and ind >= inject_index:
+		if not did_inject and ind >= inject_index:
 			
 			#add our injection vector
 			real.append(inject_vector)
@@ -175,7 +175,7 @@ func _physics_process(dt):
 		
 	#update the camera position and stuff
 	var target = player.position
-	if !frozen:
+	if not frozen:
 		body.move_and_slide(((target - body.position) / dt))
 
 	#set the base of the camera to the body

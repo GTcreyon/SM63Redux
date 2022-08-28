@@ -174,7 +174,7 @@ func draw_top_from_connected_lines(lines):
 		poly2d.z_index = 2
 		add_child(poly2d)
 		
-		if !root.shallow:
+		if not root.shallow:
 			var shade = poly2d.duplicate()
 			shade.texture = root.top_shade
 			add_child(shade)
@@ -287,7 +287,7 @@ func get_connected_lines_blacklist(lines, blacklist, poly, start):
 	for ind in range(start, p_size):
 		var vert: Vector2 = poly[ind]
 		
-		if !blacklist.has(ind):
+		if not blacklist.has(ind):
 			added = true
 			lines.append(vert)
 		elif added:
@@ -335,6 +335,6 @@ func _draw():
 	main_texture.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 	
 	add_full(root.polygon)
-	if !Engine.editor_hint:
+	if not Engine.editor_hint:
 		collision.polygon = root.polygon
 

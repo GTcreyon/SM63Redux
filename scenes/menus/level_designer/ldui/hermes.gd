@@ -39,7 +39,7 @@ func _process(delta):
 	var dmod = 60 * delta
 	if Input.is_action_just_pressed("ld_select"):
 		playing = true
-	if !playing:
+	if not playing:
 		if flip_h:
 			progress -= speed * dmod
 		else:
@@ -70,5 +70,5 @@ func _process(delta):
 
 func _on_Hermes_animation_finished():
 	playing = false
-	flip_h = !flip_h
+	flip_h = not flip_h
 	frame = 0

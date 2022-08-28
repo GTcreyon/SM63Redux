@@ -30,10 +30,10 @@ func set_color(new_color):
 	color = new_color
 
 func _ready():
-	if !Engine.editor_hint:
+	if not Engine.editor_hint:
 		flip_h = mirror
 		frame = hash(position.x + position.y * PI) % 6
-		playing = !disabled
+		playing = not disabled
 
 func _on_TopCollision_body_entered(body):
 	if body.is_spinning():
@@ -59,7 +59,7 @@ func _on_Kick_finished():
 
 
 func _on_Damage_body_entered(body):
-	if !body.is_diving(true):
+	if not body.is_diving(true):
 		if body.is_spinning():
 			spawn_shell(body)
 		else:
@@ -92,7 +92,7 @@ func set_disabled(val):
 		hurtbox = $Damage
 	if top_collision == null:
 		top_collision = $TopCollision
-	hurtbox.monitoring = !val
-	top_collision.monitoring = !val
-	if !Engine.editor_hint:
-		playing = !val
+	hurtbox.monitoring = not val
+	top_collision.monitoring = not val
+	if not Engine.editor_hint:
+		playing = not val

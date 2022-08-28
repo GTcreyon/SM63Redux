@@ -41,7 +41,7 @@ func set_disabled(val):
 
 
 func turn_around():
-	mirror = !mirror
+	mirror = not mirror
 	if edge_check != null:
 		edge_check.position.x *= -1
 
@@ -67,7 +67,7 @@ func _physics_step():
 
 func _manage_footsteps():
 	if step_indexes[sprite.frame]:
-		if !stepped:
+		if not stepped:
 			sfx_step.pitch_scale = rand_range(0.9, 1.1)
 			sfx_step.play()
 			stepped = true
@@ -96,7 +96,7 @@ func _wander_behavior():
 		if edge_check != null:
 			edge_check.enabled = is_on_floor()
 			
-			if edge_check.enabled and !edge_check.is_colliding():
+			if edge_check.enabled and not edge_check.is_colliding():
 				turn_around()
 		
 		_wander()
@@ -133,7 +133,7 @@ func _wander():
 	wander_dist += 1
 	if wander_dist >= 120 and sprite.frame == 0:
 		wander_dist = 0
-		mirror = !mirror
+		mirror = not mirror
 
 
 func _on_AwareArea_body_exited(_body):
@@ -141,7 +141,7 @@ func _on_AwareArea_body_exited(_body):
 
 
 func _on_AlertArea_body_entered(body):
-	if target == null and !stomped and !body.locked:
+	if target == null and not stomped and not body.locked:
 		mirror = body.position.x < position.x
 		target = body
 		wander_dist = 0

@@ -21,7 +21,7 @@ func _process(delta):
 			round(OS.window_size.y / Singleton.DEFAULT_SIZE.y)
 		)
 	)
-	if Input.is_action_just_pressed("interact") and !menu.visible:
+	if Input.is_action_just_pressed("interact") and not menu.visible:
 		menu.visible = true
 		Singleton.get_node("SFX/Confirm").play()
 	if dampen:
@@ -29,7 +29,7 @@ func _process(delta):
 	else:
 		if menu.visible:
 			volume_balance = min(volume_balance + FADE_SPEED * dmod, 1)
-			if !menu_song.playing and volume_balance >= 1:
+			if not menu_song.playing and volume_balance >= 1:
 				menu_song.play()
 			logo.modulate.a = max(logo.modulate.a - 0.125 * dmod, 0)
 			text.modulate.a = max(text.modulate.a - 0.125 * dmod, 0)
@@ -45,6 +45,6 @@ func _process(delta):
 
 func _input(event):
 	if event is InputEventScreenTouch:
-		if event.pressed and !menu.visible:
+		if event.pressed and not menu.visible:
 			menu.visible = true
 			Singleton.get_node("SFX/Confirm").play()

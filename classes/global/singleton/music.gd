@@ -8,7 +8,7 @@ func _ready():
 func _process(_delta):
 	var current_scene = get_tree().get_current_scene()
 	if current_scene != null:
-		if current_scene.get_filename().count("tutorial") and !playing:
+		if current_scene.get_filename().count("tutorial") and not playing:
 			play()
-		if !current_scene.get_filename().count("tutorial"):
+		if not current_scene.get_filename().count("tutorial"):
 			stop()

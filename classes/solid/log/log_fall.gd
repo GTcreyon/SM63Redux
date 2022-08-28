@@ -23,7 +23,7 @@ func _ready():
 		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
 
 func _physics_process(_delta):
-	if falling and !disabled:
+	if falling and not disabled:
 		if wait_time > 0:
 			wait_time -= 1
 			sprite.offset = Vector2((rng.randi() % (JITTER + 1)) - JITTER / 2.0, (rng.randi() % (JITTER + 1)) - JITTER / 2.0)
@@ -32,7 +32,7 @@ func _physics_process(_delta):
 			vel.y += GRAVITY
 			position += vel
 			
-		if !visibility.is_on_screen():
+		if not visibility.is_on_screen():
 			queue_free()
 
 func _on_Area2D_body_entered(_body):
@@ -45,4 +45,4 @@ func set_disabled(val):
 	if ride_area == null:
 		ride_area = $Area2D
 	set_collision_layer_bit(0, 0 if val else 1)
-	ride_area.monitoring = !val
+	ride_area.monitoring = not val

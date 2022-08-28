@@ -36,7 +36,7 @@ func _ready():
 				reset_position = intersect + Vector2.LEFT * 20
 	rng.seed = hash(position.x + position.y * PI) # Each bird will be different, but deterministic
 	sprite.frame = rng.seed % 7
-	sprite.playing = !disabled
+	sprite.playing = not disabled
 	
 	time_count = rng.randi_range(0, TIME_UP/2)
 	vel.x = 2 + rng.randf() * 0.5
@@ -44,7 +44,7 @@ func _ready():
 
 
 func _physics_process(_delta) -> void:
-	if !disabled:
+	if not disabled:
 		physics_step()
 
 
@@ -123,6 +123,6 @@ func set_disabled(val) -> void:
 		ride_area = $RideArea
 	if sprite == null:
 		sprite = $AnimatedSprite
-	safety_net.monitoring = !val
-	ride_area.monitoring = !val
-	sprite.playing = !val
+	safety_net.monitoring = not val
+	ride_area.monitoring = not val
+	sprite.playing = not val

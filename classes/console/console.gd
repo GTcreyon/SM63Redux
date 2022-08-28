@@ -68,7 +68,7 @@ func run_command(cmd: String):
 				Singleton.water = max(Singleton.water, 100)
 				Singleton.log_msg("Water refilled.")
 			"c":
-				Singleton.classic = !Singleton.classic
+				Singleton.classic = not Singleton.classic
 				if Singleton.classic:
 					Singleton.log_msg("Classic mode enabled.")
 				else:
@@ -97,13 +97,13 @@ func run_command(cmd: String):
 			"fludd":
 				match args[1]:
 					"h", "hover", "0":
-						Singleton.collected_nozzles[0] = !Singleton.collected_nozzles[0]
+						Singleton.collected_nozzles[0] = not Singleton.collected_nozzles[0]
 						Singleton.log_msg("Toggled hover.")
 					"r", "rocket", "1":
-						Singleton.collected_nozzles[1] = !Singleton.collected_nozzles[1]
+						Singleton.collected_nozzles[1] = not Singleton.collected_nozzles[1]
 						Singleton.log_msg("Toggled rocket.")
 					"t", "turbo", "2":
-						Singleton.collected_nozzles[2] = !Singleton.collected_nozzles[2]
+						Singleton.collected_nozzles[2] = not Singleton.collected_nozzles[2]
 						Singleton.log_msg("Toggled turbo.")
 					"all":
 						Singleton.collected_nozzles = [true, true, true]
@@ -130,7 +130,7 @@ func run_command(cmd: String):
 
 func _process(_delta):
 	if Input.is_action_just_pressed("debug"):
-		visible = !visible
+		visible = not visible
 		get_tree().paused = visible
 		Singleton.set_pause("console", visible)
 		input_line.grab_focus()

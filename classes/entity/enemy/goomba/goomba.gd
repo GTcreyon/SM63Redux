@@ -20,12 +20,12 @@ func _physics_step():
 		else:
 			dead = sprite.frame >= 3
 	else:
-		if !is_on_floor():
+		if not is_on_floor():
 			sprite.frame = 1
 			sprite.animation = "jumping"
 			jump_state = JumpStates.AIRBORNE
 		
-		if !struck:
+		if not struck:
 			if is_on_floor():
 				if jump_state != JumpStates.FLOOR:
 					if jump_state != JumpStates.LANDING:
@@ -42,7 +42,7 @@ func _physics_step():
 						sprite.frame = 2 + land_timer # finish up jumping anim
 	
 	
-	if is_on_floor() and struck and !stomped and vel.y > 0:
+	if is_on_floor() and struck and not stomped and vel.y > 0:
 		stomped = true
 		sprite.animation = "squish"
 		sprite.frame = 0

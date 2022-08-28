@@ -22,7 +22,7 @@ func _ready():
 
 func _ready_override() -> void:
 	if sprite != null and sprite.get("playing") != null:
-		sprite.playing = !disabled
+		sprite.playing = not disabled
 	if persistent_collect:
 		_pickup_id_setup()
 	_connect_signals()
@@ -34,10 +34,10 @@ func _connect_signals() -> void:
 
 func set_disabled(val):
 	disabled = val
-	monitoring = !val
+	monitoring = not val
 	sprite = get_node_or_null(_sprite_path)
 	if sprite != null:
-		sprite.playing = !val
+		sprite.playing = not val
 
 
 func _pickup_id_setup() -> void:

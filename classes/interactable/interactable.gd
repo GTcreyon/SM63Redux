@@ -29,4 +29,4 @@ func _state_check(body) -> bool:
 
 func set_disabled(val):
 	disabled = val
-	monitoring = !val
+	monitoring = not val

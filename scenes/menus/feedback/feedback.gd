@@ -10,7 +10,7 @@ func _process(_delta):
 	rect_pivot_offset = Vector2(OS.window_size.x / 2, 0)
 	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if Input.is_action_just_pressed("feedback"):
-		visible = !visible
+		visible = not visible
 		get_tree().paused = visible or Singleton.pause_menu
 		Singleton.set_pause("feedback", visible)
 
@@ -25,7 +25,7 @@ func _on_Submit_pressed():
 		Singleton.get_node("SFX/Back").play()
 	else:
 		visible = false
-		if !Singleton.pause_menu:
+		if not Singleton.pause_menu:
 			get_tree().paused = false
 		var msg = "**Description:**\n> "
 		msg += desc

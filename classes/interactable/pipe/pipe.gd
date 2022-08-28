@@ -81,4 +81,4 @@ func set_disabled(val):
 	set_collision_layer_bit(0, 0 if val else 1)
 	if ride_area == null:
 		ride_area = $Area2D
-	ride_area.monitoring = !val
+	ride_area.monitoring = not val

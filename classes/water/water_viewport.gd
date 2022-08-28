@@ -95,5 +95,5 @@ func _process(dt):
 		material.set_shader_param("outline_anim_phase", current_frame)
 
 func _ready():
-	if !Engine.editor_hint:
+	if not Engine.editor_hint:
 		refresh()

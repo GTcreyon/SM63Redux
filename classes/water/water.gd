@@ -47,7 +47,7 @@ func subdivide_surface():
 			while point.x < texture.polygon[(i+1) % size].x:
 				polys.append(point)
 				point += dir * water_segment_size
-			if !polys[polys.size() - 1].is_equal_approx(texture.polygon[(i+1) % size]):
+			if not polys[polys.size() - 1].is_equal_approx(texture.polygon[(i+1) % size]):
 				polys.append(texture.polygon[(i+1) % size])
 		else:
 			polys.append(texture.polygon[i])

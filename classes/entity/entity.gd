@@ -55,7 +55,7 @@ func _process(delta):
 
 
 func _physics_process(_delta):
-	if !disabled:
+	if not disabled:
 		_physics_step()
 
 

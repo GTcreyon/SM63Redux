@@ -35,7 +35,7 @@ func _process(delta):
 		end_adjust = lerp(end_adjust, end_pos + 18, 0.5)
 		rechange_moving = true
 	else:
-		if !rechange_moving:
+		if not rechange_moving:
 			end_adjust = lerp(end_adjust, end_pos, 0.5)
 		if save_count != Singleton.hp: #if it changed
 			save_count = Singleton.hp #for the conditional
@@ -65,7 +65,7 @@ func _process(delta):
 					progress -= 0.1 * dmod
 				else:
 					rechange_moving = false #and now everything is back to place
-			elif !act and !rechange_trigger and Singleton.hp >= 8:
+			elif not act and not rechange_trigger and Singleton.hp >= 8:
 				position.y = start_pos * gui_scale
 		else:
 			rechange_moving = false

@@ -13,4 +13,4 @@ func _award_pickup(_body) -> void:
 
 func set_disabled(value):
 	disabled = value
-	monitoring = !value
+	monitoring = not value

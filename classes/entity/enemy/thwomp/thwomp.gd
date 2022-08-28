@@ -19,7 +19,7 @@ func go_down():
 
 func _physics_process(_delta):
 	#if the player is nearby the object and the can_go_down variable is false, then it will go down
-	if(abs(player.position.x - position.x) < 70 and !can_go_down):
+	if(abs(player.position.x - position.x) < 70 and not can_go_down):
 		can_go_down = true
 	#this can_go_down checks if the object is able to go down
 	if(can_go_down):

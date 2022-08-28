@@ -11,7 +11,7 @@ func debug_print_tiles(tiles):
 	var did_send = false
 	for x in tiles.size():
 		if x > 3 and x < tiles.size() - 3:
-			if !did_send:
+			if not did_send:
 				print("[ -- REDUCED -- ]")
 				did_send = true
 			continue
@@ -46,7 +46,7 @@ func convert_xml_to_readable():
 	
 	var node_name = ""
 	var global_state = ""
-	while (!parser.read()):
+	while (not parser.read()):
 		var node_type = parser.get_node_type()
 		var current_group = root.groups.back()
 		
@@ -164,7 +164,7 @@ func deserialize_tiles(level_data):
 			if tile_id == "0":
 				continue
 			
-			if !tile_data.id_to_group.has(tile_id):
+			if not tile_data.id_to_group.has(tile_id):
 				print("Unknown tile id: ", tile_id)
 				continue
 			

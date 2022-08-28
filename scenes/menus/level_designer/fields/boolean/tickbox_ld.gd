@@ -12,7 +12,7 @@ func _ready():
 
 
 func _on_Button_pressed():
-	pressed = !pressed
+	pressed = not pressed
 	if pressed:
 		Singleton.get_node("SFX/Confirm").play()
 	else:
