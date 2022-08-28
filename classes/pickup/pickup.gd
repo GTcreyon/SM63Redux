@@ -7,13 +7,13 @@ export var parent_is_root: bool = false
 
 # Enables pickup ID behavior, so pickups can only be collected once per level.
 export var persistent_collect = true
-
 export var disabled: bool = false setget set_disabled
-
 export var _sprite_path: NodePath = "Sprite"
+
+var _collect_id
+
 onready var sprite = get_node_or_null(_sprite_path)
 
-var collect_id
 
 
 func _ready():
@@ -42,8 +42,8 @@ func set_disabled(val):
 
 func _pickup_id_setup() -> void:
 	var room = get_tree().get_current_scene().get_filename()
-	collect_id = Singleton.get_collect_id()
-	if Singleton.collected_dict[room][collect_id]:
+	_collect_id = Singleton.get__collect_id()
+	if Singleton.collected_dict[room][_collect_id]:
 		queue_free()
 	else:
 		Singleton.collected_dict[room].append(false)
@@ -69,7 +69,7 @@ func _pickup_effect() -> void:
 
 func _mark_collected() -> void:
 	if persistent_collect:
-		Singleton.collected_dict[get_tree().get_current_scene().get_filename()][collect_id] = true
+		Singleton.collected_dict[get_tree().get_current_scene().get_filename()][_collect_id] = true
 	Singleton.collect_count += 1
 
 

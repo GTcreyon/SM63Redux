@@ -10,7 +10,7 @@ var mouse_pos = Vector2(0, 0)
 var mouse_pos_store = Vector2(0, 0)
 var objects_loaded = {}
 
-const player = preload("res://actors/player/player.tscn")
+const player = preload("res://classes/player/player.tscn")
 
 func _ready():
 	position = Vector2(-120, -OS.window_size.y + 60)
@@ -42,7 +42,7 @@ func _process(_delta):
 
 func object_load(id):
 	if !objects_loaded.has(id):
-		objects_loaded[id] = load("res://actors/items/" + str(id) + "/" + str(id) + ".tscn")
+		objects_loaded[id] = load("res://classes/items/" + str(id) + "/" + str(id) + ".tscn")
 	return objects_loaded[id]
 
 

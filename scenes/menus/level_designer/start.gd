@@ -1,8 +1,8 @@
 extends Button
 
 const TEMPLATE_SCENE = preload("res://level_designer/template.tscn")
-const PLAYER_SCENE = preload("res://actors/player/player.tscn")
-const BG_SCENE = preload("res://actors/bg/t1/bg_t1.tscn")
+const PLAYER_SCENE = preload("res://classes/player/player.tscn")
+const BG_SCENE = preload("res://classes/bg/t1/bg_t1.tscn")
 
 onready var main = $"/root/Main"
 onready var save = $"/root/Main/UILayer/SaveDialog"

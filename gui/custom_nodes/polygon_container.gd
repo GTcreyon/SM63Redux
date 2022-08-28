@@ -4,15 +4,16 @@ class_name PolygonContainer
 
 export(PoolVector2Array) var polygon = PoolVector2Array() setget set_polygon
 export(Color) var color = Color(0.5, 0.25, 0)
-export(int) var width = 2
-
 export(Color) var head_color = Color.white
 export(Color) var foot_color = Color.white
+export(int) var width = 2
+
 
 func set_polygon(new):
 	polygon = new
 	queue_sort()
 	update()
+
 
 func append(pos):
 	polygon.append(pos)
@@ -20,17 +21,19 @@ func append(pos):
 	button.set_position(pos)
 	button.set_size(Vector2(12, 12))
 	button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
-	button.texture_normal = preload("res://level_designer/ldui/drag_circle.png")
-	button.texture_hover = preload("res://level_designer/ldui/drag_circle_hover.png")
-	button.texture_pressed = preload("res://level_designer/ldui/drag_circle_selected.png")
+	button.texture_normal = preload("res://scenes/menus/level_designer/ldui/drag_circle.png")
+	button.texture_hover = preload("res://scenes/menus/level_designer/ldui/drag_circle_hover.png")
+	button.texture_pressed = preload("res://scenes/menus/level_designer/ldui/drag_circle_selected.png")
 	add_child(button)
 	queue_sort()
 	return button
+
 
 func set_vert(idx, pos):
 	polygon[idx] = pos
 	queue_sort()
 	update()
+
 
 func reset():
 	polygon = []
@@ -38,6 +41,7 @@ func reset():
 		remove_child(child)
 	queue_sort()
 	update()
+
 
 func _notification(what):
 	if what != NOTIFICATION_SORT_CHILDREN:
@@ -54,6 +58,7 @@ func _notification(what):
 			else:
 				child.modulate = Color.white
 			child.set_position(polygon[idx] - child.rect_size / 2)
+
 
 func _draw():
 	var p_size = polygon.size()

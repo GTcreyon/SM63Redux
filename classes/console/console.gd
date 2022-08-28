@@ -112,7 +112,7 @@ func run_command(cmd: String):
 						Singleton.collected_nozzles = [false, false, false]
 						Singleton.log_msg("All nozzles disabled.")
 			"cherry":
-				var player = load("res://actors/player/player.tscn")
+				var player = load("res://classes/player/player.tscn")
 				var inst = player.instance()
 				inst.position = $"/root/Main/Player".position + Vector2.UP * 64 + Vector2(rand_range(-16, 16), rand_range(-16, 16))
 				$"/root/Main".add_child(inst)

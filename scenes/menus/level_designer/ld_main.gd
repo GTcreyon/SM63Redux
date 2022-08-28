@@ -1,17 +1,11 @@
 extends Node2D
 
-onready var open = $"/root/Main/UILayer/OpenDialog"
-onready var sm63_to_redux = SM63ToRedux.new()
-onready var ld_ui = $UILayer/LDUI
-onready var ld_camera = $Camera
-onready var lv_template := preload("res://level_designer/template.tscn")
-
-const TERRAIN_PREFAB = preload("res://actors/terrain/terrain_polygon.tscn")
-const ITEM_PREFAB = preload("res://actors/items/ld_item.tscn")
-
 signal selection_changed #only gets called when the hash changed
 signal selection_event #gets fired always whenever some calculation regarding events is done
 signal selection_size_changed #gets fired whenever the selection rect changes
+
+const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
+const ITEM_PREFAB = preload("res://classes/ld_item/ld_item.tscn")
 
 var item_classes = {}
 var item_static_properties = {}
@@ -22,11 +16,10 @@ var in_level = false
 var start_pos
 
 var selection = {
-	active = [], #a list of all selected items
-	head = null, #the main selected item
-	
-	hit = [], #the array of all hit items on the last selection call
-	head_idx = 0, #the index of the head in the hit array
+	active = [], # A list of all selected items
+	head = null, # The main selected item
+	hit = [], # The array of all hit items on the last selection call
+	head_idx = 0, # The index of the head in the hit array
 }
 
 var selection_begin
@@ -34,11 +27,19 @@ var selection_rect = Rect2()
 
 var last_local_mouse_position = Vector2()
 
+onready var open = $"/root/Main/UILayer/OpenDialog"
+onready var sm63_to_redux = SM63ToRedux.new()
+onready var lv_template := preload("./template.tscn")
+onready var ld_ui = $UILayer/LDUI
+onready var ld_camera = $Camera
+
+
 func is_selected(item):
 	for selected in selection.hit:
 		if selected == item:
 			return true
 	return false
+
 
 func snap_vector(vec, grid = 8):
 	return Vector2(
@@ -107,6 +108,7 @@ func _disabled_draw():
 	for item in lv_data.items:
 		place_item(item)
 
+
 func read_items():
 	var parser = XMLParser.new()
 	parser.open("res://level_designer/items.xml.tres")
@@ -117,7 +119,7 @@ func read_items():
 	while (!parser.read()):
 		var node_type = parser.get_node_type()
 		match node_type:
-			#unused nodes
+			# Unused nodes
 			parser.NODE_NONE:
 				pass
 			parser.NODE_COMMENT:
@@ -129,10 +131,10 @@ func read_items():
 			parser.NODE_TEXT:
 				pass
 			
-			#useful nodes
+			# Useful nodes
 			parser.NODE_ELEMENT:
 				var node_name = parser.get_node_name()
-				#interpret classes
+				# Interpret classes
 				if parent_name == "class":
 					match node_name:
 						"property":
@@ -184,15 +186,13 @@ func read_items():
 					elif node_name == "static":
 						var prop_name = parser.get_named_attribute_value_safe("label")
 						item_static_properties[prop_name] = collect_property_values(parser)
-						# idk if I should add allow_reparent, I don't think so since it's a single tag
+						# Idk if I should add allow_reparent, don't think so since it's a single tag
 					parent_name = node_name
 			parser.NODE_ELEMENT_END:
 				var node_name = parser.get_node_name()
 				if node_name == "class" || node_name == "item":
 					allow_reparent = true
-#	print(item_classes)
-#	print(items)
-#	print(item_textures)
+
 
 func register_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
@@ -202,6 +202,7 @@ func register_property(target, subname: String, type: String, parser: XMLParser)
 		item_class_properties = target[subname]
 	item_class_properties[parser.get_named_attribute_value("label")] = collect_property_values(parser)
 
+
 func implement_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
 	if type == "item":
@@ -210,8 +211,9 @@ func implement_property(target, subname: String, type: String, parser: XMLParser
 		item_class_properties = target[subname]
 	var prop_name = parser.get_named_attribute_value("label")
 	var get_prop = parser.get_named_attribute_value("name")
-	 #NOTE: should we dupe this?
+	# NOTE: should we dupe this?
 	item_class_properties[prop_name] = item_static_properties[get_prop].duplicate()
+
 
 func collect_property_values(parser: XMLParser):
 	var var_txt = parser.get_named_attribute_value_safe("var")
@@ -225,6 +227,7 @@ func collect_property_values(parser: XMLParser):
 		description = parser.get_named_attribute_value("description")
 	}
 	return properties
+
 
 func inherit_class(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
@@ -264,10 +267,10 @@ func _process(_dt):
 			selection_rect = new
 			emit_signal("selection_size_changed", selection_rect)
 	
-	if Input.is_action_just_pressed("ld_exit"): # return to designer
+	if Input.is_action_just_pressed("ld_exit"): # Return to designer
 		if in_level:
 			in_level = false
-			get_tree().change_scene("res://level_designer/level_designer.tscn")
+			get_tree().change_scene("./level_designer.tscn")
 
 
 func _input(event):
@@ -276,14 +279,14 @@ func _input(event):
 
 
 func _unhandled_input(event: InputEvent):
-	if weakref(ld_camera).get_ref(): # avoid handling input if the ld camera doesn't exist
+	if weakref(ld_camera).get_ref(): # Avoid handling input if the ld camera doesn't exist
 		handle_mouse_input(event)
 
 
 func handle_mouse_input(event):
 	var global_mouse_pos = ld_camera.global_position + last_local_mouse_position
 	
-	#key press cycle
+	# Key press cycle
 	if event.is_action_pressed("ld_queue+") && len(selection.active) == 1 && len(selection.hit) != 1:
 		selection.head_idx = (selection.head_idx + 1) % len(selection.hit)
 		selection.head = selection.hit[selection.head_idx]
@@ -298,36 +301,36 @@ func handle_mouse_input(event):
 		emit_signal("selection_changed", selection)
 		emit_signal("selection_event", selection)
 	
-	#enable rectangle-select
+	# Enable rectangle-select
 	if event.is_action_pressed("ld_select"):
 		selection_begin = global_mouse_pos
 	
-	#main selection
+	# Main selection
 	if event.is_action_released("ld_select"):
-		#end the rectangle select
+		# End the rectangle select
 		selection_begin = null
 		var list = []
 		
-		#rectangle selection must be bigger than 8px, otherwise we assume it's just a simple click
+		# Rectangle selection must be bigger than 8px, otherwise we assume it's just a simple click
 		if (selection_rect.size.length() > 8):
-			#welcome to this horrible boilerplate rectangle collision detection!
+			# Welcome to this horrible boilerplate rectangle collision detection!
 			var shape = RectangleShape2D.new()
-			shape.set_extents(selection_rect.size / 2) #extends is both ways, hence / 2
+			shape.set_extents(selection_rect.size / 2) # Extends is both ways, hence / 2
 			var query = Physics2DShapeQueryParameters.new()
 			query.collide_with_areas = true
 			query.collide_with_bodies = true
 			query.set_shape(shape)
-			query.transform = Transform2D(0, selection_rect.position + selection_rect.size / 2) #this is the center
+			query.transform = Transform2D(0, selection_rect.position + selection_rect.size / 2) # This is the center
 			list = get_world_2d().direct_space_state.intersect_shape(query, 32)
 		else:
 			list = get_world_2d().direct_space_state.intersect_point(global_mouse_pos, 32, [], 0x7FFFFFFF, true, true)
 		
-		#convert from raw hitboxes to the actual items
+		# Convert from raw hitboxes to the actual items
 		var hit = []
 		for selected in list:
 			selected = selected.collider
-			#find the top most parent of the collider
-			#this isn't guaranteed to be just get_parent() as the collider can be nested in several children
+			# Find the top most parent of the collider
+			# This isn't guaranteed to be just get_parent() as the collider can be nested in several children
 			while selected.get_parent():
 				selected = selected.get_parent()
 				var parent_name = selected.get_parent().name
@@ -335,22 +338,22 @@ func handle_mouse_input(event):
 					hit.append(selected)
 					break
 		
-		#a slow, possibly bad idea, but unless someone stacked like a thousand items under eachother it should be fine
-		#we do this so we are sure items are always ordered in the same way
-		#this is required so we can reliably switch between items on the queue
+		# A slow, possibly bad idea, but unless someone stacked like a thousand items under eachother it should be fine
+		# We do this so we are sure items are always ordered in the same way
+		# This is required so we can reliably switch between items on the queue
 		
-		#NOTE: change this so it orders by the X, then the Y of the object
+		# NOTE: change this so it orders by the X, then the Y of the object
 		hit.sort_custom(self, "retain_order_by_hash")
 		
 		selection.hit = hit
-		#make sure we don't try to select something in a null table
+		# Make sure we don't try to select something in a null table
 		if len(selection.hit) == 0:
 			var old_hash = selection.hash()
 			selection.head_idx = 0
 			selection.head = null
 			selection.active = []
 			if selection.hash() != old_hash:
-				#our selection changed, fire selection changed
+				# Our selection changed, fire selection changed
 				emit_signal("selection_changed", selection)
 		else:
 			var old_hash = selection.hash()
@@ -358,20 +361,20 @@ func handle_mouse_input(event):
 			selection.head = selection.hit[selection.head_idx]
 			selection.active = hit if selection_rect.size.length() > 8 else [selection.head]
 			
-			#for the cycle
+			# For the cycle
 			selection.head_idx = (selection.head_idx + 1) % len(selection.hit)
 			if selection.hash() != old_hash:
-				#our selection changed, fire selection changed
+				# Our selection changed, fire selection changed
 				emit_signal("selection_changed", selection)
 		emit_signal("selection_event", selection)
 		
-		#change the selected area to the smallest bounding box of the newly selected items
+		# Change the selected area to the smallest bounding box of the newly selected items
 		if len(selection.active) > 0:
 			var min_vec = Vector2.INF
 			var max_vec = -Vector2.INF
 			for item in selection.active:
 				var vectors = []
-				#item have a rect, all other types have a polygon
+				# Item has a rect, all other types have a polygon
 				if item.get_parent().name == "Items":
 					vectors = [
 						item.position - item.texture.get_size() / 2,
