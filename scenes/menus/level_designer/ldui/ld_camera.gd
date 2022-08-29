@@ -2,10 +2,11 @@ extends Camera2D
 
 signal test_level
 
+const SCROLL_SPEED = 8
+
 onready var LD = get_parent()
 onready var music = LD.get_node("Music")
 
-var scroll_speed = 8
 var mouse_pos = Vector2(0, 0)
 var mouse_pos_store = Vector2(0, 0)
 var objects_loaded = {}
@@ -26,8 +27,9 @@ func _process(_delta):
 	if i_pan:
 		position += mouse_pos_store - mouse_pos
 	else:
-		# Horrific code compression - this is just for moving the camera
-		position += Vector2((int(i_right) - int(i_left))*scroll_speed, (int(i_down) - int(i_up))*scroll_speed)
+		var cam_move_x = int(i_right) - int(i_left)
+		var cam_move_y = int(i_down) - int(i_up)
+		position += Vector2(cam_move_x, cam_move_y) * SCROLL_SPEED
 		
 	mouse_pos_store = mouse_pos
 
