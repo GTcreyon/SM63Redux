@@ -21,7 +21,8 @@ If applicable, add screenshots to help explain your problem.
 
 **System Information**
  - OS/Browser:
- - Version:
+ - Game version:
+ - Other specs:
 
 **Additional context**
 Add any other context about the problem here.
