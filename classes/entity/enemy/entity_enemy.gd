@@ -46,7 +46,7 @@ func _physics_step():
 	._physics_step()
 	
 	# Triggered when landing on the floor after being struck by a spin
-	if is_on_floor() and struck and not stomped and vel.y > 0:
+	if is_on_floor() and struck and !stomped and vel.y > 0:
 		_struck_land()
 	
 	if inside_check:
@@ -73,10 +73,10 @@ func _connect_signals():
 
 func set_disabled(val):
 	.set_disabled(val)
-	_set_node_property_if_exists(hurtbox_stomp, "monitoring", not val)
-	_set_node_property_if_exists(hurtbox_strike, "monitoring", not val)
-	_set_node_property_if_exists(hitbox, "monitoring", not val)
-	_set_node_property_if_exists(sprite, "playing", not val)
+	_set_node_property_if_exists(hurtbox_stomp, "monitoring", !val)
+	_set_node_property_if_exists(hurtbox_strike, "monitoring", !val)
+	_set_node_property_if_exists(hitbox, "monitoring", !val)
+	_set_node_property_if_exists(sprite, "playing", !val)
 
 
 func _preempt_all_node_readies():
@@ -96,13 +96,13 @@ func _setup_collect_id():
 # Start the sprite's animation and pseudorandomise its start point depending on position in the level
 func _init_animation():
 	if sprite != null and sprite.get("playing") != null:
-		sprite.playing = not disabled
-		if not disabled:
+		sprite.playing = !disabled
+		if !disabled:
 			sprite.frame = hash(position.x + position.y * PI) % sprite.frames.get_frame_count(sprite.animation)
 
 
 func _on_HurtboxStomp_area_entered(area):
-	if not stomped or multi_stomp:
+	if !stomped or multi_stomp:
 		stomped = true
 		_hurt_stomp(area)
 
@@ -113,13 +113,13 @@ func _on_HurtboxStrike_body_entered(body):
 
 
 func _on_Hitbox_body_entered(body):
-	if not struck and not stomped:
+	if !struck and !stomped:
 		body.take_damage_shove(1, sign(body.position.x - position.x))
 
 
 # Check if the colliding body can strike this enemy
 func _strike_check(body):
-	return not struck and (body.is_spinning() or (body.is_diving(true) and abs(body.vel.x) > 1))
+	return !struck and (body.is_spinning() or (body.is_diving(true) and abs(body.vel.x) > 1))
 
 
 func _hurt_stomp(area):

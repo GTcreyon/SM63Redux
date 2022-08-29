@@ -24,7 +24,7 @@ func _physics_step():
 				direction = target.position - position
 				vel = position.direction_to(target.position) * SPEED
 				if target.position.x < position.x:
-					if not mirror:
+					if !mirror:
 						rotation = -rotation
 						mirror = true
 					rotation = lerp_angle(rotation, direction.angle() - PI, 0.25)

@@ -123,13 +123,13 @@ func get_brand_id(): # need to get the gamepad brand so we can display correct b
 
 
 func _on_RebindOption_mouse_entered():
-	if not pressed:
+	if !pressed:
 		action_name.add_color_override("font_color", Color.aqua)
 		key_list.add_color_override("font_color", Color.aqua)
 
 
 func _on_RebindOption_mouse_exited():
-	if not pressed:
+	if !pressed:
 		action_name.add_color_override("font_color", Color.white)
 		key_list.add_color_override("font_color", Color.white)
 

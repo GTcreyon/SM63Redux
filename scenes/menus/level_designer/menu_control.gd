@@ -88,10 +88,10 @@ func get_polygon_rect(polygon):
 
 func set_editable_rect(enabled, rect = Rect2(), menu_visible = true):
 	rect_controls.visible = menu_visible
-	if not enabled:
+	if !enabled:
 		editable_rect.visible = false
 		return
-	if not editable_rect.visible:
+	if !editable_rect.visible:
 		editable_rect.visible = true
 	if editable_rect.rect_size != rect.size:
 		editable_rect.set_size(rect.size)
@@ -103,7 +103,7 @@ func _process(_dt):
 	background.material.set_shader_param("camera_position", ld_camera.global_position)
 	
 	hover_ui.set_position(-ld_camera.global_position)
-	if editable_rect.visible and not is_creating_polygon:
+	if editable_rect.visible and !is_creating_polygon:
 		set_editable_rect(true, level_editor.selection_rect)
 	
 	# Poly edit

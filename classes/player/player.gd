@@ -156,7 +156,7 @@ func _on_WaterCheck_area_exited(_area):
 	water_areas -= 1
 	if water_areas <= 0:
 		swimming = false
-		if vel.y < 0 and not fludd_strain and not is_spinning():
+		if vel.y < 0 and !fludd_strain and !is_spinning():
 			vel.y -= 3
 
 # player physics constants
@@ -226,7 +226,7 @@ func player_physics():
 	if coyote_frames > 0:
 		coyote_behaviour()
 	else:
-		if not swimming:
+		if !swimming:
 			airborne_anim()
 		if Input.is_action_pressed("left") == Input.is_action_pressed("right"):
 			vel.x = resist(vel.x, 0, 1.001) # Air decel
@@ -323,7 +323,7 @@ func action_swim() -> void:
 					(
 						int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
 					) == -1.0
-					and not sprite.flip_h
+					and !sprite.flip_h
 				)
 			)
 		):
@@ -344,14 +344,14 @@ func adjust_swim_x() -> void:
 var hover_sound_position = 0
 var nozzle_fx_scale = 0
 func fixed_visuals() -> void:
-	if swimming and state == S.NEUTRAL and not grounded and not Input.is_action_pressed("spin"):
+	if swimming and state == S.NEUTRAL and !grounded and !Input.is_action_pressed("spin"):
 		switch_anim("swim")
 		if sprite.frame == 0:
 			sprite.speed_scale = 0
 	if state == S.DIVE or swimming:
 		hover_sfx.stop()
 		if fludd_strain:
-			if not hover_loop_sfx.playing:
+			if !hover_loop_sfx.playing:
 				hover_loop_sfx.play(hover_sound_position)
 		else:
 			hover_sound_position = hover_loop_sfx.get_playback_position()
@@ -363,14 +363,14 @@ func fixed_visuals() -> void:
 			hover_sfx.stop()
 			
 		if fludd_strain:
-			if not hover_sfx.playing:
+			if !hover_sfx.playing:
 				hover_sfx.play(hover_sound_position)
 		else:
 			if Singleton.power < 100:
 				hover_sound_position = hover_sfx.get_playback_position()
 			else:
 				hover_sound_position = 0
-			if not Input.is_action_pressed("fludd") or Singleton.power > 0:
+			if !Input.is_action_pressed("fludd") or Singleton.power > 0:
 				hover_sfx.stop()
 	
 	bubbles_medium.emitting = fludd_strain
@@ -423,7 +423,7 @@ func fixed_visuals() -> void:
 			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
 			step_sound()
 		last_step = sprite.frame
-	elif not sprite.animation.begins_with("swim"):
+	elif !sprite.animation.begins_with("swim"):
 		sprite.speed_scale = 1
 	
 	#$Label.text = str(vel.x)
@@ -434,12 +434,12 @@ func fixed_visuals() -> void:
 	if sprite.animation.begins_with("spin"):
 		match sprite.frame:
 			1:
-				if not fludd_sprite.animation.ends_with("front"):
+				if !fludd_sprite.animation.ends_with("front"):
 					fludd_sprite.animation = fludd_sprite.animation + "_front"
 			2:
 				if fludd_sprite.animation.ends_with("front"):
 					fludd_sprite.animation = fludd_sprite.animation.substr(0, fludd_sprite.animation.length() - 6)
-				fludd_sprite.flip_h = not sprite.flip_h
+				fludd_sprite.flip_h = !sprite.flip_h
 	if fludd_sprite.animation.ends_with("front"):
 		fludd_sprite.offset.x = 0
 	else:
@@ -486,9 +486,9 @@ func action_pound() -> void:
 			vel = Vector2(cos(ang) * mag, sin(ang) * mag)
 		else:
 			if (
-				not swimming
+				!swimming
 				and
-				not grounded
+				!grounded
 				and (
 					state & (
 						S.NEUTRAL
@@ -517,7 +517,7 @@ func action_spin() -> void:
 	if state == S.SPIN:
 		if spin_frames > 0:
 			spin_frames -= 1
-		elif not Input.is_action_pressed("spin"):
+		elif !Input.is_action_pressed("spin"):
 			switch_state(S.NEUTRAL)
 			
 	if (
@@ -530,7 +530,7 @@ func action_spin() -> void:
 	):
 		switch_state(S.SPIN)
 		switch_anim("spin")
-		if not grounded:
+		if !grounded:
 			if swimming:
 				vel.y = min(-2, vel.y)
 			else:
@@ -542,7 +542,7 @@ var rocket_charge: int = 0
 func fludd_control():
 	if grounded:
 		Singleton.power = 100 # TODO: multi fludd
-	elif not Input.is_action_pressed("fludd") and Singleton.nozzle != Singleton.n.hover:
+	elif !Input.is_action_pressed("fludd") and Singleton.nozzle != Singleton.n.hover:
 		Singleton.power = min(Singleton.power + FPS_MOD, 100)
 	if (
 		Input.is_action_pressed("fludd")
@@ -576,7 +576,7 @@ func fludd_control():
 								vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
 								vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(FPS_MOD, 2)
 					else:
-						if Singleton.power == 100 and not swimming:
+						if Singleton.power == 100 and !swimming:
 							vel.y -= 2
 						
 						if Input.is_action_pressed("jump"):
@@ -588,7 +588,7 @@ func fludd_control():
 						else:
 							vel.y -= (((-4*Singleton.power*vel.y * FPS_MOD * FPS_MOD) + (-525*vel.y * FPS_MOD) + (368*Singleton.power * FPS_MOD * FPS_MOD) + (48300)) / 7000) * pow(FPS_MOD, 5)
 						vel.x = resist(vel.x, 0.05, 1.03)
-					if not swimming:
+					if !swimming:
 						Singleton.water = max(0, Singleton.water - 0.07 * FPS_MOD)
 						Singleton.power -= 1.5 * FPS_MOD
 			Singleton.n.rocket:
@@ -612,7 +612,7 @@ func fludd_control():
 					
 					rocket_charge = 0
 					
-					if not swimming:
+					if !swimming:
 						Singleton.water = max(Singleton.water - 5, 0)
 						Singleton.power = 0
 	else:
@@ -638,7 +638,7 @@ func player_control_x() -> void:
 				)
 			):
 				sprite.flip_h = dir == -1 # flip sprite according to direction
-			if (grounded or (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) and ground_except)) and not swimming:
+			if (grounded or (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) and ground_except)) and !swimming:
 				if state == S.POUND:
 					vel.x = 0
 				elif state != S.DIVE:
@@ -681,7 +681,7 @@ func player_jump() -> void:
 					- int(Input.is_action_pressed("left")) != -1
 				)
 				and
-				not sprite.flip_h
+				!sprite.flip_h
 			)
 			or
 			(
@@ -693,7 +693,7 @@ func player_jump() -> void:
 				sprite.flip_h
 			)
 		):
-			if not dive_resetting and abs(vel.x) >= 1 and not is_on_wall(): # prevents static dive recover
+			if !dive_resetting and abs(vel.x) >= 1 and !is_on_wall(): # prevents static dive recover
 				action_rollout()
 		else:
 			action_backflip()
@@ -765,7 +765,7 @@ func manage_backflip_flip() -> void:
 
 
 func action_backflip() -> void:
-	if not dive_resetting:
+	if !dive_resetting:
 		dive_correct(-1)
 	off_ground()
 	switch_state(S.BACKFLIP)
@@ -813,7 +813,7 @@ func coyote_behaviour() -> void:
 			switch_state(S.NEUTRAL)
 			sprite.rotation = 0
 		
-		if state == S.DIVE and abs(vel.x) < 1 and not Input.is_action_pressed("dive") and not dive_resetting:
+		if state == S.DIVE and abs(vel.x) < 1 and !Input.is_action_pressed("dive") and !dive_resetting:
 			reset_dive()
 
 
@@ -858,12 +858,12 @@ func player_fall() -> void:
 			fall_adjust += 0.814
 		else:
 			if swimming:
-				if not Input.is_action_pressed("spin"):
+				if !Input.is_action_pressed("spin"):
 					fall_adjust += GRAV / 3.0
 			else:
 				fall_adjust += GRAV
 		
-		if not grounded:
+		if !grounded:
 			if swimming:
 				fall_adjust = water_resistance(fall_adjust)
 			else:
@@ -877,7 +877,7 @@ func ground_friction() -> void:
 		if double_jump_frames >= DOUBLE_JUMP_TIME - 1:
 			vel.x = resist(vel.x, 0.2, 1.02) # Double friction on landing
 		vel.x = resist(vel.x, 0.2, 1.02) # Floor friction
-		if not dive_resetting:
+		if !dive_resetting:
 			manage_dive_angle()
 	else:
 		if double_jump_frames >= DOUBLE_JUMP_TIME - 1:
@@ -947,7 +947,7 @@ func airborne_anim() -> void:
 		if vel.y > 0:
 			switch_anim("fall")
 		else:
-			if double_jump_state == 2 and not double_anim_cancel:
+			if double_jump_state == 2 and !double_anim_cancel:
 				switch_anim("jump_double")
 			else:
 				switch_anim("jump")
@@ -988,7 +988,7 @@ func player_move() -> void:
 	# check how far that moved the player
 	var slide_vec = position-save_pos
 	# if the player isn't grounded despite being stopped moving downwards, increment the failsafe
-	if abs(slide_vec.y) < 0.5 and vel.y > 0 and not is_on_floor() and ground_failsafe_check.get_overlapping_bodies().size() > 0:
+	if abs(slide_vec.y) < 0.5 and vel.y > 0 and !is_on_floor() and ground_failsafe_check.get_overlapping_bodies().size() > 0:
 		# warning-ignore:narrowing_conversion
 		ground_failsafe_timer = min(ground_failsafe_timer + 1, GROUND_FAILSAFE_THRESHOLD)
 	
@@ -1004,7 +1004,7 @@ func player_move() -> void:
 
 func get_snap() -> Vector2:
 	if (
-		not grounded
+		!grounded
 		or Input.is_action_just_pressed("jump")
 		or jump_buffer_frames > 0
 		or state == S.ROLLOUT
@@ -1052,12 +1052,12 @@ func action_dive():
 		)
 		and
 		(
-			not swimming
+			!swimming
 			or
 			grounded
 		)
 	):
-		if not swimming and coyote_frames > 0 and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
+		if !swimming and coyote_frames > 0 and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
 			off_ground()
 			dive_correct(-1)
 			switch_state(S.ROLLOUT)
@@ -1077,7 +1077,7 @@ func action_dive():
 				and abs(sprite.rotation) > PI / 2 * 3
 			)
 		):
-			if not grounded:
+			if !grounded:
 				gp_dive_timer = 6
 				off_ground()
 				if state != S.TRIPLE_JUMP:
@@ -1093,7 +1093,7 @@ func action_dive():
 					vel.y = max(-3, vel.y + 3.0 * FPS_MOD)
 				else:
 					vel.y += 3.0 * FPS_MOD
-			if (not grounded or vel.y >= 0) and (not swimming or grounded):
+			if (!grounded or vel.y >= 0) and (!swimming or grounded):
 				switch_state(S.DIVE)
 				if sprite.flip_h:
 					sprite.rotation = -PI / 2
@@ -1138,7 +1138,7 @@ func manage_dive_recover():
 		dive_reset_frames += 1
 		# warning-ignore:integer_division
 		if dive_reset_frames >= DIVE_RESET_TIME / 2:
-			if not sprite.animation.begins_with("jump"):
+			if !sprite.animation.begins_with("jump"):
 				switch_anim("jump")
 				dive_correct(-1)
 				hitbox.position = STAND_BOX_POS
@@ -1164,7 +1164,7 @@ func switch_fludd():
 	while (
 		(
 			Singleton.nozzle < 4
-			and not Singleton.collected_nozzles[(Singleton.nozzle - 1) % 3]
+			and !Singleton.collected_nozzles[(Singleton.nozzle - 1) % 3]
 		)
 		or Singleton.nozzle == 0
 	):
@@ -1291,13 +1291,13 @@ func switch_anim(new_anim):
 
 
 func take_damage(amount):
-	if invuln_frames <= 0 and not locked:
+	if invuln_frames <= 0 and !locked:
 		Singleton.hp = clamp(Singleton.hp - amount, 0, 8) #TODO - multi HP
 		invuln_frames = 180
 
 
 func take_damage_shove(amount, direction):
-	if invuln_frames <= 0 and not locked:
+	if invuln_frames <= 0 and !locked:
 		take_damage(amount)
 		switch_state(S.HURT)
 		hurt_timer = 30

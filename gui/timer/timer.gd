@@ -40,7 +40,7 @@ func format_time(overall_seconds):
 
 
 func _physics_process(_delta):
-	if Input.is_action_just_pressed("reset") and get_tree().get_current_scene().get_filename().count("tutorial") and not get_tree().paused and Singleton.timer.visible:
+	if Input.is_action_just_pressed("reset") and get_tree().get_current_scene().get_filename().count("tutorial") and !get_tree().paused and Singleton.timer.visible:
 		Singleton.collected_nozzles = [false, false, false]
 		Singleton.nozzle = Singleton.n.none
 		Singleton.water = 100
@@ -55,7 +55,7 @@ func _physics_process(_delta):
 			player.position = Vector2(110, 153)
 	
 	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	if not Singleton.meta_paused and running:
+	if !Singleton.meta_paused and running:
 		frames += 1
 		split_frames += 1
 		var txt = format_time(round(frames / 60.0 * 1000.0) / 1000.0)

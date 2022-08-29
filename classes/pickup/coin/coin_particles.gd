@@ -5,5 +5,5 @@ func _ready():
 
 
 func _process(delta):
-	if not emitting:
+	if !emitting:
 		queue_free()

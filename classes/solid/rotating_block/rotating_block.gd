@@ -68,7 +68,7 @@ func _physics_process(_delta):
 	if timer >= wait:
 		turning = true
 		timer = 0
-	if turning and not Engine.editor_hint:
+	if turning and !Engine.editor_hint:
 		if abs(rad2deg(rotation)) < total_interval + interval:
 			rotation += deg2rad(speed)
 		else:

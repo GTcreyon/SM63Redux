@@ -153,7 +153,7 @@ func _process(delta):
 			Singleton.pause_menu = false
 			get_tree().paused = false
 		else:
-			if not get_tree().paused:
+			if !get_tree().paused:
 				Singleton.pause_menu = true
 				get_tree().paused = true
 		

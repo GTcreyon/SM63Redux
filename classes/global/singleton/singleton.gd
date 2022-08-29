@@ -144,7 +144,7 @@ func get_collect_id():
 
 
 func create_coindict(path):
-	if not collected_dict.has(path):
+	if !collected_dict.has(path):
 		collected_dict[path] = [false]
 
 
@@ -154,7 +154,7 @@ func reset_all_coindicts():
 
 func request_coin(collect_id):
 	var room = get_tree().get_current_scene().get_filename()
-	if not collected_dict[room][collect_id]:
+	if !collected_dict[room][collect_id]:
 		collected_dict[room][collect_id] = true
 		return true
 
@@ -207,7 +207,7 @@ func get_input_map_json_current():
 	for key in InputMap.get_actions():
 		if WHITELISTED_ACTIONS.has(key):
 			for action in InputMap.get_action_list(key):
-				if not save_dict.has(key):
+				if !save_dict.has(key):
 					save_dict[key] = []
 				var key_entry = save_dict[key]
 				match action.get_class():

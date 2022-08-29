@@ -14,7 +14,7 @@ onready var exit_button = get_parent().get_node("ButtonExit")
 func _process(_delta):
 	#control nodes don't like to be made invisible then visible in one frame, it messes with input
 	for node in stats:
-		node.visible = not Singleton.pause_menu
+		node.visible = !Singleton.pause_menu
 	if map_button.pressed:
 		map.visible = true
 		fludd.visible = false

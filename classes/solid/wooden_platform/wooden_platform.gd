@@ -8,4 +8,4 @@ func set_disabled(val):
 	set_collision_layer_bit(0, 0 if val else 1)
 	if safety_net == null:
 		safety_net = $SafetyNet
-	safety_net.monitoring = not val
+	safety_net.monitoring = !val

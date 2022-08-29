@@ -15,10 +15,10 @@ func _process(_delta):
 
 
 func _on_Unpause_pressed():
-	if not Singleton.feedback and parent.modulate.a >= 1:
+	if !Singleton.feedback and parent.modulate.a >= 1:
 		Input.action_press("pause")
 
 
 func _on_Unpause_released():
-	if not Singleton.feedback and parent.modulate.a >= 1:
+	if !Singleton.feedback and parent.modulate.a >= 1:
 		Input.action_release("pause")

@@ -20,12 +20,12 @@ func _ready_override():
 	._ready_override()
 	fuse = _preempt_node_ready(fuse, "Sprites/Fuse")
 	key = _preempt_node_ready(key, "Sprites/Key")
-	fuse.playing = not disabled
-	key.playing = not disabled
+	fuse.playing = !disabled
+	key.playing = !disabled
 
 
 func _physics_step() -> void:
-	if not struck:
+	if !struck:
 		_update_sprites()
 	
 	if fuse.animation == "lit":
@@ -68,8 +68,8 @@ func _target_alert(body) -> void:
 
 func set_disabled(val) -> void:
 	.set_disabled(val)
-	fuse.playing = not disabled
-	key.playing = not disabled
+	fuse.playing = !disabled
+	key.playing = !disabled
 
 
 func _hurt_struck(body) -> void:

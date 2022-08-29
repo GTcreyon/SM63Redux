@@ -48,7 +48,7 @@ func _process(delta):
 		manage_zoom(delta)
 	if OS.window_size.x != 0:
 		var zoom_factor = 1 / max(1, round(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
-		if not get_tree().paused:
+		if !get_tree().paused:
 			if Input.is_action_just_pressed("zoom+") and target_zoom > 0.25:
 				target_zoom /= 2
 				rezoom()

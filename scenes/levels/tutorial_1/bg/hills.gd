@@ -4,7 +4,7 @@ onready var cam = $"/root/Main".find_node("Camera", true, false)
 
 func _process(_delta):
 	rect_scale = Vector2.ONE * max(round(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	if not weakref(cam).get_ref(): # DO NOT use an else statement, this has to happen sequentially
+	if !weakref(cam).get_ref(): # DO NOT use an else statement, this has to happen sequentially
 		cam = $"/root/Main".find_node("Camera", true, false)
 	if weakref(cam).get_ref():
 		var cam_pos = cam.get_camera_position()

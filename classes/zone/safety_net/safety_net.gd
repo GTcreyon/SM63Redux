@@ -24,5 +24,5 @@ func _on_SafetyNet_body_entered(body):
 
 func _on_SafetyNet_body_exited(body):
 	bodies.erase(body)
-	if body.vel.y < 0 and (not Input.is_action_pressed("fludd") or Singleton.classic or Singleton.nozzle != Singleton.n.rocket):
+	if body.vel.y < 0 and (!Input.is_action_pressed("fludd") or Singleton.classic or Singleton.nozzle != Singleton.n.rocket):
 		Singleton.power = 100 # air rocket
