@@ -69,7 +69,7 @@ func set_physics_polygon(poly):
 			real_poly.append(poly[ind])
 	poly = real_poly
 	
-	#our ray upwards
+	# Our ray upwards
 	var ray_start = poly[0]
 	var ray_end = poly[0] - Vector2(0, 10000)
 	
@@ -94,7 +94,7 @@ func set_physics_polygon(poly):
 			inject_vector = point
 			break
 	
-	#build the REAL shape array
+	# Build the REAL shape array
 	var real = []
 	var did_inject = false
 	for ind in range(p_size):
@@ -138,7 +138,7 @@ func _ready():
 	shrink_number = 0
 	
 	body.position = player.position # spawn_position
-	#make it invisible
+	# Make it invisible
 	color = Color(0, 0, 0, 0)
 	
 func _physics_process(dt):
@@ -158,7 +158,7 @@ func _physics_process(dt):
 			Vector2(-target_size.x / 2, 0)
 		])
 	
-	#emergency workaround
+	# Emergency workaround
 	if Singleton.disable_limits:
 		body_collision.polygon = PoolVector2Array([
 			Vector2.ZERO,

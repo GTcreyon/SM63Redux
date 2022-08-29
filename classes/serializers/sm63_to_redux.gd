@@ -80,7 +80,7 @@ func convert_xml_to_readable():
 			
 		elif node_type == 3:
 			var node_data := parser.get_node_data()
-			#make sure we only include actual data, not any 0 width ones
+			# Make sure we only include actual data, not any 0 width ones
 			node_data = node_data.replace("\n", "")
 			node_data = node_data.replace("\t", "")
 			node_data = node_data.replace("\r", "")
@@ -107,7 +107,7 @@ func convert_xml_to_readable():
 						var id_type = parser.get_named_attribute_value("type") if parser.has_attribute("type") else "normal"
 						if id_type == "range":
 							var str_range = node_data.split("-")
-							#loop for the range of ids
+							# Loop for the range of ids
 							for n_id in range(str_range[0].to_int(), str_range[1].to_int() + 1):
 								# Get the actual tile id
 								var id = numeric_id_to_tile_id[n_id]
@@ -148,7 +148,7 @@ func deserialize_tiles(level_data):
 		var tile = tile_data.get_string("tile")
 		for _i in range(amount):
 			tiles[pointer.x].append(tile)
-			#loop
+			# Loop
 			pointer.y += 1
 			if pointer.y >= level_data.y:
 				pointer.x += 1
@@ -159,7 +159,7 @@ func deserialize_tiles(level_data):
 	var done_tiles = {}
 	for x in range(tiles.size()):
 		for y in range(tiles[x].size()):
-			#we only need to do every tile type once
+			# We only need to do every tile type once
 			var tile_id = tiles[x][y]
 			if tile_id == "0":
 				continue
@@ -227,7 +227,7 @@ func deserialize(lvl_text):
 	var result = expression.search(lvl_text)
 	# If we don't have a result, that means *something* went wrong
 	if result:
-		#put the level data into a nice dictionary
+		# Put the level data into a nice dictionary
 		var level_data = {
 			x = int(result.get_string("x")),
 			y = int(result.get_string("y")),
@@ -242,7 +242,6 @@ func deserialize(lvl_text):
 		}
 		level_data.polygon_data = deserialize_tiles(level_data)
 		level_data.items = deserialize_items(level_data)
-		#our job, is done here.
 		return level_data
 	else:
 		print("Error, couldn't parse SM63 level code.")

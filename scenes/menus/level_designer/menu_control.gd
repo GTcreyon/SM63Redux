@@ -16,11 +16,9 @@ var editable_poly = null
 var selected_polys = []
 
 # A bad, slow, O(n^2), but easy to implement algorithm
-# I should look into better algorithms
+# TODO: Should look into better algorithms
 # Here: web.archive.org/web/20141211224415/http://www.lems.brown.edu/~wq/projects/cs252.html
 # That is O(n)
-# But eh, I'll come back to it
-# Sometime TM
 func polygon_self_intersecting(polygon):
 	var p_size = polygon.size()
 	var start = polygon[0]
@@ -51,7 +49,7 @@ func fake_polygon_create():
 
 
 func finish_creating_polygon():
-	#make sure the polygon is correctly rotated, which is counter-clockwise
+	# Make sure the polygon is correctly rotated, which is counter-clockwise
 	var make_polygon = Array(editable_poly.polygon)
 	if Geometry.is_polygon_clockwise(make_polygon):
 		make_polygon.invert()
@@ -158,7 +156,7 @@ func _selection_size_changed(rect):
 func fill_grid():
 	for item_id in range(level_editor.item_textures.size()):
 		if level_editor.item_textures[item_id] != null:
-			var button = list_item.instance()
+			var button = LIST_ITEM.instance()
 			var tex : AtlasTexture = AtlasTexture.new()
 			
 			var path = level_editor.item_textures[item_id]["List"]

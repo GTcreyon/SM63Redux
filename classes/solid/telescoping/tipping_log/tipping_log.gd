@@ -20,11 +20,10 @@ func _physics_process(_delta):
 
 
 func physics_step():
-	# calculate total torque
+	# Calculate total torque
 	# M = Fd
-	# yeah i know this is the formula for moments shush
 	# F will just be a constant for now
-	# maybe objects could have weights at some point idk
+	# TODO: Consider using fall speed as F
 	
 	var riders = []
 	for body in ride_area.get_overlapping_bodies():

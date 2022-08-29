@@ -106,7 +106,7 @@ func refresh_returns(line):
 				i += 1
 		i += j
 		i += 1
-	#pad the left side to prevent outline issues ._.
+	# Pad the left side to prevent outline issues ._.
 	line = " " + line.replace("\n", "\n ")
 	return line
 
@@ -115,7 +115,6 @@ func say_line(index):
 	char_roll = 1
 	char_index = 0
 	
-#	if 
 	raw_line = insert_keybind_strings(TranslationServer.translate(loaded_lines[index]))
 	target_line = refresh_returns(raw_line)
 	visible = true
@@ -141,7 +140,7 @@ func _physics_process(_delta):
 			star_wobble += 0.1
 			star.offset.y = round(sin(-star_wobble) * 2)
 		else:
-			star_wobble = 0 #prevent overflow lol
+			star_wobble = 0 # Prevent overflow lol
 		if char_index < target_line.length():
 			if Input.is_action_pressed("skip"):
 				var regex = RegEx.new()
@@ -155,7 +154,7 @@ func _physics_process(_delta):
 				if floor(char_roll) > char_index:
 					var looping = true
 					var skip_char = false
-					while looping and char_index < target_line.length(): #prevents lag on tags
+					while looping and char_index < target_line.length(): # Prevents lag on tags
 						match target_line[char_index]:
 							"[":
 								var tag = ""
@@ -164,7 +163,6 @@ func _physics_process(_delta):
 									char_index += 1
 									char_roll += 1
 								tag += target_line[char_index]
-								#print(tag)
 								match tag[1]:
 									"/":
 										text_area.pop() # Closes tag
@@ -173,7 +171,6 @@ func _physics_process(_delta):
 											var _a = 0
 										else:
 											var subtag = tag.substr(2, tag.length() - 3)
-											#print(subtag)
 											var args = subtag.split(",")
 											match args[0]:
 												"s":

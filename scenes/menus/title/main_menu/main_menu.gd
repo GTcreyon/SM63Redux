@@ -46,7 +46,7 @@ func _process(delta):
 			cycle_positions = [
 				Vector2(OS.window_size.x / 2, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
 				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(OS.window_size.x / 2, OS.window_size.y + 100 * scale), #offscreen
+				Vector2(OS.window_size.x / 2, OS.window_size.y + 100 * scale), # Offscreen
 				#Vector2.ZERO,
 				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
 				]

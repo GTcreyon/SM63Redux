@@ -34,7 +34,7 @@ func _physics_process(_delta):
 	if return_to_pos:
 		# Timer starts here
 		if(timer >= 120):
-			#once the timer is up, then it will return to its position
+			# Once the timer is up, then it will return to its position
 			if(position.y > og_pos_y):
 				movement.y -= 50
 			elif(position.y <= og_pos_y):

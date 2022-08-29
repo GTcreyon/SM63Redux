@@ -34,7 +34,7 @@ func polygon_cut_box(box: Array, uvs: Array, box_size: int):
 					new_poly.append(intersect)
 					new_poly.append(e_next_vert)
 				else:
-					#make sure we generate the correct uv map
+					# Make sure we generate the correct uv map
 					new_uv.append(uvs[e_ind])
 					new_uv.append(
 						uvs[e_ind].move_toward(uvs[e_next_ind],
@@ -89,7 +89,7 @@ func add_edge_segment(is_left, group):
 			var cut_box = polygon_cut_box(poly, uvs, e_size)
 			var new_poly = cut_box[0]
 			var new_uv = cut_box[1]
-			#make sure the cut box is 4 verts
+			# Make sure the cut box is 4 verts
 			if new_poly.size() == 4:
 #				colors = []
 #				for v in new_poly:
@@ -106,6 +106,6 @@ func add_edge_segment(is_left, group):
 	draw_polygon(poly, colors, uvs, root.top_corner)
 
 func _draw():
-	#when we are commanded to, draw everything we have in the queue
+	# When we are commanded to, draw everything we have in the queue
 	for data in segment_queue:
 		add_edge_segment(data[0], data[1])

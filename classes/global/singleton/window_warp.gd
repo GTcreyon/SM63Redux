@@ -48,7 +48,6 @@ func resize_polygon(factor):
 			+ (Vector2(cos(angle + angle_offset), sin(angle + angle_offset)) * dist * factor)
 			
 		)
-		#point * factor - Vector2(width*(factor-1)/2, height*(factor-1)/2)
 	polygon = star_temp
 
 

@@ -30,17 +30,17 @@ func _physics_process(_delta):
 			target.locked = true # Affects mario's whole input process
 			target.get_node("Character").set_animation("front")
 			target.position = Vector2(lerp(target.position.x, position.x, 0.25), position.y - 30)
-			#warping will be disabled, then increment will start as mario slides down
+			# Warping will be disabled, then increment will start as mario slides down
 			can_warp = false
 			inc = true
 			slid = true
 		elif (target.state == target.S.POUND and target.pound_state != target.Pound.SPIN):
 			sound.play()
 			target.locked = true # Affects mario's whole input process
-			# Target.position = Vector2(position.x, position.y - 30)
+			#target.position = Vector2(position.x, position.y - 30)
 			target.position = Vector2(lerp(target.position.x, position.x, 0.75), position.y - 30)
 			
-			#warping will be disabled, then increment will start as mario slides down
+			# Warping will be disabled, then increment will start as mario slides down
 			can_warp = false
 			inc = true
 			slid = true
@@ -51,7 +51,7 @@ func _physics_process(_delta):
 	if inc:
 		i += 1
 		
-	if i == 60: #mario then will be teleported as the "true" variables return to false
+	if i == 60: # Mario then will be teleported as the "true" variables return to false
 		target.get_node("Voice").volume_db = -5
 		sound.stop()
 		target.position = target_pos
@@ -72,7 +72,7 @@ func _on_mario_top(body):
 
 
 func _on_mario_off(_body):
-		can_warp = false #or else he won't
+		can_warp = false # Or else he won't
 		target = null
 
 

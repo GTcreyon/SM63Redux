@@ -17,7 +17,7 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	#var distance = circumcenter.distance_to(start)
 	#var angle = s_angle
 	
-	# Cicular edges, this doesn't work rn, I'll work on it later
+	# Circular edges, this doesn't work rn, I'll work on it later
 	
 #    #for if e_angle > s_angle
 #    while angle < e_angle:
@@ -102,7 +102,7 @@ func draw_top_from_connected_lines(lines):
 				top_intersect
 			)
 		
-		#bottom intersection
+		# Bottom intersection
 		var bottom_intersect = Geometry.segment_intersects_segment_2d(
 			cur_group[2], cur_group[3],
 			next_group[2], next_group[3]
@@ -156,7 +156,7 @@ func draw_top_from_connected_lines(lines):
 		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 		poly2d.texture_rotation = -area.normal.angle() - PI / 2
 
-		#OFFSET MATH YAAAAAAAAAY
+		# OFFSET MATH YAAAAAAAAAY
 		var unit = Vector2(sin(poly2d.texture_rotation), cos(poly2d.texture_rotation))
 		var pos = area.verts[0] if area.type == "quad" else area.verts[area.verts.size() - 2]
 		var text_offset = Vector2(0, 0)
@@ -208,7 +208,7 @@ func draw_bottom_from_connected_lines(lines):
 		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 		poly2d.texture_rotation = -normal.angle() - PI / 2
 
-		#OFFSET MATH YAAAAAAAAAY
+		# OFFSET MATH YAAAAAAAAAY
 		var unit = Vector2(sin(poly2d.texture_rotation), cos(poly2d.texture_rotation))
 		var pos = verts[0]
 		var text_offset = Vector2(0, 0)
@@ -245,7 +245,7 @@ func draw_edges_from_connected_lines(lines):
 		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 		poly2d.texture_rotation = -normal.angle() - PI / 2
 
-		#OFFSET MATH YAAAAAAAAAY
+		# OFFSET MATH YAAAAAAAAAY
 		var unit = Vector2(sin(poly2d.texture_rotation), cos(poly2d.texture_rotation))
 		var pos = verts[0]
 		var text_offset = Vector2(0, 0)

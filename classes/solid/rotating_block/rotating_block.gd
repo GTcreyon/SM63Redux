@@ -44,7 +44,7 @@ func change_texture(id):
 	var tex = texture_list[id]
 	$Middle.texture = tex[0]
 	$Center.texture.atlas = tex[1]
-	$CornerTL.texture.atlas = tex[1] #most textures are just references to others
+	$CornerTL.texture.atlas = tex[1] # Most textures are just references to others
 	$Left.texture.atlas = tex[1]
 	$Top.texture.atlas = tex[1]
 

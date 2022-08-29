@@ -40,8 +40,7 @@ func resize(scale):
 	#mission_details_panel.margin_bottom = -79 + font.get_wordwrap_string_size(mission_details.text, ((OS.window_size.x / scale - 74) - 118)).y# + mission_details.text.count("\n") * font.get_height() + 5
 	#mission_details_panel.margin_bottom = -79 + (mission_details.text.count("\n") + 2) * font.get_height()
 	
-	# Absolute bullshit
-	#we need to figure out how big to make the mission desc panel
+	# We need to figure out how big to make the mission desc panel
 	# For that we need its wordwrap height
 	# That's fine, we can get that with Font.get_wordwrap_string_size()
 	# A bit of window scaling adjustment to avoid the simulated label width overflowing the frame
@@ -49,25 +48,25 @@ func resize(scale):
 	# The problem is actually with the bottom margin
 	# Godot doesn't properly update UI elements or allow you to force an update
 	# And we're using anchoring here to allow proper spacing
-	#meaning we have to manually account for the anchoring in code
+	# Meaning we have to manually account for the anchoring in code
 	# That's fine for a set window size, but fullscreen changes the frame-window ratio slightly
 	# That causes it to be offset if we don't pay attention
-	# So i have to figure out the frame height manually
+	# So we have to figure out the frame height manually
 	# Find the window height, divide by scale, then subtract 52 (thickness of the top/bottom bar)
 	# Then multiply that by the top anchor subtracted from 1
-	# That's literally just to figure out where the top margin is
-	#which we could figure out with a single reference to mission_details_panel.margin_top
-	#except you can't force that to update, so we have to calculate it manually
+	# That's just to figure out where the top margin is
+	# Which we could figure out with a single reference to mission_details_panel.margin_top
+	# Except you can't force that to update, so we have to calculate it manually
 	
-	#we then add the label height to form the panel's height, giving us our final answer
-	#with 14 added on because reasons idfk
+	# We then add the label height to form the panel's height, giving us our final answer
+	# With 14 added on because reasons idfk
 	mission_details_panel.margin_bottom = (8
 	- (OS.window_size.y / scale - 52) * 0.3
 	+ font.get_wordwrap_string_size(TranslationServer.translate(mission_details.text), ((OS.window_size.x / scale - 74) - 118)).y)
 
-	#mission_details_panel.margin_bottom = -79 + (2 + 1) * 14# + mission_details.text.count("\n") * font.get_height() + 5
+	# Mission_details_panel.margin_bottom = -79 + (2 + 1) * 14# + mission_details.text.count("\n") * font.get_height() + 5
 
-	# This is terrible. i wish godot had a way to force controls to update their margins before the frame ends
+	# Would be useful if Godot had a way to force controls to update margins before the frame ends
 	var shine_count = 0
 	for child in shine_row.get_children():
 		if child.visible:

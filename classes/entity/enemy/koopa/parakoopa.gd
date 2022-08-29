@@ -64,10 +64,8 @@ func _on_Damage_body_entered(body):
 			spawn_shell(body)
 		else:
 			if body.global_position.x < global_position.x:
-				#print("collided from left")
 				body.take_damage_shove(1, -1)
 			elif body.global_position.x > global_position.x:
-				#print("collided from right")
 				body.take_damage_shove(1, 1)
 
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-signal selection_changed #only gets called when the hash changed
+signal selection_changed # Only gets called when the hash changed
 signal selection_event # Gets fired always whenever some calculation regarding events is done
 signal selection_size_changed # Gets fired whenever the selection rect changes
 
@@ -186,7 +186,7 @@ func read_items():
 					elif node_name == "static":
 						var prop_name = parser.get_named_attribute_value_safe("label")
 						item_static_properties[prop_name] = collect_property_values(parser)
-						# Idk if I should add allow_reparent, don't think so since it's a single tag
+						# Idk if allow_reparent should be added, don't think so since it's a single tag
 					parent_name = node_name
 			parser.NODE_ELEMENT_END:
 				var node_name = parser.get_node_name()

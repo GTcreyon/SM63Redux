@@ -55,7 +55,7 @@ func _ready():
 	shine_coin_counter.text = str(0)
 	set_size(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 	var menu = get_tree().get_nodes_in_group("pause")
-	for node in menu: #make pause nodes visible but transparent
+	for node in menu: # Make pause nodes visible but transparent
 		node.modulate.a = 0
 		node.visible = true
 
@@ -113,7 +113,7 @@ func resize():
 
 func set_size(lin_size):
 	# Size: general size of UI elements
-	#lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
+	# Lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
 	water_meter.rect_scale = Vector2.ONE * lin_size
 	stats_tl.rect_scale = Vector2.ONE * lin_size
 	stats_tr.rect_scale = Vector2.ONE * lin_size

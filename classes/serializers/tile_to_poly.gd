@@ -5,7 +5,7 @@ class_name TileToPoly
 const MAX_TILES = Vector2(8192, 8192)
 
 # It is VERY important all of these values are in THIS EXACT order
-#otherwise the glueing together of parts will not work
+# Otherwise the glueing together of parts will not work
 const contour_lines = [
 	[],
 	[[Vector2(0, 0.5), Vector2(0.49, 0.51), Vector2(0.5, 1)]],
@@ -36,8 +36,9 @@ const contour_lines = [
 	# Reference:
 	# https://upload.wikimedia.org/wikipedia/commons/0/00/Marching_squares_algorithm.svg
 
-	# Note, I swapped case 10 and case 5, normally it would be considered one shape
-	# But that is not what we want, so I switched it to it generates seperate shapes instead
+	# Note, case 10 and case 5 are swapped
+	# Normally it would be considered one shape
+	# But that is not what we want, so it's switched so that it generates seperate shapes instead
 ]
 
 # == Basic grid manipulation ==
@@ -143,7 +144,7 @@ func get_contour_from_grid(grid):
 			# Calculate the value for this tile
 			var value = d1 * 8 + d2 * 4 + d3 * 2 + d4
 			
-			#once we have the contour from our value, append all it's lins to our edges
+			# Once we have the contour from our value, append all it's lins to our edges
 			var contour = contour_lines[value]
 			for lines in contour:
 				var real_line = []
@@ -211,7 +212,7 @@ func remove_duplicate_points(input):
 	var polygon = []
 	var input_size = input.size()
 	for ind in range(input_size):
-		#we only delete duplicate points which are after the current point
+		# We only delete duplicate points which are after the current point
 		# This prevents the deletion of injected points
 		var this = input[ind]
 		var next = input[(ind + 1) % input_size]
@@ -221,7 +222,7 @@ func remove_duplicate_points(input):
 
 # Remove any collinear points
 func remove_collinear_points(polygon):
-	#once we deleted duplicate point, remove all collinear points
+	# Once we deleted duplicate point, remove all collinear points
 	var new_polygon = polygon
 	var build_poly = []
 	var new_size = new_polygon.size()
@@ -264,7 +265,7 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 	for ind in range(p_size):
 		var p_start = polygon[ind]
 		var p_end = polygon[(ind + 1) % p_size]
-		#keep track of which position is the start index
+		# Keep track of which position is the start index
 		if p_start.is_equal_approx(start_pos):
 			start_ind = ind
 		# Thanks godot for confusing me with segment and line for 15 minutes lol
@@ -285,8 +286,8 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 				nearest_injection = dist
 				injection_index = ind
 				injection_point = point
-	#backup for no other point was found
-	if injection_index == null: #we specifically check for null, because !0 = true
+	# Backup for no other point was found
+	if injection_index == null: # We specifically check for null, because !0 = true
 		injection_index = start_ind
 		injection_point = start_pos
 	if injection_index == null:
@@ -297,9 +298,9 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 	polygon.insert(injection_index, injection_point)
 	return injection_index
 
-#merge a polygon-hole pair
+# Merge a polygon-hole pair
 func split_polygon_with_holes(polygon, hole):
-	var target_vec = hole[0] #we will slice the polygon through here
+	var target_vec = hole[0] # We will slice the polygon through here
 	# Get our target point
 	var nearest_dist = INF
 	var nearest_vec
@@ -319,8 +320,7 @@ func split_polygon_with_holes(polygon, hole):
 	# Insert all of the hole verts in our new polygon
 	var h_size = hole.size()
 	for counter in range(h_size + 1):
-		#we add +1 because we want to loop through
-		# The starting point twice
+		# We add +1 because we want to loop through the starting point twice
 		var ind = (inner_injection + counter) % h_size
 		var hole_vec = hole[ind]
 		polygon.insert(outer_injection + counter + 1, hole_vec)
@@ -329,7 +329,7 @@ func split_polygon_with_holes(polygon, hole):
 # This is used to calculate if the vert is a hole or not
 func get_intersection_count(vert, other_polygons):
 	# Some omega big number, this number is the max allowed tiles
-	#possible optimisation: make this the max x of the grid, rather than the global max
+	# Possible optimisation: make this the max x of the grid, rather than the global max
 	var end_vert = vert + Vector2(MAX_TILES.x, 0)
 	var intersection_count = 0
 	for poly in other_polygons:
@@ -376,11 +376,11 @@ func get_individual_shape(grid, filter, set_after = 0):
 		var current = check_queue[0]
 		check_queue.pop_front()
 		
-		#make sure we don't double check already existing items
+		# Make sure we don't double check already existing items
 		if filtered[current.x] and filtered[current.x][current.y]:
 			continue
 		
-		#make sure this current item is the one we're searching for
+		# Make sure this current item is the one we're searching for
 		if grid[current.x] and grid[current.x][current.y] == filter:
 			# Add it to our filtered list
 			filtered[current.x][current.y] = 1
@@ -425,7 +425,7 @@ func step_get_polygon_from_grid(grid, filter):
 		else:
 			non_holes.append(c_ind)
 	
-	#merge body contours with holes
+	# Merge body contours with holes
 	var real_contours = []
 	for body_ind in non_holes:
 		var _has_holes = false

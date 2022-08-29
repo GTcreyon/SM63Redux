@@ -24,7 +24,7 @@ export var surface_wave_properties = {
 }
 export var top_left_corner = Vector2() # Gets automatically set by the parent script
 
-#private variables
+# Private variables
 onready var texture = $"../Viewport/WaterPolygon"
 onready var player = $"/root/Main/Player"
 onready var camera = $"/root/Main/Player/Camera"
@@ -113,7 +113,6 @@ func create_wave(from, speed):
 
 func get_next_vertex_key_for_wave(wave):
 	var check_direction = (1 if wave.speed >= 0 else -1) * wave.direction
-	#print(check_direction)
 	if surface.has(wave.current_vertex_key + check_direction):
 		return wave.current_vertex_key + check_direction
 	elif surface.has(wave.current_vertex_key - check_direction):
@@ -123,7 +122,8 @@ func get_next_vertex_key_for_wave(wave):
 
 func on_ready():
 	# Get the max x and max y
-	# From the wiki I read textures can't be bigger than 16384x16384 pixels
+	# Wiki says textures can't be bigger than 16384x16384 pixels
+	# https://docs.godotengine.org/en/stable/classes/class_image.html?highlight=16384#constants
 	# So that means water can't be bigger than 16384x16384 pixels either (512x512 tiles)
 	var max_x = 1; var max_y = 1
 	for vertex in texture.polygon:
@@ -137,14 +137,13 @@ func on_ready():
 	var img = Image.new()
 	# Note: is there a less space needing format? it really only needs to store 2 colors, so 1 bit image format would work
 	img.create(max_x, max_y, false, Image.FORMAT_RGB8)
-	#make the texture white
+	# Make the texture white
 	img.fill(Color(1, 1, 1, 1))
 	img_texture.create_from_image(img)
 	# Set the texture
 	texture.texture = img_texture
 
 	# Make the uv coords equal the one of the polygon BEFORE subdividing
-	#print(texture.polygon)
 	#texture.uv = texture.polygon
 	#$Collision.polygon = texture.polygon
 	
@@ -238,7 +237,7 @@ func handle_impact(body, is_exit):
 		var contact = contacts[0] # Get single contact point
 		contact -= top_left_corner; # Transform it to local coordinates
 		
-		#make the wave size dependant on impact and area
+		# Make the wave size dependant on impact and area
 		var body_vel = 5
 		if !(body.get("vel") == null):
 			body_vel = abs(body.vel.y)
@@ -261,7 +260,7 @@ func handle_impact(body, is_exit):
 		var height_mult = sqrt(body_vel) / 4
 		var speed_mult = sqrt(3 * body_vel) / 2
 		
-		#multiply area
+		# Multiply area
 		var area_mult = 4 * other_shape.extents.x * other_shape.extents.y / mario_area
 		height_mult *= area_mult
 		speed_mult *= area_mult
@@ -302,7 +301,5 @@ func _on_body_entered(body):
 
 func _on_body_exited(body):
 	handle_impact(body, true)
-	#print(get_overlapping_bodies().count(player))
 	if body == player and get_overlapping_bodies().count(player) == 1:
-		#print(get_overlapping_bodies())
 		player.call_deferred("switch_state", player.s.walk)
