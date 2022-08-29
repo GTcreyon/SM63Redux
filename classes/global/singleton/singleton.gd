@@ -223,5 +223,5 @@ func get_input_map_json_current():
 func save_input_map(input_json):
 	var file = File.new()
 	file.open("user://controls.json", File.WRITE)
-	file.store_string(input_json) # minimise the amount of time spent with the file open
+	file.store_string(input_json) # minimize the amount of time spent with the file open
 	file.close()

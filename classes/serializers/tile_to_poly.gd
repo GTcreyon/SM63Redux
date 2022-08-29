@@ -85,7 +85,7 @@ func shift_and_incease_2d_grid(grid, i_w, i_h, i = 0):
 
 # == INCOMING A LOT OF DEBUG STUFF ==
 
-# Transform normalised vector to a more visible size
+# Transform normalized vector to a more visible size
 func debug_vec_deform(vec):
 	return vec * 50 + Vector2(10, 10)
 

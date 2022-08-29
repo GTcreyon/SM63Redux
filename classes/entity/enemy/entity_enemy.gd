@@ -93,7 +93,7 @@ func _setup_collect_id():
 		collect_id = Singleton.get_collect_id()
 
 
-# Start the sprite's animation and pseudorandomise its start point depending on position in the level
+# Start the sprite's animation and pseudorandomize its start point depending on position in the level
 func _init_animation():
 	if sprite != null and sprite.get("playing") != null:
 		sprite.playing = !disabled
