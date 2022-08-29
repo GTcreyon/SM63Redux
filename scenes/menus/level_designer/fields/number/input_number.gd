@@ -12,7 +12,7 @@ func _init():
 
 
 func _ready():
-	line_edit.text = pre_text # can't set the text directly because the label isn't ready yet
+	line_edit.text = pre_text # Can't set the text directly because the label isn't ready yet
 
 
 func _on_Up_pressed():
@@ -29,7 +29,7 @@ func increment(value):
 
 
 func _on_LineEdit_text_changed(new_text: String):
-	var caret_store = line_edit.caret_position # we have to mess around with the caret a bit here otherwise it gets reset
+	var caret_store = line_edit.caret_position # We have to mess around with the caret a bit here otherwise it gets reset
 	line_edit.text = mask.sub(new_text, "", true)
 	line_edit.caret_position = caret_store
 	if line_edit.text != new_text and line_edit.caret_position != new_text.length() - 1:

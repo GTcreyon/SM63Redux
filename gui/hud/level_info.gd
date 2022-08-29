@@ -40,22 +40,22 @@ func resize(scale):
 	#mission_details_panel.margin_bottom = -79 + font.get_wordwrap_string_size(mission_details.text, ((OS.window_size.x / scale - 74) - 118)).y# + mission_details.text.count("\n") * font.get_height() + 5
 	#mission_details_panel.margin_bottom = -79 + (mission_details.text.count("\n") + 2) * font.get_height()
 	
-	#absolute bullshit
+	# Absolute bullshit
 	#we need to figure out how big to make the mission desc panel
-	#for that we need its wordwrap height
-	#that's fine, we can get that with Font.get_wordwrap_string_size()
-	#a bit of window scaling adjustment to avoid the simulated label width overflowing the frame
+	# For that we need its wordwrap height
+	# That's fine, we can get that with Font.get_wordwrap_string_size()
+	# A bit of window scaling adjustment to avoid the simulated label width overflowing the frame
 	
-	#the problem is actually with the bottom margin
-	#godot doesn't properly update UI elements or allow you to force an update
-	#and we're using anchoring here to allow proper spacing
+	# The problem is actually with the bottom margin
+	# Godot doesn't properly update UI elements or allow you to force an update
+	# And we're using anchoring here to allow proper spacing
 	#meaning we have to manually account for the anchoring in code
-	#that's fine for a set window size, but fullscreen changes the frame-window ratio slightly
-	#that causes it to be offset if we don't pay attention
-	#so i have to figure out the frame height manually
-	#find the window height, divide by scale, then subtract 52 (thickness of the top/bottom bar)
-	#then multiply that by the top anchor subtracted from 1
-	#that's literally just to figure out where the top margin is
+	# That's fine for a set window size, but fullscreen changes the frame-window ratio slightly
+	# That causes it to be offset if we don't pay attention
+	# So i have to figure out the frame height manually
+	# Find the window height, divide by scale, then subtract 52 (thickness of the top/bottom bar)
+	# Then multiply that by the top anchor subtracted from 1
+	# That's literally just to figure out where the top margin is
 	#which we could figure out with a single reference to mission_details_panel.margin_top
 	#except you can't force that to update, so we have to calculate it manually
 	
@@ -67,7 +67,7 @@ func resize(scale):
 
 	#mission_details_panel.margin_bottom = -79 + (2 + 1) * 14# + mission_details.text.count("\n") * font.get_height() + 5
 
-	#this is terrible. i wish godot had a way to force controls to update their margins before the frame ends
+	# This is terrible. i wish godot had a way to force controls to update their margins before the frame ends
 	var shine_count = 0
 	for child in shine_row.get_children():
 		if child.visible:

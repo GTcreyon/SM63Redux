@@ -14,5 +14,5 @@ func _physics_process(_delta):
 	progress += 0.01
 	var x = progress * speed.x
 	var y = progress * speed.y
-	flip_h = cos(x) < 0 #derivative of sin(progress)
+	flip_h = cos(x) < 0 # Derivative of sin(progress)
 	position = initial_position + Vector2(sin(x) * area.x, sin(y) * area.y)

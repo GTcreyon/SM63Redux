@@ -19,7 +19,7 @@ export var water_color: Color = Color(0, 0.7, 1, 0.8)
 
 func refresh():
 	#viewport.world_2d = get_world_2d()
-	#get the extends
+	# Get the extends
 	var min_vec = Vector2.INF
 	var max_vec = -Vector2.INF
 	for poly in polygon:
@@ -27,28 +27,28 @@ func refresh():
 		min_vec.y = min(min_vec.y, poly.y)
 		max_vec.x = max(max_vec.x, poly.x)
 		max_vec.y = max(max_vec.y, poly.y)
-	if min_vec == Vector2.INF: #if we have 0 polygons, then don't do anything
+	if min_vec == Vector2.INF: # If we have 0 polygons, then don't do anything
 		return
-	#set the size to the extends of the polygon
+	# Set the size to the extends of the polygon
 	var size_extends = max_vec - min_vec
 	var size_diff = Vector2(0, size_extends.y * 1.5)
 	viewport.size = size_extends + size_diff
-	#set the water polygon and start it
+	# Set the water polygon and start it
 	water.position += size_diff / 2
 	water.polygon = polygon
-	#now set the collision polygon
+	# Now set the collision polygon
 	collision.polygon = PoolVector2Array([
 		Vector2(0, 0), Vector2(size_extends.x, 0),
 		size_extends, Vector2(0, size_extends.y)
 	])
-	#handle position stuff
+	# Handle position stuff
 	position += size_extends / 2
 	collision.position -= size_extends / 2
 	detection_area.top_left_corner = position - size_extends / 2
-	#start!
+	# Start!
 	detection_area.on_ready()
 	
-	#now give the shader our viewport texture
+	# Now give the shader our viewport texture
 	var root_mat = WATER_VIEWPORT_MATERIAL.duplicate()
 	root_mat.set_shader_param("viewport_texture", viewport.get_texture())
 	root_mat.set_shader_param("base_water_color", water_color)
@@ -56,14 +56,14 @@ func refresh():
 	root_mat.set_shader_param("outline_texture_size", outline_texture_size)
 	material = root_mat
 	
-	#shader copy time
+	# Shader copy time
 	var tex = ImageTexture.new()
 	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
 	texture = tex
 	
 	water.color = Color(water_color.r, water_color.g, water_color.b, 1)
 	
-	#set the water shaders
+	# Set the water shaders
 #	var mat = water_material.duplicate()
 #	mat.set_shader_param("base_water_color", water_color)
 #	mat.set_shader_param("texture_repeat", (size_extends / water_texture_size).y)

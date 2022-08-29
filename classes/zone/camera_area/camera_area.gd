@@ -47,9 +47,9 @@ func set_physics_polygon(poly):
 		rect.position + rect.size, rect.position + Vector2(0, rect.size.y)
 	]
 	
-	#re-arrange the polygon to the first vertex is the most top vertex
+	# Re-arrange the polygon to the first vertex is the most top vertex
 	
-	#first find the top most vertex
+	# First find the top most vertex
 	var top_vertex = 0
 	var top_y_pos = 0
 	var poly_size = poly.size()
@@ -59,7 +59,7 @@ func set_physics_polygon(poly):
 			top_y_pos = poly_y
 			top_vertex = ind
 	
-	#rebuild the polygon
+	# Rebuild the polygon
 	var real_poly = []
 	for ind in range(poly_size):
 		if ind >= top_vertex:
@@ -73,7 +73,7 @@ func set_physics_polygon(poly):
 	var ray_start = poly[0]
 	var ray_end = poly[0] - Vector2(0, 10000)
 	
-	#get the point where we should inject
+	# Get the point where we should inject
 	var inject_index
 	var inject_vector
 	
@@ -81,7 +81,7 @@ func set_physics_polygon(poly):
 	for ind in range(p_size):
 		var p_start = inject[ind]
 		var p_end = inject[(ind + 1) % p_size]
-		#check if there's an intersection, if so, check if it is the nearest one
+		# Check if there's an intersection, if so, check if it is the nearest one
 		var point = Geometry.segment_intersects_segment_2d(
 			ray_start,
 			ray_end,
@@ -101,15 +101,15 @@ func set_physics_polygon(poly):
 		real.append(inject[ind])
 		if !did_inject and ind >= inject_index:
 			
-			#add our injection vector
+			# Add our injection vector
 			real.append(inject_vector)
 			
-			#to prevent the injection points from crossing eachother
+			# To prevent the injection points from crossing eachother
 			var first_vector = poly[0]
 			poly.invert()
 			real.append_array(poly)
 			
-			#add our injection vector
+			# Add our injection vector
 			real.append(first_vector)
 			real.append(inject_vector)
 			
@@ -130,7 +130,7 @@ func set_hitbox_extends(size):
 func _ready():
 	if Engine.editor_hint:
 		return
-	#invert the current polygon
+	# Invert the current polygon
 	set_physics_polygon(polygon)
 	
 #	body_collision.shape.set_extents(OS.window_size / 2)
@@ -178,5 +178,5 @@ func _physics_process(dt):
 	if !frozen:
 		body.move_and_slide(((target - body.position) / dt))
 
-	#set the base of the camera to the body
+	# Set the base of the camera to the body
 	base_modifier.set_base(camera, "position", body.position - player.position)

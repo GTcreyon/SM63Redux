@@ -9,11 +9,11 @@ onready var filler = $Filler
 onready var coin_meter = $CoinMeter
 onready var coin_ring = $CoinMeter/CoinRing
 onready var death_cover = $"/root/Singleton/DeathCover"
-onready var save_count = Singleton.hp #for when variable gets changed
-var act = false #for when life meter sprite can appear if true
+onready var save_count = Singleton.hp # For when variable gets changed
+var act = false # For when life meter sprite can appear if true
 var rechange_timer = 0
-var rechange_trigger = false #so it can trigger the rechange_timer increment
-var rechange_moving = false #after it's shown, it will return back up
+var rechange_trigger = false # So it can trigger the rechange_timer increment
+var rechange_moving = false # After it's shown, it will return back up
 var progress = 0
 var coin_save = 0
 
@@ -37,14 +37,14 @@ func _process(delta):
 	else:
 		if !rechange_moving:
 			end_adjust = lerp(end_adjust, end_pos, 0.5)
-		if save_count != Singleton.hp: #if it changed
-			save_count = Singleton.hp #for the conditional
-			act = true #start life meter moving onto the screen
-			#these are required for when the life meter gets affected while still showing up, will "last" longer on screen
-			rechange_moving = false #in case it's going up
+		if save_count != Singleton.hp: # If it changed
+			save_count = Singleton.hp # For the conditional
+			act = true # Start life meter moving onto the screen
+			# These are required for when the life meter gets affected while still showing up, will "last" longer on screen
+			rechange_moving = false # In case it's going up
 		
 		if act:
-			if progress < 1: #and then starts rechange_timer
+			if progress < 1: # And then starts rechange_timer
 				progress += 0.05 * dmod
 			if Singleton.hp == 8:
 				act = false
@@ -55,22 +55,22 @@ func _process(delta):
 		else:
 			rechange_timer = 0
 		
-		if rechange_timer >= 180: #if rechange_timer reaches 6 seconds
+		if rechange_timer >= 180: # If rechange_timer reaches 6 seconds
 			rechange_timer = 0
-			rechange_moving = true #then it will return to its initial position
+			rechange_moving = true # Then it will return to its initial position
 		
 		if Singleton.hp == 8:
 			if rechange_moving:
 				if progress > 0:
 					progress -= 0.1 * dmod
 				else:
-					rechange_moving = false #and now everything is back to place
+					rechange_moving = false # And now everything is back to place
 			elif !act and !rechange_trigger and Singleton.hp >= 8:
 				position.y = start_pos * gui_scale
 		else:
 			rechange_moving = false
 
-		filler.frame = Singleton.hp #for the HUD with its respective frame
+		filler.frame = Singleton.hp # For the HUD with its respective frame
 		if Singleton.internal_coin_counter >= 5 and Singleton.hp < 8:
 			Singleton.hp += 1
 			Singleton.internal_coin_counter = 0

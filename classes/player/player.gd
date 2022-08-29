@@ -604,7 +604,7 @@ func fludd_control():
 						if sprite.flip_h:
 							multiplier = -1
 						if grounded:
-							multiplier *= 2 #double power when grounded to counteract friction
+							multiplier *= 2 # Double power when grounded to counteract friction
 						vel += Vector2(cos(sprite.rotation)*25*FPS_MOD * FPS_MOD * multiplier, -sin(sprite.rotation - PI / 2) * 25 * FPS_MOD * FPS_MOD)
 					else:
 						vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
@@ -966,7 +966,7 @@ func manage_pound_recover() -> void:
 			pound_state = Pound.LAND
 			switch_anim("flip")
 			
-			#dispatch star effect
+			# Dispatch star effect
 			var fx = ground_pound_effect.instance()
 			get_parent().add_child(fx)
 			fx.global_position = sprite.global_position + Vector2.DOWN * 11
@@ -1292,7 +1292,7 @@ func switch_anim(new_anim):
 
 func take_damage(amount):
 	if invuln_frames <= 0 and !locked:
-		Singleton.hp = clamp(Singleton.hp - amount, 0, 8) #TODO - multi HP
+		Singleton.hp = clamp(Singleton.hp - amount, 0, 8) # TODO - multi HP
 		invuln_frames = 180
 
 

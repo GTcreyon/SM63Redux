@@ -37,7 +37,7 @@ const WHITELISTED_ACTIONS = [
 	"debug",
 ]
 
-enum n { #fludd enum
+enum n { # FLUDD enum
 	none,
 	hover,
 	rocket,
@@ -54,7 +54,7 @@ var nozzle = 0
 var water: float = 100.0
 var power = 100
 var coin_total = 0
-var internal_coin_counter = 0 #if it hits 5, gets reset
+var internal_coin_counter = 0 # If it hits 5, gets reset
 var red_coin_total = 0
 var rng = RandomNumberGenerator.new()
 var life_meter = 8
@@ -163,7 +163,7 @@ func touch_controls():
 	return OS.get_name() == "Android" or force_touch
 
 
-#sets a certain pause label - when all pause labels are false, gameplay takes place
+# Sets a certain pause label - when all pause labels are false, gameplay takes place
 func set_pause(label: String, set: bool):
 	meta_pauses[label] = set
 	meta_paused = false

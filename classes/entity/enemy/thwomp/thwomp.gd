@@ -18,21 +18,21 @@ func go_down():
 	move_and_slide(movement)
 
 func _physics_process(_delta):
-	#if the player is nearby the object and the can_go_down variable is false, then it will go down
+	# If the player is nearby the object and the can_go_down variable is false, then it will go down
 	if(abs(player.position.x - position.x) < 70 and !can_go_down):
 		can_go_down = true
-	#this can_go_down checks if the object is able to go down
+	# This can_go_down checks if the object is able to go down
 	if(can_go_down):
 		go_down()
 	
-	#this is to detect the floor but it detects other things like the player as well
+	# This is to detect the floor but it detects other things like the player as well
 	if $RayCast2D.is_colliding():
-		can_go_down = false #not able to go up
-		return_to_pos = true #and now will return to its original position
+		can_go_down = false # Not able to go up
+		return_to_pos = true # And now will return to its original position
 	
-	#now it will return to its position
+	# Now it will return to its position
 	if return_to_pos:
-		#timer starts here
+		# Timer starts here
 		if(timer >= 120):
 			#once the timer is up, then it will return to its position
 			if(position.y > og_pos_y):
@@ -40,7 +40,7 @@ func _physics_process(_delta):
 			elif(position.y <= og_pos_y):
 				movement.y = 0
 				position.y = og_pos_y
-				#and set back the variaables to what they were originally
+				# And set back the variaables to what they were originally
 				timer = 0
 				return_to_pos = false
 			move_and_slide(movement)

@@ -61,14 +61,14 @@ func finish_creating_polygon():
 			make_polygon.back()
 		)
 
-	#set the terrain polygon to the actual polygon
+	# Set the terrain polygon to the actual polygon
 	level_editor.place_terrain(
 		make_polygon,
 		0,
 		0
 	)
 	
-	#reset the modifier state
+	# Reset the modifier state
 	is_creating_polygon = false
 	hover_ui.remove_child(editable_poly)
 	set_editable_rect(false)

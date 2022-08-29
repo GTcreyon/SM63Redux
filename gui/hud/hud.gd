@@ -1,9 +1,9 @@
 extends CanvasLayer
 
-#absolute cache
+# Absolute cache
 onready var player = $"/root/Main/Player"
 
-#hud cache
+# HUD cache
 onready var dialog_box = $DialogBox
 onready var coin_counter = $StatsTL/CoinRow/Count
 onready var red_coin_counter = $StatsTL/RedCoinRow/Count
@@ -16,7 +16,7 @@ onready var icon = $MeterControl/WaterMeter/Icon
 onready var stats_tl = $StatsTL
 onready var stats_tr = $StatsTR
 
-#pause cache
+# Pause cache
 onready var bg = $BG
 onready var top = $Top
 onready var left_corner_top = $LeftCornerTop
@@ -112,7 +112,7 @@ func resize():
 
 
 func set_size(lin_size):
-	#size: general size of UI elements
+	# Size: general size of UI elements
 	#lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
 	water_meter.rect_scale = Vector2.ONE * lin_size
 	stats_tl.rect_scale = Vector2.ONE * lin_size

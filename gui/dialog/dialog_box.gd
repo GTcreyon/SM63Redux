@@ -132,7 +132,7 @@ func load_lines(lines):
 	loaded_lines = lines
 	line_index = 0
 	width_offset = 0
-	say_line(0) #say the first line
+	say_line(0) # Say the first line
 
 
 func _physics_process(_delta):
@@ -145,7 +145,7 @@ func _physics_process(_delta):
 		if char_index < target_line.length():
 			if Input.is_action_pressed("skip"):
 				var regex = RegEx.new()
-				regex.compile("\\[@[^\\]]*\\]") #remove @ tags
+				regex.compile("\\[@[^\\]]*\\]") # Remove @ tags
 				text_area.bbcode_text = regex.sub(target_line, "", true)
 				char_roll = target_line.length()
 				char_index = char_roll
@@ -167,7 +167,7 @@ func _physics_process(_delta):
 								#print(tag)
 								match tag[1]:
 									"/":
-										text_area.pop() #closes tag
+										text_area.pop() # Closes tag
 									"@":
 										if tag[2] == "/":
 											var _a = 0
@@ -209,7 +209,7 @@ func _physics_process(_delta):
 								if skip_char:
 									char_roll += 1
 									skip_char = false
-								skip_char = true #skips ahead 1 char to prevent doubling after a tag
+								skip_char = true # Skips ahead 1 char to prevent doubling after a tag
 							_:
 								text_area.append_bbcode(target_line[char_index])
 								if skip_char:

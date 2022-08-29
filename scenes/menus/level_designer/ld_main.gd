@@ -1,8 +1,8 @@
 extends Node2D
 
 signal selection_changed #only gets called when the hash changed
-signal selection_event #gets fired always whenever some calculation regarding events is done
-signal selection_size_changed #gets fired whenever the selection rect changes
+signal selection_event # Gets fired always whenever some calculation regarding events is done
+signal selection_size_changed # Gets fired whenever the selection rect changes
 
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 const ITEM_PREFAB = preload("res://classes/ld_item/ld_item.tscn")

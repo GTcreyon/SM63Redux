@@ -3,7 +3,7 @@ extends AnimatedSprite
 var first_frame = false
 
 func _ready():
-	frame = 0 #needed to prevent desync ickyness
+	frame = 0 # Needed to prevent desync ickyness
 
 
 func _process(_delta):

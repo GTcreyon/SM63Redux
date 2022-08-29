@@ -17,7 +17,7 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	#var distance = circumcenter.distance_to(start)
 	#var angle = s_angle
 	
-	#cicular edges, this doesn't work rn, I'll work on it later
+	# Cicular edges, this doesn't work rn, I'll work on it later
 	
 #    #for if e_angle > s_angle
 #    while angle < e_angle:
@@ -41,7 +41,7 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	})
 
 func draw_top_from_connected_lines(lines):
-	#first collect everything into groups of verts
+	# First collect everything into groups of verts
 	var groups = []
 	var p_size = lines.size()
 	for ind in range(p_size):
@@ -61,13 +61,13 @@ func draw_top_from_connected_lines(lines):
 		
 		groups.append(verts)
 	
-	#create areas for every group
+	# Create areas for every group
 	var areas = []
 	for ind in range(p_size - 1):
 		var cur_group = groups[ind]
 		var next_group = groups[(ind + 1) % p_size]
 		
-		#draw this group
+		# Draw this group
 		areas.append({
 			index = ind,
 			verts = cur_group,
@@ -77,11 +77,11 @@ func draw_top_from_connected_lines(lines):
 			type = "quad"
 		})
 		
-		#if this is the last entry in the group, then don't make any intersections
+		# If this is the last entry in the group, then don't make any intersections
 		if ind == p_size - 2:
 			break
 		
-		#top intersection
+		# Top intersection
 		var top_intersect = Geometry.segment_intersects_segment_2d(
 			cur_group[0], cur_group[1],
 			next_group[0], next_group[1]
@@ -89,7 +89,7 @@ func draw_top_from_connected_lines(lines):
 		if top_intersect:
 			var cur_ind = 1
 			var next_ind = 0
-			#set the colliding points to the same point
+			# Set the colliding points to the same point
 			cur_group[cur_ind] = top_intersect
 			next_group[next_ind] = top_intersect
 			
@@ -110,7 +110,7 @@ func draw_top_from_connected_lines(lines):
 		if bottom_intersect:
 			var cur_ind = 2
 			var next_ind = 3
-			#set the colliding points to the same point
+			# Set the colliding points to the same point
 			cur_group[cur_ind] = bottom_intersect
 			next_group[next_ind] = bottom_intersect
 			
@@ -123,10 +123,10 @@ func draw_top_from_connected_lines(lines):
 				bottom_intersect
 			)
 	
-	#draw everything
-	#draw the left edge
+	# Draw everything
+	# Draw the left edge
 	top_edges.segment_queue.append([true, areas.front()])
-	#draw all areas
+	# Draw all areas
 	for area in areas:
 #		var colors = []
 #		for v in area.verts:
@@ -149,7 +149,7 @@ func draw_top_from_connected_lines(lines):
 #		draw_polygon(area.verts, colors, uvs, root.top)
 		
 		
-		#create the polygon
+		# Create the polygon
 		var poly2d = Polygon2D.new()
 		poly2d.texture = root.top
 		poly2d.polygon = area.verts
@@ -161,14 +161,14 @@ func draw_top_from_connected_lines(lines):
 		var pos = area.verts[0] if area.type == "quad" else area.verts[area.verts.size() - 2]
 		var text_offset = Vector2(0, 0)
 
-		#get the target pos depending on which type of area we're rendering
+		# Get the target pos depending on which type of area we're rendering
 		if area.type == "trio":
 			var dist = area.verts[0].distance_to(area.verts.back())
 			poly2d.texture_scale.y = 18 / dist
 		if area.clock_dir == -1 and area.type == "trio":
 			pos = area.verts[0]
 
-		#set the offset
+		# Set the offset
 		poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - text_offset.x
 		poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - text_offset.y
 		poly2d.z_index = 2
@@ -179,11 +179,11 @@ func draw_top_from_connected_lines(lines):
 			shade.texture = root.top_shade
 			add_child(shade)
 	
-	#draw the right area
+	# Draw the right area
 	top_edges.segment_queue.append([false, areas.back()])
 
 func draw_bottom_from_connected_lines(lines):
-	#first collect everything into groups of verts
+	# First collect everything into groups of verts
 	#var groups = []
 	var p_size = lines.size()
 	for ind in range(p_size - 1):
@@ -201,7 +201,7 @@ func draw_bottom_from_connected_lines(lines):
 			current + off_down
 		]
 		
-		#create the polygon
+		# Create the polygon
 		var poly2d = Polygon2D.new()
 		poly2d.texture = root.bottom
 		poly2d.polygon = verts
@@ -213,14 +213,14 @@ func draw_bottom_from_connected_lines(lines):
 		var pos = verts[0]
 		var text_offset = Vector2(0, 0)
 
-		#set the offset
+		# Set the offset
 		poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - text_offset.x
 		poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - text_offset.y
 		poly2d.z_index = 2
 		add_child(poly2d)
 
 func draw_edges_from_connected_lines(lines):
-	#first collect everything into groups of verts
+	# First collect everything into groups of verts
 	#var groups = []
 	var p_size = lines.size()
 	for ind in range(p_size - 1):
@@ -238,7 +238,7 @@ func draw_edges_from_connected_lines(lines):
 			current + off_down
 		]
 		
-		#create the polygon
+		# Create the polygon
 		var poly2d = Polygon2D.new()
 		poly2d.texture = root.edge
 		poly2d.polygon = verts
@@ -250,18 +250,18 @@ func draw_edges_from_connected_lines(lines):
 		var pos = verts[0]
 		var text_offset = Vector2(0, 0)
 
-		#set the offset
+		# Set the offset
 		poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - text_offset.x
 		poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - text_offset.y
 		poly2d.z_index = 1
 		add_child(poly2d)
 
-#child murder ;-;
+# Child murder ;-;
 func oof_children():
 	for child in get_children():
 		remove_child(child)
 
-#this will add the grass to the top of the polygon
+# This will add the grass to the top of the polygon
 func get_connected_lines_directional(lines, add_onto_blacklist, direction, poly, start):
 	var p_size = poly.size()
 	var added = false
@@ -280,7 +280,7 @@ func get_connected_lines_directional(lines, add_onto_blacklist, direction, poly,
 			return ind
 	return null
 
-#this will add the grass to the top of the polygon
+# This will add the grass to the top of the polygon
 func get_connected_lines_blacklist(lines, blacklist, poly, start):
 	var p_size = poly.size()
 	var added = false
@@ -297,12 +297,12 @@ func get_connected_lines_blacklist(lines, blacklist, poly, start):
 		lines.append(poly[0])
 	return null
 
-#add the grass to 
+# Add the grass to 
 func add_full(poly):
-	#clear the draw queue for top edges
+	# Clear the draw queue for top edges
 	top_edges.segment_queue = []
 	
-	#generate the top layer
+	# Generate the top layer
 	var latest_index = 0
 	var blacklist = {}
 	while latest_index != null:
@@ -311,7 +311,7 @@ func add_full(poly):
 		if list.size() >= 2:
 			draw_top_from_connected_lines(list)
 	
-	#do the bottom layer
+	# Do the bottom layer
 	latest_index = 0
 	while latest_index != null:
 		var list = []

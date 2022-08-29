@@ -34,7 +34,7 @@ func physics_step():
 	for body in riders:
 		var angle = get_angle_to(body.position)
 		var dist = position.distance_to(body.position)
-		var perpendicular_dist = cos(angle) * dist #calculate perpendicular distance from pivot
+		var perpendicular_dist = cos(angle) * dist # Calculate perpendicular distance from pivot
 		ang_vel += perpendicular_dist / 8000 / width
 	
 	rotation += ang_vel

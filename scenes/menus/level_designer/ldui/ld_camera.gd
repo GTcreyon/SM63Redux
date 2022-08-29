@@ -26,7 +26,7 @@ func _process(_delta):
 	if i_pan:
 		position += mouse_pos_store - mouse_pos
 	else:
-		#Horrific code compression - this is just for moving the camera
+		# Horrific code compression - this is just for moving the camera
 		position += Vector2((int(i_right) - int(i_left))*scroll_speed, (int(i_down) - int(i_up))*scroll_speed)
 		
 	mouse_pos_store = mouse_pos

@@ -29,7 +29,7 @@ func _get_nozzle_label(id):
 
 
 func _on_FluddBox_body_entered(body):
-	if body.vel.y > -2 and body.position.y < position.y: #TODO: give mario feet collision
+	if body.vel.y > -2 and body.position.y < position.y: # TODO: give mario feet collision
 		sprite.animation = "bounce_" + _get_nozzle_label(nozzle)
 		
 		var inst = PICKUP_PREFABS[nozzle - 1].instance()
