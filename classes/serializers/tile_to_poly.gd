@@ -204,7 +204,7 @@ func get_all_contours(grid):
 		remove_indices = contour_data[1]
 	return all_contours
 
-##vertices math##
+# == Vertices math ==
 
 # Remove any duplicate points which are next to eachother
 func remove_duplicate_points(input):
@@ -254,7 +254,7 @@ func are_polygons_inside_eachother(a, b):
 	return [a_succes, b_succes]
 
 # Intersect a polygon with a ray, and automatically insert a new vertex there
-#used to merge polygons with holes
+# Used to merge polygons with holes
 func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = false):
 	var p_size = polygon.size()
 	var injection_point
@@ -386,7 +386,7 @@ func get_individual_shape(grid, filter, set_after = 0):
 			filtered[current.x][current.y] = 1
 			# Set the grid to our new value
 			grid[current.x][current.y] = set_after
-			#update the stack
+			# Update the stack
 			check_queue.append_array([
 				current + Vector2(1, 0),
 				current + Vector2(-1, 0),

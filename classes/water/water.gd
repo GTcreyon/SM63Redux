@@ -150,7 +150,7 @@ func on_ready():
 	# The water should be purely visual, so the uv and collision should be set before subdividing
 	subdivide_surface()
 
-#update the shader with the latest information
+# Update the shader with the latest information
 func _process(dt):
 	elapsed_time += dt
 	var wave_y_modifier = {}
@@ -164,7 +164,7 @@ func _process(dt):
 			wave.height = 0 # Do not skip the rest of the code, we set the wave height to 0 and it will clear itself up
 		wave.current_position.x += wave.speed * wave.direction * dt
 		wave.travelled_distance += abs(wave.speed * wave.direction * dt)
-		#update the current and next vertex position, also flip the direction if needed
+		# Update the current and next vertex position, also flip the direction if needed
 		if (wave.speed * wave.direction >= 0 and wave.current_position.x >= surface[wave.next_vertex_key].x) or (wave.speed * wave.direction <= 0 and wave.current_position.x <= surface[wave.next_vertex_key].x):
 			wave.current_vertex_key = wave.next_vertex_key
 			wave.next_vertex_key = get_next_vertex_key_for_wave(wave)

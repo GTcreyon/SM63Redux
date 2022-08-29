@@ -173,7 +173,7 @@ func _physics_process(dt):
 			Vector2(-target_size.x / 2, 0)
 		])
 		
-	#update the camera position and stuff
+	# Update the camera position and stuff
 	var target = player.position
 	if !frozen:
 		body.move_and_slide(((target - body.position) / dt))
