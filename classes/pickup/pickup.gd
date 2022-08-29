@@ -44,7 +44,10 @@ func _pickup_id_setup() -> void:
 	var room = get_tree().get_current_scene().get_filename()
 	_collect_id = Singleton.get_collect_id()
 	if Singleton.collected_dict[room][_collect_id]:
-		queue_free()
+		if parent_is_root:
+			get_parent().queue_free()
+		else:
+			queue_free()
 	else:
 		Singleton.collected_dict[room].append(false)
 
