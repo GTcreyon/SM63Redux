@@ -104,11 +104,13 @@ func _init_animation():
 func _on_HurtboxStomp_area_entered(area):
 	if !stomped or multi_stomp:
 		stomped = true
+		print("stomp" + get_path())
 		_hurt_stomp(area)
 
 
 func _on_HurtboxStrike_body_entered(body):
 	if _strike_check(body):
+		print("struck" + get_path())
 		_hurt_struck(body)
 
 
@@ -119,7 +121,7 @@ func _on_Hitbox_body_entered(body):
 
 # Check if the colliding body can strike this enemy
 func _strike_check(body):
-	return !struck and (body.is_spinning() or (body.is_diving(true) and abs(body.vel.x) > 1))
+	return !struck and !stomped and (body.is_spinning() or (body.is_diving(true) and abs(body.vel.x) > 1))
 
 
 func _hurt_stomp(area):

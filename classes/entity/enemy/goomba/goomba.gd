@@ -39,20 +39,14 @@ func _physics_step():
 						sprite.animation = "walking"
 						jump_state = JumpStates.FLOOR
 					else:
-						sprite.frame = 2 + land_timer # finish up jumping anim
-	
-	
-	if is_on_floor() and struck and !stomped and vel.y > 0:
-		stomped = true
-		sprite.animation = "squish"
-		sprite.frame = 0
-		sprite.playing = true
+						sprite.frame = 2 + land_timer # Finish up jumping anim
 	
 	._physics_step()
 
 
 func _target_alert(_body):
 	if is_on_floor():
+		print("alert" + get_path())
 		sprite.animation = "jumping"
 		sfx_jump.play()
 		sprite.frame = 0
@@ -61,24 +55,29 @@ func _target_alert(_body):
 
 
 func _hurt_stomp(area):
+	print("stomp2" + get_path())
+	if area != null:
+		var body = area.get_parent()
+		if body.state == body.S.DIVE && Input.is_action_pressed("down"):
+			_hurt_struck(body)
+		else:
+			_stomp_trigger()
+			body.start_bounce()
+	else:
+		_stomp_trigger()
+
+
+func _stomp_trigger():
 	sprite.animation = "squish"
 	struck = false
 	vel.y = 0
 	sprite.frame = 0
 	sprite.playing = true
-	if area != null:
-		var body = area.get_parent()
-		if body.state == body.S.DIVE:
-			if Input.is_action_pressed("down"):
-				_hurt_struck(body)
-			else:
-				body.start_bounce()
-		else:
-			body.start_bounce()
 
 
 func _hurt_struck(body):
 	._hurt_struck(body)
+	print("struck2" + get_path())
 	sprite.animation = "jumping"
 	jump_state = JumpStates.AIRBORNE
 
