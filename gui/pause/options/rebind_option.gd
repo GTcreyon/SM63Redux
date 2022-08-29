@@ -141,7 +141,6 @@ func unpress():
 
 
 func get_joypad_motion_name(axis: int, value: float):
-	var output
 	match axis:
 		JOY_AXIS_0:
 			return "(Left Stick Left)" if value < 0 else "(Left Stick Right)"

@@ -124,7 +124,7 @@ func _strike_check(body):
 	return !struck and !stomped and (body.is_spinning() or (body.is_diving(true) and abs(body.vel.x) > 1))
 
 
-func _hurt_stomp(area):
+func _hurt_stomp(_area):
 	pass
 
 

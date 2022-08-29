@@ -982,7 +982,7 @@ func player_move() -> void:
 	
 	# store the current position in advance
 	var save_pos = position
-	#warning-ignore:return_value_discarded
+	# warning-ignore:return_value_discarded
 	move_and_slide_with_snap(vel * 60.0, snap, Vector2(0, -1), true)
 	
 	# check how far that moved the player
@@ -998,7 +998,7 @@ func player_move() -> void:
 		and is_on_floor()
 	):
 		position = save_pos
-		#warning-ignore:return_value_discarded
+		# warning-ignore:return_value_discarded
 		move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
 
 

@@ -84,15 +84,15 @@ func run_command(cmd: String):
 				Singleton.log_msg("Forced %d damage." % int(args[1]))
 			"designer", "ld":
 				Singleton.log_msg("Entered Level Designer.")
-				#warning-ignore:RETURN_VALUE_DISCARDED
+				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://level_designer/level_designer.tscn")
 			"menu":
 				Singleton.log_msg("Warped to menu.")
-				#warning-ignore:RETURN_VALUE_DISCARDED
+				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/title/menu.tscn")
 			"title":
 				Singleton.log_msg("Warped to title.")
-				#warning-ignore:RETURN_VALUE_DISCARDED
+				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/title/title.tscn")
 			"fludd":
 				match args[1]:

@@ -11,6 +11,7 @@ var ang_vel = 0
 
 func set_width(val):
 	.set_width(val)
+	# warning-ignore:integer_division
 	$Rod/RideArea/RideShape.shape.extents.x = middle_segment_width / 2 * val + end_segment_width
 
 
@@ -45,7 +46,7 @@ func physics_step():
 	ang_vel = lerp(ang_vel, 0, 0.0125)
 	for body in riders:
 		var dist = position.distance_to(body.position)
-		#warning-ignore:return_value_discarded
+		# warning-ignore:return_value_discarded
 		body.move_and_slide_with_snap(Vector2(rotation_degrees * 0.076 * 32, sin(ang_vel) * dist * 32), Vector2(0, 4), Vector2.UP, true)
 
 

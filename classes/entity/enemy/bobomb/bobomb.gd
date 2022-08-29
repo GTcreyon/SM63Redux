@@ -62,7 +62,7 @@ func _update_sprites() -> void:
 			fuse.offset.x = 0
 
 
-func _target_alert(body) -> void:
+func _target_alert(_body) -> void:
 	fuse.animation = "lit"
 
 

@@ -38,7 +38,8 @@ func _ready():
 	sprite.frame = rng.seed % 7
 	sprite.playing = !disabled
 	
-	time_count = rng.randi_range(0, TIME_UP/2)
+	# warning-ignore:integer_division
+	time_count = rng.randi_range(0, TIME_UP / 2)
 	vel.x = 2 + rng.randf() * 0.5
 	vel.y = -0.7 - rng.randf() * 0.25
 
@@ -72,6 +73,7 @@ func physics_step() -> void:
 			if time_count >= TIME_UP and sprite.frame == 2:
 				sprite.animation = "swoop"
 				
+				# warning-ignore:integer_division
 				time_count = rng.randi_range(0, TIME_DOWN/2)
 		else:
 			move_vec = Vector2(vel.x * 1.5 * 32/60 * flip_sign, 1.5*32/60)
@@ -79,6 +81,7 @@ func physics_step() -> void:
 			if time_count >= TIME_DOWN:
 				sprite.animation = "flap"
 				sprite.frame = 5
+				# warning-ignore:integer_division
 				time_count = rng.randi_range(0, TIME_UP/2)
 	
 	if riding <= 0:

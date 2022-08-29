@@ -131,7 +131,7 @@ func warp_to(path):
 		timer.frames = 0
 		timer.split_frames = 0
 	timer.split_timer()
-	#warning-ignore:RETURN_VALUE_DISCARDED
+	# warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().call_deferred("change_scene", path)
 
 

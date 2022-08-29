@@ -14,7 +14,7 @@ func _physics_process(_delta):
 		
 		offset_vec = frames.get_frame(animation, frame_num).get_size().posmod(2) / 2
 	else:
-		if carrier_node.texture == null:
+		if carrier_node.get("texture") == null:
 			offset_vec = Vector2.ZERO
 		else:
 			offset_vec = carrier_node.texture.get_size().posmod(2) / 2

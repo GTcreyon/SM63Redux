@@ -66,7 +66,7 @@ func _physics_step():
 	
 	_hurtbox_check()
 	
-	#warning-ignore:RETURN_VALUE_DISCARDED
+	# warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide(vel * 60, Vector2.UP)
 
 
