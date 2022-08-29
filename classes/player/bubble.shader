@@ -5,9 +5,9 @@ uniform vec4 outline_color : hint_color = vec4(0.47, 0.59, 0.81, 0.63);
 uniform vec4 shine_color : hint_color = vec4(0.98, 0.91, 0.91, 0.63);
 uniform sampler2D viewport_texture;
 
-//OKAY SO
-//transparent bg viewports are apparently fucked on OSX
-//so until Godot is fixed, we'll be using the red channel instead of the alpha channel
+// OKAY SO
+// transparent bg viewports are apparently messed up on OSX
+// so until Godot is fixed, we'll be using the red channel instead of the alpha channel
 void fragment() {
 	vec4 col = texture(viewport_texture, UV);
 	if (col.r == 0.) {
