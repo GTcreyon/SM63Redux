@@ -103,14 +103,11 @@ func _init_animation():
 
 func _on_HurtboxStomp_area_entered(area):
 	if !stomped or multi_stomp:
-		stomped = true
-		print("stomp" + get_path())
 		_hurt_stomp(area)
 
 
 func _on_HurtboxStrike_body_entered(body):
 	if _strike_check(body):
-		print("struck" + get_path())
 		_hurt_struck(body)
 
 

@@ -52,6 +52,7 @@ func _strike_check(_body):
 
 
 func _hurt_stomp(area):
+	stomped = true
 	kick_sfx.play()
 	var body = area.get_parent()
 	body.vel.y = -5
