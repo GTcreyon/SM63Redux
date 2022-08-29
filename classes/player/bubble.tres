@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[ext_resource path="res://classes/player/bubble.shader" type="Shader" id=1]
+
+[resource]
+shader = ExtResource( 1 )
+shader_param/base_color = Color( 0.54, 0.7, 0.83, 0.63 )
+shader_param/outline_color = Color( 0.0901961, 0.278431, 0.411765, 0.631373 )
+shader_param/shine_color = Color( 0.98, 0.91, 0.91, 0.63 )

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/jump_triple_1.wav-4758ecd330a70aec7e88c0b1666389fa.sample"
+
+[deps]
+
+source_file="res://classes/player/sfx/mario/jump_triple/jump_triple_1.wav"
+dest_files=[ "res://.import/jump_triple_1.wav-4758ecd330a70aec7e88c0b1666389fa.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

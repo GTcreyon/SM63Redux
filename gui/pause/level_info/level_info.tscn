@@ -9,7 +9,7 @@
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=7]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=8]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=9]
-[ext_resource path="res://gui/level_info.gd" type="Script" id=10]
+[ext_resource path="res://gui/hud/level_info.gd" type="Script" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

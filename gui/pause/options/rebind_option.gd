@@ -64,7 +64,7 @@ func _ready():
 
 func _input(event):
 	if pressed:
-		if event is InputEventKey || event is InputEventJoypadButton || (event is InputEventJoypadMotion && abs(event.axis_value) > 0.25):
+		if event is InputEventKey or event is InputEventJoypadButton or (event is InputEventJoypadMotion and abs(event.axis_value) > 0.25):
 			Singleton.get_node("SFX/Confirm").play()
 			InputMap.action_add_event(action_id, event)
 			unpress()
@@ -141,7 +141,6 @@ func unpress():
 
 
 func get_joypad_motion_name(axis: int, value: float):
-	var output
 	match axis:
 		JOY_AXIS_0:
 			return "(Left Stick Left)" if value < 0 else "(Left Stick Right)"

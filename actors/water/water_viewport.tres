@@ -1,9 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
-
-[ext_resource path="res://actors/water/water_viewport.shader" type="Shader" id=1]
-
-[resource]
-shader = ExtResource( 1 )
-shader_param/base_water_color = Color( 0.2, 0.7, 1, 0.8 )
-shader_param/outline_texture_size = null
-shader_param/outline_anim_phase = 0.0

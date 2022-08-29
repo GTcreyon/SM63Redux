@@ -12,52 +12,208 @@ _global_script_classes=[ {
 "base": "Reference",
 "class": "BaseModifier",
 "language": "GDScript",
-"path": "res://src/global/base_modifier.gd"
+"path": "res://classes/base_modifier.gd"
+}, {
+"base": "EntityEnemyWalk",
+"class": "Bobomb",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/bobomb/bobomb.gd"
+}, {
+"base": "Pickup",
+"class": "Bottle",
+"language": "GDScript",
+"path": "res://classes/pickup/bottle/bottle.gd"
+}, {
+"base": "EntityEnemy",
+"class": "CheepCheep",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/cheep_cheep/cheep_cheep.gd"
+}, {
+"base": "Entity",
+"class": "CoinEntity",
+"language": "GDScript",
+"path": "res://classes/pickup/coin/coin_entity.gd"
+}, {
+"base": "Pickup",
+"class": "CoinPickup",
+"language": "GDScript",
+"path": "res://classes/pickup/coin/coin_pickup.gd"
+}, {
+"base": "CoinPickup",
+"class": "CoinPickupBlue",
+"language": "GDScript",
+"path": "res://classes/pickup/coin/blue/coin_blue.gd"
+}, {
+"base": "CoinPickup",
+"class": "CoinPickupRed",
+"language": "GDScript",
+"path": "res://classes/pickup/coin/red/coin_red.gd"
+}, {
+"base": "CoinPickup",
+"class": "CoinPickupYellow",
+"language": "GDScript",
+"path": "res://classes/pickup/coin/yellow/coin_yellow.gd"
+}, {
+"base": "Node2D",
+"class": "DejitterGroup",
+"language": "GDScript",
+"path": "res://classes/dejitter_group/dejitter_group.gd"
+}, {
+"base": "Interactable",
+"class": "Door",
+"language": "GDScript",
+"path": "res://classes/interactable/door/door.gd"
 }, {
 "base": "Container",
 "class": "DropdownMenu",
 "language": "GDScript",
 "path": "res://gui/custom_nodes/dropdown_menu.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Entity",
+"language": "GDScript",
+"path": "res://classes/entity/entity.gd"
+}, {
+"base": "EntityMirrorable",
+"class": "EntityEnemy",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/entity_enemy.gd"
+}, {
+"base": "EntityEnemy",
+"class": "EntityEnemyWalk",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/entity_enemy_walk.gd"
+}, {
+"base": "Entity",
+"class": "EntityMirrorable",
+"language": "GDScript",
+"path": "res://classes/entity/entity_mirrorable.gd"
+}, {
+"base": "Area2D",
+"class": "FluddBox",
+"language": "GDScript",
+"path": "res://classes/pickup/fludd_box/fludd_box.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "FluddEntity",
+"language": "GDScript",
+"path": "res://classes/pickup/fludd_box/fludd_entity.gd"
+}, {
+"base": "Pickup",
+"class": "FluddPickup",
+"language": "GDScript",
+"path": "res://classes/pickup/fludd_box/fludd_pickup.gd"
+}, {
+"base": "EntityEnemyWalk",
+"class": "Goomba",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/goomba/goomba.gd"
+}, {
+"base": "Area2D",
+"class": "Interactable",
+"language": "GDScript",
+"path": "res://classes/interactable/interactable.gd"
+}, {
+"base": "Interactable",
+"class": "InteractableDialog",
+"language": "GDScript",
+"path": "res://classes/interactable/interactable_dialog.gd"
+}, {
+"base": "EntityEnemyWalk",
+"class": "Koopa",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/koopa/koopa.gd"
+}, {
+"base": "EntityEnemy",
+"class": "KoopaShell",
+"language": "GDScript",
+"path": "res://classes/entity/enemy/koopa/koopa_shell.gd"
+}, {
 "base": "Container",
 "class": "OutlineContainer",
 "language": "GDScript",
 "path": "res://gui/custom_nodes/outline_container.gd"
+}, {
+"base": "Area2D",
+"class": "Pickup",
+"language": "GDScript",
+"path": "res://classes/pickup/pickup.gd"
 }, {
 "base": "Container",
 "class": "PolygonContainer",
 "language": "GDScript",
 "path": "res://gui/custom_nodes/polygon_container.gd"
 }, {
+"base": "AudioStreamPlayer2D",
+"class": "ResidualSFX",
+"language": "GDScript",
+"path": "res://classes/misc/residual_sfx/residual_sfx.gd"
+}, {
 "base": "Reference",
 "class": "SM63ToRedux",
 "language": "GDScript",
-"path": "res://src/global/serializers/sm63_to_redux.gd"
+"path": "res://classes/serializers/sm63_to_redux.gd"
 }, {
 "base": "Reference",
 "class": "Serializer",
 "language": "GDScript",
-"path": "res://src/global/serializers/serializer.gd"
+"path": "res://classes/serializers/serializer.gd"
+}, {
+"base": "Node2D",
+"class": "Telescoping",
+"language": "GDScript",
+"path": "res://classes/solid/telescoping/telescoping.gd"
 }, {
 "base": "Node2D",
 "class": "TileToPoly",
 "language": "GDScript",
-"path": "res://src/global/serializers/tile_to_poly.gd"
+"path": "res://classes/serializers/tile_to_poly.gd"
+}, {
+"base": "Telescoping",
+"class": "TippingLog",
+"language": "GDScript",
+"path": "res://classes/solid/telescoping/tipping_log/tipping_log.gd"
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
+"Bobomb": "",
+"Bottle": "",
+"CheepCheep": "",
+"CoinEntity": "",
+"CoinPickup": "",
+"CoinPickupBlue": "",
+"CoinPickupRed": "",
+"CoinPickupYellow": "",
+"DejitterGroup": "res://classes/dejitter_group/dejitter_group.svg",
+"Door": "",
 "DropdownMenu": "",
+"Entity": "",
+"EntityEnemy": "",
+"EntityEnemyWalk": "",
+"EntityMirrorable": "",
+"FluddBox": "",
+"FluddEntity": "",
+"FluddPickup": "",
+"Goomba": "",
+"Interactable": "",
+"InteractableDialog": "",
+"Koopa": "",
+"KoopaShell": "",
 "OutlineContainer": "",
+"Pickup": "",
 "PolygonContainer": "",
+"ResidualSFX": "",
 "SM63ToRedux": "",
 "Serializer": "",
-"TileToPoly": ""
+"Telescoping": "",
+"TileToPoly": "",
+"TippingLog": ""
 }
 
 [application]
 
 config/name="Super Mario 63 Redux"
-run/main_scene="res://scenes/title/title.tscn"
+run/main_scene="res://scenes/menus/title/title.tscn"
 boot_splash/image="res://splash.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
@@ -65,8 +221,8 @@ config/windows_native_icon="res://icon_windows.ico"
 
 [autoload]
 
-Singleton="*res://src/global/singleton.tscn"
-PerformanceMonitor="*res://src/global/performance/performance_monitor.tscn"
+Singleton="*res://classes/global/singleton/singleton.tscn"
+PerformanceMonitor="*res://classes/global/performance/performance_monitor.gd"
 
 [display]
 
@@ -408,26 +564,6 @@ ld_exit={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777220,"unicode":0,"echo":false,"script":null)
  ]
 }
-ld_alt_click={
-"deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
- ]
-}
-vps_select_up={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-vps_select_down={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
-vps_cancel_selection={
-"deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
-}
 
 [input_devices]
 
@@ -439,6 +575,7 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_2="player"
 2d_physics/layer_3="entity"
 2d_physics/layer_4="water"
+2d_physics/layer_5="feet"
 2d_physics/layer_20="ice"
 2d_physics/layer_21="cloud"
 2d_physics/layer_22="snow"
