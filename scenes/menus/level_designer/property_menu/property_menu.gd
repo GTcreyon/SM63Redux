@@ -1,7 +1,7 @@
 extends Panel
 
-const TICKBOX = preload("res://level_designer/fields/boolean/tickbox_ld.tscn")
-const INPUT_NUMBER = preload("res://level_designer/fields/number/input_number.tscn")
+const TICKBOX = preload("../fields/boolean/tickbox_ld.tscn")
+const INPUT_NUMBER = preload("../fields/number/input_number.tscn")
 var properties: Dictionary = {}
 var target_node: Node = null
 onready var list: VBoxContainer = $PropertyList
