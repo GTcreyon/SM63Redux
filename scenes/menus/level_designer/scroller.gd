@@ -5,7 +5,7 @@ onready var base = $"/root/Main/UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back
 onready var grid = $"/root/Main/UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid" # ew
 onready var region = get_parent()
 
-func _process(delta):
+func _process(_delta):
 	var content_height = ceil(main.items.size() / 2) * (32 + grid.get_constant("vseparation"))
 	var scroll_height = content_height - base.rect_size.y + 2
 	var region_height = region.rect_size.y

@@ -111,7 +111,7 @@ func _disabled_draw():
 
 func read_items():
 	var parser = XMLParser.new()
-	parser.open("res://level_designer/items.xml.tres")
+	parser.open("res://scenes/menus/level_designer/items.xml.tres")
 	
 	var parent_name
 	var parent_subname
@@ -270,7 +270,7 @@ func _process(_dt):
 	if Input.is_action_just_pressed("ld_exit"): # Return to designer
 		if in_level:
 			in_level = false
-			get_tree().change_scene("./level_designer.tscn")
+			get_tree().change_scene("res://scenes/menus/level_designer/level_designer.tscn")
 
 
 func _input(event):
