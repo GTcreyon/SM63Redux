@@ -4,6 +4,11 @@ extends Entity
 var dropped = false
 var active_timer = 30
 
+
+func get_pickup_node():
+	return $PickupArea
+
+
 func _physics_step():
 	if dropped:
 		active_timer = max(active_timer - 1, 0)

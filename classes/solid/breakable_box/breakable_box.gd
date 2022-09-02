@@ -9,12 +9,12 @@ onready var pound_area = $PoundArea
 onready var spin_area = $SpinArea
 
 var rng = RandomNumberGenerator.new()
-var collect_id
+var _pickup_ids = []
 
 export var coin_count = 5
 
 func _ready():
-	collect_id = Singleton.get_collect_id()
+	_pickup_ids = FlagServer.claim_flag_id_array(coin_count)
 	rng.seed = hash(position.x + position.y * PI)
 	$Sprite.frame = randi() % 3
 
@@ -45,12 +45,14 @@ func destroy():
 		inst.vel = Vector2((rng.randf() - 0.5) * 5, rng.randf() * -2.5)
 		inst.get_node("AnimatedSprite").frame = rng.randi() % 7
 		get_parent().call_deferred("add_child", inst)
-	if Singleton.request_coin(collect_id):
-		for _i in range(coin_count):
+	for _i in range(coin_count):
+		var id = _pickup_ids[_i]
+		if !FlagServer.get_flag_state(id):
 			var inst = COIN_PREFAB.instance()
 			inst.position = position# + Vector2((rng.randf() - 0.5) * 27, (rng.randf() - 0.5) * 27)
 			inst.vel = Vector2((rng.randf() - 0.5) * 5.0, rng.randf() * -2.5)
 			inst.dropped = true
+			inst.get_pickup_node().assign_pickup_id(id)
 			get_parent().call_deferred("add_child", inst)
 	
 	var sound

@@ -10,10 +10,9 @@ export var persistent_collect = true
 export var disabled: bool = false setget set_disabled
 export var _sprite_path: NodePath = "Sprite"
 
-var _collect_id
+var _pickup_id: int = -1
 
 onready var sprite = get_node_or_null(_sprite_path)
-
 
 
 func _ready():
@@ -23,9 +22,24 @@ func _ready():
 func _ready_override() -> void:
 	if sprite != null and sprite.get("playing") != null:
 		sprite.playing = !disabled
-	if persistent_collect:
+	if persistent_collect && _pickup_id == -1:
 		_pickup_id_setup()
 	_connect_signals()
+
+
+# Allow a pickup ID to be manually assigned.
+# Usually inherited from a spawner.
+func assign_pickup_id(id) -> void:
+	persistent_collect = true
+	_pickup_id = id
+
+
+func pickup(body) -> void:
+	_award_pickup(body)
+	_pickup_effect()
+	_kill_pickup()
+	if persistent_collect:
+		FlagServer.set_flag_state(_pickup_id, true)
 
 
 func _connect_signals() -> void:
@@ -42,22 +56,13 @@ func set_disabled(val):
 
 
 func _pickup_id_setup() -> void:
-	var room = get_tree().get_current_scene().get_filename()
-	_collect_id = Singleton.get_collect_id()
-	if Singleton.collected_dict[room][_collect_id]:
+	_pickup_id = FlagServer.claim_flag_id()
+	if FlagServer.get_flag_state(_pickup_id):
+		FlagServer.set_flag_state(_pickup_id, true)
 		if parent_is_root:
 			get_parent().queue_free()
 		else:
 			queue_free()
-	else:
-		Singleton.collected_dict[room].append(false)
-
-
-func pickup(body) -> void:
-	_award_pickup(body)
-	_mark_collected()
-	_pickup_effect()
-	_kill_pickup()
 
 
 func _kill_pickup() -> void:
@@ -69,12 +74,6 @@ func _kill_pickup() -> void:
 
 func _pickup_effect() -> void:
 	pass
-
-
-func _mark_collected() -> void:
-	if persistent_collect:
-		Singleton.collected_dict[get_tree().get_current_scene().get_filename()][_collect_id] = true
-	Singleton.collect_count += 1
 
 
 func _award_pickup(_body) -> void:

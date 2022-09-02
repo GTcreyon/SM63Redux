@@ -9,10 +9,10 @@ const COIN_PREFAB = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 export var coin_count: int = 1
 export var inside_check: bool = true
 export var multi_stomp: bool = false
-var collect_id: int = -1
 var dead: bool = false
 var stomped: bool = false
 var struck: bool = false
+var _pickup_ids: Array = []
 
 export var _hurtbox_stomp_path: NodePath = "HurtboxStomp"
 onready var hurtbox_stomp = get_node_or_null(_hurtbox_stomp_path)
@@ -26,9 +26,11 @@ onready var hitbox = get_node_or_null(_hitbox_path)
 
 # Make the enemy die and drop its coins.
 func enemy_die():
-	if Singleton.request_coin(collect_id):
-		for _i in range(coin_count):
+	for _i in range(coin_count):
+		var id = _pickup_ids[_i]
+		if !FlagServer.get_flag_state(id):
 			var spawn = COIN_PREFAB.instance()
+			spawn.get_pickup_node().assign_pickup_id(id)
 			spawn.position = position
 			spawn.dropped = true
 			spawn.pop_velocity()
@@ -38,7 +40,7 @@ func enemy_die():
 
 func _ready_override():
 	._ready_override()
-	_setup_collect_id()
+	_setup_pickup_ids()
 	_init_animation()
 
 
@@ -87,10 +89,9 @@ func _preempt_all_node_readies():
 	sprite = _preempt_node_ready(sprite, _sprite_path)
 
 
-# Get a collect ID from the collect server
-func _setup_collect_id():
-	if coin_count > 0:
-		collect_id = Singleton.get_collect_id()
+# Get IDs from the collect server for each coin
+func _setup_pickup_ids():
+	_pickup_ids = FlagServer.claim_flag_id_array(coin_count)
 
 
 # Start the sprite's animation and pseudorandomize its start point depending on position in the level

@@ -64,8 +64,6 @@ var dead = false
 var hp = 8
 var meter_progress = 0
 var collected_nozzles = [false, false, false]
-var collected_dict = {}
-var collect_count = 0
 var set_location
 var flip
 var pause_menu = false
@@ -104,7 +102,6 @@ func log_msg(msg: String, type: int = LogType.INFO):
 
 func _ready():
 	rng.seed = hash("2401")
-	collect_count = 0 # reset the collect count on every room load
 	default_input_map = get_input_map_json_current()
 	var file = File.new()
 	if file.file_exists("user://controls.json"):
@@ -125,7 +122,7 @@ func _process(_delta):
 
 
 func warp_to(path):
-	collect_count = 0
+	FlagServer.reset_assign_id()
 	if path == "res://scenes/tutorial_1/tutorial_1_1.tscn":
 		timer.running = true
 		timer.frames = 0
@@ -133,30 +130,6 @@ func warp_to(path):
 	timer.split_timer()
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().call_deferred("change_scene", path)
-
-
-func get_collect_id():
-	var path = get_tree().get_current_scene().get_filename()
-	create_coindict(path)
-	collected_dict[path].append(false)
-	collect_count += 1
-	return collect_count - 1
-
-
-func create_coindict(path):
-	if !collected_dict.has(path):
-		collected_dict[path] = [false]
-
-
-func reset_all_coindicts():
-	collected_dict = {}
-
-
-func request_coin(collect_id):
-	var room = get_tree().get_current_scene().get_filename()
-	if !collected_dict[room][collect_id]:
-		collected_dict[room][collect_id] = true
-		return true
 
 
 func touch_controls():

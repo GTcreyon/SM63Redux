@@ -96,6 +96,7 @@ func run_command(cmd: String):
 				get_tree().change_scene("res://scenes/title/title.tscn")
 			"vps":
 				Singleton.log_msg("Entering VPS editor.")
+				# warning-ignore:return_value_discarded
 				get_tree().change_scene("res://level_designer/visual_pipescript/editor.tscn")
 			"fludd":
 				match args[1]:
