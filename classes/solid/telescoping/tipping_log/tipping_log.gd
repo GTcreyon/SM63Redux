@@ -26,11 +26,7 @@ func physics_step():
 	# F will just be a constant for now
 	# TODO: Consider using fall speed as F
 	
-	var riders = []
-	for body in ride_area.get_overlapping_bodies():
-		if body.is_on_floor():
-			riders.append(body)
-	
+	var riders = ride_area.get_riding_bodies()
 	for body in riders:
 		var angle = get_angle_to(body.position)
 		var dist = position.distance_to(body.position)
