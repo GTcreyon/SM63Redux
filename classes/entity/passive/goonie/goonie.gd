@@ -17,7 +17,8 @@ var reset_timer: int = 90
 
 onready var camera_area: Polygon2D = $"/root/Main/CameraArea"
 onready var sprite: AnimatedSprite = $AnimatedSprite
-onready var ride_area: Area2D = $RideArea
+onready var entity_ride_area: Area2D = $EntityRideArea
+onready var feet_ride_area: Area2D = $FeetRideArea
 onready var safety_net: Area2D = $SafetyNet
 
 func _ready():
@@ -63,9 +64,13 @@ func physics_step() -> void:
 	if riding > 0:
 		move_vec = Vector2(vel.x * 32.0/60.0 * flip_sign, 0.36)
 		position += move_vec
-		for body in ride_area.get_overlapping_bodies():
-			if body.is_on_floor():
+		for body in entity_ride_area.get_overlapping_bodies():
+			if !body.get_collision_layer_bit(1) and body.is_on_floor():
 				body.move_and_slide(move_vec * 60.0, Vector2.UP)
+		for area in feet_ride_area.get_overlapping_areas():
+			var parent = area.get_parent()
+			if parent.is_on_floor():
+				parent.move_and_slide(move_vec * 60.0, Vector2.UP)
 	else:
 		if sprite.animation == "flap":
 			move_vec = Vector2(vel.x * 32/60 * flip_sign, vel.y*32/60)
@@ -97,21 +102,21 @@ func physics_step() -> void:
 				reset_timer = 90
 
 
-func _on_RideArea_body_entered(body) -> void:
-	if body.vel.y > 0:
+func _add_new_rider(rider) -> void:
+	if rider.vel.y > 0:
 		sprite.animation = "flap"
 		sprite.speed_scale = 3
 		riding += 1
 	else:
-		block_riders.append(body)
+		block_riders.append(rider)
 
 
-func _on_RideArea_body_exited(body) -> void:
-	if block_riders.has(body):
-		block_riders.erase(body)
+func _remove_rider(rider) -> void:
+	if block_riders.has(rider):
+		block_riders.erase(rider)
 	else:
-		if body.vel.x == 0:
-			body.vel.x = vel.x / 2
+		if rider.vel.x == 0:
+			rider.vel.x = vel.x / 2
 		riding -= 1
 		if riding <= 0:
 			sprite.speed_scale = 1
@@ -119,13 +124,27 @@ func _on_RideArea_body_exited(body) -> void:
 
 func set_disabled(val) -> void:
 	disabled = val
+	yield(self, "ready")
 	set_collision_layer_bit(0, 0 if val else 1)
-	if safety_net == null:
-		safety_net = $SafetyNet
-	if ride_area == null:
-		ride_area = $RideArea
-	if sprite == null:
-		sprite = $AnimatedSprite
 	safety_net.monitoring = !val
-	ride_area.monitoring = !val
+	entity_ride_area.monitoring = !val
+	feet_ride_area.monitoring = !val
 	sprite.playing = !val
+
+
+func _on_EntityRideArea_body_entered(body):
+	if !body.get_collision_layer_bit(1):
+		_add_new_rider(body)
+
+
+func _on_EntityRideArea_body_exited(body):
+	if !body.get_collision_layer_bit(1):
+		_remove_rider(body)
+
+
+func _on_FeetRideArea_area_entered(area):
+	_add_new_rider(area.get_parent())
+
+
+func _on_FeetRideArea_area_exited(area):
+	_remove_rider(area.get_parent())
