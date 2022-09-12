@@ -102,6 +102,7 @@ onready var hover_sfx = $HoverSFX
 onready var hover_loop_sfx = $HoverLoopSFX
 onready var dust = $Dust
 onready var ground_failsafe_check: Area2D = $GroundFailsafe
+onready var feet_area: Area2D = $Feet
 
 var ground_pound_effect = preload("res://classes/player/ground_pound_effect.tscn")
 

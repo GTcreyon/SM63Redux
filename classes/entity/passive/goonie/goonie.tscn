@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://classes/entity/passive/goonie/goonie_flap.png" type="Texture" id=1]
+[ext_resource path="res://classes/ride_area.gd" type="Script" id=2]
 [ext_resource path="res://classes/entity/passive/goonie/goonie_swoop.png" type="Texture" id=6]
 [ext_resource path="res://classes/entity/passive/goonie/goonie.gd" type="Script" id=9]
 [ext_resource path="res://classes/zone/safety_net/safety_net.gd" type="Script" id=10]
@@ -61,23 +62,14 @@ z_index = 1
 collision_mask = 0
 script = ExtResource( 9 )
 
-[node name="EntityRideArea" type="Area2D" parent="."]
+[node name="RideArea" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 20
 input_pickable = false
 monitorable = false
+script = ExtResource( 2 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityRideArea"]
-position = Vector2( 0, -8 )
-shape = SubResource( 1 )
-
-[node name="FeetRideArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 16
-input_pickable = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FeetRideArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RideArea"]
 position = Vector2( 0, -8 )
 shape = SubResource( 1 )
 
@@ -103,9 +95,6 @@ script = ExtResource( 10 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SafetyNet"]
 shape = SubResource( 4 )
 
-[connection signal="body_entered" from="EntityRideArea" to="." method="_on_EntityRideArea_body_entered"]
-[connection signal="body_exited" from="EntityRideArea" to="." method="_on_EntityRideArea_body_exited"]
-[connection signal="area_entered" from="FeetRideArea" to="." method="_on_FeetRideArea_area_entered"]
-[connection signal="area_exited" from="FeetRideArea" to="." method="_on_FeetRideArea_area_exited"]
+[connection signal="body_exited" from="RideArea" to="." method="_on_RideArea_body_exited"]
 [connection signal="body_entered" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_entered"]
 [connection signal="body_exited" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_exited"]
