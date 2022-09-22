@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://level_designer/visual_pipescript/piece.png" type="Texture" id=1]
-[ext_resource path="res://level_designer/visual_pipescript/node.gd" type="Script" id=2]
+[ext_resource path="res://scenes/menus/visual_pipescript/piece.png" type="Texture" id=1]
+[ext_resource path="res://scenes/menus/visual_pipescript/node.gd" type="Script" id=2]
 
 [node name="Normal" type="NinePatchRect"]
 margin_right = 54.0

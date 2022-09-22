@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/circle.png-69a6f9b996fe6b4b9afa68a8ea89617d.stex"
+path="res://.import/begin.png-2e0b16baaf0c7071eabc951bd7227a69.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level_designer/visual_pipescript/circle.png"
-dest_files=[ "res://.import/circle.png-69a6f9b996fe6b4b9afa68a8ea89617d.stex" ]
+source_file="res://scenes/menus/visual_pipescript/begin.png"
+dest_files=[ "res://.import/begin.png-2e0b16baaf0c7071eabc951bd7227a69.stex" ]
 
 [params]
 

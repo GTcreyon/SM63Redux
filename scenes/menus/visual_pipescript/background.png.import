@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/piece.png-88de85a610fb71db3efdedd16f3dae79.stex"
+path="res://.import/background.png-046deac776f4b0892119d63bf182c2d3.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level_designer/visual_pipescript/piece.png"
-dest_files=[ "res://.import/piece.png-88de85a610fb71db3efdedd16f3dae79.stex" ]
+source_file="res://scenes/menus/visual_pipescript/background.png"
+dest_files=[ "res://.import/background.png-046deac776f4b0892119d63bf182c2d3.stex" ]
 
 [params]
 
