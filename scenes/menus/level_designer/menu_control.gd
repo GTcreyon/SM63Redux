@@ -3,12 +3,6 @@ extends Control
 const LIST_ITEM = preload("./ldui/list_item.tscn")
 
 onready var level_editor := $"/root/Main"
-onready var ld_camera := $"/root/Main/Camera"
-onready var background := $"/root/Main/BGT1/BGGrid"
-onready var hover_ui := get_parent().get_node("HoverUI")
-#onready var selection_ui := hover_ui.get_node("SelectionControl")
-onready var editable_rect := hover_ui.get_node("Dragger")
-onready var rect_controls := hover_ui.get_node("Dragger").get_node("SelectionControl")
 onready var item_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid
 
 func fill_grid():

@@ -97,7 +97,7 @@ func run_command(cmd: String):
 			"vps":
 				Singleton.log_msg("Entering VPS editor.")
 				# warning-ignore:return_value_discarded
-				get_tree().change_scene("res://level_designer/visual_pipescript/editor.tscn")
+				get_tree().change_scene("res://scenes/menus/visual_pipescript/editor.tscn")
 			"fludd":
 				match args[1]:
 					"h", "hover", "0":

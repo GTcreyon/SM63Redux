@@ -47,7 +47,7 @@ func object_load(id):
 		objects_loaded[id] = load("res://classes/items/" + str(id) + "/" + str(id) + ".tscn")
 	return objects_loaded[id]
 
-
-func _input(event):
-	if event is InputEventScreenDrag:
-		position -= event.relative
+# Disabled this for now as I planned to use left drag for selecting items
+#func _input(event):
+#	if event is InputEventScreenDrag:
+#		position -= event.relative

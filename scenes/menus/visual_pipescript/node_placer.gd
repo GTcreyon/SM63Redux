@@ -1,17 +1,17 @@
 extends Node
 
-const PHANTOM_STYLE = preload("res://level_designer/visual_pipescript/phantom_style.tres")
+const PHANTOM_STYLE = preload("res://scenes/menus/visual_pipescript/phantom_style.tres")
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
-const EDITOR_THEME = preload("res://level_designer/visual_pipescript/visual_editor_theme.tres")
+const EDITOR_THEME = preload("res://scenes/menus/visual_pipescript/visual_editor_theme.tres")
 
 onready var graph = $Graph
 onready var camera := $Camera
 onready var selection_container = $CanvasLayer/Theme/SelectionMenu/VBox
 onready var compiler = $PipeScript/VisualCompiler
 onready var piece_instances = {
-	holster = preload("res://level_designer/visual_pipescript/vps_holster_piece.tscn"),
-	normal = preload("res://level_designer/visual_pipescript/vps_piece.tscn"),
-	begin = preload("res://level_designer/visual_pipescript/vps_begin.tscn")
+	holster = preload("res://scenes/menus/visual_pipescript/vps_holster_piece.tscn"),
+	normal = preload("res://scenes/menus/visual_pipescript/vps_piece.tscn"),
+	begin = preload("res://scenes/menus/visual_pipescript/vps_begin.tscn")
 }
 
 var pieces
@@ -184,7 +184,7 @@ func add_buttons():
 func _ready():
 	# Get the nodes from our nodes file
 	var file = File.new()
-	file.open("res://level_designer/visual_pipescript/pieces.json", File.READ)
+	file.open("res://scenes/menus/visual_pipescript/pieces.json", File.READ)
 	var content = file.get_as_text()
 	file.close()
 	pieces = parse_json(content)

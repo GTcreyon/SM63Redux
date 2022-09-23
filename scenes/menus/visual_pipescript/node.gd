@@ -5,8 +5,8 @@ onready var compiler = $"/root/Main/PipeScript/VisualCompiler"
 onready var graph = get_parent()
 
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
-const STYLEBOX = preload("res://level_designer/visual_pipescript/line_edit_style.stylebox")
-const EDITOR_THEME = preload("res://level_designer/visual_pipescript/visual_editor_theme.tres")
+const STYLEBOX = preload("res://scenes/menus/visual_pipescript/line_edit_style.stylebox")
+const EDITOR_THEME = preload("res://scenes/menus/visual_pipescript/visual_editor_theme.tres")
 
 # Anchor points
 var piece_anchor_points = {

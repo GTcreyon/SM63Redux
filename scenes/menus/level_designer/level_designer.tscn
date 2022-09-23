@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -18,11 +18,8 @@
 [ext_resource path="res://scenes/menus/level_designer/start.gd" type="Script" id=16]
 [ext_resource path="res://scenes/menus/level_designer/save.gd" type="Script" id=17]
 [ext_resource path="res://scenes/menus/level_designer/load.gd" type="Script" id=18]
-[ext_resource path="res://gui/hud/hud_shine_small.png" type="Texture" id=19]
-[ext_resource path="res://gui/custom_nodes/outline_container.gd" type="Script" id=20]
-[ext_resource path="res://scenes/menus/level_designer/ldui/drag_circle_hover.png" type="Texture" id=21]
-[ext_resource path="res://scenes/menus/level_designer/ldui/drag_circle_selected.png" type="Texture" id=22]
-[ext_resource path="res://scenes/menus/level_designer/ldui/drag_circle.png" type="Texture" id=23]
+[ext_resource path="res://scenes/menus/level_designer/ldui/square_outline.png" type="Texture" id=19]
+[ext_resource path="res://scenes/menus/level_designer/selection_handler.gd" type="Script" id=20]
 [ext_resource path="res://scenes/menus/level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture" id=25]
 [ext_resource path="res://scenes/menus/level_designer/bg_grid.gd" type="Script" id=26]
@@ -118,185 +115,6 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
 script = ExtResource( 27 )
-
-[node name="HoverUI" type="Control" parent="UILayer"]
-
-[node name="Dragger" type="Container" parent="UILayer/HoverUI"]
-visible = false
-margin_left = 310.0
-margin_top = 67.0
-margin_right = 498.0
-margin_bottom = 176.0
-mouse_filter = 2
-script = ExtResource( 20 )
-anchor_around = PoolVector2Array( 0.5, 0, 1, 0.5, 0.5, 1, 0, 0.5, 0, 0, 0.5, 0, 1, 0, 1, 0.5, 1, 1, 0.5, 1, 0, 1, 0, 0.5, 0.5, 1, 0, 0 )
-px_offset = PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0 )
-item_anchor = PoolVector2Array( 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0, 0.5, 0.5 )
-
-[node name="OutlineTop" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
-margin_top = -1.0
-margin_right = 188.0
-margin_bottom = 1.0
-size_flags_vertical = 0
-color = Color( 0.498039, 0.247059, 0, 1 )
-
-[node name="OutlineRight" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
-margin_left = 187.0
-margin_right = 189.0
-margin_bottom = 109.0
-size_flags_horizontal = 0
-color = Color( 0.498039, 0.247059, 0, 1 )
-
-[node name="OutlineBottom" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
-margin_top = 108.0
-margin_right = 188.0
-margin_bottom = 110.0
-size_flags_vertical = 0
-color = Color( 0.498039, 0.247059, 0, 1 )
-
-[node name="OutlineLeft" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
-margin_left = -1.0
-margin_right = 1.0
-margin_bottom = 109.0
-size_flags_horizontal = 0
-color = Color( 0.498039, 0.247059, 0, 1 )
-
-[node name="TopLeft" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
-margin_left = -6.0
-margin_top = -6.0
-margin_right = 6.0
-margin_bottom = 6.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-action_mode = 0
-texture_normal = ExtResource( 23 )
-texture_pressed = ExtResource( 22 )
-texture_hover = ExtResource( 21 )
-expand = true
-
-[node name="TopMiddle" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
-margin_left = 88.0
-margin_top = -6.0
-margin_right = 100.0
-margin_bottom = 6.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-action_mode = 0
-texture_normal = ExtResource( 23 )
-texture_pressed = ExtResource( 22 )
-texture_hover = ExtResource( 21 )
-expand = true
-
-[node name="TopRight" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
-margin_left = 182.0
-margin_top = -6.0
-margin_right = 194.0
-margin_bottom = 6.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-action_mode = 0
-texture_normal = ExtResource( 23 )
-texture_pressed = ExtResource( 22 )
-texture_hover = ExtResource( 21 )
-expand = true
-
-[node name="MiddleRight" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
-margin_left = 182.0
-margin_top = 48.5
-margin_right = 194.0
-margin_bottom = 60.5
-size_flags_horizontal = 0
-size_flags_vertical = 0
-action_mode = 0
-texture_normal = ExtResource( 23 )
-texture_pressed = ExtResource( 22 )
-texture_hover = ExtResource( 21 )
-expand = true
-
-[node name="BottomRight" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
-margin_left = 182.0
-margin_top = 103.0
-margin_right = 194.0
-margin_bottom = 115.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-action_mode = 0
-texture_normal = ExtResource( 23 )
-texture_pressed = ExtResource( 22 )
-texture_hover = ExtResource( 21 )
-expand = true
-
-[node name="BottomMiddle" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
-margin_left = 88.0
-margin_top = 103.0
-margin_right = 100.0
-margin_bottom = 115.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-action_mode = 0
-texture_normal = ExtResource( 23 )
-texture_pressed = ExtResource( 22 )
-texture_hover = ExtResource( 21 )
-expand = true
-
-[node name="BottomLeft" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
-margin_left = -6.0
-margin_top = 103.0
-margin_right = 6.0
-margin_bottom = 115.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-action_mode = 0
-texture_normal = ExtResource( 23 )
-texture_pressed = ExtResource( 22 )
-texture_hover = ExtResource( 21 )
-expand = true
-
-[node name="MiddleLeft" type="TextureButton" parent="UILayer/HoverUI/Dragger"]
-margin_left = -6.0
-margin_top = 48.5
-margin_right = 6.0
-margin_bottom = 60.5
-size_flags_horizontal = 0
-size_flags_vertical = 0
-action_mode = 0
-texture_normal = ExtResource( 23 )
-texture_pressed = ExtResource( 22 )
-texture_hover = ExtResource( 21 )
-expand = true
-
-[node name="SelectionControl" type="ColorRect" parent="UILayer/HoverUI/Dragger"]
-margin_left = 24.0
-margin_top = 119.0
-margin_right = 164.0
-margin_bottom = 169.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-color = Color( 0.92549, 0.494118, 0.305882, 1 )
-
-[node name="Move" type="TextureButton" parent="UILayer/HoverUI/Dragger/SelectionControl"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 45.0
-margin_bottom = 45.0
-texture_normal = ExtResource( 19 )
-expand = true
-
-[node name="Idk1" type="TextureButton" parent="UILayer/HoverUI/Dragger/SelectionControl"]
-margin_left = 50.0
-margin_top = 5.0
-margin_right = 90.0
-margin_bottom = 45.0
-texture_normal = ExtResource( 19 )
-expand = true
-
-[node name="Idk2" type="TextureButton" parent="UILayer/HoverUI/Dragger/SelectionControl"]
-margin_left = 95.0
-margin_top = 5.0
-margin_right = 135.0
-margin_bottom = 45.0
-texture_normal = ExtResource( 19 )
-expand = true
 
 [node name="LDUI" type="Control" parent="UILayer"]
 anchor_right = 1.0
@@ -498,6 +316,26 @@ z_index = -1
 
 [node name="PropertyMenu" parent="UILayer" instance=ExtResource( 24 )]
 visible = false
+
+[node name="UIFollow" type="CanvasLayer" parent="."]
+layer = 0
+follow_viewport_enable = true
+
+[node name="SelectionOutline" type="NinePatchRect" parent="UIFollow"]
+visible = false
+margin_left = 369.0
+margin_top = 246.0
+margin_right = 436.0
+margin_bottom = 297.0
+texture = ExtResource( 19 )
+region_rect = Rect2( 0, 0, 16, 16 )
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+script = ExtResource( 20 )
 
 [connection signal="selection_changed" from="." to="UILayer/LDUI" method="_selection_changed"]
 [connection signal="selection_size_changed" from="." to="UILayer/LDUI" method="_selection_size_changed"]
