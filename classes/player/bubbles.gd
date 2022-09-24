@@ -30,3 +30,5 @@ func _process(_delta):
 	# Set the position to the screen center
 	scale = Vector2(1, 1) / cam.get_canvas_transform().get_scale()
 	position = (viewport.size / 2 - cam.get_canvas_transform().origin) * scale
+	# Update shader pixel scale so the bubble outline is independent of viewport res
+	material.set_shader_param("zoom", cam.zoom.x * 1.5 )

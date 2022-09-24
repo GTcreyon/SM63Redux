@@ -93,8 +93,7 @@ onready var step_check = $StepCheck
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
-onready var bubbles_medium: Particles2D = $"BubbleViewport/BubblesMedium"
-onready var bubbles_small: Particles2D = $"BubbleViewport/BubblesSmall"
+onready var bubbles: Particles2D = $"BubbleViewport/Bubbles"
 onready var nozzle_fx = $NozzleStream
 onready var bubbles_viewport = $BubbleViewport
 onready var switch_sfx = $SwitchSFX
@@ -373,8 +372,7 @@ func fixed_visuals() -> void:
 			if !Input.is_action_pressed("fludd") or Singleton.power > 0:
 				hover_sfx.stop()
 	
-	bubbles_medium.emitting = fludd_strain
-	bubbles_small.emitting = fludd_strain
+	bubbles.emitting = fludd_strain
 	
 	if fludd_strain:
 		nozzle_fx_scale = min(lerp(0.3, 1, Singleton.power / 100), nozzle_fx_scale + 0.1)
@@ -397,14 +395,11 @@ func fixed_visuals() -> void:
 		else:
 			bubblepos.x += -10
 	# offset bubbles to mario's center
-	bubbles_medium.position = bubblepos
-	bubbles_small.position = bubblepos
+	bubbles.position = bubblepos
 	# relative to parent unlike bubbles, so make position local
 	nozzle_fx.position = bubblepos - position
 	
-	# give it shader data
-	bubbles_small.process_material.direction = Vector3(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2), 0)
-	bubbles_medium.process_material.direction = Vector3(cos(sprite.rotation + PI / 2), sin(sprite.rotation + PI / 2), 0)
+	bubbles.rotation = sprite.rotation
 	nozzle_fx.rotation = sprite.rotation
 	
 	if abs(vel.x) < 2:
