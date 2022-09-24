@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=2]
+[gd_scene load_steps=71 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/bubbles.gd" type="Script" id=2]
@@ -8,8 +8,8 @@
 [ext_resource path="res://classes/player/hover_loop.mp3" type="AudioStream" id=6]
 [ext_resource path="res://classes/player/hover.mp3" type="AudioStream" id=7]
 [ext_resource path="res://classes/player/mario_sheet.png" type="Texture" id=8]
-[ext_resource path="res://gui/water_meter/water_meter_bubble_small.png" type="Texture" id=9]
-[ext_resource path="res://gui/water_meter/water_meter_bubble_medium.png" type="Texture" id=10]
+[ext_resource path="res://shaders/distance_field.tres" type="Material" id=9]
+[ext_resource path="res://classes/player/fludd_water.png" type="Texture" id=10]
 [ext_resource path="res://classes/player/dust_material.tres" type="Material" id=11]
 [ext_resource path="res://classes/player/fludd_sheet.png" type="Texture" id=12]
 [ext_resource path="res://classes/player/bubble.tres" type="Material" id=13]
@@ -328,14 +328,34 @@ extents = Vector2( 6, 1 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 6, 0.999998 )
 
+[sub_resource type="Gradient" id=53]
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=54]
+gradient = SubResource( 53 )
+
+[sub_resource type="Curve" id=55]
+_data = [ Vector2( 0, 0.495454 ), 0.0, 1.77478, 0, 0, Vector2( 0.5, 1 ), 0.494444, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=56]
+width = 64
+curve = SubResource( 55 )
+
 [sub_resource type="ParticlesMaterial" id=44]
+flag_align_y = true
 flag_disable_z = true
 direction = Vector3( 0, 1, 0 )
-spread = 5.0
+spread = 10.0
 gravity = Vector3( 0, 450, 0 )
 initial_velocity = 300.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
+scale = 1.25
+scale_random = 0.25
+scale_curve = SubResource( 56 )
+color_ramp = SubResource( 54 )
+anim_offset = 1.0
+anim_offset_random = 1.0
 
 [sub_resource type="AtlasTexture" id=48]
 atlas = ExtResource( 4 )
@@ -450,18 +470,10 @@ usage = 0
 render_target_v_flip = true
 render_target_update_mode = 3
 
-[node name="BubblesSmall" type="Particles2D" parent="BubbleViewport"]
+[node name="Bubbles" type="Particles2D" parent="BubbleViewport"]
+material = ExtResource( 9 )
 emitting = false
-amount = 30
-lifetime = 0.5
-visibility_rect = Rect2( -14, 0, 26, 211 )
-local_coords = false
-process_material = SubResource( 44 )
-texture = ExtResource( 9 )
-
-[node name="BubblesMedium" type="Particles2D" parent="BubbleViewport"]
-emitting = false
-amount = 27
+amount = 50
 lifetime = 0.5
 visibility_rect = Rect2( -14, 0, 26, 211 )
 local_coords = false
