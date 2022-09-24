@@ -322,17 +322,17 @@ layer = 0
 follow_viewport_enable = true
 
 [node name="SelectionOutline" type="NinePatchRect" parent="UIFollow"]
-visible = false
+modulate = Color( 0, 0.764706, 1, 1 )
 margin_left = 369.0
 margin_top = 246.0
 margin_right = 436.0
 margin_bottom = 297.0
 texture = ExtResource( 19 )
-region_rect = Rect2( 0, 0, 16, 16 )
-patch_margin_left = 6
-patch_margin_top = 6
-patch_margin_right = 6
-patch_margin_bottom = 6
+region_rect = Rect2( 0, 0, 8, 8 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 script = ExtResource( 20 )

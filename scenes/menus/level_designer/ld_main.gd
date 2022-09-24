@@ -22,11 +22,6 @@ var selection = {
 	head_idx = 0, # The index of the head in the hit array
 }
 
-var selection_begin
-var selection_rect = Rect2()
-
-var last_local_mouse_position = Vector2()
-
 onready var open = $"/root/Main/UILayer/OpenDialog"
 onready var sm63_to_redux = SM63ToRedux.new()
 onready var lv_template := preload("./template.tscn")
