@@ -43,6 +43,8 @@ func _input(event):
 			modulate.a = 1
 			ghost = false
 			main.set_editor_state(main.EDITOR_STATE.IDLE)
+	elif event.is_action_released("ld_cancel_placement"):
+		queue_free()
 
 func _process(_delta):
 	if ghost:
@@ -56,11 +58,6 @@ func _process(_delta):
 	if material != null:
 		pulse = fmod((pulse + 0.1), 2 * PI)
 		material.set_shader_param("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
-		
-		# Reminder: change the keybindings (and in general how this works)
-		if Input.is_action_just_pressed("ui_select"):
-			property_menu.set_properties(properties, self)
-			property_menu.show()
 
 func set_property(label, value) -> void:
 	properties[label] = value
