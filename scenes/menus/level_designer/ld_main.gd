@@ -1,11 +1,11 @@
 extends Node2D
 
-signal selection_changed # Only gets called when the hash changed
-signal selection_event # Gets fired always whenever some calculation regarding events is done
-signal selection_size_changed # Gets fired whenever the selection rect changes
+signal editor_state_changed
 
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 const ITEM_PREFAB = preload("res://classes/ld_item/ld_item.tscn")
+
+enum EDITOR_STATE { IDLE, PLACING, SELECTING }
 
 var item_classes = {}
 var item_static_properties = {}
@@ -13,14 +13,8 @@ var items = []
 var item_textures = []
 var item_scenes = []
 var in_level = false
-var start_pos
 
-var selection = {
-	active = [], # A list of all selected items
-	head = null, # The main selected item
-	hit = [], # The array of all hit items on the last selection call
-	head_idx = 0, # The index of the head in the hit array
-}
+var editor_state = EDITOR_STATE.IDLE setget set_editor_state
 
 onready var open = $"/root/Main/UILayer/OpenDialog"
 onready var sm63_to_redux = SM63ToRedux.new()
@@ -28,20 +22,27 @@ onready var lv_template := preload("./template.tscn")
 onready var ld_ui = $UILayer/LDUI
 onready var ld_camera = $Camera
 
+# Set the state of the editor
+func set_editor_state(new):
+	var old = editor_state
+	editor_state = new
+	emit_signal("editor_state_changed", old, editor_state)
 
-func is_selected(item):
-	for selected in selection.hit:
-		if selected == item:
-			return true
-	return false
+# Retrieve the current level in the editor
+func get_level():
+	return $"/root/Main/Template"
 
+#func is_selected(item):
+#	for selected in selection.hit:
+#		if selected == item:
+#			return true
+#	return false
 
 func snap_vector(vec, grid = 8):
 	return Vector2(
 		floor(vec.x / grid + 0.5) * grid,
 		floor(vec.y / grid + 0.5) * grid
 	)
-
 
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = TERRAIN_PREFAB.instance()
@@ -51,6 +52,8 @@ func place_terrain(poly, texture_type, textures):
 
 
 func place_item(item_id: int):
+	set_editor_state(EDITOR_STATE.PLACING)
+	
 	var inst = ITEM_PREFAB.instance()
 	inst.ghost = true
 	inst.texture = load(item_textures[item_id]["Placed"])

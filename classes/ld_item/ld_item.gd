@@ -15,10 +15,8 @@ var pulse = 0
 var ghost = false
 var properties: Dictionary = {}
 
-func _selection_changed(new_selection):
-	if new_selection.head == self:
-#			if Input.is_action_pressed("ld_many"):
-#				main.place_item(item_id)
+func set_glowing(should_glow):
+	if should_glow:
 		material = GLOW_MATERIAL
 	else:
 		material = null
@@ -28,13 +26,23 @@ func _ready():
 		modulate.a = 0.5
 		position = main.snap_vector(get_global_mouse_position())
 	$ClickArea/CollisionShape2D.shape.extents = texture.get_size() / 2
-	
-	main.connect("selection_changed", self, "_selection_changed")
 
 func _input(event):
+	# Instead of this guard, can we like disconnect the _input event?
+	if !ghost:
+		return
+	
 	if event.is_action_released("ld_place"):
-		modulate.a = 1
-		ghost = false
+		if Input.is_action_pressed("ld_keep_place"):
+			var placed = duplicate()
+			placed.ghost = false
+			placed.position = position
+			placed.modulate.a = 1
+			get_parent().add_child(placed)
+		else:
+			modulate.a = 1
+			ghost = false
+			main.set_editor_state(main.EDITOR_STATE.IDLE)
 
 func _process(_delta):
 	if ghost:
@@ -49,15 +57,14 @@ func _process(_delta):
 		pulse = fmod((pulse + 0.1), 2 * PI)
 		material.set_shader_param("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
 		
+		# Reminder: change the keybindings (and in general how this works)
 		if Input.is_action_just_pressed("ui_select"):
 			property_menu.set_properties(properties, self)
 			property_menu.show()
 
-
 func set_property(label, value) -> void:
 	properties[label] = value
 	update_visual_property(label, value)
-
 
 func update_visual_property(label, value) -> void:
 	match label:
@@ -69,7 +76,6 @@ func update_visual_property(label, value) -> void:
 			rotation_degrees = float(value)
 		"Mirror":
 			flip_h = value
-
 
 func item_disabled_tint(disabled) -> void:
 	var val = 0.5 if disabled else 1.0

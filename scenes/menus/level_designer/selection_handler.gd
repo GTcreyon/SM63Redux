@@ -1,7 +1,12 @@
-extends NinePatchRect
+extends Control
 
-onready var main = $"../.."
-onready var camera: Camera2D = main.get_node("Camera")
+signal selection_changed
+
+onready var main = $"/root/Main"
+onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
+onready var camera = $"/root/Main/Camera"
+onready var hover = $Hover
+
 const TEXT_MIN_SIZE = Vector2(8, 8)
 const alpha_bottom = 0.4
 const alpha_top = 0.7
@@ -10,18 +15,77 @@ const alpha_speed = 0.2
 var alpha_timer = 0
 var start_position = Vector2.ZERO
 var selection_rect = Rect2(Vector2.ZERO, Vector2.ZERO)
+var selection_hit = []
 
 func get_mouse_position():
 	return main.snap_vector(get_global_mouse_position() + camera.position)
 
+# Return how many items were selected by the previous selection
+# The function is named `calculate` because it does collision detection calculations which can be pretty expensive
+func calculate_selected(max_selected = 32):
+	var collision_handler = get_world_2d().direct_space_state
+	
+	var hitboxes = []
+	if (selection_rect.size.length() > 8):
+		# Welcome to this horrible boilerplate rectangle collision detection!
+		# Godot pls fix
+		var shape = RectangleShape2D.new()
+		shape.set_extents(selection_rect.size / 2) # Extends is both ways, hence / 2
+		var query = Physics2DShapeQueryParameters.new()
+		query.collide_with_areas = true
+		query.collide_with_bodies = true
+		query.set_shape(shape)
+		query.transform = Transform2D(0, selection_rect.position + selection_rect.size / 2) # Calculate the center
+		hitboxes = collision_handler.intersect_shape(query, max_selected)
+	else:
+		hitboxes = collision_handler.intersect_point(selection_rect.position, max_selected, [], 0x7FFFFFFF, true, true)
+	
+	# Convert from raw hitboxes to the actual items
+	var hit = []
+	for hitbox in hitboxes:
+		hitbox = hitbox.collider
+		# Find the top most parent of the collider
+		# This isn't guaranteed to be just get_parent() as the collider can be nested in several children
+		while hitbox.get_parent():
+			hitbox = hitbox.get_parent()
+			var parent_name = hitbox.get_parent().name
+			if parent_name == "Items" or parent_name == "Terrain" or parent_name == "Water" or parent_name == "CameraLimits":
+				hit.append(hitbox)
+				break
+	return hit
+
+func on_release():
+	# Remove the effect of previous selection
+	for hit in selection_hit:
+		hit.set_glowing(false)
+	
+	# Get the new selection & give them the hover effect
+	selection_hit = calculate_selected()
+	for hit in selection_hit:
+		hit.set_glowing(true)
+	
+	emit_signal("selection_changed", selection_rect, selection_hit)
+
 func _unhandled_input(event):
-	if event.is_action_pressed("ld_select"):
+	# Open properties
+	if event.is_action_pressed("ld_open_properties") and len(selection_hit) == 1:
+		if property_menu.visible:
+			property_menu.hide()
+		else:
+			property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
+			property_menu.show()
+	
+	# Handle starting/ending selecting
+	if event.is_action_pressed("ld_select") and main.editor_state == main.EDITOR_STATE.IDLE:
 		start_position = get_mouse_position()# - TEXT_MIN_SIZE / 2
 		alpha_timer = 0
-		visible = true
-	if event.is_action_released("ld_select"):
+		hover.visible = true
+		main.editor_state = main.EDITOR_STATE.SELECTING
+	if event.is_action_released("ld_select") and main.editor_state == main.EDITOR_STATE.SELECTING:
 		start_position = Vector2.ZERO
-		visible = false
+		hover.visible = false
+		on_release()
+		main.editor_state = main.EDITOR_STATE.IDLE
 
 func _process(dt):
 	if !Input.is_action_pressed("ld_select"):
@@ -31,7 +95,7 @@ func _process(dt):
 	
 	# Fading alpha effect
 	alpha_timer += dt * alpha_speed
-	modulate.a = alpha_bottom + abs(
+	hover.modulate.a = alpha_bottom + abs(
 		2 * fmod(
 			alpha_timer,
 			alpha_top - alpha_bottom
@@ -46,6 +110,9 @@ func _process(dt):
 	selection_rect.size = target_size
 	
 	# Update the actual selection visuals
-	rect_global_position = selection_rect.position
-	rect_size = selection_rect.size
+	hover.rect_global_position = selection_rect.position
+	hover.rect_size = selection_rect.size
+	
+	selection_rect.position += Vector2(1, 1)
+	selection_rect.size -= Vector2(2, 2)
 	

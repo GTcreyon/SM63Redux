@@ -321,7 +321,13 @@ visible = false
 layer = 0
 follow_viewport_enable = true
 
-[node name="SelectionOutline" type="NinePatchRect" parent="UIFollow"]
+[node name="Selection" type="Control" parent="UIFollow"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 20 )
+
+[node name="Hover" type="NinePatchRect" parent="UIFollow/Selection"]
+visible = false
 modulate = Color( 0, 0.764706, 1, 1 )
 margin_left = 369.0
 margin_top = 246.0
@@ -335,10 +341,7 @@ patch_margin_right = 3
 patch_margin_bottom = 3
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-script = ExtResource( 20 )
 
-[connection signal="selection_changed" from="." to="UILayer/LDUI" method="_selection_changed"]
-[connection signal="selection_size_changed" from="." to="UILayer/LDUI" method="_selection_size_changed"]
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
