@@ -5,7 +5,7 @@ signal editor_state_changed
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 const ITEM_PREFAB = preload("res://classes/ld_item/ld_item.tscn")
 
-enum EDITOR_STATE { IDLE, PLACING, SELECTING }
+enum EDITOR_STATE { IDLE, PLACING, SELECTING, DRAGGING }
 
 var item_classes = {}
 var item_static_properties = {}
@@ -43,6 +43,9 @@ func snap_vector(vec, grid = 8):
 		floor(vec.x / grid + 0.5) * grid,
 		floor(vec.y / grid + 0.5) * grid
 	)
+
+func get_snapped_mouse_position():
+	return snap_vector(get_global_mouse_position())
 
 func place_terrain(poly, texture_type, textures):
 	var terrain_ref = TERRAIN_PREFAB.instance()

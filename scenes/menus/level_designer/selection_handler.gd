@@ -18,9 +18,6 @@ var start_position = Vector2.ZERO
 var selection_rect = Rect2(Vector2.ZERO, Vector2.ZERO)
 var selection_hit = []
 
-func get_snapped_mouse_position():
-	return main.snap_vector(get_global_mouse_position())
-
 # Return how many items were selected by the previous selection
 # The function is named `calculate` because it does collision detection calculations which can be pretty expensive
 func calculate_selected(max_selected = 32):
@@ -67,7 +64,7 @@ func on_release():
 	
 	buttons.visible = len(selection_hit) != 0
 	if buttons.visible:
-		buttons.rect_global_position = get_snapped_mouse_position() + Vector2(
+		buttons.rect_global_position = main.get_snapped_mouse_position() + Vector2(
 			-buttons.rect_size.x / 2,
 			4
 		)
@@ -79,21 +76,25 @@ func _unhandled_input(event):
 	if event.is_action_pressed("ld_open_properties") and len(selection_hit) == 1:
 		if property_menu.visible:
 			property_menu.hide()
+			accept_event()
 		else:
 			property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
 			property_menu.show()
+			accept_event()
 	
 	# Handle starting/ending selecting
 	if event.is_action_pressed("ld_select") and main.editor_state == main.EDITOR_STATE.IDLE:
-		start_position = get_snapped_mouse_position()
+		start_position = main.get_snapped_mouse_position()
 		alpha_timer = 0
 		hover.visible = true
 		main.editor_state = main.EDITOR_STATE.SELECTING
+		accept_event()
 	if event.is_action_released("ld_select") and main.editor_state == main.EDITOR_STATE.SELECTING:
 		start_position = Vector2.ZERO
 		hover.visible = false
 		on_release()
 		main.editor_state = main.EDITOR_STATE.IDLE
+		accept_event()
 
 func _process(dt):
 	if !Input.is_action_pressed("ld_select"):
@@ -111,7 +112,7 @@ func _process(dt):
 	)
 	
 	# Update the selection rectangle
-	var target_size = get_snapped_mouse_position() - start_position
+	var target_size = main.get_snapped_mouse_position() - start_position
 	selection_rect.position = start_position + Vector2( min(0, target_size.x), min(0, target_size.y) )
 	target_size.x = max(TEXT_MIN_SIZE.x, abs(target_size.x))
 	target_size.y = max(TEXT_MIN_SIZE.y, abs(target_size.y))

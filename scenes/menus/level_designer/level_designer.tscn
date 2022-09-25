@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -34,6 +34,7 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_pressed.png" type="Texture" id=32]
 [ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_hover.png" type="Texture" id=33]
 [ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
+[ext_resource path="res://scenes/menus/level_designer/selection_action_handler.gd" type="Script" id=35]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -125,11 +126,13 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="Buttons" type="Control" parent="UIFollow/Selection"]
+visible = false
 margin_left = 150.0
 margin_top = 100.0
 margin_right = 218.0
 margin_bottom = 132.0
-mouse_filter = 1
+mouse_filter = 2
+script = ExtResource( 35 )
 
 [node name="Dragger" type="TextureButton" parent="UIFollow/Selection/Buttons"]
 mouse_default_cursor_shape = 6
@@ -374,6 +377,8 @@ visible = false
 
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
+[connection signal="pressed" from="UIFollow/Selection/Buttons/Dragger" to="UIFollow/Selection/Buttons" method="_on_dragger_pressed"]
+[connection signal="pressed" from="UIFollow/Selection/Buttons/Duplicator" to="UIFollow/Selection/Buttons" method="_on_duplicator_pressed"]
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
 [connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
