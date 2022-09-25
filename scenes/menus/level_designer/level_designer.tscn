@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -20,6 +20,9 @@
 [ext_resource path="res://scenes/menus/level_designer/load.gd" type="Script" id=18]
 [ext_resource path="res://scenes/menus/level_designer/ldui/square_outline.png" type="Texture" id=19]
 [ext_resource path="res://scenes/menus/level_designer/selection_handler.gd" type="Script" id=20]
+[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button.png" type="Texture" id=21]
+[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button.png" type="Texture" id=22]
+[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_pressed.png" type="Texture" id=23]
 [ext_resource path="res://scenes/menus/level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture" id=25]
 [ext_resource path="res://scenes/menus/level_designer/bg_grid.gd" type="Script" id=26]
@@ -27,6 +30,10 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" type="StyleBox" id=28]
 [ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" type="StyleBox" id=29]
 [ext_resource path="res://scenes/menus/level_designer/scroller.gd" type="Script" id=30]
+[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_hover.png" type="Texture" id=31]
+[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_pressed.png" type="Texture" id=32]
+[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_hover.png" type="Texture" id=33]
+[ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -90,6 +97,54 @@ mouse_filter = 2
 texture = ExtResource( 25 )
 stretch_mode = 2
 script = ExtResource( 26 )
+
+[node name="UIFollow" type="CanvasLayer" parent="."]
+layer = 0
+script = ExtResource( 34 )
+
+[node name="Selection" type="Control" parent="UIFollow"]
+margin_right = 40.0
+margin_bottom = 40.0
+mouse_filter = 2
+script = ExtResource( 20 )
+
+[node name="Hover" type="NinePatchRect" parent="UIFollow/Selection"]
+visible = false
+modulate = Color( 0, 0.764706, 1, 1 )
+margin_left = 369.0
+margin_top = 246.0
+margin_right = 436.0
+margin_bottom = 297.0
+texture = ExtResource( 19 )
+region_rect = Rect2( 0, 0, 8, 8 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Buttons" type="Control" parent="UIFollow/Selection"]
+margin_left = 150.0
+margin_top = 100.0
+margin_right = 218.0
+margin_bottom = 132.0
+mouse_filter = 1
+
+[node name="Dragger" type="TextureButton" parent="UIFollow/Selection/Buttons"]
+mouse_default_cursor_shape = 6
+texture_normal = ExtResource( 22 )
+texture_pressed = ExtResource( 23 )
+texture_hover = ExtResource( 33 )
+
+[node name="Duplicator" type="TextureButton" parent="UIFollow/Selection/Buttons"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -32.0
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource( 21 )
+texture_pressed = ExtResource( 32 )
+texture_hover = ExtResource( 31 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -316,31 +371,6 @@ z_index = -1
 
 [node name="PropertyMenu" parent="UILayer" instance=ExtResource( 24 )]
 visible = false
-
-[node name="UIFollow" type="CanvasLayer" parent="."]
-layer = 0
-follow_viewport_enable = true
-
-[node name="Selection" type="Control" parent="UIFollow"]
-margin_right = 40.0
-margin_bottom = 40.0
-script = ExtResource( 20 )
-
-[node name="Hover" type="NinePatchRect" parent="UIFollow/Selection"]
-visible = false
-modulate = Color( 0, 0.764706, 1, 1 )
-margin_left = 369.0
-margin_top = 246.0
-margin_right = 436.0
-margin_bottom = 297.0
-texture = ExtResource( 19 )
-region_rect = Rect2( 0, 0, 8, 8 )
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
 
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]

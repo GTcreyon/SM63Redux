@@ -6,6 +6,7 @@ onready var main = $"/root/Main"
 onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
 onready var camera = $"/root/Main/Camera"
 onready var hover = $Hover
+onready var buttons = $Buttons
 
 const TEXT_MIN_SIZE = Vector2(8, 8)
 const alpha_bottom = 0.4
@@ -17,8 +18,8 @@ var start_position = Vector2.ZERO
 var selection_rect = Rect2(Vector2.ZERO, Vector2.ZERO)
 var selection_hit = []
 
-func get_mouse_position():
-	return main.snap_vector(get_global_mouse_position() + camera.position)
+func get_snapped_mouse_position():
+	return main.snap_vector(get_global_mouse_position())
 
 # Return how many items were selected by the previous selection
 # The function is named `calculate` because it does collision detection calculations which can be pretty expensive
@@ -64,6 +65,13 @@ func on_release():
 	for hit in selection_hit:
 		hit.set_glowing(true)
 	
+	buttons.visible = len(selection_hit) != 0
+	if buttons.visible:
+		buttons.rect_global_position = get_snapped_mouse_position() + Vector2(
+			-buttons.rect_size.x / 2,
+			4
+		)
+	
 	emit_signal("selection_changed", selection_rect, selection_hit)
 
 func _unhandled_input(event):
@@ -77,7 +85,7 @@ func _unhandled_input(event):
 	
 	# Handle starting/ending selecting
 	if event.is_action_pressed("ld_select") and main.editor_state == main.EDITOR_STATE.IDLE:
-		start_position = get_mouse_position()# - TEXT_MIN_SIZE / 2
+		start_position = get_snapped_mouse_position()
 		alpha_timer = 0
 		hover.visible = true
 		main.editor_state = main.EDITOR_STATE.SELECTING
@@ -103,7 +111,7 @@ func _process(dt):
 	)
 	
 	# Update the selection rectangle
-	var target_size = get_mouse_position() - start_position
+	var target_size = get_snapped_mouse_position() - start_position
 	selection_rect.position = start_position + Vector2( min(0, target_size.x), min(0, target_size.y) )
 	target_size.x = max(TEXT_MIN_SIZE.x, abs(target_size.x))
 	target_size.y = max(TEXT_MIN_SIZE.y, abs(target_size.y))

@@ -7,7 +7,6 @@ onready var main = $"/root/Main"
 onready var control = $"/root/Main/UILayer/LDUI"
 onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
 
-
 var item_id: int
 
 var glow_factor = 1
@@ -42,9 +41,10 @@ func _input(event):
 		else:
 			modulate.a = 1
 			ghost = false
-			main.set_editor_state(main.EDITOR_STATE.IDLE)
+			main.editor_state = main.EDITOR_STATE.IDLE
 	elif event.is_action_released("ld_cancel_placement"):
 		queue_free()
+		main.editor_state = main.EDITOR_STATE.IDLE
 
 func _process(_delta):
 	if ghost:
