@@ -81,6 +81,17 @@ func _unhandled_input(event):
 			property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
 			property_menu.show()
 			accept_event()
+		
+	if event.is_action_pressed("ld_delete"):
+		start_position = Vector2.ZERO
+		hover.visible = false
+		buttons.visible = false
+		
+		for item in selection_hit:
+			item.queue_free()
+		selection_hit = []
+		main.editor_state = main.EDITOR_STATE.IDLE
+		emit_signal("selection_changed", selection_rect, selection_hit)
 	
 	# Handle starting/ending selecting
 	if event.is_action_pressed("ld_select") and main.editor_state == main.EDITOR_STATE.IDLE:

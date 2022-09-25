@@ -51,10 +51,6 @@ func _process(_delta):
 		position = main.snap_vector(get_global_mouse_position())
 		properties["Position"] = position
 	
-	if ghost or material != null:
-		if Input.is_action_just_pressed("ld_delete"):
-			queue_free()
-	
 	if material != null:
 		pulse = fmod((pulse + 0.1), 2 * PI)
 		material.set_shader_param("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))

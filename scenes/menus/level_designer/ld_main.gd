@@ -39,6 +39,9 @@ func get_level():
 #	return false
 
 func snap_vector(vec, grid = 8):
+	if Input.is_action_pressed("ld_precise"):
+		grid = 1
+	
 	return Vector2(
 		floor(vec.x / grid + 0.5) * grid,
 		floor(vec.y / grid + 0.5) * grid

@@ -71,6 +71,7 @@ func _process(_dt):
 	
 	for item in being_dragged:
 		item.position += delta
+		item.properties["Position"] = item.position
 	
 
 
