@@ -39,8 +39,8 @@ func set_polygon(new):
 	polygon = new
 	
 	# Convert the global coords polygon to a local coords one for drawing
+	readonly_local_polygon = PoolVector2Array()
 	if len(polygon) != 0:
-		readonly_local_polygon = PoolVector2Array()
 		var min_vec = Vector2.INF
 		var max_vec = -Vector2.INF
 		for item in polygon:

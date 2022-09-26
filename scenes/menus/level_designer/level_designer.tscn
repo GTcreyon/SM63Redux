@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=52 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -41,6 +41,7 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" type="StyleBox" id=39]
 [ext_resource path="res://scenes/menus/level_designer/polygon_draw.gd" type="Script" id=40]
 [ext_resource path="res://scenes/menus/level_designer/polygon_editor.gd" type="Script" id=41]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=42]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -417,6 +418,37 @@ z_index = -1
 
 [node name="PropertyMenu" parent="UILayer" instance=ExtResource( 24 )]
 visible = false
+
+[node name="Loading" type="Control" parent="UILayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Background" type="ColorRect" parent="UILayer/Loading"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.521569 )
+
+[node name="ProgressBar" type="ProgressBar" parent="UILayer/Loading"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -90.0
+margin_top = -10.0
+margin_right = 90.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 42 )
+
+[node name="Label" type="Label" parent="UILayer/Loading"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -42.0
+margin_bottom = -14.0
+custom_fonts/font = ExtResource( 42 )
+text = "Placeholder Loading Text"
+align = 1
 
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
