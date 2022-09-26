@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -35,6 +35,12 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_hover.png" type="Texture" id=33]
 [ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
 [ext_resource path="res://scenes/menus/level_designer/selection_action_handler.gd" type="Script" id=35]
+[ext_resource path="res://scenes/menus/level_designer/ldui/close_button.png" type="Texture" id=36]
+[ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" type="StyleBox" id=37]
+[ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" type="StyleBox" id=38]
+[ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" type="StyleBox" id=39]
+[ext_resource path="res://scenes/menus/level_designer/polygon_draw.gd" type="Script" id=40]
+[ext_resource path="res://scenes/menus/level_designer/polygon_editor.gd" type="Script" id=41]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -104,8 +110,6 @@ layer = 0
 script = ExtResource( 34 )
 
 [node name="Selection" type="Control" parent="UIFollow"]
-margin_right = 40.0
-margin_bottom = 40.0
 mouse_filter = 2
 script = ExtResource( 20 )
 
@@ -148,6 +152,18 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource( 21 )
 texture_pressed = ExtResource( 32 )
 texture_hover = ExtResource( 31 )
+
+[node name="PolygonEditor" type="Control" parent="UIFollow"]
+mouse_filter = 2
+script = ExtResource( 41 )
+
+[node name="Polygon" type="Control" parent="UIFollow/PolygonEditor"]
+margin_left = 150.0
+margin_top = 100.0
+margin_right = 190.0
+margin_bottom = 140.0
+mouse_filter = 2
+script = ExtResource( 40 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -325,6 +341,33 @@ custom_constants/vseparation = 4
 custom_constants/hseparation = 4
 columns = 2
 
+[node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 3.0
+margin_right = -3.0
+margin_bottom = -3.0
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+columns = 2
+
+[node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid"]
+margin_right = 32.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+custom_styles/hover = ExtResource( 38 )
+custom_styles/pressed = ExtResource( 39 )
+custom_styles/normal = ExtResource( 37 )
+
+[node name="Icon" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid/Terrain"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 36 )
+expand = true
+stretch_mode = 4
+
 [node name="Palette" type="TextureRect" parent="UILayer/LDUI"]
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -382,7 +425,8 @@ visible = false
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
 [connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
-[connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_terrain_control_place_pressed"]
+[connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_Mode_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
 [connection signal="gui_input" from="UILayer/LDUI/ItemPane" to="UILayer/LDUI/ItemPane" method="_on_LeftBar_gui_input"]
+[connection signal="pressed" from="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid/Terrain" to="UIFollow/PolygonEditor" method="_demo_press"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]
