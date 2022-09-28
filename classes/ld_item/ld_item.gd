@@ -65,6 +65,8 @@ func update_visual_property(label, value) -> void:
 			item_disabled_tint(value)
 		"Scale":
 			scale = value
+		"Position":
+			position = value
 		"Rotation":
 			rotation_degrees = float(value)
 		"Mirror":

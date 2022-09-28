@@ -34,7 +34,19 @@ func start_polygon_creation():
 	drawable_polygon.should_connector_be_transparent = true
 	drawable_polygon.should_draw_predict_line = true
 	drawable_polygon.should_have_buttons = false
+
+func edit_polygon(obj_to_edit):
+	if main.editor_state != main.EDITOR_STATE.SELECTING:
+		return
+	main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
 	
+	var data = obj_to_edit.polygon
+	obj_to_edit.visible = false
+	
+	drawable_polygon.polygon = data
+	drawable_polygon.should_connector_be_transparent = false
+	drawable_polygon.should_draw_predict_line = false
+	drawable_polygon.should_have_buttons = true
 
 func _demo_press():
 	start_polygon_creation()

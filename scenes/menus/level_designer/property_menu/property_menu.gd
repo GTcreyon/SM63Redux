@@ -2,11 +2,11 @@ extends Panel
 
 const TICKBOX = preload("../fields/boolean/tickbox_ld.tscn")
 const INPUT_NUMBER = preload("../fields/number/input_number.tscn")
+const INPUT_VECTOR2 = preload("../fields/vector2/input_vector2.tscn")
 var properties: Dictionary = {}
 var target_node: Node = null
 onready var list: VBoxContainer = $PropertyList
 onready var main = $"/root/Main"
-
 
 func _on_CloseButton_pressed():
 	hide()
@@ -20,6 +20,7 @@ func show():
 	visible = true
 	var pos = get_global_mouse_position()
 	rect_position = pos
+	set_process_input(false)
 
 
 func clear_children():
@@ -36,6 +37,10 @@ func set_properties(new_properties, node):
 		var inst = null
 		var val = new_properties[key]
 		match main.items[node.item_id].properties[key]["type"]:
+			"Vector2":
+				inst = INPUT_VECTOR2.instance()
+				inst.get_node("Label").text = key
+				inst.pre_value = Vector2.ZERO if val == null else new_properties[key]
 			"bool":
 				inst = TICKBOX.instance()
 				inst.get_node("Label").text = key
@@ -62,3 +67,17 @@ func resize_box():
 
 func on_value_changed(label, value):
 	target_node.set_property(label, value)
+
+
+#TODO: make the dragger cross device
+func _on_Dragger_button_down():
+	set_process_input(true)
+
+
+func _on_Dragger_button_up():
+	set_process_input(false)
+
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		rect_position += event.relative
