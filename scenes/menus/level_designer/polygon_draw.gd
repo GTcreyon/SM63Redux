@@ -35,23 +35,35 @@ func reparent_buttons():
 			button.connect("pressed", "on_button_press", index)
 			add_child(button)
 
+func calculate_bounds():
+	var min_vec = Vector2.INF
+	var max_vec = -Vector2.INF
+	for item in polygon:
+		min_vec.x = min(item.x, min_vec.x)
+		min_vec.y = min(item.y, min_vec.y)
+		max_vec.x = max(item.x, max_vec.x)
+		max_vec.y = max(item.y, max_vec.y)
+	
+	if should_draw_predict_line:
+		var item = main.get_snapped_mouse_position()
+		min_vec.x = min(item.x, min_vec.x)
+		min_vec.y = min(item.y, min_vec.y)
+		max_vec.x = max(item.x, max_vec.x)
+		max_vec.y = max(item.y, max_vec.y)
+		
+	rect_global_position = min_vec
+	rect_size = max_vec - min_vec
+	readonly_local_polygon = PoolVector2Array()
+	for item in polygon:
+		readonly_local_polygon.append(item - rect_global_position)
+
 func set_polygon(new):
 	polygon = new
 	
 	# Convert the global coords polygon to a local coords one for drawing
 	readonly_local_polygon = PoolVector2Array()
 	if len(polygon) != 0:
-		var min_vec = Vector2.INF
-		var max_vec = -Vector2.INF
-		for item in polygon:
-			min_vec.x = min(item.x, min_vec.x)
-			min_vec.y = min(item.y, min_vec.y)
-			max_vec.x = max(item.x, max_vec.x)
-			max_vec.y = max(item.y, max_vec.y)
-		rect_global_position = min_vec
-		rect_size = max_vec - min_vec
-		for item in polygon:
-			readonly_local_polygon.append(item - rect_global_position)
+		calculate_bounds()
 		
 		reparent_buttons()
 	
@@ -60,6 +72,7 @@ func set_polygon(new):
 # Yuck
 func _process(_dt):
 	if should_draw_predict_line:
+		calculate_bounds()
 		update()
 
 func _draw():

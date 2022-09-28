@@ -50,12 +50,11 @@ func snap_vector(vec, grid = 8):
 func get_snapped_mouse_position():
 	return snap_vector(get_global_mouse_position())
 
-func place_terrain(poly, texture_type, textures):
+func place_terrain(poly):
 	var terrain_ref = TERRAIN_PREFAB.instance()
 	terrain_ref.polygon = poly
 	$Template/Terrain.add_child(terrain_ref)
 	return terrain_ref
-
 
 func place_item(item_id: int):
 	set_editor_state(EDITOR_STATE.PLACING)
@@ -107,7 +106,7 @@ func _disabled_draw():
 			var pool = PoolVector2Array()
 			for vec in poly:
 				pool.append(vec * 32 - Vector2(48, 48))
-			place_terrain(pool, data.texture_type, data.textures)
+#			place_terrain(pool, data.texture_type, data.textures)
 	
 	for item in lv_data.items:
 		place_item(item)

@@ -12,7 +12,6 @@
 [ext_resource path="res://classes/solid/terrain/edges_pencil.gd" type="Script" id=10]
 
 [node name="TerrainPolygon" type="Polygon2D"]
-color = Color( 1, 1, 1, 0 )
 script = ExtResource( 1 )
 body = ExtResource( 2 )
 top = ExtResource( 6 )

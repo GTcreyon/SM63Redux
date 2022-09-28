@@ -4,24 +4,26 @@ onready var main = $"/root/Main"
 onready var drawable_polygon = $Polygon
 
 func _unhandled_input(event):
-	if event.is_action_pressed("ld_cancel_placement"):
+	if event.is_action_released("ld_cancel_placement"):
 		quit_creating(false)
 	
-	if event.is_action_pressed("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
+	if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
 		drawable_polygon.polygon = drawable_polygon.polygon + [main.get_snapped_mouse_position()]
 		if len(drawable_polygon.polygon) >= 3 and !Input.is_action_pressed("ld_keep_place"):
 			quit_creating(true)
 
 func quit_creating(save):
 	main.editor_state = main.EDITOR_STATE.IDLE
+	var polygon_data = PoolVector2Array(drawable_polygon.readonly_local_polygon)
+	var polygon_position = drawable_polygon.rect_global_position
 	drawable_polygon.polygon = []
 	drawable_polygon.should_connector_be_transparent = false
 	drawable_polygon.should_draw_predict_line = false
 	drawable_polygon.should_have_buttons = false
 	
 	if save:
-		# TODO
-		pass
+		var terrain = main.place_terrain(polygon_data)
+		terrain.position = polygon_position
 
 func start_polygon_creation():
 	if main.editor_state != main.EDITOR_STATE.IDLE:

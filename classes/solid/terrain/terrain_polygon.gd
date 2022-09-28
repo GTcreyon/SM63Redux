@@ -17,7 +17,14 @@ export(int) var max_deviation = 60
 export(bool) var shallow = false
 export(Color) var shallow_color = Color(1, 1, 1, 0.5)
 
+var properties: Dictionary = {}
+
 onready var decorations = $Decorations
+
+func set_glowing(should_glow):
+	shallow = should_glow
+	update()
+#	visible = !should_glow
 
 func set_down_direction(new_val):
 	up_direction = new_val
