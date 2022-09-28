@@ -1,12 +1,18 @@
-tool
+class_name RotatingBlock
 extends StaticBody2D
+# Rotating solid block.
 
-const texture_list = [
-	[preload("./block_normal_fill.png"), preload("./block_normal_case.png"),],
-	[preload("./block_ghost_fill.png"), preload("./block_ghost_case.png"),],
+
+const TEXTURE_LIST = [
+	[
+		preload("./block_normal_fill.png"),
+		preload("./block_normal_case.png"),
+	],
+	[
+		preload("./block_ghost_fill.png"),
+		preload("./block_ghost_case.png"),
+	],
 ]
-
-onready var ride_area = $RideArea
 
 export var size = Vector2(64, 64) setget set_size
 export var speed = 1
@@ -19,6 +25,9 @@ export var type = 1 setget set_type
 var timer = 0
 var turning = false
 var total_interval = 0
+
+onready var ride_area = $RideArea
+
 
 func set_size(new_size):
 	size = new_size
@@ -41,7 +50,7 @@ func set_size(new_size):
 
 
 func change_texture(id):
-	var tex = texture_list[id]
+	var tex = TEXTURE_LIST[id]
 	$Middle.texture = tex[0]
 	$Center.texture.atlas = tex[1]
 	$CornerTL.texture.atlas = tex[1] # Most textures are just references to others
@@ -58,6 +67,7 @@ func set_type(new_type):
 		_:
 			modulate.a = 1
 
+
 func _ready():
 	rotation = angle_offset
 	timer = time_offset
@@ -68,17 +78,17 @@ func _physics_process(_delta):
 	if timer >= wait:
 		turning = true
 		timer = 0
-	if turning and !Engine.editor_hint:
-		if abs(rad2deg(rotation)) < total_interval + interval:
+	if turning:
+		if abs(rotation) < deg2rad(total_interval + interval):
 			rotation += deg2rad(speed)
 		else:
 			turning = false
 			total_interval += interval
 			rotation = deg2rad(total_interval) * sign(speed)
-		for body in ride_area.get_overlapping_bodies():
-			if body.is_on_floor():
-				var vec = position - body.position
-				var dist = position.distance_to(body.position)
-				var rot = atan2(vec.y, vec.x);
-				var diff = Vector2(cos(rot) * dist - cos(rot + deg2rad(speed)) * dist, sin(rot) * dist - sin(rot + deg2rad(speed)) * dist)
-				body.position += diff
+		for body in ride_area.get_riding_bodies():
+			print(body)
+			var vec = position - body.position
+			var dist = position.distance_to(body.position)
+			var rot = atan2(vec.y, vec.x);
+			var diff = Vector2(cos(rot) * dist - cos(rot + deg2rad(speed)) * dist, sin(rot) * dist - sin(rot + deg2rad(speed)) * dist)
+			body.position += diff
