@@ -129,6 +129,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/entity/enemy/koopa/koopa_shell.gd"
 }, {
+"base": "StaticBody2D",
+"class": "LogFall",
+"language": "GDScript",
+"path": "res://classes/solid/log/log_fall.gd"
+}, {
 "base": "Container",
 "class": "OutlineContainer",
 "language": "GDScript",
@@ -204,6 +209,7 @@ _global_script_class_icons={
 "InteractableDialog": "",
 "Koopa": "",
 "KoopaShell": "",
+"LogFall": "",
 "OutlineContainer": "",
 "Pickup": "",
 "PolygonContainer": "",
