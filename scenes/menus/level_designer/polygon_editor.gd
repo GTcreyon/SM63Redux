@@ -9,7 +9,7 @@ func _unhandled_input(event):
 	
 	if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
 		drawable_polygon.polygon = drawable_polygon.polygon + [main.get_snapped_mouse_position()]
-		if len(drawable_polygon.polygon) >= 3 and !Input.is_action_pressed("ld_keep_place"):
+		if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
 			quit_creating(true)
 
 func quit_creating(save):
@@ -21,7 +21,11 @@ func quit_creating(save):
 	drawable_polygon.should_draw_predict_line = false
 	drawable_polygon.should_have_buttons = false
 	
-	if save:
+	if len(polygon_data) > 2 and save:
+		if Geometry.is_polygon_clockwise(polygon_data):
+			polygon_data.invert()
+		
+		polygon_data.append(polygon_data[0])
 		var terrain = main.place_terrain(polygon_data)
 		terrain.position = polygon_position
 

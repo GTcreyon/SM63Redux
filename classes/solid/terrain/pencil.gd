@@ -162,11 +162,13 @@ func draw_top_from_connected_lines(lines):
 		var text_offset = Vector2(0, 0)
 
 		# Get the target pos depending on which type of area we're rendering
-		if area.type == "trio":
-			var dist = area.verts[0].distance_to(area.verts.back())
-			poly2d.texture_scale.y = 16 / dist
 		if area.clock_dir == -1 and area.type == "trio":
 			pos = area.verts[0]
+		
+		# Scale the texture, not sure if this is still needed, it appears not so it is commented for now
+#		if area.type == "trio":
+#			var dist = area.verts[0].distance_to(area.verts.back())
+#			poly2d.texture_scale.y = 16 / dist
 
 		# Set the offset
 		poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - text_offset.x
