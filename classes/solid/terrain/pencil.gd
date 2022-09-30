@@ -49,8 +49,8 @@ func draw_top_from_connected_lines(lines):
 		var next: Vector2 = lines[(ind + 1) % p_size]
 		var dir := current.direction_to(next)
 		var normal := dir.tangent()
-		var off_up := normal * 6
-		var off_down := normal * -12
+		var off_up := normal * 16
+		var off_down := normal * -16
 		
 		var verts = [
 			current + off_up,
@@ -164,7 +164,7 @@ func draw_top_from_connected_lines(lines):
 		# Get the target pos depending on which type of area we're rendering
 		if area.type == "trio":
 			var dist = area.verts[0].distance_to(area.verts.back())
-			poly2d.texture_scale.y = 18 / dist
+			poly2d.texture_scale.y = 16 / dist
 		if area.clock_dir == -1 and area.type == "trio":
 			pos = area.verts[0]
 
@@ -191,8 +191,8 @@ func draw_bottom_from_connected_lines(lines):
 		var next: Vector2 = lines[(ind + 1) % p_size]
 		var dir := current.direction_to(next)
 		var normal := dir.tangent()
-		var off_up := normal * 0
-		var off_down := normal * -1
+		var off_up := normal * 16
+		var off_down := normal * -16
 		
 		var verts = [
 			current + off_up,
@@ -228,8 +228,8 @@ func draw_edges_from_connected_lines(lines):
 		var next: Vector2 = lines[(ind + 1) % p_size]
 		var dir := current.direction_to(next)
 		var normal := dir.tangent()
-		var off_up := normal * 1
-		var off_down := normal * -3
+		var off_up := normal * 16
+		var off_down := normal * -16
 		
 		var verts = [
 			current + off_up,

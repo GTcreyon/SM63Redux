@@ -61,9 +61,9 @@ func add_edge_segment(is_left, group):
 	# Calculate the corners for the edge polygon
 	var poly = PoolVector2Array([
 		corner,
-		corner + group.direction * 4 * normal_sign,
-		corner + group.direction * 4 * normal_sign - group.normal * 18,
-		corner - group.normal * 18,
+		corner + group.direction * 32 * normal_sign,
+		corner + group.direction * 32 * normal_sign - group.normal * 32,
+		corner - group.normal * 32,
 	])
 	var e_size = poly.size()
 	
