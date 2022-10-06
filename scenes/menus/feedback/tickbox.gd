@@ -3,7 +3,7 @@ extends Control
 onready var sprite = $Sprite
 var pressed = false
 
-func _on_Tickbox_pressed():
+func _on_Button_pressed():
 	pressed = !pressed
 	if pressed:
 		Singleton.get_node("SFX/Confirm").play()
