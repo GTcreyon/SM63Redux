@@ -7,6 +7,7 @@ onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
 onready var camera = $"/root/Main/Camera"
 onready var hover = $Hover
 onready var buttons = $Buttons
+onready var polygon_edit_button = $Buttons/Polygon
 
 const TEXT_MIN_SIZE = Vector2(8, 8)
 const alpha_bottom = 0.4
@@ -17,6 +18,14 @@ var alpha_timer = 0
 var start_position = Vector2.ZERO
 var selection_rect = Rect2(Vector2.ZERO, Vector2.ZERO)
 var selection_hit = []
+
+func is_a_polygon_item(item):
+	if !item:
+		return false
+	if !item.get_parent():
+		return false
+	var parent_name = item.get_parent().name
+	return parent_name == "Terrain" or parent_name == "Water" or parent_name == "CameraLimits"
 
 # Return how many items were selected by the previous selection
 # The function is named `calculate` because it does collision detection calculations which can be pretty expensive
@@ -46,8 +55,8 @@ func calculate_selected(max_selected = 32):
 		# This isn't guaranteed to be just get_parent() as the collider can be nested in several children
 		while hitbox.get_parent():
 			hitbox = hitbox.get_parent()
-			var parent_name = hitbox.get_parent().name
-			if parent_name == "Items" or parent_name == "Terrain" or parent_name == "Water" or parent_name == "CameraLimits":
+			var parent = hitbox.get_parent()
+			if is_a_polygon_item(hitbox) or parent.name == "Items":
 				hit.append(hitbox)
 				break
 	return hit
@@ -68,6 +77,8 @@ func on_release():
 			-buttons.rect_size.x / 2,
 			4
 		)
+	# Show the polygon edit button
+	polygon_edit_button = true if len(selection_hit) == 1 and is_a_polygon_item(selection_hit[0]) else false
 	
 	emit_signal("selection_changed", selection_rect, selection_hit)
 

@@ -40,12 +40,15 @@ func start_polygon_creation():
 	drawable_polygon.should_have_buttons = false
 
 func edit_polygon(obj_to_edit):
-	if main.editor_state != main.EDITOR_STATE.SELECTING:
+	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
 	main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
 	
-	var data = obj_to_edit.polygon
 	obj_to_edit.visible = false
+	
+	var data = []
+	for vec in obj_to_edit.polygon:
+		data.append(vec + obj_to_edit.position)
 	
 	drawable_polygon.polygon = data
 	drawable_polygon.should_connector_be_transparent = false

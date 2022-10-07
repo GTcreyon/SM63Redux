@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -20,8 +20,9 @@
 [ext_resource path="res://scenes/menus/level_designer/load.gd" type="Script" id=18]
 [ext_resource path="res://scenes/menus/level_designer/ldui/square_outline.png" type="Texture" id=19]
 [ext_resource path="res://scenes/menus/level_designer/selection_handler.gd" type="Script" id=20]
-[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png" type="Texture" id=21]
+[ext_resource path="res://scenes/menus/level_designer/ldui/poly_editor_button_sheet.png" type="Texture" id=21]
 [ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_sheet.png" type="Texture" id=22]
+[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png" type="Texture" id=23]
 [ext_resource path="res://scenes/menus/level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture" id=25]
 [ext_resource path="res://scenes/menus/level_designer/bg_grid.gd" type="Script" id=26]
@@ -52,14 +53,26 @@ atlas = ExtResource( 22 )
 region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 21 )
+atlas = ExtResource( 23 )
 region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 21 )
+atlas = ExtResource( 23 )
 region = Rect2( 64, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 23 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 21 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 21 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 21 )
 region = Rect2( 32, 0, 32, 32 )
 
@@ -151,10 +164,9 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="Buttons" type="Control" parent="UIFollow/Selection"]
-visible = false
 margin_left = 150.0
 margin_top = 100.0
-margin_right = 218.0
+margin_right = 150.0
 margin_bottom = 132.0
 mouse_filter = 2
 script = ExtResource( 35 )
@@ -166,13 +178,18 @@ texture_pressed = SubResource( 11 )
 texture_hover = SubResource( 12 )
 
 [node name="Duplicator" type="TextureButton" parent="UIFollow/Selection/Buttons"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -32.0
+margin_left = 36.0
 mouse_default_cursor_shape = 2
 texture_normal = SubResource( 13 )
 texture_pressed = SubResource( 14 )
 texture_hover = SubResource( 15 )
+
+[node name="Polygon" type="TextureButton" parent="UIFollow/Selection/Buttons"]
+margin_left = 72.0
+mouse_default_cursor_shape = 2
+texture_normal = SubResource( 16 )
+texture_pressed = SubResource( 17 )
+texture_hover = SubResource( 18 )
 
 [node name="PolygonEditor" type="Control" parent="UIFollow"]
 mouse_filter = 2
@@ -474,6 +491,7 @@ align = 1
 [connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Dragger" to="UIFollow/Selection/Buttons" method="_on_dragger_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Duplicator" to="UIFollow/Selection/Buttons" method="_on_duplicator_pressed"]
+[connection signal="pressed" from="UIFollow/Selection/Buttons/Polygon" to="UIFollow/Selection/Buttons" method="_on_polygon_pressed"]
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
 [connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]

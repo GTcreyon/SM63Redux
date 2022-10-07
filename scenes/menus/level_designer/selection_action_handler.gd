@@ -2,6 +2,7 @@ extends Control
 
 onready var main = $"/root/Main"
 onready var selection_handler = $".."
+onready var polygon_editor = $"../../PolygonEditor"
 
 enum DRAG_TYPE { NONE, MOVE, DUPLICATE }
 
@@ -22,6 +23,7 @@ func _on_dragger_pressed():
 	
 	visible = false
 
+
 func _on_duplicator_pressed():
 	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
@@ -39,6 +41,7 @@ func _on_duplicator_pressed():
 	main.editor_state = main.EDITOR_STATE.DRAGGING
 	
 	visible = false
+
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ld_place") and main.editor_state == main.EDITOR_STATE.DRAGGING:
@@ -61,6 +64,7 @@ func _unhandled_input(event):
 		drag_type = DRAG_TYPE.NONE
 		accept_event()
 
+
 func _process(_dt):
 	if len(being_dragged) == 0:
 		return
@@ -72,6 +76,7 @@ func _process(_dt):
 	for item in being_dragged:
 		item.position += delta
 		item.properties["Position"] = item.position
-	
 
-
+func _on_polygon_pressed():
+	if len(selection_handler.selection_hit) == 1:
+		polygon_editor.edit_polygon(selection_handler.selection_hit[0])
