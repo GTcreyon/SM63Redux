@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dragger_button_pressed.png-59a12ef490b64b3a793211b7a3fbfd2a.stex"
+path="res://.import/dragger_button_sheet.png-3406e059216e73646e633cac55d9ddbf.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/menus/level_designer/ldui/dragger_button_pressed.png"
-dest_files=[ "res://.import/dragger_button_pressed.png-59a12ef490b64b3a793211b7a3fbfd2a.stex" ]
+source_file="res://scenes/menus/level_designer/ldui/dragger_button_sheet.png"
+dest_files=[ "res://.import/dragger_button_sheet.png-3406e059216e73646e633cac55d9ddbf.stex" ]
 
 [params]
 

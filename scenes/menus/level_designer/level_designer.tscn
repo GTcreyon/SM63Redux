@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -20,9 +20,8 @@
 [ext_resource path="res://scenes/menus/level_designer/load.gd" type="Script" id=18]
 [ext_resource path="res://scenes/menus/level_designer/ldui/square_outline.png" type="Texture" id=19]
 [ext_resource path="res://scenes/menus/level_designer/selection_handler.gd" type="Script" id=20]
-[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button.png" type="Texture" id=21]
-[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button.png" type="Texture" id=22]
-[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_pressed.png" type="Texture" id=23]
+[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png" type="Texture" id=21]
+[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_sheet.png" type="Texture" id=22]
 [ext_resource path="res://scenes/menus/level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
 [ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture" id=25]
 [ext_resource path="res://scenes/menus/level_designer/bg_grid.gd" type="Script" id=26]
@@ -30,9 +29,6 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" type="StyleBox" id=28]
 [ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" type="StyleBox" id=29]
 [ext_resource path="res://scenes/menus/level_designer/scroller.gd" type="Script" id=30]
-[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_hover.png" type="Texture" id=31]
-[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_pressed.png" type="Texture" id=32]
-[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_hover.png" type="Texture" id=33]
 [ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
 [ext_resource path="res://scenes/menus/level_designer/selection_action_handler.gd" type="Script" id=35]
 [ext_resource path="res://scenes/menus/level_designer/ldui/close_button.png" type="Texture" id=36]
@@ -42,6 +38,30 @@
 [ext_resource path="res://scenes/menus/level_designer/polygon_draw.gd" type="Script" id=40]
 [ext_resource path="res://scenes/menus/level_designer/polygon_editor.gd" type="Script" id=41]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=42]
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 22 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 22 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 22 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 21 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 21 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 21 )
+region = Rect2( 32, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 7 )
@@ -141,18 +161,18 @@ script = ExtResource( 35 )
 
 [node name="Dragger" type="TextureButton" parent="UIFollow/Selection/Buttons"]
 mouse_default_cursor_shape = 6
-texture_normal = ExtResource( 22 )
-texture_pressed = ExtResource( 23 )
-texture_hover = ExtResource( 33 )
+texture_normal = SubResource( 10 )
+texture_pressed = SubResource( 11 )
+texture_hover = SubResource( 12 )
 
 [node name="Duplicator" type="TextureButton" parent="UIFollow/Selection/Buttons"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -32.0
 mouse_default_cursor_shape = 2
-texture_normal = ExtResource( 21 )
-texture_pressed = ExtResource( 32 )
-texture_hover = ExtResource( 31 )
+texture_normal = SubResource( 13 )
+texture_pressed = SubResource( 14 )
+texture_hover = SubResource( 15 )
 
 [node name="PolygonEditor" type="Control" parent="UIFollow"]
 mouse_filter = 2

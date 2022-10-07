@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/duplicator_button_pressed.png-f74c73cdca165abe526ce8ed0a9a1816.stex"
+path="res://.import/duplicator_button_sheet.png-51d4baecbdae4426162bca595993f2f1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/menus/level_designer/ldui/duplicator_button_pressed.png"
-dest_files=[ "res://.import/duplicator_button_pressed.png-f74c73cdca165abe526ce8ed0a9a1816.stex" ]
+source_file="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png"
+dest_files=[ "res://.import/duplicator_button_sheet.png-51d4baecbdae4426162bca595993f2f1.stex" ]
 
 [params]
 
