@@ -59,7 +59,7 @@ animations = [ {
 
 [sub_resource type="AtlasTexture" id=16]
 atlas = ExtResource( 5 )
-region = Rect2( 7, 0, 112, 23 )
+region = Rect2( 7, 0, 112, 24 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 4 )
@@ -71,7 +71,7 @@ region = Rect2( 0, 96, 56, 32 )
 
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 5 )
-region = Rect2( 21, 69, 81, 23 )
+region = Rect2( 21, 72, 82, 24 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 4 )
@@ -83,7 +83,7 @@ region = Rect2( 0, 65, 56, 32 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 5 )
-region = Rect2( 30, 46, 65, 23 )
+region = Rect2( 30, 48, 66, 24 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
@@ -95,7 +95,7 @@ region = Rect2( 0, 32, 56, 33 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 5 )
-region = Rect2( 2, 23, 122, 23 )
+region = Rect2( 2, 24, 122, 24 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 2 )
