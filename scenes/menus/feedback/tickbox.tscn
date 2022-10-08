@@ -39,4 +39,4 @@ script = ExtResource( 1 )
 frames = SubResource( 5 )
 centered = false
 
-[connection signal="pressed" from="." to="." method="_on_Tickbox_pressed"]
+[connection signal="pressed" from="." to="." method="_on_Button_pressed"]
