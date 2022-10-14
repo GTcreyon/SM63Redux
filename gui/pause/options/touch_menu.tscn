@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/menus/feedback/tickbox.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
+[ext_resource path="res://gui/pause/options/touch_menu.gd" type="Script" id=3]
+
+[node name="TouchMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+
+[node name="Margin" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = 8.0
+margin_right = -8.0
+margin_bottom = -8.0
+
+[node name="Tickbox" parent="Margin" instance=ExtResource( 1 )]
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="Label" type="Label" parent="Margin/Tickbox"]
+margin_left = 23.0
+margin_top = 2.0
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 2 )
+text = "Swap sides"

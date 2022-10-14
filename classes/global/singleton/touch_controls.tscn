@@ -1,0 +1,187 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://gui/hud/mobile_buttons.png" type="Texture" id=1]
+[ext_resource path="res://classes/global/singleton/touch_controls.gd" type="Script" id=2]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 105, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 105, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 126, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 126, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 63, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 63, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 84, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 84, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 147, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 147, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 168, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 168, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 189, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 189, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 21, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 42, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 210, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 20, 210, 20, 21 )
+
+[node name="TouchControls" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 2 )
+
+[node name="TouchArrows" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Left" type="TouchScreenButton" parent="TouchArrows"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( -60, -21 )
+normal = SubResource( 3 )
+pressed = SubResource( 4 )
+passby_press = true
+
+[node name="Right" type="TouchScreenButton" parent="TouchArrows"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( -20, -21 )
+normal = SubResource( 5 )
+pressed = SubResource( 6 )
+passby_press = true
+
+[node name="Up" type="TouchScreenButton" parent="TouchArrows"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( -40, -42 )
+normal = SubResource( 7 )
+pressed = SubResource( 8 )
+passby_press = true
+
+[node name="Down" type="TouchScreenButton" parent="TouchArrows"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( -40, -21 )
+normal = SubResource( 9 )
+pressed = SubResource( 10 )
+passby_press = true
+
+[node name="TouchAction" type="Control" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Z" type="TouchScreenButton" parent="TouchAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 0, -21 )
+normal = SubResource( 11 )
+pressed = SubResource( 12 )
+
+[node name="X" type="TouchScreenButton" parent="TouchAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 20, -21 )
+normal = SubResource( 13 )
+pressed = SubResource( 14 )
+
+[node name="C" type="TouchScreenButton" parent="TouchAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 40, -21 )
+normal = SubResource( 15 )
+pressed = SubResource( 16 )
+
+[node name="Shift" type="TouchScreenButton" parent="TouchAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 0, -42 )
+normal = SubResource( 17 )
+pressed = SubResource( 18 )
+
+[node name="P" type="TouchScreenButton" parent="TouchAction"]
+modulate = Color( 1, 1, 1, 0.501961 )
+position = Vector2( 20, -42 )
+normal = SubResource( 1 )
+pressed = SubResource( 2 )
+
+[node name="TouchFeedback" type="Control" parent="."]
+margin_left = 80.0
+mouse_filter = 2
+
+[node name="Feedback" type="TouchScreenButton" parent="TouchFeedback"]
+modulate = Color( 1, 1, 1, 0.501961 )
+scale = Vector2( 2, 2 )
+normal = SubResource( 17 )
+pressed = SubResource( 18 )
+action = "feedback"
+
+[connection signal="pressed" from="TouchArrows/Left" to="." method="_on_Left_pressed"]
+[connection signal="released" from="TouchArrows/Left" to="." method="_on_Left_released"]
+[connection signal="pressed" from="TouchArrows/Right" to="." method="_on_Right_pressed"]
+[connection signal="released" from="TouchArrows/Right" to="." method="_on_Right_released"]
+[connection signal="pressed" from="TouchArrows/Up" to="." method="_on_Up_pressed"]
+[connection signal="released" from="TouchArrows/Up" to="." method="_on_Up_released"]
+[connection signal="pressed" from="TouchArrows/Down" to="." method="_on_Down_pressed"]
+[connection signal="released" from="TouchArrows/Down" to="." method="_on_Down_released"]
+[connection signal="pressed" from="TouchAction/Z" to="." method="_on_Z_pressed"]
+[connection signal="released" from="TouchAction/Z" to="." method="_on_Z_released"]
+[connection signal="pressed" from="TouchAction/X" to="." method="_on_X_pressed"]
+[connection signal="released" from="TouchAction/X" to="." method="_on_X_released"]
+[connection signal="pressed" from="TouchAction/C" to="." method="_on_C_pressed"]
+[connection signal="released" from="TouchAction/C" to="." method="_on_C_released"]
+[connection signal="pressed" from="TouchAction/Shift" to="." method="_on_Shift_pressed"]
+[connection signal="released" from="TouchAction/Shift" to="." method="_on_Shift_released"]
+[connection signal="pressed" from="TouchAction/P" to="." method="_on_P_pressed"]
+[connection signal="released" from="TouchAction/P" to="." method="_on_P_released"]
+[connection signal="pressed" from="TouchFeedback/Feedback" to="." method="_on_Shift_pressed"]
+[connection signal="released" from="TouchFeedback/Feedback" to="." method="_on_Shift_released"]

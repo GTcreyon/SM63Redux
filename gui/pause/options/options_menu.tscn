@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/menus/feedback/tickbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -7,16 +7,7 @@
 [ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=5]
 [ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=6]
 [ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=7]
-[ext_resource path="res://gui/hud/mobile_buttons.png" type="Texture" id=8]
-[ext_resource path="res://gui/pause/options/reset_binds.gd" type="Script" id=9]
-
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 8 )
-region = Rect2( 20, 21, 20, 21 )
-
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 8 )
-region = Rect2( 20, 42, 20, 21 )
+[ext_resource path="res://gui/pause/options/button_menu.tscn" type="PackedScene" id=8]
 
 [node name="OptionsMenu" type="Control"]
 anchor_right = 1.0
@@ -100,20 +91,12 @@ custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 5 )
 script = ExtResource( 4 )
 
-[node name="ResetBinds" type="TextureButton" parent="List"]
+[node name="ButtonMenu" parent="List" instance=ExtResource( 8 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
 margin_top = 156.0
 margin_right = 624.0
-margin_bottom = 177.0
-rect_min_size = Vector2( 20, 21 )
-texture_normal = SubResource( 1 )
-texture_pressed = SubResource( 2 )
-script = ExtResource( 9 )
-
-[node name="Label" type="Label" parent="List/ResetBinds"]
-margin_left = 23.0
-margin_top = 2.0
-custom_fonts/font = ExtResource( 2 )
-text = "Reset controls to default"
+margin_bottom = 156.0
 
 [node name="Button" type="TextureButton" parent="."]
 anchor_top = 1.0
@@ -123,4 +106,3 @@ margin_top = -22.0
 
 [connection signal="gui_input" from="." to="." method="_on_OptionsMenu_gui_input"]
 [connection signal="item_selected" from="List/LocaleSelect" to="List/LocaleSelect" method="_on_Locale_item_selected"]
-[connection signal="pressed" from="List/ResetBinds" to="List/ResetBinds" method="_on_ResetBinds_pressed"]

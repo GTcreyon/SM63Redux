@@ -390,7 +390,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
-[node name="ForceTouch" parent="." groups=["menu_hide"] instance=ExtResource( 8 )]
+[node name="TouchControl" parent="." groups=["menu_hide"] instance=ExtResource( 8 )]
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5

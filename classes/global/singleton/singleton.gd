@@ -69,7 +69,7 @@ var flip
 var pause_menu = false
 var line_count: int = 0
 var disable_limits = false
-var force_touch = false
+var touch_control = false
 var ld_buffer = PoolByteArray([])
 var meta_paused = false
 var meta_pauses = {
@@ -101,6 +101,7 @@ func log_msg(msg: String, type: int = LogType.INFO):
 
 
 func _ready():
+	touch_control = OS.get_name() == "Android"
 	rng.seed = hash("2401")
 	default_input_map = get_input_map_json_current()
 	var file = File.new()
@@ -130,10 +131,6 @@ func warp_to(path):
 	timer.split_timer()
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().call_deferred("change_scene", path)
-
-
-func touch_controls():
-	return OS.get_name() == "Android" or force_touch
 
 
 # Sets a certain pause label - when all pause labels are false, gameplay takes place

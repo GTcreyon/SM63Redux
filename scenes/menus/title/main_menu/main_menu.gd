@@ -14,10 +14,11 @@ onready var icon = $Icon
 onready var border = $Border
 onready var description_box = $Border/DescriptionBox
 
-onready var force_touch = $ForceTouch
-onready var force_touch_label = $TouchLabel
+onready var touch_control = $TouchControl
+onready var touch_control_label = $TouchLabel
 
-onready var options_menu = $OptionsControl
+onready var options_control = $OptionsControl
+onready var options_menu = $OptionsControl/OptionsMenu
 onready var back_button = $OptionsControl/BackButton
 
 var cycle_progress = 0
@@ -32,6 +33,7 @@ func _process(delta):
 	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	manage_sizes(scale)
 	if visible:
+		options_control.visible = show_options
 		options_menu.visible = show_options
 		if show_options:
 			for node in get_tree().get_nodes_in_group("menu_hide"):
@@ -109,13 +111,13 @@ func _process(delta):
 				visible = false
 				Singleton.get_node("SFX/Back").play()
 			
-			force_touch.rect_pivot_offset = Vector2(10, 20)
-			force_touch.rect_scale = scale * Vector2.ONE
-			force_touch.margin_top = -74 * scale
-			Singleton.force_touch = force_touch.pressed
+			touch_control.rect_pivot_offset = Vector2(10, 20)
+			touch_control.rect_scale = scale * Vector2.ONE
+			touch_control.margin_top = -74 * scale
+			Singleton.touch_control = touch_control.pressed
 			
-			force_touch_label.rect_pivot_offset.x = OS.window_size.x / 2
-			force_touch_label.rect_scale = scale * Vector2.ONE
+			touch_control_label.rect_pivot_offset.x = OS.window_size.x / 2
+			touch_control_label.rect_scale = scale * Vector2.ONE
 			
 			modulate.a = min(modulate.a + 0.125 * dmod, 1)
 	else:
@@ -123,7 +125,7 @@ func _process(delta):
 
 
 func press_button(button):
-	if !get_parent().dampen:
+	if !get_parent().get("dampen"):
 		match button:
 			0:
 				menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
@@ -138,7 +140,7 @@ func menu_to_scene(scene: String) -> void:
 	get_parent().dampen = true
 	Singleton.get_node("WindowWarp").warp(Vector2(110, 153), scene)
 	Singleton.get_node("SFX/Start").play()
-	if Singleton.touch_controls():
+	if Singleton.touch_control:
 		Singleton.controls.visible = true
 
 

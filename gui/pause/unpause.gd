@@ -11,7 +11,7 @@ func _ready():
 
 
 func _process(_delta):
-	visible = Singleton.touch_controls()
+	visible = Singleton.touch_control
 
 
 func _on_Unpause_pressed():
