@@ -537,6 +537,7 @@ func action_spin() -> void:
 
 
 var __fludd_spraying: bool = false
+var __fludd_spraying_rising: bool = false
 # If _physics_process() never calls player_physics() but checks fludd_spraying(),
 # keep initial value as valid to avoid runtime crashes.
 var fludd_stale: bool = false
@@ -550,27 +551,15 @@ func fludd_spraying(allow_stale: bool = false) -> bool:
 	return __fludd_spraying
 
 func fludd_spraying_rising(allow_stale: bool = false) -> bool:
-	if !fludd_spraying(allow_stale):
-		return false
-	
-	# If fludd_spraying(), state is in:
-	# S.NEUTRAL
-	# | S.BACKFLIP
-	# | S.TRIPLE_JUMP
-	# | S.DIVE
-	
-	match Singleton.nozzle:
-		Singleton.n.hover:
-			# Dive-spraying should stick to ground, neutral and all jumps should not.
-			return !(state & S.DIVE)
-		# TODO rocket/turbo
-		_:
-			return true
+	if !allow_stale:
+		assert(!fludd_stale)
+	return __fludd_spraying_rising
 
 var rocket_charge: int = 0
 func fludd_control():
 	fludd_stale = false
 	__fludd_spraying = false
+	__fludd_spraying_rising = false
 	
 	if grounded:
 		Singleton.power = 100 # TODO: multi fludd
@@ -592,6 +581,8 @@ func fludd_control():
 			Singleton.n.hover:
 				fludd_strain = true
 				double_anim_cancel = true
+				if state != S.DIVE:
+					__fludd_spraying_rising = true
 				if state != S.TRIPLE_JUMP or (abs(sprite.rotation_degrees) < 90 or abs(sprite.rotation_degrees) > 270):
 					if state & (S.DIVE | S.TRIPLE_JUMP):
 						vel.y *= 1 - 0.02 * FPS_MOD
@@ -631,6 +622,7 @@ func fludd_control():
 				else:
 					fludd_strain = false
 				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(sprite.rotation_degrees) < 20 or abs(sprite.rotation_degrees) > 340))):
+					__fludd_spraying_rising = true
 					if state == S.DIVE:
 						# set sign of velocity (could use ternary but they're icky)
 						var multiplier = 1
