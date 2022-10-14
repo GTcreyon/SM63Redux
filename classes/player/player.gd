@@ -551,6 +551,7 @@ func fludd_spraying(allow_stale: bool = false) -> bool:
 	return __fludd_spraying
 
 func fludd_spraying_rising(allow_stale: bool = false) -> bool:
+	# TODO unify with "is jumping"?
 	if !allow_stale:
 		assert(!fludd_stale)
 	return __fludd_spraying_rising
@@ -1032,6 +1033,7 @@ func get_snap() -> Vector2:
 		!grounded
 		or Input.is_action_just_pressed("jump")
 		or jump_buffer_frames > 0
+		or state == S.DIVE
 		or state == S.ROLLOUT
 		or state == S.HURT
 		or fludd_spraying_rising()
