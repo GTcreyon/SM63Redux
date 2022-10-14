@@ -206,7 +206,7 @@ var pound_land_frames: int = 0
 var pound_state: int = Pound.SPIN
 var solid_floors: int = 0
 func player_physics():
-	__fludd_spraying = 2
+	fludd_stale = true
 	
 	check_ground_state()
 	
@@ -536,18 +536,21 @@ func action_spin() -> void:
 		spin_frames = SPIN_TIME
 
 
+var __fludd_spraying: bool = false
 # If _physics_process() never calls player_physics() but checks fludd_spraying(),
 # keep initial value as valid to avoid runtime crashes.
-var __fludd_spraying: int = 0
-func fludd_spraying() -> bool:
-	# Every frame, set __fludd_spraying = 2 until we process "fludd".
+var fludd_stale: bool = false
+
+func fludd_spraying(allow_stale: bool = false) -> bool:
+	# Every frame, set fludd_stale = true until we process "fludd".
 	# When reading "did we hover this frame",
 	# ensure we have already processed hovering this frame.
-	assert(__fludd_spraying < 2)
-	return __fludd_spraying != 0
+	if !allow_stale:
+		assert(!fludd_stale)
+	return __fludd_spraying
 
-func fludd_spraying_rising() -> bool:
-	if !fludd_spraying():
+func fludd_spraying_rising(allow_stale: bool = false) -> bool:
+	if !fludd_spraying(allow_stale):
 		return false
 	
 	# If fludd_spraying(), state is in:
@@ -566,7 +569,8 @@ func fludd_spraying_rising() -> bool:
 
 var rocket_charge: int = 0
 func fludd_control():
-	__fludd_spraying = 0
+	fludd_stale = false
+	__fludd_spraying = false
 	
 	if grounded:
 		Singleton.power = 100 # TODO: multi fludd
@@ -583,7 +587,7 @@ func fludd_control():
 				| S.DIVE
 			)
 	):
-		__fludd_spraying = 1
+		__fludd_spraying = true
 		match Singleton.nozzle:
 			Singleton.n.hover:
 				fludd_strain = true
@@ -866,7 +870,7 @@ func check_ground_state() -> void:
 		if (
 			vel.y < 0
 			or is_on_floor()
-			or fludd_spraying_rising()
+			or fludd_spraying_rising(true)
 			or (state == S.POUND and pound_state == Pound.SPIN)
 			or state == S.HURT
 			or swimming
