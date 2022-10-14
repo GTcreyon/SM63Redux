@@ -1007,7 +1007,7 @@ func get_snap() -> Vector2:
 		or state == S.HURT
 		or
 		(
-			Input.is_action_just_pressed("fludd")
+			Input.is_action_pressed("fludd")
 			and Singleton.nozzle == Singleton.n.hover
 		) 
 		or
