@@ -206,6 +206,8 @@ var pound_land_frames: int = 0
 var pound_state: int = Pound.SPIN
 var solid_floors: int = 0
 func player_physics():
+	__fludd_spraying = 2
+	
 	check_ground_state()
 	
 	manage_invuln()
@@ -370,7 +372,7 @@ func fixed_visuals() -> void:
 				hover_sound_position = hover_sfx.get_playback_position()
 			else:
 				hover_sound_position = 0
-			if !Input.is_action_pressed("fludd") or Singleton.power > 0:
+			if !fludd_spraying():
 				hover_sfx.stop()
 	
 	bubbles.emitting = fludd_strain
@@ -534,8 +536,38 @@ func action_spin() -> void:
 		spin_frames = SPIN_TIME
 
 
+# If _physics_process() never calls player_physics() but checks fludd_spraying(),
+# keep initial value as valid to avoid runtime crashes.
+var __fludd_spraying: int = 0
+func fludd_spraying() -> bool:
+	# Every frame, set __fludd_spraying = 2 until we process "fludd".
+	# When reading "did we hover this frame",
+	# ensure we have already processed hovering this frame.
+	assert(__fludd_spraying < 2)
+	return __fludd_spraying != 0
+
+func fludd_spraying_rising() -> bool:
+	if !fludd_spraying():
+		return false
+	
+	# If fludd_spraying(), state is in:
+	# S.NEUTRAL
+	# | S.BACKFLIP
+	# | S.TRIPLE_JUMP
+	# | S.DIVE
+	
+	match Singleton.nozzle:
+		Singleton.n.hover:
+			# Dive-spraying should stick to ground, neutral and all jumps should not.
+			return !(state & S.DIVE)
+		# TODO rocket/turbo
+		_:
+			return true
+
 var rocket_charge: int = 0
 func fludd_control():
+	__fludd_spraying = 0
+	
 	if grounded:
 		Singleton.power = 100 # TODO: multi fludd
 	elif !Input.is_action_pressed("fludd") and Singleton.nozzle != Singleton.n.hover:
@@ -551,6 +583,7 @@ func fludd_control():
 				| S.DIVE
 			)
 	):
+		__fludd_spraying = 1
 		match Singleton.nozzle:
 			Singleton.n.hover:
 				fludd_strain = true
@@ -833,7 +866,7 @@ func check_ground_state() -> void:
 		if (
 			vel.y < 0
 			or is_on_floor()
-			or Input.is_action_pressed("fludd")
+			or fludd_spraying_rising()
 			or (state == S.POUND and pound_state == Pound.SPIN)
 			or state == S.HURT
 			or swimming
@@ -1005,11 +1038,7 @@ func get_snap() -> Vector2:
 		or jump_buffer_frames > 0
 		or state == S.ROLLOUT
 		or state == S.HURT
-		or
-		(
-			Input.is_action_pressed("fludd")
-			and Singleton.nozzle == Singleton.n.hover
-		) 
+		or fludd_spraying_rising()
 		or
 		(
 			swimming
