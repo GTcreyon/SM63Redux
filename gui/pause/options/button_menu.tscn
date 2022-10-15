@@ -1,17 +1,17 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
-[ext_resource path="res://gui/hud/mobile_buttons.png" type="Texture" id=2]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
 [ext_resource path="res://gui/pause/options/reset_binds.gd" type="Script" id=3]
 [ext_resource path="res://gui/pause/options/bind_list.gd" type="Script" id=4]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
-region = Rect2( 20, 21, 20, 21 )
+region = Rect2( 0, 0, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 2 )
-region = Rect2( 20, 42, 20, 21 )
+region = Rect2( 20, 0, 20, 21 )
 
 [node name="ButtonMenu" type="Control"]
 anchor_right = 1.0

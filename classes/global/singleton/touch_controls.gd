@@ -1,97 +1,63 @@
 extends Control
 
+const ANCHOR_DIRECTION_OFFSETS = PoolVector2Array([Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)])
+const ANCHOR_PIVOT_OFFSETS = PoolVector2Array([Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)])
+const ANCHOR_REVERSE_OFFSETS = [false, true, false, true]
+const BUTTON_PREFAB = preload("res://classes/global/singleton/touch_button.tscn")
+const LAYOUT_PRESETS = {
+	#"new": "u:jump,up/d:dive,down/z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/r:right@_/s:feedback",
+	"new": "u:jump,up/d:dive,down/z:pound,interact#c:fludd/x:spin,skip@l:left/r:right#s:switch_fludd/p:pause@_/s:feedback",
+	"kid": "s:switch_fludd,skip/z:pound,interact/d:down#p:pause@l:left/x:spin,skip/r:right/_#d:dive,left/u:jump,left/u:jump,up/u:jump,right/d:dive,right#c:fludd,left/c:fludd/c:fludd,right/_@_/s:feedback",
+	"classic": "z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/d:down,dive/r:right#u:up,jump/_@_/s:feedback",
+}
+
+var button_scale = 8
+
+onready var anchors = [$AnchorLeft, $AnchorRight, $AnchorLeftUp, $AnchorRightUp]
+
 func _init():
 	visible = false
 
 
 func _ready():
 	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	var button_scale = min(floor(OS.window_size.x / (120 * scale)), floor(OS.window_size.y / (42 * scale)))
-	$TouchArrows.rect_scale = Vector2.ONE * scale * button_scale
-	$TouchAction.rect_scale = Vector2.ONE * scale * button_scale
-	$TouchFeedback.rect_scale = Vector2.ONE * scale
-	$TouchFeedback.margin_left = 80 * scale
+	#var button_scale = min(floor(OS.window_size.x / (120 * scale)), floor(OS.window_size.y / (42 * scale)))
+	$AnchorRight.rect_scale = Vector2.ONE * scale * button_scale
+	$AnchorLeft.rect_scale = Vector2.ONE * scale * button_scale
+	$AnchorLeftUp.rect_scale = Vector2.ONE * scale * button_scale
+	_generate_buttons(LAYOUT_PRESETS["new"])
+#	$AnchorLeftUp.margin_left = 80 * scale
 
 
 func _process(_delta):
 	visible = Singleton.touch_control
 
 
-func _on_Left_pressed():
-	Input.action_press("left")
-
-
-func _on_Left_released():
-	Input.action_release("left")
-
-
-func _on_Right_pressed():
-	Input.action_press("right")
-
-
-func _on_Right_released():
-	Input.action_release("right")
-
-
-func _on_Up_pressed():
-	Input.action_press("up")
-	Input.action_press("jump")
-
-
-func _on_Up_released():
-	Input.action_release("up")
-	Input.action_release("jump")
-
-
-func _on_Down_pressed():
-	Input.action_press("down")
-	Input.action_press("dive")
-
-
-func _on_Down_released():
-	Input.action_release("down")
-	Input.action_release("dive")
-
-
-func _on_Z_pressed():
-	Input.action_press("pound")
-	Input.action_press("interact")
-
-
-func _on_Z_released():
-	Input.action_release("pound")
-	Input.action_release("interact")
-
-
-func _on_X_pressed():
-	Input.action_press("spin")
-	Input.action_press("skip")
-
-
-func _on_X_released():
-	Input.action_release("spin")
-	Input.action_release("skip")
-
-
-func _on_C_pressed():
-	Input.action_press("fludd")
-
-
-func _on_C_released():
-	Input.action_release("fludd")
-
-
-func _on_Shift_pressed():
-	Input.action_press("switch_fludd")
-
-
-func _on_Shift_released():
-	Input.action_release("switch_fludd")
-
-
-func _on_P_pressed():
-	Input.action_press("pause")
-
-
-func _on_P_released():
-	Input.action_release("pause")
+func _generate_buttons(pattern: String) -> void:
+	var offset = Vector2.ZERO
+	var anchor_index = 0
+	var offset_multiplier = Vector2(1, -1)
+	for corner in pattern.split("@"):
+		for row in corner.split("#"):
+			var buttons: PoolStringArray = row.split("/")
+			if ANCHOR_REVERSE_OFFSETS[anchor_index]:
+				buttons.invert()
+			for button in buttons:
+				if button != "_":
+					var parts = button.split(":")
+					var actions = parts[1].split(",")
+					var inst = BUTTON_PREFAB.instance()
+					inst.id = parts[0]
+					inst.actions = actions
+					inst.position = (
+						# Change the direction that the offset applies in based current corner
+						offset * ANCHOR_DIRECTION_OFFSETS[anchor_index]
+						# Offset the button because its pivot is in the top left of its sprite
+						+ Vector2(20, 21) * ANCHOR_PIVOT_OFFSETS[anchor_index]
+					)
+					anchors[anchor_index].add_child(inst)
+				offset.x += 20
+			offset.x = 0
+			offset.y += 21
+		offset.y = 0
+		anchor_index += 1

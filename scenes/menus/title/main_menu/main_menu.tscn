@@ -1,7 +1,7 @@
 [gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
-[ext_resource path="res://gui/hud/mobile_buttons.png" type="Texture" id=2]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
 [ext_resource path="res://scenes/menus/title/main_menu/border.tres" type="StyleBox" id=3]
 [ext_resource path="res://scenes/menus/title/main_menu/selection_content.png" type="Texture" id=4]
 [ext_resource path="res://scenes/menus/title/main_menu/menu_titles.png" type="Texture" id=5]
