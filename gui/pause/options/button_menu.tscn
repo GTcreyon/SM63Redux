@@ -27,8 +27,6 @@ margin_right = -8.0
 margin_bottom = -8.0
 
 [node name="ResetBinds" type="TextureButton" parent="Margin"]
-margin_right = 28.0
-margin_bottom = 29.0
 rect_min_size = Vector2( 20, 21 )
 texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )

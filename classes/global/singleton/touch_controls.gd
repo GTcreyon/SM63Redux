@@ -11,7 +11,8 @@ const LAYOUT_PRESETS = {
 	"classic": "z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/d:down,dive/r:right#u:up,jump/_@_/s:feedback",
 }
 
-var button_scale = 8
+var button_scale = 3
+var action_presses = {} # Record how many buttons are pressing each action
 
 onready var anchors = [$AnchorLeft, $AnchorRight, $AnchorLeftUp, $AnchorRightUp]
 
@@ -25,12 +26,30 @@ func _ready():
 	$AnchorRight.rect_scale = Vector2.ONE * scale * button_scale
 	$AnchorLeft.rect_scale = Vector2.ONE * scale * button_scale
 	$AnchorLeftUp.rect_scale = Vector2.ONE * scale * button_scale
-	_generate_buttons(LAYOUT_PRESETS["new"])
+	_generate_buttons(LAYOUT_PRESETS["kid"])
 #	$AnchorLeftUp.margin_left = 80 * scale
 
 
 func _process(_delta):
 	visible = Singleton.touch_control
+
+
+func _physics_process(_delta):
+	if Singleton.touch_control:
+		for action in action_presses:
+			if action_presses[action] > 0:
+				if !Input.is_action_pressed(action):
+					Input.action_press(action)
+			elif Input.is_action_pressed(action):
+				Input.action_release(action)
+
+
+func press(action_id: String) -> void:
+	action_presses[action_id] += 1
+
+
+func release(action_id: String) -> void:
+	action_presses[action_id] -= 1
 
 
 func _generate_buttons(pattern: String) -> void:
@@ -46,6 +65,9 @@ func _generate_buttons(pattern: String) -> void:
 				if button != "_":
 					var parts = button.split(":")
 					var actions = parts[1].split(",")
+					for action in actions:
+						if !action_presses.has(action):
+							action_presses[action] = 0
 					var inst = BUTTON_PREFAB.instance()
 					inst.id = parts[0]
 					inst.actions = actions
@@ -61,3 +83,4 @@ func _generate_buttons(pattern: String) -> void:
 			offset.y += 21
 		offset.y = 0
 		anchor_index += 1
+
