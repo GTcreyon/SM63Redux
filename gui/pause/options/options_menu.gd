@@ -9,6 +9,8 @@ onready var mute_music = $List/MuteMusic
 onready var mute_sfx = $List/MuteSFX
 onready var show_timer = $List/ShowTimer
 onready var locale_select = $List/LocaleSelect
+onready var button_menu = $List/ButtonMenu
+onready var touch_menu = $List/TouchMenu
 var bus_music = AudioServer.get_bus_index("Music")
 var bus_sfx = AudioServer.get_bus_index("SFX")
 var height_set = false
@@ -47,6 +49,8 @@ func _process(_delta):
 		AudioServer.set_bus_mute(bus_music, mute_music.pressed)
 		AudioServer.set_bus_mute(bus_sfx, mute_sfx.pressed)
 		Singleton.timer.visible = show_timer.pressed
+		button_menu.visible = !Singleton.touch_control
+		touch_menu.visible = Singleton.touch_control
 	was_visible = visible
 
 

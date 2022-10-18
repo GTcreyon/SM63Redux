@@ -140,8 +140,6 @@ func menu_to_scene(scene: String) -> void:
 	get_parent().dampen = true
 	Singleton.get_node("WindowWarp").warp(Vector2(110, 153), scene)
 	Singleton.get_node("SFX/Start").play()
-	if Singleton.touch_control:
-		Singleton.controls.visible = true
 
 
 func step(direction):

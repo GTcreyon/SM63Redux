@@ -1,9 +1,9 @@
-extends Control
+extends CanvasLayer
 
 const ANCHOR_DIRECTION_OFFSETS = PoolVector2Array([Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)])
 const ANCHOR_PIVOT_OFFSETS = PoolVector2Array([Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)])
 const ANCHOR_REVERSE_OFFSETS = [false, true, false, true]
-const BUTTON_PREFAB = preload("res://classes/global/singleton/touch_button.tscn")
+const BUTTON_PREFAB = preload("res://classes/global/touch_control/touch_button.tscn")
 const LAYOUT_PRESETS = {
 	#"new": "u:jump,up/d:dive,down/z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/r:right@_/s:feedback",
 	"new": "u:jump,up/d:dive,down/z:pound,interact#c:fludd/x:spin,skip@l:left/r:right#s:switch_fludd/p:pause@_/s:feedback",
@@ -26,7 +26,7 @@ func _ready():
 	$AnchorRight.rect_scale = Vector2.ONE * scale * button_scale
 	$AnchorLeft.rect_scale = Vector2.ONE * scale * button_scale
 	$AnchorLeftUp.rect_scale = Vector2.ONE * scale * button_scale
-	_generate_buttons(LAYOUT_PRESETS["kid"])
+	select_layout("new")
 #	$AnchorLeftUp.margin_left = 80 * scale
 
 
@@ -50,6 +50,17 @@ func press(action_id: String) -> void:
 
 func release(action_id: String) -> void:
 	action_presses[action_id] -= 1
+
+
+func select_layout(id: String) -> void:
+	_clear_buttons()
+	_generate_buttons(LAYOUT_PRESETS[id])
+
+
+func _clear_buttons() -> void:
+	for anchor in anchors:
+		for child in anchor.get_children():
+			child.queue_free()
 
 
 func _generate_buttons(pattern: String) -> void:
