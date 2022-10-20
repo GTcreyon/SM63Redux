@@ -34,6 +34,8 @@ func _input(event):
 	if event.is_action_released("ld_place"):
 		if Input.is_action_pressed("ld_keep_place"):
 			var placed = duplicate()
+			placed.item_id = item_id
+			placed.properties = properties
 			placed.ghost = false
 			placed.position = position
 			placed.modulate.a = 1

@@ -85,15 +85,15 @@ func run_command(cmd: String):
 			"designer", "ld":
 				Singleton.log_msg("Entered Level Designer.")
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://level_designer/level_designer.tscn")
+				get_tree().change_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			"menu":
 				Singleton.log_msg("Warped to menu.")
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://scenes/title/menu.tscn")
+				get_tree().change_scene("res://scenes/menus/title/main_menu/main_menu.tscn")
 			"title":
 				Singleton.log_msg("Warped to title.")
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://scenes/title/title.tscn")
+				get_tree().change_scene("res://scenes/menus/title/title.tscn")
 			"vps":
 				Singleton.log_msg("Entering VPS editor.")
 				# warning-ignore:return_value_discarded

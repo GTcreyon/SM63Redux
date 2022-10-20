@@ -164,6 +164,7 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="Buttons" type="Control" parent="UIFollow/Selection"]
+visible = false
 margin_left = 150.0
 margin_top = 100.0
 margin_right = 150.0
