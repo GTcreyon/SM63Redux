@@ -1,6 +1,3 @@
 [submodule "pipescript"]
-path=pipescript
-url=https://github.com/jaschutte/PipeScript.git
-[submodule "pipescript_"]
-	path = pipescript_
+	path = pipescript
 	url = https://github.com/jaschutte/PipeScript.git

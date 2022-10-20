@@ -88,8 +88,9 @@ dependencies = [
 
 [[package]]
 name = "gdnative"
-version = "0.10.0"
-source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fb1bd3d60d6ec0ea7a2d411760c65b91c0a3413f1d974be29587ad22c1b55c92"
 dependencies = [
  "gdnative-bindings",
  "gdnative-core",
@@ -98,8 +99,9 @@ dependencies = [
 
 [[package]]
 name = "gdnative-bindings"
-version = "0.10.0"
-source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b78ec23b0cc8c80d0671e3d7f83d22eb64a89d54162a2ecd25c051949b2926b1"
 dependencies = [
  "gdnative-core",
  "gdnative_bindings_generator",
@@ -108,8 +110,9 @@ dependencies = [
 
 [[package]]
 name = "gdnative-core"
-version = "0.10.0"
-source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a6161074816da73747d1b5f8e378f2326eaa677b4603b04f8fb4f6b02cabdcbe"
 dependencies = [
  "ahash",
  "approx",
@@ -126,8 +129,9 @@ dependencies = [
 
 [[package]]
 name = "gdnative-derive"
-version = "0.10.0"
-source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8f7bcb2d777797c900e9d119f3c5df4103eead22beacf561abd3d501c65a3c81"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -136,8 +140,9 @@ dependencies = [
 
 [[package]]
 name = "gdnative-impl-proc-macros"
-version = "0.10.0"
-source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d9da318c32936217e83702d01dfe108545785cce11833e9991c2e7b7888c90de"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -146,8 +151,9 @@ dependencies = [
 
 [[package]]
 name = "gdnative-sys"
-version = "0.10.0"
-source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e572a677fcaf5e922c490e8f4a88f756a8d2a0b929fedd893793c22bcea914d1"
 dependencies = [
  "bindgen",
  "libc",
@@ -159,8 +165,9 @@ dependencies = [
 
 [[package]]
 name = "gdnative_bindings_generator"
-version = "0.10.0"
-source = "git+https://github.com/godot-rust/godot-rust.git#d5dd28cca0b0797e595595f0132bc2ff73b57dac"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "513388095128fee3360b9fae469383edcd424eaac1d6777c1dac66fcbddc4e84"
 dependencies = [
  "heck",
  "miniserde",
@@ -185,9 +192,9 @@ dependencies = [
 
 [[package]]
 name = "glam"
-version = "0.20.5"
+version = "0.21.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f43e957e744be03f5801a55472f593d43fabdebf25a4585db250f04d86b1675f"
+checksum = "518faa5064866338b013ff9b2350dc318e14cc4fcd6cb8206d7e7c9886c98815"
 
 [[package]]
 name = "glob"

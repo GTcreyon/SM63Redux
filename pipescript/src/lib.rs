@@ -23,7 +23,7 @@ impl PipeScript {
         PipeScript { lines: None, variable_hash: None, env: None }
     }
 
-	#[godot]
+	#[method]
 	fn set_object_variable(&mut self, #[base] _owner: &Node, key_gd: GodotString, obj_ref: Ref<Object>) {
 		assert!(self.lines.is_some(), "Cannot insert variables, source isn't ready yet! Make sure to invoke `pipescript.interpret(source: String)` first.");
 		let (variable_hash, env) = (
@@ -47,7 +47,7 @@ impl PipeScript {
 		ps_env::set_variable(&key, PSValue::GodotObject(obj_ref), env);
 	}
 
-	#[godot]
+	#[method]
 	fn execute(&mut self, #[base] _owner: &Node) {
 		assert!(self.lines.is_some(), "Cannot execute, source isn't ready yet! Make sure to invoke `pipescript.interpret(source: String)` first.");
 		let (lines, variable_hash, env) = (
@@ -61,7 +61,7 @@ impl PipeScript {
 		interpreter::execute_commands(lines, env);
 	}
 
-	#[godot]
+	#[method]
 	fn debug_print_commands(&self, #[base] _owner: &Node) {
 		assert!(self.lines.is_some(), "Cannot execute, source isn't ready yet! Make sure to invoke `pipescript.interpret(source: String)` first.");
 		let lines = self.lines.as_ref().unwrap();
@@ -77,7 +77,7 @@ impl PipeScript {
 		godot_print!("--- ---------- ---");
 	}
 
-	#[godot]
+	#[method]
 	fn interpret(&mut self, #[base] _owner: &Node, source: GodotString) {
 		let (lines, variable_hash, env) = reader::source_to_instructions(
 			source.to_string()
