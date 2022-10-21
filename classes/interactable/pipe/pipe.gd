@@ -1,4 +1,3 @@
-class_name Pipe
 extends StaticBody2D
 
 const PIPE_HEIGHT = 30
@@ -7,8 +6,13 @@ const SLIDE_LENGTH = 60
 const CENTERING_SPEED_SLOW = 0.25
 const CENTERING_SPEED_FAST = 0.75
 
+const TRANSITION_SPEED_IN = 15
+const TRANSITION_SPEED_OUT = 15
+
 export var disabled = false setget set_disabled
 export var target_pos = Vector2.ZERO
+export var move_to_scene = false
+export var scene_path : String
 
 var can_warp = false # this variable is changed when mario enters the pipe's small area2D
 var slid = false # this is true while Mario is sliding into the pipe
@@ -16,6 +20,7 @@ var slide_timer = 0 # This counts up while Mario slides until he reaches the end
 var store_state = 0
 var target = null
 
+onready var sweep_effect = $"/root/Singleton/WindowWarp"
 onready var sound = $SFX # for sound effect
 onready var ride_area = $Area2D
 
@@ -67,24 +72,23 @@ func _physics_process(_delta):
 	
 	# When the timer rings, warp Mario
 	if slide_timer == SLIDE_LENGTH:
-		_warp(target_pos)
-
-
-func _warp(pos):
-	# Teleport Mario someplace within the level
-	target.position = pos
-		
-	# Reset Mario to normal
-	target.get_node("Voice").volume_db = -5
-	target.locked = false
-	target.switch_state(target.S.NEUTRAL)
-	target.switch_anim("walk")
-	target.dive_correct(0)
-	
-	# Reset this pipe to ready
-	sound.stop()
-	slide_timer = 0
-	slid = false
+		if move_to_scene:
+			sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
+		else:
+			# Teleport Mario someplace within the level
+			target.position = target_pos
+				
+			# Reset Mario to normal
+			target.get_node("Voice").volume_db = -5
+			target.locked = false
+			target.switch_state(target.S.NEUTRAL)
+			target.switch_anim("walk")
+			target.dive_correct(0)
+			
+			# Reset this pipe to ready
+			sound.stop()
+			slide_timer = 0
+			slid = false
 
 
 func _on_mario_top(body):
