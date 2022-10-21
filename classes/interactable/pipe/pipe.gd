@@ -1,3 +1,4 @@
+class_name Pipe
 extends StaticBody2D
 
 const PIPE_HEIGHT = 30
