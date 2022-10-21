@@ -1,6 +1,7 @@
 extends StaticBody2D
 
 const PIPE_HEIGHT = 30
+const SLIDE_SPEED = 0.7
 const SLIDE_LENGTH = 60
 const CENTERING_SPEED_SLOW = 0.25
 const CENTERING_SPEED_FAST = 0.75
@@ -26,13 +27,14 @@ func _physics_process(_delta):
 		else:
 			target.position.x = lerp(target.position.x, position.x, CENTERING_SPEED_SLOW)
 			if target.position.y < position.y:
-				target.position.y += 0.7
+				target.position.y += SLIDE_SPEED
 	
 	if can_warp:
 		# Begin entering pipe if down is pressed 
 		if Input.is_action_pressed("down") and store_state == target.S.NEUTRAL and target.is_on_floor():
 			target.get_node("Voice").volume_db = -INF # Dumb solution to mario making dive sounds
 			target.get_node("Character").set_animation("front")
+			target.dive_correct(0)
 			
 			sound.play()
 			target.locked = true # Affects mario's whole input process
