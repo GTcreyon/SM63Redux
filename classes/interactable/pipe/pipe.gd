@@ -66,19 +66,24 @@ func _physics_process(_delta):
 	
 	# When the timer rings, warp Mario
 	if slide_timer == SLIDE_LENGTH:
-		target.position = target_pos
+		_warp(target_pos)
+
+
+func _warp(pos):
+	# Teleport Mario someplace within the level
+	target.position = pos
 		
-		# Reset Mario to normal
-		target.get_node("Voice").volume_db = -5
-		target.locked = false
-		target.switch_state(target.S.NEUTRAL)
-		target.switch_anim("walk")
-		target.dive_correct(0)
-		
-		# Reset this pipe to ready
-		sound.stop()
-		slide_timer = 0
-		slid = false
+	# Reset Mario to normal
+	target.get_node("Voice").volume_db = -5
+	target.locked = false
+	target.switch_state(target.S.NEUTRAL)
+	target.switch_anim("walk")
+	target.dive_correct(0)
+	
+	# Reset this pipe to ready
+	sound.stop()
+	slide_timer = 0
+	slid = false
 
 
 func _on_mario_top(body):
