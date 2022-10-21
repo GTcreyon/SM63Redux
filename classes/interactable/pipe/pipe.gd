@@ -1,66 +1,79 @@
 extends StaticBody2D
 
-onready var sound = $SFX # for sound effect
-onready var ride_area = $Area2D
-
-var i = 0 # This is the variable that will increase until it reaches 60
-var inc = false # this variable will serve to trigger the increment as a "delay"
-var can_warp = false # this variable is changed when mario enters the pipe's small area2D
-var slid = false # this is necessary to tell godot to change mario's Y position to slide down
-var store_state = 0
-var target = null
+const PIPE_HEIGHT = 30
+const SLIDE_LENGTH = 60
+const CENTERING_SPEED_SLOW = 0.25
+const CENTERING_SPEED_FAST = 0.75
 
 export var disabled = false setget set_disabled
 export var target_pos = Vector2.ZERO
 
+var can_warp = false # this variable is changed when mario enters the pipe's small area2D
+var slid = false # this is true while Mario is sliding into the pipe
+var slide_timer = 0 # This counts up while Mario slides until he reaches the end
+var store_state = 0
+var target = null
+
+onready var sound = $SFX # for sound effect
+onready var ride_area = $Area2D
+
 func _physics_process(_delta):
 	if slid:
+		# Slide Mario down into the pipe
 		if target.state == 7:
 			target.position.y = position.y
-			target.position.x = lerp(target.position.x, position.x, 0.75)
+			target.position.x = lerp(target.position.x, position.x, CENTERING_SPEED_FAST)
 		else:
-			target.position.x = lerp(target.position.x, position.x, 0.25)
+			target.position.x = lerp(target.position.x, position.x, CENTERING_SPEED_SLOW)
 			if target.position.y < position.y:
 				target.position.y += 0.7
 	
 	if can_warp:
+		# Begin entering pipe if down is pressed 
 		if Input.is_action_pressed("down") and store_state == target.S.NEUTRAL and target.is_on_floor():
 			target.get_node("Voice").volume_db = -INF # Dumb solution to mario making dive sounds
+			target.get_node("Character").set_animation("front")
+			
 			sound.play()
 			target.locked = true # Affects mario's whole input process
-			target.get_node("Character").set_animation("front")
-			target.position = Vector2(lerp(target.position.x, position.x, 0.25), position.y - 30)
+			target.position = Vector2(
+				lerp(target.position.x, position.x, CENTERING_SPEED_SLOW),
+				position.y - PIPE_HEIGHT)
+			
 			# Warping will be disabled, then increment will start as mario slides down
 			can_warp = false
-			inc = true
 			slid = true
+		# Begin entering pipe if ground pounding
 		elif (target.state == target.S.POUND and target.pound_state != target.Pound.SPIN):
 			sound.play()
 			target.locked = true # Affects mario's whole input process
 			#target.position = Vector2(position.x, position.y - 30)
-			target.position = Vector2(lerp(target.position.x, position.x, 0.75), position.y - 30)
+			target.position = Vector2(
+				lerp(target.position.x, position.x, CENTERING_SPEED_FAST),
+				position.y - PIPE_HEIGHT)
 			
-			# Warping will be disabled, then increment will start as mario slides down
+			# Warping will be disabled, then timer will start as mario slides down
 			can_warp = false
-			inc = true
 			slid = true
 	
-		store_state = target.state
+		store_state = target.state # for next frame
 	
-	# The "delay" itself
-	if inc:
-		i += 1
+	# Tick the slide timer
+	if slid:
+		slide_timer += 1
 		
-	if i == 60: # Mario then will be teleported as the "true" variables return to false
+	if slide_timer == SLIDE_LENGTH: # Mario then will be teleported as the "true" variables return to false
+		# Reset Mario to normal
 		target.get_node("Voice").volume_db = -5
-		sound.stop()
 		target.position = target_pos
 		target.locked = false
 		target.switch_state(target.S.NEUTRAL)
 		target.switch_anim("walk")
 		target.dive_correct(0)
-		i = 0
-		inc = false
+		
+		# Reset this pipe to ready
+		sound.stop()
+		slide_timer = 0
 		slid = false
 
 
