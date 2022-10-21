@@ -63,11 +63,13 @@ func _physics_process(_delta):
 	# Tick the slide timer
 	if slid:
 		slide_timer += 1
+	
+	# When the timer rings, warp Mario
+	if slide_timer == SLIDE_LENGTH:
+		target.position = target_pos
 		
-	if slide_timer == SLIDE_LENGTH: # Mario then will be teleported as the "true" variables return to false
 		# Reset Mario to normal
 		target.get_node("Voice").volume_db = -5
-		target.position = target_pos
 		target.locked = false
 		target.switch_state(target.S.NEUTRAL)
 		target.switch_anim("walk")
@@ -87,8 +89,9 @@ func _on_mario_top(body):
 
 
 func _on_mario_off(_body):
-		can_warp = false # Or else he won't
-		target = null
+		if !slid: # w/o this check, target will get nulled during the slide
+			can_warp = false # Or else he won't
+			target = null
 
 
 func set_disabled(val):
