@@ -89,9 +89,9 @@ func _on_mario_top(body):
 
 
 func _on_mario_off(_body):
-		if !slid: # w/o this check, target will get nulled during the slide
-			can_warp = false # Or else he won't
-			target = null
+	if !slid: # w/o this check, target will get nulled during the slide
+		can_warp = false # Or else he won't
+		target = null
 
 
 func set_disabled(val):
