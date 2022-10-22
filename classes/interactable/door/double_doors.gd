@@ -7,8 +7,8 @@ export var target_pos = Vector2.ZERO setget set_target_pos, get_target_pos
 export var move_to_scene = false setget set_move_to_scene, get_move_to_scene
 export var scene_path : String setget set_scene_path, get_scene_path
 
-onready var door_l : Door
-onready var door_r : Door
+onready var door_l : Door = $Door_L
+onready var door_r : Door = $Door_R
 
 
 func set_target_pos(val):
@@ -36,6 +36,7 @@ func set_scene_path(val):
 
 
 func get_target_pos():
+	door_l = $Door_L
 	return door_l.target_pos + SINGLE_DOOR_OFFSET
 
 
