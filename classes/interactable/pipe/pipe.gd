@@ -69,26 +69,27 @@ func _physics_process(_delta):
 	# Tick the slide timer
 	if slid:
 		slide_timer += 1
-	
-	# When the timer rings, warp Mario
-	if slide_timer == SLIDE_LENGTH:
-		if move_to_scene:
+		
+	# Begin scene-change transition early if needed (looks better that way)
+	if slide_timer == SLIDE_LENGTH - TRANSITION_SPEED_IN and move_to_scene:
 			sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
-		else:
-			# Teleport Mario someplace within the level
-			target.position = target_pos
-				
-			# Reset Mario to normal
-			target.get_node("Voice").volume_db = -5
-			target.locked = false
-			target.switch_state(target.S.NEUTRAL)
-			target.switch_anim("walk")
-			target.dive_correct(0)
+	
+	# If not changing scenes, warp Mario on timer ring
+	if slide_timer == SLIDE_LENGTH and move_to_scene != true:
+		# Teleport Mario someplace within the level
+		target.position = target_pos
 			
-			# Reset this pipe to ready
-			sound.stop()
-			slide_timer = 0
-			slid = false
+		# Reset Mario to normal
+		target.get_node("Voice").volume_db = -5
+		target.locked = false
+		target.switch_state(target.S.NEUTRAL)
+		target.switch_anim("walk")
+		target.dive_correct(0)
+		
+		# Reset this pipe to ready
+		sound.stop()
+		slide_timer = 0
+		slid = false
 
 
 func _on_mario_top(body):
