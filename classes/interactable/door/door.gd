@@ -21,7 +21,7 @@ onready var sweep_effect = $"/root/Singleton/WindowWarp"
 
 func _physics_process(_delta):
 	if entering:
-		target.position.x = lerp(target.position.x, position.x, CENTERING_SPEED)
+		target.position.x = lerp(target.position.x, global_position.x, CENTERING_SPEED)
 		# Do entering animation
 		pass
 	
