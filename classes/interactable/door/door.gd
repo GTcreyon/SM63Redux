@@ -28,6 +28,7 @@ func _physics_process(_delta):
 	if can_warp:
 		# Begin entering door if up is pressed (while grounded + standing still)
 		if Input.is_action_pressed("up") and store_state == target.S.NEUTRAL and target.is_on_floor():
+			# Set Mario to entering-door animation
 			target.locked = true
 			
 			$DoorSprite.play("opening")
@@ -40,20 +41,21 @@ func _physics_process(_delta):
 	if entering == true:
 		timer += 1
 		
-	# When the timer rings, warp Mario
-	if timer == ENTER_LENGTH:
-		if move_to_scene == true:
-			sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
-		else:
-			# teleport Mario within the level
-			target.position = target_pos
-			
-			# reset Mario to normal
-			target.locked = false
-			
-			# Reset door to normal
-			timer = 0
-			entering = false
+	# Begin scene-change transition early if needed (looks better that way)
+	if timer == ENTER_LENGTH - TRANSITION_SPEED_IN and move_to_scene == true:
+		sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
+		
+	# If not changing scenes, warp Mario on timer ring
+	if timer == ENTER_LENGTH and move_to_scene != true:
+		# teleport Mario within the level
+		target.position = target_pos
+		
+		# reset Mario to normal
+		target.locked = false
+		
+		# Reset door to normal
+		timer = 0
+		entering = false
 
 
 func _on_mario_touch(body):
