@@ -25,11 +25,11 @@ func _physics_process(_delta):
 	if slid:
 		# Slide Mario down into the pipe
 		if target.state == 7:
-			target.position.y = position.y
-			target.position.x = lerp(target.position.x, position.x, CENTERING_SPEED_FAST)
+			target.position.y = global_position.y
+			target.position.x = lerp(target.position.x, global_position.x, CENTERING_SPEED_FAST)
 		else:
-			target.position.x = lerp(target.position.x, position.x, CENTERING_SPEED_SLOW)
-			if target.position.y < position.y:
+			target.position.x = lerp(target.position.x, global_position.x, CENTERING_SPEED_SLOW)
+			if target.position.y < global_position.y:
 				target.position.y += SLIDE_SPEED
 	
 	if can_warp:
@@ -42,8 +42,8 @@ func _physics_process(_delta):
 			sound.play()
 			target.locked = true # Affects mario's whole input process
 			target.position = Vector2(
-				lerp(target.position.x, position.x, CENTERING_SPEED_SLOW),
-				position.y - PIPE_HEIGHT)
+				lerp(target.position.x, global_position.x, CENTERING_SPEED_SLOW),
+				global_position.y - PIPE_HEIGHT)
 			
 			# Warping will be disabled, then increment will start as mario slides down
 			can_warp = false
@@ -52,10 +52,10 @@ func _physics_process(_delta):
 		elif (target.state == target.S.POUND and target.pound_state != target.Pound.SPIN):
 			sound.play()
 			target.locked = true # Affects mario's whole input process
-			#target.position = Vector2(position.x, position.y - 30)
+			#target.position = Vector2(global_position.x, global_position.y - 30)
 			target.position = Vector2(
-				lerp(target.position.x, position.x, CENTERING_SPEED_FAST),
-				position.y - PIPE_HEIGHT)
+				lerp(target.position.x, global_position.x, CENTERING_SPEED_FAST),
+				global_position.y - PIPE_HEIGHT)
 			
 			# Warping will be disabled, then timer will start as mario slides down
 			can_warp = false
