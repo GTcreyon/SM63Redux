@@ -11,8 +11,6 @@ const TRANSITION_SPEED_OUT = 15
 
 export var disabled = false setget set_disabled
 export var target_pos = Vector2.ZERO
-export var move_to_scene = false
-export var scene_path : String
 
 var can_warp = false # this variable is changed when mario enters the pipe's small area2D
 var slid = false # this is true while Mario is sliding into the pipe
@@ -20,7 +18,6 @@ var slide_timer = 0 # This counts up while Mario slides until he reaches the end
 var store_state = 0
 var target = null
 
-onready var sweep_effect = $"/root/Singleton/WindowWarp"
 onready var sound = $SFX # for sound effect
 onready var ride_area = $Area2D
 
@@ -69,13 +66,9 @@ func _physics_process(_delta):
 	# Tick the slide timer
 	if slid:
 		slide_timer += 1
-		
-	# Begin scene-change transition early if needed (looks better that way)
-	if slide_timer == SLIDE_LENGTH - TRANSITION_SPEED_IN and move_to_scene:
-			sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
 	
 	# If not changing scenes, warp Mario on timer ring
-	if slide_timer == SLIDE_LENGTH and move_to_scene != true:
+	if slide_timer == SLIDE_LENGTH:
 		# Teleport Mario someplace within the level
 		target.position = target_pos
 			
