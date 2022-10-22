@@ -30,14 +30,15 @@ input_pickable = false
 monitorable = false
 script = ExtResource( 7 )
 sprite = NodePath("DoorSprite")
+target_pos = null
+move_to_scene = null
 
 [node name="DoorSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "opening"
-frame = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
 
-[connection signal="body_entered" from="." to="." method="_on_Door_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_Door_body_exited"]
+[connection signal="body_entered" from="." to="." method="_on_mario_touch"]
+[connection signal="body_exited" from="." to="." method="_on_mario_off"]
