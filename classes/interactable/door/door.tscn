@@ -34,10 +34,12 @@ move_to_scene = null
 scene_path = null
 
 [node name="DoorSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -16 )
 frames = SubResource( 1 )
 animation = "opening"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -16 )
 shape = SubResource( 2 )
 
 [connection signal="body_entered" from="." to="." method="_on_mario_touch"]
