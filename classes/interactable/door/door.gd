@@ -25,7 +25,7 @@ func _physics_process(_delta):
 		# Do entering animation
 		pass
 	
-	if can_warp:
+	if can_warp and target.locked == false:
 		# Begin entering door if up is pressed (while grounded + standing still)
 		if Input.is_action_pressed("up") and store_state == target.S.NEUTRAL and target.is_on_floor():
 			# Set Mario to entering-door animation
