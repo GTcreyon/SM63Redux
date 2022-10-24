@@ -30,6 +30,7 @@ func _physics_process(_delta):
 		if Input.is_action_pressed("up") and store_state == target.S.NEUTRAL and target.is_on_floor():
 			# Set Mario to entering-door animation
 			target.locked = true
+			target.get_node("Character").set_animation("back")
 			
 			$DoorSprite.play("opening")
 			can_warp = false
