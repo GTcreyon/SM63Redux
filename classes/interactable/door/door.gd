@@ -60,7 +60,6 @@ func _physics_process(_delta):
 
 
 func _on_mario_touch(body):
-	print_debug("Touched door")
 	if body.state == body.S.NEUTRAL:
 		can_warp = true
 		target = body
@@ -68,6 +67,5 @@ func _on_mario_touch(body):
 
 func _on_mario_off(_body):
 	if !entering: # w/o this check, target will get nulled when animation ends
-		print_debug("left door")
 		can_warp = false # Or else he won't
 		target = null
