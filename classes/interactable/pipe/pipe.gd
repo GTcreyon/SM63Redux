@@ -40,7 +40,7 @@ func _physics_process(_delta):
 		if Input.is_action_pressed("down") and store_state == target.S.NEUTRAL and target.is_on_floor():
 			target.get_node("Voice").volume_db = -INF # Dumb solution to mario making dive sounds
 			target.get_node("Character").set_animation("front")
-			target.dive_correct(0)
+			target.get_node("Character").rotation = 0
 			
 			sound.play()
 			target.locked = true # Affects mario's whole input process
