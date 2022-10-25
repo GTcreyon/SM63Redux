@@ -33,7 +33,8 @@ var num_items : int  # Modulo for cycle_step.
 var show_options = false
 
 
-func _clamp_cycle_step():
+func _cycle_increment(cycle_direction: int) -> void:
+	cycle_step += cycle_direction
 	cycle_step = posmod(cycle_step, num_items)
 
 
@@ -82,14 +83,14 @@ func _process(delta):
 			center_pos_idx = 2
 			
 			var items = [[story, selector_story], [settings, selector_settings], [extra, selector_extra], [ld, selector_ld]]
-			# Be sure to initialize num_items before step() -> _clamp_cycle_step() reads it.
+			# Be sure to initialize num_items before _cycle_through() -> _clamp_cycle_step() reads it.
 			num_items = items.size()
 			
 			if Input.is_action_just_pressed("left"):
-				step(-1)
+				_cycle_through(-1)
 			
 			if Input.is_action_just_pressed("right"):
-				step(1)
+				_cycle_through(1)
 			
 			var item_progress = sin(cycle_progress * PI/2)
 			
@@ -114,8 +115,7 @@ func _process(delta):
 			if cycle_direction != 0:
 				cycle_progress += 1 / 12.0 * dmod
 				if abs(cycle_progress) >= 1:
-					cycle_step += cycle_direction
-					_clamp_cycle_step()
+					_cycle_increment(cycle_direction)
 					cycle_progress = 0
 					cycle_direction = 0
 			
@@ -177,7 +177,7 @@ func menu_to_scene(scene: String) -> void:
 		Singleton.controls.visible = true
 
 
-func step(direction):
+func _cycle_through(direction):
 	Singleton.get_node("SFX/Next").play()	
 	
 	# Pressing the left arrow key (direction = -1) scrolls the menu rightward
@@ -200,13 +200,11 @@ func step(direction):
 	
 	# If currently scrolling through menu, finish previous scroll operation.
 	if cycle_direction == direction:
-		cycle_step += direction
 		cycle_progress = 0
 	elif cycle_direction == -direction:
-		cycle_step -= direction
 		cycle_progress = 2 * asin(1 - sin(cycle_progress*(PI/2)))/PI
-	_clamp_cycle_step()
 	
+	_cycle_increment(cycle_direction)
 	cycle_direction = direction
 
 
@@ -256,9 +254,9 @@ func touch_cycle(step):
 			press_button(step)
 		else:
 			if posmod(cycle_step + 1, 4) == step:
-				step(-1)
+				_cycle_through(-1)
 			else:
-				step(1)
+				_cycle_through(1)
 
 
 func _on_BackButton_pressed():
