@@ -38,7 +38,7 @@ func _cycle_increment(cycle_direction: int) -> void:
 	cycle_step = posmod(cycle_step, num_items)
 
 
-func _item_position(idx_frac : float, offset):
+func _item_position(idx_frac: float, offset: Vector2) -> Vector2:
 	idx_frac = clamp(idx_frac, 0, visible_positions.size() - 1)
 	
 	var idx = int(idx_frac)
@@ -57,10 +57,10 @@ func _item_position(idx_frac : float, offset):
 	return interp
 
 
-func _process(delta):
+func _process(delta: float) -> void:
 	var dmod = 60 * delta
 	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	manage_sizes(scale)
+	_manage_sizes(scale)
 	if visible:
 		options_menu.visible = show_options
 		if show_options:
@@ -138,7 +138,7 @@ func _process(delta):
 				)
 				and modulate.a > 0
 			):
-				press_button(posmod(cycle_step + cycle_direction, 4))
+				_press_button(posmod(cycle_step + cycle_direction, 4))
 			
 			if Input.is_action_just_pressed("ui_cancel"):
 				visible = false
@@ -157,19 +157,19 @@ func _process(delta):
 		modulate.a = 0
 
 
-func press_button(button):
+func _press_button(button: int) -> void:
 	if !get_parent().dampen:
 		match button:
 			0:
-				menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
+				_menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
 			1:
-				menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
+				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			3:
 				Singleton.get_node("SFX/Confirm").play()
 				show_options = true
 
 
-func menu_to_scene(scene: String) -> void:
+func _menu_to_scene(scene: String) -> void:
 	get_parent().dampen = true
 	Singleton.get_node("WindowWarp").warp(Vector2(110, 153), scene)
 	Singleton.get_node("SFX/Start").play()
@@ -177,8 +177,8 @@ func menu_to_scene(scene: String) -> void:
 		Singleton.controls.visible = true
 
 
-func _cycle_through(direction):
-	Singleton.get_node("SFX/Next").play()	
+func _cycle_through(direction: int) -> void:
+	Singleton.get_node("SFX/Next").play()
 	
 	# Pressing the left arrow key (direction = -1) scrolls the menu rightward
 	# (cycle_direction = 1) and queues an increase to cycle_step modulo num_items.
@@ -208,7 +208,7 @@ func _cycle_through(direction):
 	cycle_direction = direction
 
 
-func manage_sizes(scale):
+func _manage_sizes(scale) -> void:
 	story.scale = Vector2.ONE * scale
 	settings.scale = Vector2.ONE * scale
 	extra.scale = Vector2.ONE * scale
@@ -232,26 +232,10 @@ func manage_sizes(scale):
 	back_button.rect_pivot_offset.x = back_button.rect_size.x
 
 
-func _on_LDButton_pressed():
-	touch_cycle(1)
-
-
-func _on_ExtrasButton_pressed():
-	touch_cycle(2)
-
-
-func _on_SettingsButton_pressed():
-	touch_cycle(3)
-
-
-func _on_StoryButton_pressed():
-	touch_cycle(0)
-
-
-func touch_cycle(step):
+func _touch_cycle(step) -> void:
 	if !show_options:
 		if step == posmod(cycle_step, 4):
-			press_button(step)
+			_press_button(step)
 		else:
 			if posmod(cycle_step + 1, 4) == step:
 				_cycle_through(-1)
@@ -259,6 +243,22 @@ func touch_cycle(step):
 				_cycle_through(1)
 
 
-func _on_BackButton_pressed():
+func _on_LDButton_pressed() -> void:
+	_touch_cycle(1)
+
+
+func _on_ExtrasButton_pressed() -> void:
+	_touch_cycle(2)
+
+
+func _on_SettingsButton_pressed() -> void:
+	_touch_cycle(3)
+
+
+func _on_StoryButton_pressed() -> void:
+	_touch_cycle(0)
+
+
+func _on_BackButton_pressed() -> void:
 	Singleton.get_node("SFX/Back").play()
 	show_options = false
