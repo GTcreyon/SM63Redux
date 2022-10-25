@@ -20,7 +20,7 @@ onready var force_touch_label = $TouchLabel
 onready var options_menu = $OptionsControl
 onready var back_button = $OptionsControl/BackButton
 
-# Only based off window size.
+# Only based on window size.
 var visible_positions : Array#[Vector2]
 var center_pos_idx : int
 
@@ -36,8 +36,8 @@ var show_options = false
 func _clamp_cycle_step():
 	cycle_step = posmod(cycle_step, num_items)
 
+
 func _item_position(idx_frac : float, offset):
-	#idx_frac += center_pos_idx
 	idx_frac = clamp(idx_frac, 0, visible_positions.size() - 1)
 	
 	var idx = int(idx_frac)
@@ -131,9 +131,15 @@ func _process(delta):
 				desc.visible = i == posmod(cycle_step + cycle_direction, 4)
 				i += 1
 			
-			if (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact")) and modulate.a > 0:
+			if (
+				(
+					Input.is_action_just_pressed("ui_accept")
+					or Input.is_action_just_pressed("interact")
+				)
+				and modulate.a > 0
+			):
 				press_button(posmod(cycle_step + cycle_direction, 4))
-						
+			
 			if Input.is_action_just_pressed("ui_cancel"):
 				visible = false
 				Singleton.get_node("SFX/Back").play()
@@ -189,8 +195,7 @@ func step(direction):
 	#
 	# touch_cycle() compares (cycle_step) to larger indexes for leftwards buttons,
 	# matching _process#arr.
-	#
-	# Why.
+	
 	direction = -direction
 	
 	# If currently scrolling through menu, finish previous scroll operation.
