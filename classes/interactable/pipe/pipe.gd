@@ -5,8 +5,7 @@ const SLIDE_SPEED = 0.7
 const SLIDE_LENGTH = 60
 const CENTERING_SPEED_SLOW = 0.25
 const CENTERING_SPEED_FAST = 0.75
-
-const TRANSITION_SPEED_IN = 15
+const TRANSITION_SPEED_IN = 25
 const TRANSITION_SPEED_OUT = 15
 
 export var disabled = false setget set_disabled
@@ -14,8 +13,8 @@ export var target_pos = Vector2.ZERO
 export var move_to_scene = false
 export var scene_path : String
 
-var can_warp = false # this variable is changed when mario enters the pipe's small area2D
-var slid = false # this is true while Mario is sliding into the pipe
+var can_warp = false # This variable is changed when mario enters the pipe's small area2D
+var slid = false # This is true while Mario is sliding into the pipe
 var slide_timer = 0 # This counts up while Mario slides until he reaches the end
 var store_state = 0
 var target = null
@@ -52,7 +51,7 @@ func _physics_process(_delta):
 			can_warp = false
 			slid = true
 		# Begin entering pipe if ground pounding
-		elif (target.state == target.S.POUND and target.pound_state != target.Pound.SPIN):
+		elif target.state == target.S.POUND and target.pound_state != target.Pound.SPIN:
 			sound.play()
 			target.locked = true # Affects mario's whole input process
 			#target.position = Vector2(global_position.x, global_position.y - 30)
@@ -72,7 +71,7 @@ func _physics_process(_delta):
 		
 	# Begin scene-change transition early if needed (looks better that way)
 	if slide_timer == SLIDE_LENGTH - TRANSITION_SPEED_IN and move_to_scene:
-			sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
+		sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
 	
 	# If not changing scenes, warp Mario on timer ring
 	if slide_timer == SLIDE_LENGTH and move_to_scene != true:
@@ -100,8 +99,8 @@ func _on_mario_top(body):
 
 
 func _on_mario_off(_body):
-	if !slid: # w/o this check, target will get nulled during the slide
-		can_warp = false # Or else he won't
+	if !slid: # Without this check, target will get nulled during the slide
+		can_warp = false
 		target = null
 
 
