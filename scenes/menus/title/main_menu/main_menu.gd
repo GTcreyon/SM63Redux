@@ -20,17 +20,47 @@ onready var force_touch_label = $TouchLabel
 onready var options_menu = $OptionsControl
 onready var back_button = $OptionsControl/BackButton
 
-var cycle_progress = 0
-var cycle_direction = 0
-var cycle_positions
-var cycle_step = 0
+# Only based on window size.
+var visible_positions : Array#[Vector2]
+var center_pos_idx : int
+
+# Changes when the menu scrolls.
+var cycle_progress : float = 0  # Between 0 and 1
+var cycle_direction : int = 0  # 0 when not scrolling, 1 or -1 when scrolling.
+var cycle_step : int = 0  # Current menu position, increases when scrolling left, updated at scroll *end*.
+var num_items : int  # Modulo for cycle_step.
+
 var show_options = false
 
 
-func _process(delta):
+func _cycle_increment(cycle_direction: int) -> void:
+	cycle_step += cycle_direction
+	cycle_step = posmod(cycle_step, num_items)
+
+
+func _item_position(idx_frac: float, offset: Vector2) -> Vector2:
+	idx_frac = clamp(idx_frac, 0, visible_positions.size() - 1)
+	
+	var idx = int(idx_frac)
+	if idx + 1 >= visible_positions.size():
+		return visible_positions[-1]
+	
+	var a = visible_positions[idx]
+	var b = visible_positions[idx + 1]
+	var interp = lerp(a, b, idx_frac - idx)
+	interp = interp.round()
+	
+	assert(offset.round() == offset)
+	
+	interp += offset
+	assert(interp.round() == interp)
+	return interp
+
+
+func _process(delta: float) -> void:
 	var dmod = 60 * delta
 	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	manage_sizes(scale)
+	_manage_sizes(scale)
 	if visible:
 		options_menu.visible = show_options
 		if show_options:
@@ -43,50 +73,49 @@ func _process(delta):
 			options_menu.modulate.a = max(options_menu.modulate.a - 0.125 * dmod, 0)
 			
 			
-			cycle_positions = [
-				Vector2(OS.window_size.x / 2, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(OS.window_size.x / 2, OS.window_size.y + 100 * scale), # Offscreen
+			visible_positions = [
+				Vector2(-0.5 * OS.window_size.x, OS.window_size.y),
 				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
+				Vector2(0.5 * OS.window_size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
+				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),				
+				Vector2(1.5 * OS.window_size.x, OS.window_size.y),
 				]
+			center_pos_idx = 2
 			
-			
+			var items = [[story, selector_story], [settings, selector_settings], [extra, selector_extra], [ld, selector_ld]]
+			# Be sure to initialize num_items before _cycle_through() -> _clamp_cycle_step() reads it.
+			num_items = items.size()
 			
 			if Input.is_action_just_pressed("left"):
-				step(-1)
+				_cycle_through(-1)
 			
 			if Input.is_action_just_pressed("right"):
-				step(1)
+				_cycle_through(1)
 			
-			var result = sin(cycle_progress * PI/2)
-			var offset = Vector2.DOWN * 45 * scale
-			selector_story.position = lerp(cycle_positions[cycle_step % 4] + offset, cycle_positions[(cycle_step + cycle_direction) % 4] + offset, cycle_progress)
-			selector_settings.position = lerp(cycle_positions[(cycle_step + 1) % 4] + offset, cycle_positions[(cycle_step + 1 + cycle_direction) % 4] + offset, cycle_progress)
-			selector_extra.position = lerp(cycle_positions[(cycle_step + 2) % 4] + offset, cycle_positions[(cycle_step + 2 + cycle_direction) % 4] + offset, cycle_progress)
-			selector_ld.position = lerp(cycle_positions[(cycle_step + 3) % 4] + offset, cycle_positions[(cycle_step + 3 + cycle_direction) % 4] + offset, cycle_progress)
+			var item_progress = sin(cycle_progress * PI/2)
 			
-			story.position = lerp(cycle_positions[cycle_step % 4], cycle_positions[(cycle_step + cycle_direction) % 4], result)
-			settings.position = lerp(cycle_positions[(cycle_step + 1) % 4], cycle_positions[(cycle_step + 1 + cycle_direction) % 4], result)
-			extra.position = lerp(cycle_positions[(cycle_step + 2) % 4], cycle_positions[(cycle_step + 2 + cycle_direction) % 4], result)
-			ld.position = lerp(cycle_positions[(cycle_step + 3) % 4], cycle_positions[(cycle_step + 3 + cycle_direction) % 4], result)
+			# Items move ahead of arrows.
+			var item_scroll : float = center_pos_idx + cycle_step + (cycle_direction * item_progress)
 			
-			if cycle_direction != 0:
-				var arr = [[story, selector_story], [settings, selector_settings], [extra, selector_extra], [ld, selector_ld]]
-				var outside = arr[(cycle_direction - cycle_step) % 4]
-				outside[0].position.x = lerp(cycle_positions[(2 - cycle_direction) % 4].x, OS.window_size.x / 2 + cycle_direction * OS.window_size.x, result)
-				outside[0].position.y = lerp(cycle_positions[(2 - cycle_direction) % 4].y, OS.window_size.y, result)
-				outside[1].position.x = lerp(cycle_positions[(2 - cycle_direction) % 4].x, OS.window_size.x / 2 + cycle_direction * OS.window_size.x, cycle_progress)
-				outside[1].position.y = lerp(cycle_positions[(2 - cycle_direction) % 4].y, OS.window_size.y, cycle_progress)
-				var inside = arr[(2 * cycle_direction - cycle_step) % 4]
-				inside[0].position.x = lerp(OS.window_size.x / 2 - cycle_direction * OS.window_size.x, cycle_positions[(2 + cycle_direction) % 4].x, result)
-				inside[0].position.y = lerp(OS.window_size.y, cycle_positions[(2 + cycle_direction) % 4].y, result)
-				inside[1].position.x = lerp(OS.window_size.x / 2 - cycle_direction * OS.window_size.x, cycle_positions[(2 + cycle_direction) % 4].x, cycle_progress)
-				inside[1].position.y = lerp(OS.window_size.y, cycle_positions[(2 + cycle_direction) % 4].y, cycle_progress)
+			# Arrows move linearly.
+			var arrow_scroll : float = center_pos_idx + cycle_step + (cycle_direction * cycle_progress)
+			
+			# Has integer coordinates because scale is an integer.
+			# Don't need to round before passing into _item_position.
+			var arrow_offset = Vector2.DOWN * 45 * scale
+			
+			for idx in num_items:
+				var item_arrow = items[idx]
+				var item = item_arrow[0]
+				var arrow = item_arrow[1]
+				
+				item.position = _item_position(fposmod(item_scroll + idx, num_items), Vector2.ZERO)
+				arrow.position = _item_position(fposmod(arrow_scroll + idx, num_items), arrow_offset)
 			
 			if cycle_direction != 0:
 				cycle_progress += 1 / 12.0 * dmod
 				if abs(cycle_progress) >= 1:
-					cycle_step += cycle_direction
+					_cycle_increment(cycle_direction)
 					cycle_progress = 0
 					cycle_direction = 0
 			
@@ -102,9 +131,15 @@ func _process(delta):
 				desc.visible = i == posmod(cycle_step + cycle_direction, 4)
 				i += 1
 			
-			if (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact")) and modulate.a > 0:
-				press_button(posmod(cycle_step + cycle_direction, 4))
-						
+			if (
+				(
+					Input.is_action_just_pressed("ui_accept")
+					or Input.is_action_just_pressed("interact")
+				)
+				and modulate.a > 0
+			):
+				_press_button(posmod(cycle_step + cycle_direction, 4))
+			
 			if Input.is_action_just_pressed("ui_cancel"):
 				visible = false
 				Singleton.get_node("SFX/Back").play()
@@ -122,19 +157,19 @@ func _process(delta):
 		modulate.a = 0
 
 
-func press_button(button):
+func _press_button(button: int) -> void:
 	if !get_parent().dampen:
 		match button:
 			0:
-				menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
+				_menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
 			1:
-				menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
+				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			3:
 				Singleton.get_node("SFX/Confirm").play()
 				show_options = true
 
 
-func menu_to_scene(scene: String) -> void:
+func _menu_to_scene(scene: String) -> void:
 	get_parent().dampen = true
 	Singleton.get_node("WindowWarp").warp(Vector2(110, 153), scene)
 	Singleton.get_node("SFX/Start").play()
@@ -142,19 +177,38 @@ func menu_to_scene(scene: String) -> void:
 		Singleton.controls.visible = true
 
 
-func step(direction):
-	Singleton.get_node("SFX/Next").play()	
-	if cycle_direction == -1 * direction:
-		cycle_step -= 1 * direction
+func _cycle_through(direction: int) -> void:
+	Singleton.get_node("SFX/Next").play()
+	
+	# Pressing the left arrow key (direction = -1) scrolls the menu rightward
+	# (cycle_direction = 1) and queues an increase to cycle_step modulo num_items.
+	#
+	# Scrolling right (increasing cycle_step) centers an item previously on the left.
+	#
+	# In the list of *drawn* menu items (_process#items), later indexes are drawn to the right,
+	# so scrolling right (centering a leftwards item) centers a lower-numbered item
+	# modulo num_items.
+	#
+	# In the list of *selectable* menu items (_process#arr), later indexes are drawn to the left,
+	# so scrolling right (centering a leftwards item) marks a higher-numbered item as selected by Z.
+	# The code uses (cycle_step + cycle_direction) directly as an index.
+	#
+	# touch_cycle() compares (cycle_step) to larger indexes for leftwards buttons,
+	# matching _process#arr.
+	
+	direction = -direction
+	
+	# If currently scrolling through menu, finish previous scroll operation.
+	if cycle_direction == direction:
 		cycle_progress = 0
-	elif cycle_direction == 1 * direction:
-		cycle_step += 1 * direction
+	elif cycle_direction == -direction:
 		cycle_progress = 2 * asin(1 - sin(cycle_progress*(PI/2)))/PI
-		
-	cycle_direction = -1 * direction
+	
+	_cycle_increment(cycle_direction)
+	cycle_direction = direction
 
 
-func manage_sizes(scale):
+func _manage_sizes(scale) -> void:
 	story.scale = Vector2.ONE * scale
 	settings.scale = Vector2.ONE * scale
 	extra.scale = Vector2.ONE * scale
@@ -178,33 +232,33 @@ func manage_sizes(scale):
 	back_button.rect_pivot_offset.x = back_button.rect_size.x
 
 
-func _on_LDButton_pressed():
-	touch_cycle(1)
-
-
-func _on_ExtrasButton_pressed():
-	touch_cycle(2)
-
-
-func _on_SettingsButton_pressed():
-	touch_cycle(3)
-
-
-func _on_StoryButton_pressed():
-	touch_cycle(0)
-
-
-func touch_cycle(step):
+func _touch_cycle(step) -> void:
 	if !show_options:
 		if step == posmod(cycle_step, 4):
-			press_button(step)
+			_press_button(step)
 		else:
 			if posmod(cycle_step + 1, 4) == step:
-				step(-1)
+				_cycle_through(-1)
 			else:
-				step(1)
+				_cycle_through(1)
 
 
-func _on_BackButton_pressed():
+func _on_LDButton_pressed() -> void:
+	_touch_cycle(1)
+
+
+func _on_ExtrasButton_pressed() -> void:
+	_touch_cycle(2)
+
+
+func _on_SettingsButton_pressed() -> void:
+	_touch_cycle(3)
+
+
+func _on_StoryButton_pressed() -> void:
+	_touch_cycle(0)
+
+
+func _on_BackButton_pressed() -> void:
 	Singleton.get_node("SFX/Back").play()
 	show_options = false
