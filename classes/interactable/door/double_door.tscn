@@ -26,7 +26,6 @@ animations = [ {
 extents = Vector2( 9.5, 15.9999 )
 
 [node name="Double Door" type="Node2D"]
-position = Vector2( 624, 392 )
 script = ExtResource( 2 )
 
 [node name="Door_L" type="Area2D" parent="."]
@@ -38,11 +37,11 @@ script = ExtResource( 8 )
 target_pos = Vector2( -8, 0 )
 
 [node name="DoorSprite" type="AnimatedSprite" parent="Door_L"]
-position = Vector2( -8, -32 )
+position = Vector2( 8, -32 )
+scale = Vector2( -1, 1 )
 frames = SubResource( 1 )
 animation = "opening"
 centered = false
-flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Door_L"]
 position = Vector2( -1.5, -16 )
