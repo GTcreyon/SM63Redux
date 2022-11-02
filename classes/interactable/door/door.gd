@@ -4,7 +4,7 @@ extends Area2D
 const ENTER_LENGTH = 60
 const CENTERING_SPEED = 0.25
 
-const TRANSITION_SPEED_IN = 15
+const TRANSITION_SPEED_IN = 25
 const TRANSITION_SPEED_OUT = 15
 
 export var sprite : SpriteFrames
