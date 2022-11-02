@@ -7,6 +7,7 @@ const CENTERING_SPEED = 0.25
 const TRANSITION_SPEED_IN = 15
 const TRANSITION_SPEED_OUT = 15
 
+export var sprite : SpriteFrames
 export var target_pos = Vector2.ZERO
 export var move_to_scene = false
 export var scene_path : String
@@ -18,6 +19,9 @@ var target = null
 var store_state = 0
 
 onready var sweep_effect = $"/root/Singleton/WindowWarp"
+
+func _ready():
+	$DoorSprite.frames = sprite
 
 func _physics_process(_delta):
 	if entering:

@@ -1,0 +1,22 @@
+[gd_resource type="SpriteFrames" load_steps=7 format=2]
+
+[ext_resource path="res://classes/interactable/door/door3.png" type="Texture" id=1]
+[ext_resource path="res://classes/interactable/door/door4.png" type="Texture" id=2]
+[ext_resource path="res://classes/interactable/door/door5.png" type="Texture" id=3]
+[ext_resource path="res://classes/interactable/door/door1.png" type="Texture" id=4]
+[ext_resource path="res://classes/interactable/door/door2.png" type="Texture" id=5]
+[ext_resource path="res://classes/interactable/door/door6.png" type="Texture" id=6]
+
+[resource]
+resource_name = "Castle Door Diamond"
+animations = [ {
+"frames": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "closing",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "opening",
+"speed": 10.0
+} ]
