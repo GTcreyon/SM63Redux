@@ -14,6 +14,7 @@ script = ExtResource( 7 )
 
 [node name="DoorSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -8, -32 )
+z_index = -1
 frames = ExtResource( 1 )
 animation = "opening"
 centered = false

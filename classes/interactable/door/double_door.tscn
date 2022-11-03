@@ -22,6 +22,7 @@ target_pos = Vector2( -8, 0 )
 [node name="DoorSprite" type="AnimatedSprite" parent="Door_L"]
 position = Vector2( 8, -32 )
 scale = Vector2( -1, 1 )
+z_index = -1
 frames = ExtResource( 1 )
 animation = "opening"
 centered = false
@@ -40,6 +41,7 @@ target_pos = Vector2( 8, 0 )
 
 [node name="DoorSprite" type="AnimatedSprite" parent="Door_R"]
 position = Vector2( -8, -32 )
+z_index = -1
 frames = ExtResource( 1 )
 animation = "opening"
 centered = false
