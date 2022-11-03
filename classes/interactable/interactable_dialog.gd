@@ -9,7 +9,7 @@ onready var dialog = $"/root/Main/Player/Camera/GUI/DialogBox"
 
 
 func _interact_with(body):
-	body.sign_x = global_position.x + x_offset * sign(body.position.x - global_position.x)
+	body.sign_x = global_position.x + x_offset * sign(body.global_position.x - global_position.x)
 	body.vel = Vector2.ZERO
 	body.locked = true
 	body.sign_frames = 1
