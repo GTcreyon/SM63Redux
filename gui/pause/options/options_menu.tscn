@@ -100,17 +100,12 @@ margin_right = 624.0
 margin_bottom = 156.0
 
 [node name="TouchMenu" parent="List" instance=ExtResource( 9 )]
+visible = false
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 160.0
 margin_right = 624.0
 margin_bottom = 160.0
-
-[node name="Button" type="TextureButton" parent="."]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -22.0
 
 [connection signal="gui_input" from="." to="." method="_on_OptionsMenu_gui_input"]
 [connection signal="item_selected" from="List/LocaleSelect" to="List/LocaleSelect" method="_on_Locale_item_selected"]

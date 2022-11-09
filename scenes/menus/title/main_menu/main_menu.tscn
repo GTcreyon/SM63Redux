@@ -98,11 +98,11 @@ region = Rect2( 2, 24, 122, 24 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 105, 20, 21 )
+region = Rect2( 0, 62.8111, 20, 21.1889 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
-region = Rect2( 20, 105, 20, 21 )
+region = Rect2( 20, 63, 20, 21 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0

@@ -46,7 +46,6 @@ enum n { # FLUDD enum
 
 onready var console = $Console
 onready var timer = $Timer
-onready var controls = $TouchControls
 
 var classic = false
 

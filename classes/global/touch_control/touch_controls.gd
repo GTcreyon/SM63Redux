@@ -1,5 +1,6 @@
 extends CanvasLayer
 
+const BUTTON_DIMENSIONS = Vector2(20, 21)
 const ANCHOR_DIRECTION_OFFSETS = PoolVector2Array([Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)])
 const ANCHOR_PIVOT_OFFSETS = PoolVector2Array([Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)])
 const ANCHOR_REVERSE_OFFSETS = [false, true, false, true]
@@ -11,7 +12,7 @@ const LAYOUT_PRESETS = {
 	"classic": "z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/d:down,dive/r:right#u:up,jump/_@_/s:feedback",
 }
 
-var button_scale = 3
+var button_scale = _get_button_scale()
 var action_presses = {} # Record how many buttons are pressing each action
 
 onready var anchors = [$AnchorLeft, $AnchorRight, $AnchorLeftUp, $AnchorRightUp]
@@ -20,21 +21,41 @@ func _init():
 	visible = false
 
 
-func _ready():
-	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	#var button_scale = min(floor(OS.window_size.x / (120 * scale)), floor(OS.window_size.y / (42 * scale)))
-	$AnchorRight.rect_scale = Vector2.ONE * scale * button_scale
-	$AnchorLeft.rect_scale = Vector2.ONE * scale * button_scale
-	$AnchorLeftUp.rect_scale = Vector2.ONE * scale * button_scale
+func _ready() -> void:
 	select_layout("new")
-#	$AnchorLeftUp.margin_left = 80 * scale
 
 
-func _process(_delta):
+func _get_button_scale() -> int:
+	# We want at most half of the screen to be taken up by the touch buttons.
+	# We assume that the touch buttons are arranged in a 3x2 grid in each corner.
+	# We need the largest size that a single button should be, such that the layout fits this space.
+	#
+	# Take the individual size of one button. Multiply it by the number of buttons in a row/column.
+	# Multiply that by two, since there are two corners in each axis.
+	# Multiply it by the current GUI scale, to account for zoom.
+	# Take the full window size, and divide that by two.
+	# Divide *that* by the value we found earlier, and floor it. Do that for both X and Y.
+	# Take the smaller value of those two. We will use this as the default scale multiplier.
+	
+	var output = min(
+		floor(
+			(OS.window_size.x / 2) / (BUTTON_DIMENSIONS.x * 6 * scale.x)
+		),
+		floor(
+			(OS.window_size.y / 2) / (BUTTON_DIMENSIONS.y * 4 * scale.y)
+		)
+	)
+	return output
+
+
+func _process(_delta) -> void:
+	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)	
 	visible = Singleton.touch_control
+	for anchor in anchors:
+		anchor.rect_scale = Vector2.ONE * gui_scale * button_scale
 
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	if Singleton.touch_control:
 		for action in action_presses:
 			if action_presses[action] > 0:

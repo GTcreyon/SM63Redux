@@ -1,10 +1,28 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=3]
 [ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=4]
 [ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=5]
 [ext_resource path="res://gui/pause/options/layout_select.gd" type="Script" id=6]
+[ext_resource path="res://gui/pause/options/change_size.gd" type="Script" id=7]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 21, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 3 )
+region = Rect2( 20, 21, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 42, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 20, 42, 20, 21 )
 
 [node name="TouchMenu" type="Control"]
 anchor_right = 1.0
@@ -17,6 +35,12 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = -8.0
 margin_bottom = -8.0
+
+[node name="Label" type="Label" parent="Margin"]
+margin_right = 138.0
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 2 )
+text = "Touch control layout:"
 
 [node name="LayoutSelect" type="OptionButton" parent="Margin"]
 anchor_right = 1.0
@@ -31,10 +55,39 @@ custom_styles/focus = ExtResource( 5 )
 custom_styles/normal = ExtResource( 5 )
 script = ExtResource( 6 )
 
-[node name="Label" type="Label" parent="Margin"]
-margin_right = 40.0
-margin_bottom = 14.0
+[node name="ChangeSize" type="Label" parent="Margin"]
+anchor_right = 1.0
+margin_top = 55.0
+margin_bottom = 70.0
 custom_fonts/font = ExtResource( 2 )
-text = "Touch control layout:"
+text = "Change size:"
+align = 1
+script = ExtResource( 7 )
+
+[node name="SizeUp" type="TextureButton" parent="Margin/ChangeSize"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -62.0
+margin_top = 20.0
+margin_right = -42.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 20, 21 )
+rect_scale = Vector2( 3, 3 )
+texture_normal = SubResource( 1 )
+texture_pressed = SubResource( 2 )
+
+[node name="SizeDown" type="TextureButton" parent="Margin/ChangeSize"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 2.00003
+margin_top = 20.0
+margin_right = 22.0
+margin_bottom = 41.0
+rect_min_size = Vector2( 20, 21 )
+rect_scale = Vector2( 3, 3 )
+texture_normal = SubResource( 3 )
+texture_pressed = SubResource( 4 )
 
 [connection signal="item_selected" from="Margin/LayoutSelect" to="Margin/LayoutSelect" method="_on_LayoutSelect_item_selected"]
+[connection signal="pressed" from="Margin/ChangeSize/SizeUp" to="Margin/ChangeSize" method="_on_SizeUp_pressed"]
+[connection signal="pressed" from="Margin/ChangeSize/SizeDown" to="Margin/ChangeSize" method="_on_SizeDown_pressed"]
