@@ -74,9 +74,9 @@ func _on_Submit_pressed():
 		+ username
 		+ "\n--boundary\nContent-Disposition: form-data; name=\"files[0]\"; filename=\"data.txt\"\nContent-Type: text/plain\n\n"
 		+ data
-		+ "\n--boundary\nContent-Disposition: form-data; name=\"files[1]\"; filename=\"screenshot.png\"\nContent-Type: image/png\n\n").to_ascii()
+		+ "\n--boundary\nContent-Disposition: form-data; name=\"files[1]\"; filename=\"screenshot.png\"\nContent-Type: image/png\n\n").to_utf8()
 		payload.append_array(img)
-		payload.append_array("\n--boundary--".to_ascii())
+		payload.append_array("\n--boundary--".to_utf8())
 		#req.connect("request_completed", self, "_on_request_completed")
 		req.request_raw(
 			"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
