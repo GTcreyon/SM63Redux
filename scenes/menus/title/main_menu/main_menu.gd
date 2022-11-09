@@ -14,9 +14,6 @@ onready var icon = $Icon
 onready var border = $Border
 onready var description_box = $Border/DescriptionBox
 
-onready var touch_control = $TouchControl
-onready var touch_control_label = $TouchLabel
-
 onready var options_control = $OptionsControl
 onready var options_menu = $OptionsControl/OptionsMenu
 onready var back_button = $OptionsControl/BackButton
@@ -110,14 +107,6 @@ func _process(delta):
 			if Input.is_action_just_pressed("ui_cancel"):
 				visible = false
 				Singleton.get_node("SFX/Back").play()
-			
-			touch_control.rect_pivot_offset = Vector2(10, 20)
-			touch_control.rect_scale = scale * Vector2.ONE
-			touch_control.margin_top = -74 * scale
-			Singleton.touch_control = touch_control.pressed
-			
-			touch_control_label.rect_pivot_offset.x = OS.window_size.x / 2
-			touch_control_label.rect_scale = scale * Vector2.ONE
 			
 			modulate.a = min(modulate.a + 0.125 * dmod, 1)
 	else:

@@ -7,7 +7,7 @@ const BUTTON_PREFAB = preload("res://classes/global/touch_control/touch_button.t
 const LAYOUT_PRESETS = {
 	#"new": "u:jump,up/d:dive,down/z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/r:right@_/s:feedback",
 	"new": "u:jump,up/d:dive,down/z:pound,interact#c:fludd/x:spin,skip@l:left/r:right#s:switch_fludd/p:pause@_/s:feedback",
-	"kid": "s:switch_fludd,skip/z:pound,interact/d:down#p:pause@l:left/x:spin,skip/r:right/_#d:dive,left/u:jump,left/u:jump,up/u:jump,right/d:dive,right#c:fludd,left/c:fludd/c:fludd,right/_@_/s:feedback",
+	"one-finger": "s:switch_fludd,skip/z:pound,interact/d:down#p:pause@l:left/x:spin,skip/r:right/_#d:dive,left/u:jump,left/u:jump,up/u:jump,right/d:dive,right#c:fludd,left/c:fludd/c:fludd,right/_@_/s:feedback",
 	"classic": "z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/d:down,dive/r:right#u:up,jump/_@_/s:feedback",
 }
 
