@@ -44,7 +44,9 @@ material = ExtResource( 2 )
 input_pickable = false
 monitorable = false
 script = ExtResource( 3 )
+sprite = NodePath("Sprite")
 x_offset = 16
+can_pivot = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 use_parent_material = true

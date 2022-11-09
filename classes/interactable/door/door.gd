@@ -24,5 +24,5 @@ func _physics_process(_delta):
 func _interact_with(body) -> void:
 	body.locked = true
 	body_entering = body
-	$DoorSprite.play("opening")
+	sprite.play("opening")
 	entered = true

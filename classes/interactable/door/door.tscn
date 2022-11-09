@@ -29,6 +29,7 @@ collision_mask = 2
 input_pickable = false
 monitorable = false
 script = ExtResource( 7 )
+sprite = NodePath("DoorSprite")
 
 [node name="DoorSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

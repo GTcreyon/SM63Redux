@@ -1,3 +1,4 @@
+class_name Sign
 extends InteractableDialog
 
 onready var sfx_open: AudioStreamPlayer = $Open

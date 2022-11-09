@@ -174,6 +174,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/serializers/serializer.gd"
 }, {
+"base": "InteractableDialog",
+"class": "Sign",
+"language": "GDScript",
+"path": "res://classes/interactable/sign/sign.gd"
+}, {
 "base": "Node2D",
 "class": "Telescoping",
 "language": "GDScript",
@@ -188,6 +193,11 @@ _global_script_classes=[ {
 "class": "TippingLog",
 "language": "GDScript",
 "path": "res://classes/solid/telescoping/tipping_log/tipping_log.gd"
+}, {
+"base": "InteractableDialog",
+"class": "Toad",
+"language": "GDScript",
+"path": "res://classes/interactable/npc/toad/toad.gd"
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
@@ -223,9 +233,11 @@ _global_script_class_icons={
 "RotatingBlock": "",
 "SM63ToRedux": "",
 "Serializer": "",
+"Sign": "",
 "Telescoping": "",
 "TileToPoly": "",
-"TippingLog": ""
+"TippingLog": "",
+"Toad": ""
 }
 
 [application]

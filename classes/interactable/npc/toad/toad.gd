@@ -1,3 +1,4 @@
+class_name Toad
 extends InteractableDialog
 
 const spot_presets = [
@@ -64,5 +65,5 @@ func set_skin(new_skin):
 
 
 func _ready():
-	$Sprite.frame = fmod(position.x + position.y * PI, 7)
-	$Sprite.play()
+	sprite.frame = fmod(position.x + position.y * PI, 7)
+	sprite.play()
