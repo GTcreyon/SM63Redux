@@ -1215,7 +1215,7 @@ var collect_pos_final = Vector2.INF
 var sign_x: float = INF
 func locked_behaviour():
 	if sign_x != INF:
-		position.x = sign_x + (position.x - sign_x) * 0.75
+		global_position.x = sign_x + (global_position.x - sign_x) * 0.75
 	if collect_pos_final != Vector2.INF:
 		switch_anim("spin")
 		position = collect_pos_init + sin(min(collect_frames / 230.0, 1) * PI / 2) * (collect_pos_final - collect_pos_init)
