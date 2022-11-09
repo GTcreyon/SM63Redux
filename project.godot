@@ -254,6 +254,7 @@ config/windows_native_icon="res://icon_windows.ico"
 Singleton="*res://classes/global/singleton/singleton.tscn"
 PerformanceMonitor="*res://classes/global/performance/performance_monitor.gd"
 FlagServer="*res://classes/global/flag_server/flag_server.gd"
+TouchControls="*res://classes/global/touch_control/touch_controls.tscn"
 
 [display]
 

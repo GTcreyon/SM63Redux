@@ -14,10 +14,8 @@ onready var icon = $Icon
 onready var border = $Border
 onready var description_box = $Border/DescriptionBox
 
-onready var force_touch = $ForceTouch
-onready var force_touch_label = $TouchLabel
-
-onready var options_menu = $OptionsControl
+onready var options_control = $OptionsControl
+onready var options_menu = $OptionsControl/OptionsMenu
 onready var back_button = $OptionsControl/BackButton
 
 # Only based on window size.
@@ -62,6 +60,7 @@ func _process(delta: float) -> void:
 	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	_manage_sizes(scale)
 	if visible:
+		options_control.visible = show_options
 		options_menu.visible = show_options
 		if show_options:
 			for node in get_tree().get_nodes_in_group("menu_hide"):
@@ -144,14 +143,6 @@ func _process(delta: float) -> void:
 				visible = false
 				Singleton.get_node("SFX/Back").play()
 			
-			force_touch.rect_pivot_offset = Vector2(10, 20)
-			force_touch.rect_scale = scale * Vector2.ONE
-			force_touch.margin_top = -74 * scale
-			Singleton.force_touch = force_touch.pressed
-			
-			force_touch_label.rect_pivot_offset.x = OS.window_size.x / 2
-			force_touch_label.rect_scale = scale * Vector2.ONE
-			
 			modulate.a = min(modulate.a + 0.125 * dmod, 1)
 	else:
 		modulate.a = 0
@@ -173,8 +164,6 @@ func _menu_to_scene(scene: String) -> void:
 	get_parent().dampen = true
 	Singleton.get_node("WindowWarp").warp(Vector2(110, 153), scene)
 	Singleton.get_node("SFX/Start").play()
-	if Singleton.touch_controls():
-		Singleton.controls.visible = true
 
 
 func _cycle_through(direction: int) -> void:

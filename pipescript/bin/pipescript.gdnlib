@@ -7,7 +7,7 @@ reloadable=true
 
 [entry]
 
-Android.arm64-v8a="res://pipescript/bin/aarch64-linux-android.so"
+Android.arm64-v8a="res://pipescript/bin/lib-aarch64-linux-android.so"
 Android.x86="res://pipescript/bin/i686-linux-android.so"
 Android.x86_64="res://pipescript/bin/x86_64-linux-android.so"
 Windows.64="res://pipescript/bin/x86_64-pc-windows-msvc.dll"

@@ -9,7 +9,7 @@ func _ready():
 
 
 func _process(_delta):
-	visible = $"../FeedbackControl".visible and Singleton.touch_controls()
+	visible = $"../FeedbackControl".visible and Singleton.touch_control
 
 
 func _on_Cancel_pressed():

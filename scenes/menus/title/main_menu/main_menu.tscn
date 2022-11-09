@@ -1,13 +1,12 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
-[ext_resource path="res://gui/hud/mobile_buttons.png" type="Texture" id=2]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
 [ext_resource path="res://scenes/menus/title/main_menu/border.tres" type="StyleBox" id=3]
 [ext_resource path="res://scenes/menus/title/main_menu/selection_content.png" type="Texture" id=4]
 [ext_resource path="res://scenes/menus/title/main_menu/menu_titles.png" type="Texture" id=5]
 [ext_resource path="res://scenes/menus/title/main_menu/crystal.png" type="Texture" id=6]
 [ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/menus/feedback/tickbox.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/menus/title/main_menu/selector.png" type="Texture" id=9]
 [ext_resource path="res://shaders/desaturate.tres" type="Material" id=10]
 [ext_resource path="res://scenes/menus/title/main_menu/main_menu.gd" type="Script" id=11]
@@ -99,11 +98,11 @@ region = Rect2( 2, 24, 122, 24 )
 
 [sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 105, 20, 21 )
+region = Rect2( 0, 62.8111, 20, 21.1889 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
-region = Rect2( 20, 105, 20, 21 )
+region = Rect2( 20, 63, 20, 21 )
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -389,26 +388,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
-
-[node name="ForceTouch" parent="." groups=["menu_hide"] instance=ExtResource( 8 )]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.087
-margin_left = -10.0
-margin_top = -80.0
-margin_right = 10.0
-
-[node name="TouchLabel" type="Label" parent="." groups=["menu_hide"]]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -52.0
-rect_pivot_offset = Vector2( 320, 52 )
-custom_fonts/font = ExtResource( 1 )
-text = "Force touch controls
-(Experimental)"
-align = 1
 
 [node name="OptionsControl" type="Control" parent="."]
 anchor_right = 1.0

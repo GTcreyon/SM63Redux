@@ -5,15 +5,15 @@
 [ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/hud/pause_content.gd" type="Script" id=6]
 [ext_resource path="res://gui/pause/unpause.gd" type="Script" id=25]
-[ext_resource path="res://gui/hud/mobile_buttons.png" type="Texture" id=28]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=28]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 28 )
-region = Rect2( 0, 105, 20, 21 )
+region = Rect2( 0, 63, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 28 )
-region = Rect2( 20, 105, 20, 21 )
+region = Rect2( 20, 63, 20, 21 )
 
 [node name="PauseContent" type="Control" groups=["pause"]]
 anchor_right = 1.0
