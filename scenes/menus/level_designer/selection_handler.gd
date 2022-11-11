@@ -78,7 +78,7 @@ func on_release():
 			4
 		)
 	# Show the polygon edit button
-	polygon_edit_button = true if len(selection_hit) == 1 and is_a_polygon_item(selection_hit[0]) else false
+	polygon_edit_button.visible = true if len(selection_hit) == 1 and is_a_polygon_item(selection_hit[0]) else false
 	
 	emit_signal("selection_changed", selection_rect, selection_hit)
 
