@@ -1,4 +1,4 @@
-class_name InteractableExit
+class_name InteractableWarp
 extends Interactable
 # A variant of Interactable that warps Mario somewhere,
 # either to another scene or someplace in the current one.

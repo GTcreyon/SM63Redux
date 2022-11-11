@@ -1,5 +1,5 @@
 class_name Door
-extends InteractableExit
+extends InteractableWarp
 
 const CENTERING_SPEED = 0.25
 
@@ -18,6 +18,7 @@ func _update_animation(_frame: int, _mario):
 		_mario.get_node("Character").set_animation("back")
 		# Start door opening animation
 		$DoorSprite.play("opening")
+
 
 func _animation_length():
 	return 60
