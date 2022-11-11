@@ -3,10 +3,10 @@ extends InteractableWarp
 
 const CENTERING_SPEED = 0.25
 
-export var doorGraphic : SpriteFrames
+export var door_graphic : SpriteFrames
 
 func _ready():
-	$DoorSprite.frames = doorGraphic
+	$DoorSprite.frames = door_graphic
 
 
 func _update_animation(_frame: int, _mario):
