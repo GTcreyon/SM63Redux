@@ -10,8 +10,8 @@ extends Interactable
 #   given frame.
 # For further customization, you can override _interact_check() if you want
 # it to respond to a different button than "up",
-# or override _begin_warp(target_pos, scene_pos) to change what transition
-# will be used on scene change (star iris out by default).
+# or override _begin_scene_change(target_pos, scene_pos) to change what
+# transition will be used on scene change (star iris out by default).
 # 
 # Please note that if the particular warp is set to move to a different scene,
 # the exit transition will begin TRANSITION_SPEED_IN frames before the end of
@@ -51,7 +51,7 @@ func _physics_override():
 		
 		# Begin scene-change transition if the animation is ready
 		if anim_timer == min(TRANSITION_SPEED_IN, _animation_length()) and move_to_scene == true:
-			_begin_warp(target_pos, scene_path)
+			_begin_scene_change(target_pos, scene_path)
 			
 		# If not changing scenes, warp Mario when the timer rings
 		if anim_timer == 0 and move_to_scene != true:
@@ -88,7 +88,7 @@ func _update_animation(_frame: int, _mario):
 
 
 # Begins the exit transition. Called TRANSITION_SPEED_IN frames BEFORE the animation ends!
-func _begin_warp(target_pos, scene_path):
+func _begin_scene_change(target_pos, scene_path):
 	# Default warp transition is a star iris
 	var sweep_effect = $"/root/Singleton/WindowWarp"
 	sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
