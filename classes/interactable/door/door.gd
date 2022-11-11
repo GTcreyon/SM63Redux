@@ -29,7 +29,7 @@ func _mario_offset() -> int:
 
 
 func _mario_begin_animation(mario):
-	mario.get_node("Character").set_animation("back")
+	mario.switch_anim("back")
 
 
 func _door_begin_animation():

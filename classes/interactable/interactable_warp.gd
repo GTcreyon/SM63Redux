@@ -36,8 +36,12 @@ var anim_timer = -1 # This goes down by one every frame of the animation
 func _interact_with(body):
 	mario = body
 	
+	# Zero Mario's velocity so he doesn't keep kicking up dust
+	mario.vel = Vector2.ZERO
 	# Lock Mario's input so he can't be controlled
 	mario.locked = true
+	# I have no idea what sign frames are, but InteractableDialog sets them too
+	mario.sign_frames = 1
 	
 	# Change to "animating" state
 	anim_timer = _animation_length()
