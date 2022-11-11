@@ -11,14 +11,26 @@ func _ready():
 
 func _update_animation(_frame: int, _mario):
 	# Gradually center Mario
-	_mario.global_position.x = lerp(_mario.global_position.x, global_position.x, CENTERING_SPEED)
+	._mario_shift_to_position(_mario, global_position.x + _mario_offset(), CENTERING_SPEED)
 	
 	if _frame == 0:
 		# Start Mario's enter animation
-		_mario.get_node("Character").set_animation("back")
+		_mario_begin_animation(_mario)
 		# Start door opening animation
-		$DoorSprite.play("opening")
+		_door_begin_animation()
 
 
 func _animation_length():
 	return 60
+
+
+func _mario_offset() -> int:
+	return 0
+
+
+func _mario_begin_animation(mario):
+	mario.get_node("Character").set_animation("back")
+
+
+func _door_begin_animation():
+	$DoorSprite.play("opening")

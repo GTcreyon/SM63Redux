@@ -16,6 +16,10 @@ extends Interactable
 # Please note that if the particular warp is set to move to a different scene,
 # the exit transition will begin TRANSITION_SPEED_IN frames before the end of
 # the animation.
+#
+# For convenience, an animation function is included to shift mario slowly
+# to a position. This is meant to be run once per frame, probably in the
+# entry animation, and should be useful for centering Mario to the right spot.
 
 const TRANSITION_SPEED_IN = 25
 const TRANSITION_SPEED_OUT = 15
@@ -92,3 +96,7 @@ func _begin_scene_change(target_pos, scene_path):
 	# Default warp transition is a star iris
 	var sweep_effect = $"/root/Singleton/WindowWarp"
 	sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
+
+
+func _mario_shift_to_position(mario, position, shift_rate):
+	mario.global_position.x = lerp(mario.global_position.x, position, shift_rate)
