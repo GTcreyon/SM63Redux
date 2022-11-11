@@ -11,6 +11,8 @@ collision_mask = 2
 input_pickable = false
 monitorable = false
 script = ExtResource( 7 )
+sprite = NodePath("DoorSprite")
+doorGraphic = ExtResource( 1 )
 
 [node name="DoorSprite" type="AnimatedSprite" parent="."]
 position = Vector2( -8, -32 )
