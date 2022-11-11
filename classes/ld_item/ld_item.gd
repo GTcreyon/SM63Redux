@@ -11,7 +11,7 @@ var item_id: int
 
 var glow_factor = 1
 var pulse = 0
-var ghost = false
+var ghost = false # If true, item has not been placed yet.
 var properties: Dictionary = {}
 
 func set_glowing(should_glow):
@@ -24,6 +24,8 @@ func _ready():
 	if ghost:
 		modulate.a = 0.5
 		position = main.snap_vector(get_global_mouse_position())
+	
+	# Size my hitbox to match my texture
 	$ClickArea/CollisionShape2D.shape.extents = texture.get_size() / 2
 
 func _input(event):
@@ -33,26 +35,36 @@ func _input(event):
 	
 	if event.is_action_released("ld_place"):
 		if Input.is_action_pressed("ld_keep_place"):
+			# Copy this item in place
 			var placed = duplicate()
 			placed.item_id = item_id
 			placed.properties = properties
-			placed.ghost = false
 			placed.position = position
+			
+			# Un-ghost the copy
 			placed.modulate.a = 1
+			placed.ghost = false
+			
+			# Put the copy in the scene
 			get_parent().add_child(placed)
 		else:
+			# Un-ghost myself
 			modulate.a = 1
 			ghost = false
+			# End placing-object state
 			main.editor_state = main.EDITOR_STATE.IDLE
 	elif event.is_action_released("ld_cancel_placement"):
+		# Cancel placing me - delete myself and end placing state
 		queue_free()
 		main.editor_state = main.EDITOR_STATE.IDLE
 
 func _process(_delta):
 	if ghost:
+		# Update my position to match the mouse
 		position = main.snap_vector(get_global_mouse_position())
 		properties["Position"] = position
 	
+	# If I have a glow material, make that pulse slowly
 	if material != null:
 		pulse = fmod((pulse + 0.1), 2 * PI)
 		material.set_shader_param("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
