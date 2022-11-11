@@ -6,7 +6,7 @@ const CENTERING_SPEED = 0.25
 export var door_graphic : SpriteFrames
 
 func _ready():
-	$DoorSprite.frames = door_graphic
+	_set_sprite_frames(door_graphic)
 
 
 func _update_animation(_frame: int, _mario):
@@ -33,4 +33,8 @@ func _mario_begin_animation(mario):
 
 
 func _door_begin_animation():
-	$DoorSprite.play("opening")
+	$Sprite.play("opening")
+
+
+func _set_sprite_frames(sprite_frames: SpriteFrames):
+	$Sprite.frames = sprite_frames

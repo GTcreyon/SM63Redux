@@ -8,9 +8,9 @@ const FACING_BIAS = 2 # If Mario's facing one door, he can enter it this many pi
 # a door, meaning we can't rely on "is he left of the doors' origin?"
 var chosen_side = 0
 
-func _ready():
-	$SpriteL.frames = door_graphic
-	$SpriteR.frames = door_graphic
+func _set_sprite_frames(sprite_frames: SpriteFrames):
+	$SpriteL.frames = sprite_frames
+	$SpriteR.frames = sprite_frames
 
 
 func _mario_offset() -> int:
