@@ -27,6 +27,9 @@ func _door_begin_animation():
 		should_use_right_door = player.global_position.x > (global_position.x - FACING_BIAS)
 	else:
 		# Player is facing left.
+		# Comparison operator is different than when facing right--
+		# this is intentional, because it shifts the comparison
+		# over by one unit.
 		should_use_right_door = player.global_position.x >= (global_position.x + FACING_BIAS)
 		
 		
