@@ -28,8 +28,8 @@ func _player_offset() -> int:
 	return 0
 
 
-func _player_begin_animation(mario):
-	mario.switch_anim("back")
+func _player_begin_animation(player):
+	player.switch_anim("back")
 
 
 func _door_begin_animation():
