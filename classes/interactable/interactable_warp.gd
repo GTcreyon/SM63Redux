@@ -6,7 +6,7 @@ extends Interactable
 # To implement this base class, there are two functions to extend:
 # - _animation_length() returns the expected duration of the animation
 #   as an int.
-# - _update_animation(_frame, _mario) updates the enter animation for the
+# - _update_animation(_frame, _player) updates the enter animation for the
 #   given frame.
 # For further customization, you can override _interact_check() if you want
 # it to respond to a different button than "up",
@@ -17,9 +17,10 @@ extends Interactable
 # the exit transition will begin TRANSITION_SPEED_IN frames before the end of
 # the animation.
 #
-# For convenience, an animation function is included to shift mario slowly
+# For convenience, an animation function is included to shift the player slowly
 # to a position. This is meant to be run once per frame, probably in the
-# entry animation, and should be useful for centering Mario to the right spot.
+# entry animation, and should be useful for centering the player to the right
+# spot.
 
 const TRANSITION_SPEED_IN = 25
 const TRANSITION_SPEED_OUT = 15
@@ -28,20 +29,20 @@ export var target_pos = Vector2.ZERO
 export var move_to_scene = false
 export var scene_path : String
 
-var mario = null # This holds a reference to Mario during the animation
+var player = null # This holds a reference to Mario during the animation
 var anim_timer = -1 # This goes down by one every frame of the animation
 
 
 # When interacted, go into play-animation state
 func _interact_with(body):
-	mario = body
+	player = body
 	
 	# Zero Mario's velocity so he doesn't keep kicking up dust
-	mario.vel = Vector2.ZERO
+	player.vel = Vector2.ZERO
 	# Lock Mario's input so he can't be controlled
-	mario.locked = true
+	player.locked = true
 	# I have no idea what sign frames are, but InteractableDialog sets them too
-	mario.sign_frames = 1
+	player.sign_frames = 1
 	
 	# Change to "animating" state
 	anim_timer = _animation_length()
@@ -55,7 +56,7 @@ func _physics_override():
 		# Step the animation one frame forward.
 		# Pass it an inverted timer so people inheriting this class can work
 		# with frames-elapsed instead of frames-left.
-		_update_animation(_animation_length() - anim_timer, mario)
+		_update_animation(_animation_length() - anim_timer, player)
 		
 		# Begin scene-change transition if the animation is ready
 		if anim_timer == min(TRANSITION_SPEED_IN, _animation_length()) and move_to_scene == true:
@@ -63,11 +64,11 @@ func _physics_override():
 			
 		# If not changing scenes, warp Mario when the timer rings
 		if anim_timer == 0 and move_to_scene != true:
-			mario.position = target_pos
-			mario.locked = false
+			player.position = target_pos
+			player.locked = false
 			
 			# No longer need this reference, let's drop it.
-			mario = null
+			player = null
 		
 		# Tick the animation timer.
 		# This is also what stops the timer when it runs out--
@@ -91,7 +92,7 @@ func _animation_length() -> int:
 	return 0
 
 
-func _update_animation(_frame: int, _mario):
+func _update_animation(_frame: int, _player):
 	pass
 
 
@@ -102,5 +103,5 @@ func _begin_scene_change(target_pos, scene_path):
 	sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
 
 
-func _mario_shift_to_position(mario, position, shift_rate):
-	mario.global_position.x = lerp(mario.global_position.x, position, shift_rate)
+func _player_shift_to_position(player, position, shift_rate):
+	player.global_position.x = lerp(player.global_position.x, position, shift_rate)

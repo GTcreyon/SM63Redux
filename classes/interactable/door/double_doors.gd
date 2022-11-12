@@ -13,7 +13,7 @@ func _set_sprite_frames(sprite_frames: SpriteFrames):
 	$SpriteR.frames = sprite_frames
 
 
-func _mario_offset() -> int:
+func _player_offset() -> int:
 	return SINGLE_DOOR_OFFSET * chosen_side
 
 
@@ -22,12 +22,12 @@ func _door_begin_animation():
 	# Check if Mario is to the right or left of the center.
 	# BUT--if Mario is facing one direction or another, he'll be SLIGHTLY more
 	# receptive to using the door he's facing towards.
-	if mario.sprite.flip_h == false:
+	if player.sprite.flip_h == false:
 		# Mario facing right.
-		should_use_right_door = mario.global_position.x > (global_position.x - FACING_BIAS)
+		should_use_right_door = player.global_position.x > (global_position.x - FACING_BIAS)
 	else:
 		# Mario facing left.
-		should_use_right_door = mario.global_position.x >= (global_position.x + FACING_BIAS)
+		should_use_right_door = player.global_position.x >= (global_position.x + FACING_BIAS)
 		
 		
 	if should_use_right_door == true:
@@ -44,4 +44,4 @@ func _begin_scene_change(target_pos, scene_path):
 
 
 func chosen_door_offset() -> Vector2:
-	return Vector2(_mario_offset(), 0)
+	return Vector2(_player_offset(), 0)

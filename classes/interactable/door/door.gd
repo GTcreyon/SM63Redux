@@ -9,13 +9,13 @@ func _ready():
 	_set_sprite_frames(door_graphic)
 
 
-func _update_animation(_frame: int, _mario):
+func _update_animation(_frame: int, _player):
 	# Gradually center Mario
-	._mario_shift_to_position(_mario, global_position.x + _mario_offset(), CENTERING_SPEED)
+	._player_shift_to_position(_player, global_position.x + _player_offset(), CENTERING_SPEED)
 	
 	if _frame == 0:
 		# Start Mario's enter animation
-		_mario_begin_animation(_mario)
+		_player_begin_animation(_player)
 		# Start door opening animation
 		_door_begin_animation()
 
@@ -24,11 +24,11 @@ func _animation_length():
 	return 60
 
 
-func _mario_offset() -> int:
+func _player_offset() -> int:
 	return 0
 
 
-func _mario_begin_animation(mario):
+func _player_begin_animation(mario):
 	mario.switch_anim("back")
 
 
