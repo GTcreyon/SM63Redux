@@ -1,11 +1,11 @@
 extends Door
 
 const SINGLE_DOOR_OFFSET = 8
-const FACING_BIAS = 2 # If Mario's facing one door, he can enter it this many pixels further away.
+const FACING_BIAS = 2 # If player's facing one door, they can enter it this many pixels further away.
 
 # This stores which side we've chosen to enter.
-# We need this because Mario's facing direction shifts as he enters
-# a door, meaning we can't rely on "is he left of the doors' origin?"
+# We need this because the player's facing direction shifts as they enter
+# a door, meaning we can't rely on "are they left of the doors' origin?"
 var chosen_side = 0
 
 func _set_sprite_frames(sprite_frames: SpriteFrames):
@@ -19,14 +19,14 @@ func _player_offset() -> int:
 
 func _door_begin_animation():
 	var should_use_right_door = false
-	# Check if Mario is to the right or left of the center.
-	# BUT--if Mario is facing one direction or another, he'll be SLIGHTLY more
-	# receptive to using the door he's facing towards.
+	# Check if player is to the right or left of the center.
+	# BUT--if player is facing one direction or another, be SLIGHTLY more
+	# receptive to using the door they're facing towards.
 	if player.sprite.flip_h == false:
-		# Mario facing right.
+		# Player is facing right.
 		should_use_right_door = player.global_position.x > (global_position.x - FACING_BIAS)
 	else:
-		# Mario facing left.
+		# Player is facing left.
 		should_use_right_door = player.global_position.x >= (global_position.x + FACING_BIAS)
 		
 		
@@ -39,7 +39,8 @@ func _door_begin_animation():
 
 
 func _begin_scene_change(target_pos, scene_path):
-	# Clobber the destination position so Mario comes out on the left or right.
+	# Clobber the destination position so player comes out on the left or right.
+	# TODO: Figure out how to do this during non-scene-changes.
 	._begin_scene_change(target_pos + chosen_door_offset(), scene_path)
 
 

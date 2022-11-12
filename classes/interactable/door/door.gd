@@ -10,11 +10,11 @@ func _ready():
 
 
 func _update_animation(_frame: int, _player):
-	# Gradually center Mario
+	# Gradually center the player
 	._player_shift_to_position(_player, global_position.x + _player_offset(), CENTERING_SPEED)
 	
 	if _frame == 0:
-		# Start Mario's enter animation
+		# Start player's enter animation
 		_player_begin_animation(_player)
 		# Start door opening animation
 		_door_begin_animation()

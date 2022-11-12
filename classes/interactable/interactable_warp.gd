@@ -1,6 +1,6 @@
 class_name InteractableWarp
 extends Interactable
-# A variant of Interactable that warps Mario somewhere,
+# A variant of Interactable that warps the player somewhere,
 # either to another scene or someplace in the current one.
 # 
 # To implement this base class, there are two functions to extend:
@@ -29,7 +29,7 @@ export var target_pos = Vector2.ZERO
 export var move_to_scene = false
 export var scene_path : String
 
-var player = null # This holds a reference to Mario during the animation
+var player = null # This holds a reference to player object during the animation
 var anim_timer = -1 # This goes down by one every frame of the animation
 
 
@@ -37,9 +37,9 @@ var anim_timer = -1 # This goes down by one every frame of the animation
 func _interact_with(body):
 	player = body
 	
-	# Zero Mario's velocity so he doesn't keep kicking up dust
+	# Zero player's velocity so they doesn't keep kicking up dust
 	player.vel = Vector2.ZERO
-	# Lock Mario's input so he can't be controlled
+	# Lock player's input so they can't be controlled
 	player.locked = true
 	# I have no idea what sign frames are, but InteractableDialog sets them too
 	player.sign_frames = 1
@@ -62,7 +62,7 @@ func _physics_override():
 		if anim_timer == min(TRANSITION_SPEED_IN, _animation_length()) and move_to_scene == true:
 			_begin_scene_change(target_pos, scene_path)
 			
-		# If not changing scenes, warp Mario when the timer rings
+		# If not changing scenes, warp player when the timer rings
 		if anim_timer == 0 and move_to_scene != true:
 			player.position = target_pos
 			player.locked = false
@@ -72,12 +72,12 @@ func _physics_override():
 		
 		# Tick the animation timer.
 		# This is also what stops the timer when it runs out--
-		# when the timer is 0 and Mario warps, the timer will
+		# when the timer is 0 and the warp happens, the timer will
 		# tick down to -1 (the "not running" value) and stop.
 		anim_timer -= 1
 
 
-# Checks if Mario is in a state where he can interact
+# Checks if player is in a state where they can interact
 func _state_check(body) -> bool:
 	return !body.locked and ._state_check(body) and body.is_on_floor()
 
