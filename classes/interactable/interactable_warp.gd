@@ -103,5 +103,5 @@ func _begin_scene_change(target_pos, scene_path):
 	sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
 
 
-func _player_shift_to_position(player, position, shift_rate):
-	player.global_position.x = lerp(player.global_position.x, position, shift_rate)
+#func _player_shift_to_position(player, position, shift_rate):
+#	player.global_position.x = lerp(player.global_position.x, position, shift_rate)
