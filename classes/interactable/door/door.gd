@@ -2,15 +2,19 @@ class_name Door
 extends InteractableWarp
 
 const CENTERING_SPEED = 0.25
-const ANIM_PLAYER_BEGIN_FADEOUT = 8
-const ANIM_PLAYER_FADE_RATE = 0.1
-const ANIM_DOOR_BEGIN_CLOSE = 32
 
 export var door_graphic : SpriteFrames
+export var player_fade_start_time : int = 20
+export var player_fade_rate : float = 0.1
+export var door_close_start_time : int = 20
 
 func _ready():
 	_set_sprite_frames(door_graphic)
-
+	
+	# Keep all export variables within sane ranges.
+	player_fade_start_time = max(player_fade_start_time, 0)
+	player_fade_rate = clamp(player_fade_rate, 0, 1)
+	door_close_start_time = max(door_close_start_time, 0)
 
 func _update_animation(_frame: int, _player):
 	# Gradually center the player
@@ -21,10 +25,10 @@ func _update_animation(_frame: int, _player):
 		_door_open()
 		# Start player's enter animation
 		_player_begin_animation(_player)
-	if _frame >= ANIM_PLAYER_BEGIN_FADEOUT:
+	if _frame >= player_fade_start_time:
 		# Fade player down a little bit
-		_player.sprite.modulate.a -= ANIM_PLAYER_FADE_RATE
-	if _frame == ANIM_DOOR_BEGIN_CLOSE:
+		_player.sprite.modulate.a -= player_fade_rate
+	if _frame == door_close_start_time:
 		_door_close()
 	if _frame == _animation_length():
 		# Reset player to fully opaque
