@@ -7,6 +7,7 @@
 extents = Vector2( 19, 15.9999 )
 
 [node name="DoubleDoor" type="Area2D"]
+monitorable = false
 script = ExtResource( 2 )
 sprite = NodePath("SpriteL")
 door_graphic = ExtResource( 1 )
