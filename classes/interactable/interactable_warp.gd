@@ -97,10 +97,10 @@ func _update_animation(_frame: int, _player):
 
 
 # Begins the exit transition. Called TRANSITION_SPEED_IN frames BEFORE the animation ends!
-func _begin_scene_change(target_pos, scene_path):
+func _begin_scene_change(dst_pos: Vector2, dst_scene: String):
 	# Default warp transition is a star iris
 	var sweep_effect = $"/root/Singleton/WindowWarp"
-	sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
+	sweep_effect.warp(dst_pos, dst_scene, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
 
 
 #func _player_shift_to_position(player, position, shift_rate):
