@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 19, 15.9999 )
 
-[node name="Double Door" type="Area2D"]
+[node name="DoubleDoor" type="Area2D"]
 script = ExtResource( 2 )
 sprite = NodePath("SpriteL")
 door_graphic = ExtResource( 1 )
