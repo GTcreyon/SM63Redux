@@ -1,20 +1,33 @@
+tool
 class_name Door
 extends InteractableWarp
 
 const CENTERING_SPEED = 0.25
 
-export var door_graphic : SpriteFrames
-export var player_fade_start_time : int = 20
-export var player_fade_rate : float = 0.1
-export var door_close_start_time : int = 20
+export var door_graphic : SpriteFrames setget set_door_graphic
+
+var player_fade_start_time : int
+var player_fade_rate : float
+var door_close_start_time : int
+
+func set_door_graphic(graphic : SpriteFrames):
+	door_graphic = graphic
+	
+	if door_graphic is DoorSkin:
+		# Resource has animation timings saved in it; load them.
+		player_fade_start_time = door_graphic.player_fade_start_time
+		player_fade_rate = door_graphic.player_fade_rate
+		door_close_start_time = door_graphic.door_close_start_time
+	else:
+		# Resource has no timings baked into it; use defaults.
+		player_fade_start_time = DoorSkin.DEFAULT_PLAYER_FADE_START
+		player_fade_rate = DoorSkin.DEFAULT_PLAYER_FADE_RATE
+		door_close_start_time = DoorSkin.DEFAULT_DOOR_CLOSE_START
+
 
 func _ready():
 	_set_sprite_frames(door_graphic)
-	
-	# Keep all export variables within sane ranges.
-	player_fade_start_time = max(player_fade_start_time, 0)
-	player_fade_rate = clamp(player_fade_rate, 0, 1)
-	door_close_start_time = max(door_close_start_time, 0)
+
 
 func _update_animation(_frame: int, _player):
 	# Gradually center the player
