@@ -17,7 +17,7 @@ func _player_offset() -> int:
 	return SINGLE_DOOR_OFFSET * chosen_side
 
 
-func _door_begin_animation():
+func _door_open():
 	var should_use_right_door = false
 	# Check if player is to the right or left of the center.
 	# BUT--if player is facing one direction or another, be SLIGHTLY more
@@ -41,9 +41,17 @@ func _door_begin_animation():
 		chosen_side = -1
 
 
+func _door_close():
+	# Close whichever door was opened.
+	if chosen_side == 1:
+		$SpriteR.play("closing")
+	else:
+		$SpriteL.play("closing")
+
+
 func _begin_scene_change(target_pos, scene_path):
 	# Clobber the destination position so player comes out on the left or right.
-	# TODO: Figure out how to do this during non-scene-changes.
+	# TODO: Figure out how to do this during in-scene warps.
 	._begin_scene_change(target_pos + chosen_door_offset(), scene_path)
 
 
