@@ -32,6 +32,17 @@ export var scene_path : String
 var player = null # This holds a reference to player object during the animation
 var anim_timer = -1 # This goes down by one every frame of the animation
 
+func _ready():
+	# Always run before player code.
+	# Normally, putting a door after the player in the hierarchy makes the door
+	# run its code after the player...which means pressing up makes the player
+	# jump (and become unable to use warps) BEFORE the warp has a chance to
+	# make the player enter, and by the time it tries the player is no longer
+	# grounded. In other words, warps only work if they're placed ABOVE the
+	# player in the scene tree.
+	# This line of code fixes that.
+	process_priority = -1
+
 
 # When interacted, go into play-animation state
 func _interact_with(body):
