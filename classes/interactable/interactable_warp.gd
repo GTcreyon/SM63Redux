@@ -52,8 +52,6 @@ func _interact_with(body):
 	player.vel = Vector2.ZERO
 	# Lock player's input so they can't be controlled
 	player.locked = true
-	# I have no idea what sign frames are, but InteractableDialog sets them too
-	player.sign_frames = 1
 	
 	# Change to "animating" state
 	anim_timer = _animation_length()
