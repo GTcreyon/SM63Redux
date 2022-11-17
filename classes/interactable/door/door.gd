@@ -50,9 +50,9 @@ func _player_offset() -> int:
 func _player_begin_animation(player):
 	player.switch_anim("back")
 	# Set player to gradually move onto the door.
-	# NOTE: last I checked, this movement has a lerp factor of
-	# 0.75 per frame. Door entry feels smoother with a factor
-	# of 0.25 (more consistent with player movement).
+	# NOTE: read_pos_x movement currently has a lerp factor of 0.75 per frame.
+	# Door entry may feel smoother with a factor of 0.25
+	# (more consistent with player movement).
 	player.read_pos_x = global_position.x + _player_offset()
 
 
