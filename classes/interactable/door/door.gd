@@ -1,8 +1,6 @@
 class_name Door
 extends InteractableWarp
 
-const CENTERING_SPEED = 0.25
-
 export var door_graphic : SpriteFrames
 
 var player_fade_start_time : int
@@ -25,10 +23,7 @@ func _ready():
 		door_close_start_time = DoorSkin.DEFAULT_DOOR_CLOSE_START
 
 
-func _update_animation(_frame: int, _player):
-	# Gradually center the player
-	#._player_shift_to_position(_player, global_position.x + _player_offset(), CENTERING_SPEED)
-	
+func _update_animation(_frame: int, _player):	
 	if _frame == 0:
 		# Start door opening animation
 		_door_open()
