@@ -536,8 +536,8 @@ func action_spin() -> void:
 		spin_frames = SPIN_TIME
 
 
-var __fludd_spraying: bool = false
-var __fludd_spraying_rising: bool = false
+var _fludd_spraying: bool = false
+var _fludd_spraying_rising: bool = false
 # If _physics_process() never calls player_physics() but checks fludd_spraying(),
 # keep initial value as valid to avoid runtime crashes.
 var fludd_stale: bool = false
@@ -548,18 +548,19 @@ func fludd_spraying(allow_stale: bool = false) -> bool:
 	# ensure we have already processed hovering this frame.
 	if !allow_stale:
 		assert(!fludd_stale)
-	return __fludd_spraying
+	return _fludd_spraying
+
 
 func fludd_spraying_rising(allow_stale: bool = false) -> bool:
 	if !allow_stale:
 		assert(!fludd_stale)
-	return __fludd_spraying_rising
+	return _fludd_spraying_rising
 
 var rocket_charge: int = 0
 func fludd_control():
 	fludd_stale = false
-	__fludd_spraying = false
-	__fludd_spraying_rising = false
+	_fludd_spraying = false
+	_fludd_spraying_rising = false
 	
 	if grounded:
 		Singleton.power = 100 # TODO: multi fludd
@@ -576,13 +577,13 @@ func fludd_control():
 				| S.DIVE
 			)
 	):
-		__fludd_spraying = true
+		_fludd_spraying = true
 		match Singleton.nozzle:
 			Singleton.n.hover:
 				fludd_strain = true
 				double_anim_cancel = true
 				if state != S.DIVE:
-					__fludd_spraying_rising = true
+					_fludd_spraying_rising = true
 				if state != S.TRIPLE_JUMP or (abs(sprite.rotation_degrees) < 90 or abs(sprite.rotation_degrees) > 270):
 					if state & (S.DIVE | S.TRIPLE_JUMP):
 						vel.y *= 1 - 0.02 * FPS_MOD
@@ -622,7 +623,7 @@ func fludd_control():
 				else:
 					fludd_strain = false
 				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(sprite.rotation_degrees) < 20 or abs(sprite.rotation_degrees) > 340))):
-					__fludd_spraying_rising = true
+					_fludd_spraying_rising = true
 					if state == S.DIVE:
 						# set sign of velocity (could use ternary but they're icky)
 						var multiplier = 1
