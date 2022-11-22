@@ -206,6 +206,8 @@ var pound_land_frames: int = 0
 var pound_state: int = Pound.SPIN
 var solid_floors: int = 0
 func player_physics():
+	fludd_stale = true
+	
 	check_ground_state()
 	
 	manage_invuln()
@@ -370,7 +372,7 @@ func fixed_visuals() -> void:
 				hover_sound_position = hover_sfx.get_playback_position()
 			else:
 				hover_sound_position = 0
-			if !Input.is_action_pressed("fludd") or Singleton.power > 0:
+			if !fludd_spraying():
 				hover_sfx.stop()
 	
 	bubbles.emitting = fludd_strain
@@ -534,8 +536,32 @@ func action_spin() -> void:
 		spin_frames = SPIN_TIME
 
 
+var _fludd_spraying: bool = false
+var _fludd_spraying_rising: bool = false
+# If _physics_process() never calls player_physics() but checks fludd_spraying(),
+# keep initial value as valid to avoid runtime crashes.
+var fludd_stale: bool = false
+
+func fludd_spraying(allow_stale: bool = false) -> bool:
+	# Every frame, set fludd_stale = true until we process "fludd".
+	# When reading "did we hover this frame",
+	# ensure we have already processed hovering this frame.
+	if !allow_stale:
+		assert(!fludd_stale)
+	return _fludd_spraying
+
+
+func fludd_spraying_rising(allow_stale: bool = false) -> bool:
+	if !allow_stale:
+		assert(!fludd_stale)
+	return _fludd_spraying_rising
+
 var rocket_charge: int = 0
 func fludd_control():
+	fludd_stale = false
+	_fludd_spraying = false
+	_fludd_spraying_rising = false
+	
 	if grounded:
 		Singleton.power = 100 # TODO: multi fludd
 	elif !Input.is_action_pressed("fludd") and Singleton.nozzle != Singleton.n.hover:
@@ -551,10 +577,13 @@ func fludd_control():
 				| S.DIVE
 			)
 	):
+		_fludd_spraying = true
 		match Singleton.nozzle:
 			Singleton.n.hover:
 				fludd_strain = true
 				double_anim_cancel = true
+				if state != S.DIVE:
+					_fludd_spraying_rising = true
 				if state != S.TRIPLE_JUMP or (abs(sprite.rotation_degrees) < 90 or abs(sprite.rotation_degrees) > 270):
 					if state & (S.DIVE | S.TRIPLE_JUMP):
 						vel.y *= 1 - 0.02 * FPS_MOD
@@ -594,6 +623,7 @@ func fludd_control():
 				else:
 					fludd_strain = false
 				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(sprite.rotation_degrees) < 20 or abs(sprite.rotation_degrees) > 340))):
+					_fludd_spraying_rising = true
 					if state == S.DIVE:
 						# set sign of velocity (could use ternary but they're icky)
 						var multiplier = 1
@@ -833,7 +863,7 @@ func check_ground_state() -> void:
 		if (
 			vel.y < 0
 			or is_on_floor()
-			or Input.is_action_pressed("fludd")
+			or fludd_spraying_rising(true)
 			or (state == S.POUND and pound_state == Pound.SPIN)
 			or state == S.HURT
 			or swimming
@@ -1005,11 +1035,7 @@ func get_snap() -> Vector2:
 		or jump_buffer_frames > 0
 		or state == S.ROLLOUT
 		or state == S.HURT
-		or
-		(
-			Input.is_action_just_pressed("fludd")
-			and Singleton.nozzle == Singleton.n.hover
-		) 
+		or fludd_spraying_rising()
 		or
 		(
 			swimming
