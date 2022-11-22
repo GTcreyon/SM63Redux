@@ -3,10 +3,10 @@ extends Area2D
 
 onready var sweep_effect = $"/root/Singleton/Warp"
 onready var player = $"/root/Main/Player"
-export var sweep_direction : Vector2
-export var spawn_location : Vector2
-export var scene_path : String
-export var size : Vector2 setget set_size
+export var sweep_direction: Vector2
+export var spawn_location: Vector2
+export var scene_path: String
+export var size: Vector2 setget set_size
 
 
 func set_size(new_size):

@@ -4,7 +4,7 @@ export var area = Vector2(20, 10)
 export var speed = Vector2(2, 3.25)
 
 var progress = 0
-var initial_position : Vector2
+var initial_position: Vector2
 
 
 func _ready():

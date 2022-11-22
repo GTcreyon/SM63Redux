@@ -1,6 +1,6 @@
 extends Button
 
-export var color : Color
+export var color: Color
 var save_press = false
 
 

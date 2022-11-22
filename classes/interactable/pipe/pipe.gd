@@ -11,7 +11,7 @@ const TRANSITION_SPEED_OUT = 15
 export var disabled = false setget set_disabled
 export var target_pos = Vector2.ZERO
 export var move_to_scene = false
-export var scene_path : String
+export var scene_path: String
 
 var can_warp = false # This variable is changed when mario enters the pipe's small area2D
 var slid = false # This is true while Mario is sliding into the pipe

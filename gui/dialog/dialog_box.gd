@@ -44,16 +44,16 @@ var loaded_lines = []
 var line_index = 0
 var char_roll = 1
 var char_index = 1
-var target_line : String = ""
-var raw_line : String = ""
-var text_speed : float = 0.5
+var target_line: String = ""
+var raw_line: String = ""
+var text_speed: float = 0.5
 var pause_time = 0
 var star_wobble = 0
 var gui_size = 1
 var swoop_timer = 0
 var active = false
 var character_id = null
-var character_name : String = ""
+var character_name: String = ""
 var width_offset: int = 0
 
 

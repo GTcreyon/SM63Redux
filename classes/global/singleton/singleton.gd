@@ -84,7 +84,7 @@ enum LogType {
 }
 
 func log_msg(msg: String, type: int = LogType.INFO):
-	var color_tag : String = "[color=#"
+	var color_tag: String = "[color=#"
 	match type:
 		LogType.INFO:
 			color_tag += "f9e8e8"
