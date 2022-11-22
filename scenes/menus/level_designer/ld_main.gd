@@ -38,6 +38,7 @@ func get_level():
 #			return true
 #	return false
 
+
 func snap_vector(vec, grid = 8):
 	if Input.is_action_pressed("ld_precise"):
 		grid = 1
@@ -55,6 +56,7 @@ func place_terrain(poly):
 	terrain_ref.polygon = poly
 	$Template/Terrain.add_child(terrain_ref)
 	return terrain_ref
+
 
 func place_item(item_id: int):
 	set_editor_state(EDITOR_STATE.PLACING)

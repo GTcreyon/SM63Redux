@@ -4,6 +4,7 @@ onready var cover = $CanvasLayer/Cover
 
 var play_time = 0.0
 
+
 func _process(delta):
 	if play_time > 0:
 		cover.rect_size = OS.window_size * 2

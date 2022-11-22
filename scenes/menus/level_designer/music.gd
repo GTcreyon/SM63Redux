@@ -15,6 +15,7 @@ var play_length
 var length_factor
 var song_num
 
+
 func switch_song():
 	song_num = (song_num + 1 + (randi() % 3)) % 4
 	stream = song_list[song_num]

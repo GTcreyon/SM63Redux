@@ -48,6 +48,7 @@ func _process(_delta):
 		for node in stats:
 			node.visible = true
 
+
 func resize(scale):
 	rect_scale = Vector2.ONE * scale
 	margin_left = 37 * scale

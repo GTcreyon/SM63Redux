@@ -6,6 +6,7 @@ var progress = 0.0
 
 onready var flash = $Flash
 
+
 func _process(delta):
 	var dmod = 60 * delta
 	var scale = get_parent().scale

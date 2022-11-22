@@ -9,6 +9,7 @@ var timer = 0
 var entered = false
 var body_entering = null
 
+
 func _physics_process(_delta):
 	if entered == true:
 		timer += 1

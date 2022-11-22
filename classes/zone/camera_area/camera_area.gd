@@ -118,6 +118,7 @@ func set_physics_polygon(poly):
 	polygon = real
 	collision.polygon = real
 
+
 func set_hitbox_extends(size):
 	body_collision.polygon = PoolVector2Array([
 		Vector2(0, -size.y / 2),

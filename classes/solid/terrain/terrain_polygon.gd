@@ -22,10 +22,12 @@ var properties: Dictionary = {}
 
 onready var decorations = $Decorations
 
+
 func set_glowing(should_glow):
 	shallow = should_glow
 	update()
 #	visible = !should_glow
+
 
 func set_down_direction(new_val):
 	up_direction = new_val
@@ -33,6 +35,7 @@ func set_down_direction(new_val):
 
 func set_null(_new_val):
 	pass
+
 
 func update_spritesheets(new_sheet):
 	texture_spritesheet = new_sheet
@@ -55,6 +58,7 @@ func update_spritesheets(new_sheet):
 	top_shade.flags = Texture.FLAG_REPEAT
 	top_corner_shade.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(72, 36, 32, 32) ) )
 	top_corner_shade.flags = Texture.FLAG_REPEAT
+
 
 func _draw():
 	decorations.update()

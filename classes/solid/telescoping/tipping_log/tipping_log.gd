@@ -9,6 +9,7 @@ export var pivot_offset = 0 setget set_pivot_offset
 
 var ang_vel = 0
 
+
 func set_width(val):
 	.set_width(val)
 	# warning-ignore:integer_division

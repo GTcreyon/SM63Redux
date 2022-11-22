@@ -57,6 +57,7 @@ onready var action_name = $ActionName
 onready var parent = $"../.."
 var scale: float setget set_scale
 
+
 func _ready():
 	action_name.text = ACTION_MAP[action_id]
 	update_list()

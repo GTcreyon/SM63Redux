@@ -6,9 +6,11 @@ export var speed = Vector2(2, 3.25)
 var progress = 0
 var initial_position : Vector2
 
+
 func _ready():
 	initial_position = position
 	playing = true
+
 
 func _physics_process(_delta):
 	progress += 0.01

@@ -56,6 +56,7 @@ var character_id = null
 var character_name : String = ""
 var width_offset: int = 0
 
+
 func insert_keybind_strings(input: String) -> String:
 	var regex: RegEx = RegEx.new()
 	var err = regex.compile("\\[@b[^\\]]*\\]")
@@ -109,6 +110,7 @@ func refresh_returns(line):
 	# Pad the left side to prevent outline issues ._.
 	line = " " + line.replace("\n", "\n ")
 	return line
+
 
 func say_line(index):
 	text_area.bbcode_text = ""

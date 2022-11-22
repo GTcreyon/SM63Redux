@@ -9,6 +9,7 @@ var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
 var line_count : int = 0
 
+
 func _ready():
 	add_child(req)
 

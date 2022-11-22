@@ -130,6 +130,7 @@ func convert_xml_to_readable():
 				is_in_textures = false
 	return root
 
+
 func deserialize_tiles(level_data):
 	var tile_to_poly = TileToPoly.new()
 	# Create an tile array
@@ -198,6 +199,7 @@ func deserialize_tiles(level_data):
 	tile_to_poly.queue_free()
 	return result
 
+
 func deserialize_items(level_data):
 	var items_expression = RegEx.new()
 	items_expression.compile("(?<id>\\d+),(?<x>\\d+),(?<y>\\d+),?(?<item>.*?)(\\or$)")
@@ -219,6 +221,7 @@ func deserialize_items(level_data):
 			data = extra_data
 		})
 	return items
+
 
 func deserialize(lvl_text):
 	# First seperate the level into several segments

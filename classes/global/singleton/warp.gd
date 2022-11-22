@@ -11,6 +11,7 @@ var scene_path = ""
 var flip = false
 var anim_timer = 0
 
+
 func _ready():
 	curve.add_point(Vector2(0, 0))
 	curve.add_point(Vector2(0, OS.window_size.y))

@@ -23,6 +23,7 @@ onready var sweep_effect = $"/root/Singleton/WindowWarp"
 onready var sound = $SFX # for sound effect
 onready var ride_area = $Area2D
 
+
 func _physics_process(_delta):
 	if slid:
 		# Slide Mario down into the pipe

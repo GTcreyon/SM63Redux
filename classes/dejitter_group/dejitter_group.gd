@@ -4,6 +4,7 @@ extends Node2D
 onready var parent = get_parent()
 var last_pos : Vector2
 
+
 func _physics_process(_delta):
 	var offset_vec : Vector2
 	var carrier_node = get_node(get_path()) # Get the current node

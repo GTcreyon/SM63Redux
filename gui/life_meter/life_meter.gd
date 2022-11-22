@@ -17,6 +17,7 @@ var rechange_moving = false # After it's shown, it will return back up
 var progress = 0
 var coin_save = 0
 
+
 func _ready():
 	coin_save = Singleton.internal_coin_counter
 	modulate.v = 1 - death_cover.color.a

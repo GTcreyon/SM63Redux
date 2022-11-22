@@ -25,6 +25,7 @@ func _physics_process(_delta):
 			timer = 30
 			mario = null
 
+
 func _on_Heart_body_entered(body):
 	crossed_item = true
 	mario = body

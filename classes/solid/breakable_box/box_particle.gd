@@ -4,6 +4,7 @@ onready var sprite = $AnimatedSprite
 var vel
 var lifetime = 120
 
+
 func _physics_process(_delta):
 	if is_on_floor():
 		vel.x *= 0.75

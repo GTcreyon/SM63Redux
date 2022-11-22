@@ -7,6 +7,7 @@ var max_fps: int = 60
 var print_delay: int = 0
 var streak_id: int = 0
 
+
 func _physics_process(delta):
 	if OS.get_ticks_msec() > 3000:
 		var fps = Performance.get_monitor(Performance.TIME_FPS)

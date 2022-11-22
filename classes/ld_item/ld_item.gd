@@ -20,11 +20,13 @@ func set_glowing(should_glow):
 	else:
 		material = null
 
+
 func _ready():
 	if ghost:
 		modulate.a = 0.5
 		position = main.snap_vector(get_global_mouse_position())
 	$ClickArea/CollisionShape2D.shape.extents = texture.get_size() / 2
+
 
 func _input(event):
 	# Instead of this guard, can we like disconnect the _input event?
@@ -47,6 +49,7 @@ func _input(event):
 	elif event.is_action_released("ld_cancel_placement"):
 		queue_free()
 		main.editor_state = main.EDITOR_STATE.IDLE
+
 
 func _process(_delta):
 	if ghost:
@@ -73,6 +76,7 @@ func update_visual_property(label, value) -> void:
 			rotation_degrees = float(value)
 		"Mirror":
 			flip_h = value
+
 
 func item_disabled_tint(disabled) -> void:
 	var val = 0.5 if disabled else 1.0

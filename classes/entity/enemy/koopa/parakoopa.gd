@@ -24,16 +24,19 @@ export var disabled = false setget set_disabled
 export var mirror = false
 export(int, "green", "red") var color = 0 setget set_color
 
+
 func set_color(new_color):
 	for i in range(3):
 		material.set_shader_param("color" + str(i), color_presets[new_color][i])
 	color = new_color
+
 
 func _ready():
 	if !Engine.editor_hint:
 		flip_h = mirror
 		frame = hash(position.x + position.y * PI) % 6
 		playing = !disabled
+
 
 func _on_TopCollision_body_entered(body):
 	if body.is_spinning():
