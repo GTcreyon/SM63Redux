@@ -3,6 +3,8 @@ extends Door
 const SINGLE_DOOR_OFFSET = 8
 const FACING_BIAS = 2 # If player's facing one door, they can enter it this many pixels further away.
 
+export var force_exact_target = false
+
 # This stores which side we've chosen to enter.
 # We need this because the player's facing direction shifts as they enter
 # a door, meaning we can't rely on "are they left of the doors' origin?"
@@ -18,7 +20,7 @@ func _enter_pos_offset_x() -> int:
 
 
 func _exit_pos_offset() -> Vector2:
-	return Vector2(_enter_pos_offset_x(), 0)
+	return Vector2(_enter_pos_offset_x(), 0) if !force_exact_target else Vector2(0,0)
 
 
 func _door_open():
