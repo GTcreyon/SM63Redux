@@ -12,6 +12,9 @@ extends Interactable
 # it to respond to a different button than "up",
 # or override _begin_scene_change(target_pos, scene_pos) to change what
 # transition will be used on scene change (star iris out by default).
+# Additionally, override _exit_pos_offset() to shift all destination positions
+# across the game by some amount. The value returned will be added to the 
+# destination.
 # 
 # Please note that if the particular warp is set to move to a different scene,
 # the exit transition will begin TRANSITION_SPEED_IN frames before the end of
@@ -69,11 +72,11 @@ func _physics_override():
 		
 		# Begin scene-change transition if the animation is ready
 		if anim_timer == min(TRANSITION_SPEED_IN, _animation_length()) and move_to_scene == true:
-			_begin_scene_change(target_pos, scene_path)
+			_begin_scene_change(target_pos + _exit_pos_offset(), scene_path)
 			
 		# If not changing scenes, warp player when the timer rings
 		if anim_timer == 0 and move_to_scene != true:
-			player.position = target_pos
+			player.position = target_pos + _exit_pos_offset()
 			player.locked = false
 			
 			# No longer need this reference, let's drop it.
@@ -84,6 +87,11 @@ func _physics_override():
 		# when the timer is 0 and the warp happens, the timer will
 		# tick down to -1 (the "not running" value) and stop.
 		anim_timer -= 1
+
+
+# Will be added to destination position.
+func _exit_pos_offset() -> Vector2:
+	return Vector2(0,0)
 
 
 # Checks if player is in a state where they can interact

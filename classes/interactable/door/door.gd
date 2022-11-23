@@ -43,7 +43,7 @@ func _animation_length():
 	return 60
 
 
-func _enter_pos_offset() -> int:
+func _enter_pos_offset_x() -> int:
 	return 0
 
 
@@ -53,11 +53,12 @@ func _player_begin_animation(player):
 	# NOTE: read_pos_x movement currently has a lerp factor of 0.75 per frame.
 	# Door entry may feel smoother with a factor of 0.25
 	# (more consistent with player movement).
-	player.read_pos_x = global_position.x + _enter_pos_offset()
+	player.read_pos_x = global_position.x + _enter_pos_offset_x()
 
 
 func _door_open():
 	$Sprite.play("opening")
+
 
 func _door_close():
 	$Sprite.play("closing")

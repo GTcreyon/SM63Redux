@@ -13,8 +13,12 @@ func _set_sprite_frames(sprite_frames: SpriteFrames):
 	$SpriteR.frames = sprite_frames
 
 
-func _enter_pos_offset() -> int:
+func _enter_pos_offset_x() -> int:
 	return SINGLE_DOOR_OFFSET * chosen_side
+
+
+func _exit_pos_offset() -> Vector2:
+	return Vector2(_enter_pos_offset_x(), 0)
 
 
 func _door_open():
@@ -47,9 +51,3 @@ func _door_close():
 		$SpriteR.play("closing")
 	else:
 		$SpriteL.play("closing")
-
-
-func _begin_scene_change(target_pos, scene_path):
-	# Clobber the destination position so player comes out on the left or right.
-	# TODO: Figure out how to do this during in-scene warps.
-	._begin_scene_change(target_pos + Vector2(_enter_pos_offset(), 0), scene_path)
