@@ -34,7 +34,7 @@ func _physics_process(_delta):
 			if target.position.y < global_position.y:
 				target.position.y += SLIDE_SPEED
 	
-	if can_warp:
+	if can_warp and target.locked == false:
 		# Begin entering pipe if down is pressed 
 		if Input.is_action_pressed("down") and store_state == target.S.NEUTRAL and target.is_on_floor():
 			target.get_node("Voice").volume_db = -INF # Dumb solution to mario making dive sounds
