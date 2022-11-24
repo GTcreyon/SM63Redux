@@ -10,6 +10,7 @@ export var force_exact_target = false
 # a door, meaning we can't rely on "are they left of the doors' origin?"
 var chosen_side = 0
 
+
 func _set_sprite_frames(sprite_frames: SpriteFrames):
 	$SpriteL.frames = sprite_frames
 	$SpriteR.frames = sprite_frames
@@ -20,7 +21,10 @@ func _enter_pos_offset_x() -> int:
 
 
 func _exit_pos_offset() -> Vector2:
-	return Vector2(_enter_pos_offset_x(), 0) if !force_exact_target else Vector2(0,0)
+	if force_exact_target:
+		return Vector2(0,0)
+	else:
+		return Vector2(_enter_pos_offset_x(), 0)
 
 
 func _door_open():
