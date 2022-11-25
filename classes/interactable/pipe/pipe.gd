@@ -23,9 +23,9 @@ func _begin_animation(_player):
 	_player.read_pos_x = global_position.x
 	
 	# Give player slide-down animation
-	_player.get_node("Character").set_animation("front")
-	_player.get_node("Character").rotation = 0 # Keeps player from turning sideways
-	_player.get_node("Voice").volume_db = -INF # Keeps player from making dive sounds
+	_player.switch_anim("front")
+	_player.sprite.rotation = 0 # Keeps player from turning sideways
+	_player.voice.volume_db = -INF # Keeps player from making dive sounds
 	
 	# Play pipe-enter sound
 	sound.play()
@@ -41,7 +41,7 @@ func _update_animation(_frame, _player):
 
 func _end_animation(_player):
 	# Reset player's voice clips to normal volume.
-	_player.get_node("Voice").volume_db = -5
+	_player.voice.volume_db = -5
 	
 	_player.switch_state(_player.S.NEUTRAL)
 	_player.switch_anim("walk")
