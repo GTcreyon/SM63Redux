@@ -3,27 +3,38 @@ extends Interactable
 # A variant of Interactable that warps the player somewhere,
 # either to another scene or someplace in the current one.
 # 
-# To implement this base class, there are two functions to extend:
-# - _animation_length() returns the expected duration of the animation
-#   as an int.
-# - _update_animation(_frame, _player) updates the enter animation for the
-#   given frame.
-# For further customization, you can override _interact_check() if you want
-# it to respond to a different button than "up",
-# or override _begin_scene_change(target_pos, scene_pos) to change what
-# transition will be used on scene change (star iris out by default).
-# Additionally, override _exit_pos_offset() to shift all destination positions
-# across the game by some amount. The value returned will be added to the 
-# destination.
-# 
-# Please note that if the particular warp is set to move to a different scene,
-# the exit transition will begin TRANSITION_SPEED_IN frames before the end of
-# the animation.
-#
-# For convenience, an animation function is included to shift the player slowly
-# to a position. This is meant to be run once per frame, probably in the
-# entry animation, and should be useful for centering the player to the right
-# spot.
+# Functions which child classes SHOULD implement:
+# - _animation_length() -> int:
+#		returns the expected duration of the animation. This does NOT include
+#		the frame after the animation ends!
+# - _begin_animation(_player):
+#		sets the initial state of the enter animation.
+#		This includes changing the player's animation, setting read_pos_x so the
+#		player gradually drifts to the center, etc.
+# - _update_animation(_frame, _player):
+#		updates the enter animation for the given frame.
+#		This function does run on the final frame of the animation. In this case,
+#		_frame will be equal to _animation_length(). This function will run
+#		before _end_animation() does.
+# - _end_animation(_player):
+#		at the end of the animation, resets any state that the animation set.
+#		This function runs after _update_animation() on the animation's final
+#		frame, EXCEPT if the warp is to a different scene.
+
+# Functions which child classes MAY implement:
+# -	_interact_check() -> bool:
+# 		checks whatever is meant to trigger the interaction.
+#		For InteractableWarp, the default check is whether "up" is pressed.
+# - _begin_scene_change(target_pos, scene_pos):
+#		begins whatever screen transition this exit requires.
+#		The default behavior is to begin a scene change via WindowWarp, which
+#		produces a star iris transition.
+#		Please note that if the particular warp is set to move to a different scene,
+#		the exit transition will begin TRANSITION_SPEED_IN frames before the end of
+#		the animation.
+# -	_exit_pos_offset() -> Vector2:
+#		shifts the destination position by some amount.
+#		The value returned will be added to target_pos.
 
 const TRANSITION_SPEED_IN = 25
 const TRANSITION_SPEED_OUT = 15
@@ -58,6 +69,7 @@ func _interact_with(body):
 	
 	# Change to "animating" state
 	anim_timer = _animation_length()
+	_begin_animation(player)
 
 
 func _physics_override():
@@ -73,11 +85,16 @@ func _physics_override():
 		# Begin scene-change transition if the animation is ready
 		if anim_timer == min(TRANSITION_SPEED_IN, _animation_length()) and move_to_scene == true:
 			_begin_scene_change(target_pos + _exit_pos_offset(), scene_path)
-			
-		# If not changing scenes, warp player when the timer rings
-		if anim_timer == 0 and move_to_scene != true:
+		
+		# If timer rings and we're not scene-changing, finalize the warp.
+		if anim_timer == 0 and !move_to_scene:
+			# Set player at the destination, ready to move.
 			player.position = target_pos + _exit_pos_offset()
 			player.locked = false
+			# TODO: Find a way to make exit animations!
+			
+			# Finalize the animation.
+			_end_animation(player)
 			
 			# No longer need this reference, let's drop it.
 			player = null
