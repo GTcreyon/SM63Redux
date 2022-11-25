@@ -1,6 +1,6 @@
 extends InteractableWarp
 
-const PIPE_HEIGHT = 30
+const PLAYER_STOP_HEIGHT = 15
 const SLIDE_SPEED = 0.7
 
 var store_state = 0
@@ -32,7 +32,9 @@ func _begin_animation(_player):
 func _update_animation(_frame, _player):
 	# Slide player a little further into the pipe.
 	# TODO: Go fast if entering via pound.
-	_player.position.y = min(global_position.y, _player.position.y + SLIDE_SPEED)
+	_player.position.y = min(
+		global_position.y - PLAYER_STOP_HEIGHT,
+		_player.position.y + SLIDE_SPEED)
 
 
 func _end_animation(_player):
