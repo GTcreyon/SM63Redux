@@ -2,8 +2,6 @@ extends InteractableWarp
 
 const PIPE_HEIGHT = 30
 const SLIDE_SPEED = 0.7
-const CENTERING_SPEED_SLOW = 0.25
-const CENTERING_SPEED_FAST = 0.75
 
 var store_state = 0
 var ride_area
@@ -20,10 +18,8 @@ func _animation_length() -> int:
 	return 60
 
 func _begin_animation(_player):
-	# Center player slightly - REPLACE WITH read_pos_x
-	_player.position = Vector2(
-		lerp(_player.position.x, global_position.x, CENTERING_SPEED_SLOW),
-		global_position.y - PIPE_HEIGHT)
+	# Set player to center gradually
+	_player.read_pos_x = global_position.x
 	
 	# Give player slide-down animation
 	_player.get_node("Character").set_animation("front")
@@ -37,9 +33,7 @@ func _update_animation(_frame, _player):
 	# Slide player a little further into the pipe.
 	if _player.state == 7: # Not a valid value
 		_player.position.y = global_position.y
-		_player.position.x = lerp(_player.position.x, global_position.x, CENTERING_SPEED_FAST)
 	else:
-		_player.position.x = lerp(_player.position.x, global_position.x, CENTERING_SPEED_SLOW)
 		if _player.position.y < global_position.y:
 			_player.position.y += SLIDE_SPEED
 
