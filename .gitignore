@@ -9,6 +9,9 @@ export_presets.cfg
 data_*/
 main.tscn
 
+# IDE-specific ignores
+.vscode/*
+
 # Pipescript Target Ignores
 pipescript/target
 pipescript/compile_tool.sh
