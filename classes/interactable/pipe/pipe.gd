@@ -31,11 +31,8 @@ func _begin_animation(_player):
 		
 func _update_animation(_frame, _player):
 	# Slide player a little further into the pipe.
-	if _player.state == 7: # Not a valid value
-		_player.position.y = global_position.y
-	else:
-		if _player.position.y < global_position.y:
-			_player.position.y += SLIDE_SPEED
+	# TODO: Go fast if entering via pound.
+	_player.position.y = min(global_position.y, _player.position.y + SLIDE_SPEED)
 
 
 func _end_animation(_player):
