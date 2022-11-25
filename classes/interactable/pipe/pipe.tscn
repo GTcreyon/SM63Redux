@@ -15,10 +15,12 @@ collision_mask = 0
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -16 )
 z_index = 1
 texture = ExtResource( 2 )
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2( 0, -16 )
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
@@ -35,6 +37,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -16 )
 z_index = 1
 shape = SubResource( 2 )
 __meta__ = {
