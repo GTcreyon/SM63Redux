@@ -6,10 +6,9 @@ const CENTERING_SPEED_SLOW = 0.25
 const CENTERING_SPEED_FAST = 0.75
 
 var store_state = 0
+var ride_area
 
-onready var sweep_effect = $"/root/Singleton/WindowWarp"
 onready var sound = $SFX # for sound effect
-onready var ride_area = $Area2D
 
 func _interact_check() -> bool:
 	# Interact when Down is pressed.
@@ -60,5 +59,5 @@ func set_disabled(val):
 	disabled = val
 	set_collision_layer_bit(0, 0 if val else 1)
 	if ride_area == null:
-		ride_area = $Area2D
+		ride_area = self
 	ride_area.monitoring = !val
