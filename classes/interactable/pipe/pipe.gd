@@ -1,108 +1,60 @@
-extends StaticBody2D
+extends InteractableWarp
 
 const PIPE_HEIGHT = 30
 const SLIDE_SPEED = 0.7
-const SLIDE_LENGTH = 60
 const CENTERING_SPEED_SLOW = 0.25
 const CENTERING_SPEED_FAST = 0.75
-const TRANSITION_SPEED_IN = 25
-const TRANSITION_SPEED_OUT = 15
 
-export var disabled = false setget set_disabled
-export var target_pos = Vector2.ZERO
-export var move_to_scene = false
-export var scene_path : String
-
-var can_warp = false # This variable is changed when mario enters the pipe's small area2D
-var slid = false # This is true while Mario is sliding into the pipe
-var slide_timer = 0 # This counts up while Mario slides until he reaches the end
 var store_state = 0
-var target = null
 
 onready var sweep_effect = $"/root/Singleton/WindowWarp"
 onready var sound = $SFX # for sound effect
 onready var ride_area = $Area2D
 
-func _physics_process(_delta):
-	if slid:
-		# Slide Mario down into the pipe
-		if target.state == 7:
-			target.position.y = global_position.y
-			target.position.x = lerp(target.position.x, global_position.x, CENTERING_SPEED_FAST)
-		else:
-			target.position.x = lerp(target.position.x, global_position.x, CENTERING_SPEED_SLOW)
-			if target.position.y < global_position.y:
-				target.position.y += SLIDE_SPEED
+func _interact_check() -> bool:
+	# Interact when Down is pressed.
+	# TODO: Find a way to auto-interact if player enters while pounding.
+	return Input.is_action_just_pressed("down")
+
+
+func _animation_length() -> int:
+	return 60
+
+func _begin_animation(_player):
+	# Center player slightly - REPLACE WITH read_pos_x
+	_player.position = Vector2(
+		lerp(_player.position.x, global_position.x, CENTERING_SPEED_SLOW),
+		global_position.y - PIPE_HEIGHT)
 	
-	if can_warp and target.locked == false:
-		# Begin entering pipe if down is pressed 
-		if Input.is_action_pressed("down") and store_state == target.S.NEUTRAL and target.is_on_floor():
-			target.get_node("Voice").volume_db = -INF # Dumb solution to mario making dive sounds
-			target.get_node("Character").set_animation("front")
-			target.get_node("Character").rotation = 0
-			
-			sound.play()
-			target.locked = true # Affects mario's whole input process
-			target.position = Vector2(
-				lerp(target.position.x, global_position.x, CENTERING_SPEED_SLOW),
-				global_position.y - PIPE_HEIGHT)
-			
-			# Warping will be disabled, then increment will start as mario slides down
-			can_warp = false
-			slid = true
-		# Begin entering pipe if ground pounding
-		elif target.state == target.S.POUND and target.pound_state != target.Pound.SPIN:
-			sound.play()
-			target.locked = true # Affects mario's whole input process
-			#target.position = Vector2(global_position.x, global_position.y - 30)
-			target.position = Vector2(
-				lerp(target.position.x, global_position.x, CENTERING_SPEED_FAST),
-				global_position.y - PIPE_HEIGHT)
-			
-			# Warping will be disabled, then timer will start as mario slides down
-			can_warp = false
-			slid = true
+	# Give player slide-down animation
+	_player.get_node("Character").set_animation("front")
+	_player.get_node("Character").rotation = 0 # Keeps player from turning sideways
+	_player.get_node("Voice").volume_db = -INF # Keeps player from making dive sounds
 	
-		store_state = target.state # for next frame
-	
-	# Tick the slide timer
-	if slid:
-		slide_timer += 1
+	# Play pipe-enter sound
+	sound.play()
 		
-	# Begin scene-change transition early if needed (looks better that way)
-	if slide_timer == SLIDE_LENGTH - TRANSITION_SPEED_IN and move_to_scene:
-		sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
+func _update_animation(_frame, _player):
+	# Slide player a little further into the pipe.
+	if _player.state == 7: # Not a valid value
+		_player.position.y = global_position.y
+		_player.position.x = lerp(_player.position.x, global_position.x, CENTERING_SPEED_FAST)
+	else:
+		_player.position.x = lerp(_player.position.x, global_position.x, CENTERING_SPEED_SLOW)
+		if _player.position.y < global_position.y:
+			_player.position.y += SLIDE_SPEED
+
+
+func _end_animation(_player):
+	# Reset player's voice clips to normal volume.
+	_player.get_node("Voice").volume_db = -5
 	
-	# If not changing scenes, warp Mario on timer ring
-	if slide_timer == SLIDE_LENGTH and move_to_scene != true:
-		# Teleport Mario someplace within the level
-		target.position = target_pos
-			
-		# Reset Mario to normal
-		target.get_node("Voice").volume_db = -5
-		target.locked = false
-		target.switch_state(target.S.NEUTRAL)
-		target.switch_anim("walk")
-		target.dive_correct(0)
-		
-		# Reset this pipe to ready
-		sound.stop()
-		slide_timer = 0
-		slid = false
+	_player.switch_state(_player.S.NEUTRAL)
+	_player.switch_anim("walk")
+	_player.dive_correct(0)
 
-
-func _on_mario_top(body):
-	if body.global_position.y < global_position.y:
-		if body.state == body.S.NEUTRAL:
-			can_warp = true
-			target = body
-
-
-func _on_mario_off(_body):
-	if !slid: # Without this check, target will get nulled during the slide
-		can_warp = false
-		target = null
-
+	# Force end pipe sound, just in case.
+	sound.stop()
 
 func set_disabled(val):
 	disabled = val
