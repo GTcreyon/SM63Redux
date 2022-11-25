@@ -109,7 +109,15 @@ func _animation_length() -> int:
 	return 0
 
 
+func _begin_animation(_player):
+	pass
+
+
 func _update_animation(_frame: int, _player):
+	pass
+
+
+func _end_animation(_player):
 	pass
 
 
