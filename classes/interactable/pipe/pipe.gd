@@ -17,6 +17,7 @@ func _interact_check() -> bool:
 func _animation_length() -> int:
 	return 60
 
+
 func _begin_animation(_player):
 	# Set player to center gradually
 	_player.read_pos_x = global_position.x
@@ -28,7 +29,8 @@ func _begin_animation(_player):
 	
 	# Play pipe-enter sound
 	sound.play()
-		
+
+
 func _update_animation(_frame, _player):
 	# Slide player a little further into the pipe.
 	# TODO: Go fast if entering via pound.
@@ -47,6 +49,7 @@ func _end_animation(_player):
 
 	# Force end pipe sound, just in case.
 	sound.stop()
+
 
 func set_disabled(val):
 	disabled = val
