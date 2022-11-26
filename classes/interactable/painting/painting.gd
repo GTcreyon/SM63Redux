@@ -1,6 +1,6 @@
 extends InteractableWarp
 
-const TIME_PEAK_JUMP = 22 # Time it takes the animated jump to reach its peak
+const TIME_PEAK_JUMP = 30 # Time it takes the animated jump to reach its peak
 const TIME_PEAK_SWIM = 20 # Temporary--haven't checked
 const TIME_END_LONGJUMP = 8
 const TIME_START_SHRINK = 16
