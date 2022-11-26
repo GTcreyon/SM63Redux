@@ -8,6 +8,7 @@
 extents = Vector2( 48, 8 )
 
 [node name="Painting" type="Area2D"]
+z_index = -1
 monitorable = false
 script = ExtResource( 3 )
 sprite = NodePath("Picture")
