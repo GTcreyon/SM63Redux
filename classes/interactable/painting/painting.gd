@@ -1,10 +1,12 @@
 extends InteractableWarp
 
-const TIME_PEAK_SHORTHOP_AIR = 18 # Time it takes a shorthop to reach its peak
-const TIME_PEAK_SHORTHOP_WATER = 20 # Temporary--haven't checked
-const TIME_START_SHRINK = 8
+const TIME_PEAK_JUMP = 22 # Time it takes the animated jump to reach its peak
+const TIME_PEAK_SWIM = 20 # Temporary--haven't checked
+const TIME_END_LONGJUMP = 8
+const TIME_START_SHRINK = 16
+const SHRINK_DURATION = 8
+const TIME_END_SHRINK = TIME_START_SHRINK + SHRINK_DURATION
 const SHRINK_SCALE_MIN = 0.75
-const SHRINK_DURATION = TIME_PEAK_SHORTHOP_AIR - TIME_START_SHRINK
 
 
 func _animation_length() -> int:
@@ -13,7 +15,7 @@ func _animation_length() -> int:
 
 func _begin_animation(_player):
 	if !_player.swimming:
-		# Force a short hop.
+		# Force a single jump.
 		_player.double_jump_state = 0
 		_player.action_jump()
 	
@@ -27,11 +29,19 @@ func _begin_animation(_player):
 
 func _update_animation(_frame, _player):
 	# Jump into painting
-	if _frame < TIME_PEAK_SHORTHOP_AIR:
+	if _frame < TIME_PEAK_JUMP:
 		# Simulate a player jump.
 		# TODO: Player falls differently underwater.
 		# Account for this.
+		
+		# Apply gravity.
 		_player.player_fall()
+		
+		# For a while, hold jump button to give extra height.
+		if _frame < TIME_END_LONGJUMP:
+			_player.player_jump_vary_height()
+		
+		# Apply movement.
 		_player.player_move()
 	# When this duration passes, player will hang in midair.
 	
@@ -41,7 +51,7 @@ func _update_animation(_frame, _player):
 		_player.scale = Vector2.ONE * lerp(1, SHRINK_SCALE_MIN, shrink_fac)
 			
 	
-	if _frame == TIME_PEAK_SHORTHOP_AIR:
+	if _frame == TIME_END_SHRINK:
 		# Hide player
 		_player.sprite.modulate.a = 0
 		
