@@ -22,6 +22,17 @@ position = Vector2( 0, -80 )
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 64.804, 48 )
 
+[node name="WhiteFlash" type="ColorRect" parent="Picture"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -41.0
+margin_top = -41.0
+margin_right = -41.0
+margin_bottom = -41.0
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+
 [node name="Frame" type="Sprite" parent="."]
 position = Vector2( 0, -80 )
 texture = ExtResource( 1 )
