@@ -10,7 +10,7 @@ Ensure that you provide as much detail as possible on *how* the bug happened. Th
 ### Preparation
 If you would like to make a contribution, begin by posting a feature request in the "Issues" section. This will allow us to review your plans, suggest alterations, or potentially reject the idea if necessary. From there, you can fork the project, make your alterations, and issue a pull request.
 ### Styling
-Follow the Godot style guide as closely as possible, albeit with the following alterations:
+Follow the [Godot style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html) as closely as possible, albeit with the following alterations:
 * The keywords `and` and `or` are used in place of the C-like `&&` and `||` as-per the style guide, however we use the `!` symbol as opposed to `not`, to allow easier reading of more complex boolean expressions. So, `if !foo and !bar:`
 * When unfolding longer lines we only use *one* tab, not two. This is contrary to the Godot style guide.
 ### Documentation
