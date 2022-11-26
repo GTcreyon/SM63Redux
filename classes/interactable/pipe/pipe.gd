@@ -93,7 +93,7 @@ func _end_animation(_player):
 	# Force end pipe sound, just in case.
 	sound.stop()
 	
-	# Forget pound state, lest it bleed into future checks.
+	# Forget pound state, lest it bleed into future animation-length checks.
 	continue_pound = false
 
 
