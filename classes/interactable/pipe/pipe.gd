@@ -98,8 +98,5 @@ func _end_animation(_player):
 
 
 func set_disabled(val):
-	disabled = val
-	set_collision_layer_bit(0, 0 if val else 1)
-	if ride_area == null:
-		ride_area = self
-	ride_area.monitoring = !val
+	.set_disabled(val)
+	$StaticBody2D.set_collision_layer_bit(0, 0 if val else 1)
