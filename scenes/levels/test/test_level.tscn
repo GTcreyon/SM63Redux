@@ -4,12 +4,17 @@
 [ext_resource path="res://classes/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://classes/entity/enemy/thwomp/thwomp.tscn" type="PackedScene" id=3]
 [ext_resource path="res://classes/misc/twirl_heart/twirl_heart.tscn" type="PackedScene" id=4]
-[ext_resource path="res://classes/water/water.tscn" type="PackedScene" id=5]
+[ext_resource path="res://classes/interactable/painting/painting.tscn" type="PackedScene" id=5]
 
 [node name="Main" type="Node2D"]
 
+[node name="Painting" parent="." instance=ExtResource( 5 )]
+position = Vector2( 480, 48 )
+target_pos = Vector2( 328, 28 )
+
 [node name="TerrainPolygon" parent="." instance=ExtResource( 1 )]
 position = Vector2( 124, 69 )
+polygon = PoolVector2Array( -60, -21, 404, -21, 404, 67, -60, 67 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 328, 28 )
@@ -19,7 +24,3 @@ position = Vector2( 142, -176 )
 
 [node name="Heart" parent="." instance=ExtResource( 4 )]
 position = Vector2( 327, 44 )
-
-[node name="WaterPolygon" parent="." instance=ExtResource( 5 )]
-position = Vector2( -306, 231 )
-polygon = PoolVector2Array( 0, 0, 99999, 0, 99999, 99999, 0, 99999 )
