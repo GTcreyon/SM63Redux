@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://classes/interactable/locked_warp/locked_warp_dialog.gd" type="Script" id=1]
+[ext_resource path="res://classes/interactable/locked_warp/lock_gold.png" type="Texture" id=2]
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 12, 16 )
+
+[node name="Lock" type="Area2D"]
+process_priority = -1
+position = Vector2( 495, 272 )
+z_index = -1
+monitorable = false
+script = ExtResource( 1 )
+sprite = NodePath("Sprite")
+lines = [ "The door is locked.
+Maybe there's a key nearby...." ]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -16 )
+shape = SubResource( 13 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, -22 )
+texture = ExtResource( 2 )
