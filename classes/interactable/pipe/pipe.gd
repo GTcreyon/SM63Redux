@@ -1,112 +1,102 @@
-extends StaticBody2D
+extends InteractableWarp
 
-const PIPE_HEIGHT = 30
+const PLAYER_STOP_HEIGHT = 15
 const SLIDE_SPEED = 0.7
-const SLIDE_LENGTH = 60
-const CENTERING_SPEED_SLOW = 0.25
-const CENTERING_SPEED_FAST = 0.75
-const TRANSITION_SPEED_IN = 25
-const TRANSITION_SPEED_OUT = 15
+const SLIDE_SPEED_FAST = 1.4
 
-export var disabled = false setget set_disabled
-export var target_pos = Vector2.ZERO
-export var move_to_scene = false
-export var scene_path : String
-
-var can_warp = false # This variable is changed when mario enters the pipe's small area2D
-var slid = false # This is true while Mario is sliding into the pipe
-var slide_timer = 0 # This counts up while Mario slides until he reaches the end
 var store_state = 0
-var target = null
+var ride_area
+var begin_pound = false # Did we land a pound this frame?
+var continue_pound = false # Did a pound send us down this pipe?
 
-onready var sweep_effect = $"/root/Singleton/WindowWarp"
 onready var sound = $SFX # for sound effect
-onready var ride_area = $Area2D
 
-func _physics_process(_delta):
-	if slid:
-		# Slide Mario down into the pipe
-		if target.state == 7:
-			target.position.y = global_position.y
-			target.position.x = lerp(target.position.x, global_position.x, CENTERING_SPEED_FAST)
-		else:
-			target.position.x = lerp(target.position.x, global_position.x, CENTERING_SPEED_SLOW)
-			if target.position.y < global_position.y:
-				target.position.y += SLIDE_SPEED
+# This function is part of an ugly hack to make quick-pipe work.
+# With quick-pipe, the pipe activates if the player is grounded AND either
+# a button is pressed OR the player is pounding.
+# Unfortunately, the base Interactable class runs its activation code if
+# button is pressed AND player is grounded...and there's no way to check
+# the player state in the button-press half of the code.
+# So rather than add a player variable to the button press check (that's this
+# function), which would make life hard for other Interactables for no reason,
+# we instead rely on the AND structure of the base interactable check:
+# return unconditionally true from this function, then do all the logic we
+# actually care about in the other side, including the button check.
+# Ugly? Yes. Future-proof? Absolutely not.
+# Works? Currently, yes :)
+func _interact_check() -> bool:
+	return true
+
+# Here's the other half of that ugly hack. Perform input-checking logic (which
+# includes grounded check), then AND that with the actual state check
+# from the base class.
+func _state_check(player) -> bool:
+	# Interact when Down is pressed.
+	var interact_check = Input.is_action_just_pressed("down")
+	# Also interact if player hits the pipe whilst pounding.
+	begin_pound = player.state == player.S.POUND and player.pound_state != player.Pound.SPIN
 	
-	if can_warp and target.locked == false:
-		# Begin entering pipe if down is pressed 
-		if Input.is_action_pressed("down") and store_state == target.S.NEUTRAL and target.is_on_floor():
-			target.get_node("Voice").volume_db = -INF # Dumb solution to mario making dive sounds
-			target.get_node("Character").set_animation("front")
-			target.get_node("Character").rotation = 0
-			
-			sound.play()
-			target.locked = true # Affects mario's whole input process
-			target.position = Vector2(
-				lerp(target.position.x, global_position.x, CENTERING_SPEED_SLOW),
-				global_position.y - PIPE_HEIGHT)
-			
-			# Warping will be disabled, then increment will start as mario slides down
-			can_warp = false
-			slid = true
-		# Begin entering pipe if ground pounding
-		elif target.state == target.S.POUND and target.pound_state != target.Pound.SPIN:
-			sound.play()
-			target.locked = true # Affects mario's whole input process
-			#target.position = Vector2(global_position.x, global_position.y - 30)
-			target.position = Vector2(
-				lerp(target.position.x, global_position.x, CENTERING_SPEED_FAST),
-				global_position.y - PIPE_HEIGHT)
-			
-			# Warping will be disabled, then timer will start as mario slides down
-			can_warp = false
-			slid = true
+	return (interact_check and ._state_check(player)) or begin_pound
+
+
+func _animation_length() -> int:
+	if begin_pound or continue_pound:
+		return 30
+	else:
+		return 60
+
+
+func _begin_animation(_player):
+	# Set player to center gradually
+	_player.read_pos_x = global_position.x
 	
-		store_state = target.state # for next frame
+	# Give player slide-down animation
+	if not begin_pound:
+		_player.switch_anim("front")
+	else:
+		# TODO: non-fall pound animation may be best?
+		_player.switch_anim("pound_fall")
 	
-	# Tick the slide timer
-	if slid:
-		slide_timer += 1
-		
-	# Begin scene-change transition early if needed (looks better that way)
-	if slide_timer == SLIDE_LENGTH - TRANSITION_SPEED_IN and move_to_scene:
-		sweep_effect.warp(target_pos, scene_path, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
+	_player.sprite.rotation = 0 # Keeps player from turning sideways
+	_player.voice.volume_db = -INF # Keeps player from making dive sounds
 	
-	# If not changing scenes, warp Mario on timer ring
-	if slide_timer == SLIDE_LENGTH and move_to_scene != true:
-		# Teleport Mario someplace within the level
-		target.position = target_pos
-			
-		# Reset Mario to normal
-		target.get_node("Voice").volume_db = -5
-		target.locked = false
-		target.switch_state(target.S.NEUTRAL)
-		target.switch_anim("walk")
-		target.dive_correct(0)
-		
-		# Reset this pipe to ready
-		sound.stop()
-		slide_timer = 0
-		slid = false
+	# End pound state so the pipe doesn't retrigger endlessly
+	_player.switch_state(_player.S.NEUTRAL)
+	# ...but if it was there, save it so we can check against it later!
+	continue_pound = begin_pound
+	
+	# Play pipe-enter sound
+	sound.play()
 
 
-func _on_mario_top(body):
-	if body.global_position.y < global_position.y:
-		if body.state == body.S.NEUTRAL:
-			can_warp = true
-			target = body
+func _update_animation(_frame, _player):
+	# Slide player a little further into the pipe.
+	# Go faster if pounding.
+	if continue_pound:
+		_player.position.y += SLIDE_SPEED_FAST
+	else:
+		_player.position.y += SLIDE_SPEED
+	
+	# Don't let player go below the pipe's end!
+	_player.position.y = min(_player.position.y, 
+		global_position.y - PLAYER_STOP_HEIGHT)
 
 
-func _on_mario_off(_body):
-	if !slid: # Without this check, target will get nulled during the slide
-		can_warp = false
-		target = null
+func _end_animation(_player):
+	# Reset player's voice clips to normal volume.
+	_player.voice.volume_db = -5
+	
+	_player.switch_state(_player.S.NEUTRAL)
+	_player.switch_anim("walk")
+	_player.dive_correct(0)
+
+	# Force end pipe sound, just in case.
+	sound.stop()
+	
+	# Forget pound state, lest it bleed into future animation-length checks.
+	continue_pound = false
 
 
 func set_disabled(val):
-	disabled = val
-	set_collision_layer_bit(0, 0 if val else 1)
-	if ride_area == null:
-		ride_area = $Area2D
-	ride_area.monitoring = !val
+	.set_disabled(val)
+	$StaticBody2D.set_collision_layer_bit(0, 0 if val else 1)
