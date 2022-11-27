@@ -8,7 +8,6 @@ extents = Vector2( 12, 16 )
 
 [node name="Lock" type="Area2D"]
 process_priority = -1
-position = Vector2( 495, 272 )
 z_index = -1
 monitorable = false
 script = ExtResource( 1 )
