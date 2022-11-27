@@ -7,6 +7,12 @@ const TIME_START_SHRINK = 16
 const SHRINK_DURATION = 8
 const TIME_END_SHRINK = TIME_START_SHRINK + SHRINK_DURATION
 const SHRINK_SCALE_MIN = 0.75
+const TIME_START_FLASH = TIME_START_SHRINK
+const FLASH_DURATION_HALF = SHRINK_DURATION
+const TIME_PEAK_FLASH = TIME_START_FLASH + FLASH_DURATION_HALF
+#const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_HALF
+
+onready var white_flash = $Picture/WhiteFlash
 
 
 func _animation_length() -> int:
@@ -45,19 +51,28 @@ func _update_animation(_frame, _player):
 		_player.player_move()
 	# When this duration passes, player will hang in midair.
 	
+	# Shrink player into the painting.
 	if _frame > TIME_START_SHRINK:
-		#Shrink into the painting.
+		# how far along the shrink animation we are
 		var shrink_fac = float(_frame - TIME_START_SHRINK) / SHRINK_DURATION
+		# do actual shrink
 		_player.scale = Vector2.ONE * lerp(1, SHRINK_SCALE_MIN, shrink_fac)
-			
 	
+	# Once shrink is over, hide player.
 	if _frame == TIME_END_SHRINK:
-		# Hide player
 		_player.sprite.modulate.a = 0
+	
+	
+	# Flash the painting white.
+	if _frame > TIME_START_FLASH:
+		# how far along the flash animation we are
+		var flash_fac = float(_frame - TIME_START_FLASH) / FLASH_DURATION_HALF
+		# make it fall back to 0 after it hits 1
+		if flash_fac > 1:
+			flash_fac = 1 - (flash_fac - 1)
 		
-		# TODO: Juicen this up with a flash
-		# (and a ripple, but that'll take shaders
-
+		# Begin white flash animation
+		white_flash.modulate.a = flash_fac
 
 func _end_animation(_player):
 	#Reset player to full size and visibility.
