@@ -11,9 +11,13 @@ func _physics_process(_delta):
 
 
 func _physics_override():
-	for body in get_overlapping_bodies():
-		if _interact_check() and _state_check(body):
-			_interact_with(body)
+	if !disabled:
+		# NOTE: get_overlapping_bodies() throws errors if run
+		# while monitoring is false.
+		# This is why we only run the loop if not disabled.
+		for body in get_overlapping_bodies():
+			if _interact_check() and _state_check(body):
+				_interact_with(body)
 
 
 func _interact_with(_body):
