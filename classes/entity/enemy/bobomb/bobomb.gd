@@ -76,10 +76,23 @@ func set_disabled(val) -> void:
 
 func _hurt_struck(body) -> void:
 	._hurt_struck(body)
-	sfx_knock.play()
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false
+	sfx_knock.play()
+	# Once the bomb's been hit away, the fuse should get much quieter, as the
+	# danger has been deflected.
+	# But players can still run into the explosion, so we can't just drop the
+	# fuse volume--it still marks danger!
+	# Instead, let's switch to a lower max difference and a sharper attenuation
+	# curve. The fuse will fade to quiet very quickly as the bob-omb falls
+	# away, but stays loud if the player is going to walk into it.
+	# If the player hits the bob-omb from a standstill, then starts walking,
+	# they won't hit the danger zone, so in this case the fuse should stay
+	# quiet.
+	# It took a lot of finetuning to get all three of these effects at once!
+	sfx_fuse.max_distance = 100
+	sfx_fuse.attenuation = 0.75
 
 
 func _struck_land():
