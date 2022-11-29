@@ -444,7 +444,7 @@ volume_db = -15.0
 bus = "SFX"
 
 [node name="Thud" type="AudioStreamPlayer" parent="."]
-volume_db = -15.0
+volume_db = -9.0
 bus = "SFX"
 
 [node name="DiveAngling" type="RayCast2D" parent="."]
