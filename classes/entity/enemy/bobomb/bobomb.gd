@@ -64,6 +64,7 @@ func _update_sprites() -> void:
 
 func _target_alert(_body) -> void:
 	fuse.animation = "lit"
+	sfx_fuse.play()
 
 
 func set_disabled(val) -> void:
