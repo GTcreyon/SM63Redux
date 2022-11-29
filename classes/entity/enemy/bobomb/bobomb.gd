@@ -14,6 +14,7 @@ onready var base = $Sprites/Base
 onready var fuse = $Sprites/Fuse
 onready var key = $Sprites/Key
 onready var sfx_fuse = $SFXFuse
+onready var sfx_knock = $SFXKnock
 
 
 func _ready_override():
@@ -75,6 +76,7 @@ func set_disabled(val) -> void:
 
 func _hurt_struck(body) -> void:
 	._hurt_struck(body)
+	sfx_knock.play()
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false
