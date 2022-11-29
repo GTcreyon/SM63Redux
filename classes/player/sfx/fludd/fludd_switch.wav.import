@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/fludd_switch.wav-dd7da62f8570243d377b7ca82efe943f.sample"
+path="res://.import/fludd_switch.wav-fd6641a68fe032bde65a2bcee836920f.sample"
 
 [deps]
 
-source_file="res://classes/player/fludd_switch.wav"
-dest_files=[ "res://.import/fludd_switch.wav-dd7da62f8570243d377b7ca82efe943f.sample" ]
+source_file="res://classes/player/sfx/fludd/fludd_switch.wav"
+dest_files=[ "res://.import/fludd_switch.wav-fd6641a68fe032bde65a2bcee836920f.sample" ]
 
 [params]
 
