@@ -498,6 +498,7 @@ script = ExtResource( 2 )
 
 [node name="SwitchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
+volume_db = -6.0
 bus = "SFX"
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
