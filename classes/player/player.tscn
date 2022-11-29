@@ -443,6 +443,10 @@ bus = "SFX"
 volume_db = -15.0
 bus = "SFX"
 
+[node name="Thud" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
+bus = "SFX"
+
 [node name="DiveAngling" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 18 )

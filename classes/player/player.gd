@@ -80,12 +80,33 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 			preload("res://classes/player/sfx/mario/dive/dive_2.wav"),
 			preload("res://classes/player/sfx/mario/dive/dive_3.wav"),
 		],
+	},
+	"pound": {
+		"grass": [
+			preload("res://classes/player/sfx/pound/pound_grass.wav")
+		],
+		"generic": [
+			preload("res://classes/player/sfx/pound/pound_generic.wav")
+		],
+		"metal": [
+			preload("res://classes/player/sfx/pound/pound_generic.wav")
+		],
+		"snow": [
+			preload("res://classes/player/sfx/pound/pound_snow.wav")
+		],
+		"cloud": [
+			preload("res://classes/player/sfx/pound/pound_cloud.wav")
+		],
+		"ice": [
+			preload("res://classes/player/sfx/pound/pound_generic.wav")
+		],
 	}
 }
 
 onready var base_modifier = BaseModifier.new()
 onready var voice = $Voice
 onready var step = $Step
+onready var thud = $Thud
 onready var sprite = $Character
 onready var fludd_sprite = $Character/Fludd
 onready var camera = $"/root/Main/Player/Camera"
@@ -988,7 +1009,7 @@ func airborne_anim() -> void:
 
 func manage_pound_recover() -> void:
 	if state == S.POUND:
-		if pound_land_frames == 12:
+		if pound_land_frames == 12: # just hit ground
 			pound_state = Pound.LAND
 			switch_anim("flip")
 			
@@ -997,7 +1018,13 @@ func manage_pound_recover() -> void:
 			get_parent().add_child(fx)
 			fx.global_position = sprite.global_position + Vector2.DOWN * 11
 			fx.find_node("StarsAnim").play("GroundPound")
-		elif pound_land_frames <= 0:
+			
+			# Dispatch pound thud
+			var collider: CollisionObject2D = step_check.get_collider()
+			if collider != null:
+				play_sfx("pound", terrain_typestring(collider))
+			
+		elif pound_land_frames <= 0: # impact ended, get up
 			switch_state(S.NEUTRAL)
 		# warning-ignore:narrowing_conversion
 		pound_land_frames = max(0, pound_land_frames - 1)
@@ -1364,33 +1391,41 @@ func dive_correct(factor): # Correct the player's origin position when diving
 func play_sfx(type, group):
 	var sound_set = SFX_BANK[type][group]
 	var sound = sound_set[randi() % sound_set.size()]
-	if type == "voice":
-		voice.stream = sound
-		voice.play(0)
-	else:
-		step.stream = sound
-		step.play(0)
+	match type:
+		"voice":
+			voice.stream = sound
+			voice.play(0)
+		"step":
+			step.stream = sound
+			step.play(0)
+		"pound":
+			thud.stream = sound
+			thud.play(0)
 
 
-const STEP_MASK = 0b111111110000000000000000
+const TERRAIN_MASK = 0b111111110000000000000000
+func terrain_typestring(collider: CollisionObject2D) -> String:
+	var layer = (collider.collision_layer & TERRAIN_MASK) >> 16
+	match layer:
+		0b10000000:
+			return "grass"
+		0b01000000:
+			return "metal"
+		0b00100000:
+			return "snow"
+		0b00010000:
+			return "cloud"
+		0b00001000:
+			return "ice"
+		_:
+			return "generic"
+
+
 func step_sound():
 	if sprite.frame == 0 and last_step == 1:
 		var collider: CollisionObject2D = step_check.get_collider()
 		if collider != null:
-			var layer = (collider.collision_layer & STEP_MASK) >> 16
-			match layer:
-				0b10000000:
-					play_sfx("step", "grass")
-				0b01000000:
-					play_sfx("step", "metal")
-				0b00100000:
-					play_sfx("step", "snow")
-				0b00010000:
-					play_sfx("step", "cloud")
-				0b00001000:
-					play_sfx("step", "ice")
-				_:
-					play_sfx("step", "generic")
+			play_sfx("step", terrain_typestring(collider))
 
 
 func invincibility_on_effect():
