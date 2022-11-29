@@ -156,6 +156,7 @@ shape = SubResource( 15 )
 
 [node name="SFXFuse" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
+volume_db = -6.0
 bus = "SFX"
 
 [node name="SFXStep" type="AudioStreamPlayer2D" parent="."]
