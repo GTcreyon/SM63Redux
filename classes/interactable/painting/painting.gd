@@ -23,6 +23,13 @@ func _ready():
 	$Frame.texture = frame
 
 
+func _interact_check() -> bool:
+	# If up pressed but NOT lateral move buttons.
+	return Input.is_action_just_pressed("up") \
+		and !Input.is_action_pressed("left") \
+		and !Input.is_action_pressed("right")
+
+
 func _animation_length() -> int:
 	return 90 if move_to_scene else 60
 
