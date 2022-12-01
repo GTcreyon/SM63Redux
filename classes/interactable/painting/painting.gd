@@ -12,6 +12,8 @@ const FLASH_DURATION_HALF = SHRINK_DURATION
 const TIME_PEAK_FLASH = TIME_START_FLASH + FLASH_DURATION_HALF
 #const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_HALF
 
+export var detection_radius = 33 setget set_detection_radius
+
 onready var white_flash = $Picture/WhiteFlash
 
 
@@ -78,3 +80,8 @@ func _end_animation(_player):
 	#Reset player to full size and visibility.
 	_player.scale = Vector2(1,1)
 	_player.sprite.modulate.a = 1
+
+
+func set_detection_radius (val):
+	detection_radius = val
+	$DetectionArea.shape.extents.x = val

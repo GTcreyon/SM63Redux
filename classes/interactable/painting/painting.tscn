@@ -13,7 +13,7 @@ monitorable = false
 script = ExtResource( 3 )
 sprite = NodePath("Picture")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="DetectionArea" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -8 )
 shape = SubResource( 1 )
 
