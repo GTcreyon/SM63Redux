@@ -90,11 +90,11 @@ func _update_animation(_frame, _player):
 		white_flash.modulate.a = flash_fac
 
 func _end_animation(_player):
-	#Reset player to full size and visibility.
+	# Reset player to full size and visibility.
 	_player.scale = Vector2(1,1)
 	_player.sprite.modulate.a = 1
 
 
-func set_detection_radius (val):
+func set_detection_radius(val):
 	detection_radius = val
 	$DetectionArea.shape.extents.x = val
