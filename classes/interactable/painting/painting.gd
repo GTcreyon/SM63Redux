@@ -12,11 +12,15 @@ const FLASH_DURATION_HALF = SHRINK_DURATION
 const TIME_PEAK_FLASH = TIME_START_FLASH + FLASH_DURATION_HALF
 #const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_HALF
 
-export var picture: Texture setget set_picture
-export var frame: Texture setget set_frame
+export var picture: Texture
+export var frame: Texture
 export var detection_radius = 33 setget set_detection_radius
 
 onready var white_flash = $Picture/WhiteFlash
+
+func _ready():
+	$Picture.texture = picture
+	$Frame.texture = frame
 
 
 func _animation_length() -> int:
@@ -82,22 +86,6 @@ func _end_animation(_player):
 	#Reset player to full size and visibility.
 	_player.scale = Vector2(1,1)
 	_player.sprite.modulate.a = 1
-
-
-func set_picture(val):
-	$Picture.texture = val
-
-
-func get_picture() -> Texture:
-	return $Picture.texture
-
-
-func set_frame(val):
-	$Frame.texture = val
-
-
-func get_frame() -> Texture:
-	return $Frame.texture
 
 
 func set_detection_radius (val):
