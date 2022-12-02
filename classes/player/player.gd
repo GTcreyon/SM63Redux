@@ -485,11 +485,10 @@ const POUND_SPIN_DURATION = 10 # Time the spin animation lasts
 const POUND_ORIGIN_OFFSET = Vector2(-3,-3) # Sprite origin is set to this during pound spin
 
 var pound_spin_frames: int = 0
-var pound_spin_factor: float = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
-		pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		var pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
 		
 		# Move sprite origin for nicer rotation animation
 		sprite.offset = POUND_ORIGIN_OFFSET
