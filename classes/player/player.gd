@@ -2,10 +2,6 @@ extends KinematicBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 
-const POUND_TIME_TO_FALL = 15 # Time to move from pound spin to pound fall
-const POUND_SPIN_DURATION = 10 # Time the spin animation lasts
-const POUND_ORIGIN_OFFSET = Vector2(-3,-3)
-
 const SFX_BANK = { # bank of sfx to be played with play_sfx()
 	"step": {
 		"grass": [
@@ -483,6 +479,10 @@ func wall_stop() -> void:
 	if is_on_ceiling():
 		vel.y = max(vel.y, 0.1)
 
+
+const POUND_TIME_TO_FALL = 15 # Time to move from pound spin to pound fall
+const POUND_SPIN_DURATION = 10 # Time the spin animation lasts
+const POUND_ORIGIN_OFFSET = Vector2(-3,-3) # Sprite origin is set to this during pound spin
 
 var pound_spin_frames: int = 0
 var pound_spin_factor: float = 0
