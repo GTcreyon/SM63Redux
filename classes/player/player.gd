@@ -484,7 +484,7 @@ func wall_stop() -> void:
 
 const POUND_TIME_TO_FALL = 15 # Time to move from pound spin to pound fall
 const POUND_SPIN_DURATION = 10 # Time the spin animation lasts
-const POUND_ORIGIN_OFFSET = Vector2(-3,-3) # Sprite origin is set to this during pound spin
+const POUND_ORIGIN_OFFSET = Vector2(-2.5,-3) # Sprite origin is set to this during pound spin
 
 var pound_spin_frames: int = 0
 func action_pound() -> void:
