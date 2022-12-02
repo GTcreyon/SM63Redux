@@ -485,29 +485,35 @@ func wall_stop() -> void:
 
 
 var pound_spin_frames: int = 0
+var pound_spin_factor: float = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
+		pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
 		
 		# Move sprite origin for nicer rotation animation
 		sprite.offset = POUND_ORIGIN_OFFSET
-		sprite.position = POUND_ORIGIN_OFFSET
+		# Shift position so it looks visually consistent.
+		# (Oddly enough, the flip looks best if it starts
+		# offset from the origin and only gradually shifts
+		# to the right spot.)
+		sprite.dejitter_position = -POUND_ORIGIN_OFFSET * Vector2(pound_spin_factor, 1)
 		
 		# Set rotation according to position in the animation--
 		# but stop dead for a moment before we fall (that's what min does)!
-		sprite.rotation = TAU * min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		sprite.rotation = TAU * pound_spin_factor
 		
 		# Adjust rotation depending on our facing direction.
 		var facing_sign = -1 if sprite.flip_h else 1
 		sprite.rotation *= facing_sign
 		sprite.offset *= Vector2(facing_sign, 0)
-		sprite.position *= Vector2(facing_sign, 0)
+		sprite.dejitter_position *= Vector2(facing_sign, 0)
 		
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
 			# Reset sprite.
 			sprite.offset = Vector2.ZERO
-			sprite.position = Vector2.ZERO
+			sprite.dejitter_position = Vector2.ZERO
 			sprite.rotation = 0
 			
 			pound_state = Pound.FALL
