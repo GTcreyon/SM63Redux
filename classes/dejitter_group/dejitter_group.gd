@@ -1,6 +1,8 @@
 class_name DejitterGroup, "./dejitter_group.svg"
 extends Node2D
 
+export var dejitter_position = Vector2.ZERO
+
 onready var parent = get_parent()
 var last_pos : Vector2
 
@@ -18,6 +20,7 @@ func _physics_process(_delta):
 			offset_vec = Vector2.ZERO
 		else:
 			offset_vec = carrier_node.texture.get_size().posmod(2) / 2
+	offset_vec += dejitter_position
 	
 	if parent.global_position.x == last_pos.x:
 		global_position.x = round(parent.global_position.x) + offset_vec.x
