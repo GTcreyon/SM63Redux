@@ -4,6 +4,7 @@ const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 
 const POUND_TIME_TO_FALL = 15 # Time to move from pound spin to pound fall
 const POUND_SPIN_DURATION = 10 # Time the spin animation lasts
+const POUND_ORIGIN_OFFSET = Vector2(-3.5,-5.5)
 
 const SFX_BANK = { # bank of sfx to be played with play_sfx()
 	"step": {
@@ -487,15 +488,28 @@ var pound_spin_frames: int = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
+		
+		# Move sprite origin for nicer rotation animation
+		sprite.offset = POUND_ORIGIN_OFFSET
+		sprite.position = POUND_ORIGIN_OFFSET
+		
 		# Set rotation according to position in the animation--
 		# but stop dead for a moment before we fall (that's what min does)!
 		sprite.rotation = TAU * min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
-		# Rotate the appropriate direction depending on our facing direction.
-		sprite.rotation *= -1 if sprite.flip_h else 1
+		
+		# Adjust rotation depending on our facing direction.
+		var facing_sign = -1 if sprite.flip_h else 1
+		sprite.rotation *= facing_sign
+		sprite.offset *= Vector2(facing_sign, 0)
+		sprite.position *= Vector2(facing_sign, 0)
 		
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
+			# Reset sprite.
+			sprite.offset = Vector2.ZERO
+			sprite.position = Vector2.ZERO
 			sprite.rotation = 0
+			
 			pound_state = Pound.FALL
 			vel.y = 8
 			
