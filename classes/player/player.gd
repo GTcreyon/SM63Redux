@@ -1479,5 +1479,5 @@ func resist(val, sub, div): # ripped from source
 
 
 func set_rotation_origin (origin: Vector2 = SPRITE_OFFSET_DEFAULT):
-	sprite.origin = origin
+	sprite.offset = origin
 	sprite.dejitter_position = -origin
