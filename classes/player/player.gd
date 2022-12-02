@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 
+const SPRITE_OFFSET_DEFAULT = Vector2.ZERO
+
 const SFX_BANK = { # bank of sfx to be played with play_sfx()
 	"step": {
 		"grass": [
@@ -510,15 +512,14 @@ func action_pound() -> void:
 		
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
-			# Reset sprite.
-			sprite.offset = Vector2.ZERO
-			sprite.dejitter_position = Vector2.ZERO
+			# Reset sprite transforms.
+			set_rotation_origin(SPRITE_OFFSET_DEFAULT)
 			sprite.rotation = 0
 			
 			pound_state = Pound.FALL
 			vel.y = 8
-			
-	
+
+
 	if Input.is_action_pressed("pound"):
 		if state == S.DIVE and gp_dive_timer > 0:
 			var mag = vel.length()
@@ -1474,3 +1475,8 @@ func resist(val, sub, div): # ripped from source
 	val /= div
 	val *= vel_sign
 	return val * FPS_MOD
+
+
+func set_rotation_origin (origin: Vector2 = SPRITE_OFFSET_DEFAULT):
+	sprite.origin = origin
+	sprite.dejitter_position = -origin
