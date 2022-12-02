@@ -484,8 +484,8 @@ var pound_spin_frames: int = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
-		var rot_sign = -1 if sprite.flip_h else 1
-		sprite.rotation = TAU * rot_sign * pound_spin_frames / 15
+		sprite.rotation = TAU * pound_spin_frames / 15
+		sprite.rotation *= -1 if sprite.flip_h else 1
 		if pound_spin_frames >= 15:
 			sprite.rotation = 0
 			pound_state = Pound.FALL
