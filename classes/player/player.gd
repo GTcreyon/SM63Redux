@@ -2,6 +2,8 @@ extends KinematicBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 
+const POUND_TIME_TO_FALL = 15 # Time to move from pound spin to pound fall
+
 const SFX_BANK = { # bank of sfx to be played with play_sfx()
 	"step": {
 		"grass": [
@@ -484,9 +486,9 @@ var pound_spin_frames: int = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
-		sprite.rotation = TAU * pound_spin_frames / 15
+		sprite.rotation = TAU * pound_spin_frames / POUND_TIME_TO_FALL
 		sprite.rotation *= -1 if sprite.flip_h else 1
-		if pound_spin_frames >= 15:
+		if pound_spin_frames >= POUND_TIME_TO_FALL:
 			sprite.rotation = 0
 			pound_state = Pound.FALL
 			vel.y = 8
