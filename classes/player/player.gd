@@ -482,7 +482,8 @@ func wall_stop() -> void:
 
 
 const POUND_TIME_TO_FALL = 15 # Time to move from pound spin to pound fall
-const POUND_SPIN_DURATION = 9 # Time the spin animation lasts
+const _POUND_HANG_TIME = 6
+const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spin animation lasts
 const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
 const POUND_ORIGIN_OFFSET = Vector2(-3,-4) # Sprite origin is set to this during pound spin
