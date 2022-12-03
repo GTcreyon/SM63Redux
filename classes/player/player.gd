@@ -1511,7 +1511,7 @@ func set_rotation_origin (face_left: bool, origin: Vector2):
 	sprite.offset = origin * facing
 	fludd_sprite.position = origin * facing
 	sprite.dejitter_position = -origin * facing
-
+	sprite.position = sprite.dejitter_position
 
 func clear_rotation_origin ():
 	set_rotation_origin(false, Vector2.ZERO)
