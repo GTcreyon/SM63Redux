@@ -1038,7 +1038,9 @@ func airborne_anim() -> void:
 		else:
 			sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
 
-
+const POUND_LAND_DURATION = 12
+const POUND_SHAKE_INITIAL = 4
+const POUND_SHAKE_MULTIPLIER = 0.75
 func manage_pound_recover() -> void:
 	if state == S.POUND:
 		if pound_land_frames == 12: # just hit ground
@@ -1055,8 +1057,23 @@ func manage_pound_recover() -> void:
 			var collider: CollisionObject2D = step_check.get_collider()
 			if collider != null:
 				play_sfx("pound", terrain_typestring(collider))
+			
+			# Jolt camera downwards
+			camera.offset = Vector2(0, POUND_SHAKE_INITIAL)
 		elif pound_land_frames <= 0: # impact ended, get up
 			switch_state(S.NEUTRAL)
+			# Nullify all camera shake.
+			camera.offset = Vector2.ZERO
+		else: # just handle camera shake
+			# Shake goes up on even frames, down on odd frames.
+			var shake_sign = 1 if pound_land_frames % 2 else -1
+			# Shake is less strong every frame that passes.
+			var shake_magnitude = float(pound_land_frames) / POUND_LAND_DURATION
+			# But a square-root falloff lets you feel it longer.
+			shake_magnitude = sqrt(shake_magnitude)
+			
+			shake_magnitude *= POUND_SHAKE_INITIAL
+			camera.offset = Vector2(0, shake_magnitude * shake_sign)
 		# warning-ignore:narrowing_conversion
 		pound_land_frames = max(0, pound_land_frames - 1)
 
