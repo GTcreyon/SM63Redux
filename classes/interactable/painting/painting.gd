@@ -16,10 +16,10 @@ export var picture: Texture
 export var frame: Texture
 export var detection_radius = 33 setget set_detection_radius
 
-onready var white_flash = $Picture/WhiteFlash
+onready var picture_sprite = $Picture
 
 func _ready():
-	$Picture.texture = picture
+	picture_sprite.texture = picture
 	$Frame.texture = frame
 
 
@@ -84,10 +84,10 @@ func _update_animation(_frame, _player):
 		var flash_fac = float(_frame - TIME_START_FLASH) / FLASH_DURATION_HALF
 		# make it fall back to 0 after it hits 1
 		if flash_fac > 1:
-			flash_fac = 1 - (flash_fac - 1)
+			flash_fac = max(1 - (flash_fac - 1), 0)
 		
-		# Begin white flash animation
-		white_flash.modulate.a = flash_fac
+		# Do white flash animation
+		picture_sprite.material.set_shader_param("flash_factor", flash_fac)
 
 func _end_animation(_player):
 	# Reset player to full size and visibility.

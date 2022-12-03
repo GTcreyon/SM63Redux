@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://classes/interactable/painting/frame.png" type="Texture" id=1]
 [ext_resource path="res://classes/interactable/painting/skins/bob.png" type="Texture" id=2]
 [ext_resource path="res://classes/interactable/painting/painting.gd" type="Script" id=3]
+[ext_resource path="res://shaders/flash.tres" type="Material" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 33, 8 )
@@ -20,20 +21,10 @@ position = Vector2( 0, -8 )
 shape = SubResource( 1 )
 
 [node name="Picture" type="Sprite" parent="."]
+material = ExtResource( 4 )
 position = Vector2( 0, -80 )
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 64.804, 48 )
-
-[node name="WhiteFlash" type="ColorRect" parent="Picture"]
-modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -41.0
-margin_top = -41.0
-margin_right = -41.0
-margin_bottom = -41.0
-mouse_filter = 2
-input_pass_on_modal_close_click = false
 
 [node name="Frame" type="Sprite" parent="."]
 position = Vector2( 0, -80 )
