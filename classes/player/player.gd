@@ -488,6 +488,7 @@ const _POUND_HANG_TIME = 9
 const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spin animation lasts
 const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
+const POUND_SPIN_RISE_TIME = 15
 const POUND_ORIGIN_OFFSET = Vector2(-3,-4) # Sprite origin is set to this during pound spin
 
 var pound_spin_frames: int = 0
@@ -505,7 +506,8 @@ func action_pound() -> void:
 		# Offset origin's X less at the start of the spin. (Looks better!?)
 		sprite.dejitter_position *= Vector2(pound_spin_factor, 1)
 		# A little rising as we wind up makes it look real nice.
-		sprite.dejitter_position.y -= POUND_SPIN_RISE * pound_spin_frames
+		sprite.dejitter_position.y -= POUND_SPIN_RISE * min(pound_spin_frames,
+			POUND_SPIN_RISE_TIME)
 		
 		# Set rotation according to position in the animation.
 		sprite.rotation = TAU * pound_spin_factor
