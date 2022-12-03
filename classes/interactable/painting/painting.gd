@@ -3,14 +3,20 @@ extends InteractableWarp
 const TIME_PEAK_JUMP = 30 # Time it takes the animated jump to reach its peak
 const TIME_PEAK_SWIM = 20 # Temporary--haven't checked
 const TIME_END_LONGJUMP = 8
+
 const TIME_START_SHRINK = 16
 const SHRINK_DURATION = 8
 const TIME_END_SHRINK = TIME_START_SHRINK + SHRINK_DURATION
 const SHRINK_SCALE_MIN = 0.75
+
 const TIME_START_FLASH = TIME_START_SHRINK
 const FLASH_DURATION_HALF = SHRINK_DURATION
 const TIME_PEAK_FLASH = TIME_START_FLASH + FLASH_DURATION_HALF
-#const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_HALF
+const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_HALF
+
+const RIPPLE_AMPLITUDE = 0.1
+const RIPPLE_DECAY_TIME_SLOW = 80
+const RIPPLE_RATE = 0.01
 
 export var picture: Texture
 export var frame: Texture
@@ -78,8 +84,8 @@ func _update_animation(_frame, _player):
 		_player.sprite.modulate.a = 0
 	
 	
-	# Flash the painting white.
-	if _frame > TIME_START_FLASH:
+	# Do initial white flash.
+	if _frame > TIME_START_FLASH and _frame <= TIME_END_FLASH:
 		# how far along the flash animation we are
 		var flash_fac = float(_frame - TIME_START_FLASH) / FLASH_DURATION_HALF
 		# make it fall back to 0 after it hits 1
@@ -88,6 +94,24 @@ func _update_animation(_frame, _player):
 		
 		# Do white flash animation
 		picture_sprite.material.set_shader_param("flash_factor", flash_fac)
+	
+	# Do ripple effect after the player jumps in.
+	if _frame > TIME_PEAK_FLASH:
+		var ripple_decay_time
+		if move_to_scene:
+			# Ripples to decay to nothing slowly if going to a new scene...
+			ripple_decay_time = RIPPLE_DECAY_TIME_SLOW
+		else:
+			# but quickly otherwise.
+			ripple_decay_time = _animation_length() - TIME_PEAK_FLASH
+		
+		# Calculate and apply this frame's ripple amplitude.
+		var decay_factor = float(_frame - TIME_PEAK_FLASH) / ripple_decay_time
+		picture_sprite.material.set_shader_param("ripple_amplitude", 
+			RIPPLE_AMPLITUDE * (1 - decay_factor))
+		
+		# Advance ripple phase for the frame.
+		picture_sprite.material.set_shader_param("ripple_phase", _frame * RIPPLE_RATE)
 
 func _end_animation(_player):
 	# Reset player to full size and visibility.
