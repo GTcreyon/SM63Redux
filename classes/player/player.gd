@@ -109,6 +109,7 @@ onready var base_modifier = BaseModifier.new()
 onready var voice = $Voice
 onready var step = $Step
 onready var thud = $Thud
+onready var pound_spin_sfx = $PoundSpin
 onready var sprite = $Character
 onready var fludd_sprite = $Character/Fludd
 onready var camera = $"/root/Main/Player/Camera"
@@ -558,6 +559,7 @@ func action_pound() -> void:
 				switch_anim("flip")
 				sprite.rotation = 0
 				pound_spin_frames = 0
+				pound_spin_sfx.play()
 
 
 const SPIN_TIME = 30
