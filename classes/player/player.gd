@@ -1068,6 +1068,8 @@ func manage_pound_recover() -> void:
 			# Shake goes up on even frames, down on odd frames.
 			var shake_sign = 1 if pound_land_frames % 2 else -1
 			# Shake is less strong every frame that passes.
+			# (Another branch takes the land_frames == 0 case--
+			# no illegal divisions here!)
 			var shake_magnitude = float(pound_land_frames) / POUND_LAND_DURATION
 			# But a square-root falloff lets you feel it longer.
 			shake_magnitude = sqrt(shake_magnitude)
