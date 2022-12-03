@@ -15,7 +15,7 @@ const TIME_PEAK_FLASH = TIME_START_FLASH + FLASH_DURATION_HALF
 const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_HALF
 
 const RIPPLE_AMPLITUDE = 0.1
-const RIPPLE_DECAY_TIME_SLOW = 80
+const RIPPLE_DECAY_TIME_SLOW = 240
 const RIPPLE_RATE = 0.01
 
 export var picture: Texture
@@ -25,8 +25,11 @@ export var detection_radius = 33 setget set_detection_radius
 onready var picture_sprite = $Picture
 
 func _ready():
+	# Load in chosen skins.
 	picture_sprite.texture = picture
 	$Frame.texture = frame
+	
+	reset_shader()
 
 
 func _interact_check() -> bool:
@@ -37,10 +40,24 @@ func _interact_check() -> bool:
 
 
 func _animation_length() -> int:
-	return 90 if move_to_scene else 60
+	return 120 if move_to_scene else 90
 
 
 func _begin_animation(_player):
+	# Ripple origin can be known at this point. Calc that.
+	# Begin with player position relative to painting.
+	var ripple_origin_x = _player.global_position.x - global_position.x
+	# Scale down to UV space.
+	ripple_origin_x /= picture_sprite.texture.get_width();
+	# Finally, offset to center of painting.
+	ripple_origin_x += 0.5
+	# Send to shader immediately.
+	picture_sprite.material.set_shader_param("ripple_origin", Vector2(
+		ripple_origin_x,
+		0.5
+	))
+	
+	# Engage the player's portion of the animation.
 	if !_player.swimming:
 		# Force a single jump.
 		_player.double_jump_state = 0
@@ -84,16 +101,29 @@ func _update_animation(_frame, _player):
 		_player.sprite.modulate.a = 0
 	
 	
-	# Do initial white flash.
+	# Do entry flash.
 	if _frame > TIME_START_FLASH and _frame <= TIME_END_FLASH:
 		# how far along the flash animation we are
 		var flash_fac = float(_frame - TIME_START_FLASH) / FLASH_DURATION_HALF
 		# make it fall back to 0 after it hits 1
 		if flash_fac > 1:
-			flash_fac = max(1 - (flash_fac - 1), 0)
+			# Unpacking this line; let ans = result of last line.
+			# (flash_fac - 1) = amount we've gone past 1.
+			# 1 - ans = invert that so it goes backwards.
+			# max(ans, 0) = let it go down to no-flash, but not darker.
+			# pow(ans, 2) = make falloff faster so burnout looks nicer.
+			flash_fac = pow(max(1 - (flash_fac - 1), 0), 2)
 		
 		# Do white flash animation
 		picture_sprite.material.set_shader_param("flash_factor", flash_fac)
+	
+	# Do burnaway after entry.
+	if _frame > TIME_PEAK_FLASH and _frame <= TIME_END_FLASH:
+		# how far along the burnaway animation we are
+		var burn_fac = float(_frame - TIME_PEAK_FLASH) / FLASH_DURATION_HALF
+		
+		# Do burnaway animation
+		picture_sprite.material.set_shader_param("burnaway_factor", 1 - burn_fac)
 	
 	# Do ripple effect after the player jumps in.
 	if _frame > TIME_PEAK_FLASH:
@@ -117,8 +147,17 @@ func _end_animation(_player):
 	# Reset player to full size and visibility.
 	_player.scale = Vector2(1,1)
 	_player.sprite.modulate.a = 1
+	
+	# Reset shader params, just in case.
+	reset_shader()
 
 
 func set_detection_radius(val):
 	detection_radius = val
 	$DetectionArea.shape.extents.x = val
+
+
+# Reset shader params. (those that have a visible effect anyway.)
+func reset_shader():
+	picture_sprite.material.set_shader_param("ripple_amplitude", 0)
+	picture_sprite.material.set_shader_param("flash_factor", 0)	
