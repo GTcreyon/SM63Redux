@@ -100,6 +100,13 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 		"ice": [
 			preload("res://classes/player/sfx/pound/pound_generic.wav")
 		],
+	},
+	"spin": {
+		"air": [
+			preload("res://classes/player/sfx/spin_air_1.wav"),
+			preload("res://classes/player/sfx/spin_air_2.wav"),
+			preload("res://classes/player/sfx/spin_air_3.wav"),
+		],
 	}
 }
 
@@ -556,7 +563,7 @@ func action_spin() -> void:
 		switch_state(S.SPIN)
 		switch_anim("spin")
 		# switch_state stops spin_sfx; always play it again after state switch.
-		spin_sfx.play()
+		play_sfx("spin", "air")
 		if !grounded:
 			if swimming:
 				vel.y = min(-2, vel.y)
@@ -1411,6 +1418,9 @@ func play_sfx(type, group):
 		"pound":
 			thud.stream = sound
 			thud.play(0)
+		"spin":
+			spin_sfx.stream = sound
+			spin_sfx.play(0)
 
 
 const TERRAIN_MASK = 0b111111110000000000000000

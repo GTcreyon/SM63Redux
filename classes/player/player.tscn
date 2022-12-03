@@ -17,7 +17,7 @@
 [ext_resource path="res://classes/particles/dust.png" type="Texture" id=15]
 [ext_resource path="res://classes/player/sfx/fludd/fludd_switch.wav" type="AudioStream" id=16]
 [ext_resource path="res://classes/player/sfx/pound/pound_spin.wav" type="AudioStream" id=17]
-[ext_resource path="res://classes/player/sfx/spin_air.wav" type="AudioStream" id=18]
+[ext_resource path="res://classes/player/sfx/spin_air_1.wav" type="AudioStream" id=18]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )

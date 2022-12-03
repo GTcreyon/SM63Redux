@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/spin_air.wav-32fb8e17ee5a3a5f98d25f27a4f42076.sample"
+path="res://.import/spin_air_3.wav-36eda27f67c9d2e3cf510845fe0e3b9f.sample"
 
 [deps]
 
-source_file="res://classes/player/sfx/spin_air.wav"
-dest_files=[ "res://.import/spin_air.wav-32fb8e17ee5a3a5f98d25f27a4f42076.sample" ]
+source_file="res://classes/player/sfx/spin_air_3.wav"
+dest_files=[ "res://.import/spin_air_3.wav-36eda27f67c9d2e3cf510845fe0e3b9f.sample" ]
 
 [params]
 
