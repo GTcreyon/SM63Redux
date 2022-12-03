@@ -484,7 +484,7 @@ func wall_stop() -> void:
 
 const POUND_TIME_TO_FALL = 15 # Time to move from pound spin to pound fall
 const POUND_SPIN_DURATION = 9 # Time the spin animation lasts
-const POUND_SPIN_SMOOTHING = 0.25 # Range from 0 to 1
+const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
 const POUND_ORIGIN_OFFSET = Vector2(-3,-4) # Sprite origin is set to this during pound spin
 
@@ -509,6 +509,10 @@ func action_pound() -> void:
 		sprite.rotation = TAU * pound_spin_factor
 		# Adjust rotation depending on our facing direction.
 		sprite.rotation *= -1 if sprite.flip_h else 1
+		
+		# Begin windup state once the spin ends
+		if pound_spin_frames == POUND_SPIN_DURATION:
+			switch_anim("pound_windup")
 		
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
@@ -1049,7 +1053,6 @@ func manage_pound_recover() -> void:
 			var collider: CollisionObject2D = step_check.get_collider()
 			if collider != null:
 				play_sfx("pound", terrain_typestring(collider))
-			
 		elif pound_land_frames <= 0: # impact ended, get up
 			switch_state(S.NEUTRAL)
 		# warning-ignore:narrowing_conversion
@@ -1334,6 +1337,7 @@ func switch_state(new_state):
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
 			camera.smoothing_speed = 5
+			clear_rotation_origin()
 
 
 func switch_anim(new_anim):
@@ -1377,7 +1381,7 @@ func take_damage_shove(amount, direction):
 		switch_state(S.HURT)
 		hurt_timer = 30
 		switch_anim("hurt")
-		set_rotation_origin(direction == 1)
+		clear_rotation_origin()
 		vel = Vector2(4 * direction, -3)
 		sprite.flip_h = direction == 1
 		off_ground()
@@ -1478,7 +1482,7 @@ func resist(val, sub, div): # ripped from source
 	return val * FPS_MOD
 
 
-func set_rotation_origin (face_left: bool, origin: Vector2 = SPRITE_OFFSET_DEFAULT):
+func set_rotation_origin (face_left: bool, origin: Vector2):
 	# Vector to flip the offset's X with, as appropriate.
 	var facing = Vector2(
 		-1 if face_left else 1, # Convert 0 to -1
@@ -1487,3 +1491,7 @@ func set_rotation_origin (face_left: bool, origin: Vector2 = SPRITE_OFFSET_DEFAU
 	sprite.offset = origin * facing
 	fludd_sprite.position = origin * facing
 	sprite.dejitter_position = -origin * facing
+
+
+func clear_rotation_origin ():
+	set_rotation_origin(false, Vector2.ZERO)
