@@ -106,6 +106,7 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 onready var base_modifier = BaseModifier.new()
 onready var voice = $Voice
 onready var step = $Step
+onready var spin_sfx = $SpinSFX
 onready var thud = $Thud
 onready var pound_spin_sfx = $PoundSpin
 onready var sprite = $Character
@@ -537,8 +538,10 @@ var spin_frames = 0
 func action_spin() -> void:
 	if state == S.SPIN:
 		if spin_frames > 0:
+			# Tick spin state
 			spin_frames -= 1
 		elif !Input.is_action_pressed("spin"):
+			# End spin
 			switch_state(S.NEUTRAL)
 			
 	if (
@@ -549,8 +552,11 @@ func action_spin() -> void:
 		)
 		and (vel.y > -3.3 * FPS_MOD or state == S.ROLLOUT or swimming)
 	):
+		# begin spin
 		switch_state(S.SPIN)
 		switch_anim("spin")
+		# switch_state stops spin_sfx; always play it again after state switch.
+		spin_sfx.play()
 		if !grounded:
 			if swimming:
 				vel.y = min(-2, vel.y)
@@ -1310,6 +1316,8 @@ func switch_state(new_state):
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
 			camera.smoothing_speed = 5
+	# End spin SFX on any state change
+	spin_sfx.stop()
 
 
 func switch_anim(new_anim):

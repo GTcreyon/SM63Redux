@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/bubbles.gd" type="Script" id=2]
@@ -17,6 +17,7 @@
 [ext_resource path="res://classes/particles/dust.png" type="Texture" id=15]
 [ext_resource path="res://classes/player/sfx/fludd/fludd_switch.wav" type="AudioStream" id=16]
 [ext_resource path="res://classes/player/sfx/pound/pound_spin.wav" type="AudioStream" id=17]
+[ext_resource path="res://classes/player/sfx/spin_air.wav" type="AudioStream" id=18]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )
@@ -442,6 +443,11 @@ bus = "SFX"
 
 [node name="Step" type="AudioStreamPlayer" parent="."]
 volume_db = -15.0
+bus = "SFX"
+
+[node name="SpinSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -17.0
 bus = "SFX"
 
 [node name="Thud" type="AudioStreamPlayer" parent="."]
