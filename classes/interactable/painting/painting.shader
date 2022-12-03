@@ -1,10 +1,15 @@
 shader_type canvas_item;
 
-uniform float flash_factor = 0;
 uniform vec2 ripple_origin = vec2(0.5, 0.5);
-uniform float ripple_amplitude = 1.0;
+uniform float ripple_amplitude = 0;
 uniform float ripple_phase = 0;
-uniform float ripple_frequency = 1;
+uniform float ripple_frequency = 3;
+
+uniform float flash_factor = 0;
+
+uniform float burnaway_factor = 0;
+uniform sampler2D burnaway_mask;
+
 
 const float PI = 3.1415927;
 
@@ -33,5 +38,13 @@ void fragment() {
 
 	vec4 c = texture(TEXTURE, ripple_uv);
 	c.rgb += vec3(flash_factor);
+	
+	//Burnaway pixels lower than a threshold.
+	bool burnaway = (ripple_shape / 2. + 0.5) <= burnaway_factor;
+
+	//ugh, unavoidable if.
+	if (burnaway) {
+		c.rgb += vec3(1);
+	}
 	COLOR = c;
 }

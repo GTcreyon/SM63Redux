@@ -4,9 +4,9 @@
 
 [resource]
 shader = ExtResource( 1 )
-shader_param/flash_factor = 0.0
-shader_param/burnaway_factor = 0.0
 shader_param/ripple_origin = Vector2( 0.5, 0.5 )
-shader_param/ripple_amplitude = 0.031
+shader_param/ripple_amplitude = 0.0
 shader_param/ripple_phase = 0.0
 shader_param/ripple_frequency = 3.0
+shader_param/flash_factor = 0.0
+shader_param/burnaway_factor = 0.0
