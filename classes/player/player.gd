@@ -112,6 +112,8 @@ onready var sprite = $Character
 onready var fludd_sprite = $Character/Fludd
 onready var camera = $"/root/Main/Player/Camera"
 onready var step_check = $StepCheck
+onready var pound_check_l = $PoundCheckL
+onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
@@ -1054,7 +1056,15 @@ func manage_pound_recover() -> void:
 			fx.find_node("StarsAnim").play("GroundPound")
 			
 			# Dispatch pound thud
+			# Begin by checking center for a collider
 			var collider: CollisionObject2D = step_check.get_collider()
+			if collider == null:
+				# Center check failed, check right side.
+				collider = pound_check_r.get_collider()
+			if collider == null:
+				# Right check failed, check left side.
+				collider = pound_check_l.get_collider()
+			# If a collider was found, play the thud.
 			if collider != null:
 				play_sfx("pound", terrain_typestring(collider))
 			

@@ -551,6 +551,22 @@ texture = ExtResource( 15 )
 enabled = true
 cast_to = Vector2( 0, 20 )
 
+[node name="PoundCheckR" type="RayCast2D" parent="."]
+position = Vector2( 6, 0 )
+enabled = true
+cast_to = Vector2( 0, 20 )
+__meta__ = {
+"_editor_description_": "Used during ground pound to check if the player's right edge is hitting ground. Aligned with right edge of player's hitbox."
+}
+
+[node name="PoundCheckL" type="RayCast2D" parent="."]
+position = Vector2( -6, 0 )
+enabled = true
+cast_to = Vector2( 0, 20 )
+__meta__ = {
+"_editor_description_": "Used during ground pound to check if the player's left edge is hitting ground. Aligned with left edge of player's hitbox."
+}
+
 [node name="Feet" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 0
