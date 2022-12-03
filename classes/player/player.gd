@@ -483,37 +483,37 @@ func wall_stop() -> void:
 
 
 const POUND_TIME_TO_FALL = 15 # Time to move from pound spin to pound fall
-const POUND_SPIN_DURATION = 10 # Time the spin animation lasts
-const POUND_ORIGIN_OFFSET = Vector2(-2.5,-3) # Sprite origin is set to this during pound spin
+const POUND_SPIN_DURATION = 9 # Time the spin animation lasts
+const POUND_SPIN_SMOOTHING = 0.25 # Range from 0 to 1
+const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
+const POUND_ORIGIN_OFFSET = Vector2(-3,-4) # Sprite origin is set to this during pound spin
 
 var pound_spin_frames: int = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
+		# Spin frames normalized from 0-1.
+		# Min makes it stop after one full spin.
 		var pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		# Blend between 0% and 100% smoothed animation.
+		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
 		
 		# Move sprite origin for nicer rotation animation
-		sprite.offset = POUND_ORIGIN_OFFSET
-		# Shift position so it looks visually consistent.
-		# (Oddly enough, the flip looks best if it starts
-		# offset from the origin and only gradually shifts
-		# to the right spot.)
-		sprite.dejitter_position = -POUND_ORIGIN_OFFSET * Vector2(pound_spin_factor, 1)
+		set_rotation_origin(sprite.flip_h, POUND_ORIGIN_OFFSET)
+		# Offset origin's X less at the start of the spin. (Looks better!?)
+		sprite.dejitter_position *= Vector2(pound_spin_factor, 1)
+		# A little rising as we wind up makes it look real nice.
+		sprite.dejitter_position.y -= POUND_SPIN_RISE * pound_spin_frames
 		
-		# Set rotation according to position in the animation--
-		# but stop dead for a moment before we fall (that's what min does)!
+		# Set rotation according to position in the animation.
 		sprite.rotation = TAU * pound_spin_factor
-		
 		# Adjust rotation depending on our facing direction.
-		var facing_sign = -1 if sprite.flip_h else 1
-		sprite.rotation *= facing_sign
-		sprite.offset *= Vector2(facing_sign, 0)
-		sprite.dejitter_position *= Vector2(facing_sign, 0)
+		sprite.rotation *= -1 if sprite.flip_h else 1
 		
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
 			# Reset sprite transforms.
-			set_rotation_origin(SPRITE_OFFSET_DEFAULT)
+			set_rotation_origin(sprite.flip_h, SPRITE_OFFSET_DEFAULT)
 			sprite.rotation = 0
 			
 			pound_state = Pound.FALL
@@ -1377,7 +1377,7 @@ func take_damage_shove(amount, direction):
 		switch_state(S.HURT)
 		hurt_timer = 30
 		switch_anim("hurt")
-		set_rotation_origin()
+		set_rotation_origin(direction == 1)
 		vel = Vector2(4 * direction, -3)
 		sprite.flip_h = direction == 1
 		off_ground()
@@ -1478,6 +1478,12 @@ func resist(val, sub, div): # ripped from source
 	return val * FPS_MOD
 
 
-func set_rotation_origin (origin: Vector2 = SPRITE_OFFSET_DEFAULT):
-	sprite.offset = origin
-	sprite.dejitter_position = -origin
+func set_rotation_origin (face_left: bool, origin: Vector2 = SPRITE_OFFSET_DEFAULT):
+	# Vector to flip the offset's X with, as appropriate.
+	var facing = Vector2(
+		-1 if face_left else 1, # Convert 0 to -1
+		1)
+	
+	sprite.offset = origin * facing
+	fludd_sprite.position = origin * facing
+	sprite.dejitter_position = -origin * facing
