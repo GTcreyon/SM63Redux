@@ -41,7 +41,7 @@ func _interact_check() -> bool:
 
 
 func _animation_length() -> int:
-	return 120 if move_to_scene else 90
+	return TIME_PEAK_FLASH + (180 if move_to_scene else 60)
 
 
 func _begin_animation(_player):
