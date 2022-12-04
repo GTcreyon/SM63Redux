@@ -57,7 +57,7 @@ func _process(delta):
 		pass
 
 
-func warp(location, path, t_in = 25, t_out = 15):
+func warp(location: Vector2, path: String, t_in = 25, t_out = 15):
 	in_time = t_in
 	out_time = t_out
 	
