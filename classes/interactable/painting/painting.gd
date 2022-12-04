@@ -19,6 +19,8 @@ const RIPPLE_AMPLITUDE = 0.1
 const RIPPLE_DECAY_TIME_SLOW = 240
 const RIPPLE_RATE = 0.01
 
+const FINAL_BURNAWAY_DURATION = 10
+
 export var picture: Texture
 export var frame: Texture
 export var detection_radius = 33 setget set_detection_radius
@@ -158,6 +160,15 @@ func _update_animation(_frame, _player):
 	if move_to_scene and _frame > TIME_PEAK_FLASH:
 		_player.camera.current_zoom = lerp(camera_zoom_start, closest_camera_zoom,
 			pow(float(_frame - TIME_PEAK_FLASH) / (_animation_length() - TIME_PEAK_FLASH), 2))
+	
+	# If doing a scene change and nearing the end, burnaway to white.
+	if _frame >= _animation_length() - FINAL_BURNAWAY_DURATION:
+		var burn_fac : float = _frame - (_animation_length() - FINAL_BURNAWAY_DURATION)
+		burn_fac /= FINAL_BURNAWAY_DURATION
+		
+		# Do burnaway animation
+		picture_sprite.material.set_shader_param("burnaway_factor", burn_fac)
+		
 
 func _end_animation(_player):
 	# Reset player to full size and visibility.
@@ -166,6 +177,10 @@ func _end_animation(_player):
 	
 	# Reset shader params, just in case.
 	reset_shader()
+
+
+func _bypass_transition() -> bool:
+	return true
 
 
 func set_detection_radius(val):
@@ -177,3 +192,4 @@ func set_detection_radius(val):
 func reset_shader():
 	picture_sprite.material.set_shader_param("ripple_amplitude", 0)
 	picture_sprite.material.set_shader_param("flash_factor", 0)	
+	picture_sprite.material.set_shader_param("burnaway_factor", 0)	
