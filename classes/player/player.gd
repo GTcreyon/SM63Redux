@@ -53,6 +53,12 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 			preload("res://classes/player/sfx/step/ice/step_ice_0.wav"),
 			preload("res://classes/player/sfx/step/ice/step_ice_1.wav"),
 		],
+		"sand": [
+			preload("res://classes/player/sfx/step/generic/step_generic_0.wav"),			
+		],
+		"wood": [
+			preload("res://classes/player/sfx/step/generic/step_generic_0.wav"),			
+		],
 	},
 	"voice": {
 		"jump1": [
@@ -98,6 +104,12 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 			preload("res://classes/player/sfx/pound/pound_cloud.wav")
 		],
 		"ice": [
+			preload("res://classes/player/sfx/pound/pound_generic.wav")
+		],
+		"sand": [
+			preload("res://classes/player/sfx/pound/pound_sand.wav")
+		],
+		"wood": [
 			preload("res://classes/player/sfx/pound/pound_generic.wav")
 		],
 	},
@@ -1437,6 +1449,10 @@ func terrain_typestring(collider: CollisionObject2D) -> String:
 			return "cloud"
 		0b00001000:
 			return "ice"
+		0b00000100:
+			return "sand"
+		0b00000010:
+			return "wood"
 		_:
 			return "generic"
 
