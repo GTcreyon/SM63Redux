@@ -10,9 +10,10 @@ const TIME_END_SHRINK = TIME_START_SHRINK + SHRINK_DURATION
 const SHRINK_SCALE_MIN = 0.75
 
 const TIME_START_FLASH = TIME_START_SHRINK
-const FLASH_DURATION_HALF = SHRINK_DURATION
-const TIME_PEAK_FLASH = TIME_START_FLASH + FLASH_DURATION_HALF
-const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_HALF
+const FLASH_DURATION_START = SHRINK_DURATION
+const FLASH_DURATION_END = 15
+const TIME_PEAK_FLASH = TIME_START_FLASH + FLASH_DURATION_START
+const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_END
 
 const RIPPLE_AMPLITUDE = 0.1
 const RIPPLE_DECAY_TIME_SLOW = 240
@@ -104,7 +105,7 @@ func _update_animation(_frame, _player):
 	# Do entry flash.
 	if _frame > TIME_START_FLASH and _frame <= TIME_END_FLASH:
 		# how far along the flash animation we are
-		var flash_fac = float(_frame - TIME_START_FLASH) / FLASH_DURATION_HALF
+		var flash_fac = float(_frame - TIME_START_FLASH) / FLASH_DURATION_START
 		# make it fall back to 0 after it hits 1
 		if flash_fac > 1:
 			# Unpacking this line; let ans = result of last line.
@@ -120,7 +121,7 @@ func _update_animation(_frame, _player):
 	# Do burnaway after entry.
 	if _frame > TIME_PEAK_FLASH and _frame <= TIME_END_FLASH:
 		# how far along the burnaway animation we are
-		var burn_fac = float(_frame - TIME_PEAK_FLASH) / FLASH_DURATION_HALF
+		var burn_fac = float(_frame - TIME_PEAK_FLASH) / FLASH_DURATION_END
 		
 		# Do burnaway animation
 		picture_sprite.material.set_shader_param("burnaway_factor", 1 - burn_fac)

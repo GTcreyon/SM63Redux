@@ -9,9 +9,29 @@ uniform float flash_factor = 0;
 
 uniform float burnaway_factor = 0;
 uniform sampler2D burnaway_mask;
+uniform float burnaway_mask_factor = 0.01;
 
 
 const float PI = 3.1415927;
+
+// Float version of lhs <= rhs.
+float leq (float lhs, float rhs) {
+	return floor(lhs / rhs);
+}
+
+float remap (float value, float old_min, float old_max, float new_min, float new_max) {
+	// Factor away min value.
+	value -= old_min;
+	// Un-fit it from the old range. Now it's 0-1.
+	value /= old_max - old_min;
+
+	// Squish it to the new range.
+	value *= new_max - new_min;
+	// Slide it to the new min.
+	value += new_min;
+
+	return value;
+}
 
 void fragment() {
 	// TODO: Pixel perfect UV. This would be the spot, before
@@ -25,6 +45,9 @@ void fragment() {
 	ripple_shape *= 2.0 * PI;
 	// Convert it to a ripple. Double sine looks a bit shapier.
 	ripple_shape = sin(sin(ripple_shape));
+	// Scale it up to full-scale (-1, 1) again.
+	ripple_shape /= sin(45);
+	
 
 	// Take the direction to the ripple origin.
 	vec2 ripple_effect = ripple_dir;
@@ -39,12 +62,25 @@ void fragment() {
 	vec4 c = texture(TEXTURE, ripple_uv);
 	c.rgb += vec3(flash_factor);
 	
-	//Burnaway pixels lower than a threshold.
-	bool burnaway = (ripple_shape / 2. + 0.5) <= burnaway_factor;
+	// Burn ripples lower than a threshold away to white.
+	float burnaway = (ripple_shape / 2. + 0.5);
+	// Shift the threshold using a mask.
+	float mask = texture(burnaway_mask, ripple_uv).r;
+	mask *= 2.;
+	mask -= 1.;
+	mask *= burnaway_mask_factor;
+	burnaway += mask;
+	burnaway = remap(burnaway, 
+		-burnaway_mask_factor, 1.0+burnaway_mask_factor, // Old range
+		0.,1. ); // New range
+	// Convert to a solid black-and-white mask.
+	burnaway = leq(burnaway, burnaway_factor);
+	// Invert the mask.
+	burnaway = 1. - burnaway;
+	// Rid of anything under 0.
+	burnaway = clamp(burnaway, 0, 1);
 
-	//ugh, unavoidable if.
-	if (burnaway) {
-		c.rgb += vec3(1);
-	}
+	c.rgb += vec3(burnaway);
+	//COLOR = vec4(vec3(ripple_shape),1);
 	COLOR = c;
 }
