@@ -43,10 +43,8 @@ void fragment() {
 	float ripple_shape = ripple_dist - ripple_phase;
 	ripple_shape *= ripple_frequency;
 	ripple_shape *= 2.0 * PI;
-	// Convert it to a ripple. Double sine looks a bit shapier.
-	ripple_shape = sin(sin(ripple_shape));
-	// Scale it up to full-scale (-1, 1) again.
-	ripple_shape /= sin(45);
+	// Convert it to a ripple. Double sine looks more 3D.
+	ripple_shape = sin(sin(ripple_shape)*PI);
 	
 
 	// Take the direction to the ripple origin.
