@@ -17,7 +17,7 @@ func _ready():
 	polygon = PoolVector2Array([Vector2(0, 0), Vector2(0, OS.window_size.y / 2), Vector2(0, OS.window_size.y), Vector2(0, OS.window_size.y), Vector2(0, 0)])
 
 
-func warp(dir, location, path):
+func warp(dir: Vector2, location: Vector2, path: String):
 	var cam_area = $"/root/Main/CameraArea"
 	if cam_area != null:
 		cam_area.frozen = true
@@ -25,6 +25,7 @@ func warp(dir, location, path):
 	direction = dir
 	Singleton.set_location = location
 	scene_path = path
+	
 	var pos
 	if direction.y == 0:
 		pos = (1 - direction.x) * OS.window_size.x / 2
@@ -43,7 +44,7 @@ func _physics_process(_delta):
 		anim_timer += 1
 	if (enter == 1 and anim_timer >= 44):
 		anim_timer = 0
-		Singleton.warp_to(scene_path)
+		
 		curve.clear_points()
 		curve.add_point(Vector2(0, 0))
 		var pos
@@ -60,8 +61,10 @@ func _physics_process(_delta):
 			curve_arc = Vector2(0, OS.window_size.y / 2)
 			curve_bottom = Vector2(pos, OS.window_size.y)
 		
-		enter = -1
+		Singleton.warp_to(scene_path)
 		Singleton.flip = $"/root/Main/Player/Character".flip_h
+		
+		enter = -1
 	elif enter == -1 and anim_timer >= 44:
 		anim_timer = 0
 		enter = 0
