@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-13 18:15+0100\n"
-"PO-Revision-Date: 2022-04-18 00:49+0200\n"
+"PO-Revision-Date: 2022-12-04 01:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Generated-By: Babel 2.9.1\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: ../actors/debug/tickbox_feedback.tscn:44
 msgid "Lag"
@@ -359,7 +359,7 @@ msgstr "Autre"
 
 #: ../src/global/feedback.tscn:331
 msgid "Submit"
-msgstr "Soumettre"
+msgstr "Envoyer"
 
 #: ../src/global/feedback.tscn:341
 msgid ""
