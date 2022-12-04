@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2022-04-13 18:15+0100\n"
-"PO-Revision-Date: 2022-04-13 21:51+0200\n"
+"PO-Revision-Date: 2022-12-04 01:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Generated-By: Babel 2.9.1\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: ../actors/debug/tickbox_feedback.tscn:44
 msgid "Lag"
@@ -33,7 +33,7 @@ msgstr "Tutoriel 1"
 
 #: ../gui/pause/level_info/level_info.tscn:264
 msgid "Head to the castle, everybody's waiting!"
-msgstr "Diriges toi vers le château, tout le monde t'attend!"
+msgstr "Dirige toi vers le château, tout le monde t'attend!"
 
 #: ../gui/pause/map/map.tscn:129
 msgid ""
@@ -270,8 +270,8 @@ msgid ""
 "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only "
 "hold [color=#5f75c5]100 flubs[/color] in that tank of theirs."
 msgstr ""
-"Ne te repose pas trop sur lui[@p,3] cependant,[@p,10] J.E.T. ne peut "
-"contenir que [color=#5f75c5]100 flubs[/color] dans son reservoir."
+"Ne dépend pas trop de lui[@p,3] cependant,[@p,10] J.E.T. ne peut contenir "
+"que [color=#5f75c5]100 flubs[/color] dans son reservoir."
 
 #: ../scenes/tutorial_1/tutorial_1_4.tscn:438
 msgid "Once it's gone,[@p,3] you won't be able to hover any longer."
@@ -359,7 +359,7 @@ msgstr "Autre"
 
 #: ../src/global/feedback.tscn:331
 msgid "Submit"
-msgstr "Soumettre"
+msgstr "Envoyer"
 
 #: ../src/global/feedback.tscn:341
 msgid ""
