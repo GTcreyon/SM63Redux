@@ -92,7 +92,9 @@ func _physics_override():
 		# When timer rings...
 		if anim_timer == 0:
 			if move_to_scene and _bypass_transition():
-				pass
+				Singleton.set_location = target_pos
+				Singleton.flip = player.sprite.flip_h
+				Singleton.warp_to(scene_path)
 			else:
 				# We're not scene-changing. Finalize the warp.
 				# Set player at the destination, ready to move.
