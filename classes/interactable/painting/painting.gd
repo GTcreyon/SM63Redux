@@ -27,6 +27,7 @@ export var detection_radius = 33 setget set_detection_radius
 export var closest_camera_zoom = 0.1
 
 var camera_zoom_start = Vector2.ONE
+var camera_focus_start = Vector2.ZERO
 
 onready var picture_sprite = $Picture
 
@@ -149,17 +150,25 @@ func _update_animation(_frame, _player):
 		# Advance ripple phase for the frame.
 		picture_sprite.material.set_shader_param("ripple_phase", _frame * RIPPLE_RATE)
 	
-	# If doing a scene change, cache camera's start point.
+	# If doing a scene change, wrangle the camera's animation.
+	# Cache player position and starting zoom for future frames.
 	if move_to_scene and _frame == TIME_PEAK_FLASH:
+		camera_focus_start = _player.global_position
+		camera_zoom_start = _player.camera.current_zoom
 		# Lock the camera, since we're going to be using it real soon.
 		_player.camera.cancel_zoom()
-		# Cache the current camera settings so we can zoom in properly.
-		camera_zoom_start = _player.camera.current_zoom
 	
-	# If doing a scene change, let the camera begin zooming in.
 	if move_to_scene and _frame > TIME_PEAK_FLASH:
+		var zoom_factor = float(_frame - TIME_PEAK_FLASH)
+		zoom_factor /= _animation_length() - TIME_PEAK_FLASH
+		# Let the camera begin zooming in.
 		_player.camera.current_zoom = lerp(camera_zoom_start, closest_camera_zoom,
-			pow(float(_frame - TIME_PEAK_FLASH) / (_animation_length() - TIME_PEAK_FLASH), 2))
+			pow(zoom_factor, 2))
+			
+		# Slide player to center so we're guaranteed a good zoom.
+		_player.global_position = lerp(
+			camera_focus_start, picture_sprite.global_position,
+			pow(zoom_factor, 2))
 	
 	# If doing a scene change and nearing the end, burnaway to white.
 	if _frame >= _animation_length() - FINAL_BURNAWAY_DURATION:
