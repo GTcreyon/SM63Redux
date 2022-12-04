@@ -19,7 +19,7 @@ const RIPPLE_AMPLITUDE = 0.1
 const RIPPLE_DECAY_TIME_SLOW = 240
 const RIPPLE_RATE = 0.01
 
-const FINAL_BURNAWAY_DURATION = 10
+const FINAL_BURNAWAY_DURATION = 14
 
 export var picture: Texture
 export var frame: Texture
