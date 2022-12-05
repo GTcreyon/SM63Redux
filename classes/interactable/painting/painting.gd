@@ -152,14 +152,18 @@ func _update_animation(_frame, _player):
 		# Advance ripple phase for the frame.
 		picture_sprite.material.set_shader_param("ripple_phase", _frame * RIPPLE_RATE)
 	
-	# If doing a scene change, wrangle the camera's animation.
-	# Cache player position and starting zoom for future frames.
+	# When the flash happens, the animation is in full swing.
 	if move_to_scene and _frame == TIME_PEAK_FLASH:
+		# Cache player position and starting zoom for future frames.
 		camera_focus_start = _player.global_position
 		camera_zoom_start = _player.camera.current_zoom
 		# Lock the camera, since we're going to be using it real soon.
 		_player.camera.cancel_zoom()
+		
+		# Hide the UI.
+		_player.camera.get_node("GUI").visible = false
 	
+	# If doing a scene change, wrangle the camera's animation.
 	if move_to_scene and _frame > TIME_PEAK_FLASH:
 		var zoom_factor = float(_frame - TIME_PEAK_FLASH)
 		zoom_factor /= _animation_length() - TIME_PEAK_FLASH
@@ -198,7 +202,7 @@ func _begin_scene_change(dst_pos, dst_scene, in_time, out_time):
 
 func _transition_in_time() -> int:
 	# Fade to white instantly, since the in transition is the final burnaway.
-	return 25
+	return 1
 
 
 func set_detection_radius(val):
