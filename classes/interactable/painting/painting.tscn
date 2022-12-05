@@ -24,7 +24,6 @@ shape = SubResource( 1 )
 material = ExtResource( 4 )
 position = Vector2( 0, -80 )
 texture = ExtResource( 2 )
-region_rect = Rect2( 420, 135, 0, 0 )
 
 [node name="Frame" type="Sprite" parent="."]
 position = Vector2( 0, -80 )
