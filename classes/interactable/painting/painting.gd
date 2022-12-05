@@ -137,17 +137,22 @@ func _update_animation(_frame, _player):
 	# Do ripple effect after the player jumps in.
 	if _frame > TIME_PEAK_FLASH:
 		var ripple_decay_time
+		var ripple_decay_exponent
 		if move_to_scene:
 			# Ripples to decay to nothing slowly if going to a new scene...
 			ripple_decay_time = RIPPLE_DECAY_TIME_SLOW
+			# Linear decay.
+			ripple_decay_exponent = 1
 		else:
 			# but quickly otherwise.
 			ripple_decay_time = _animation_length() - TIME_PEAK_FLASH
+			# Very, very sharp decay looks nicer.
+			ripple_decay_exponent = 8
 		
 		# Calculate and apply this frame's ripple amplitude.
 		var decay_factor = float(_frame - TIME_PEAK_FLASH) / ripple_decay_time
 		picture_sprite.material.set_shader_param("ripple_amplitude", 
-			RIPPLE_AMPLITUDE * (1 - decay_factor))
+			RIPPLE_AMPLITUDE * pow(1 - decay_factor, ripple_decay_exponent))
 		
 		# Advance ripple phase for the frame.
 		picture_sprite.material.set_shader_param("ripple_phase", _frame * RIPPLE_RATE)
