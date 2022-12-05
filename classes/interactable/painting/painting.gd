@@ -16,7 +16,9 @@ const TIME_PEAK_FLASH = TIME_START_FLASH + FLASH_DURATION_START
 const TIME_END_FLASH = TIME_PEAK_FLASH + FLASH_DURATION_END
 
 const RIPPLE_AMPLITUDE = 0.25
+const RIPPLE_DECAY_EXPONENT_FAST = 3
 const RIPPLE_DECAY_TIME_SLOW = 240
+const RIPPLE_DECAY_EXPONENT_SLOW = 1
 const RIPPLE_RATE = 0.01
 
 const FINAL_BURNAWAY_DURATION = 21
@@ -142,12 +144,12 @@ func _update_animation(_frame, _player):
 			# Ripples to decay to nothing slowly if going to a new scene...
 			ripple_decay_time = RIPPLE_DECAY_TIME_SLOW
 			# Linear decay.
-			ripple_decay_exponent = 1
+			ripple_decay_exponent = RIPPLE_DECAY_EXPONENT_SLOW
 		else:
 			# but quickly otherwise.
 			ripple_decay_time = _animation_length() - TIME_PEAK_FLASH
-			# Very, very sharp decay looks nicer.
-			ripple_decay_exponent = 8
+			# Power-function decay looks nicer.
+			ripple_decay_exponent = RIPPLE_DECAY_EXPONENT_FAST
 		
 		# Calculate and apply this frame's ripple amplitude.
 		var decay_factor = float(_frame - TIME_PEAK_FLASH) / ripple_decay_time
