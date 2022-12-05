@@ -23,7 +23,6 @@ func _process(delta):
 	
 	if enter == EnterState.FADE_IN:
 		cover.color.a = progress + in_unit
-		print_debug(cover.color.a)
 		
 		if progress >= 1 - in_unit:
 			# Do actual warp.
@@ -47,7 +46,6 @@ func _process(delta):
 			enter = EnterState.NONE
 			progress = 0
 			visible = false
-			cover.visible = visible
 			
 			# Reset cover to normal color.
 			cover.color = Color(0,0,0,0)
@@ -56,6 +54,9 @@ func _process(delta):
 			progress += out_unit * dmod
 	else:
 		pass
+	
+	# Have to set this every frame. Weird.
+	cover.visible = visible
 
 
 func warp(location: Vector2, path: String, t_in = 25, t_out = 15):
@@ -64,9 +65,8 @@ func warp(location: Vector2, path: String, t_in = 25, t_out = 15):
 	
 	enter = EnterState.FADE_IN
 	visible = true
-	cover.visible = visible
 	
-	cover.color = Color(1,1,1,0)
+	cover.color = Color(1,1,1,1)
 	
 	Singleton.set_location = location
 	scene_path = path
