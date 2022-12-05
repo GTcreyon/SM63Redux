@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform vec2 texture_resolution = vec2(48,48);
+uniform vec2 texture_resolution = vec2(82,82);
 uniform vec2 ripple_origin = vec2(0.5, 0.5);
 uniform float ripple_amplitude = 0;
 uniform float ripple_phase = 0;

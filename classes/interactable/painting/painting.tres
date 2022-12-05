@@ -5,6 +5,7 @@
 
 [resource]
 shader = ExtResource( 1 )
+shader_param/texture_resolution = Vector2( 82, 82 )
 shader_param/ripple_origin = Vector2( 0.5, 0.5 )
 shader_param/ripple_amplitude = 0.0
 shader_param/ripple_phase = 0.0
