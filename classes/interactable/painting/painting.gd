@@ -51,6 +51,9 @@ func _animation_length() -> int:
 
 
 func _begin_animation(_player):
+	picture_sprite.material.set_shader_param("texture_resolution", 
+		picture_sprite.texture.get_size())
+	
 	# Ripple origin can be known at this point. Send it to the shader.
 	# Begin with player position relative to painting.
 	var ripple_origin_x = _player.global_position.x - global_position.x
@@ -61,8 +64,7 @@ func _begin_animation(_player):
 	# Send to shader immediately.
 	picture_sprite.material.set_shader_param("ripple_origin", Vector2(
 		ripple_origin_x,
-		0.5
-	))
+		0.5))
 	
 	# Engage the player's portion of the animation.
 	if !_player.swimming:

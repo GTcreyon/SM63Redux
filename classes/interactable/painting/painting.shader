@@ -1,5 +1,6 @@
 shader_type canvas_item;
 
+uniform vec2 texture_resolution = vec2(48,48);
 uniform vec2 ripple_origin = vec2(0.5, 0.5);
 uniform float ripple_amplitude = 0;
 uniform float ripple_phase = 0;
@@ -33,11 +34,13 @@ float remap (float value, float old_min, float old_max, float new_min, float new
 	return value;
 }
 
+vec2 pixel_snap (vec2 vector) {
+	return floor(vector * texture_resolution) / texture_resolution;
+}
+
 void fragment() {
-	// TODO: Pixel perfect UV. This would be the spot, before
-	// any distances are calculated.
-	vec2 ripple_dir = normalize(UV - ripple_origin); //Dir from origin to ripple
-	float ripple_dist = distance(UV, ripple_origin); //Dist from origin to ripple
+	vec2 ripple_dir = normalize(pixel_snap(UV) - ripple_origin); //Dir from origin to ripple
+	float ripple_dist = distance(pixel_snap(UV), ripple_origin); //Dist from origin to ripple
 
 	// Get the actual shape of the ripple in the right spot.
 	float ripple_shape = ripple_dist - ripple_phase;
@@ -53,6 +56,7 @@ void fragment() {
 	ripple_effect *= ripple_shape;
 	// Scale the magnitude of the ripple displacement too, of course.
 	ripple_effect *= ripple_amplitude;
+	ripple_effect = pixel_snap(ripple_effect);
 
 	// Displace the UV map.
 	vec2 ripple_uv = UV + ripple_effect;
@@ -63,7 +67,7 @@ void fragment() {
 	// Burn ripples lower than a threshold away to white.
 	float burnaway = (ripple_shape / 2. + 0.5);
 	// Shift the threshold using a mask.
-	float mask = texture(burnaway_mask, ripple_uv).r;
+	float mask = texture(burnaway_mask, pixel_snap(ripple_uv)).r;
 	mask *= 2.;
 	mask -= 1.;
 	mask *= burnaway_mask_factor;
