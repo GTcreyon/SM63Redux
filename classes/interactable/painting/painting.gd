@@ -152,37 +152,37 @@ func _update_animation(_frame, _player):
 		# Advance ripple phase for the frame.
 		picture_sprite.material.set_shader_param("ripple_phase", _frame * RIPPLE_RATE)
 	
-	# When the flash happens, the animation is in full swing.
-	if move_to_scene and _frame == TIME_PEAK_FLASH:
-		# Cache player position and starting zoom for future frames.
-		camera_focus_start = _player.global_position
-		camera_zoom_start = _player.camera.current_zoom
-		# Lock the camera, since we're going to be using it real soon.
-		_player.camera.cancel_zoom()
-		
-		# Hide the UI.
-		_player.camera.get_node("GUI").visible = false
-	
-	# If doing a scene change, wrangle the camera's animation.
-	if move_to_scene and _frame > TIME_PEAK_FLASH:
-		var zoom_factor = float(_frame - TIME_PEAK_FLASH)
-		zoom_factor /= _animation_length() - TIME_PEAK_FLASH
-		# Let the camera begin zooming in.
-		_player.camera.current_zoom = lerp(camera_zoom_start, closest_camera_zoom,
-			pow(zoom_factor, 2))
+	if move_to_scene:
+		# When the flash happens, the animation is in full swing.
+		if _frame == TIME_PEAK_FLASH:
+			# Cache player position and starting zoom for future frames.
+			camera_focus_start = _player.global_position
+			camera_zoom_start = _player.camera.current_zoom
+			# Lock the camera, since we're going to be using it real soon.
+			_player.camera.cancel_zoom()
 			
-		# Slide player to center so we're guaranteed a good zoom.
-		_player.global_position = lerp(
-			camera_focus_start, picture_sprite.global_position,
-			pow(zoom_factor, 2))
-	
-	# If doing a scene change and nearing the end, burnaway to white.
-	if _frame >= _animation_length() - FINAL_BURNAWAY_DURATION:
-		var burn_fac : float = _frame - (_animation_length() - FINAL_BURNAWAY_DURATION)
-		burn_fac /= FINAL_BURNAWAY_DURATION
+			# Hide the UI.
+			_player.camera.get_node("GUI").visible = false
+		# Wrangle the camera's animation.
+		elif _frame > TIME_PEAK_FLASH:
+			var zoom_factor = float(_frame - TIME_PEAK_FLASH)
+			zoom_factor /= _animation_length() - TIME_PEAK_FLASH
+			# Let the camera begin zooming in.
+			_player.camera.current_zoom = lerp(camera_zoom_start, closest_camera_zoom,
+				pow(zoom_factor, 2))
+				
+			# Slide player to center so we're guaranteed a good zoom.
+			_player.global_position = lerp(
+				camera_focus_start, picture_sprite.global_position,
+				pow(zoom_factor, 2))
 		
-		# Do burnaway animation
-		picture_sprite.material.set_shader_param("burnaway_factor", burn_fac)
+		# If nearing the end, burnaway to white. This is our in transition.
+		if _frame >= _animation_length() - FINAL_BURNAWAY_DURATION:
+			var burn_fac : float = _frame - (_animation_length() - FINAL_BURNAWAY_DURATION)
+			burn_fac /= FINAL_BURNAWAY_DURATION
+			
+			# Do burnaway animation
+			picture_sprite.material.set_shader_param("burnaway_factor", burn_fac)
 		
 
 func _end_animation(_player):
