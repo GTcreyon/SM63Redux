@@ -192,7 +192,7 @@ func _end_animation(_player):
 
 func _begin_scene_change(dst_pos, dst_scene, in_time, out_time):
 	# Fade through white, not black.
-	var fade_effect = $"/root/Singleton/WindowWarp"
+	var fade_effect = $"/root/Singleton/WhiteWarp"
 	fade_effect.warp(dst_pos, dst_scene, in_time, out_time)
 
 
