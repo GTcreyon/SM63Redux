@@ -19,7 +19,7 @@ const RIPPLE_AMPLITUDE = 0.25
 const RIPPLE_DECAY_TIME_SLOW = 240
 const RIPPLE_RATE = 0.01
 
-const FINAL_BURNAWAY_DURATION = 14
+const FINAL_BURNAWAY_DURATION = 21
 
 export var picture: Texture
 export var frame: Texture
@@ -190,8 +190,15 @@ func _end_animation(_player):
 	reset_shader()
 
 
-func _bypass_transition() -> bool:
-	return true
+func _begin_scene_change(dst_pos, dst_scene, in_time, out_time):
+	# Fade through white, not black.
+	var fade_effect = $"/root/Singleton/WindowWarp"
+	fade_effect.warp(dst_pos, dst_scene, in_time, out_time)
+
+
+func _transition_in_time() -> int:
+	# Fade to white instantly, since the in transition is the final burnaway.
+	return 25
 
 
 func set_detection_radius(val):
