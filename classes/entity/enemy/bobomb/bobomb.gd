@@ -7,15 +7,17 @@ extends EntityEnemyWalk
 # They can be struck to send them flying a short distance before exploding.
 
 const EXPLOSION = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
+const FUSE_DURATION = 240
+const BUILDUP_SOUND_START = 186
 
-var fuse_time = 240
+var fuse_time = FUSE_DURATION
 
 onready var base = $Sprites/Base
 onready var fuse = $Sprites/Fuse
 onready var key = $Sprites/Key
 onready var sfx_fuse = $SFXFuse
+onready var sfx_build = $SFXBuildup
 onready var sfx_knock = $SFXKnock
-
 
 func _ready_override():
 	._ready_override()
@@ -31,7 +33,10 @@ func _physics_step() -> void:
 	
 	if fuse.animation == "lit":
 		fuse_time -= 1
-		
+	
+	if fuse_time == BUILDUP_SOUND_START:
+		sfx_build.play()
+	
 	if fuse_time <= 0:
 		explode()
 	
