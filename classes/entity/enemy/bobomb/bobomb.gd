@@ -8,7 +8,7 @@ extends EntityEnemyWalk
 
 const EXPLOSION = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
 const FUSE_DURATION = 240
-const BUILDUP_SOUND_START = 186
+const BUILDUP_SOUND_START = 198
 
 var fuse_time = FUSE_DURATION
 
