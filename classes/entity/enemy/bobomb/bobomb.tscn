@@ -10,7 +10,7 @@
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=8]
 [ext_resource path="res://classes/entity/enemy/bobomb/fuse.wav" type="AudioStream" id=9]
 [ext_resource path="res://classes/entity/enemy/bobomb/knock.wav" type="AudioStream" id=10]
-[ext_resource path="res://classes/entity/enemy/bobomb/explosion_buildup.wav" type="AudioStream" id=11]
+[ext_resource path="res://classes/entity/enemy/bobomb/explosion_buildup_1.wav" type="AudioStream" id=11]
 [ext_resource path="res://classes/entity/enemy/bobomb/bobomb_struck.png" type="Texture" id=14]
 [ext_resource path="res://classes/entity/enemy/goomba/goomba_step.wav" type="AudioStream" id=15]
 

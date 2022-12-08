@@ -6,6 +6,18 @@ extends EntityEnemyWalk
 # When their fuse is lit, they do not lose focus on the player.
 # They can be struck to send them flying a short distance before exploding.
 
+# When two bombs play the buildup sound at once, the sound gets confusing.
+# Would be nice to have it choose from two or three different pitches so
+# the player can differentiate which sound belongs to which bomb, but
+# picking at random is likely to give two bombs the same pitch more often than
+# not, and making a global "in-use bomb sound" pool would require modifying
+# the singleton--which sounds like a pretty far-reaching change for a little
+# problem like this!
+# So for now, multiple buildup sounds is off the table.
+#const BUILDUP_SOUNDS = [
+#	preload("res://classes/entity/enemy/bobomb/explosion_buildup_1.wav"),
+#	preload("res://classes/entity/enemy/bobomb/explosion_buildup_2.wav"),
+#]
 const EXPLOSION = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
 const FUSE_DURATION = 240
 const BUILDUP_SOUND_START = 198

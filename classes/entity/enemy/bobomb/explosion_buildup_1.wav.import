@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/explosion_buildup.wav-5e7504b88a03a5302c5306fb3c26976d.sample"
+path="res://.import/explosion_buildup_1.wav-1dbf103bbbe0dac7204c16840290a864.sample"
 
 [deps]
 
-source_file="res://classes/entity/enemy/bobomb/explosion_buildup.wav"
-dest_files=[ "res://.import/explosion_buildup.wav-5e7504b88a03a5302c5306fb3c26976d.sample" ]
+source_file="res://classes/entity/enemy/bobomb/explosion_buildup_1.wav"
+dest_files=[ "res://.import/explosion_buildup_1.wav-1dbf103bbbe0dac7204c16840290a864.sample" ]
 
 [params]
 
