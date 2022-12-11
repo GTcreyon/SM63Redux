@@ -13,6 +13,7 @@ var _pickup_ids = []
 
 export var coin_count = 5
 
+
 func _ready():
 	_pickup_ids = FlagServer.claim_flag_id_array(coin_count)
 	rng.seed = hash(position.x + position.y * PI)

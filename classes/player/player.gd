@@ -113,6 +113,7 @@ var locked: bool = false
 var last_step = 0
 var invuln_flash: int = 0
 
+
 func _ready():
 	sprite.playing = true
 	nozzle_fx.playing = true
@@ -541,6 +542,7 @@ var _fludd_spraying_rising: bool = false
 # If _physics_process() never calls player_physics() but checks fludd_spraying(),
 # keep initial value as valid to avoid runtime crashes.
 var fludd_stale: bool = false
+
 
 func fludd_spraying(allow_stale: bool = false) -> bool:
 	# Every frame, set fludd_stale = true until we process "fludd".

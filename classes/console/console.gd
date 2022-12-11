@@ -3,11 +3,12 @@ extends Control
 onready var logger = $Logger
 onready var input_line = $Input
 
-var history : PoolStringArray = []
+var history: PoolStringArray = []
 var hist_index = 0
 var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
-var line_count : int = 0
+var line_count: int = 0
+
 
 func _ready():
 	add_child(req)

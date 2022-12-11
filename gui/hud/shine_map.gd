@@ -10,6 +10,7 @@ var max_height = main_count * 166 + mini_count * 113
 var target_scroll = 0
 var gui_scale = 1
 
+
 func _process(_delta):
 	if Input.is_action_just_released("scroll_down"):
 		target_scroll = max(courses.margin_top - 20, -max_height)

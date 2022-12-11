@@ -49,6 +49,7 @@ func validate_varname(word, should_flag = true):
 			return false
 	return true
 
+
 func get_input_text(idx):
 	# TODO: Make to validate user data, you can do this by
 	# reading the tags inside of segments in pieces.json
@@ -214,6 +215,7 @@ func setup(data):
 		rect_size.y += 30
 	holster_size_y = rect_size.y
 
+
 func move_piece(position):
 	var delta = position - rect_global_position
 	var piece_queue = [self]
@@ -290,6 +292,7 @@ func clone():
 	for index in len(dupe.line_edits):
 		dupe.line_edits[index].text = line_edits[index].text
 
+
 func dropdown_pressed(index, text):
 	match text:
 		"Duplicate":
@@ -315,6 +318,7 @@ func dropdown_pressed(index, text):
 		"Insert inner":
 			node_placer.selected_node = self
 			node_placer.selected_index = -2
+
 
 func _gui_input(event):
 	# Enable the dropdown menu for the nodes

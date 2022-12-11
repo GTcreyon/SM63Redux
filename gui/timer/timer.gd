@@ -4,12 +4,13 @@ onready var total = $Total
 onready var total_ms = $TotalMS
 onready var split_ref = $SplitRect/Split
 
-var frames : int = 0
-var split_frames : int = 0
+var frames: int = 0
+var split_frames: int = 0
 var running = false
 
 #func _ready():
 #	total.margin_right = get_font("font").get_string_size("0:00.0000").x + 10
+
 
 func format_time(overall_seconds):
 	var ms = floor(fmod(overall_seconds, 1) * 1000)

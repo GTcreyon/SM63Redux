@@ -15,7 +15,7 @@ func _process(_delta):
 		Singleton.set_pause("feedback", visible)
 
 
-func add_data(tag : String, data) -> String:
+func add_data(tag: String, data) -> String:
 	return tag + ":" + str(data) + "\n"
 
 

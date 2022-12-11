@@ -19,14 +19,14 @@ onready var options_menu = $OptionsControl/OptionsMenu
 onready var back_button = $OptionsControl/BackButton
 
 # Only based on window size.
-var visible_positions : Array#[Vector2]
-var center_pos_idx : int
+var visible_positions: Array#[Vector2]
+var center_pos_idx: int
 
 # Changes when the menu scrolls.
-var cycle_progress : float = 0  # Between 0 and 1
-var cycle_direction : int = 0  # 0 when not scrolling, 1 or -1 when scrolling.
-var cycle_step : int = 0  # Current menu position, increases when scrolling left, updated at scroll *end*.
-var num_items : int  # Modulo for cycle_step.
+var cycle_progress: float = 0  # Between 0 and 1
+var cycle_direction: int = 0  # 0 when not scrolling, 1 or -1 when scrolling.
+var cycle_step: int = 0  # Current menu position, increases when scrolling left, updated at scroll *end*.
+var num_items: int  # Modulo for cycle_step.
 
 var show_options = false
 
@@ -94,10 +94,10 @@ func _process(delta: float) -> void:
 			var item_progress = sin(cycle_progress * PI/2)
 			
 			# Items move ahead of arrows.
-			var item_scroll : float = center_pos_idx + cycle_step + (cycle_direction * item_progress)
+			var item_scroll: float = center_pos_idx + cycle_step + (cycle_direction * item_progress)
 			
 			# Arrows move linearly.
-			var arrow_scroll : float = center_pos_idx + cycle_step + (cycle_direction * cycle_progress)
+			var arrow_scroll: float = center_pos_idx + cycle_step + (cycle_direction * cycle_progress)
 			
 			# Has integer coordinates because scale is an integer.
 			# Don't need to round before passing into _item_position.

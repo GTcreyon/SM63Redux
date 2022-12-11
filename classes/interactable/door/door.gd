@@ -7,6 +7,7 @@ var player_fade_start_time : int
 var player_fade_rate : float
 var door_close_start_time : int
 
+
 func _ready():
 	_set_sprite_frames(door_graphic)
 	

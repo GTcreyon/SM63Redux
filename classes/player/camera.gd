@@ -13,6 +13,7 @@ var target_limit_top = -10000000
 var target_limit_bottom = 10000000
 var first_frame = true
 
+
 func _ready():
 	limit_left = -10000000
 	limit_right = 10000000

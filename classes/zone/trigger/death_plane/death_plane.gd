@@ -1,5 +1,6 @@
 extends Polygon2D
 
+
 func _ready():
 	$Area2D/CollisionPolygon2D.polygon = polygon
 

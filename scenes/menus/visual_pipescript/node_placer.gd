@@ -25,6 +25,7 @@ var phantom_possible_items = Panel.new()
 var phantom_possible_pieces = []
 var phantom_selected_option = 0
 
+
 func set_selected_node(new):
 	selected_node = new
 	# If there's an error, we modulate the color, we make that modulation go away when we select it
@@ -47,6 +48,7 @@ func get_text_width(text: String) -> float:
 	for c in text:
 		width += BYLIGHT.get_char_size(c as int).x
 	return width
+
 
 func phantom_text_entered(text):
 	if !phantom_possible_items.visible || phantom_possible_items.get_child_count() <= phantom_selected_option:
@@ -158,6 +160,7 @@ func drag_begin(piece):
 	instance.creation_drag = true
 	graph.add_child(instance)
 	return instance
+
 
 func add_buttons():
 	var categories = [

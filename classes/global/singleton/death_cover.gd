@@ -1,5 +1,6 @@
 extends ColorRect
 
+
 func _process(delta):
 	var dmod = 60 * delta
 	if Singleton.dead:

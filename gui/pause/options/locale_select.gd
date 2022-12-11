@@ -1,5 +1,6 @@
 extends OptionButton
 
+
 func _ready():
 	var i = 0
 	for locale in Singleton.LOCALES:

@@ -11,6 +11,7 @@ var prev_drag_position = Vector2.ZERO
 var being_dragged = []
 var drag_type = DRAG_TYPE.NONE
 
+
 func _on_dragger_pressed():
 	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
@@ -76,6 +77,7 @@ func _process(_dt):
 	for item in being_dragged:
 		item.position += delta
 		item.properties["Position"] = item.position
+
 
 func _on_polygon_pressed():
 	if len(selection_handler.selection_hit) == 1:

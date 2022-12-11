@@ -9,8 +9,8 @@ onready var cover = $"../CoverLayer/WarpCover"
 var direction = 0
 var enter = 0
 var set_location = null
-var progress : float = 0.0
-var scene_path : NodePath = ""
+var progress: float = 0.0
+var scene_path: NodePath = ""
 
 func _ready():
 	resize_polygon(1.5)

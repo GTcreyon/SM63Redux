@@ -2,6 +2,7 @@ extends Light2D
 
 var time = 7 * 60
 
+
 func _process(delta):
 	var dmod = 60 * delta
 	if time > 0:

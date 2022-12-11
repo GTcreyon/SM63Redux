@@ -10,10 +10,10 @@ onready var visibility: VisibilityNotifier2D = $VisibilityNotifier2D
 onready var ride_area: RideArea = $RideArea
 
 export var disabled: bool = false setget set_disabled
-export var wait_time : int = 60
+export var wait_time: int = 60
 
 var vel = Vector2.ZERO
-var falling : bool = false
+var falling: bool = false
 var rng = RandomNumberGenerator.new()
 
 

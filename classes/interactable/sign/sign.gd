@@ -6,6 +6,7 @@ onready var glow_check: Area2D = $GlowCheck
 
 var pulse: float = 0.0
 
+
 func _process(delta):
 	var glow_factor = 0
 	for body in glow_check.get_overlapping_bodies():
