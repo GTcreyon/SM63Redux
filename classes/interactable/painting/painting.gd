@@ -1,5 +1,7 @@
 extends InteractableWarp
 
+const PLAYER_EXTENTS_X = 6
+
 const TIME_PEAK_JUMP = 30 # Time it takes the animated jump to reach its peak
 const TIME_PEAK_SWIM = 20 # Temporary--haven't checked
 const TIME_END_LONGJUMP = 8
@@ -26,6 +28,7 @@ const FINAL_BURNAWAY_DURATION = 21
 export var picture: Texture
 export var frame: Texture
 export var detection_radius = 33 setget set_detection_radius
+export var landing_pad_radius = 16
 export var closest_camera_zoom = 0.1
 
 var camera_zoom_start = Vector2.ONE
@@ -53,22 +56,27 @@ func _animation_length() -> int:
 
 
 func _begin_animation(_player):
+	# Send texture resolution to the shader so pixellation works right.
 	picture_sprite.material.set_shader_param("texture_resolution", 
 		picture_sprite.texture.get_size())
 	
-	# Ripple origin can be known at this point. Send it to the shader.
-	# Begin with player position relative to painting.
-	var ripple_origin_x = _player.global_position.x - global_position.x
-	# Scale down to UV space.
-	ripple_origin_x /= picture_sprite.texture.get_width();
-	# Finally, offset to center of painting.
-	ripple_origin_x += 0.5
-	# Send to shader immediately.
-	picture_sprite.material.set_shader_param("ripple_origin", Vector2(
-		ripple_origin_x,
-		0.5))
+	# Player's position relative to this painting.
+	# We'll need this a few times down the road.
+	var player_x_relative = _player.global_position.x - global_position.x
 	
 	# Engage the player's portion of the animation.
+	# Set player move direction.
+	# Begin by mapping player X pos along the landing pad area.
+	var land_x = player_x_relative
+	land_x /= detection_radius + PLAYER_EXTENTS_X
+	land_x *= landing_pad_radius
+	# Get step size that'll land us there over TIME_END_SHRINK frames.
+	var move_step_x = land_x - player_x_relative
+	move_step_x /= TIME_END_SHRINK
+	# Write that into player's X velocity.
+	_player.vel.x = move_step_x
+	
+	# Trigger jump in whatever way is appropriate.
 	if !_player.swimming:
 		# Force a single jump.
 		_player.double_jump_state = 0
@@ -80,6 +88,18 @@ func _begin_animation(_player):
 	else:
 		# Force a swim upward.
 		_player.action_swim()
+	
+	# Ripple origin can be known at this point. Send it to the shader.
+	# Begin with player position relative to painting.
+	var ripple_origin_x = land_x
+	# Scale down to UV space.
+	ripple_origin_x /= picture_sprite.texture.get_width();
+	# Finally, offset to center of painting.
+	ripple_origin_x += 0.5
+	# Send to shader immediately.
+	picture_sprite.material.set_shader_param("ripple_origin", Vector2(
+		ripple_origin_x,
+		0.5))
 
 
 func _update_animation(_frame, _player):
