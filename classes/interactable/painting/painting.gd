@@ -209,9 +209,7 @@ func _update_animation(_frame, _player):
 		burnaway_start = _animation_length() - burnaway_start
 		if _frame >= burnaway_start:
 			var burn_fac: float = _frame - burnaway_start
-			print_debug(burn_fac)
 			burn_fac /= FINAL_BURNAWAY_DURATION
-			print_debug(burn_fac)
 			
 			# Do burnaway animation
 			picture_sprite.material.set_shader_param("burnaway_factor", burn_fac)
