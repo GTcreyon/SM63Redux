@@ -24,6 +24,7 @@ const RIPPLE_DECAY_EXPONENT_SLOW = 1
 const RIPPLE_RATE = 0.01
 
 const FINAL_BURNAWAY_DURATION = 21
+const FINAL_BURNAWAY_POSTDELAY = 2 # So the burnaway ends before scene loading lags the game
 
 export var picture: Texture
 export var frame: Texture
@@ -204,9 +205,13 @@ func _update_animation(_frame, _player):
 				pow(zoom_factor, 2))
 		
 		# If nearing the end, burnaway to white. This is our in transition.
-		if _frame >= _animation_length() - FINAL_BURNAWAY_DURATION:
-			var burn_fac : float = _frame - (_animation_length() - FINAL_BURNAWAY_DURATION)
+		var burnaway_start = FINAL_BURNAWAY_DURATION + FINAL_BURNAWAY_POSTDELAY
+		burnaway_start = _animation_length() - burnaway_start
+		if _frame >= burnaway_start:
+			var burn_fac: float = _frame - burnaway_start
+			print_debug(burn_fac)
 			burn_fac /= FINAL_BURNAWAY_DURATION
+			print_debug(burn_fac)
 			
 			# Do burnaway animation
 			picture_sprite.material.set_shader_param("burnaway_factor", burn_fac)
