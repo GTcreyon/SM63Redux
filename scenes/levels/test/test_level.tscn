@@ -1,20 +1,33 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://classes/solid/terrain/terrain_polygon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://classes/player/player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://classes/entity/enemy/thwomp/thwomp.tscn" type="PackedScene" id=3]
 [ext_resource path="res://classes/misc/twirl_heart/twirl_heart.tscn" type="PackedScene" id=4]
 [ext_resource path="res://classes/interactable/painting/painting.tscn" type="PackedScene" id=5]
+[ext_resource path="res://classes/water/water.tscn" type="PackedScene" id=6]
+[ext_resource path="res://classes/interactable/sign/sign.tscn" type="PackedScene" id=7]
+[ext_resource path="res://shaders/glow.shader" type="Shader" id=8]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 8 )
+shader_param/width = 2
+shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 8 )
+shader_param/width = 2
+shader_param/radial = false
+shader_param/outline_color = Color( 1, 1, 1, 1 )
 
 [node name="Main" type="Node2D"]
 
-[node name="Painting" parent="." instance=ExtResource( 5 )]
-position = Vector2( 480, 48 )
-target_pos = Vector2( 328, 28 )
-
 [node name="TerrainPolygon" parent="." instance=ExtResource( 1 )]
 position = Vector2( 124, 69 )
-polygon = PoolVector2Array( -60, -21, 404, -21, 404, 67, -60, 67 )
+polygon = PoolVector2Array( -60, -21, 724, -21, 724, 67, -60, 67 )
 
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 328, 28 )
@@ -24,3 +37,35 @@ position = Vector2( 142, -176 )
 
 [node name="Heart" parent="." instance=ExtResource( 4 )]
 position = Vector2( 327, 44 )
+
+[node name="WaterPolygon" parent="." instance=ExtResource( 6 )]
+position = Vector2( 472, 200 )
+polygon = PoolVector2Array( 0, 0, 192, 0, 192, 32, 0, 32 )
+
+[node name="Paintings" type="Node2D" parent="."]
+
+[node name="SignMoveTo" parent="Paintings" instance=ExtResource( 7 )]
+material = SubResource( 1 )
+position = Vector2( 400, 48 )
+lines = [ "Warp to scene
+(this scene)" ]
+
+[node name="PaintingMoveTo" parent="Paintings" instance=ExtResource( 5 )]
+process_priority = -1
+position = Vector2( 480, 48 )
+target_pos = Vector2( 328.177, 28 )
+move_to_scene = true
+scene_path = "res://scenes/levels/test/test_level.tscn"
+landing_pad_radius = 8
+
+[node name="Sign" parent="Paintings" instance=ExtResource( 7 )]
+material = SubResource( 2 )
+position = Vector2( 672, 48 )
+lines = [ "Warp within this scene" ]
+
+[node name="Painting" parent="Paintings" instance=ExtResource( 5 )]
+process_priority = -1
+position = Vector2( 752, 48 )
+target_pos = Vector2( 328.177, 28 )
+scene_path = "res://scenes/levels/test/test_level.tscn"
+landing_pad_radius = 8
