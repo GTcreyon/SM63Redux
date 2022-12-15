@@ -26,6 +26,8 @@ const RIPPLE_RATE = 0.01
 const FINAL_BURNAWAY_DURATION = 21
 const FINAL_BURNAWAY_POSTDELAY = 2 # So the burnaway ends before scene loading lags the game
 
+const PAINTING_MATERIAL = preload("res://classes/interactable/painting/painting.tres")
+
 export var picture: Texture
 export var frame: Texture
 export var detection_radius = 33 setget set_detection_radius
@@ -42,7 +44,8 @@ func _ready():
 	picture_sprite.texture = picture
 	$Frame.texture = frame
 	
-	reset_shader()
+	# Resetting shader is not needed, as shader is null by default
+	#reset_shader_params()
 
 
 func _interact_check() -> bool:
@@ -57,6 +60,12 @@ func _animation_length() -> int:
 
 
 func _begin_animation(_player):
+	# Set this painting to the painting-effect material
+	# (can't just be pre-set on all paintings, else we get all
+	# paintings rippling in unison when one is jumped into,
+	# and obviously that's suboptimal.)
+	picture_sprite.material = PAINTING_MATERIAL
+	reset_shader_params()
 	# Send texture resolution to the shader so pixellation works right.
 	picture_sprite.material.set_shader_param("texture_resolution", 
 		picture_sprite.texture.get_size())
@@ -221,7 +230,10 @@ func _end_animation(_player):
 	_player.sprite.modulate.a = 1
 	
 	# Reset shader params, just in case.
-	reset_shader()
+	reset_shader_params()
+	
+	# Revert to no shader.
+	picture_sprite.material = null
 
 
 func _begin_scene_change(dst_pos, dst_scene, in_time, out_time):
@@ -241,7 +253,7 @@ func set_detection_radius(val):
 
 
 # Reset shader params. (those that have a visible effect anyway.)
-func reset_shader():
+func reset_shader_params():
 	picture_sprite.material.set_shader_param("ripple_amplitude", 0)
 	picture_sprite.material.set_shader_param("flash_factor", 0)	
 	picture_sprite.material.set_shader_param("burnaway_factor", 0)	
