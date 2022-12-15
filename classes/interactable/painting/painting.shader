@@ -64,6 +64,9 @@ void fragment() {
 	vec4 c = texture(TEXTURE, ripple_uv);
 	c.rgb += vec3(flash_factor);
 	
+	//Overwrite the alpha with the undisplaced value
+	c.a = texture(TEXTURE, UV).a;
+	
 	// Burn ripples lower than a threshold away to white.
 	float burnaway = (ripple_shape / 2. + 0.5);
 	// Shift the threshold using a mask.
