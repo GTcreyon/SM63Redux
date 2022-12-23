@@ -93,8 +93,8 @@ func _begin_animation(_player):
 		_player.action_jump()
 	
 		# Set appropriate animation.
-		# TODO: Control this animation manually.
-		_player.airborne_anim()
+		_player.switch_anim("jump_back")
+		_player.sprite.flip_h = false
 	else:
 		# Force a swim upward.
 		_player.action_swim()
