@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/bubbles.gd" type="Script" id=2]
@@ -68,6 +68,14 @@ region = Rect2( 432, 38, 24, 38 )
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 8 )
 region = Rect2( 96, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 8 )
+region = Rect2( 480, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 8 )
+region = Rect2( 480, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 8 )
@@ -214,6 +222,16 @@ animations = [ {
 "frames": [ SubResource( 17 ) ],
 "loop": true,
 "name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 57 ) ],
+"loop": true,
+"name": "jump_back",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 58 ) ],
+"loop": true,
+"name": "jump_back_fludd",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 10 ) ],
