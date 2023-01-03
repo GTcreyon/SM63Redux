@@ -665,6 +665,10 @@ locale_filter=[ 0, [  ] ]
 
 project/assembly_name="Super Mario 63 Redux"
 
+[network]
+
+limits/debugger_stdout/max_chars_per_second=2147483647
+
 [rendering]
 
 vram_compression/import_etc=true
