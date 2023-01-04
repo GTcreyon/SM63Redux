@@ -211,6 +211,7 @@ script = ExtResource( 40 )
 [node name="SaveDialog" type="FileDialog" parent="UILayer"]
 margin_right = 315.0
 margin_bottom = 130.0
+theme = ExtResource( 33 )
 popup_exclusive = true
 window_title = "Save Level"
 resizable = true
@@ -220,8 +221,10 @@ filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
 script = ExtResource( 6 )
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
+visible = true
 margin_right = 315.0
 margin_bottom = 130.0
+theme = ExtResource( 33 )
 popup_exclusive = true
 window_title = "Save Level"
 resizable = true
