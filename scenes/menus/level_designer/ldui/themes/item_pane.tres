@@ -1,0 +1,48 @@
+[gd_resource type="Theme" load_steps=8 format=2]
+
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_h.png" type="Texture" id=1]
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scrollbar_back.tres" type="StyleBox" id=2]
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_v_top.tres" type="StyleBox" id=3]
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_block_h.png" type="Texture" id=4]
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_block_v.png" type="Texture" id=5]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 80, 20 )
+margin_left = 36.0
+margin_right = 36.0
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.168627, 0.290196, 0.239216, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0.231373, 0.117647, 0, 1 )
+
+[resource]
+GridContainer/constants/hseparation = 4
+GridContainer/constants/vseparation = 4
+HScrollBar/icons/decrement = ExtResource( 4 )
+HScrollBar/icons/decrement_highlight = ExtResource( 4 )
+HScrollBar/icons/decrement_pressed = ExtResource( 4 )
+HScrollBar/icons/increment = ExtResource( 4 )
+HScrollBar/icons/increment_highlight = ExtResource( 4 )
+HScrollBar/icons/increment_pressed = ExtResource( 4 )
+HScrollBar/styles/grabber = SubResource( 1 )
+HScrollBar/styles/grabber_highlight = null
+HScrollBar/styles/grabber_pressed = null
+HScrollBar/styles/scroll = ExtResource( 2 )
+HScrollBar/styles/scroll_focus = ExtResource( 2 )
+ScrollContainer/styles/bg = SubResource( 2 )
+VScrollBar/icons/decrement = ExtResource( 5 )
+VScrollBar/icons/decrement_highlight = ExtResource( 5 )
+VScrollBar/icons/decrement_pressed = ExtResource( 5 )
+VScrollBar/icons/increment = ExtResource( 5 )
+VScrollBar/icons/increment_highlight = ExtResource( 5 )
+VScrollBar/icons/increment_pressed = ExtResource( 5 )
+VScrollBar/styles/grabber = ExtResource( 3 )
+VScrollBar/styles/grabber_highlight = null
+VScrollBar/styles/grabber_pressed = null
+VScrollBar/styles/scroll = ExtResource( 2 )
+VScrollBar/styles/scroll_focus = ExtResource( 2 )

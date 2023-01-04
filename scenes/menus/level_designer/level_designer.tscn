@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -12,7 +12,7 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/start_sign.png" type="Texture" id=10]
 [ext_resource path="res://scenes/menus/level_designer/ldui/big_cog.png" type="Texture" id=11]
 [ext_resource path="res://scenes/menus/level_designer/ldui/hermes.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/menus/level_designer/ldui/scroll_block_v.png" type="Texture" id=13]
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_block_v.png" type="Texture" id=13]
 [ext_resource path="res://scenes/menus/level_designer/item_pane.gd" type="Script" id=14]
 [ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/level_designer/start.gd" type="Script" id=16]
@@ -27,9 +27,10 @@
 [ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture" id=25]
 [ext_resource path="res://scenes/menus/level_designer/bg_grid.gd" type="Script" id=26]
 [ext_resource path="res://scenes/menus/level_designer/open_dialog.gd" type="Script" id=27]
-[ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" type="StyleBox" id=28]
-[ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" type="StyleBox" id=29]
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_v_top.tres" type="StyleBox" id=28]
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_v_bottom.tres" type="StyleBox" id=29]
 [ext_resource path="res://scenes/menus/level_designer/scroller.gd" type="Script" id=30]
+[ext_resource path="res://scenes/menus/level_designer/ldui/themes/item_pane.tres" type="Theme" id=31]
 [ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
 [ext_resource path="res://scenes/menus/level_designer/selection_action_handler.gd" type="Script" id=35]
 [ext_resource path="res://scenes/menus/level_designer/ldui/close_button.png" type="Texture" id=36]
@@ -276,21 +277,22 @@ margin_right = 96.0
 script = ExtResource( 14 )
 
 [node name="ItemScrollBar" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 82.0
 color = Color( 0.231373, 0.117647, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ScrollRegion" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar"]
+[node name="ScrollRegion" type="VScrollBar" parent="UILayer/LDUI/ItemPane/ItemScrollBar"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 4.0
 margin_bottom = -93.0
+theme = ExtResource( 31 )
 
 [node name="StopperTop" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+visible = false
 margin_left = 2.0
 margin_top = -2.0
 margin_right = 12.0
@@ -301,6 +303,7 @@ __meta__ = {
 }
 
 [node name="StopperBottom" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
@@ -311,6 +314,7 @@ texture = ExtResource( 13 )
 flip_v = true
 
 [node name="Scroller" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+visible = false
 anchor_right = 1.0
 margin_left = 2.0
 margin_right = -2.0
@@ -356,7 +360,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Base" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
+[node name="Base" type="ScrollContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
+anchor_left = -0.054
+anchor_top = -0.017
+anchor_right = 1.054
+anchor_bottom = 1.017
+margin_left = 4.104
+margin_top = 3.944
+margin_right = -1.888
+margin_bottom = -1.87602
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 31 )
+scroll_horizontal_enabled = false
+
+[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 1.0
+margin_bottom = 1.0
+theme = ExtResource( 31 )
+custom_constants/vseparation = 4
+custom_constants/hseparation = 4
+columns = 2
+
+[node name="Base_Old" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -365,34 +393,18 @@ margin_right = -1.0
 margin_bottom = -1.0
 rect_clip_content = true
 color = Color( 0.168627, 0.290196, 0.239216, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
-columns = 2
-
-[node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
+[node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base_Old"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 34.0
+margin_bottom = 34.0
 custom_constants/vseparation = 4
 custom_constants/hseparation = 4
 columns = 2
 
-[node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid"]
+[node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base_Old/PolygonGrid"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_min_size = Vector2( 32, 32 )
@@ -400,7 +412,7 @@ custom_styles/hover = ExtResource( 38 )
 custom_styles/pressed = ExtResource( 39 )
 custom_styles/normal = ExtResource( 37 )
 
-[node name="Icon" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid/Terrain"]
+[node name="Icon" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base_Old/PolygonGrid/Terrain"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 36 )
@@ -499,5 +511,5 @@ align = 1
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_Mode_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
 [connection signal="gui_input" from="UILayer/LDUI/ItemPane" to="UILayer/LDUI/ItemPane" method="_on_LeftBar_gui_input"]
-[connection signal="pressed" from="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid/Terrain" to="UIFollow/PolygonEditor" method="_demo_press"]
+[connection signal="pressed" from="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base_Old/PolygonGrid/Terrain" to="UIFollow/PolygonEditor" method="_demo_press"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]
