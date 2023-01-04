@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://scenes/menus/level_designer/property_menu/property_box.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/menus/level_designer/ld_gui.tres" type="Theme" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ldui/number_up_pressed.png" type="Texture" id=3]
 [ext_resource path="res://scenes/menus/level_designer/ldui/number_down_pressed.png" type="Texture" id=4]
 [ext_resource path="res://scenes/menus/level_designer/ldui/number_down.png" type="Texture" id=5]
