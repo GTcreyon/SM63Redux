@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item.gd" type="Script" id=2]
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" type="StyleBox" id=3]
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" type="StyleBox" id=4]
-[ext_resource path="res://scenes/menus/level_designer/ldui/themes/item_pane.tres" type="Theme" id=5]
+[ext_resource path="res://scenes/menus/level_designer/themes/item_pane.tres" type="Theme" id=5]
 
 [node name="ListItem" type="Button"]
 margin_right = 32.0

@@ -12,7 +12,7 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/start_sign.png" type="Texture" id=10]
 [ext_resource path="res://scenes/menus/level_designer/ldui/big_cog.png" type="Texture" id=11]
 [ext_resource path="res://scenes/menus/level_designer/ldui/hermes.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_block_v.png" type="Texture" id=13]
+[ext_resource path="res://scenes/menus/level_designer/themes/scroll_block_v.png" type="Texture" id=13]
 [ext_resource path="res://scenes/menus/level_designer/item_pane.gd" type="Script" id=14]
 [ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/level_designer/start.gd" type="Script" id=16]
@@ -27,10 +27,10 @@
 [ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture" id=25]
 [ext_resource path="res://scenes/menus/level_designer/bg_grid.gd" type="Script" id=26]
 [ext_resource path="res://scenes/menus/level_designer/open_dialog.gd" type="Script" id=27]
-[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_v_top.tres" type="StyleBox" id=28]
-[ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_v_bottom.tres" type="StyleBox" id=29]
+[ext_resource path="res://scenes/menus/level_designer/themes/scroll_v_top.tres" type="StyleBox" id=28]
+[ext_resource path="res://scenes/menus/level_designer/themes/scroll_v_bottom.tres" type="StyleBox" id=29]
 [ext_resource path="res://scenes/menus/level_designer/scroller.gd" type="Script" id=30]
-[ext_resource path="res://scenes/menus/level_designer/ldui/themes/item_pane.tres" type="Theme" id=31]
+[ext_resource path="res://scenes/menus/level_designer/themes/item_pane.tres" type="Theme" id=31]
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item.tscn" type="PackedScene" id=32]
 [ext_resource path="res://scenes/menus/level_designer/ld_gui.tres" type="Theme" id=33]
 [ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
@@ -221,7 +221,6 @@ filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
 script = ExtResource( 6 )
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
-visible = true
 margin_right = 315.0
 margin_bottom = 130.0
 theme = ExtResource( 33 )

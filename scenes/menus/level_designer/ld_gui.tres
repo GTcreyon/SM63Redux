@@ -1,12 +1,51 @@
-[gd_resource type="Theme" load_steps=4 format=2]
+[gd_resource type="Theme" load_steps=11 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/fields/text_input.tres" type="StyleBox" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
 [ext_resource path="res://scenes/menus/level_designer/property_menu/property_box.tres" type="StyleBox" id=3]
+[ext_resource path="res://scenes/menus/level_designer/themes/scrollbar_back.tres" type="StyleBox" id=4]
+[ext_resource path="res://scenes/menus/level_designer/themes/scroll_container.tres" type="StyleBox" id=5]
+[ext_resource path="res://scenes/menus/level_designer/themes/scroll_v_top.tres" type="StyleBox" id=6]
+[ext_resource path="res://scenes/menus/level_designer/themes/scroll_block_v.png" type="Texture" id=7]
+[ext_resource path="res://scenes/menus/level_designer/themes/scroll_h.png" type="Texture" id=8]
+[ext_resource path="res://scenes/menus/level_designer/themes/scroll_block_h.png" type="Texture" id=9]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 80, 20 )
+margin_left = 5.0
+margin_right = 5.0
 
 [resource]
 default_font = ExtResource( 2 )
+HScrollBar/icons/decrement = ExtResource( 9 )
+HScrollBar/icons/decrement_highlight = ExtResource( 9 )
+HScrollBar/icons/decrement_pressed = ExtResource( 9 )
+HScrollBar/icons/increment = ExtResource( 9 )
+HScrollBar/icons/increment_highlight = ExtResource( 9 )
+HScrollBar/icons/increment_pressed = ExtResource( 9 )
+HScrollBar/styles/grabber = SubResource( 1 )
+HScrollBar/styles/grabber_highlight = null
+HScrollBar/styles/grabber_pressed = null
+HScrollBar/styles/scroll = ExtResource( 4 )
+HScrollBar/styles/scroll_focus = ExtResource( 4 )
+LineEdit/colors/font_color_selected = Color( 0.666667, 0.901961, 0.54902, 1 )
+LineEdit/colors/selection_color = Color( 0.305882, 0.270588, 1, 1 )
 LineEdit/styles/normal = ExtResource( 1 )
 Panel/styles/panel = ExtResource( 3 )
+ScrollContainer/styles/bg = ExtResource( 5 )
 SpinBox/icons/updown = null
+TextEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
+TextEdit/colors/selection_color = Color( 0, 0, 0, 1 )
 TextEdit/styles/normal = ExtResource( 1 )
+VScrollBar/icons/decrement = ExtResource( 7 )
+VScrollBar/icons/decrement_highlight = ExtResource( 7 )
+VScrollBar/icons/decrement_pressed = ExtResource( 7 )
+VScrollBar/icons/increment = ExtResource( 7 )
+VScrollBar/icons/increment_highlight = ExtResource( 7 )
+VScrollBar/icons/increment_pressed = ExtResource( 7 )
+VScrollBar/styles/grabber = ExtResource( 6 )
+VScrollBar/styles/grabber_highlight = null
+VScrollBar/styles/grabber_pressed = null
+VScrollBar/styles/scroll = ExtResource( 4 )
+VScrollBar/styles/scroll_focus = ExtResource( 4 )
