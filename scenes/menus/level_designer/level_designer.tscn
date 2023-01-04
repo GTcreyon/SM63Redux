@@ -384,6 +384,7 @@ theme = ExtResource( 31 )
 columns = 2
 
 [node name="ListItem" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid" instance=ExtResource( 32 )]
+script = null
 
 [node name="Base_Old" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
 visible = false
