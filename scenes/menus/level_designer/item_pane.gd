@@ -8,6 +8,11 @@ onready var grid = $ItemBlock/ItemDisplay/Back/Base/ItemGrid
 
 
 func _on_LeftBar_gui_input(event):
+	if not (event is InputEventMouseButton):
+		return
+	else:
+		return
+	
 	var full_height = ceil(main.items.size() / 2) * (32 + grid.get_constant("vseparation")) - grid.margin_left - base.rect_size.y + 2
 	
 	var factor
@@ -15,8 +20,7 @@ func _on_LeftBar_gui_input(event):
 		factor = 1
 	else:
 		factor = event.factor
-	if event is InputEventMouseButton:
-		if event.button_index == BUTTON_WHEEL_DOWN:
-			grid.margin_top = max(grid.margin_top - SCROLL_SPEED * factor, -full_height)
-		if event.button_index == BUTTON_WHEEL_UP:
-			grid.margin_top = min(grid.margin_top + SCROLL_SPEED * factor, grid.margin_left)
+	if event.button_index == BUTTON_WHEEL_DOWN:
+		grid.margin_top = max(grid.margin_top - SCROLL_SPEED * factor, -full_height)
+	if event.button_index == BUTTON_WHEEL_UP:
+		grid.margin_top = min(grid.margin_top + SCROLL_SPEED * factor, grid.margin_left)
