@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/scroll_v.png-f90be6e548b0bf613d9548a72aa24502.stex"
+path="res://.import/scroll_v_bottom.png-801f21f0d2dcc4d51003ad1a60580f01.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/menus/level_designer/ldui/scroll_v.png"
-dest_files=[ "res://.import/scroll_v.png-f90be6e548b0bf613d9548a72aa24502.stex" ]
+source_file="res://scenes/menus/level_designer/ldui/themes/scroll_v_bottom.png"
+dest_files=[ "res://.import/scroll_v_bottom.png-801f21f0d2dcc4d51003ad1a60580f01.stex" ]
 
 [params]
 
