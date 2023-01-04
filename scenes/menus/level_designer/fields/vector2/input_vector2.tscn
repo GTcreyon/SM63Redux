@@ -1,12 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
-[ext_resource path="res://scenes/menus/level_designer/fields/text_input.tres" type="StyleBox" id=2]
 [ext_resource path="res://scenes/menus/level_designer/fields/vector2/input_vector2.gd" type="Script" id=3]
 [ext_resource path="res://scenes/menus/level_designer/ldui/number_up_pressed.png" type="Texture" id=4]
 [ext_resource path="res://scenes/menus/level_designer/ldui/number_down_pressed.png" type="Texture" id=5]
 [ext_resource path="res://scenes/menus/level_designer/ldui/number_down.png" type="Texture" id=6]
 [ext_resource path="res://scenes/menus/level_designer/ldui/number_up.png" type="Texture" id=7]
+[ext_resource path="res://scenes/menus/level_designer/property_menu/property_box.tres" type="Theme" id=8]
 
 [node name="Vector2" type="HBoxContainer"]
 margin_right = 139.0
@@ -18,7 +17,7 @@ script = ExtResource( 3 )
 margin_top = 4.0
 margin_right = 45.0
 margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
+theme = ExtResource( 8 )
 text = "AAAAA"
 align = 2
 
@@ -33,7 +32,7 @@ margin_left = 52.0
 margin_top = 4.0
 margin_right = 60.0
 margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
+theme = ExtResource( 8 )
 text = "X"
 align = 2
 
@@ -41,8 +40,7 @@ align = 2
 margin_left = 61.0
 margin_right = 131.0
 margin_bottom = 23.0
-custom_fonts/font = ExtResource( 1 )
-custom_styles/normal = ExtResource( 2 )
+theme = ExtResource( 8 )
 expand_to_text_length = true
 caret_blink = true
 caret_blink_speed = 0.5
@@ -72,7 +70,7 @@ margin_left = 171.0
 margin_top = 4.0
 margin_right = 180.0
 margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
+theme = ExtResource( 8 )
 text = "Y"
 align = 2
 
@@ -80,8 +78,7 @@ align = 2
 margin_left = 181.0
 margin_right = 251.0
 margin_bottom = 23.0
-custom_fonts/font = ExtResource( 1 )
-custom_styles/normal = ExtResource( 2 )
+theme = ExtResource( 8 )
 expand_to_text_length = true
 caret_blink = true
 caret_blink_speed = 0.5

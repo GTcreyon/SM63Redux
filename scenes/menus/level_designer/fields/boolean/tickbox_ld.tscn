@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/menus/level_designer/fields/boolean/tickbox_ld.png" type="Texture" id=1]
 [ext_resource path="res://scenes/menus/level_designer/fields/boolean/tickbox_ld.gd" type="Script" id=2]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=3]
+[ext_resource path="res://scenes/menus/level_designer/property_menu/property_box.tres" type="Theme" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=6]
 
@@ -53,6 +53,6 @@ margin_left = 23.0
 margin_top = 2.0
 margin_right = 23.0
 margin_bottom = 17.0
-custom_fonts/font = ExtResource( 3 )
+theme = ExtResource( 3 )
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
