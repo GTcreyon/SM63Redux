@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
 [ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
@@ -31,6 +31,7 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/themes/scroll_v_bottom.tres" type="StyleBox" id=29]
 [ext_resource path="res://scenes/menus/level_designer/scroller.gd" type="Script" id=30]
 [ext_resource path="res://scenes/menus/level_designer/ldui/themes/item_pane.tres" type="Theme" id=31]
+[ext_resource path="res://scenes/menus/level_designer/ldui/list_item.tscn" type="PackedScene" id=32]
 [ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
 [ext_resource path="res://scenes/menus/level_designer/selection_action_handler.gd" type="Script" id=35]
 [ext_resource path="res://scenes/menus/level_designer/ldui/close_button.png" type="Texture" id=36]
@@ -377,14 +378,15 @@ scroll_horizontal_enabled = false
 [node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 1.0
-margin_bottom = 1.0
+margin_right = 33.0
+margin_bottom = 33.0
 theme = ExtResource( 31 )
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
 columns = 2
 
+[node name="ListItem" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid" instance=ExtResource( 32 )]
+
 [node name="Base_Old" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -400,8 +402,7 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = 34.0
 margin_bottom = 34.0
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
+theme = ExtResource( 31 )
 columns = 2
 
 [node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base_Old/PolygonGrid"]

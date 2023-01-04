@@ -8,6 +8,11 @@ onready var polygon_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid
 
 
 func fill_grid():
+	# Wipe the grid clean before putting anything in it.
+	for child in item_grid.get_children():
+		item_grid.remove_child(child)
+		child.queue_free()
+	
 	for item_id in range(level_editor.item_textures.size()):
 		if level_editor.item_textures[item_id] != null:
 			var button = LIST_ITEM.instance()
