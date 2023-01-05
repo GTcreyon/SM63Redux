@@ -618,7 +618,7 @@ func action_pound() -> void:
 
 
 const SPIN_TIME = 30
-const BEGIN_FAST_SPIN_AFTER = 3
+const BEGIN_FAST_SPIN_AFTER = 2
 const BEGIN_SLOW_SPIN_AFTER = 20
 const SLOW_SPIN_START_SPEED = 3
 var spin_frames = 0
