@@ -287,7 +287,7 @@ func player_physics():
 	manage_invuln()
 	manage_buffers()
 	manage_dive_recover()
-	manage_triple_flip()
+	triple_jump_animation()
 	manage_backflip_flip()
 	manage_hurt_recover()
 	
@@ -797,7 +797,7 @@ func player_control_x() -> void:
 
 const TRIPLE_FLIP_TIME: int = 54
 var triple_flip_frames: int = 0
-func manage_triple_flip() -> void:
+func triple_jump_animation() -> void:
 	if state == S.TRIPLE_JUMP:
 		triple_flip_frames += 1
 		var dir = 1
@@ -805,7 +805,7 @@ func manage_triple_flip() -> void:
 			dir = -1
 		var multiplier = 1
 		if current_nozzle == Singleton.n.none:
-			# Flip slower if wearing FLUDD
+			# Flip faster if not wearing FLUDD
 			multiplier = 2
 		sprite.rotation = dir * multiplier * TAU * ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
 		if triple_flip_frames >= TRIPLE_FLIP_TIME:
