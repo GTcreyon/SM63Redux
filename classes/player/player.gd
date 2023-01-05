@@ -859,8 +859,6 @@ func player_jump() -> void:
 
 
 const TRIPLE_JUMP_DEADZONE = 2.0 * FPS_MOD
-const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(1, -3)
-const TRIPLE_JUMP_ORIGIN_OFFSET_FAST = Vector2(-2, -6)
 func action_jump() -> void:
 	jump_buffer_frames = 0
 	jump_vary_frames = JUMP_VARY_TIME
@@ -892,13 +890,6 @@ func action_jump() -> void:
 				
 				# Apply triple jump aesthetic effects
 				play_sfx("voice", "jump3")
-				
-				# Change spin offset for a better animation.
-				var spin_offset = TRIPLE_JUMP_ORIGIN_OFFSET
-				if Singleton.nozzle == Singleton.n.none:
-					# Spin is faster without FLUDD--account for that
-					spin_offset = TRIPLE_JUMP_ORIGIN_OFFSET_FAST
-				set_rotation_origin(sprite.flip_h, spin_offset)
 			else:
 				vel.y = -JUMP_VEL_2
 				play_sfx("voice", "jump2")
@@ -1089,18 +1080,27 @@ func reset_dive() -> void:
 	dive_reset_frames = 0
 
 
+const TRIPLE_JUMP_ORIGIN_OFFSET_START = Vector2(-2, -4)
+const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(1, -3)
+const TRIPLE_JUMP_ORIGIN_OFFSET_FAST = Vector2(-2, -6)
 func airborne_anim() -> void:
 	if state == S.TRIPLE_JUMP:
-		if current_nozzle == Singleton.n.none:
-			if abs(sprite.rotation_degrees) < 700:
-				switch_anim("flip")
+		if triple_flip_frames > 3:
+			if current_nozzle == Singleton.n.none:
+				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_FAST)
+				if abs(sprite.rotation_degrees) < 700:
+					switch_anim("flip")
+				else:
+					switch_anim("fall")
 			else:
-				switch_anim("fall")
+				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET)
+				if abs(sprite.rotation_degrees) < 340:
+					switch_anim("flip")
+				else:
+					switch_anim("fall")
 		else:
-			if abs(sprite.rotation_degrees) < 340:
-				switch_anim("flip")
-			else:
-				switch_anim("fall")
+			switch_anim("jump_double")
+			set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_START)
 	elif state == S.NEUTRAL:
 		if vel.y > 0:
 			switch_anim("fall")
@@ -1116,6 +1116,7 @@ func airborne_anim() -> void:
 			sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x) - PI / 2, 0.5)
 		else:
 			sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
+
 
 const POUND_LAND_DURATION = 12
 const POUND_SHAKE_INITIAL = 4
