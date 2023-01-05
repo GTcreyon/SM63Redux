@@ -621,7 +621,7 @@ const SPIN_TIME = 30
 const BEGIN_FAST_SPIN_AFTER = 2
 const BEGIN_SLOW_SPIN_AFTER = 10
 const SLOW_SPIN_START_SPEED = 1
-const SLOW_SPIN_END_SPEED = 0.25
+const SLOW_SPIN_END_SPEED = 0.4
 var spin_frames = 0
 func action_spin() -> void:
 	if state == S.SPIN:
