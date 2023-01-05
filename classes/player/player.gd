@@ -504,7 +504,7 @@ func fixed_visuals() -> void:
 		Singleton.get_node("DeathManager").register_player_death(self)
 	
 	fludd_sprite.flip_h = sprite.flip_h
-	if sprite.animation.begins_with("spin_slow"):
+	if sprite.animation.begins_with("spin_fast"):
 		match sprite.frame:
 			1:
 				if !fludd_sprite.animation.ends_with("front"):
