@@ -800,13 +800,19 @@ func player_control_x() -> void:
 const TRIPLE_FLIP_TIME: int = 54
 var triple_flip_frames: int = 0
 func triple_jump_spin_anim() -> void:
+	# Tick triple flip timer
 	triple_flip_frames += 1
-	var dir = facing_sign()
-	var multiplier = 1
+	
+	var spin_speed = 1
 	if current_nozzle == Singleton.n.none:
 		# Flip faster if not wearing FLUDD
-		multiplier = 2
-	sprite.rotation = dir * multiplier * TAU * ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
+		spin_speed = 2
+	
+	# Set rotation a little further than last frame.
+	sprite.rotation = ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME) \
+		* facing_sign() * spin_speed * TAU
+	
+	# When timer rings, end the triple jump.
 	if triple_flip_frames >= TRIPLE_FLIP_TIME:
 		switch_state(S.NEUTRAL)
 		sprite.rotation = 0
