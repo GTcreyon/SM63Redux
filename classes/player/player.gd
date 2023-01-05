@@ -639,7 +639,6 @@ func action_spin() -> void:
 		if spin_progress > BEGIN_SLOW_SPIN_AFTER:
 			sprite.speed_scale = lerp(SLOW_SPIN_START_SPEED, 1,
 				float(spin_progress - BEGIN_SLOW_SPIN_AFTER) / (SPIN_TIME - BEGIN_SLOW_SPIN_AFTER))
-			print_debug(sprite.speed_scale)
 	
 	if (
 		Input.is_action_pressed("spin")
