@@ -289,7 +289,8 @@ func player_physics():
 	manage_dive_recover()
 	if state == S.TRIPLE_JUMP:
 		triple_jump_animation()
-	manage_backflip_flip()
+	if state == S.BACKFLIP:
+		backflip_spin_anim()
 	manage_hurt_recover()
 	
 	if Input.is_action_just_pressed("switch_fludd"):
@@ -901,16 +902,15 @@ func ease_out_quart(x: float) -> float: # for replacing tweens
 
 const BACKFLIP_FLIP_TIME: int = 36
 var backflip_flip_frames: int = 0
-func manage_backflip_flip() -> void:
-	if state == S.BACKFLIP:
-		backflip_flip_frames += 1
-		var dir = -1
-		if sprite.flip_h:
-			dir = 1
-		sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
-		if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
-			switch_state(S.NEUTRAL)
-			sprite.rotation = 0
+func backflip_spin_anim() -> void:
+	backflip_flip_frames += 1
+	var dir = -1
+	if sprite.flip_h:
+		dir = 1
+	sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
+	if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
+		switch_state(S.NEUTRAL)
+		sprite.rotation = 0
 
 
 func action_backflip() -> void:
