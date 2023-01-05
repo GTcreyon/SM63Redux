@@ -871,13 +871,19 @@ func action_jump() -> void:
 			double_jump_state += 1
 		2: # Triple
 			if abs(vel.x) > TRIPLE_JUMP_DEADZONE:
-				vel.y = -JUMP_VEL_3
-				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
-				double_jump_state = 0
+				# Set triple-jumping state
 				switch_state(S.TRIPLE_JUMP)
-				play_sfx("voice", "jump3")
+				double_jump_state = 0
 				triple_flip_frames = 0
 				frontflip_dir_left = sprite.flip_h
+				
+				# Apply triple jump impulse
+				vel.y = -JUMP_VEL_3
+				# ...which goes forward too
+				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
+				
+				# Apply triple jump aesthetic effects
+				play_sfx("voice", "jump3")
 			else:
 				vel.y = -JUMP_VEL_2
 				play_sfx("voice", "jump2")
@@ -1592,6 +1598,7 @@ func set_rotation_origin (face_left: bool, origin: Vector2):
 	fludd_sprite.position = origin * facing
 	sprite.dejitter_position = -origin * facing
 	sprite.position = sprite.dejitter_position
+
 
 func clear_rotation_origin ():
 	set_rotation_origin(false, Vector2.ZERO)
