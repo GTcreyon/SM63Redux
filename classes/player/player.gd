@@ -805,6 +805,7 @@ func manage_triple_flip() -> void:
 			dir = -1
 		var multiplier = 1
 		if current_nozzle == Singleton.n.none:
+			# Flip slower if wearing FLUDD
 			multiplier = 2
 		sprite.rotation = dir * multiplier * TAU * ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
 		if triple_flip_frames >= TRIPLE_FLIP_TIME:
@@ -853,6 +854,7 @@ func player_jump() -> void:
 
 
 const TRIPLE_JUMP_DEADZONE = 2.0 * FPS_MOD
+const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(2, -3)
 func action_jump() -> void:
 	jump_buffer_frames = 0
 	jump_vary_frames = JUMP_VARY_TIME
@@ -884,6 +886,7 @@ func action_jump() -> void:
 				
 				# Apply triple jump aesthetic effects
 				play_sfx("voice", "jump3")
+				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET)
 			else:
 				vel.y = -JUMP_VEL_2
 				play_sfx("voice", "jump2")
