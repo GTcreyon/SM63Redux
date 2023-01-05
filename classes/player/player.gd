@@ -801,9 +801,7 @@ const TRIPLE_FLIP_TIME: int = 54
 var triple_flip_frames: int = 0
 func triple_jump_spin_anim() -> void:
 	triple_flip_frames += 1
-	var dir = 1
-	if sprite.flip_h:
-		dir = -1
+	var dir = facing_sign()
 	var multiplier = 1
 	if current_nozzle == Singleton.n.none:
 		# Flip faster if not wearing FLUDD
@@ -904,9 +902,7 @@ const BACKFLIP_FLIP_TIME: int = 36
 var backflip_flip_frames: int = 0
 func backflip_spin_anim() -> void:
 	backflip_flip_frames += 1
-	var dir = -1
-	if sprite.flip_h:
-		dir = 1
+	var dir = -facing_sign()
 	sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
 	if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
 		switch_state(S.NEUTRAL)
@@ -1605,3 +1601,7 @@ func set_rotation_origin (face_left: bool, origin: Vector2):
 
 func clear_rotation_origin ():
 	set_rotation_origin(false, Vector2.ZERO)
+
+
+func facing_sign () -> int:
+	return -1 if sprite.flip_h else 1
