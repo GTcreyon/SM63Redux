@@ -809,8 +809,8 @@ func triple_jump_spin_anim() -> void:
 		spin_speed = 2
 	
 	# Set rotation a little further than last frame.
-	sprite.rotation = ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME) \
-		* facing_sign() * spin_speed * TAU
+	sprite.rotation = facing_sign() * spin_speed * TAU * \
+		ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
 	
 	# When timer rings, end the triple jump.
 	if triple_flip_frames >= TRIPLE_FLIP_TIME:
