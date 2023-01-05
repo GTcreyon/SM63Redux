@@ -620,7 +620,8 @@ func action_pound() -> void:
 const SPIN_TIME = 30
 const BEGIN_FAST_SPIN_AFTER = 2
 const BEGIN_SLOW_SPIN_AFTER = 10
-const SLOW_SPIN_START_SPEED = 4
+const SLOW_SPIN_START_SPEED = 1
+const SLOW_SPIN_END_SPEED = 0.25
 var spin_frames = 0
 func action_spin() -> void:
 	if state == S.SPIN:
@@ -637,7 +638,7 @@ func action_spin() -> void:
 		elif spin_progress == BEGIN_SLOW_SPIN_AFTER:
 			switch_anim("spin_slow")
 		if spin_progress > BEGIN_SLOW_SPIN_AFTER:
-			sprite.speed_scale = lerp(SLOW_SPIN_START_SPEED, 1,
+			sprite.speed_scale = lerp(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED,
 				float(spin_progress - BEGIN_SLOW_SPIN_AFTER) / (SPIN_TIME - BEGIN_SLOW_SPIN_AFTER))
 	
 	if (
