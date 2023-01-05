@@ -1,4 +1,4 @@
-[gd_scene load_steps=85 format=2]
+[gd_scene load_steps=94 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/bubbles.gd" type="Script" id=2]
@@ -116,17 +116,17 @@ region = Rect2( 288, 0, 24, 38 )
 atlas = ExtResource( 8 )
 region = Rect2( 264, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=39]
+[sub_resource type="AtlasTexture" id=41]
 atlas = ExtResource( 8 )
-region = Rect2( 264, 38, 24, 38 )
+region = Rect2( 312, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=40]
 atlas = ExtResource( 8 )
 region = Rect2( 288, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=41]
+[sub_resource type="AtlasTexture" id=39]
 atlas = ExtResource( 8 )
-region = Rect2( 312, 38, 24, 38 )
+region = Rect2( 264, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=64]
 atlas = ExtResource( 19 )
@@ -160,9 +160,45 @@ region = Rect2( 192, 0, 32, 38 )
 atlas = ExtResource( 19 )
 region = Rect2( 224, 0, 32, 38 )
 
+[sub_resource type="AtlasTexture" id=68]
+atlas = ExtResource( 19 )
+region = Rect2( 256, 38, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=69]
+atlas = ExtResource( 19 )
+region = Rect2( 288, 38, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=70]
+atlas = ExtResource( 19 )
+region = Rect2( 320, 38, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=71]
+atlas = ExtResource( 19 )
+region = Rect2( 352, 38, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=72]
+atlas = ExtResource( 19 )
+region = Rect2( 128, 38, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=73]
+atlas = ExtResource( 19 )
+region = Rect2( 160, 38, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=74]
+atlas = ExtResource( 19 )
+region = Rect2( 192, 38, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=75]
+atlas = ExtResource( 19 )
+region = Rect2( 224, 38, 32, 38 )
+
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 19 )
 region = Rect2( 0, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=76]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 38, 32, 38 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 8 )
@@ -308,7 +344,7 @@ animations = [ {
 "name": "spin_fast",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
+"frames": [ SubResource( 41 ), SubResource( 40 ), SubResource( 39 ) ],
 "loop": true,
 "name": "spin_fast_fludd",
 "speed": 20.0
@@ -316,11 +352,21 @@ animations = [ {
 "frames": [ SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 63 ) ],
 "loop": true,
 "name": "spin_slow",
-"speed": 15.0
+"speed": 60.0
+}, {
+"frames": [ SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ) ],
+"loop": true,
+"name": "spin_slow_fludd",
+"speed": 60.0
 }, {
 "frames": [ SubResource( 62 ) ],
 "loop": true,
 "name": "spin_start",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 76 ) ],
+"loop": true,
+"name": "spin_start_fludd",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 18 ), SubResource( 19 ) ],
@@ -469,7 +515,7 @@ __meta__ = {
 
 [node name="Character" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
-animation = "walk"
+animation = "spin_start_fludd"
 script = ExtResource( 1 )
 
 [node name="Fludd" type="AnimatedSprite" parent="Character"]
