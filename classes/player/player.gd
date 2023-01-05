@@ -504,7 +504,7 @@ func fixed_visuals() -> void:
 		Singleton.get_node("DeathManager").register_player_death(self)
 	
 	fludd_sprite.flip_h = sprite.flip_h
-	if sprite.animation.begins_with("spin"):
+	if sprite.animation.begins_with("spin_slow"):
 		match sprite.frame:
 			1:
 				if !fludd_sprite.animation.ends_with("front"):
@@ -618,16 +618,30 @@ func action_pound() -> void:
 
 
 const SPIN_TIME = 30
+const BEGIN_FAST_SPIN_AFTER = 3
+const BEGIN_SLOW_SPIN_AFTER = 20
+const SLOW_SPIN_START_SPEED = 3
 var spin_frames = 0
 func action_spin() -> void:
 	if state == S.SPIN:
 		if spin_frames > 0:
-			# Tick spin state
+			# Tick spin timer
 			spin_frames -= 1
 		elif !Input.is_action_pressed("spin"):
-			# End spin
+			# End spin if button is released after the timer rings.
 			switch_state(S.NEUTRAL)
-			
+		
+		var spin_progress = SPIN_TIME - spin_frames
+		if spin_progress == BEGIN_FAST_SPIN_AFTER:
+			switch_anim("spin_fast")
+		elif spin_progress == BEGIN_SLOW_SPIN_AFTER:
+			switch_anim("spin_slow")
+		if spin_progress > BEGIN_SLOW_SPIN_AFTER:
+			sprite.speed_scale = lerp(
+				float(spin_progress - BEGIN_FAST_SPIN_AFTER) / (SPIN_TIME - BEGIN_FAST_SPIN_AFTER),
+				SLOW_SPIN_START_SPEED,
+				1)
+	
 	if (
 		Input.is_action_pressed("spin")
 		and (
@@ -638,7 +652,7 @@ func action_spin() -> void:
 	):
 		# begin spin
 		switch_state(S.SPIN)
-		switch_anim("spin")
+		switch_anim("spin_start")
 		# switch_state stops spin_sfx; always play it again after state switch.
 		play_sfx("spin", "air")
 		if !grounded:

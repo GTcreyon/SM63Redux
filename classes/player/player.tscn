@@ -1,5 +1,4 @@
-
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/bubbles.gd" type="Script" id=2]
@@ -19,6 +18,7 @@
 [ext_resource path="res://classes/player/sfx/fludd/fludd_switch.wav" type="AudioStream" id=16]
 [ext_resource path="res://classes/player/sfx/pound/pound_spin.wav" type="AudioStream" id=17]
 [ext_resource path="res://classes/player/sfx/spin_air_1.wav" type="AudioStream" id=18]
+[ext_resource path="res://classes/player/mario_spin.png" type="Texture" id=19]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )
@@ -104,17 +104,17 @@ region = Rect2( 456, 38, 24, 38 )
 atlas = ExtResource( 8 )
 region = Rect2( 384, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=20]
+[sub_resource type="AtlasTexture" id=22]
 atlas = ExtResource( 8 )
-region = Rect2( 264, 0, 24, 38 )
+region = Rect2( 312, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 8 )
 region = Rect2( 288, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=22]
+[sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 8 )
-region = Rect2( 312, 0, 24, 38 )
+region = Rect2( 264, 0, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=39]
 atlas = ExtResource( 8 )
@@ -127,6 +127,42 @@ region = Rect2( 288, 38, 24, 38 )
 [sub_resource type="AtlasTexture" id=41]
 atlas = ExtResource( 8 )
 region = Rect2( 312, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 19 )
+region = Rect2( 256, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 19 )
+region = Rect2( 288, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 19 )
+region = Rect2( 320, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 19 )
+region = Rect2( 352, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 19 )
+region = Rect2( 128, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 19 )
+region = Rect2( 160, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 19 )
+region = Rect2( 192, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 19 )
+region = Rect2( 224, 0, 32, 38 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 0, 32, 38 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 8 )
@@ -267,15 +303,25 @@ animations = [ {
 "name": "shine",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 20 ), SubResource( 21 ), SubResource( 22 ) ],
+"frames": [ SubResource( 22 ), SubResource( 21 ), SubResource( 20 ) ],
 "loop": true,
-"name": "spin",
+"name": "spin_fast",
 "speed": 20.0
 }, {
 "frames": [ SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
 "loop": true,
-"name": "spin_fludd",
+"name": "spin_fast_fludd",
 "speed": 20.0
+}, {
+"frames": [ SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 63 ) ],
+"loop": true,
+"name": "spin_slow",
+"speed": 30.0
+}, {
+"frames": [ SubResource( 62 ) ],
+"loop": true,
+"name": "spin_start",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 18 ), SubResource( 19 ) ],
 "loop": true,
