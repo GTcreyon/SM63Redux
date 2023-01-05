@@ -316,7 +316,7 @@ animations = [ {
 "frames": [ SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 63 ) ],
 "loop": true,
 "name": "spin_slow",
-"speed": 30.0
+"speed": 15.0
 }, {
 "frames": [ SubResource( 62 ) ],
 "loop": true,
