@@ -804,8 +804,8 @@ func triple_jump_spin_anim() -> void:
 	triple_flip_frames += 1
 	
 	var spin_speed = 1
+	# Flip faster if not wearing FLUDD
 	if current_nozzle == Singleton.n.none:
-		# Flip faster if not wearing FLUDD
 		spin_speed = 2
 	
 	# Set rotation a little further than last frame.
@@ -859,7 +859,8 @@ func player_jump() -> void:
 
 
 const TRIPLE_JUMP_DEADZONE = 2.0 * FPS_MOD
-const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(2, -3)
+const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(1, -3)
+const TRIPLE_JUMP_ORIGIN_OFFSET_FAST = Vector2(-2, -6)
 func action_jump() -> void:
 	jump_buffer_frames = 0
 	jump_vary_frames = JUMP_VARY_TIME
@@ -891,7 +892,13 @@ func action_jump() -> void:
 				
 				# Apply triple jump aesthetic effects
 				play_sfx("voice", "jump3")
-				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET)
+				
+				# Change spin offset for a better animation.
+				var spin_offset = TRIPLE_JUMP_ORIGIN_OFFSET
+				if Singleton.nozzle == Singleton.n.none:
+					# Spin is faster without FLUDD--account for that
+					spin_offset = TRIPLE_JUMP_ORIGIN_OFFSET_FAST
+				set_rotation_origin(sprite.flip_h, spin_offset)
 			else:
 				vel.y = -JUMP_VEL_2
 				play_sfx("voice", "jump2")
