@@ -288,7 +288,7 @@ func player_physics():
 	manage_buffers()
 	manage_dive_recover()
 	if state == S.TRIPLE_JUMP:
-		triple_jump_animation()
+		triple_jump_spin_anim()
 	if state == S.BACKFLIP:
 		backflip_spin_anim()
 	manage_hurt_recover()
@@ -799,7 +799,7 @@ func player_control_x() -> void:
 
 const TRIPLE_FLIP_TIME: int = 54
 var triple_flip_frames: int = 0
-func triple_jump_animation() -> void:
+func triple_jump_spin_anim() -> void:
 	triple_flip_frames += 1
 	var dir = 1
 	if sprite.flip_h:
