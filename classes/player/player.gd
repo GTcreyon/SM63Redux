@@ -495,7 +495,7 @@ func fixed_visuals() -> void:
 			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
 			step_sound()
 		last_step = sprite.frame
-	elif !sprite.animation.begins_with("swim"):
+	elif !sprite.animation.begins_with("swim") and !sprite.animation.begins_with("spin_slow"):
 		sprite.speed_scale = 1
 	
 	#$Label.text = str(vel.x)
@@ -619,8 +619,8 @@ func action_pound() -> void:
 
 const SPIN_TIME = 30
 const BEGIN_FAST_SPIN_AFTER = 2
-const BEGIN_SLOW_SPIN_AFTER = 15
-const SLOW_SPIN_START_SPEED = 3
+const BEGIN_SLOW_SPIN_AFTER = 10
+const SLOW_SPIN_START_SPEED = 4
 var spin_frames = 0
 func action_spin() -> void:
 	if state == S.SPIN:
