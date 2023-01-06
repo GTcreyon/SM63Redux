@@ -41,10 +41,13 @@ func _reset_values():
 func _process(_delta):
 	manage_sizes()
 	max_height = list.rect_size.y
+	
 	if visible:
-		# Reload current settings if just became visible.
+		# If we just became visible, initalize and re-enable the menu.
 		if !was_visible:
-			 _reset_values()
+			enable_all_controls()
+			# Reload current settings.
+			_reset_values()
 		
 		# Set the actual settings.
 		Singleton.disable_limits = camera_fix.pressed
@@ -54,6 +57,9 @@ func _process(_delta):
 		Singleton.timer.visible = show_timer.pressed
 		button_menu.visible = !Singleton.touch_control
 		touch_menu.visible = Singleton.touch_control
+	elif was_visible:
+		# Just became invisible; make all controls reject mouse input
+		disable_all_controls()
 	was_visible = visible
 
 
@@ -95,3 +101,52 @@ func manage_sizes():
 			node.rect_min_size.y = node.rect_min_size.y / prev_scale * scale
 			
 		prev_scale = scale
+
+
+func enable_all_controls():
+	# Set all controls to take mouse input.
+	# ("STOP" here means stop parent nodes from also taking the input.)
+	camera_fix.mouse_filter = MOUSE_FILTER_STOP
+	touch_controls.mouse_filter = MOUSE_FILTER_STOP
+	mute_music.mouse_filter = MOUSE_FILTER_STOP
+	mute_sfx.mouse_filter = MOUSE_FILTER_STOP
+	show_timer.mouse_filter = MOUSE_FILTER_STOP
+	locale_select.mouse_filter = MOUSE_FILTER_STOP
+	
+	# Certain controls are nested in other scenes. Dig for those.
+	for node in button_menu.get_node("Margin").get_children():
+		if !node is Label: # Labels SHOULD ignore input, don't change them
+			node.mouse_filter = MOUSE_FILTER_STOP
+			# Go one level deeper too
+			for child in node.get_children():
+				if !child is Label: # Labels SHOULD ignore input, don't change them
+					child.mouse_filter = MOUSE_FILTER_STOP
+	for node in touch_menu.get_node("Margin").get_children():
+		if !node is Label: # Labels SHOULD ignore input, don't change them
+			node.mouse_filter = MOUSE_FILTER_STOP
+			# Go one level deeper too
+			for child in node.get_children():
+				if !child is Label: # Labels SHOULD ignore input, don't change them
+					child.mouse_filter = MOUSE_FILTER_STOP
+
+
+func disable_all_controls():
+	# Set all controls to ignore mouse input.
+	camera_fix.mouse_filter = MOUSE_FILTER_IGNORE
+	touch_controls.mouse_filter = MOUSE_FILTER_IGNORE
+	mute_music.mouse_filter = MOUSE_FILTER_IGNORE
+	mute_sfx.mouse_filter = MOUSE_FILTER_IGNORE
+	show_timer.mouse_filter = MOUSE_FILTER_IGNORE
+	locale_select.mouse_filter = MOUSE_FILTER_IGNORE
+	
+	# Certain controls are nested in other scenes. Dig for those.
+	for node in button_menu.get_node("Margin").get_children():
+		node.mouse_filter = MOUSE_FILTER_IGNORE
+		# Go one level deeper too
+		for child in node.get_children():
+			child.mouse_filter = MOUSE_FILTER_IGNORE
+	for node in touch_menu.get_node("Margin").get_children():
+		node.mouse_filter = MOUSE_FILTER_IGNORE
+		# Go one level deeper too
+		for child in node.get_children():
+			child.mouse_filter = MOUSE_FILTER_IGNORE
