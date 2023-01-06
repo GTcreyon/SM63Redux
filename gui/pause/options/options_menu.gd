@@ -42,8 +42,11 @@ func _process(_delta):
 	manage_sizes()
 	max_height = list.rect_size.y
 	if visible:
+		# Reload current settings if just became visible.
 		if !was_visible:
 			 _reset_values()
+		
+		# Set the actual settings.
 		Singleton.disable_limits = camera_fix.pressed
 		Singleton.touch_control = touch_controls.pressed
 		AudioServer.set_bus_mute(bus_music, mute_music.pressed)
@@ -56,6 +59,7 @@ func _process(_delta):
 
 func _on_OptionsMenu_gui_input(event):
 	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
+	# Read scroll wheel events.
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_WHEEL_DOWN:
 			list.margin_top = max(list.margin_top - SCROLL_SPEED * scale, -(max_height - start_height) + list.margin_left)

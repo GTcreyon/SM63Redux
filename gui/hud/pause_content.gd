@@ -37,4 +37,4 @@ func resize(scale):
 	info.resize(scale)
 	map.resize(scale)
 	# TODO: Presumably the FLUDD and Exit screens will need resizing eventually
-	# (maybe not Options though?)
+	# (Options menu handles its own resizing)
