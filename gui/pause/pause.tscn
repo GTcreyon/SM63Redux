@@ -1,11 +1,39 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://gui/pause/level_info/level_info.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gui/pause/map/map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://gui/pause/buttons/text_map.png" type="Texture" id=4]
+[ext_resource path="res://gui/pause/buttons/star_fludd_0.png" type="Texture" id=5]
 [ext_resource path="res://gui/hud/pause_content.gd" type="Script" id=6]
+[ext_resource path="res://gui/pause/buttons/button_fludd_1.tres" type="StyleBox" id=7]
+[ext_resource path="res://gui/pause/buttons/button_options_1.tres" type="StyleBox" id=8]
+[ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=9]
+[ext_resource path="res://gui/pause/buttons/star_exit_1.png" type="Texture" id=10]
+[ext_resource path="res://gui/pause/buttons/text_options.png" type="Texture" id=11]
+[ext_resource path="res://gui/pause/buttons/button_exit_0.tres" type="StyleBox" id=12]
+[ext_resource path="res://gui/pause/buttons/star_exit_0.png" type="Texture" id=13]
+[ext_resource path="res://gui/pause/buttons/star_options_0.png" type="Texture" id=14]
+[ext_resource path="res://gui/pause/buttons/text_exit.png" type="Texture" id=15]
+[ext_resource path="res://gui/pause/buttons/button_options_0.tres" type="StyleBox" id=16]
+[ext_resource path="res://gui/pause/buttons/star_map_0.png" type="Texture" id=17]
+[ext_resource path="res://gui/pause/buttons/star_fludd_1.png" type="Texture" id=18]
+[ext_resource path="res://gui/pause/buttons/text_fludd.png" type="Texture" id=19]
+[ext_resource path="res://gui/pause/buttons/star_map_1.png" type="Texture" id=20]
+[ext_resource path="res://gui/pause/buttons/button_exit_1.tres" type="StyleBox" id=21]
+[ext_resource path="res://gui/pause/buttons/button_map_1.tres" type="StyleBox" id=22]
+[ext_resource path="res://gui/pause/buttons/button_fludd_0.tres" type="StyleBox" id=23]
+[ext_resource path="res://gui/pause/buttons/star_options_1.png" type="Texture" id=24]
 [ext_resource path="res://gui/pause/unpause.gd" type="Script" id=25]
+[ext_resource path="res://gui/pause/buttons/pause_button.gd" type="Script" id=26]
+[ext_resource path="res://gui/pause/pause_right_corner_top.png" type="Texture" id=27]
 [ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=28]
+[ext_resource path="res://gui/pause/pause_right_corner_bottom.png" type="Texture" id=29]
+[ext_resource path="res://gui/pause/pause_top.png" type="Texture" id=30]
+[ext_resource path="res://gui/pause/pause_left_corner_bottom.png" type="Texture" id=31]
+[ext_resource path="res://gui/pause/pause_right_middle.png" type="Texture" id=32]
+[ext_resource path="res://gui/pause/pause_left_corner_top.png" type="Texture" id=33]
+[ext_resource path="res://gui/pause/pause_left_middle.png" type="Texture" id=34]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 28 )
@@ -15,18 +43,19 @@ region = Rect2( 0, 63, 20, 21 )
 atlas = ExtResource( 28 )
 region = Rect2( 20, 63, 20, 21 )
 
-[node name="PauseContent" type="Control" groups=["pause"]]
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
+[node name="PauseMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 37.0
-margin_top = 19.0
-margin_right = -37.0
-margin_bottom = -33.0
 mouse_filter = 2
 script = ExtResource( 6 )
 
 [node name="LevelInfo" parent="." instance=ExtResource( 1 )]
-visible = false
 
 [node name="MapMenu" parent="." instance=ExtResource( 2 )]
 visible = false
@@ -65,10 +94,242 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Unpause" type="TouchScreenButton" parent="UnpauseControl" groups=["pause"]]
+[node name="Unpause" type="TouchScreenButton" parent="UnpauseControl"]
 position = Vector2( -20, 0 )
 normal = SubResource( 8 )
 pressed = SubResource( 9 )
 
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 29.0
+margin_top = -33.0
+margin_right = -37.0
+mouse_filter = 2
+custom_constants/separation = 0
+
+[node name="ButtonMap" type="Button" parent="ButtonContainer"]
+margin_right = 143.0
+margin_bottom = 33.0
+size_flags_horizontal = 3
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 22 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/disabled = ExtResource( 9 )
+custom_styles/normal = ExtResource( 9 )
+toggle_mode = true
+action_mode = 0
+script = ExtResource( 26 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonContainer/ButtonMap"]
+texture = ExtResource( 17 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonContainer/ButtonMap"]
+texture = ExtResource( 20 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="Text" type="TextureRect" parent="ButtonContainer/ButtonMap"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -19.0
+margin_top = -8.0
+mouse_filter = 2
+texture = ExtResource( 4 )
+
+[node name="ButtonFludd" type="Button" parent="ButtonContainer"]
+margin_left = 143.0
+margin_right = 287.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+custom_styles/hover = ExtResource( 23 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = ExtResource( 23 )
+custom_styles/normal = ExtResource( 23 )
+toggle_mode = true
+action_mode = 0
+script = ExtResource( 26 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonContainer/ButtonFludd"]
+texture = ExtResource( 5 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonContainer/ButtonFludd"]
+texture = ExtResource( 18 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="Text" type="TextureRect" parent="ButtonContainer/ButtonFludd"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -8.0
+margin_right = -76.5
+margin_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource( 19 )
+
+[node name="ButtonOptions" type="Button" parent="ButtonContainer"]
+margin_left = 287.0
+margin_right = 430.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+custom_styles/hover = ExtResource( 16 )
+custom_styles/pressed = ExtResource( 8 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = ExtResource( 16 )
+custom_styles/normal = ExtResource( 16 )
+toggle_mode = true
+action_mode = 0
+script = ExtResource( 26 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonContainer/ButtonOptions"]
+texture = ExtResource( 14 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonContainer/ButtonOptions"]
+texture = ExtResource( 24 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="Text" type="TextureRect" parent="ButtonContainer/ButtonOptions"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -8.0
+margin_right = -172.0
+margin_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ButtonExit" type="Button" parent="ButtonContainer"]
+margin_left = 430.0
+margin_right = 574.0
+margin_bottom = 33.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+custom_styles/hover = ExtResource( 12 )
+custom_styles/pressed = ExtResource( 21 )
+custom_styles/focus = SubResource( 12 )
+custom_styles/disabled = ExtResource( 12 )
+custom_styles/normal = ExtResource( 12 )
+toggle_mode = true
+action_mode = 0
+script = ExtResource( 26 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonContainer/ButtonExit"]
+texture = ExtResource( 13 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonContainer/ButtonExit"]
+texture = ExtResource( 10 )
+polygon = PoolVector2Array( 1, 3, 95, 3, 95, 32, 1, 32 )
+
+[node name="Text" type="TextureRect" parent="ButtonContainer/ButtonExit"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -22.0
+margin_top = -8.0
+margin_right = -267.0
+margin_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource( 15 )
+
+[node name="Top" type="TextureRect" parent="."]
+anchor_right = 1.0
+margin_left = 30.0
+margin_right = -37.0
+margin_bottom = 19.0
+rect_min_size = Vector2( 0, 19 )
+mouse_filter = 2
+texture = ExtResource( 30 )
+expand = true
+stretch_mode = 2
+
+[node name="Left" type="TextureRect" parent="."]
+anchor_bottom = 1.0
+margin_top = 17.0
+margin_right = 37.0
+margin_bottom = -33.0
+mouse_filter = 2
+texture = ExtResource( 34 )
+stretch_mode = 2
+
+[node name="Right" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -37.0
+margin_top = 17.0
+margin_bottom = -33.0
+rect_pivot_offset = Vector2( 37, 0 )
+mouse_filter = 2
+texture = ExtResource( 32 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftCornerTop" type="TextureRect" parent="."]
+margin_right = 37.0
+margin_bottom = 17.0
+mouse_filter = 2
+texture = ExtResource( 33 )
+
+[node name="LeftCornerBottom" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -33.0
+margin_right = 37.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 2
+texture = ExtResource( 31 )
+
+[node name="RightCornerTop" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -38.0
+margin_bottom = 17.0
+rect_pivot_offset = Vector2( 38, 0 )
+mouse_filter = 2
+texture = ExtResource( 27 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RightCornerBottom" type="TextureRect" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -37.0
+margin_top = -33.0
+rect_pivot_offset = Vector2( 37, 33 )
+mouse_filter = 2
+texture = ExtResource( 29 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="UnpauseControl/Unpause" to="UnpauseControl" method="_on_Unpause_pressed"]
 [connection signal="released" from="UnpauseControl/Unpause" to="UnpauseControl" method="_on_Unpause_released"]
+[connection signal="toggled" from="ButtonContainer/ButtonMap" to="ButtonContainer/ButtonMap" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonContainer/ButtonFludd" to="ButtonContainer/ButtonFludd" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonContainer/ButtonOptions" to="ButtonContainer/ButtonOptions" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonContainer/ButtonExit" to="ButtonContainer/ButtonExit" method="_on_Button_toggled"]

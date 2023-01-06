@@ -73,10 +73,10 @@ func _notification(what):
 var prev_scale = 1
 func manage_sizes():
 	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	camera_fix.rect_scale = Vector2.ONE * scale
-	touch_controls.rect_scale = Vector2.ONE * scale
-	mute_music.rect_scale = Vector2.ONE * scale
-	mute_sfx.rect_scale = Vector2.ONE * scale
+#	camera_fix.rect_scale = Vector2.ONE * scale
+#	touch_controls.rect_scale = Vector2.ONE * scale
+#	mute_music.rect_scale = Vector2.ONE * scale
+#	mute_sfx.rect_scale = Vector2.ONE * scale
 	#locale_select.rect_scale = Vector2.ONE * scale
 	#locale_select.margin_right = 0
 	for node in get_tree().get_nodes_in_group("rebinds"):

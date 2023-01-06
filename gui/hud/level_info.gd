@@ -13,7 +13,7 @@ onready var mission_name_panel = $MissionName/Panel
 onready var mission_details = $MissionDetails
 onready var mission_details_panel = $DetailsPanel
 
-var perm_scale
+var perm_scale = 1
 
 
 func resize(scale):

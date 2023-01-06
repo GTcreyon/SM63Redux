@@ -15,10 +15,10 @@ func _process(delta):
 	else:
 		mouse_filter = MOUSE_FILTER_STOP
 	if Singleton.pause_menu:
-		disabled = false
+		#disabled = false
 		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	else:
-		disabled = true
+		#disabled = true
 		mouse_default_cursor_shape = Control.CURSOR_ARROW
 	if pressed:
 		stars_on.visible = true
@@ -44,6 +44,10 @@ func _process(delta):
 			scroll = lerp(scroll, 1, 0.04)
 	stars_off.texture_offset = Vector2(-15, -10) * scroll + Vector2(0, -2)
 	stars_on.texture_offset = stars_off.texture_offset
+	stars_on.polygon[1].x = rect_size.x - 1
+	stars_on.polygon[2].x = rect_size.x - 1
+	stars_off.polygon[1].x = rect_size.x - 1
+	stars_off.polygon[2].x = rect_size.x - 1
 
 
 func _on_Button_toggled(button_pressed):

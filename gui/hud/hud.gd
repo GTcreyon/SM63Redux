@@ -25,18 +25,6 @@ onready var right_corner_top = $RightCornerTop
 onready var right_corner_bottom = $RightCornerBottom
 onready var left = $Left
 onready var right = $Right
-onready var button_map = $ButtonMap
-onready var button_map_off = $ButtonMap/StarsOff
-onready var button_map_on = $ButtonMap/StarsOn
-onready var button_fludd = $ButtonFludd
-onready var button_fludd_off = $ButtonFludd/StarsOff
-onready var button_fludd_on = $ButtonFludd/StarsOn
-onready var button_options = $ButtonOptions
-onready var button_options_off = $ButtonOptions/StarsOff
-onready var button_options_on = $ButtonOptions/StarsOn
-onready var button_exit = $ButtonExit
-onready var button_exit_off = $ButtonExit/StarsOff
-onready var button_exit_on = $ButtonExit/StarsOn
 
 onready var pause_content = $PauseContent
 
@@ -79,34 +67,6 @@ func resize():
 	right.rect_scale = Vector2.ONE * scale
 	right.rect_position.y = 17 * scale
 	right.rect_size.y = OS.window_size.y / scale - 17 - 33
-	
-	button_map.rect_scale = Vector2.ONE * scale
-	button_map.rect_position.x = 29 * scale
-	button_map.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
-	button_map_off.polygon[1].x = button_map.rect_size.x - 1
-	button_map_off.polygon[2].x = button_map.rect_size.x - 1
-	button_map_on.polygon = button_map_off.polygon
-	
-	button_fludd.rect_scale = Vector2.ONE * scale
-	button_fludd.rect_position.x = button_map.rect_position.x + button_map.rect_size.x * scale - 1 * scale
-	button_fludd.rect_size.x = ceil((OS.window_size.x - 61 * scale) / scale / 4)
-	button_fludd_off.polygon[1].x = button_fludd.rect_size.x - 1
-	button_fludd_off.polygon[2].x = button_fludd.rect_size.x - 1
-	button_fludd_on.polygon = button_fludd_off.polygon
-	
-	button_options.rect_scale = Vector2.ONE * scale
-	button_options.rect_position.x = button_fludd.rect_position.x + button_fludd.rect_size.x * scale - 1 * scale
-	button_options.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
-	button_options_off.polygon[1].x = button_options.rect_size.x - 1
-	button_options_off.polygon[2].x = button_options.rect_size.x - 1
-	button_options_on.polygon = button_options_off.polygon
-	
-	button_exit.rect_scale = Vector2.ONE * scale
-	button_exit.rect_position.x = button_options.rect_position.x + button_options.rect_size.x * scale - 1 * scale
-	button_exit.rect_size.x = floor((OS.window_size.x - 61 * scale) / scale / 4)
-	button_exit_off.polygon[1].x = button_exit.rect_size.x - 1
-	button_exit_off.polygon[2].x = button_exit.rect_size.x - 1
-	button_exit_on.polygon = button_exit_off.polygon
 	
 	pause_content.resize(scale)
 
