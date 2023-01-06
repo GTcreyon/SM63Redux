@@ -17,6 +17,7 @@ var height_set = false
 var start_height
 var max_height
 var was_visible = false
+var was_paused = false
 
 
 func _ready():
@@ -57,10 +58,15 @@ func _process(_delta):
 		Singleton.timer.visible = show_timer.pressed
 		button_menu.visible = !Singleton.touch_control
 		touch_menu.visible = Singleton.touch_control
-	elif was_visible:
-		# Just became invisible; make all controls reject mouse input
+	
+	if Singleton.pause_menu and !was_paused:
+		# Just became paused.
+		enable_all_controls()
+	elif !Singleton.pause_menu and was_paused:
+		# Just unpaused.
 		disable_all_controls()
 	was_visible = visible
+	was_paused = Singleton.pause_menu
 
 
 func _on_OptionsMenu_gui_input(event):
