@@ -42,7 +42,7 @@ func _process(_delta):
 			# We just became visible. Reload current settings.
 			_reset_values()
 		
-		# Set the actual settings.
+		# Copy values from controls to their destinations.
 		Singleton.disable_limits = _camera_fix.pressed
 		Singleton.touch_control = _touch_controls.pressed
 		AudioServer.set_bus_mute(_bus_music, _mute_music.pressed)
@@ -52,12 +52,13 @@ func _process(_delta):
 		_touch_menu.visible = Singleton.touch_control
 		
 	if Singleton.pause_menu and !_prev_paused:
-		# Just became paused.
+		# We just became paused. Allow interacting with controls.
 		_enable_all_interactables()
 	elif !Singleton.pause_menu and _prev_paused:
-		# Just unpaused.
+		# We just unpaused. Keep player from changing stuff mid-gameplay!
 		_disable_all_interactables()
 	
+	# Save these for checking against next frame.
 	_prev_visible = visible
 	_prev_paused = Singleton.pause_menu
 
@@ -81,11 +82,13 @@ func _on_OptionsMenu_gui_input(event):
 
 
 func _reset_values():
+	# Set controls by reading their destination values.
 	_camera_fix.pressed = Singleton.disable_limits
 	_touch_controls.pressed = Singleton.touch_control
 	_mute_music.pressed = AudioServer.is_bus_mute(_bus_music)
 	_mute_sfx.pressed = AudioServer.is_bus_mute(_bus_sfx)
 	_show_timer.pressed = Singleton.timer.visible
+	# Let checked tickboxes show their checks.
 	$List/CameraFix/Sprite.playing = _camera_fix.pressed
 	$List/TouchControls/Sprite.playing = _touch_controls.pressed
 	$List/MuteMusic/Sprite.playing = _mute_music.pressed
