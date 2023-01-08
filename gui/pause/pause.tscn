@@ -55,13 +55,27 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 6 )
 
-[node name="LevelInfo" parent="." instance=ExtResource( 1 )]
+[node name="BG" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.584314, 0.372549, 0.772549, 0.74902 )
 
-[node name="MapMenu" parent="." instance=ExtResource( 2 )]
+[node name="Content" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 37.0
+margin_top = 19.0
+margin_right = -37.0
+margin_bottom = -33.0
+
+[node name="LevelInfo" parent="Content" instance=ExtResource( 1 )]
 visible = false
+
+[node name="MapMenu" parent="Content" instance=ExtResource( 2 )]
 mouse_filter = 2
 
-[node name="FluddMenu" type="Control" parent="."]
+[node name="FluddMenu" type="Control" parent="Content"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
@@ -70,10 +84,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="OptionsMenu" parent="." instance=ExtResource( 3 )]
+[node name="OptionsMenu" parent="Content" instance=ExtResource( 3 )]
 visible = false
 
-[node name="ExitMenu" type="Control" parent="."]
+[node name="ExitMenu" type="Control" parent="Content"]
 visible = false
 margin_right = 40.0
 margin_bottom = 40.0
@@ -253,7 +267,7 @@ texture = ExtResource( 15 )
 
 [node name="Top" type="TextureRect" parent="."]
 anchor_right = 1.0
-margin_left = 30.0
+margin_left = -7.0
 margin_right = -37.0
 margin_bottom = 19.0
 rect_min_size = Vector2( 0, 19 )

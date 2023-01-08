@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 # Absolute cache
 onready var player = $"/root/Main/Player"
@@ -16,17 +16,7 @@ onready var icon = $MeterControl/WaterMeter/Icon
 onready var stats_tl = $StatsTL
 onready var stats_tr = $StatsTR
 
-# Pause cache
-onready var bg = $BG
-onready var top = $Top
-onready var left_corner_top = $LeftCornerTop
-onready var left_corner_bottom = $LeftCornerBottom
-onready var right_corner_top = $RightCornerTop
-onready var right_corner_bottom = $RightCornerBottom
-onready var left = $Left
-onready var right = $Right
-
-onready var pause_content = $PauseContent
+onready var pause_menu = $PauseMenu
 
 onready var warp = $"/root/Singleton/Warp"
 
@@ -35,43 +25,33 @@ var pulse = 0
 var last_size = Vector2.ZERO
 var temp_locale = "en"
 
+
 func _ready():
 	coin_counter.text = str(Singleton.coin_total)
 	red_coin_counter.text = str(0)
 	silver_counter.text = str(0)
 	shine_counter.text = str(0)
 	shine_coin_counter.text = str(0)
-	set_size(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
+	#change_size(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
 	var menu = get_tree().get_nodes_in_group("pause")
 	for node in menu: # Make pause nodes visible but transparent
 		node.modulate.a = 0
 		node.visible = true
+	pause_menu.modulate.a = 0
+	pause_menu.visible = true
 
 
 func resize():
-	var scale = max(1, round(OS.window_size.y / Singleton.DEFAULT_SIZE.y))
-	var topsize = OS.window_size.x / scale - 36 - 30
-	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
-	bg.rect_size = OS.window_size
-	
-	top.rect_scale = Vector2.ONE * scale
-	top.rect_size.x = topsize + offset + 19 * scale
-	top.rect_position.x = 29 * scale - offset * scale - 19 * scale
-	left_corner_top.rect_scale = Vector2.ONE * scale
-	left_corner_bottom.rect_scale = Vector2.ONE * scale
-	right_corner_top.rect_scale = Vector2.ONE * scale
-	right_corner_bottom.rect_scale = Vector2.ONE * scale
-	left.rect_scale = Vector2.ONE * scale
-	left.rect_position.y = 17 * scale
-	left.rect_size.y = OS.window_size.y / scale - 17 - 33
-	right.rect_scale = Vector2.ONE * scale
-	right.rect_position.y = 17 * scale
-	right.rect_size.y = OS.window_size.y / scale - 17 - 33
-	
-	pause_content.resize(scale)
+	var scale_factor = max(1, round(OS.window_size.y / Singleton.DEFAULT_SIZE.y))
+#	var topsize = OS.window_size.x / scale - 36 - 30
+#	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
+	rect_scale = Vector2.ONE * scale_factor
+	rect_size = OS.window_size / scale_factor
+	print(scale_factor)
+	pause_menu.resize(scale_factor)
 
 
-func set_size(lin_size):
+func change_size(lin_size):
 	# Size: general size of UI elements
 	# Lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
 	water_meter.rect_scale = Vector2.ONE * lin_size
@@ -92,7 +72,7 @@ func _process(delta):
 		resize()
 		temp_locale = new_locale
 	pulse += 0.1 * dmod
-	$PauseContent/LevelInfo/CollectRow/ShineRow/Shine1/Sprite.material.set_shader_param("outline_color", Color(1, 1, 1, sin(pulse) * 0.25 + 0.5))
+	#$PauseContent/LevelInfo/CollectRow/ShineRow/Shine1/Sprite.material.set_shader_param("outline_color", Color(1, 1, 1, sin(pulse) * 0.25 + 0.5))
 	coin_counter.material.set_shader_param("flash_factor", max(coin_counter.material.get_shader_param("flash_factor") - 0.1, 0))
 	if coin_counter.text != str(Singleton.coin_total):
 		coin_counter.material.set_shader_param("flash_factor", 0.5)
@@ -103,9 +83,10 @@ func _process(delta):
 		#red_coin_counter.material.set_shader_param("flash_factor", 0.5)
 		red_coin_counter.text = str(Singleton.red_coin_total)
 	
-	if last_size != OS.window_size:
-		$"/root/Main/Bubbles".refresh()
-		set_size(max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1))
+	#if last_size != OS.window_size:
+	$"/root/Main/Bubbles".refresh()#
+	resize()
+	#change_size(max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1))
 	last_size = OS.window_size
 	
 	if Input.is_action_just_pressed("pause"):
@@ -122,31 +103,13 @@ func _process(delta):
 	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if Singleton.pause_menu:
 		pause_offset = lerp(pause_offset, 1, 0.5)
-		for node in menu:
-			node.modulate.a = min(node.modulate.a + 0.2 * dmod, 1)
+		pause_menu.modulate.a = min(pause_menu.modulate.a + 0.2 * dmod, 1)
 	else:
 		pause_offset = lerp(pause_offset, 0, 0.5)
-		for node in menu:
-			node.modulate.a = max(node.modulate.a - 0.2 * dmod, 0)
-	stats_tl.margin_left = 8 + (37 * gui_scale) * pause_offset
-	stats_tl.margin_top = 8 + (19 * gui_scale) * pause_offset
-	stats_tr.margin_left = -8 - (37 * gui_scale) * pause_offset
-	stats_tr.margin_top = 8 + (19 * gui_scale) * pause_offset
-	water_meter.margin_left = -57 - (37 * gui_scale) * pause_offset
-	water_meter.margin_top = -113 - (33 * gui_scale) * pause_offset
-
-
-func _on_ButtonMap_button_down():
-	pass # Replace with function body.
-
-
-func _on_ButtonFludd_button_down():
-	pass # Replace with function body.
-
-
-func _on_ButtonOptions_button_down():
-	pass # Replace with function body.
-
-
-func _on_ButtonExit_button_down():
-	pass # Replace with function body.
+		pause_menu.modulate.a = max(pause_menu.modulate.a - 0.2 * dmod, 0)
+	stats_tl.margin_left = 8 + (37 * pause_offset)
+	stats_tl.margin_top = 8 + (19 * pause_offset)
+	stats_tr.margin_left = -8 - (37 * pause_offset)
+	stats_tr.margin_top = 8 + (19 * pause_offset)
+	water_meter.margin_left = -57 - (37 * pause_offset)
+	water_meter.margin_top = -113 - (33 * pause_offset)

@@ -18,49 +18,51 @@
 shader = ExtResource( 28 )
 shader_param/flash_factor = 0.0
 
-[node name="GUI" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer"]
 follow_viewport_enable = true
-script = ExtResource( 14 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ],
 "_edit_vertical_guides_": [  ]
 }
 
-[node name="DialogBox" parent="." instance=ExtResource( 1 )]
+[node name="HUDControl" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 14 )
+
+[node name="DialogBox" parent="HUDControl" instance=ExtResource( 1 )]
 visible = false
 
-[node name="BG" type="ColorRect" parent="." groups=["pause"]]
-visible = false
-margin_right = 448.0
+[node name="MeterControl" parent="HUDControl" instance=ExtResource( 11 )]
+margin_left = 543.0
+margin_top = 207.0
+margin_right = 585.0
 margin_bottom = 304.0
-mouse_filter = 2
-color = Color( 0.584314, 0.372549, 0.772549, 0.74902 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="StatsTL" type="VBoxContainer" parent="." groups=["stats"]]
+[node name="PauseMenu" parent="HUDControl" instance=ExtResource( 7 )]
+visible = false
+
+[node name="LifeMeter" parent="HUDControl" instance=ExtResource( 13 )]
+
+[node name="StatsTL" type="VBoxContainer" parent="HUDControl" groups=["stats"]]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 40.0
-margin_bottom = 40.0
 rect_pivot_offset = Vector2( -8, -8 )
 mouse_filter = 2
 custom_constants/separation = 21
 
-[node name="CoinRow" type="Control" parent="StatsTL"]
-margin_right = 32.0
+[node name="CoinRow" type="Control" parent="HUDControl/StatsTL"]
 
-[node name="Sprite" type="Sprite" parent="StatsTL/CoinRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/StatsTL/CoinRow"]
 texture = ExtResource( 50 )
 centered = false
 
-[node name="X" type="Sprite" parent="StatsTL/CoinRow"]
+[node name="X" type="Sprite" parent="HUDControl/StatsTL/CoinRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="StatsTL/CoinRow"]
+[node name="Count" type="Label" parent="HUDControl/StatsTL/CoinRow"]
 material = SubResource( 1 )
 margin_left = 32.0
 margin_top = 1.0
@@ -71,21 +73,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RedCoinRow" type="Control" parent="StatsTL"]
+[node name="RedCoinRow" type="Control" parent="HUDControl/StatsTL"]
 margin_top = 21.0
-margin_right = 32.0
 margin_bottom = 21.0
 
-[node name="Sprite" type="Sprite" parent="StatsTL/RedCoinRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/StatsTL/RedCoinRow"]
 texture = ExtResource( 33 )
 centered = false
 
-[node name="X" type="Sprite" parent="StatsTL/RedCoinRow"]
+[node name="X" type="Sprite" parent="HUDControl/StatsTL/RedCoinRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="StatsTL/RedCoinRow"]
+[node name="Count" type="Label" parent="HUDControl/StatsTL/RedCoinRow"]
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 80.0
@@ -95,21 +96,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SilverShineRow" type="Control" parent="StatsTL"]
+[node name="SilverShineRow" type="Control" parent="HUDControl/StatsTL"]
 margin_top = 42.0
-margin_right = 32.0
 margin_bottom = 42.0
 
-[node name="Sprite" type="Sprite" parent="StatsTL/SilverShineRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/StatsTL/SilverShineRow"]
 texture = ExtResource( 71 )
 centered = false
 
-[node name="X" type="Sprite" parent="StatsTL/SilverShineRow"]
+[node name="X" type="Sprite" parent="HUDControl/StatsTL/SilverShineRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="StatsTL/SilverShineRow"]
+[node name="Count" type="Label" parent="HUDControl/StatsTL/SilverShineRow"]
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 112.0
@@ -119,7 +119,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsTR" type="VBoxContainer" parent="." groups=["stats"]]
+[node name="StatsTR" type="VBoxContainer" parent="HUDControl" groups=["stats"]]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -8.0
@@ -128,19 +128,19 @@ rect_pivot_offset = Vector2( 8, -8 )
 mouse_filter = 2
 custom_constants/separation = 21
 
-[node name="ShineRow" type="Control" parent="StatsTR"]
+[node name="ShineRow" type="Control" parent="HUDControl/StatsTR"]
 margin_right = 8.0
 
-[node name="Sprite" type="Sprite" parent="StatsTR/ShineRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/StatsTR/ShineRow"]
 position = Vector2( -40.5, 7.5 )
 texture = ExtResource( 79 )
 
-[node name="X" type="Sprite" parent="StatsTR/ShineRow"]
+[node name="X" type="Sprite" parent="HUDControl/StatsTR/ShineRow"]
 position = Vector2( -29, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="StatsTR/ShineRow"]
+[node name="Count" type="Label" parent="HUDControl/StatsTR/ShineRow"]
 margin_left = -15.0
 margin_top = 1.0
 margin_right = 65.0
@@ -150,21 +150,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ShineCoinRow" type="Control" parent="StatsTR"]
+[node name="ShineCoinRow" type="Control" parent="HUDControl/StatsTR"]
 margin_top = 21.0
 margin_right = 8.0
 margin_bottom = 21.0
 
-[node name="Sprite" type="Sprite" parent="StatsTR/ShineCoinRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/StatsTR/ShineCoinRow"]
 position = Vector2( -40, 9.5 )
 texture = ExtResource( 53 )
 
-[node name="X" type="Sprite" parent="StatsTR/ShineCoinRow"]
+[node name="X" type="Sprite" parent="HUDControl/StatsTR/ShineCoinRow"]
 position = Vector2( -29, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="StatsTR/ShineCoinRow"]
+[node name="Count" type="Label" parent="HUDControl/StatsTR/ShineCoinRow"]
 margin_left = -15.0
 margin_top = 1.0
 margin_right = 65.0
@@ -173,10 +173,3 @@ custom_fonts/font = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="LifeMeter" parent="." instance=ExtResource( 13 )]
-
-[node name="MeterControl" parent="." instance=ExtResource( 11 )]
-
-[node name="PauseMenu" parent="." instance=ExtResource( 7 )]
-visible = false
