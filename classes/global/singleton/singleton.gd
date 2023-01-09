@@ -49,24 +49,29 @@ onready var timer = $Timer
 
 var classic = false
 
+# definitely move into player class
 var nozzle = 0
 var water: float = 100.0
 var power = 100
-var coin_total = 0
 var internal_coin_counter = 0 # If it hits 5, gets reset
-var red_coin_total = 0
-var rng = RandomNumberGenerator.new()
-var life_meter = 8
-var enter = 0
-var direction = 0
+var life_meter = 8 # apparently unused
 var dead = false
 var hp = 8
-var meter_progress = 0
+
+# maybe move into player class
 var collected_nozzles = [false, false, false]
-var set_location
-var flip
+var coin_total = 0
+var set_location # Location player spawns after a warp
+var flip # Direction player faces after a warp
+
+# definitely leave in singleton
+var red_coin_total = 0
+var rng = RandomNumberGenerator.new()
+var enter = 0 # apparently unused?
+var direction = 0 # apparently unused?
+var meter_progress = 0 # used, can't tell what it does yet
 var pause_menu = false
-var line_count: int = 0
+var line_count: int = 0 # used for console I think?
 var disable_limits = false
 var touch_control = false
 var ld_buffer = PoolByteArray([])
