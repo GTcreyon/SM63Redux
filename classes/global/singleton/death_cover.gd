@@ -1,14 +1,16 @@
 extends ColorRect
 
+var player_dead = false
+
 
 func _process(delta):
 	var dmod = 60 * delta
-	if Singleton.dead:
+	if player_dead:
 		visible = true
 		color.a = min(color.a + 1.0/30.0 * dmod, 1)
 		if color.a >= 1:
-			Singleton.dead = false
-			Singleton.hp = 8
+			player_dead = false
+			#Singleton.hp = 8 # Player should start with 8 HP--wait that's a problem
 			# warning-ignore:RETURN_VALUE_DISCARDED
 			Singleton.warp_to(get_tree().get_current_scene().get_filename())
 	else:

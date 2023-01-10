@@ -192,3 +192,11 @@ func save_input_map(input_json):
 	file.open("user://controls.json", File.WRITE)
 	file.store_string(input_json) # minimize the amount of time spent with the file open
 	file.close()
+
+
+func register_player_death(_player):
+	# For now, just assume there's one player.
+	# Can and should be changed later, of course!
+
+	# Set the death cover to start fading in.
+	$DeathCover.player_dead = true
