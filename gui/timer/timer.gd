@@ -48,7 +48,7 @@ func _physics_process(_delta):
 		Singleton.get_node("Timer").running = true
 		Singleton.warp_location = Vector2(110, 153)
 		FlagServer.reset_flag_dict()
-		Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn")
+		Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn", null)
 
 		var player = get_node_or_null("root/Main/Player")
 		player.current_nozzle = Singleton.n.none

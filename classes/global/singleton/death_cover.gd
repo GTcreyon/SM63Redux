@@ -12,10 +12,11 @@ func _process(delta):
 
 		# Once the screen is fully black, do death logic.
 		if color.a >= 1:
-			# Reset player's health so they start full.
-			Singleton.warp_hp = 8
+			# Warp to the current scene.
+			# TODO: this function creates a split on the speedrun timer. Might not
+			# be appropriate for death!
 			# warning-ignore:RETURN_VALUE_DISCARDED
-			Singleton.warp_to(get_tree().get_current_scene().get_filename())
+			Singleton.warp_to(get_tree().get_current_scene().get_filename(), null)
 			
 			player_dead = false
 	else:

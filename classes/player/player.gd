@@ -1,3 +1,4 @@
+class_name Player
 extends KinematicBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
@@ -93,14 +94,17 @@ var locked: bool = false
 var last_step = 0
 var invuln_flash: int = 0
 
-# vars from the singleton
+# health vars
+var hp = 8
+var life_meter = 8 # apparently unused
+var coins_toward_health = 0 # If it hits 5, gets reset
+
+# FLUDD state vars
 var current_nozzle = 0
 var water: float = 100.0
 var fludd_power = 100
-var coins_toward_health = 0 # If it hits 5, gets reset
-var life_meter = 8 # apparently unused
+
 var dead = false
-var hp = 8
 
 onready var base_modifier = BaseModifier.new()
 onready var voice = $Voice
@@ -127,13 +131,25 @@ onready var feet_area: Area2D = $Feet
 func _ready():
 	sprite.playing = true
 	nozzle_fx.playing = true
-	var warp = $"/root/Singleton/Warp"
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
+
+	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
 		position = Singleton.warp_location
-		hp = Singleton.warp_hp
-		warp.set_location = null # does nothing
-		sprite.flip_h = warp.flip
+		#Singleton.warp_location = null # Used when respawning, shouldn't clear
+	
+	if Singleton.warp_data != null:
+		sprite.flip_h = Singleton.warp_data.sprite_flip
+
+		hp = Singleton.warp_data.hp
+		coins_toward_health = Singleton.warp_data.coins_toward_health
+		
+		current_nozzle = Singleton.warp_data.current_nozzle
+		water = Singleton.warp_data.water
+		fludd_power = Singleton.warp_data.fludd_power # is this one necessary?
+
+		# Warp data's served its purpose, go ahead and delete it.
+		Singleton.warp_data = null
 
 
 func _process(delta):

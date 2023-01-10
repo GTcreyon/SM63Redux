@@ -55,8 +55,7 @@ var coin_total = 0
 
 # Data that persists between scenes
 var warp_location # Location player spawns after a warp
-var warp_sprite_flip # Direction player faces after a warp
-var warp_hp = 8
+var warp_data: InterSceneData
 
 # definitely leave in singleton
 var red_coin_total = 0
@@ -120,13 +119,27 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
 
 
-func warp_to(path):
+# Warp to the scene specified by string.
+# Player is passed as second argument so the player's state can
+# be carried over into the next scene. If null is passed instead,
+# no player data will be carried to the next scene.
+func warp_to(path: String, player: Player):
+	if player != null:
+		# Save player data for next room.
+		warp_data = InterSceneData.new(player)
+	
+	# Prepare flag server for this next room.
 	FlagServer.reset_assign_id()
+
+	# Reset speedrun timer if warping to the start of the game.
 	if path == "res://scenes/tutorial_1/tutorial_1_1.tscn":
 		timer.running = true
 		timer.frames = 0
 		timer.split_frames = 0
+	# Either way, mark a new split.
 	timer.split_timer()
+	
+	# Do the actual warp.
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().call_deferred("change_scene", path)
 
@@ -198,6 +211,12 @@ func save_input_map(input_json):
 func register_player_death(_player):
 	# For now, just assume there's one player.
 	# Can and should be changed later, of course!
+
+	# Save warp data so when we respawn, state is preserved.
+	warp_data = InterSceneData.new(_player)
+	# Reset player's health so they start full.
+	warp_data.hp = 8
+	# Do NOT set warp location--use the one we entered the room with.
 
 	# Set the death cover to start fading in.
 	$DeathCover.player_dead = true

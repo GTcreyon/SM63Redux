@@ -60,12 +60,13 @@ func _process(delta):
 		cover.color.a = progress + in_unit
 		if progress >= 1 - in_unit:
 			# WindowWarp is used in main menu, not just in levels.
-			# Only save player facing dir if there actually is a player.
-			if has_node("/root/Main/Player/AnimatedSprite"):
-				Singleton.warp_sprite_flip = $"/root/Main/Player/AnimatedSprite".flip_h
-			else:
-				Singleton.warp_sprite_flip = false
-			Singleton.call_deferred("warp_to", scene_path)
+			# Only find player if there actually is a player.
+			var player: Player = null
+			if has_node("/root/Main/Player"):
+				player = $"/root/Main/Player"
+			Singleton.call_deferred("warp_to", scene_path, player)
+
+			# Begin the opposite fade.
 			enter = -1
 			progress = 0
 		else:

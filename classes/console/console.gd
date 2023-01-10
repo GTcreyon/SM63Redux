@@ -1,13 +1,13 @@
 extends Control
 
-onready var logger = $Logger
-onready var input_line = $Input
-
 var history: PoolStringArray = []
 var hist_index = 0
 var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
 var line_count: int = 0
+
+onready var logger = $Logger
+onready var input_line = $Input
 
 
 func _ready():
@@ -42,7 +42,7 @@ func run_command(cmd: String):
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 				else:
 					Singleton.warp_location = null
-					var err = Singleton.warp_to(path)
+					var err = Singleton.warp_to(path, $"/root/Main/Player")
 					if err == OK or err == null:
 						Singleton.log_msg("Warped to " + path)
 					else:
@@ -51,7 +51,7 @@ func run_command(cmd: String):
 				var scene = "res://" + args[1] + ".tscn"
 				var file_check = File.new()
 				if file_check.file_exists(scene):
-					var err = Singleton.warp_to(scene)
+					var err = Singleton.warp_to(scene, $"/root/Main/Player")
 					if err == OK:
 						Singleton.log_msg("Warped to " + scene)
 					else:

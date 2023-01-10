@@ -1,3 +1,4 @@
+class_name Warp
 extends Polygon2D
 
 var curve = Curve2D.new()
@@ -62,8 +63,7 @@ func _physics_process(_delta):
 			curve_arc = Vector2(0, OS.window_size.y / 2)
 			curve_bottom = Vector2(pos, OS.window_size.y)
 		
-		Singleton.warp_to(scene_path)
-		Singleton.warp_sprite_flip = $"/root/Main/Player/Character".flip_h
+		Singleton.warp_to(scene_path, $"/root/Main/Player")
 		
 		enter = -1
 	elif enter == -1 and anim_timer >= 44:
