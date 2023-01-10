@@ -131,6 +131,7 @@ func _ready():
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	if Singleton.set_location != null:
 		position = Singleton.set_location
+		hp = Singleton.hp
 		warp.set_location = null
 		sprite.flip_h = warp.flip
 

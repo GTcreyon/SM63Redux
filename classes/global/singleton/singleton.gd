@@ -56,6 +56,7 @@ var coin_total = 0
 # Data that persists between scenes
 var set_location # Location player spawns after a warp
 var flip # Direction player faces after a warp
+var hp = 8
 
 # definitely leave in singleton
 var red_coin_total = 0

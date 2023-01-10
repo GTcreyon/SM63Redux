@@ -10,7 +10,7 @@ func _process(delta):
 		color.a = min(color.a + 1.0/30.0 * dmod, 1)
 		if color.a >= 1:
 			player_dead = false
-			#Singleton.hp = 8 # Player should start with 8 HP--wait that's a problem
+			Singleton.hp = 8
 			# warning-ignore:RETURN_VALUE_DISCARDED
 			Singleton.warp_to(get_tree().get_current_scene().get_filename())
 	else:
