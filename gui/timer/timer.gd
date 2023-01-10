@@ -50,11 +50,11 @@ func _physics_process(_delta):
 		Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn", null)
 
 		var player = get_node_or_null("root/Main/Player")
-		player.collected_nozzles = [false, false, false]
-		player.current_nozzle = Singleton.n.none
-		player.water = 100
 		if player != null:
 			player.position = Vector2(110, 153)
+			player.collected_nozzles = [false, false, false]
+			player.current_nozzle = Singleton.n.none
+			player.water = 100
 	
 	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if !Singleton.meta_paused and running:
