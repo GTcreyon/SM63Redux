@@ -24,7 +24,7 @@ func warp(dir: Vector2, location: Vector2, path: String):
 		cam_area.frozen = true
 	enter = 1
 	direction = dir
-	Singleton.set_location = location
+	Singleton.warp_location = location
 	scene_path = path
 	
 	var pos
@@ -63,7 +63,7 @@ func _physics_process(_delta):
 			curve_bottom = Vector2(pos, OS.window_size.y)
 		
 		Singleton.warp_to(scene_path)
-		Singleton.flip = $"/root/Main/Player/Character".flip_h
+		Singleton.warp_sprite_flip = $"/root/Main/Player/Character".flip_h
 		
 		enter = -1
 	elif enter == -1 and anim_timer >= 44:

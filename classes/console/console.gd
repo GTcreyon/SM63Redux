@@ -41,7 +41,7 @@ func run_command(cmd: String):
 				if path == "":
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 				else:
-					Singleton.set_location = null
+					Singleton.warp_location = null
 					var err = Singleton.warp_to(path)
 					if err == OK or err == null:
 						Singleton.log_msg("Warped to " + path)

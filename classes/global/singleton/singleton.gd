@@ -54,9 +54,9 @@ var collected_nozzles = [false, false, false]
 var coin_total = 0
 
 # Data that persists between scenes
-var set_location # Location player spawns after a warp
-var flip # Direction player faces after a warp
-var hp = 8
+var warp_location # Location player spawns after a warp
+var warp_sprite_flip # Direction player faces after a warp
+var warp_hp = 8
 
 # definitely leave in singleton
 var red_coin_total = 0

@@ -8,7 +8,7 @@ onready var cover = $"../CoverLayer/WarpCover"
 
 var direction = 0
 var enter = 0
-var set_location = null
+var warp_location = null
 var progress: float = 0.0
 var scene_path: NodePath = ""
 
@@ -59,10 +59,12 @@ func _process(delta):
 		visible = true
 		cover.color.a = progress + in_unit
 		if progress >= 1 - in_unit:
+			# WindowWarp is used in main menu, not just in levels.
+			# Only save player facing dir if there actually is a player.
 			if has_node("/root/Main/Player/AnimatedSprite"):
-				Singleton.flip = $"/root/Main/Player/AnimatedSprite".flip_h
+				Singleton.warp_sprite_flip = $"/root/Main/Player/AnimatedSprite".flip_h
 			else:
-				Singleton.flip = false
+				Singleton.warp_sprite_flip = false
 			Singleton.call_deferred("warp_to", scene_path)
 			enter = -1
 			progress = 0
@@ -87,5 +89,5 @@ func warp(location, path, t_in = 25, t_out = 15):
 	in_time = t_in
 	out_time = t_out
 	enter = 1
-	Singleton.set_location = location
+	Singleton.warp_location = location
 	scene_path = path

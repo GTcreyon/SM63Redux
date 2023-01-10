@@ -129,10 +129,10 @@ func _ready():
 	nozzle_fx.playing = true
 	var warp = $"/root/Singleton/Warp"
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
-	if Singleton.set_location != null:
-		position = Singleton.set_location
-		hp = Singleton.hp
-		warp.set_location = null
+	if Singleton.warp_location != null:
+		position = Singleton.warp_location
+		hp = Singleton.warp_hp
+		warp.set_location = null # does nothing
 		sprite.flip_h = warp.flip
 
 

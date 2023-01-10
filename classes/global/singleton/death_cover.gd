@@ -13,7 +13,7 @@ func _process(delta):
 		# Once the screen is fully black, do death logic.
 		if color.a >= 1:
 			# Reset player's health so they start full.
-			Singleton.hp = 8
+			Singleton.warp_hp = 8
 			# warning-ignore:RETURN_VALUE_DISCARDED
 			Singleton.warp_to(get_tree().get_current_scene().get_filename())
 			
