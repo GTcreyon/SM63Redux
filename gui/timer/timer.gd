@@ -42,7 +42,6 @@ func format_time(overall_seconds):
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("reset") and get_tree().get_current_scene().get_filename().count("tutorial") and !get_tree().paused and Singleton.timer.visible:
-		Singleton.collected_nozzles = [false, false, false]
 		Singleton.get_node("Timer").frames = 0
 		Singleton.get_node("Timer").split_frames = 0
 		Singleton.get_node("Timer").running = true
@@ -51,6 +50,7 @@ func _physics_process(_delta):
 		Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn", null)
 
 		var player = get_node_or_null("root/Main/Player")
+		player.collected_nozzles = [false, false, false]
 		player.current_nozzle = Singleton.n.none
 		player.water = 100
 		if player != null:

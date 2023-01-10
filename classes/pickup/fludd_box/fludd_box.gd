@@ -47,7 +47,7 @@ func _on_FluddBox_area_entered(area):
 		inst.position = Vector2(position.x, position.y + 8.5)
 		get_parent().call_deferred("add_child", inst)
 		
-		Singleton.collected_nozzles[nozzle - 1] = true
+		player.collected_nozzles[nozzle - 1] = true
 		player.vel.y = -6 * 32 / 60
 		$Open.play()
 		set_deferred("monitoring", false)

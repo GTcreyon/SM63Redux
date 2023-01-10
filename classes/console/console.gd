@@ -101,21 +101,22 @@ func run_command(cmd: String):
 				# warning-ignore:return_value_discarded
 				get_tree().change_scene("res://scenes/menus/visual_pipescript/editor.tscn")
 			"fludd":
+				var player = $"/root/Main/Player"
 				match args[1]:
 					"h", "hover", "0":
-						Singleton.collected_nozzles[0] = !Singleton.collected_nozzles[0]
+						player.collected_nozzles[0] = !player.collected_nozzles[0]
 						Singleton.log_msg("Toggled hover.")
 					"r", "rocket", "1":
-						Singleton.collected_nozzles[1] = !Singleton.collected_nozzles[1]
+						player.collected_nozzles[1] = !player.collected_nozzles[1]
 						Singleton.log_msg("Toggled rocket.")
 					"t", "turbo", "2":
-						Singleton.collected_nozzles[2] = !Singleton.collected_nozzles[2]
+						player.collected_nozzles[2] = !player.collected_nozzles[2]
 						Singleton.log_msg("Toggled turbo.")
 					"all":
-						Singleton.collected_nozzles = [true, true, true]
+						player.collected_nozzles = [true, true, true]
 						Singleton.log_msg("All nozzles enabled.")
 					"none":
-						Singleton.collected_nozzles = [false, false, false]
+						player.collected_nozzles = [false, false, false]
 						Singleton.log_msg("All nozzles disabled.")
 			"cherry":
 				var player = load("res://classes/player/player.tscn")

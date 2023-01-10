@@ -100,6 +100,7 @@ var life_meter = 8 # apparently unused
 var coins_toward_health = 0 # If it hits 5, gets reset
 
 # FLUDD state vars
+var collected_nozzles = [false, false, false]
 var current_nozzle = 0
 var water: float = 100.0
 var fludd_power = 100
@@ -144,6 +145,7 @@ func _ready():
 		hp = Singleton.warp_data.hp
 		coins_toward_health = Singleton.warp_data.coins_toward_health
 		
+		collected_nozzles = Singleton.warp_data.collected_nozzles
 		current_nozzle = Singleton.warp_data.current_nozzle
 		water = Singleton.warp_data.water
 		fludd_power = Singleton.warp_data.fludd_power # is this one necessary?
@@ -1216,7 +1218,7 @@ func switch_fludd():
 	while (
 		(
 			current_nozzle < 4
-			and !Singleton.collected_nozzles[(current_nozzle - 1) % 3]
+			and !collected_nozzles[(current_nozzle - 1) % 3]
 		)
 		or current_nozzle == 0
 	):

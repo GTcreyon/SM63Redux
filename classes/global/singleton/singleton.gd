@@ -49,15 +49,11 @@ onready var timer = $Timer
 
 var classic = false
 
-# maybe move into player class
-var collected_nozzles = [false, false, false]
-var coin_total = 0
-
-# Data that persists between scenes
+# Player data that persists between scenes
 var warp_location # Location player spawns after a warp
 var warp_data: InterSceneData
 
-# definitely leave in singleton
+var coin_total = 0
 var red_coin_total = 0
 var rng = RandomNumberGenerator.new()
 var enter = 0 # apparently unused?
