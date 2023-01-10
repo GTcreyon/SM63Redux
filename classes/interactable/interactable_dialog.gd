@@ -6,7 +6,7 @@ export(Array, String, MULTILINE) var lines = [""]
 export var x_offset: int = 0
 export var can_pivot: bool = false
 
-onready var dialog = $"/root/Main/Player/Camera/GUI/DialogBox"
+onready var dialog = $"/root/Main/Player/Camera/HUD/HUDControl/DialogBox"
 
 
 func _interact_with(body):

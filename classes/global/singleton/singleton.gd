@@ -83,21 +83,6 @@ enum LogType {
 	ERROR,
 }
 
-func log_msg(msg: String, type: int = LogType.INFO):
-	var color_tag: String = "[color=#"
-	match type:
-		LogType.INFO:
-			color_tag += "f9e8e8"
-		LogType.WARNING:
-			color_tag += "f2d67c"
-		LogType.ERROR:
-			color_tag += "f28d7c"
-	color_tag += "]"
-		
-	console.logger.append_bbcode("\n" + color_tag + str(msg) + "[/color]")
-	line_count += 1
-	print(msg)
-
 
 func _ready():
 	touch_control = OS.get_name() == "Android"
@@ -119,6 +104,58 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) - 1)
 	if Input.is_action_just_pressed("volume_music+"):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
+
+
+func log_msg(msg: String, type: int = LogType.INFO):
+	var color_tag: String = "[color=#"
+	match type:
+		LogType.INFO:
+			color_tag += "f9e8e8"
+		LogType.WARNING:
+			color_tag += "f2d67c"
+		LogType.ERROR:
+			color_tag += "f28d7c"
+	color_tag += "]"
+		
+	console.logger.append_bbcode("\n" + color_tag + str(msg) + "[/color]")
+	line_count += 1
+	print(msg)
+
+
+# Get a scaling factor based on the window dimensions
+func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
+	var scale_vec = OS.window_size / Singleton.DEFAULT_SIZE
+	var rounded = Vector2.ONE
+	if threshold == -1:
+		match mode:
+			-1:
+				# Minimise
+				threshold = 0.875
+			1:
+				# Maximise
+				threshold = 0.125
+			_:
+				threshold = 0.5
+	
+	if fmod(scale_vec.x, 1) < threshold:
+		rounded.x = floor(scale_vec.x)
+	else:
+		rounded.x = ceil(scale_vec.x)
+	if fmod(scale_vec.y, 1) < threshold:
+		rounded.y = floor(scale_vec.y)
+	else:
+		rounded.y = ceil(scale_vec.y)
+	
+	var scale_x: int = max(rounded.x, 1)
+	var scale_y: int = max(rounded.y, 1)
+	
+	match mode:
+		-1:
+			return int(min(scale_x, scale_y))
+		1:
+			return int(max(scale_x, scale_y))
+		_:
+			return int(ceil(sqrt(scale_x * scale_y)))
 
 
 func warp_to(path):

@@ -43,6 +43,8 @@ margin_bottom = 304.0
 visible = false
 
 [node name="LifeMeter" parent="HUDControl" instance=ExtResource( 13 )]
+anchor_left = 0.5
+anchor_right = 0.5
 
 [node name="StatsTL" type="VBoxContainer" parent="HUDControl" groups=["stats"]]
 margin_left = 8.0

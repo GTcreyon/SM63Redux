@@ -57,7 +57,7 @@ func _item_position(idx_frac: float, offset: Vector2) -> Vector2:
 
 func _process(delta: float) -> void:
 	var dmod = 60 * delta
-	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
+	var scale = Singleton.get_screen_scale()
 	_manage_sizes(scale)
 	if visible:
 		options_control.visible = show_options
