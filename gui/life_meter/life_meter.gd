@@ -9,7 +9,7 @@ onready var filler = $Filler
 onready var coin_meter = $CoinMeter
 onready var coin_ring = $CoinMeter/CoinRing
 onready var death_cover = $"/root/Singleton/DeathCover"
-onready var save_count = Singleton.hp # For when variable gets changed
+onready var save_count = player.hp # For when variable gets changed
 var act = false # For when life meter sprite can appear if true
 var rechange_timer = 0
 var rechange_trigger = false # So it can trigger the rechange_timer increment
@@ -19,11 +19,11 @@ var coin_save = 0
 
 
 func _ready():
-	coin_save = Singleton.internal_coin_counter
+	coin_save = player.coins_toward_health
 	modulate.v = 1 - death_cover.color.a
 	progress = Singleton.meter_progress
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-	filler.frame = Singleton.hp
+	filler.frame = player.hp
 
 
 func _process(delta):
@@ -38,8 +38,8 @@ func _process(delta):
 	else:
 		if !rechange_moving:
 			end_adjust = lerp(end_adjust, end_pos, 0.5)
-		if save_count != Singleton.hp: # If it changed
-			save_count = Singleton.hp # For the conditional
+		if save_count != player.hp: # If it changed
+			save_count = player.hp # For the conditional
 			act = true # Start life meter moving onto the screen
 			# These are required for when the life meter gets affected while still showing up, will "last" longer on screen
 			rechange_moving = false # In case it's going up
@@ -47,11 +47,11 @@ func _process(delta):
 		if act:
 			if progress < 1: # And then starts rechange_timer
 				progress += 0.05 * dmod
-			if Singleton.hp == 8:
+			if player.hp == 8:
 				act = false
 			
 			
-		if Singleton.hp == 8:
+		if player.hp == 8:
 			rechange_timer += 1 * dmod
 		else:
 			rechange_timer = 0
@@ -60,29 +60,29 @@ func _process(delta):
 			rechange_timer = 0
 			rechange_moving = true # Then it will return to its initial position
 		
-		if Singleton.hp == 8:
+		if player.hp == 8:
 			if rechange_moving:
 				if progress > 0:
 					progress -= 0.1 * dmod
 				else:
 					rechange_moving = false # And now everything is back to place
-			elif !act and !rechange_trigger and Singleton.hp >= 8:
+			elif !act and !rechange_trigger and player.hp >= 8:
 				position.y = start_pos * gui_scale
 		else:
 			rechange_moving = false
 
-		filler.frame = Singleton.hp # For the HUD with its respective frame
-		if Singleton.internal_coin_counter >= 5 and Singleton.hp < 8:
-			Singleton.hp += 1
-			Singleton.internal_coin_counter = 0
+		filler.frame = player.hp # For the HUD with its respective frame
+		if player.coins_toward_health >= 5 and player.hp < 8:
+			player.hp += 1
+			player.coins_toward_health = 0
 			coin_save = 0
 			coin_meter.frame = 0
 			coin_meter.animation = "flash"
 		else:
-			if coin_meter.animation == "charge" or coin_save != Singleton.internal_coin_counter:
+			if coin_meter.animation == "charge" or coin_save != player.coins_toward_health:
 				coin_meter.animation = "charge"
-				coin_meter.frame = Singleton.internal_coin_counter
-				coin_save = Singleton.internal_coin_counter
+				coin_meter.frame = player.coins_toward_health
+				coin_save = player.coins_toward_health
 		
 		if coin_meter.animation == "flash" and coin_meter.frame == 6:
 			coin_meter.animation = "charge"

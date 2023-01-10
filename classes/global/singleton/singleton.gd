@@ -49,14 +49,7 @@ onready var timer = $Timer
 
 var classic = false
 
-# definitely move into player class
-var nozzle = 0
-var water: float = 100.0
-var power = 100
-var internal_coin_counter = 0 # If it hits 5, gets reset
-var life_meter = 8 # apparently unused
 var dead = false
-var hp = 8
 
 # maybe move into player class
 var collected_nozzles = [false, false, false]

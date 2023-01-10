@@ -60,13 +60,14 @@ func run_command(cmd: String):
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 			"water":
 				if args[1].to_lower() == "inf":
-					Singleton.water = INF
+					$"/root/Main/Player".water = INF
 					Singleton.log_msg("Water is now infinite.")
 				else:
-					Singleton.water = int(args[1])
+					$"/root/Main/Player".water = int(args[1])
 					Singleton.log_msg("Water set to %d" % int(args[1]))
 			"ref":
-				Singleton.water = max(Singleton.water, 100)
+				var player = $"/root/Main/Player"
+				player.water = max(player.water, 100)
 				Singleton.log_msg("Water refilled.")
 			"c":
 				Singleton.classic = !Singleton.classic
@@ -81,7 +82,7 @@ func run_command(cmd: String):
 				$"/root/Main/Player".take_damage(int(args[1]))
 				Singleton.log_msg("Took %d damage." % int(args[1]))
 			"fdmg":
-				Singleton.hp -= int(args[1])
+				$"/root/Main/Player".hp -= int(args[1])
 				Singleton.log_msg("Forced %d damage." % int(args[1]))
 			"designer", "ld":
 				Singleton.log_msg("Entered Level Designer.")
