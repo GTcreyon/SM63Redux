@@ -42,7 +42,7 @@ func _ready():
 
 
 func resize():
-	var scale_factor = Singleton.get_screen_scale()
+	var scale_factor = Singleton.get_screen_scale(-1)
 #	var topsize = OS.window_size.x / scale - 36 - 30
 #	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
 	rect_scale = Vector2.ONE * scale_factor
