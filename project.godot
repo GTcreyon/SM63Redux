@@ -189,6 +189,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/interactable/sign/sign.gd"
 }, {
+"base": "Control",
+"class": "SpeedrunTimer",
+"language": "GDScript",
+"path": "res://gui/timer/timer.gd"
+}, {
 "base": "Node2D",
 "class": "Telescoping",
 "language": "GDScript",
@@ -246,6 +251,7 @@ _global_script_class_icons={
 "SM63ToRedux": "",
 "Serializer": "",
 "Sign": "",
+"SpeedrunTimer": "",
 "Telescoping": "",
 "TileToPoly": "",
 "TippingLog": "",

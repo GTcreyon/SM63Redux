@@ -1,4 +1,7 @@
+class_name SpeedrunTimer
 extends Control
+
+const RESET_SCENE_PATH = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
 
 onready var total = $Total
 onready var total_ms = $TotalMS
@@ -50,7 +53,7 @@ func _physics_process(_delta):
 		Singleton.get_node("Timer").running = true
 		Singleton.set_location = Vector2(110, 153)
 		FlagServer.reset_flag_dict()
-		Singleton.warp_to("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
+		Singleton.warp_to(RESET_SCENE_PATH)
 		var player = get_node_or_null("root/Main/Player")
 		if player != null:
 			player.position = Vector2(110, 153)
