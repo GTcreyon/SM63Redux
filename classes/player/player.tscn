@@ -515,7 +515,7 @@ __meta__ = {
 
 [node name="Character" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
-animation = "spin_start_fludd"
+animation = "walk"
 script = ExtResource( 1 )
 
 [node name="Fludd" type="AnimatedSprite" parent="Character"]
