@@ -1081,8 +1081,8 @@ func reset_dive() -> void:
 
 
 const TRIPLE_JUMP_ORIGIN_OFFSET_START = Vector2(-2, -4)
-const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(1, -3)
-const TRIPLE_JUMP_ORIGIN_OFFSET_FAST = Vector2(-2, -6)
+const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(1, -2)
+const TRIPLE_JUMP_ORIGIN_OFFSET_FAST = Vector2(-1, -6)
 func airborne_anim() -> void:
 	if state == S.TRIPLE_JUMP:
 		if triple_flip_frames > 3:
