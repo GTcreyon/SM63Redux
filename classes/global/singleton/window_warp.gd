@@ -61,7 +61,7 @@ func _process(delta):
 		if progress >= 1 - in_unit:
 			# WindowWarp is used in main menu, not just in levels.
 			# Only find player if there actually is a player.
-			var player: Player = null
+			var player: PlayerCharacter = null
 			if has_node("/root/Main/Player"):
 				player = $"/root/Main/Player"
 			Singleton.call_deferred("warp_to", scene_path, player)

@@ -10,7 +10,7 @@ var current_nozzle = Singleton.n.none
 var water = 100.0
 var fludd_power = 100
 
-func _init(player: Player):
+func _init(player: PlayerCharacter):
 	sprite_flip = player.sprite.flip_h
 
 	hp = player.hp

@@ -1,4 +1,4 @@
-class_name Player
+class_name PlayerCharacter
 extends KinematicBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
