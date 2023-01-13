@@ -457,7 +457,6 @@ func fixed_visuals() -> void:
 	#$Label.text = str(vel.x)
 	if hp <= 0:
 		dead = true
-		Singleton.register_player_death(self)
 	
 	fludd_sprite.flip_h = sprite.flip_h
 	if sprite.animation.begins_with("spin"):
