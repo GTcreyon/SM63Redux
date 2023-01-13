@@ -70,9 +70,9 @@ margin_right = -37.0
 margin_bottom = -33.0
 
 [node name="LevelInfo" parent="Content" instance=ExtResource( 1 )]
-visible = false
 
 [node name="MapMenu" parent="Content" instance=ExtResource( 2 )]
+visible = false
 mouse_filter = 2
 
 [node name="FluddMenu" type="Control" parent="Content"]

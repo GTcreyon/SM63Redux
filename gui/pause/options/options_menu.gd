@@ -39,7 +39,6 @@ func _reset_values():
 
 
 func _process(_delta):
-	manage_sizes()
 	max_height = list.rect_size.y
 	if visible:
 		if !was_visible:
@@ -68,26 +67,3 @@ func _on_OptionsMenu_gui_input(event):
 func _notification(what):
 	if what == NOTIFICATION_RESIZED and height_set:
 		start_height = rect_size.y - list.margin_top + list.margin_bottom
-
-
-var prev_scale = 1
-func manage_sizes():
-	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
-#	camera_fix.rect_scale = Vector2.ONE * scale
-#	touch_controls.rect_scale = Vector2.ONE * scale
-#	mute_music.rect_scale = Vector2.ONE * scale
-#	mute_sfx.rect_scale = Vector2.ONE * scale
-	#locale_select.rect_scale = Vector2.ONE * scale
-	#locale_select.margin_right = 0
-	for node in get_tree().get_nodes_in_group("rebinds"):
-		node.scale = scale
-	if prev_scale != scale:
-		camera_fix.rect_min_size = camera_fix.rect_min_size / prev_scale * scale
-		touch_controls.rect_min_size = touch_controls.rect_min_size / prev_scale * scale
-		mute_music.rect_min_size = mute_music.rect_min_size / prev_scale * scale
-		mute_sfx.rect_min_size = mute_sfx.rect_min_size / prev_scale * scale
-		#locale_select.rect_min_size.y = 32# * scaleZz
-		for node in get_tree().get_nodes_in_group("rebinds"):
-			node.rect_min_size.y = node.rect_min_size.y / prev_scale * scale
-			
-		prev_scale = scale

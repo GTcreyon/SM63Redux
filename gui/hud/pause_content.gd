@@ -5,7 +5,6 @@ onready var map = $Content/MapMenu
 onready var fludd = $Content/FluddMenu
 onready var options = $Content/OptionsMenu
 onready var exit = $Content/ExitMenu
-onready var stats = get_tree().get_nodes_in_group("stats")
 onready var button_map = $ButtonContainer/ButtonMap
 onready var button_map_off = $ButtonContainer/ButtonMap/StarsOff
 onready var button_map_on = $ButtonContainer/ButtonMap/StarsOn
@@ -28,41 +27,14 @@ onready var left = $Left
 onready var right = $Right
 
 func _process(_delta):
-	# Control nodes don't like to be made invisible then visible in one frame, it messes with input
-	for node in stats:
-		node.visible = !Singleton.pause_menu
-	if button_map.pressed:
-		map.visible = true
-		fludd.visible = false
-		options.visible = false
-		exit.visible = false
-		info.visible = false
-	elif button_fludd.pressed:
-		map.visible = false
-		fludd.visible = true
-		options.visible = false
-		exit.visible = false
-		info.visible = false
-	elif button_options.pressed:
-		map.visible = false
-		fludd.visible = false
-		options.visible = true
-		exit.visible = false
-		info.visible = false
-	elif button_exit.pressed:
-		map.visible = false
-		fludd.visible = false
-		options.visible = false
-		exit.visible = true
-		info.visible = false
-	else:
-		map.visible = false
-		fludd.visible = false
-		options.visible = false
-		exit.visible = false
-		info.visible = true
-		for node in stats:
-			node.visible = true
+	var buttons = [button_map, button_fludd, button_options, button_exit]
+	var menus = [map, fludd, options, exit]
+	info.visible = true
+	for i in range(4):
+		menus[i].visible = false
+		if buttons[i].pressed and modulate.a > 0:
+			menus[i].visible = true
+			info.visible = false
 
 
 func resize(scale):

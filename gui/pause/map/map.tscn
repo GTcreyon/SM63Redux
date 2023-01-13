@@ -95,7 +95,6 @@ __meta__ = {
 
 [node name="MainCourses" type="VBoxContainer" parent="Courses"]
 margin_right = 640.0
-margin_bottom = 166.0
 custom_constants/separation = 166
 __meta__ = {
 "_edit_use_anchors_": false
@@ -112,9 +111,6 @@ __meta__ = {
 margin_left = 21.0
 margin_top = 12.0
 texture = ExtResource( 10 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pin" type="Sprite" parent="Courses/MainCourses/BoB/Painting"]
 position = Vector2( 52, 0 )
@@ -126,8 +122,8 @@ margin_left = 133.0
 margin_top = 14.0
 margin_bottom = 49.0
 custom_fonts/font = ExtResource( 22 )
-text = "Bob-omb
-Battlefield"
+text = "Bob-omb Battlefield
+ - Coming soon!"
 valign = 1
 autowrap = true
 uppercase = true
@@ -173,27 +169,27 @@ __meta__ = {
 
 [node name="Shine1" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
 frames = SubResource( 4 )
-animation = "on"
+animation = "off"
 
 [node name="Shine2" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
 position = Vector2( 25, 25 )
 frames = SubResource( 4 )
-animation = "on"
+animation = "off"
 
 [node name="Shine3" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
 position = Vector2( 16, 56 )
 frames = SubResource( 4 )
-animation = "on"
+animation = "off"
 
 [node name="Shine4" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
 position = Vector2( -16, 56 )
 frames = SubResource( 4 )
-animation = "on"
+animation = "off"
 
 [node name="Shine5" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
 position = Vector2( -25, 25 )
 frames = SubResource( 4 )
-animation = "on"
+animation = "off"
 
 [node name="CoinGroup" type="GridContainer" parent="Courses/MainCourses/BoB"]
 margin_left = 239.0
@@ -253,17 +249,17 @@ __meta__ = {
 
 [node name="Hover" type="AnimatedSprite" parent="Courses/MainCourses/BoB/FluddGroup"]
 frames = SubResource( 5 )
-animation = "on"
+animation = "off"
 
 [node name="Rocket" type="AnimatedSprite" parent="Courses/MainCourses/BoB/FluddGroup"]
 position = Vector2( 0, 27 )
 frames = SubResource( 6 )
-animation = "on"
+animation = "off"
 
 [node name="Turbo" type="AnimatedSprite" parent="Courses/MainCourses/BoB/FluddGroup"]
 position = Vector2( 0, 56 )
 frames = SubResource( 7 )
-animation = "on"
+animation = "off"
 
 [node name="DividerLeft" type="TextureRect" parent="Courses/MainCourses/BoB"]
 margin_left = 12.0
@@ -296,6 +292,7 @@ __meta__ = {
 }
 
 [node name="SL" type="Control" parent="Courses/MainCourses"]
+visible = false
 margin_top = 166.0
 margin_right = 640.0
 margin_bottom = 166.0
@@ -322,7 +319,7 @@ margin_left = 133.0
 margin_top = 14.0
 margin_bottom = 49.0
 custom_fonts/font = ExtResource( 22 )
-text = "???"
+text = "Coming soon!"
 valign = 1
 autowrap = true
 uppercase = true
@@ -358,6 +355,7 @@ __meta__ = {
 }
 
 [node name="ShineGroup" type="Control" parent="Courses/MainCourses/SL"]
+visible = false
 margin_left = 178.0
 margin_top = 75.0
 margin_right = 178.0
@@ -391,6 +389,7 @@ frames = SubResource( 4 )
 animation = "on"
 
 [node name="CoinGroup" type="GridContainer" parent="Courses/MainCourses/SL"]
+visible = false
 margin_left = 239.0
 margin_top = 62.0
 custom_constants/vseparation = 2
@@ -438,6 +437,7 @@ margin_bottom = 82.0
 texture = ExtResource( 15 )
 
 [node name="FluddGroup" type="Control" parent="Courses/MainCourses/SL"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -48.0
@@ -491,9 +491,10 @@ __meta__ = {
 }
 
 [node name="MiniCourses" type="VBoxContainer" parent="Courses"]
-margin_top = 332.0
+visible = false
+margin_top = 166.0
 margin_right = 640.0
-margin_bottom = 332.0
+margin_bottom = 166.0
 custom_constants/separation = 166
 __meta__ = {
 "_edit_use_anchors_": false
