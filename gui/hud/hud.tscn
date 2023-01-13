@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://gui/dialog/dialog_box.tscn" type="PackedScene" id=1]
-[ext_resource path="res://gui/pause/pause.tscn" type="PackedScene" id=7]
+[ext_resource path="res://gui/pause/pause_menu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://gui/water_meter/water_meter.tscn" type="PackedScene" id=11]
 [ext_resource path="res://gui/life_meter/life_meter.tscn" type="PackedScene" id=13]
 [ext_resource path="res://gui/hud/hud.gd" type="Script" id=14]
