@@ -128,7 +128,7 @@ func warp_to(path: String, player: Player):
 	FlagServer.reset_assign_id()
 
 	# Reset speedrun timer if warping to the start of the game.
-	if path == "res://scenes/tutorial_1/tutorial_1_1.tscn":
+	if path == SpeedrunTimer.RESET_SCENE_PATH:
 		timer.running = true
 		timer.frames = 0
 		timer.split_frames = 0

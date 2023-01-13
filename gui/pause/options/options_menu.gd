@@ -146,3 +146,7 @@ func _disable_all_interactables():
 	# Set all controls to ignore mouse events.
 	for control in _all_interactables:
 		control.mouse_filter = MOUSE_FILTER_IGNORE
+	
+	# Forcibly close locale-select popup.
+	# The intent is that NO control is able to be interacted with, after all.
+	(_locale_select as OptionButton).get_popup().visible = false
