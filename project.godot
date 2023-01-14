@@ -160,7 +160,7 @@ _global_script_classes=[ {
 "path": "res://classes/pickup/pickup.gd"
 }, {
 "base": "KinematicBody2D",
-"class": "Player",
+"class": "PlayerCharacter",
 "language": "GDScript",
 "path": "res://classes/player/player.gd"
 }, {
@@ -260,7 +260,7 @@ _global_script_class_icons={
 "LogFall": "",
 "OutlineContainer": "",
 "Pickup": "",
-"Player": "",
+"PlayerCharacter": "",
 "PolygonContainer": "",
 "ResidualSFX": "",
 "RideArea": "",
