@@ -31,10 +31,11 @@ func _process(_delta):
 	var menus = [map, fludd, options, exit]
 	info.visible = true
 	for i in range(4):
-		menus[i].visible = false
 		if buttons[i].pressed and modulate.a > 0:
 			menus[i].visible = true
 			info.visible = false
+		else:
+			menus[i].visible = false
 
 
 func resize(scale):
