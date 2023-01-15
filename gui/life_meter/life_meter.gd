@@ -20,7 +20,7 @@ var coin_save = 0
 
 func _ready():
 	coin_save = player.coins_toward_health
-	modulate.v = 1 - death_cover.color.a
+	#modulate.v = 1 - death_cover.color.a
 	progress = Singleton.meter_progress
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	filler.frame = player.hp
@@ -28,7 +28,7 @@ func _ready():
 
 func _process(delta):
 	var dmod = 60 * delta
-	modulate.v = 1 - death_cover.color.a
+	#modulate.v = 1 - death_cover.color.a
 	
 	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if Singleton.pause_menu:
