@@ -38,12 +38,17 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 
-[node name="DeathManager" type="ColorRect" parent="."]
+[node name="DeathManager" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="DeathCover" type="ColorRect" parent="DeathManager"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
-script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": "Sorts behind GUI, unlike WarpCover. This is why it exists as a separate object."
+}
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2

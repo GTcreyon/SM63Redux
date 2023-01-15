@@ -8,7 +8,7 @@ onready var player = $"/root/Main/Player"
 onready var filler = $Filler
 onready var coin_meter = $CoinMeter
 onready var coin_ring = $CoinMeter/CoinRing
-onready var death_cover = $"/root/Singleton/CoverLayer/WarpCover"
+onready var death_cover = $"/root/Singleton/DeathManager/DeathCover"
 onready var save_count = player.hp # For when variable gets changed
 var act = false # For when life meter sprite can appear if true
 var rechange_timer = 0
@@ -20,15 +20,20 @@ var coin_save = 0
 
 func _ready():
 	coin_save = player.coins_toward_health
-	#modulate.v = 1 - death_cover.color.a
+	modulate.v = 1 - death_cover.color.a
 	progress = Singleton.meter_progress
 	position.y = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos)) * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	filler.frame = player.hp
 
 
 func _process(delta):
+	# Health meter is on a layer above the death fade effect,
+	# but it needs to fade out with the rest of the world to obscure the
+	# health resetting.
+	# Modulating the meter's brightness (value) does this flawlessly.
+	modulate.v = 1 - death_cover.color.a
+	
 	var dmod = 60 * delta
-	#modulate.v = 1 - death_cover.color.a
 	
 	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if Singleton.pause_menu:

@@ -3,7 +3,7 @@ extends Node
 
 var player_dead = false
 
-onready var cover = $"/root/Singleton/CoverLayer/WarpCover"
+onready var cover = $DeathCover
 
 
 func _process(delta):
