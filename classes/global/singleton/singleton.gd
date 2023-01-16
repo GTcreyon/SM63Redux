@@ -119,10 +119,12 @@ func _process(_delta):
 # Player is passed as second argument so the player's state can
 # be carried over into the next scene. If null is passed instead,
 # no player data will be carried to the next scene.
-func warp_to(path: String, player: PlayerCharacter):
+func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.INF):
 	if player != null:
 		# Save player data for next room.
 		warp_data = InterSceneData.new(player)
+	if position != Vector2.INF:
+		warp_location = position
 	
 	# Prepare flag server for this next room.
 	FlagServer.reset_assign_id()
