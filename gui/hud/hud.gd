@@ -50,20 +50,6 @@ func resize():
 	pause_menu.resize(scale_factor)
 
 
-func change_size(lin_size):
-	# Size: general size of UI elements
-	# Lin_size: linear size (used for elements that look strange when too small, such as the dialog box)
-	water_meter.rect_scale = Vector2.ONE * lin_size
-	stats_tl.rect_scale = Vector2.ONE * lin_size
-	stats_tr.rect_scale = Vector2.ONE * lin_size
-	life_meter.scale = Vector2.ONE * lin_size
-	life_meter.position.x = OS.window_size.x / 2
-	dialog_box.gui_size = lin_size
-#	$InputDisplay.rect_scale = Vector2.ONE * size
-#	$InputDisplay.rect_position = Vector2(2 * size, 71 * size)
-	resize()
-
-
 func _process(delta):
 	var dmod = 60 * delta
 	var new_locale = TranslationServer.get_locale()
