@@ -84,6 +84,13 @@ func run_command(cmd: String):
 			"fdmg":
 				$"/root/Main/Player".hp -= int(args[1])
 				Singleton.log_msg("Forced %d damage." % int(args[1]))
+			"hp", "health":
+				var val = int(args[1])
+				if args[1] != "0" and val == 0:
+					Singleton.log_msg("Couldn't set HP to %s." % args[1], Singleton.LogType.ERROR)
+				else:
+					$"/root/Main/Player".hp = val
+					Singleton.log_msg("Set HP to %d." % val)
 			"designer", "ld":
 				Singleton.log_msg("Entered Level Designer.")
 				# warning-ignore:RETURN_VALUE_DISCARDED
