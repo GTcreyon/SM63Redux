@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/pickup/coin/yellow/coin_yellow.gd"
 }, {
+"base": "Node",
+"class": "DeathManager",
+"language": "GDScript",
+"path": "res://classes/global/singleton/death_manager.gd"
+}, {
 "base": "Node2D",
 "class": "DejitterGroup",
 "language": "GDScript",
@@ -114,6 +119,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/entity/enemy/goomba/goomba.gd"
 }, {
+"base": "Reference",
+"class": "InterSceneData",
+"language": "GDScript",
+"path": "res://classes/global/singleton/inter_scene_data.gd"
+}, {
 "base": "Area2D",
 "class": "Interactable",
 "language": "GDScript",
@@ -153,6 +163,11 @@ _global_script_classes=[ {
 "class": "Pickup",
 "language": "GDScript",
 "path": "res://classes/pickup/pickup.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "PlayerCharacter",
+"language": "GDScript",
+"path": "res://classes/player/player.gd"
 }, {
 "base": "Container",
 "class": "PolygonContainer",
@@ -213,6 +228,11 @@ _global_script_classes=[ {
 "class": "Toad",
 "language": "GDScript",
 "path": "res://classes/interactable/npc/toad/toad.gd"
+}, {
+"base": "Polygon2D",
+"class": "Warp",
+"language": "GDScript",
+"path": "res://classes/global/singleton/warp.gd"
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
@@ -224,6 +244,7 @@ _global_script_class_icons={
 "CoinPickupBlue": "",
 "CoinPickupRed": "",
 "CoinPickupYellow": "",
+"DeathManager": "",
 "DejitterGroup": "res://classes/dejitter_group/dejitter_group.svg",
 "Door": "",
 "DoorSkin": "",
@@ -236,6 +257,7 @@ _global_script_class_icons={
 "FluddEntity": "",
 "FluddPickup": "",
 "Goomba": "",
+"InterSceneData": "",
 "Interactable": "",
 "InteractableDialog": "",
 "InteractableWarp": "",
@@ -244,6 +266,7 @@ _global_script_class_icons={
 "LogFall": "",
 "OutlineContainer": "",
 "Pickup": "",
+"PlayerCharacter": "",
 "PolygonContainer": "",
 "ResidualSFX": "",
 "RideArea": "",
@@ -255,7 +278,8 @@ _global_script_class_icons={
 "Telescoping": "",
 "TileToPoly": "",
 "TippingLog": "",
-"Toad": ""
+"Toad": "",
+"Warp": ""
 }
 
 [application]

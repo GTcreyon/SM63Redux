@@ -49,22 +49,16 @@ onready var timer = $Timer
 
 var classic = false
 
-var nozzle = 0
-var water: float = 100.0
-var power = 100
+# Player data that persists between scenes
+var warp_location # Location player spawns after a warp
+var warp_data: InterSceneData
+
 var coin_total = 0
-var internal_coin_counter = 0 # If it hits 5, gets reset
 var red_coin_total = 0
 var rng = RandomNumberGenerator.new()
-var life_meter = 8
-var enter = 0
-var direction = 0
-var dead = false
-var hp = 8
+var enter = 0 # apparently unused?
+var direction = 0 # apparently unused?
 var meter_progress = 0
-var collected_nozzles = [false, false, false]
-var set_location
-var flip
 var pause_menu = false
 var line_count: int = 0
 var disable_limits = false
@@ -121,13 +115,29 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
 
 
-func warp_to(path):
+# Warp to the scene specified by string.
+# Player is passed as second argument so the player's state can
+# be carried over into the next scene. If null is passed instead,
+# no player data will be carried to the next scene.
+func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.INF):
+	if player != null:
+		# Save player data for next room.
+		warp_data = InterSceneData.new(player)
+	if position != Vector2.INF:
+		warp_location = position
+	
+	# Prepare flag server for this next room.
 	FlagServer.reset_assign_id()
+
+	# Reset speedrun timer if warping to the start of the game.
 	if path == SpeedrunTimer.RESET_SCENE_PATH:
 		timer.running = true
 		timer.frames = 0
 		timer.split_frames = 0
+	# Either way, mark a new split.
 	timer.split_timer()
+	
+	# Do the actual warp.
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().call_deferred("change_scene", path)
 

@@ -1,3 +1,4 @@
+class_name PlayerCharacter
 extends KinematicBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
@@ -83,6 +84,29 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 	}
 }
 
+var ground_pound_effect = preload("res://classes/player/ground_pound_effect.tscn")
+
+# vars to lock mechanics
+var invuln_frames: int = 0
+var locked: bool = false
+
+# visual vars
+var last_step = 0
+var invuln_flash: int = 0
+
+# health vars
+var hp = 8
+var life_meter = 8 # apparently unused
+var coins_toward_health = 0 # If it hits 5, gets reset
+
+# FLUDD state vars
+var collected_nozzles = [false, false, false]
+var current_nozzle = 0
+var water: float = 100.0
+var fludd_power = 100
+
+var dead = false
+
 onready var base_modifier = BaseModifier.new()
 onready var voice = $Voice
 onready var step = $Step
@@ -103,26 +127,31 @@ onready var dust = $Dust
 onready var ground_failsafe_check: Area2D = $GroundFailsafe
 onready var feet_area: Area2D = $Feet
 
-var ground_pound_effect = preload("res://classes/player/ground_pound_effect.tscn")
-
-# vars to lock mechanics
-var invuln_frames: int = 0
-var locked: bool = false
-
-# visual vars
-var last_step = 0
-var invuln_flash: int = 0
 
 
 func _ready():
 	sprite.playing = true
 	nozzle_fx.playing = true
-	var warp = $"/root/Singleton/Warp"
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
-	if Singleton.set_location != null:
-		position = Singleton.set_location
-		warp.set_location = null
-		sprite.flip_h = warp.flip
+
+	# If we came from another scene, load our data from that scene.
+	if Singleton.warp_location != null:
+		position = Singleton.warp_location
+		#Singleton.warp_location = null # Used when respawning, shouldn't clear
+	
+	if Singleton.warp_data != null:
+		sprite.flip_h = Singleton.warp_data.sprite_flip
+
+		hp = Singleton.warp_data.hp
+		coins_toward_health = Singleton.warp_data.coins_toward_health
+		
+		collected_nozzles = Singleton.warp_data.collected_nozzles
+		current_nozzle = Singleton.warp_data.current_nozzle
+		water = Singleton.warp_data.water
+		fludd_power = Singleton.warp_data.fludd_power # is this one necessary?
+
+		# Warp data's served its purpose, go ahead and delete it.
+		Singleton.warp_data = null
 
 
 func _process(delta):
@@ -149,7 +178,7 @@ var water_areas: int = 0
 func _on_WaterCheck_area_entered(_area):
 	swimming = true
 	switch_state(S.NEUTRAL)
-	Singleton.water = max(Singleton.water, 100)
+	water = max(water, 100)
 	water_areas += 1
 
 
@@ -222,8 +251,8 @@ func player_physics():
 		switch_fludd()
 	
 	if swimming:
-		Singleton.water = max(Singleton.water, 100)
-		Singleton.power = 100
+		water = max(water, 100)
+		fludd_power = 100
 
 	
 	if coyote_frames > 0:
@@ -361,7 +390,7 @@ func fixed_visuals() -> void:
 			hover_loop_sfx.stop()
 	else:
 		hover_loop_sfx.stop()
-		if Singleton.power > 99:
+		if fludd_power > 99:
 			hover_sound_position = 0
 			hover_sfx.stop()
 			
@@ -369,7 +398,7 @@ func fixed_visuals() -> void:
 			if !hover_sfx.playing:
 				hover_sfx.play(hover_sound_position)
 		else:
-			if Singleton.power < 100:
+			if fludd_power < 100:
 				hover_sound_position = hover_sfx.get_playback_position()
 			else:
 				hover_sound_position = 0
@@ -379,7 +408,7 @@ func fixed_visuals() -> void:
 	bubbles.emitting = fludd_strain
 	
 	if fludd_strain:
-		nozzle_fx_scale = min(lerp(0.3, 1, Singleton.power / 100), nozzle_fx_scale + 0.1)
+		nozzle_fx_scale = min(lerp(0.3, 1, fludd_power / 100), nozzle_fx_scale + 0.1)
 	else:
 		nozzle_fx_scale = max(0, nozzle_fx_scale - 0.25)
 	nozzle_fx.visible = nozzle_fx_scale > 0
@@ -426,8 +455,9 @@ func fixed_visuals() -> void:
 		sprite.speed_scale = 1
 	
 	#$Label.text = str(vel.x)
-	if Singleton.hp <= 0:
-		Singleton.dead = true
+	if hp <= 0:
+		dead = true
+		Singleton.get_node("DeathManager").register_player_death(self)
 	
 	fludd_sprite.flip_h = sprite.flip_h
 	if sprite.animation.begins_with("spin"):
@@ -565,13 +595,13 @@ func fludd_control():
 	_fludd_spraying_rising = false
 	
 	if grounded:
-		Singleton.power = 100 # TODO: multi fludd
-	elif !Input.is_action_pressed("fludd") and Singleton.nozzle != Singleton.n.hover:
-		Singleton.power = min(Singleton.power + FPS_MOD, 100)
+		fludd_power = 100 # TODO: multi fludd
+	elif !Input.is_action_pressed("fludd") and current_nozzle != Singleton.n.hover:
+		fludd_power = min(fludd_power + FPS_MOD, 100)
 	if (
 		Input.is_action_pressed("fludd")
-		and Singleton.power > 0
-		and Singleton.water > 0
+		and fludd_power > 0
+		and water > 0
 		and state & (
 				S.NEUTRAL
 				| S.BACKFLIP
@@ -580,7 +610,7 @@ func fludd_control():
 			)
 	):
 		_fludd_spraying = true
-		match Singleton.nozzle:
+		match current_nozzle:
 			Singleton.n.hover:
 				fludd_strain = true
 				double_anim_cancel = true
@@ -603,7 +633,7 @@ func fludd_control():
 								vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
 								vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(FPS_MOD, 2)
 					else:
-						if Singleton.power == 100 and !swimming:
+						if fludd_power == 100 and !swimming:
 							vel.y -= 2
 						
 						if Input.is_action_pressed("jump"):
@@ -613,13 +643,13 @@ func fludd_control():
 						if swimming:
 							vel.y -= 0.75
 						else:
-							vel.y -= (((-4*Singleton.power*vel.y * FPS_MOD * FPS_MOD) + (-525*vel.y * FPS_MOD) + (368*Singleton.power * FPS_MOD * FPS_MOD) + (48300)) / 7000) * pow(FPS_MOD, 5)
+							vel.y -= (((-4*fludd_power*vel.y * FPS_MOD * FPS_MOD) + (-525*vel.y * FPS_MOD) + (368*fludd_power * FPS_MOD * FPS_MOD) + (48300)) / 7000) * pow(FPS_MOD, 5)
 						vel.x = resist(vel.x, 0.05, 1.03)
 					if !swimming:
-						Singleton.water = max(0, Singleton.water - 0.07 * FPS_MOD)
-						Singleton.power -= 1.5 * FPS_MOD
+						water = max(0, water - 0.07 * FPS_MOD)
+						fludd_power -= 1.5 * FPS_MOD
 			Singleton.n.rocket:
-				if Singleton.power == 100:
+				if fludd_power == 100:
 					fludd_strain = true
 					rocket_charge += 1
 				else:
@@ -641,8 +671,8 @@ func fludd_control():
 					rocket_charge = 0
 					
 					if !swimming:
-						Singleton.water = max(Singleton.water - 5, 0)
-						Singleton.power = 0
+						water = max(water - 5, 0)
+						fludd_power = 0
 	else:
 		fludd_strain = false
 		rocket_charge = 0
@@ -692,7 +722,7 @@ func manage_triple_flip() -> void:
 		if sprite.flip_h:
 			dir = -1
 		var multiplier = 1
-		if Singleton.nozzle == Singleton.n.none:
+		if current_nozzle == Singleton.n.none:
 			multiplier = 2
 		sprite.rotation = dir * multiplier * TAU * ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
 		if triple_flip_frames >= TRIPLE_FLIP_TIME:
@@ -961,7 +991,7 @@ func reset_dive() -> void:
 
 func airborne_anim() -> void:
 	if state == S.TRIPLE_JUMP:
-		if Singleton.nozzle == Singleton.n.none:
+		if current_nozzle == Singleton.n.none:
 			if abs(sprite.rotation_degrees) < 700:
 				switch_anim("flip")
 			else:
@@ -1183,19 +1213,19 @@ func manage_dive_recover():
 
 
 func switch_fludd():
-	var save_nozzle = Singleton.nozzle
-	Singleton.nozzle += 1
+	var save_nozzle = current_nozzle
+	current_nozzle += 1
 	while (
 		(
-			Singleton.nozzle < 4
-			and !Singleton.collected_nozzles[(Singleton.nozzle - 1) % 3]
+			current_nozzle < 4
+			and !collected_nozzles[(current_nozzle - 1) % 3]
 		)
-		or Singleton.nozzle == 0
+		or current_nozzle == 0
 	):
-		Singleton.nozzle += 1
-	if Singleton.nozzle == 4:
-		Singleton.nozzle = 0
-	if Singleton.nozzle != save_nozzle:
+		current_nozzle += 1
+	if current_nozzle == 4:
+		current_nozzle = 0
+	if current_nozzle != save_nozzle:
 		# lazy way to refresh fludd anim
 		var anim = sprite.animation.replace("_fludd", "")
 		switch_anim(anim)
@@ -1292,7 +1322,7 @@ func switch_anim(new_anim):
 		last_step = 1 # ensures that the step sound will be made when hitting the ground
 	anim = new_anim
 	
-	if Singleton.nozzle == Singleton.n.none:
+	if current_nozzle == Singleton.n.none:
 		fludd_sprite.visible = false # hides the fludd sprite
 	else:
 		fludd_sprite.visible = true
@@ -1303,7 +1333,7 @@ func switch_anim(new_anim):
 			anim = new_anim
 			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
 	
-	match Singleton.nozzle: # TODO - multi fludd
+	match current_nozzle: # TODO - multi fludd
 		Singleton.n.hover:
 			fludd_sprite.animation = "hover"
 		Singleton.n.rocket:
@@ -1316,7 +1346,7 @@ func switch_anim(new_anim):
 
 func take_damage(amount):
 	if invuln_frames <= 0 and !locked:
-		Singleton.hp = clamp(Singleton.hp - amount, 0, 8) # TODO - multi HP
+		hp = clamp(hp - amount, 0, 8) # TODO - multi HP
 		invuln_frames = 180
 
 
@@ -1338,7 +1368,7 @@ func off_ground():
 
 
 func recieve_health(amount):
-	Singleton.hp = clamp(Singleton.hp + amount, 0, 8) # TODO - multi HP
+	hp = clamp(hp + amount, 0, 8) # TODO - multi HP
 
 
 const DIVE_CORRECTION = 7

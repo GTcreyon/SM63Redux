@@ -8,7 +8,7 @@ onready var cover = $"../CoverLayer/WarpCover"
 
 var direction = 0
 var enter = 0
-var set_location = null
+var warp_location = null
 var progress: float = 0.0
 var scene_path: NodePath = ""
 
@@ -59,11 +59,14 @@ func _process(delta):
 		visible = true
 		cover.color.a = progress + in_unit
 		if progress >= 1 - in_unit:
-			if has_node("/root/Main/Player/AnimatedSprite"):
-				Singleton.flip = $"/root/Main/Player/AnimatedSprite".flip_h
-			else:
-				Singleton.flip = false
-			Singleton.call_deferred("warp_to", scene_path)
+			# WindowWarp is used in main menu, not just in levels.
+			# Only find player if there actually is a player.
+			var player: PlayerCharacter = null
+			if has_node("/root/Main/Player"):
+				player = $"/root/Main/Player"
+			Singleton.call_deferred("warp_to", scene_path, player)
+
+			# Begin the opposite fade.
 			enter = -1
 			progress = 0
 		else:
@@ -87,5 +90,5 @@ func warp(location, path, t_in = 25, t_out = 15):
 	in_time = t_in
 	out_time = t_out
 	enter = 1
-	Singleton.set_location = location
+	Singleton.warp_location = location
 	scene_path = path
