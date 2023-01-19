@@ -21,7 +21,7 @@ func _ready_override() -> void:
 		vel.y = -7 * 0.53
 
 
-func _add_coins(num: int, player) -> void:
+func _add_coins(num: int, player: PlayerCharacter) -> void:
 	Singleton.coin_total += num
 	if player.hp < 8:
 		player.coins_toward_health += num
