@@ -16,8 +16,12 @@ func _ready():
 	# Validate child warp object.
 	assert(warp)
 	
-	# Disable the child warp so it doesn't get used by mistake.
-	warp.disabled = true
+	if false: # if door is unlocked
+		# Destroy lock and leave the warp.
+		unwrap_lock()
+	else:
+		# Disable the child warp so it doesn't get used by mistake.
+		warp.disabled = true
 
 
 func _interact_check() -> bool:
