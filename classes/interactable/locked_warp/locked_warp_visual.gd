@@ -18,7 +18,7 @@ func _ready():
 	
 	if false: # if door is unlocked
 		# Destroy lock and leave the warp.
-		unwrap_lock()
+		unlock_instant()
 	else:
 		# Disable the child warp so it doesn't get used by mistake.
 		warp.disabled = true
@@ -55,7 +55,7 @@ func _physics_override():
 		# End animations
 		match current_anim:
 			LockAnimation.UNLOCK:
-				unwrap_lock()
+				unlock_instant()
 				# Passthrough to inner warp animation.
 				warp._interact_with(player)
 			LockAnimation.JIGGLE:
@@ -83,7 +83,8 @@ func begin_jiggle():
 	anim_timer = 60
 
 
-func unwrap_lock():
+# Instantly destroys the lock and moves the internal warp out.
+func unlock_instant():
 	# Move warp into lock's parent node, while making sure the global
 	# position remains the same.
 	var warp_pos = warp.global_position
@@ -94,3 +95,8 @@ func unwrap_lock():
 	warp.disabled = false
 	
 	queue_free()
+
+
+# Gets the lock's internal warp.
+func get_locked_object() -> InteractableWarp:
+	return warp
