@@ -1427,6 +1427,7 @@ func take_damage_shove(amount, direction):
 		hurt_timer = 30
 		switch_anim("hurt")
 		clear_rotation_origin()
+		camera.offset = Vector2.ZERO
 		vel = Vector2(4 * direction, -3)
 		sprite.flip_h = direction == 1
 		off_ground()
