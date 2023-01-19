@@ -527,8 +527,8 @@ func action_pound() -> void:
 		sprite.rotation *= -1 if sprite.flip_h else 1
 		
 		# Begin windup state once the spin ends
-		if pound_spin_frames == POUND_SPIN_DURATION:
-			switch_anim("pound_windup")
+		#if pound_spin_frames == POUND_SPIN_DURATION:
+		#	switch_anim("pound_windup")
 		
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
