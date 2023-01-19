@@ -51,10 +51,9 @@ func _physics_override():
 		# End animations
 		match current_anim:
 			LockAnimation.UNLOCK:
+				unwrap_lock()
 				# Passthrough to inner warp animation.
 				warp._interact_with(player)
-				# TODO: Move door out of lock and destroy lock.
-				#queue_free()
 			LockAnimation.JIGGLE:
 				pass
 		
@@ -81,5 +80,13 @@ func begin_jiggle():
 
 
 func unwrap_lock():
-	# remove_child then replace_by.
-	pass
+	# Move warp into lock's parent node, while making sure the global
+	# position remains the same.
+	var warp_pos = warp.global_position
+	remove_child(warp)
+	get_parent().add_child(warp)
+	warp.global_position = warp_pos
+	# Re-enable warp.
+	warp.disabled = false
+	
+	queue_free()
