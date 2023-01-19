@@ -1,3 +1,4 @@
+class_name LockedWarp
 extends Interactable
 
 enum LockAnimation {
@@ -11,6 +12,27 @@ export(NodePath) onready var warp = get_node(warp) as InteractableWarp
 var current_anim = LockAnimation.NONE
 var anim_timer = -1
 var player
+
+
+func _init(target: Interactable):
+	
+	# Save current position of target.
+	var warp_position = target.global_position
+	
+	# Switch target warp for lock in the hierarchy.
+	var warp_parent = target.get_parent()
+	warp_parent.remove_child(target)
+	warp_parent.add_child(self)
+	# Move target warp into lock.
+	add_child(target)
+	
+	# Register target as destination warp.
+	warp = target
+	
+	# Put everything in its right place again.
+	global_position = warp_position
+	target.global_position = Vector2.ZERO
+
 
 func _ready():
 	# Validate child warp object.
@@ -87,10 +109,10 @@ func begin_jiggle():
 func unlock_instant():
 	# Move warp into lock's parent node, while making sure the global
 	# position remains the same.
-	var warp_pos = warp.global_position
+	var warp_position = warp.global_position
 	remove_child(warp)
 	get_parent().add_child(warp)
-	warp.global_position = warp_pos
+	warp.global_position = warp_position
 	# Re-enable warp.
 	warp.disabled = false
 	
