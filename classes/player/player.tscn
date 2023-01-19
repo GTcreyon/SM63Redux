@@ -1,12 +1,12 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/bubbles.gd" type="Script" id=2]
 [ext_resource path="res://classes/player/player.gd" type="Script" id=3]
 [ext_resource path="res://classes/player/fludd_nozzlefx.png" type="Texture" id=4]
 [ext_resource path="res://gui/hud/hud.tscn" type="PackedScene" id=5]
-[ext_resource path="res://classes/player/hover_loop.mp3" type="AudioStream" id=6]
-[ext_resource path="res://classes/player/hover.mp3" type="AudioStream" id=7]
+[ext_resource path="res://classes/player/sfx/fludd/hover_loop.mp3" type="AudioStream" id=6]
+[ext_resource path="res://classes/player/sfx/fludd/hover.mp3" type="AudioStream" id=7]
 [ext_resource path="res://classes/player/mario_sheet.png" type="Texture" id=8]
 [ext_resource path="res://shaders/distance_field.tres" type="Material" id=9]
 [ext_resource path="res://classes/player/fludd_water.png" type="Texture" id=10]
@@ -15,7 +15,9 @@
 [ext_resource path="res://classes/player/bubble.tres" type="Material" id=13]
 [ext_resource path="res://classes/player/camera.gd" type="Script" id=14]
 [ext_resource path="res://classes/particles/dust.png" type="Texture" id=15]
-[ext_resource path="res://classes/player/fludd_switch.wav" type="AudioStream" id=16]
+[ext_resource path="res://classes/player/sfx/fludd/fludd_switch.wav" type="AudioStream" id=16]
+[ext_resource path="res://classes/player/sfx/pound/pound_spin.wav" type="AudioStream" id=17]
+[ext_resource path="res://classes/player/sfx/spin_air_1.wav" type="AudioStream" id=18]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )
@@ -443,6 +445,20 @@ bus = "SFX"
 volume_db = -15.0
 bus = "SFX"
 
+[node name="SpinSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+volume_db = -17.0
+bus = "SFX"
+
+[node name="Thud" type="AudioStreamPlayer" parent="."]
+volume_db = -9.0
+bus = "SFX"
+
+[node name="PoundSpin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 17 )
+volume_db = -18.0
+bus = "SFX"
+
 [node name="DiveAngling" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 18 )
@@ -494,6 +510,7 @@ script = ExtResource( 2 )
 
 [node name="SwitchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
+volume_db = -6.0
 bus = "SFX"
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="."]
