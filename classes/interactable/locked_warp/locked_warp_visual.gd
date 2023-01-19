@@ -14,26 +14,6 @@ var anim_timer = -1
 var player
 
 
-func _init(target: Interactable):
-	
-	# Save current position of target.
-	var warp_position = target.global_position
-	
-	# Switch target warp for lock in the hierarchy.
-	var warp_parent = target.get_parent()
-	warp_parent.remove_child(target)
-	warp_parent.add_child(self)
-	# Move target warp into lock.
-	add_child(target)
-	
-	# Register target as destination warp.
-	warp = target
-	
-	# Put everything in its right place again.
-	global_position = warp_position
-	target.global_position = Vector2.ZERO
-
-
 func _ready():
 	# Validate child warp object.
 	assert(warp)
@@ -87,12 +67,35 @@ func _physics_override():
 		anim_timer -= 1
 
 
+# Puts this lock on an interactable.
+func lock_object(target: Interactable):
+	# If we already have a target, let that target go first.
+	if warp != null:
+		unlock_instant(false)
+	
+	# Save current position of target.
+	var warp_position = target.global_position
+	
+	# Switch target warp for lock in the hierarchy.
+	var warp_parent = target.get_parent()
+	warp_parent.remove_child(target)
+	warp_parent.add_child(self)
+	# Move target warp into lock.
+	add_child(target)
+	
+	# Register target as destination warp.
+	warp = target
+	
+	# Put everything in its right place again.
+	global_position = warp_position
+	target.global_position = warp_position
+
+
 func begin_unlock(body):
 	# Save player for future use.
 	player = body
 	# Lock player input for the unlock animation.
 	player.locked = true
-	
 	
 	# Set animation to begin.
 	current_anim = LockAnimation.UNLOCK
@@ -105,8 +108,9 @@ func begin_jiggle():
 	anim_timer = 60
 
 
-# Instantly destroys the lock and moves the internal warp out.
-func unlock_instant():
+# Moves the internal warp completely out of the lock, then either destroys
+# the lock or detaches it from the hierarchy (destroys if unspecified).
+func unlock_instant(destroy_lock = true):
 	# Move warp into lock's parent node, while making sure the global
 	# position remains the same.
 	var warp_position = warp.global_position
@@ -116,7 +120,12 @@ func unlock_instant():
 	# Re-enable warp.
 	warp.disabled = false
 	
-	queue_free()
+	if destroy_lock:
+		queue_free()
+	else:
+		get_parent().remove_child(self)
+		warp = null
+		anim_timer = -1
 
 
 # Gets the lock's internal warp.
