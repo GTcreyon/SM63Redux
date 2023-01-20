@@ -156,6 +156,8 @@ onready var sprite = $Character
 onready var fludd_sprite = $Character/Fludd
 onready var camera = $"/root/Main/Player/Camera"
 onready var step_check = $StepCheck
+onready var pound_check_l = $PoundCheckL
+onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
@@ -532,20 +534,52 @@ func wall_stop() -> void:
 		vel.y = max(vel.y, 0.1)
 
 
+const POUND_TIME_TO_FALL = 18 # Time to move from pound spin to pound fall
+const _POUND_HANG_TIME = 9
+const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spin animation lasts
+const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
+const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
+const POUND_SPIN_RISE_TIME = 15
+const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
+
 var pound_spin_frames: int = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
-		if sprite.flip_h:
-			sprite.rotation = -TAU * pound_spin_frames / 15
-		else:
-			sprite.rotation = TAU * pound_spin_frames / 15
-		if pound_spin_frames >= 15:
+		# Spin frames normalized from 0-1.
+		# Min makes it stop after one full spin.
+		var pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		# Blend between 0% and 100% smoothed animation.
+		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
+		
+		# Move sprite origin for nicer rotation animation
+		set_rotation_origin(sprite.flip_h, POUND_ORIGIN_OFFSET)
+		# Offset origin's X less at the start of the spin. (Looks better!?)
+		sprite.dejitter_position *= Vector2(pound_spin_factor, 1)
+		# A little rising as we wind up makes it look real nice.
+		sprite.dejitter_position.y -= POUND_SPIN_RISE * min(pound_spin_frames,
+			POUND_SPIN_RISE_TIME)
+		
+		# Set rotation according to position in the animation.
+		sprite.rotation = TAU * pound_spin_factor
+		# Adjust rotation depending on our facing direction.
+		sprite.rotation *= -1 if sprite.flip_h else 1
+		
+		# Begin windup state once the spin ends
+		#if pound_spin_frames == POUND_SPIN_DURATION:
+		#	switch_anim("pound_windup")
+		
+		# Once spin animation ends, fall.
+		if pound_spin_frames >= POUND_TIME_TO_FALL:
+			# Reset sprite transforms.
+			clear_rotation_origin()
+			
 			sprite.rotation = 0
+			
 			pound_state = Pound.FALL
 			vel.y = 8
-			
-	
+
+
 	if Input.is_action_pressed("pound"):
 		if state == S.DIVE and gp_dive_timer > 0:
 			var mag = vel.length()
@@ -1065,7 +1099,9 @@ func airborne_anim() -> void:
 		else:
 			sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
 
-
+const POUND_LAND_DURATION = 12
+const POUND_SHAKE_INITIAL = 4
+const POUND_SHAKE_MULTIPLIER = 0.75
 func manage_pound_recover() -> void:
 	if state == S.POUND:
 		if pound_land_frames == 12: # just hit ground
@@ -1079,12 +1115,36 @@ func manage_pound_recover() -> void:
 			fx.find_node("StarsAnim").play("GroundPound")
 			
 			# Dispatch pound thud
+			# Begin by checking center for a collider
 			var collider: CollisionObject2D = step_check.get_collider()
+			if collider == null:
+				# Center check failed, check right side.
+				collider = pound_check_r.get_collider()
+			if collider == null:
+				# Right check failed, check left side.
+				collider = pound_check_l.get_collider()
+			# If a collider was found, play the thud.
 			if collider != null:
 				play_sfx("pound", terrain_typestring(collider))
 			
+			# Jolt camera downwards
+			camera.offset = Vector2(0, POUND_SHAKE_INITIAL)
 		elif pound_land_frames <= 0: # impact ended, get up
 			switch_state(S.NEUTRAL)
+			# Nullify all camera shake.
+			camera.offset = Vector2.ZERO
+		else: # just handle camera shake
+			# Shake goes up on even frames, down on odd frames.
+			var shake_sign = 1 if pound_land_frames % 2 else -1
+			# Shake is less strong every frame that passes.
+			# (Another branch takes the land_frames == 0 case--
+			# no illegal divisions here!)
+			var shake_magnitude = float(pound_land_frames) / POUND_LAND_DURATION
+			# But a square-root falloff lets you feel it longer.
+			shake_magnitude = sqrt(shake_magnitude)
+			
+			shake_magnitude *= POUND_SHAKE_INITIAL
+			camera.offset = Vector2(0, shake_magnitude * shake_sign)
 		# warning-ignore:narrowing_conversion
 		pound_land_frames = max(0, pound_land_frames - 1)
 
@@ -1367,6 +1427,7 @@ func switch_state(new_state):
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
 			camera.smoothing_speed = 5
+			clear_rotation_origin()
 	# End spin SFX on any state change
 	spin_sfx.stop()
 
@@ -1412,6 +1473,8 @@ func take_damage_shove(amount, direction):
 		switch_state(S.HURT)
 		hurt_timer = 30
 		switch_anim("hurt")
+		clear_rotation_origin()
+		camera.offset = Vector2.ZERO
 		vel = Vector2(4 * direction, -3)
 		sprite.flip_h = direction == 1
 		off_ground()
@@ -1517,3 +1580,18 @@ func resist(val, sub, div): # ripped from source
 	val /= div
 	val *= vel_sign
 	return val * FPS_MOD
+
+
+func set_rotation_origin (face_left: bool, origin: Vector2):
+	# Vector to flip the offset's X, as appropriate.
+	var facing = Vector2(
+		-1 if face_left else 1, # Convert 0 to -1
+		1)
+	
+	sprite.offset = origin * facing
+	fludd_sprite.position = origin * facing
+	sprite.dejitter_position = -origin * facing
+	sprite.position = sprite.dejitter_position
+
+func clear_rotation_origin ():
+	set_rotation_origin(false, Vector2.ZERO)

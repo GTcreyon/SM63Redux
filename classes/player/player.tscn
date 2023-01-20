@@ -1,4 +1,5 @@
-[gd_scene load_steps=73 format=2]
+
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/bubbles.gd" type="Script" id=2]
@@ -90,6 +91,14 @@ region = Rect2( 192, 0, 24, 38 )
 [sub_resource type="AtlasTexture" id=34]
 atlas = ExtResource( 8 )
 region = Rect2( 192, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 8 )
+region = Rect2( 456, 0, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 8 )
+region = Rect2( 456, 38, 24, 38 )
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 8 )
@@ -241,6 +250,16 @@ animations = [ {
 "frames": [ SubResource( 34 ) ],
 "loop": true,
 "name": "pound_fall_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 57 ) ],
+"loop": true,
+"name": "pound_windup",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 58 ) ],
+"loop": true,
+"name": "pound_windup_fludd",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 12 ) ],
@@ -538,6 +557,22 @@ texture = ExtResource( 15 )
 [node name="StepCheck" type="RayCast2D" parent="."]
 enabled = true
 cast_to = Vector2( 0, 20 )
+
+[node name="PoundCheckR" type="RayCast2D" parent="."]
+position = Vector2( 6, 0 )
+enabled = true
+cast_to = Vector2( 0, 20 )
+__meta__ = {
+"_editor_description_": "Used during ground pound to check if the player's right edge is hitting ground. Aligned with right edge of player's hitbox."
+}
+
+[node name="PoundCheckL" type="RayCast2D" parent="."]
+position = Vector2( -6, 0 )
+enabled = true
+cast_to = Vector2( 0, 20 )
+__meta__ = {
+"_editor_description_": "Used during ground pound to check if the player's left edge is hitting ground. Aligned with left edge of player's hitbox."
+}
 
 [node name="Feet" type="Area2D" parent="."]
 collision_layer = 16
