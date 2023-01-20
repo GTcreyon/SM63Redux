@@ -9,11 +9,12 @@ extends Node2D
 export var dejitter_position = Vector2.ZERO
 
 onready var parent = get_parent()
-var last_pos : Vector2
+var last_pos: Vector2
+
 
 func _physics_process(_delta):
 	# Find offset needed to fit uneven-sized sprites to the grid
-	var offset_vec : Vector2
+	var offset_vec: Vector2
 	var carrier_node = get_node(get_path()) # Get the current node
 	if carrier_node is AnimatedSprite:
 		# Set offset relative to current frame of animation

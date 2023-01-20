@@ -61,6 +61,7 @@ func calculate_selected(max_selected = 32):
 				break
 	return hit
 
+
 func on_release():
 	# Remove the effect of previous selection
 	for hit in selection_hit:

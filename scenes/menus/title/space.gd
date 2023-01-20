@@ -5,6 +5,7 @@ const TIME = 30.0
 var progress = 0.0
 var wait = 0.0
 
+
 func _process(delta):
 	var dmod = 60 * delta
 	var scale = get_parent().scale

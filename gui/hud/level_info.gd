@@ -15,6 +15,7 @@ onready var mission_details_panel = $DetailsPanel
 
 var perm_scale
 
+
 func resize(scale):
 	perm_scale = scale
 	var font = level_name.get_font("font")

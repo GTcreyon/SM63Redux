@@ -4,6 +4,7 @@ const PLAYER_STOP_HEIGHT = 15
 const SLIDE_SPEED = 0.7
 const SLIDE_SPEED_FAST = 1.4
 
+
 var store_state = 0
 var ride_area
 var begin_pound = false # Did we land a pound this frame?

@@ -1,5 +1,6 @@
 extends OptionButton
 
+
 func _ready():
 	for layout in TouchControls.LAYOUT_PRESETS:
 		var clean_name = " " + layout[0].to_upper() + layout.substr(1)

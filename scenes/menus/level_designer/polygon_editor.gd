@@ -3,6 +3,7 @@ extends Control
 onready var main = $"/root/Main"
 onready var drawable_polygon = $Polygon
 
+
 func _unhandled_input(event):
 	if event.is_action_released("ld_cancel_placement"):
 		quit_creating(false)
@@ -29,6 +30,7 @@ func quit_creating(save):
 		var terrain = main.place_terrain(polygon_data)
 		terrain.position = polygon_position
 
+
 func start_polygon_creation():
 	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
@@ -38,6 +40,7 @@ func start_polygon_creation():
 	drawable_polygon.should_connector_be_transparent = true
 	drawable_polygon.should_draw_predict_line = true
 	drawable_polygon.should_have_buttons = false
+
 
 func edit_polygon(obj_to_edit):
 	if main.editor_state != main.EDITOR_STATE.IDLE:
@@ -54,6 +57,7 @@ func edit_polygon(obj_to_edit):
 	drawable_polygon.should_connector_be_transparent = false
 	drawable_polygon.should_draw_predict_line = false
 	drawable_polygon.should_have_buttons = true
+
 
 func _demo_press():
 	start_polygon_creation()

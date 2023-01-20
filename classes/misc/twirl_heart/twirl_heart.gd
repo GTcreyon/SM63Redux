@@ -13,7 +13,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if crossed_item:
-		if Singleton.hp < 8:
+		if mario.hp < 8:
 			if timer >= 30:
 				mario.recieve_health(1)
 				timer = 0
@@ -24,6 +24,7 @@ func _physics_process(_delta):
 			sprite.set_speed_scale(1.0)
 			timer = 30
 			mario = null
+
 
 func _on_Heart_body_entered(body):
 	crossed_item = true

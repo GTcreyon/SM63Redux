@@ -14,6 +14,7 @@ export var offset = 0.0
 
 var rot = 0.0
 
+
 func _ready():
 	refresh_ring()
 

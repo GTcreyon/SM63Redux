@@ -3,6 +3,7 @@ extends Control
 onready var sprite = $Sprite
 var pressed = false
 
+
 func _on_Button_pressed():
 	pressed = !pressed
 	if pressed:
