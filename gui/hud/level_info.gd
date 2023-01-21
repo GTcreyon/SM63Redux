@@ -12,11 +12,9 @@ func refresh_caps():
 	if TranslationServer.get_locale().substr(0, 2) == "en":
 		level_name.add_font_override("font", RUBY)
 		level_name.uppercase = true
-		#resize(perm_scale)
 	else:
 		level_name.add_font_override("font", BYLIGHT)
 		level_name.uppercase = false
-		#resize(perm_scale)
 
 
 func _process(_delta):

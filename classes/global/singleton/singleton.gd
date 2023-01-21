@@ -146,8 +146,8 @@ func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
 	else:
 		rounded.y = ceil(scale_vec.y)
 	
-	var scale_x: int = max(rounded.x, 1)
-	var scale_y: int = max(rounded.y, 1)
+	var scale_x: int = int(max(rounded.x, 1))
+	var scale_y: int = int(max(rounded.y, 1))
 	
 	match mode:
 		-1:

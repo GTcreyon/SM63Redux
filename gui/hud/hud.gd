@@ -41,11 +41,9 @@ func _ready():
 
 func resize():
 	var scale_factor = Singleton.get_screen_scale(-1)
-#	var topsize = OS.window_size.x / scale - 36 - 30
-#	var offset = 38 / 2 - floor((int(topsize) % 38) / 2.0)
 	rect_scale = Vector2.ONE * scale_factor
 	rect_size = OS.window_size / scale_factor
-	pause_menu.resize(scale_factor)
+	pause_menu.resize()
 
 
 func _process(delta):
@@ -80,10 +78,7 @@ func _process(delta):
 			if !get_tree().paused:
 				Singleton.pause_menu = true
 				get_tree().paused = true
-		
 	
-	var menu = get_tree().get_nodes_in_group("pause")
-	var gui_scale = Singleton.get_screen_scale()
 	if Singleton.pause_menu:
 		pause_offset = lerp(pause_offset, 1, 0.5)
 		pause_menu.modulate.a = min(pause_menu.modulate.a + 0.2 * dmod, 1)

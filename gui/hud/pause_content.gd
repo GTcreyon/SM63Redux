@@ -39,7 +39,7 @@ func _process(_delta):
 			menus[i].visible = false
 
 
-func resize(scale):
+func resize():
 	button_map_off.polygon[1].x = button_map.rect_size.x - 1
 	button_map_off.polygon[2].x = button_map.rect_size.x - 1
 	button_map_on.polygon = button_map_off.polygon

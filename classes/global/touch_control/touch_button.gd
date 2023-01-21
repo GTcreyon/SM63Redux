@@ -11,8 +11,8 @@ func _ready():
 	_setup_textures(id)
 
 
-func _setup_textures(id: String):
-	var ypos = ID_LIST.find(id) * 21
+func _setup_textures(new_id: String):
+	var ypos = ID_LIST.find(new_id) * 21
 	normal.region.position.y = ypos
 	pressed.region.position.y = ypos
 
