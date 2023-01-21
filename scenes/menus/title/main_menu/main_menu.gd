@@ -76,7 +76,7 @@ func _process(delta: float) -> void:
 				Vector2(-0.5 * OS.window_size.x, OS.window_size.y),
 				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
 				Vector2(0.5 * OS.window_size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),				
+				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
 				Vector2(1.5 * OS.window_size.x, OS.window_size.y),
 				]
 			center_pos_idx = 2

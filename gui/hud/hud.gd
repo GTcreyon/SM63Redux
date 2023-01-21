@@ -42,7 +42,7 @@ func _ready():
 func resize():
 	var scale_factor = Singleton.get_screen_scale(-1)
 	rect_scale = Vector2.ONE * scale_factor
-	rect_size = OS.window_size / scale_factor
+	rect_size = (OS.window_size / scale_factor).ceil()
 	pause_menu.resize()
 
 
