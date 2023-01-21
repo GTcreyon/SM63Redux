@@ -21,10 +21,10 @@ func _ready_override() -> void:
 		vel.y = -7 * 0.53
 
 
-func _add_coins(num: int) -> void:
+func _add_coins(num: int, player: PlayerCharacter) -> void:
 	Singleton.coin_total += num
-	if Singleton.hp < 8:
-		Singleton.internal_coin_counter += num
+	if player.hp < 8:
+		player.coins_toward_health += num
 
 
 func _pickup_effect() -> void:

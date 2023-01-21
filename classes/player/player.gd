@@ -1,3 +1,4 @@
+class_name PlayerCharacter
 extends KinematicBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
@@ -53,6 +54,12 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 			preload("res://classes/player/sfx/step/ice/step_ice_0.wav"),
 			preload("res://classes/player/sfx/step/ice/step_ice_1.wav"),
 		],
+		"sand": [
+			preload("res://classes/player/sfx/step/generic/step_generic_0.wav"),			
+		],
+		"wood": [
+			preload("res://classes/player/sfx/step/generic/step_generic_0.wav"),			
+		],
 	},
 	"voice": {
 		"jump1": [
@@ -80,16 +87,77 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 			preload("res://classes/player/sfx/mario/dive/dive_2.wav"),
 			preload("res://classes/player/sfx/mario/dive/dive_3.wav"),
 		],
+	},
+	"pound": {
+		"grass": [
+			preload("res://classes/player/sfx/pound/pound_grass.wav")
+		],
+		"generic": [
+			preload("res://classes/player/sfx/pound/pound_generic.wav")
+		],
+		"metal": [
+			preload("res://classes/player/sfx/pound/pound_generic.wav")
+		],
+		"snow": [
+			preload("res://classes/player/sfx/pound/pound_snow.wav")
+		],
+		"cloud": [
+			preload("res://classes/player/sfx/pound/pound_cloud.wav")
+		],
+		"ice": [
+			preload("res://classes/player/sfx/pound/pound_generic.wav")
+		],
+		"sand": [
+			preload("res://classes/player/sfx/pound/pound_sand.wav")
+		],
+		"wood": [
+			preload("res://classes/player/sfx/pound/pound_generic.wav")
+		],
+	},
+	"spin": {
+		"air": [
+			preload("res://classes/player/sfx/spin_air_1.wav"),
+			preload("res://classes/player/sfx/spin_air_2.wav"),
+			preload("res://classes/player/sfx/spin_air_3.wav"),
+		],
 	}
 }
+
+var ground_pound_effect = preload("res://classes/player/ground_pound_effect.tscn")
+
+# vars to lock mechanics
+var invuln_frames: int = 0
+var locked: bool = false
+
+# visual vars
+var last_step = 0
+var invuln_flash: int = 0
+
+# health vars
+var hp = 8
+var life_meter = 8 # apparently unused
+var coins_toward_health = 0 # If it hits 5, gets reset
+
+# FLUDD state vars
+var collected_nozzles = [false, false, false]
+var current_nozzle = 0
+var water: float = 100.0
+var fludd_power = 100
+
+var dead = false
 
 onready var base_modifier = BaseModifier.new()
 onready var voice = $Voice
 onready var step = $Step
+onready var spin_sfx = $SpinSFX
+onready var thud = $Thud
+onready var pound_spin_sfx = $PoundSpin
 onready var sprite = $Character
 onready var fludd_sprite = $Character/Fludd
 onready var camera = $"/root/Main/Player/Camera"
 onready var step_check = $StepCheck
+onready var pound_check_l = $PoundCheckL
+onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
@@ -103,26 +171,31 @@ onready var dust = $Dust
 onready var ground_failsafe_check: Area2D = $GroundFailsafe
 onready var feet_area: Area2D = $Feet
 
-var ground_pound_effect = preload("res://classes/player/ground_pound_effect.tscn")
-
-# vars to lock mechanics
-var invuln_frames: int = 0
-var locked: bool = false
-
-# visual vars
-var last_step = 0
-var invuln_flash: int = 0
 
 
 func _ready():
 	sprite.playing = true
 	nozzle_fx.playing = true
-	var warp = $"/root/Singleton/Warp"
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
-	if Singleton.set_location != null:
-		position = Singleton.set_location
-		warp.set_location = null
-		sprite.flip_h = warp.flip
+
+	# If we came from another scene, load our data from that scene.
+	if Singleton.warp_location != null:
+		position = Singleton.warp_location
+		#Singleton.warp_location = null # Used when respawning, shouldn't clear
+	
+	if Singleton.warp_data != null:
+		sprite.flip_h = Singleton.warp_data.sprite_flip
+
+		hp = Singleton.warp_data.hp
+		coins_toward_health = Singleton.warp_data.coins_toward_health
+		
+		collected_nozzles = Singleton.warp_data.collected_nozzles
+		current_nozzle = Singleton.warp_data.current_nozzle
+		water = Singleton.warp_data.water
+		fludd_power = Singleton.warp_data.fludd_power # is this one necessary?
+
+		# Warp data's served its purpose, go ahead and delete it.
+		Singleton.warp_data = null
 
 
 func _process(delta):
@@ -149,7 +222,7 @@ var water_areas: int = 0
 func _on_WaterCheck_area_entered(_area):
 	swimming = true
 	switch_state(S.NEUTRAL)
-	Singleton.water = max(Singleton.water, 100)
+	water = max(water, 100)
 	water_areas += 1
 
 
@@ -222,8 +295,8 @@ func player_physics():
 		switch_fludd()
 	
 	if swimming:
-		Singleton.water = max(Singleton.water, 100)
-		Singleton.power = 100
+		water = max(water, 100)
+		fludd_power = 100
 
 	
 	if coyote_frames > 0:
@@ -361,7 +434,7 @@ func fixed_visuals() -> void:
 			hover_loop_sfx.stop()
 	else:
 		hover_loop_sfx.stop()
-		if Singleton.power > 99:
+		if fludd_power > 99:
 			hover_sound_position = 0
 			hover_sfx.stop()
 			
@@ -369,7 +442,7 @@ func fixed_visuals() -> void:
 			if !hover_sfx.playing:
 				hover_sfx.play(hover_sound_position)
 		else:
-			if Singleton.power < 100:
+			if fludd_power < 100:
 				hover_sound_position = hover_sfx.get_playback_position()
 			else:
 				hover_sound_position = 0
@@ -379,7 +452,7 @@ func fixed_visuals() -> void:
 	bubbles.emitting = fludd_strain
 	
 	if fludd_strain:
-		nozzle_fx_scale = min(lerp(0.3, 1, Singleton.power / 100), nozzle_fx_scale + 0.1)
+		nozzle_fx_scale = min(lerp(0.3, 1, fludd_power / 100), nozzle_fx_scale + 0.1)
 	else:
 		nozzle_fx_scale = max(0, nozzle_fx_scale - 0.25)
 	nozzle_fx.visible = nozzle_fx_scale > 0
@@ -426,8 +499,9 @@ func fixed_visuals() -> void:
 		sprite.speed_scale = 1
 	
 	#$Label.text = str(vel.x)
-	if Singleton.hp <= 0:
-		Singleton.dead = true
+	if hp <= 0:
+		dead = true
+		Singleton.get_node("DeathManager").register_player_death(self)
 	
 	fludd_sprite.flip_h = sprite.flip_h
 	if sprite.animation.begins_with("spin"):
@@ -460,20 +534,52 @@ func wall_stop() -> void:
 		vel.y = max(vel.y, 0.1)
 
 
+const POUND_TIME_TO_FALL = 18 # Time to move from pound spin to pound fall
+const _POUND_HANG_TIME = 9
+const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spin animation lasts
+const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
+const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
+const POUND_SPIN_RISE_TIME = 15
+const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
+
 var pound_spin_frames: int = 0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
-		if sprite.flip_h:
-			sprite.rotation = -TAU * pound_spin_frames / 15
-		else:
-			sprite.rotation = TAU * pound_spin_frames / 15
-		if pound_spin_frames >= 15:
+		# Spin frames normalized from 0-1.
+		# Min makes it stop after one full spin.
+		var pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		# Blend between 0% and 100% smoothed animation.
+		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
+		
+		# Move sprite origin for nicer rotation animation
+		set_rotation_origin(sprite.flip_h, POUND_ORIGIN_OFFSET)
+		# Offset origin's X less at the start of the spin. (Looks better!?)
+		sprite.dejitter_position *= Vector2(pound_spin_factor, 1)
+		# A little rising as we wind up makes it look real nice.
+		sprite.dejitter_position.y -= POUND_SPIN_RISE * min(pound_spin_frames,
+			POUND_SPIN_RISE_TIME)
+		
+		# Set rotation according to position in the animation.
+		sprite.rotation = TAU * pound_spin_factor
+		# Adjust rotation depending on our facing direction.
+		sprite.rotation *= -1 if sprite.flip_h else 1
+		
+		# Begin windup state once the spin ends
+		#if pound_spin_frames == POUND_SPIN_DURATION:
+		#	switch_anim("pound_windup")
+		
+		# Once spin animation ends, fall.
+		if pound_spin_frames >= POUND_TIME_TO_FALL:
+			# Reset sprite transforms.
+			clear_rotation_origin()
+			
 			sprite.rotation = 0
+			
 			pound_state = Pound.FALL
 			vel.y = 8
-			
-	
+
+
 	if Input.is_action_pressed("pound"):
 		if state == S.DIVE and gp_dive_timer > 0:
 			var mag = vel.length()
@@ -508,6 +614,7 @@ func action_pound() -> void:
 				switch_anim("flip")
 				sprite.rotation = 0
 				pound_spin_frames = 0
+				pound_spin_sfx.play()
 
 
 const SPIN_TIME = 30
@@ -515,8 +622,10 @@ var spin_frames = 0
 func action_spin() -> void:
 	if state == S.SPIN:
 		if spin_frames > 0:
+			# Tick spin state
 			spin_frames -= 1
 		elif !Input.is_action_pressed("spin"):
+			# End spin
 			switch_state(S.NEUTRAL)
 			
 	if (
@@ -527,8 +636,11 @@ func action_spin() -> void:
 		)
 		and (vel.y > -3.3 * FPS_MOD or state == S.ROLLOUT or swimming)
 	):
+		# begin spin
 		switch_state(S.SPIN)
 		switch_anim("spin")
+		# switch_state stops spin_sfx; always play it again after state switch.
+		play_sfx("spin", "air")
 		if !grounded:
 			if swimming:
 				vel.y = min(-2, vel.y)
@@ -565,13 +677,13 @@ func fludd_control():
 	_fludd_spraying_rising = false
 	
 	if grounded:
-		Singleton.power = 100 # TODO: multi fludd
-	elif !Input.is_action_pressed("fludd") and Singleton.nozzle != Singleton.n.hover:
-		Singleton.power = min(Singleton.power + FPS_MOD, 100)
+		fludd_power = 100 # TODO: multi fludd
+	elif !Input.is_action_pressed("fludd") and current_nozzle != Singleton.n.hover:
+		fludd_power = min(fludd_power + FPS_MOD, 100)
 	if (
 		Input.is_action_pressed("fludd")
-		and Singleton.power > 0
-		and Singleton.water > 0
+		and fludd_power > 0
+		and water > 0
 		and state & (
 				S.NEUTRAL
 				| S.BACKFLIP
@@ -580,7 +692,7 @@ func fludd_control():
 			)
 	):
 		_fludd_spraying = true
-		match Singleton.nozzle:
+		match current_nozzle:
 			Singleton.n.hover:
 				fludd_strain = true
 				double_anim_cancel = true
@@ -603,7 +715,7 @@ func fludd_control():
 								vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
 								vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(FPS_MOD, 2)
 					else:
-						if Singleton.power == 100 and !swimming:
+						if fludd_power == 100 and !swimming:
 							vel.y -= 2
 						
 						if Input.is_action_pressed("jump"):
@@ -613,13 +725,13 @@ func fludd_control():
 						if swimming:
 							vel.y -= 0.75
 						else:
-							vel.y -= (((-4*Singleton.power*vel.y * FPS_MOD * FPS_MOD) + (-525*vel.y * FPS_MOD) + (368*Singleton.power * FPS_MOD * FPS_MOD) + (48300)) / 7000) * pow(FPS_MOD, 5)
+							vel.y -= (((-4*fludd_power*vel.y * FPS_MOD * FPS_MOD) + (-525*vel.y * FPS_MOD) + (368*fludd_power * FPS_MOD * FPS_MOD) + (48300)) / 7000) * pow(FPS_MOD, 5)
 						vel.x = resist(vel.x, 0.05, 1.03)
 					if !swimming:
-						Singleton.water = max(0, Singleton.water - 0.07 * FPS_MOD)
-						Singleton.power -= 1.5 * FPS_MOD
+						water = max(0, water - 0.07 * FPS_MOD)
+						fludd_power -= 1.5 * FPS_MOD
 			Singleton.n.rocket:
-				if Singleton.power == 100:
+				if fludd_power == 100:
 					fludd_strain = true
 					rocket_charge += 1
 				else:
@@ -641,8 +753,8 @@ func fludd_control():
 					rocket_charge = 0
 					
 					if !swimming:
-						Singleton.water = max(Singleton.water - 5, 0)
-						Singleton.power = 0
+						water = max(water - 5, 0)
+						fludd_power = 0
 	else:
 		fludd_strain = false
 		rocket_charge = 0
@@ -692,7 +804,7 @@ func manage_triple_flip() -> void:
 		if sprite.flip_h:
 			dir = -1
 		var multiplier = 1
-		if Singleton.nozzle == Singleton.n.none:
+		if current_nozzle == Singleton.n.none:
 			multiplier = 2
 		sprite.rotation = dir * multiplier * TAU * ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
 		if triple_flip_frames >= TRIPLE_FLIP_TIME:
@@ -961,7 +1073,7 @@ func reset_dive() -> void:
 
 func airborne_anim() -> void:
 	if state == S.TRIPLE_JUMP:
-		if Singleton.nozzle == Singleton.n.none:
+		if current_nozzle == Singleton.n.none:
 			if abs(sprite.rotation_degrees) < 700:
 				switch_anim("flip")
 			else:
@@ -987,10 +1099,12 @@ func airborne_anim() -> void:
 		else:
 			sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
 
-
+const POUND_LAND_DURATION = 12
+const POUND_SHAKE_INITIAL = 4
+const POUND_SHAKE_MULTIPLIER = 0.75
 func manage_pound_recover() -> void:
 	if state == S.POUND:
-		if pound_land_frames == 12:
+		if pound_land_frames == 12: # just hit ground
 			pound_state = Pound.LAND
 			switch_anim("flip")
 			
@@ -999,8 +1113,38 @@ func manage_pound_recover() -> void:
 			get_parent().add_child(fx)
 			fx.global_position = sprite.global_position + Vector2.DOWN * 11
 			fx.find_node("StarsAnim").play("GroundPound")
-		elif pound_land_frames <= 0:
+			
+			# Dispatch pound thud
+			# Begin by checking center for a collider
+			var collider: CollisionObject2D = step_check.get_collider()
+			if collider == null:
+				# Center check failed, check right side.
+				collider = pound_check_r.get_collider()
+			if collider == null:
+				# Right check failed, check left side.
+				collider = pound_check_l.get_collider()
+			# If a collider was found, play the thud.
+			if collider != null:
+				play_sfx("pound", terrain_typestring(collider))
+			
+			# Jolt camera downwards
+			camera.offset = Vector2(0, POUND_SHAKE_INITIAL)
+		elif pound_land_frames <= 0: # impact ended, get up
 			switch_state(S.NEUTRAL)
+			# Nullify all camera shake.
+			camera.offset = Vector2.ZERO
+		else: # just handle camera shake
+			# Shake goes up on even frames, down on odd frames.
+			var shake_sign = 1 if pound_land_frames % 2 else -1
+			# Shake is less strong every frame that passes.
+			# (Another branch takes the land_frames == 0 case--
+			# no illegal divisions here!)
+			var shake_magnitude = float(pound_land_frames) / POUND_LAND_DURATION
+			# But a square-root falloff lets you feel it longer.
+			shake_magnitude = sqrt(shake_magnitude)
+			
+			shake_magnitude *= POUND_SHAKE_INITIAL
+			camera.offset = Vector2(0, shake_magnitude * shake_sign)
 		# warning-ignore:narrowing_conversion
 		pound_land_frames = max(0, pound_land_frames - 1)
 
@@ -1183,19 +1327,19 @@ func manage_dive_recover():
 
 
 func switch_fludd():
-	var save_nozzle = Singleton.nozzle
-	Singleton.nozzle += 1
+	var save_nozzle = current_nozzle
+	current_nozzle += 1
 	while (
 		(
-			Singleton.nozzle < 4
-			and !Singleton.collected_nozzles[(Singleton.nozzle - 1) % 3]
+			current_nozzle < 4
+			and !collected_nozzles[(current_nozzle - 1) % 3]
 		)
-		or Singleton.nozzle == 0
+		or current_nozzle == 0
 	):
-		Singleton.nozzle += 1
-	if Singleton.nozzle == 4:
-		Singleton.nozzle = 0
-	if Singleton.nozzle != save_nozzle:
+		current_nozzle += 1
+	if current_nozzle == 4:
+		current_nozzle = 0
+	if current_nozzle != save_nozzle:
 		# lazy way to refresh fludd anim
 		var anim = sprite.animation.replace("_fludd", "")
 		switch_anim(anim)
@@ -1283,6 +1427,9 @@ func switch_state(new_state):
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
 			camera.smoothing_speed = 5
+			clear_rotation_origin()
+	# End spin SFX on any state change
+	spin_sfx.stop()
 
 
 func switch_anim(new_anim):
@@ -1292,7 +1439,7 @@ func switch_anim(new_anim):
 		last_step = 1 # ensures that the step sound will be made when hitting the ground
 	anim = new_anim
 	
-	if Singleton.nozzle == Singleton.n.none:
+	if current_nozzle == Singleton.n.none:
 		fludd_sprite.visible = false # hides the fludd sprite
 	else:
 		fludd_sprite.visible = true
@@ -1303,7 +1450,7 @@ func switch_anim(new_anim):
 			anim = new_anim
 			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
 	
-	match Singleton.nozzle: # TODO - multi fludd
+	match current_nozzle: # TODO - multi fludd
 		Singleton.n.hover:
 			fludd_sprite.animation = "hover"
 		Singleton.n.rocket:
@@ -1316,7 +1463,7 @@ func switch_anim(new_anim):
 
 func take_damage(amount):
 	if invuln_frames <= 0 and !locked:
-		Singleton.hp = clamp(Singleton.hp - amount, 0, 8) # TODO - multi HP
+		hp = clamp(hp - amount, 0, 8) # TODO - multi HP
 		invuln_frames = 180
 
 
@@ -1326,6 +1473,8 @@ func take_damage_shove(amount, direction):
 		switch_state(S.HURT)
 		hurt_timer = 30
 		switch_anim("hurt")
+		clear_rotation_origin()
+		camera.offset = Vector2.ZERO
 		vel = Vector2(4 * direction, -3)
 		sprite.flip_h = direction == 1
 		off_ground()
@@ -1338,7 +1487,7 @@ func off_ground():
 
 
 func recieve_health(amount):
-	Singleton.hp = clamp(Singleton.hp + amount, 0, 8) # TODO - multi HP
+	hp = clamp(hp + amount, 0, 8) # TODO - multi HP
 
 
 const DIVE_CORRECTION = 7
@@ -1366,33 +1515,48 @@ func dive_correct(factor): # Correct the player's origin position when diving
 func play_sfx(type, group):
 	var sound_set = SFX_BANK[type][group]
 	var sound = sound_set[randi() % sound_set.size()]
-	if type == "voice":
-		voice.stream = sound
-		voice.play(0)
-	else:
-		step.stream = sound
-		step.play(0)
+	match type:
+		"voice":
+			voice.stream = sound
+			voice.play(0)
+		"step":
+			step.stream = sound
+			step.play(0)
+		"pound":
+			thud.stream = sound
+			thud.play(0)
+		"spin":
+			spin_sfx.stream = sound
+			spin_sfx.play(0)
 
 
-const STEP_MASK = 0b111111110000000000000000
+const TERRAIN_MASK = 0b111111110000000000000000
+func terrain_typestring(collider: CollisionObject2D) -> String:
+	var layer = (collider.collision_layer & TERRAIN_MASK) >> 16
+	match layer:
+		0b10000000:
+			return "grass"
+		0b01000000:
+			return "metal"
+		0b00100000:
+			return "snow"
+		0b00010000:
+			return "cloud"
+		0b00001000:
+			return "ice"
+		0b00000100:
+			return "sand"
+		0b00000010:
+			return "wood"
+		_:
+			return "generic"
+
+
 func step_sound():
 	if sprite.frame == 0 and last_step == 1:
 		var collider: CollisionObject2D = step_check.get_collider()
 		if collider != null:
-			var layer = (collider.collision_layer & STEP_MASK) >> 16
-			match layer:
-				0b10000000:
-					play_sfx("step", "grass")
-				0b01000000:
-					play_sfx("step", "metal")
-				0b00100000:
-					play_sfx("step", "snow")
-				0b00010000:
-					play_sfx("step", "cloud")
-				0b00001000:
-					play_sfx("step", "ice")
-				_:
-					play_sfx("step", "generic")
+			play_sfx("step", terrain_typestring(collider))
 
 
 func invincibility_on_effect():
@@ -1416,3 +1580,18 @@ func resist(val, sub, div): # ripped from source
 	val /= div
 	val *= vel_sign
 	return val * FPS_MOD
+
+
+func set_rotation_origin (face_left: bool, origin: Vector2):
+	# Vector to flip the offset's X, as appropriate.
+	var facing = Vector2(
+		-1 if face_left else 1, # Convert 0 to -1
+		1)
+	
+	sprite.offset = origin * facing
+	fludd_sprite.position = origin * facing
+	sprite.dejitter_position = -origin * facing
+	sprite.position = sprite.dejitter_position
+
+func clear_rotation_origin ():
+	set_rotation_origin(false, Vector2.ZERO)

@@ -1,4 +1,7 @@
+class_name SpeedrunTimer
 extends Control
+
+const RESET_SCENE_PATH = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
 
 onready var total = $Total
 onready var total_ms = $TotalMS
@@ -42,18 +45,12 @@ func format_time(overall_seconds):
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("reset") and get_tree().get_current_scene().get_filename().count("tutorial") and !get_tree().paused and Singleton.timer.visible:
-		Singleton.collected_nozzles = [false, false, false]
-		Singleton.nozzle = Singleton.n.none
-		Singleton.water = 100
 		Singleton.get_node("Timer").frames = 0
 		Singleton.get_node("Timer").split_frames = 0
 		Singleton.get_node("Timer").running = true
-		Singleton.set_location = Vector2(110, 153)
+		Singleton.warp_location = Vector2(110, 153)
 		FlagServer.reset_flag_dict()
-		Singleton.warp_to("res://scenes/tutorial_1/tutorial_1_1.tscn")
-		var player = get_node_or_null("root/Main/Player")
-		if player != null:
-			player.position = Vector2(110, 153)
+		Singleton.warp_to(RESET_SCENE_PATH, null)
 	
 	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
 	if !Singleton.meta_paused and running:
