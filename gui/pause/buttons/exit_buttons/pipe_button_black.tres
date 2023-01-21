@@ -30,6 +30,9 @@ margin_bottom = 11.0
 
 [resource]
 default_font = ExtResource( 2 )
+Button/colors/font_color = Color( 1, 1, 1, 1 )
+Button/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 1 )
+Button/colors/font_color_hover = Color( 1, 0.870588, 0.584314, 1 )
 Button/styles/disabled = ExtResource( 3 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 2 )
