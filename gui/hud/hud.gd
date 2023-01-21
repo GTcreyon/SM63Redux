@@ -92,11 +92,10 @@ func _process(delta):
 	else:
 		pause_offset = lerp(pause_offset, 0, 0.5)
 		pause_menu.modulate.a = max(pause_menu.modulate.a - 0.2 * dmod, 0)
-	stats.margin_top = 19 * pause_offset
 	stats.margin_left = 37 * pause_offset
 	stats.margin_right = -37 * pause_offset
-	water_meter.margin_left = -57 - (37 * pause_offset)
-	water_meter.margin_top = -113 - (33 * pause_offset)
+	stats.margin_top = 19 * pause_offset
+	stats.margin_bottom = -33 * pause_offset
 	
 	# Check if HUD info should be visible
 	var info_visible = !Singleton.pause_menu or info.visible

@@ -33,12 +33,6 @@ script = ExtResource( 14 )
 [node name="DialogBox" parent="HUDControl" instance=ExtResource( 1 )]
 visible = false
 
-[node name="MeterControl" parent="HUDControl" instance=ExtResource( 11 )]
-margin_left = 543.0
-margin_top = 207.0
-margin_right = 585.0
-margin_bottom = 304.0
-
 [node name="PauseMenu" parent="HUDControl" instance=ExtResource( 7 )]
 visible = false
 
@@ -190,3 +184,5 @@ custom_fonts/font = ExtResource( 26 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="MeterControl" parent="HUDControl/Stats" instance=ExtResource( 11 )]
