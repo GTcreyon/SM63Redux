@@ -50,6 +50,7 @@ func _process(delta):
 # Adjust the star polygon to match the size of the button
 func resize():
 	stars.polygon[1].x = rect_size.x - 1
+	stars.polygon[2].x = rect_size.x - 1
 
 
 func _on_Button_toggled(button_pressed):
