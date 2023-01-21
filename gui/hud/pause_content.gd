@@ -40,18 +40,7 @@ func _process(_delta):
 
 
 func resize():
-	button_map_off.polygon[1].x = button_map.rect_size.x - 1
-	button_map_off.polygon[2].x = button_map.rect_size.x - 1
-	button_map_on.polygon = button_map_off.polygon
-	
-	button_fludd_off.polygon[1].x = button_fludd.rect_size.x - 1
-	button_fludd_off.polygon[2].x = button_fludd.rect_size.x - 1
-	button_fludd_on.polygon = button_fludd_off.polygon
-	
-	button_options_off.polygon[1].x = button_options.rect_size.x - 1
-	button_options_off.polygon[2].x = button_options.rect_size.x - 1
-	button_options_on.polygon = button_options_off.polygon
-	
-	button_exit_off.polygon[1].x = button_exit.rect_size.x - 1
-	button_exit_off.polygon[2].x = button_exit.rect_size.x - 1
-	button_exit_on.polygon = button_exit_off.polygon
+	button_map.resize()
+	button_fludd.resize()
+	button_options.resize()
+	button_exit.resize()
