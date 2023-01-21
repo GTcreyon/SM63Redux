@@ -49,6 +49,7 @@ anchor_right = 0.5
 [node name="Stats" type="Control" parent="HUDControl"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="StatsTL" type="VBoxContainer" parent="HUDControl/Stats"]
 margin_left = 8.0

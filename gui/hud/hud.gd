@@ -16,6 +16,7 @@ onready var icon = $MeterControl/WaterMeter/Icon
 onready var stats = $Stats
 
 onready var pause_menu = $PauseMenu
+onready var info = $PauseMenu/Content/LevelInfo
 
 onready var warp = $"/root/Singleton/Warp"
 
@@ -96,3 +97,8 @@ func _process(delta):
 	stats.margin_right = -37 * pause_offset
 	water_meter.margin_left = -57 - (37 * pause_offset)
 	water_meter.margin_top = -113 - (33 * pause_offset)
+	
+	# Check if HUD info should be visible
+	var info_visible = !Singleton.pause_menu or info.visible
+	stats.visible = info_visible
+	life_meter.visible = info_visible
