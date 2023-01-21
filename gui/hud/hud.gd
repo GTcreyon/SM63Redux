@@ -5,16 +5,15 @@ onready var player = $"/root/Main/Player"
 
 # HUD cache
 onready var dialog_box = $DialogBox
-onready var coin_counter = $StatsTL/CoinRow/Count
-onready var red_coin_counter = $StatsTL/RedCoinRow/Count
-onready var silver_counter = $StatsTL/SilverShineRow/Count
-onready var shine_counter = $StatsTR/ShineRow/Count
-onready var shine_coin_counter = $StatsTR/ShineCoinRow/Count
+onready var coin_counter = $Stats/StatsTL/CoinRow/Count
+onready var red_coin_counter = $Stats/StatsTL/RedCoinRow/Count
+onready var silver_counter = $Stats/StatsTL/SilverShineRow/Count
+onready var shine_counter = $Stats/StatsTR/ShineRow/Count
+onready var shine_coin_counter = $Stats/StatsTR/ShineCoinRow/Count
 onready var life_meter = $LifeMeter
 onready var water_meter = $MeterControl
 onready var icon = $MeterControl/WaterMeter/Icon
-onready var stats_tl = $StatsTL
-onready var stats_tr = $StatsTR
+onready var stats = $Stats
 
 onready var pause_menu = $PauseMenu
 
@@ -92,9 +91,8 @@ func _process(delta):
 	else:
 		pause_offset = lerp(pause_offset, 0, 0.5)
 		pause_menu.modulate.a = max(pause_menu.modulate.a - 0.2 * dmod, 0)
-	stats_tl.margin_left = 8 + (37 * pause_offset)
-	stats_tl.margin_top = 8 + (19 * pause_offset)
-	stats_tr.margin_left = -8 - (37 * pause_offset)
-	stats_tr.margin_top = 8 + (19 * pause_offset)
+	stats.margin_top = 19 * pause_offset
+	stats.margin_left = 37 * pause_offset
+	stats.margin_right = -37 * pause_offset
 	water_meter.margin_left = -57 - (37 * pause_offset)
 	water_meter.margin_top = -113 - (33 * pause_offset)

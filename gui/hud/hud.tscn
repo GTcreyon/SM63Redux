@@ -46,25 +46,33 @@ visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 
-[node name="StatsTL" type="VBoxContainer" parent="HUDControl" groups=["stats"]]
+[node name="Stats" type="Control" parent="HUDControl"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="StatsTL" type="VBoxContainer" parent="HUDControl/Stats"]
 margin_left = 8.0
 margin_top = 8.0
+margin_right = 8.0
+margin_bottom = 50.0
 rect_pivot_offset = Vector2( -8, -8 )
 mouse_filter = 2
-custom_constants/separation = 21
+custom_constants/separation = 4
 
-[node name="CoinRow" type="Control" parent="HUDControl/StatsTL"]
+[node name="CoinRow" type="Control" parent="HUDControl/Stats/StatsTL"]
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/StatsTL/CoinRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/CoinRow"]
 texture = ExtResource( 50 )
 centered = false
 
-[node name="X" type="Sprite" parent="HUDControl/StatsTL/CoinRow"]
+[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/CoinRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="HUDControl/StatsTL/CoinRow"]
+[node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/CoinRow"]
 material = SubResource( 1 )
 margin_left = 32.0
 margin_top = 1.0
@@ -75,20 +83,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RedCoinRow" type="Control" parent="HUDControl/StatsTL"]
+[node name="RedCoinRow" type="Control" parent="HUDControl/Stats/StatsTL"]
 margin_top = 21.0
-margin_bottom = 21.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/StatsTL/RedCoinRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
 texture = ExtResource( 33 )
 centered = false
 
-[node name="X" type="Sprite" parent="HUDControl/StatsTL/RedCoinRow"]
+[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="HUDControl/StatsTL/RedCoinRow"]
+[node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 80.0
@@ -98,20 +107,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SilverShineRow" type="Control" parent="HUDControl/StatsTL"]
+[node name="SilverShineRow" type="Control" parent="HUDControl/Stats/StatsTL"]
 margin_top = 42.0
-margin_bottom = 42.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/StatsTL/SilverShineRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
 texture = ExtResource( 71 )
 centered = false
 
-[node name="X" type="Sprite" parent="HUDControl/StatsTL/SilverShineRow"]
+[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
 position = Vector2( 19, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="HUDControl/StatsTL/SilverShineRow"]
+[node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
 margin_left = 32.0
 margin_top = 1.0
 margin_right = 112.0
@@ -121,28 +131,31 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="StatsTR" type="VBoxContainer" parent="HUDControl" groups=["stats"]]
+[node name="StatsTR" type="VBoxContainer" parent="HUDControl/Stats"]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -8.0
 margin_top = 8.0
+margin_bottom = 29.0
 rect_pivot_offset = Vector2( 8, -8 )
 mouse_filter = 2
-custom_constants/separation = 21
+custom_constants/separation = 4
 
-[node name="ShineRow" type="Control" parent="HUDControl/StatsTR"]
+[node name="ShineRow" type="Control" parent="HUDControl/Stats/StatsTR"]
 margin_right = 8.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/StatsTR/ShineRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineRow"]
 position = Vector2( -40.5, 7.5 )
 texture = ExtResource( 79 )
 
-[node name="X" type="Sprite" parent="HUDControl/StatsTR/ShineRow"]
+[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineRow"]
 position = Vector2( -29, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="HUDControl/StatsTR/ShineRow"]
+[node name="Count" type="Label" parent="HUDControl/Stats/StatsTR/ShineRow"]
 margin_left = -15.0
 margin_top = 1.0
 margin_right = 65.0
@@ -152,21 +165,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ShineCoinRow" type="Control" parent="HUDControl/StatsTR"]
+[node name="ShineCoinRow" type="Control" parent="HUDControl/Stats/StatsTR"]
 margin_top = 21.0
 margin_right = 8.0
-margin_bottom = 21.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 0, 17 )
 
-[node name="Sprite" type="Sprite" parent="HUDControl/StatsTR/ShineCoinRow"]
+[node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
 position = Vector2( -40, 9.5 )
 texture = ExtResource( 53 )
 
-[node name="X" type="Sprite" parent="HUDControl/StatsTR/ShineCoinRow"]
+[node name="X" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
 position = Vector2( -29, 4 )
 texture = ExtResource( 63 )
 centered = false
 
-[node name="Count" type="Label" parent="HUDControl/StatsTR/ShineCoinRow"]
+[node name="Count" type="Label" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
 margin_left = -15.0
 margin_top = 1.0
 margin_right = 65.0
