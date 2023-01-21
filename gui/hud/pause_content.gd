@@ -22,20 +22,20 @@ onready var right = $Right
 func _process(_delta):
 	var buttons = [button_map, button_fludd, button_options, button_exit]
 	var menus = [map, fludd, options, exit]
-  var info_visible: bool = true
-  
-  # Show whichever screen's button is pressed
-  # (The script for the buttons guarantees only one can be pressed at a time)
+	var info_visible: bool = true
+	
+	# Show whichever screen's button is pressed
+	# (The script for the buttons guarantees only one can be pressed at a time)
 	for i in range(4):
 		if buttons[i].pressed and modulate.a > 0:
 			menus[i].visible = true
 			info_visible = false
 		else:
 			menus[i].visible = false
-  
-  # If no button is pressed, show the info screen
-  # Control nodes don't like to be made invisible then visible in one frame, it messes with input
-  info.visible = info_visible
+	
+	# If no button is pressed, show the info screen
+	# Control nodes don't like to be made invisible then visible in one frame, it messes with input
+	info.visible = info_visible
 
 
 func resize():

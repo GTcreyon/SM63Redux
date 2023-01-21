@@ -151,7 +151,6 @@ func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
 			return int(ceil(sqrt(scale_x * scale_y)))
 
 
-func warp_to(path):
 # Warp to the scene specified by string.
 # Player is passed as second argument so the player's state can
 # be carried over into the next scene. If null is passed instead,

@@ -41,7 +41,7 @@ func _reset_values():
 	$List/ShowTimer/Sprite.playing = _show_timer.pressed
 
 func _process(_delta):
-	max_height = _root_list.rect_size.y
+	_max_height = _root_list.rect_size.y
 	if visible:
 		if !_prev_visible:
 			# We just became visible. Reload current settings.
@@ -66,7 +66,7 @@ func _notification(what):
 
 
 func _on_OptionsMenu_gui_input(event):
-	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
+	var scale = Singleton.get_screen_scale(1)
 	# Read scroll wheel events.
 	if event is InputEventMouseButton:
 		if event.button_index == BUTTON_WHEEL_DOWN:
