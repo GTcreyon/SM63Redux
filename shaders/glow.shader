@@ -16,7 +16,7 @@ void vertex()
 	VERTEX *= 1. + extra_movement;
 	if (recenter)
 	{
-		VERTEX -= vec2(1, 1) * width;
+		VERTEX -= vec2(width);
 	}
 }
 
