@@ -54,13 +54,12 @@ margin_bottom = 308.0
 mouse_filter = 2
 
 [node name="ButtonExitLevel" type="Button" parent="ExitMenu" groups=["pause"]]
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_left = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -92.0
+margin_left = -313.0
 margin_top = 61.0
-margin_right = 93.0
-margin_bottom = -214.0
+margin_bottom = -183.0
 rect_pivot_offset = Vector2( 0, 33 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
@@ -83,13 +82,12 @@ align = 1
 valign = 1
 
 [node name="ButtonQuitToTitle" type="Button" parent="ExitMenu" groups=["pause"]]
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_left = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -92.0
+margin_left = -346.0
 margin_top = 133.0
-margin_right = 93.0
-margin_bottom = -142.0
+margin_bottom = -111.0
 rect_pivot_offset = Vector2( 0, 33 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
@@ -112,13 +110,12 @@ align = 1
 valign = 1
 
 [node name="ButtonCloseGame" type="Button" parent="ExitMenu" groups=["pause"]]
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_left = 1.0
+anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -92.0
+margin_left = -375.0
 margin_top = 205.0
-margin_right = 93.0
-margin_bottom = -70.0
+margin_bottom = -39.0
 rect_pivot_offset = Vector2( 0, 33 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
