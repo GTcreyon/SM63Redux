@@ -54,7 +54,6 @@ export(String) var action_id = ""
 
 onready var key_list = $KeyList
 onready var action_name = $ActionName
-onready var parent = $"../.."
 var scale: float setget set_scale
 
 

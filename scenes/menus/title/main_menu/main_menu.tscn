@@ -304,8 +304,8 @@ centered = false
 offset = Vector2( 9, 33 )
 
 [node name="Border" type="Panel" parent="."]
-margin_right = 640.0
-margin_bottom = 360.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 mouse_filter = 2
 custom_styles/panel = ExtResource( 3 )
 

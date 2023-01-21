@@ -31,8 +31,8 @@ var num_items: int  # Modulo for cycle_step.
 var show_options = false
 
 
-func _cycle_increment(cycle_direction: int) -> void:
-	cycle_step += cycle_direction
+func _cycle_increment(increment_direction: int) -> void:
+	cycle_step += increment_direction
 	cycle_step = posmod(cycle_step, num_items)
 
 
@@ -57,7 +57,7 @@ func _item_position(idx_frac: float, offset: Vector2) -> Vector2:
 
 func _process(delta: float) -> void:
 	var dmod = 60 * delta
-	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
+	var scale = Singleton.get_screen_scale()
 	_manage_sizes(scale)
 	if visible:
 		options_control.visible = show_options
@@ -76,7 +76,7 @@ func _process(delta: float) -> void:
 				Vector2(-0.5 * OS.window_size.x, OS.window_size.y),
 				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
 				Vector2(0.5 * OS.window_size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),				
+				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
 				Vector2(1.5 * OS.window_size.x, OS.window_size.y),
 				]
 			center_pos_idx = 2
@@ -108,8 +108,8 @@ func _process(delta: float) -> void:
 				var item = item_arrow[0]
 				var arrow = item_arrow[1]
 				
-				item.position = _item_position(fposmod(item_scroll + idx, num_items), Vector2.ZERO)
-				arrow.position = _item_position(fposmod(arrow_scroll + idx, num_items), arrow_offset)
+				item.position = _item_position(fposmod(item_scroll + idx, num_items), Vector2.ZERO) / scale
+				arrow.position = _item_position(fposmod(arrow_scroll + idx, num_items), arrow_offset) / scale
 			
 			if cycle_direction != 0:
 				cycle_progress += 1 / 12.0 * dmod
@@ -198,27 +198,8 @@ func _cycle_through(direction: int) -> void:
 
 
 func _manage_sizes(scale) -> void:
-	story.scale = Vector2.ONE * scale
-	settings.scale = Vector2.ONE * scale
-	extra.scale = Vector2.ONE * scale
-	ld.scale = Vector2.ONE * scale
-	selector_story.scale = Vector2.ONE * scale
-	selector_settings.scale = Vector2.ONE * scale
-	selector_extra.scale = Vector2.ONE * scale
-	selector_ld.scale = Vector2.ONE * scale
-	
-	icon.scale = Vector2.ONE * scale
-	border.rect_scale = Vector2.ONE * scale
-	border.margin_right = (OS.window_size.x + 1) / scale
-	border.margin_bottom = OS.window_size.y / scale
-	
-	options_menu.margin_top = 26 * scale
-	options_menu.margin_bottom = -4 * scale
-	options_menu.margin_left = 4 * scale
-	options_menu.margin_right = -4 * scale
-	
-	back_button.rect_scale = Vector2.ONE * scale
-	back_button.rect_pivot_offset.x = back_button.rect_size.x
+	rect_scale = Vector2.ONE * scale
+	rect_size = OS.window_size / scale
 
 
 func _touch_cycle(step) -> void:

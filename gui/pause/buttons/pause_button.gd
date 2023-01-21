@@ -1,31 +1,32 @@
 extends Button
+# A button on the pause menu that selects which menu is active
 
 var scroll = 0
 var scroll_goal = 0
 
-onready var stars_on = $StarsOn
-onready var stars_off = $StarsOff
+onready var stars = $Stars
 onready var text_node = $Text
 onready var buttons = [get_parent().get_node("ButtonMap"), get_parent().get_node("ButtonFludd"), get_parent().get_node("ButtonOptions"), get_parent().get_node("ButtonExit")]
 
+export var texture_off: StreamTexture
+export var texture_on: StreamTexture
+
+
 func _process(delta):
 	var dmod = 60 * delta
-	if modulate.a == 0:
+	
+	# Ensure we don't block other clicks while invisible
+	if modulate.a <= 0:
 		mouse_filter = MOUSE_FILTER_IGNORE
 	else:
 		mouse_filter = MOUSE_FILTER_STOP
-	if Singleton.pause_menu:
-		disabled = false
-		mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
-	else:
-		disabled = true
-		mouse_default_cursor_shape = Control.CURSOR_ARROW
+	
+	# Change which star polygon is visible
 	if pressed:
-		stars_on.visible = true
-		stars_off.visible = false
+		stars.texture = texture_on
 	else:
-		stars_on.visible = false
-		stars_off.visible = true
+		stars.texture = texture_off
+	
 	if pressed:
 		scroll = fmod((scroll + 0.01 * dmod), 1.0)
 		scroll_goal = 0
@@ -42,13 +43,22 @@ func _process(delta):
 			scroll = lerp(scroll, 1, 0.02)
 		else:
 			scroll = lerp(scroll, 1, 0.04)
-	stars_off.texture_offset = Vector2(-15, -10) * scroll + Vector2(0, -2)
-	stars_on.texture_offset = stars_off.texture_offset
+	
+	stars.texture_offset = Vector2(-15, -10) * scroll + Vector2(0, -2)
+
+
+# Adjust the star polygon to match the size of the button
+func resize():
+	stars.polygon[1].x = rect_size.x - 1
+	stars.polygon[2].x = rect_size.x - 1
 
 
 func _on_Button_toggled(button_pressed):
 	if button_pressed:
+		# Move the text down by one to make it look pressed down
 		text_node.margin_top = -7
+		
+		# Unpress all other buttons
 		for button in buttons:
 			if button != self:
 				button.pressed = false

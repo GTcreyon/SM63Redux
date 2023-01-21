@@ -50,6 +50,26 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 12, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 24, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 36, 12, 12 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 48, 12, 12 )
+
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 60, 12, 12 )
@@ -78,58 +98,37 @@ region = Rect2( 0, 12, 12, 12 )
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 12, 12 )
 
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 12, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 24, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 36, 12, 12 )
-
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 48, 12, 12 )
-
 [sub_resource type="SpriteFrames" id=47]
 animations = [ {
-"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
-"loop": false,
-"name": "flash",
-"speed": 15.0
-}, {
 "frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
 "loop": true,
 "name": "charge",
 "speed": 0.0
+}, {
+"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
+"loop": false,
+"name": "flash",
+"speed": 15.0
 } ]
 
-[node name="LifeMeter" type="Sprite" groups=["stats"]]
-position = Vector2( 320, -75 )
-z_index = 1
-texture = ExtResource( 4 )
-offset = Vector2( 0, 36 )
+[node name="LifeMeter" type="Control"]
+rect_pivot_offset = Vector2( 35, 36 )
 script = ExtResource( 1 )
 
-[node name="Filler" type="AnimatedSprite" parent="."]
+[node name="MeterBase" type="Sprite" parent="."]
+z_index = 1
+texture = ExtResource( 4 )
+
+[node name="Filler" type="AnimatedSprite" parent="MeterBase"]
 z_index = -1
 frames = SubResource( 2 )
-offset = Vector2( 0, 36 )
 
-[node name="CoinMeter" type="AnimatedSprite" parent="."]
-position = Vector2( 0, 36 )
+[node name="CoinMeter" type="AnimatedSprite" parent="MeterBase/Filler"]
 frames = SubResource( 47 )
 animation = "flash"
 frame = 6
 playing = true
 
-[node name="CoinRing" type="Sprite" parent="CoinMeter"]
+[node name="CoinRing" type="Sprite" parent="MeterBase/Filler/CoinMeter"]
 visible = false
 texture = ExtResource( 3 )

@@ -115,6 +115,42 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
 
 
+# Get a scaling factor based on the window dimensions
+func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
+	var scale_vec = OS.window_size / Singleton.DEFAULT_SIZE
+	var rounded = Vector2.ONE
+	if threshold == -1:
+		match mode:
+			-1:
+				# Minimise
+				threshold = 0.875
+			1:
+				# Maximise
+				threshold = 0.125
+			_:
+				threshold = 0.5
+	
+	if fmod(scale_vec.x, 1) < threshold:
+		rounded.x = floor(scale_vec.x)
+	else:
+		rounded.x = ceil(scale_vec.x)
+	if fmod(scale_vec.y, 1) < threshold:
+		rounded.y = floor(scale_vec.y)
+	else:
+		rounded.y = ceil(scale_vec.y)
+	
+	var scale_x: int = int(max(rounded.x, 1))
+	var scale_y: int = int(max(rounded.y, 1))
+	
+	match mode:
+		-1:
+			return int(min(scale_x, scale_y))
+		1:
+			return int(max(scale_x, scale_y))
+		_:
+			return int(ceil(sqrt(scale_x * scale_y)))
+
+
 # Warp to the scene specified by string.
 # Player is passed as second argument so the player's state can
 # be carried over into the next scene. If null is passed instead,
