@@ -1,11 +1,25 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://gui/pause/level_info/level_info.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gui/pause/map/map.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://gui/pause/buttons/pause_button.gd" type="Script" id=4]
+[ext_resource path="res://gui/pause/buttons/button_exit_1.tres" type="StyleBox" id=5]
 [ext_resource path="res://gui/hud/pause_content.gd" type="Script" id=6]
+[ext_resource path="res://gui/pause/buttons/button_fludd_0.tres" type="StyleBox" id=7]
+[ext_resource path="res://gui/pause/buttons/button_exit_0.tres" type="StyleBox" id=8]
+[ext_resource path="res://gui/pause/buttons/button_fludd_1.tres" type="StyleBox" id=9]
+[ext_resource path="res://gui/pause/buttons/star_fludd_0.png" type="Texture" id=10]
+[ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=11]
+[ext_resource path="res://gui/pause/buttons/star_exit_1.png" type="Texture" id=12]
+[ext_resource path="res://gui/pause/buttons/star_fludd_1.png" type="Texture" id=14]
+[ext_resource path="res://gui/pause/buttons/star_exit_0.png" type="Texture" id=15]
 [ext_resource path="res://gui/pause/unpause.gd" type="Script" id=25]
 [ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=28]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 28 )
@@ -42,16 +56,96 @@ __meta__ = {
 }
 
 [node name="OptionsMenu" parent="." instance=ExtResource( 3 )]
-visible = false
 
 [node name="ExitMenu" type="Control" parent="."]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 566.0
+margin_bottom = 308.0
 mouse_filter = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="ButtonExitLevel" type="Button" parent="ExitMenu" groups=["pause"]]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -92.0
+margin_top = 93.0
+margin_right = 93.0
+margin_bottom = -182.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 7 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/focus = SubResource( 10 )
+custom_styles/disabled = ExtResource( 7 )
+custom_styles/normal = ExtResource( 7 )
+action_mode = 0
+button_mask = 3
+script = ExtResource( 4 )
+
+[node name="StarsOff" type="Polygon2D" parent="ExitMenu/ButtonExitLevel"]
+texture = ExtResource( 10 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ExitMenu/ButtonExitLevel"]
+texture = ExtResource( 14 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="Text" type="Label" parent="ExitMenu/ButtonExitLevel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -63.0
+margin_top = -8.0
+margin_right = 32.5
+margin_bottom = -0.5
+custom_fonts/font = ExtResource( 11 )
+text = "EXIT LEVEL"
+align = 1
+valign = 1
+
+[node name="ButtonQuitGame" type="Button" parent="ExitMenu" groups=["pause"]]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -92.0
+margin_top = 165.0
+margin_right = 93.0
+margin_bottom = -110.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 5 )
+custom_styles/focus = SubResource( 11 )
+custom_styles/disabled = ExtResource( 8 )
+custom_styles/normal = ExtResource( 8 )
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 4 )
+
+[node name="StarsOff" type="Polygon2D" parent="ExitMenu/ButtonQuitGame"]
+texture = ExtResource( 15 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ExitMenu/ButtonQuitGame"]
+texture = ExtResource( 12 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="Text" type="Label" parent="ExitMenu/ButtonQuitGame"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -62.5
+margin_top = -8.5
+margin_right = 62.5
+margin_bottom = 7.5
+custom_fonts/font = ExtResource( 11 )
+text = "QUIT GAME"
+align = 1
+valign = 1
 
 [node name="UnpauseControl" type="Control" parent="."]
 visible = false
@@ -70,5 +164,7 @@ position = Vector2( -20, 0 )
 normal = SubResource( 8 )
 pressed = SubResource( 9 )
 
+[connection signal="toggled" from="ExitMenu/ButtonExitLevel" to="ExitMenu/ButtonExitLevel" method="_on_Button_toggled"]
+[connection signal="toggled" from="ExitMenu/ButtonQuitGame" to="ExitMenu/ButtonQuitGame" method="_on_Button_toggled"]
 [connection signal="pressed" from="UnpauseControl/Unpause" to="UnpauseControl" method="_on_Unpause_pressed"]
 [connection signal="released" from="UnpauseControl/Unpause" to="UnpauseControl" method="_on_Unpause_released"]
