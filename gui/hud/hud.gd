@@ -11,8 +11,6 @@ onready var silver_counter = $Stats/StatsTL/SilverShineRow/Count
 onready var shine_counter = $Stats/StatsTR/ShineRow/Count
 onready var shine_coin_counter = $Stats/StatsTR/ShineCoinRow/Count
 onready var life_meter = $LifeMeter
-onready var water_meter = $MeterControl
-onready var icon = $MeterControl/WaterMeter/Icon
 onready var stats = $Stats
 
 onready var pause_menu = $PauseMenu
