@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://gui/dialog/dialog_box.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gui/pause/buttons/button_map_0.tres" type="StyleBox" id=2]
@@ -51,6 +51,10 @@ shader_param/flash_factor = 0.0
 [sub_resource type="StyleBoxEmpty" id=29]
 
 [sub_resource type="StyleBoxEmpty" id=30]
+
+[sub_resource type="StyleBoxEmpty" id=31]
+
+[sub_resource type="StyleBoxEmpty" id=32]
 
 [node name="GUI" type="CanvasLayer"]
 follow_viewport_enable = true
@@ -216,7 +220,6 @@ __meta__ = {
 visible = false
 
 [node name="Top" type="TextureRect" parent="." groups=["pause"]]
-visible = false
 margin_right = 381.0
 margin_bottom = 19.0
 mouse_filter = 2
@@ -228,7 +231,6 @@ __meta__ = {
 }
 
 [node name="LeftCornerTop" type="TextureRect" parent="." groups=["pause"]]
-visible = false
 margin_right = 37.0
 margin_bottom = 17.0
 mouse_filter = 2
@@ -238,7 +240,6 @@ __meta__ = {
 }
 
 [node name="LeftCornerBottom" type="TextureRect" parent="." groups=["pause"]]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_top = -33.0
@@ -251,7 +252,6 @@ __meta__ = {
 }
 
 [node name="RightCornerTop" type="TextureRect" parent="." groups=["pause"]]
-visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -38.0
@@ -264,7 +264,6 @@ __meta__ = {
 }
 
 [node name="RightCornerBottom" type="TextureRect" parent="." groups=["pause"]]
-visible = false
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -281,7 +280,6 @@ __meta__ = {
 }
 
 [node name="Left" type="TextureRect" parent="." groups=["pause"]]
-visible = false
 margin_right = 37.0
 margin_bottom = 254.0
 mouse_filter = 2
@@ -292,7 +290,6 @@ __meta__ = {
 }
 
 [node name="Right" type="TextureRect" parent="." groups=["pause"]]
-visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -37.0
@@ -307,7 +304,6 @@ __meta__ = {
 }
 
 [node name="ButtonMap" type="Button" parent="." groups=["pause"]]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 29.0
@@ -348,7 +344,6 @@ __meta__ = {
 }
 
 [node name="ButtonFludd" type="Button" parent="." groups=["pause"]]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 124.0
@@ -394,7 +389,6 @@ __meta__ = {
 }
 
 [node name="ButtonOptions" type="Button" parent="." groups=["pause"]]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 220.0
@@ -440,7 +434,6 @@ __meta__ = {
 }
 
 [node name="ButtonExit" type="Button" parent="." groups=["pause"]]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 315.0
@@ -482,6 +475,140 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ItemList" type="ItemList" parent="ButtonExit"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -72.0
+margin_top = -71.0
+margin_right = 72.0
+grow_vertical = 0
+rect_pivot_offset = Vector2( 72, 72 )
+size_flags_vertical = 3
+
+[node name="ButtonExitLevel" type="Button" parent="ButtonExit/ItemList" groups=["pause"]]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -72.0
+margin_right = 72.0
+margin_bottom = 23.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 10 )
+custom_styles/pressed = ExtResource( 3 )
+custom_styles/focus = SubResource( 31 )
+custom_styles/disabled = ExtResource( 10 )
+custom_styles/normal = ExtResource( 10 )
+action_mode = 0
+button_mask = 3
+script = ExtResource( 17 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonExit/ItemList/ButtonExitLevel"]
+texture = ExtResource( 96 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonExit/ItemList/ButtonExitLevel"]
+texture = ExtResource( 113 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="Text" type="Label" parent="ButtonExit/ItemList/ButtonExitLevel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -91.5
+margin_top = -7.5
+margin_right = 92.5
+margin_bottom = 8.5
+custom_fonts/font = ExtResource( 26 )
+text = "LEVEL"
+align = 1
+valign = 1
+
+[node name="ButtonQuitToTitle" type="Button" parent="ButtonExit/ItemList" groups=["pause"]]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -72.0
+margin_top = 24.0
+margin_right = 72.0
+margin_bottom = 47.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 8 )
+custom_styles/focus = SubResource( 32 )
+custom_styles/disabled = ExtResource( 9 )
+custom_styles/normal = ExtResource( 9 )
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 17 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonExit/ItemList/ButtonQuitToTitle"]
+texture = ExtResource( 81 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonExit/ItemList/ButtonQuitToTitle"]
+texture = ExtResource( 103 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="Text" type="Label" parent="ButtonExit/ItemList/ButtonQuitToTitle"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -91.5
+margin_top = -8.5
+margin_right = 92.5
+margin_bottom = 7.5
+custom_fonts/font = ExtResource( 26 )
+text = "GAME"
+align = 1
+valign = 1
+
+[node name="ButtonCloseGame" type="Button" parent="ButtonExit/ItemList" groups=["pause"]]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -72.0
+margin_top = 48.0
+margin_right = 72.0
+margin_bottom = 71.0
+rect_pivot_offset = Vector2( 0, 33 )
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 8 )
+custom_styles/focus = SubResource( 32 )
+custom_styles/disabled = ExtResource( 9 )
+custom_styles/normal = ExtResource( 9 )
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource( 17 )
+
+[node name="StarsOff" type="Polygon2D" parent="ButtonExit/ItemList/ButtonCloseGame"]
+texture = ExtResource( 81 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="StarsOn" type="Polygon2D" parent="ButtonExit/ItemList/ButtonCloseGame"]
+texture = ExtResource( 103 )
+polygon = PoolVector2Array( 1, 3, 184, 3, 184, 32, 1, 32 )
+
+[node name="Text" type="Label" parent="ButtonExit/ItemList/ButtonCloseGame"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -62.5
+margin_top = -8.5
+margin_right = 62.5
+margin_bottom = 7.5
+custom_fonts/font = ExtResource( 26 )
+text = "APP"
+align = 1
+valign = 1
+
 [connection signal="button_down" from="ButtonMap" to="." method="_on_ButtonMap_button_down"]
 [connection signal="toggled" from="ButtonMap" to="ButtonMap" method="_on_Button_toggled"]
 [connection signal="button_down" from="ButtonFludd" to="." method="_on_ButtonFludd_button_down"]
@@ -490,3 +617,6 @@ __meta__ = {
 [connection signal="toggled" from="ButtonOptions" to="ButtonOptions" method="_on_Button_toggled"]
 [connection signal="button_down" from="ButtonExit" to="." method="_on_ButtonExit_button_down"]
 [connection signal="toggled" from="ButtonExit" to="ButtonExit" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonExit/ItemList/ButtonExitLevel" to="ButtonExit/ItemList/ButtonExitLevel" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonExit/ItemList/ButtonQuitToTitle" to="ButtonExit/ItemList/ButtonQuitToTitle" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonExit/ItemList/ButtonCloseGame" to="ButtonExit/ItemList/ButtonCloseGame" method="_on_Button_toggled"]
