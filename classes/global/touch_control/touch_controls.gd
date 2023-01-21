@@ -99,7 +99,6 @@ func _clear_buttons() -> void:
 func _generate_buttons(pattern: String) -> void:
 	var pos_offset = Vector2.ZERO
 	var anchor_index = 0
-	var offset_multiplier = Vector2(1, -1)
 	for corner in pattern.split("@"):
 		for row in corner.split("#"):
 			var buttons: PoolStringArray = row.split("/")

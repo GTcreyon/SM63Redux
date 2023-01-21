@@ -14,4 +14,4 @@ func _process(delta):
 		margin_left = fmod(-scroll, size * rect_scale.x) - size * rect_scale.x
 		margin_top = max(-50 * rect_scale.x, -50 * rect_scale.x - cam_pos.y / 50)
 		margin_bottom = -50 * rect_scale.x
-		rect_scale = Vector2.ONE * max(round(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
+		rect_scale = Vector2.ONE * Singleton.get_screen_scale(1)

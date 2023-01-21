@@ -452,7 +452,7 @@ process_mode = 0
 smoothing_enabled = true
 script = ExtResource( 14 )
 
-[node name="GUI" parent="Camera" instance=ExtResource( 5 )]
+[node name="HUD" parent="Camera" instance=ExtResource( 5 )]
 layer = 2
 follow_viewport_enable = false
 

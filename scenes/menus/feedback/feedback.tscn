@@ -58,11 +58,11 @@ region = Rect2( 52, 0, 26, 29 )
 
 [sub_resource type="AtlasTexture" id=20]
 atlas = ExtResource( 11 )
-region = Rect2( 20, 21, 20, 21 )
+region = Rect2( 0, 63, 20, 21 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 11 )
-region = Rect2( 20, 42, 20, 21 )
+region = Rect2( 20, 63, 20, 21 )
 
 [node name="Feedback" type="CanvasLayer"]
 layer = 2
@@ -330,19 +330,18 @@ custom_styles/focus = ExtResource( 3 )
 custom_styles/normal = ExtResource( 3 )
 text = "Submit"
 
-[node name="Label4" type="Label" parent="FeedbackControl"]
+[node name="DataIncluded" type="Label" parent="FeedbackControl"]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -215.0
 margin_top = 285.0
 margin_right = 134.0
-margin_bottom = 372.0
+margin_bottom = 354.0
 custom_fonts/font = ExtResource( 2 )
 text = "Report includes:
 -The data you entered
 -Ingame data (e.g. Mario's position, a screenshot, etc.)
--Current platform (Windows, Web, Android, etc.)
-"
+-Current platform (Windows, Web, Android, etc.)"
 autowrap = true
 
 [node name="Cancel" type="Control" parent="."]
