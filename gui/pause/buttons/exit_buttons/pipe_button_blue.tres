@@ -6,7 +6,7 @@
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 1 )
-region = Rect2( 20, 0, 20, 18 )
+region = Rect2( 20, 18, 20, 18 )
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = SubResource( 4 )
@@ -18,7 +18,7 @@ margin_bottom = 11.0
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 20, 18 )
+region = Rect2( 0, 18, 20, 18 )
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = SubResource( 5 )
@@ -30,7 +30,7 @@ axis_stretch_horizontal = 1
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 40, 0, 20, 18 )
+region = Rect2( 40, 18, 20, 18 )
 
 [sub_resource type="StyleBoxTexture" id=3]
 texture = SubResource( 6 )
