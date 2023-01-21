@@ -30,11 +30,6 @@ func _ready():
 	silver_counter.text = str(0)
 	shine_counter.text = str(0)
 	shine_coin_counter.text = str(0)
-	#change_size(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
-	var menu = get_tree().get_nodes_in_group("pause")
-	for node in menu: # Make pause nodes visible but transparent
-		node.modulate.a = 0
-		node.visible = true
 	pause_menu.modulate.a = 0
 	pause_menu.visible = true
 
