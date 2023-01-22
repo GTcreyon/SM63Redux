@@ -1,5 +1,7 @@
 class_name LogFall
 extends StaticBody2D
+# A log that reacts when something stands on it.
+# It jitters around, before falling, and disappearing after a set time period.
 
 const GRAVITY = 0.17
 const MAX_SPEED = 4
