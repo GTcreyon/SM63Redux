@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/menus/visual_pipescript/holster.png" type="Texture" id=1]
+[ext_resource path="res://scenes/menus/visual_pipescript/node.gd" type="Script" id=2]
+
+[node name="Holster" type="NinePatchRect"]
+margin_right = 74.0
+margin_bottom = 48.0
+mouse_filter = 0
+texture = ExtResource( 1 )
+patch_margin_left = 71
+patch_margin_top = 26
+patch_margin_right = 3
+patch_margin_bottom = 22
+script = ExtResource( 2 )

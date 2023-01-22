@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://core63/classes/global/singleton/singleton.gd" type="Script" id=1]
+[ext_resource path="res://core63/classes/console/console.tscn" type="PackedScene" id=2]
+[ext_resource path="res://core63/classes/global/singleton/input_manager.gd" type="Script" id=3]
+[ext_resource path="res://core63/classes/global/game_state/game_state.tscn" type="PackedScene" id=4]
+
+[node name="Singletons" type="Node"]
+script = ExtResource( 1 )
+
+[node name="GameStateManager" parent="." instance=ExtResource( 4 )]
+
+[node name="Console" parent="." instance=ExtResource( 2 )]
+
+[node name="InputManager" type="Node" parent="."]
+script = ExtResource( 3 )

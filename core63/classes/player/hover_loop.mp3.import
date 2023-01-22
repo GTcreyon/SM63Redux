@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/hover_loop.mp3-cf5dd28222f1cd0710342df95da72cd0.mp3str"
+
+[deps]
+
+source_file="res://core63/classes/player/hover_loop.mp3"
+dest_files=[ "res://.import/hover_loop.mp3-cf5dd28222f1cd0710342df95da72cd0.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,68 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log_right.png" type="Texture" id=1]
+[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log.gd" type="Script" id=2]
+[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log_middle.png" type="Texture" id=3]
+[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log_left.png" type="Texture" id=4]
+[ext_resource path="res://classes/solid/telescoping/tipping_log/log_pivot.png" type="Texture" id=5]
+[ext_resource path="res://classes/ride_area.gd" type="Script" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 23, 7 )
+
+[sub_resource type="RectangleShape2D" id=2]
+resource_local_to_scene = true
+extents = Vector2( 16, 1 )
+
+[node name="TippingLog" type="Sprite"]
+texture = ExtResource( 5 )
+script = ExtResource( 2 )
+_safety_net_path = NodePath("")
+_collision_path = NodePath("Rod/Collision")
+_left_end_path = NodePath("Rod/Left")
+_right_end_path = NodePath("Rod/Right")
+_middle_section_path = NodePath("Rod/Middle")
+middle_segment_width = 32
+end_segment_width = 3
+end_collision_width = 3
+
+[node name="Rod" type="StaticBody2D" parent="."]
+show_behind_parent = true
+collision_mask = 0
+
+[node name="Left" type="Sprite" parent="Rod"]
+position = Vector2( -8, 0 )
+texture = ExtResource( 4 )
+centered = false
+offset = Vector2( -3, -8 )
+
+[node name="Middle" type="TextureRect" parent="Rod"]
+margin_left = -8.0
+margin_top = -8.0
+margin_right = 24.0
+margin_bottom = 8.0
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="Right" type="Sprite" parent="Rod"]
+position = Vector2( 8, 0 )
+texture = ExtResource( 1 )
+centered = false
+offset = Vector2( 0, -8 )
+
+[node name="Collision" type="CollisionShape2D" parent="Rod"]
+shape = SubResource( 1 )
+one_way_collision = true
+one_way_collision_margin = 2.0
+
+[node name="RideArea" type="Area2D" parent="Rod"]
+collision_layer = 0
+collision_mask = 20
+input_pickable = false
+monitorable = false
+script = ExtResource( 6 )
+
+[node name="RideShape" type="CollisionShape2D" parent="Rod/RideArea"]
+position = Vector2( 0, -8 )
+shape = SubResource( 2 )

@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/step_ice_1.wav-00a433e949150954aa4298b0279c9d5b.sample"
+
+[deps]
+
+source_file="res://core63/classes/player/sfx/step/ice/step_ice_1.wav"
+dest_files=[ "res://.import/step_ice_1.wav-00a433e949150954aa4298b0279c9d5b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

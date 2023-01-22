@@ -1,0 +1,39 @@
+class_name CoinPickup
+extends Pickup
+
+const PARTICLE_SCENE = preload("./coin_particles.tscn")
+
+# Texture file for the particle effect.
+export var particle_texture: StreamTexture
+
+var dropped = false
+var vel: Vector2 = Vector2.INF
+var yellow = 0
+var red = 0
+var water_bodies = 0
+
+
+func _ready_override() -> void:
+	._ready_override()
+	
+	if vel == Vector2.INF:
+		vel.x = (Singleton.rng.randf() * 4 - 2) * 0.53
+		vel.y = -7 * 0.53
+
+
+func _add_coins(num: int) -> void:
+	Singleton.coin_total += num
+	if Singleton.hp < 8:
+		Singleton.internal_coin_counter += num
+
+
+func _pickup_effect() -> void:
+	Singleton.get_node("SFX/Coin").play()
+	var inst: Particles2D = PARTICLE_SCENE.instance()
+	inst.texture = particle_texture
+	if parent_is_root:
+		inst.position = get_parent().position
+		get_parent().get_parent().add_child(inst)
+	else:
+		inst.position = position
+		get_parent().add_child(inst)
