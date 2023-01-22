@@ -1,0 +1,156 @@
+[
+	{
+		"segments": "Program start",
+		"type": "start",
+		"display": "begin",
+		"category": "Flow",
+		"display-name": "Start"
+	},
+	{
+		"segments": "Program forced exit",
+		"type": "exit",
+		"display": "normal",
+		"category": "Flow",
+		"display-name": "Force exit"
+	},
+	{
+		"segments": "If $expression then",
+		"type": "if",
+		"display": "holster",
+		"category": "Flow",
+		"display-name": "If statement"
+	},
+	{
+		"segments": "While $expression",
+		"type": "loop",
+		"display": "holster",
+		"category": "Flow",
+		"display-name": "While loop"
+	},
+	{
+		"segments": "Function $function_name",
+		"type": "function",
+		"display": "begin",
+		"category": "Flow",
+		"display-name": "Define function"
+	},
+	{
+		"segments": "Call $function_name",
+		"type": "call",
+		"display": "normal",
+		"category": "Flow",
+		"display-name": "Call function"
+	},
+
+	
+	{
+		"segments": "Duplicate $label and name it $label",
+		"type": "duplicate",
+		"display": "normal",
+		"category": "Objects",
+		"display-name": "Duplicate object"
+	},
+	{
+		"segments": "Remove $label",
+		"type": "remove",
+		"display": "normal",
+		"category": "Objects",
+		"display-name": "Remove object"
+	},
+	{
+		"segments": "Get parent of $label and name it $label",
+		"type": "parent",
+		"display": "normal",
+		"category": "Objects",
+		"display-name": "Get parent"
+	},
+	{
+		"segments": "For every child (referred to as $label ) of $label do",
+		"type": "repeat-children",
+		"display": "holster",
+		"category": "Objects",
+		"display-name": "Loop children"
+	},
+
+
+	{
+		"segments": "Set $label to $expression",
+		"type": "set",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Assign variable"
+	},
+	{
+		"segments": "Get $label its $[x|y] position and name it $label",
+		"type": "get-pos",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Get object position"
+	},
+	{
+		"segments": "Move $label its $[x|y] position forward by $expression",
+		"type": "move-pos",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Move object"
+	},
+	{
+		"segments": "Set $label its $[x|y] position to $expression",
+		"type": "set-pos",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Set position of object"
+	},
+	{
+		"segments": "Print $label",
+		"type": "print",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Print"
+	},
+	{
+		"segments": "Create vector2 $label with x: $single and y: $single",
+		"type": "create-vector",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Create vector2"
+	},
+	{
+		"segments": "Unwrap vector2 $label",
+		"type": "unwrap-vector",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Unwrap vector2"
+	},
+	{
+		"segments": "Update vector2 $label",
+		"type": "update-vector",
+		"display": "normal",
+		"category": "Maths",
+		"display-name": "Update vector2"
+	},
+
+	
+
+	{
+		"segments": "Object $label call $function_name with $+single",
+		"type": "gd-call",
+		"display": "normal",
+		"category": "Advanced",
+		"display-name": "Invoke godot function"
+	},
+	{
+		"segments": "Object $label call $function_name and store the return value in $label with $+single",
+		"type": "gd-call-return",
+		"display": "normal",
+		"category": "Advanced",
+		"display-name": "Invoke returnable godot function"
+	},
+	{
+		"segments": "Create string $label with $anything",
+		"type": "string",
+		"display": "normal",
+		"category": "Advanced",
+		"display-name": "Assign variable"
+	}
+]

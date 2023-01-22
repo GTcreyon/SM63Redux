@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fludd_box_break.wav-abd32d4276a4b5ac2aa72c1ba0039dce.sample"
+
+[deps]
+
+source_file="res://core63/classes/pickup/fludd_box/fludd_box_break.wav"
+dest_files=[ "res://.import/fludd_box_break.wav-abd32d4276a4b5ac2aa72c1ba0039dce.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

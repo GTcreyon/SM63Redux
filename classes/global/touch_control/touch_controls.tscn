@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://classes/global/touch_control/touch_controls.gd" type="Script" id=1]
+
+[node name="TouchControls" type="CanvasLayer"]
+process_priority = -1
+script = ExtResource( 1 )
+
+[node name="AnchorLeft" type="Control" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="AnchorRight" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="AnchorLeftUp" type="Control" parent="."]
+mouse_filter = 2
+
+[node name="AnchorRightUp" type="Control" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+mouse_filter = 2

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://classes/global/touch_control/touch_button.gd" type="Script" id=1]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
+
+[sub_resource type="AtlasTexture" id=2]
+resource_local_to_scene = true
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=1]
+resource_local_to_scene = true
+atlas = ExtResource( 2 )
+region = Rect2( 20, 0, 20, 21 )
+
+[node name="TouchScreenButton" type="TouchScreenButton"]
+modulate = Color( 1, 1, 1, 0.501961 )
+normal = SubResource( 2 )
+pressed = SubResource( 1 )
+passby_press = true
+script = ExtResource( 1 )
+
+[connection signal="pressed" from="." to="." method="_on_TouchScreenButton_pressed"]
+[connection signal="released" from="." to="." method="_on_TouchScreenButton_released"]

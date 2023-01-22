@@ -1,0 +1,25 @@
+# Project settings
+[package]
+name = "pipescript"
+version = "0.1.0"
+edition = "2021"
+
+# NOTE: for this to compile properly, you must have CLang installed (it's required for cdylib)
+# https://releases.llvm.org/download.html
+# [lib]
+# name = "pipescript"
+# crate-type = ["cdylib"]
+
+# Dependencies
+[dependencies]
+strum = "0.24"
+strum_macros = "0.24"
+gdnative = "0.11"
+# gdnative = { git = "https://github.com/godot-rust/godot-rust.git" }
+
+# # Compile to a binary
+[[bin]]
+name = "pipescript-standalone"
+path = "src/standalone.rs"
+test = false
+bench = false

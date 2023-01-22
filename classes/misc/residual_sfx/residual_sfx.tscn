@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://classes/misc/residual_sfx/residual_sfx.gd" type="Script" id=1]
+
+[node name="ResidualSFX" type="AudioStreamPlayer2D"]
+volume_db = -15.0
+bus = "SFX"
+script = ExtResource( 1 )
+
+[connection signal="finished" from="." to="." method="_on_ResidualSFX_finished"]

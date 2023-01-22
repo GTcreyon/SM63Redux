@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/boom.wav-a4f71c4f6375e354ea266d0633d095cb.sample"
+
+[deps]
+
+source_file="res://core63/classes/solid/breakable_box/boom.wav"
+dest_files=[ "res://.import/boom.wav-a4f71c4f6375e354ea266d0633d095cb.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

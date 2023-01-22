@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://singletons/game_states.gd" type="Script" id=1]
+
+[node name="GameStateManager" type="Node"]
+script = ExtResource( 1 )
