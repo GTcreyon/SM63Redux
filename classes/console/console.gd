@@ -29,7 +29,7 @@ func run_command(cmd: String):
 					return
 				match args[1]:
 					"t1", "tutorial_1":
-						if len(args) == 2:
+						if len(args) <= 2:
 							path = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
 						else:
 							path = "res://scenes/levels/tutorial_1/tutorial_1_" + args[2] + ".tscn"
@@ -41,11 +41,15 @@ func run_command(cmd: String):
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 				else:
 					Singleton.warp_location = null
-					var err = Singleton.warp_to(path, $"/root/Main/Player")
-					if err == OK or err == null:
-						Singleton.log_msg("Warped to " + path)
+					var file_check = File.new()
+					if file_check.file_exists(path):
+						var err = Singleton.warp_to(path, $"/root/Main/Player")
+						if err == OK or err == null:
+							Singleton.log_msg("Warped to " + path)
+						else:
+							Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
 					else:
-						Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
+						Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 			"scene":
 				var scene = "res://" + args[1] + ".tscn"
 				var file_check = File.new()
