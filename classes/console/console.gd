@@ -28,14 +28,13 @@ func run_command(cmd: String):
 					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
 					return
 				match args[1]:
-					"t1":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
-					"t1r2":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_2.tscn"
-					"t1r3":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_3.tscn"
-					"t1r4":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_4.tscn"
+					"tutorial_1":
+						if len(args) == 2:
+							Singleton.log_msg("No scene number provided for this course.", Singleton.LogType.ERROR)
+							return
+						path = "res://scenes/levels/tutorial_1/tutorial_1_" + args[2] + ".tscn"
+					"castle_lobby":
+						path = "res://scenes/levels/castle/lobby/castle_lobby.tscn"
 					_:
 						path = ""
 				if path == "":
