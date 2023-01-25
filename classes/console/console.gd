@@ -28,25 +28,28 @@ func run_command(cmd: String):
 					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
 					return
 				match args[1]:
-					"t1":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
-					"t1r2":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_2.tscn"
-					"t1r3":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_3.tscn"
-					"t1r4":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_4.tscn"
+					"t1", "tutorial_1":
+						if len(args) <= 2:
+							path = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
+						else:
+							path = "res://scenes/levels/tutorial_1/tutorial_1_" + args[2] + ".tscn"
+					"lobby":
+						path = "res://scenes/levels/castle/lobby/castle_lobby.tscn"
 					_:
 						path = ""
 				if path == "":
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 				else:
 					Singleton.warp_location = null
-					var err = Singleton.warp_to(path, $"/root/Main/Player")
-					if err == OK or err == null:
-						Singleton.log_msg("Warped to " + path)
+					var file_check = File.new()
+					if file_check.file_exists(path):
+						var err = Singleton.warp_to(path, $"/root/Main/Player")
+						if err == OK or err == null:
+							Singleton.log_msg("Warped to " + path)
+						else:
+							Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
 					else:
-						Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
+						Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 			"scene":
 				var scene = "res://" + args[1] + ".tscn"
 				var file_check = File.new()
