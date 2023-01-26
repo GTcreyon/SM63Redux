@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=11 format=2]
+[gd_resource type="Theme" load_steps=12 format=2]
 
 [ext_resource path="res://scenes/menus/level_designer/fields/text_input.tres" type="StyleBox" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scenes/menus/level_designer/themes/scroll_block_v.png" type="Texture" id=7]
 [ext_resource path="res://scenes/menus/level_designer/themes/scroll_h.png" type="Texture" id=8]
 [ext_resource path="res://scenes/menus/level_designer/themes/scroll_block_h.png" type="Texture" id=9]
+[ext_resource path="res://scenes/menus/level_designer/fields/spinner_buttons.png" type="Texture" id=10]
 
 [sub_resource type="StyleBoxTexture" id=1]
 texture = ExtResource( 8 )
@@ -34,7 +35,7 @@ LineEdit/colors/selection_color = Color( 0.305882, 0.270588, 1, 1 )
 LineEdit/styles/normal = ExtResource( 1 )
 Panel/styles/panel = ExtResource( 3 )
 ScrollContainer/styles/bg = ExtResource( 5 )
-SpinBox/icons/updown = null
+SpinBox/icons/updown = ExtResource( 10 )
 TextEdit/colors/font_color_selected = Color( 0, 0, 0, 1 )
 TextEdit/colors/selection_color = Color( 0, 0, 0, 1 )
 TextEdit/styles/normal = ExtResource( 1 )

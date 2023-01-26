@@ -45,9 +45,15 @@ expand_to_text_length = true
 caret_blink = true
 caret_blink_speed = 0.5
 
-[node name="UpX" type="TextureButton" parent="."]
+[node name="LineEditX2" type="SpinBox" parent="."]
 margin_left = 132.0
-margin_right = 164.0
+margin_right = 219.0
+margin_bottom = 23.0
+theme = ExtResource( 8 )
+
+[node name="UpX" type="TextureButton" parent="."]
+margin_left = 220.0
+margin_right = 252.0
 margin_bottom = 23.0
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 4 )
@@ -60,23 +66,23 @@ texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 5 )
 
 [node name="SpacingY" type="Control" parent="."]
-margin_left = 165.0
-margin_right = 170.0
+margin_left = 253.0
+margin_right = 258.0
 margin_bottom = 23.0
 rect_min_size = Vector2( 5, 0 )
 
 [node name="LabelY" type="Label" parent="."]
-margin_left = 171.0
+margin_left = 259.0
 margin_top = 4.0
-margin_right = 180.0
+margin_right = 268.0
 margin_bottom = 19.0
 theme = ExtResource( 8 )
 text = "Y"
 align = 2
 
 [node name="LineEditY" type="LineEdit" parent="."]
-margin_left = 181.0
-margin_right = 251.0
+margin_left = 269.0
+margin_right = 339.0
 margin_bottom = 23.0
 theme = ExtResource( 8 )
 expand_to_text_length = true
@@ -84,8 +90,8 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="UpY" type="TextureButton" parent="."]
-margin_left = 252.0
-margin_right = 284.0
+margin_left = 340.0
+margin_right = 372.0
 margin_bottom = 23.0
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 4 )
