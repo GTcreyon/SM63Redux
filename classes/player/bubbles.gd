@@ -5,9 +5,12 @@ onready var cam = $"/root/Main/Player/Camera"
 
 
 func _ready():
+	# At this point, viewport has been queued for freeing,
+	# but has yet to be actually freed.
+	
 	refresh()
 	# Move this node into Main
-	$"/root/Main/Player".call_deferred("remove_child", self)
+	get_parent().call_deferred("remove_child", self)
 	$"/root/Main".call_deferred("add_child", self)
 
 
