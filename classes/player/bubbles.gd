@@ -14,16 +14,13 @@ func refresh():
 	material.set_shader_param("viewport_texture", viewport.get_texture())
 
 func _ready():
-	if $"/root/Main".has_node("Bubbles"):
-		queue_free()
-	else:
-		refresh()
-		# Deparent this node
-		$"/root/Main/Player".call_deferred("remove_child", self)
-		$"/root/Main".call_deferred("add_child", self)
-		# Deparent the viewport
-		$"/root/Main/Player".call_deferred("remove_child", viewport)
-		$"/root/Main".call_deferred("add_child", viewport)
+	refresh()
+	# Deparent this node
+	$"/root/Main/Player".call_deferred("remove_child", self)
+	$"/root/Main".call_deferred("add_child", self)
+	# Deparent the viewport
+	$"/root/Main/Player".call_deferred("remove_child", viewport)
+	$"/root/Main".call_deferred("add_child", viewport)
 
 func _process(_delta):
 	viewport.canvas_transform = get_canvas_transform()
