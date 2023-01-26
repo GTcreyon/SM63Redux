@@ -1,17 +1,14 @@
 extends Sprite
 
-onready var viewport = $"../BubbleViewport"
+onready var viewport = prepare_viewport()
 onready var cam = $"/root/Main/Player/Camera"
 
 
 func _ready():
 	refresh()
-	# Deparent this node
+	# Move this node into Main
 	$"/root/Main/Player".call_deferred("remove_child", self)
 	$"/root/Main".call_deferred("add_child", self)
-	# Deparent the viewport
-	$"/root/Main/Player".call_deferred("remove_child", viewport)
-	$"/root/Main".call_deferred("add_child", viewport)
 
 
 func _process(_delta):
@@ -32,3 +29,22 @@ func refresh():
 	texture = tex
 	# Now give the shader our viewport texture
 	material.set_shader_param("viewport_texture", viewport.get_texture())
+
+
+# Fetch any viewports that have been moved into Main.
+# If there are none, move this object's parent viewport into Main.
+func prepare_viewport() -> Viewport:
+	if $"/root/Main".has_node("BubbleViewport"):
+		# Viewport exists in main.
+		# Delete my parent viewport so we don't have extras.
+		$"../BubbleViewport".queue_free()
+		
+		return $"/root/Main/BubbleViewport" as Viewport
+	else:
+		# No viewport exists in main.
+		# Move this node's parent viewport into main.
+		var my_viewport = $"../BubbleViewport"
+		my_viewport.get_parent().call_deferred("remove_child", my_viewport)
+		$"/root/Main".call_deferred("add_child", my_viewport)
+		
+		return my_viewport
