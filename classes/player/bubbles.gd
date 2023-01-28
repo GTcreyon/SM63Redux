@@ -17,6 +17,8 @@ func _ready():
 
 
 func _process(_delta):
+	refresh()
+	
 	viewport.canvas_transform = get_canvas_transform()
 	# Set the position to the screen center
 	scale = Vector2(1, 1) / cam.get_canvas_transform().get_scale()
