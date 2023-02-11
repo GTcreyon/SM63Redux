@@ -474,9 +474,9 @@ func fixed_visuals() -> void:
 			bubblepos.x += 10
 		else:
 			bubblepos.x += -10
-	# offset spray_particles to mario's center
+	# offset spray particles to mario's center
 	spray_particles.position = bubblepos
-	# relative to parent unlike spray_particles, so make position local
+	# plume is relative to parent unlike particles, so make position local
 	nozzle_fx.position = bubblepos - position
 	
 	spray_particles.rotation = sprite.rotation
