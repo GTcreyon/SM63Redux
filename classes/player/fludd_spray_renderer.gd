@@ -1,4 +1,14 @@
 extends Sprite
+# Script to manage an extra render target for FLUDD spray.
+# 
+# The FLUDD spray effect is surprisingly complex, graphically speaking.
+# In order to draw a single clean outline around the entire mass of water,
+# the particles have to be rendered to a dedicated viewport, then that
+# viewport's output must be rendered into the scene using a special shader.
+#
+# This script manages that whole pipeline. As a Sprite object, it displays
+# the output, but it also puts the particles in the right place when the player
+# loads in and ensures the viewport stays the size of the entire screen.
 
 onready var viewport = prepare_viewport()
 onready var cam = $"/root/Main/Player/Camera"
