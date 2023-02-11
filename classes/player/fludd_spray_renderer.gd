@@ -6,6 +6,18 @@ onready var cam = $"/root/Main/Player/Camera"
 var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
 
 
+func _ready():
+	# At this point, viewport may have been queued for freeing,
+	# but has yet to be actually freed.
+	
+	refresh()
+	# Move this node into Main
+	# (If we just called these methods, it'd say "busy setting up children,
+	# remove_node() failed. Consider using call_deferred(...) instead.")
+	get_parent().call_deferred("remove_child", self)
+	$"/root/Main".call_deferred("add_child", self)
+
+
 func _process(_delta):
 	# When window size changes, resize viewport texture.
 	if get_canvas_transform().get_scale() != last_viewport_size:
@@ -17,18 +29,6 @@ func _process(_delta):
 	position = (viewport.size / 2 - cam.get_canvas_transform().origin) * scale
 	# Update shader pixel scale so the bubble outline is independent of viewport res
 	material.set_shader_param("zoom", cam.zoom.x * 1.5 )
-
-
-func initialize():
-	# At this point, viewport may have been queued for freeing,
-	# but has yet to be actually freed.
-	
-	refresh()
-	# Move this node into Main
-	# (If we just called these methods, it'd say "busy setting up children,
-	# remove_node() failed. Consider using call_deferred(...) instead.")
-	get_parent().call_deferred("remove_child", self)
-	$"/root/Main".call_deferred("add_child", self)
 
 
 func refresh():
