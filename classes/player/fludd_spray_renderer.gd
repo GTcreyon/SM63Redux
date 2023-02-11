@@ -3,13 +3,13 @@ extends Sprite
 onready var viewport = $"../SprayViewport"
 onready var cam = $"/root/Main/Player/Camera"
 
+var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
+
 
 func _process(_delta):
-	# Regenerate texture to match window size.
-	# TODO: Texture generation can't be efficient. 
-	#  Only run this on frames when the viewport has actually been
-	#  resized. (Profile first to ensure it's actually saving time.)
-	refresh()
+	# When window size changes, resize viewport texture.
+	if get_canvas_transform().get_scale() != last_viewport_size:
+		refresh()
 	
 	viewport.canvas_transform = get_canvas_transform()
 	# Set the position to the screen center
