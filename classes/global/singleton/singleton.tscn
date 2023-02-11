@@ -1,10 +1,8 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://classes/global/singleton/warp.gd" type="Script" id=1]
 [ext_resource path="res://classes/global/singleton/singleton.gd" type="Script" id=2]
 [ext_resource path="res://classes/global/singleton/death_manager.gd" type="Script" id=3]
-[ext_resource path="res://classes/player/fludd_spray.tres" type="Material" id=4]
-[ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=5]
 [ext_resource path="res://scenes/levels/tutorial_1/tutorial_1.mp3" type="AudioStream" id=6]
 [ext_resource path="res://classes/global/singleton/music.gd" type="Script" id=7]
 [ext_resource path="res://classes/pickup/coin/coin_collect.wav" type="AudioStream" id=8]
@@ -50,21 +48,6 @@ mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 __meta__ = {
 "_editor_description_": "Sorts behind GUI, unlike WarpCover. This is why it exists as a separate object."
-}
-
-[node name="SprayViewport" type="Viewport" parent="."]
-size = Vector2( 640, 360 )
-hdr = false
-usage = 0
-render_target_v_flip = true
-render_target_update_mode = 3
-
-[node name="SprayRenderTarget" type="Sprite" parent="."]
-material = ExtResource( 4 )
-z_index = -1
-script = ExtResource( 5 )
-__meta__ = {
-"_editor_description_": "Responsible for displaying the "
 }
 
 [node name="Music" type="AudioStreamPlayer" parent="."]

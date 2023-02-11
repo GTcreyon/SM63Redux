@@ -161,14 +161,16 @@ onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
+onready var spray_particles: Particles2D = $"SprayViewport/SprayParticles"
 onready var nozzle_fx = $SprayPlume
-onready var spray_particles: Particles2D = $SprayParticles
+onready var spray_viewport = $SprayViewport
 onready var switch_sfx = $SwitchSFX
 onready var hover_sfx = $HoverSFX
 onready var hover_loop_sfx = $HoverLoopSFX
 onready var dust = $Dust
 onready var ground_failsafe_check: Area2D = $GroundFailsafe
 onready var feet_area: Area2D = $Feet
+
 
 
 func _ready():
