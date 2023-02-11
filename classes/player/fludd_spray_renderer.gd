@@ -1,10 +1,14 @@
 extends Sprite
 
-onready var viewport = prepare_viewport()
+onready var viewport = $"../SprayViewport"
 onready var cam = $"/root/Main/Player/Camera"
 
 
 func _process(_delta):
+	# Regenerate texture to match window size.
+	# TODO: Texture generation can't be efficient. 
+	#  Only run this on frames when the viewport has actually been
+	#  resized. (Profile first to ensure it's actually saving time.)
 	refresh()
 	
 	viewport.canvas_transform = get_canvas_transform()
@@ -13,18 +17,6 @@ func _process(_delta):
 	position = (viewport.size / 2 - cam.get_canvas_transform().origin) * scale
 	# Update shader pixel scale so the bubble outline is independent of viewport res
 	material.set_shader_param("zoom", cam.zoom.x * 1.5 )
-
-
-func initialize():
-	# At this point, viewport may have been queued for freeing,
-	# but has yet to be actually freed.
-	
-	refresh()
-	# Move this node into Main
-	# (If we just called these methods, it'd say "busy setting up children,
-	# remove_node() failed. Consider using call_deferred(...) instead.")
-	get_parent().call_deferred("remove_child", self)
-	$"/root/Main".call_deferred("add_child", self)
 
 
 func refresh():
@@ -36,22 +28,3 @@ func refresh():
 	texture = tex
 	# Now give the shader our viewport texture
 	material.set_shader_param("viewport_texture", viewport.get_texture())
-
-
-# Fetch any viewports that have been moved into Main.
-# If there are none, move this object's parent viewport into Main.
-func prepare_viewport() -> Viewport:
-	if $"/root/Main".has_node("BubbleViewport"):
-		# Viewport exists in main.
-		# Delete my parent viewport so we don't have extras.
-		$"../BubbleViewport".queue_free()
-		
-		return $"/root/Main/BubbleViewport" as Viewport
-	else:
-		# No viewport exists in main.
-		# Move this node's parent viewport into main.
-		var my_viewport = $"../BubbleViewport"
-		my_viewport.get_parent().call_deferred("remove_child", my_viewport)
-		$"/root/Main".call_deferred("add_child", my_viewport)
-		
-		return my_viewport
