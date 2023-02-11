@@ -16,13 +16,20 @@ onready var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
 
 
 func _ready():
-	refresh()
-	
-	# Move this node into Main
-	# (If we just called these methods, it'd say "busy setting up children,
-	# remove_node() failed. Consider using call_deferred(...) instead.")
-	get_parent().call_deferred("remove_child", self)
-	$"/root/Main".call_deferred("add_child", self)
+	if $"/root/Main".has_node("SprayRenderTarget"):
+		# Render target already exists, don't need another.
+		queue_free()
+	else:
+		# No established render target exists in the scene.
+		
+		# Initialize the system.
+		refresh()
+		
+		# Move this node into Main.
+		# (If we called these directly, it'd say "busy setting up children,
+		# remove_node() failed. Consider using call_deferred(...) instead.")
+		get_parent().call_deferred("remove_child", self)
+		$"/root/Main".call_deferred("add_child", self)
 
 
 func _process(_delta):
