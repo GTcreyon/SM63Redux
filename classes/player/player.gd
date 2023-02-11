@@ -161,9 +161,8 @@ onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
-onready var spray_particles: Particles2D = $SprayParticles
 onready var nozzle_fx = $SprayPlume
-onready var spray_viewport = $"/root/Singleton/SprayViewport"
+onready var spray_particles: Particles2D = $SprayParticles
 onready var switch_sfx = $SwitchSFX
 onready var hover_sfx = $HoverSFX
 onready var hover_loop_sfx = $HoverLoopSFX
@@ -173,9 +172,14 @@ onready var feet_area: Area2D = $Feet
 
 
 func _ready():
+	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
+	
+	# Move spray particles into the global spray render viewport
+	call_deferred("remove_child", spray_particles)
+	$"/root/Singleton/SprayViewport".call_deferred("add_child", spray_particles)
+	
 	sprite.playing = true
 	nozzle_fx.playing = true
-	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 
 	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
