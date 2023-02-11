@@ -2,8 +2,7 @@ extends Sprite
 
 onready var viewport = prepare_viewport()
 onready var cam = $"/root/Main/Player/Camera"
-
-var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
+onready var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
 
 
 func _ready():
@@ -18,8 +17,11 @@ func _ready():
 
 func _process(_delta):
 	# When window size changes, resize viewport texture.
-	if get_canvas_transform().get_scale() != last_viewport_size:
+	var viewport_size = get_canvas_transform().get_scale()
+	if viewport_size != last_viewport_size:
 		refresh()
+	# Save current size to compare against next frame.
+	last_viewport_size = viewport_size
 	
 	viewport.canvas_transform = get_canvas_transform()
 	# Set the position to the screen center
