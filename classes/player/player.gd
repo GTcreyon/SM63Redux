@@ -176,10 +176,6 @@ onready var feet_area: Area2D = $Feet
 func _ready():
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	
-	# Move spray particles into the global spray render viewport
-	call_deferred("remove_child", spray_particles)
-	$"/root/Singleton/SprayViewport".call_deferred("add_child", spray_particles)
-	
 	sprite.playing = true
 	nozzle_fx.playing = true
 

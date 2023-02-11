@@ -7,10 +7,8 @@ var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
 
 
 func _ready():
-	# At this point, viewport may have been queued for freeing,
-	# but has yet to be actually freed.
-	
 	refresh()
+	
 	# Move this node into Main
 	# (If we just called these methods, it'd say "busy setting up children,
 	# remove_node() failed. Consider using call_deferred(...) instead.")
@@ -45,16 +43,23 @@ func refresh():
 # Fetch any viewports that have been moved into Main.
 # If there are none, move this object's parent viewport into Main.
 func prepare_viewport() -> Viewport:
-	if $"/root/Main".has_node("BubbleViewport"):
+	var my_viewport = $"../SprayViewport"
+	
+	if $"/root/Main".has_node("SprayViewport"):
 		# Viewport exists in main.
-		# Delete my parent viewport so we don't have extras.
-		$"../BubbleViewport".queue_free()
+		var global_viewport: Viewport = $"/root/Main/SprayViewport"
 		
-		return $"/root/Main/BubbleViewport" as Viewport
+		# Move spray particles to the global viewport.
+		var my_particles = my_viewport.get_node("SprayParticles")
+		my_viewport.call_deferred("remove_child", my_particles)
+		global_viewport.call_deferred("add_child", my_particles)
+		# Delete local viewport so we don't have extras.
+		my_viewport.queue_free()
+		
+		return global_viewport
 	else:
 		# No viewport exists in main.
 		# Move this node's parent viewport into main.
-		var my_viewport = $"../BubbleViewport"
 		my_viewport.get_parent().call_deferred("remove_child", my_viewport)
 		$"/root/Main".call_deferred("add_child", my_viewport)
 		
