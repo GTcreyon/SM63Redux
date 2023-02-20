@@ -120,6 +120,9 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 			preload("res://classes/player/sfx/spin_air_2.wav"),
 			preload("res://classes/player/sfx/spin_air_3.wav"),
 		],
+		"water": [
+			preload("res://classes/player/sfx/spin_water_1.wav")
+		]
 	}
 }
 
@@ -640,7 +643,10 @@ func action_spin() -> void:
 		switch_state(S.SPIN)
 		switch_anim("spin")
 		# switch_state stops spin_sfx; always play it again after state switch.
-		play_sfx("spin", "air")
+		if swimming:
+			play_sfx("spin", "water")
+		else:
+			play_sfx("spin", "air")
 		if !grounded:
 			if swimming:
 				vel.y = min(-2, vel.y)
