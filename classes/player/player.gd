@@ -1276,7 +1276,7 @@ const WATER_SFX_BUS = 1
 const FADE_TIME = 10
 var fade_timer = 0
 onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(WATER_SFX_BUS, 0)
-onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(WATER_SFX_BUS, 1)
+onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(0, 0)
 func manage_water_audio(delta):
 	if swimming:
 		# Fade in water fx
@@ -1291,7 +1291,7 @@ func manage_water_audio(delta):
 	
 	# Disable fx if left water and fade is finished
 	AudioServer.set_bus_effect_enabled(WATER_SFX_BUS, 0, fade_timer != 0)
-	AudioServer.set_bus_effect_enabled(WATER_SFX_BUS, 1, fade_timer != 0)
+	AudioServer.set_bus_effect_enabled(0, 0, fade_timer != 0)
 
 
 const ROLLOUT_TIME: int = 18
