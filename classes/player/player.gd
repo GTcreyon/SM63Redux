@@ -1292,7 +1292,7 @@ func manage_water_audio(delta):
 	
 	# Disable fx if left water and fade is finished
 	AudioServer.set_bus_effect_enabled(WATER_LPF_BUS, 0, fade_timer != 0)
-	AudioServer.set_bus_effect_enabled(0, 0, fade_timer != 0)
+	AudioServer.set_bus_effect_enabled(WATER_VRB_BUS, 0, fade_timer != 0)
 
 
 const ROLLOUT_TIME: int = 18
