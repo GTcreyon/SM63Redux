@@ -161,9 +161,9 @@ onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
-onready var bubbles: Particles2D = $"BubbleViewport/Bubbles"
-onready var nozzle_fx = $NozzleStream
-onready var bubbles_viewport = $BubbleViewport
+onready var spray_particles: Particles2D = $"SprayViewport/SprayParticles"
+onready var nozzle_fx = $SprayPlume
+onready var spray_viewport = $SprayViewport
 onready var switch_sfx = $SwitchSFX
 onready var hover_sfx = $HoverSFX
 onready var hover_loop_sfx = $HoverLoopSFX
@@ -174,9 +174,10 @@ onready var feet_area: Area2D = $Feet
 
 
 func _ready():
+	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
+	
 	sprite.playing = true
 	nozzle_fx.playing = true
-	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 
 	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
@@ -449,7 +450,7 @@ func fixed_visuals() -> void:
 			if !fludd_spraying():
 				hover_sfx.stop()
 	
-	bubbles.emitting = fludd_strain
+	spray_particles.emitting = fludd_strain
 	
 	if fludd_strain:
 		nozzle_fx_scale = min(lerp(0.3, 1, fludd_power / 100), nozzle_fx_scale + 0.1)
@@ -471,12 +472,12 @@ func fixed_visuals() -> void:
 			bubblepos.x += 10
 		else:
 			bubblepos.x += -10
-	# offset bubbles to mario's center
-	bubbles.position = bubblepos
-	# relative to parent unlike bubbles, so make position local
+	# offset spray particles to mario's center
+	spray_particles.position = bubblepos
+	# plume is relative to parent unlike particles, so make position local
 	nozzle_fx.position = bubblepos - position
 	
-	bubbles.rotation = sprite.rotation
+	spray_particles.rotation = sprite.rotation
 	nozzle_fx.rotation = sprite.rotation
 	
 	if abs(vel.x) < 2:
