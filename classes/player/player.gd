@@ -288,8 +288,10 @@ func player_physics():
 	manage_invuln()
 	manage_buffers()
 	manage_dive_recover()
-	manage_triple_flip()
-	manage_backflip_flip()
+	if state == S.TRIPLE_JUMP:
+		triple_jump_spin_anim()
+	if state == S.BACKFLIP:
+		backflip_spin_anim()
 	manage_hurt_recover()
 	
 	if Input.is_action_just_pressed("switch_fludd"):
@@ -798,19 +800,23 @@ func player_control_x() -> void:
 
 const TRIPLE_FLIP_TIME: int = 54
 var triple_flip_frames: int = 0
-func manage_triple_flip() -> void:
-	if state == S.TRIPLE_JUMP:
-		triple_flip_frames += 1
-		var dir = 1
-		if sprite.flip_h:
-			dir = -1
-		var multiplier = 1
-		if current_nozzle == Singleton.n.none:
-			multiplier = 2
-		sprite.rotation = dir * multiplier * TAU * ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
-		if triple_flip_frames >= TRIPLE_FLIP_TIME:
-			switch_state(S.NEUTRAL)
-			sprite.rotation = 0
+func triple_jump_spin_anim() -> void:
+	# Tick triple flip timer
+	triple_flip_frames += 1
+	
+	var spin_speed = 1
+	# Flip faster if not wearing FLUDD
+	if current_nozzle == Singleton.n.none:
+		spin_speed = 2
+	
+	# Set rotation a little further than last frame.
+	sprite.rotation = facing_sign() * spin_speed * TAU * \
+		ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
+	
+	# When timer rings, end the triple jump.
+	if triple_flip_frames >= TRIPLE_FLIP_TIME:
+		switch_state(S.NEUTRAL)
+		sprite.rotation = 0
 
 
 func player_jump() -> void:
@@ -872,13 +878,19 @@ func action_jump() -> void:
 			double_jump_state += 1
 		2: # Triple
 			if abs(vel.x) > TRIPLE_JUMP_DEADZONE:
-				vel.y = -JUMP_VEL_3
-				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
-				double_jump_state = 0
+				# Set triple-jumping state
 				switch_state(S.TRIPLE_JUMP)
-				play_sfx("voice", "jump3")
+				double_jump_state = 0
 				triple_flip_frames = 0
 				frontflip_dir_left = sprite.flip_h
+				
+				# Apply triple jump impulse
+				vel.y = -JUMP_VEL_3
+				# ...which goes forward too
+				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
+				
+				# Apply triple jump aesthetic effects
+				play_sfx("voice", "jump3")
 			else:
 				vel.y = -JUMP_VEL_2
 				play_sfx("voice", "jump2")
@@ -893,16 +905,13 @@ func ease_out_quart(x: float) -> float: # for replacing tweens
 
 const BACKFLIP_FLIP_TIME: int = 36
 var backflip_flip_frames: int = 0
-func manage_backflip_flip() -> void:
-	if state == S.BACKFLIP:
-		backflip_flip_frames += 1
-		var dir = -1
-		if sprite.flip_h:
-			dir = 1
-		sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
-		if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
-			switch_state(S.NEUTRAL)
-			sprite.rotation = 0
+func backflip_spin_anim() -> void:
+	backflip_flip_frames += 1
+	var dir = -facing_sign()
+	sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
+	if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
+		switch_state(S.NEUTRAL)
+		sprite.rotation = 0
 
 
 func action_backflip() -> void:
@@ -1072,18 +1081,27 @@ func reset_dive() -> void:
 	dive_reset_frames = 0
 
 
+const TRIPLE_JUMP_ORIGIN_OFFSET_START = Vector2(-2, -4)
+const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(1, -2)
+const TRIPLE_JUMP_ORIGIN_OFFSET_FAST = Vector2(-1, -6)
 func airborne_anim() -> void:
 	if state == S.TRIPLE_JUMP:
-		if current_nozzle == Singleton.n.none:
-			if abs(sprite.rotation_degrees) < 700:
-				switch_anim("flip")
+		if triple_flip_frames > 3:
+			if current_nozzle == Singleton.n.none:
+				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_FAST)
+				if abs(sprite.rotation_degrees) < 700:
+					switch_anim("flip")
+				else:
+					switch_anim("fall")
 			else:
-				switch_anim("fall")
+				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET)
+				if abs(sprite.rotation_degrees) < 340:
+					switch_anim("flip")
+				else:
+					switch_anim("fall")
 		else:
-			if abs(sprite.rotation_degrees) < 340:
-				switch_anim("flip")
-			else:
-				switch_anim("fall")
+			switch_anim("jump_double")
+			set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_START)
 	elif state == S.NEUTRAL:
 		if vel.y > 0:
 			switch_anim("fall")
@@ -1099,6 +1117,7 @@ func airborne_anim() -> void:
 			sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x) - PI / 2, 0.5)
 		else:
 			sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
+
 
 const POUND_LAND_DURATION = 12
 const POUND_SHAKE_INITIAL = 4
@@ -1594,5 +1613,10 @@ func set_rotation_origin (face_left: bool, origin: Vector2):
 	sprite.dejitter_position = -origin * facing
 	sprite.position = sprite.dejitter_position
 
+
 func clear_rotation_origin ():
 	set_rotation_origin(false, Vector2.ZERO)
+
+
+func facing_sign () -> int:
+	return -1 if sprite.flip_h else 1
