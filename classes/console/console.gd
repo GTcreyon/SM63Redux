@@ -74,7 +74,33 @@ func run_command(cmd: String):
 				Singleton.log_msg("Water refilled.")
 			"c":
 				Singleton.classic = !Singleton.classic
-				if Singleton.classic:
+				extends Node
+
+                                var sprite_folder = "classes"
+
+                                func _ready():
+                                print("Ready to import sprites")
+
+                                func _process(delta):
+                                if Input.is_action_pressed("ui_accept"):
+				var cmd = get_node("/root/c").command
+                                if cmd.begins_with("/c"):
+                                var mario_sheet = cmd.substr(3)
+                                var sprite_path = classes + mario_sheet + ".png"
+                                var sprite_exists = ResourceLoader.exists(sprite_path)
+                                if sprite_exists:
+                                var sprite = load(sprite_path)
+                                var new_sprite = Sprite.new()
+                                new_sprite.texture = sprite
+                                new_sprite.scale = Vector2(2, 2)
+                                add_child(new_sprite)
+                                print("Sprite imported successfully")
+                            else:
+                                print("Sprite does not exist")
+
+         
+
+			        if Singleton.classic:
 					Singleton.log_msg("Classic mode enabled.")
 				else:
 					Singleton.log_msg("Classic mode disabled.")
