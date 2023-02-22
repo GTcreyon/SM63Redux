@@ -38,7 +38,7 @@ func run_command(cmd: String):
 					_:
 						path = ""
 				var err = OK
-				if path == "" or not File.new().file_exists(path):
+				if path == "" or not ResourceLoader.exists(path):
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 				else:
 					Singleton.warp_location = null
