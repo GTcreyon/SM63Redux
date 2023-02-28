@@ -231,4 +231,5 @@ func _on_StoryButton_pressed() -> void:
 
 func _on_BackButton_pressed() -> void:
 	Singleton.get_node("SFX/Back").play()
+	Singleton.save_input_map_current()
 	show_options = false

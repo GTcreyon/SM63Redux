@@ -96,7 +96,7 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 margin_top = 156.0
 margin_right = 624.0
-margin_bottom = 156.0
+margin_bottom = 344.0
 
 [node name="TouchMenu" parent="List" instance=ExtResource( 9 )]
 visible = false
