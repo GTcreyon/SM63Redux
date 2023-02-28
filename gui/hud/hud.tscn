@@ -186,4 +186,3 @@ __meta__ = {
 }
 
 [node name="MeterControl" parent="HUDControl/Stats" instance=ExtResource( 11 )]
-visible = false
