@@ -235,6 +235,10 @@ func get_input_map_json_current():
 	return to_json(save_dict)
 
 
+func save_input_map_current() -> void:
+	save_input_map(get_input_map_json_current())
+
+
 func save_input_map(input_json):
 	var file = File.new()
 	file.open("user://controls.json", File.WRITE)
