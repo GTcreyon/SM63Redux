@@ -37,11 +37,11 @@ const WHITELISTED_ACTIONS = [
 	"debug",
 ]
 
-enum n { # FLUDD enum
-	none,
-	hover,
-	rocket,
-	turbo,
+enum Nozzles { # FLUDD enum
+	NONE,
+	HOVER,
+	ROCKET,
+	TURBO,
 }
 
 onready var console = $Console
