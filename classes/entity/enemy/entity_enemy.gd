@@ -58,10 +58,6 @@ func _physics_step():
 	
 	# Triggered when landing on the floor after being struck by a spin
 	if is_on_floor() and struck and !stomped and vel.y > 0:
-		# Play the landing sound, if there is one
-		if sfx_struck_landed != null:
-			sfx_struck_landed.play()
-		# Call overrideable behavior
 		_struck_land()
 	
 	if inside_check:
@@ -72,15 +68,7 @@ func _hurtbox_check():
 	if hurtbox_strike != null:
 		for body in hurtbox_strike.get_overlapping_bodies():
 			if _strike_check(body):
-				# Play the struck sound, if there is one
-				if sfx_struck != null:
-					sfx_struck.play()
-				# Call overrideable behavior
 				_hurt_struck(body)
-
-
-func _struck_land():
-	pass
 
 
 func _connect_signals():
@@ -121,21 +109,12 @@ func _init_animation():
 
 func _on_HurtboxStomp_area_entered(area):
 	if !stomped or multi_stomp:
-		# Play the stomp sound, if there is one
-		if sfx_stomp != null:
-			sfx_stomp.play()
-		# Call overrideable behavior
 		_hurt_stomp(area)
 
 
 func _on_HurtboxStrike_body_entered(body):
 	if _strike_check(body):
-		# Play the struck sound, if there is one
-		if sfx_struck != null:
-			sfx_struck.play()
-		# Call overrideable behavior
 		_hurt_struck(body)
-		# TODO: Deduplicate the audio code. Also found in _hurtbox_check().
 
 
 func _on_Hitbox_body_entered(body):
@@ -149,11 +128,27 @@ func _strike_check(body):
 
 
 func _hurt_stomp(_area):
+	# Play the stomp sound, if there is one
+	if sfx_stomp != null:
+		sfx_stomp.play()
+	
 	pass
 
 
 # Pop the enemy up into the air and off to the side, away from the body that issued the strike
 func _hurt_struck(body):
+	# Play the struck sound, if there is one
+	if sfx_struck != null:
+		sfx_struck.play()
+	
 	struck = true
 	vel.y -= 2.63
 	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
+
+
+func _struck_land():
+	# Play the landing sound, if there is one
+	if sfx_struck_landed != null:
+		sfx_struck_landed.play()
+	
+	pass
