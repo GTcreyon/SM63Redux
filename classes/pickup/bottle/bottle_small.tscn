@@ -12,6 +12,7 @@ collision_mask = 2147483650
 input_pickable = false
 monitorable = false
 script = ExtResource( 2 )
+persistent_collect = false
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -1 )
