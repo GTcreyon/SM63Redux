@@ -95,9 +95,8 @@ script = ExtResource( 7 )
 _sprite_path = NodePath("Sprites/Base")
 _hurtbox_stomp_path = NodePath("")
 _hitbox_path = NodePath("")
-_stomp_sound_path = NodePath("")
-_struck_sound_path = null
-_struck_land_sound_path = NodePath("")
+_sfx_stomp_path = NodePath("")
+_sfx_struck_land_path = NodePath("")
 step_indexes = [ true, false, false, false, true, false, false, false ]
 _aware_area_path = NodePath("")
 
