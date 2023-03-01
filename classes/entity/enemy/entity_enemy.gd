@@ -23,6 +23,15 @@ onready var hurtbox_strike = get_node_or_null(_hurtbox_strike_path)
 export var _hitbox_path: NodePath = "Hitbox"
 onready var hitbox = get_node_or_null(_hitbox_path)
 
+# Optional death sound effects
+export var _sfx_stomp_path: NodePath = "SFXStomped"
+onready var sfx_stomp: AudioStreamPlayer2D = get_node_or_null(_sfx_stomp_path)
+
+export var _sfx_struck_path: NodePath = "SFXStruck"
+onready var sfx_struck: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_path)
+
+export var _sfx_struck_land_path: NodePath = "SFXStruckLanded"
+onready var sfx_struck_landed: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_land_path)
 
 # Make the enemy die and drop its coins.
 func enemy_die():
@@ -49,6 +58,10 @@ func _physics_step():
 	
 	# Triggered when landing on the floor after being struck by a spin
 	if is_on_floor() and struck and !stomped and vel.y > 0:
+		# Play the landing sound, if there is one
+		if sfx_struck_landed != null:
+			sfx_struck_landed.play()
+		# Call overrideable behavior
 		_struck_land()
 	
 	if inside_check:
@@ -59,6 +72,10 @@ func _hurtbox_check():
 	if hurtbox_strike != null:
 		for body in hurtbox_strike.get_overlapping_bodies():
 			if _strike_check(body):
+				# Play the struck sound, if there is one
+				if sfx_struck != null:
+					sfx_struck.play()
+				# Call overrideable behavior
 				_hurt_struck(body)
 
 
@@ -104,12 +121,21 @@ func _init_animation():
 
 func _on_HurtboxStomp_area_entered(area):
 	if !stomped or multi_stomp:
+		# Play the stomp sound, if there is one
+		if sfx_stomp != null:
+			sfx_stomp.play()
+		# Call overrideable behavior
 		_hurt_stomp(area)
 
 
 func _on_HurtboxStrike_body_entered(body):
 	if _strike_check(body):
+		# Play the struck sound, if there is one
+		if sfx_struck != null:
+			sfx_struck.play()
+		# Call overrideable behavior
 		_hurt_struck(body)
+		# TODO: Deduplicate the audio code. Also found in _hurtbox_check().
 
 
 func _on_Hitbox_body_entered(body):
