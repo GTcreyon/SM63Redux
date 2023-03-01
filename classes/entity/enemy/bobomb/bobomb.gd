@@ -18,11 +18,14 @@ extends EntityEnemyWalk
 #	preload("res://classes/entity/enemy/bobomb/explosion_buildup_1.wav"),
 #	preload("res://classes/entity/enemy/bobomb/explosion_buildup_2.wav"),
 #]
-const EXPLOSION = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
-const FUSE_DURATION = 240
-const BUILDUP_SOUND_START = 198
+const EXPLOSION: PackedScene = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
+const FUSE_DURATION: int = 240
+const BUILDUP_SOUND_START: int = 198
+const EASE_FACTOR: float = 1.5
+const FLASH_COUNT: int = 18
 
-var fuse_time = FUSE_DURATION
+var _is_lit: bool = false
+var _fuse_time: int = FUSE_DURATION
 
 onready var base = $Sprites/Base
 onready var fuse = $Sprites/Fuse
@@ -43,13 +46,20 @@ func _physics_step() -> void:
 	if !struck:
 		_update_sprites()
 	
-	if fuse.animation == "lit":
-		fuse_time -= 1
+	if _is_lit:
+		fuse.animation = "lit"
+		var fuse_frame: float = max(0, BUILDUP_SOUND_START - _fuse_time)
+		var fuse_progress: float = fuse_frame / BUILDUP_SOUND_START
+		var ease_position: float = pow(fuse_progress, EASE_FACTOR)
+		var red_amount = (1 - cos(ease_position * 2 * PI * FLASH_COUNT)) / 2.0
+		base.modulate.g = 1 - red_amount * fuse_progress
+		base.modulate.b = 1 - red_amount * fuse_progress
+		_fuse_time -= 1
 	
-	if fuse_time == BUILDUP_SOUND_START:
+	if _fuse_time == BUILDUP_SOUND_START:
 		sfx_build.play()
 	
-	if fuse_time <= 0:
+	if _fuse_time <= 0:
 		explode()
 	
 	._physics_step()
@@ -81,7 +91,7 @@ func _update_sprites() -> void:
 
 
 func _target_alert(_body) -> void:
-	fuse.animation = "lit"
+	_is_lit = true
 	sfx_fuse.play()
 
 
