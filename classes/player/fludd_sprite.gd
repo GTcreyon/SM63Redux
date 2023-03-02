@@ -1,7 +1,7 @@
 extends AnimatedSprite
 # FLUDD pack visuals
 
-onready var character_sprite = $".."
+onready var player_sprite = $".."
 onready var player_body = $"../.."
 
 var _nozzle: String = "hover"
@@ -13,18 +13,18 @@ func _process(_delta) -> void:
 	visible = player_body.current_nozzle != Singleton.Nozzles.NONE
 	
 	# Flip based on character orientation
-	flip_h = character_sprite.flip_h
+	flip_h = player_sprite.flip_h
 	
 	# Behind the player sprite by default
 	z_index = 0
-	if character_sprite.animation.begins_with("spin"):
-		match character_sprite.frame:
+	if player_sprite.animation.begins_with("spin"):
+		match player_sprite.frame:
 			1:
 				_facing_front = true
 			2:
 				_facing_front = false
-				flip_h = !character_sprite.flip_h
-	elif character_sprite.animation.begins_with("back"):
+				flip_h = !player_sprite.flip_h
+	elif player_sprite.animation.begins_with("back"):
 		_facing_front = true
 		# Layer in front of the player sprite
 		z_index = 1
