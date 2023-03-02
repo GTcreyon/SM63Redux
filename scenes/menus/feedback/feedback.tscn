@@ -1,6 +1,6 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=27 format=2]
 
-[ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=1]
+[ext_resource path="res://gui/theme_gui.tres" type="Theme" id=1]
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
 [ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=3]
 [ext_resource path="res://scenes/menus/feedback/traffic.png" type="Texture" id=4]
@@ -11,18 +11,6 @@
 [ext_resource path="res://scenes/menus/feedback/feedback.gd" type="Script" id=9]
 [ext_resource path="res://scenes/menus/feedback/cancel.gd" type="Script" id=10]
 [ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=11]
-
-[sub_resource type="StyleBoxEmpty" id=15]
-
-[sub_resource type="StyleBoxEmpty" id=16]
-
-[sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="StyleBoxEmpty" id=17]
-
-[sub_resource type="StyleBoxEmpty" id=18]
-
-[sub_resource type="StyleBoxEmpty" id=19]
 
 [sub_resource type="StyleBoxEmpty" id=14]
 
@@ -65,29 +53,39 @@ atlas = ExtResource( 11 )
 region = Rect2( 20, 63, 20, 21 )
 
 [node name="Feedback" type="CanvasLayer"]
-layer = 2
-
-[node name="FeedbackControl" type="Control" parent="."]
 pause_mode = 2
-process_priority = 1
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
+layer = 2
 script = ExtResource( 9 )
 
-[node name="ColorRect" type="ColorRect" parent="FeedbackControl"]
+[node name="ColorRect" type="ColorRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0.501961 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Label" type="Label" parent="FeedbackControl"]
+[node name="FeedbackContainer" type="MarginContainer" parent="."]
 anchor_right = 1.0
-margin_top = 5.0
-margin_bottom = 20.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 8
+custom_constants/margin_top = 8
+custom_constants/margin_left = 8
+custom_constants/margin_bottom = 8
+
+[node name="List" type="VBoxContainer" parent="FeedbackContainer"]
+pause_mode = 2
+process_priority = 1
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 632.0
+margin_bottom = 352.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+
+[node name="Title" type="Label" parent="FeedbackContainer/List"]
+margin_right = 624.0
+margin_bottom = 15.0
 custom_fonts/font = ExtResource( 2 )
 text = "Feedback"
 align = 1
@@ -95,106 +93,59 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label2" type="Label" parent="FeedbackControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -213.0
-margin_top = 15.0
-margin_right = 57.0
-margin_bottom = 30.0
+[node name="DescLabel" type="Label" parent="FeedbackContainer/List"]
+margin_top = 19.0
+margin_right = 624.0
+margin_bottom = 34.0
 custom_fonts/font = ExtResource( 2 )
 text = "Description"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label3" type="Label" parent="FeedbackControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -213.0
-margin_top = 224.0
-margin_right = 57.0
-margin_bottom = 239.0
+[node name="Description" type="TextEdit" parent="FeedbackContainer/List"]
+margin_top = 38.0
+margin_right = 624.0
+margin_bottom = 138.0
+size_flags_vertical = 3
+breakpoint_gutter = true
+wrap_enabled = true
+
+[node name="ContactLabel" type="Label" parent="FeedbackContainer/List"]
+margin_top = 142.0
+margin_right = 624.0
+margin_bottom = 157.0
 custom_fonts/font = ExtResource( 2 )
 text = "Contact info (optional)"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="FeedbackControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -220.0
-margin_top = 34.0
-margin_right = 220.0
-margin_bottom = 138.0
-mouse_filter = 2
-custom_styles/panel = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TextEdit" type="TextEdit" parent="FeedbackControl/Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 7.0
-margin_right = -8.0
-margin_bottom = -9.0
+[node name="Contact" type="LineEdit" parent="FeedbackContainer/List"]
+margin_top = 161.0
+margin_right = 624.0
+margin_bottom = 189.0
 custom_fonts/font = ExtResource( 2 )
-custom_styles/read_only = SubResource( 15 )
-custom_styles/focus = SubResource( 16 )
-custom_styles/normal = SubResource( 1 )
-custom_styles/completion = SubResource( 17 )
-breakpoint_gutter = true
-wrap_enabled = true
+placeholder_text = "Let us know how to contact you, e.g. discord handle"
 
-[node name="Panel2" type="Panel" parent="FeedbackControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -220.0
-margin_top = 242.0
-margin_right = 220.0
-margin_bottom = 282.0
-mouse_filter = 2
-custom_styles/panel = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="LineEdit" type="LineEdit" parent="FeedbackControl/Panel2"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 7.0
-margin_right = -8.0
-margin_bottom = -9.0
-custom_fonts/font = ExtResource( 2 )
-custom_styles/read_only = SubResource( 18 )
-custom_styles/focus = SubResource( 19 )
-custom_styles/normal = SubResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Traffic" type="HBoxContainer" parent="FeedbackControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -135.0
-margin_top = 140.0
-margin_right = 163.0
-margin_bottom = 175.0
+[node name="Traffic" type="HBoxContainer" parent="FeedbackContainer/List"]
+margin_top = 193.0
+margin_right = 624.0
+margin_bottom = 225.0
 grow_horizontal = 2
+rect_min_size = Vector2( 0, 32 )
 mouse_filter = 2
 custom_constants/separation = 8
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Negative" type="Button" parent="FeedbackControl/Traffic"]
-margin_right = 88.0
-margin_bottom = 35.0
+[node name="Negative" type="Button" parent="FeedbackContainer/List/Traffic"]
+margin_left = 174.0
+margin_right = 262.0
+margin_bottom = 32.0
 mouse_default_cursor_shape = 2
+size_flags_horizontal = 10
 custom_fonts/font = ExtResource( 2 )
 custom_styles/hover = SubResource( 14 )
 custom_styles/pressed = SubResource( 5 )
@@ -210,10 +161,10 @@ __meta__ = {
 }
 color = Color( 0.466667, 0.592157, 0.811765, 1 )
 
-[node name="Neutral" type="Button" parent="FeedbackControl/Traffic"]
-margin_left = 96.0
-margin_right = 179.0
-margin_bottom = 35.0
+[node name="Neutral" type="Button" parent="FeedbackContainer/List/Traffic"]
+margin_left = 270.0
+margin_right = 353.0
+margin_bottom = 32.0
 mouse_default_cursor_shape = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/hover = SubResource( 14 )
@@ -230,11 +181,12 @@ __meta__ = {
 }
 color = Color( 0.956863, 0.709804, 0.266667, 1 )
 
-[node name="Positive" type="Button" parent="FeedbackControl/Traffic"]
-margin_left = 187.0
-margin_right = 270.0
-margin_bottom = 35.0
+[node name="Positive" type="Button" parent="FeedbackContainer/List/Traffic"]
+margin_left = 361.0
+margin_right = 444.0
+margin_bottom = 32.0
 mouse_default_cursor_shape = 2
+size_flags_horizontal = 2
 custom_fonts/font = ExtResource( 2 )
 custom_styles/hover = SubResource( 14 )
 custom_styles/pressed = SubResource( 9 )
@@ -250,99 +202,148 @@ __meta__ = {
 }
 color = Color( 0.431373, 0.890196, 0.286275, 1 )
 
-[node name="Checkboxes" type="HBoxContainer" parent="FeedbackControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -128.0
-margin_top = 181.0
-margin_right = 128.0
-margin_bottom = 210.0
+[node name="Checkboxes" type="HBoxContainer" parent="FeedbackContainer/List"]
+margin_top = 229.0
+margin_right = 624.0
+margin_bottom = 271.0
 grow_horizontal = 2
 mouse_filter = 2
-custom_constants/separation = 64
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Gameplay" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
-margin_right = 0.0
-margin_bottom = 29.0
+[node name="Gameplay" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
+margin_left = 144.0
+margin_right = 208.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 64, 42 )
+size_flags_horizontal = 10
 
-[node name="Label" parent="FeedbackControl/Checkboxes/Gameplay" index="0"]
-text = "Gameplay"
+[node name="Tickbox" parent="FeedbackContainer/List/Checkboxes/Gameplay" instance=ExtResource( 6 )]
+margin_left = 22.0
+margin_top = 0.0
+margin_right = 42.0
+margin_bottom = 20.0
+size_flags_horizontal = 4
 
-[node name="Sprite" parent="FeedbackControl/Checkboxes/Gameplay" index="1"]
-position = Vector2( 0, 7 )
-
-[node name="Visual" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
-margin_left = 64.0
+[node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Gameplay"]
+margin_top = 24.0
 margin_right = 64.0
-margin_bottom = 29.0
+margin_bottom = 39.0
+text = "Gameplay"
+align = 1
 
-[node name="Label" parent="FeedbackControl/Checkboxes/Visual" index="0"]
+[node name="Visual" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
+margin_left = 212.0
+margin_right = 276.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 64, 42 )
+
+[node name="Tickbox" parent="FeedbackContainer/List/Checkboxes/Visual" instance=ExtResource( 6 )]
+margin_left = 22.0
+margin_top = 0.0
+margin_right = 42.0
+margin_bottom = 20.0
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Visual"]
+margin_top = 24.0
+margin_right = 64.0
+margin_bottom = 39.0
 text = "Visual"
+align = 1
 
-[node name="Sprite" parent="FeedbackControl/Checkboxes/Visual" index="1"]
-position = Vector2( 0, 7 )
+[node name="Bug" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
+margin_left = 280.0
+margin_right = 344.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 64, 42 )
 
-[node name="Bug" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
-margin_left = 128.0
-margin_right = 128.0
-margin_bottom = 29.0
+[node name="Tickbox" parent="FeedbackContainer/List/Checkboxes/Bug" instance=ExtResource( 6 )]
+margin_left = 22.0
+margin_top = 0.0
+margin_right = 42.0
+margin_bottom = 20.0
+size_flags_horizontal = 6
 
-[node name="Label" parent="FeedbackControl/Checkboxes/Bug" index="0"]
+[node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Bug"]
+margin_top = 24.0
+margin_right = 64.0
+margin_bottom = 39.0
 text = "Bug"
+align = 1
 
-[node name="Sprite" parent="FeedbackControl/Checkboxes/Bug" index="1"]
-position = Vector2( 0, 7 )
+[node name="Lag" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
+margin_left = 348.0
+margin_right = 412.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 64, 42 )
 
-[node name="Lag" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
-margin_left = 192.0
-margin_right = 192.0
-margin_bottom = 29.0
+[node name="Tickbox" parent="FeedbackContainer/List/Checkboxes/Lag" instance=ExtResource( 6 )]
+margin_left = 22.0
+margin_top = 0.0
+margin_right = 42.0
+margin_bottom = 20.0
+size_flags_horizontal = 6
 
-[node name="Sprite" parent="FeedbackControl/Checkboxes/Lag" index="1"]
-position = Vector2( 0, 7 )
+[node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Lag"]
+margin_top = 24.0
+margin_right = 64.0
+margin_bottom = 39.0
+text = "Lag"
+align = 1
 
-[node name="Other" parent="FeedbackControl/Checkboxes" instance=ExtResource( 6 )]
-margin_left = 256.0
-margin_right = 256.0
-margin_bottom = 29.0
+[node name="Other" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
+margin_left = 416.0
+margin_right = 480.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 64, 42 )
+size_flags_horizontal = 2
 
-[node name="Label" parent="FeedbackControl/Checkboxes/Other" index="0"]
+[node name="Tickbox" parent="FeedbackContainer/List/Checkboxes/Other" instance=ExtResource( 6 )]
+margin_left = 22.0
+margin_top = 0.0
+margin_right = 42.0
+margin_bottom = 20.0
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Other"]
+margin_top = 24.0
+margin_right = 64.0
+margin_bottom = 39.0
 text = "Other"
+align = 1
 
-[node name="Sprite" parent="FeedbackControl/Checkboxes/Other" index="1"]
-position = Vector2( 0, 7 )
+[node name="HBoxContainer" type="HBoxContainer" parent="FeedbackContainer/List"]
+margin_top = 275.0
+margin_right = 624.0
+margin_bottom = 344.0
 
-[node name="Submit" type="Button" parent="FeedbackControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 138.0
-margin_top = 304.0
-margin_right = 216.0
-margin_bottom = 339.0
-mouse_default_cursor_shape = 2
-custom_fonts/font = ExtResource( 2 )
-custom_styles/hover = ExtResource( 8 )
-custom_styles/pressed = ExtResource( 7 )
-custom_styles/focus = ExtResource( 3 )
-custom_styles/normal = ExtResource( 3 )
-text = "Submit"
-
-[node name="DataIncluded" type="Label" parent="FeedbackControl"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -215.0
-margin_top = 285.0
-margin_right = 134.0
-margin_bottom = 354.0
+[node name="DataIncluded" type="Label" parent="FeedbackContainer/List/HBoxContainer"]
+margin_right = 556.0
+margin_bottom = 69.0
+size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 text = "Report includes:
 -The data you entered
 -Ingame data (e.g. Mario's position, a screenshot, etc.)
 -Current platform (Windows, Web, Android, etc.)"
 autowrap = true
+
+[node name="Submit" type="Button" parent="FeedbackContainer/List/HBoxContainer"]
+margin_left = 560.0
+margin_top = 18.0
+margin_right = 624.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 64, 32 )
+mouse_default_cursor_shape = 2
+size_flags_vertical = 4
+custom_fonts/font = ExtResource( 2 )
+custom_styles/hover = ExtResource( 8 )
+custom_styles/pressed = ExtResource( 7 )
+custom_styles/focus = ExtResource( 3 )
+custom_styles/normal = ExtResource( 3 )
+text = "Submit"
 
 [node name="Cancel" type="Control" parent="."]
 pause_mode = 2
@@ -357,12 +358,6 @@ scale = Vector2( 2, 2 )
 normal = SubResource( 20 )
 pressed = SubResource( 21 )
 
-[connection signal="pressed" from="FeedbackControl/Submit" to="FeedbackControl" method="_on_Submit_pressed"]
-[connection signal="pressed" from="Cancel/Cancel" to="FeedbackControl" method="_on_Cancel_pressed"]
+[connection signal="pressed" from="FeedbackContainer/List/HBoxContainer/Submit" to="." method="_on_Submit_pressed"]
+[connection signal="pressed" from="Cancel/Cancel" to="FeedbackContainer/List" method="_on_Cancel_pressed"]
 [connection signal="pressed" from="Cancel/Cancel" to="Cancel" method="_on_Cancel_pressed"]
-
-[editable path="FeedbackControl/Checkboxes/Gameplay"]
-[editable path="FeedbackControl/Checkboxes/Visual"]
-[editable path="FeedbackControl/Checkboxes/Bug"]
-[editable path="FeedbackControl/Checkboxes/Lag"]
-[editable path="FeedbackControl/Checkboxes/Other"]
