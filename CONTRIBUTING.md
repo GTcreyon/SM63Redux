@@ -20,7 +20,7 @@ Example: `enhance-fludd-spray`
 Example: `refactor-enemy-base-class`
 - `bugfix-___` when _only_ fixing something that doesn't work right. Branches in other categories can also fix bugs, of course.
 As a rule of thumb, a bugfix branch should be possible to merge into any unrelated branch without breaking anything.
-Large-scale changes should be considered refactors, even if the intent is to fix a bug.
+Large-scale changes should be considered refactors, even if they're just intended to fix a bug.
 Example: `bugfix-fish-not-hurting-player`
 - `asset-___` when _only_ integrating art/sound assets into the project. Features and enhancements may also introduce assets.
 Example: `asset-bobomb-sfx`
