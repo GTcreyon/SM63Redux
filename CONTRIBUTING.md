@@ -15,10 +15,12 @@ Name your branches using the following conventions (fill the blanks as appropria
 Example: `feature-shy-guys`
 - `enhance-___` when an existing feature is being tweaked or added to.
 Example: `enhance-fludd-spray`
-- `refactor-___` for changes that make the code nicer to work with.
+- `refactor-___` for changes that only or mostly affect the code, rather than the user's experience.
 (Since nodes interact so tightly with the code, they are counted as part of this category.)
 Example: `refactor-enemy-base-class`
 - `bugfix-___` when _only_ fixing something that doesn't work right. Branches in other categories can also fix bugs, of course.
+As a rule of thumb, a bugfix branch should be possible to merge into any unrelated branch without breaking anything.
+Large-scale changes should be considered refactors, even if the intent is to fix a bug.
 Example: `bugfix-fish-not-hurting-player`
 - `asset-___` when _only_ integrating art/sound assets into the project. Features and enhancements may also introduce assets.
 Example: `asset-bobomb-sfx`
