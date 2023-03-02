@@ -48,12 +48,12 @@ func _physics_step() -> void:
 	
 	if _is_lit:
 		fuse.animation = "lit"
-		var fuse_frame: float = max(0, BUILDUP_SOUND_START - _fuse_time)
-		var fuse_progress: float = fuse_frame / BUILDUP_SOUND_START
-		var ease_position: float = pow(fuse_progress, EASE_FACTOR)
+		var buildup_frame: float = max(0, BUILDUP_SOUND_START - _fuse_time)
+		var buildup_progress: float = buildup_frame / BUILDUP_SOUND_START
+		var ease_position: float = pow(buildup_progress, EASE_FACTOR)
 		var red_amount = (1 - cos(ease_position * 2 * PI * FLASH_COUNT)) / 2.0
-		base.modulate.g = 1 - red_amount * fuse_progress
-		base.modulate.b = 1 - red_amount * fuse_progress
+		base.modulate.g = 1 - red_amount * buildup_progress
+		base.modulate.b = 1 - red_amount * buildup_progress
 		_fuse_time -= 1
 	
 	if _fuse_time == BUILDUP_SOUND_START:
