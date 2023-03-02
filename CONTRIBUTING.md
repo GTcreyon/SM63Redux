@@ -24,7 +24,9 @@ Large-scale changes should be considered refactors, even if the intent is to fix
 Example: `bugfix-fish-not-hurting-player`
 - `asset-___` when _only_ integrating art/sound assets into the project. Features and enhancements may also introduce assets.
 Example: `asset-bobomb-sfx`
-- `repo-___` if the change affects the GitHub repository, e.g. `README.md` or `CONTRIBUTING.md`.
+- `proj-___` if the change is to the project itself, e.g. updating to a new Godot version.
+Example: `proj-godot-4-1`
+- `repo-___` if the change affects the Git or GitHub experience. Changes to files like `README.md` or `.gitignore` belong in this category.
 Example: `repo-clarify-styleguide`
 
 Delete branches once they've been merged, to keep the tree clean.
