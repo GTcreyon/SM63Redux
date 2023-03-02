@@ -19,3 +19,21 @@ func _on_ResidualSFX_finished():
 func _init(sound: AudioStream, pos: Vector2):
 	position = pos
 	stream = sound
+
+
+# Takes an existing AudioStreamPlayer2D and makes it act like a ResidualSFX
+# (outlive its parent, optionally destroy on finish).
+static func new_from_existing (
+	sfx: AudioStreamPlayer2D,
+	scene_root: Node,
+	destroy_on_finished = true
+):
+	# Reparent to scene root.
+	sfx.get_parent().remove_child(sfx)
+	scene_root.add_child(sfx)
+	
+	# Make the sfx player destroy on playback (if desired)
+	if destroy_on_finished:
+		sfx.connect("finished", sfx, "queue_free")
+	# Lesgo
+	sfx.play()
