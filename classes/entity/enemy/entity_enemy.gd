@@ -161,7 +161,7 @@ func _strike_check(body):
 func _hurt_stomp(_area):
 	# Play the stomp sound, if there is one
 	if sfx_stomp != null:
-		sfx_stomp.play()
+		ResidualSFX.new_from_existing(sfx_stomp, get_parent())
 	
 	pass
 
@@ -180,6 +180,6 @@ func _hurt_struck(body):
 func _struck_land():
 	# Play the landing sound, if there is one
 	if sfx_struck_landed != null:
-		sfx_struck_landed.play()
+		ResidualSFX.new_from_existing(sfx_struck_landed, get_parent())
 	
 	pass
