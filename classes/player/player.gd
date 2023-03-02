@@ -505,24 +505,6 @@ func fixed_visuals() -> void:
 	if hp <= 0:
 		dead = true
 		Singleton.get_node("DeathManager").register_player_death(self)
-	
-	fludd_sprite.flip_h = sprite.flip_h
-	if sprite.animation.begins_with("spin"):
-		match sprite.frame:
-			1:
-				if !fludd_sprite.animation.ends_with("front"):
-					fludd_sprite.animation = fludd_sprite.animation + "_front"
-			2:
-				if fludd_sprite.animation.ends_with("front"):
-					fludd_sprite.animation = fludd_sprite.animation.substr(0, fludd_sprite.animation.length() - 6)
-				fludd_sprite.flip_h = !sprite.flip_h
-	if fludd_sprite.animation.ends_with("front"):
-		fludd_sprite.offset.x = 0
-	else:
-		if fludd_sprite.flip_h:
-			fludd_sprite.offset.x = 2
-		else:
-			fludd_sprite.offset.x = -2
 
 
 const WALL_BOUNCE = 0.19
@@ -681,7 +663,7 @@ func fludd_control():
 	
 	if grounded:
 		fludd_power = 100 # TODO: multi fludd
-	elif !Input.is_action_pressed("fludd") and current_nozzle != Singleton.n.hover:
+	elif !Input.is_action_pressed("fludd") and current_nozzle != Singleton.Nozzles.HOVER:
 		fludd_power = min(fludd_power + FPS_MOD, 100)
 	if (
 		Input.is_action_pressed("fludd")
@@ -696,7 +678,7 @@ func fludd_control():
 	):
 		_fludd_spraying = true
 		match current_nozzle:
-			Singleton.n.hover:
+			Singleton.Nozzles.HOVER:
 				fludd_strain = true
 				double_anim_cancel = true
 				if state != S.DIVE:
@@ -733,7 +715,7 @@ func fludd_control():
 					if !swimming:
 						water = max(0, water - 0.07 * FPS_MOD)
 						fludd_power -= 1.5 * FPS_MOD
-			Singleton.n.rocket:
+			Singleton.Nozzles.ROCKET:
 				if fludd_power == 100:
 					fludd_strain = true
 					rocket_charge += 1
@@ -806,7 +788,7 @@ func triple_jump_spin_anim() -> void:
 	
 	var spin_speed = 1
 	# Flip faster if not wearing FLUDD
-	if current_nozzle == Singleton.n.none:
+	if current_nozzle == Singleton.Nozzles.NONE:
 		spin_speed = 2
 	
 	# Set rotation a little further than last frame.
@@ -1087,7 +1069,7 @@ const TRIPLE_JUMP_ORIGIN_OFFSET_FAST = Vector2(-1, -6)
 func airborne_anim() -> void:
 	if state == S.TRIPLE_JUMP:
 		if triple_flip_frames > 3:
-			if current_nozzle == Singleton.n.none:
+			if current_nozzle == Singleton.Nozzles.NONE:
 				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_FAST)
 				if abs(sprite.rotation_degrees) < 700:
 					switch_anim("flip")
@@ -1467,10 +1449,7 @@ func switch_anim(new_anim):
 		last_step = 1 # ensures that the step sound will be made when hitting the ground
 	anim = new_anim
 	
-	if current_nozzle == Singleton.n.none:
-		fludd_sprite.visible = false # hides the fludd sprite
-	else:
-		fludd_sprite.visible = true
+	if current_nozzle != Singleton.Nozzles.NONE:
 		fludd_anim = new_anim + "_fludd"
 		if sprite.frames.has_animation(fludd_anim): # ensures the belt animation exists
 			anim = fludd_anim
@@ -1478,13 +1457,7 @@ func switch_anim(new_anim):
 			anim = new_anim
 			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
 	
-	match current_nozzle: # TODO - multi fludd
-		Singleton.n.hover:
-			fludd_sprite.animation = "hover"
-		Singleton.n.rocket:
-			fludd_sprite.animation = "rocket"
-		Singleton.n.turbo:
-			fludd_sprite.animation = "turbo"
+		fludd_sprite.switch_nozzle(current_nozzle)
 	
 	sprite.animation = anim
 
