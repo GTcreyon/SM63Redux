@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=2]
+[gd_scene load_steps=98 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -395,9 +395,21 @@ animations = [ {
 atlas = ExtResource( 12 )
 region = Rect2( 28, 0, 28, 30 )
 
+[sub_resource type="AtlasTexture" id=105]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 28, 30 )
+
 [sub_resource type="AtlasTexture" id=102]
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 28, 30 )
+
+[sub_resource type="AtlasTexture" id=106]
+atlas = ExtResource( 12 )
+region = Rect2( 56, 0, 28, 30 )
+
+[sub_resource type="AtlasTexture" id=107]
+atlas = ExtResource( 12 )
+region = Rect2( 84, 0, 28, 30 )
 
 [sub_resource type="AtlasTexture" id=103]
 atlas = ExtResource( 12 )
@@ -414,9 +426,24 @@ animations = [ {
 "name": "hover",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 105 ) ],
+"loop": true,
+"name": "hover_back",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 102 ) ],
 "loop": true,
 "name": "hover_front",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 106 ) ],
+"loop": true,
+"name": "hover_side",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 107 ) ],
+"loop": true,
+"name": "hover_sideback",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 103 ) ],
