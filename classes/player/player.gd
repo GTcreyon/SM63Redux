@@ -421,7 +421,9 @@ func adjust_swim_x() -> void:
 
 
 const SPRAY_ORIGIN_STAND = Vector2(-9, 4)
-const SPRAY_ORIGIN_DIVE = Vector2(1, -9)
+const SPRAY_ORIGIN_DIVE = Vector2(-9, -9) #NOTE: This is global space, not local
+const PLUME_ORIGIN_STAND = Vector2(-10, -2)
+const PLUME_ORIGIN_DIVE = Vector2(1, -9)
 var hover_sound_position = 0
 var nozzle_fx_scale = 0
 func fixed_visuals() -> void:
@@ -463,15 +465,17 @@ func fixed_visuals() -> void:
 	nozzle_fx.visible = nozzle_fx_scale > 0
 	nozzle_fx.scale = Vector2.ONE * nozzle_fx_scale
 
-	var spray_pos = position
-	if state == S.DIVE:
-		spray_pos += SPRAY_ORIGIN_DIVE * Vector2(facing_sign(), 1)
-	else:
-		spray_pos += SPRAY_ORIGIN_STAND * Vector2(facing_sign(), 1)
-	# offset spray particles to mario's center
+	# offset spray particles relative to player's center
+	var spray_pos = SPRAY_ORIGIN_DIVE if state == S.DIVE else SPRAY_ORIGIN_STAND
+	spray_pos *= Vector2(facing_sign(), 1)
+	# likewise with plume
+	var plume_pos = PLUME_ORIGIN_DIVE if state == S.DIVE else PLUME_ORIGIN_STAND
+	plume_pos *= Vector2(facing_sign(), 1)
+	# particles are in global space, move them to player-relative local space
+	spray_pos += position
+	# apply spray and plume positions
 	spray_particles.position = spray_pos
-	# plume is relative to parent unlike particles, so make position local
-	nozzle_fx.position = spray_pos - position
+	nozzle_fx.position = plume_pos
 	
 	spray_particles.rotation = sprite.rotation
 	nozzle_fx.rotation = sprite.rotation
