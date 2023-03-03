@@ -74,10 +74,15 @@ func _process(_delta) -> void:
 	
 	# Now, we can set FLUDD's appearance from looked-up orientation.
 	
-	# Set proper sprite from direction.
-	var facing_front: bool = cur_orient & Orient.FACING
-	var facing_side: bool = cur_orient & Orient.SIDE
+	# Determine which sprite should be shown.
+	# (Explanation: Orient.THREE_QTR has two bits set, so masking by it will
+	#  return both side and facing bits.
+	#  The sprites will only trigger if, even with both bits in the mask,
+	#  ONLY their bit is found to be set.)
+	var facing_front: bool = cur_orient & Orient.THREE_QTR == Orient.FACING
+	var facing_side: bool = cur_orient & Orient.THREE_QTR == Orient.SIDE
 	
+	# Set proper sprite from direction.
 	if facing_front:
 		animation = _nozzle + "_front"
 		offset.x = 0
@@ -90,10 +95,11 @@ func _process(_delta) -> void:
 		animation = _nozzle
 		offset.x = -2
 	
-	# Load sprite flip flag.
-	flip_h = cur_orient & Orient.X_FLIP
-	# Invert offset if sprite is flipped.
-	if flip_h:
+	# Apply sprite flip flag.
+	if (cur_orient & Orient.X_FLIP) != 0:
+		# Use the opposite of what the player has.
+		flip_h = !flip_h
+		# Invert offset too.
 		offset.x = -offset.x
 	
 	# Set Z index by in-front flag.
