@@ -465,11 +465,17 @@ func fixed_visuals() -> void:
 	nozzle_fx.visible = nozzle_fx_scale > 0
 	nozzle_fx.scale = Vector2.ONE * nozzle_fx_scale
 
-	# offset spray particles relative to player's center
-	var spray_pos = SPRAY_ORIGIN_DIVE if state == S.DIVE else SPRAY_ORIGIN_STAND
+	var spray_pos: Vector2
+	var plume_pos: Vector2
+	# offset spray effect relative to player's center
+	if state == S.DIVE:
+		spray_pos = SPRAY_ORIGIN_DIVE
+		plume_pos = PLUME_ORIGIN_DIVE
+	else:
+		spray_pos = SPRAY_ORIGIN_STAND
+		plume_pos = PLUME_ORIGIN_STAND
+	# factor in facing direction
 	spray_pos *= Vector2(facing_sign(), 1)
-	# likewise with plume
-	var plume_pos = PLUME_ORIGIN_DIVE if state == S.DIVE else PLUME_ORIGIN_STAND
 	plume_pos *= Vector2(facing_sign(), 1)
 	# particles are in global space, move them to player-relative local space
 	spray_pos += position
