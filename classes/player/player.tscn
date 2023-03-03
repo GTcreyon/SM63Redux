@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=2]
+[gd_scene load_steps=95 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -18,8 +18,8 @@
 [ext_resource path="res://classes/player/sfx/fludd/fludd_switch.wav" type="AudioStream" id=16]
 [ext_resource path="res://classes/player/sfx/pound/pound_spin.wav" type="AudioStream" id=17]
 [ext_resource path="res://classes/player/sfx/spin_air_1.wav" type="AudioStream" id=18]
-[ext_resource path="res://classes/player/mario_spin.png" type="Texture" id=19]
 [ext_resource path="res://classes/player/fludd_sprite.gd" type="Script" id=19]
+[ext_resource path="res://classes/player/mario_spin.png" type="Texture" id=20]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )
@@ -105,100 +105,100 @@ region = Rect2( 456, 38, 24, 38 )
 atlas = ExtResource( 8 )
 region = Rect2( 384, 0, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 8 )
-region = Rect2( 312, 0, 24, 38 )
+[sub_resource type="AtlasTexture" id=93]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 8 )
-region = Rect2( 288, 0, 24, 38 )
+[sub_resource type="AtlasTexture" id=94]
+atlas = ExtResource( 20 )
+region = Rect2( 64, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 8 )
-region = Rect2( 264, 0, 24, 38 )
+[sub_resource type="AtlasTexture" id=95]
+atlas = ExtResource( 20 )
+region = Rect2( 96, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 8 )
-region = Rect2( 312, 38, 24, 38 )
+[sub_resource type="AtlasTexture" id=96]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 8 )
-region = Rect2( 288, 38, 24, 38 )
+[sub_resource type="AtlasTexture" id=97]
+atlas = ExtResource( 20 )
+region = Rect2( 64, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 8 )
-region = Rect2( 264, 38, 24, 38 )
+[sub_resource type="AtlasTexture" id=98]
+atlas = ExtResource( 20 )
+region = Rect2( 96, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=64]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=77]
+atlas = ExtResource( 20 )
 region = Rect2( 256, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=65]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=78]
+atlas = ExtResource( 20 )
 region = Rect2( 288, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=66]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=79]
+atlas = ExtResource( 20 )
 region = Rect2( 320, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=67]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=80]
+atlas = ExtResource( 20 )
 region = Rect2( 352, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=81]
+atlas = ExtResource( 20 )
 region = Rect2( 128, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=82]
+atlas = ExtResource( 20 )
 region = Rect2( 160, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=83]
+atlas = ExtResource( 20 )
 region = Rect2( 192, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=63]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=84]
+atlas = ExtResource( 20 )
 region = Rect2( 224, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=68]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=85]
+atlas = ExtResource( 20 )
 region = Rect2( 256, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=69]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=86]
+atlas = ExtResource( 20 )
 region = Rect2( 288, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=70]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=87]
+atlas = ExtResource( 20 )
 region = Rect2( 320, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=71]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=88]
+atlas = ExtResource( 20 )
 region = Rect2( 352, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=72]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=89]
+atlas = ExtResource( 20 )
 region = Rect2( 128, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=73]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=90]
+atlas = ExtResource( 20 )
 region = Rect2( 160, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=74]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=91]
+atlas = ExtResource( 20 )
 region = Rect2( 192, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=75]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=92]
+atlas = ExtResource( 20 )
 region = Rect2( 224, 38, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=62]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=99]
+atlas = ExtResource( 20 )
 region = Rect2( 0, 0, 32, 38 )
 
-[sub_resource type="AtlasTexture" id=76]
-atlas = ExtResource( 19 )
+[sub_resource type="AtlasTexture" id=100]
+atlas = ExtResource( 20 )
 region = Rect2( 0, 38, 32, 38 )
 
 [sub_resource type="AtlasTexture" id=18]
@@ -340,32 +340,32 @@ animations = [ {
 "name": "shine",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 22 ), SubResource( 21 ), SubResource( 20 ) ],
+"frames": [ SubResource( 93 ), SubResource( 94 ), SubResource( 95 ) ],
 "loop": true,
 "name": "spin_fast",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 41 ), SubResource( 40 ), SubResource( 39 ) ],
+"frames": [ SubResource( 96 ), SubResource( 97 ), SubResource( 98 ) ],
 "loop": true,
 "name": "spin_fast_fludd",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 63 ) ],
+"frames": [ SubResource( 77 ), SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), SubResource( 81 ), SubResource( 82 ), SubResource( 83 ), SubResource( 84 ) ],
 "loop": true,
 "name": "spin_slow",
 "speed": 60.0
 }, {
-"frames": [ SubResource( 68 ), SubResource( 69 ), SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ), SubResource( 74 ), SubResource( 75 ) ],
+"frames": [ SubResource( 85 ), SubResource( 86 ), SubResource( 87 ), SubResource( 88 ), SubResource( 89 ), SubResource( 90 ), SubResource( 91 ), SubResource( 92 ) ],
 "loop": true,
 "name": "spin_slow_fludd",
 "speed": 60.0
 }, {
-"frames": [ SubResource( 62 ) ],
+"frames": [ SubResource( 99 ) ],
 "loop": true,
 "name": "spin_start",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 76 ) ],
+"frames": [ SubResource( 100 ) ],
 "loop": true,
 "name": "spin_start_fludd",
 "speed": 5.0
