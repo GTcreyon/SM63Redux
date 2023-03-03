@@ -90,7 +90,7 @@ func _process(_delta) -> void:
 		# Side anims don't exist yet. Avoid errors.
 		animation = _nozzle #+ "_side"
 		# TODO: does this offset look right?
-		offset.x = -2
+		offset.x = -3
 	else: # 3-quarter view, default
 		animation = _nozzle
 		offset.x = -2
