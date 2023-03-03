@@ -421,7 +421,7 @@ func adjust_swim_x() -> void:
 
 
 const SPRAY_ORIGIN_STAND = Vector2(-9, 4)
-const SPRAY_ORIGIN_DIVE = Vector2(-9, -9) #NOTE: This is global space, not local
+const SPRAY_ORIGIN_DIVE = Vector2(-9, 4)
 const PLUME_ORIGIN_STAND = Vector2(-10, -2)
 const PLUME_ORIGIN_DIVE = Vector2(1, -9)
 var hover_sound_position = 0
@@ -478,6 +478,7 @@ func fixed_visuals() -> void:
 	spray_pos *= Vector2(facing_sign(), 1)
 	plume_pos *= Vector2(facing_sign(), 1)
 	# particles are in global space, move them to player-relative local space
+	spray_pos = spray_pos.rotated(sprite.rotation)
 	spray_pos += position
 	# apply spray and plume positions
 	spray_particles.position = spray_pos
