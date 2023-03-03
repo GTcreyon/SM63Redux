@@ -1,0 +1,61 @@
+[gd_resource type="Theme" load_steps=14 format=2]
+
+[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
+[ext_resource path="res://gui/scroll/scroll_v_grabber_hover.png" type="Texture" id=2]
+[ext_resource path="res://gui/scroll/scroll_v_back.png" type="Texture" id=3]
+[ext_resource path="res://gui/scroll/scroll_v_grabber_press.png" type="Texture" id=4]
+[ext_resource path="res://gui/scroll/scroll_v_grabber.png" type="Texture" id=5]
+[ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=6]
+[ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=7]
+[ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+content_margin_left = 2.0
+content_margin_right = 6.0
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 11, 13 )
+margin_left = 6.0
+margin_right = 6.0
+margin_top = 6.0
+margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 11, 13 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 6.0
+margin_bottom = 8.0
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 4 )
+region_rect = Rect2( 1, 0, 11, 13 )
+margin_left = 5.0
+margin_right = 5.0
+margin_top = 8.0
+margin_bottom = 6.0
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 13, 26 )
+margin_left = 3.0
+margin_right = 3.0
+margin_top = 1.0
+margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[resource]
+default_font = ExtResource( 1 )
+OptionButton/styles/hover = ExtResource( 8 )
+OptionButton/styles/normal = ExtResource( 6 )
+PopupMenu/styles/panel = ExtResource( 7 )
+ScrollContainer/styles/bg = SubResource( 4 )
+VScrollBar/styles/grabber = SubResource( 3 )
+VScrollBar/styles/grabber_highlight = SubResource( 5 )
+VScrollBar/styles/grabber_pressed = SubResource( 6 )
+VScrollBar/styles/scroll = SubResource( 7 )

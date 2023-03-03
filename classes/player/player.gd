@@ -161,9 +161,9 @@ onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
-onready var bubbles: Particles2D = $"BubbleViewport/Bubbles"
-onready var nozzle_fx = $NozzleStream
-onready var bubbles_viewport = $BubbleViewport
+onready var spray_particles: Particles2D = $"SprayViewport/SprayParticles"
+onready var nozzle_fx = $SprayPlume
+onready var spray_viewport = $SprayViewport
 onready var switch_sfx = $SwitchSFX
 onready var hover_sfx = $HoverSFX
 onready var hover_loop_sfx = $HoverLoopSFX
@@ -174,9 +174,10 @@ onready var feet_area: Area2D = $Feet
 
 
 func _ready():
+	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
+	
 	sprite.playing = true
 	nozzle_fx.playing = true
-	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 
 	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
@@ -287,8 +288,10 @@ func player_physics():
 	manage_invuln()
 	manage_buffers()
 	manage_dive_recover()
-	manage_triple_flip()
-	manage_backflip_flip()
+	if state == S.TRIPLE_JUMP:
+		triple_jump_spin_anim()
+	if state == S.BACKFLIP:
+		backflip_spin_anim()
 	manage_hurt_recover()
 	
 	if Input.is_action_just_pressed("switch_fludd"):
@@ -449,7 +452,7 @@ func fixed_visuals() -> void:
 			if !fludd_spraying():
 				hover_sfx.stop()
 	
-	bubbles.emitting = fludd_strain
+	spray_particles.emitting = fludd_strain
 	
 	if fludd_strain:
 		nozzle_fx_scale = min(lerp(0.3, 1, fludd_power / 100), nozzle_fx_scale + 0.1)
@@ -471,12 +474,12 @@ func fixed_visuals() -> void:
 			bubblepos.x += 10
 		else:
 			bubblepos.x += -10
-	# offset bubbles to mario's center
-	bubbles.position = bubblepos
-	# relative to parent unlike bubbles, so make position local
+	# offset spray particles to mario's center
+	spray_particles.position = bubblepos
+	# plume is relative to parent unlike particles, so make position local
 	nozzle_fx.position = bubblepos - position
 	
-	bubbles.rotation = sprite.rotation
+	spray_particles.rotation = sprite.rotation
 	nozzle_fx.rotation = sprite.rotation
 	
 	if abs(vel.x) < 2:
@@ -502,24 +505,6 @@ func fixed_visuals() -> void:
 	if hp <= 0:
 		dead = true
 		Singleton.get_node("DeathManager").register_player_death(self)
-	
-	fludd_sprite.flip_h = sprite.flip_h
-	if sprite.animation.begins_with("spin_fast"):
-		match sprite.frame:
-			1:
-				if !fludd_sprite.animation.ends_with("front"):
-					fludd_sprite.animation = fludd_sprite.animation + "_front"
-			2:
-				if fludd_sprite.animation.ends_with("front"):
-					fludd_sprite.animation = fludd_sprite.animation.substr(0, fludd_sprite.animation.length() - 6)
-				fludd_sprite.flip_h = !sprite.flip_h
-	if fludd_sprite.animation.ends_with("front"):
-		fludd_sprite.offset.x = 0
-	else:
-		if fludd_sprite.flip_h:
-			fludd_sprite.offset.x = 2
-		else:
-			fludd_sprite.offset.x = -2
 
 
 const WALL_BOUNCE = 0.19
@@ -691,7 +676,7 @@ func fludd_control():
 	
 	if grounded:
 		fludd_power = 100 # TODO: multi fludd
-	elif !Input.is_action_pressed("fludd") and current_nozzle != Singleton.n.hover:
+	elif !Input.is_action_pressed("fludd") and current_nozzle != Singleton.Nozzles.HOVER:
 		fludd_power = min(fludd_power + FPS_MOD, 100)
 	if (
 		Input.is_action_pressed("fludd")
@@ -706,7 +691,7 @@ func fludd_control():
 	):
 		_fludd_spraying = true
 		match current_nozzle:
-			Singleton.n.hover:
+			Singleton.Nozzles.HOVER:
 				fludd_strain = true
 				double_anim_cancel = true
 				if state != S.DIVE:
@@ -743,7 +728,7 @@ func fludd_control():
 					if !swimming:
 						water = max(0, water - 0.07 * FPS_MOD)
 						fludd_power -= 1.5 * FPS_MOD
-			Singleton.n.rocket:
+			Singleton.Nozzles.ROCKET:
 				if fludd_power == 100:
 					fludd_strain = true
 					rocket_charge += 1
@@ -810,19 +795,23 @@ func player_control_x() -> void:
 
 const TRIPLE_FLIP_TIME: int = 54
 var triple_flip_frames: int = 0
-func manage_triple_flip() -> void:
-	if state == S.TRIPLE_JUMP:
-		triple_flip_frames += 1
-		var dir = 1
-		if sprite.flip_h:
-			dir = -1
-		var multiplier = 1
-		if current_nozzle == Singleton.n.none:
-			multiplier = 2
-		sprite.rotation = dir * multiplier * TAU * ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
-		if triple_flip_frames >= TRIPLE_FLIP_TIME:
-			switch_state(S.NEUTRAL)
-			sprite.rotation = 0
+func triple_jump_spin_anim() -> void:
+	# Tick triple flip timer
+	triple_flip_frames += 1
+	
+	var spin_speed = 1
+	# Flip faster if not wearing FLUDD
+	if current_nozzle == Singleton.Nozzles.NONE:
+		spin_speed = 2
+	
+	# Set rotation a little further than last frame.
+	sprite.rotation = facing_sign() * spin_speed * TAU * \
+		ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
+	
+	# When timer rings, end the triple jump.
+	if triple_flip_frames >= TRIPLE_FLIP_TIME:
+		switch_state(S.NEUTRAL)
+		sprite.rotation = 0
 
 
 func player_jump() -> void:
@@ -884,13 +873,19 @@ func action_jump() -> void:
 			double_jump_state += 1
 		2: # Triple
 			if abs(vel.x) > TRIPLE_JUMP_DEADZONE:
-				vel.y = -JUMP_VEL_3
-				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
-				double_jump_state = 0
+				# Set triple-jumping state
 				switch_state(S.TRIPLE_JUMP)
-				play_sfx("voice", "jump3")
+				double_jump_state = 0
 				triple_flip_frames = 0
 				frontflip_dir_left = sprite.flip_h
+				
+				# Apply triple jump impulse
+				vel.y = -JUMP_VEL_3
+				# ...which goes forward too
+				vel.x += (vel.x + 15 * FPS_MOD * sign(vel.x)) / 5 * FPS_MOD
+				
+				# Apply triple jump aesthetic effects
+				play_sfx("voice", "jump3")
 			else:
 				vel.y = -JUMP_VEL_2
 				play_sfx("voice", "jump2")
@@ -905,16 +900,13 @@ func ease_out_quart(x: float) -> float: # for replacing tweens
 
 const BACKFLIP_FLIP_TIME: int = 36
 var backflip_flip_frames: int = 0
-func manage_backflip_flip() -> void:
-	if state == S.BACKFLIP:
-		backflip_flip_frames += 1
-		var dir = -1
-		if sprite.flip_h:
-			dir = 1
-		sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
-		if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
-			switch_state(S.NEUTRAL)
-			sprite.rotation = 0
+func backflip_spin_anim() -> void:
+	backflip_flip_frames += 1
+	var dir = -facing_sign()
+	sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
+	if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
+		switch_state(S.NEUTRAL)
+		sprite.rotation = 0
 
 
 func action_backflip() -> void:
@@ -1084,18 +1076,27 @@ func reset_dive() -> void:
 	dive_reset_frames = 0
 
 
+const TRIPLE_JUMP_ORIGIN_OFFSET_START = Vector2(-2, -4)
+const TRIPLE_JUMP_ORIGIN_OFFSET = Vector2(1, -2)
+const TRIPLE_JUMP_ORIGIN_OFFSET_FAST = Vector2(-1, -6)
 func airborne_anim() -> void:
 	if state == S.TRIPLE_JUMP:
-		if current_nozzle == Singleton.n.none:
-			if abs(sprite.rotation_degrees) < 700:
-				switch_anim("flip")
+		if triple_flip_frames > 3:
+			if current_nozzle == Singleton.Nozzles.NONE:
+				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_FAST)
+				if abs(sprite.rotation_degrees) < 700:
+					switch_anim("flip")
+				else:
+					switch_anim("fall")
 			else:
-				switch_anim("fall")
+				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET)
+				if abs(sprite.rotation_degrees) < 340:
+					switch_anim("flip")
+				else:
+					switch_anim("fall")
 		else:
-			if abs(sprite.rotation_degrees) < 340:
-				switch_anim("flip")
-			else:
-				switch_anim("fall")
+			switch_anim("jump_double")
+			set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_START)
 	elif state == S.NEUTRAL:
 		if vel.y > 0:
 			switch_anim("fall")
@@ -1111,6 +1112,7 @@ func airborne_anim() -> void:
 			sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x) - PI / 2, 0.5)
 		else:
 			sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
+
 
 const POUND_LAND_DURATION = 12
 const POUND_SHAKE_INITIAL = 4
@@ -1285,19 +1287,27 @@ func action_dive():
 				dive_correct(1)
 
 
+const WATER_VRB_BUS = 1
+const WATER_LPF_BUS = 2
 const FADE_TIME = 10
 var fade_timer = 0
-onready var lowpass = AudioServer.get_bus_effect(0, 0)
-onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(0, 1)
+onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(WATER_LPF_BUS, 0)
+onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(WATER_VRB_BUS, 0)
 func manage_water_audio(delta):
 	if swimming:
+		# Fade in water fx
 		fade_timer = min(fade_timer + delta * 60, FADE_TIME)
 	else:
+		# Fade out water fx
 		fade_timer = max(fade_timer - delta * 60, 0)
+	
+	# Apply fade to fx
 	reverb.wet = 0.25 * fade_timer / FADE_TIME
 	lowpass.cutoff_hz = int((2000 - 20500) * fade_timer / FADE_TIME + 20500)
-	AudioServer.set_bus_effect_enabled(0, 0, fade_timer != 0)
-	AudioServer.set_bus_effect_enabled(0, 1, fade_timer != 0)
+	
+	# Disable fx if left water and fade is finished
+	AudioServer.set_bus_effect_enabled(WATER_LPF_BUS, 0, fade_timer != 0)
+	AudioServer.set_bus_effect_enabled(WATER_VRB_BUS, 0, fade_timer != 0)
 
 
 const ROLLOUT_TIME: int = 18
@@ -1452,10 +1462,7 @@ func switch_anim(new_anim):
 		last_step = 1 # ensures that the step sound will be made when hitting the ground
 	anim = new_anim
 	
-	if current_nozzle == Singleton.n.none:
-		fludd_sprite.visible = false # hides the fludd sprite
-	else:
-		fludd_sprite.visible = true
+	if current_nozzle != Singleton.Nozzles.NONE:
 		fludd_anim = new_anim + "_fludd"
 		if sprite.frames.has_animation(fludd_anim): # ensures the belt animation exists
 			anim = fludd_anim
@@ -1463,13 +1470,7 @@ func switch_anim(new_anim):
 			anim = new_anim
 			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
 	
-	match current_nozzle: # TODO - multi fludd
-		Singleton.n.hover:
-			fludd_sprite.animation = "hover"
-		Singleton.n.rocket:
-			fludd_sprite.animation = "rocket"
-		Singleton.n.turbo:
-			fludd_sprite.animation = "turbo"
+		fludd_sprite.switch_nozzle(current_nozzle)
 	
 	sprite.animation = anim
 
@@ -1606,5 +1607,10 @@ func set_rotation_origin (face_left: bool, origin: Vector2):
 	sprite.dejitter_position = -origin * facing
 	sprite.position = sprite.dejitter_position
 
+
 func clear_rotation_origin ():
 	set_rotation_origin(false, Vector2.ZERO)
+
+
+func facing_sign () -> int:
+	return -1 if sprite.flip_h else 1

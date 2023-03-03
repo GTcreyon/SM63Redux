@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
 [ext_resource path="res://gui/pause/options/reset_binds.gd" type="Script" id=3]
 [ext_resource path="res://gui/pause/options/bind_list.gd" type="Script" id=4]
+[ext_resource path="res://gui/theme_gui.tres" type="Theme" id=5]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -13,35 +14,46 @@ region = Rect2( 0, 0, 20, 21 )
 atlas = ExtResource( 2 )
 region = Rect2( 20, 0, 20, 21 )
 
-[node name="ButtonMenu" type="Control"]
+[node name="ButtonMenu" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_pivot_offset = Vector2( -212, -131 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="Margin" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 8.0
-margin_top = 8.0
-margin_right = -8.0
-margin_bottom = -8.0
+[node name="BindDivider" type="VBoxContainer" parent="."]
+margin_right = 640.0
+margin_bottom = 360.0
 
-[node name="ResetBinds" type="TextureButton" parent="Margin"]
+[node name="ResetBinds" type="TextureButton" parent="BindDivider"]
+margin_right = 640.0
+margin_bottom = 21.0
 rect_min_size = Vector2( 20, 21 )
 texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )
 script = ExtResource( 3 )
 
-[node name="Label" type="Label" parent="Margin/ResetBinds"]
+[node name="Label" type="Label" parent="BindDivider/ResetBinds"]
 margin_left = 23.0
 margin_top = 2.0
 custom_fonts/font = ExtResource( 1 )
 text = "Reset controls to default"
 
-[node name="BindList" type="VBoxContainer" parent="Margin"]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Scroll" type="ScrollContainer" parent="BindDivider"]
 margin_top = 25.0
+margin_right = 640.0
+margin_bottom = 360.0
+size_flags_vertical = 3
+theme = ExtResource( 5 )
+scroll_horizontal_enabled = false
+
+[node name="BindList" type="VBoxContainer" parent="BindDivider/Scroll"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 634.0
+margin_bottom = 333.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource( 4 )
 
-[connection signal="pressed" from="Margin/ResetBinds" to="Margin/ResetBinds" method="_on_ResetBinds_pressed"]
+[connection signal="pressed" from="BindDivider/ResetBinds" to="BindDivider/ResetBinds" method="_on_ResetBinds_pressed"]
