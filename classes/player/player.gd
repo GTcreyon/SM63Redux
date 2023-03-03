@@ -421,8 +421,7 @@ func adjust_swim_x() -> void:
 
 
 const SPRAY_ORIGIN = Vector2(-9, 4)
-const PLUME_ORIGIN_STAND = Vector2(-10, -2)
-const PLUME_ORIGIN_DIVE = Vector2(1, -9)
+const PLUME_ORIGIN = Vector2(-10, -2)
 var hover_sound_position = 0
 var nozzle_fx_scale = 0
 func fixed_visuals() -> void:
@@ -468,15 +467,14 @@ func fixed_visuals() -> void:
 	var plume_pos: Vector2
 	# offset spray effect relative to player's center
 	spray_pos = SPRAY_ORIGIN
-	if state == S.DIVE:
-		plume_pos = PLUME_ORIGIN_DIVE
-	else:
-		plume_pos = PLUME_ORIGIN_STAND
+	plume_pos = PLUME_ORIGIN
 	# factor in facing direction
 	spray_pos *= Vector2(facing_sign(), 1)
 	plume_pos *= Vector2(facing_sign(), 1)
-	# particles are in global space, move them to player-relative local space
+	# rotate positions with sprite, so they stay aligned
 	spray_pos = spray_pos.rotated(sprite.rotation)
+	plume_pos = plume_pos.rotated(sprite.rotation)
+	# particles are in global space, move them to player-relative position
 	spray_pos += position
 	# apply spray and plume positions
 	spray_particles.position = spray_pos
