@@ -17,7 +17,7 @@ func _process(_delta) -> void:
 	
 	# Behind the player sprite by default
 	z_index = 0
-	if player_sprite.animation.begins_with("spin"):
+	if player_sprite.animation.begins_with("spin_fast"):
 		match player_sprite.frame:
 			1:
 				_facing_front = true
