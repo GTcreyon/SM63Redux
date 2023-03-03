@@ -420,8 +420,7 @@ func adjust_swim_x() -> void:
 	vel.x += (swim_adjust - vel.x) * FPS_MOD
 
 
-const SPRAY_ORIGIN_STAND = Vector2(-9, 4)
-const SPRAY_ORIGIN_DIVE = Vector2(-9, 4)
+const SPRAY_ORIGIN = Vector2(-9, 4)
 const PLUME_ORIGIN_STAND = Vector2(-10, -2)
 const PLUME_ORIGIN_DIVE = Vector2(1, -9)
 var hover_sound_position = 0
@@ -468,11 +467,10 @@ func fixed_visuals() -> void:
 	var spray_pos: Vector2
 	var plume_pos: Vector2
 	# offset spray effect relative to player's center
+	spray_pos = SPRAY_ORIGIN
 	if state == S.DIVE:
-		spray_pos = SPRAY_ORIGIN_DIVE
 		plume_pos = PLUME_ORIGIN_DIVE
 	else:
-		spray_pos = SPRAY_ORIGIN_STAND
 		plume_pos = PLUME_ORIGIN_STAND
 	# factor in facing direction
 	spray_pos *= Vector2(facing_sign(), 1)
