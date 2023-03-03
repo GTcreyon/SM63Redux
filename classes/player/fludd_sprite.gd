@@ -74,6 +74,10 @@ func _process(_delta) -> void:
 	
 	# Now, we can set FLUDD's appearance from looked-up orientation.
 	
+	# Set Z index by in-front flag.
+	if (cur_orient & Orient.SORT_ABOVE) != 0:
+		z_index = 1
+	
 	# Determine which sprite should be shown.
 	# (Explanation: Orient.THREE_QTR has two bits set, so masking by it will
 	#  return both side and facing bits.
@@ -84,15 +88,19 @@ func _process(_delta) -> void:
 	
 	# Set proper sprite from direction.
 	if facing_front:
-		animation = _nozzle + "_front"
+		if z_index == 1:
+			animation = _nozzle + "_back"
+		else:
+			animation = _nozzle + "_front"
 		offset.x = 0
 	elif facing_side:
-		# Side anims don't exist yet. Avoid errors.
-		animation = _nozzle #+ "_side"
-		# TODO: does this offset look right?
-		offset.x = -3
+		animation = _nozzle + "_side"
+		offset.x = -7
 	else: # 3-quarter view, default
-		animation = _nozzle
+		if z_index == 1:
+			animation = _nozzle + "_sideback"
+		else:
+			animation = _nozzle
 		offset.x = -2
 	
 	# Apply sprite flip flag.
@@ -103,9 +111,6 @@ func _process(_delta) -> void:
 	if flip_h:
 		offset.x = -offset.x
 	
-	# Set Z index by in-front flag.
-	if (cur_orient & Orient.SORT_ABOVE) != 0:
-		z_index = 1
 
 
 func switch_nozzle(current_nozzle: int) -> void:
