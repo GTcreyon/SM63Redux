@@ -7,6 +7,7 @@ const LOCALES = [
 	["en", "English"],
 	["es", "Español"],
 	["fr", "Français"],
+	["pt", "Português"],
 	["it", "Italiano"],
 	["nl", "Nederlands"],
 ]
