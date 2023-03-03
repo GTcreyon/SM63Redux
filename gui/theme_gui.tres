@@ -1,11 +1,10 @@
-[gd_resource type="Theme" load_steps=15 format=2]
+[gd_resource type="Theme" load_steps=14 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gui/scroll/scroll_v_grabber_hover.png" type="Texture" id=2]
 [ext_resource path="res://gui/scroll/scroll_v_back.png" type="Texture" id=3]
 [ext_resource path="res://gui/scroll/scroll_v_grabber_press.png" type="Texture" id=4]
 [ext_resource path="res://gui/scroll/scroll_v_grabber.png" type="Texture" id=5]
-[ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=6]
 [ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=7]
 [ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=8]
 [ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=9]
@@ -52,12 +51,12 @@ axis_stretch_vertical = 1
 
 [resource]
 default_font = ExtResource( 1 )
-LineEdit/styles/normal = ExtResource( 6 )
+LineEdit/styles/normal = ExtResource( 8 )
 OptionButton/styles/hover = ExtResource( 9 )
 OptionButton/styles/normal = ExtResource( 7 )
 PopupMenu/styles/panel = ExtResource( 8 )
 ScrollContainer/styles/bg = SubResource( 4 )
-TextEdit/styles/normal = ExtResource( 6 )
+TextEdit/styles/normal = ExtResource( 8 )
 VScrollBar/styles/grabber = SubResource( 3 )
 VScrollBar/styles/grabber_highlight = SubResource( 5 )
 VScrollBar/styles/grabber_pressed = SubResource( 6 )
