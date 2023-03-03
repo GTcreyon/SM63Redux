@@ -99,7 +99,8 @@ func _process(_delta) -> void:
 	if (cur_orient & Orient.X_FLIP) != 0:
 		# Use the opposite of what the player has.
 		flip_h = !flip_h
-		# Invert offset too.
+	# Invert offset if sprite is flipped, even if by default.
+	if flip_h:
 		offset.x = -offset.x
 	
 	# Set Z index by in-front flag.
