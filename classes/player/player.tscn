@@ -439,40 +439,40 @@ animations = [ {
 "speed": 15.0
 } ]
 
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 28, 30 )
-
-[sub_resource type="AtlasTexture" id=42]
+[sub_resource type="AtlasTexture" id=101]
 atlas = ExtResource( 12 )
 region = Rect2( 28, 0, 28, 30 )
 
-[sub_resource type="AtlasTexture" id=37]
+[sub_resource type="AtlasTexture" id=102]
 atlas = ExtResource( 12 )
-region = Rect2( 56, 0, 28, 30 )
+region = Rect2( 0, 0, 28, 30 )
 
-[sub_resource type="AtlasTexture" id=38]
+[sub_resource type="AtlasTexture" id=103]
 atlas = ExtResource( 12 )
-region = Rect2( 112, 0, 28, 30 )
+region = Rect2( 28, 30, 28, 30 )
+
+[sub_resource type="AtlasTexture" id=104]
+atlas = ExtResource( 12 )
+region = Rect2( 28, 60, 28, 30 )
 
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
-"frames": [ SubResource( 35 ) ],
+"frames": [ SubResource( 101 ) ],
 "loop": true,
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 42 ) ],
+"frames": [ SubResource( 102 ) ],
 "loop": true,
 "name": "hover_front",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 37 ) ],
+"frames": [ SubResource( 103 ) ],
 "loop": true,
 "name": "rocket",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 38 ) ],
+"frames": [ SubResource( 104 ) ],
 "loop": true,
 "name": "turbo",
 "speed": 5.0
