@@ -95,7 +95,7 @@ func _process(_delta) -> void:
 		offset.x = 0
 	elif facing_side:
 		animation = _nozzle + "_side"
-		offset.x = -7
+		offset.x = -8
 	else: # 3-quarter view, default
 		if z_index == 1:
 			animation = _nozzle + "_sideback"
