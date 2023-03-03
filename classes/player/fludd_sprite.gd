@@ -22,8 +22,9 @@ enum Orient {
 	FRONT_LEFT = 4 | 8 | 1,
 }
 
+const DEFAULT_ORIENT = Orient.FRONT_RIGHT
+
 # FLUDD's orientation is overridden for these player animations.
-# (Default is Orient.FRONT_RIGHT)
 # Each frame should have one array entry.
 # (NOTE: No reason to include the non-FLUDD variants, since FLUDD is
 # hidden when those are in use!)
@@ -47,11 +48,10 @@ const ORIENT_FRAMES = {
 	],
 }
 
-onready var player_sprite = $".."
-onready var player_body = $"../../.."
+onready var player_sprite: AnimatedSprite = $".."
+onready var player_body: KinematicBody2D = $"../../.."
 
 var _nozzle: String = "hover"
-var _facing_front: bool = false
 
 
 func _process(_delta) -> void:
@@ -60,33 +60,45 @@ func _process(_delta) -> void:
 	
 	# Flip based on character orientation
 	flip_h = player_sprite.flip_h
-	
 	# Behind the player sprite by default
 	z_index = 0
-	if player_sprite.animation.begins_with("spin"):
-		match player_sprite.frame:
-			1:
-				_facing_front = true
-			2:
-				_facing_front = false
-				flip_h = !player_sprite.flip_h
-	elif player_sprite.animation.begins_with("back"):
-		_facing_front = true
-		# Layer in front of the player sprite
-		z_index = 1
-	else:
-		_facing_front = false
 	
+	# Lookup orientation overrides using player animation
+	# (If FLUDD is visible, player animation will definitely end in "_fludd"--
+	# so indexing with the raw anim name will be fine.)
+	# Use default if no override is found.
+	var cur_orient = ORIENT_FRAMES.get(player_sprite.animation, DEFAULT_ORIENT)
+	# Table entries can be arrays--index by frame in that case.
+	if cur_orient is Array:
+		cur_orient = cur_orient[player_sprite.frame]
 	
-	if _facing_front:
+	# Now, we can set FLUDD's appearance from looked-up orientation.
+	
+	# Set proper sprite from direction.
+	var facing_front: bool = cur_orient & Orient.FACING
+	var facing_side: bool = cur_orient & Orient.SIDE
+	
+	if facing_front:
 		animation = _nozzle + "_front"
 		offset.x = 0
-	else:
+	elif facing_side:
+		# Side anims don't exist yet. Avoid errors.
+		animation = _nozzle #+ "_side"
+		# TODO: does this offset look right?
+		offset.x = -2
+	else: # 3-quarter view, default
 		animation = _nozzle
-		if flip_h:
-			offset.x = 2
-		else:
-			offset.x = -2
+		offset.x = -2
+	
+	# Load sprite flip flag.
+	flip_h = cur_orient & Orient.X_FLIP
+	# Invert offset if sprite is flipped.
+	if flip_h:
+		offset.x = -offset.x
+	
+	# Set Z index by in-front flag.
+	if (cur_orient & Orient.SORT_ABOVE) != 0:
+		z_index = 1
 
 
 func switch_nozzle(current_nozzle: int) -> void:
