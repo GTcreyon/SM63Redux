@@ -123,6 +123,11 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 		"water": [
 			preload("res://classes/player/sfx/spin_water_1.wav")
 		]
+	},
+	"spin_end": {
+		"water": [
+			preload("res://classes/player/sfx/spin_water_end.wav")
+		]
 	}
 }
 
@@ -630,6 +635,8 @@ func action_spin() -> void:
 		elif !Input.is_action_pressed("spin"):
 			# End spin
 			switch_state(S.NEUTRAL)
+			if swimming:
+				play_sfx("spin_end", "water")
 			
 	if (
 		Input.is_action_pressed("spin")
@@ -1539,7 +1546,7 @@ func play_sfx(type, group):
 		"pound":
 			thud.stream = sound
 			thud.play(0)
-		"spin":
+		"spin", "spin_end":
 			spin_sfx.stream = sound
 			spin_sfx.play(0)
 
