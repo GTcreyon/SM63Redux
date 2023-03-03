@@ -26,6 +26,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource( 2 )
 parent_is_root = true
+persistent_collect = false
 nozzle_award = 1
 
 [node name="Sprite" type="Sprite" parent="Hover"]
