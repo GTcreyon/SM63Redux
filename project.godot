@@ -238,6 +238,11 @@ _global_script_classes=[ {
 "class": "Warp",
 "language": "GDScript",
 "path": "res://classes/global/singleton/warp.gd"
+}, {
+"base": "Polygon2D",
+"class": "WindowWarp",
+"language": "GDScript",
+"path": "res://classes/global/singleton/window_warp.gd"
 } ]
 _global_script_class_icons={
 "BaseModifier": "",
@@ -285,7 +290,8 @@ _global_script_class_icons={
 "TileToPoly": "",
 "TippingLog": "",
 "Toad": "",
-"Warp": ""
+"Warp": "",
+"WindowWarp": ""
 }
 
 [application]
