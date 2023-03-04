@@ -1,14 +1,8 @@
-# Translations template for PROJECT.
-# Copyright (C) 2023 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-02-28 23:03+0000\n"
-"PO-Revision-Date: 2023-03-01 17:15-0300\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -16,7 +10,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"Generated-By: Babel 2.11.0\n"
 "X-Generator: Poedit 3.2.2\n"
 
 #: ../gui/pause/level_info/level_info.tscn:83
@@ -55,26 +48,203 @@ msgstr ""
 msgid "Reset controls to default"
 msgstr "Redefinir controles para o padrão"
 
-#: ../gui/pause/options/options_menu.tscn:34
+#: ../gui/pause/options/options_menu.tscn:50
 msgid "Disable camera limiting [Try this if the camera is broken]"
 msgstr ""
 "Desativar a limitação da câmera [Tente isto se a câmera estiver quebrada]"
 
-#: ../gui/pause/options/options_menu.tscn:45
+#: ../gui/pause/options/options_menu.tscn:61
 msgid "Enable touch controls"
 msgstr "Habilitar controles de toque"
 
-#: ../gui/pause/options/options_menu.tscn:56
+#: ../gui/pause/options/options_menu.tscn:72
 msgid "Mute music"
 msgstr "Mutar música"
 
-#: ../gui/pause/options/options_menu.tscn:67
+#: ../gui/pause/options/options_menu.tscn:83
+#: ../gui/pause/options/rebind_option.gd:160
 msgid "Mute SFX"
 msgstr "Mutar efeitos sonoros"
 
-#: ../gui/pause/options/options_menu.tscn:78
+#: ../gui/pause/options/options_menu.tscn:94
 msgid "Show timer\n"
 msgstr "Mostrar temporizador\n"
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Left"
+msgstr "Analógico esquerdo pra esquerda"
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Right"
+msgstr "Analógico esquerdo pra direita"
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Up"
+msgstr "Analógico esquerdo pra cima"
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Down"
+msgstr "Analógico esquerdo pra baixo"
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Left"
+msgstr "Analógico direito pra esquerda"
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Right"
+msgstr "Analógico direito pra direita"
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Up"
+msgstr "Analógico direito pra cima"
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Down"
+msgstr "Analógico direito pra baixo"
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Back"
+msgstr "Voltar"
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Select"
+msgstr "Selecionar"
+
+#: ../gui/pause/options/rebind_option.gd:129
+msgid "Start"
+msgstr "Iniciar"
+
+#: ../gui/pause/options/rebind_option.gd:130
+msgid "Left Stick Click"
+msgstr "Clique do Analógico esquerdo"
+
+#: ../gui/pause/options/rebind_option.gd:131
+msgid "Right Stick Click"
+msgstr "Clique do Analógico direito"
+
+#: ../gui/pause/options/rebind_option.gd:134
+msgid "Logo"
+msgstr "Logo"
+
+#: ../gui/pause/options/rebind_option.gd:135
+msgid "D-Up"
+msgstr "Direcional pra cima"
+
+#: ../gui/pause/options/rebind_option.gd:136
+msgid "D-Down"
+msgstr "Direcional pra baixo"
+
+#: ../gui/pause/options/rebind_option.gd:137
+msgid "D-Left"
+msgstr "Direcional pra esquerda"
+
+#: ../gui/pause/options/rebind_option.gd:138
+msgid "D-Right"
+msgstr "Direcional pra direita"
+
+#: ../gui/pause/options/rebind_option.gd:143
+msgid "Left"
+msgstr "Esquerda"
+
+#: ../gui/pause/options/rebind_option.gd:144
+msgid "Right"
+msgstr "Direita"
+
+#: ../gui/pause/options/rebind_option.gd:145
+msgid "Jump"
+msgstr "Pular"
+
+#: ../gui/pause/options/rebind_option.gd:146
+msgid "Dive"
+msgstr "Mergulhar"
+
+#: ../gui/pause/options/rebind_option.gd:147
+msgid "Spin"
+msgstr "Girar"
+
+#: ../gui/pause/options/rebind_option.gd:148
+msgid "Ground Pound"
+msgstr "Ground Pound"
+
+#: ../gui/pause/options/rebind_option.gd:149
+msgid "Use FLUDD"
+msgstr "Usar F.L.U.D.D"
+
+#: ../gui/pause/options/rebind_option.gd:150
+msgid "Switch FLUDD Nozzle"
+msgstr "Mudar bico do F.L.U.D.D"
+
+#: ../gui/pause/options/rebind_option.gd:151
+msgid "Pause"
+msgstr "Pausar"
+
+#: ../gui/pause/options/rebind_option.gd:152
+msgid "Interact"
+msgstr "Interagir"
+
+#: ../gui/pause/options/rebind_option.gd:153
+msgid "Skip Text"
+msgstr "Pular o texto"
+
+#: ../gui/pause/options/rebind_option.gd:154
+msgid "Zoom In"
+msgstr "Zoom In"
+
+#: ../gui/pause/options/rebind_option.gd:155
+msgid "Zoom Out"
+msgstr "Zoom Out"
+
+#: ../gui/pause/options/rebind_option.gd:156
+msgid "Power Swim"
+msgstr "Habilidade de Nadar"
+
+#: ../gui/pause/options/rebind_option.gd:157
+msgid "Reset Run"
+msgstr "Reiniciar Run"
+
+#: ../gui/pause/options/rebind_option.gd:158
+msgid "Show Timer"
+msgstr "Mostrar temporizador"
+
+#: ../gui/pause/options/rebind_option.gd:159
+msgid "Mute Music"
+msgstr "Mutar música"
+
+#: ../gui/pause/options/rebind_option.gd:161
+msgid "Music Volume +"
+msgstr "Volume de músicas +"
+
+#: ../gui/pause/options/rebind_option.gd:162
+msgid "Music Volume -"
+msgstr "Volume de músicas -"
+
+#: ../gui/pause/options/rebind_option.gd:163
+msgid "SFX Volume +"
+msgstr "Volume de efeitos sonoros +"
+
+#: ../gui/pause/options/rebind_option.gd:164
+msgid "SFX Volume -"
+msgstr "Volume de efeitos sonoros -"
+
+#: ../gui/pause/options/rebind_option.gd:165
+msgid "Fullscreen"
+msgstr "Tela Cheia"
+
+#: ../gui/pause/options/rebind_option.gd:166
+msgid "Screen Size +"
+msgstr "Tamanho da Tela +"
+
+#: ../gui/pause/options/rebind_option.gd:167
+msgid "Screen Size -"
+msgstr "Tamanho da Tela -"
+
+#: ../gui/pause/options/rebind_option.gd:168
+msgid "Open Feedback Menu"
+msgstr "Abrir menu de feedback"
+
+#: ../gui/pause/options/rebind_option.gd:169
+msgid "Open Debug Console"
+msgstr "Abrir console de depuração"
 
 #: ../gui/pause/options/rebind_option.tscn:35
 msgid "[action]"
@@ -317,11 +487,11 @@ msgstr ""
 "[@c,toad][@m,anger][@n,Ang.T]Diálogo não usado...[@p,10] Será isso "
 "[color=#f28d7c]realmente[/color] tudo para o que sirvo!?"
 
-#: ../scenes/menus/feedback/feedback.tscn:92
+#: ../scenes/menus/feedback/feedback.tscn:90
 msgid "Feedback"
 msgstr "Feedback"
 
-#: ../scenes/menus/feedback/feedback.tscn:106
+#: ../scenes/menus/feedback/feedback.tscn:101
 msgid "Description"
 msgstr "Descrição"
 
@@ -329,39 +499,43 @@ msgstr "Descrição"
 msgid "Contact info (optional)"
 msgstr "Informação de Contato (Opcional)"
 
-#: ../scenes/menus/feedback/feedback.tscn:204
+#: ../scenes/menus/feedback/feedback.tscn:129
+msgid "Let us know how to contact you, e.g. discord handle"
+msgstr "Diga-nos como entrar em contato! (Por exemplo, Discord)"
+
+#: ../scenes/menus/feedback/feedback.tscn:155
 msgid " Negative"
 msgstr " Negativo"
 
-#: ../scenes/menus/feedback/feedback.tscn:224
+#: ../scenes/menus/feedback/feedback.tscn:175
 msgid " Neutral"
 msgstr " Neutro"
 
-#: ../scenes/menus/feedback/feedback.tscn:244
+#: ../scenes/menus/feedback/feedback.tscn:196
 msgid " Positive"
 msgstr " Positivo"
 
-#: ../scenes/menus/feedback/feedback.tscn:272
+#: ../scenes/menus/feedback/feedback.tscn:233
 msgid "Gameplay"
 msgstr "Gameplay"
 
-#: ../scenes/menus/feedback/feedback.tscn:283
+#: ../scenes/menus/feedback/feedback.tscn:253
 msgid "Visual"
 msgstr "Visual"
 
-#: ../scenes/menus/feedback/feedback.tscn:294
+#: ../scenes/menus/feedback/feedback.tscn:273
 msgid "Bug"
 msgstr "Bug"
 
-#: ../scenes/menus/feedback/feedback.tscn:313
+#: ../scenes/menus/feedback/feedback.tscn:293
+msgid "Lag"
+msgstr "Lag"
+
+#: ../scenes/menus/feedback/feedback.tscn:314
 msgid "Other"
 msgstr "Outro"
 
-#: ../scenes/menus/feedback/feedback.tscn:331
-msgid "Submit"
-msgstr "Enviar"
-
-#: ../scenes/menus/feedback/feedback.tscn:341
+#: ../scenes/menus/feedback/feedback.tscn:327
 msgid ""
 "Report includes:\n"
 "-The data you entered\n"
@@ -374,9 +548,9 @@ msgstr ""
 "etc.)\n"
 "-Atual plataforma (Windows, Web, Android, etc.)"
 
-#: ../scenes/menus/feedback/tickbox_feedback.tscn:41
-msgid "Lag"
-msgstr "Lag"
+#: ../scenes/menus/feedback/feedback.tscn:346
+msgid "Submit"
+msgstr "Enviar"
 
 #: ../scenes/menus/level_designer/level_designer.tscn:488
 msgid "Placeholder Loading Text"
