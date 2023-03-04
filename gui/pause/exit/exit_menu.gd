@@ -71,6 +71,8 @@ func _reset_to_title_state():
 	
 	# Clear game state to make new-game work cleanly.
 	Singleton.reset_game_state()
+	# Close speedrun timer
+	Singleton.timer.visible = false
 
 
 func _close_game():
