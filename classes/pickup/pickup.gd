@@ -9,7 +9,7 @@ export var parent_is_root: bool = false
 export var persistent_collect = true
 export var disabled: bool = false setget set_disabled
 export var _sprite_path: NodePath = "Sprite"
-export var _sfx_path: NodePath = "GrabSFX"
+export var _sfx_path: NodePath = "SFXCollect"
 
 var _pickup_id: int = -1
 

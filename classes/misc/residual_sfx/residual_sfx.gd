@@ -21,21 +21,28 @@ func _init(sound: AudioStream, pos: Vector2):
 	stream = sound
 
 
-# Takes an existing AudioStreamPlayer2D and makes it act like a ResidualSFX
+# Takes an existing AudioStreamPlayer(2D) and makes it act like a ResidualSFX
 # (outlive its parent, optionally destroy on finish).
 static func new_from_existing (
-	sfx: AudioStreamPlayer2D,
+	sfx,
 	scene_root: Node,
 	destroy_on_finished = true
 ):
-	# Reparent to scene root, while preserving global position.
-	var sound_pos = sfx.global_position
-	sfx.get_parent().remove_child(sfx)
-	scene_root.add_child(sfx)
-	sfx.global_position = sound_pos
+	if sfx is Node2D:
+		# Reparent to scene root, while preserving global position.
+		var sound_pos = sfx.global_position
+		_move_node_to(sfx, scene_root)
+		sfx.global_position = sound_pos
+	else:
+		# Reparent to the scene root.
+		_move_node_to(sfx, scene_root)
 	
 	# Make the sfx player destroy on playback (if desired)
 	if destroy_on_finished:
 		sfx.connect("finished", sfx, "queue_free")
 	# Lesgo
 	sfx.play()
+
+static func _move_node_to (node: Node, new_parent: Node):
+	node.get_parent().remove_child(node)
+	new_parent.add_child(node)
