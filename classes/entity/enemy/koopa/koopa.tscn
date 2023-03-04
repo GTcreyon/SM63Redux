@@ -128,6 +128,6 @@ volume_db = -6.0
 attenuation = 10.0
 bus = "SFX"
 
-[node name="SFXKick" type="AudioStreamPlayer" parent="."]
+[node name="SFXKick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
 bus = "SFX"

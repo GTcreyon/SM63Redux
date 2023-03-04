@@ -141,6 +141,6 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 20 )
 
-[node name="Kick" type="AudioStreamPlayer" parent="."]
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
 bus = "SFX"
