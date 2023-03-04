@@ -20,6 +20,7 @@ onready var right = $Right
 
 
 func _process(_delta):
+	var dmod = 60.0 * _delta
 	var buttons = [button_map, button_fludd, button_options, button_exit]
 	var menus = [map, fludd, options, exit]
 	var info_visible: bool = true
@@ -36,6 +37,12 @@ func _process(_delta):
 	# If no button is pressed, show the info screen
 	# Control nodes don't like to be made invisible then visible in one frame, it messes with input
 	info.visible = info_visible
+	
+	if Singleton.pause_menu:
+		modulate.a = min(modulate.a + 0.2 * dmod, 1)
+	else:
+		modulate.a = max(modulate.a - 0.2 * dmod, 0)
+	visible = modulate.a > 0
 
 
 func resize():

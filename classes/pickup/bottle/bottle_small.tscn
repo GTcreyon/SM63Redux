@@ -15,6 +15,7 @@ monitorable = false
 script = ExtResource( 2 )
 persistent_collect = false
 _sfx_path = NodePath("SFXCollect")
+respawn_seconds = 30.0
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -1 )

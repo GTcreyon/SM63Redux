@@ -23,17 +23,12 @@ func _ready():
 
 func _reset_values():
 	# Set controls by reading their destination values.
-	_camera_fix.pressed = Singleton.disable_limits
-	_touch_controls.pressed = Singleton.touch_control
-	_mute_music.pressed = AudioServer.is_bus_mute(_bus_music)
-	_mute_sfx.pressed = AudioServer.is_bus_mute(_bus_sfx)
-	_show_timer.pressed = Singleton.timer.visible
-	# Let checked tickboxes show their checks.
-	$ScrollContainer/List/CameraFix/Sprite.playing = _camera_fix.pressed
-	$ScrollContainer/List/TouchControls/Sprite.playing = _touch_controls.pressed
-	$ScrollContainer/List/MuteMusic/Sprite.playing = _mute_music.pressed
-	$ScrollContainer/List/MuteSFX/Sprite.playing = _mute_sfx.pressed
-	$ScrollContainer/List/ShowTimer/Sprite.playing = _show_timer.pressed
+	_camera_fix.set_pressed(Singleton.disable_limits)
+	_touch_controls.set_pressed(Singleton.touch_control)
+	_mute_music.set_pressed(AudioServer.is_bus_mute(_bus_music))
+	_mute_sfx.set_pressed(AudioServer.is_bus_mute(_bus_sfx))
+	_show_timer.set_pressed(Singleton.timer.visible)
+
 
 func _process(_delta):
 	if visible:

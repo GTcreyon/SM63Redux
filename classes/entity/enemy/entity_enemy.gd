@@ -3,6 +3,37 @@ extends EntityMirrorable
 # Parent class for enemy entities.
 # Enemies are able to hurt the player with a hitbox, and be hurt/killed with a hurtbox.
 # Enemies can drop a specified number of coins when killed.
+# 
+# Functions which child classes SHOULD implement:
+# - _physics_step():
+#		the update function, of course.
+#		The default behavior handles landing from a spin/dive strike, then calls
+#		 _hurtbox_check() if inside_check is set.
+# -	_hurt_stomp():
+# 		called when the enemy is stomped.
+#		The default behavior is just to play sfx_stomp, if it exists.
+# - _hurt_strike():
+# 		called when the enemy is struck, e.g. by the player's spin or dive.
+#		The default behavior is to play sfx_struck, if it exists, mark the
+#		enemy as having been struck (struck = true), then pop the enemy a bit
+#		upwards and to the side (away from the source of impact) by setting
+#		velocity.
+#		Generally _struck_land() handles the actual enemy death.
+# -	_struck_land():
+# 		called when the enemy lands after being struck.
+#		The default behavior is just to play sfx_struck_landed, if it exists.
+
+# Functions which child classes MAY implement:
+# - _strike_check(body) -> bool:
+#	checks if a given body should start a new strike.
+#	A body passed to this function is guaranteed to be intersecting the enemy.
+#	TODO: This function currently checks two things, whether the enemy CAN BE
+#	struck and whether it IS BEING struck. For extensibility, these should
+#	be two separate functions.
+
+# Functions for child classes to use IN their implementations:
+# - enemy_die():
+#	destroys the enemy and spawns its coin pickups.
 
 const COIN_PREFAB = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 
@@ -23,6 +54,15 @@ onready var hurtbox_strike = get_node_or_null(_hurtbox_strike_path)
 export var _hitbox_path: NodePath = "Hitbox"
 onready var hitbox = get_node_or_null(_hitbox_path)
 
+# Optional death sound effects
+export var _sfx_stomp_path: NodePath = "SFXStomped"
+onready var sfx_stomp: AudioStreamPlayer2D = get_node_or_null(_sfx_stomp_path)
+
+export var _sfx_struck_path: NodePath = "SFXStruck"
+onready var sfx_struck: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_path)
+
+export var _sfx_struck_land_path: NodePath = "SFXStruckLanded"
+onready var sfx_struck_landed: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_land_path)
 
 # Make the enemy die and drop its coins.
 func enemy_die():
@@ -60,10 +100,6 @@ func _hurtbox_check():
 		for body in hurtbox_strike.get_overlapping_bodies():
 			if _strike_check(body):
 				_hurt_struck(body)
-
-
-func _struck_land():
-	pass
 
 
 func _connect_signals():
@@ -123,11 +159,27 @@ func _strike_check(body):
 
 
 func _hurt_stomp(_area):
+	# Play the stomp sound, if there is one
+	if sfx_stomp != null:
+		ResidualSFX.new_from_existing(sfx_stomp, get_parent())
+	
 	pass
 
 
 # Pop the enemy up into the air and off to the side, away from the body that issued the strike
 func _hurt_struck(body):
+	# Play the struck sound, if there is one
+	if sfx_struck != null:
+		sfx_struck.play()
+	
 	struck = true
 	vel.y -= 2.63
 	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
+
+
+func _struck_land():
+	# Play the landing sound, if there is one
+	if sfx_struck_landed != null:
+		ResidualSFX.new_from_existing(sfx_struck_landed, get_parent())
+	
+	pass
