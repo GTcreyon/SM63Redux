@@ -88,6 +88,7 @@ func _on_WaterCheck_area_exited(_area):
 
 
 func _hurt_struck(body):
+	._hurt_struck(body)
 	struck = true
 	if body.position.x < position.x:
 		vel.x = 10
