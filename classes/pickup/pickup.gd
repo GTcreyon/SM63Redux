@@ -29,7 +29,7 @@ func _ready_override() -> void:
 	_connect_signals()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if respawn_seconds > 0 and _respawn_timer != -1:
 		if _respawn_timer > respawn_seconds:
 			# Show and re-enable the object.
