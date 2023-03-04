@@ -65,7 +65,7 @@ monitorable = false
 position = Vector2( 0, 6 )
 shape = SubResource( 9 )
 
-[node name="Kick" type="AudioStreamPlayer" parent="."]
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 9 )
 bus = "SFX"
 
