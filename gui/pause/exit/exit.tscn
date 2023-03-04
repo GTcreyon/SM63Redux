@@ -24,6 +24,7 @@ rect_pivot_offset = Vector2( 313, 24 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme = ExtResource( 3 )
+disabled = true
 button_mask = 3
 
 [node name="Text" type="Label" parent="ButtonExitLevel"]
