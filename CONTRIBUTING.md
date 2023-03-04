@@ -27,7 +27,7 @@ Example: `repo-clarify-styleguide`
 
 Delete branches once they've been merged, to keep the tree clean.
 ### Styling
-Follow the [Godot style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html) as closely as possible, albeit with the following alterations:
+Follow the [Godot style guide](https://docs.godotengine.org/en/3.5/tutorials/scripting/gdscript/gdscript_styleguide.html) as closely as possible, albeit with the following alterations:
 * The keywords `and` and `or` are used in place of the C-like `&&` and `||` as-per the style guide, however we use the `!` symbol as opposed to `not`, to allow easier reading of more complex boolean expressions. So, `if !foo and !bar:`
 * When unfolding longer lines we only use *one* tab, not two. This is contrary to the Godot style guide.
 ### Documentation
