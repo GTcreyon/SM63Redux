@@ -35,7 +35,7 @@ func _on_ButtonCloseGame_pressed():
 	# Close game before actually changing scenes.
 	Singleton.connect("before_scene_change", self, "_close_game")
 	# Do the transition though.
-	_do_transition_out(TITLE_SCENE) #just because why not
+	_do_transition_out(TITLE_SCENE) #this path just because why not
 
 
 func _hide_close_button():
@@ -69,7 +69,7 @@ func _unpause_game():
 func _reset_to_title_state():
 	_unpause_game()
 	
-	# Clear inter-scene data to make resets work cleanly.
+	# Clear game state to make new-game work cleanly.
 	Singleton.reset_game_state()
 
 
