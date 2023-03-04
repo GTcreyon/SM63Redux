@@ -37,19 +37,16 @@ func run_command(cmd: String):
 						path = "res://scenes/levels/castle/lobby/castle_lobby.tscn"
 					_:
 						path = ""
-				if path == "":
+				var err = OK
+				if path == "" or not ResourceLoader.exists(path):
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 				else:
 					Singleton.warp_location = null
-					var file_check = File.new()
-					if file_check.file_exists(path):
-						var err = Singleton.warp_to(path, $"/root/Main/Player")
-						if err == OK or err == null:
-							Singleton.log_msg("Warped to " + path)
-						else:
-							Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
+					err = Singleton.warp_to(path, $"/root/Main/Player")
+					if err == OK or err == null:
+						Singleton.log_msg("Warped to " + path)
 					else:
-						Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
+						Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
 			"scene":
 				var scene = "res://" + args[1] + ".tscn"
 				var file_check = File.new()

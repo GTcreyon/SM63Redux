@@ -6,7 +6,7 @@ var hp = 8
 var coins_toward_health = 0 # If it hits 5, gets reset
 var life_meter = 8 # apparently unused
 var collected_nozzles = [false, false, false]
-var current_nozzle = Singleton.n.none
+var current_nozzle = Singleton.Nozzles.NONE
 var water = 100.0
 var fludd_power = 100
 

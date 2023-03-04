@@ -102,6 +102,9 @@ script = ExtResource( 3 )
 inside_check = false
 multi_stomp = true
 _hitbox_path = NodePath("")
+_sfx_stomp_path = NodePath("Kick")
+_sfx_struck_path = NodePath("Kick")
+_sfx_struck_land_path = NodePath("")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 use_parent_material = true
@@ -141,6 +144,7 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 20 )
 
-[node name="Kick" type="AudioStreamPlayer" parent="."]
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+volume_db = 5.0
 bus = "SFX"

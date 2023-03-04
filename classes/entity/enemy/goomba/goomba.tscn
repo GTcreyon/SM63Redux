@@ -106,6 +106,9 @@ data = PoolByteArray( 79, 103, 103, 83, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 8, 95, 0, 
 collision_layer = 4
 collision_mask = 2147483649
 script = ExtResource( 16 )
+_sfx_stomp_path = NodePath("")
+_sfx_struck_path = NodePath("")
+_sfx_struck_land_path = NodePath("")
 step_indexes = [ true, false, false, true, false, false ]
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]

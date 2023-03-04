@@ -95,6 +95,8 @@ script = ExtResource( 7 )
 _sprite_path = NodePath("Sprites/Base")
 _hurtbox_stomp_path = NodePath("")
 _hitbox_path = NodePath("")
+_sfx_stomp_path = NodePath("")
+_sfx_struck_land_path = NodePath("")
 step_indexes = [ true, false, false, false, true, false, false, false ]
 _aware_area_path = NodePath("")
 
@@ -116,6 +118,7 @@ position = Vector2( -11, 0 )
 frames = SubResource( 11 )
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource( 12 )
 
 [node name="EdgeCheck" type="RayCast2D" parent="."]
@@ -125,6 +128,7 @@ enabled = true
 cast_to = Vector2( 0, 21 )
 
 [node name="HurtboxStrike" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
@@ -147,6 +151,7 @@ polygon = PoolVector2Array( 208, -59, 208, 32, 160, 35, 128, 35, 96, 33, 48, 27,
 polygon = PoolVector2Array( -208, -59, -208, 32, -160, 35, -128, 35, -96, 33, -48, 27, -11, 20, -11, -10, -48, -29, -96, -48, -128, -55, -160, -59 )
 
 [node name="WaterCheck" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 input_pickable = false
@@ -171,7 +176,7 @@ volume_db = -6.0
 attenuation = 10.0
 bus = "SFX"
 
-[node name="SFXKnock" type="AudioStreamPlayer2D" parent="."]
+[node name="SFXStruck" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 10 )
 volume_db = -6.0
 attenuation = 10.0
