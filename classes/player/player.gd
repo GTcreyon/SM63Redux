@@ -420,7 +420,7 @@ func adjust_swim_x() -> void:
 	vel.x += (swim_adjust - vel.x) * FPS_MOD
 
 
-const SPRAY_ORIGIN = Vector2(-9, 4)
+const SPRAY_ORIGIN = Vector2(-9, 6)
 const PLUME_ORIGIN = Vector2(-10, -2)
 var hover_sound_position = 0
 var nozzle_fx_scale = 0
