@@ -28,9 +28,11 @@ static func new_from_existing (
 	scene_root: Node,
 	destroy_on_finished = true
 ):
-	# Reparent to scene root.
+	# Reparent to scene root, while preserving global position.
+	var sound_pos = sfx.global_position
 	sfx.get_parent().remove_child(sfx)
 	scene_root.add_child(sfx)
+	sfx.global_position = sound_pos
 	
 	# Make the sfx player destroy on playback (if desired)
 	if destroy_on_finished:
