@@ -1,14 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_black.tres" type="Theme" id=1]
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_red.tres" type="Theme" id=2]
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_blue.tres" type="Theme" id=3]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://gui/pause/exit/exit_menu.gd" type="Script" id=5]
 
 [node name="ExitMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+script = ExtResource( 5 )
 
 [node name="ButtonExitLevel" type="Button" parent="." groups=["pause"]]
 anchor_left = 0.5
