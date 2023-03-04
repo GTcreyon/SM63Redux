@@ -48,3 +48,6 @@ func _unpause_game():
 
 func _reset_to_title_state():
 	_unpause_game()
+	
+	# Clear inter-scene data to make resets work cleanly.
+	Singleton.reset_game_state()

@@ -118,6 +118,18 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
 
 
+# Reset game state to that of a fresh session.
+func reset_game_state():
+	# Clear per-player data.
+	warp_location = null
+	warp_data = null
+	
+	# Clear game-wide data.
+	coin_total = 0
+	red_coin_total = 0
+	meter_progress = 0 # to do with health meter?
+
+
 # Get a scaling factor based on the window dimensions
 func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
 	var scale_vec = OS.window_size / Singleton.DEFAULT_SIZE
