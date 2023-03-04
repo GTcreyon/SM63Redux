@@ -2,7 +2,6 @@ class_name KoopaShell
 extends EntityEnemy
 
 var speed = 5
-onready var kick_sfx = $Kick
 
 const color_presets = [
 	[ # green
@@ -53,7 +52,7 @@ func _strike_check(_body):
 
 func _hurt_stomp(area):
 	stomped = true
-	kick_sfx.play()
+	sfx_stomp.play()
 	var body = area.get_parent()
 	body.vel.y = -5
 	if body.position.x < position.x:
@@ -64,8 +63,8 @@ func _hurt_stomp(area):
 
 func _hurt_struck(body):
 	if body.position.x < position.x:
-		kick_sfx.play()
+		sfx_struck.play()
 		vel.x = speed
 	elif body.position.x > position.x:
-		kick_sfx.play()
+		sfx_struck.play()
 		vel.x = -speed

@@ -102,6 +102,9 @@ script = ExtResource( 3 )
 inside_check = false
 multi_stomp = true
 _hitbox_path = NodePath("")
+_sfx_stomp_path = NodePath("Kick")
+_sfx_struck_path = NodePath("Kick")
+_sfx_struck_land_path = NodePath("")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 use_parent_material = true
