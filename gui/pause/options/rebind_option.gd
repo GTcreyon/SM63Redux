@@ -96,13 +96,13 @@ func unpress():
 func get_joypad_motion_name(axis: int, value: float):
 	match axis:
 		JOY_AXIS_0:
-			return "(Left Stick Left)" if value < 0 else "(Left Stick Right)"
+			return tr("(Left Stick Left)") if value < 0 else tr("(Left Stick Right)")
 		JOY_AXIS_1:
-			return "(Left Stick Up)" if value < 0 else "(Left Stick Down)"
+			return tr("(Left Stick Up)") if value < 0 else tr("(Left Stick Down)")
 		JOY_AXIS_2:
-			return "(Right Stick Left)" if value < 0 else "(Right Stick Right)"
+			return tr("(Right Stick Left)") if value < 0 else tr("(Right Stick Right)")
 		JOY_AXIS_3:
-			return "(Right Stick Up)" if value < 0 else "(Right Stick Down)"
+			return tr("(Right Stick Up)") if value < 0 else tr("(Right Stick Down)")
 
 
 func set_scale(new_scale):
