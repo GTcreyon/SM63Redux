@@ -19,6 +19,8 @@ func _ready():
 func _on_ButtonQuitToTitle_pressed():
 	var transition_out = $"/root/Singleton/WindowWarp"
 	transition_out.warp(null, TITLE_SCENE)
+	# Force the transition to execute.
+	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
 	# TODO: Wipe inter-scene data at some point b4 resuming gameplay.
 	# TODO: Freeze pause menu so it can't close or change mid-exit,
 	# TODO: Create a metapause to ensure no gameplay events can interrupt.
