@@ -82,8 +82,7 @@ func _hurt_struck(body):
 
 func _struck_land():
 	target = null
-	stomped = true
-	_hurt_stomp(null)
+	_stomp_trigger()
 
 
 func _move_condition() -> bool:
