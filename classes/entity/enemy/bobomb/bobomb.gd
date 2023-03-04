@@ -32,7 +32,6 @@ onready var fuse = $Sprites/Fuse
 onready var key = $Sprites/Key
 onready var sfx_fuse = $SFXFuse
 onready var sfx_build = $SFXBuildup
-onready var sfx_knock = $SFXKnock
 
 func _ready_override():
 	._ready_override()
@@ -106,7 +105,6 @@ func _hurt_struck(body) -> void:
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false
-	sfx_knock.play()
 	# Once the bomb's been hit away, the fuse should get much quieter, as the
 	# danger has been deflected.
 	# But players can still run into the explosion, so we can't just drop the
