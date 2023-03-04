@@ -18,7 +18,7 @@ func _ready():
 
 
 func _on_ButtonQuitToTitle_pressed():
-	Singleton.connect("after_scene_change", self, "_to_title_state")
+	Singleton.connect("after_scene_change", self, "_reset_to_title_state")
 	
 	# Force the transition to execute during pause.
 	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
@@ -36,7 +36,7 @@ func _hide_close_button():
 	to_title_button.rect_position.y += button_height
 
 
-func _to_title_state():
+func _unpause_game():
 	# Unpause the game.
 	get_tree().paused = false
 	Singleton.pause_menu = false
@@ -44,3 +44,7 @@ func _to_title_state():
 	# Revert WindowWarp's pause mode.
 	# (Don't want pipe entry to become unpausable after quitting to title!)
 	transition_out.pause_mode = Node.PAUSE_MODE_INHERIT
+
+
+func _reset_to_title_state():
+	_unpause_game()
