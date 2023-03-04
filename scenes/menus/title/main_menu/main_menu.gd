@@ -153,8 +153,8 @@ func _press_button(button: int) -> void:
 		match button:
 			0:
 				_menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
-			1:
-				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
+#			1:
+#				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			3:
 				Singleton.get_node("SFX/Confirm").play()
 				show_options = true

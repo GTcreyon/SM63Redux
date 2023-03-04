@@ -1,7 +1,7 @@
 extends Node
 
 const DEFAULT_SIZE = Vector2(640, 360)
-const VERSION = "v0.2.0.alpha"
+const VERSION = "v0.1.6.RC1"
 const LD_VERSION = 0
 const LOCALES = [
 	["en", "English"],
