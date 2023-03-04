@@ -39,5 +39,5 @@ shape = SubResource( 1 )
 
 [node name="SFXCollect" type="AudioStreamPlayer" parent="Hover"]
 stream = ExtResource( 4 )
-volume_db = -13.5
+volume_db = -11.0
 bus = "SFX"
