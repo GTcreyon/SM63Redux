@@ -25,7 +25,7 @@ func _on_ButtonQuitToTitle_pressed():
 	# Force the transition to execute during pause.
 	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
 	
-	transition_out.warp(null, TITLE_SCENE)
+	transition_out.warp(null, TITLE_SCENE, 25, 1) # title has own transition in
 
 
 func _hide_close_button():
