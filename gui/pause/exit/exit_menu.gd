@@ -18,14 +18,17 @@ func _ready():
 
 
 func _on_ButtonQuitToTitle_pressed():
+	# Reset game state once scene change is over.
 	Singleton.connect("after_scene_change", self, "_reset_to_title_state")
-	# TODO: Sound effects!
-	# TODO: Freeze pause menu so it can't close or change mid-exit.
-	
-	# Force the transition to execute during pause.
-	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
-	
-	transition_out.warp(null, TITLE_SCENE, 25, 1) # title has own transition in
+	# Do scene change.
+	_do_transition_out(TITLE_SCENE, 1)
+
+
+func _on_ButtonCloseGame_pressed():
+	# Close game before actually changing scenes.
+	Singleton.connect("before_scene_change", self, "_close_game")
+	# Do the transition though.
+	_do_transition_out(TITLE_SCENE) #just because why not
 
 
 func _hide_close_button():
@@ -34,6 +37,16 @@ func _hide_close_button():
 	var button_height = close_game_button.rect_size.y
 	exit_lvl_button.rect_position.y += button_height
 	to_title_button.rect_position.y += button_height
+
+
+func _do_transition_out(scene: String, transition_out_time = 15):
+	# TODO: Sound effects!
+	# TODO: Freeze pause menu so it can't close or change mid-exit.
+	
+	# Force the transition to execute during pause.
+	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
+	
+	transition_out.warp(null, scene, 25, transition_out_time)
 
 
 func _unpause_game():
@@ -51,3 +64,7 @@ func _reset_to_title_state():
 	
 	# Clear inter-scene data to make resets work cleanly.
 	Singleton.reset_game_state()
+
+
+func _close_game():
+	get_tree().quit()
