@@ -69,10 +69,11 @@ func _pickup_id_setup() -> void:
 
 
 func _pickup_sound():
-	var safe_sfx_root = get_parent()
-	if parent_is_root:
-		safe_sfx_root = safe_sfx_root.get_parent()
-	ResidualSFX.new_from_existing(sfx, safe_sfx_root)
+	if sfx != null:
+		var safe_sfx_root = get_parent()
+		if parent_is_root:
+			safe_sfx_root = safe_sfx_root.get_parent()
+		ResidualSFX.new_from_existing(sfx, safe_sfx_root)
 
 
 func _kill_pickup() -> void:
