@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/entity/enemy/koopa/koopa.gd" type="Script" id=2]
 [ext_resource path="res://classes/entity/enemy/goomba/goomba_step.wav" type="AudioStream" id=3]
 [ext_resource path="res://shaders/palette.tres" type="Material" id=4]
 [ext_resource path="res://classes/entity/enemy/koopa/koopa_walk.png" type="Texture" id=5]
+[ext_resource path="res://classes/entity/enemy/koopa/shell_kick.ogg" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 5 )
@@ -57,8 +58,8 @@ extents = Vector2( 1, 1 )
 material = ExtResource( 4 )
 collision_layer = 4
 script = ExtResource( 2 )
-_sfx_stomp_path = NodePath("")
-_sfx_struck_path = NodePath("")
+_sfx_stomp_path = NodePath("SFXKick")
+_sfx_struck_path = NodePath("SFXKick")
 _sfx_struck_land_path = NodePath("")
 step_indexes = [ false, true, false, false, true, false ]
 _alert_area_path = NodePath("")
@@ -125,4 +126,8 @@ shape = SubResource( 11 )
 stream = ExtResource( 3 )
 volume_db = -6.0
 attenuation = 10.0
+bus = "SFX"
+
+[node name="SFXKick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
 bus = "SFX"
