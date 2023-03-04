@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-03-04 01:12+0100\n"
+"PO-Revision-Date: 2023-03-04 14:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -77,6 +77,38 @@ msgstr "Rendre muet les effets sonores"
 msgid "Show timer\n"
 msgstr "Afficher le chronomètre (Mode Speedrun)\n"
 
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Left"
+msgstr "Stick Gauche - Gauche"
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Right"
+msgstr "Stick Gauche - Droite"
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Up"
+msgstr "Stick Gauche - Haut"
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Down"
+msgstr "Stick Gauche - Bas"
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Left"
+msgstr "Stick Droit - Gauche"
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Right"
+msgstr "Stick Droit - Droite"
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Up"
+msgstr "Stick Droit - Haut"
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Down"
+msgstr "Stick Droit - Bas"
+
 #: ../gui/pause/options/rebind_option.gd:128
 msgid "Back"
 msgstr "Retour"
@@ -91,11 +123,11 @@ msgstr ""
 
 #: ../gui/pause/options/rebind_option.gd:130
 msgid "Left Stick Click"
-msgstr "Click du Stick Gauche"
+msgstr "Stick Gauche - Clic"
 
 #: ../gui/pause/options/rebind_option.gd:131
 msgid "Right Stick Click"
-msgstr "Click du Stick Droit"
+msgstr "Stick Droit - Clic"
 
 #: ../gui/pause/options/rebind_option.gd:134
 msgid "Logo"
@@ -103,19 +135,19 @@ msgstr ""
 
 #: ../gui/pause/options/rebind_option.gd:135
 msgid "D-Up"
-msgstr "D-Pad Haut"
+msgstr "D-Pad - Haut"
 
 #: ../gui/pause/options/rebind_option.gd:136
 msgid "D-Down"
-msgstr "D-Pad Bas"
+msgstr "D-Pad - Bas"
 
 #: ../gui/pause/options/rebind_option.gd:137
 msgid "D-Left"
-msgstr "D-Pad Gauche"
+msgstr "D-Pad - Gauche"
 
 #: ../gui/pause/options/rebind_option.gd:138
 msgid "D-Right"
-msgstr "D-Pad Droit"
+msgstr "D-Pad - Droit"
 
 #: ../gui/pause/options/rebind_option.gd:143
 msgid "Left"
@@ -461,11 +493,11 @@ msgstr ""
 "[@c,toad][@m,anger][@n,Ang.T]Un vulgaire dialogue inutilisé...[@p,10] Ne "
 "suis-je donc [color=#f28d7c]vraiment[/color] bon qu'à cela !?"
 
-#: ../scenes/menus/feedback/feedback.tscn:92
+#: ../scenes/menus/feedback/feedback.tscn:90
 msgid "Feedback"
 msgstr "Remarques"
 
-#: ../scenes/menus/feedback/feedback.tscn:106
+#: ../scenes/menus/feedback/feedback.tscn:101
 msgid "Description"
 msgstr "Description"
 
@@ -473,39 +505,43 @@ msgstr "Description"
 msgid "Contact info (optional)"
 msgstr "Info de contact (optionnel)"
 
-#: ../scenes/menus/feedback/feedback.tscn:204
+#: ../scenes/menus/feedback/feedback.tscn:129
+msgid "Let us know how to contact you, e.g. discord handle"
+msgstr ""
+
+#: ../scenes/menus/feedback/feedback.tscn:155
 msgid " Negative"
 msgstr " Négatif"
 
-#: ../scenes/menus/feedback/feedback.tscn:224
+#: ../scenes/menus/feedback/feedback.tscn:175
 msgid " Neutral"
 msgstr " Neutre"
 
-#: ../scenes/menus/feedback/feedback.tscn:244
+#: ../scenes/menus/feedback/feedback.tscn:196
 msgid " Positive"
 msgstr " Positif"
 
-#: ../scenes/menus/feedback/feedback.tscn:272
+#: ../scenes/menus/feedback/feedback.tscn:233
 msgid "Gameplay"
 msgstr "Gameplay"
 
-#: ../scenes/menus/feedback/feedback.tscn:283
+#: ../scenes/menus/feedback/feedback.tscn:253
 msgid "Visual"
 msgstr "Visuel"
 
-#: ../scenes/menus/feedback/feedback.tscn:294
+#: ../scenes/menus/feedback/feedback.tscn:273
 msgid "Bug"
 msgstr "Bug"
 
-#: ../scenes/menus/feedback/feedback.tscn:313
+#: ../scenes/menus/feedback/feedback.tscn:293
+msgid "Lag"
+msgstr "Latence"
+
+#: ../scenes/menus/feedback/feedback.tscn:314
 msgid "Other"
 msgstr "Autre"
 
-#: ../scenes/menus/feedback/feedback.tscn:331
-msgid "Submit"
-msgstr "Envoyer"
-
-#: ../scenes/menus/feedback/feedback.tscn:341
+#: ../scenes/menus/feedback/feedback.tscn:327
 msgid ""
 "Report includes:\n"
 "-The data you entered\n"
@@ -517,9 +553,9 @@ msgstr ""
 "-Vos données en jeu (ex. la position de Mario, une capture d'écran, etc.)\n"
 "-Votre support actuel (Windows, Web, Android, etc.)"
 
-#: ../scenes/menus/feedback/tickbox_feedback.tscn:41
-msgid "Lag"
-msgstr "Latence"
+#: ../scenes/menus/feedback/feedback.tscn:346
+msgid "Submit"
+msgstr "Envoyer"
 
 #: ../scenes/menus/level_designer/level_designer.tscn:488
 msgid "Placeholder Loading Text"
