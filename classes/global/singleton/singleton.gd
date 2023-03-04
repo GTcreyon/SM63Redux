@@ -37,11 +37,11 @@ const WHITELISTED_ACTIONS = [
 	"debug",
 ]
 
-enum n { # FLUDD enum
-	none,
-	hover,
-	rocket,
-	turbo,
+enum Nozzles { # FLUDD enum
+	NONE,
+	HOVER,
+	ROCKET,
+	TURBO,
 }
 
 onready var console = $Console
@@ -233,6 +233,10 @@ func get_input_map_json_current():
 					"InputEventJoypadMotion":
 						key_entry.append("a:%d;%d" % [action.axis, action.axis_value])
 	return to_json(save_dict)
+
+
+func save_input_map_current() -> void:
+	save_input_map(get_input_map_json_current())
 
 
 func save_input_map(input_json):

@@ -2,7 +2,7 @@ class_name FluddPickup
 extends Pickup
 
 
-export(Singleton.n) var nozzle_award: int
+export(Singleton.Nozzles) var nozzle_award: int
 
 
 func _award_pickup(body):

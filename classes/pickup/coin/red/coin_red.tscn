@@ -49,6 +49,7 @@ monitorable = false
 script = ExtResource( 13 )
 parent_is_root = true
 _sprite_path = NodePath("../AnimatedSprite")
+_sfx_path = NodePath("")
 particle_texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
