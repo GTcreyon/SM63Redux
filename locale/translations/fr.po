@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-03-04 14:39+0100\n"
+"PO-Revision-Date: 2023-03-04 14:58+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -508,6 +508,7 @@ msgstr "Info de contact (optionnel)"
 #: ../scenes/menus/feedback/feedback.tscn:129
 msgid "Let us know how to contact you, e.g. discord handle"
 msgstr ""
+"Laissez nous savoir comment vous contacter, par ex: nom d'utilisateur Discord"
 
 #: ../scenes/menus/feedback/feedback.tscn:155
 msgid " Negative"
