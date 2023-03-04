@@ -41,4 +41,5 @@ shape = SubResource( 2 )
 
 [node name="SFXCollect" type="AudioStreamPlayer" parent="Rocket"]
 stream = ExtResource( 5 )
+volume_db = -8.0
 bus = "SFX"
