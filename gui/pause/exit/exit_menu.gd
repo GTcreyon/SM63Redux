@@ -17,6 +17,13 @@ func _ready():
 			close_game_button.visible = true
 
 
+func _on_ButtonExitLevel_pressed():
+	# Stubbed.
+	
+	#Singleton.connect("after_scene_change", self, "who even knows yet")
+	_do_transition_out("")
+
+
 func _on_ButtonQuitToTitle_pressed():
 	# Reset game state once scene change is over.
 	Singleton.connect("after_scene_change", self, "_reset_to_title_state")
