@@ -1,5 +1,7 @@
 extends Control
 
+const TITLE_SCENE: String = "res://scenes/menus/title/title.tscn"
+
 onready var exit_lvl_button = $ButtonExitLevel
 onready var to_title_button = $ButtonQuitToTitle
 onready var close_game_button = $ButtonCloseGame
@@ -13,6 +15,15 @@ func _ready():
 		_:
 			close_game_button.visible = true
 
+
+func _on_ButtonQuitToTitle_pressed():
+	var transition_out = $"/root/Singleton/WindowWarp"
+	transition_out.warp(null, TITLE_SCENE)
+	# TODO: Wipe inter-scene data at some point b4 resuming gameplay.
+	# TODO: Freeze pause menu so it can't close or change mid-exit,
+	# TODO: Create a metapause to ensure no gameplay events can interrupt.
+	# TODO: Sound effects!
+	
 
 func _hide_close_button():
 	close_game_button.visible = false

@@ -101,5 +101,5 @@ align = 2
 valign = 1
 
 [connection signal="toggled" from="ButtonExitLevel" to="ButtonExitLevel" method="_on_Button_toggled"]
-[connection signal="toggled" from="ButtonQuitToTitle" to="ButtonQuitToTitle" method="_on_Button_toggled"]
+[connection signal="pressed" from="ButtonQuitToTitle" to="." method="_on_ButtonQuitToTitle_pressed"]
 [connection signal="toggled" from="ButtonCloseGame" to="ButtonCloseGame" method="_on_Button_toggled"]
