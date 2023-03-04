@@ -33,7 +33,6 @@ collision_layer = 4
 script = ExtResource( 3 )
 _hurtbox_stomp_path = NodePath("")
 _sfx_stomp_path = NodePath("")
-_sfx_struck_path = NodePath("")
 _sfx_struck_land_path = NodePath("")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
@@ -78,6 +77,8 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
 shape = SubResource( 5 )
+
+[node name="SFXStruck" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="body_entered" from="AlertArea" to="." method="_on_AlertArea_body_entered"]
 [connection signal="body_exited" from="AlertArea" to="." method="_on_AlertArea_body_exited"]
