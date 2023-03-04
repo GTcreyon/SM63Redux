@@ -146,4 +146,5 @@ shape = SubResource( 20 )
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+volume_db = 5.0
 bus = "SFX"
