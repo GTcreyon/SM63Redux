@@ -32,6 +32,9 @@ extents = Vector2( 1, 1 )
 collision_layer = 4
 script = ExtResource( 3 )
 _hurtbox_stomp_path = NodePath("")
+_sfx_stomp_path = NodePath("")
+_sfx_struck_path = NodePath("")
+_sfx_struck_land_path = NodePath("")
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
