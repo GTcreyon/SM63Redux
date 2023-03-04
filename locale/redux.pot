@@ -43,7 +43,7 @@ msgid "Mute music"
 msgstr ""
 
 #: ../gui/pause/options/options_menu.tscn:83
-#: ../gui/pause/options/rebind_option.gd:159
+#: ../gui/pause/options/rebind_option.gd:160
 msgid "Mute SFX"
 msgstr ""
 
@@ -51,179 +51,179 @@ msgstr ""
 msgid "Show timer\n"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:99
-msgid "(Left Stick Left)"
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Left"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:99
-msgid "(Left Stick Right)"
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Right"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:101
-msgid "(Left Stick Up)"
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Up"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:101
-msgid "(Left Stick Down)"
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Down"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:103
-msgid "(Right Stick Left)"
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Left"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:103
-msgid "(Right Stick Right)"
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Right"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:105
-msgid "(Right Stick Up)"
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Up"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:105
-msgid "(Right Stick Down)"
-msgstr ""
-
-#: ../gui/pause/options/rebind_option.gd:127
-msgid "Back"
-msgstr ""
-
-#: ../gui/pause/options/rebind_option.gd:127
-msgid "Select"
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Down"
 msgstr ""
 
 #: ../gui/pause/options/rebind_option.gd:128
-msgid "Start"
+msgid "Back"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Select"
 msgstr ""
 
 #: ../gui/pause/options/rebind_option.gd:129
-msgid "Left Stick Click"
+msgid "Start"
 msgstr ""
 
 #: ../gui/pause/options/rebind_option.gd:130
+msgid "Left Stick Click"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:131
 msgid "Right Stick Click"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:133
+#: ../gui/pause/options/rebind_option.gd:134
 msgid "Logo"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:134
+#: ../gui/pause/options/rebind_option.gd:135
 msgid "D-Up"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:135
+#: ../gui/pause/options/rebind_option.gd:136
 msgid "D-Down"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:136
+#: ../gui/pause/options/rebind_option.gd:137
 msgid "D-Left"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:137
+#: ../gui/pause/options/rebind_option.gd:138
 msgid "D-Right"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:142
+#: ../gui/pause/options/rebind_option.gd:143
 msgid "Left"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:143
+#: ../gui/pause/options/rebind_option.gd:144
 msgid "Right"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:144
+#: ../gui/pause/options/rebind_option.gd:145
 msgid "Jump"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:145
+#: ../gui/pause/options/rebind_option.gd:146
 msgid "Dive"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:146
+#: ../gui/pause/options/rebind_option.gd:147
 msgid "Spin"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:147
+#: ../gui/pause/options/rebind_option.gd:148
 msgid "Ground Pound"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:148
+#: ../gui/pause/options/rebind_option.gd:149
 msgid "Use FLUDD"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:149
+#: ../gui/pause/options/rebind_option.gd:150
 msgid "Switch FLUDD Nozzle"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:150
+#: ../gui/pause/options/rebind_option.gd:151
 msgid "Pause"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:151
+#: ../gui/pause/options/rebind_option.gd:152
 msgid "Interact"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:152
+#: ../gui/pause/options/rebind_option.gd:153
 msgid "Skip Text"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:153
+#: ../gui/pause/options/rebind_option.gd:154
 msgid "Zoom In"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:154
+#: ../gui/pause/options/rebind_option.gd:155
 msgid "Zoom Out"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:155
+#: ../gui/pause/options/rebind_option.gd:156
 msgid "Power Swim"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:156
+#: ../gui/pause/options/rebind_option.gd:157
 msgid "Reset Run"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:157
+#: ../gui/pause/options/rebind_option.gd:158
 msgid "Show Timer"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:158
+#: ../gui/pause/options/rebind_option.gd:159
 msgid "Mute Music"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:160
+#: ../gui/pause/options/rebind_option.gd:161
 msgid "Music Volume +"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:161
+#: ../gui/pause/options/rebind_option.gd:162
 msgid "Music Volume -"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:162
+#: ../gui/pause/options/rebind_option.gd:163
 msgid "SFX Volume +"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:163
+#: ../gui/pause/options/rebind_option.gd:164
 msgid "SFX Volume -"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:164
+#: ../gui/pause/options/rebind_option.gd:165
 msgid "Fullscreen"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:165
+#: ../gui/pause/options/rebind_option.gd:166
 msgid "Screen Size +"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:166
+#: ../gui/pause/options/rebind_option.gd:167
 msgid "Screen Size -"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:167
+#: ../gui/pause/options/rebind_option.gd:168
 msgid "Open Feedback Menu"
 msgstr ""
 
-#: ../gui/pause/options/rebind_option.gd:168
+#: ../gui/pause/options/rebind_option.gd:169
 msgid "Open Debug Console"
 msgstr ""
 

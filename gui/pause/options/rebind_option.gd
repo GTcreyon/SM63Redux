@@ -38,8 +38,9 @@ func join_action_array(actions) -> String:
 			else:
 				output += "(%s)" % buttons[action.button_index][get_brand_id()]
 		elif action is InputEventJoypadMotion:
-			output += get_joypad_motion_name(action.axis, action.axis_value)
+			output += "(%s)" % get_joypad_motion_name(action.axis, action.axis_value)
 		else:
+			# TODO: make these translatable
 			output += action.as_text()
 		output += ", "
 	output = output.trim_suffix(", ")
@@ -96,13 +97,13 @@ func unpress():
 func get_joypad_motion_name(axis: int, value: float):
 	match axis:
 		JOY_AXIS_0:
-			return tr("(Left Stick Left)") if value < 0 else tr("(Left Stick Right)")
+			return tr("Left Stick Left") if value < 0 else tr("Left Stick Right")
 		JOY_AXIS_1:
-			return tr("(Left Stick Up)") if value < 0 else tr("(Left Stick Down)")
+			return tr("Left Stick Up") if value < 0 else tr("Left Stick Down")
 		JOY_AXIS_2:
-			return tr("(Right Stick Left)") if value < 0 else tr("(Right Stick Right)")
+			return tr("Right Stick Left") if value < 0 else tr("Right Stick Right")
 		JOY_AXIS_3:
-			return tr("(Right Stick Up)") if value < 0 else tr("(Right Stick Down)")
+			return tr("Right Stick Up") if value < 0 else tr("Right Stick Down")
 
 
 func set_scale(new_scale):
