@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-03-04 14:58+0100\n"
+"PO-Revision-Date: 2023-03-04 15:07+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -503,12 +503,11 @@ msgstr "Description"
 
 #: ../scenes/menus/feedback/feedback.tscn:119
 msgid "Contact info (optional)"
-msgstr "Info de contact (optionnel)"
+msgstr "Informations de contact (facultatif)"
 
 #: ../scenes/menus/feedback/feedback.tscn:129
 msgid "Let us know how to contact you, e.g. discord handle"
-msgstr ""
-"Laissez nous savoir comment vous contacter, par ex: nom d'utilisateur Discord"
+msgstr "Permettez-nous de vous contacter, par ex. nom d'utilisateur Discord"
 
 #: ../scenes/menus/feedback/feedback.tscn:155
 msgid " Negative"
@@ -549,10 +548,10 @@ msgid ""
 "-Ingame data (e.g. Mario's position, a screenshot, etc.)\n"
 "-Current platform (Windows, Web, Android, etc.)"
 msgstr ""
-"Le signalement inclus:\n"
-"-Les données que vous avez entrées\n"
-"-Vos données en jeu (ex. la position de Mario, une capture d'écran, etc.)\n"
-"-Votre support actuel (Windows, Web, Android, etc.)"
+"Le signalement inclus :\n"
+"- Les données que vous avez entrées\n"
+"- Vos données en jeu (ex. la position de Mario, une capture d'écran, etc.)\n"
+"- Votre support actuel (Windows, Web, Android, etc.)"
 
 #: ../scenes/menus/feedback/feedback.tscn:346
 msgid "Submit"
