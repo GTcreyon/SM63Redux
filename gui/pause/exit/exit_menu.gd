@@ -5,6 +5,7 @@ const TITLE_SCENE: String = "res://scenes/menus/title/title.tscn"
 onready var exit_lvl_button = $ButtonExitLevel
 onready var to_title_button = $ButtonQuitToTitle
 onready var close_game_button = $ButtonCloseGame
+onready var transition_out = $"/root/Singleton/WindowWarp"
 
 
 func _ready():
@@ -17,15 +18,15 @@ func _ready():
 
 
 func _on_ButtonQuitToTitle_pressed():
-	var transition_out = $"/root/Singleton/WindowWarp"
-	transition_out.warp(null, TITLE_SCENE)
-	# Force the transition to execute.
-	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
-	# TODO: Wipe inter-scene data at some point b4 resuming gameplay.
-	# TODO: Freeze pause menu so it can't close or change mid-exit,
-	# TODO: Create a metapause to ensure no gameplay events can interrupt.
-	# TODO: Sound effects!
+	Singleton.connect("after_scene_change", self, "_to_title_state")
 	
+	# Force the transition to execute during pause.
+	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
+	transition_out.warp(null, TITLE_SCENE)
+	# TODO: Wipe inter-scene data at some point b4 resuming gameplay.
+	# TODO: Freeze pause menu so it can't close or change mid-exit.
+	# TODO: Sound effects!
+
 
 func _hide_close_button():
 	close_game_button.visible = false
@@ -33,3 +34,13 @@ func _hide_close_button():
 	var button_height = close_game_button.rect_size.y
 	exit_lvl_button.rect_position.y += button_height
 	to_title_button.rect_position.y += button_height
+
+
+func _to_title_state():
+	# Unpause the game.
+	get_tree().paused = false
+	Singleton.pause_menu = false
+	
+	# Revert WindowWarp's pause mode.
+	# (Don't want pipe entry to become unpausable after quitting to title!)
+	transition_out.pause_mode = Node.PAUSE_MODE_INHERIT
