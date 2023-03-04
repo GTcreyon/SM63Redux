@@ -18,5 +18,5 @@ func _hide_close_button():
 	close_game_button.visible = false
 	# move the other two buttons down to fill the space
 	var button_height = close_game_button.rect_size.y
-	exit_lvl_button.rect_position.y += button_height / 2
-	to_title_button.rect_position.y += button_height / 2
+	exit_lvl_button.rect_position.y += button_height
+	to_title_button.rect_position.y += button_height
