@@ -1,5 +1,8 @@
 extends Node
 
+signal before_scene_change
+signal after_scene_change
+
 const DEFAULT_SIZE = Vector2(640, 360)
 const VERSION = "v0.2.0.alpha"
 const LD_VERSION = 0
@@ -156,6 +159,8 @@ func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
 # be carried over into the next scene. If null is passed instead,
 # no player data will be carried to the next scene.
 func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.INF):
+	emit_signal("before_scene_change")
+	
 	if player != null:
 		# Save player data for next room.
 		warp_data = InterSceneData.new(player)
@@ -176,6 +181,8 @@ func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.
 	# Do the actual warp.
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().call_deferred("change_scene", path)
+	
+	call_deferred("emit_signal", "after_scene_change")
 
 
 # Sets a certain pause label - when all pause labels are false, gameplay takes place
