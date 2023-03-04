@@ -118,7 +118,15 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
 
 
-# Reset game state to that of a fresh session.
+# Resets game state and preps to return to a menu.
+func prepare_exit_game():
+	# Clear game state to make new-game work cleanly.
+	reset_game_state()
+	# Close speedrun timer
+	timer.visible = false
+
+
+# Reset game state to that of a fresh playthrough.
 func reset_game_state():
 	# Clear per-player data.
 	warp_location = null
