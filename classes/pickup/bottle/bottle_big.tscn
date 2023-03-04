@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://classes/pickup/bottle/bottle.gd" type="Script" id=1]
+[ext_resource path="res://classes/pickup/bottle/bottle_big_collect.wav" type="AudioStream" id=2]
 [ext_resource path="res://classes/pickup/bottle/bottle_big.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -13,8 +14,8 @@ input_pickable = false
 monitorable = false
 script = ExtResource( 1 )
 persistent_collect = false
+_sfx_path = NodePath("SFXCollect")
 respawn_seconds = 30.0
-_sfx_path = NodePath("")
 amount = 50
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -24,3 +25,8 @@ texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="SFXCollect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+volume_db = -5.0
+bus = "SFX"
