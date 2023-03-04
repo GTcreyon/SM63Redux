@@ -9,10 +9,12 @@ export var parent_is_root: bool = false
 export var persistent_collect = true
 export var disabled: bool = false setget set_disabled
 export var _sprite_path: NodePath = "Sprite"
+export var _sfx_path: NodePath = "SFXCollect"
 
 var _pickup_id: int = -1
 
 onready var sprite = get_node_or_null(_sprite_path)
+onready var sfx = get_node_or_null(_sfx_path)
 
 
 func _ready():
@@ -36,6 +38,7 @@ func assign_pickup_id(id) -> void:
 
 func pickup(body) -> void:
 	_award_pickup(body)
+	_pickup_sound()
 	_pickup_effect()
 	_kill_pickup()
 	if persistent_collect:
@@ -63,6 +66,16 @@ func _pickup_id_setup() -> void:
 			get_parent().queue_free()
 		else:
 			queue_free()
+
+
+func _pickup_sound():
+	if sfx != null:
+		# Find an object we know will survive this object's destruction.
+		var safe_sfx_root = get_parent()
+		if parent_is_root:
+			safe_sfx_root = safe_sfx_root.get_parent()
+		# Anchor the sound source to that, then play it.
+		ResidualSFX.new_from_existing(sfx, safe_sfx_root)
 
 
 func _kill_pickup() -> void:

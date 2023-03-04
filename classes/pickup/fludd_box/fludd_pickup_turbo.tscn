@@ -26,6 +26,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource( 2 )
 persistent_collect = false
+_sfx_path = NodePath("")
 nozzle_award = 3
 
 [node name="Sprite" type="Sprite" parent="Turbo"]

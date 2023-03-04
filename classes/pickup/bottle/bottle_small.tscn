@@ -13,6 +13,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource( 2 )
 persistent_collect = false
+_sfx_path = NodePath("")
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -1 )

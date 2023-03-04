@@ -13,6 +13,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource( 1 )
 persistent_collect = false
+_sfx_path = NodePath("")
 amount = 50
 
 [node name="Sprite" type="Sprite" parent="."]
