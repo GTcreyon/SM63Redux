@@ -38,6 +38,6 @@ script = ExtResource( 1 )
 position = Vector2( 0, -3 )
 shape = SubResource( 3 )
 
-[node name="SFXCollect" type="AudioStreamPlayer2D" parent="Turbo"]
+[node name="SFXCollect" type="AudioStreamPlayer" parent="Turbo"]
 stream = ExtResource( 5 )
 bus = "SFX"
