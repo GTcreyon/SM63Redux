@@ -19,13 +19,13 @@ func _ready():
 
 func _on_ButtonQuitToTitle_pressed():
 	Singleton.connect("after_scene_change", self, "_reset_to_title_state")
+	# TODO: Sound effects!
+	# TODO: Freeze pause menu so it can't close or change mid-exit.
 	
 	# Force the transition to execute during pause.
 	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
+	
 	transition_out.warp(null, TITLE_SCENE)
-	# TODO: Wipe inter-scene data at some point b4 resuming gameplay.
-	# TODO: Freeze pause menu so it can't close or change mid-exit.
-	# TODO: Sound effects!
 
 
 func _hide_close_button():
