@@ -71,9 +71,7 @@ func _pickup_id_setup() -> void:
 func _pickup_sound():
 	if sfx != null:
 		# Find an object we know will survive this object's destruction.
-		var safe_sfx_root = get_parent()
-		if parent_is_root:
-			safe_sfx_root = safe_sfx_root.get_parent()
+		var safe_sfx_root = $"/root/Main"
 		# Anchor the sound source to that, then play it.
 		ResidualSFX.new_from_existing(sfx, safe_sfx_root)
 
