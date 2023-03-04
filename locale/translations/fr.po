@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-02-28 23:03+0000\n"
-"PO-Revision-Date: 2023-03-02 20:06+0100\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-03-04 01:12+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -55,26 +55,171 @@ msgstr ""
 msgid "Reset controls to default"
 msgstr "Réinitialiser les contrôles"
 
-#: ../gui/pause/options/options_menu.tscn:34
+#: ../gui/pause/options/options_menu.tscn:50
 msgid "Disable camera limiting [Try this if the camera is broken]"
 msgstr ""
 "Désactiver les contraintes de caméra [Essayez ça si la caméra détraque]"
 
-#: ../gui/pause/options/options_menu.tscn:45
+#: ../gui/pause/options/options_menu.tscn:61
 msgid "Enable touch controls"
 msgstr "Activer les contrôles tactiles"
 
-#: ../gui/pause/options/options_menu.tscn:56
+#: ../gui/pause/options/options_menu.tscn:72
 msgid "Mute music"
 msgstr "Rendre muet la musique"
 
-#: ../gui/pause/options/options_menu.tscn:67
+#: ../gui/pause/options/options_menu.tscn:83
+#: ../gui/pause/options/rebind_option.gd:160
 msgid "Mute SFX"
 msgstr "Rendre muet les effets sonores"
 
-#: ../gui/pause/options/options_menu.tscn:78
+#: ../gui/pause/options/options_menu.tscn:94
 msgid "Show timer\n"
-msgstr "Afficher le chronomètre\n"
+msgstr "Afficher le chronomètre (Mode Speedrun)\n"
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Back"
+msgstr "Retour"
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Select"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:129
+msgid "Start"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:130
+msgid "Left Stick Click"
+msgstr "Click du Stick Gauche"
+
+#: ../gui/pause/options/rebind_option.gd:131
+msgid "Right Stick Click"
+msgstr "Click du Stick Droit"
+
+#: ../gui/pause/options/rebind_option.gd:134
+msgid "Logo"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:135
+msgid "D-Up"
+msgstr "D-Pad Haut"
+
+#: ../gui/pause/options/rebind_option.gd:136
+msgid "D-Down"
+msgstr "D-Pad Bas"
+
+#: ../gui/pause/options/rebind_option.gd:137
+msgid "D-Left"
+msgstr "D-Pad Gauche"
+
+#: ../gui/pause/options/rebind_option.gd:138
+msgid "D-Right"
+msgstr "D-Pad Droit"
+
+#: ../gui/pause/options/rebind_option.gd:143
+msgid "Left"
+msgstr "Gauche"
+
+#: ../gui/pause/options/rebind_option.gd:144
+msgid "Right"
+msgstr "Droite"
+
+#: ../gui/pause/options/rebind_option.gd:145
+msgid "Jump"
+msgstr "Sauter"
+
+#: ../gui/pause/options/rebind_option.gd:146
+msgid "Dive"
+msgstr "Plonger"
+
+#: ../gui/pause/options/rebind_option.gd:147
+msgid "Spin"
+msgstr "Tournoyer"
+
+#: ../gui/pause/options/rebind_option.gd:148
+msgid "Ground Pound"
+msgstr "Attaque Rodéo"
+
+#: ../gui/pause/options/rebind_option.gd:149
+msgid "Use FLUDD"
+msgstr "Utiliser J.E.T"
+
+#: ../gui/pause/options/rebind_option.gd:150
+msgid "Switch FLUDD Nozzle"
+msgstr "Changer la buse de J.E.T"
+
+#: ../gui/pause/options/rebind_option.gd:151
+msgid "Pause"
+msgstr "Mettre en pause"
+
+#: ../gui/pause/options/rebind_option.gd:152
+msgid "Interact"
+msgstr "Intéragir"
+
+#: ../gui/pause/options/rebind_option.gd:153
+msgid "Skip Text"
+msgstr "Passer le Texte"
+
+#: ../gui/pause/options/rebind_option.gd:154
+msgid "Zoom In"
+msgstr "Zoomer"
+
+#: ../gui/pause/options/rebind_option.gd:155
+msgid "Zoom Out"
+msgstr "Dézoomer"
+
+#: ../gui/pause/options/rebind_option.gd:156
+msgid "Power Swim"
+msgstr "Nage Propulsive"
+
+#: ../gui/pause/options/rebind_option.gd:157
+msgid "Reset Run"
+msgstr "Réinitialiser la Run (pour Mode Speedrun)"
+
+#: ../gui/pause/options/rebind_option.gd:158
+msgid "Show Timer"
+msgstr "Afficher le chronomètre (Mode Speedrun)"
+
+#: ../gui/pause/options/rebind_option.gd:159
+msgid "Mute Music"
+msgstr "Rendre muet la musique"
+
+#: ../gui/pause/options/rebind_option.gd:161
+msgid "Music Volume +"
+msgstr "Volume Musique +"
+
+#: ../gui/pause/options/rebind_option.gd:162
+msgid "Music Volume -"
+msgstr "Volume Musique -"
+
+#: ../gui/pause/options/rebind_option.gd:163
+msgid "SFX Volume +"
+msgstr "Volume Effets Sonores +"
+
+#: ../gui/pause/options/rebind_option.gd:164
+msgid "SFX Volume -"
+msgstr "Volume Effets Sonores -"
+
+#: ../gui/pause/options/rebind_option.gd:165
+msgid "Fullscreen"
+msgstr "Plein écran"
+
+#: ../gui/pause/options/rebind_option.gd:166
+msgid "Screen Size +"
+msgstr "Taille de la Fenêtre +"
+
+#: ../gui/pause/options/rebind_option.gd:167
+msgid "Screen Size -"
+msgstr "Taille de la Fenêtre -"
+
+#: ../gui/pause/options/rebind_option.gd:168
+msgid "Open Feedback Menu"
+msgstr "Ouvrir Menu des Remarques"
+
+#: ../gui/pause/options/rebind_option.gd:169
+msgid "Open Debug Console"
+msgstr "Ouvrir la Console de Débogage"
 
 #: ../gui/pause/options/rebind_option.tscn:35
 msgid "[action]"
@@ -246,14 +391,14 @@ msgid ""
 "[color=#f7c55f]F.L.U.D.D.[/color] pack!"
 msgstr ""
 "[@n,Panoda Fichage]Utilise [color=#f7c55f][@b,fludd][/color] pour voler en "
-"l'air grâce à [color=#f7c55f]J.E.T.[/color] !"
+"l'air grâce à [color=#f7c55f]J.E.T[/color] !"
 
 #: ../scenes/levels/tutorial_1/tutorial_1_3.tscn:175
 msgid ""
 "[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump "
 "into a pool of water, or find a refill bottle."
 msgstr ""
-"[@n,Panoda Prentissage]Pour remplir le réservoir de [color=#f7c55f]J.E.T.[/"
+"[@n,Panoda Prentissage]Pour remplir le réservoir de [color=#f7c55f]J.E.T[/"
 "color] , saute dans un bassin, ou trouve une bouteille de remplissage."
 
 #: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
@@ -269,8 +414,8 @@ msgid ""
 "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only "
 "hold [color=#5f75c5]100 flubs[/color] in that tank of theirs."
 msgstr ""
-"Ne dépend pas trop de lui[@p,3] cependant,[@p,10] J.E.T. ne peut contenir "
-"que [color=#5f75c5]100 flubs[/color] dans son reservoir."
+"Ne dépend pas trop de lui[@p,3] cependant,[@p,10] J.E.T ne peut contenir que "
+"[color=#5f75c5]100 flubs[/color] dans son reservoir."
 
 #: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
 msgid "Once it's gone,[@p,3] you won't be able to hover any longer."
@@ -290,7 +435,7 @@ msgid ""
 "change FLUDD nozzle,[@p,3] or just sit back and relax!"
 msgstr ""
 "Dans le menu pause,[@p,3] tu peux changer les paramètres,[@p,3] voir les "
-"statistiques,[@p,3] changer de buse pour J.E.T.,[@p,3] ou juste te reposer !"
+"statistiques,[@p,3] changer de buse pour J.E.T,[@p,3] ou juste te reposer !"
 
 #: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
 msgid ""
