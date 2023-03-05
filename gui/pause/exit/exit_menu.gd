@@ -11,7 +11,7 @@ onready var transition_out = $"/root/Singleton/WindowWarp"
 func _ready():
 	# Hide exit-game button for platforms that can't use it
 	match OS.get_name():
-		"Android", "IOS", "Web":
+		"Android", "IOS", "HTML5":
 			_hide_close_button()
 		_:
 			close_game_button.visible = true
