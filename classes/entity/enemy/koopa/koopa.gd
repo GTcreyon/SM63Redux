@@ -1,7 +1,6 @@
 class_name Koopa
 extends EntityEnemyWalk
 
-const KICK_SFX = preload("./shell_kick.ogg")
 var SHELL_PREFAB = preload("./koopa_shell.tscn")
 
 var speed = 0.9
@@ -51,12 +50,14 @@ func _wander():
 
 
 func _hurt_stomp(area):
+	ResidualSFX.new_from_existing(sfx_stomp, get_parent())
 	var body = area.get_parent()
 	body.vel.y = -5
 	into_shell(0)
 
 
 func _hurt_struck(body):
+	ResidualSFX.new_from_existing(sfx_struck, get_parent())
 	if body.global_position.x < global_position.x:
 		into_shell(5)
 	else:
@@ -64,7 +65,6 @@ func _hurt_struck(body):
 
 
 func into_shell(vel_x):
-	get_parent().add_child(ResidualSFX.new(KICK_SFX, position))
 	var inst = SHELL_PREFAB.instance()
 	inst.position = position + Vector2(0, 7.5)
 	inst.color = color
