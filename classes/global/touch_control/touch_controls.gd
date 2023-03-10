@@ -6,9 +6,9 @@ const ANCHOR_PIVOT_OFFSETS = PoolVector2Array([Vector2(0, -1), Vector2(-1, -1), 
 const ANCHOR_REVERSE_OFFSETS = [false, true, false, true]
 const BUTTON_PREFAB = preload("res://classes/global/touch_control/touch_button.tscn")
 const LAYOUT_PRESETS = {
-	"new": "u:jump,up/d:dive,down/z:pound,interact#c:fludd/x:spin,skip@l:left/r:right#s:switch_fludd/p:pause@_/s:feedback/_",
-	"one-finger": "s:switch_fludd,skip/z:pound,interact/d:down#p:pause@_/l:left/x:spin,skip/r:right/_#d:dive,left/u:jump,left/u:jump,up/u:jump,right/d:dive,right#_/c:fludd,left/c:fludd/c:fludd,right/_@_/s:feedback/_",
-	"classic": "z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/d:down,dive/r:right#_/u:up,jump/_@_/s:feedback/_",
+	"new": "up:jump,up/down:dive,down/z:pound,interact#fludd:fludd/x:spin,skip@left:left/right:right#nozzle:switch_fludd/pause:pause@_/shift:feedback/_",
+	"one-finger": "nozzle:switch_fludd,skip/z:pound,interact/pipe:down#pause:pause@_/left:left/x:spin,skip/right:right/_#dl:dive,left/jleft:jump,left/up:jump,up/jright:jump,right/dr:dive,right#_/fleft:fludd,left/fludd:fludd/fright:fludd,right/_@_/shift:feedback/_",
+	"classic": "z:pound,interact/x:spin,skip/c:fludd#shift:switch_fludd/pause:pause@left:left/down:down,dive/right:right#_/up:up,jump/_@_/shift:feedback/_",
 }
 
 var button_scale = _get_button_scale()
