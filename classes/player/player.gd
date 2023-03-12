@@ -383,7 +383,7 @@ func action_bounce() -> void:
 		bouncing = false
 
 
-const SWIM_STROKE_DURATION = int((6.0/10.0) * 60) # 6 frames, 10fps anim, 60fps global.
+const SWIM_STROKE_DURATION = int((5.0/20.0) * 60) # 6 frames, 10fps anim, 60fps global.
 var swim_stroke_timer: int = 0
 func action_swim() -> void:
 	if Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi"):

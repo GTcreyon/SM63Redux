@@ -1,4 +1,4 @@
-[gd_scene load_steps=87 format=2]
+[gd_scene load_steps=86 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -160,10 +160,6 @@ region = Rect2( 216, 38, 24, 38 )
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 8 )
 region = Rect2( 240, 38, 24, 38 )
-
-[sub_resource type="AtlasTexture" id=65]
-atlas = ExtResource( 20 )
-region = Rect2( 32, 0, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=66]
 atlas = ExtResource( 20 )
@@ -328,10 +324,10 @@ animations = [ {
 "name": "swim_fludd",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ) ],
+"frames": [ SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ) ],
 "loop": true,
 "name": "swim_stroke",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [  ],
 "loop": true,
