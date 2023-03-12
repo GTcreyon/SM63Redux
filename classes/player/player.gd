@@ -160,8 +160,9 @@ onready var step = $Step
 onready var spin_sfx = $SpinSFX
 onready var thud = $Thud
 onready var pound_spin_sfx = $PoundSpin
-onready var sprite = $Character
+onready var sprite: AnimatedSprite = $Character as AnimatedSprite
 onready var fludd_sprite = $Character/Fludd
+onready var dejitter_group: DejitterGroup = $Character as DejitterGroup
 onready var camera = $"/root/Main/Player/Camera"
 onready var step_check = $StepCheck
 onready var pound_check_l = $PoundCheckL
@@ -1597,7 +1598,7 @@ func set_rotation_origin (face_left: bool, origin: Vector2):
 	
 	sprite.offset = origin * facing
 	fludd_sprite.position = origin * facing
-	sprite.dejitter_position = -origin * facing
+	dejitter_group.dejitter_position = -origin * facing
 	sprite.position = sprite.dejitter_position
 
 
