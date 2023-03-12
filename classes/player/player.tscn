@@ -321,7 +321,7 @@ animations = [ {
 "frames": [ SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ) ],
 "loop": true,
 "name": "swim",
-"speed": 40.0
+"speed": 10.0
 }, {
 "frames": [ SubResource( 30 ), SubResource( 31 ) ],
 "loop": true,
@@ -331,7 +331,7 @@ animations = [ {
 "frames": [ SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ) ],
 "loop": true,
 "name": "swim_stroke",
-"speed": 40.0
+"speed": 10.0
 }, {
 "frames": [  ],
 "loop": true,

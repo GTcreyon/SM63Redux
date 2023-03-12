@@ -386,10 +386,9 @@ var swim_delay: bool = false
 func action_swim() -> void:
 	if Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi"):
 		if state == S.NEUTRAL:
-			switch_anim("swim")
+			switch_anim("swim_stroke")
 			vel.y = min(-4.25, vel.y)
 			sprite.frame = 1
-			sprite.speed_scale = 1
 			swim_delay = true
 		elif state == S.SPIN:
 			switch_state(S.NEUTRAL)
@@ -435,8 +434,6 @@ var nozzle_fx_scale = 0
 func fixed_visuals() -> void:
 	if swimming and state == S.NEUTRAL and !grounded and !Input.is_action_pressed("spin"):
 		switch_anim("swim")
-		if sprite.frame == 0:
-			sprite.speed_scale = 0
 	if state == S.DIVE or swimming:
 		hover_sfx.stop()
 		if fludd_strain:
@@ -507,7 +504,7 @@ func fixed_visuals() -> void:
 			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
 			step_sound()
 		last_step = sprite.frame
-	elif !sprite.animation.begins_with("swim"):
+	else:
 		sprite.speed_scale = 1
 	
 	#$Label.text = str(vel.x)
