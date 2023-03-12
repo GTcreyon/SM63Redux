@@ -382,41 +382,36 @@ func action_bounce() -> void:
 		bouncing = false
 
 
-var swim_delay: bool = false
+var swim_stroke: bool = false
 func action_swim() -> void:
 	if Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi"):
+		# Just jumped.
 		if state == S.NEUTRAL:
+			# State is neutral. Begin upward stroke.
 			switch_anim("swim_stroke")
 			vel.y = min(-4.25, vel.y)
-			sprite.frame = 1
-			swim_delay = true
+			swim_stroke = true
 		elif state == S.SPIN:
+			# Stroke out of a spin.
+			# Switch to neutral state so spin has to restart.
 			switch_state(S.NEUTRAL)
+			
 			vel.y = min(-4.25, vel.y)
+			# Take an X velocity boost.
 			vel.x = min(abs(vel.x) + 1.5, 8) * sign(vel.x)
-		elif (
-			state == S.DIVE
-			and Input.is_action_pressed("jump")
-			and (
-				(
-					(
-						int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
-					) == 1.0
-					and sprite.flip_h
-				)
-				or
-				(
-					(
-						int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
-					) == -1.0
-					and !sprite.flip_h
-				)
-			)
-		):
-			action_backflip()
+		elif state == S.DIVE and Input.is_action_pressed("jump"):
+			# Jumping mid-dive...this could be a backflip.
+			# Merge X-axis input into one int for comparing.
+			var axis_h = int(Input.is_action_pressed("right") ) \
+				- int(Input.is_action_pressed("left"))
+			# If the press direction is AGAINST facing, backflip triggered.
+			if axis_h == -facing_sign():
+				# Do a backflip.
+				action_backflip()
 	else:
-		swim_delay = false
+		swim_stroke = false
 	
+	# Sink faster if down is held
 	if Input.is_action_pressed("down"):
 		vel.y += 0.125
 
