@@ -383,7 +383,8 @@ func action_bounce() -> void:
 		bouncing = false
 
 
-var swim_stroke: bool = false
+const SWIM_STROKE_DURATION = int((6.0/10.0) * 60) # 6 frames, 10fps anim, 60fps global.
+var swim_stroke_timer: int = 0
 func action_swim() -> void:
 	if Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi"):
 		# Just jumped.
@@ -391,7 +392,8 @@ func action_swim() -> void:
 			# State is neutral. Begin upward stroke.
 			switch_anim("swim_stroke")
 			vel.y = min(-4.25, vel.y)
-			swim_stroke = true
+			swim_stroke_timer = SWIM_STROKE_DURATION
+			print_debug("Swim stroke timer duration: " + String(swim_stroke_timer))
 		elif state == S.SPIN:
 			# Stroke out of a spin.
 			# Switch to neutral state so spin has to restart.
@@ -410,7 +412,15 @@ func action_swim() -> void:
 				# Do a backflip.
 				action_backflip()
 	else:
-		swim_stroke = false
+		if !sprite.animation.begins_with("swim_stroke"):
+			# We've jumped out of the swim stroke.
+			# Cancel the stroke timer.
+			swim_stroke_timer = 0
+		elif swim_stroke_timer > 0:
+			# Stroke timer is running. Tick it.
+			swim_stroke_timer -= 1
+		# Don't bother returning to swim animation on timer ring.
+		# When timer runs down, fixed_visuals() handles that.
 	
 	# Sink faster if down is held
 	if Input.is_action_pressed("down"):
@@ -428,8 +438,14 @@ const PLUME_ORIGIN = Vector2(-10, -2)
 var hover_sound_position = 0
 var nozzle_fx_scale = 0
 func fixed_visuals() -> void:
-	if swimming and state == S.NEUTRAL and !grounded and !Input.is_action_pressed("spin"):
+	# If in water, swim, unless something more important is going on.
+	if swimming and state == S.NEUTRAL \
+		and !grounded \
+		and !Input.is_action_pressed("spin") \
+		and swim_stroke_timer <= 0 \
+	:
 		switch_anim("swim")
+	
 	if state == S.DIVE or swimming:
 		hover_sfx.stop()
 		if fludd_strain:
