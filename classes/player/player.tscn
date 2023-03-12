@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=87 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://classes/player/sfx/pound/pound_spin.wav" type="AudioStream" id=17]
 [ext_resource path="res://classes/player/sfx/spin_air_1.wav" type="AudioStream" id=18]
 [ext_resource path="res://classes/player/fludd_sprite.gd" type="Script" id=19]
+[ext_resource path="res://classes/player/mario_swim.png" type="Texture" id=20]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 8 )
@@ -128,13 +129,29 @@ region = Rect2( 288, 38, 24, 38 )
 atlas = ExtResource( 8 )
 region = Rect2( 312, 38, 24, 38 )
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 8 )
-region = Rect2( 216, 0, 24, 38 )
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 32, 48 )
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 8 )
-region = Rect2( 240, 0, 24, 38 )
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 48, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 96, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 144, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 192, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 240, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=30]
 atlas = ExtResource( 8 )
@@ -143,6 +160,30 @@ region = Rect2( 216, 38, 24, 38 )
 [sub_resource type="AtlasTexture" id=31]
 atlas = ExtResource( 8 )
 region = Rect2( 240, 38, 24, 38 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 0, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 48, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 96, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=68]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 144, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=69]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 192, 32, 48 )
+
+[sub_resource type="AtlasTexture" id=70]
+atlas = ExtResource( 20 )
+region = Rect2( 32, 240, 32, 48 )
 
 [sub_resource type="AtlasTexture" id=14]
 atlas = ExtResource( 8 )
@@ -277,14 +318,24 @@ animations = [ {
 "name": "spin_fludd",
 "speed": 20.0
 }, {
-"frames": [ SubResource( 18 ), SubResource( 19 ) ],
+"frames": [ SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 63 ), SubResource( 64 ) ],
 "loop": true,
 "name": "swim",
-"speed": 4.0
+"speed": 40.0
 }, {
 "frames": [ SubResource( 30 ), SubResource( 31 ) ],
 "loop": true,
 "name": "swim_fludd",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 70 ) ],
+"loop": true,
+"name": "swim_stroke",
+"speed": 40.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "swim_stroke_fludd",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 14 ), SubResource( 15 ) ],
@@ -423,7 +474,7 @@ __meta__ = {
 
 [node name="Character" type="AnimatedSprite" parent="."]
 frames = SubResource( 3 )
-animation = "walk"
+animation = "swim_stroke_fludd"
 script = ExtResource( 1 )
 
 [node name="Fludd" type="AnimatedSprite" parent="Character"]
