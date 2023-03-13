@@ -3,7 +3,7 @@ extends Area2D
 # Box that drops a fludd nozzle when stomped.
 
 
-export(Singleton.n) var nozzle: int
+export(Singleton.Nozzles) var nozzle: int
 
 var PICKUP_PREFABS = [
 	preload("./fludd_pickup_hover.tscn"),

@@ -120,6 +120,14 @@ const SFX_BANK = { # bank of sfx to be played with play_sfx()
 			preload("res://classes/player/sfx/spin_air_2.wav"),
 			preload("res://classes/player/sfx/spin_air_3.wav"),
 		],
+		"water": [
+			preload("res://classes/player/sfx/spin_water_1.wav")
+		]
+	},
+	"spin_end": {
+		"water": [
+			preload("res://classes/player/sfx/spin_water_end.wav")
+		]
 	}
 }
 
@@ -420,6 +428,8 @@ func adjust_swim_x() -> void:
 	vel.x += (swim_adjust - vel.x) * FPS_MOD
 
 
+const SPRAY_ORIGIN = Vector2(-9, 6)
+const PLUME_ORIGIN = Vector2(-10, -2)
 var hover_sound_position = 0
 var nozzle_fx_scale = 0
 func fixed_visuals() -> void:
@@ -461,23 +471,22 @@ func fixed_visuals() -> void:
 	nozzle_fx.visible = nozzle_fx_scale > 0
 	nozzle_fx.scale = Vector2.ONE * nozzle_fx_scale
 
-	var bubblepos = position
-	if state == S.DIVE:
-		bubblepos.y += -9
-		if sprite.flip_h:
-			bubblepos.x += -1
-		else:
-			bubblepos.x += 1
-	else:
-		bubblepos.y += -2
-		if sprite.flip_h:
-			bubblepos.x += 10
-		else:
-			bubblepos.x += -10
-	# offset spray particles to mario's center
-	spray_particles.position = bubblepos
-	# plume is relative to parent unlike particles, so make position local
-	nozzle_fx.position = bubblepos - position
+	var spray_pos: Vector2
+	var plume_pos: Vector2
+	# offset spray effect relative to player's center
+	spray_pos = SPRAY_ORIGIN
+	plume_pos = PLUME_ORIGIN
+	# factor in facing direction
+	spray_pos *= Vector2(facing_sign(), 1)
+	plume_pos *= Vector2(facing_sign(), 1)
+	# rotate positions with sprite, so they stay aligned
+	spray_pos = spray_pos.rotated(sprite.rotation)
+	plume_pos = plume_pos.rotated(sprite.rotation)
+	# particles are in global space, move them to player-relative position
+	spray_pos += position
+	# apply spray and plume positions
+	spray_particles.position = spray_pos
+	nozzle_fx.position = plume_pos
 	
 	spray_particles.rotation = sprite.rotation
 	nozzle_fx.rotation = sprite.rotation
@@ -616,6 +625,8 @@ func action_spin() -> void:
 		elif !Input.is_action_pressed("spin"):
 			# End spin if button is released after the timer rings.
 			switch_state(S.NEUTRAL)
+			if swimming:
+				play_sfx("spin_end", "water")
 		
 		var spin_progress = SPIN_TIME - spin_frames
 		if spin_progress == BEGIN_FAST_SPIN_AFTER:
@@ -638,7 +649,10 @@ func action_spin() -> void:
 		switch_state(S.SPIN)
 		switch_anim("spin_start")
 		# switch_state stops spin_sfx; always play it again after state switch.
-		play_sfx("spin", "air")
+		if swimming:
+			play_sfx("spin", "water")
+		else:
+			play_sfx("spin", "air")
 		if !grounded:
 			if swimming:
 				vel.y = min(-2, vel.y)
@@ -1539,7 +1553,7 @@ func play_sfx(type, group):
 		"pound":
 			thud.stream = sound
 			thud.play(0)
-		"spin":
+		"spin", "spin_end":
 			spin_sfx.stream = sound
 			spin_sfx.play(0)
 

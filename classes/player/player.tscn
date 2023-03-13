@@ -588,7 +588,7 @@ bus = "SFX"
 [node name="SpinSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
 volume_db = -17.0
-bus = "SFX"
+bus = "~~SFX Clear In Water~~"
 
 [node name="Thud" type="AudioStreamPlayer" parent="."]
 volume_db = -9.0

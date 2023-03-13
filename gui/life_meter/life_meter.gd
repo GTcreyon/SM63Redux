@@ -10,6 +10,8 @@ onready var coin_meter = $MeterBase/Filler/CoinMeter
 onready var coin_ring = $MeterBase/Filler/CoinMeter/CoinRing
 onready var death_cover = $"/root/Singleton/DeathManager/DeathCover"
 onready var save_count = player.hp # For when variable gets changed
+onready var power_indicator = $PowerIndicator
+
 var act = false # For when life meter sprite can appear if true
 var rechange_timer = 0
 var rechange_trigger = false # So it can trigger the rechange_timer increment
@@ -80,16 +82,13 @@ func _process(delta):
 			player.hp += 1
 			player.coins_toward_health = 0
 			coin_save = 0
-			coin_meter.frame = 0
-			coin_meter.animation = "flash"
+			coin_meter.flash()
+			power_indicator.flash()
 		else:
-			if coin_meter.animation == "charge" or coin_save != player.coins_toward_health:
-				coin_meter.animation = "charge"
-				coin_meter.frame = player.coins_toward_health
+			if coin_save != player.coins_toward_health:
+				coin_meter.set_charge_level(player.coins_toward_health)
+				power_indicator.set_charge_level(player.coins_toward_health)
 				coin_save = player.coins_toward_health
-		
-		if coin_meter.animation == "flash" and coin_meter.frame == 6:
-			coin_meter.animation = "charge"
 		
 		coin_ring.visible = (coin_meter.animation == "flash" and coin_meter.frame == 0)
 	margin_top = (start_pos + sin(PI * progress / 2) * (end_adjust - start_pos))
