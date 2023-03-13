@@ -13,13 +13,13 @@ mouse_filter = 2
 script = ExtResource( 5 )
 
 [node name="ButtonExitLevel" type="Button" parent="." groups=["pause"]]
-anchor_left = 0.5
-anchor_top = 1.0
+anchor_left = 0.453
+anchor_top = 0.314
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -30.0
-margin_top = -247.0
-margin_bottom = -199.0
+anchor_bottom = 0.447
+margin_left = 0.0799866
+margin_top = -0.0400009
+margin_bottom = 0.0799866
 rect_pivot_offset = Vector2( 313, 24 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
@@ -28,11 +28,10 @@ disabled = true
 button_mask = 3
 
 [node name="Text" type="Label" parent="ButtonExitLevel"]
-anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -219.0
+margin_left = 131.0
 margin_top = -8.0
 margin_right = -40.0
 margin_bottom = 8.0
@@ -43,13 +42,14 @@ align = 2
 valign = 1
 
 [node name="ButtonQuitToTitle" type="Button" parent="." groups=["pause"]]
-anchor_left = 0.5
-anchor_top = 1.0
+anchor_left = 0.402
+anchor_top = 0.514
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -63.0
-margin_top = -175.0
-margin_bottom = -127.0
+anchor_bottom = 0.647
+margin_left = -0.279999
+margin_top = -0.0399933
+margin_right = 0.000427246
+margin_bottom = 0.0800018
 rect_pivot_offset = Vector2( 346, 24 )
 mouse_filter = 1
 mouse_default_cursor_shape = 2
@@ -57,12 +57,11 @@ theme = ExtResource( 2 )
 button_mask = 3
 
 [node name="Text" type="Label" parent="ButtonQuitToTitle"]
-anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -252.0
-margin_top = -8.5
+margin_left = 131.0
+margin_top = -8.02
 margin_right = -40.0
 margin_bottom = 7.5
 rect_pivot_offset = Vector2( 178, 8 )
@@ -72,26 +71,24 @@ align = 2
 valign = 1
 
 [node name="ButtonCloseGame" type="Button" parent="." groups=["pause"]]
-anchor_left = 0.5
-anchor_top = 1.0
+anchor_left = 0.356
+anchor_top = 0.714
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -92.0
-margin_top = -103.0
-margin_bottom = -55.0
-rect_pivot_offset = Vector2( 375, 24 )
+anchor_bottom = 0.847
+margin_left = 0.160004
+margin_top = -0.0400085
+margin_bottom = 0.0799866
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme = ExtResource( 1 )
 button_mask = 3
 
 [node name="Text" type="Label" parent="ButtonCloseGame"]
-anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -281.0
-margin_top = -8.5
+margin_left = 131.0
+margin_top = -8.02
 margin_right = -40.0
 margin_bottom = 7.5
 rect_pivot_offset = Vector2( 178, 8 )
