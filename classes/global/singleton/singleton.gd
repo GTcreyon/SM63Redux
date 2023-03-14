@@ -26,6 +26,7 @@ const WHITELISTED_ACTIONS = [
 	"zoom-",
 	"semi",
 	"reset",
+	"timer_show",
 	"volume_music+",
 	"volume_music-",
 	"volume_sfx+",
