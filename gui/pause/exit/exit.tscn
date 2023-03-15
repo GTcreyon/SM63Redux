@@ -31,14 +31,11 @@ button_mask = 3
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 131.0
 margin_top = -8.0
-margin_right = -40.0
 margin_bottom = 8.0
-rect_pivot_offset = Vector2( 178, 8 )
 custom_fonts/font = ExtResource( 4 )
 text = "EXIT LEVEL"
-align = 2
+align = 1
 valign = 1
 
 [node name="ButtonQuitToTitle" type="Button" parent="." groups=["pause"]]
@@ -59,14 +56,12 @@ button_mask = 3
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 131.0
 margin_top = -8.02
-margin_right = -40.0
 margin_bottom = 7.5
 rect_pivot_offset = Vector2( 178, 8 )
 custom_fonts/font = ExtResource( 4 )
 text = "QUIT TO TITLE"
-align = 2
+align = 1
 valign = 1
 
 [node name="ButtonCloseGame" type="Button" parent="." groups=["pause"]]
@@ -87,14 +82,12 @@ button_mask = 3
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 131.0
 margin_top = -8.02
-margin_right = -40.0
 margin_bottom = 7.5
 rect_pivot_offset = Vector2( 178, 8 )
 custom_fonts/font = ExtResource( 4 )
 text = "CLOSE GAME"
-align = 2
+align = 1
 valign = 1
 
 [connection signal="pressed" from="ButtonExitLevel" to="." method="_on_ButtonExitLevel_pressed"]
