@@ -3,7 +3,7 @@
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_twosided_disabled_bright.tres" type="StyleBox" id=1]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=2]
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_twosided.png" type="Texture" id=3]
-[ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_green_button.png" type="Texture" id=4]
+[ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button.png" type="Texture" id=4]
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_twosided_disabled_dark.tres" type="StyleBox" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=4]
