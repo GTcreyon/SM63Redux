@@ -12,7 +12,7 @@ anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 5 )
 
-[node name="ButtonExitLevel" type="Button" parent="." groups=["pause"]]
+[node name="ButtonExit" type="Button" parent="."]
 anchor_left = 0.191
 anchor_top = 0.194
 anchor_right = 0.809
@@ -27,7 +27,7 @@ theme = ExtResource( 3 )
 disabled = true
 button_mask = 3
 
-[node name="Text" type="Label" parent="ButtonExitLevel"]
+[node name="Text" type="Label" parent="ButtonExit"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -38,7 +38,7 @@ text = "EXIT LEVEL"
 align = 1
 valign = 1
 
-[node name="ButtonQuitToTitle" type="Button" parent="." groups=["pause"]]
+[node name="ButtonQuit" type="Button" parent="."]
 anchor_left = 0.191
 anchor_top = 0.397
 anchor_right = 0.809
@@ -52,7 +52,7 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 1 )
 button_mask = 3
 
-[node name="Text" type="Label" parent="ButtonQuitToTitle"]
+[node name="Text" type="Label" parent="ButtonQuit"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -64,7 +64,7 @@ text = "QUIT TO TITLE"
 align = 1
 valign = 1
 
-[node name="ButtonCloseGame" type="Button" parent="." groups=["pause"]]
+[node name="ButtonClose" type="Button" parent="."]
 anchor_left = 0.191
 anchor_top = 0.594
 anchor_right = 0.809
@@ -78,7 +78,7 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
 button_mask = 3
 
-[node name="Text" type="Label" parent="ButtonCloseGame"]
+[node name="Text" type="Label" parent="ButtonClose"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
@@ -90,6 +90,6 @@ text = "CLOSE GAME"
 align = 1
 valign = 1
 
-[connection signal="pressed" from="ButtonExitLevel" to="." method="_on_ButtonExitLevel_pressed"]
-[connection signal="pressed" from="ButtonQuitToTitle" to="." method="_on_ButtonQuitToTitle_pressed"]
-[connection signal="pressed" from="ButtonCloseGame" to="." method="_on_ButtonCloseGame_pressed"]
+[connection signal="pressed" from="ButtonExit" to="." method="_on_ButtonExitLevel_pressed"]
+[connection signal="pressed" from="ButtonQuit" to="." method="_on_ButtonQuitToTitle_pressed"]
+[connection signal="pressed" from="ButtonClose" to="." method="_on_ButtonCloseGame_pressed"]

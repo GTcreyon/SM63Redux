@@ -2,9 +2,9 @@ extends Control
 
 const TITLE_SCENE: String = "res://scenes/menus/title/title.tscn"
 
-onready var exit_lvl_button = $ButtonExitLevel
-onready var to_title_button = $ButtonQuitToTitle
-onready var close_game_button = $ButtonCloseGame
+onready var exit_lvl_button = $ButtonExit
+onready var to_title_button = $ButtonQuit
+onready var close_game_button = $ButtonClose
 onready var transition_out = $"/root/Singleton/WindowWarp"
 
 
