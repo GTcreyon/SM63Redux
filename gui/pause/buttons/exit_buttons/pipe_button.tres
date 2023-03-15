@@ -1,0 +1,149 @@
+[gd_resource type="Theme" load_steps=21 format=2]
+
+[ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_green_button.png" type="Texture" id=1]
+[ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_disabled_bright.tres" type="StyleBox" id=2]
+[ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_disabled_dark.tres" type="StyleBox" id=3]
+[ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=14]
+
+[sub_resource type="StyleBoxTexture" id=1]
+texture = ExtResource( 1 )
+region_rect = Rect2( 20, 0, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=2]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxTexture" id=3]
+texture = ExtResource( 1 )
+region_rect = Rect2( 40, 0, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 1 )
+region_rect = Rect2( 20, 108, 20, 18 )
+margin_left = 18.0
+margin_right = 1.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=15]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 108, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxTexture" id=16]
+texture = ExtResource( 1 )
+region_rect = Rect2( 40, 108, 20, 18 )
+margin_left = 18.0
+margin_right = 1.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=17]
+texture = ExtResource( 1 )
+region_rect = Rect2( 20, 18, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=18]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 18, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxTexture" id=19]
+texture = ExtResource( 1 )
+region_rect = Rect2( 40, 18, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=20]
+texture = ExtResource( 1 )
+region_rect = Rect2( 20, 36, 20, 18 )
+margin_left = 18.0
+margin_right = 1.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=21]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 36, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxTexture" id=22]
+texture = ExtResource( 1 )
+region_rect = Rect2( 40, 36, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=11]
+texture = ExtResource( 1 )
+region_rect = Rect2( 20, 54, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[sub_resource type="StyleBoxTexture" id=12]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 54, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+axis_stretch_horizontal = 1
+
+[sub_resource type="StyleBoxTexture" id=13]
+texture = ExtResource( 1 )
+region_rect = Rect2( 40, 54, 20, 18 )
+margin_left = 18.0
+margin_top = 5.0
+margin_bottom = 11.0
+
+[resource]
+default_font = ExtResource( 4 )
+Button/styles/disabled = ExtResource( 2 )
+Button/styles/focus = SubResource( 14 )
+Button/styles/hover = SubResource( 1 )
+Button/styles/normal = SubResource( 2 )
+Button/styles/pressed = SubResource( 3 )
+ButtonBlack/base_type = "Button"
+ButtonBlack/styles/disabled = ExtResource( 3 )
+ButtonBlack/styles/hover = SubResource( 4 )
+ButtonBlack/styles/normal = SubResource( 15 )
+ButtonBlack/styles/pressed = SubResource( 16 )
+ButtonBlue/base_type = "Button"
+ButtonBlue/styles/disabled = ExtResource( 2 )
+ButtonBlue/styles/hover = SubResource( 17 )
+ButtonBlue/styles/normal = SubResource( 18 )
+ButtonBlue/styles/pressed = SubResource( 19 )
+ButtonRed/base_type = "Button"
+ButtonRed/styles/disabled = ExtResource( 3 )
+ButtonRed/styles/hover = SubResource( 20 )
+ButtonRed/styles/normal = SubResource( 21 )
+ButtonRed/styles/pressed = SubResource( 22 )
+ButtonYellow/base_type = "Button"
+ButtonYellow/styles/disabled = ExtResource( 2 )
+ButtonYellow/styles/hover = SubResource( 11 )
+ButtonYellow/styles/normal = SubResource( 12 )
+ButtonYellow/styles/pressed = SubResource( 13 )
