@@ -13,14 +13,14 @@ mouse_filter = 2
 script = ExtResource( 5 )
 
 [node name="ButtonExitLevel" type="Button" parent="." groups=["pause"]]
-anchor_left = 0.191
+anchor_left = 0.23
 anchor_top = 0.194
-anchor_right = 0.809
+anchor_right = 0.848
 anchor_bottom = 0.35
-margin_left = -0.10601
-margin_top = 0.160004
-margin_right = 0.105957
-margin_bottom = 0.112007
+margin_left = -0.0659943
+margin_top = 0.159996
+margin_right = 0.145935
+margin_bottom = 0.111992
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 theme = ExtResource( 3 )
@@ -65,13 +65,13 @@ align = 1
 valign = 1
 
 [node name="ButtonCloseGame" type="Button" parent="." groups=["pause"]]
-anchor_left = 0.191
+anchor_left = 0.152
 anchor_top = 0.594
-anchor_right = 0.809
+anchor_right = 0.77
 anchor_bottom = 0.75
-margin_left = -0.10601
+margin_left = -0.146004
 margin_top = 0.159988
-margin_right = 0.105957
+margin_right = 0.065979
 margin_bottom = 0.111969
 mouse_filter = 1
 mouse_default_cursor_shape = 2
