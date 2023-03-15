@@ -1,5 +1,9 @@
 extends AnimatedSprite
 
+const BEGIN_SLOW_SPIN_AFTER = 10
+const SLOW_SPIN_START_SPEED = 1
+const SLOW_SPIN_END_SPEED = 0.4
+
 onready var parent: PlayerCharacter = $"../.."
 
 
@@ -46,6 +50,17 @@ func _physics_process(delta):
 						animation = "pound_fall"
 					parent.Pound.LAND:
 						animation = "pound_land"
+			parent.S.SPIN:
+				var spin_progress = parent.SPIN_TIME - parent.spin_frames
+				# TODO: start-and-loop system not implemented yet.
+				# This is a holdover from a separate branch.
+				if spin_progress >= BEGIN_SLOW_SPIN_AFTER:
+					animation = "spin" #"spin_slow"
+				else:
+					animation = "spin" #"spin_fast"
+				
+				if spin_progress > BEGIN_SLOW_SPIN_AFTER:
+					speed_scale = lerp(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED,
+						float(spin_progress - BEGIN_SLOW_SPIN_AFTER) / (parent.SPIN_TIME - BEGIN_SLOW_SPIN_AFTER))
 			parent.S.HURT:
 				animation = "hurt"
-			
