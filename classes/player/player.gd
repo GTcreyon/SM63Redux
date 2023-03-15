@@ -552,10 +552,6 @@ func action_pound() -> void:
 		# Adjust rotation depending on our facing direction.
 		body_rotation *= facing_direction
 		
-		# Begin windup state once the spin ends
-		#if pound_spin_frames == POUND_SPIN_DURATION:
-		#	switch_anim("pound_windup")
-		
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
 			# Reset sprite transforms.

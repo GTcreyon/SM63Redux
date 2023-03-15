@@ -46,6 +46,7 @@ func _physics_process(delta):
 				match parent.pound_state:
 					parent.Pound.SPIN:
 						animation = "flip"
+						# TODO: use rotation angle to determine frame.
 					parent.Pound.FALL:
 						animation = "pound_fall"
 					parent.Pound.LAND:
