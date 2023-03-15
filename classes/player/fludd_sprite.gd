@@ -2,7 +2,7 @@ extends AnimatedSprite
 # FLUDD pack visuals
 
 onready var player_sprite = $".."
-onready var player_body = $"../.."
+onready var player_body = $"../../.."
 
 var _nozzle: String = "hover"
 var _facing_front: bool = false
