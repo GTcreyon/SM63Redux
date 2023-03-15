@@ -1,9 +1,8 @@
-[gd_resource type="Theme" load_steps=22 format=2]
+[gd_resource type="Theme" load_steps=21 format=2]
 
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_twosided_disabled_bright.tres" type="StyleBox" id=1]
 [ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=2]
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_twosided.png" type="Texture" id=3]
-[ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button.png" type="Texture" id=4]
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_twosided_disabled_dark.tres" type="StyleBox" id=5]
 
 [sub_resource type="StyleBoxEmpty" id=4]
@@ -109,24 +108,27 @@ margin_top = 5.0
 margin_bottom = 11.0
 
 [sub_resource type="StyleBoxTexture" id=11]
-texture = ExtResource( 4 )
-region_rect = Rect2( 20, 54, 20, 18 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 38, 54, 38, 18 )
 margin_left = 18.0
+margin_right = 18.0
 margin_top = 5.0
 margin_bottom = 11.0
 
 [sub_resource type="StyleBoxTexture" id=12]
-texture = ExtResource( 4 )
-region_rect = Rect2( 0, 54, 20, 18 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 54, 38, 18 )
 margin_left = 18.0
+margin_right = 18.0
 margin_top = 5.0
 margin_bottom = 11.0
 axis_stretch_horizontal = 1
 
 [sub_resource type="StyleBoxTexture" id=13]
-texture = ExtResource( 4 )
-region_rect = Rect2( 40, 54, 20, 18 )
+texture = ExtResource( 3 )
+region_rect = Rect2( 76, 54, 38, 18 )
 margin_left = 18.0
+margin_right = 18.0
 margin_top = 5.0
 margin_bottom = 11.0
 
