@@ -389,15 +389,19 @@ func action_bounce() -> void:
 var swim_delay: bool = false
 func action_swim() -> void:
 	if Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi"):
+		# Just jumped.
 		if state == S.NEUTRAL:
+			# State is neutral. Begin upward stroke.
 			switch_anim("swim")
 			vel.y = min(-4.25, vel.y)
-			sprite.frame = 1
-			sprite.speed_scale = 1
 			swim_delay = true
 		elif state == S.SPIN:
+			# Stroke out of a spin.
+			# Switch to neutral state so spin has to restart.
 			switch_state(S.NEUTRAL)
+			
 			vel.y = min(-4.25, vel.y)
+			# Take an X velocity boost.
 			vel.x = min(abs(vel.x) + 1.5, 8) * sign(vel.x)
 		elif (
 			state == S.DIVE
@@ -411,6 +415,7 @@ func action_swim() -> void:
 	else:
 		swim_delay = false
 	
+	# Sink faster if down is held
 	if Input.is_action_pressed("down"):
 		vel.y += 0.125
 
