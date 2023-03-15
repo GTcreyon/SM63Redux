@@ -197,7 +197,7 @@ func get_input_map_json_saved():
 
 func load_input_map(input_json):
 	var load_dict: Dictionary = parse_json(input_json)
-	for key in Singleton.WHITELISTED_ACTIONS:
+	for key in WHITELISTED_ACTIONS:
 		InputMap.action_erase_events(key)
 		# Skip unbound actions
 		if !load_dict.has(key):
