@@ -1557,7 +1557,6 @@ func set_rotation_origin(facing_direction: int, origin: Vector2):
 	var facing = Vector2(facing_direction, 1)
 	
 	sprite.offset = origin * facing
-	fludd_sprite.position = origin * facing
 	sprite.position = -origin * facing
 	character_group.dejitter_position = sprite.position
 

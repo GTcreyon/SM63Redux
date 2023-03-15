@@ -23,6 +23,7 @@ enum Orient {
 }
 
 const DEFAULT_ORIENT = Orient.FRONT_RIGHT
+const DEFAULT_OFFSET = Vector2(-2, -2)
 
 # FLUDD's orientation is overridden for these player animations.
 # Each frame should have one array entry.
@@ -74,6 +75,9 @@ func _process(_delta) -> void:
 	
 	# Now, we can set FLUDD's appearance from looked-up orientation.
 	
+	# Clear offset so we're always starting from the right place.
+	offset = DEFAULT_OFFSET
+	
 	# Set Z index by in-front flag.
 	if (cur_orient & Orient.SORT_ABOVE) != 0:
 		z_index = 1
@@ -86,7 +90,7 @@ func _process(_delta) -> void:
 	var facing_front: bool = cur_orient & Orient.THREE_QTR == Orient.FACING
 	var facing_side: bool = cur_orient & Orient.THREE_QTR == Orient.SIDE
 	
-	# Set proper sprite from direction.
+	# Set proper sprite and offset from direction.
 	if facing_front:
 		if z_index == 1:
 			animation = _nozzle + "_back"
@@ -101,13 +105,16 @@ func _process(_delta) -> void:
 			animation = _nozzle + "_sideback"
 		else:
 			animation = _nozzle
-		offset.x = -2
+		# Don't set offset, let default value remain.
+	
+	# Factor in player sprite offset, which is known to change per animation.
+	offset += player_sprite.offset
 	
 	# Apply sprite flip flag.
 	if (cur_orient & Orient.X_FLIP) != 0:
 		# Use the opposite of what the player has.
 		flip_h = !flip_h
-	# Invert offset if sprite is flipped, even if by default.
+	# Invert X offset if sprite is flipped, even if by default.
 	if flip_h:
 		offset.x = -offset.x
 	
