@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://gui/pause/buttons/exit_buttons/pipe_button_twosided.tres" type="Theme" id=3]
-[ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=4]
 [ext_resource path="res://gui/pause/exit/exit_menu.gd" type="Script" id=5]
 
 [node name="ExitMenu" type="Control"]
@@ -32,7 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -8.0
 margin_bottom = 8.0
-custom_fonts/font = ExtResource( 4 )
+theme = ExtResource( 3 )
 text = "EXIT LEVEL"
 align = 1
 valign = 1
@@ -59,7 +58,7 @@ anchor_bottom = 0.5
 margin_top = -8.02
 margin_bottom = 7.5
 rect_pivot_offset = Vector2( 178, 8 )
-custom_fonts/font = ExtResource( 4 )
+theme = ExtResource( 3 )
 text = "QUIT TO TITLE"
 align = 1
 valign = 1
@@ -86,7 +85,7 @@ anchor_bottom = 0.5
 margin_top = -8.02
 margin_bottom = 7.5
 rect_pivot_offset = Vector2( 178, 8 )
-custom_fonts/font = ExtResource( 4 )
+theme = ExtResource( 3 )
 text = "CLOSE GAME"
 align = 1
 valign = 1
