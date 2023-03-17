@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=2]
+[gd_scene load_steps=121 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -69,6 +69,14 @@ region = Rect2( 336, 240, 48, 48 )
 [sub_resource type="AtlasTexture" id=112]
 atlas = ExtResource( 8 )
 region = Rect2( 384, 240, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=127]
+atlas = ExtResource( 8 )
+region = Rect2( 288, 144, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=128]
+atlas = ExtResource( 8 )
+region = Rect2( 336, 144, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=119]
 atlas = ExtResource( 8 )
@@ -348,6 +356,11 @@ animations = [ {
 "name": "dive_ground",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 127 ), SubResource( 128 ) ],
+"loop": false,
+"name": "dive_reset",
+"speed": 0.0
+}, {
 "frames": [ SubResource( 119 ), SubResource( 120 ) ],
 "loop": true,
 "name": "fall",
@@ -568,7 +581,7 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "walk_neutral"
+animation = "dive_reset"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]

@@ -368,7 +368,6 @@ func action_bounce() -> void:
 	if bounce_frames >= 12:
 		if state == S.DIVE:
 			off_ground()
-			dive_correct(-1)
 			switch_state(S.ROLLOUT)
 			switch_anim("jump")
 			frontflip_direction = facing_direction
@@ -551,7 +550,6 @@ func action_pound() -> void:
 		# A little rising as we wind up makes it look real nice.
 		character_group.dejitter_position.y -= POUND_SPIN_RISE * min(pound_spin_frames,
 			POUND_SPIN_RISE_TIME)
-		print(character_group.dejitter_position.y)
 		# Set rotation according to position in the animation.
 		body_rotation = TAU * pound_spin_factor
 		# Adjust rotation depending on our facing direction.
@@ -696,10 +694,10 @@ func fludd_control():
 						vel.y *= 1 - 0.02 * FPS_MOD
 						vel.x *= 1 - 0.03 * FPS_MOD
 						if grounded:
-							vel.x += cos(body_rotation - PI / 2)*pow(FPS_MOD, 2)
+							vel.x += cos(body_rotation)*pow(FPS_MOD, 2) * facing_direction
 						elif state == S.DIVE:
-							vel.y += sin(body_rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
-							vel.x += cos(body_rotation - PI / 2)/2*pow(FPS_MOD, 2)
+							vel.y += sin(body_rotation)*0.92*pow(FPS_MOD, 2) * facing_direction
+							vel.x += cos(body_rotation)/2*pow(FPS_MOD, 2) * facing_direction
 						else:
 							vel.y += sin(body_rotation * facing_direction - PI / 2)*0.92*pow(FPS_MOD, 2)
 							vel.x += cos(body_rotation * facing_direction - PI / 2)*0.46*pow(FPS_MOD, 2) * facing_direction
@@ -884,8 +882,6 @@ func backflip_spin_anim() -> void:
 
 
 func action_backflip() -> void:
-	if !dive_resetting:
-		dive_correct(-1)
 	off_ground()
 	switch_state(S.BACKFLIP)
 	vel.y = min(-JUMP_VEL_1 - 2.5 * FPS_MOD, vel.y)
@@ -898,7 +894,6 @@ func action_backflip() -> void:
 
 func action_rollout() -> void:
 	off_ground()
-	dive_correct(-1)
 	switch_state(S.ROLLOUT)
 	vel.y = min(-JUMP_VEL_1/1.5, vel.y)
 	switch_anim("jump")
@@ -1028,14 +1023,10 @@ func air_resistance(fall_adjust) -> float:
 
 func manage_dive_angle() -> void:
 	if angle_cast.is_colliding():
-		var angle_offset = 0
-		if facing_direction == 1:
-			angle_offset = PI
-		else:
-			angle_offset = 0
-		body_rotation = lerp_angle(body_rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
+		var target = angle_cast.get_collision_normal().angle() + PI / 2
+		body_rotation = lerp_angle(body_rotation, target, 0.5)
 	elif solid_floors > 0:
-		body_rotation = PI / 2 * facing_direction
+		body_rotation = PI / 2
 
 
 func reset_dive() -> void:
@@ -1076,7 +1067,8 @@ func airborne_anim() -> void:
 	elif state == S.POUND and pound_state == Pound.FALL:
 		switch_anim("pound_fall")
 	elif state == S.DIVE:
-		body_rotation = lerp_angle(body_rotation, (atan2(vel.y, vel.x) + PI / 2) * facing_direction, 0.5)
+		var target = atan2(vel.y, vel.x) + PI / 2 * (1 - facing_direction)
+		body_rotation = lerp_angle(body_rotation, target, 0.5)
 
 
 const POUND_LAND_DURATION = 12
@@ -1207,7 +1199,6 @@ func action_dive():
 	):
 		if !swimming and coyote_frames > 0 and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
 			off_ground()
-			dive_correct(-1)
 			switch_state(S.ROLLOUT)
 			switch_anim("jump")
 			frontflip_direction = facing_direction
@@ -1250,10 +1241,10 @@ func action_dive():
 					vel.y += 3.0 * FPS_MOD
 			if (!grounded or vel.y >= 0) and (!swimming or grounded):
 				switch_state(S.DIVE)
-				body_rotation = PI / 2 * facing_direction
+				body_rotation = 0
 				switch_anim("dive")
 				double_jump_state = 0
-				dive_correct(1)
+				
 
 
 const WATER_VRB_BUS = 1
@@ -1293,20 +1284,15 @@ func manage_dive_recover():
 			rollout_frames = 0
 	elif dive_resetting:
 		dive_reset_frames += 1
-		# warning-ignore:integer_division
-		if dive_reset_frames >= DIVE_RESET_TIME / 2:
-			if hitbox.position != STAND_BOX_POS:
-				switch_anim("jump")
-				dive_correct(-1)
-				hitbox.position = STAND_BOX_POS
-				hitbox.shape.extents = STAND_BOX_EXTENTS
-			body_rotation = (-dive_reset_frames * PI / 2 / DIVE_RESET_TIME + PI / 2) * facing_direction
-			if dive_reset_frames >= DIVE_RESET_TIME:
-				dive_resetting = false
-				switch_state(S.NEUTRAL)
-				body_rotation = 0
-		else:
-			body_rotation = -dive_reset_frames * PI / 2 / DIVE_RESET_TIME * facing_direction
+		body_rotation = (-dive_reset_frames * PI / 2.0 / DIVE_RESET_TIME) * facing_direction
+		# Offset when the sprite becomes upright
+		if dive_reset_frames >= DIVE_RESET_TIME / 2.0:
+			body_rotation += PI / 2.0 * facing_direction
+		
+		if dive_reset_frames >= DIVE_RESET_TIME:
+			dive_resetting = false
+			switch_state(S.NEUTRAL)
+			body_rotation = 0
 
 
 func switch_fludd():
@@ -1393,7 +1379,7 @@ func manage_invuln():
 
 const STAND_BOX_POS = Vector2(0, 1.5)
 const STAND_BOX_EXTENTS = Vector2(6, 14.5)
-const DIVE_BOX_POS = Vector2(0, 3)
+const DIVE_BOX_POS = Vector2(0, 10)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
 func switch_state(new_state):
 	state = new_state
@@ -1468,23 +1454,10 @@ func recieve_health(amount):
 const DIVE_CORRECTION = 7
 func dive_correct(factor): # Correct the player's origin position when diving
 	# warning-ignore:return_value_discarded
-	move_and_slide(Vector2(0, DIVE_CORRECTION * factor * 60), Vector2(0, -1))
 	if factor == -1:
-		dust.position.y = 11.5
-		ground_failsafe_check.position.y = 17
+		sprite.position.y = 0
 	else:
-		dust.position.y = 11.5 - DIVE_CORRECTION
-		ground_failsafe_check.position.y = 17 - DIVE_CORRECTION
-#	base_modifier.add_modifier(
-#		camera,
-#		"position",
-#		"dive_correction",
-#		Vector2(
-#			0,
-#			min(0, -DIVE_CORRECTION * factor)
-#		)
-#	)
-	# camera.position.y = min(0, -set_dive_correct * factor)
+		sprite.position.y = 7
 
 
 func play_sfx(type, group):

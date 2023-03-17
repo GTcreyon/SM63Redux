@@ -11,9 +11,10 @@ func _ready() -> void:
 	playing = true
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	rotation = parent.body_rotation
 	flip_h = parent.facing_direction == -1
+	position.y = 0
 	if parent.swimming:
 		animation = "swim_idle"
 	else:
@@ -26,6 +27,7 @@ func _physics_process(delta):
 						if parent.double_jump_state == 2 and !parent.double_anim_cancel:
 							animation = "jump_double"
 						else:
+							# TODO: jump_b variant
 							animation = "jump_a"
 					else:
 						animation = "fall"
@@ -34,7 +36,15 @@ func _physics_process(delta):
 			parent.S.CROUCH:
 				animation = "crouch"
 			parent.S.DIVE:
-				if parent.grounded:
+				position.y = 7
+				if parent.dive_resetting and parent.dive_reset_frames > 0:
+					frame = 0
+					if parent.dive_reset_frames >= parent.DIVE_RESET_TIME / 2.0:
+						position.y = 0
+						animation = "dive_reset"
+						if parent.dive_reset_frames >= parent.DIVE_RESET_TIME / 4.0 * 3.0:
+							frame = 1
+				elif parent.grounded:
 					animation = "dive_ground"
 				else:
 					animation = "dive_air"
@@ -67,7 +77,7 @@ func _physics_process(delta):
 				animation = "hurt"
 
 
-func _anim_length_gameframes (anim_name: String) -> int:
+func _anim_length_gameframes(anim_name: String) -> int:
 	var frame_count: float = self.frames.get_frame_count(anim_name)
 	var fps: float = self.frames.get_animation_speed(anim_name)
 	
