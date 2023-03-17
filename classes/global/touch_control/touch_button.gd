@@ -11,6 +11,8 @@ const ID_LIST: Array = [
 	"pipe",
 	"ul", "ur", "dl", "dr",
 ]
+const TEXTURE_COLUMN_SIZE: int = 7
+const BUTTON_SIZE: Vector2 = Vector2(20, 21)
 
 export var id = ""
 export var actions = PoolStringArray([])
@@ -23,8 +25,15 @@ func _ready():
 
 func _setup_textures(new_id: String):
 	var index = ID_LIST.find(new_id)
-	var pos = Vector2(floor(index / 7), index % 7)
-	pos *= Vector2(40, 21)
+	var pos = Vector2.ZERO
+	# Get the column of the button
+	pos.x = floor(index / TEXTURE_COLUMN_SIZE)
+	# Get the row
+	pos.y = index % TEXTURE_COLUMN_SIZE
+	# Multiply x coord by 2, because there are two buttons per cell
+	pos.x *= 2
+	# Multiply by the size of the button to snap to the grid
+	pos *= BUTTON_SIZE
 	normal.region.position = pos
 	pressed.region.position = pos + Vector2(20, 0)
 
