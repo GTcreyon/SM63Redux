@@ -369,7 +369,6 @@ func action_bounce() -> void:
 		if state == S.DIVE:
 			off_ground()
 			switch_state(S.ROLLOUT)
-			switch_anim("jump")
 			frontflip_direction = facing_direction
 			vel.y = min(-JUMP_VEL_1/1.5, vel.y)
 			double_jump_state = 0
@@ -1244,7 +1243,6 @@ func action_dive():
 				body_rotation = 0
 				if angle_cast.is_colliding() and grounded:
 					body_rotation = _get_slide_angle()
-				switch_anim("dive")
 				double_jump_state = 0
 
 
