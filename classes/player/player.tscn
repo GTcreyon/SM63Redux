@@ -639,7 +639,7 @@ bus = "SFX"
 
 [node name="DiveAngling" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, 18 )
+cast_to = Vector2( 0, 20 )
 
 [node name="GroundFailsafe" type="Area2D" parent="."]
 position = Vector2( 0, 17 )

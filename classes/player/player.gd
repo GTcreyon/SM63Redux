@@ -1023,7 +1023,7 @@ func air_resistance(fall_adjust) -> float:
 
 func manage_dive_angle() -> void:
 	if angle_cast.is_colliding():
-		var target = angle_cast.get_collision_normal().angle() + PI / 2
+		var target = _get_slide_angle()
 		body_rotation = lerp_angle(body_rotation, target, 0.5)
 	elif solid_floors > 0:
 		body_rotation = PI / 2
@@ -1242,9 +1242,15 @@ func action_dive():
 			if (!grounded or vel.y >= 0) and (!swimming or grounded):
 				switch_state(S.DIVE)
 				body_rotation = 0
+				if angle_cast.is_colliding() and grounded:
+					body_rotation = _get_slide_angle()
 				switch_anim("dive")
 				double_jump_state = 0
-				
+
+
+# Returns the angle that the dive slide should be at
+func _get_slide_angle() -> float:
+	return angle_cast.get_collision_normal().angle() + PI / 2
 
 
 const WATER_VRB_BUS = 1
