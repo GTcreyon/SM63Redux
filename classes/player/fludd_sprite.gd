@@ -48,11 +48,19 @@ const ORIENT_FRAMES = {
 		Orient.BACK_RIGHT,
 	],
 }
+const SPRAY_ORIGIN = Vector2(-9, 6)
+const PLUME_ORIGIN = Vector2(-10, -2)
 
 onready var player_sprite: AnimatedSprite = $".."
 onready var player_body: KinematicBody2D = $"../../.."
+onready var hover_sfx = $HoverSFX
+onready var hover_loop_sfx = $HoverLoopSFX
+onready var spray_particles = $"../../../SprayViewport/SprayParticles"
+onready var spray_plume = $"../../../SprayPlume"
 
 var _nozzle: String = "hover"
+var nozzle_fx_scale = 0
+var hover_sound_position = 0
 
 
 func _process(_delta) -> void:
@@ -118,6 +126,74 @@ func _process(_delta) -> void:
 	if flip_h:
 		offset.x = -offset.x
 	
+	if player_body.state == player_body.S.DIVE:
+		rotation = PI / 2
+	else:
+		rotation = 0
+	
+	_hover_spray()
+
+
+func _hover_spray() -> void:
+	if player_body.state == player_body.S.DIVE or player_body.swimming:
+		hover_sfx.stop()
+		if player_body.fludd_strain:
+			if !hover_loop_sfx.playing:
+				hover_loop_sfx.play(hover_sound_position)
+		else:
+			hover_sound_position = hover_loop_sfx.get_playback_position()
+			hover_loop_sfx.stop()
+	else:
+		hover_loop_sfx.stop()
+		if player_body.fludd_power > 99:
+			hover_sound_position = 0
+			hover_sfx.stop()
+			
+		if player_body.fludd_strain:
+			if !hover_sfx.playing:
+				hover_sfx.play(hover_sound_position)
+		else:
+			if player_body.fludd_power < 100:
+				hover_sound_position = hover_sfx.get_playback_position()
+			else:
+				hover_sound_position = 0
+			if !player_body.fludd_spraying():
+				hover_sfx.stop()
+	
+	spray_particles.emitting = player_body.fludd_strain
+	if player_body.fludd_strain:
+		nozzle_fx_scale = min(lerp(0.3, 1, player_body.fludd_power / 100), nozzle_fx_scale + 0.1)
+	else:
+		nozzle_fx_scale = max(0, nozzle_fx_scale - 0.25)
+	spray_plume.visible = nozzle_fx_scale > 0
+	spray_plume.scale = Vector2.ONE * nozzle_fx_scale
+
+	var spray_pos: Vector2
+	var plume_pos: Vector2
+	# Offset spray effect relative to player's center
+	spray_pos = SPRAY_ORIGIN
+	plume_pos = PLUME_ORIGIN
+	# Factor in facing direction
+	spray_pos *= Vector2(player_body.facing_direction, 1)
+	plume_pos *= Vector2(player_body.facing_direction, 1)
+	# Rotate positions with sprite, so they stay aligned
+	var rot = player_sprite.rotation
+	if player_body.state == player_body.S.DIVE:
+		rot += PI / 2 * player_body.facing_direction
+		# Offset position when diving
+		var offset_amount = 7 * player_body.facing_direction
+		spray_pos.x += offset_amount
+		plume_pos.x += offset_amount
+	spray_pos = spray_pos.rotated(rot)
+	plume_pos = plume_pos.rotated(rot)
+	# Particles are in global space, move them to player-relative position
+	spray_pos += player_body.position
+	# Apply spray and plume positions
+	spray_particles.position = spray_pos
+	spray_plume.position = plume_pos
+	# Apply rotations
+	spray_particles.rotation = rot
+	spray_plume.rotation = rot
 
 
 func switch_nozzle(current_nozzle: int) -> void:

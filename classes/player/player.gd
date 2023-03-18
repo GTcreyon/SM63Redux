@@ -172,23 +172,15 @@ onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
-onready var spray_particles: Particles2D = $"SprayViewport/SprayParticles"
-onready var nozzle_fx = $SprayPlume
-onready var spray_viewport = $SprayViewport
 onready var switch_sfx = $SwitchSFX
-onready var hover_sfx = $HoverSFX
-onready var hover_loop_sfx = $HoverLoopSFX
 onready var dust = $Dust
 onready var ground_failsafe_check: Area2D = $GroundFailsafe
 onready var feet_area: Area2D = $Feet
 
 
-
 func _ready():
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	
-	nozzle_fx.playing = true
-
 	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
 		position = Singleton.warp_location
@@ -424,68 +416,11 @@ func adjust_swim_x() -> void:
 	vel.x += (swim_adjust - vel.x) * FPS_MOD
 
 
-const SPRAY_ORIGIN = Vector2(-9, 6)
-const PLUME_ORIGIN = Vector2(-10, -2)
-var hover_sound_position = 0
-var nozzle_fx_scale = 0
 func fixed_visuals() -> void:
 	if swimming and state == S.NEUTRAL and !grounded and !Input.is_action_pressed("spin"):
 		switch_anim("swim")
 		if sprite.frame == 0:
 			sprite.speed_scale = 0
-	if state == S.DIVE or swimming:
-		hover_sfx.stop()
-		if fludd_strain:
-			if !hover_loop_sfx.playing:
-				hover_loop_sfx.play(hover_sound_position)
-		else:
-			hover_sound_position = hover_loop_sfx.get_playback_position()
-			hover_loop_sfx.stop()
-	else:
-		hover_loop_sfx.stop()
-		if fludd_power > 99:
-			hover_sound_position = 0
-			hover_sfx.stop()
-			
-		if fludd_strain:
-			if !hover_sfx.playing:
-				hover_sfx.play(hover_sound_position)
-		else:
-			if fludd_power < 100:
-				hover_sound_position = hover_sfx.get_playback_position()
-			else:
-				hover_sound_position = 0
-			if !fludd_spraying():
-				hover_sfx.stop()
-	
-	spray_particles.emitting = fludd_strain
-	
-	if fludd_strain:
-		nozzle_fx_scale = min(lerp(0.3, 1, fludd_power / 100), nozzle_fx_scale + 0.1)
-	else:
-		nozzle_fx_scale = max(0, nozzle_fx_scale - 0.25)
-	nozzle_fx.visible = nozzle_fx_scale > 0
-	nozzle_fx.scale = Vector2.ONE * nozzle_fx_scale
-
-	var spray_pos: Vector2
-	var plume_pos: Vector2
-	# offset spray effect relative to player's center
-	spray_pos = SPRAY_ORIGIN
-	plume_pos = PLUME_ORIGIN
-	# factor in facing direction
-	spray_pos *= Vector2(facing_direction, 1)
-	plume_pos *= Vector2(facing_direction, 1)
-	# rotate positions with sprite, so they stay aligned
-	spray_pos = spray_pos.rotated(body_rotation)
-	plume_pos = plume_pos.rotated(body_rotation)
-	# particles are in global space, move them to player-relative position
-	spray_pos += position
-	# apply spray and plume positions
-	spray_particles.position = spray_pos
-	nozzle_fx.position = plume_pos
-	
-	spray_particles.rotation = body_rotation
-	nozzle_fx.rotation = body_rotation
 	
 	if abs(vel.x) < 2:
 		dust.emitting = false

@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "AnimatedSprite",
+"class": "AutoPlaySprite",
+"language": "GDScript",
+"path": "res://classes/autoplay.gd"
+}, {
 "base": "Reference",
 "class": "BaseModifier",
 "language": "GDScript",
@@ -240,6 +245,7 @@ _global_script_classes=[ {
 "path": "res://classes/global/singleton/warp.gd"
 } ]
 _global_script_class_icons={
+"AutoPlaySprite": "",
 "BaseModifier": "",
 "Bobomb": "",
 "Bottle": "",

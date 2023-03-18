@@ -1,4 +1,4 @@
-[gd_scene load_steps=121 format=2]
+[gd_scene load_steps=122 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -21,6 +21,7 @@
 [ext_resource path="res://classes/player/fludd_sprite.gd" type="Script" id=19]
 [ext_resource path="res://classes/player/mario_sheet_old.png" type="Texture" id=20]
 [ext_resource path="res://classes/player/character_sprite.gd" type="Script" id=21]
+[ext_resource path="res://classes/autoplay.gd" type="Script" id=22]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 20 )
@@ -591,6 +592,16 @@ animation = "hover"
 offset = Vector2( -2, -2 )
 script = ExtResource( 19 )
 
+[node name="HoverSFX" type="AudioStreamPlayer" parent="CharacterGroup/CharacterSprite/Fludd"]
+stream = ExtResource( 7 )
+volume_db = -10.0
+bus = "SFX"
+
+[node name="HoverLoopSFX" type="AudioStreamPlayer" parent="CharacterGroup/CharacterSprite/Fludd"]
+stream = ExtResource( 6 )
+volume_db = -10.0
+bus = "SFX"
+
 [node name="WaterCheck" type="Area2D" parent="."]
 position = Vector2( 0, 4 )
 collision_layer = 0
@@ -680,6 +691,7 @@ show_behind_parent = true
 position = Vector2( -9, -1 )
 frames = SubResource( 51 )
 offset = Vector2( 0, 9 )
+script = ExtResource( 22 )
 
 [node name="SprayRenderTarget" type="Sprite" parent="."]
 material = ExtResource( 13 )
@@ -692,16 +704,6 @@ __meta__ = {
 [node name="SwitchSFX" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 16 )
 volume_db = -6.0
-bus = "SFX"
-
-[node name="HoverSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
-volume_db = -10.0
-bus = "SFX"
-
-[node name="HoverLoopSFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 6 )
-volume_db = -10.0
 bus = "SFX"
 
 [node name="Dust" type="Particles2D" parent="."]
