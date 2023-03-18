@@ -3,6 +3,9 @@ extends AnimatedSprite
 const BEGIN_SLOW_SPIN_AFTER = 10
 const SLOW_SPIN_START_SPEED = 1
 const SLOW_SPIN_END_SPEED = 0.4
+const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
+const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
+const POUND_SPIN_RISE_TIME = 15
 
 onready var parent: PlayerCharacter = $"../.."
 
@@ -14,7 +17,6 @@ func _ready() -> void:
 func _physics_process(_delta):
 	rotation = parent.body_rotation
 	flip_h = parent.facing_direction == -1
-	position.y = 0
 	if parent.swimming:
 		animation = "swim_idle"
 	else:
@@ -32,7 +34,12 @@ func _physics_process(_delta):
 					else:
 						animation = "fall"
 			parent.S.TRIPLE_JUMP:
-				animation = "flip"
+				if parent.triple_flip_frames >= parent.TRIPLE_FLIP_TIME / 2:
+					animation = "jump_a"
+					frame = 0
+				else:
+					animation = "flip"
+					frame = _get_flip_frame()
 			parent.S.CROUCH:
 				animation = "crouch"
 			parent.S.DIVE:
@@ -56,7 +63,14 @@ func _physics_process(_delta):
 				match parent.pound_state:
 					parent.Pound.SPIN:
 						animation = "flip"
-						# TODO: use rotation angle to determine frame.
+						frame = _get_flip_frame()
+						# Move sprite origin for nicer rotation animation
+						_set_rotation_origin(parent.facing_direction, POUND_ORIGIN_OFFSET)
+						# Offset origin's X less at the start of the spin. (Looks better!?)
+						position *= Vector2(parent.pound_spin_factor, 1)
+						# A little rising as we wind up makes it look real nice.
+						position.y -= POUND_SPIN_RISE * min(parent.pound_spin_frames,
+							POUND_SPIN_RISE_TIME)
 					parent.Pound.FALL:
 						animation = "pound_fall"
 					parent.Pound.LAND:
@@ -82,3 +96,19 @@ func _anim_length_gameframes(anim_name: String) -> int:
 	var fps: float = self.frames.get_animation_speed(anim_name)
 	
 	return int((frame_count/fps) * 60)
+
+
+func _set_rotation_origin(facing_direction: int, origin: Vector2) -> void:
+	# Vector to flip the offset's X, as appropriate.
+	var facing = Vector2(facing_direction, 1)
+	
+	offset = origin * facing
+	position = -origin * facing
+
+
+func _get_flip_frame() -> int:
+	return int(abs(rotation) / PI * 2 + 0.5) % 4
+
+
+func _clear_rotation_origin() -> void:
+	_set_rotation_origin(1, Vector2.ZERO)

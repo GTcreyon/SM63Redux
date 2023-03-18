@@ -89,7 +89,6 @@ func _end_animation(_player):
 	
 	_player.switch_state(_player.S.NEUTRAL)
 	_player.switch_anim("walk")
-	_player.dive_correct(0)
 
 	# Force end pipe sound, just in case.
 	sound.stop()

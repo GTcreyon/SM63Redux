@@ -528,27 +528,18 @@ const POUND_TIME_TO_FALL = 18 # Time to move from pound spin to pound fall
 const _POUND_HANG_TIME = 9
 const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spin animation lasts
 const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
-const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
-const POUND_SPIN_RISE_TIME = 15
-const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
 
 var pound_spin_frames: int = 0
+var pound_spin_factor: float = 0.0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
 		# Spin frames normalized from 0-1.
 		# Min makes it stop after one full spin.
-		var pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
 		# Blend between 0% and 100% smoothed animation.
 		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
 		
-		# Move sprite origin for nicer rotation animation
-		set_rotation_origin(facing_direction, POUND_ORIGIN_OFFSET)
-		# Offset origin's X less at the start of the spin. (Looks better!?)
-		character_group.dejitter_position *= Vector2(pound_spin_factor, 1)
-		# A little rising as we wind up makes it look real nice.
-		character_group.dejitter_position.y -= POUND_SPIN_RISE * min(pound_spin_frames,
-			POUND_SPIN_RISE_TIME)
 		# Set rotation according to position in the animation.
 		body_rotation = TAU * pound_spin_factor
 		# Adjust rotation depending on our facing direction.
@@ -1455,15 +1446,6 @@ func recieve_health(amount):
 	hp = clamp(hp + amount, 0, 8) # TODO - multi HP
 
 
-const DIVE_CORRECTION = 7
-func dive_correct(factor): # Correct the player's origin position when diving
-	# warning-ignore:return_value_discarded
-	if factor == -1:
-		sprite.position.y = 0
-	else:
-		sprite.position.y = 7
-
-
 func play_sfx(type, group):
 	var sound_set = SFX_BANK[type][group]
 	var sound = sound_set[randi() % sound_set.size()]
@@ -1540,8 +1522,7 @@ func set_rotation_origin(facing_direction: int, origin: Vector2):
 	
 	sprite.offset = origin * facing
 	sprite.position = -origin * facing
-	character_group.dejitter_position = sprite.position
 
 
-func clear_rotation_origin ():
-	set_rotation_origin(false, Vector2.ZERO)
+func clear_rotation_origin():
+	set_rotation_origin(1, Vector2.ZERO)
