@@ -54,7 +54,12 @@ func assign_pickup_id(id) -> void:
 
 func pickup(body) -> void:
 	_award_pickup(body)
-	_pickup_sound()
+	
+	if respawn_seconds == 0.0:
+		_pickup_sound()
+	else:
+		sfx.play()
+	
 	_pickup_effect()
 	_kill_pickup()
 	if persistent_collect:
@@ -85,7 +90,7 @@ func _pickup_id_setup() -> void:
 
 
 func _pickup_sound():
-	if sfx != null:
+	if sfx != null and has_node("SFXCollect"):
 		# Find an object we know will survive this object's destruction.
 		var safe_sfx_root = $"/root/Main"
 		# Anchor the sound source to that, then play it.
