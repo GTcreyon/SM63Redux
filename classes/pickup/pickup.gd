@@ -87,14 +87,15 @@ func _pickup_id_setup() -> void:
 func _pickup_sound():
 	# Check to make sure the object is killable.
 	if respawn_seconds == 0.0:
-		# If the has_node() check did not exist, it could pass an arg previously freed.
-		if sfx != null and has_node("SFXCollect"):
+		# Check to see if sfx should exist, and does exist.
+		# sfx will exist if it should, but the second condition is a failsafe in case it doesn't.
+		if sfx != null and has_node(_sfx_path):
 			# Find an object we know will survive this object's destruction.
 			var safe_sfx_root = $"/root/Main"
 			# Anchor the sound source to that, then play it.
 			ResidualSFX.new_from_existing(sfx, safe_sfx_root)
-		# Some pickups i.e. coins, have no sfx at all. We need to run both checks.
-		elif sfx != null and !has_node("SFXCollect"):
+		# Check to see if object should have an sfx, and if it does have an sfx.
+		elif sfx != null and !has_node(_sfx_path):
 			printerr("No SFXCollect Found :(")
 	else:
 		sfx.play()
