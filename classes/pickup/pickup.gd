@@ -96,7 +96,7 @@ func _pickup_sound():
 			ResidualSFX.new_from_existing(sfx, safe_sfx_root)
 		# Check to see if object should have an sfx, and if it does have an sfx.
 		elif sfx != null and !has_node(_sfx_path):
-			printerr("No SFXCollect Found :(")
+			printerr("This pickup should have SFXCollect, but it wasn't found. :(")
 	else:
 		sfx.play()
 
