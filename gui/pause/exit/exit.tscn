@@ -15,18 +15,24 @@ anchor_right = 0.809
 anchor_bottom = 1.0
 size_flags_vertical = 12
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
-margin_top = 128.0
+[node name="Control2" type="Control" parent="VBoxContainer"]
 margin_right = 395.0
-margin_bottom = 232.0
-size_flags_vertical = 6
+margin_bottom = 88.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+margin_top = 92.0
+margin_right = 395.0
+margin_bottom = 268.0
+size_flags_vertical = 7
+size_flags_stretch_ratio = 2.0
 
 [node name="ButtonExit" type="Button" parent="VBoxContainer/VBoxContainer"]
 margin_right = 395.0
-margin_bottom = 32.0
+margin_bottom = 56.0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
-size_flags_vertical = 2
+size_flags_vertical = 3
 theme = ExtResource( 3 )
 theme_type_variation = "ButtonBlue"
 disabled = true
@@ -44,12 +50,12 @@ align = 1
 valign = 1
 
 [node name="ButtonQuit" type="Button" parent="VBoxContainer/VBoxContainer"]
-margin_top = 36.0
+margin_top = 60.0
 margin_right = 395.0
-margin_bottom = 68.0
+margin_bottom = 116.0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
-size_flags_vertical = 2
+size_flags_vertical = 3
 theme = ExtResource( 3 )
 theme_type_variation = "ButtonRed"
 button_mask = 3
@@ -67,12 +73,12 @@ align = 1
 valign = 1
 
 [node name="ButtonClose" type="Button" parent="VBoxContainer/VBoxContainer"]
-margin_top = 72.0
+margin_top = 120.0
 margin_right = 395.0
-margin_bottom = 104.0
+margin_bottom = 176.0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
-size_flags_vertical = 2
+size_flags_vertical = 3
 theme = ExtResource( 3 )
 theme_type_variation = "ButtonBlack"
 button_mask = 3
@@ -88,6 +94,12 @@ theme = ExtResource( 3 )
 text = "CLOSE GAME"
 align = 1
 valign = 1
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+margin_top = 272.0
+margin_right = 395.0
+margin_bottom = 360.0
+size_flags_vertical = 3
 
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/ButtonExit" to="." method="_on_ButtonExitLevel_pressed"]
 [connection signal="pressed" from="VBoxContainer/VBoxContainer/ButtonQuit" to="." method="_on_ButtonQuitToTitle_pressed"]
