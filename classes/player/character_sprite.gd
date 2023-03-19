@@ -18,7 +18,18 @@ func _physics_process(_delta):
 	rotation = parent.body_rotation
 	flip_h = parent.facing_direction == -1
 	if parent.swimming:
-		animation = "swim_idle"
+		match parent.state:
+			parent.S.NEUTRAL:
+				animation = "swim_idle"
+				# TODO: Swim stroke anim.
+			parent.S.SPIN:
+				# TODO: Underwater spin animation should skip fast phase.
+				pass
+			parent.S.HURT:
+				animation = "hurt"
+			_:
+				# No other state is possible underwater.
+				pass
 	else:
 		match parent.state:
 			parent.S.NEUTRAL:
