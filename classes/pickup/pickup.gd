@@ -54,12 +54,7 @@ func assign_pickup_id(id) -> void:
 
 func pickup(body) -> void:
 	_award_pickup(body)
-	
-	if respawn_seconds == 0.0:
-		_pickup_sound()
-	else:
-		sfx.play()
-	
+	_pickup_sound()
 	_pickup_effect()
 	_kill_pickup()
 	if persistent_collect:
@@ -90,11 +85,19 @@ func _pickup_id_setup() -> void:
 
 
 func _pickup_sound():
-	if sfx != null and has_node("SFXCollect"):
-		# Find an object we know will survive this object's destruction.
-		var safe_sfx_root = $"/root/Main"
-		# Anchor the sound source to that, then play it.
-		ResidualSFX.new_from_existing(sfx, safe_sfx_root)
+	# Check to make sure the object is killable.
+	if respawn_seconds == 0.0:
+		# If the has_node() check did not exist, it could pass an arg previously freed.
+		if sfx != null and has_node("SFXCollect"):
+			# Find an object we know will survive this object's destruction.
+			var safe_sfx_root = $"/root/Main"
+			# Anchor the sound source to that, then play it.
+			ResidualSFX.new_from_existing(sfx, safe_sfx_root)
+		# Some pickups i.e. coins, have no sfx at all. We need to run both checks.
+		elif sfx != null and !has_node("SFXCollect"):
+			printerr("No SFXCollect Found :(")
+	else:
+		sfx.play()
 
 
 func _kill_pickup() -> void:
