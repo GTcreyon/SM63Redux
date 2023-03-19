@@ -143,7 +143,7 @@ func run_command(cmd: String):
 
 
 func _process(_delta):
-	if Input.is_action_just_pressed("debug"):
+	if Input.is_action_just_pressed("debug") or Input.is_action_just_pressed("altdebug") and visible == false:
 		visible = !visible
 		get_tree().paused = visible
 		Singleton.set_pause("console", visible)
