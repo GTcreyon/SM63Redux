@@ -11,9 +11,6 @@ var frames: int = 0
 var split_frames: int = 0
 var running = false
 
-#func _ready():
-#	total.margin_right = get_font("font").get_string_size("0:00.0000").x + 10
-
 
 func format_time(overall_seconds):
 	var ms = floor(fmod(overall_seconds, 1) * 1000)
@@ -44,6 +41,9 @@ func format_time(overall_seconds):
 
 
 func _physics_process(_delta):
+	if Input.is_action_just_pressed("timer_show"):
+		visible = !visible
+	
 	if Input.is_action_just_pressed("reset") and get_tree().get_current_scene().get_filename().count("tutorial") and !get_tree().paused and Singleton.timer.visible:
 		Singleton.get_node("Timer").frames = 0
 		Singleton.get_node("Timer").split_frames = 0
@@ -59,7 +59,8 @@ func _physics_process(_delta):
 		var txt = format_time(round(frames / 60.0 * 1000.0) / 1000.0)
 		total.text = txt[0]
 		total_ms.text = txt[1]
-	
+
+
 func split_timer():
 	var txt = format_time(split_frames / 60.0)
 	split_ref.text = txt[0] + txt[1]

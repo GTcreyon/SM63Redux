@@ -29,6 +29,7 @@ const characters = {
 }
 
 const DEFAULT_WIDTH = 320
+const ICON_WIDTH = 40
 
 onready var player = $"/root/Main/Player"
 onready var star = $EdgeRight/Star
@@ -49,7 +50,6 @@ var raw_line: String = ""
 var text_speed: float = 0.5
 var pause_time = 0
 var star_wobble = 0
-var gui_size = 1
 var swoop_timer = 0
 var active = false
 var character_id = null
@@ -233,22 +233,18 @@ func _physics_process(_delta):
 					say_line(line_index)
 					sfx_next.play()
 		swoop_timer = min(swoop_timer + 1, 80)
-		rect_scale = Vector2.ONE * gui_size
-#		if Input.is_action_pressed("interact"):
-#			star.animation = "wait"
-#		else:
-#			star.animation = "ready"
-		rect_size.x = DEFAULT_WIDTH + width_offset
+		
 		if character_id == null:
-			rect_position.x = OS.window_size.x / 2.0 - ((DEFAULT_WIDTH + width_offset) / 2.0) * gui_size + 2
+			margin_left = -((DEFAULT_WIDTH + width_offset) / 2.0) + 2
 			edge_left.margin_left = -16
 			block_left.margin_left = 12
 		else:
-			rect_position.x = OS.window_size.x / 2.0 - ((DEFAULT_WIDTH - 40 + width_offset) / 2.0) * gui_size + 2
+			margin_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset) / 2.0) + 2
 			edge_left.margin_left = -56
 			block_left.margin_left = -28
-		rect_position.y = OS.window_size.y + ((max(80 / swoop_timer, 5)) - 85) * gui_size
-			
+		rect_size.x = DEFAULT_WIDTH + width_offset
+		margin_top = ((max(80 / swoop_timer, 5)) - 85)
+		
 		if character_name == "":
 			nameplate.visible = false
 		else:
@@ -256,11 +252,10 @@ func _physics_process(_delta):
 			nameplate.visible = true
 	else:
 		swoop_timer = min(swoop_timer + 0.75, 100)
-		rect_scale = Vector2.ONE * gui_size
 		if character_id == null:
-			rect_position.x = (OS.window_size.x - (DEFAULT_WIDTH + width_offset) * gui_size) / 2
+			margin_left = -((DEFAULT_WIDTH + width_offset)) / 2.0
 		else:
-			rect_position.x = (OS.window_size.x - (DEFAULT_WIDTH - 40 +width_offset) * gui_size) / 2
-		rect_position.y = OS.window_size.y + 20 * gui_size - (100 / swoop_timer) * gui_size
+			margin_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset)) / 2.0
+		margin_top = 20 - (100 / swoop_timer)
 		if swoop_timer >= 100:
 			visible = false
