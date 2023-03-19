@@ -98,16 +98,16 @@ func _anim_length_gameframes(anim_name: String) -> int:
 	return int((frame_count/fps) * 60)
 
 
+func _get_flip_frame() -> int:
+	return int(abs(rotation) / PI * 2 + 0.5) % 4
+
+
 func _set_rotation_origin(facing_direction: int, origin: Vector2) -> void:
 	# Vector to flip the offset's X, as appropriate.
 	var facing = Vector2(facing_direction, 1)
 	
 	offset = origin * facing
 	position = -origin * facing
-
-
-func _get_flip_frame() -> int:
-	return int(abs(rotation) / PI * 2 + 0.5) % 4
 
 
 func _clear_rotation_origin() -> void:
