@@ -445,12 +445,12 @@ animations = [ {
 "frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ) ],
 "loop": true,
 "name": "walk_cycle",
-"speed": 15.0
+"speed": 20.0
 }, {
 "frames": [ SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 63 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 63 ) ],
 "loop": true,
 "name": "walk_neutral",
-"speed": 15.0
+"speed": 20.0
 } ]
 
 [sub_resource type="AtlasTexture" id=35]
