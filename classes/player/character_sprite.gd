@@ -236,7 +236,11 @@ func _state_neutral (old_state: bool) -> String:
 			else:
 				# TODO: jump_b variant
 				return "jump_a"
-		elif parent.vel.y >= 0 and last_vel.y < 0:
+		elif (
+			parent.vel.y >= 0 and last_vel.y < 0 # velocity became downward
+		) or (
+			!parent.grounded and last_grounded # just became airborne
+		):
 			# Just began falling. Begin that animation.
 			if double_jump:
 				return "fall" #"fall_start_double"
