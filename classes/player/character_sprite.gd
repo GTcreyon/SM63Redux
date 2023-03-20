@@ -168,11 +168,37 @@ func _anim_from_new_state(new_state: int, swimming: bool) -> String:
 				return NO_ANIM_CHANGE
 
 
-
 func _anim_next (current_state: String) -> String:
-	# Stubbed.
-	return NO_ANIM_CHANGE
-
+	match current_state:
+		"crouch_start":
+			return "crouch_loop"
+		"crouch_end":
+			return "idle"
+		"dive_start":
+			# Grounded interrupts the start--no need to worry about switching to that.
+			return "dive_air"
+		"hurt_start":
+			return "hurt_loop"
+		"jump_a_start":
+			return "jump_a_loop"
+		"jump_b_start":
+			return "jump_b_loop"
+		"jump_double_start":
+			return "jump_double_loop"
+		"fall_start":
+			return "fall_loop"
+		"landed":
+			return "idle"
+		"spin_fast":
+			return "spin_slow"
+		"stomp_high":
+			return "jump_double_loop"
+		"stomp_low":
+			return "jump_a_loop"
+		"swim_stroke":
+			return "swim_idle"
+		_:
+			return NO_ANIM_CHANGE
 
 
 func _state_neutral () -> String:
