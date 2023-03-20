@@ -83,7 +83,7 @@ func _physics_process(_delta):
 						match parent.pound_state:
 							parent.Pound.SPIN:
 								# Pound starts in Spin, should be impossible to retrigger.
-								printerr("Player %i began pound spin halfway into another state. Is that valid?", 1)
+								push_error("Player %s began pound spin halfway into another state. Is that valid?" % 1)
 								pass
 							parent.Pound.FALL:
 								trigger_anim("pound_fall")
