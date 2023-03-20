@@ -35,7 +35,7 @@ func _physics_process(_delta):
 
 	if parent.state != last_state:
 		# Begin new animation.
-		trigger_anim(_anim_from_new_state(parent.state, parent.swimming))
+		trigger_anim(_anim_from_new_state(parent.state, last_state, parent.swimming))
 	else:
 		# Some states have special behavior per-frame. Handle that.
 		if parent.swimming:
@@ -44,7 +44,7 @@ func _physics_process(_delta):
 		else:
 			match parent.state:
 				parent.S.NEUTRAL:
-					trigger_anim(_state_neutral())
+					trigger_anim(_state_neutral(last_state))
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
 					var flip_ending = parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
@@ -63,10 +63,10 @@ func _physics_process(_delta):
 
 					if parent.dive_resetting and parent.dive_reset_frames > 0:
 						# TODO: Update this thing.
+						trigger_anim("dive_reset")
 						frame = 0
 						if parent.dive_reset_frames >= parent.DIVE_RESET_TIME / 2.0:
 							position.y = 0
-							trigger_anim("dive_reset")
 							if parent.dive_reset_frames >= parent.DIVE_RESET_TIME / 4.0 * 3.0:
 								frame = 1
 					
@@ -130,7 +130,7 @@ func trigger_next_anim():
 	trigger_anim(_anim_next_for(animation))
 
 
-func _anim_from_new_state(new_state: int, swimming: bool) -> String:
+func _anim_from_new_state(new_state: int, old_state: int, swimming: bool) -> String:
 	if swimming:
 		match new_state:
 			# TODO: Swim stroke anim.
@@ -149,7 +149,7 @@ func _anim_from_new_state(new_state: int, swimming: bool) -> String:
 		match new_state:
 			parent.S.NEUTRAL:
 				# Neutral has several substates. Return whichever's appropriate now.
-				return _state_neutral()
+				return _state_neutral(old_state)
 			parent.S.TRIPLE_JUMP:
 				return "flip"
 			parent.S.CROUCH:
@@ -165,8 +165,8 @@ func _anim_from_new_state(new_state: int, swimming: bool) -> String:
 				_set_rotation_origin(parent.facing_direction, POUND_ORIGIN_OFFSET)
 				return "flip"
 			parent.S.SPIN:
-				spin_slow_begin = _anim_length_gameframes("spin_fast")
-				return "spin_fast"
+				spin_slow_begin = _anim_length_gameframes("spin") #("spin_fast")
+				return "spin" #"spin_fast"
 			parent.S.HURT:
 				return "hurt_start"
 			_:
@@ -189,6 +189,8 @@ func _anim_next_for (current_state: String) -> String:
 		"dive_start":
 			# Grounded interrupts the start--no need to worry about switching to that.
 			return "dive_air"
+		"dive_reset":
+			return "walk_neutral" #"idle"
 		"hurt_start":
 			return "hurt_loop"
 		"jump_a_start":
@@ -213,8 +215,12 @@ func _anim_next_for (current_state: String) -> String:
 			return NO_ANIM_CHANGE
 
 
-func _state_neutral () -> String:
-	if parent.grounded and !last_grounded:
+func _state_neutral (old_state: bool) -> String:
+	if parent.grounded and (
+		!last_grounded # just became grounded
+		or
+		last_state != PlayerCharacter.S.NEUTRAL # just now entered neutral state
+	):
 		# Just landed.
 		return "walk_neutral" #"landed"
 	else:
