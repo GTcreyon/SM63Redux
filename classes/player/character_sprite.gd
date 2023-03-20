@@ -34,13 +34,22 @@ func _physics_process(_delta):
 	rotation = parent.body_rotation
 	flip_h = parent.facing_direction == -1
 
-	if parent.state != last_state or parent.swimming != last_swimming:
+	if (
+		# Changed states
+		parent.state != last_state
+	) or (
+		# Changed swimming state
+		parent.swimming != last_swimming
+	) or (
+		# Changed groundedness while underwater
+		parent.swimming and parent.grounded != last_grounded
+	):
 		# Begin new animation.
 		trigger_anim(_anim_from_new_state(parent.state, last_state,
 			parent.swimming, last_swimming))
 	else:
 		# Some states have special behavior per-frame. Handle that.
-		if parent.swimming:
+		if parent.swimming and !parent.grounded:
 			# No constant update states currently exist when swimming.
 			pass
 		else:
