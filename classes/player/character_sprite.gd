@@ -215,11 +215,14 @@ func _anim_next_for (current_state: String) -> String:
 			return NO_ANIM_CHANGE
 
 
-func _state_neutral (old_state: bool) -> String:
-	if parent.grounded and (
-		!last_grounded # just became grounded
-		or
-		last_state != PlayerCharacter.S.NEUTRAL # just now entered neutral state
+func _state_neutral (old_state: int) -> String:
+	# TODO: Swimming state changes need to be factored in.
+	if (
+		# Just hit the ground
+		parent.grounded and !last_grounded
+	) or (
+		# Entered neutral state while grounded
+		parent.grounded and old_state != PlayerCharacter.S.NEUTRAL
 	):
 		# Just landed.
 		return "walk_neutral" #"landed"
@@ -229,17 +232,31 @@ func _state_neutral (old_state: bool) -> String:
 		double_jump = double_jump and !parent.double_anim_cancel
 		# Triple jump is handled in its own state, not here.
 		
-		if parent.vel.y < 0 and last_vel.y >= 0:
-			# Just began jumping. Trigger jump anims.
+		# If velocity is upward and should change state, do jump.
+		if (
+			# Velocity just became upward
+			parent.vel.y < 0 and last_vel.y >= 0
+		) or (
+			# Entered neutral state while velocity is upward
+			parent.vel.y < 0 and old_state != PlayerCharacter.S.NEUTRAL
+		):
+			# Trigger jump anims.
 			if double_jump:
 				return "jump_double"
 			else:
 				# TODO: jump_b variant
 				return "jump_a"
+		# If velocity is downward and should change state, begin falling.
 		elif (
-			parent.vel.y >= 0 and last_vel.y < 0 # velocity became downward
+			# Velocity was upward, just became downward
+			parent.vel.y >= 0 and last_vel.y < 0
 		) or (
-			!parent.grounded and last_grounded # just became airborne
+			# Just started falling
+			parent.vel.y >= 0 and !parent.grounded and last_grounded
+		) or (
+			# Entered a neutral state while falling
+			parent.vel.y >= 0 and !parent.grounded
+			and old_state != PlayerCharacter.S.NEUTRAL
 		):
 			# Just began falling. Begin that animation.
 			if double_jump:
