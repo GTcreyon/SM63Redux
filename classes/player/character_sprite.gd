@@ -2,6 +2,8 @@ extends AnimatedSprite
 
 const NO_ANIM_CHANGE = ""
 
+const TRIPLE_FLIP_HALFWAY = PlayerCharacter.TRIPLE_FLIP_TIME / 2
+
 const SLOW_SPIN_START_SPEED = 1
 const SLOW_SPIN_END_SPEED = 0.4
 
@@ -10,11 +12,11 @@ const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
 const POUND_SPIN_RISE_TIME = 15
 
 # Keep in sync with parent's default values
-var last_state: int = parent.S.NEUTRAL
+var last_state: int = PlayerCharacter.S.NEUTRAL
 var last_vel: Vector2 = Vector2.ZERO
 var last_grounded: bool = true
-var last_flip_ending: bool = false # parent.triple_flip_frames >= parent.TRIPLE_FLIP_TIME / 2
-var last_pound_state: int = parent.Pound.SPIN
+var last_flip_ending: bool = false # parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
+var last_pound_state: int = PlayerCharacter.Pound.SPIN
 
 var spin_slow_begin = 0 # The frame at which fast spin anim ends and slow begins
 
@@ -45,7 +47,7 @@ func _physics_process(_delta):
 					trigger_anim(_state_neutral())
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
-					var flip_ending = parent.triple_flip_frames >= parent.TRIPLE_FLIP_TIME / 2
+					var flip_ending = parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
 
 					if flip_ending and !last_flip_ending:
 						# Just crossed the threshold. Switch to fall animation.
