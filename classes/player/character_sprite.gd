@@ -114,7 +114,12 @@ func _physics_process(_delta):
 	# If we're flipping, determine flip frame by angle.
 	if animation == "flip":
 		frame = _get_flip_frame()
-
+	
+	# Save this frame's state to check against next time.
+	last_state = parent.state
+	last_vel = parent.vel
+	last_grounded = parent.grounded
+	last_pound_state = parent.pound_state
 
 func trigger_anim (anim: String):
 	if anim != NO_ANIM_CHANGE:
