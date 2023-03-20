@@ -185,7 +185,7 @@ func _anim_next_for (current_state: String) -> String:
 		"crouch_start":
 			return "crouch_loop"
 		"crouch_end":
-			return "idle"
+			return "walk_neutral"
 		"dive_start":
 			# Grounded interrupts the start--no need to worry about switching to that.
 			return "dive_air"
@@ -202,7 +202,7 @@ func _anim_next_for (current_state: String) -> String:
 		"fall_start":
 			return "fall_loop"
 		"landed":
-			return "idle"
+			return "walk_neutral" #"idle"
 		"spin_fast":
 			return "spin_slow"
 		"stomp_high":
