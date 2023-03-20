@@ -23,6 +23,8 @@ onready var parent: PlayerCharacter = $"../.."
 
 func _ready() -> void:
 	playing = true
+	# Set up playing next animations when they exist.
+	connect("animation_finished", self, "trigger_anim", ["_next_anim(animation)"])
 
 
 func _physics_process(_delta):
