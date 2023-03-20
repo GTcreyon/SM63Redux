@@ -154,7 +154,7 @@ func _anim_from_new_state(
 			parent.S.SPIN:
 				# Underwater spin animation should skip fast phase.
 				spin_slow_begin = 0
-				return "spin_slow"
+				return "spin" #"spin_slow"
 			parent.S.HURT:
 				return "hurt"
 			_:
