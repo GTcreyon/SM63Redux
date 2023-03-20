@@ -26,7 +26,7 @@ onready var parent: PlayerCharacter = $"../.."
 func _ready() -> void:
 	playing = true
 	# Set up playing next animations when they exist.
-	connect("animation_finished", self, "trigger_anim", ["_next_anim(animation)"])
+	connect("animation_finished", self, "trigger_next_anim")
 
 
 func _physics_process(_delta):
@@ -118,8 +118,11 @@ func _physics_process(_delta):
 
 func trigger_anim (anim: String):
 	if anim != NO_ANIM_CHANGE:
-		# TODO: Do we need to disconnect and reconnect `animation_finished`?
 		animation = anim
+
+
+func trigger_next_anim():
+	trigger_anim(_anim_next_for(animation))
 
 
 func _anim_from_new_state(new_state: int, swimming: bool) -> String:
@@ -172,7 +175,7 @@ func _anim_from_new_state(new_state: int, swimming: bool) -> String:
 				return NO_ANIM_CHANGE
 
 
-func _anim_next (current_state: String) -> String:
+func _anim_next_for (current_state: String) -> String:
 	match current_state:
 		"crouch_start":
 			return "crouch_loop"
