@@ -13,6 +13,7 @@ const POUND_SPIN_RISE_TIME = 15
 
 # Keep in sync with parent's default values
 var last_state: int = PlayerCharacter.S.NEUTRAL
+var last_swimming: bool = false
 var last_vel: Vector2 = Vector2.ZERO
 var last_grounded: bool = true
 var last_flip_ending: bool = false # parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
@@ -33,9 +34,10 @@ func _physics_process(_delta):
 	rotation = parent.body_rotation
 	flip_h = parent.facing_direction == -1
 
-	if parent.state != last_state:
+	if parent.state != last_state or parent.swimming != last_swimming:
 		# Begin new animation.
-		trigger_anim(_anim_from_new_state(parent.state, last_state, parent.swimming))
+		trigger_anim(_anim_from_new_state(parent.state, last_state,
+			parent.swimming, last_swimming))
 	else:
 		# Some states have special behavior per-frame. Handle that.
 		if parent.swimming:
@@ -44,7 +46,7 @@ func _physics_process(_delta):
 		else:
 			match parent.state:
 				parent.S.NEUTRAL:
-					trigger_anim(_state_neutral(last_state))
+					trigger_anim(_state_neutral(last_state, last_swimming))
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
 					var flip_ending = parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
@@ -117,6 +119,7 @@ func _physics_process(_delta):
 	
 	# Save this frame's state to check against next time.
 	last_state = parent.state
+	last_swimming = parent.swimming
 	last_vel = parent.vel
 	last_grounded = parent.grounded
 	last_pound_state = parent.pound_state
@@ -130,7 +133,10 @@ func trigger_next_anim():
 	trigger_anim(_anim_next_for(animation))
 
 
-func _anim_from_new_state(new_state: int, old_state: int, swimming: bool) -> String:
+func _anim_from_new_state(
+	new_state: int, old_state: int,
+	swimming: bool, last_swimming: bool
+) -> String:
 	if swimming:
 		match new_state:
 			# TODO: Swim stroke anim.
@@ -149,7 +155,7 @@ func _anim_from_new_state(new_state: int, old_state: int, swimming: bool) -> Str
 		match new_state:
 			parent.S.NEUTRAL:
 				# Neutral has several substates. Return whichever's appropriate now.
-				return _state_neutral(old_state)
+				return _state_neutral(old_state, last_swimming)
 			parent.S.TRIPLE_JUMP:
 				return "flip"
 			parent.S.CROUCH:
@@ -215,14 +221,20 @@ func _anim_next_for (current_state: String) -> String:
 			return NO_ANIM_CHANGE
 
 
-func _state_neutral (old_state: int) -> String:
-	# TODO: Swimming state changes need to be factored in.
+func _state_neutral (old_state: int, old_swimming: bool) -> String:
+	# Take note if state just changed.
+	# (This function is only called when state == neutral, right?)
+	var state_changed: bool = old_state != PlayerCharacter.S.NEUTRAL
+	# Factor swimming into this change.
+	# (This function is only called on land, right?)
+	state_changed = state_changed or old_swimming
+	
 	if (
 		# Just hit the ground
 		parent.grounded and !last_grounded
 	) or (
 		# Entered neutral state while grounded
-		parent.grounded and old_state != PlayerCharacter.S.NEUTRAL
+		parent.grounded and state_changed
 	):
 		# Just landed.
 		return "walk_neutral" #"landed"
@@ -238,7 +250,7 @@ func _state_neutral (old_state: int) -> String:
 			parent.vel.y < 0 and last_vel.y >= 0
 		) or (
 			# Entered neutral state while velocity is upward
-			parent.vel.y < 0 and old_state != PlayerCharacter.S.NEUTRAL
+			parent.vel.y < 0 and state_changed
 		):
 			# Trigger jump anims.
 			if double_jump:
@@ -255,8 +267,7 @@ func _state_neutral (old_state: int) -> String:
 			parent.vel.y >= 0 and !parent.grounded and last_grounded
 		) or (
 			# Entered a neutral state while falling
-			parent.vel.y >= 0 and !parent.grounded
-			and old_state != PlayerCharacter.S.NEUTRAL
+			parent.vel.y >= 0 and !parent.grounded and state_changed
 		):
 			# Just began falling. Begin that animation.
 			if double_jump:
@@ -265,7 +276,7 @@ func _state_neutral (old_state: int) -> String:
 				return "fall" #"fall_start"
 		
 		# No jump has occurred, neither has any new landing.
-		# Hence--no state change.
+		# Hence--no animation change.
 		return NO_ANIM_CHANGE
 
 
