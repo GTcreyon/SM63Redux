@@ -43,6 +43,22 @@ region = Rect2( 48, 288, 48, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 96, 288, 48, 48 )
 
+[sub_resource type="AtlasTexture" id=111]
+atlas = ExtResource( 8 )
+region = Rect2( 336, 240, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=112]
+atlas = ExtResource( 8 )
+region = Rect2( 384, 240, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=127]
+atlas = ExtResource( 8 )
+region = Rect2( 288, 144, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=128]
+atlas = ExtResource( 8 )
+region = Rect2( 336, 144, 48, 48 )
+
 [sub_resource type="AtlasTexture" id=106]
 atlas = ExtResource( 8 )
 region = Rect2( 96, 240, 48, 48 )
@@ -62,22 +78,6 @@ region = Rect2( 240, 240, 48, 48 )
 [sub_resource type="AtlasTexture" id=110]
 atlas = ExtResource( 8 )
 region = Rect2( 288, 240, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=111]
-atlas = ExtResource( 8 )
-region = Rect2( 336, 240, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=112]
-atlas = ExtResource( 8 )
-region = Rect2( 384, 240, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=127]
-atlas = ExtResource( 8 )
-region = Rect2( 288, 144, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=128]
-atlas = ExtResource( 8 )
-region = Rect2( 336, 144, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=119]
 atlas = ExtResource( 8 )
@@ -347,11 +347,6 @@ animations = [ {
 "name": "crouch",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ) ],
-"loop": true,
-"name": "dive_air",
-"speed": 5.0
-}, {
 "frames": [ SubResource( 111 ), SubResource( 112 ) ],
 "loop": true,
 "name": "dive_ground",
@@ -361,6 +356,11 @@ animations = [ {
 "loop": false,
 "name": "dive_reset",
 "speed": 0.0
+}, {
+"frames": [ SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ) ],
+"loop": true,
+"name": "dive_start",
+"speed": 5.0
 }, {
 "frames": [ SubResource( 119 ), SubResource( 120 ) ],
 "loop": true,
