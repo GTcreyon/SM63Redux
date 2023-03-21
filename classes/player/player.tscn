@@ -283,18 +283,6 @@ region = Rect2( 432, 144, 48, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 0, 192, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 8 )
-region = Rect2( 48, 0, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 8 )
-region = Rect2( 96, 0, 48, 48 )
-
 [sub_resource type="AtlasTexture" id=60]
 atlas = ExtResource( 8 )
 region = Rect2( 192, 0, 48, 48 )
@@ -306,6 +294,18 @@ region = Rect2( 240, 0, 48, 48 )
 [sub_resource type="AtlasTexture" id=62]
 atlas = ExtResource( 8 )
 region = Rect2( 288, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 8 )
+region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=63]
 atlas = ExtResource( 8 )
@@ -442,10 +442,10 @@ animations = [ {
 "name": "swim_stroke",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ), SubResource( 62 ) ],
+"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
 "loop": true,
 "name": "walk_cycle",
-"speed": 20.0
+"speed": 15.0
 }, {
 "frames": [ SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 63 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 63 ) ],
 "loop": true,

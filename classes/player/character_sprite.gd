@@ -20,10 +20,11 @@ var last_vel: Vector2 = Vector2.ZERO
 var last_grounded: bool = true
 var last_flip_ending: bool = false # parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
 var last_pound_state: int = PlayerCharacter.Pound.SPIN
-
+var last_step = 0 # Previous walking frame
 var spin_slow_begin = 0 # The frame at which fast spin anim ends and slow begins
 
 onready var parent: PlayerCharacter = $"../.."
+onready var dust = $"../../Dust"
 
 
 func _ready() -> void:
@@ -58,6 +59,45 @@ func _physics_process(_delta):
 			match parent.state:
 				parent.S.NEUTRAL:
 					trigger_anim(_state_neutral(last_state, last_swimming))
+					
+					var grounded = parent.is_on_floor()
+					
+					if abs(parent.vel.x) < 2:
+						dust.emitting = false
+					else:
+						dust.emitting = grounded
+						
+					if grounded:
+						if int(parent.vel.x) == 0:
+							frame = 0
+							speed_scale = 0
+							if last_step == 1:
+								parent.step_sound()
+							if animation == "walk_cycle":
+								trigger_anim("walk_neutral")
+						else:
+							if speed_scale == 0:
+								frame = 1
+							speed_scale = min(abs(parent.vel.x / 3.43), 2)
+							if (
+								last_step != frame
+								and
+								(
+									(
+										(frame == 2 or frame == 6)
+										and animation == "walk_neutral"
+									)
+									or
+									(
+										(frame == 1 or frame == 4)
+										and animation == "walk_cycle"
+									)
+								)
+							):
+								parent.step_sound()
+						last_step = frame
+					else:
+						speed_scale = 1
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
 					var flip_ending = parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
@@ -235,6 +275,8 @@ func _anim_next_for (current_state: String) -> String:
 			return "jump_a_loop"
 		"swim_stroke":
 			return "swim_idle"
+		"walk_neutral":
+			return "walk_cycle"
 		_:
 			return NO_ANIM_CHANGE
 

@@ -173,7 +173,6 @@ onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
 onready var switch_sfx = $SwitchSFX
-onready var dust = $Dust
 onready var ground_failsafe_check: Area2D = $GroundFailsafe
 onready var feet_area: Area2D = $Feet
 
@@ -417,31 +416,6 @@ func adjust_swim_x() -> void:
 
 
 func fixed_visuals() -> void:
-	if swimming and state == S.NEUTRAL and !grounded and !Input.is_action_pressed("spin"):
-		switch_anim("swim")
-		if sprite.frame == 0:
-			sprite.speed_scale = 0
-	
-	if abs(vel.x) < 2:
-		dust.emitting = false
-	else:
-		dust.emitting = is_on_floor()
-		
-	if sprite.animation.begins_with("walk"):
-		if int(vel.x) == 0:
-			sprite.frame = 0
-			sprite.speed_scale = 0
-			step_sound()
-		else:
-			if sprite.speed_scale == 0:
-				sprite.frame = 1
-			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
-			step_sound()
-		last_step = sprite.frame
-	elif !sprite.animation.begins_with("swim"):
-		sprite.speed_scale = 1
-	
-	#$Label.text = str(vel.x)
 	if hp <= 0:
 		dead = true
 		Singleton.get_node("DeathManager").register_player_death(self)
@@ -1422,10 +1396,9 @@ func terrain_typestring(collider: CollisionObject2D) -> String:
 
 
 func step_sound():
-	if sprite.frame == 0 and last_step == 1:
-		var collider: CollisionObject2D = step_check.get_collider()
-		if collider != null:
-			play_sfx("step", terrain_typestring(collider))
+	var collider: CollisionObject2D = step_check.get_collider()
+	if collider != null:
+		play_sfx("step", terrain_typestring(collider))
 
 
 func invincibility_on_effect():
