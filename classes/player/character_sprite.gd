@@ -11,6 +11,8 @@ const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
 const POUND_SPIN_RISE_TIME = 15
 
+const SLIDE_MAX_SPEED: float = 5.0
+
 # Keep in sync with parent's default values
 var last_state: int = PlayerCharacter.S.NEUTRAL
 var last_swimming: bool = false
@@ -88,6 +90,11 @@ func _physics_process(_delta):
 					elif !parent.grounded and last_grounded:
 						# Became airborne.
 						trigger_anim("dive_air")
+					
+					if parent.grounded:
+						speed_scale = min(abs(parent.vel.x) / SLIDE_MAX_SPEED, 1) * 2
+						if abs(parent.vel.x) < 0.5:
+							frame = 1
 				parent.S.POUND:
 					if parent.pound_state != last_pound_state:
 						# Pound state changed. Change animation appropriately.

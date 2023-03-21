@@ -350,7 +350,7 @@ animations = [ {
 "frames": [ SubResource( 111 ), SubResource( 112 ) ],
 "loop": true,
 "name": "dive_ground",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [ SubResource( 127 ), SubResource( 128 ) ],
 "loop": false,
@@ -582,7 +582,7 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "dive_reset"
+animation = "walk_neutral"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]
