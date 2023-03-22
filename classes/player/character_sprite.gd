@@ -182,7 +182,7 @@ func _physics_process(_delta):
 	last_grounded = parent.grounded
 	last_pound_state = parent.pound_state
 
-func trigger_anim (anim: String):
+func trigger_anim(anim: String):
 	if anim != NO_ANIM_CHANGE:
 		animation = anim
 
@@ -244,7 +244,7 @@ func _anim_from_new_state(
 				return NO_ANIM_CHANGE
 
 
-func _anim_next_for (current_state: String) -> String:
+func _anim_next_for(current_state: String) -> String:
 	match current_state:
 		"crouch_start":
 			return "crouch_loop"
