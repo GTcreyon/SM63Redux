@@ -59,11 +59,6 @@ func _physics_process(_delta):
 			match parent.state:
 				parent.S.NEUTRAL:
 					trigger_anim(_state_neutral(last_state, last_swimming))
-					
-					if abs(parent.vel.x) < 2:
-						dust.emitting = false
-					else:
-						dust.emitting = grounded
 						
 					if parent.grounded:
 						if int(parent.vel.x) == 0:
@@ -172,6 +167,12 @@ func _physics_process(_delta):
 	# If we're flipping, determine flip frame by angle.
 	if animation == "flip":
 		frame = _get_flip_frame()
+	
+	# Enable/disable walk dust as appropriate.
+	if abs(parent.vel.x) < 2:
+		dust.emitting = false
+	else:
+		dust.emitting = parent.grounded
 	
 	# Save this frame's state to check against next time.
 	last_state = parent.state
