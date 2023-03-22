@@ -60,14 +60,12 @@ func _physics_process(_delta):
 				parent.S.NEUTRAL:
 					trigger_anim(_state_neutral(last_state, last_swimming))
 					
-					var grounded = parent.is_on_floor()
-					
 					if abs(parent.vel.x) < 2:
 						dust.emitting = false
 					else:
 						dust.emitting = grounded
 						
-					if grounded:
+					if parent.grounded:
 						if int(parent.vel.x) == 0:
 							frame = 0
 							speed_scale = 0
