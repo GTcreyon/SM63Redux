@@ -58,20 +58,31 @@ func _physics_process(_delta):
 		else:
 			match parent.state:
 				parent.S.NEUTRAL:
+					# Update neutral state.
 					trigger_anim(_state_neutral(last_state, last_swimming))
 						
 					if parent.grounded:
+						# Doing walk animation.
+						# Set walk speed from parent velocity.
 						if int(parent.vel.x) == 0:
+							# Not moving. Set animation stopped.
 							frame = 0
 							speed_scale = 0
+							# Play step sound when appropriate.
 							if last_step == 1:
 								parent.step_sound()
+							# Ensure we end in the right animation.
 							if animation == "walk_cycle":
 								trigger_anim("walk_neutral")
 						else:
+							# If we're stopped, jump to first frame of anim.
 							if speed_scale == 0:
 								frame = 1
+							
+							# Set speed from velocity.
 							speed_scale = min(abs(parent.vel.x / 3.43), 2)
+							
+							# Play step sound on certain frames.
 							if (
 								last_step != frame
 								and
@@ -88,8 +99,11 @@ func _physics_process(_delta):
 								)
 							):
 								parent.step_sound()
+						
+						# Save current anim frame to check against next frame.
 						last_step = frame
 					else:
+						# Not grounded. Revert any speed changes from walk anim.
 						speed_scale = 1
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
