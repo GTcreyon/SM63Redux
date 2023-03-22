@@ -281,7 +281,7 @@ func _anim_next_for (current_state: String) -> String:
 			return NO_ANIM_CHANGE
 
 
-func _state_neutral (old_state: int, old_swimming: bool) -> String:
+func _state_neutral(old_state: int, old_swimming: bool) -> String:
 	# Take note if state just changed.
 	# (This function is only called when state == neutral, right?)
 	var state_changed: bool = old_state != PlayerCharacter.S.NEUTRAL
