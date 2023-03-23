@@ -279,6 +279,8 @@ func _anim_next_for(current_state: String) -> String:
 			return "jump_double_loop"
 		"fall_start":
 			return "fall_loop"
+		"fall_start_double":
+			return "fall_loop"
 		"landed":
 			return "walk_neutral" #"idle"
 		"spin_fast":
