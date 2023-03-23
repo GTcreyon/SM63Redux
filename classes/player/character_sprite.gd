@@ -37,7 +37,8 @@ func _ready() -> void:
 func _physics_process(_delta):
 	rotation = parent.body_rotation
 	flip_h = parent.facing_direction == -1
-
+	speed_scale = 1
+	
 	if (
 		# Changed states
 		parent.state != last_state
@@ -165,6 +166,14 @@ func _physics_process(_delta):
 						# Lerp speed from fast at the start, to slow at the sustain.
 						speed_scale = lerp(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED,
 							float(spin_progress - spin_slow_begin) / (parent.SPIN_TIME - spin_slow_begin))
+				parent.S.CROUCH:
+					# Recrouch
+					if animation == "crouch_end" and !parent.crouch_resetting:
+						trigger_anim("crouch_start")
+					
+					# Uncrouch
+					if parent.crouch_resetting and parent.crouch_reset_frames == 0:
+						trigger_anim("crouch_end")
 	
 	# These next things should happen no matter if the animation is new or old.
 	
@@ -177,13 +186,13 @@ func _physics_process(_delta):
 		dust.emitting = false
 	else:
 		dust.emitting = parent.grounded
-	
 	# Save this frame's state to check against next time.
 	last_state = parent.state
 	last_swimming = parent.swimming
 	last_vel = parent.vel
 	last_grounded = parent.grounded
 	last_pound_state = parent.pound_state
+
 
 func trigger_anim(anim: String):
 	if anim != NO_ANIM_CHANGE:
@@ -249,8 +258,6 @@ func _anim_from_new_state(
 
 func _anim_next_for(current_state: String) -> String:
 	match current_state:
-		"crouch_start":
-			return "crouch_loop"
 		"crouch_end":
 			return "walk_neutral"
 		"dive_start":

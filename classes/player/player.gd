@@ -275,6 +275,7 @@ const DOUBLE_JUMP_TIME: int = 8
 var grounded: bool = false
 var ground_except: bool = false
 var dive_resetting: bool = false
+var crouch_resetting: bool = false
 var frontflip_direction: int = false
 var double_anim_cancel: bool = false
 var double_jump_state: int = 0
@@ -291,6 +292,7 @@ func player_physics():
 	manage_invuln()
 	manage_buffers()
 	manage_dive_recover()
+	manage_crouch_reset()
 	if state == S.TRIPLE_JUMP:
 		triple_jump_spin_anim()
 	if state == S.BACKFLIP:
@@ -395,10 +397,7 @@ func action_swim() -> void:
 		elif (
 			state == S.DIVE
 			and Input.is_action_pressed("jump")
-			and
-			(
-				int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
-			) == -facing_direction
+			and _can_backflip()
 		):
 			action_backflip()
 	else:
@@ -701,15 +700,11 @@ func triple_jump_spin_anim() -> void:
 
 
 func player_jump() -> void:
-	if state == S.DIVE:
-		if (
-			int(Input.is_action_pressed("right"))
-			- int(Input.is_action_pressed("left")) == -facing_direction
-		):
+	if state & (S.DIVE | S.CROUCH):
+		if _can_backflip():
 			action_backflip()
-		else:
-			if !dive_resetting and abs(vel.x) >= 1 and !is_on_wall(): # prevents static dive recover
-				action_rollout()
+		elif state == S.DIVE and !dive_resetting and abs(vel.x) >= 1 and !is_on_wall(): # Prevents static dive recover
+			action_rollout()
 	elif (jump_buffer_frames > 0
 		and
 		state &
@@ -780,12 +775,22 @@ func backflip_spin_anim() -> void:
 		body_rotation = 0
 
 
+func _can_backflip() -> bool:
+	return (
+		(
+			int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+		) == -facing_direction
+		or state == S.CROUCH
+	)
+
+
 func action_backflip() -> void:
 	off_ground()
 	switch_state(S.BACKFLIP)
 	vel.y = min(-JUMP_VEL_1 - 2.5 * FPS_MOD, vel.y)
 	vel.x += (30.0 - abs(vel.x)) / (5 / FPS_MOD) * -facing_direction
 	dive_resetting = false
+	crouch_resetting = false
 	backflip_flip_frames = 0
 	switch_anim("jump")
 	frontflip_direction = facing_direction
@@ -823,8 +828,12 @@ func coyote_behaviour() -> void:
 			switch_state(S.NEUTRAL)
 			body_rotation = 0
 		
-		if state == S.DIVE and abs(vel.x) < 1 and !Input.is_action_pressed("dive") and !dive_resetting:
-			reset_dive()
+		if !Input.is_action_pressed("dive"):
+			if state == S.DIVE and abs(vel.x) < 1 and !dive_resetting:
+				reset_dive()
+			
+			if state == S.CROUCH and !crouch_resetting:
+				reset_crouch()
 
 
 var hurt_timer = 0
@@ -932,6 +941,11 @@ func reset_dive() -> void:
 	body_rotation = 0
 	dive_resetting = true
 	dive_reset_frames = 0
+
+
+func reset_crouch() -> void:
+	crouch_resetting = true
+	crouch_reset_frames = 0
 
 
 const TRIPLE_JUMP_ORIGIN_OFFSET_START = Vector2(-2, -4)
@@ -1115,35 +1129,42 @@ func action_dive():
 				and abs(body_rotation) > PI / 2 * 3
 			)
 		):
-			if !grounded:
-				gp_dive_timer = 6
-				off_ground()
-				if state != S.TRIPLE_JUMP:
-					play_sfx("voice", "dive")
-				var multiplier = 1
-				if state == S.BACKFLIP:
-					multiplier = 2 # allows dives out of backflips to be more responsive
-				vel.x += (
-					(
-						DIVE_VEL - abs(
-							vel.x / FPS_MOD
+			if !grounded or vel.y >= 0:
+				if !grounded:
+					gp_dive_timer = 6
+					off_ground()
+					if state != S.TRIPLE_JUMP:
+						play_sfx("voice", "dive")
+					var multiplier = 1
+					if state == S.BACKFLIP:
+						multiplier = 2 # Allows dives out of backflips to be more responsive
+					vel.x += (
+						(
+							DIVE_VEL - abs(
+								vel.x / FPS_MOD
+							)
 						)
+						/ (
+							5 / FPS_MOD
+						)
+						/ FPS_MOD * multiplier * facing_direction
 					)
-					/ (
-						5 / FPS_MOD
-					)
-					/ FPS_MOD * multiplier * facing_direction
-				)
-				if state == S.NEUTRAL:
-					vel.y = max(-3, vel.y + 3.0 * FPS_MOD)
+					if state == S.NEUTRAL:
+						vel.y = max(-3, vel.y + 3.0 * FPS_MOD)
+					else:
+						vel.y += 3.0 * FPS_MOD
+				if abs(vel.x) <= 0.5 and grounded:
+					switch_state(S.CROUCH)
+					crouch_resetting = false
+					crouch_reset_frames = 0
 				else:
-					vel.y += 3.0 * FPS_MOD
-			if (!grounded or vel.y >= 0) and (!swimming or grounded):
-				switch_state(S.DIVE)
-				body_rotation = 0
-				if angle_cast.is_colliding() and grounded:
-					body_rotation = _get_slide_angle()
-				double_jump_state = 0
+					switch_state(S.DIVE)
+					body_rotation = 0
+					if angle_cast.is_colliding() and grounded:
+						body_rotation = _get_slide_angle()
+					double_jump_state = 0
+					dive_resetting = false
+					dive_reset_frames = 0
 
 
 # Returns the angle that the dive slide should be at
@@ -1197,6 +1218,20 @@ func manage_dive_recover():
 			dive_resetting = false
 			switch_state(S.NEUTRAL)
 			body_rotation = 0
+
+
+const CROUCH_RESET_TIME: int = 8
+var crouch_reset_frames: int = 0
+func manage_crouch_reset() -> void:
+	if !crouch_resetting:
+		return
+	if Input.is_action_pressed("dive"):
+		crouch_resetting = false
+		return
+	crouch_reset_frames += 1
+	if crouch_reset_frames >= CROUCH_RESET_TIME:
+		crouch_resetting = false
+		switch_state(S.NEUTRAL)
 
 
 func switch_fludd():
@@ -1289,7 +1324,7 @@ func switch_state(new_state):
 	state = new_state
 	body_rotation = 0
 	match state:
-		S.DIVE:
+		S.DIVE, S.CROUCH:
 			hitbox.position = DIVE_BOX_POS
 			hitbox.shape.extents = DIVE_BOX_EXTENTS
 		S.POUND:

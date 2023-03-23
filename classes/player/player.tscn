@@ -1,4 +1,4 @@
-[gd_scene load_steps=122 format=2]
+[gd_scene load_steps=124 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -23,9 +23,17 @@
 [ext_resource path="res://classes/player/character_sprite.gd" type="Script" id=21]
 [ext_resource path="res://classes/autoplay.gd" type="Script" id=22]
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 20 )
-region = Rect2( 72, 0, 24, 38 )
+[sub_resource type="AtlasTexture" id=129]
+atlas = ExtResource( 8 )
+region = Rect2( 288, 336, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=130]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 288, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=131]
+atlas = ExtResource( 8 )
+region = Rect2( 432, 240, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=102]
 atlas = ExtResource( 8 )
@@ -337,15 +345,20 @@ region = Rect2( 96, 0, 48, 48 )
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
-"frames": [ SubResource( 8 ) ],
+"frames": [ SubResource( 129 ) ],
 "loop": true,
 "name": "back",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ), SubResource( 103 ), SubResource( 102 ) ],
+"frames": [ SubResource( 130 ), SubResource( 131 ) ],
 "loop": true,
-"name": "crouch",
-"speed": 10.0
+"name": "crouch_end",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 102 ), SubResource( 103 ), SubResource( 104 ), SubResource( 105 ) ],
+"loop": false,
+"name": "crouch_start",
+"speed": 15.0
 }, {
 "frames": [ SubResource( 111 ), SubResource( 112 ) ],
 "loop": true,
