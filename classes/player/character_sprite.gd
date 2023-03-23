@@ -20,7 +20,8 @@ var last_vel: Vector2 = Vector2.ZERO
 var last_grounded: bool = true
 var last_flip_ending: bool = false # parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
 var last_pound_state: int = PlayerCharacter.Pound.SPIN
-var last_step = 0 # Previous walking frame
+
+var last_frame = 0 # Used mainly during walking animation
 var spin_slow_begin = 0 # The frame at which fast spin anim ends and slow begins
 
 onready var parent: PlayerCharacter = $"../.."
@@ -69,13 +70,13 @@ func _physics_process(_delta):
 							frame = 0
 							speed_scale = 0
 							# Play step sound when appropriate.
-							if last_step == 1:
+							if last_frame == 1:
 								parent.step_sound()
 							# Ensure we end in the right animation.
 							if animation == "walk_cycle":
 								trigger_anim("walk_neutral")
 						else:
-							# If we're stopped, jump to first frame of anim.
+							# If we were stopped, jump to first frame of anim.
 							if speed_scale == 0:
 								frame = 1
 							
@@ -84,7 +85,7 @@ func _physics_process(_delta):
 							
 							# Play step sound on certain frames.
 							if (
-								last_step != frame
+								last_frame != frame
 								and
 								(
 									(
@@ -101,7 +102,7 @@ func _physics_process(_delta):
 								parent.step_sound()
 						
 						# Save current anim frame to check against next frame.
-						last_step = frame
+						last_frame = frame
 					else:
 						# Not grounded. Revert any speed changes from walk anim.
 						speed_scale = 1
