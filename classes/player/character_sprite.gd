@@ -86,18 +86,7 @@ func _physics_process(_delta):
 							# Play step sound on certain frames.
 							if (
 								last_frame != frame
-								and
-								(
-									(
-										(frame == 2 or frame == 6)
-										and animation == "walk_neutral"
-									)
-									or
-									(
-										(frame == 1 or frame == 4)
-										and animation == "walk_cycle"
-									)
-								)
+								and _is_footstep_frame(frame, animation)
 							):
 								parent.step_sound()
 						
@@ -354,6 +343,25 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 		# No jump has occurred, neither has any new landing.
 		# Hence--no animation change.
 		return NO_ANIM_CHANGE
+
+
+# Returns whether the given frame of the given animation should play a
+# footstep sound.
+static func _is_footstep_frame (frame: int, anim_name: String) -> bool:
+	var valid_frames = []
+	
+	# Define what is and isn't a step frame for this animation.
+	match anim_name:
+		"walk_neutral":
+			valid_frames = [2, 6]
+		"walk_cycle":
+			valid_frames = [1, 4]
+		_:
+			# Not a walk animation.
+			pass
+	
+	# Return whether the passed frame is one of the defined step frames.
+	return valid_frames.has(frame)
 
 
 func _anim_length_gameframes(anim_name: String) -> int:
