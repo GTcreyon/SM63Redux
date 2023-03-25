@@ -13,23 +13,28 @@
 
 [sub_resource type="SpriteFrames" id=7]
 animations = [ {
-"frames": [ ExtResource( 5 ) ],
-"loop": true,
-"name": "wait",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "ready",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "wait",
 "speed": 5.0
 } ]
 
 [node name="DialogBox" type="Control"]
 pause_mode = 1
-margin_left = 192.0
-margin_top = 224.0
-margin_right = 448.0
-margin_bottom = 288.0
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -128.0
+margin_top = 16.0
+margin_right = 128.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 64 )
 mouse_filter = 2
 script = ExtResource( 1 )
 
@@ -40,9 +45,6 @@ margin_right = -8.0
 margin_bottom = 64.0
 mouse_filter = 2
 color = Color( 0.223529, 0.0941176, 0, 0.74902 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="EdgeLeft" type="TextureRect" parent="."]
 self_modulate = Color( 1, 1, 1, 0.74902 )
