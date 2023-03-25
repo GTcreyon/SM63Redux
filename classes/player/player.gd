@@ -262,6 +262,7 @@ enum S { # state enum
 }
 
 enum Pound {
+	NONE,
 	SPIN,
 	FALL,
 	LAND,
@@ -281,10 +282,11 @@ var double_anim_cancel: bool = false
 var double_jump_state: int = 0
 var double_jump_frames: int = 0
 var pound_land_frames: int = 0
-var pound_state: int = Pound.SPIN
+var pound_state: int = Pound.NONE
 var solid_floors: int = 0
 func player_physics():
-	assert(facing_direction == -1 or facing_direction == 1)
+	if OS.is_debug_build():
+		assertions()
 	fludd_stale = true
 	
 	check_ground_state()
@@ -343,7 +345,17 @@ func player_physics():
 	player_move()
 	
 	if state == S.POUND and is_on_floor():
-		vel.x = 0 # stop sliding down into holes
+		vel.x = 0 # Stop sliding down into holes
+
+
+func assertions() -> void:
+	# Value of facing_direction never becomes 0, or anything unexpected
+	assert(facing_direction == -1 or facing_direction == 1)
+	# Pound state is always NONE if we are not pounding
+	assert(state == S.POUND or pound_state == Pound.NONE)
+	# Never be resetting while not in the state
+	assert(state == S.DIVE or !dive_resetting)
+	assert(state == S.CROUCH or !crouch_resetting)
 
 
 func start_bounce() -> void:
@@ -651,7 +663,7 @@ func player_control_x() -> void:
 	var i_left = Input.is_action_pressed("left")
 	if i_left != i_right:
 		var dir = int(i_right) - int(i_left)
-		if state != S.POUND or pound_state != Pound.SPIN:
+		if pound_state != Pound.SPIN and (state != S.CROUCH or crouch_resetting):
 			if (
 				state & (
 					S.NEUTRAL
@@ -1015,6 +1027,7 @@ func manage_pound_recover() -> void:
 			# Jolt camera downwards
 			camera.offset = Vector2(0, POUND_SHAKE_INITIAL)
 		elif pound_land_frames <= 0: # impact ended, get up
+			pound_state = Pound.NONE
 			switch_state(S.NEUTRAL)
 			# Nullify all camera shake.
 			camera.offset = Vector2.ZERO
