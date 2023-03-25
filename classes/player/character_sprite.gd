@@ -114,9 +114,9 @@ func _physics_process(_delta):
 
 					if parent.dive_resetting and parent.dive_reset_frames > 0:
 						# TODO: Update this thing.
-						trigger_anim("dive_reset")
 						frame = 0
 						if parent.dive_reset_frames >= parent.DIVE_RESET_TIME / 2.0:
+							trigger_anim("dive_reset")
 							position.y = 0
 							if parent.dive_reset_frames >= parent.DIVE_RESET_TIME / 4.0 * 3.0:
 								frame = 1
