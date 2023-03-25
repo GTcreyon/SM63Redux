@@ -1327,6 +1327,7 @@ func switch_state(new_state):
 		S.DIVE, S.CROUCH:
 			hitbox.position = DIVE_BOX_POS
 			hitbox.shape.extents = DIVE_BOX_EXTENTS
+			clear_rotation_origin()
 		S.POUND:
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
