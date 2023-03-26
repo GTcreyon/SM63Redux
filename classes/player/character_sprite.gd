@@ -4,8 +4,8 @@ const NO_ANIM_CHANGE = ""
 
 const TRIPLE_FLIP_HALFWAY = PlayerCharacter.TRIPLE_FLIP_TIME / 2
 
-const SLOW_SPIN_START_SPEED = 2
-const SLOW_SPIN_END_SPEED = 1
+const SLOW_SPIN_START_SPEED = 1
+const SLOW_SPIN_END_SPEED = 0.40
 const SLOW_SPIN_TIME = 60
 
 const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
@@ -55,8 +55,11 @@ func _physics_process(_delta):
 	else:
 		# Some states have special behavior per-frame. Handle that.
 		if parent.swimming and !parent.grounded:
-			# No constant update states currently exist when swimming.
-			pass
+			print(parent.state)
+			match parent.state:
+				parent.S.SPIN:
+					if animation == "spin_slow":
+						slow_spin_step()
 		else:
 			match parent.state:
 				parent.S.NEUTRAL:
@@ -162,16 +165,12 @@ func _physics_process(_delta):
 							POUND_SPIN_RISE_TIME)
 				parent.S.SPIN:
 					match animation:
-						"spin_start":
+						"spin_fast":
 							#frame = float(parent.SPIN_TIME - parent.spin_frames) / float(parent.SPIN_TIME)
 							if parent.spin_frames <= 0:
-								trigger_anim("spin_cycle")
-						"spin_cycle":
-							if slow_spin_timer < SLOW_SPIN_TIME:
-								slow_spin_timer += 1
-							var spin_progress: float = slow_spin_timer / SLOW_SPIN_TIME
-							# Lerp speed from fast at the start, to slow at the sustain.
-							speed_scale = lerp(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED, spin_progress)
+								trigger_anim("spin_slow")
+						"spin_slow":
+							slow_spin_step()
 				parent.S.CROUCH:
 					# Recrouch
 					if animation == "crouch_end" and !parent.crouch_resetting:
@@ -200,6 +199,21 @@ func _physics_process(_delta):
 	last_pound_state = parent.pound_state
 
 
+func spin_logic() -> void:
+	match animation:
+		"spin_fast":
+			#frame = float(parent.SPIN_TIME - parent.spin_frames) / float(parent.SPIN_TIME)
+			if parent.spin_frames <= 0:
+				trigger_anim("spin_slow")
+		"spin_slow":
+			if slow_spin_timer < SLOW_SPIN_TIME:
+				slow_spin_timer += 1
+			var spin_progress: float = slow_spin_timer / SLOW_SPIN_TIME
+			var move_mod: float = 1 + min(abs(parent.vel.x / 5), 1)
+			# Lerp speed from fast at the start, to slow at the sustain.
+			speed_scale = lerp(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED, spin_progress) * move_mod
+
+
 func trigger_anim(anim: String):
 	if anim != NO_ANIM_CHANGE:
 		animation = anim
@@ -221,7 +235,7 @@ func _anim_from_new_state(
 			parent.S.SPIN:
 				# Underwater spin animation should skip fast phase.
 				slow_spin_timer = 0
-				return "spin_cycle"
+				return "spin_water"
 			parent.S.HURT:
 				return "hurt"
 			_:
@@ -293,6 +307,10 @@ func _anim_next_for(current_state: String) -> String:
 			return "swim_idle"
 		"walk_neutral":
 			return "walk_cycle"
+		"spin_start":
+			return "spin_fast"
+		"spin_water":
+			return "spin_fast"
 		_:
 			return NO_ANIM_CHANGE
 

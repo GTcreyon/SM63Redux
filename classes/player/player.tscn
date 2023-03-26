@@ -1,4 +1,4 @@
-[gd_scene load_steps=131 format=2]
+[gd_scene load_steps=140 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -190,31 +190,67 @@ region = Rect2( 96, 384, 48, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 144, 384, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=144]
+[sub_resource type="AtlasTexture" id=154]
 atlas = ExtResource( 8 )
 region = Rect2( 288, 288, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=145]
+[sub_resource type="AtlasTexture" id=155]
 atlas = ExtResource( 8 )
 region = Rect2( 336, 288, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=146]
+[sub_resource type="AtlasTexture" id=156]
+atlas = ExtResource( 8 )
+region = Rect2( 192, 288, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=157]
 atlas = ExtResource( 8 )
 region = Rect2( 384, 288, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=147]
+[sub_resource type="AtlasTexture" id=158]
 atlas = ExtResource( 8 )
 region = Rect2( 432, 288, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=148]
+[sub_resource type="AtlasTexture" id=159]
 atlas = ExtResource( 8 )
-region = Rect2( 0, 336, 48, 48 )
+region = Rect2( 144, 288, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=149]
+[sub_resource type="AtlasTexture" id=160]
 atlas = ExtResource( 8 )
 region = Rect2( 48, 336, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=150]
+[sub_resource type="AtlasTexture" id=161]
+atlas = ExtResource( 8 )
+region = Rect2( 240, 288, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=162]
+atlas = ExtResource( 8 )
+region = Rect2( 288, 288, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=163]
+atlas = ExtResource( 8 )
+region = Rect2( 336, 288, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=164]
+atlas = ExtResource( 8 )
+region = Rect2( 192, 288, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=165]
+atlas = ExtResource( 8 )
+region = Rect2( 384, 288, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=166]
+atlas = ExtResource( 8 )
+region = Rect2( 432, 288, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=167]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 336, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=168]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 336, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=169]
 atlas = ExtResource( 8 )
 region = Rect2( 96, 336, 48, 48 )
 
@@ -228,11 +264,11 @@ region = Rect2( 240, 288, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=153]
 atlas = ExtResource( 8 )
-region = Rect2( 288, 288, 48, 48 )
+region = Rect2( 192, 288, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=154]
+[sub_resource type="AtlasTexture" id=170]
 atlas = ExtResource( 8 )
-region = Rect2( 384, 288, 48, 48 )
+region = Rect2( 240, 288, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=113]
 atlas = ExtResource( 8 )
@@ -456,15 +492,25 @@ animations = [ {
 "name": "shine",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 144 ), SubResource( 145 ), SubResource( 146 ), SubResource( 147 ), SubResource( 148 ), SubResource( 149 ), SubResource( 150 ) ],
+"frames": [ SubResource( 154 ), SubResource( 155 ), SubResource( 156 ), SubResource( 157 ), SubResource( 158 ), SubResource( 159 ), SubResource( 160 ), SubResource( 161 ) ],
 "loop": true,
-"name": "spin_cycle",
-"speed": 30.0
+"name": "spin_fast",
+"speed": 45.0
 }, {
-"frames": [ SubResource( 151 ), SubResource( 152 ), SubResource( 153 ), SubResource( 154 ) ],
+"frames": [ SubResource( 162 ), SubResource( 163 ), SubResource( 164 ), SubResource( 165 ), SubResource( 166 ), SubResource( 167 ), SubResource( 168 ), SubResource( 169 ) ],
+"loop": true,
+"name": "spin_slow",
+"speed": 35.0
+}, {
+"frames": [ SubResource( 151 ), SubResource( 152 ), SubResource( 153 ), SubResource( 152 ) ],
 "loop": true,
 "name": "spin_start",
-"speed": 30.0
+"speed": 45.0
+}, {
+"frames": [ SubResource( 170 ) ],
+"loop": true,
+"name": "spin_water",
+"speed": 15.0
 }, {
 "frames": [ SubResource( 113 ), SubResource( 114 ), SubResource( 115 ), SubResource( 116 ), SubResource( 117 ), SubResource( 118 ) ],
 "loop": true,
@@ -631,7 +677,7 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "back"
+animation = "spin_water"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]
