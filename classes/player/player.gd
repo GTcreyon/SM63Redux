@@ -1340,7 +1340,6 @@ func switch_state(new_state):
 		S.DIVE, S.CROUCH:
 			hitbox.position = DIVE_BOX_POS
 			hitbox.shape.extents = DIVE_BOX_EXTENTS
-			clear_rotation_origin()
 		S.POUND:
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
@@ -1349,9 +1348,11 @@ func switch_state(new_state):
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
 			camera.smoothing_speed = 5
-			clear_rotation_origin()
-	# End spin SFX on any state change
+	
+	# On any state change, reset the following things:
 	spin_sfx.stop()
+	pound_state = Pound.NONE
+	clear_rotation_origin()
 
 
 func switch_anim(new_anim):
