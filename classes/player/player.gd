@@ -223,13 +223,17 @@ func _on_BackupAngle_body_exited(_body):
 var water_areas: int = 0
 func _on_WaterCheck_area_entered(_area):
 	swimming = true
-	switch_state(S.NEUTRAL)
-	water = max(water, 100)
 	water_areas += 1
+	# Reset state to normal
+	switch_state(S.NEUTRAL)
+	# Refill FLUDD
+	water = max(water, 100)
 
 
 func _on_WaterCheck_area_exited(_area):
 	water_areas -= 1
+	
+	# Only run exit-water code if we're now in NO water
 	if water_areas <= 0:
 		swimming = false
 		if vel.y < 0 and !fludd_strain and !is_spinning():
