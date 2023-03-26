@@ -4,8 +4,9 @@ const NO_ANIM_CHANGE = ""
 
 const TRIPLE_FLIP_HALFWAY = PlayerCharacter.TRIPLE_FLIP_TIME / 2
 
-const SLOW_SPIN_START_SPEED = 1
-const SLOW_SPIN_END_SPEED = 0.4
+const SLOW_SPIN_START_SPEED = 2
+const SLOW_SPIN_END_SPEED = 1
+const SLOW_SPIN_TIME = 60
 
 const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
@@ -20,9 +21,8 @@ var last_vel: Vector2 = Vector2.ZERO
 var last_grounded: bool = true
 var last_flip_ending: bool = false # parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
 var last_pound_state: int = PlayerCharacter.Pound.SPIN
-
 var last_frame = 0 # Used mainly during walking animation
-var spin_slow_begin = 0 # The frame at which fast spin anim ends and slow begins
+var slow_spin_timer: float = 0 # Frames of progress through the slow spin
 
 onready var parent: PlayerCharacter = $"../.."
 onready var dust = $"../../Dust"
@@ -161,11 +161,17 @@ func _physics_process(_delta):
 						position.y -= POUND_SPIN_RISE * min(parent.pound_spin_frames,
 							POUND_SPIN_RISE_TIME)
 				parent.S.SPIN:
-					if animation == "spin_slow":
-						var spin_progress = parent.SPIN_TIME - parent.spin_frames
-						# Lerp speed from fast at the start, to slow at the sustain.
-						speed_scale = lerp(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED,
-							float(spin_progress - spin_slow_begin) / (parent.SPIN_TIME - spin_slow_begin))
+					match animation:
+						"spin_start":
+							#frame = float(parent.SPIN_TIME - parent.spin_frames) / float(parent.SPIN_TIME)
+							if parent.spin_frames <= 0:
+								trigger_anim("spin_cycle")
+						"spin_cycle":
+							if slow_spin_timer < SLOW_SPIN_TIME:
+								slow_spin_timer += 1
+							var spin_progress: float = slow_spin_timer / SLOW_SPIN_TIME
+							# Lerp speed from fast at the start, to slow at the sustain.
+							speed_scale = lerp(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED, spin_progress)
 				parent.S.CROUCH:
 					# Recrouch
 					if animation == "crouch_end" and !parent.crouch_resetting:
@@ -214,8 +220,8 @@ func _anim_from_new_state(
 				return "swim_idle"
 			parent.S.SPIN:
 				# Underwater spin animation should skip fast phase.
-				spin_slow_begin = 0
-				return "spin" #"spin_slow"
+				slow_spin_timer = 0
+				return "spin_cycle"
 			parent.S.HURT:
 				return "hurt"
 			_:
@@ -241,8 +247,8 @@ func _anim_from_new_state(
 				_set_rotation_origin(parent.facing_direction, POUND_ORIGIN_OFFSET)
 				return "flip"
 			parent.S.SPIN:
-				spin_slow_begin = _anim_length_gameframes("spin") #("spin_fast")
-				return "spin" #"spin_fast"
+				slow_spin_timer = 0
+				return "spin_start"
 			parent.S.HURT:
 				return "hurt_start"
 			_:
@@ -279,8 +285,6 @@ func _anim_next_for(current_state: String) -> String:
 			return "fall_loop"
 		"landed":
 			return "walk_neutral" #"idle"
-		"spin_fast":
-			return "spin_slow"
 		"stomp_high":
 			return "jump_double_loop"
 		"stomp_low":
