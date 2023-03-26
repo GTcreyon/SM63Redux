@@ -55,11 +55,9 @@ func _physics_process(_delta):
 	else:
 		# Some states have special behavior per-frame. Handle that.
 		if parent.swimming and !parent.grounded:
-			print(parent.state)
 			match parent.state:
 				parent.S.SPIN:
-					if animation == "spin_slow":
-						slow_spin_step()
+					spin_logic()
 		else:
 			match parent.state:
 				parent.S.NEUTRAL:
@@ -164,13 +162,7 @@ func _physics_process(_delta):
 						position.y -= POUND_SPIN_RISE * min(parent.pound_spin_frames,
 							POUND_SPIN_RISE_TIME)
 				parent.S.SPIN:
-					match animation:
-						"spin_fast":
-							#frame = float(parent.SPIN_TIME - parent.spin_frames) / float(parent.SPIN_TIME)
-							if parent.spin_frames <= 0:
-								trigger_anim("spin_slow")
-						"spin_slow":
-							slow_spin_step()
+					spin_logic()
 				parent.S.CROUCH:
 					# Recrouch
 					if animation == "crouch_end" and !parent.crouch_resetting:
