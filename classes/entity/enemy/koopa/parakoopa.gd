@@ -37,6 +37,13 @@ func _ready():
 		frame = hash(position.x + position.y * PI) % 6
 		playing = !disabled
 
+func _exit_tree():
+	#Prevent memory leakage
+	if is_instance_valid(koopa):
+		koopa.queue_free()
+	if is_instance_valid(shell):
+		shell.queue_free()
+
 
 func _on_TopCollision_body_entered(body):
 	if body.is_spinning():
