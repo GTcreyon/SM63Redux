@@ -647,9 +647,7 @@ func action_spin() -> void:
 
 func end_spin():
 	switch_state(S.NEUTRAL)
-	if swimming:
-		play_sfx("spin_end", "water")
-	else:
+	if !swimming:
 		switch_anim("walk")
 
 var _fludd_spraying: bool = false
@@ -1447,8 +1445,16 @@ const STAND_BOX_EXTENTS = Vector2(6, 14.5)
 const DIVE_BOX_POS = Vector2(0, 3)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
 func switch_state(new_state):
+	# If just ended a spin, adjust SFX accordingly.
+	if state == S.SPIN:
+		spin_sfx.stop()
+		if swimming:
+			play_sfx("spin_end", "water")
+	
+	# Update to new state.
 	state = new_state
 	sprite.rotation_degrees = 0
+	
 	match state:
 		S.DIVE:
 			hitbox.position = DIVE_BOX_POS
@@ -1462,8 +1468,6 @@ func switch_state(new_state):
 			hitbox.shape.extents = STAND_BOX_EXTENTS
 			camera.smoothing_speed = 5
 			clear_rotation_origin()
-	# End spin SFX on any state change
-	spin_sfx.stop()
 
 
 func switch_anim(new_anim):
