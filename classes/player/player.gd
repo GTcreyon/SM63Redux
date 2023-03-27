@@ -571,6 +571,7 @@ func action_pound() -> void:
 			sprite.rotation = 0
 			
 			pound_state = Pound.FALL
+			pound_land_frames = 15 #Set pound recovery frame counter
 			vel.y = 8
 
 
@@ -619,11 +620,7 @@ func action_spin() -> void:
 			# Tick spin state
 			spin_frames -= 1
 		elif !Input.is_action_pressed("spin"):
-			# End spin
-			switch_state(S.NEUTRAL)
-			if swimming:
-				play_sfx("spin_end", "water")
-			
+			end_spin()
 	if (
 		Input.is_action_pressed("spin")
 		and (
@@ -647,6 +644,13 @@ func action_spin() -> void:
 				vel.y = min(-3.5 * FPS_MOD * 1.3, vel.y - 3.5 * FPS_MOD)
 		spin_frames = SPIN_TIME
 
+
+func end_spin():
+	switch_state(S.NEUTRAL)
+	if swimming:
+		play_sfx("spin_end", "water")
+	else:
+		switch_anim("walk")
 
 var _fludd_spraying: bool = false
 var _fludd_spraying_rising: bool = false
@@ -679,6 +683,7 @@ func fludd_control():
 		fludd_power = 100 # TODO: multi fludd
 	elif !Input.is_action_pressed("fludd") and current_nozzle != Singleton.Nozzles.HOVER:
 		fludd_power = min(fludd_power + FPS_MOD, 100)
+	
 	if (
 		Input.is_action_pressed("fludd")
 		and fludd_power > 0
@@ -693,6 +698,9 @@ func fludd_control():
 		_fludd_spraying = true
 		match current_nozzle:
 			Singleton.Nozzles.HOVER:
+				#Detach instantly when starting a hover from the ground
+				off_ground()
+				
 				fludd_strain = true
 				double_anim_cancel = true
 				if state != S.DIVE:
@@ -755,8 +763,12 @@ func fludd_control():
 						water = max(water - 5, 0)
 						fludd_power = 0
 	else:
-		fludd_strain = false
-		rocket_charge = 0
+		end_fludd()
+
+#Disables fludd and resets charge
+func end_fludd():
+	fludd_strain = false
+	rocket_charge = 0
 
 
 const WALK_ACCEL: float = 1.1 * FPS_MOD
@@ -937,7 +949,7 @@ func action_rollout() -> void:
 
 func coyote_behaviour() -> void:
 	double_anim_cancel = false
-				
+	
 	if state == S.NEUTRAL:
 		switch_anim("walk")
 	
@@ -1045,8 +1057,6 @@ func water_resistance(fall_adjust) -> float:
 
 
 func air_resistance(fall_adjust) -> float:
-	if state == S.POUND and pound_state == Pound.FALL:
-		pound_land_frames = 15
 	if fall_adjust > 0:
 		fall_adjust = resist(fall_adjust, ((GRAV/FPS_MOD)/5), 1.05)
 	fall_adjust = resist(fall_adjust, 0, 1.001)
@@ -1607,3 +1617,12 @@ func clear_rotation_origin ():
 
 func facing_sign () -> int:
 	return -1 if sprite.flip_h else 1
+
+#Called when interacting with signs and toads
+func start_interaction():
+	#Disable spinning
+	if state == S.SPIN:
+		end_spin()
+	
+	end_fludd() #disable fludd
+
