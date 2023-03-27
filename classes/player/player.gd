@@ -571,7 +571,6 @@ func action_pound() -> void:
 			sprite.rotation = 0
 			
 			pound_state = Pound.FALL
-			pound_land_frames = 15 #Set pound recovery frame counter
 			vel.y = 8
 
 
@@ -763,7 +762,7 @@ func fludd_control():
 	else:
 		end_fludd()
 
-#Disables fludd and resets charge
+#Ends fludd and resets charge
 func end_fludd():
 	fludd_strain = false
 	rocket_charge = 0
@@ -1055,6 +1054,8 @@ func water_resistance(fall_adjust) -> float:
 
 
 func air_resistance(fall_adjust) -> float:
+	if state == S.POUND and pound_state == Pound.FALL:
+		pound_land_frames = 15
 	if fall_adjust > 0:
 		fall_adjust = resist(fall_adjust, ((GRAV/FPS_MOD)/5), 1.05)
 	fall_adjust = resist(fall_adjust, 0, 1.001)
@@ -1624,9 +1625,9 @@ func facing_sign () -> int:
 
 #Called when interacting with signs and toads
 func start_interaction():
-	#Disable spinning
+	#Ends spinning if active
 	if state == S.SPIN:
 		end_spin()
 	
-	end_fludd() #disable fludd
+	end_fludd()
 
