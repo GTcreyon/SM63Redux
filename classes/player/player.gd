@@ -571,6 +571,7 @@ func action_pound() -> void:
 			sprite.rotation = 0
 			
 			pound_state = Pound.FALL
+			pound_land_frames = 15
 			vel.y = 8
 
 
@@ -1045,8 +1046,6 @@ func water_resistance(fall_adjust) -> float:
 
 
 func air_resistance(fall_adjust) -> float:
-	if state == S.POUND and pound_state == Pound.FALL:
-		pound_land_frames = 15
 	if fall_adjust > 0:
 		fall_adjust = resist(fall_adjust, ((GRAV/FPS_MOD)/5), 1.05)
 	fall_adjust = resist(fall_adjust, 0, 1.001)
