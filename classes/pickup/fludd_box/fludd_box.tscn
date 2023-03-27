@@ -9,7 +9,7 @@
 [ext_resource path="res://classes/pickup/fludd_box/box_hover_open.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 18, 2 )
+extents = Vector2( 18, 6 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 6 )
@@ -143,7 +143,7 @@ monitorable = false
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -14 )
+position = Vector2( 0, -10 )
 shape = SubResource( 1 )
 
 [node name="Open" type="AudioStreamPlayer" parent="."]
