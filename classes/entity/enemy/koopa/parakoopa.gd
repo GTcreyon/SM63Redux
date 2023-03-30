@@ -39,7 +39,7 @@ func _ready():
 
 
 func _exit_tree():
-	#Prevent memory leakage
+	# Prevent memory leak
 	if is_instance_valid(koopa):
 		koopa.queue_free()
 	if is_instance_valid(shell):
