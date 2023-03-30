@@ -763,7 +763,7 @@ func fludd_control():
 		end_fludd()
 
 
-#Ends fludd and resets charge
+# Ends fludd and resets charge
 func end_fludd():
 	fludd_strain = false
 	rocket_charge = 0
