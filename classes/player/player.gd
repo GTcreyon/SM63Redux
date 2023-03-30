@@ -762,6 +762,7 @@ func fludd_control():
 	else:
 		end_fludd()
 
+
 #Ends fludd and resets charge
 func end_fludd():
 	fludd_strain = false
