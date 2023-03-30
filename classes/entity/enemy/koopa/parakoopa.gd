@@ -37,6 +37,7 @@ func _ready():
 		frame = hash(position.x + position.y * PI) % 6
 		playing = !disabled
 
+
 func _exit_tree():
 	#Prevent memory leakage
 	if is_instance_valid(koopa):
