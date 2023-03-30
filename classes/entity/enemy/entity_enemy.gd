@@ -97,10 +97,10 @@ func _physics_step():
 	_hitbox_check()
 
 
-#Reference to the player's body. Set from on_Hitbox_body_entered/on_Hitbox_body_exited
+# Reference to the player's body. Set from on_Hitbox_body_entered/on_Hitbox_body_exited
 var player_body
 
-#Damages the player if player_body isn't null
+# Damages the player if player_body isn't null
 func _hitbox_check():
 	if player_body and !struck and !stomped:
 		player_body.take_damage_shove(1, sign(player_body.position.x - position.x))
@@ -161,12 +161,12 @@ func _on_HurtboxStrike_body_entered(body):
 
 
 func _on_Hitbox_body_entered(body):
-	player_body = body #Assign to colliding body
-	_hitbox_check() #Attempt to damage the player immediately
+	player_body = body # Assign to colliding body
+	_hitbox_check() # Attempt to damage the player immediately
 
 
 func _on_Hitbox_body_exited(_body):
-	player_body = null #Unassign player body reference
+	player_body = null # Unassign player body reference
 
 
 # Check if the colliding body can strike this enemy
