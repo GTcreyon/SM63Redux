@@ -164,6 +164,7 @@ func _on_Hitbox_body_entered(body):
 	player_body = body #Assign to colliding body
 	_hitbox_check() #Attempt to damage the player immediately
 
+
 func _on_Hitbox_body_exited(_body):
 	player_body = null #Unassign player body reference
 
