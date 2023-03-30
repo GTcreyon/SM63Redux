@@ -1624,9 +1624,9 @@ func clear_rotation_origin ():
 func facing_sign () -> int:
 	return -1 if sprite.flip_h else 1
 
-#Called when interacting with signs and toads
+# Called when interacting with signs and toads
 func start_interaction():
-	#Ends spinning if active
+	# Ends spinning if active
 	if state == S.SPIN:
 		end_spin()
 	
