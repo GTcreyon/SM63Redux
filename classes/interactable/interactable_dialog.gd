@@ -25,10 +25,10 @@ func _interact_with(body):
 	body.locked = true
 	body.sign_frames = 1
 	
-	#disable any active sfx on the player
+	# Disable any active sfx on the player
 	body.start_interaction()
-	
 	dialog.load_lines(lines)
+
 
 func _state_check(body) -> bool:
 	return (body.state == body.S.NEUTRAL or body.state == body.S.SPIN) and body.sign_frames <= 0

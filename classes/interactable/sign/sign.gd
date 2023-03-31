@@ -15,6 +15,7 @@ func _process(delta):
 	pulse += 0.1 * delta * 60
 	material.set_shader_param("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
 
+
 func _interact_with(body):
 	._interact_with(body)
 	sfx_open.play()

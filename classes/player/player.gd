@@ -649,6 +649,7 @@ func end_spin():
 	if !swimming:
 		switch_anim("walk")
 
+
 var _fludd_spraying: bool = false
 var _fludd_spraying_rising: bool = false
 # If _physics_process() never calls player_physics() but checks fludd_spraying(),
@@ -669,6 +670,7 @@ func fludd_spraying_rising(allow_stale: bool = false) -> bool:
 	if !allow_stale:
 		assert(!fludd_stale)
 	return _fludd_spraying_rising
+
 
 var rocket_charge: int = 0
 func fludd_control():
@@ -1447,7 +1449,7 @@ const STAND_BOX_EXTENTS = Vector2(6, 14.5)
 const DIVE_BOX_POS = Vector2(0, 3)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
 func switch_state(new_state):
-	# If just ended a spin, adjust SFX accordingly.
+	# If spin just ended, adjust SFX accordingly.
 	if state == S.SPIN:
 		spin_sfx.stop()
 		if swimming:
@@ -1623,6 +1625,7 @@ func clear_rotation_origin ():
 
 func facing_sign () -> int:
 	return -1 if sprite.flip_h else 1
+
 
 # Called when interacting with signs and toads
 func start_interaction():
