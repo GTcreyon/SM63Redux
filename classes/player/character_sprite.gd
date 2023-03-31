@@ -92,6 +92,10 @@ func _physics_process(_delta):
 							):
 								parent.step_sound()
 						
+						# Play step sound if we just hit the ground.
+						if parent.grounded and !last_grounded:
+							parent.step_sound()
+						
 						# Save current anim frame to check against next frame.
 						last_frame = frame
 					else:
