@@ -108,8 +108,6 @@ func _physics_process(_delta):
 					# Save this frame's flip progress for next frame.
 					last_flip_ending = flip_ending
 				parent.S.DIVE:
-					# TODO: How does this interact with crouching?
-
 					# Offset sprite position down.
 					position.y = 7
 
@@ -122,12 +120,16 @@ func _physics_process(_delta):
 							if parent.dive_reset_frames >= parent.DIVE_RESET_TIME / 4.0 * 3.0:
 								frame = 1
 					
-					elif parent.grounded and !last_grounded:
-						# Became grounded.
+					# Switch animation depending on groundedness.
+					# (Check if IS grounded, not BECAME grounded.
+					# Can start a dive while already on the ground--checking
+					# became-grounded would miss that case.)
+					elif parent.grounded:
 						# Should look fine if it cuts off the dive-start animation.
 						trigger_anim("dive_ground")
+					# Do check became-airborne, though.
+					# Otherwise dive start anim would get interrupted.
 					elif !parent.grounded and last_grounded:
-						# Became airborne.
 						trigger_anim("dive_air")
 					
 					if parent.grounded:
