@@ -92,10 +92,6 @@ func _physics_process(_delta):
 							):
 								parent.step_sound()
 						
-						# Play step sound if we just hit the ground.
-						if parent.grounded and !last_grounded:
-							parent.step_sound()
-						
 						# Save current anim frame to check against next frame.
 						last_frame = frame
 					else:
@@ -177,6 +173,13 @@ func _physics_process(_delta):
 					# Uncrouch
 					if parent.crouch_resetting and parent.crouch_reset_frames == 0:
 						trigger_anim("crouch_end")
+			
+			# Play step sound if we just hit the ground.
+			# (Except in pound state--that has its own hit-ground sound!)
+			if parent.grounded and !last_grounded \
+				and parent.state != parent.S.POUND \
+			:
+				parent.step_sound()
 	
 	# These next things should happen no matter if the animation is new or old.
 	
