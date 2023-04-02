@@ -24,10 +24,22 @@ func _init(sound: AudioStream, pos: Vector2):
 # Takes an existing AudioStreamPlayer(2D) and makes it act like a ResidualSFX
 # (outlive its parent, optionally destroy on finish).
 static func new_from_existing (
-	sfx,
+	sfx: Node,
 	scene_root: Node,
 	destroy_on_finished = true
 ):
+	# VALIDATE: Is the passed node an audio source?
+	assert(
+		sfx is AudioStreamPlayer or sfx is AudioStreamPlayer2D \
+			or sfx is AudioStreamPlayer3D, # just for completeness
+		"Attempted to create a residual sound from a non-sound node."
+	)
+	# VALIDATE: Is the passed audio source either 2D or positionless?
+	if sfx is AudioStreamPlayer3D:
+		push_error("""Created ResidualSFX from a 3D audio source.
+			The codebase is not designed to handle 3D positions, so this
+			audio source's position will be left undefined.""")
+	
 	if sfx is Node2D:
 		# Reparent to scene root, while preserving global position.
 		var sound_pos = sfx.global_position
