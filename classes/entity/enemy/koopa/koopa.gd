@@ -50,14 +50,12 @@ func _wander():
 
 
 func _hurt_stomp(area):
-	ResidualSFX.new_from_existing(sfx_stomp, get_parent())
 	var body = area.get_parent()
 	body.vel.y = -5
 	into_shell(0)
 
 
 func _hurt_struck(body):
-	ResidualSFX.new_from_existing(sfx_struck, get_parent())
 	if body.global_position.x < global_position.x:
 		into_shell(5)
 	else:
