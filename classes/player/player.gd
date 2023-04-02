@@ -698,9 +698,6 @@ func fludd_control():
 		_fludd_spraying = true
 		match current_nozzle:
 			Singleton.Nozzles.HOVER:
-				#Detach instantly when starting a hover from the ground
-				off_ground()
-				
 				fludd_strain = true
 				double_anim_cancel = true
 				if state != S.DIVE:
