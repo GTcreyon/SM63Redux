@@ -51,8 +51,14 @@ static func new_from_existing (
 	
 	# Make the sfx player destroy on playback (if desired).
 	# (and if it's not already set that way--Godot complains otherwise).
-	if destroy_on_finished and !sfx.is_connected("finished", sfx, "queue_free"):
-		sfx.connect("finished", sfx, "queue_free")
+	if destroy_on_finished:
+		# VALIDATE: The SFX hasn't been set to destroy itself already, right?
+		if sfx.is_connected("finished", sfx, "queue_free"):
+			push_error("""Set SFX to destroy on finished that was already set to destroy on finish.
+				Double-check that the SFX isn't being residualized twice.""")
+		# If not, we're all set to set it up like that.
+		else:
+			sfx.connect("finished", sfx, "queue_free")
 	# Lesgo
 	sfx.play()
 
