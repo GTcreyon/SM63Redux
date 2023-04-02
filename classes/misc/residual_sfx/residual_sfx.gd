@@ -49,8 +49,9 @@ static func new_from_existing (
 		# Reparent to the scene root.
 		_move_node_to(sfx, scene_root)
 	
-	# Make the sfx player destroy on playback (if desired)
-	if destroy_on_finished:
+	# Make the sfx player destroy on playback (if desired).
+	# (and if it's not already set that way--Godot complains otherwise).
+	if destroy_on_finished and !sfx.is_connected("finished", sfx, "queue_free"):
 		sfx.connect("finished", sfx, "queue_free")
 	# Lesgo
 	sfx.play()
