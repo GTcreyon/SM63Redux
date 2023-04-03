@@ -857,7 +857,6 @@ func manage_hurt_recover():
 	if state == S.HURT:
 		if grounded or hurt_timer <= 0:
 			switch_state(S.NEUTRAL)
-			switch_anim("walk")
 		else:
 			hurt_timer -= 1
 
@@ -1391,7 +1390,6 @@ func take_damage_shove(amount, direction):
 		take_damage(amount)
 		switch_state(S.HURT)
 		hurt_timer = 30
-		switch_anim("hurt")
 		clear_rotation_origin()
 		camera.offset = Vector2.ZERO
 		vel = Vector2(4 * direction, -3)

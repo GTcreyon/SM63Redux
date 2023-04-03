@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=2]
+[gd_scene load_steps=142 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -113,6 +113,14 @@ region = Rect2( 0, 384, 48, 48 )
 [sub_resource type="AtlasTexture" id=132]
 atlas = ExtResource( 8 )
 region = Rect2( 144, 336, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=171]
+atlas = ExtResource( 8 )
+region = Rect2( 432, 0, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=172]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 48, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=70]
 atlas = ExtResource( 8 )
@@ -457,10 +465,15 @@ animations = [ {
 "name": "front",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 171 ), SubResource( 172 ) ],
+"loop": true,
+"name": "hurt_loop",
+"speed": 5.0
+}, {
 "frames": [ SubResource( 70 ), SubResource( 71 ), SubResource( 72 ), SubResource( 73 ) ],
 "loop": true,
-"name": "hurt",
-"speed": 10.0
+"name": "hurt_start",
+"speed": 9.0
 }, {
 "frames": [ SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ) ],
 "loop": true,
@@ -480,7 +493,7 @@ animations = [ {
 "frames": [ SubResource( 125 ), SubResource( 126 ) ],
 "loop": true,
 "name": "pound_fall",
-"speed": 10.0
+"speed": 25.0
 }, {
 "frames": [ SubResource( 133 ) ],
 "loop": true,
@@ -539,7 +552,7 @@ animations = [ {
 }, {
 "frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
 "loop": true,
-"name": "walk_cycle",
+"name": "walk_loop",
 "speed": 15.0
 }, {
 "frames": [ SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 63 ), SubResource( 67 ), SubResource( 68 ), SubResource( 69 ), SubResource( 63 ) ],
@@ -677,7 +690,7 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "spin_water"
+animation = "hurt_loop"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]

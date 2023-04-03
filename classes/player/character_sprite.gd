@@ -75,7 +75,7 @@ func _physics_process(_delta):
 							if last_frame == 1:
 								parent.step_sound()
 							# Ensure we end in the right animation.
-							if animation == "walk_cycle":
+							if animation == "walk_loop":
 								trigger_anim("walk_neutral")
 						else:
 							# If we were stopped, jump to first frame of anim.
@@ -307,7 +307,7 @@ func _anim_next_for(current_state: String) -> String:
 		"swim_stroke":
 			return "swim_idle"
 		"walk_neutral":
-			return "walk_cycle"
+			return "walk_loop"
 		"spin_start":
 			return "spin_fast"
 		"spin_water":
@@ -384,7 +384,7 @@ static func _is_footstep_frame (frame: int, anim_name: String) -> bool:
 	match anim_name:
 		"walk_neutral":
 			valid_frames = [2, 6]
-		"walk_cycle":
+		"walk_loop":
 			valid_frames = [1, 4]
 		_:
 			# Not a walk animation.
