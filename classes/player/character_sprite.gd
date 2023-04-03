@@ -237,8 +237,10 @@ func _anim_from_new_state(
 				# Underwater spin animation should skip fast phase.
 				slow_spin_timer = 0
 				return "spin_water"
+			parent.S.CROUCH:
+				return "crouch_start"
 			parent.S.HURT:
-				return "hurt"
+				return "hurt_start"
 			_:
 				# Swimming overrides all other states.
 				return "swim_idle"

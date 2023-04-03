@@ -411,7 +411,7 @@ func action_swim() -> void:
 			# Take an X velocity boost.
 			vel.x = min(abs(vel.x) + 1.5, 8) * sign(vel.x)
 		elif (
-			state == S.DIVE
+			state & (S.DIVE | S.CROUCH)
 			and Input.is_action_pressed("jump")
 			and _can_backflip()
 		):
