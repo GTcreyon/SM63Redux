@@ -97,6 +97,11 @@ func _physics_process(_delta):
 					else:
 						# Not grounded. Revert any speed changes from walk anim.
 						speed_scale = 1
+					
+					# Reset to neutral after reading a sign
+					if parent.sign_frames == 0 and animation == "back":
+						trigger_anim("walk_neutral")
+					
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
 					var flip_ending = parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY

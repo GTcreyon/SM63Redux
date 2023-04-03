@@ -51,12 +51,13 @@ func _begin_animation(_player):
 	# Set player to center gradually
 	_player.read_pos_x = global_position.x
 	
-	# Give player slide-down animation
-	if not begin_pound:
-		_player.switch_anim("front")
-	else:
-		# TODO: non-fall pound animation may be best?
-		_player.switch_anim("pound_fall")
+	# TODO: Fix for new player sprite system
+#	# Give player slide-down animation
+#	if not begin_pound:
+#		_player.switch_anim("front")
+#	else:
+#		# TODO: non-fall pound animation may be best?
+#		_player.switch_anim("pound_fall")
 	
 	_player.sprite.rotation = 0 # Keeps player from turning sideways
 	_player.voice.volume_db = -INF # Keeps player from making dive sounds

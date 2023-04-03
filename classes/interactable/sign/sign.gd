@@ -23,4 +23,3 @@ func _state_check(body) -> bool:
 func _interact_with(body):
 	._interact_with(body)
 	sfx_open.play()
-	body.switch_anim("back")
