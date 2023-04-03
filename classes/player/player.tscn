@@ -1,4 +1,4 @@
-[gd_scene load_steps=142 format=2]
+[gd_scene load_steps=143 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -185,6 +185,10 @@ region = Rect2( 48, 96, 48, 48 )
 [sub_resource type="AtlasTexture" id=85]
 atlas = ExtResource( 8 )
 region = Rect2( 96, 96, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=173]
+atlas = ExtResource( 8 )
+region = Rect2( 240, 96, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=125]
 atlas = ExtResource( 8 )
@@ -490,6 +494,11 @@ animations = [ {
 "name": "jump_double",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 173 ) ],
+"loop": true,
+"name": "land",
+"speed": 10.0
+}, {
 "frames": [ SubResource( 125 ), SubResource( 126 ) ],
 "loop": true,
 "name": "pound_fall",
@@ -690,7 +699,7 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "hurt_loop"
+animation = "land"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]

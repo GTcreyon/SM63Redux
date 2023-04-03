@@ -318,7 +318,7 @@ func player_physics():
 	else:
 		if !swimming:
 			airborne_anim()
-		if Input.is_action_pressed("left") == Input.is_action_pressed("right"):
+		if get_walk_direction() == 0:
 			vel.x = resist(vel.x, 0, 1.001) # Air decel
 	
 	action_spin()
@@ -439,7 +439,7 @@ const WALL_BOUNCE = 0.19
 func wall_stop() -> void:
 	if is_on_wall():
 		if int(vel.x) != 0:
-			if int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) != sign(int(vel.x)):
+			if get_walk_direction() != sign(int(vel.x)):
 				vel.x = -vel.x * WALL_BOUNCE # Bounce off a wall when not intentionally pushing into it
 			else:
 				vel.x = 0 # Cancel X velocity when intentionally pushing into a wall
@@ -660,10 +660,8 @@ const WALK_ACCEL: float = 1.1 * FPS_MOD
 const AIR_ACCEL: float = 5.0 * FPS_MOD # Functions differently to WALK_ACCEL
 const AIR_SPEED_CAP: float = 20.0 * FPS_MOD
 func player_control_x() -> void:
-	var i_right = Input.is_action_pressed("right")
-	var i_left = Input.is_action_pressed("left")
-	if i_left != i_right:
-		var dir = int(i_right) - int(i_left)
+	var dir = get_walk_direction()
+	if dir != 0:
 		if pound_state != Pound.SPIN and (state != S.CROUCH or crouch_resetting):
 			if (
 				state & (
@@ -689,6 +687,12 @@ func player_control_x() -> void:
 					vel.x += core_vel / (2 / FPS_MOD)
 				else:
 					vel.x += core_vel
+
+
+func get_walk_direction() -> int:
+	var i_right = Input.is_action_pressed("right")
+	var i_left = Input.is_action_pressed("left")
+	return int(i_right) - int(i_left)
 
 
 const TRIPLE_FLIP_TIME: int = 54
@@ -791,7 +795,7 @@ func backflip_spin_anim() -> void:
 func _can_backflip() -> bool:
 	return (
 		(
-			int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
+			get_walk_direction()
 		) == -facing_direction
 		or state == S.CROUCH
 	)
@@ -918,7 +922,7 @@ func water_resistance(fall_adjust) -> float:
 	fall_adjust = resist(fall_adjust, 0, 1.001)
 	
 	vel.x = resist(vel.x, 0, 1.001)
-	if Input.is_action_pressed("left") == Input.is_action_pressed("right") or state == S.DIVE:
+	if get_walk_direction() == 0 or state == S.DIVE:
 		vel.x = resist(vel.x, 0, 1.001)
 		
 	return fall_adjust

@@ -64,7 +64,7 @@ func _physics_process(_delta):
 					# Update neutral state.
 					trigger_anim(_state_neutral(last_state, last_swimming))
 						
-					if parent.grounded:
+					if parent.grounded and animation != "land":
 						# Doing walk animation.
 						# Set walk speed from parent velocity.
 						if int(parent.vel.x) == 0:
@@ -94,13 +94,14 @@ func _physics_process(_delta):
 						
 						# Save current anim frame to check against next frame.
 						last_frame = frame
+						# Reset to neutral after reading a sign
+						if parent.sign_frames == 0 and animation == "back":
+							trigger_anim("walk_neutral")
 					else:
 						# Not grounded. Revert any speed changes from walk anim.
 						speed_scale = 1
 					
-					# Reset to neutral after reading a sign
-					if parent.sign_frames == 0 and animation == "back":
-						trigger_anim("walk_neutral")
+					
 					
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
@@ -319,6 +320,8 @@ func _anim_next_for(current_state: String) -> String:
 			return "spin_fast"
 		"spin_water":
 			return "spin_fast"
+		"land":
+			return "walk_neutral"
 		_:
 			return NO_ANIM_CHANGE
 
@@ -331,15 +334,17 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 	# (This function is only called on land, right?)
 	state_changed = state_changed or old_swimming
 	
-	if (
+	if parent.grounded and !last_grounded:
 		# Just hit the ground
-		parent.grounded and !last_grounded
-	) or (
-		# Entered neutral state while grounded
-		parent.grounded and state_changed
-	):
-		# Just landed.
-		return "walk_neutral" #"landed"
+		if parent.get_walk_direction() == 0:
+			# Just landed.
+			return "land"
+		else:
+			# Don't overwrite walking animation if moving.
+			return "walk_neutral"
+	elif parent.grounded and state_changed:
+		# Return to normal from state change
+		return "walk_neutral"
 	else:
 		# Store whether a double jump animation is in progress
 		var double_jump = parent.double_jump_state == 2
