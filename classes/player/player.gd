@@ -399,7 +399,6 @@ func action_swim() -> void:
 		# Just jumped.
 		if state == S.NEUTRAL:
 			# State is neutral. Begin upward stroke.
-			switch_anim("swim")
 			vel.y = min(-4.25, vel.y)
 			swim_delay = true
 		elif state == S.SPIN:
@@ -511,7 +510,6 @@ func action_pound() -> void:
 			):
 				switch_state(S.POUND)
 				pound_state = Pound.SPIN
-				switch_anim("flip")
 				body_rotation = 0
 				pound_spin_frames = 0
 				pound_spin_sfx.play()
@@ -540,7 +538,6 @@ func action_spin() -> void:
 	):
 		# begin spin
 		switch_state(S.SPIN)
-		switch_anim("spin")
 		# switch_state stops spin_sfx; always play it again after state switch.
 		if swimming:
 			play_sfx("spin", "water")
@@ -808,7 +805,6 @@ func action_backflip() -> void:
 	dive_resetting = false
 	crouch_resetting = false
 	backflip_flip_frames = 0
-	switch_anim("jump")
 	frontflip_direction = facing_direction
 
 
@@ -816,15 +812,11 @@ func action_rollout() -> void:
 	off_ground()
 	switch_state(S.ROLLOUT)
 	vel.y = min(-JUMP_VEL_1/1.5, vel.y)
-	switch_anim("jump")
 	frontflip_direction = facing_direction
 
 
 func coyote_behaviour() -> void:
 	double_anim_cancel = false
-	
-	if state == S.NEUTRAL:
-		switch_anim("walk")
 	
 	# warning-ignore:narrowing_conversion
 	double_jump_frames = max(double_jump_frames - 1, 0)
@@ -971,29 +963,10 @@ func airborne_anim() -> void:
 		if triple_flip_frames > 3:
 			if current_nozzle == Singleton.Nozzles.NONE:
 				set_rotation_origin(facing_direction, TRIPLE_JUMP_ORIGIN_OFFSET_FAST)
-				if abs(body_rotation) < 12:
-					switch_anim("flip")
-				else:
-					switch_anim("fall")
 			else:
 				set_rotation_origin(facing_direction, TRIPLE_JUMP_ORIGIN_OFFSET)
-				if abs(body_rotation) < 6:
-					switch_anim("flip")
-				else:
-					switch_anim("fall")
 		else:
-			switch_anim("jump_double")
 			set_rotation_origin(facing_direction, TRIPLE_JUMP_ORIGIN_OFFSET_START)
-	elif state == S.NEUTRAL:
-		if vel.y > 0:
-			switch_anim("fall")
-		else:
-			if double_jump_state == 2 and !double_anim_cancel:
-				switch_anim("jump_double")
-			else:
-				switch_anim("jump")
-	elif state == S.POUND and pound_state == Pound.FALL:
-		switch_anim("pound_fall")
 	elif state == S.DIVE:
 		var target = atan2(vel.y, vel.x) + PI / 2 * (1 - facing_direction)
 		body_rotation = lerp_angle(body_rotation, target, 0.5)
@@ -1006,7 +979,6 @@ func manage_pound_recover() -> void:
 	if state == S.POUND:
 		if pound_land_frames == 12: # just hit ground
 			pound_state = Pound.LAND
-			switch_anim("flip")
 			
 			# Dispatch star effect
 			var fx = ground_pound_effect.instance()
@@ -1129,7 +1101,6 @@ func action_dive():
 		if !swimming and coyote_frames > 0 and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
 			off_ground()
 			switch_state(S.ROLLOUT)
-			switch_anim("jump")
 			frontflip_direction = facing_direction
 			vel.y = min(-JUMP_VEL_1/1.5, vel.y)
 			double_jump_state = 0
@@ -1264,9 +1235,6 @@ func switch_fludd():
 	if current_nozzle == 4:
 		current_nozzle = 0
 	if current_nozzle != save_nozzle:
-		# lazy way to refresh fludd anim
-		var anim = sprite.animation.replace("_fludd", "")
-		switch_anim(anim)
 		fludd_strain = false
 		switch_sfx.play()
 
@@ -1313,11 +1281,9 @@ func locked_behaviour():
 	if read_pos_x != INF:
 		global_position.x = read_pos_x + (global_position.x - read_pos_x) * 0.75
 	if collect_pos_final != Vector2.INF:
-		switch_anim("spin")
 		position = collect_pos_init + sin(min(collect_frames / 230.0, 1) * PI / 2) * (collect_pos_final - collect_pos_init)
 		collect_frames += 1
 		if collect_frames >= 230:
-			switch_anim("shine")
 			if collect_frames >= 310:
 				$"/root/Singleton/WindowWarp".warp(Vector2(), "res://scenes/title/title.tscn", 40)
 
@@ -1356,27 +1322,6 @@ func switch_state(new_state):
 	spin_sfx.stop()
 	pound_state = Pound.NONE
 	clear_rotation_origin()
-
-
-func switch_anim(new_anim):
-	return
-	var fludd_anim
-	var anim
-	if new_anim == "fall":
-		last_step = 1 # ensures that the step sound will be made when hitting the ground
-	anim = new_anim
-	
-	if current_nozzle != Singleton.Nozzles.NONE:
-		fludd_anim = new_anim + "_fludd"
-		if sprite.frames.has_animation(fludd_anim): # ensures the belt animation exists
-			anim = fludd_anim
-		else:
-			anim = new_anim
-			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
-	
-		fludd_sprite.switch_nozzle(current_nozzle)
-	
-	sprite.animation = anim
 
 
 func take_damage(amount):
