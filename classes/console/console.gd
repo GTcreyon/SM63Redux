@@ -93,14 +93,17 @@ func run_command(cmd: String):
 					Singleton.log_msg("Set HP to %d." % val)
 			"designer", "ld":
 				Singleton.log_msg("Entered Level Designer.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			"menu":
 				Singleton.log_msg("Warped to menu.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/title/main_menu/main_menu.tscn")
 			"title":
 				Singleton.log_msg("Warped to title.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/title/title.tscn")
 			"vps":

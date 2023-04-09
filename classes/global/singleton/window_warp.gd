@@ -1,5 +1,5 @@
+class_name WindowWarp
 extends Polygon2D
-
 
 
 var in_time = 25
