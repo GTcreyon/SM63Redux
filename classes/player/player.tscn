@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=2]
+[gd_scene load_steps=145 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -146,15 +146,15 @@ region = Rect2( 0, 48, 48, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 48, 48, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=75]
+[sub_resource type="AtlasTexture" id=182]
 atlas = ExtResource( 8 )
 region = Rect2( 96, 48, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=76]
+[sub_resource type="AtlasTexture" id=183]
 atlas = ExtResource( 8 )
 region = Rect2( 144, 48, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=77]
+[sub_resource type="AtlasTexture" id=184]
 atlas = ExtResource( 8 )
 region = Rect2( 192, 48, 48, 48 )
 
@@ -162,15 +162,15 @@ region = Rect2( 192, 48, 48, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 240, 48, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=79]
+[sub_resource type="AtlasTexture" id=185]
 atlas = ExtResource( 8 )
 region = Rect2( 288, 48, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=80]
+[sub_resource type="AtlasTexture" id=186]
 atlas = ExtResource( 8 )
 region = Rect2( 336, 48, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=81]
+[sub_resource type="AtlasTexture" id=187]
 atlas = ExtResource( 8 )
 region = Rect2( 384, 48, 48, 48 )
 
@@ -182,13 +182,17 @@ region = Rect2( 432, 48, 48, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 0, 96, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=84]
+[sub_resource type="AtlasTexture" id=188]
 atlas = ExtResource( 8 )
 region = Rect2( 48, 96, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=85]
+[sub_resource type="AtlasTexture" id=189]
 atlas = ExtResource( 8 )
 region = Rect2( 96, 96, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=181]
+atlas = ExtResource( 8 )
+region = Rect2( 48, 48, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=173]
 atlas = ExtResource( 8 )
@@ -488,19 +492,39 @@ animations = [ {
 "name": "hurt_start",
 "speed": 10.0
 }, {
-"frames": [ SubResource( 74 ), SubResource( 75 ), SubResource( 76 ), SubResource( 77 ) ],
-"loop": true,
-"name": "jump_a",
-"speed": 5.0
+"frames": [ SubResource( 74 ), SubResource( 182 ) ],
+"loop": false,
+"name": "jump_a_start",
+"speed": 20.0
 }, {
-"frames": [ SubResource( 78 ), SubResource( 79 ), SubResource( 80 ), SubResource( 81 ) ],
-"loop": true,
-"name": "jump_b",
-"speed": 5.0
+"frames": [ SubResource( 183 ), SubResource( 184 ) ],
+"loop": false,
+"name": "jump_a_trans",
+"speed": 15.0
 }, {
-"frames": [ SubResource( 82 ), SubResource( 83 ), SubResource( 84 ), SubResource( 85 ) ],
+"frames": [ SubResource( 78 ), SubResource( 185 ) ],
+"loop": false,
+"name": "jump_b_start",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 186 ), SubResource( 187 ) ],
+"loop": false,
+"name": "jump_b_trans",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 82 ), SubResource( 83 ) ],
+"loop": false,
+"name": "jump_double_start",
+"speed": 20.0
+}, {
+"frames": [ SubResource( 188 ), SubResource( 189 ) ],
+"loop": false,
+"name": "jump_double_trans",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 181 ) ],
 "loop": true,
-"name": "jump_double",
+"name": "jump_static",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 173 ) ],
@@ -708,7 +732,7 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "dive_air"
+animation = "jump_double_trans"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]

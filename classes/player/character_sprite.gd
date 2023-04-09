@@ -22,13 +22,16 @@ var last_grounded: bool = true
 var last_flip_ending: bool = false # parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
 var last_pound_state: int = PlayerCharacter.Pound.SPIN
 var last_frame = 0 # Used mainly during walking animation
+
 var slow_spin_timer: float = 0 # Frames of progress through the slow spin
+var rng = RandomNumberGenerator.new()
 
 onready var parent: PlayerCharacter = $"../.."
 onready var dust = $"../../Dust"
 
 
 func _ready() -> void:
+	rng.seed = hash("2401")
 	playing = true
 	# Set up playing next animations when they exist.
 	connect("animation_finished", self, "trigger_next_anim")
@@ -67,6 +70,8 @@ func _physics_process(_delta):
 					# Update neutral state.
 					trigger_anim(_state_neutral(last_state, last_swimming))
 					
+					# This branch is active at any time that we are not suspended in water.
+					# This includes standing on the seabed.
 					if parent.swimming and parent.swim_input():
 						trigger_anim("swim_stroke")
 					else:
@@ -106,16 +111,14 @@ func _physics_process(_delta):
 						else:
 							# Not grounded. Revert any speed changes from walk anim.
 							speed_scale = 1
-					
-					
-					
+				
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
 					var flip_ending = parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
 
 					if flip_ending and !last_flip_ending:
 						# Just crossed the threshold. Switch to fall animation.
-						trigger_anim("fall") #"fall_loop")
+						trigger_anim("jump_double_trans")
 					
 					# Save this frame's flip progress for next frame.
 					last_flip_ending = flip_ending
@@ -267,9 +270,9 @@ func _anim_from_new_state(
 			parent.S.DIVE:
 				return "dive_start"
 			parent.S.BACKFLIP:
-				return "jump_a"
+				return "jump_static"
 			parent.S.ROLLOUT:
-				return "jump_a"
+				return "jump_static"
 			parent.S.POUND:
 				# Move sprite origin for nicer rotation animation
 				_set_rotation_origin(parent.facing_direction, POUND_ORIGIN_OFFSET)
@@ -301,32 +304,20 @@ func _anim_next_for(current_state: String) -> String:
 			return "walk_neutral" #"idle"
 		"hurt_start":
 			return "hurt_loop"
-		"jump_a_start":
-			return "jump_a_loop"
-		"jump_b_start":
-			return "jump_b_loop"
-		"jump_double_start":
-			return "jump_double_loop"
-		"fall_start":
-			return "fall_loop"
-		"fall_start_double":
-			return "fall_loop"
-		"landed":
-			return "walk_neutral" #"idle"
+		"jump_a_trans", "jump_b_trans", "jump_double_trans":
+			return "fall"
+		"landed", "land":
+			return "walk_neutral"
 		"stomp_high":
-			return "jump_double_loop"
+			return "jump_double_start"
 		"stomp_low":
-			return "jump_a_loop"
+			return "jump_a_start"
 		"swim_stroke":
 			return "swim_idle"
 		"walk_neutral":
 			return "walk_loop"
-		"spin_start":
+		"spin_start", "spin_water":
 			return "spin_fast"
-		"spin_water":
-			return "spin_fast"
-		"land":
-			return "walk_neutral"
 		_:
 			return NO_ANIM_CHANGE
 
@@ -366,10 +357,12 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 		):
 			# Trigger jump anims.
 			if double_jump:
-				return "jump_double"
+				return "jump_double_start"
 			else:
-				# TODO: jump_b variant
-				return "jump_a"
+				if rng.randf() < 0.5:
+					return "jump_a_start"
+				else:
+					return "jump_b_start"
 		# If velocity is downward and should change state, begin falling.
 		elif (
 			# Velocity was upward, just became downward
@@ -383,9 +376,15 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 		):
 			# Just began falling. Begin that animation.
 			if double_jump:
-				return "fall" #"fall_start_double"
+				return "jump_double_trans"
 			else:
-				return "fall" #"fall_start"
+				match animation:
+					"jump_a_start":
+						return "jump_a_trans"
+					"jump_b_start":
+						return "jump_b_trans"
+					_:
+						return "fall"
 		
 		# No jump has occurred, neither has any new landing.
 		# Hence--no animation change.
