@@ -280,7 +280,7 @@ func _anim_from_new_state(
 				push_error(
 					"Changing player %s's animation state to unimplemented value %s." % [1, new_state]
 				)
-
+				
 				# Don't change sprite. What would we change it to?
 				return NO_ANIM_CHANGE
 
