@@ -191,9 +191,11 @@ func _physics_process(_delta):
 			
 			# Play step sound if we just hit the ground.
 			# (Except in pound state--that has its own hit-ground sound!)
-			if parent.grounded and !last_grounded \
-				and parent.state != parent.S.POUND \
-			:
+			if (
+				parent.grounded
+				and !last_grounded
+				and parent.state != parent.S.POUND
+			):
 				parent.step_sound()
 	
 	# These next things should happen no matter if the animation is new or old.
