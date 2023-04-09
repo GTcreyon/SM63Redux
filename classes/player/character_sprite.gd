@@ -361,6 +361,8 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 			# Entered neutral state while velocity is upward
 			parent.vel.y < 0 and state_changed
 		):
+			if animation == "fall" or animation.begins_with("jump_"):
+				return animation
 			# Trigger jump anims.
 			if double_jump:
 				return "jump_double_start"
