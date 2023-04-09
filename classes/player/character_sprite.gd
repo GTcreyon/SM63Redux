@@ -340,7 +340,7 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 		else:
 			# Don't overwrite walking animation if moving.
 			return "walk_neutral"
-	elif parent.grounded and state_changed:
+	elif parent.grounded and state_changed and parent.vel.y >= 0:
 		# Return to normal from state change
 		return "walk_neutral"
 	else:
