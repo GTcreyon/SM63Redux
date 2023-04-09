@@ -481,6 +481,7 @@ func action_pound() -> void:
 			body_rotation = 0
 			
 			pound_state = Pound.FALL
+			pound_land_frames = 15
 			vel.y = 8
 
 
@@ -528,11 +529,7 @@ func action_spin() -> void:
 			# Tick spin state
 			spin_frames -= 1
 		elif !Input.is_action_pressed("spin"):
-			# End spin
-			switch_state(S.NEUTRAL)
-			if swimming:
-				play_sfx("spin_end", "water")
-			
+			end_spin()
 	if (
 		Input.is_action_pressed("spin")
 		and (
@@ -556,6 +553,12 @@ func action_spin() -> void:
 		spin_frames = SPIN_TIME
 
 
+func end_spin():
+	switch_state(S.NEUTRAL)
+	if !swimming:
+		switch_anim("walk")
+
+
 var _fludd_spraying: bool = false
 var _fludd_spraying_rising: bool = false
 # If _physics_process() never calls player_physics() but checks fludd_spraying(),
@@ -577,6 +580,7 @@ func fludd_spraying_rising(allow_stale: bool = false) -> bool:
 		assert(!fludd_stale)
 	return _fludd_spraying_rising
 
+
 var rocket_charge: int = 0
 func fludd_control():
 	fludd_stale = false
@@ -587,6 +591,7 @@ func fludd_control():
 		fludd_power = 100 # TODO: multi fludd
 	elif !Input.is_action_pressed("fludd") and current_nozzle != Singleton.Nozzles.HOVER:
 		fludd_power = min(fludd_power + FPS_MOD, 100)
+	
 	if (
 		Input.is_action_pressed("fludd")
 		and fludd_power > 0
@@ -657,8 +662,13 @@ func fludd_control():
 						water = max(water - 5, 0)
 						fludd_power = 0
 	else:
-		fludd_strain = false
-		rocket_charge = 0
+		end_fludd()
+
+
+# Ends fludd and resets charge
+func end_fludd():
+	fludd_strain = false
+	rocket_charge = 0
 
 
 const WALK_ACCEL: float = 1.1 * FPS_MOD
@@ -934,8 +944,6 @@ func water_resistance(fall_adjust) -> float:
 
 
 func air_resistance(fall_adjust) -> float:
-	if state == S.POUND and pound_state == Pound.FALL:
-		pound_land_frames = 15
 	if fall_adjust > 0:
 		fall_adjust = resist(fall_adjust, ((GRAV/FPS_MOD)/5), 1.05)
 	fall_adjust = resist(fall_adjust, 0, 1.001)
@@ -1312,6 +1320,13 @@ const STAND_BOX_EXTENTS = Vector2(6, 14.5)
 const DIVE_BOX_POS = Vector2(0, 10)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
 func switch_state(new_state):
+	# If spin just ended, adjust SFX accordingly.
+	if state == S.SPIN:
+		spin_sfx.stop()
+		if swimming:
+			play_sfx("spin_end", "water")
+	
+	# Update to new state.
 	state = new_state
 	body_rotation = 0
 	match state:
@@ -1326,6 +1341,8 @@ func switch_state(new_state):
 			hitbox.position = STAND_BOX_POS
 			hitbox.shape.extents = STAND_BOX_EXTENTS
 			camera.smoothing_speed = 5
+			clear_rotation_origin()
+
 	
 	# On any state change, reset the following things:
 	spin_sfx.stop()
@@ -1440,3 +1457,12 @@ func set_rotation_origin(facing_direction: int, origin: Vector2):
 
 func clear_rotation_origin():
 	set_rotation_origin(1, Vector2.ZERO)
+
+
+# Called when interacting with signs and toads
+func start_interaction():
+	# Ends spinning if active
+	if state == S.SPIN:
+		end_spin()
+	
+	end_fludd()

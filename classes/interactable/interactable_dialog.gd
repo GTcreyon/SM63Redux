@@ -28,4 +28,10 @@ func _interact_with(body):
 	if back_sprite:
 		body.sprite.trigger_anim("back")
 	
+	# Disable any active sfx on the player
+	body.start_interaction()
 	dialog.load_lines(lines)
+
+
+func _state_check(body) -> bool:
+	return (body.state == body.S.NEUTRAL or body.state == body.S.SPIN) and body.sign_frames <= 0

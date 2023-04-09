@@ -93,6 +93,17 @@ func _physics_step():
 	
 	if inside_check:
 		_hurtbox_check()
+	
+	_hitbox_check()
+
+
+# Reference to the player's body. Set from on_Hitbox_body_entered/on_Hitbox_body_exited
+var player_body
+
+# Damages the player if player_body isn't null
+func _hitbox_check():
+	if player_body and !struck and !stomped:
+		player_body.take_damage_shove(1, sign(player_body.position.x - position.x))
 
 
 func _hurtbox_check():
@@ -107,6 +118,7 @@ func _connect_signals():
 	_connect_node_signal_if_exists(hurtbox_stomp, "area_entered", self, "_on_HurtboxStomp_area_entered")
 	_connect_node_signal_if_exists(hurtbox_strike, "body_entered", self, "_on_HurtboxStrike_body_entered")
 	_connect_node_signal_if_exists(hitbox, "body_entered", self, "_on_Hitbox_body_entered")
+	_connect_node_signal_if_exists(hitbox, "body_exited", self, "_on_Hitbox_body_exited")
 
 
 func set_disabled(val):
@@ -149,8 +161,12 @@ func _on_HurtboxStrike_body_entered(body):
 
 
 func _on_Hitbox_body_entered(body):
-	if !struck and !stomped:
-		body.take_damage_shove(1, sign(body.position.x - position.x))
+	player_body = body # Assign to colliding body
+	_hitbox_check() # Attempt to damage the player immediately
+
+
+func _on_Hitbox_body_exited(_body):
+	player_body = null # Unassign player body reference
 
 
 # Check if the colliding body can strike this enemy
