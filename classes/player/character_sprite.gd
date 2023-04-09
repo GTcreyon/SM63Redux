@@ -115,7 +115,7 @@ func _physics_process(_delta):
 				parent.S.TRIPLE_JUMP:
 					# Detect if triple jump is mostly over.
 					var flip_ending = parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
-
+					
 					if flip_ending and !last_flip_ending:
 						# Just crossed the threshold. Switch to fall animation.
 						trigger_anim("jump_double_trans")
@@ -125,7 +125,7 @@ func _physics_process(_delta):
 				parent.S.DIVE:
 					# Offset sprite position down.
 					position.y = 7
-
+					
 					if parent.dive_resetting and parent.dive_reset_frames > 0:
 						# TODO: Update this thing.
 						frame = 0
@@ -349,8 +349,12 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 		double_jump = double_jump and !parent.double_anim_cancel
 		# Triple jump is handled in its own state, not here.
 		
-		# If velocity is upward and should change state, do jump.
-		if (
+		if parent.bouncing:
+			if double_jump:
+				return "stomp_high"
+			else:
+				return "stomp_low"
+		elif ( # If velocity is upward and should change state, do jump.
 			# Velocity just became upward
 			parent.vel.y < 0 and last_vel.y >= 0
 		) or (
