@@ -205,10 +205,10 @@ func _physics_process(_delta):
 		frame = _get_flip_frame()
 	
 	# Enable/disable walk dust as appropriate.
-	if abs(parent.vel.x) < 2:
-		dust.emitting = false
-	else:
+	if abs(parent.vel.x) > 2 and parent.state != parent.S.SPIN and !parent.swimming:
 		dust.emitting = parent.grounded
+	else:
+		dust.emitting = false
 	# Save this frame's state to check against next time.
 	last_state = parent.state
 	last_swimming = parent.swimming
