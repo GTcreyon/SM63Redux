@@ -127,7 +127,7 @@ func _process(_delta) -> void:
 		offset.x = -offset.x
 	
 	if player_body.state == player_body.S.DIVE:
-		rotation = PI / 2
+		rotation = PI / 2 * player_body.facing_direction
 	else:
 		rotation = 0
 	
