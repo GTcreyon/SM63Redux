@@ -58,48 +58,54 @@ func _physics_process(_delta):
 			match parent.state:
 				parent.S.SPIN:
 					spin_logic()
+				parent.S.NEUTRAL:
+					if parent.swim_input():
+						trigger_anim("swim_stroke")
 		else:
 			match parent.state:
 				parent.S.NEUTRAL:
 					# Update neutral state.
 					trigger_anim(_state_neutral(last_state, last_swimming))
-						
-					if parent.grounded and animation != "land":
-						# Doing walk animation.
-						# Set walk speed from parent velocity.
-						if int(parent.vel.x) == 0:
-							# Not moving. Set animation stopped.
-							frame = 0
-							speed_scale = 0
-							# Play step sound when appropriate.
-							if last_frame == 1:
-								parent.step_sound()
-							# Ensure we end in the right animation.
-							if animation == "walk_loop":
+					
+					if parent.swimming and parent.swim_input():
+						trigger_anim("swim_stroke")
+					else:
+						if parent.grounded and animation != "land":
+							# Doing walk animation.
+							# Set walk speed from parent velocity.
+							if int(parent.vel.x) == 0:
+								# Not moving. Set animation stopped.
+								frame = 0
+								speed_scale = 0
+								# Play step sound when appropriate.
+								if last_frame == 1:
+									parent.step_sound()
+								# Ensure we end in the right animation.
+								if animation == "walk_loop":
+									trigger_anim("walk_neutral")
+							else:
+								# If we were stopped, jump to first frame of anim.
+								if speed_scale == 0:
+									frame = 1
+								
+								# Set speed from velocity.
+								speed_scale = min(abs(parent.vel.x / 3.43), 2)
+								
+								# Play step sound on certain frames.
+								if (
+									last_frame != frame
+									and _is_footstep_frame(frame, animation)
+								):
+									parent.step_sound()
+							
+							# Save current anim frame to check against next frame.
+							last_frame = frame
+							# Reset to neutral after reading a sign
+							if parent.sign_frames == 0 and animation == "back":
 								trigger_anim("walk_neutral")
 						else:
-							# If we were stopped, jump to first frame of anim.
-							if speed_scale == 0:
-								frame = 1
-							
-							# Set speed from velocity.
-							speed_scale = min(abs(parent.vel.x / 3.43), 2)
-							
-							# Play step sound on certain frames.
-							if (
-								last_frame != frame
-								and _is_footstep_frame(frame, animation)
-							):
-								parent.step_sound()
-						
-						# Save current anim frame to check against next frame.
-						last_frame = frame
-						# Reset to neutral after reading a sign
-						if parent.sign_frames == 0 and animation == "back":
-							trigger_anim("walk_neutral")
-					else:
-						# Not grounded. Revert any speed changes from walk anim.
-						speed_scale = 1
+							# Not grounded. Revert any speed changes from walk anim.
+							speed_scale = 1
 					
 					
 					
@@ -161,7 +167,7 @@ func _physics_process(_delta):
 						# TODO: Should be possible to move the spin itself into this script.
 						# All body_rotation does in player.gd is set FLUDD spray angle, and you
 						# can't FLUDD while beginning a pound anyway.
-
+						
 						# Offset origin's X less at the start of the spin. (Looks better!?)
 						position.x *= parent.pound_spin_factor
 						
@@ -236,9 +242,6 @@ func _anim_from_new_state(
 ) -> String:
 	if swimming:
 		match new_state:
-			# TODO: Swim stroke anim.
-			parent.S.NEUTRAL:
-				return "swim_idle"
 			parent.S.SPIN:
 				# Underwater spin animation should skip fast phase.
 				slow_spin_timer = 0
@@ -248,6 +251,8 @@ func _anim_from_new_state(
 			parent.S.HURT:
 				return "hurt_start"
 			_:
+				if animation == "swim_stroke":
+					return "swim_stroke"
 				# Swimming overrides all other states.
 				return "swim_idle"
 	else:

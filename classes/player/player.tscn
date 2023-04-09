@@ -561,12 +561,12 @@ animations = [ {
 "frames": [ SubResource( 91 ), SubResource( 92 ), SubResource( 93 ), SubResource( 94 ), SubResource( 95 ), SubResource( 96 ) ],
 "loop": true,
 "name": "swim_idle",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [ SubResource( 97 ), SubResource( 98 ), SubResource( 99 ), SubResource( 100 ), SubResource( 101 ) ],
 "loop": false,
 "name": "swim_stroke",
-"speed": 5.0
+"speed": 15.0
 }, {
 "frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ), SubResource( 57 ), SubResource( 58 ), SubResource( 59 ) ],
 "loop": true,

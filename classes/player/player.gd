@@ -395,7 +395,7 @@ func action_bounce() -> void:
 
 var swim_delay: bool = false
 func action_swim() -> void:
-	if Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi"):
+	if swim_input():
 		# Just jumped.
 		if state == S.NEUTRAL:
 			# State is neutral. Begin upward stroke.
@@ -421,6 +421,11 @@ func action_swim() -> void:
 	# Sink faster if down is held
 	if Input.is_action_pressed("down"):
 		vel.y += 0.125
+
+
+# Returns true if a swim input has been pressed
+func swim_input() -> bool:
+	return Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi")
 
 
 func adjust_swim_x() -> void:
