@@ -65,6 +65,7 @@ func _physics_step():
 			mirror = vel.x < 0
 	
 	_hurtbox_check()
+	_hitbox_check()
 	
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide(vel * 60, Vector2.UP)
