@@ -1,4 +1,4 @@
-[gd_scene load_steps=143 format=2]
+[gd_scene load_steps=144 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -50,6 +50,14 @@ region = Rect2( 48, 288, 48, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 96, 288, 48, 48 )
 
+[sub_resource type="AtlasTexture" id=176]
+atlas = ExtResource( 8 )
+region = Rect2( 240, 240, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=177]
+atlas = ExtResource( 8 )
+region = Rect2( 288, 240, 48, 48 )
+
 [sub_resource type="AtlasTexture" id=111]
 atlas = ExtResource( 8 )
 region = Rect2( 336, 240, 48, 48 )
@@ -70,21 +78,17 @@ region = Rect2( 336, 144, 48, 48 )
 atlas = ExtResource( 8 )
 region = Rect2( 96, 240, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=107]
+[sub_resource type="AtlasTexture" id=178]
+atlas = ExtResource( 8 )
+region = Rect2( 96, 240, 48, 48 )
+
+[sub_resource type="AtlasTexture" id=179]
 atlas = ExtResource( 8 )
 region = Rect2( 144, 240, 48, 48 )
 
-[sub_resource type="AtlasTexture" id=108]
+[sub_resource type="AtlasTexture" id=180]
 atlas = ExtResource( 8 )
 region = Rect2( 192, 240, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=109]
-atlas = ExtResource( 8 )
-region = Rect2( 240, 240, 48, 48 )
-
-[sub_resource type="AtlasTexture" id=110]
-atlas = ExtResource( 8 )
-region = Rect2( 288, 240, 48, 48 )
 
 [sub_resource type="AtlasTexture" id=119]
 atlas = ExtResource( 8 )
@@ -439,6 +443,11 @@ animations = [ {
 "name": "crouch_start",
 "speed": 15.0
 }, {
+"frames": [ SubResource( 176 ), SubResource( 177 ) ],
+"loop": true,
+"name": "dive_air",
+"speed": 10.0
+}, {
 "frames": [ SubResource( 111 ), SubResource( 112 ) ],
 "loop": true,
 "name": "dive_ground",
@@ -449,10 +458,10 @@ animations = [ {
 "name": "dive_reset",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 106 ), SubResource( 107 ), SubResource( 108 ), SubResource( 109 ), SubResource( 110 ) ],
+"frames": [ SubResource( 106 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ) ],
 "loop": true,
 "name": "dive_start",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ SubResource( 119 ), SubResource( 120 ) ],
 "loop": true,
@@ -699,7 +708,7 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "land"
+animation = "dive_air"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]
