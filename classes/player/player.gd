@@ -555,8 +555,6 @@ func action_spin() -> void:
 
 func end_spin():
 	switch_state(S.NEUTRAL)
-	if !swimming:
-		switch_anim("walk")
 
 
 var _fludd_spraying: bool = false
