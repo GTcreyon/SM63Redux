@@ -14,6 +14,8 @@ const POUND_SPIN_RISE_TIME = 15
 
 const SLIDE_MAX_SPEED: float = 5.0
 
+const DIVE_POSITION_OFFSET_Y = 7
+
 # Keep in sync with parent's default values
 var last_state: int = PlayerCharacter.S.NEUTRAL
 var last_swimming: bool = false
@@ -55,6 +57,10 @@ func _physics_process(_delta):
 		# Begin new animation.
 		trigger_anim(_anim_from_new_state(parent.state, last_state,
 			parent.swimming, last_swimming))
+		
+		# Apply per-state position offsets immediately.
+		if parent.state == parent.S.DIVE:
+			position.y = DIVE_POSITION_OFFSET_Y
 	else:
 		# Some states have special behavior per-frame. Handle that.
 		if parent.swimming and !parent.grounded:
@@ -124,7 +130,7 @@ func _physics_process(_delta):
 					last_flip_ending = flip_ending
 				parent.S.DIVE:
 					# Offset sprite position down.
-					position.y = 7
+					position.y = DIVE_POSITION_OFFSET_Y
 					
 					if parent.dive_resetting and parent.dive_reset_frames > 0:
 						# TODO: Update this thing.
