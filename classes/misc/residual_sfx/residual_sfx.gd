@@ -29,11 +29,12 @@ static func new_from_existing (
 	destroy_on_finished = true
 ):
 	# VALIDATE: Is the passed node an audio source?
-	assert(
-		sfx is AudioStreamPlayer or sfx is AudioStreamPlayer2D \
-			or sfx is AudioStreamPlayer3D, # just for completeness
-		"Attempted to create a residual sound from a non-sound node."
-	)
+	if not (sfx is AudioStreamPlayer or sfx is AudioStreamPlayer2D \
+		or sfx is AudioStreamPlayer3D # So we can throw special error later
+	):
+		push_error("Attempted to create a residual sound from a non-sound node.")
+		return
+	
 	# VALIDATE: Is the passed audio source either 2D or positionless?
 	if sfx is AudioStreamPlayer3D:
 		push_error("""Created ResidualSFX from a 3D audio source.
