@@ -1,17 +1,24 @@
 extends AnimatedSprite
 # FLUDD pack visuals
 
+# These are to help make pose definitions more readable.
+const NO_X_FLIP = false
+const X_FLIP = true
+
+const NO_SYNC = false
+const SYNC = true
+
 # Commonly used poses.
 # (Named after the player facing direction they go with,
 # not the side of FLUDD facing the camera.)
-const POSE_FRONT = ["f", Vector2(0,-2), 0, false, false]
-const POSE_FRONT_RIGHT = ["fr", Vector2(-2,-2), 0, false, false]
-const POSE_RIGHT = ["r", Vector2(-8,-2), 0, false, false]
-const POSE_BACK_RIGHT = ["br", Vector2(-2,-2), 1, false, false]
-const POSE_BACK = ["b", Vector2(0,-2), 1, false, false]
-const POSE_BACK_LEFT = ["bl", Vector2(2,-2), 1, true, false]
-const POSE_LEFT = ["l", Vector2(8,-2), 1, true, false]
-const POSE_FRONT_LEFT = ["fl", Vector2(2,-2), 1, true, false]
+const POSE_FRONT = ["f", Vector2(0,-2), 0, NO_X_FLIP, NO_SYNC]
+const POSE_FRONT_RIGHT = ["fr", Vector2(-2,-2), 0, NO_X_FLIP, NO_SYNC]
+const POSE_RIGHT = ["r", Vector2(-8,-2), 0, NO_X_FLIP, NO_SYNC]
+const POSE_BACK_RIGHT = ["br", Vector2(-2,-2), 1, NO_X_FLIP, NO_SYNC]
+const POSE_BACK = ["b", Vector2(0,-2), 1, NO_X_FLIP, NO_SYNC]
+const POSE_BACK_LEFT = ["bl", Vector2(2,-2), 1, X_FLIP, NO_SYNC]
+const POSE_LEFT = ["l", Vector2(8,-2), 1, X_FLIP, NO_SYNC]
+const POSE_FRONT_LEFT = ["fl", Vector2(2,-2), 1, X_FLIP, NO_SYNC]
 
 const DEFAULT_POSE = POSE_FRONT_RIGHT
 
@@ -21,7 +28,7 @@ const POSE_FRAMES = {
 	"back": POSE_BACK,
 	"front": POSE_FRONT,
 	"spin_start": [
-		["spin_smear", Vector2.ZERO, 0, false, false],
+		["spin_smear", Vector2.ZERO, 0, NO_X_FLIP, NO_SYNC],
 		POSE_FRONT_RIGHT,
 		POSE_BACK_LEFT,
 		POSE_BACK_RIGHT
@@ -78,8 +85,11 @@ func _process(_delta) -> void:
 	
 	# Load animation.
 	animation = _nozzle + "_" + _pose_name(cur_pose)
+	# If pose is set to sync with player, copy player's current frame.
+	if _pose_sync_frames(cur_pose):
+		frame = player_sprite.frame
 	
-	# Load offset from the pose.
+	# Load sprite offset from the pose.
 	offset = _pose_offset(cur_pose)
 	
 	# Flip based on character orientation
@@ -195,5 +205,5 @@ func _pose_flip_x(pose: Array) -> bool:
 	return pose[3]
 
 
-func _pose_flip_y(pose: Array) -> bool:
+func _pose_sync_frames(pose: Array) -> bool:
 	return pose[4]
