@@ -60,7 +60,7 @@ const POSE_FRAMES = {
 	"back": ["b", Vector2(0, 0), 1, NO_X_FLIP, NO_SYNC],
 	"front": ["f", Vector2(0, 0), 0, NO_X_FLIP, NO_SYNC],
 	"spin_start": [
-		["spin_smear", Vector2.ZERO, 1, NO_X_FLIP, NO_SYNC],
+		["spin_smear", Vector2.ZERO, 0, NO_X_FLIP, NO_SYNC],
 		SPIN_FRONT_RIGHT,
 		SPIN_BACK_LEFT,
 		SPIN_FRONT_RIGHT
