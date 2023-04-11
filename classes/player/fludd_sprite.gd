@@ -17,17 +17,18 @@ const DEFAULT_POSE = POSE_FRONT_RIGHT
 
 # FLUDD's orientation is overridden for these player animations.
 # Each frame should have one array entry.
-# (NOTE: No reason to include the non-FLUDD variants, since FLUDD is
-# hidden when those are in use!)
 const POSE_FRAMES = {
-	"back_fludd": POSE_BACK,
-	"front_fludd": POSE_FRONT,
-	"spin_fast_fludd": [ # 3 frames
+	"back": POSE_BACK,
+	"front": POSE_FRONT,
+	"spin_start": [
+		["spin_smear", Vector2.ZERO, 0, false, false],
 		POSE_FRONT_RIGHT,
-		POSE_FRONT,
-		POSE_FRONT_LEFT
+		POSE_BACK_LEFT,
+		POSE_BACK_RIGHT
 	],
-	"spin_slow_fludd": [ # 8 frames, starts facing back, ccw rotation
+	"spin_water": POSE_FRONT_RIGHT,
+	"spin_fast": [ # 8 frames, starts facing back-right, ccw rotation
+		POSE_BACK_RIGHT,
 		POSE_BACK,
 		POSE_BACK_LEFT,
 		POSE_LEFT,
@@ -35,7 +36,16 @@ const POSE_FRAMES = {
 		POSE_FRONT,
 		POSE_FRONT_RIGHT,
 		POSE_RIGHT,
+	],
+	"spin_slow": [ # exact duplicate of spin_fast
 		POSE_BACK_RIGHT,
+		POSE_BACK,
+		POSE_BACK_LEFT,
+		POSE_LEFT,
+		POSE_FRONT_LEFT,
+		POSE_FRONT,
+		POSE_FRONT_RIGHT,
+		POSE_RIGHT,
 	],
 }
 const SPRAY_ORIGIN = Vector2(-9, 6)
