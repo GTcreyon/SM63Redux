@@ -12,7 +12,7 @@ extends EntityMirrorable
 # -	_hurt_stomp():
 # 		called when the enemy is stomped.
 #		The default behavior is just to play sfx_stomp, if it exists.
-# - _hurt_strike():
+# - _hurt_struck():
 # 		called when the enemy is struck, e.g. by the player's spin or dive.
 #		The default behavior is to play sfx_struck, if it exists, mark the
 #		enemy as having been struck (struck = true), then pop the enemy a bit
