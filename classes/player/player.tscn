@@ -1,4 +1,4 @@
-[gd_scene load_steps=156 format=2]
+[gd_scene load_steps=157 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -655,6 +655,10 @@ region = Rect2( 32, 0, 32, 32 )
 atlas = ExtResource( 12 )
 region = Rect2( 192, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=203]
+atlas = ExtResource( 12 )
+region = Rect2( 64, 0, 32, 32 )
+
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 12 )
 region = Rect2( 56, 0, 28, 30 )
@@ -710,7 +714,7 @@ animations = [ {
 "name": "hover_l",
 "speed": 5.0
 }, {
-"frames": [  ],
+"frames": [ SubResource( 203 ) ],
 "loop": true,
 "name": "hover_r",
 "speed": 5.0
@@ -821,9 +825,9 @@ script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]
 show_behind_parent = true
+z_index = 1
 frames = SubResource( 36 )
 animation = "hover_fr"
-offset = Vector2( -2, -2 )
 script = ExtResource( 19 )
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="CharacterGroup/CharacterSprite/Fludd"]

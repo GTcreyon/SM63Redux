@@ -11,51 +11,51 @@ const SYNC = true
 # Commonly used poses.
 # (Named after the player facing direction they go with,
 # not the side of FLUDD facing the camera.)
-const POSE_FRONT = ["f", Vector2(0,-2), 0, NO_X_FLIP, NO_SYNC]
-const POSE_FRONT_RIGHT = ["fr", Vector2(-2,-2), 0, NO_X_FLIP, NO_SYNC]
-const POSE_RIGHT = ["r", Vector2(-8,-2), 0, NO_X_FLIP, NO_SYNC]
-const POSE_BACK_RIGHT = ["br", Vector2(-2,-2), 1, NO_X_FLIP, NO_SYNC]
-const POSE_BACK = ["b", Vector2(0,-2), 1, NO_X_FLIP, NO_SYNC]
-const POSE_BACK_LEFT = ["bl", Vector2(2,-2), 1, X_FLIP, NO_SYNC]
-const POSE_LEFT = ["l", Vector2(8,-2), 1, X_FLIP, NO_SYNC]
-const POSE_FRONT_LEFT = ["fl", Vector2(2,-2), 1, X_FLIP, NO_SYNC]
+const SPIN_FRONT = ["f", Vector2(0, -1), 0, NO_X_FLIP, NO_SYNC]
+const SPIN_FRONT_RIGHT = ["fr", Vector2(-5, -1), 0, NO_X_FLIP, NO_SYNC]
+const SPIN_RIGHT = ["r", Vector2(-8, -1), 0, NO_X_FLIP, NO_SYNC]
+const SPIN_BACK_RIGHT = ["br", Vector2(-7, -1), 1, NO_X_FLIP, NO_SYNC]
+const SPIN_BACK = ["b", Vector2(0, -1), 1, NO_X_FLIP, NO_SYNC]
+const SPIN_BACK_LEFT = ["bl", Vector2(7, -1), 1, NO_X_FLIP, NO_SYNC]
+const SPIN_LEFT = ["l", Vector2(8, -1), 0, NO_X_FLIP, NO_SYNC]
+const SPIN_FRONT_LEFT = ["fl", Vector2(5, -1), 0, NO_X_FLIP, NO_SYNC]
 
-const DEFAULT_POSE = POSE_FRONT_RIGHT
+const DEFAULT_POSE = ["fr", Vector2(-5, -0), 0, NO_X_FLIP, NO_SYNC]
 
 # FLUDD's orientation is overridden for these player animations.
 # Each frame should have one array entry.
 const POSE_FRAMES = {
-	"back": POSE_BACK,
-	"front": POSE_FRONT,
+	"back": ["b", Vector2(0, 0), 1, NO_X_FLIP, NO_SYNC],
+	"front": ["f", Vector2(0, 0), 0, NO_X_FLIP, NO_SYNC],
 	"spin_start": [
-		["spin_smear", Vector2.ZERO, 0, NO_X_FLIP, NO_SYNC],
-		POSE_FRONT_RIGHT,
-		POSE_BACK_LEFT,
-		POSE_BACK_RIGHT
+		["spin_smear", Vector2.ZERO, 1, NO_X_FLIP, NO_SYNC],
+		SPIN_FRONT_RIGHT,
+		SPIN_BACK_LEFT,
+		SPIN_FRONT_RIGHT
 	],
-	"spin_water": POSE_FRONT_RIGHT,
+	"spin_water": SPIN_FRONT_RIGHT,
 	"spin_fast": [ # 8 frames, starts facing back-right, ccw rotation
-		POSE_BACK_RIGHT,
-		POSE_BACK,
-		POSE_BACK_LEFT,
-		POSE_LEFT,
-		POSE_FRONT_LEFT,
-		POSE_FRONT,
-		POSE_FRONT_RIGHT,
-		POSE_RIGHT,
+		SPIN_BACK_RIGHT,
+		SPIN_BACK,
+		SPIN_BACK_LEFT,
+		SPIN_LEFT,
+		SPIN_FRONT_LEFT,
+		SPIN_FRONT,
+		SPIN_FRONT_RIGHT,
+		SPIN_RIGHT,
 	],
 	"spin_slow": [ # exact duplicate of spin_fast
-		POSE_BACK_RIGHT,
-		POSE_BACK,
-		POSE_BACK_LEFT,
-		POSE_LEFT,
-		POSE_FRONT_LEFT,
-		POSE_FRONT,
-		POSE_FRONT_RIGHT,
-		POSE_RIGHT,
+		SPIN_BACK_RIGHT,
+		SPIN_BACK,
+		SPIN_BACK_LEFT,
+		SPIN_LEFT,
+		SPIN_FRONT_LEFT,
+		SPIN_FRONT,
+		SPIN_FRONT_RIGHT,
+		SPIN_RIGHT,
 	],
-	"crouch_start": ["crouch_start", Vector2.ZERO, 0, NO_X_FLIP, SYNC],
-	"crouch_end": ["crouch_end", Vector2.ZERO, 0, NO_X_FLIP, SYNC],
+	"crouch_start": ["crouch_start", Vector2(-5, -0), 0, NO_X_FLIP, SYNC],
+	"crouch_end": ["crouch_end", Vector2(-5, -0), 0, NO_X_FLIP, SYNC],
 	
 }
 const SPRAY_ORIGIN = Vector2(-9, 6)
