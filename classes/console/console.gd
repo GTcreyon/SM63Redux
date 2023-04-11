@@ -84,6 +84,9 @@ func run_command(cmd: String):
 			"fdmg":
 				$"/root/Main/Player".hp -= int(args[1])
 				Singleton.log_msg("Forced %d damage." % int(args[1]))
+			"hit":
+				$"/root/Main/Player".take_damage_shove(int(args[1]), int(args[2]))
+				Singleton.log_msg("Hit for %d damage." % int(args[1]))
 			"hp", "health":
 				var val = int(args[1])
 				if args[1] != "0" and val == 0:

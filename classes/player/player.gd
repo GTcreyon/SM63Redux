@@ -147,12 +147,14 @@ var life_meter = 8 # apparently unused
 var coins_toward_health = 0 # If it hits 5, gets reset
 
 # FLUDD state vars
-var collected_nozzles = [false, false, false]
-var current_nozzle = 0
+var collected_nozzles: Array = [false, false, false]
+var current_nozzle: int = 0
 var water: float = 100.0
 var fludd_power = 100
 
-var dead = false
+var dead: bool = false
+var facing_direction: int = 1 # -1 if facing left, 1 if facing right
+var body_rotation: float = 0 # Rotation of the body sprite
 
 onready var base_modifier = BaseModifier.new()
 onready var voice = $Voice
@@ -160,8 +162,9 @@ onready var step = $Step
 onready var spin_sfx = $SpinSFX
 onready var thud = $Thud
 onready var pound_spin_sfx = $PoundSpin
-onready var sprite = $Character
-onready var fludd_sprite = $Character/Fludd
+onready var character_group = $CharacterGroup
+onready var sprite = $CharacterGroup/CharacterSprite
+onready var fludd_sprite = $CharacterGroup/CharacterSprite/Fludd
 onready var camera = $"/root/Main/Player/Camera"
 onready var step_check = $StepCheck
 onready var pound_check_l = $PoundCheckL
@@ -169,31 +172,21 @@ onready var pound_check_r = $PoundCheckR
 onready var angle_cast = $DiveAngling
 onready var hitbox =  $Hitbox
 onready var water_check = $WaterCheck
-onready var spray_particles: Particles2D = $"SprayViewport/SprayParticles"
-onready var nozzle_fx = $SprayPlume
-onready var spray_viewport = $SprayViewport
 onready var switch_sfx = $SwitchSFX
-onready var hover_sfx = $HoverSFX
-onready var hover_loop_sfx = $HoverLoopSFX
-onready var dust = $Dust
 onready var ground_failsafe_check: Area2D = $GroundFailsafe
 onready var feet_area: Area2D = $Feet
-
 
 
 func _ready():
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	
-	sprite.playing = true
-	nozzle_fx.playing = true
-
 	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
 		position = Singleton.warp_location
 		#Singleton.warp_location = null # Used when respawning, shouldn't clear
 	
 	if Singleton.warp_data != null:
-		sprite.flip_h = Singleton.warp_data.sprite_flip
+		facing_direction = Singleton.warp_data.facing_direction
 
 		hp = Singleton.warp_data.hp
 		coins_toward_health = Singleton.warp_data.coins_toward_health
@@ -230,13 +223,17 @@ func _on_BackupAngle_body_exited(_body):
 var water_areas: int = 0
 func _on_WaterCheck_area_entered(_area):
 	swimming = true
-	switch_state(S.NEUTRAL)
-	water = max(water, 100)
 	water_areas += 1
+	# Reset state to normal
+	switch_state(S.NEUTRAL)
+	# Refill FLUDD
+	water = max(water, 100)
 
 
 func _on_WaterCheck_area_exited(_area):
 	water_areas -= 1
+	
+	# Only run exit-water code if we're now in NO water
 	if water_areas <= 0:
 		swimming = false
 		if vel.y < 0 and !fludd_strain and !is_spinning():
@@ -265,9 +262,11 @@ enum S { # state enum
 	POUND = 1 << 5,
 	TRIPLE_JUMP = 1 << 6,
 	HURT = 1 << 7,
+	CROUCH = 1 << 8,
 }
 
 enum Pound {
+	NONE,
 	SPIN,
 	FALL,
 	LAND,
@@ -281,14 +280,17 @@ const DOUBLE_JUMP_TIME: int = 8
 var grounded: bool = false
 var ground_except: bool = false
 var dive_resetting: bool = false
-var frontflip_dir_left: bool = false
+var crouch_resetting: bool = false
+var frontflip_direction: int = false
 var double_anim_cancel: bool = false
 var double_jump_state: int = 0
 var double_jump_frames: int = 0
 var pound_land_frames: int = 0
-var pound_state: int = Pound.SPIN
+var pound_state: int = Pound.NONE
 var solid_floors: int = 0
 func player_physics():
+	if OS.is_debug_build():
+		assertions()
 	fludd_stale = true
 	
 	check_ground_state()
@@ -296,6 +298,7 @@ func player_physics():
 	manage_invuln()
 	manage_buffers()
 	manage_dive_recover()
+	manage_crouch_reset()
 	if state == S.TRIPLE_JUMP:
 		triple_jump_spin_anim()
 	if state == S.BACKFLIP:
@@ -315,7 +318,7 @@ func player_physics():
 	else:
 		if !swimming:
 			airborne_anim()
-		if Input.is_action_pressed("left") == Input.is_action_pressed("right"):
+		if get_walk_direction() == 0:
 			vel.x = resist(vel.x, 0, 1.001) # Air decel
 	
 	action_spin()
@@ -346,7 +349,17 @@ func player_physics():
 	player_move()
 	
 	if state == S.POUND and is_on_floor():
-		vel.x = 0 # stop sliding down into holes
+		vel.x = 0 # Stop sliding down into holes
+
+
+func assertions() -> void:
+	# Value of facing_direction never becomes 0, or anything unexpected
+	assert(facing_direction == -1 or facing_direction == 1)
+	# Pound state is always NONE if we are not pounding
+	assert(state == S.POUND or pound_state == Pound.NONE)
+	# Never be resetting while not in the state
+	assert(state == S.DIVE or !dive_resetting)
+	assert(state == S.CROUCH or !crouch_resetting)
 
 
 func start_bounce() -> void:
@@ -364,10 +377,8 @@ func action_bounce() -> void:
 	if bounce_frames >= 12:
 		if state == S.DIVE:
 			off_ground()
-			dive_correct(-1)
 			switch_state(S.ROLLOUT)
-			switch_anim("jump")
-			frontflip_dir_left = sprite.flip_h
+			frontflip_direction = facing_direction
 			vel.y = min(-JUMP_VEL_1/1.5, vel.y)
 			double_jump_state = 0
 		else:
@@ -384,42 +395,37 @@ func action_bounce() -> void:
 
 var swim_delay: bool = false
 func action_swim() -> void:
-	if Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi"):
+	if swim_input():
+		# Just jumped.
 		if state == S.NEUTRAL:
-			switch_anim("swim")
+			# State is neutral. Begin upward stroke.
 			vel.y = min(-4.25, vel.y)
-			sprite.frame = 1
-			sprite.speed_scale = 1
 			swim_delay = true
 		elif state == S.SPIN:
+			# Stroke out of a spin.
+			# Switch to neutral state so spin has to restart.
 			switch_state(S.NEUTRAL)
+			
 			vel.y = min(-4.25, vel.y)
+			# Take an X velocity boost.
 			vel.x = min(abs(vel.x) + 1.5, 8) * sign(vel.x)
 		elif (
-			state == S.DIVE
+			state & (S.DIVE | S.CROUCH)
 			and Input.is_action_pressed("jump")
-			and (
-				(
-					(
-						int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
-					) == 1.0
-					and sprite.flip_h
-				)
-				or
-				(
-					(
-						int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
-					) == -1.0
-					and !sprite.flip_h
-				)
-			)
+			and _can_backflip()
 		):
 			action_backflip()
 	else:
 		swim_delay = false
 	
+	# Sink faster if down is held
 	if Input.is_action_pressed("down"):
 		vel.y += 0.125
+
+
+# Returns true if a swim input has been pressed
+func swim_input() -> bool:
+	return Input.is_action_just_pressed("jump") or Input.is_action_pressed("semi")
 
 
 func adjust_swim_x() -> void:
@@ -428,89 +434,7 @@ func adjust_swim_x() -> void:
 	vel.x += (swim_adjust - vel.x) * FPS_MOD
 
 
-const SPRAY_ORIGIN = Vector2(-9, 6)
-const PLUME_ORIGIN = Vector2(-10, -2)
-var hover_sound_position = 0
-var nozzle_fx_scale = 0
 func fixed_visuals() -> void:
-	if swimming and state == S.NEUTRAL and !grounded and !Input.is_action_pressed("spin"):
-		switch_anim("swim")
-		if sprite.frame == 0:
-			sprite.speed_scale = 0
-	if state == S.DIVE or swimming:
-		hover_sfx.stop()
-		if fludd_strain:
-			if !hover_loop_sfx.playing:
-				hover_loop_sfx.play(hover_sound_position)
-		else:
-			hover_sound_position = hover_loop_sfx.get_playback_position()
-			hover_loop_sfx.stop()
-	else:
-		hover_loop_sfx.stop()
-		if fludd_power > 99:
-			hover_sound_position = 0
-			hover_sfx.stop()
-			
-		if fludd_strain:
-			if !hover_sfx.playing:
-				hover_sfx.play(hover_sound_position)
-		else:
-			if fludd_power < 100:
-				hover_sound_position = hover_sfx.get_playback_position()
-			else:
-				hover_sound_position = 0
-			if !fludd_spraying():
-				hover_sfx.stop()
-	
-	spray_particles.emitting = fludd_strain
-	
-	if fludd_strain:
-		nozzle_fx_scale = min(lerp(0.3, 1, fludd_power / 100), nozzle_fx_scale + 0.1)
-	else:
-		nozzle_fx_scale = max(0, nozzle_fx_scale - 0.25)
-	nozzle_fx.visible = nozzle_fx_scale > 0
-	nozzle_fx.scale = Vector2.ONE * nozzle_fx_scale
-
-	var spray_pos: Vector2
-	var plume_pos: Vector2
-	# offset spray effect relative to player's center
-	spray_pos = SPRAY_ORIGIN
-	plume_pos = PLUME_ORIGIN
-	# factor in facing direction
-	spray_pos *= Vector2(facing_sign(), 1)
-	plume_pos *= Vector2(facing_sign(), 1)
-	# rotate positions with sprite, so they stay aligned
-	spray_pos = spray_pos.rotated(sprite.rotation)
-	plume_pos = plume_pos.rotated(sprite.rotation)
-	# particles are in global space, move them to player-relative position
-	spray_pos += position
-	# apply spray and plume positions
-	spray_particles.position = spray_pos
-	nozzle_fx.position = plume_pos
-	
-	spray_particles.rotation = sprite.rotation
-	nozzle_fx.rotation = sprite.rotation
-	
-	if abs(vel.x) < 2:
-		dust.emitting = false
-	else:
-		dust.emitting = is_on_floor()
-		
-	if sprite.animation.begins_with("walk"):
-		if int(vel.x) == 0:
-			sprite.frame = 0
-			sprite.speed_scale = 0
-			step_sound()
-		else:
-			if sprite.speed_scale == 0:
-				sprite.frame = 1
-			sprite.speed_scale = min(abs(vel.x / 3.43), 2)
-			step_sound()
-		last_step = sprite.frame
-	elif !sprite.animation.begins_with("swim"):
-		sprite.speed_scale = 1
-	
-	#$Label.text = str(vel.x)
 	if hp <= 0:
 		dead = true
 		Singleton.get_node("DeathManager").register_player_death(self)
@@ -520,7 +444,7 @@ const WALL_BOUNCE = 0.19
 func wall_stop() -> void:
 	if is_on_wall():
 		if int(vel.x) != 0:
-			if int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left")) != sign(int(vel.x)):
+			if get_walk_direction() != sign(int(vel.x)):
 				vel.x = -vel.x * WALL_BOUNCE # Bounce off a wall when not intentionally pushing into it
 			else:
 				vel.x = 0 # Cancel X velocity when intentionally pushing into a wall
@@ -532,43 +456,29 @@ const POUND_TIME_TO_FALL = 18 # Time to move from pound spin to pound fall
 const _POUND_HANG_TIME = 9
 const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spin animation lasts
 const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
-const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
-const POUND_SPIN_RISE_TIME = 15
-const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
 
 var pound_spin_frames: int = 0
+var pound_spin_factor: float = 0.0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
 		pound_spin_frames += 1
 		# Spin frames normalized from 0-1.
 		# Min makes it stop after one full spin.
-		var pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
 		# Blend between 0% and 100% smoothed animation.
 		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
 		
-		# Move sprite origin for nicer rotation animation
-		set_rotation_origin(sprite.flip_h, POUND_ORIGIN_OFFSET)
-		# Offset origin's X less at the start of the spin. (Looks better!?)
-		sprite.dejitter_position *= Vector2(pound_spin_factor, 1)
-		# A little rising as we wind up makes it look real nice.
-		sprite.dejitter_position.y -= POUND_SPIN_RISE * min(pound_spin_frames,
-			POUND_SPIN_RISE_TIME)
-		
 		# Set rotation according to position in the animation.
-		sprite.rotation = TAU * pound_spin_factor
+		body_rotation = TAU * pound_spin_factor
 		# Adjust rotation depending on our facing direction.
-		sprite.rotation *= -1 if sprite.flip_h else 1
-		
-		# Begin windup state once the spin ends
-		#if pound_spin_frames == POUND_SPIN_DURATION:
-		#	switch_anim("pound_windup")
+		body_rotation *= facing_direction
 		
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
 			# Reset sprite transforms.
 			clear_rotation_origin()
 			
-			sprite.rotation = 0
+			body_rotation = 0
 			
 			pound_state = Pound.FALL
 			pound_land_frames = 15
@@ -606,8 +516,7 @@ func action_pound() -> void:
 			):
 				switch_state(S.POUND)
 				pound_state = Pound.SPIN
-				switch_anim("flip")
-				sprite.rotation = 0
+				body_rotation = 0
 				pound_spin_frames = 0
 				pound_spin_sfx.play()
 
@@ -631,7 +540,6 @@ func action_spin() -> void:
 	):
 		# begin spin
 		switch_state(S.SPIN)
-		switch_anim("spin")
 		# switch_state stops spin_sfx; always play it again after state switch.
 		if swimming:
 			play_sfx("spin", "water")
@@ -647,8 +555,6 @@ func action_spin() -> void:
 
 func end_spin():
 	switch_state(S.NEUTRAL)
-	if !swimming:
-		switch_anim("walk")
 
 
 var _fludd_spraying: bool = false
@@ -702,22 +608,18 @@ func fludd_control():
 				double_anim_cancel = true
 				if state != S.DIVE:
 					_fludd_spraying_rising = true
-				if state != S.TRIPLE_JUMP or (abs(sprite.rotation_degrees) < 90 or abs(sprite.rotation_degrees) > 270):
+				if state != S.TRIPLE_JUMP or (abs(body_rotation) < PI / 2 or abs(body_rotation) > PI / 2 * 3):
 					if state & (S.DIVE | S.TRIPLE_JUMP):
 						vel.y *= 1 - 0.02 * FPS_MOD
 						vel.x *= 1 - 0.03 * FPS_MOD
 						if grounded:
-							vel.x += cos(sprite.rotation - PI / 2)*pow(FPS_MOD, 2)
+							vel.x += cos(body_rotation)*pow(FPS_MOD, 2) * facing_direction
 						elif state == S.DIVE:
-							vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
-							vel.x += cos(sprite.rotation - PI / 2)/2*pow(FPS_MOD, 2)
+							vel.y += sin(body_rotation)*0.92*pow(FPS_MOD, 2) * facing_direction
+							vel.x += cos(body_rotation)/2*pow(FPS_MOD, 2) * facing_direction
 						else:
-							if sprite.flip_h:
-								vel.y += sin(-sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
-								vel.x -= cos(-sprite.rotation - PI / 2)*0.92/2*pow(FPS_MOD, 2)
-							else:
-								vel.y += sin(sprite.rotation - PI / 2)*0.92*pow(FPS_MOD, 2)
-								vel.x += cos(sprite.rotation - PI / 2)*0.92/2*pow(FPS_MOD, 2)
+							vel.y += sin(body_rotation * facing_direction - PI / 2)*0.92*pow(FPS_MOD, 2)
+							vel.x += cos(body_rotation * facing_direction - PI / 2)*0.46*pow(FPS_MOD, 2) * facing_direction
 					else:
 						if fludd_power == 100 and !swimming:
 							vel.y -= 2
@@ -740,16 +642,14 @@ func fludd_control():
 					rocket_charge += 1
 				else:
 					fludd_strain = false
-				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(sprite.rotation_degrees) < 20 or abs(sprite.rotation_degrees) > 340))):
+				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(body_rotation) < deg2rad(20) or abs(body_rotation) > deg2rad(340)))):
 					_fludd_spraying_rising = true
 					if state == S.DIVE:
-						# set sign of velocity (could use ternary but they're icky)
 						var multiplier = 1
-						if sprite.flip_h:
-							multiplier = -1
+						multiplier *= facing_direction
 						if grounded:
 							multiplier *= 2 # Double power when grounded to counteract friction
-						vel += Vector2(cos(sprite.rotation)*25*FPS_MOD * FPS_MOD * multiplier, -sin(sprite.rotation - PI / 2) * 25 * FPS_MOD * FPS_MOD)
+						vel += Vector2(cos(body_rotation)*25*FPS_MOD * FPS_MOD * multiplier, -sin(body_rotation - PI / 2) * 25 * FPS_MOD * FPS_MOD)
 					else:
 						vel.y = min(max((vel.y/3),0) - 15.3, vel.y)
 						vel.y -= 0.5 * FPS_MOD
@@ -773,11 +673,9 @@ const WALK_ACCEL: float = 1.1 * FPS_MOD
 const AIR_ACCEL: float = 5.0 * FPS_MOD # Functions differently to WALK_ACCEL
 const AIR_SPEED_CAP: float = 20.0 * FPS_MOD
 func player_control_x() -> void:
-	var i_right = Input.is_action_pressed("right")
-	var i_left = Input.is_action_pressed("left")
-	if i_left != i_right:
-		var dir = int(i_right) - int(i_left)
-		if state != S.POUND or pound_state != Pound.SPIN:
+	var dir = get_walk_direction()
+	if dir != 0:
+		if pound_state != Pound.SPIN and (state != S.CROUCH or crouch_resetting):
 			if (
 				state & (
 					S.NEUTRAL
@@ -786,7 +684,7 @@ func player_control_x() -> void:
 					| S.ROLLOUT
 				)
 			):
-				sprite.flip_h = dir == -1 # flip sprite according to direction
+				facing_direction = dir # Will never be 0
 			if (grounded or (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) and ground_except)) and !swimming:
 				if state == S.POUND:
 					vel.x = 0
@@ -804,6 +702,12 @@ func player_control_x() -> void:
 					vel.x += core_vel
 
 
+func get_walk_direction() -> int:
+	var i_right = Input.is_action_pressed("right")
+	var i_left = Input.is_action_pressed("left")
+	return int(i_right) - int(i_left)
+
+
 const TRIPLE_FLIP_TIME: int = 54
 var triple_flip_frames: int = 0
 func triple_jump_spin_anim() -> void:
@@ -816,40 +720,21 @@ func triple_jump_spin_anim() -> void:
 		spin_speed = 2
 	
 	# Set rotation a little further than last frame.
-	sprite.rotation = facing_sign() * spin_speed * TAU * \
+	body_rotation = facing_direction * spin_speed * TAU * \
 		ease_out_quart(float(triple_flip_frames) / TRIPLE_FLIP_TIME)
 	
 	# When timer rings, end the triple jump.
 	if triple_flip_frames >= TRIPLE_FLIP_TIME:
 		switch_state(S.NEUTRAL)
-		sprite.rotation = 0
+		body_rotation = 0
 
 
 func player_jump() -> void:
-	if state == S.DIVE:
-		if (
-			(
-				(
-					int(Input.is_action_pressed("right"))
-					- int(Input.is_action_pressed("left")) != -1
-				)
-				and
-				!sprite.flip_h
-			)
-			or
-			(
-				(
-					int(Input.is_action_pressed("right"))
-					- int(Input.is_action_pressed("left")) != 1
-				)
-				and
-				sprite.flip_h
-			)
-		):
-			if !dive_resetting and abs(vel.x) >= 1 and !is_on_wall(): # prevents static dive recover
-				action_rollout()
-		else:
+	if state & (S.DIVE | S.CROUCH):
+		if _can_backflip():
 			action_backflip()
+		elif state == S.DIVE and !dive_resetting and abs(vel.x) >= 1 and !is_on_wall(): # Prevents static dive recover
+			action_rollout()
 	elif (jump_buffer_frames > 0
 		and
 		state &
@@ -888,7 +773,7 @@ func action_jump() -> void:
 				switch_state(S.TRIPLE_JUMP)
 				double_jump_state = 0
 				triple_flip_frames = 0
-				frontflip_dir_left = sprite.flip_h
+				frontflip_direction = facing_direction
 				
 				# Apply triple jump impulse
 				vel.y = -JUMP_VEL_3
@@ -913,43 +798,42 @@ const BACKFLIP_FLIP_TIME: int = 36
 var backflip_flip_frames: int = 0
 func backflip_spin_anim() -> void:
 	backflip_flip_frames += 1
-	var dir = -facing_sign()
-	sprite.rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
+	var dir = -facing_direction
+	body_rotation = dir * TAU * sin(((float(backflip_flip_frames) / BACKFLIP_FLIP_TIME) * PI) / 2)
 	if backflip_flip_frames >= BACKFLIP_FLIP_TIME:
 		switch_state(S.NEUTRAL)
-		sprite.rotation = 0
+		body_rotation = 0
+
+
+func _can_backflip() -> bool:
+	return (
+		(
+			get_walk_direction()
+		) == -facing_direction
+		or state == S.CROUCH
+	)
 
 
 func action_backflip() -> void:
-	if !dive_resetting:
-		dive_correct(-1)
 	off_ground()
 	switch_state(S.BACKFLIP)
 	vel.y = min(-JUMP_VEL_1 - 2.5 * FPS_MOD, vel.y)
-	if sprite.flip_h:
-		vel.x += (30.0 - abs(vel.x)) / (5 / FPS_MOD)
-	else:
-		vel.x -= (30.0 - abs(vel.x)) / (5 / FPS_MOD)
+	vel.x += (30.0 - abs(vel.x)) / (5 / FPS_MOD) * -facing_direction
 	dive_resetting = false
+	crouch_resetting = false
 	backflip_flip_frames = 0
-	switch_anim("jump")
-	frontflip_dir_left = sprite.flip_h
+	frontflip_direction = facing_direction
 
 
 func action_rollout() -> void:
 	off_ground()
-	dive_correct(-1)
 	switch_state(S.ROLLOUT)
 	vel.y = min(-JUMP_VEL_1/1.5, vel.y)
-	switch_anim("jump")
-	frontflip_dir_left = sprite.flip_h
+	frontflip_direction = facing_direction
 
 
 func coyote_behaviour() -> void:
 	double_anim_cancel = false
-	
-	if state == S.NEUTRAL:
-		switch_anim("walk")
 	
 	# warning-ignore:narrowing_conversion
 	double_jump_frames = max(double_jump_frames - 1, 0)
@@ -967,10 +851,14 @@ func coyote_behaviour() -> void:
 	
 		if state & (S.TRIPLE_JUMP | S.BACKFLIP): # Reset state when landing
 			switch_state(S.NEUTRAL)
-			sprite.rotation = 0
+			body_rotation = 0
 		
-		if state == S.DIVE and abs(vel.x) < 1 and !Input.is_action_pressed("dive") and !dive_resetting:
-			reset_dive()
+		if !Input.is_action_pressed("dive"):
+			if state == S.DIVE and abs(vel.x) < 1 and !dive_resetting:
+				reset_dive()
+			
+			if state == S.CROUCH and !crouch_resetting:
+				reset_crouch()
 
 
 var hurt_timer = 0
@@ -978,7 +866,6 @@ func manage_hurt_recover():
 	if state == S.HURT:
 		if grounded or hurt_timer <= 0:
 			switch_state(S.NEUTRAL)
-			switch_anim("walk")
 		else:
 			hurt_timer -= 1
 
@@ -1048,7 +935,7 @@ func water_resistance(fall_adjust) -> float:
 	fall_adjust = resist(fall_adjust, 0, 1.001)
 	
 	vel.x = resist(vel.x, 0, 1.001)
-	if Input.is_action_pressed("left") == Input.is_action_pressed("right") or state == S.DIVE:
+	if get_walk_direction() == 0 or state == S.DIVE:
 		vel.x = resist(vel.x, 0, 1.001)
 		
 	return fall_adjust
@@ -1066,23 +953,21 @@ func air_resistance(fall_adjust) -> float:
 
 func manage_dive_angle() -> void:
 	if angle_cast.is_colliding():
-		var angle_offset = 0
-		if sprite.flip_h:
-			angle_offset = 0
-		else:
-			angle_offset = PI
-		sprite.rotation = lerp_angle(sprite.rotation, angle_cast.get_collision_normal().angle() + angle_offset, 0.5)
+		var target = _get_slide_angle()
+		body_rotation = lerp_angle(body_rotation, target, 0.5)
 	elif solid_floors > 0:
-		if sprite.flip_h:
-			sprite.rotation = -PI / 2
-		else:
-			sprite.rotation = PI / 2
+		body_rotation = PI / 2
 
 
 func reset_dive() -> void:
-	sprite.rotation = 0
+	body_rotation = 0
 	dive_resetting = true
 	dive_reset_frames = 0
+
+
+func reset_crouch() -> void:
+	crouch_resetting = true
+	crouch_reset_frames = 0
 
 
 const TRIPLE_JUMP_ORIGIN_OFFSET_START = Vector2(-2, -4)
@@ -1092,35 +977,14 @@ func airborne_anim() -> void:
 	if state == S.TRIPLE_JUMP:
 		if triple_flip_frames > 3:
 			if current_nozzle == Singleton.Nozzles.NONE:
-				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_FAST)
-				if abs(sprite.rotation_degrees) < 700:
-					switch_anim("flip")
-				else:
-					switch_anim("fall")
+				set_rotation_origin(facing_direction, TRIPLE_JUMP_ORIGIN_OFFSET_FAST)
 			else:
-				set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET)
-				if abs(sprite.rotation_degrees) < 340:
-					switch_anim("flip")
-				else:
-					switch_anim("fall")
+				set_rotation_origin(facing_direction, TRIPLE_JUMP_ORIGIN_OFFSET)
 		else:
-			switch_anim("jump_double")
-			set_rotation_origin(sprite.flip_h, TRIPLE_JUMP_ORIGIN_OFFSET_START)
-	elif state == S.NEUTRAL:
-		if vel.y > 0:
-			switch_anim("fall")
-		else:
-			if double_jump_state == 2 and !double_anim_cancel:
-				switch_anim("jump_double")
-			else:
-				switch_anim("jump")
-	elif state == S.POUND and pound_state == Pound.FALL:
-		switch_anim("pound_fall")
+			set_rotation_origin(facing_direction, TRIPLE_JUMP_ORIGIN_OFFSET_START)
 	elif state == S.DIVE:
-		if sprite.flip_h:
-			sprite.rotation = lerp_angle(sprite.rotation, -atan2(vel.y, -vel.x) - PI / 2, 0.5)
-		else:
-			sprite.rotation = lerp_angle(sprite.rotation, atan2(vel.y, vel.x) + PI / 2, 0.5)
+		var target = atan2(vel.y, vel.x) + PI / 2 * (1 - facing_direction)
+		body_rotation = lerp_angle(body_rotation, target, 0.5)
 
 
 const POUND_LAND_DURATION = 12
@@ -1130,7 +994,6 @@ func manage_pound_recover() -> void:
 	if state == S.POUND:
 		if pound_land_frames == 12: # just hit ground
 			pound_state = Pound.LAND
-			switch_anim("flip")
 			
 			# Dispatch star effect
 			var fx = ground_pound_effect.instance()
@@ -1154,6 +1017,7 @@ func manage_pound_recover() -> void:
 			# Jolt camera downwards
 			camera.offset = Vector2(0, POUND_SHAKE_INITIAL)
 		elif pound_land_frames <= 0: # impact ended, get up
+			pound_state = Pound.NONE
 			switch_state(S.NEUTRAL)
 			# Nullify all camera shake.
 			camera.offset = Vector2.ZERO
@@ -1235,7 +1099,7 @@ func action_dive():
 				(
 					(
 						state == S.ROLLOUT # allows for tighter dive turns
-						and sprite.flip_h != frontflip_dir_left
+						and facing_direction != frontflip_direction
 					)
 					or
 					state == S.SPIN
@@ -1251,10 +1115,8 @@ func action_dive():
 	):
 		if !swimming and coyote_frames > 0 and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
 			off_ground()
-			dive_correct(-1)
 			switch_state(S.ROLLOUT)
-			switch_anim("jump")
-			frontflip_dir_left = sprite.flip_h
+			frontflip_direction = facing_direction
 			vel.y = min(-JUMP_VEL_1/1.5, vel.y)
 			double_jump_state = 0
 		elif (
@@ -1266,34 +1128,50 @@ func action_dive():
 			or
 			(
 				state == S.BACKFLIP
-				and abs(sprite.rotation) > PI / 2 * 3
+				and abs(body_rotation) > PI / 2 * 3
 			)
 		):
-			if !grounded:
-				gp_dive_timer = 6
-				off_ground()
-				if state != S.TRIPLE_JUMP:
-					play_sfx("voice", "dive")
-				var multiplier = 1
-				if state == S.BACKFLIP:
-					multiplier = 2 # allows dives out of backflips to be more responsive
-				if sprite.flip_h: # idrk how this works
-					vel.x -= (DIVE_VEL - abs(vel.x / FPS_MOD)) / (5 / FPS_MOD) / FPS_MOD * multiplier
+			if !grounded or vel.y >= 0:
+				if !grounded:
+					gp_dive_timer = 6
+					off_ground()
+					if state != S.TRIPLE_JUMP:
+						play_sfx("voice", "dive")
+					var multiplier = 1
+					if state == S.BACKFLIP:
+						multiplier = 2 # Allows dives out of backflips to be more responsive
+					vel.x += (
+						(
+							DIVE_VEL - abs(
+								vel.x / FPS_MOD
+							)
+						)
+						/ (
+							5 / FPS_MOD
+						)
+						/ FPS_MOD * multiplier * facing_direction
+					)
+					if state == S.NEUTRAL:
+						vel.y = max(-3, vel.y + 3.0 * FPS_MOD)
+					else:
+						vel.y += 3.0 * FPS_MOD
+				if abs(vel.x) <= 0.5 and grounded:
+					switch_state(S.CROUCH)
+					crouch_resetting = false
+					crouch_reset_frames = 0
 				else:
-					vel.x += (DIVE_VEL - abs(vel.x / FPS_MOD)) / (5 / FPS_MOD) / FPS_MOD * multiplier
-				if state == S.NEUTRAL:
-					vel.y = max(-3, vel.y + 3.0 * FPS_MOD)
-				else:
-					vel.y += 3.0 * FPS_MOD
-			if (!grounded or vel.y >= 0) and (!swimming or grounded):
-				switch_state(S.DIVE)
-				if sprite.flip_h:
-					sprite.rotation = -PI / 2
-				else:
-					sprite.rotation = PI / 2
-				switch_anim("dive")
-				double_jump_state = 0
-				dive_correct(1)
+					switch_state(S.DIVE)
+					body_rotation = 0
+					if angle_cast.is_colliding() and grounded:
+						body_rotation = _get_slide_angle()
+					double_jump_state = 0
+					dive_resetting = false
+					dive_reset_frames = 0
+
+
+# Returns the angle that the dive slide should be at
+func _get_slide_angle() -> float:
+	return angle_cast.get_collision_normal().angle() + PI / 2
 
 
 const WATER_VRB_BUS = 1
@@ -1326,36 +1204,36 @@ var dive_reset_frames: int = 0
 func manage_dive_recover():
 	if state == S.ROLLOUT:
 		rollout_frames += 1
-		if sprite.flip_h:
-			sprite.rotation = -rollout_frames * TAU / ROLLOUT_TIME
-		else:
-			sprite.rotation = rollout_frames * TAU / ROLLOUT_TIME
+		body_rotation = rollout_frames * TAU / ROLLOUT_TIME * facing_direction
 		if rollout_frames >= ROLLOUT_TIME or grounded:
 			switch_state(S.NEUTRAL)
-			sprite.rotation = 0
+			body_rotation = 0
 			rollout_frames = 0
 	elif dive_resetting:
 		dive_reset_frames += 1
-		# warning-ignore:integer_division
-		if dive_reset_frames >= DIVE_RESET_TIME / 2:
-			if !sprite.animation.begins_with("jump"):
-				switch_anim("jump")
-				dive_correct(-1)
-				hitbox.position = STAND_BOX_POS
-				hitbox.shape.extents = STAND_BOX_EXTENTS
-			if sprite.flip_h:
-				sprite.rotation = dive_reset_frames * PI / 2 / DIVE_RESET_TIME - PI / 2
-			else:
-				sprite.rotation = -dive_reset_frames * PI / 2 / DIVE_RESET_TIME + PI / 2
-			if dive_reset_frames >= DIVE_RESET_TIME:
-				dive_resetting = false
-				switch_state(S.NEUTRAL)
-				sprite.rotation = 0
-		else:
-			if sprite.flip_h:
-				sprite.rotation = dive_reset_frames * PI / 2 / DIVE_RESET_TIME
-			else:
-				sprite.rotation = -dive_reset_frames * PI / 2 / DIVE_RESET_TIME
+		body_rotation = (-dive_reset_frames * PI / 2.0 / DIVE_RESET_TIME) * facing_direction
+		# Offset when the sprite becomes upright
+		if dive_reset_frames >= DIVE_RESET_TIME / 2.0:
+			body_rotation += PI / 2.0 * facing_direction
+		
+		if dive_reset_frames >= DIVE_RESET_TIME:
+			dive_resetting = false
+			switch_state(S.NEUTRAL)
+			body_rotation = 0
+
+
+const CROUCH_RESET_TIME: int = 8
+var crouch_reset_frames: int = 0
+func manage_crouch_reset() -> void:
+	if !crouch_resetting:
+		return
+	if Input.is_action_pressed("dive"):
+		crouch_resetting = false
+		return
+	crouch_reset_frames += 1
+	if crouch_reset_frames >= CROUCH_RESET_TIME:
+		crouch_resetting = false
+		switch_state(S.NEUTRAL)
 
 
 func switch_fludd():
@@ -1372,9 +1250,6 @@ func switch_fludd():
 	if current_nozzle == 4:
 		current_nozzle = 0
 	if current_nozzle != save_nozzle:
-		# lazy way to refresh fludd anim
-		var anim = sprite.animation.replace("_fludd", "")
-		switch_anim(anim)
 		fludd_strain = false
 		switch_sfx.play()
 
@@ -1421,11 +1296,9 @@ func locked_behaviour():
 	if read_pos_x != INF:
 		global_position.x = read_pos_x + (global_position.x - read_pos_x) * 0.75
 	if collect_pos_final != Vector2.INF:
-		switch_anim("spin")
 		position = collect_pos_init + sin(min(collect_frames / 230.0, 1) * PI / 2) * (collect_pos_final - collect_pos_init)
 		collect_frames += 1
 		if collect_frames >= 230:
-			switch_anim("shine")
 			if collect_frames >= 310:
 				$"/root/Singleton/WindowWarp".warp(Vector2(), "res://scenes/title/title.tscn", 40)
 
@@ -1442,7 +1315,7 @@ func manage_invuln():
 
 const STAND_BOX_POS = Vector2(0, 1.5)
 const STAND_BOX_EXTENTS = Vector2(6, 14.5)
-const DIVE_BOX_POS = Vector2(0, 3)
+const DIVE_BOX_POS = Vector2(0, 10)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
 func switch_state(new_state):
 	# If spin just ended, adjust SFX accordingly.
@@ -1453,10 +1326,9 @@ func switch_state(new_state):
 	
 	# Update to new state.
 	state = new_state
-	sprite.rotation_degrees = 0
-	
+	body_rotation = 0
 	match state:
-		S.DIVE:
+		S.DIVE, S.CROUCH:
 			hitbox.position = DIVE_BOX_POS
 			hitbox.shape.extents = DIVE_BOX_EXTENTS
 		S.POUND:
@@ -1469,25 +1341,11 @@ func switch_state(new_state):
 			camera.smoothing_speed = 5
 			clear_rotation_origin()
 
-
-func switch_anim(new_anim):
-	var fludd_anim
-	var anim
-	if new_anim == "fall":
-		last_step = 1 # ensures that the step sound will be made when hitting the ground
-	anim = new_anim
 	
-	if current_nozzle != Singleton.Nozzles.NONE:
-		fludd_anim = new_anim + "_fludd"
-		if sprite.frames.has_animation(fludd_anim): # ensures the belt animation exists
-			anim = fludd_anim
-		else:
-			anim = new_anim
-			Singleton.log_msg("Missing animation: " + fludd_anim, Singleton.LogType.ERROR)
-	
-		fludd_sprite.switch_nozzle(current_nozzle)
-	
-	sprite.animation = anim
+	# On any state change, reset the following things:
+	spin_sfx.stop()
+	pound_state = Pound.NONE
+	clear_rotation_origin()
 
 
 func take_damage(amount):
@@ -1501,11 +1359,10 @@ func take_damage_shove(amount, direction):
 		take_damage(amount)
 		switch_state(S.HURT)
 		hurt_timer = 30
-		switch_anim("hurt")
 		clear_rotation_origin()
 		camera.offset = Vector2.ZERO
 		vel = Vector2(4 * direction, -3)
-		sprite.flip_h = direction == 1
+		facing_direction = -direction
 		off_ground()
 
 
@@ -1517,20 +1374,6 @@ func off_ground():
 
 func recieve_health(amount):
 	hp = clamp(hp + amount, 0, 8) # TODO - multi HP
-
-
-const DIVE_CORRECTION = 7
-func dive_correct(factor): # Correct the player's origin position when diving
-	# warning-ignore:return_value_discarded
-	move_and_slide(Vector2(0, DIVE_CORRECTION * factor * 60), Vector2(0, -1))
-	if factor == -1:
-		feet_area.position.y = 0
-		dust.position.y = 11.5
-		ground_failsafe_check.position.y = 17
-	else:
-		feet_area.position.y = -DIVE_CORRECTION
-		dust.position.y = 11.5 - DIVE_CORRECTION
-		ground_failsafe_check.position.y = 17 - DIVE_CORRECTION
 
 
 func play_sfx(type, group):
@@ -1574,10 +1417,9 @@ func terrain_typestring(collider: CollisionObject2D) -> String:
 
 
 func step_sound():
-	if sprite.frame == 0 and last_step == 1:
-		var collider: CollisionObject2D = step_check.get_collider()
-		if collider != null:
-			play_sfx("step", terrain_typestring(collider))
+	var collider: CollisionObject2D = step_check.get_collider()
+	if collider != null:
+		play_sfx("step", terrain_typestring(collider))
 
 
 func invincibility_on_effect():
@@ -1603,24 +1445,16 @@ func resist(val, sub, div): # ripped from source
 	return val * FPS_MOD
 
 
-func set_rotation_origin (face_left: bool, origin: Vector2):
+func set_rotation_origin(facing_direction: int, origin: Vector2):
 	# Vector to flip the offset's X, as appropriate.
-	var facing = Vector2(
-		-1 if face_left else 1, # Convert 0 to -1
-		1)
+	var facing = Vector2(facing_direction, 1)
 	
 	sprite.offset = origin * facing
-	fludd_sprite.position = origin * facing
-	sprite.dejitter_position = -origin * facing
-	sprite.position = sprite.dejitter_position
+	sprite.position = -origin * facing
 
 
-func clear_rotation_origin ():
-	set_rotation_origin(false, Vector2.ZERO)
-
-
-func facing_sign () -> int:
-	return -1 if sprite.flip_h else 1
+func clear_rotation_origin():
+	set_rotation_origin(1, Vector2.ZERO)
 
 
 # Called when interacting with signs and toads
@@ -1630,4 +1464,3 @@ func start_interaction():
 		end_spin()
 	
 	end_fludd()
-
