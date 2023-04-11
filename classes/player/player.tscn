@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=2]
+[gd_scene load_steps=150 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -603,13 +603,33 @@ animations = [ {
 "speed": 20.0
 } ]
 
-[sub_resource type="AtlasTexture" id=190]
+[sub_resource type="AtlasTexture" id=192]
 atlas = ExtResource( 12 )
-region = Rect2( 32, 0, 32, 32 )
+region = Rect2( 128, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=193]
+atlas = ExtResource( 12 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=194]
+atlas = ExtResource( 12 )
+region = Rect2( 96, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=191]
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=195]
+atlas = ExtResource( 12 )
+region = Rect2( 224, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=190]
+atlas = ExtResource( 12 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=196]
+atlas = ExtResource( 12 )
+region = Rect2( 192, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 12 )
@@ -621,14 +641,44 @@ region = Rect2( 112, 0, 28, 30 )
 
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
-"frames": [ SubResource( 190 ) ],
+"frames": [ SubResource( 192 ) ],
 "loop": true,
-"name": "hover",
+"name": "hover_b",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 193 ) ],
+"loop": true,
+"name": "hover_bl",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 194 ) ],
+"loop": true,
+"name": "hover_br",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 191 ) ],
 "loop": true,
-"name": "hover_front",
+"name": "hover_f",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 195 ) ],
+"loop": true,
+"name": "hover_fl",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 190 ) ],
+"loop": true,
+"name": "hover_fr",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 196 ) ],
+"loop": true,
+"name": "hover_l",
+"speed": 5.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "hover_r",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 37 ) ],
@@ -738,7 +788,7 @@ script = ExtResource( 21 )
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]
 show_behind_parent = true
 frames = SubResource( 36 )
-animation = "hover"
+animation = "hover_b"
 offset = Vector2( -2, -2 )
 script = ExtResource( 19 )
 
