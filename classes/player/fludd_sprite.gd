@@ -1,5 +1,37 @@
 extends AnimatedSprite
-# FLUDD pack visuals
+# Handles FLUDD pack visuals, including orienting the water spray effects.
+#
+# The heart of this script is the pose management system. Because a few (but
+# only a few) player animations don't fit with the default FLUDD orientation,
+# the pose system allows overriding FLUDD's animation and placement for a few
+# specific player animations.
+#
+# The system is controlled from the POSE_FRAMES dictionary. Each entry in the
+# dictionary is keyed to a player animation name, and contains either a pose
+# definition, or an array of pose definitions (one per player animation frame).
+#
+# A pose definition is an array with the following elements in this order:
+# - Animation name, string. The name of the animation FLUDD will use,
+#	minus the prefixed nozzle name. E.G. the name "fly" would resolve to
+#	the animation "hover_fly", "rocket_fly", or "turbo_fly", depending which
+#	nozzle is currently equipped.
+# - Offset, Vector2. How much FLUDD's position will be offset relative to the
+#	player. The X offset will be inverted when the player's sprite is flipped.
+#	E.G. Vector2(-5, 2) puts FLUDD 5px behind and 2px down from the player.
+# - Z order, int. How FLUDD sorts relative to the player sprite. Typically
+#	this should be set to 0, but if FLUDD should appear in front of the player,
+#	a value of 1 should be used.
+# - X flip, bool. Whether FLUDD should be flipped horizontally relative to the
+#	player. If set, FLUDD is flipped only when the player isn't; if clear, FLUDD
+#	is flipped only if the player is.
+#		(NOTE: For ease of reading, we suggest setting this field to
+#		NO_X_FLIP and X_FLIP rather than false and true.)
+# - Sync, bool. When set, FLUDD's current animation is always on the same frame
+#	as the player's animation--they become synced.
+#	This can be useful for multi-pose animations with a constant offset
+#	throughout.
+#		(NOTE: For ease of reading, we suggest setting this field to
+#		NO_SYNC and SYNC rather than false and true.)
 
 # These are to help make pose definitions more readable.
 const NO_X_FLIP = false
