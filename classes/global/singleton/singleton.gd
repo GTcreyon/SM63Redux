@@ -1,5 +1,8 @@
 extends Node
 
+signal before_scene_change
+signal after_scene_change
+
 const DEFAULT_SIZE = Vector2(640, 360)
 const VERSION = "v0.2.0.alpha"
 const LD_VERSION = 0
@@ -116,6 +119,26 @@ func _process(_delta):
 		AudioServer.set_bus_volume_db(music, AudioServer.get_bus_volume_db(music) + 1)
 
 
+# Resets game state and preps to return to a menu.
+func prepare_exit_game():
+	# Clear game state to make new-game work cleanly.
+	reset_game_state()
+	# Close speedrun timer
+	timer.visible = false
+
+
+# Reset game state to that of a fresh playthrough.
+func reset_game_state():
+	# Clear per-player data.
+	warp_location = null
+	warp_data = null
+	
+	# Clear game-wide data.
+	coin_total = 0
+	red_coin_total = 0
+	meter_progress = 0 # to do with health meter?
+
+
 # Get a scaling factor based on the window dimensions
 func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
 	var scale_vec = OS.window_size / Singleton.DEFAULT_SIZE
@@ -157,6 +180,8 @@ func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
 # be carried over into the next scene. If null is passed instead,
 # no player data will be carried to the next scene.
 func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.INF):
+	emit_signal("before_scene_change")
+	
 	if player != null:
 		# Save player data for next room.
 		warp_data = InterSceneData.new(player)
@@ -177,6 +202,8 @@ func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.
 	# Do the actual warp.
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	get_tree().call_deferred("change_scene", path)
+	
+	call_deferred("emit_signal", "after_scene_change")
 
 
 # Sets a certain pause label - when all pause labels are false, gameplay takes place

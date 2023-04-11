@@ -65,6 +65,7 @@ func _physics_step():
 			mirror = vel.x < 0
 	
 	_hurtbox_check()
+	_hitbox_check()
 	
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	move_and_slide(vel * 60, Vector2.UP)
@@ -88,6 +89,8 @@ func _on_WaterCheck_area_exited(_area):
 
 
 func _hurt_struck(body):
+	sfx_struck.play()
+	
 	struck = true
 	if body.position.x < position.x:
 		vel.x = 10

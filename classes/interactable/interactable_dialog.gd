@@ -5,16 +5,17 @@ extends Interactable
 export(Array, String, MULTILINE) var lines = [""]
 export var x_offset: int = 0
 export var can_pivot: bool = false
+export var back_sprite: bool = false
 
 onready var dialog = $"/root/Main/Player/Camera/HUD/HUDControl/DialogBox"
 
 
 func _interact_with(body):
-	var side = sign(body.global_position.x - global_position.x)
+	var side = sign(round(body.global_position.x - global_position.x))
 	
 	# Don't flip the player if no movement happens
 	if side != 0:
-		body.sprite.flip_h = side == 1
+		body.facing_direction = -side
 		
 		# Flip the object to face the player if allowed to
 		if can_pivot:
@@ -24,5 +25,13 @@ func _interact_with(body):
 	body.vel = Vector2.ZERO
 	body.locked = true
 	body.sign_frames = 1
+	if back_sprite:
+		body.sprite.trigger_anim("back")
 	
+	# Disable any active sfx on the player
+	body.start_interaction()
 	dialog.load_lines(lines)
+
+
+func _state_check(body) -> bool:
+	return (body.state == body.S.NEUTRAL or body.state == body.S.SPIN) and body.sign_frames <= 0

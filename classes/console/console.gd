@@ -84,6 +84,9 @@ func run_command(cmd: String):
 			"fdmg":
 				$"/root/Main/Player".hp -= int(args[1])
 				Singleton.log_msg("Forced %d damage." % int(args[1]))
+			"hit":
+				$"/root/Main/Player".take_damage_shove(int(args[1]), int(args[2]))
+				Singleton.log_msg("Hit for %d damage." % int(args[1]))
 			"hp", "health":
 				var val = int(args[1])
 				if args[1] != "0" and val == 0:
@@ -93,14 +96,17 @@ func run_command(cmd: String):
 					Singleton.log_msg("Set HP to %d." % val)
 			"designer", "ld":
 				Singleton.log_msg("Entered Level Designer.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			"menu":
 				Singleton.log_msg("Warped to menu.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/title/main_menu/main_menu.tscn")
 			"title":
 				Singleton.log_msg("Warped to title.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/title/title.tscn")
 			"vps":
