@@ -603,13 +603,13 @@ animations = [ {
 "speed": 20.0
 } ]
 
-[sub_resource type="AtlasTexture" id=35]
+[sub_resource type="AtlasTexture" id=190]
 atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 28, 30 )
+region = Rect2( 32, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=42]
+[sub_resource type="AtlasTexture" id=191]
 atlas = ExtResource( 12 )
-region = Rect2( 28, 0, 28, 30 )
+region = Rect2( 0, 0, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 12 )
@@ -621,12 +621,12 @@ region = Rect2( 112, 0, 28, 30 )
 
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
-"frames": [ SubResource( 35 ) ],
+"frames": [ SubResource( 190 ) ],
 "loop": true,
 "name": "hover",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 42 ) ],
+"frames": [ SubResource( 191 ) ],
 "loop": true,
 "name": "hover_front",
 "speed": 5.0
