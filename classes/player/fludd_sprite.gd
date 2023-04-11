@@ -52,7 +52,8 @@ const SPIN_BACK_LEFT = ["bl", Vector2(7, -1), 1, NO_X_FLIP, NO_SYNC]
 const SPIN_LEFT = ["l", Vector2(8, -1), 0, NO_X_FLIP, NO_SYNC]
 const SPIN_FRONT_LEFT = ["fl", Vector2(5, -1), 0, NO_X_FLIP, NO_SYNC]
 
-const DEFAULT_POSE = ["fr", Vector2(-5, -0), 0, NO_X_FLIP, NO_SYNC]
+const DEFAULT_OFFSET = Vector2(-5, 0)
+const DEFAULT_POSE = ["fr", DEFAULT_OFFSET, 0, NO_X_FLIP, NO_SYNC]
 
 # FLUDD's orientation is overridden for these player animations.
 # Each frame should have one array entry.
@@ -86,8 +87,8 @@ const POSE_FRAMES = {
 		SPIN_FRONT_RIGHT,
 		SPIN_RIGHT,
 	],
-	"crouch_start": ["crouch_start", Vector2(-5, -0), 0, NO_X_FLIP, SYNC],
-	"crouch_end": ["crouch_end", Vector2(-5, -0), 0, NO_X_FLIP, SYNC],
+	"crouch_start": ["crouch_start", DEFAULT_OFFSET, 0, NO_X_FLIP, SYNC],
+	"crouch_end": ["crouch_end", DEFAULT_OFFSET, 0, NO_X_FLIP, SYNC],
 	
 }
 const SPRAY_ORIGIN = Vector2(-9, 6)
