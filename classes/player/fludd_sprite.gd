@@ -54,6 +54,9 @@ const POSE_FRAMES = {
 		POSE_FRONT_RIGHT,
 		POSE_RIGHT,
 	],
+	"crouch_start": ["crouch_start", Vector2.ZERO, 0, NO_X_FLIP, SYNC],
+	"crouch_end": ["crouch_end", Vector2.ZERO, 0, NO_X_FLIP, SYNC],
+	
 }
 const SPRAY_ORIGIN = Vector2(-9, 6)
 const PLUME_ORIGIN = Vector2(-10, -2)
