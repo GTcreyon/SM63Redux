@@ -1,4 +1,4 @@
-[gd_scene load_steps=150 format=2]
+[gd_scene load_steps=156 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -615,6 +615,30 @@ region = Rect2( 160, 0, 32, 32 )
 atlas = ExtResource( 12 )
 region = Rect2( 96, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=197]
+atlas = ExtResource( 12 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=198]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=199]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=200]
+atlas = ExtResource( 12 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=201]
+atlas = ExtResource( 12 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=202]
+atlas = ExtResource( 12 )
+region = Rect2( 96, 32, 32, 32 )
+
 [sub_resource type="AtlasTexture" id=191]
 atlas = ExtResource( 12 )
 region = Rect2( 0, 0, 32, 32 )
@@ -654,6 +678,16 @@ animations = [ {
 "frames": [ SubResource( 194 ) ],
 "loop": true,
 "name": "hover_br",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 197 ), SubResource( 198 ) ],
+"loop": true,
+"name": "hover_crouch_end",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 199 ), SubResource( 200 ), SubResource( 201 ), SubResource( 202 ) ],
+"loop": true,
+"name": "hover_crouch_start",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 191 ) ],
@@ -782,13 +816,13 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "jump_double_trans"
+animation = "walk_neutral"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]
 show_behind_parent = true
 frames = SubResource( 36 )
-animation = "hover_b"
+animation = "hover_fr"
 offset = Vector2( -2, -2 )
 script = ExtResource( 19 )
 
