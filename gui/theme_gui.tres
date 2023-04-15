@@ -5,9 +5,9 @@
 [ext_resource path="res://gui/scroll/scroll_v_back.png" type="Texture" id=3]
 [ext_resource path="res://gui/scroll/scroll_v_grabber_press.png" type="Texture" id=4]
 [ext_resource path="res://gui/scroll/scroll_v_grabber.png" type="Texture" id=5]
-[ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=7]
+[ext_resource path="res://gui/pause/boxes/menu_box.tres" type="StyleBox" id=6]
+[ext_resource path="res://gui/dropdown_arrow.png" type="Texture" id=7]
 [ext_resource path="res://gui/dialog/sign_box.tres" type="StyleBox" id=8]
-[ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=9]
 
 [sub_resource type="StyleBoxEmpty" id=4]
 content_margin_left = 2.0
@@ -51,9 +51,10 @@ axis_stretch_vertical = 1
 
 [resource]
 default_font = ExtResource( 1 )
+Label/colors/font_color = Color( 0.980392, 0.905882, 0.913725, 1 )
 LineEdit/styles/normal = ExtResource( 8 )
-OptionButton/styles/hover = ExtResource( 9 )
-OptionButton/styles/normal = ExtResource( 7 )
+OptionButton/icons/arrow = ExtResource( 7 )
+OptionButton/styles/normal = ExtResource( 6 )
 PopupMenu/styles/panel = ExtResource( 8 )
 ScrollContainer/styles/bg = SubResource( 4 )
 TextEdit/styles/normal = ExtResource( 8 )
