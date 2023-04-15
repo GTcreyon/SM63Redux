@@ -1,22 +1,38 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://gui/dialog/dialog_box.tscn" type="PackedScene" id=1]
+[ext_resource path="res://gui/hud/hud_pickups.png" type="Texture" id=2]
 [ext_resource path="res://gui/pause/pause_menu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://gui/water_meter/water_meter.tscn" type="PackedScene" id=11]
 [ext_resource path="res://gui/life_meter/life_meter.tscn" type="PackedScene" id=13]
 [ext_resource path="res://gui/hud/hud.gd" type="Script" id=14]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
 [ext_resource path="res://shaders/flash.shader" type="Shader" id=28]
-[ext_resource path="res://gui/hud/hud_red_coin.png" type="Texture" id=33]
-[ext_resource path="res://gui/hud/hud_coin.png" type="Texture" id=50]
-[ext_resource path="res://gui/hud/hud_shine_coin.png" type="Texture" id=53]
 [ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=63]
-[ext_resource path="res://gui/hud/hud_silver_shine.png" type="Texture" id=71]
-[ext_resource path="res://gui/hud/hud_shine.png" type="Texture" id=79]
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 19, 3, 16, 17 )
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 28 )
 shader_param/flash_factor = 0.0
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 35, 3, 16, 17 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 67, 3, 16, 17 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 19, 23 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 51, 3, 16, 17 )
 
 [node name="HUD" type="CanvasLayer"]
 follow_viewport_enable = true
@@ -60,7 +76,7 @@ margin_bottom = 17.0
 rect_min_size = Vector2( 0, 17 )
 
 [node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/CoinRow"]
-texture = ExtResource( 50 )
+texture = SubResource( 4 )
 centered = false
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/CoinRow"]
@@ -85,7 +101,7 @@ margin_bottom = 38.0
 rect_min_size = Vector2( 0, 17 )
 
 [node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
-texture = ExtResource( 33 )
+texture = SubResource( 3 )
 centered = false
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
@@ -109,7 +125,7 @@ margin_bottom = 59.0
 rect_min_size = Vector2( 0, 17 )
 
 [node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
-texture = ExtResource( 71 )
+texture = SubResource( 2 )
 centered = false
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
@@ -144,7 +160,7 @@ rect_min_size = Vector2( 0, 17 )
 
 [node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineRow"]
 position = Vector2( -40.5, 7.5 )
-texture = ExtResource( 79 )
+texture = SubResource( 5 )
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineRow"]
 position = Vector2( -29, 4 )
@@ -169,7 +185,7 @@ rect_min_size = Vector2( 0, 17 )
 
 [node name="Sprite" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
 position = Vector2( -40, 9.5 )
-texture = ExtResource( 53 )
+texture = SubResource( 6 )
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
 position = Vector2( -29, 4 )

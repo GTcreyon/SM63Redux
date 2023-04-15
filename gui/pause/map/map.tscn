@@ -1,11 +1,10 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://classes/pickup/fludd_box/pickup_turbo.png" type="Texture" id=1]
 [ext_resource path="res://classes/pickup/fludd_box/pickup_rocket.png" type="Texture" id=2]
 [ext_resource path="res://classes/pickup/fludd_box/pickup_hover.png" type="Texture" id=3]
 [ext_resource path="res://shaders/flash.shader" type="Shader" id=4]
 [ext_resource path="res://gui/pause/map/paintings/mini.png" type="Texture" id=5]
-[ext_resource path="res://gui/hud/hud_coin.png" type="Texture" id=6]
 [ext_resource path="res://classes/pickup/fludd_box/map_rocket.png" type="Texture" id=7]
 [ext_resource path="res://classes/pickup/fludd_box/map_turbo.png" type="Texture" id=8]
 [ext_resource path="res://classes/pickup/fludd_box/map_hover.png" type="Texture" id=9]
@@ -23,6 +22,11 @@
 [ext_resource path="res://gui/hud/shine_map.gd" type="Script" id=21]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=22]
 [ext_resource path="res://gui/pause/map_course.gd" type="Script" id=23]
+[ext_resource path="res://gui/hud/hud_pickups.png" type="Texture" id=24]
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 24 )
+region = Rect2( 19, 3, 16, 17 )
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
@@ -139,7 +143,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Courses/MainCourses/BoB/CoinRow"]
-texture = ExtResource( 6 )
+texture = SubResource( 8 )
 centered = false
 
 [node name="X" type="Sprite" parent="Courses/MainCourses/BoB/CoinRow"]
@@ -335,7 +339,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Courses/MainCourses/SL/CoinRow"]
-texture = ExtResource( 6 )
+texture = SubResource( 8 )
 centered = false
 
 [node name="X" type="Sprite" parent="Courses/MainCourses/SL/CoinRow"]
@@ -542,7 +546,7 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Courses/MiniCourses/SSL/CoinRow"]
-texture = ExtResource( 6 )
+texture = SubResource( 8 )
 centered = false
 
 [node name="X" type="Sprite" parent="Courses/MiniCourses/SSL/CoinRow"]
