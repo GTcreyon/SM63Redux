@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=54 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
@@ -90,10 +90,6 @@ region = Rect2( 46, 96, 34, 24 )
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 36, 126, 36 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 32, 56, 33 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 5 )
@@ -282,7 +278,6 @@ position = Vector2( 320, 645 )
 texture = ExtResource( 9 )
 
 [node name="Extras" type="Sprite" parent="." groups=["menu_hide"]]
-material = ExtResource( 10 )
 position = Vector2( 320, 600 )
 texture = SubResource( 3 )
 
@@ -352,7 +347,7 @@ shape_centered = false
 [node name="Hook" type="Sprite" parent="LevelDesigner/Frame"]
 use_parent_material = true
 position = Vector2( 75, -12 )
-texture = SubResource( 9 )
+texture = SubResource( 8 )
 
 [node name="CrystalL" type="AnimatedSprite" parent="LevelDesigner/Frame"]
 use_parent_material = true
