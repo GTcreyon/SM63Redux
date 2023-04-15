@@ -57,6 +57,7 @@ func _process(delta):
 				target_zoom *= 2
 				rezoom()
 		zoom = Vector2.ONE * zoom_factor * current_zoom
+		smoothing_speed = 5 / current_zoom
 		if first_frame:
 			limit_left = target_limit_left
 			limit_right = target_limit_right
