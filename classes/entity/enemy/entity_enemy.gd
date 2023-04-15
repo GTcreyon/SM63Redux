@@ -36,10 +36,12 @@ extends EntityMirrorable
 #	destroys the enemy and spawns its coin pickups.
 
 const COIN_PREFAB = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
+const SMOKE_PREFAB = preload("res://classes/entity/enemy/smoke_poof.tscn")
 
 export var coin_count: int = 1
 export var inside_check: bool = true
 export var multi_stomp: bool = false
+export var make_smoke: bool = true
 var dead: bool = false
 var stomped: bool = false
 var struck: bool = false
@@ -75,6 +77,9 @@ func enemy_die():
 			spawn.dropped = true
 			spawn.pop_velocity()
 			get_parent().add_child(spawn)
+	var spawn = SMOKE_PREFAB.instance()
+	spawn.position = position
+	get_parent().add_child(spawn)
 	queue_free()
 
 

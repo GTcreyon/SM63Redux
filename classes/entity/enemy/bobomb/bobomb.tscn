@@ -93,6 +93,7 @@ extents = Vector2( 1, 1 )
 collision_layer = 4
 script = ExtResource( 7 )
 _sprite_path = NodePath("Sprites/Base")
+make_smoke = false
 _hurtbox_stomp_path = NodePath("")
 _hitbox_path = NodePath("")
 _sfx_stomp_path = NodePath("")
