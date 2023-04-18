@@ -41,7 +41,8 @@ const SMOKE_PREFAB = preload("res://classes/entity/enemy/smoke_poof.tscn")
 export var coin_count: int = 1
 export var inside_check: bool = true
 export var multi_stomp: bool = false
-export var make_smoke: bool = true
+# When true, produce a poof of smoke on death.
+export var death_smoke: bool = true
 var dead: bool = false
 var stomped: bool = false
 var struck: bool = false
