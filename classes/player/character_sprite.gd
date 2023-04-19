@@ -340,7 +340,7 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 	# (This function is only called on land, right?)
 	state_changed = state_changed or old_swimming
 	
-	if parent.grounded and !last_grounded:
+	if parent.get_ground_state() and !last_grounded:
 		# Just hit the ground
 		if parent.get_walk_direction() == 0:
 			# Just landed.
