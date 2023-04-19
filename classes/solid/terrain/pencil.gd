@@ -40,6 +40,7 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 		type = "trio"
 	})
 
+
 func draw_top_from_connected_lines(lines):
 	# First collect everything into groups of verts
 	var groups = []
@@ -128,27 +129,6 @@ func draw_top_from_connected_lines(lines):
 	top_edges.segment_queue.append([true, areas.front()])
 	# Draw all areas
 	for area in areas:
-#		var colors = []
-#		for v in area.verts:
-#			colors.append(Color(1, 1, 1, 1))
-#		var uvs = [
-#			Vector2(0, 0), Vector2(1, 0),
-#			Vector2(1, 1), Vector2(0, 1)
-#		]
-#
-#		if area.type == "trio":
-#			var vert_y = 1 if area.clock_dir == -1 else 0
-#			var inv_vert_y = 1 - vert_y
-#			uvs = [Vector2(0, vert_y)]
-#			var v_size = area.verts.size()
-#			for ind in range(1, v_size - 2):
-#				uvs.append(Vector2(1, vert_y))
-#			uvs.append(Vector2(1, vert_y))
-#			uvs.append(Vector2(0.5, inv_vert_y))
-#
-#		draw_polygon(area.verts, colors, uvs, root.top)
-		
-		
 		# Create the polygon
 		var poly2d = Polygon2D.new()
 		poly2d.texture = root.top
@@ -223,7 +203,6 @@ func draw_bottom_from_connected_lines(lines):
 
 func draw_edges_from_connected_lines(lines):
 	# First collect everything into groups of verts
-	#var groups = []
 	var p_size = lines.size()
 	for ind in range(p_size - 1):
 		var current: Vector2 = lines[ind]
@@ -258,13 +237,14 @@ func draw_edges_from_connected_lines(lines):
 		poly2d.z_index = 1
 		add_child(poly2d)
 
-# Child murder ;-;
-func oof_children():
+
+func remove_all_children():
 	for child in get_children():
 		remove_child(child)
 
+
 # This will add the grass to the top of the polygon
-func get_connected_lines_directional(lines, add_onto_blacklist, direction, poly, start):
+func get_connected_lines_directional(lines, type_list, direction, poly, start, type_id):
 	var p_size = poly.size()
 	var added = false
 	for ind in range(start, p_size):
@@ -273,23 +253,24 @@ func get_connected_lines_directional(lines, add_onto_blacklist, direction, poly,
 		var normal: Vector2 = vert.direction_to(next).tangent()
 		var angle: float = normal.angle_to(direction) / PI * 180
 		
-		if angle >= -root.max_deviation and angle <= root.max_deviation:
+		if (!type_list.has(ind) and angle >= -root.max_deviation and angle <= root.max_deviation) or (type_list.has(ind) and type_list[ind] == type_id):
 			added = true
-			add_onto_blacklist[ind] = true
+			type_list[ind] = type_id
 			lines.append(vert)
 		elif added:
 			lines.append(vert)
 			return ind
 	return null
 
+
 # This will add the grass to the top of the polygon
-func get_connected_lines_blacklist(lines, blacklist, poly, start):
+func get_connected_lines_typelist(lines, type_list, poly, start, type_id):
 	var p_size = poly.size()
 	var added = false
 	for ind in range(start, p_size):
 		var vert: Vector2 = poly[ind]
 		
-		if !blacklist.has(ind):
+		if !type_list.has(ind) or type_list[ind] == type_id:
 			added = true
 			lines.append(vert)
 		elif added:
@@ -299,6 +280,7 @@ func get_connected_lines_blacklist(lines, blacklist, poly, start):
 		lines.append(poly[0])
 	return null
 
+
 # Add the grass to 
 func add_full(poly):
 	# Clear the draw queue for top edges
@@ -306,10 +288,10 @@ func add_full(poly):
 	
 	# Generate the top layer
 	var latest_index = 0
-	var blacklist = {}
+	var type_list = root.edge_types.duplicate()
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_directional(list, blacklist, root.up_direction, poly, latest_index)
+		latest_index = get_connected_lines_directional(list, type_list, root.up_direction, poly, latest_index, 1)
 		if list.size() >= 2:
 			draw_top_from_connected_lines(list)
 	
@@ -317,21 +299,22 @@ func add_full(poly):
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_directional(list, blacklist, root.down_direction, poly, latest_index)
+		latest_index = get_connected_lines_directional(list, type_list, root.down_direction, poly, latest_index, 2)
 		if list.size() >= 2:
 			draw_bottom_from_connected_lines(list)
 
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_blacklist(list, blacklist, poly, latest_index)
+		latest_index = get_connected_lines_typelist(list, type_list, poly, latest_index, 3)
 		if list.size() >= 2:
 			draw_edges_from_connected_lines(list)
 	
 	top_edges.update()
 
+
 func _draw():
-	oof_children()
+	remove_all_children()
 	main_texture.texture = root.body
 	main_texture.polygon = root.polygon
 	main_texture.color = root.shallow_color if root.shallow else Color(1, 1, 1)
@@ -339,4 +322,3 @@ func _draw():
 	add_full(root.polygon)
 	if !Engine.editor_hint:
 		collision.polygon = root.polygon
-
