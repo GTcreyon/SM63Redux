@@ -1,7 +1,6 @@
 class_name CheepCheep
 extends EntityEnemy
 
-const COIN = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 const SPEED = 32.0/60.0
 
 var follow_targets = []
@@ -20,6 +19,8 @@ func _physics_step():
 	else:
 		if _water_bodies > 0:
 			if follow_targets.size() > 0:
+				if sprite.animation == "idle":
+					sprite.play("notice")
 				var target = follow_targets[0]
 				direction = target.position - position
 				vel = position.direction_to(target.position) * SPEED
@@ -34,6 +35,8 @@ func _physics_step():
 						mirror = false
 					rotation = lerp_angle(rotation, direction.angle(), 0.25)
 			else:
+				if sprite.animation == "chase":
+					sprite.play("calmdown")
 				vel.y *= 0.85
 				sprite.flip_v = false
 				if abs(PI - rotation) > abs(rotation):
@@ -57,6 +60,7 @@ func _physics_step():
 						idle_time = 0
 					vel.x = -sign(vel.x)
 		else:
+			sprite.play("idle")
 			vel.y = min(vel.y + 0.25, 5)
 			if is_on_floor():
 				vel.y = -2
@@ -90,10 +94,18 @@ func _on_WaterCheck_area_exited(_area):
 
 func _hurt_struck(body):
 	sfx_struck.play()
-	
+	sprite.play("death")
 	struck = true
 	if body.position.x < position.x:
 		vel.x = 10
 	elif body.position.x > position.x:
 		vel.x = -10
 	vel.y = -1
+
+
+func _on_AnimatedSprite_animation_finished():
+	match sprite.animation:
+		"notice":
+			sprite.play("chase")
+		"calmdown":
+			sprite.play("idle")
