@@ -262,9 +262,11 @@ func _anim_from_new_state(
 			parent.S.HURT:
 				return "hurt_start"
 			_:
+				# Swimming overrides all other states.
 				if animation == "swim_stroke":
 					return "swim_stroke"
-				# Swimming overrides all other states.
+				if parent.grounded:
+					return _state_neutral(old_state, last_swimming)
 				return "swim_idle"
 	else:
 		match new_state:
@@ -334,9 +336,8 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 	# Take note if state just changed.
 	# (This function is only called when state == neutral, right?)
 	var state_changed: bool = old_state != PlayerCharacter.S.NEUTRAL
-	# Factor swimming into this change.
-	# (This function is only called on land, right?)
-	state_changed = state_changed or old_swimming
+	
+	state_changed = state_changed or (old_swimming and !parent.swimming)
 	
 	if parent.grounded and !last_grounded:
 		# Just hit the ground
