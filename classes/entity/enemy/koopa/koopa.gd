@@ -57,6 +57,10 @@ func _hurt_stomp(area):
 
 
 func _hurt_struck(body):
+	if struck: # Enemy has already been struck
+		return
+
+	struck = true
 	ResidualSFX.new_from_existing(sfx_struck, get_parent())
 	if body.global_position.x < global_position.x:
 		into_shell(5)
