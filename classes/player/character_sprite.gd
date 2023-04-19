@@ -228,7 +228,9 @@ func spin_logic() -> void:
 		"spin_fast":
 			#frame = float(parent.SPIN_TIME - parent.spin_frames) / float(parent.SPIN_TIME)
 			if parent.spin_frames <= 0:
+				var save_frame = frame
 				trigger_anim("spin_slow")
+				frame = save_frame
 		"spin_slow":
 			if slow_spin_timer < SLOW_SPIN_TIME:
 				slow_spin_timer += 1

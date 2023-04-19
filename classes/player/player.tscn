@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=2]
+[gd_scene load_steps=158 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
@@ -547,7 +547,7 @@ animations = [ {
 "name": "shine",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 154 ), SubResource( 155 ), SubResource( 156 ), SubResource( 157 ), SubResource( 158 ), SubResource( 159 ), SubResource( 160 ), SubResource( 161 ) ],
+"frames": [ SubResource( 154 ), SubResource( 155 ), SubResource( 156 ), SubResource( 157 ), SubResource( 158 ), SubResource( 159 ), SubResource( 160 ), SubResource( 161 ), SubResource( 154 ), SubResource( 155 ), SubResource( 156 ), SubResource( 157 ), SubResource( 158 ), SubResource( 159 ), SubResource( 160 ), SubResource( 161 ) ],
 "loop": true,
 "name": "spin_fast",
 "speed": 45.0
@@ -603,13 +603,65 @@ animations = [ {
 "speed": 20.0
 } ]
 
-[sub_resource type="AtlasTexture" id=35]
+[sub_resource type="AtlasTexture" id=192]
 atlas = ExtResource( 12 )
-region = Rect2( 0, 0, 28, 30 )
+region = Rect2( 128, 0, 32, 32 )
 
-[sub_resource type="AtlasTexture" id=42]
+[sub_resource type="AtlasTexture" id=193]
 atlas = ExtResource( 12 )
-region = Rect2( 28, 0, 28, 30 )
+region = Rect2( 160, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=194]
+atlas = ExtResource( 12 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=197]
+atlas = ExtResource( 12 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=198]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=199]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=200]
+atlas = ExtResource( 12 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=201]
+atlas = ExtResource( 12 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=202]
+atlas = ExtResource( 12 )
+region = Rect2( 96, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=191]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=195]
+atlas = ExtResource( 12 )
+region = Rect2( 224, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=190]
+atlas = ExtResource( 12 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=196]
+atlas = ExtResource( 12 )
+region = Rect2( 192, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=203]
+atlas = ExtResource( 12 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=204]
+atlas = ExtResource( 12 )
+region = Rect2( 128, 32, 32, 32 )
 
 [sub_resource type="AtlasTexture" id=37]
 atlas = ExtResource( 12 )
@@ -621,14 +673,59 @@ region = Rect2( 112, 0, 28, 30 )
 
 [sub_resource type="SpriteFrames" id=36]
 animations = [ {
-"frames": [ SubResource( 35 ) ],
+"frames": [ SubResource( 192 ) ],
 "loop": true,
-"name": "hover",
+"name": "hover_b",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 42 ) ],
+"frames": [ SubResource( 193 ) ],
 "loop": true,
-"name": "hover_front",
+"name": "hover_bl",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 194 ) ],
+"loop": true,
+"name": "hover_br",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 197 ), SubResource( 198 ) ],
+"loop": true,
+"name": "hover_crouch_end",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 199 ), SubResource( 200 ), SubResource( 201 ), SubResource( 202 ) ],
+"loop": true,
+"name": "hover_crouch_start",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 191 ) ],
+"loop": true,
+"name": "hover_f",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 195 ) ],
+"loop": true,
+"name": "hover_fl",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 190 ) ],
+"loop": true,
+"name": "hover_fr",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 196 ) ],
+"loop": true,
+"name": "hover_l",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 203 ) ],
+"loop": true,
+"name": "hover_r",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 204 ) ],
+"loop": true,
+"name": "hover_spin_smear",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 37 ) ],
@@ -732,14 +829,14 @@ script = ExtResource( 1 )
 [node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
-animation = "jump_double_trans"
+animation = "walk_neutral"
 script = ExtResource( 21 )
 
 [node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]
 show_behind_parent = true
+z_index = 1
 frames = SubResource( 36 )
-animation = "hover"
-offset = Vector2( -2, -2 )
+animation = "hover_spin_smear"
 script = ExtResource( 19 )
 
 [node name="HoverSFX" type="AudioStreamPlayer" parent="CharacterGroup/CharacterSprite/Fludd"]
