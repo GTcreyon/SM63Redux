@@ -60,7 +60,7 @@ func _on_TopCollision_body_entered(body):
 			body.vel.x *= 1.2
 			get_parent().call_deferred("add_child", koopa)
 			$TopCollision.set_deferred("monitoring", false)
-			$Damage.monitoring = false
+			$Damage.set_deferred("monitoring", false)
 			set_deferred("visible", false)
 			visible = false
 
@@ -91,7 +91,7 @@ func spawn_shell(body):
 	else:
 		shell.vel.x = -5
 	$TopCollision.set_deferred("monitoring", false)
-	$Damage.monitoring = false
+	$Damage.set_deferred("monitoring", false)
 	set_deferred("visible", false)
 
 
