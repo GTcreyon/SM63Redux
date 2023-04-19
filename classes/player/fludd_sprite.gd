@@ -51,6 +51,8 @@ const SPIN_BACK = ["b", Vector2(0, -1), 1, NO_X_FLIP, NO_SYNC]
 const SPIN_BACK_LEFT = ["bl", Vector2(7, -1), 1, NO_X_FLIP, NO_SYNC]
 const SPIN_LEFT = ["l", Vector2(8, -1), 0, NO_X_FLIP, NO_SYNC]
 const SPIN_FRONT_LEFT = ["fl", Vector2(5, -1), 0, NO_X_FLIP, NO_SYNC]
+const SPIN_SMEAR_BACK = ["spin_smear", Vector2.ZERO, 0, NO_X_FLIP, NO_SYNC]
+const SPIN_SMEAR_FORE = ["spin_smear", Vector2.ZERO, 1, NO_X_FLIP, NO_SYNC]
 
 const DEFAULT_OFFSET = Vector2(-5, 0)
 const DEFAULT_POSE = ["fr", DEFAULT_OFFSET, 0, NO_X_FLIP, NO_SYNC]
@@ -61,19 +63,27 @@ const POSE_FRAMES = {
 	"back": ["b", Vector2(0, 0), 1, NO_X_FLIP, NO_SYNC],
 	"front": ["f", Vector2(0, 0), 0, NO_X_FLIP, NO_SYNC],
 	"spin_start": [
-		["spin_smear", Vector2.ZERO, 0, NO_X_FLIP, NO_SYNC],
+		SPIN_SMEAR_BACK,
 		SPIN_FRONT_RIGHT,
 		SPIN_BACK_LEFT,
 		SPIN_FRONT_RIGHT
 	],
 	"spin_water": SPIN_FRONT_RIGHT,
-	"spin_fast": [ # 8 frames, starts facing back-right, ccw rotation
+	"spin_fast": [ # 16 frames (8 identical), starts facing back-right, ccw rotation
 		SPIN_BACK_RIGHT,
 		SPIN_BACK,
 		SPIN_BACK_LEFT,
 		SPIN_LEFT,
 		SPIN_FRONT_LEFT,
-		SPIN_FRONT,
+		SPIN_SMEAR_FORE,
+		SPIN_FRONT_RIGHT,
+		SPIN_RIGHT,
+		SPIN_BACK_RIGHT,
+		SPIN_BACK,
+		SPIN_BACK_LEFT,
+		SPIN_LEFT,
+		SPIN_FRONT_LEFT,
+		SPIN_SMEAR_BACK,
 		SPIN_FRONT_RIGHT,
 		SPIN_RIGHT,
 	],
@@ -89,10 +99,14 @@ const POSE_FRAMES = {
 	],
 	"crouch_start": ["crouch_start", DEFAULT_OFFSET, 0, NO_X_FLIP, SYNC],
 	"crouch_end": ["crouch_end", DEFAULT_OFFSET, 0, NO_X_FLIP, SYNC],
-	
+	"dive_start": ["fr", Vector2(-3, 3), 0, NO_X_FLIP, SYNC],
+	"dive_air": ["fr", Vector2(-3, 3), 0, NO_X_FLIP, SYNC],
+	"dive_ground": ["fr", Vector2(-2, 3), 0, NO_X_FLIP, SYNC],
 }
 const SPRAY_ORIGIN = Vector2(-9, 6)
+const SPRAY_ORIGIN_DIVE = SPRAY_ORIGIN + Vector2(1, 2)
 const PLUME_ORIGIN = Vector2(-10, -2)
+const PLUME_ORIGIN_DIVE = PLUME_ORIGIN + Vector2(1, 2)
 
 onready var player_sprite: AnimatedSprite = $".."
 onready var player_body: KinematicBody2D = $"../../.."
@@ -190,8 +204,13 @@ func _hover_spray() -> void:
 	var spray_pos: Vector2
 	var plume_pos: Vector2
 	# Offset spray effect relative to player's center
-	spray_pos = SPRAY_ORIGIN
-	plume_pos = PLUME_ORIGIN
+	if player_body.state == player_body.S.DIVE:
+		spray_pos = SPRAY_ORIGIN_DIVE
+		plume_pos = PLUME_ORIGIN_DIVE
+	else:
+		spray_pos = SPRAY_ORIGIN
+		plume_pos = PLUME_ORIGIN
+	
 	# Factor in facing direction
 	spray_pos *= Vector2(player_body.facing_direction, 1)
 	plume_pos *= Vector2(player_body.facing_direction, 1)
@@ -213,16 +232,6 @@ func _hover_spray() -> void:
 	# Apply rotations
 	spray_particles.rotation = rot
 	spray_plume.rotation = rot
-
-
-func switch_nozzle(current_nozzle: int) -> void:
-	match current_nozzle:
-		Singleton.Nozzles.HOVER:
-			_nozzle = "hover"
-		Singleton.Nozzles.ROCKET:
-			_nozzle = "rocket"
-		Singleton.Nozzles.TURBO:
-			_nozzle = "turbo"
 
 
 func _pose_name(pose: Array) -> String:
