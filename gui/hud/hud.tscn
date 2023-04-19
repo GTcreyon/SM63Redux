@@ -1,18 +1,21 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://gui/dialog/dialog_box.tscn" type="PackedScene" id=1]
-[ext_resource path="res://gui/hud/hud_pickups.png" type="Texture" id=2]
+[ext_resource path="res://gui/hud/hud_icons.png" type="Texture" id=2]
 [ext_resource path="res://gui/pause/pause_menu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://gui/water_meter/water_meter.tscn" type="PackedScene" id=11]
 [ext_resource path="res://gui/life_meter/life_meter.tscn" type="PackedScene" id=13]
 [ext_resource path="res://gui/hud/hud.gd" type="Script" id=14]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=26]
 [ext_resource path="res://shaders/flash.shader" type="Shader" id=28]
-[ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=63]
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 2 )
 region = Rect2( 19, 3, 16, 17 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 83, 6, 11, 11 )
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 28 )
@@ -81,7 +84,7 @@ centered = false
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/CoinRow"]
 position = Vector2( 19, 4 )
-texture = ExtResource( 63 )
+texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/CoinRow"]
@@ -106,7 +109,7 @@ centered = false
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
 position = Vector2( 19, 4 )
-texture = ExtResource( 63 )
+texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/RedCoinRow"]
@@ -130,7 +133,7 @@ centered = false
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
 position = Vector2( 19, 4 )
-texture = ExtResource( 63 )
+texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTL/SilverShineRow"]
@@ -164,7 +167,7 @@ texture = SubResource( 5 )
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineRow"]
 position = Vector2( -29, 4 )
-texture = ExtResource( 63 )
+texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTR/ShineRow"]
@@ -189,7 +192,7 @@ texture = SubResource( 6 )
 
 [node name="X" type="Sprite" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]
 position = Vector2( -29, 4 )
-texture = ExtResource( 63 )
+texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="HUDControl/Stats/StatsTR/ShineCoinRow"]

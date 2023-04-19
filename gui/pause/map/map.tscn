@@ -15,18 +15,21 @@
 [ext_resource path="res://gui/pause/map/scroll_top.png" type="Texture" id=14]
 [ext_resource path="res://gui/pause/map/map_coin_0.png" type="Texture" id=15]
 [ext_resource path="res://gui/pause/map/scroll_bar.png" type="Texture" id=16]
-[ext_resource path="res://gui/hud/hud_x.png" type="Texture" id=17]
 [ext_resource path="res://gui/pause/map/pin.png" type="Texture" id=18]
 [ext_resource path="res://gui/pause/map/divider_edge.png" type="Texture" id=19]
 [ext_resource path="res://gui/pause/map/map_shine_1.png" type="Texture" id=20]
 [ext_resource path="res://gui/hud/shine_map.gd" type="Script" id=21]
 [ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=22]
 [ext_resource path="res://gui/pause/map_course.gd" type="Script" id=23]
-[ext_resource path="res://gui/hud/hud_pickups.png" type="Texture" id=24]
+[ext_resource path="res://gui/hud/hud_icons.png" type="Texture" id=24]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 24 )
 region = Rect2( 19, 3, 16, 17 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 24 )
+region = Rect2( 83, 6, 11, 11 )
 
 [sub_resource type="ShaderMaterial" id=3]
 shader = ExtResource( 4 )
@@ -71,7 +74,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="SpriteFrames" id=7]
+[sub_resource type="SpriteFrames" id=9]
 animations = [ {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
@@ -148,7 +151,7 @@ centered = false
 
 [node name="X" type="Sprite" parent="Courses/MainCourses/BoB/CoinRow"]
 position = Vector2( 19, 4 )
-texture = ExtResource( 17 )
+texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="Courses/MainCourses/BoB/CoinRow"]
@@ -262,7 +265,7 @@ animation = "off"
 
 [node name="Turbo" type="AnimatedSprite" parent="Courses/MainCourses/BoB/FluddGroup"]
 position = Vector2( 0, 56 )
-frames = SubResource( 7 )
+frames = SubResource( 9 )
 animation = "off"
 
 [node name="DividerLeft" type="TextureRect" parent="Courses/MainCourses/BoB"]
@@ -344,7 +347,7 @@ centered = false
 
 [node name="X" type="Sprite" parent="Courses/MainCourses/SL/CoinRow"]
 position = Vector2( 19, 4 )
-texture = ExtResource( 17 )
+texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="Courses/MainCourses/SL/CoinRow"]
@@ -461,7 +464,7 @@ animation = "on"
 
 [node name="Turbo" type="AnimatedSprite" parent="Courses/MainCourses/SL/FluddGroup"]
 position = Vector2( 0, 56 )
-frames = SubResource( 7 )
+frames = SubResource( 9 )
 animation = "on"
 
 [node name="DividerLeft" type="TextureRect" parent="Courses/MainCourses/SL"]
@@ -551,7 +554,7 @@ centered = false
 
 [node name="X" type="Sprite" parent="Courses/MiniCourses/SSL/CoinRow"]
 position = Vector2( 19, 4 )
-texture = ExtResource( 17 )
+texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="Courses/MiniCourses/SSL/CoinRow"]
@@ -634,7 +637,7 @@ animation = "on"
 
 [node name="Turbo" type="AnimatedSprite" parent="Courses/MiniCourses/SSL/FluddGroup"]
 position = Vector2( 0, 56 )
-frames = SubResource( 7 )
+frames = SubResource( 9 )
 animation = "on"
 
 [node name="DividerLeft" type="TextureRect" parent="Courses/MiniCourses/SSL"]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hud_x.png-9a0c111f7ff824ba78db82a45f5005a4.stex"
+path="res://.import/hud_icons.png-f2c84a15c7ef27368465e3a65d584219.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/hud/hud_x.png"
-dest_files=[ "res://.import/hud_x.png-9a0c111f7ff824ba78db82a45f5005a4.stex" ]
+source_file="res://gui/hud/hud_icons.png"
+dest_files=[ "res://.import/hud_icons.png-f2c84a15c7ef27368465e3a65d584219.stex" ]
 
 [params]
 
