@@ -885,7 +885,7 @@ func update_ground_state() -> void:
 
 # Get a live-updating grounded state, incase the `ground` variable is outdated
 func get_ground_state() -> bool:
-	return is_on_floor() or (ground_failsafe_condition() and ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD)
+	return is_on_floor() or (!ground_failsafe_condition() and ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD)
 
 
 func ground_failsafe_condition() -> bool:
