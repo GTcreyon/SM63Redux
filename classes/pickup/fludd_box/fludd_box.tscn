@@ -152,6 +152,7 @@ volume_db = -8.0
 bus = "SFX"
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+z_index = -1
 frames = SubResource( 2 )
 animation = "stand_hover"
 playing = true
