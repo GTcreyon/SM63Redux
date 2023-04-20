@@ -261,6 +261,11 @@ func _anim_from_new_state(
 				return "crouch_start"
 			parent.S.HURT:
 				return "hurt_start"
+			parent.S.DIVE:
+				if parent.grounded:
+					return "dive_ground"
+				else:
+					return "dive_air"
 			_:
 				# Swimming overrides all other states.
 				if animation == "swim_stroke":
