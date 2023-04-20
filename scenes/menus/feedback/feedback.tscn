@@ -359,5 +359,4 @@ normal = SubResource( 20 )
 pressed = SubResource( 21 )
 
 [connection signal="pressed" from="FeedbackContainer/List/HBoxContainer/Submit" to="." method="_on_Submit_pressed"]
-[connection signal="pressed" from="Cancel/Cancel" to="FeedbackContainer/List" method="_on_Cancel_pressed"]
-[connection signal="pressed" from="Cancel/Cancel" to="Cancel" method="_on_Cancel_pressed"]
+[connection signal="pressed" from="Cancel/Cancel" to="." method="_on_Cancel_pressed"]

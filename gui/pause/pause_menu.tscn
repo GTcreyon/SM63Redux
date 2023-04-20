@@ -36,6 +36,12 @@
 [ext_resource path="res://gui/pause/pause_left_middle.png" type="Texture" id=34]
 [ext_resource path="res://gui/pause/exit/exit.tscn" type="PackedScene" id=35]
 
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[sub_resource type="StyleBoxEmpty" id=11]
+
+[sub_resource type="StyleBoxEmpty" id=12]
+
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 28 )
 region = Rect2( 0, 63, 20, 21 )
@@ -43,12 +49,6 @@ region = Rect2( 0, 63, 20, 21 )
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 28 )
 region = Rect2( 20, 63, 20, 21 )
-
-[sub_resource type="StyleBoxEmpty" id=10]
-
-[sub_resource type="StyleBoxEmpty" id=11]
-
-[sub_resource type="StyleBoxEmpty" id=12]
 
 [node name="PauseMenu" type="Control"]
 anchor_right = 1.0
@@ -90,23 +90,6 @@ visible = false
 
 [node name="ExitMenu" parent="Content" instance=ExtResource( 35 )]
 visible = false
-
-[node name="UnpauseControl" type="Control" parent="."]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -60.0
-margin_top = 24.0
-mouse_filter = 2
-script = ExtResource( 25 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Unpause" type="TouchScreenButton" parent="UnpauseControl"]
-position = Vector2( -20, 0 )
-normal = SubResource( 8 )
-pressed = SubResource( 9 )
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 anchor_top = 1.0
@@ -328,9 +311,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[connection signal="pressed" from="UnpauseControl/Unpause" to="UnpauseControl" method="_on_Unpause_pressed"]
-[connection signal="released" from="UnpauseControl/Unpause" to="UnpauseControl" method="_on_Unpause_released"]
+[node name="Unpause" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -102.0
+margin_top = 24.0
+margin_bottom = 45.0
+texture_normal = SubResource( 8 )
+texture_pressed = SubResource( 9 )
+script = ExtResource( 25 )
+
 [connection signal="toggled" from="ButtonContainer/ButtonMap" to="ButtonContainer/ButtonMap" method="_on_Button_toggled"]
 [connection signal="toggled" from="ButtonContainer/ButtonFludd" to="ButtonContainer/ButtonFludd" method="_on_Button_toggled"]
 [connection signal="toggled" from="ButtonContainer/ButtonOptions" to="ButtonContainer/ButtonOptions" method="_on_Button_toggled"]
 [connection signal="toggled" from="ButtonContainer/ButtonExit" to="ButtonContainer/ButtonExit" method="_on_Button_toggled"]
+[connection signal="button_down" from="Unpause" to="Unpause" method="_on_Unpause_button_down"]
+[connection signal="button_up" from="Unpause" to="Unpause" method="_on_Unpause_button_up"]
