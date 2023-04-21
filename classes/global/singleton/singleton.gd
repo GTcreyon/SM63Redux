@@ -138,6 +138,9 @@ func reset_game_state():
 	coin_total = 0
 	red_coin_total = 0
 	meter_progress = 0 # to do with health meter?
+	
+	# Clear persistent object data.
+	FlagServer.reset_flag_dict()
 
 
 # Get a scaling factor based on the window dimensions
