@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/menus/title/main_menu/menu_orb.png" type="Texture" id=8]
 [ext_resource path="res://scenes/menus/title/main_menu/selector.png" type="Texture" id=9]
-[ext_resource path="res://shaders/desaturate.tres" type="Material" id=10]
 [ext_resource path="res://scenes/menus/title/main_menu/main_menu.gd" type="Script" id=11]
 [ext_resource path="res://scenes/menus/title/sheen.gd" type="Script" id=12]
 [ext_resource path="res://scenes/menus/title/main_menu/rope.png" type="Texture" id=13]
@@ -273,7 +272,6 @@ use_parent_material = true
 texture = SubResource( 17 )
 
 [node name="SelectorExtras" type="Sprite" parent="." groups=["menu_hide"]]
-material = ExtResource( 10 )
 position = Vector2( 320, 645 )
 texture = ExtResource( 9 )
 
