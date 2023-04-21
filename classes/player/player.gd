@@ -293,7 +293,7 @@ func player_physics():
 		assertions()
 	fludd_stale = true
 	
-	check_ground_state()
+	update_ground_state()
 	
 	manage_invuln()
 	manage_buffers()
@@ -871,25 +871,34 @@ func manage_hurt_recover():
 
 
 var cancel_ground: bool = false
-func check_ground_state() -> void:
+func update_ground_state() -> void:
 	if cancel_ground:
 		grounded = false
 		cancel_ground = false
 	else:
-		# failsafe to prevent getting stuck between slopes
-		if (
-			vel.y < 0
-			or is_on_floor()
-			or fludd_spraying_rising(true)
-			or (state == S.POUND and pound_state == Pound.SPIN)
-			or state == S.HURT
-			or swimming
-			or bouncing
-			or ground_failsafe_check.get_overlapping_bodies().size() <= 0
-		):
+		# Failsafe to prevent getting stuck between slopes
+		if ground_failsafe_condition():
 			ground_failsafe_timer = 0
-		grounded = is_on_floor() or ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD
+		grounded = get_ground_state()
 	ground_except = grounded
+
+
+# Get a live-updating grounded state, incase the `ground` variable is outdated
+func get_ground_state() -> bool:
+	return is_on_floor() or (!ground_failsafe_condition() and ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD)
+
+
+func ground_failsafe_condition() -> bool:
+	return (
+		vel.y < 0
+		or is_on_floor()
+		or fludd_spraying_rising(true)
+		or (state == S.POUND and pound_state == Pound.SPIN)
+		or state == S.HURT
+		or swimming
+		or bouncing
+		or ground_failsafe_check.get_overlapping_bodies().size() <= 0
+	)
 
 
 func player_fall() -> void:
