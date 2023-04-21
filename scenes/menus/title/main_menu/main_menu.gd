@@ -68,6 +68,9 @@ func _process(delta: float) -> void:
 			for node in get_tree().get_nodes_in_group("menu_hide"):
 				node.modulate.a = max(node.modulate.a - 0.125 * dmod, 0)
 			options_menu.modulate.a = min(options_menu.modulate.a + 0.125 * dmod, 1)
+			if Input.is_action_just_pressed("ui_cancel"):
+				show_options = false
+				Singleton.get_node("SFX/Back").play()
 		else:
 			for node in get_tree().get_nodes_in_group("menu_hide"):
 				node.modulate.a = min(node.modulate.a + 0.125 * dmod, 1)
@@ -159,8 +162,8 @@ func _press_button(button: int) -> void:
 		match button:
 			0:
 				_menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
-			1:
-				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
+#			1:
+#				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			3:
 				Singleton.get_node("SFX/Confirm").play()
 				show_options = true
