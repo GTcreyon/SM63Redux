@@ -79,8 +79,9 @@ func _take_screenshot() -> PoolByteArray:
 
 
 func _assemble_message() -> String:
-	var msg = "**Description:**\n> "
-	msg += description.text.replace("\n", "\n> ")
+	var msg: String = "**Description:**\n> "
+	var desc_text = description.text
+	msg += desc_text.replace("\n", "\n> ")
 	
 	msg += "\n**Categories:**"
 	var categories = ""
@@ -109,6 +110,8 @@ func _assemble_message() -> String:
 		contact_info = "`none`"
 	
 	msg += "\n**Contact:**\n> " + contact_info
+	var hash_text = desc_text + str(Time.get_ticks_msec())
+	msg += "\n**Reference:**\n> &" + hash_text.sha1_text().substr(0, 5)
 	return msg
 
 
@@ -116,8 +119,8 @@ func _assemble_package() -> String:
 	var package = ""
 	package += add_data("platform", OS.get_name())
 	package += add_data("version", Singleton.VERSION)
-	package += add_data("timestamp", OS.get_ticks_msec())
-	package += add_data("window_size", OS.get_window_size())
+	package += add_data("timestamp", Time.get_ticks_msec())
+	package += add_data("window_size", OS.window_size)
 	package += add_data("fullscreen", OS.window_fullscreen)
 	package += add_data("room", get_tree().get_current_scene().get_filename())
 	var player = $"/root/Main/Player"
