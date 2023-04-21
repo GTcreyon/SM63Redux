@@ -710,7 +710,7 @@ pointing/emulate_touch_from_mouse=true
 
 [locale]
 
-translations=PoolStringArray( "res://locale/translations/es.po", "res://locale/translations/fr.po", "res://locale/translations/it_IT.po", "res://locale/translations/nl.po" )
+translations=PoolStringArray( "res://locale/translations/es.po", "res://locale/translations/fr.po", "res://locale/translations/it_IT.po", "res://locale/translations/nl.po", "res://locale/translations/pt_BR.po" )
 locale_filter=[ 0, [  ] ]
 
 [mono]
