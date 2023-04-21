@@ -14,8 +14,6 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	var e_angle = atan2(e_unit.y, e_unit.x)
 	
 	var delta = (e_angle - s_angle) / 5.0
-	#var distance = circumcenter.distance_to(start)
-	#var angle = s_angle
 	
 	# Circular edges, this doesn't work rn, I'll work on it later
 	
@@ -272,7 +270,6 @@ func check_line_angle(angle: float) -> bool:
 	return angle >= -root.max_deviation and angle <= root.max_deviation
 
 
-# This will add the grass to the top of the polygon
 func get_connected_lines_overrides(lines, override_list, poly, start, type_id):
 	var p_size = poly.size()
 	var added = false
@@ -290,7 +287,6 @@ func get_connected_lines_overrides(lines, override_list, poly, start, type_id):
 	return null
 
 
-# Add the grass to 
 func add_full(poly):
 	# Clear the draw queue for top edges
 	top_edges.segment_queue = []
