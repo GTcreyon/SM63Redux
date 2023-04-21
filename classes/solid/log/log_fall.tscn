@@ -26,6 +26,16 @@ position = Vector2( 0, 2.5 )
 shape = SubResource( 1 )
 one_way_collision = true
 
+[node name="WaterCheck" type="Area2D" parent="."]
+position = Vector2( 0, -32 )
+collision_layer = 0
+collision_mask = 8
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
+shape = SubResource( 3 )
+
 [node name="RideArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 20
@@ -39,3 +49,5 @@ shape = SubResource( 3 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 rect = Rect2( -8, -12, 16, 24 )
+
+[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
