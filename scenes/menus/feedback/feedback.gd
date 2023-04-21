@@ -111,7 +111,7 @@ func _assemble_message() -> String:
 	
 	msg += "\n**Contact:**\n> " + contact_info
 	var hash_text = desc_text + str(Time.get_ticks_msec())
-	msg += "\n**Reference:**\n> %" + hash_text.sha1_text().substr(0, 5)
+	msg += "\n**Reference:**\n> &" + hash_text.sha1_text().substr(0, 5)
 	return msg
 
 
