@@ -41,6 +41,9 @@ const WHITELISTED_ACTIONS = [
 	"feedback",
 	"debug",
 ]
+# Audio consts
+const WATER_VRB_BUS = 1
+const WATER_LPF_BUS = 2
 
 enum Nozzles { # FLUDD enum
 	NONE,
@@ -126,6 +129,9 @@ func prepare_exit_game():
 	reset_game_state()
 	# Close speedrun timer
 	timer.visible = false
+	# End all audio effects.
+	AudioServer.set_bus_effect_enabled(WATER_LPF_BUS, 0, false)
+	AudioServer.set_bus_effect_enabled(WATER_VRB_BUS, 0, false)
 
 
 # Reset game state to that of a fresh playthrough.
@@ -138,6 +144,9 @@ func reset_game_state():
 	coin_total = 0
 	red_coin_total = 0
 	meter_progress = 0 # to do with health meter?
+	
+	# Clear persistent object data.
+	FlagServer.reset_flag_dict()
 
 
 # Get a scaling factor based on the window dimensions
