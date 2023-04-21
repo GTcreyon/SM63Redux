@@ -1,10 +1,18 @@
 tool
 extends Node2D
 
+enum EdgeType {
+	NONE,
+	TOP,
+	BOTTOM,
+	SIDE,
+}
+
 onready var root = $".."
 onready var collision = $"../Static/Collision"
 onready var main_texture = $"../Body"
 onready var top_edges = $"../TopEdges"
+
 
 func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: Vector2):
 	var verts = [start]
@@ -296,7 +304,7 @@ func add_full(poly):
 	var overrides = root.edge_types.duplicate()
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_directional(list, overrides, root.up_direction, poly, latest_index, 1)
+		latest_index = get_connected_lines_directional(list, overrides, root.up_direction, poly, latest_index, EdgeType.TOP)
 		if list.size() >= 2:
 			draw_top_from_connected_lines(list)
 	
@@ -304,14 +312,14 @@ func add_full(poly):
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_directional(list, overrides, root.down_direction, poly, latest_index, 2)
+		latest_index = get_connected_lines_directional(list, overrides, root.down_direction, poly, latest_index, EdgeType.BOTTOM)
 		if list.size() >= 2:
 			draw_bottom_from_connected_lines(list)
 
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_overrides(list, overrides, poly, latest_index, 3)
+		latest_index = get_connected_lines_overrides(list, overrides, poly, latest_index, EdgeType.SIDE)
 		if list.size() >= 2:
 			draw_edges_from_connected_lines(list)
 	
