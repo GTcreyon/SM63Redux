@@ -1328,7 +1328,7 @@ const DIVE_BOX_POS = Vector2(0, 10)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
 func switch_state(new_state):
 	# Always pause spin sfx
-	spin_sfx.stream_paused = true
+	spin_sfx.playing = false
 	# If spin just ended, adjust SFX accordingly.
 	if state == S.SPIN:
 		if swimming:
@@ -1400,8 +1400,7 @@ func play_sfx(type, group):
 			thud.play(0)
 		"spin", "spin_end":
 			spin_sfx.stream = sound
-			spin_sfx.play(0)
-			spin_sfx.stream_paused = false
+			spin_sfx.playing = true
 
 
 const TERRAIN_MASK = 0b111111110000000000000000
