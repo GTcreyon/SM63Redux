@@ -222,6 +222,8 @@ func _on_BackupAngle_body_exited(_body):
 
 var water_areas: int = 0
 func _on_WaterCheck_area_entered(_area):
+	# Disconnect from the ground and start swimming
+	grounded = false
 	swimming = true
 	water_areas += 1
 	# Reset state to normal
