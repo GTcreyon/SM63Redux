@@ -244,7 +244,7 @@ func remove_all_children():
 
 
 # This will add the grass to the top of the polygon
-func get_connected_lines_directional(lines, type_list, direction, poly, start, type_id):
+func get_connected_lines_directional(lines, overrides, direction, poly, start, type_id):
 	var p_size = poly.size()
 	var added = false
 	for ind in range(start, p_size):
@@ -253,9 +253,9 @@ func get_connected_lines_directional(lines, type_list, direction, poly, start, t
 		var normal: Vector2 = vert.direction_to(next).tangent()
 		var angle: float = normal.angle_to(direction) / PI * 180
 		
-		if (!type_list.has(ind) and angle >= -root.max_deviation and angle <= root.max_deviation) or (type_list.has(ind) and type_list[ind] == type_id):
+		if check_override(ind, type_id, overrides) or (!overrides.has(ind) and check_line_angle(angle)):
 			added = true
-			type_list[ind] = type_id
+			overrides[ind] = type_id
 			lines.append(vert)
 		elif added:
 			lines.append(vert)
@@ -263,14 +263,23 @@ func get_connected_lines_directional(lines, type_list, direction, poly, start, t
 	return null
 
 
+# Check if the type override for the given line index matches with the type id given
+func check_override(index: int, type_id: int, override_list: Dictionary) -> bool:
+	return override_list.has(index) and override_list[index] == type_id
+
+
+func check_line_angle(angle: float) -> bool:
+	return angle >= -root.max_deviation and angle <= root.max_deviation
+
+
 # This will add the grass to the top of the polygon
-func get_connected_lines_typelist(lines, type_list, poly, start, type_id):
+func get_connected_lines_overrides(lines, override_list, poly, start, type_id):
 	var p_size = poly.size()
 	var added = false
 	for ind in range(start, p_size):
 		var vert: Vector2 = poly[ind]
 		
-		if !type_list.has(ind) or type_list[ind] == type_id:
+		if !override_list.has(ind) or override_list[ind] == type_id:
 			added = true
 			lines.append(vert)
 		elif added:
@@ -288,10 +297,10 @@ func add_full(poly):
 	
 	# Generate the top layer
 	var latest_index = 0
-	var type_list = root.edge_types.duplicate()
+	var overrides = root.edge_types.duplicate()
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_directional(list, type_list, root.up_direction, poly, latest_index, 1)
+		latest_index = get_connected_lines_directional(list, overrides, root.up_direction, poly, latest_index, 1)
 		if list.size() >= 2:
 			draw_top_from_connected_lines(list)
 	
@@ -299,14 +308,14 @@ func add_full(poly):
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_directional(list, type_list, root.down_direction, poly, latest_index, 2)
+		latest_index = get_connected_lines_directional(list, overrides, root.down_direction, poly, latest_index, 2)
 		if list.size() >= 2:
 			draw_bottom_from_connected_lines(list)
 
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_typelist(list, type_list, poly, latest_index, 3)
+		latest_index = get_connected_lines_overrides(list, overrides, poly, latest_index, 3)
 		if list.size() >= 2:
 			draw_edges_from_connected_lines(list)
 	
