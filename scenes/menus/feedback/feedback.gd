@@ -79,8 +79,9 @@ func _take_screenshot() -> PoolByteArray:
 
 
 func _assemble_message() -> String:
-	var msg = "**Description:**\n> "
-	msg += description.text
+	var msg: String = "**Description:**\n> "
+	var desc_text = description.text
+	msg += desc_text
 	
 	msg += "\n**Categories:**"
 	var categories = ""
@@ -109,6 +110,7 @@ func _assemble_message() -> String:
 		contact_info = "`none`"
 	
 	msg += "\n**Contact:**\n> " + contact_info
+	msg += "\n**Reference:**\n> %" + desc_text.sha1_text().substr(0, 5)
 	return msg
 
 
