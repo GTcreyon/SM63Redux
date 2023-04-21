@@ -189,7 +189,7 @@ shape = SubResource( 5 )
 
 [node name="SFXStruck" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-bus = "~~SFX Clear In Water~~"
+bus = "SFX Clear In Water"
 
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="body_entered" from="AlertArea" to="." method="_on_AlertArea_body_entered"]
