@@ -81,7 +81,7 @@ func _take_screenshot() -> PoolByteArray:
 func _assemble_message() -> String:
 	var msg: String = "**Description:**\n> "
 	var desc_text = description.text
-	msg += desc_text
+	msg += desc_text.replace("\n", "\n> ")
 	
 	msg += "\n**Categories:**"
 	var categories = ""
