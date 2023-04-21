@@ -10,7 +10,3 @@ func _process(_delta):
 	rect_scale = Vector2.ONE * scalar
 	margin_left = 40 * scalar
 	visible = Singleton.touch_control
-
-
-func _on_Cancel_pressed():
-	visible = false
