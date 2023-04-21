@@ -1246,7 +1246,8 @@ func manage_crouch_reset() -> void:
 
 
 func switch_fludd():
-	var save_nozzle = current_nozzle
+	var last_nozzle = current_nozzle
+	# Switch to next nozzle, bypassing nozzles not currently held.
 	current_nozzle += 1
 	while (
 		(
@@ -1256,9 +1257,11 @@ func switch_fludd():
 		or current_nozzle == 0
 	):
 		current_nozzle += 1
+	# If reached the end, revert to no nozzle.
 	if current_nozzle == 4:
 		current_nozzle = 0
-	if current_nozzle != save_nozzle:
+	# If nozzle actually changed, set it up and play effects.
+	if current_nozzle != last_nozzle:
 		fludd_strain = false
 		switch_sfx.play()
 
