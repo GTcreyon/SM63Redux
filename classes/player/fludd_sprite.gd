@@ -168,28 +168,41 @@ func _process(_delta) -> void:
 
 
 func _hover_spray() -> void:
+	# Spray can last forever if diving or swimming; play looping sound.
 	if player_body.state == player_body.S.DIVE or player_body.swimming:
+		# Ensure that the non-looping sound doesn't play.
 		hover_sfx.stop()
+		
+		# Spray is going. Play the sound.
 		if player_body.fludd_strain:
 			if !hover_loop_sfx.playing:
 				hover_loop_sfx.play(hover_sound_position)
+		# Spray is not going. Don't play, but remember position in loop.
 		else:
 			hover_sound_position = hover_loop_sfx.get_playback_position()
 			hover_loop_sfx.stop()
+	# Spray lasts a finite duration in midair; play sound which ends.
 	else:
+		# Ensure that the looping sound doesn't play.
 		hover_loop_sfx.stop()
+		
+		# Reset sound when reaching the end of the power bar.
 		if player_body.fludd_power > 99:
 			hover_sound_position = 0
 			hover_sfx.stop()
-			
+		
+		# Play sound if appropriate.
 		if player_body.fludd_strain:
 			if !hover_sfx.playing:
 				hover_sfx.play(hover_sound_position)
+		# Stop sound. Remember where we stopped, if midway through the power bar.
 		else:
+			# Memorize position, or reset it if power is maxed out.
 			if player_body.fludd_power < 100:
 				hover_sound_position = hover_sfx.get_playback_position()
 			else:
 				hover_sound_position = 0
+			
 			if !player_body.fludd_spraying():
 				hover_sfx.stop()
 	
