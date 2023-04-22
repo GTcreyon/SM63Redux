@@ -25,8 +25,6 @@ func _interact_with(body):
 	body.vel = Vector2.ZERO
 	body.locked = true
 	body.sign_frames = 1
-	if back_sprite:
-		body.sprite.trigger_anim("back")
 	
 	# Disable any active sfx on the player
 	body.start_interaction()

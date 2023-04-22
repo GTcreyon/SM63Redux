@@ -346,6 +346,9 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 	
 	state_changed = state_changed or (old_swimming and !parent.swimming)
 	
+	if parent.read_pos_x != INF:
+		return "back"
+	
 	if parent.get_ground_state() and !last_grounded:
 		# Just hit the ground
 		if parent.get_walk_direction() == 0:
