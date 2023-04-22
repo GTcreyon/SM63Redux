@@ -220,6 +220,7 @@ func _physics_process(_delta):
 					active = false
 					player.read_pos_x = INF
 					player.locked = false
+					player.sprite.reading_sign = false
 					swoop_timer = 0
 					sfx_close.play()
 				else:
