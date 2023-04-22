@@ -4,6 +4,7 @@ const SCROLL_SPEED = 16
 
 var _bus_music = AudioServer.get_bus_index("Music")
 var _bus_sfx = AudioServer.get_bus_index("SFX")
+var _bus_sfx_underwater = AudioServer.get_bus_index("SFX Clear In Water")
 var _prev_visible = false
 
 onready var _camera_fix = $ScrollContainer/List/CameraFix
@@ -41,6 +42,7 @@ func _process(_delta):
 		Singleton.touch_control = _touch_controls.pressed
 		AudioServer.set_bus_mute(_bus_music, _mute_music.pressed)
 		AudioServer.set_bus_mute(_bus_sfx, _mute_sfx.pressed)
+		AudioServer.set_bus_mute(_bus_sfx_underwater, _mute_sfx.pressed)
 		Singleton.timer.visible = _show_timer.pressed
 		_button_menu.visible = !Singleton.touch_control
 		_touch_menu.visible = Singleton.touch_control
