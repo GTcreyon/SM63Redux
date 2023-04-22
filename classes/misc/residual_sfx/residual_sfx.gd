@@ -9,6 +9,10 @@ func _ready():
 	# Set self up to self-destruct once the sound is finished.
 	# warning-ignore:return_value_discarded
 	connect("finished", self, "_on_ResidualSFX_finished")
+	
+	# Ensure we are on the SFX bus
+	bus = "SFX"
+	
 	play()
 
 
