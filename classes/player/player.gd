@@ -313,7 +313,7 @@ func player_physics():
 		fludd_power = 100
 
 	
-	if coyote_frames > 0:
+	if can_jump():
 		coyote_behaviour()
 	else:
 		if !swimming:
@@ -331,7 +331,7 @@ func player_physics():
 			action_swim()
 		else:
 			if Input.is_action_pressed("jump"):
-				if coyote_frames > 0:
+				if can_jump():
 					player_jump()
 				elif jump_vary_frames > 0 and state == S.NEUTRAL:
 					vel.y -= GRAV * pow(FPS_MOD, 3) # Variable jump height
@@ -888,6 +888,10 @@ func get_ground_state() -> bool:
 	return is_on_floor() or (!ground_failsafe_condition() and ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD)
 
 
+func can_jump() -> bool:
+	return coyote_frames > 0
+
+
 func ground_failsafe_condition() -> bool:
 	return (
 		vel.y < 0
@@ -1122,7 +1126,7 @@ func action_dive():
 			grounded
 		)
 	):
-		if !swimming and coyote_frames > 0 and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
+		if !swimming and can_jump() and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
 			off_ground()
 			switch_state(S.ROLLOUT)
 			frontflip_direction = facing_direction
