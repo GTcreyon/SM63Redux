@@ -1328,9 +1328,11 @@ const STAND_BOX_EXTENTS = Vector2(6, 14.5)
 const DIVE_BOX_POS = Vector2(0, 10)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
 func switch_state(new_state):
+	# Always pause AND stop spin SFX
+	spin_sfx.stop()
+	spin_sfx.stream_paused = true
 	# If spin just ended, adjust SFX accordingly.
 	if state == S.SPIN:
-		spin_sfx.stop()
 		if swimming:
 			play_sfx("spin_end", "water")
 	
@@ -1353,7 +1355,6 @@ func switch_state(new_state):
 
 	
 	# On any state change, reset the following things:
-	spin_sfx.stop()
 	pound_state = Pound.NONE
 	clear_rotation_origin()
 
@@ -1402,6 +1403,7 @@ func play_sfx(type, group):
 		"spin", "spin_end":
 			spin_sfx.stream = sound
 			spin_sfx.play(0)
+			spin_sfx.stream_paused = false
 
 
 const TERRAIN_MASK = 0b111111110000000000000000
