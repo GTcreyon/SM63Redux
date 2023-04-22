@@ -31,6 +31,7 @@ persistent_collect = false
 nozzle_award = 1
 
 [node name="Sprite" type="Sprite" parent="Hover"]
+z_index = -1
 texture = ExtResource( 5 )
 script = ExtResource( 1 )
 
