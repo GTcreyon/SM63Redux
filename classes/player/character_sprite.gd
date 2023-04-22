@@ -24,7 +24,7 @@ var last_grounded: bool = true
 var last_flip_ending: bool = false # parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
 var last_pound_state: int = PlayerCharacter.Pound.SPIN
 var last_frame = 0 # Used mainly during walking animation
-
+var reading_sign: bool = false # True if the player is reading a sign
 var slow_spin_timer: float = 0 # Frames of progress through the slow spin
 var rng = RandomNumberGenerator.new()
 
@@ -346,7 +346,7 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 	
 	state_changed = state_changed or (old_swimming and !parent.swimming)
 	
-	if parent.read_pos_x != INF:
+	if reading_sign:
 		return "back"
 	
 	if parent.get_ground_state() and !last_grounded:

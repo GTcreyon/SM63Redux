@@ -26,6 +26,9 @@ func _interact_with(body):
 	body.locked = true
 	body.sign_frames = 1
 	
+	# Initiate the sign-reading animation
+	body.sprite.reading_sign = back_sprite
+	
 	# Disable any active sfx on the player
 	body.start_interaction()
 	dialog.load_lines(lines)
