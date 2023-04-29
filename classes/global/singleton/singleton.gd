@@ -285,3 +285,10 @@ func save_input_map(input_json):
 	file.open("user://controls.json", File.WRITE)
 	file.store_string(input_json) # minimize the amount of time spent with the file open
 	file.close()
+
+
+func reset_bus_effect(channel, effect_idx):
+	var bus_index = AudioServer.get_bus_index(channel)
+	var bus_effect = AudioServer.get_bus_effect(bus_index, effect_idx)
+	AudioServer.remove_bus_effect(bus_index, 0) # this just gets rid of any unwanted gunk stuck in the bus
+	AudioServer.add_bus_effect(bus_index, bus_effect, 0)

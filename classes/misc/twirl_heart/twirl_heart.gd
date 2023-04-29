@@ -15,7 +15,7 @@ func _physics_process(_delta):
 	if crossed_item:
 		if mario.hp < 8:
 			if timer >= 30:
-				mario.recieve_health(1)
+				mario.receive_health(1)
 				timer = 0
 			else:
 				timer += 1
