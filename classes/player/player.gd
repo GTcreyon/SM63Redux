@@ -178,7 +178,10 @@ onready var feet_area: Area2D = $Feet
 
 
 func _ready():
+	
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
+	
+	Singleton.reset_bus_effect("~Water Verb:", 0) # prevents garbage reverb
 	
 	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
@@ -1387,7 +1390,7 @@ func off_ground():
 	cancel_ground = true
 
 
-func recieve_health(amount):
+func receive_health(amount):
 	hp = clamp(hp + amount, 0, 8) # TODO - multi HP
 
 
