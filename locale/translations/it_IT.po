@@ -436,7 +436,7 @@ msgid ""
 "[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back "
 "can save you if you happen to slip off a platform or miss a jump."
 msgstr ""
-"[@n,Bill Board]Lo [color=#f7c55f]Spruzzoplano[/color] che hai sulle tue "
+"[@n,Cartello Billo]Lo [color=#f7c55f]Spruzzoplano[/color] che hai sulle tue "
 "spalle può salvarti se dovessi scivolare da una piattaforma o se mancassi un "
 "salto."
 
