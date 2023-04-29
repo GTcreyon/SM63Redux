@@ -1,14 +1,14 @@
 # Translations template for PROJECT.
-# Copyright (C) 2022 ORGANIZATION
+# Copyright (C) 2023 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-10 16:06+0100\n"
-"PO-Revision-Date: 2022-04-13 19:42+0200\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-04-29 12:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -16,93 +16,275 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.11.0\n"
 "X-Generator: Poedit 3.0.1\n"
 
-#: ../actors/debug/tickbox_feedback.tscn:44
-msgid "Lag"
-msgstr "Lag"
+#: ../gui/pause/level_info/level_info.tscn:83
+msgid "MUSHROOM KINGDOM"
+msgstr "REGNO DEI FUNGHI"
 
-#: ../gui/pause/level_info/level_info.tscn:56
-msgid "Mushroom Kingdom"
-msgstr "Regno dei Funghi"
-
-#: ../gui/pause/level_info/level_info.tscn:220
+#: ../gui/pause/level_info/level_info.tscn:254
 msgid "Tutorial 1"
 msgstr "Tutorial 1"
 
-#: ../gui/pause/level_info/level_info.tscn:264
+#: ../gui/pause/level_info/level_info.tscn:278
 msgid "Head to the castle, everybody's waiting!"
 msgstr "Dirigiti al castello, ti aspettano tutti!"
 
-#: ../gui/pause/map/map.tscn:129
+#: ../gui/pause/map/map.tscn:125
 msgid ""
-"Bob-omb\n"
-"Battlefield"
-msgstr "Battaglia di Bob-ombe"
+"Bob-omb Battlefield\n"
+" - Coming soon!"
+msgstr ""
+"Battaglia di Bob-ombe\n"
+" - Presto in arrivo!"
 
-#: ../gui/pause/map/map.tscn:325
-msgid "???"
-msgstr "???"
+#: ../gui/pause/map/map.tscn:322
+msgid "Coming soon!"
+msgstr "Presto in arrivo!"
 
-#: ../gui/pause/map/map.tscn:527
+#: ../gui/pause/map/map.tscn:528
 msgid ""
 "Shifting\n"
 "Sand Land"
 msgstr "Deserto Ingoiatutto"
 
-#: ../gui/pause/options/options.tscn:30
+#: ../gui/pause/options/button_menu.tscn:40
+msgid "Reset controls to default"
+msgstr "Ripristina controlli come default"
+
+#: ../gui/pause/options/options_menu.tscn:50
 msgid "Disable camera limiting [Try this if the camera is broken]"
 msgstr ""
-"Disabilita i limiti della telecamera [Prova questa se la telecamera è rotta]"
+"Disabilita i limiti della telecamera [Prova questo se la telecamera fosse "
+"rotta]"
 
-#: ../gui/pause/options/options.tscn:43
+#: ../gui/pause/options/options_menu.tscn:61
 msgid "Enable touch controls"
 msgstr "Abilita controlli touch"
 
-#: ../gui/timer/timer.tscn:37
+#: ../gui/pause/options/options_menu.tscn:72
+msgid "Mute music"
+msgstr "Muta la musica"
+
+#: ../gui/pause/options/options_menu.tscn:83
+#: ../gui/pause/options/rebind_option.gd:160
+msgid "Mute SFX"
+msgstr "Muta gli SFX"
+
+#: ../gui/pause/options/options_menu.tscn:94
+msgid "Show timer\n"
+msgstr "Mostra il timer\n"
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Left"
+msgstr "Stick Sinistro, Sinistra"
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Right"
+msgstr "Stick Sinistro, Destra"
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Up"
+msgstr "Stick Sinistro, Su"
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Down"
+msgstr "Stick Sinistro, Giù"
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Left"
+msgstr "Stick Destro, Sinistra"
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Right"
+msgstr "Stick Destro, Destra"
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Up"
+msgstr "Stick Destro, Su"
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Down"
+msgstr "Stick Destro, Giù"
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Back"
+msgstr "Indietro"
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Select"
+msgstr "Seleziona"
+
+#: ../gui/pause/options/rebind_option.gd:129
+msgid "Start"
+msgstr "Inizia"
+
+#: ../gui/pause/options/rebind_option.gd:130
+msgid "Left Stick Click"
+msgstr "Stick Sinistro, Permuto"
+
+#: ../gui/pause/options/rebind_option.gd:131
+msgid "Right Stick Click"
+msgstr "Stick Destro, Premuto"
+
+#: ../gui/pause/options/rebind_option.gd:134
+msgid "Logo"
+msgstr "Logo"
+
+#: ../gui/pause/options/rebind_option.gd:135
+msgid "D-Up"
+msgstr "D-Su"
+
+#: ../gui/pause/options/rebind_option.gd:136
+msgid "D-Down"
+msgstr "D-Giù"
+
+#: ../gui/pause/options/rebind_option.gd:137
+msgid "D-Left"
+msgstr "D-Sinistra"
+
+#: ../gui/pause/options/rebind_option.gd:138
+msgid "D-Right"
+msgstr "D-Destra"
+
+#: ../gui/pause/options/rebind_option.gd:143
+msgid "Left"
+msgstr "Sinistra"
+
+#: ../gui/pause/options/rebind_option.gd:144
+msgid "Right"
+msgstr "Destra"
+
+#: ../gui/pause/options/rebind_option.gd:145
+msgid "Jump"
+msgstr "Salto"
+
+#: ../gui/pause/options/rebind_option.gd:146
+msgid "Dive"
+msgstr "Tuffo"
+
+#: ../gui/pause/options/rebind_option.gd:147
+msgid "Spin"
+msgstr "Piroetta"
+
+#: ../gui/pause/options/rebind_option.gd:148
+msgid "Ground Pound"
+msgstr "Schianto a Terra"
+
+#: ../gui/pause/options/rebind_option.gd:149
+msgid "Use FLUDD"
+msgstr "Usa SPLAC 3000"
+
+#: ../gui/pause/options/rebind_option.gd:150
+msgid "Switch FLUDD Nozzle"
+msgstr "Scambia Spruzzi dello SPLAC 3000"
+
+#: ../gui/pause/options/rebind_option.gd:151
+msgid "Pause"
+msgstr "Pausa"
+
+#: ../gui/pause/options/rebind_option.gd:152
+msgid "Interact"
+msgstr "Interagisci"
+
+#: ../gui/pause/options/rebind_option.gd:153
+msgid "Skip Text"
+msgstr "Salta Testo"
+
+#: ../gui/pause/options/rebind_option.gd:154
+msgid "Zoom In"
+msgstr "Ingrandisci"
+
+#: ../gui/pause/options/rebind_option.gd:155
+msgid "Zoom Out"
+msgstr "Rimpicciolisci"
+
+#: ../gui/pause/options/rebind_option.gd:156
+msgid "Power Swim"
+msgstr "Nuoto Potenziato"
+
+#: ../gui/pause/options/rebind_option.gd:157
+msgid "Reset Run"
+msgstr "Azzera la Run"
+
+#: ../gui/pause/options/rebind_option.gd:158
+msgid "Show Timer"
+msgstr "Mostra il timer"
+
+#: ../gui/pause/options/rebind_option.gd:159
+msgid "Mute Music"
+msgstr "Muta la musica"
+
+#: ../gui/pause/options/rebind_option.gd:161
+msgid "Music Volume +"
+msgstr "Volume Musica +"
+
+#: ../gui/pause/options/rebind_option.gd:162
+msgid "Music Volume -"
+msgstr "Volume Musica -"
+
+#: ../gui/pause/options/rebind_option.gd:163
+msgid "SFX Volume +"
+msgstr "Volume SFX +"
+
+#: ../gui/pause/options/rebind_option.gd:164
+msgid "SFX Volume -"
+msgstr "Volume SFX -"
+
+#: ../gui/pause/options/rebind_option.gd:165
+msgid "Fullscreen"
+msgstr "Schermo Intero"
+
+#: ../gui/pause/options/rebind_option.gd:166
+msgid "Screen Size +"
+msgstr "Dimensione Schermo +"
+
+#: ../gui/pause/options/rebind_option.gd:167
+msgid "Screen Size -"
+msgstr "Dimensione Schermo -"
+
+#: ../gui/pause/options/rebind_option.gd:168
+msgid "Open Feedback Menu"
+msgstr "Apri Menu del Feedback"
+
+#: ../gui/pause/options/rebind_option.gd:169
+msgid "Open Debug Console"
+msgstr "Apri Console di Debug"
+
+#: ../gui/pause/options/rebind_option.tscn:35
+msgid "[action]"
+msgstr "[azione]"
+
+#: ../gui/pause/options/rebind_option.tscn:41
+msgid "[keys]"
+msgstr "[chiavi]"
+
+#: ../gui/pause/options/touch_menu.tscn:57
+msgid "Touch control layout:"
+msgstr "Disposizione dei controlli touch:"
+
+#: ../gui/pause/options/touch_menu.tscn:90
+msgid "Change size:"
+msgstr "Cambia grandezza:"
+
+#: ../gui/pause/options/touch_menu.tscn:124
+msgid "Swap sides:"
+msgstr "Scambia i lati:"
+
+#: ../gui/timer/timer.tscn:38
 msgid "0:00"
 msgstr "0:00"
 
-#: ../gui/timer/timer.tscn:50
+#: ../gui/timer/timer.tscn:51
 msgid ".000"
 msgstr ".000"
 
-#: ../gui/timer/timer.tscn:119
+#: ../gui/timer/timer.tscn:126
 msgid "0:00.000"
 msgstr "0:00.000"
 
-#: ../scenes/title/menu.tscn:322
-msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
-msgstr "Riprendi la luce da Bowser e salva il Regno dei Funghi!"
-
-#: ../scenes/title/menu.tscn:334
-msgid "Create your own worlds in this in-depth Level Designer!"
-msgstr "Crea i tuoi mondi personali in questo accurato Designer di Livelli!"
-
-#: ../scenes/title/menu.tscn:346
-msgid "Enjoy a collection of trinkets and goodies!"
-msgstr "Goditi una raccolta di bigiotterie e chicche!"
-
-#: ../scenes/title/menu.tscn:358
-msgid "Adjust anything and everything to your liking!"
-msgstr "Regola tutto a tuo piacimento!"
-
-#: ../scenes/title/menu.tscn:401
-msgid ""
-"Force touch controls\n"
-"(Experimental)"
-msgstr "Forza controlli touch\v (Sperimentale)"
-
-#: ../scenes/title/title.tscn:102
-msgid "Press Z to start!"
-msgstr "Premi Z per iniziare!"
-
-#: ../scenes/title/title.tscn:123
-msgid "v0.1.2"
-msgstr "v0.1.2"
-
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
 msgid ""
 "[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back "
 "to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here's "
@@ -112,7 +294,7 @@ msgstr ""
 "Bentornato al Regno dei Funghi,[@p,3] amico![@p,10] In onore dei vecchi "
 "tempi,[@p,3] ecco una rinfrescata."
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
 msgid ""
 "Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you want "
 "to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,"
@@ -122,7 +304,7 @@ msgstr ""
 "e se vorrai parlare con il resto della famiglia,[@p,3] premi semplicemente "
 "[color=#f7c55f][@b,interact].[/color]"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
 msgid ""
 "They have plenty of tips to help out,[@p,3] and if you're not interested,"
 "[@p,3] at least say \"Hi\" for me,[@p,3] eh?"
@@ -130,17 +312,17 @@ msgstr ""
 "Hanno dritte a volontà per poterti aiutare,[@p,3] e se non fossi interessato,"
 "[@p,3] potresti almeno dirgli \"Ciao\" da parte mia,[@p,3] no?"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
 msgid ""
 "[@n,Gil Board]Oh hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Not many "
 "people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as "
 "thanks?"
 msgstr ""
 "[@n,Cartello Gillo]Oh ciao,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Non "
-"molte persone leggono i segnali al giorno d'oggi,[@p,3] quindi che ne dici "
+"molte persone leggono i cartelli al giorno d'oggi,[@p,3] quindi che ne dici "
 "se ti insegno qualche trucco per ringraziarti?"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
 msgid ""
 "You can press [color=#f7c55f][@b,spin][/color] to perform a "
 "[color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up "
@@ -150,7 +332,7 @@ msgstr ""
 "[color=#ff7f7f]piroetta.[/color][@p,10] Usalo mentre sei in aria per "
 "rimanerci più a lungo!"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
 msgid ""
 "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet "
 "backflip![@p,10] Cool, 'eh?"
@@ -158,7 +340,7 @@ msgstr ""
 "Inoltre,[@p,3] se salti all'indietro,[@p,3] puoi effettuare una bella "
 "capriola all'indietro![@p,10] Fantastico, non trovi?"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
 msgid ""
 "[@n,Jil Board]Oh [color=#ff8b70]Mario[/color],[@p,3] honey![@p,10] It's been "
 "so long since I've seen you...[@p,10] Oh my![@p,10] I see scars from your "
@@ -168,7 +350,7 @@ msgstr ""
 "passato così tanto da quando ti ho visto...[@p,10] Oh mamma![@p,10] Vedo "
 "cicatrici dai tuoi viaggi..."
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
 msgid ""
 "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an "
 "unlucky enemy to refill one [color=#ff7f7f]health point.[/color]"
@@ -177,7 +359,7 @@ msgstr ""
 "in giro o da un nemico sfortunato per ricaricare un [color=#ff7f7f]punto "
 "vita.[/color]"
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
 msgid ""
 "No one quite understands why,[@p,3] but it's a lifesaver -[@p,3] so keep it "
 "in mind,[@p,3] sweetie!"
@@ -185,17 +367,17 @@ msgstr ""
 "Nessuno comprende bene perchè,[@p,3] ma è un salvavita -[@p,3] quindi "
 "tienilo a mente,[@p,3] dolcezza!"
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
 msgid ""
 "[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nasty "
 "[color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need "
 "to go this way?"
 msgstr ""
 "[@n,Cartello Dillo]Guarda dove metti i piedi,[@p,3] fratello![@p,10] Ci sono "
-"diverse [color=#f7c55f]bob-ombe [/color]pericolose dietro questa roccia."
+"delle [color=#f7c55f]bob-ombe [/color]pericolose dietro questa roccia."
 "[@p,10] Oh,[@p,3] hai bisogno di andare per di qua?"
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
 msgid ""
 "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do "
 "a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying."
@@ -204,7 +386,7 @@ msgstr ""
 "effettuare una [color=#ff7f7f]piroetta[/color] per lanciare in aria quelle "
 "bob-ombe."
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
 msgid ""
 "If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can "
 "perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath you!"
@@ -213,15 +395,15 @@ msgstr ""
 "uno [color=#ff7f7f]Schianto a Terra[/color] per distruggere gli oggetti "
 "sottostanti!"
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
 msgid ""
 "[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something "
 "really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]"
 msgstr ""
-"[@n,Cartello Gillo]Ah,[@p,3] eccoti![@p,10] Ho dimenticato di menzionarti "
+"[@n,Cartello Gillo]Ah,[@p,3] eccoti![@p,10] Ho dimenticato di menzionare "
 "qualcosa di molto importante -[@p,3] il [color=#f7c55f]Triplo Salto![/color]"
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
 msgid ""
 "If you jump three times while moving,[@p,3] you can jump higher each time,"
 "[@p,3] ending with a huge leap!"
@@ -229,11 +411,11 @@ msgstr ""
 "Se salti tre volte mentre ti muovi,[@p,3] potrai saltare più in alto ogni "
 "volta,[@p,3] terminando con un gran balzo!"
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
 msgid "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."
 msgstr "È tutto quello che so,[@p,3] o almeno,[@p,3] tutto ciò che ricordo."
 
-#: ../scenes/tutorial_1/tutorial_1_3.tscn:160
+#: ../scenes/levels/tutorial_1/tutorial_1_3.tscn:170
 msgid ""
 "[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the "
 "[color=#f7c55f]F.L.U.D.D.[/color] pack!"
@@ -241,36 +423,36 @@ msgstr ""
 "[@n,Cartello Billo]Usa [color=#f7c55f][@b,fludd][/color] per librarti usando "
 "lo zaino [color=#f7c55f]SPLAC 3000[/color]!"
 
-#: ../scenes/tutorial_1/tutorial_1_3.tscn:165
+#: ../scenes/levels/tutorial_1/tutorial_1_3.tscn:175
 msgid ""
 "[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump "
 "into a pool of water, or find a refill bottle."
 msgstr ""
 "[@n,Cartello Gillo]Per riempire il serbatoio dello [color=#f7c55f]SPLAC "
-"3000[/color], salta in una pozza d'acqua, o trova una bottiglia ricaricante."
+"3000[/color], salta in una pozza d'acqua, o trova una bottiglia d'acqua."
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
 msgid ""
 "[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back "
 "can save you if you happen to slip off a platform or miss a jump."
 msgstr ""
-"[@n,Cartello Billo]Lo [color=#f7c55f]Spruzzoplano[/color] che hai sulle tue "
+"[@n,Bill Board]Lo [color=#f7c55f]Spruzzoplano[/color] che hai sulle tue "
 "spalle può salvarti se dovessi scivolare da una piattaforma o se mancassi un "
 "salto."
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
 msgid ""
 "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only "
 "hold [color=#5f75c5]100 flubs[/color] in that tank of theirs."
 msgstr ""
-"Non diventarne troppo dipendente,[@p,3] però.[@p,10] Lo SPLAC 3000 può "
-"mantenere solo [color=#5f75c5]100 flubbi[/color] in quel suo serbatoio."
+"Non dipenderne troppo,[@p,3] però.[@p,10] Lo SPLAC 3000 può contenere solo "
+"[color=#5f75c5]100 flubbi[/color] in quel suo serbatoio."
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
 msgid "Once it's gone,[@p,3] you won't be able to hover any longer."
 msgstr "Non appena terminerà,[@p,3] non sarai più in grado di librarti."
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
 msgid ""
 "[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] "
 "just press [color=#f7c55f][@b,pause][/color] to pause the game!"
@@ -278,7 +460,7 @@ msgstr ""
 "[@n,Cartello Jillo]Hey dolcezza![@p,10] Semmai dovessi sentirti stanco,"
 "[@p,3] premi [color=#f7c55f][@b,pause][/color] per mettere in pausa il gioco!"
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
 msgid ""
 "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] "
 "change FLUDD nozzle,[@p,3] or just sit back and relax!"
@@ -287,7 +469,7 @@ msgstr ""
 "statistiche,[@p,3] cambiare spruzzo allo SPLAC 3000,[@p,3] o riposarti un "
 "po'!"
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
 msgid ""
 "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you "
 "dare forget that!"
@@ -295,15 +477,15 @@ msgstr ""
 "La cura personale è importante,[@p,3] [color=#df6042]Mario![/color][@p,10] "
 "Non osare dimenticarlo!"
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:448
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:467
 msgid "You've reached the end of the [color=#f7c55f]Tiny Demo![/color]"
 msgstr "Hai raggiunto la fine della [color=#f7c55f]Demo Piccina![/color]"
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:448
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:467
 msgid "We hope you enjoyed it, and stay tuned for more!"
 msgstr "Speriamo ti sia piaciuta, rimani sintonizzato per altro!"
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:453
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:472
 msgid ""
 "[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that "
 "[color=#f28d7c]really[/color] all I'm good for!?"
@@ -311,58 +493,119 @@ msgstr ""
 "[@c,toad][@m,anger][@n,Ang.T]Dialogo inutilizzato...[@p,10] Quello è "
 "[color=#f28d7c]veramente[/color] tutto ciò per cui sono utile!?"
 
-#: ../src/global/feedback.tscn:92
+#: ../scenes/menus/feedback/feedback.tscn:90
 msgid "Feedback"
 msgstr "Feedback"
 
-#: ../src/global/feedback.tscn:106
+#: ../scenes/menus/feedback/feedback.tscn:101
 msgid "Description"
 msgstr "Descrizione"
 
-#: ../src/global/feedback.tscn:119
+#: ../scenes/menus/feedback/feedback.tscn:119
 msgid "Contact info (optional)"
 msgstr "Info di contatto (opzionale)"
 
-#: ../src/global/feedback.tscn:204
+#: ../scenes/menus/feedback/feedback.tscn:129
+msgid "Let us know how to contact you, e.g. discord handle"
+msgstr "Facci sapere come contattarti, es. tramite discord"
+
+#: ../scenes/menus/feedback/feedback.tscn:155
 msgid " Negative"
 msgstr " Negativo"
 
-#: ../src/global/feedback.tscn:224
+#: ../scenes/menus/feedback/feedback.tscn:175
 msgid " Neutral"
 msgstr " Neutrale"
 
-#: ../src/global/feedback.tscn:244
+#: ../scenes/menus/feedback/feedback.tscn:196
 msgid " Positive"
 msgstr " Positivo"
 
-#: ../src/global/feedback.tscn:272
+#: ../scenes/menus/feedback/feedback.tscn:233
 msgid "Gameplay"
 msgstr "Gameplay"
 
-#: ../src/global/feedback.tscn:283
+#: ../scenes/menus/feedback/feedback.tscn:253
 msgid "Visual"
 msgstr "Visiva"
 
-#: ../src/global/feedback.tscn:294
+#: ../scenes/menus/feedback/feedback.tscn:273
 msgid "Bug"
 msgstr "Bug"
 
-#: ../src/global/feedback.tscn:313
+#: ../scenes/menus/feedback/feedback.tscn:293
+msgid "Lag"
+msgstr "Lag"
+
+#: ../scenes/menus/feedback/feedback.tscn:314
 msgid "Other"
 msgstr "Altro"
 
-#: ../src/global/feedback.tscn:331
-msgid "Submit"
-msgstr "Inoltra"
-
-#: ../src/global/feedback.tscn:341
+#: ../scenes/menus/feedback/feedback.tscn:327
 msgid ""
 "Report includes:\n"
 "-The data you entered\n"
 "-Ingame data (e.g. Mario's position, a screenshot, etc.)\n"
-"-Current platform (Windows, Web, Android, etc.)\n"
+"-Current platform (Windows, Web, Android, etc.)"
 msgstr ""
 "La segnalazione include:\n"
 "-I dati da te inseriti\n"
 "-Dati di gioco (es. posizione, un'istantanea, ecc.)\n"
-"-Piattaforma attuale (Windows, Web, Android, ecc.)\n"
+"-Piattaforma attuale (Windows, Web, Android, ecc.)"
+
+#: ../scenes/menus/feedback/feedback.tscn:346
+msgid "Submit"
+msgstr "Inoltra"
+
+#: ../scenes/menus/level_designer/level_designer.tscn:488
+msgid "Placeholder Loading Text"
+msgstr "Testo di Caricamento Temporaneo"
+
+#: ../scenes/menus/level_designer/fields/number/input_number.tscn:56
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:22
+msgid "AAAAA"
+msgstr "AAAAA"
+
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:37
+msgid "X"
+msgstr "X"
+
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:76
+msgid "Y"
+msgstr "Y"
+
+#: ../scenes/menus/title/title.tscn:103
+msgid "Press Z to start!"
+msgstr "Premi Z per iniziare!"
+
+#: ../scenes/menus/title/title.tscn:124
+msgid "v0.X.X"
+msgstr "v0.X.X"
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:326
+msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
+msgstr "Riprendi la luce da Bowser e salva il Regno dei Funghi!"
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:338
+msgid "Create your own worlds in this in-depth Level Designer!"
+msgstr "Crea i tuoi mondi personali in questo accurato Designer di Livelli!"
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:350
+msgid "Enjoy a collection of trinkets and goodies!"
+msgstr "Goditi una raccolta di bigiotterie e chicche!"
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:362
+msgid "Adjust anything and everything to your liking!"
+msgstr "Regola tutto a tuo piacimento!"
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:57
+msgid "Run"
+msgstr "Parti"
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:66
+msgid "Save"
+msgstr "Salva"
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:75
+msgid "Load"
+msgstr "Carica"
