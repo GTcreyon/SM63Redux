@@ -28,10 +28,20 @@ const FINAL_BURNAWAY_POSTDELAY = 2 # So the burnaway ends before scene loading l
 
 const PAINTING_MATERIAL = preload("res://classes/interactable/painting/painting.tres")
 
+# Actual painting image. Will ripple when entered.
 export var picture: Texture
+# Painting's frame. Overlaid over painting, will not ripple when entered.
 export var frame: Texture
+# Horizontal radius of detection hitbox.
 export var detection_radius = 33 setget set_detection_radius
+# Horizontal radius the player can end their entry jump in.
+# Their exact final X position is calculated from their position within the
+# detection box.
+# If landing in the exact center is always the best option, set this to 0.
 export var landing_pad_radius = 16
+# How far the camera will end up zooming during scene-change transitions.
+# Ideally, this should be far enough in that the final burnaway fills the entire
+# screen with white.
 export var closest_camera_zoom = 0.1
 
 var camera_zoom_start = Vector2.ONE
