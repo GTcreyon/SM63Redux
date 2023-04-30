@@ -93,7 +93,7 @@ func _begin_animation(_player):
 		_player.action_jump()
 	
 		# Set appropriate animation.
-		_player.switch_anim("jump_back")
+		_player.sprite.trigger_anim("enter_painting_start")
 		_player.sprite.flip_h = false
 	else:
 		# Force a swim upward.
@@ -199,7 +199,7 @@ func _update_animation(_frame, _player):
 			_player.camera.cancel_zoom()
 			
 			# Hide the UI.
-			_player.camera.get_node("GUI").visible = false
+			_player.camera.get_node("HUD").visible = false
 		# Wrangle the camera's animation.
 		elif _frame > TIME_PEAK_FLASH:
 			var zoom_factor = float(_frame - TIME_PEAK_FLASH)
