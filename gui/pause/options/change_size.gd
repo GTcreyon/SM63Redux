@@ -1,4 +1,4 @@
-extends Label
+extends Node
 
 
 func _on_SizeUp_pressed():

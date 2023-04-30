@@ -5,6 +5,7 @@ onready var root = $".."
 
 export(Array) var segment_queue
 
+
 func polygon_cut_box(box: Array, uvs: Array, box_size: int):
 	var new_poly = []
 	var new_uv = []

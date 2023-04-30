@@ -7,6 +7,7 @@ export(PoolVector2Array) var anchor_around = [] setget set_anchor_around
 export(PoolVector2Array) var px_offset = [] setget set_px_offset
 export(PoolVector2Array) var item_anchor = [] setget set_item_anchor
 
+
 func set_anchor_around(new):
 	anchor_around = new
 	queue_sort()

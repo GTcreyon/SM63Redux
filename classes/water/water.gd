@@ -56,8 +56,10 @@ func subdivide_surface():
 	surface = get_surface_verts()
 	surface_width_keys = len(surface) - 1
 
+
 func set_polys(polys):
 	texture.polygon = polys
+
 
 func get_surface_verts():
 	var vertices = {}
@@ -66,6 +68,7 @@ func get_surface_verts():
 		if texture.polygon[i].direction_to(texture.polygon[(i + 1) % size]) == Vector2.RIGHT or texture.polygon[((i - 1) + size) % size].direction_to(texture.polygon[i]) == Vector2.RIGHT:
 			vertices[i] = texture.polygon[i]
 	return vertices
+
 
 func set_surface_verts(dict):
 	var copy = PoolVector2Array(texture.polygon)
@@ -83,6 +86,7 @@ func get_nearest_surface_vertex_key(pos):
 			key = vertKey
 			nearest_dist = dist
 	return key
+
 
 func move_wave(wave, new):
 	wave.current_position = new
@@ -111,6 +115,7 @@ func create_wave(from, speed):
 	waves.append(wave)
 	return wave
 
+
 func get_next_vertex_key_for_wave(wave):
 	var check_direction = (1 if wave.speed >= 0 else -1) * wave.direction
 	if surface.has(wave.current_vertex_key + check_direction):
@@ -119,6 +124,7 @@ func get_next_vertex_key_for_wave(wave):
 		return wave.current_vertex_key - check_direction
 	else:
 		return wave.current_vertex_key
+
 
 func on_ready():
 	# Get the max x and max y
@@ -136,7 +142,7 @@ func on_ready():
 	var img_texture = ImageTexture.new()
 	var img = Image.new()
 	# Note: is there a less space needing format? it really only needs to store 2 colors, so 1 bit image format would work
-	img.create(max_x, max_y, false, Image.FORMAT_RGB8)
+	img.create(max_x, max_y, false, Image.FORMAT_L8)
 	# Make the texture white
 	img.fill(Color(1, 1, 1, 1))
 	img_texture.create_from_image(img)

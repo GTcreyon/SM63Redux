@@ -86,7 +86,6 @@ func _physics_process(_delta):
 			total_interval += interval
 			rotation = deg2rad(total_interval) * sign(speed)
 		for body in ride_area.get_riding_bodies():
-			print(body)
 			var vec = position - body.position
 			var dist = position.distance_to(body.position)
 			var rot = atan2(vec.y, vec.x);

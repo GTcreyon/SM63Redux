@@ -1,5 +1,6 @@
 [python: **.gd]
 encoding = utf-8
+extract_messages = tr
 
 [godot_scene: **.tscn]
 encoding = utf-8

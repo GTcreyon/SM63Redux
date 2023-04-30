@@ -29,6 +29,7 @@
 resource_local_to_scene = true
 shader = ExtResource( 9 )
 shader_param/width = 2
+shader_param/recenter = null
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
@@ -36,6 +37,7 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 resource_local_to_scene = true
 shader = ExtResource( 9 )
 shader_param/width = 2
+shader_param/recenter = null
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
@@ -73,6 +75,12 @@ polygon = PoolVector2Array( 0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 
 position = Vector2( 0, 215 )
 z_index = 1
 polygon = PoolVector2Array( -435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281 )
+edge_types = {
+18: 3,
+19: 3,
+20: 3,
+21: 3
+}
 
 [node name="Items" type="Node2D" parent="."]
 

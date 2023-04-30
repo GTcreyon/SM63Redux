@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fludd_pickup_collect.wav-fb2a9238d86fc353b3b356567c5f1a80.sample"
+
+[deps]
+
+source_file="res://classes/pickup/fludd_box/fludd_pickup_collect.wav"
+dest_files=[ "res://.import/fludd_pickup_collect.wav-fb2a9238d86fc353b3b356567c5f1a80.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

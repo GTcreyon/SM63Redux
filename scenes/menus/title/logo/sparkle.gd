@@ -2,6 +2,7 @@ extends AnimatedSprite
 
 var time = 0
 
+
 func _ready():
 	time = rand_range(0, 4 * 60)
 

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://classes/global/singleton/warp.gd" type="Script" id=1]
 [ext_resource path="res://classes/global/singleton/singleton.gd" type="Script" id=2]
-[ext_resource path="res://classes/global/singleton/death_cover.gd" type="Script" id=3]
+[ext_resource path="res://classes/global/singleton/death_manager.gd" type="Script" id=3]
 [ext_resource path="res://classes/global/singleton/white_warp.gd" type="Script" id=4]
 [ext_resource path="res://scenes/levels/tutorial_1/tutorial_1.mp3" type="AudioStream" id=6]
 [ext_resource path="res://classes/global/singleton/music.gd" type="Script" id=7]
@@ -45,12 +45,17 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
 
-[node name="DeathCover" type="ColorRect" parent="."]
+[node name="DeathManager" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="DeathCover" type="ColorRect" parent="DeathManager"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
-script = ExtResource( 3 )
+__meta__ = {
+"_editor_description_": "Sorts behind GUI, unlike WarpCover. This is why it exists as a separate object."
+}
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 pause_mode = 2

@@ -3,6 +3,7 @@ shader_type canvas_item;
 render_mode unshaded;
 
 uniform float width = 1.;
+uniform bool recenter;
 uniform bool radial;
 uniform vec4 outline_color : hint_color = vec4(1);
 
@@ -13,6 +14,10 @@ void vertex()
 	// increase the size by the the width, this extra space is needed for the outline
 	extra_movement = TEXTURE_PIXEL_SIZE * width * 2.;
 	VERTEX *= 1. + extra_movement;
+	if (recenter)
+	{
+		VERTEX -= vec2(width);
+	}
 }
 
 void fragment(){

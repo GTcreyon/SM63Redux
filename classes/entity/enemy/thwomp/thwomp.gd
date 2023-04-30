@@ -60,6 +60,7 @@ var _timer = 0.0
 var _blinktimer = rand_range(3.0, 5.0)
 var _first_attack = true
 
+
 func set_detection_range(val: Vector2):
 	detection_range = val
 	

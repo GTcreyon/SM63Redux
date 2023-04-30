@@ -6,11 +6,12 @@ onready var level_editor := $"/root/Main"
 onready var item_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid
 onready var polygon_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid
 
+
 func fill_grid():
 	for item_id in range(level_editor.item_textures.size()):
 		if level_editor.item_textures[item_id] != null:
 			var button = LIST_ITEM.instance()
-			var tex : AtlasTexture = AtlasTexture.new()
+			var tex: AtlasTexture = AtlasTexture.new()
 			
 			var path = level_editor.item_textures[item_id]["List"]
 			if path == null:

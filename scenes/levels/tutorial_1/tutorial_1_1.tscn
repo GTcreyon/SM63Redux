@@ -27,6 +27,7 @@
 resource_local_to_scene = true
 shader = ExtResource( 24 )
 shader_param/width = 2
+shader_param/recenter = null
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
@@ -34,6 +35,7 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 resource_local_to_scene = true
 shader = ExtResource( 24 )
 shader_param/width = 2
+shader_param/recenter = null
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
@@ -41,6 +43,7 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 resource_local_to_scene = true
 shader = ExtResource( 24 )
 shader_param/width = 2
+shader_param/recenter = null
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
@@ -436,12 +439,19 @@ outline_texture_size = Vector2( 32, 6 )
 position = Vector2( 18, 159 )
 z_index = 1
 polygon = PoolVector2Array( -33, -11, 67, 9, 304, 9, 304, 87, 334, 169, 401, 153, 418.545, 86.5817, 422, -1, 449, -14, 496, -18, 527, -31, 590, -31, 590, 101, 621, 213, 730, 241, 766, 221, 775.75, 197.25, 948, 216, 1130, 189, 1178.96, 111.727, 1172, -27, 1244, -34, 1231, -105, 1308, -101, 1313, -64, 1549, -64, 1666, -48, 1787, -62, 1815, -111, 2542, -111, 2542, 442, -673, 442, -673, -549, -33, -549 )
+edge_types = {
+4: 3,
+13: 3,
+14: 3,
+16: 3,
+17: 3,
+18: 3
+}
 
 [node name="TerrainPolygon3" parent="Terrain" instance=ExtResource( 1 )]
 position = Vector2( 817, 151 )
 z_index = 1
 polygon = PoolVector2Array( 1, 0, 118, 0, 144, -70, 252, -52, 252, -23, 277.063, 132.418, 159, 141, 1, 118 )
-shallow_color = Color( 0.2, 1, 0, 1 )
 
 [node name="CoinBlue" parent="." instance=ExtResource( 23 )]
 position = Vector2( 1728, 55 )

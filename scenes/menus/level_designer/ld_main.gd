@@ -38,6 +38,7 @@ func get_level():
 #			return true
 #	return false
 
+
 func snap_vector(vec, grid = 8):
 	if Input.is_action_pressed("ld_precise"):
 		grid = 1
@@ -56,13 +57,17 @@ func place_terrain(poly):
 	$Template/Terrain.add_child(terrain_ref)
 	return terrain_ref
 
+
 func place_item(item_id: int):
 	set_editor_state(EDITOR_STATE.PLACING)
 	
+	# Create and populate loaded item
 	var inst = ITEM_PREFAB.instance()
 	inst.ghost = true
 	inst.texture = load(item_textures[item_id]["Placed"])
 	inst.item_id = item_id
+	
+	# Read in this item type's properties
 	var properties: Dictionary = items[item_id].properties
 	var item_properties: Dictionary = {}
 	for key in properties:
@@ -71,6 +76,8 @@ func place_item(item_id: int):
 		else:
 			item_properties[key] = str2var(properties[key]["default"])
 	inst.properties = item_properties
+	
+	# Add item to scene
 	$Template/Items.add_child(inst)
 	return inst
 

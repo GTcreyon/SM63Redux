@@ -6,11 +6,10 @@ export var amount: int = 15
 
 
 func _award_pickup(_body) -> void:
-	if Singleton.water < 100:
-		Singleton.water = min(Singleton.water + amount, 100)
-		queue_free()
+	if _body.water < 100:
+		_body.water = min(_body.water + amount, 100)
 
 
 func set_disabled(value):
 	disabled = value
-	monitoring = !value
+	set_deferred("monitoring", !value)

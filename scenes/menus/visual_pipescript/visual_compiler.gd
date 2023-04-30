@@ -14,6 +14,7 @@ func get_unique_variable_name():
 	id += 1
 	return "auto_variable#%d" % id
 
+
 func add_line(txt, prefix):
 	source_code += prefix + txt + "\n"
 
