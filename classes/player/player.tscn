@@ -465,7 +465,7 @@ animations = [ {
 "frames": [ SubResource( 106 ), SubResource( 178 ), SubResource( 179 ), SubResource( 180 ) ],
 "loop": true,
 "name": "dive_start",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [ SubResource( 119 ), SubResource( 120 ) ],
 "loop": true,
