@@ -13,6 +13,7 @@ var target_limit_top = -10000000
 var target_limit_bottom = 10000000
 var first_frame = true
 
+
 func _ready():
 	limit_left = -10000000
 	limit_right = 10000000
@@ -47,7 +48,7 @@ func _process(delta):
 	if rezooming:
 		manage_zoom(delta)
 	if OS.window_size.x != 0:
-		var zoom_factor = 1 / max(1, round(OS.window_size.x / Singleton.DEFAULT_SIZE.x))
+		var zoom_factor: float = 1 / float(Singleton.get_screen_scale(1))
 		if !get_tree().paused:
 			if Input.is_action_just_pressed("zoom+") and target_zoom > 0.25:
 				target_zoom /= 2

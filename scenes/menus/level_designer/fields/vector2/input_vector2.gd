@@ -16,6 +16,7 @@ func _ready():
 	line_edit_y.text = str(pre_value.y)
 #	label.text = pre_text # Can't set the text directly because the label isn't ready yet
 
+
 func _on_Up_pressed(axis):
 	increment(axis, 1)
 

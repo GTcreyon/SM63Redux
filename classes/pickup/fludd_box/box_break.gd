@@ -2,6 +2,7 @@ extends AnimatedSprite
 
 var first_frame = false
 
+
 func _ready():
 	frame = 0 # Needed to prevent desync ickyness
 

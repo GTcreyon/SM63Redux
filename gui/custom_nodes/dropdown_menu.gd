@@ -13,6 +13,7 @@ export(Color) var seperator_color = Color(0.8, 0.8, 0.8)
 
 var should_update = false
 
+
 func clear_all_children():
 	for child in get_children():
 		child.queue_free()
@@ -131,6 +132,7 @@ func _notification(what):
 	
 	# Make sure our background panel is the same size as the actual container
 	get_child(0).rect_size = rect_size
+
 
 func _unhandled_input(event):
 	if event.is_action_pressed("ld_place"):

@@ -58,7 +58,7 @@ func refresh():
 	
 	# Shader copy time
 	var tex = ImageTexture.new()
-	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
+	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_L8)
 	texture = tex
 	
 	water.color = Color(water_color.r, water_color.g, water_color.b, 1)
@@ -72,6 +72,7 @@ func refresh():
 #	mat.set_shader_param("animation_swing_range_px", animation_swing_range)
 #	mat.set_shader_param("animation_speed", animation_speed)
 #	water.material = mat
+
 
 func _draw():
 	if Engine.editor_hint:

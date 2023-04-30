@@ -3,6 +3,7 @@ extends Label
 var progress = 0.0
 var wait = 0.0
 
+
 func _init():
 	if Singleton.touch_control:
 		text = "Tap the screen to start!"

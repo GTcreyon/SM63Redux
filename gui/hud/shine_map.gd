@@ -10,6 +10,7 @@ var max_height = main_count * 166 + mini_count * 113
 var target_scroll = 0
 var gui_scale = 1
 
+
 func _process(_delta):
 	if Input.is_action_just_released("scroll_down"):
 		target_scroll = max(courses.margin_top - 20, -max_height)
@@ -20,12 +21,5 @@ func _process(_delta):
 
 
 func refresh_scroll():
-	scroll.margin_top = 1-(courses.margin_top / max_height) * (OS.window_size.y / gui_scale - 54 - 51)
-
-
-func resize(scale):
-	gui_scale = scale
-	max_height = main_count * 166 + mini_count * 113 - (OS.window_size.y / scale - 54)
-	refresh_scroll()
-	$Courses/MainCourses/BoB.resize()
-	$Courses/MainCourses/SL.resize()
+	if max_height != 0:
+		scroll.margin_top = 1-(courses.margin_top / max_height) * (OS.window_size.y / gui_scale - 54 - 51)

@@ -24,16 +24,27 @@ export var disabled = false setget set_disabled
 export var mirror = false
 export(int, "green", "red") var color = 0 setget set_color
 
+
 func set_color(new_color):
 	for i in range(3):
 		material.set_shader_param("color" + str(i), color_presets[new_color][i])
 	color = new_color
+
 
 func _ready():
 	if !Engine.editor_hint:
 		flip_h = mirror
 		frame = hash(position.x + position.y * PI) % 6
 		playing = !disabled
+
+
+func _exit_tree():
+	# Prevent memory leak
+	if is_instance_valid(koopa):
+		koopa.queue_free()
+	if is_instance_valid(shell):
+		shell.queue_free()
+
 
 func _on_TopCollision_body_entered(body):
 	if body.is_spinning():
@@ -49,7 +60,7 @@ func _on_TopCollision_body_entered(body):
 			body.vel.x *= 1.2
 			get_parent().call_deferred("add_child", koopa)
 			$TopCollision.set_deferred("monitoring", false)
-			$Damage.monitoring = false
+			$Damage.set_deferred("monitoring", false)
 			set_deferred("visible", false)
 			visible = false
 
@@ -80,7 +91,7 @@ func spawn_shell(body):
 	else:
 		shell.vel.x = -5
 	$TopCollision.set_deferred("monitoring", false)
-	$Damage.monitoring = false
+	$Damage.set_deferred("monitoring", false)
 	set_deferred("visible", false)
 
 

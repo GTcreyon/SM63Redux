@@ -7,6 +7,7 @@ var player_fade_start_time : int
 var player_fade_rate : float
 var door_close_start_time : int
 
+
 func _ready():
 	_set_sprite_frames(door_graphic)
 	
@@ -48,7 +49,9 @@ func _enter_pos_offset_x() -> int:
 
 
 func _player_begin_animation(player):
-	player.switch_anim("back")
+	# TODO: Fix for new player sprite system
+	#player.switch_anim("back")
+	
 	# Set player to gradually move onto the door.
 	# NOTE: read_pos_x movement currently has a lerp factor of 0.75 per frame.
 	# Door entry may feel smoother with a factor of 0.25

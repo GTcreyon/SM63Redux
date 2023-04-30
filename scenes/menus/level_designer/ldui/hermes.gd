@@ -11,6 +11,7 @@ var speed = 0.2
 var edge = 1
 var progress = EDGE_H_LENGTH / 2
 
+
 func set_pos(edge, progress) -> bool:
 	match edge:
 		0:

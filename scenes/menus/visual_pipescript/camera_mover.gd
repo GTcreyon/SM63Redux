@@ -4,6 +4,7 @@ onready var background = get_node("/root/Main/Background/BGGrid")
 
 var is_being_held_down = false
 
+
 func _input(event):
 	if event is InputEventMouseMotion && is_being_held_down:
 		position -= event.relative

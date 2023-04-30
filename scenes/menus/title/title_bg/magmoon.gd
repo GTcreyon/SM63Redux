@@ -2,6 +2,7 @@ extends Sprite
 
 var progress = 0
 
+
 func _process(delta):
 	var dmod = 60 * delta
 	var scalar = get_parent().scale

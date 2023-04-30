@@ -9,6 +9,9 @@ export_presets.cfg
 data_*/
 main.tscn
 
+# Windows-specific ignores
+desktop.ini
+
 # IDE-specific ignores
 .vscode/*
 

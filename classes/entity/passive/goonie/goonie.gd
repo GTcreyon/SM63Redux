@@ -26,8 +26,8 @@ func _ready() -> void:
 		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
 		var points = camera_polygon.size()
 		for i in range(points):
-			var from : Vector2 = camera_polygon[i]
-			var to : Vector2 = camera_polygon[(i + 1) % points]
+			var from: Vector2 = camera_polygon[i]
+			var to: Vector2 = camera_polygon[(i + 1) % points]
 			var back_vec = Vector2(-99999, 0)
 			if mirror:
 				back_vec.x *= -1

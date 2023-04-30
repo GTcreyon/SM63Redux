@@ -18,21 +18,27 @@ export(int) var max_deviation = 60
 export(bool) var shallow = false
 export(Color) var shallow_color = Color(1, 1, 1, 0.5)
 
+# Manually set the type on each edge, rather than using the auto-generated one
+export(Dictionary) var edge_types = {}
+
 var properties: Dictionary = {}
 
 onready var decorations = $Decorations
 
+
 func set_glowing(should_glow):
 	shallow = should_glow
 	update()
-#	visible = !should_glow
+
 
 func set_down_direction(new_val):
 	up_direction = new_val
 	down_direction = new_val.tangent().tangent()
 
+
 func set_null(_new_val):
 	pass
+
 
 func update_spritesheets(new_sheet):
 	texture_spritesheet = new_sheet
@@ -55,6 +61,7 @@ func update_spritesheets(new_sheet):
 	top_shade.flags = Texture.FLAG_REPEAT
 	top_corner_shade.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(72, 36, 32, 32) ) )
 	top_corner_shade.flags = Texture.FLAG_REPEAT
+
 
 func _draw():
 	decorations.update()

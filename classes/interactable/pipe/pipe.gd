@@ -4,6 +4,7 @@ const PLAYER_STOP_HEIGHT = 15
 const SLIDE_SPEED = 0.7
 const SLIDE_SPEED_FAST = 1.4
 
+
 var store_state = 0
 var ride_area
 var begin_pound = false # Did we land a pound this frame?
@@ -50,12 +51,13 @@ func _begin_animation(_player):
 	# Set player to center gradually
 	_player.read_pos_x = global_position.x
 	
-	# Give player slide-down animation
-	if not begin_pound:
-		_player.switch_anim("front")
-	else:
-		# TODO: non-fall pound animation may be best?
-		_player.switch_anim("pound_fall")
+	# TODO: Fix for new player sprite system
+#	# Give player slide-down animation
+#	if not begin_pound:
+#		_player.switch_anim("front")
+#	else:
+#		# TODO: non-fall pound animation may be best?
+#		_player.switch_anim("pound_fall")
 	
 	_player.sprite.rotation = 0 # Keeps player from turning sideways
 	_player.voice.volume_db = -INF # Keeps player from making dive sounds
@@ -87,8 +89,7 @@ func _end_animation(_player):
 	_player.voice.volume_db = -5
 	
 	_player.switch_state(_player.S.NEUTRAL)
-	_player.switch_anim("walk")
-	_player.dive_correct(0)
+	#_player.switch_anim("walk")
 
 	# Force end pipe sound, just in case.
 	sound.stop()

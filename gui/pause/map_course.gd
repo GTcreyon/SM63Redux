@@ -4,6 +4,7 @@ onready var coin_group = $CoinGroup
 onready var hover = $FluddGroup/Hover
 onready var turbo = $FluddGroup/Turbo
 
+
 func resize():
 	# protect against division-by-zero error i ran into on win7
 	# caused by minimizing the window using the button in the right edge of the taskbar
