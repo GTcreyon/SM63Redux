@@ -25,15 +25,20 @@ func _process(_delta):
 		# Plane can't actually move relative to the camera.
 		# Instead, simulate scrolling.
 		
+		# Find un-parallax'd position of the plane.
+		var position = -cam_pos + -size
+		# Parallax it. TODO: Prefer multiply over divide for controllability.
+		position /= PARALLAX_FACTOR
+		# Apply start offset so it ends up in an expected place.
+		position += offset
+		
 		# Wrap X position to within the main width of the texture.
-		margin_left = fmod(-cam_pos.x / PARALLAX_FACTOR.x, size.x)
-		# Offset by the texture size.
-		margin_left -= size.x
+		margin_left = fmod(position.x, size.x)
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_left *= rect_scale.x
 		
 		# Place Y position at its proper height.
-		margin_top = (-cam_pos.y + -size.y + offset.y) / PARALLAX_FACTOR.y
+		margin_top = position.y
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_top *= rect_scale.x
 		# Ensure the camera never crosses below the plane.
