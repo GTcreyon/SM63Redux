@@ -18,25 +18,10 @@ func _process(_delta):
 	# If we successfully got a valid camera reference, do parallax logic.
 	if weakref(cam).get_ref():
 		# Save dimensions of plane and camera for later.
-		var cam_pos = cam.get_camera_position()
+		var cam_pos = cam.get_camera_screen_center()
 		var size = texture.get_size().x
 		
 		# Plane can't actually move relative to the camera.
-		# Instead, simulate scrolling on the X axis.
+		# Instead, simulate scrolling.
 		margin_left = (fmod(-cam_pos.x / 20, size) - size) * rect_scale.x
-		
-		# Do likewise for the Y axis.
-		var top_target = max(-Y_SIZE,
-			( 
-				(-Y_SIZE - cam_pos.y) / 5
-					/
-				rect_scale.x
-			)
-			-
-			MAGIC * rect_scale.x
-		)
-		if abs(margin_top - top_target) > 50:
-			# Appears to happen when the camera snaps back in bounds.
-			margin_top = top_target
-		else:
-			margin_top = lerp(margin_top, top_target, 0.05)
+		margin_top = (fmod(-cam_pos.y / 20, size) - size) * rect_scale.y
