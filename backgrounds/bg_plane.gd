@@ -1,7 +1,5 @@
 extends TextureRect
 
-const Y_SIZE = 343
-const Y_OFFSET = 150
 const PARALLAX_FACTOR = Vector2(20, 5)
 
 var scroll = 0
@@ -35,8 +33,8 @@ func _process(_delta):
 		margin_left *= rect_scale.x
 		
 		# Place Y position at its proper height.
-		margin_top = -(Y_SIZE + cam_pos.y) / PARALLAX_FACTOR.y / rect_scale.x
-		# Offset by a user-defined amount.
-		margin_top -= Y_OFFSET * rect_scale.x
 		# Ensure the camera never crosses below the plane.
 		margin_top = max(-Y_SIZE, margin_top)
+		margin_top = (-cam_pos.y + -size.y + offset.y) / PARALLAX_FACTOR.y
+		# Counteract camera zoom so BG stays same size onscreen.
+		margin_top *= rect_scale.x
