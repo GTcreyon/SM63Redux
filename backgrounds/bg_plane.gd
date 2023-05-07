@@ -33,8 +33,8 @@ func _process(_delta):
 		margin_left *= rect_scale.x
 		
 		# Place Y position at its proper height.
-		# Ensure the camera never crosses below the plane.
-		margin_top = max(-Y_SIZE, margin_top)
 		margin_top = (-cam_pos.y + -size.y + offset.y) / PARALLAX_FACTOR.y
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_top *= rect_scale.x
+		# Ensure the camera never crosses below the plane.
+		#margin_top = max(-size.y, margin_top)
