@@ -4,9 +4,9 @@
 [ext_resource path="res://scenes/levels/tutorial_1/bg/t1_layer_1.png" type="Texture" id=2]
 [ext_resource path="res://scenes/levels/tutorial_1/bg/t1_layer_0.png" type="Texture" id=3]
 [ext_resource path="res://scenes/levels/tutorial_1/bg/t1_layer_3.png" type="Texture" id=4]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/clouds_lower.gd" type="Script" id=5]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/hills.gd" type="Script" id=6]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/clouds_upper.gd" type="Script" id=7]
+[ext_resource path="res://backgrounds/clouds_lower.gd" type="Script" id=5]
+[ext_resource path="res://backgrounds/bg_plane.gd" type="Script" id=6]
+[ext_resource path="res://backgrounds/clouds_upper.gd" type="Script" id=7]
 
 [node name="BGT1" type="CanvasLayer"]
 pause_mode = 2
