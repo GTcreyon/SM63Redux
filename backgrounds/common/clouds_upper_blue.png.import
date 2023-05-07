@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/clouds_lower_blue.png-fb303e50abb549f4b9fa087b9b0f8a88.stex"
+path="res://.import/clouds_upper_blue.png-451b24d8b249bb2a88892b8227604090.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://backgrounds/grass/clouds_lower_blue.png"
-dest_files=[ "res://.import/clouds_lower_blue.png-fb303e50abb549f4b9fa087b9b0f8a88.stex" ]
+source_file="res://backgrounds/common/clouds_upper_blue.png"
+dest_files=[ "res://.import/clouds_upper_blue.png-451b24d8b249bb2a88892b8227604090.stex" ]
 
 [params]
 
