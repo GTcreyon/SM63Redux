@@ -4,8 +4,11 @@ const Y_SIZE = 343
 const Y_OFFSET = 150
 const PARALLAX_FACTOR = Vector2(20, 5)
 
-onready var cam = $"/root/Main".find_node("Camera", true, false)
 var scroll = 0
+
+onready var cam = $"/root/Main".find_node("Camera", true, false)
+onready var size = texture.get_size()
+onready var offset = Vector2(margin_left, margin_top)
 
 
 func _process(_delta):
@@ -18,17 +21,16 @@ func _process(_delta):
 	
 	# If we successfully got a valid camera reference, do parallax logic.
 	if weakref(cam).get_ref():
-		# Save dimensions of plane and camera for later.
+		# Save dimensions of camera for later.
 		var cam_pos = cam.get_camera_screen_center()
-		var size = texture.get_size().x
 		
 		# Plane can't actually move relative to the camera.
 		# Instead, simulate scrolling.
 		
 		# Wrap X position to within the main width of the texture.
-		margin_left = fmod(-cam_pos.x / PARALLAX_FACTOR.x, size)
+		margin_left = fmod(-cam_pos.x / PARALLAX_FACTOR.x, size.x)
 		# Offset by the texture size.
-		margin_left -= size
+		margin_left -= size.x
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_left *= rect_scale.x
 		
