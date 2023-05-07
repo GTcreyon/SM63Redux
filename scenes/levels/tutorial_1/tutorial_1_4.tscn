@@ -20,7 +20,7 @@
 [ext_resource path="res://classes/interactable/sign/sign.tscn" type="PackedScene" id=31]
 [ext_resource path="res://shaders/glow.shader" type="Shader" id=32]
 [ext_resource path="res://classes/decorative/arrow/arrow.tscn" type="PackedScene" id=33]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=34]
+[ext_resource path="res://backgrounds/grass/bg_grass.tscn" type="PackedScene" id=34]
 [ext_resource path="res://classes/entity/enemy/koopa/parakoopa.tscn" type="PackedScene" id=35]
 [ext_resource path="res://classes/zone/camera_area/camera_area.tscn" type="PackedScene" id=36]
 [ext_resource path="res://classes/zone/trigger/warpzone/warp_zone.tscn" type="PackedScene" id=37]
@@ -52,6 +52,7 @@ shader_param/color5 = Color( 0, 1, 1, 1 )
 resource_local_to_scene = true
 shader = ExtResource( 32 )
 shader_param/width = 2
+shader_param/recenter = null
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
@@ -59,6 +60,7 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 resource_local_to_scene = true
 shader = ExtResource( 32 )
 shader_param/width = 2
+shader_param/recenter = null
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
@@ -66,6 +68,7 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 resource_local_to_scene = true
 shader = ExtResource( 32 )
 shader_param/width = 2
+shader_param/recenter = null
 shader_param/radial = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
