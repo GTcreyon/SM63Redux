@@ -16,7 +16,8 @@ export(WrapMode) var wrap_y_mode = WrapMode.NO_WRAP
 var autoscroll_state = Vector2(0, 0)
 
 onready var cam: Camera2D = $"/root/Main".find_node("Camera", true, false)
-onready var size = texture.get_size()
+onready var tex_size = texture.get_size()
+onready var start_rect_size = rect_size
 onready var offset_global = (get_parent().get_parent() as CanvasLayer).offset
 onready var offset_local = Vector2(margin_left, margin_top)
 
@@ -39,7 +40,7 @@ func _process(delta):
 		# Instead, simulate scrolling.
 		
 		# Find un-parallax'd position of the plane.
-		var position = -cam_pos + -size
+		var position = -cam_pos + -tex_size
 		# Parallax it.
 		position *= parallax_factor
 		# Apply local offset so it ends up in the expected place.
@@ -48,7 +49,7 @@ func _process(delta):
 		# Update automatic scrolling.
 		autoscroll_state += autoscroll * rect_scale.x * delta * 60
 		# Wrap autoscroll position within texture size.
-		autoscroll_state = autoscroll_state.posmodv(size)
+		autoscroll_state = autoscroll_state.posmodv(tex_size)
 		# Apply autoscroll.
 		position += autoscroll_state
 		
@@ -56,28 +57,32 @@ func _process(delta):
 		if wrap_x_mode & WrapMode.INFINITE_BEFORE:
 			# Wrap within the main width of the texture,
 			# so the size stays manageable.
-			margin_left = fmod(position.x - size.x, size.x)
+			margin_left = fmod(position.x - tex_size.x, tex_size.x)
 		else:
 			margin_left = position.x
 		
 		# Make plane infinite on the right, if desired.
 		if wrap_x_mode & WrapMode.INFINITE_AFTER:
-			margin_right = max(screen_size.x, margin_left)
+			margin_right = max(screen_size.x + offset_global.x, margin_left)
+		else:
+			margin_right = margin_left + start_rect_size.x
 		
 		# Assign Y position authored in the editor.
 		if wrap_y_mode & WrapMode.INFINITE_BEFORE:
 			# Wrap within the main width of the texture,
 			# so the size stays manageable.
-			margin_top = fmod(position.y - size.y, size.y)
+			margin_top = fmod(position.y - tex_size.y, tex_size.y)
 		else:
 			margin_top = position.y
 		# Counteract camera zoom so BG stays same size onscreen.
 		# Ensure the camera never crosses below the plane.
-		#margin_top = max(-size.y, margin_top)
+		#margin_top = max(-tex_size.y, margin_top)
 		
 		# Make plane infinite on the bottom, if desired.
 		if wrap_y_mode & WrapMode.INFINITE_AFTER:
 			margin_bottom = max(screen_size.y, margin_top)
+		else:
+			margin_bottom = margin_top + start_rect_size.y
 			
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_left *= rect_scale.x
