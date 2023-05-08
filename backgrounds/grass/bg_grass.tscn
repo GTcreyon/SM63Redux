@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://backgrounds/common/clouds_upper_blue.png" type="Texture" id=1]
 [ext_resource path="res://backgrounds/common/clouds_lower_blue.png" type="Texture" id=2]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/t1_layer_3.png" type="Texture" id=4]
+[ext_resource path="res://backgrounds/grass/grass_hills_2.png" type="Texture" id=3]
+[ext_resource path="res://backgrounds/grass/grass_hills_6.png" type="Texture" id=4]
+[ext_resource path="res://backgrounds/grass/grass_hills_1.png" type="Texture" id=5]
 [ext_resource path="res://backgrounds/bg_plane.gd" type="Script" id=6]
+[ext_resource path="res://backgrounds/grass/grass_hills_5.png" type="Texture" id=7]
+[ext_resource path="res://backgrounds/grass/grass_hills_4.png" type="Texture" id=8]
+[ext_resource path="res://backgrounds/grass/grass_hills_3.png" type="Texture" id=9]
 
 [sub_resource type="Gradient" id=1]
 colors = PoolColorArray( 0.403922, 0.447059, 0.756863, 1, 0.737255, 0.776471, 0.976471, 1 )
@@ -25,23 +30,37 @@ mouse_filter = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 640.0
+margin_top = -144.0
 margin_right = 360.0
-margin_bottom = 280.0
+margin_bottom = 136.0
 rect_rotation = 90.0
 mouse_filter = 2
 texture = SubResource( 2 )
 expand = true
 
+[node name="CloudsUpper" type="TextureRect" parent="BGParent"]
+anchor_right = 1.0
+margin_top = -152.0
+margin_right = 9.0
+margin_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 1 )
+stretch_mode = 2
+script = ExtResource( 6 )
+parallax_factor = Vector2( 0, 0 )
+autoscroll = Vector2( -0.125, 0 )
+
 [node name="CloudsLower" type="TextureRect" parent="BGParent"]
 anchor_top = 0.428
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = -125.92
+margin_top = -122.08
+margin_bottom = -248.0
 mouse_filter = 2
 texture = ExtResource( 2 )
 stretch_mode = 2
 script = ExtResource( 6 )
-parallax_factor = Vector2( 0, 0 )
+parallax_factor = Vector2( 0.013, 0.013 )
 
 [node name="ColorRect" type="ColorRect" parent="BGParent/CloudsLower"]
 anchor_right = 1.0
@@ -51,23 +70,90 @@ margin_bottom = 179.0
 mouse_filter = 2
 color = Color( 0.741176, 0.768627, 0.94902, 1 )
 
-[node name="CloudsUpper" type="TextureRect" parent="BGParent"]
-anchor_right = 1.0
-margin_right = 9.0
-mouse_filter = 2
-texture = ExtResource( 1 )
-stretch_mode = 2
-script = ExtResource( 6 )
-parallax_factor = Vector2( 0, 0 )
-autoscroll = Vector2( -0.125, 0 )
-
-[node name="Hills" type="TextureRect" parent="BGParent"]
+[node name="Hills 6" type="TextureRect" parent="BGParent"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -248.0
+margin_top = -272.0
+margin_bottom = -1.0
 rect_pivot_offset = Vector2( 0, 228 )
 mouse_filter = 2
 texture = ExtResource( 4 )
 stretch_mode = 2
 script = ExtResource( 6 )
+parallax_factor = Vector2( 0.025, 0.025 )
+
+[node name="Hills 5" type="TextureRect" parent="BGParent"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = -248.0
+margin_right = 16.0
+margin_bottom = 10.0
+rect_pivot_offset = Vector2( 0, 228 )
+mouse_filter = 2
+texture = ExtResource( 7 )
+stretch_mode = 2
+script = ExtResource( 6 )
+parallax_factor = Vector2( 0.05, 0.05 )
+
+[node name="Hills 4" type="TextureRect" parent="BGParent"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 32.0
+margin_top = -224.0
+margin_right = 32.0
+margin_bottom = 42.0
+rect_pivot_offset = Vector2( 0, 228 )
+mouse_filter = 2
+texture = ExtResource( 8 )
+stretch_mode = 2
+script = ExtResource( 6 )
+parallax_factor = Vector2( 0.1, 0.1 )
+
+[node name="Hills 3" type="TextureRect" parent="BGParent"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 72.0
+margin_top = -200.0
+margin_right = 72.0
+margin_bottom = -20.0
+rect_pivot_offset = Vector2( 0, 228 )
+mouse_filter = 2
+texture = ExtResource( 9 )
+stretch_mode = 2
+script = ExtResource( 6 )
+parallax_factor = Vector2( 0.175, 0.175 )
+
+[node name="Hills 2" type="TextureRect" parent="BGParent"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 144.0
+margin_top = -160.0
+margin_right = 144.0
+margin_bottom = 73.0
+rect_pivot_offset = Vector2( 0, 228 )
+mouse_filter = 2
+texture = ExtResource( 3 )
+stretch_mode = 2
+script = ExtResource( 6 )
+parallax_factor = Vector2( 0.225, 0.225 )
+
+[node name="Hills 1" type="TextureRect" parent="BGParent"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 304.0
+margin_top = -80.0
+margin_right = 304.0
+margin_bottom = 145.0
+rect_pivot_offset = Vector2( 0, 228 )
+mouse_filter = 2
+texture = ExtResource( 5 )
+stretch_mode = 2
+script = ExtResource( 6 )
+parallax_factor = Vector2( 0.325, 0.412 )
