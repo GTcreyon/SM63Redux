@@ -39,6 +39,8 @@ shader_param/outline_color = Color( 1, 1, 1, 1 )
 [node name="Main" type="Node2D"]
 
 [node name="BGT1" parent="." instance=ExtResource( 14 )]
+offset = Vector2( 0, 64 )
+transform = Transform2D( 1, 0, 0, 1, 0, 64 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 18 )]
 visible = false
