@@ -1,15 +1,16 @@
 extends TextureRect
 
 export var parallax_factor = Vector2(1.0/20, 1.0/5)
+export var autoscroll = Vector2(0, 0)
 
-var scroll = 0
+var autoscroll_state = Vector2(0, 0)
 
 onready var cam = $"/root/Main".find_node("Camera", true, false)
 onready var size = texture.get_size()
 onready var offset = Vector2(margin_left, margin_top)
 
 
-func _process(_delta):
+func _process(delta):
 	# Get zoom level so we can factor that in.
 	rect_scale = Vector2.ONE * Singleton.get_screen_scale(1)
 	
@@ -31,6 +32,13 @@ func _process(_delta):
 		position *= parallax_factor
 		# Apply start offset so it ends up in an expected place.
 		position += offset
+		
+		# Update automatic scrolling.
+		autoscroll_state += autoscroll * rect_scale.x * delta * 60
+		# Wrap autoscroll position within texture size.
+		autoscroll_state = autoscroll_state.posmodv(size)
+		# Apply autoscroll.
+		position += autoscroll_state
 		
 		# Wrap X position to within the main width of the texture.
 		margin_left = fmod(position.x, size.x)
