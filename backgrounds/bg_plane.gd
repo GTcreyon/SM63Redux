@@ -1,7 +1,17 @@
 extends TextureRect
 
+enum WrapMode {
+	INFINITE = 0,
+	CUT_AT_START = 1 << 0, # TODO: Complex to implement this behavior.
+	CUT_AT_END = 1 << 1,
+	DISCRETE = 1 << 0 | 1 << 1,
+}
+
 export var parallax_factor = Vector2(1.0/20, 1.0/5)
 export var autoscroll = Vector2(0, 0)
+# TODO: Implement this one.
+export(WrapMode) var wrap_x_mode = WrapMode.INFINITE
+export(WrapMode) var wrap_y_mode = WrapMode.DISCRETE
 
 var autoscroll_state = Vector2(0, 0)
 
@@ -45,9 +55,17 @@ func _process(delta):
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_left *= rect_scale.x
 		
+		# Cut plane on the right side, if desired.
+		if wrap_x_mode & WrapMode.CUT_AT_END:
+			margin_right = margin_left + size.x
+		
 		# Place Y position at its proper height.
 		margin_top = position.y
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_top *= rect_scale.x
 		# Ensure the camera never crosses below the plane.
 		#margin_top = max(-size.y, margin_top)
+		
+		# Cut plane on the bottom, if desired.
+		if wrap_y_mode & WrapMode.CUT_AT_END:
+			margin_bottom = margin_top + size.y
