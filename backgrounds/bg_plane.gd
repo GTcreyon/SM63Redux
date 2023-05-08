@@ -50,8 +50,13 @@ func _process(delta):
 		# Apply autoscroll.
 		position += autoscroll_state
 		
-		# Wrap X position to within the main width of the texture.
-		margin_left = fmod(position.x, size.x)
+		# Assign X position authored in the editor.
+		if wrap_x_mode & WrapMode.CUT_AT_START:
+			margin_left = position.x
+		else:
+			# Wrap within the main width of the texture,
+			# so the size stays manageable.
+			margin_left = fmod(position.x - size.x, size.x)
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_left *= rect_scale.x
 		
@@ -59,8 +64,13 @@ func _process(delta):
 		if wrap_x_mode & WrapMode.CUT_AT_END:
 			margin_right = margin_left + size.x
 		
-		# Place Y position at its proper height.
-		margin_top = position.y
+		# Assign Y position authored in the editor.
+		if wrap_y_mode & WrapMode.CUT_AT_START:
+			margin_top = position.y
+		else:
+			# Wrap within the main width of the texture,
+			# so the size stays manageable.
+			margin_top = fmod(position.y - size.y, size.y)
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_top *= rect_scale.x
 		# Ensure the camera never crosses below the plane.
