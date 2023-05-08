@@ -1,6 +1,6 @@
 extends TextureRect
 
-const PARALLAX_FACTOR = Vector2(20, 5)
+export var parallax_factor = Vector2(1.0/20, 1.0/5)
 
 var scroll = 0
 
@@ -27,8 +27,8 @@ func _process(_delta):
 		
 		# Find un-parallax'd position of the plane.
 		var position = -cam_pos + -size
-		# Parallax it. TODO: Prefer multiply over divide for controllability.
-		position /= PARALLAX_FACTOR
+		# Parallax it.
+		position *= parallax_factor
 		# Apply start offset so it ends up in an expected place.
 		position += offset
 		
