@@ -17,7 +17,8 @@ var autoscroll_state = Vector2(0, 0)
 
 onready var cam: Camera2D = $"/root/Main".find_node("Camera", true, false)
 onready var size = texture.get_size()
-onready var offset = Vector2(margin_left, margin_top)
+onready var offset_global = (get_parent().get_parent() as CanvasLayer).offset
+onready var offset_local = Vector2(margin_left, margin_top)
 
 
 func _process(delta):
@@ -41,8 +42,8 @@ func _process(delta):
 		var position = -cam_pos + -size
 		# Parallax it.
 		position *= parallax_factor
-		# Apply NO_WRAP offset so it ends up in an expected place.
-		position += offset
+		# Apply local offset so it ends up in the expected place.
+		position += offset_local + vec2lerp(-offset_global, offset_global, parallax_factor)
 		
 		# Update automatic scrolling.
 		autoscroll_state += autoscroll * rect_scale.x * delta * 60
@@ -81,3 +82,10 @@ func _process(delta):
 		# Counteract camera zoom so BG stays same size onscreen.
 		margin_left *= rect_scale.x
 		margin_top *= rect_scale.x
+
+
+func vec2lerp(from: Vector2, to: Vector2, fac: Vector2):
+	return Vector2(
+		lerp(from.x, to.x, fac.x),
+		lerp(from.y, to.y, fac.y)
+	)
