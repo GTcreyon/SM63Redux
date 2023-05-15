@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/goomba_struck_land.wav-a4d9a8ca04887b59c67d202b671e9c68.sample"
+path="res://.import/goomba_stomped.wav-df21eaaca4663a2f38e8da218b048ced.sample"
 
 [deps]
 
-source_file="res://classes/entity/enemy/goomba/goomba_struck_land.wav"
-dest_files=[ "res://.import/goomba_struck_land.wav-a4d9a8ca04887b59c67d202b671e9c68.sample" ]
+source_file="res://classes/entity/enemy/goomba/goomba_stomped.wav"
+dest_files=[ "res://.import/goomba_stomped.wav-df21eaaca4663a2f38e8da218b048ced.sample" ]
 
 [params]
 
