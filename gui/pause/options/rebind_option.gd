@@ -1,64 +1,16 @@
 extends Button
 
-const ACTION_MAP = {
-	"left":"Left",
-	"right":"Right",
-	"jump":"Jump",
-	"dive":"Dive",
-	"spin":"Spin",
-	"pound":"Ground Pound",
-	"fludd":"Use FLUDD",
-	"switch_fludd":"Switch FLUDD Nozzle",
-	"pause":"Pause",
-	"interact":"Interact",
-	"skip":"Skip Text",
-	"zoom+":"Zoom In",
-	"zoom-":"Zoom Out",
-	"semi":"Power Swim",
-	"reset":"Reset Run",
-	"timer_show":"Show Timer",
-	"mute_music":"Mute Music",
-	"mute_sfx":"Mute SFX",
-	"volume_music+":"Music Volume +",
-	"volume_music-":"Music Volume -",
-	"volume_sfx+":"SFX Volume +",
-	"volume_sfx-":"SFX Volume -",
-	"fullscreen":"Fullscreen",
-	"screen+":"Screen Size +",
-	"screen-":"Screen Size -",
-	"feedback":"Open Feedback Menu",
-	"debug":"Open Debug Console",
-}
-
-const JOYPAD_BUTTONS = [
-	["(B)", "(A)", "(X)"],
-	["(A)", "(B)", "(O)"],
-	["(Y)", "(X)", "([])"],
-	["(X)", "(Y)", "(/\\)"],
-	["(L)", "(LB)", "(L1)"],
-	["(R)", "(RB)", "(R1)"],
-	["(-)", "(Back)", "(Select)"],
-	["(+)", "(Start)", "(Start)"],
-	["(Left Stick Click)", "(Left Stick Click)", "(Left Stick Click)"],
-	["(Right Stick Click)", "(Right Stick Click)", "(Right Stick Click)"],
-	["(ZL)", "(LT)", "(L2)"],
-	["(ZR)", "(RT)", "(R2)"],
-	["(Logo)", "(Logo)", "(Logo)"],
-	["(D-Up)", "(D-Up)", "(D-Up)"],
-	["(D-Down)", "(D-Down)", "(D-Down)"],
-	["(D-Left)", "(D-Left)", "(D-Left)"],
-	["(D-Right)", "(D-Right)", "(D-Right)"],
-]
-
 export(String) var action_id = ""
 
 onready var key_list = $KeyList
 onready var action_name = $ActionName
 var scale: float setget set_scale
+var locale_saved: String = ""
 
 
 func _ready():
-	action_name.text = ACTION_MAP[action_id]
+	var action_map = _get_action_map()
+	action_name.text = action_map[action_id]
 	update_list()
 
 
@@ -80,13 +32,15 @@ func join_action_array(actions) -> String:
 	var output: String = ""
 	for action in actions:
 		if action is InputEventJoypadButton:
-			if action.button_index > JOYPAD_BUTTONS.size():
+			var buttons = _get_joypad_buttons()
+			if action.button_index > buttons.size():
 				output += "(?)"
 			else:
-				output += JOYPAD_BUTTONS[action.button_index][get_brand_id()]
+				output += "(%s)" % buttons[action.button_index][get_brand_id()]
 		elif action is InputEventJoypadMotion:
-			output += get_joypad_motion_name(action.axis, action.axis_value)
+			output += "(%s)" % get_joypad_motion_name(action.axis, action.axis_value)
 		else:
+			# TODO: make these translatable
 			output += action.as_text()
 		output += ", "
 	output = output.trim_suffix(", ")
@@ -143,13 +97,13 @@ func unpress():
 func get_joypad_motion_name(axis: int, value: float):
 	match axis:
 		JOY_AXIS_0:
-			return "(Left Stick Left)" if value < 0 else "(Left Stick Right)"
+			return tr("Left Stick Left") if value < 0 else tr("Left Stick Right")
 		JOY_AXIS_1:
-			return "(Left Stick Up)" if value < 0 else "(Left Stick Down)"
+			return tr("Left Stick Up") if value < 0 else tr("Left Stick Down")
 		JOY_AXIS_2:
-			return "(Right Stick Left)" if value < 0 else "(Right Stick Right)"
+			return tr("Right Stick Left") if value < 0 else tr("Right Stick Right")
 		JOY_AXIS_3:
-			return "(Right Stick Up)" if value < 0 else "(Right Stick Down)"
+			return tr("Right Stick Up") if value < 0 else tr("Right Stick Down")
 
 
 func set_scale(new_scale):
@@ -161,3 +115,62 @@ func set_scale(new_scale):
 
 func _process(_delta):
 	update_list()
+
+
+func _get_joypad_buttons() -> Array:
+	return [
+		["B", "A", "X"],
+		["A", "B", "O"],
+		["Y", "X", "[]"],
+		["X", "Y", "/\\"],
+		["L", "LB", "L1"],
+		["R", "RB", "R1"],
+		["-", tr("Back"), tr("Select")],
+		["+", tr("Start"), tr("Start")],
+		[tr("Left Stick Click"), tr("Left Stick Click"), tr("Left Stick Click")],
+		[tr("Right Stick Click"), tr("Right Stick Click"), tr("Right Stick Click")],
+		["ZL", "LT", "L2"],
+		["ZR", "RT", "R2"],
+		[tr("Logo"), tr("Logo"), tr("Logo")],
+		[tr("D-Up"), tr("D-Up"), tr("D-Up")],
+		[tr("D-Down"), tr("D-Down"), tr("D-Down")],
+		[tr("D-Left"), tr("D-Left"), tr("D-Left")],
+		[tr("D-Right"), tr("D-Right"), tr("D-Right")],
+	]
+
+func _get_action_map() -> Dictionary:
+	return {
+		"left":tr("Left"),
+		"right":tr("Right"),
+		"jump":tr("Jump"),
+		"dive":tr("Dive"),
+		"spin":tr("Spin"),
+		"pound":tr("Ground Pound"),
+		"fludd":tr("Use FLUDD"),
+		"switch_fludd":tr("Switch FLUDD Nozzle"),
+		"pause":tr("Pause"),
+		"interact":tr("Interact"),
+		"skip":tr("Skip Text"),
+		"zoom+":tr("Zoom In"),
+		"zoom-":tr("Zoom Out"),
+		"semi":tr("Power Swim"),
+		"reset":tr("Reset Run"),
+		"timer_show":tr("Show Timer"),
+		"mute_music":tr("Mute Music"),
+		"mute_sfx":tr("Mute SFX"),
+		"volume_music+":tr("Music Volume +"),
+		"volume_music-":tr("Music Volume -"),
+		"volume_sfx+":tr("SFX Volume +"),
+		"volume_sfx-":tr("SFX Volume -"),
+		"fullscreen":tr("Fullscreen"),
+		"screen+":tr("Screen Size +"),
+		"screen-":tr("Screen Size -"),
+		"feedback":tr("Open Feedback Menu"),
+		"debug":tr("Open Debug Console"),
+	}
+
+
+func _notification(what: int) -> void:
+	match what:
+		NOTIFICATION_TRANSLATION_CHANGED:
+			update_list()

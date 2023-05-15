@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
 [ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
@@ -7,8 +7,8 @@
 [ext_resource path="res://scenes/menus/title/main_menu/menu_titles.png" type="Texture" id=5]
 [ext_resource path="res://scenes/menus/title/main_menu/crystal.png" type="Texture" id=6]
 [ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/menus/title/main_menu/menu_orb.png" type="Texture" id=8]
 [ext_resource path="res://scenes/menus/title/main_menu/selector.png" type="Texture" id=9]
-[ext_resource path="res://shaders/desaturate.tres" type="Material" id=10]
 [ext_resource path="res://scenes/menus/title/main_menu/main_menu.gd" type="Script" id=11]
 [ext_resource path="res://scenes/menus/title/sheen.gd" type="Script" id=12]
 [ext_resource path="res://scenes/menus/title/main_menu/rope.png" type="Texture" id=13]
@@ -16,6 +16,8 @@
 [ext_resource path="res://scenes/menus/title/main_menu/hook.png" type="Texture" id=15]
 [ext_resource path="res://scenes/menus/title/main_menu/sheen.png" type="Texture" id=16]
 [ext_resource path="res://scenes/menus/title/main_menu/icon.png" type="Texture" id=17]
+[ext_resource path="res://scenes/menus/title/main_menu/orb_inner.png" type="Texture" id=18]
+[ext_resource path="res://scenes/menus/title/main_menu/preview_orb.gd" type="Script" id=19]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 4 )
@@ -74,23 +76,19 @@ region = Rect2( 21, 72, 82, 24 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 4 )
-region = Rect2( 0, 72, 126, 36 )
+region = Rect2( 0, 144, 126, 36 )
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 15 )
-region = Rect2( 0, 65, 56, 32 )
+region = Rect2( 0, 128, 56, 32 )
 
 [sub_resource type="AtlasTexture" id=18]
 atlas = ExtResource( 5 )
-region = Rect2( 30, 48, 66, 24 )
+region = Rect2( 46, 96, 34, 24 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 4 )
 region = Rect2( 0, 36, 126, 36 )
-
-[sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 32, 56, 33 )
 
 [sub_resource type="AtlasTexture" id=19]
 atlas = ExtResource( 5 )
@@ -103,6 +101,75 @@ region = Rect2( 0, 62.8111, 20, 21.1889 )
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 2 )
 region = Rect2( 20, 63, 20, 21 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 230, 68 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 18 )
+region = Rect2( 230, 0, 230, 68 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 68, 230, 68 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 18 )
+region = Rect2( 230, 68, 230, 68 )
+
+[sub_resource type="SpriteFrames" id=33]
+animations = [ {
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 294, 89 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 89, 294, 89 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 178, 294, 89 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 267, 294, 89 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 356, 294, 89 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 267, 294, 89 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 178, 294, 89 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 89, 294, 89 )
+
+[sub_resource type="SpriteFrames" id=28]
+animations = [ {
+"frames": [ SubResource( 34 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
+"loop": false,
+"name": "switch",
+"speed": 20.0
+} ]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -205,12 +272,10 @@ use_parent_material = true
 texture = SubResource( 17 )
 
 [node name="SelectorExtras" type="Sprite" parent="." groups=["menu_hide"]]
-material = ExtResource( 10 )
 position = Vector2( 320, 645 )
 texture = ExtResource( 9 )
 
 [node name="Extras" type="Sprite" parent="." groups=["menu_hide"]]
-material = ExtResource( 10 )
 position = Vector2( 320, 600 )
 texture = SubResource( 3 )
 
@@ -280,7 +345,7 @@ shape_centered = false
 [node name="Hook" type="Sprite" parent="LevelDesigner/Frame"]
 use_parent_material = true
 position = Vector2( 75, -12 )
-texture = SubResource( 9 )
+texture = SubResource( 8 )
 
 [node name="CrystalL" type="AnimatedSprite" parent="LevelDesigner/Frame"]
 use_parent_material = true
@@ -410,8 +475,28 @@ texture_normal = SubResource( 22 )
 texture_pressed = SubResource( 21 )
 expand = true
 
+[node name="PreviewOrb" type="Control" parent="." groups=["menu_hide"]]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_top = -4.0
+script = ExtResource( 19 )
+
+[node name="Inner" type="AnimatedSprite" parent="PreviewOrb"]
+position = Vector2( -117, -68 )
+frames = SubResource( 33 )
+centered = false
+
+[node name="Outer" type="AnimatedSprite" parent="PreviewOrb"]
+position = Vector2( -149, -89 )
+frames = SubResource( 28 )
+animation = "switch"
+centered = false
+
 [connection signal="pressed" from="Story/Frame/StoryButton" to="." method="_on_StoryButton_pressed"]
 [connection signal="pressed" from="Settings/Frame/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="Extras/Frame/ExtrasButton" to="." method="_on_ExtrasButton_pressed"]
 [connection signal="pressed" from="LevelDesigner/Frame/LDButton" to="." method="_on_LDButton_pressed"]
 [connection signal="pressed" from="OptionsControl/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="animation_finished" from="PreviewOrb/Outer" to="PreviewOrb" method="_on_Outer_animation_finished"]

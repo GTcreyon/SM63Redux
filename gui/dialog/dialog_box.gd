@@ -34,7 +34,7 @@ const ICON_WIDTH = 40
 onready var player = $"/root/Main/Player"
 onready var star = $EdgeRight/Star
 onready var text_area = $Text
-onready var portrait = $Portrait
+onready var portrait = $EdgeLeft/Portrait
 onready var nameplate = $EdgeLeft/Name
 onready var edge_left = $EdgeLeft
 onready var block_left = $BlockLeft
@@ -75,10 +75,6 @@ func refresh_returns(line):
 	var cumulative_length = 0
 	var i = 0
 	while i < line.length():
-#		if line[i] == "[":
-#			while line[i] != "]" or line[i+1] == "[":
-#				i += 1
-#			i += 1
 		var j = 0
 		var word = " "
 		var loop = true
@@ -88,26 +84,23 @@ func refresh_returns(line):
 					j += 1
 				if line[i + j] == " ":
 					loop = false
-				#word += line[i + j]
-				#j -= 1
 			if loop:
 				word += line[i + j]
 				j += 1
-			
-			
-		#word += line[i + j]
+		
+		
 		if i + j < line.length() and line[i + j] == "\n":
 			cumulative_length = 0
 		else:
 			var added_length = font.get_string_size(word).x
 			cumulative_length += added_length
-			if cumulative_length >= DEFAULT_WIDTH - 25 + width_offset:# or (character_id != null and cumulative_length >= 233 - (47 - 8)):
+			if cumulative_length >= DEFAULT_WIDTH - 25 + width_offset:
 				cumulative_length = added_length
 				line = line.insert(i, "\n")
 				i += 1
 		i += j
 		i += 1
-	# Pad the left side to prevent outline issues ._.
+	# Pad the left side to prevent outline cutoff
 	line = " " + line.replace("\n", "\n ")
 	return line
 
@@ -227,6 +220,7 @@ func _physics_process(_delta):
 					active = false
 					player.read_pos_x = INF
 					player.locked = false
+					player.sprite.reading_sign = false
 					swoop_timer = 0
 					sfx_close.play()
 				else:

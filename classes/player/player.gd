@@ -178,7 +178,10 @@ onready var feet_area: Area2D = $Feet
 
 
 func _ready():
+	
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
+	
+	Singleton.reset_bus_effect("~Water Verb:", 0) # prevents garbage reverb
 	
 	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
@@ -293,7 +296,7 @@ func player_physics():
 		assertions()
 	fludd_stale = true
 	
-	check_ground_state()
+	update_ground_state()
 	
 	manage_invuln()
 	manage_buffers()
@@ -313,7 +316,7 @@ func player_physics():
 		fludd_power = 100
 
 	
-	if coyote_frames > 0:
+	if can_jump():
 		coyote_behaviour()
 	else:
 		if !swimming:
@@ -331,7 +334,7 @@ func player_physics():
 			action_swim()
 		else:
 			if Input.is_action_pressed("jump"):
-				if coyote_frames > 0:
+				if can_jump():
 					player_jump()
 				elif jump_vary_frames > 0 and state == S.NEUTRAL:
 					vel.y -= GRAV * pow(FPS_MOD, 3) # Variable jump height
@@ -871,25 +874,38 @@ func manage_hurt_recover():
 
 
 var cancel_ground: bool = false
-func check_ground_state() -> void:
+func update_ground_state() -> void:
 	if cancel_ground:
 		grounded = false
 		cancel_ground = false
 	else:
-		# failsafe to prevent getting stuck between slopes
-		if (
-			vel.y < 0
-			or is_on_floor()
-			or fludd_spraying_rising(true)
-			or (state == S.POUND and pound_state == Pound.SPIN)
-			or state == S.HURT
-			or swimming
-			or bouncing
-			or ground_failsafe_check.get_overlapping_bodies().size() <= 0
-		):
+		# Failsafe to prevent getting stuck between slopes
+		if ground_failsafe_condition():
 			ground_failsafe_timer = 0
-		grounded = is_on_floor() or ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD
+		grounded = get_ground_state()
 	ground_except = grounded
+
+
+# Get a live-updating grounded state, incase the `ground` variable is outdated
+func get_ground_state() -> bool:
+	return is_on_floor() or (!ground_failsafe_condition() and ground_failsafe_timer >= GROUND_FAILSAFE_THRESHOLD)
+
+
+func can_jump() -> bool:
+	return coyote_frames > 0
+
+
+func ground_failsafe_condition() -> bool:
+	return (
+		vel.y < 0
+		or is_on_floor()
+		or fludd_spraying_rising(true)
+		or (state == S.POUND and pound_state == Pound.SPIN)
+		or state == S.HURT
+		or swimming
+		or bouncing
+		or ground_failsafe_check.get_overlapping_bodies().size() <= 0
+	)
 
 
 func player_fall() -> void:
@@ -1113,7 +1129,7 @@ func action_dive():
 			grounded
 		)
 	):
-		if !swimming and coyote_frames > 0 and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
+		if !swimming and can_jump() and Input.is_action_pressed("jump") and abs(vel.x) > 1: # auto rollout
 			off_ground()
 			switch_state(S.ROLLOUT)
 			frontflip_direction = facing_direction
@@ -1174,12 +1190,10 @@ func _get_slide_angle() -> float:
 	return angle_cast.get_collision_normal().angle() + PI / 2
 
 
-const WATER_VRB_BUS = 1
-const WATER_LPF_BUS = 2
 const FADE_TIME = 10
 var fade_timer = 0
-onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(WATER_LPF_BUS, 0)
-onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(WATER_VRB_BUS, 0)
+onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(Singleton.WATER_LPF_BUS, 0)
+onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(Singleton.WATER_VRB_BUS, 0)
 func manage_water_audio(delta):
 	if swimming:
 		# Fade in water fx
@@ -1193,8 +1207,8 @@ func manage_water_audio(delta):
 	lowpass.cutoff_hz = int((2000 - 20500) * fade_timer / FADE_TIME + 20500)
 	
 	# Disable fx if left water and fade is finished
-	AudioServer.set_bus_effect_enabled(WATER_LPF_BUS, 0, fade_timer != 0)
-	AudioServer.set_bus_effect_enabled(WATER_VRB_BUS, 0, fade_timer != 0)
+	AudioServer.set_bus_effect_enabled(Singleton.WATER_LPF_BUS, 0, fade_timer != 0)
+	AudioServer.set_bus_effect_enabled(Singleton.WATER_VRB_BUS, 0, fade_timer != 0)
 
 
 const ROLLOUT_TIME: int = 18
@@ -1237,7 +1251,8 @@ func manage_crouch_reset() -> void:
 
 
 func switch_fludd():
-	var save_nozzle = current_nozzle
+	var last_nozzle = current_nozzle
+	# Switch to next nozzle, bypassing nozzles not currently held.
 	current_nozzle += 1
 	while (
 		(
@@ -1247,9 +1262,11 @@ func switch_fludd():
 		or current_nozzle == 0
 	):
 		current_nozzle += 1
+	# If reached the end, revert to no nozzle.
 	if current_nozzle == 4:
 		current_nozzle = 0
-	if current_nozzle != save_nozzle:
+	# If nozzle actually changed, set it up and play effects.
+	if current_nozzle != last_nozzle:
 		fludd_strain = false
 		switch_sfx.play()
 
@@ -1318,9 +1335,11 @@ const STAND_BOX_EXTENTS = Vector2(6, 14.5)
 const DIVE_BOX_POS = Vector2(0, 10)
 const DIVE_BOX_EXTENTS = Vector2(6, 6)
 func switch_state(new_state):
+	# Always pause AND stop spin SFX
+	spin_sfx.stop()
+	spin_sfx.stream_paused = true
 	# If spin just ended, adjust SFX accordingly.
 	if state == S.SPIN:
-		spin_sfx.stop()
 		if swimming:
 			play_sfx("spin_end", "water")
 	
@@ -1343,7 +1362,6 @@ func switch_state(new_state):
 
 	
 	# On any state change, reset the following things:
-	spin_sfx.stop()
 	pound_state = Pound.NONE
 	clear_rotation_origin()
 
@@ -1372,7 +1390,7 @@ func off_ground():
 	cancel_ground = true
 
 
-func recieve_health(amount):
+func receive_health(amount):
 	hp = clamp(hp + amount, 0, 8) # TODO - multi HP
 
 
@@ -1392,6 +1410,7 @@ func play_sfx(type, group):
 		"spin", "spin_end":
 			spin_sfx.stream = sound
 			spin_sfx.play(0)
+			spin_sfx.stream_paused = false
 
 
 const TERRAIN_MASK = 0b111111110000000000000000

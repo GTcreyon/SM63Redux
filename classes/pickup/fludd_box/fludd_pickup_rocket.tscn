@@ -32,6 +32,7 @@ nozzle_award = 2
 
 [node name="Sprite" type="Sprite" parent="Rocket"]
 position = Vector2( 0, -5 )
+z_index = -1
 texture = ExtResource( 3 )
 script = ExtResource( 1 )
 

@@ -24,7 +24,7 @@ var last_grounded: bool = true
 var last_flip_ending: bool = false # parent.triple_flip_frames >= TRIPLE_FLIP_HALFWAY
 var last_pound_state: int = PlayerCharacter.Pound.SPIN
 var last_frame = 0 # Used mainly during walking animation
-
+var reading_sign: bool = false # True if the player is reading a sign
 var slow_spin_timer: float = 0 # Frames of progress through the slow spin
 var rng = RandomNumberGenerator.new()
 
@@ -228,7 +228,9 @@ func spin_logic() -> void:
 		"spin_fast":
 			#frame = float(parent.SPIN_TIME - parent.spin_frames) / float(parent.SPIN_TIME)
 			if parent.spin_frames <= 0:
+				var save_frame = frame
 				trigger_anim("spin_slow")
+				frame = save_frame
 		"spin_slow":
 			if slow_spin_timer < SLOW_SPIN_TIME:
 				slow_spin_timer += 1
@@ -261,10 +263,17 @@ func _anim_from_new_state(
 				return "crouch_start"
 			parent.S.HURT:
 				return "hurt_start"
+			parent.S.DIVE:
+				if parent.grounded:
+					return "dive_ground"
+				else:
+					return "dive_air"
 			_:
+				# Swimming overrides all other states.
 				if animation == "swim_stroke":
 					return "swim_stroke"
-				# Swimming overrides all other states.
+				if parent.grounded:
+					return _state_neutral(old_state, last_swimming)
 				return "swim_idle"
 	else:
 		match new_state:
@@ -334,11 +343,13 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 	# Take note if state just changed.
 	# (This function is only called when state == neutral, right?)
 	var state_changed: bool = old_state != PlayerCharacter.S.NEUTRAL
-	# Factor swimming into this change.
-	# (This function is only called on land, right?)
-	state_changed = state_changed or old_swimming
 	
-	if parent.grounded and !last_grounded:
+	state_changed = state_changed or (old_swimming and !parent.swimming)
+	
+	if reading_sign:
+		return "back"
+	
+	if parent.get_ground_state() and !last_grounded:
 		# Just hit the ground
 		if parent.get_walk_direction() == 0:
 			# Just landed.
@@ -367,8 +378,8 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 			# Entered neutral state while velocity is upward
 			parent.vel.y < 0 and state_changed
 		):
-			if animation == "fall" or animation.begins_with("jump_"):
-				return animation
+			if parent.vel.y > -parent.JUMP_VEL_1 and (animation == "fall" or animation.begins_with("jump_")):
+				return NO_ANIM_CHANGE
 			# Trigger jump anims.
 			if double_jump:
 				return "jump_double_start"

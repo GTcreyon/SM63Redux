@@ -323,6 +323,10 @@ window/size/height=360
 mouse_cursor/custom_image="res://gui/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2( 1, 1 )
 
+[gui]
+
+theme/custom="res://gui/theme_gui.tres"
+
 [importer_defaults]
 
 texture={
@@ -712,7 +716,7 @@ pointing/emulate_touch_from_mouse=true
 
 [locale]
 
-translations=PoolStringArray( "res://locale/translations/es.po", "res://locale/translations/fr.po", "res://locale/translations/it_IT.po", "res://locale/translations/nl.po" )
+translations=PoolStringArray( "res://locale/translations/es.po", "res://locale/translations/fr.po", "res://locale/translations/it_IT.po", "res://locale/translations/nl.po", "res://locale/translations/pt_BR.po" )
 locale_filter=[ 0, [  ] ]
 
 [mono]

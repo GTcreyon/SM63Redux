@@ -1,62 +1,250 @@
-# Translations template for PROJECT.
-# Copyright (C) 2022 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
-#, fuzzy
-msgid ""
-msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
-"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2022-04-13 18:15+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
-
-#: ../actors/debug/tickbox_feedback.tscn:44
-msgid "Lag"
+#: ../gui/pause/level_info/level_info.tscn:83
+msgid "MUSHROOM KINGDOM"
 msgstr ""
 
-#: ../gui/pause/level_info/level_info.tscn:56
-msgid "Mushroom Kingdom"
-msgstr ""
-
-#: ../gui/pause/level_info/level_info.tscn:220
+#: ../gui/pause/level_info/level_info.tscn:254
 msgid "Tutorial 1"
 msgstr ""
 
-#: ../gui/pause/level_info/level_info.tscn:264
+#: ../gui/pause/level_info/level_info.tscn:278
 msgid "Head to the castle, everybody's waiting!"
 msgstr ""
 
-#: ../gui/pause/map/map.tscn:129
+#: ../gui/pause/map/map.tscn:125
 msgid ""
-"Bob-omb\n"
-"Battlefield"
+"Bob-omb Battlefield\n"
+" - Coming soon!"
 msgstr ""
 
-#: ../gui/pause/map/map.tscn:325
-msgid "???"
+#: ../gui/pause/map/map.tscn:322
+msgid "Coming soon!"
 msgstr ""
 
-#: ../gui/pause/map/map.tscn:527
+#: ../gui/pause/map/map.tscn:528
 msgid ""
 "Shifting\n"
 "Sand Land"
 msgstr ""
 
-#: ../gui/pause/options/options.tscn:36
+#: ../gui/pause/options/button_menu.tscn:40
+msgid "Reset controls to default"
+msgstr ""
+
+#: ../gui/pause/options/options_menu.tscn:50
 msgid "Disable camera limiting [Try this if the camera is broken]"
 msgstr ""
 
-#: ../gui/pause/options/options.tscn:49
-msgid ""
-"Enable touch controls [Warning: Turning this off will softlock on mobile "
-"devices!]"
+#: ../gui/pause/options/options_menu.tscn:61
+msgid "Enable touch controls"
+msgstr ""
+
+#: ../gui/pause/options/options_menu.tscn:72
+msgid "Mute music"
+msgstr ""
+
+#: ../gui/pause/options/options_menu.tscn:83
+#: ../gui/pause/options/rebind_option.gd:160
+msgid "Mute SFX"
+msgstr ""
+
+#: ../gui/pause/options/options_menu.tscn:94
+msgid "Show timer\n"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Left"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Right"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Up"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Down"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Left"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Right"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Up"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Down"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Back"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Select"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:129
+msgid "Start"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:130
+msgid "Left Stick Click"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:131
+msgid "Right Stick Click"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:134
+msgid "Logo"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:135
+msgid "D-Up"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:136
+msgid "D-Down"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:137
+msgid "D-Left"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:138
+msgid "D-Right"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:143
+msgid "Left"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:144
+msgid "Right"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:145
+msgid "Jump"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:146
+msgid "Dive"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:147
+msgid "Spin"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:148
+msgid "Ground Pound"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:149
+msgid "Use FLUDD"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:150
+msgid "Switch FLUDD Nozzle"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:151
+msgid "Pause"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:152
+msgid "Interact"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:153
+msgid "Skip Text"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:154
+msgid "Zoom In"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:155
+msgid "Zoom Out"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:156
+msgid "Power Swim"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:157
+msgid "Reset Run"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:158
+msgid "Show Timer"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:159
+msgid "Mute Music"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:161
+msgid "Music Volume +"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:162
+msgid "Music Volume -"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:163
+msgid "SFX Volume +"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:164
+msgid "SFX Volume -"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:165
+msgid "Fullscreen"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:166
+msgid "Screen Size +"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:167
+msgid "Screen Size -"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:168
+msgid "Open Feedback Menu"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.gd:169
+msgid "Open Debug Console"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.tscn:35
+msgid "[action]"
+msgstr ""
+
+#: ../gui/pause/options/rebind_option.tscn:41
+msgid "[keys]"
+msgstr ""
+
+#: ../gui/pause/options/touch_menu.tscn:57
+msgid "Touch control layout:"
+msgstr ""
+
+#: ../gui/pause/options/touch_menu.tscn:90
+msgid "Change size:"
+msgstr ""
+
+#: ../gui/pause/options/touch_menu.tscn:124
+msgid "Swap sides:"
 msgstr ""
 
 #: ../gui/timer/timer.tscn:38
@@ -71,241 +259,272 @@ msgstr ""
 msgid "0:00.000"
 msgstr ""
 
-#: ../scenes/title/menu.tscn:321
-msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
-msgstr ""
-
-#: ../scenes/title/menu.tscn:333
-msgid "Create your own worlds in this in-depth Level Designer!"
-msgstr ""
-
-#: ../scenes/title/menu.tscn:345
-msgid "Enjoy a collection of trinkets and goodies!"
-msgstr ""
-
-#: ../scenes/title/menu.tscn:357
-msgid "Adjust anything and everything to your liking!"
-msgstr ""
-
-#: ../scenes/title/menu.tscn:400
-msgid ""
-"Force touch controls\n"
-"(Experimental)"
-msgstr ""
-
-#: ../scenes/title/title.tscn:102
-msgid "Press Z to start!"
-msgstr ""
-
-#: ../scenes/title/title.tscn:123
-msgid "v0.X.X"
-msgstr ""
-
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
 msgid ""
 "[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome "
 "back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' "
 "sake,[@p,3] here's a refresher."
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
 msgid ""
 "Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you "
 "want to talk to more of the family,[@p,3] simply press "
 "[color=#f7c55f][@b,interact].[/color]"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:154
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
 msgid ""
 "They have plenty of tips to help out,[@p,3] and if you're not "
 "interested,[@p,3] at least say \"Hi\" for me,[@p,3] eh?"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
 msgid ""
 "[@n,Gil Board]Oh hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Not many"
 " people read signs nowadays,[@p,3] so how 'bout I teach you some tricks "
 "as thanks?"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
 msgid ""
 "You can press [color=#f7c55f][@b,spin][/color] to perform a "
 "[color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up "
 "there longer!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:159
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
 msgid ""
 "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a "
 "sweet backflip![@p,10] Cool, 'eh?"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
 msgid ""
 "[@n,Jil Board]Oh [color=#ff8b70]Mario[/color],[@p,3] honey![@p,10] It's "
 "been so long since I've seen you...[@p,10] Oh my![@p,10] I see scars from"
 " your journeys..."
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
 msgid ""
 "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or "
 "an unlucky enemy to refill one [color=#ff7f7f]health point.[/color]"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_1.tscn:164
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
 msgid ""
 "No one quite understands why,[@p,3] but it's a lifesaver -[@p,3] so keep "
 "it in mind,[@p,3] sweetie!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
 msgid ""
 "[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nasty "
 "[color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you "
 "need to go this way?"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
 msgid ""
 "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to"
 " do a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying."
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:124
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
 msgid ""
 "If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can "
 "perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath "
 "you!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
 msgid ""
 "[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention "
 "something really important -[@p,3] the [color=#f7c55f]Triple "
 "Jump![/color]"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
 msgid ""
 "If you jump three times while moving,[@p,3] you can jump higher each "
 "time,[@p,3] ending with a huge leap!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_2.tscn:129
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
 msgid "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_3.tscn:160
+#: ../scenes/levels/tutorial_1/tutorial_1_3.tscn:170
 msgid ""
 "[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the "
 "[color=#f7c55f]F.L.U.D.D.[/color] pack!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_3.tscn:165
+#: ../scenes/levels/tutorial_1/tutorial_1_3.tscn:175
 msgid ""
 "[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump "
 "into a pool of water, or find a refill bottle."
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
 msgid ""
 "[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your "
 "back can save you if you happen to slip off a platform or miss a jump."
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
 msgid ""
 "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only "
 "hold [color=#5f75c5]100 flubs[/color] in that tank of theirs."
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:438
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
 msgid "Once it's gone,[@p,3] you won't be able to hover any longer."
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
 msgid ""
 "[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3]"
 " just press [color=#f7c55f][@b,pause][/color] to pause the game!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
 msgid ""
 "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3]"
 " change FLUDD nozzle,[@p,3] or just sit back and relax!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:443
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
 msgid ""
 "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't "
 "you dare forget that!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:448
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:467
 msgid "You've reached the end of the [color=#f7c55f]Tiny Demo![/color]"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:448
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:467
 msgid "We hope you enjoyed it, and stay tuned for more!"
 msgstr ""
 
-#: ../scenes/tutorial_1/tutorial_1_4.tscn:453
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:472
 msgid ""
 "[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that "
 "[color=#f28d7c]really[/color] all I'm good for!?"
 msgstr ""
 
-#: ../src/global/feedback.tscn:92
+#: ../scenes/menus/feedback/feedback.tscn:90
 msgid "Feedback"
 msgstr ""
 
-#: ../src/global/feedback.tscn:106
+#: ../scenes/menus/feedback/feedback.tscn:101
 msgid "Description"
 msgstr ""
 
-#: ../src/global/feedback.tscn:119
+#: ../scenes/menus/feedback/feedback.tscn:119
 msgid "Contact info (optional)"
 msgstr ""
 
-#: ../src/global/feedback.tscn:204
+#: ../scenes/menus/feedback/feedback.tscn:129
+msgid "Let us know how to contact you, e.g. discord handle"
+msgstr ""
+
+#: ../scenes/menus/feedback/feedback.tscn:155
 msgid " Negative"
 msgstr ""
 
-#: ../src/global/feedback.tscn:224
+#: ../scenes/menus/feedback/feedback.tscn:175
 msgid " Neutral"
 msgstr ""
 
-#: ../src/global/feedback.tscn:244
+#: ../scenes/menus/feedback/feedback.tscn:196
 msgid " Positive"
 msgstr ""
 
-#: ../src/global/feedback.tscn:272
+#: ../scenes/menus/feedback/feedback.tscn:233
 msgid "Gameplay"
 msgstr ""
 
-#: ../src/global/feedback.tscn:283
+#: ../scenes/menus/feedback/feedback.tscn:253
 msgid "Visual"
 msgstr ""
 
-#: ../src/global/feedback.tscn:294
+#: ../scenes/menus/feedback/feedback.tscn:273
 msgid "Bug"
 msgstr ""
 
-#: ../src/global/feedback.tscn:313
+#: ../scenes/menus/feedback/feedback.tscn:293
+msgid "Lag"
+msgstr ""
+
+#: ../scenes/menus/feedback/feedback.tscn:314
 msgid "Other"
 msgstr ""
 
-#: ../src/global/feedback.tscn:331
-msgid "Submit"
-msgstr ""
-
-#: ../src/global/feedback.tscn:341
+#: ../scenes/menus/feedback/feedback.tscn:327
 msgid ""
 "Report includes:\n"
 "-The data you entered\n"
 "-Ingame data (e.g. Mario's position, a screenshot, etc.)\n"
-"-Current platform (Windows, Web, Android, etc.)\n"
+"-Current platform (Windows, Web, Android, etc.)"
+msgstr ""
+
+#: ../scenes/menus/feedback/feedback.tscn:346
+msgid "Submit"
+msgstr ""
+
+#: ../scenes/menus/level_designer/level_designer.tscn:488
+msgid "Placeholder Loading Text"
+msgstr ""
+
+#: ../scenes/menus/level_designer/fields/number/input_number.tscn:56
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:22
+msgid "AAAAA"
+msgstr ""
+
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:37
+msgid "X"
+msgstr ""
+
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:76
+msgid "Y"
+msgstr ""
+
+#: ../scenes/menus/title/title.tscn:103
+msgid "Press Z to start!"
+msgstr ""
+
+#: ../scenes/menus/title/title.tscn:124
+msgid "v0.X.X"
+msgstr ""
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:326
+msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
+msgstr ""
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:338
+msgid "Create your own worlds in this in-depth Level Designer!"
+msgstr ""
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:350
+msgid "Enjoy a collection of trinkets and goodies!"
+msgstr ""
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:362
+msgid "Adjust anything and everything to your liking!"
+msgstr ""
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:57
+msgid "Run"
+msgstr ""
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:66
+msgid "Save"
+msgstr ""
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:75
+msgid "Load"
 msgstr ""
 

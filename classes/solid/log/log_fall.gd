@@ -67,3 +67,8 @@ func set_disabled(val):
 		yield(self, "ready")
 	set_collision_layer_bit(0, 0 if val else 1)
 	ride_area.monitoring = !val
+
+
+func _on_WaterCheck_area_entered(_area):
+	# Disable collision when entering water
+	collision_layer = 0

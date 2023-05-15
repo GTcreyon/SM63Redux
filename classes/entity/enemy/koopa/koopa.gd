@@ -56,6 +56,10 @@ func _hurt_stomp(area):
 
 
 func _hurt_struck(body):
+	if struck: # Enemy has already been struck
+		return
+
+	struck = true
 	if body.global_position.x < global_position.x:
 		into_shell(5)
 	else:

@@ -4,12 +4,13 @@ signal before_scene_change
 signal after_scene_change
 
 const DEFAULT_SIZE = Vector2(640, 360)
-const VERSION = "v0.2.0.alpha"
+const VERSION = "v0.1.6.alpha"
 const LD_VERSION = 0
 const LOCALES = [
 	["en", "English"],
 	["es", "Español"],
 	["fr", "Français"],
+	["pt-BR", "Português"],
 	["it", "Italiano"],
 	["nl", "Nederlands"],
 ]
@@ -40,6 +41,9 @@ const WHITELISTED_ACTIONS = [
 	"feedback",
 	"debug",
 ]
+# Audio consts
+const WATER_VRB_BUS = 1
+const WATER_LPF_BUS = 2
 
 enum Nozzles { # FLUDD enum
 	NONE,
@@ -125,6 +129,9 @@ func prepare_exit_game():
 	reset_game_state()
 	# Close speedrun timer
 	timer.visible = false
+	# End all audio effects.
+	AudioServer.set_bus_effect_enabled(WATER_LPF_BUS, 0, false)
+	AudioServer.set_bus_effect_enabled(WATER_VRB_BUS, 0, false)
 
 
 # Reset game state to that of a fresh playthrough.
@@ -137,6 +144,9 @@ func reset_game_state():
 	coin_total = 0
 	red_coin_total = 0
 	meter_progress = 0 # to do with health meter?
+	
+	# Clear persistent object data.
+	FlagServer.reset_flag_dict()
 
 
 # Get a scaling factor based on the window dimensions
@@ -275,3 +285,10 @@ func save_input_map(input_json):
 	file.open("user://controls.json", File.WRITE)
 	file.store_string(input_json) # minimize the amount of time spent with the file open
 	file.close()
+
+
+func reset_bus_effect(channel, effect_idx):
+	var bus_index = AudioServer.get_bus_index(channel)
+	var bus_effect = AudioServer.get_bus_effect(bus_index, effect_idx)
+	AudioServer.remove_bus_effect(bus_index, 0) # this just gets rid of any unwanted gunk stuck in the bus
+	AudioServer.add_bus_effect(bus_index, bus_effect, 0)

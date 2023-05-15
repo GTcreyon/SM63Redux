@@ -25,8 +25,9 @@ func _interact_with(body):
 	body.vel = Vector2.ZERO
 	body.locked = true
 	body.sign_frames = 1
-	if back_sprite:
-		body.sprite.trigger_anim("back")
+	
+	# Initiate the sign-reading animation
+	body.sprite.reading_sign = back_sprite
 	
 	# Disable any active sfx on the player
 	body.start_interaction()
