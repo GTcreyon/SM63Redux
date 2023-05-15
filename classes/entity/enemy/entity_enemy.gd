@@ -60,12 +60,15 @@ onready var hitbox = get_node_or_null(_hitbox_path)
 # Optional death sound effects
 export var _sfx_stomp_path: NodePath = "SFXStomped"
 onready var sfx_stomp: AudioStreamPlayer2D = get_node_or_null(_sfx_stomp_path)
+export var residualize_sfx_stomp = true
 
 export var _sfx_struck_path: NodePath = "SFXStruck"
 onready var sfx_struck: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_path)
+export var residualize_sfx_struck = false
 
 export var _sfx_struck_land_path: NodePath = "SFXStruckLanded"
 onready var sfx_struck_landed: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_land_path)
+export var residualize_sfx_struck_landed = true
 
 # Make the enemy die and drop its coins.
 func enemy_die():
@@ -97,7 +100,10 @@ func _physics_step():
 	if is_on_floor() and struck and !stomped and vel.y > 0:
 		# Play the landing sound, if there is one
 		if sfx_struck_landed != null:
-			ResidualSFX.new_from_existing(sfx_struck_landed, get_parent())
+			if residualize_sfx_struck_landed:
+				ResidualSFX.new_from_existing(sfx_struck_landed, get_parent())
+			else:
+				sfx_struck_landed.play()
 		_struck_land()
 	
 	if inside_check:
@@ -166,7 +172,10 @@ func _on_HurtboxStomp_area_entered(area):
 	if !stomped or multi_stomp:
 		# Play the stomp sound, if there is one
 		if sfx_stomp != null:
-			ResidualSFX.new_from_existing(sfx_stomp, get_parent())
+			if residualize_sfx_stomp:
+				ResidualSFX.new_from_existing(sfx_stomp, get_parent())
+			else:
+				sfx_stomp.play()
 		_hurt_stomp(area)
 
 
@@ -174,7 +183,10 @@ func _on_HurtboxStrike_body_entered(body):
 	if _strike_check(body):
 		# Play the struck sound, if there is one
 		if sfx_struck != null:
-			sfx_struck.play()
+			if residualize_sfx_struck:
+				ResidualSFX.new_from_existing(sfx_struck, get_parent())
+			else:
+				sfx_struck.play()
 		_hurt_struck(body)
 
 
