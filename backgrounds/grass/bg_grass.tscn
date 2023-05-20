@@ -13,7 +13,8 @@
 [ext_resource path="res://backgrounds/grass/grass_falloff.png" type="Texture" id=11]
 
 [sub_resource type="Gradient" id=1]
-colors = PoolColorArray( 0.403922, 0.447059, 0.756863, 1, 0.737255, 0.776471, 0.976471, 1 )
+offsets = PoolRealArray( 0, 0.673077, 1 )
+colors = PoolColorArray( 0.403922, 0.447059, 0.756863, 1, 0.52549, 0.596078, 0.94902, 1, 0.737255, 0.776471, 0.976471, 1 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
@@ -31,11 +32,12 @@ mouse_filter = 2
 [node name="Sky" type="TextureRect" parent="BGParent"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 640.0
-margin_top = -144.0
-margin_right = 360.0
-margin_bottom = 136.0
+margin_left = 24.0
+margin_top = -536.0
+margin_right = -256.0
+margin_bottom = -256.0
 rect_rotation = 90.0
+rect_pivot_offset = Vector2( 149.336, 467.178 )
 mouse_filter = 2
 texture = SubResource( 2 )
 expand = true
