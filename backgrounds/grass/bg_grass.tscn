@@ -18,6 +18,7 @@ colors = PoolColorArray( 0.403922, 0.447059, 0.756863, 1, 0.52549, 0.596078, 0.9
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
+width = 128
 
 [node name="BGT1" type="CanvasLayer"]
 pause_mode = 2
@@ -33,16 +34,16 @@ mouse_filter = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 24.0
-margin_top = -536.0
+margin_top = -576.0
 margin_right = -256.0
-margin_bottom = -256.0
+margin_bottom = -296.0
 rect_rotation = 90.0
 rect_pivot_offset = Vector2( 149.336, 467.178 )
 mouse_filter = 2
 texture = SubResource( 2 )
 expand = true
 script = ExtResource( 6 )
-parallax_factor = Vector2( 0, 0.01 )
+parallax_factor = Vector2( 0, 0.075 )
 wrap_x_mode = 0
 
 [node name="CloudsUpper" type="TextureRect" parent="BGParent"]
@@ -110,9 +111,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 32.0
-margin_top = -220.0
+margin_top = -224.0
 margin_right = 32.0
-margin_bottom = 46.0
+margin_bottom = 42.0
 rect_pivot_offset = Vector2( 0, 228 )
 mouse_filter = 2
 texture = ExtResource( 8 )
