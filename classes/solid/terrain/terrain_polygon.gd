@@ -1,29 +1,29 @@
 tool
 extends Polygon2D
 
-export(Texture) var texture_spritesheet setget update_spritesheets
+export var texture_spritesheet: Texture setget update_spritesheets
 
-var body = ImageTexture.new()
-var top = ImageTexture.new()
-var top_shade = ImageTexture.new()
-var top_corner = ImageTexture.new()
-var top_corner_shade = ImageTexture.new()
-var edge = ImageTexture.new()
-var bottom = ImageTexture.new()
+var body: Texture = ImageTexture.new()
+var top: Texture = ImageTexture.new()
+var top_shade: Texture = ImageTexture.new()
+var top_corner: Texture = ImageTexture.new()
+var top_corner_shade: Texture = ImageTexture.new()
+var edge: Texture = ImageTexture.new()
+var bottom: Texture = ImageTexture.new()
 
-export(Vector2) var up_direction = Vector2(0, -1) setget set_down_direction
-export(Vector2) var down_direction = Vector2(0, 1) setget set_null
-export(int) var max_deviation = 60
+export var up_direction = Vector2(0, -1) setget set_down_direction
+export var down_direction = Vector2(0, 1) setget set_null
+export var max_deviation: int = 60
 
-export(bool) var shallow = false
-export(Color) var shallow_color = Color(1, 1, 1, 0.5)
+export var shallow = false
+export var shallow_color = Color(1, 1, 1, 0.5)
 
 # Manually set the type on each edge, rather than using the auto-generated one
-export(Dictionary) var edge_types = {}
+export var edge_types: Dictionary = {}
 
 var properties: Dictionary = {}
 
-onready var decorations = $Decorations
+onready var decorations: TerrainPencil = $Decorations
 
 
 func set_glowing(should_glow):

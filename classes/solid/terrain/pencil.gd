@@ -1,4 +1,5 @@
 tool
+class_name TerrainPencil
 extends Node2D
 
 enum EdgeType {
