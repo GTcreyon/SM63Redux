@@ -63,7 +63,7 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	})
 
 
-func generate_polygons_top(lines):
+func generate_polygons_top(lines, z_order = 2):
 	# First create quads from each line segment.
 	var quads = []
 	var p_len = lines.size()
@@ -145,7 +145,7 @@ func generate_polygons_top(lines):
 	# Draw all areas.
 	for area in areas:
 		# Turn this area into a polygon node.
-		var poly2d = _create_polygon(area.verts, area.normal, root.top,
+		var poly2d = _create_polygon(area.verts, area.normal, z_order, root.top,
 			0 if area.type == "quad" or (area.clock_dir == -1 and area.type == "trio") 
 			else area.verts.size() - 2)
 		
@@ -175,7 +175,7 @@ func generate_polygons(lines: Array, texture: Texture, z_index: int):
 		var normal := _normal_of_segment(lines[ind], lines[(ind + 1) % p_len])
 		
 		# Create a child polygon node.
-		add_child(_create_polygon(verts, normal, texture, 0))
+		add_child(_create_polygon(verts, normal, z_index, texture, 0))
 
 
 func _generate_quad(chain: Array, start_idx: int, thickness: int = QUAD_RADIUS):
@@ -199,7 +199,11 @@ func _generate_quad(chain: Array, start_idx: int, thickness: int = QUAD_RADIUS):
 	]
 
 
-func _create_polygon(verts: Array, normal: Vector2, texture: Texture, origin_idx: int) -> Polygon2D:
+func _create_polygon(
+	verts: Array, normal: Vector2,
+	z_order: int,
+	texture: Texture, origin_idx: int
+) -> Polygon2D:
 	# Create a polygon node from the terrain's data....
 	var poly2d = Polygon2D.new()
 	poly2d.texture = texture
