@@ -9,7 +9,7 @@ enum EdgeType {
 	SIDE,
 }
 
-const DRAW_VERT_OFFSET = 16
+const QUAD_RADIUS = 16
 
 onready var root = $".."
 onready var collision: CollisionPolygon2D = $"../Static/Collision"
@@ -76,8 +76,8 @@ func draw_top_from_connected_lines(lines):
 		var dir := current.direction_to(next)
 		var normal := dir.tangent()
 		
-		var off_up := normal * DRAW_VERT_OFFSET
-		var off_down := normal * -DRAW_VERT_OFFSET
+		var off_up := normal * QUAD_RADIUS
+		var off_down := normal * -QUAD_RADIUS
 		
 		# From the line segment, generate a quad with thickness.
 		# The quad's vertices run clockwise around its perimeter.
@@ -116,7 +116,7 @@ func draw_top_from_connected_lines(lines):
 		# Didn't early exit. Time to resolve intersections between groups.
 		
 		# Does the top of this area intersect the top of the next?
-		var top_intersect: Vector2 = Geometry.segment_intersects_segment_2d(
+		var top_intersect = Geometry.segment_intersects_segment_2d(
 			cur_group[0], cur_group[1],
 			next_group[0], next_group[1]
 		)
@@ -138,7 +138,7 @@ func draw_top_from_connected_lines(lines):
 			)
 		
 		# Does the bottom of this area intersect the bottom of the next?
-		var bottom_intersect: Vector2 = Geometry.segment_intersects_segment_2d(
+		var bottom_intersect = Geometry.segment_intersects_segment_2d(
 			cur_group[2], cur_group[3],
 			next_group[2], next_group[3]
 		)
@@ -161,7 +161,7 @@ func draw_top_from_connected_lines(lines):
 	
 	# Draw everything
 	# Mark the left-side area for drawing.
-	top_edges.segment_queue.append([true, areas.front()])
+	top_edges.area_queue.append([true, areas.front()])
 	
 	# Draw all areas.
 	for area in areas:
@@ -208,7 +208,7 @@ func draw_top_from_connected_lines(lines):
 			add_child(shade)
 	
 	# Mark the right-side area for drawing.
-	top_edges.segment_queue.append([false, areas.back()])
+	top_edges.area_queue.append([false, areas.back()])
 
 
 func draw_bottom_from_connected_lines(lines):
@@ -223,8 +223,8 @@ func draw_bottom_from_connected_lines(lines):
 		var dir := current.direction_to(next)
 		var normal := dir.tangent()
 		# TODO: Also duplicated, found in draw_top_from_...
-		var off_up := normal * DRAW_VERT_OFFSET
-		var off_down := normal * -DRAW_VERT_OFFSET
+		var off_up := normal * QUAD_RADIUS
+		var off_down := normal * -QUAD_RADIUS
 		
 		# TODO: Also duplicated, found in draw_top_from_...
 		var verts = [
@@ -277,8 +277,8 @@ func draw_edges_from_connected_lines(lines):
 		var next: Vector2 = lines[(ind + 1) % p_len]
 		var dir := current.direction_to(next)
 		var normal := dir.tangent()
-		var off_up := normal * DRAW_VERT_OFFSET
-		var off_down := normal * -DRAW_VERT_OFFSET
+		var off_up := normal * QUAD_RADIUS
+		var off_down := normal * -QUAD_RADIUS
 		
 		var verts = [
 			current + off_up,
@@ -468,7 +468,7 @@ func _draw():
 	body_polygon.color = root.shallow_color if root.shallow else Color(1, 1, 1)
 	
 	# Clear the draw queue for top edges
-	top_edges.segment_queue = []
+	top_edges.area_queue = []
 	# Draw all terrain polygons.
 	add_full(root.polygon)
 	# Queue drawing the top edges.
