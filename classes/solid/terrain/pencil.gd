@@ -63,37 +63,15 @@ func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	})
 
 
-func draw_top_from_connected_lines(lines):
+func generate_polygons_top(lines):
 	# First create quads from each line segment.
 	var quads = []
 	var p_len = lines.size()
-	
 	for ind in range(p_len):
-		# Find the normal of this line segment.
-		# TODO: Duplicated functionality, also found in get_connected_lines_directional
-		var current: Vector2 = lines[ind]
-		var next: Vector2 = lines[(ind + 1) % p_len]
-		var dir := current.direction_to(next)
-		var normal := dir.tangent()
-		
-		var off_up := normal * QUAD_RADIUS
-		var off_down := normal * -QUAD_RADIUS
-		
-		# From the line segment, generate a quad with thickness.
-		# The quad's vertices run clockwise around its perimeter.
-		var verts = [
-			# Top edge
-			current + off_up,
-			next + off_up,
-			# Bottom edge
-			next + off_down,
-			current + off_down
-		]
-		
-		# Save the quad.
-		quads.append(verts)
+		quads.append(_generate_quad(lines, ind))
 	
-	# Convert the quads into drawable areas.
+	# Convert the quads into drawable areas with extra data.
+	# This is necessary for edge generation.
 	var areas = []
 	for ind in range(p_len - 1):
 		var cur_group = quads[ind]
@@ -144,12 +122,13 @@ func draw_top_from_connected_lines(lines):
 		)
 		if bottom_intersect:
 			# TODO: Same code as above, different segment indices.
+			# Set the colliding segments to meet at the same point.
 			var cur_ind = 2
 			var next_ind = 3
-			# Set the colliding points to the same point
 			cur_group[cur_ind] = bottom_intersect
 			next_group[next_ind] = bottom_intersect
 			
+			# Add an area between these.
 			var opp_cur_ind = 1
 			var opp_next_ind = 0
 			add_in_between_segment(
@@ -165,43 +144,16 @@ func draw_top_from_connected_lines(lines):
 	
 	# Draw all areas.
 	for area in areas:
-		# Create a polygon node from the terrain's data....
-		var poly2d = Polygon2D.new()
-		poly2d.texture = root.top
-		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
-		# ...and the area's data.
-		poly2d.polygon = area.verts
-		# This one will be important later.
-		poly2d.texture_rotation = -area.normal.angle() - PI / 2
-
-		# Variables needed to set texture offset.
-		# Rotated versions of the X and Y axes.
-		var unit = Vector2(sin(poly2d.texture_rotation), cos(poly2d.texture_rotation))
-		# Position of the area's origin (chosen from one of the verts).
-		var pos = area.verts[0] if area.type == "quad" else area.verts[area.verts.size() - 2]
-		# Texture offset. This is never set, so this may not be needed?
-		var tex_offset = Vector2(0, 0)
-
-		# Get the target pos depending on which type of area we're rendering
-		if area.clock_dir == -1 and area.type == "trio":
-			pos = area.verts[0]
+		# Turn this area into a polygon node.
+		var poly2d = _create_polygon(area.verts, area.normal, root.top,
+			0 if area.type == "quad" or (area.clock_dir == -1 and area.type == "trio") 
+			else area.verts.size() - 2)
 		
-		# Scale the texture, not sure if this is still needed, it appears not so it is commented for now
-#		if area.type == "trio":
-#			var dist = area.verts[0].distance_to(area.verts.back())
-#			poly2d.texture_scale.y = 16 / dist
-
-		# Calculate rotated texture offset (relative to the chosen origin?).
-		poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - tex_offset.x
-		poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - tex_offset.y
-		
-		# Set polygon's Z index.
-		poly2d.z_index = 2
-		
-		# Polygon is ready now; add it to the scene.
+		# Add it as a child.
 		add_child(poly2d)
 		
-		# Make a copy for the shadow texture.
+		# Make a duplicate polygon to hold the shadow texture.
+		# TODO: This may be meant to get clipped to within the polygon's body.
 		if !root.shallow:
 			var shade = poly2d.duplicate()
 			shade.texture = root.top_shade
@@ -211,105 +163,74 @@ func draw_top_from_connected_lines(lines):
 	top_edges.area_queue.append([false, areas.back()])
 
 
-func draw_bottom_from_connected_lines(lines):
+func generate_polygons(lines: Array, texture: Texture, z_index: int):
 	var p_len = lines.size()
 	for ind in range(p_len - 1):
 		# First create quads from each line segment.
+		var verts = _generate_quad(lines, ind)
 		
-		# Find the normal of this line segment.
-		# TODO: Duplicated functionality, also found in get_connected_lines_directional
-		var current: Vector2 = lines[ind]
-		var next: Vector2 = lines[(ind + 1) % p_len]
-		var dir := current.direction_to(next)
-		var normal := dir.tangent()
-		# TODO: Also duplicated, found in draw_top_from_...
-		var off_up := normal * QUAD_RADIUS
-		var off_down := normal * -QUAD_RADIUS
+		# Find the normal of this line segment too.
+		# TODO: This is also done in _generate_quad. If this loop ever needs
+		# optimizing, here's some work to deduplicate.
+		var normal := _normal_of_segment(lines[ind], lines[(ind + 1) % p_len])
 		
-		# TODO: Also duplicated, found in draw_top_from_...
-		var verts = [
-			current + off_up,
-			next + off_up,
-			next + off_down,
-			current + off_down
-		]
-		
-		# TODO: Also duplicated, found in draw_top_from_...
-		# 	(needs texture parameterized).
-		# Create a polygon node from the terrain's data....
-		var poly2d = Polygon2D.new()
-		poly2d.texture = root.bottom
-		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
-		# ...and the area's data.
-		poly2d.polygon = verts
-		# This one will be important later.
-		poly2d.texture_rotation = -normal.angle() - PI / 2
-
-		# Variables needed to set texture offset.
-		# Rotated versions of the X and Y axes.
-		var unit = Vector2(sin(poly2d.texture_rotation), cos(poly2d.texture_rotation))
-		# Position of the area's origin (chosen from one of the verts).
-		# TODO: This is the only difference compared to draw_top_from_....
-		var pos = verts[0]
-		# Texture offset. This is never set, so this may not be needed?
-		var tex_offset = Vector2(0, 0)
-
-		# Calculate rotated texture offset (relative to the chosen origin?).
-		poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - tex_offset.x
-		poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - tex_offset.y
-		
-		# Set polygon's Z index.
-		poly2d.z_index = 2
-		
-		# Polygon is ready now; add it to the scene.
-		add_child(poly2d)
+		# Create a child polygon node.
+		add_child(_create_polygon(verts, normal, texture, 0))
 
 
-# TODO: Nearly identical to draw_bottom_from....
-# Deduplicate. (Accept texture and z index as args.)
-func draw_edges_from_connected_lines(lines):
-	# First collect everything into groups of verts
-	var p_len = lines.size()
-	for ind in range(p_len - 1):
-		# Find the normal of this line segment.
-		# TODO: Duplicated functionality, also found in get_connected_lines_directional
-		var current: Vector2 = lines[ind]
-		var next: Vector2 = lines[(ind + 1) % p_len]
-		var dir := current.direction_to(next)
-		var normal := dir.tangent()
-		var off_up := normal * QUAD_RADIUS
-		var off_down := normal * -QUAD_RADIUS
-		
-		var verts = [
-			current + off_up,
-			next + off_up,
-			next + off_down,
-			current + off_down
-		]
-		
-		# Create the polygon
-		var poly2d = Polygon2D.new()
-		poly2d.texture = root.edge
-		poly2d.polygon = verts
-		poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
-		poly2d.texture_rotation = -normal.angle() - PI / 2
-
-		# OFFSET MATH YAAAAAAAAAY
-		var unit = Vector2(sin(poly2d.texture_rotation), cos(poly2d.texture_rotation))
-		var pos = verts[0]
-		var tex_offset = Vector2(0, 0)
-
-		# Set the offset
-		poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - tex_offset.x
-		poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - tex_offset.y
-		poly2d.z_index = 1
-		add_child(poly2d)
+func _generate_quad(chain: Array, start_idx: int, thickness: int = QUAD_RADIUS):
+	# Find the normal of this line segment.
+	var current: Vector2 = chain[start_idx]
+	var next: Vector2 = chain[(start_idx + 1) % chain.size()]
+	var normal := _normal_of_segment(current, next)
+	
+	# The direction to move verts in order to thicken the line.
+	var thicken_vec := normal * thickness
+	
+	# From the line segment, generate a quad with thickness.
+	# The quad's vertices run clockwise around its perimeter.
+	return [
+		# Top edge
+		current + thicken_vec,
+		next + thicken_vec,
+		# Bottom edge
+		next - thicken_vec,
+		current - thicken_vec
+	]
 
 
-# TODO: This does not need to be its own function.
-func remove_all_children():
-	for child in get_children():
-		remove_child(child)
+func _create_polygon(verts: Array, normal: Vector2, texture: Texture, origin_idx: int) -> Polygon2D:
+	# Create a polygon node from the terrain's data....
+	var poly2d = Polygon2D.new()
+	poly2d.texture = texture
+	poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
+	# ...and the area's data.
+	poly2d.polygon = verts
+	# This one will be important later.
+	poly2d.texture_rotation = -normal.angle() - PI / 2
+
+	# Variables needed to set texture offset.
+	# Rotated versions of the X and Y axes.
+	var unit = Vector2(sin(poly2d.texture_rotation), cos(poly2d.texture_rotation))
+	# Position of the area's origin (chosen from one of the verts).
+	var pos = verts[origin_idx]
+	# Texture offset. This is never set, so this may not be needed?
+	var tex_offset = Vector2(0, 0)
+	
+	# Scale the texture, not sure if this is still needed, it appears not so it is commented for now
+	#if area.type == "trio":
+	#	var dist = area.verts[0].distance_to(area.verts.back())
+	#	poly2d.texture_scale.y = 16 / dist
+
+	# Calculate rotated texture offset (relative to the chosen origin?).
+	poly2d.texture_offset.x = -unit.y * pos.x + unit.x * pos.y - tex_offset.x
+	poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - tex_offset.y
+	
+	# Set polygon's Z index.
+	poly2d.z_index = 2
+	
+	# Polygon is ready now; add it to the scene.
+	return poly2d
 
 
 # Beginning from a given point in a polygon, find a chain of line segments that
@@ -333,10 +254,8 @@ func get_connected_lines_directional(
 	for ind in range(start, p_len):
 		# Current vertex.
 		var vert: Vector2 = poly[ind]
-		# Next vertex--wraps around to the start if at the end.
-		var next: Vector2 = poly[(ind + 1) % p_len]
 		# "Up" relative to segment (vert, next).
-		var normal: Vector2 = vert.direction_to(next).tangent()
+		var normal: Vector2 = _normal_of_segment(vert, poly[(ind + 1) % p_len])
 		# The surface's angle relative to the reference direction.
 		var angle: float = normal.angle_to(direction) / PI * 180
 		
@@ -366,15 +285,6 @@ func get_connected_lines_directional(
 	# The whole polygon has been iterated. Either no more chains have been
 	# found, or the chain continues past the final vert.
 	return null
-
-
-# Check if the type override for the given line index matches with the type id given
-func check_override(index: int, type_id: int, override_list: Dictionary) -> bool:
-	return override_list.has(index) and override_list[index] == type_id
-
-
-func check_line_angle(angle: float) -> bool:
-	return angle >= -root.max_deviation and angle <= root.max_deviation
 
 
 # Beginning from a given point in a polygon, find a chain of line segments that
@@ -417,6 +327,20 @@ func get_connected_lines_overrides(
 	return null
 
 
+func _normal_of_segment(vert: Vector2, next: Vector2) -> Vector2:
+	# "Up" relative to segment (vert, next).
+	return vert.direction_to(next).tangent()
+
+
+# Check if the type override for the given line index matches with the type id given
+func check_override(index: int, type_id: int, override_list: Dictionary) -> bool:
+	return override_list.has(index) and override_list[index] == type_id
+
+
+func check_line_angle(angle: float) -> bool:
+	return angle >= -root.max_deviation and angle <= root.max_deviation
+
+
 func add_full(poly: PoolVector2Array):
 	# Dictionary of segments which have had their type ID evaluated.
 	# Types are indexed by first vertex: overrides[3] will return the
@@ -437,7 +361,7 @@ func add_full(poly: PoolVector2Array):
 		# Valid chains contain at least 2 vertices.
 		# If the chain is valid, draw it.
 		if list.size() >= 2:
-			draw_top_from_connected_lines(list)
+			generate_polygons_top(list)
 	
 	# Do the bottom as well--same exact deal.
 	latest_index = 0
@@ -445,7 +369,7 @@ func add_full(poly: PoolVector2Array):
 		var list = []
 		latest_index = get_connected_lines_directional(list, overrides, root.down_direction, poly, latest_index, EdgeType.BOTTOM)
 		if list.size() >= 2:
-			draw_bottom_from_connected_lines(list)
+			generate_polygons(list, root.bottom, 2)
 
 	# Now the sides.
 	latest_index = 0
@@ -455,12 +379,13 @@ func add_full(poly: PoolVector2Array):
 		# just read the types we marked last time.
 		latest_index = get_connected_lines_overrides(list, overrides, poly, latest_index, EdgeType.SIDE)
 		if list.size() >= 2:
-			draw_edges_from_connected_lines(list)
+			generate_polygons(list, root.edge, 1)
 
 
 func _draw():
 	# Clear polygons created last time we updated.
-	remove_all_children()
+	for child in get_children():
+		remove_child(child)
 	
 	# Load appearance from the root.
 	body_polygon.texture = root.body
