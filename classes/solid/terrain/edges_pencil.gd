@@ -1,4 +1,5 @@
 tool
+class_name EdgePencil
 extends Node2D
 
 onready var root = $".."

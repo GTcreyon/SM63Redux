@@ -1,4 +1,5 @@
 tool
+class_name TerrainPolygon
 extends Polygon2D
 
 export var texture_spritesheet: Texture setget update_spritesheets
@@ -12,13 +13,17 @@ var edge: Texture = ImageTexture.new()
 var bottom: Texture = ImageTexture.new()
 
 export var up_direction = Vector2(0, -1) setget set_down_direction
+# TODO: This should always == -up_direction.
 export var down_direction = Vector2(0, 1) setget set_null
 export var max_deviation: int = 60
 
+# TODO: "shallow" makes no sense. Name it "tint" instead.
 export var shallow = false
 export var shallow_color = Color(1, 1, 1, 0.5)
 
 # Manually set the type on each edge, rather than using the auto-generated one
+# Types are indexed by first vertex: edge_types[3] will return the
+# type ID of segment (3, 4).
 export var edge_types: Dictionary = {}
 
 var properties: Dictionary = {}
@@ -64,4 +69,7 @@ func update_spritesheets(new_sheet):
 
 
 func _draw():
+	# Queue the decorations to draw (leads to calling _draw()).
+	# (In Godot 4, this function is called "queue_redraw," which explains itself,
+	# so this comment is redundant and can be removed.)
 	decorations.update()
