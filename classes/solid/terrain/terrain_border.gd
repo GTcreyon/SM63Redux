@@ -1,5 +1,5 @@
 tool
-class_name TerrainPencil
+class_name TerrainBorder
 extends Node2D
 
 enum EdgeType {
@@ -14,7 +14,7 @@ const QUAD_RADIUS = 16
 onready var root = $".."
 onready var collision: CollisionPolygon2D = $"../Static/Collision"
 onready var body_polygon: Polygon2D = $"../Body"
-onready var top_edges: EdgePencil = $"../TopEdges"
+onready var top_edges: TerrainBorderEndcaps = $"../TopEdges"
 
 
 func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: Vector2):
@@ -71,7 +71,7 @@ func generate_polygons_top(lines, z_order = 2):
 		quads.append(_generate_quad(lines, ind))
 	
 	# Convert the quads into drawable areas with extra data.
-	# This is necessary for edge generation.
+	# This is necessary for endcap generation.
 	var areas = []
 	for ind in range(p_len - 1):
 		var cur_group = quads[ind]

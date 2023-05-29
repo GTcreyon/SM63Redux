@@ -84,11 +84,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://gui/custom_nodes/dropdown_menu.gd"
 }, {
-"base": "Node2D",
-"class": "EdgePencil",
-"language": "GDScript",
-"path": "res://classes/solid/terrain/edges_pencil.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "Entity",
 "language": "GDScript",
@@ -225,9 +220,14 @@ _global_script_classes=[ {
 "path": "res://classes/solid/telescoping/telescoping.gd"
 }, {
 "base": "Node2D",
-"class": "TerrainPencil",
+"class": "TerrainBorder",
 "language": "GDScript",
-"path": "res://classes/solid/terrain/pencil.gd"
+"path": "res://classes/solid/terrain/terrain_border.gd"
+}, {
+"base": "Node2D",
+"class": "TerrainBorderEndcaps",
+"language": "GDScript",
+"path": "res://classes/solid/terrain/terrain_border_endcaps.gd"
 }, {
 "base": "Polygon2D",
 "class": "TerrainPolygon",
@@ -280,7 +280,6 @@ _global_script_class_icons={
 "Door": "",
 "DoorSkin": "",
 "DropdownMenu": "",
-"EdgePencil": "",
 "Entity": "",
 "EntityEnemy": "",
 "EntityEnemyWalk": "",
@@ -308,7 +307,8 @@ _global_script_class_icons={
 "Sign": "",
 "SpeedrunTimer": "",
 "Telescoping": "",
-"TerrainPencil": "",
+"TerrainBorder": "",
+"TerrainBorderEndcaps": "",
 "TerrainPolygon": "",
 "Tickbox": "",
 "TileToPoly": "",

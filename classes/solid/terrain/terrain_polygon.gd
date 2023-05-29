@@ -27,7 +27,7 @@ export var edge_types: Dictionary = {}
 
 var properties: Dictionary = {}
 
-onready var decorations: TerrainPencil = $Decorations
+onready var decorations: TerrainBorder = $Decorations
 
 
 func set_glowing(should_glow):
