@@ -154,7 +154,7 @@ func generate_polygons_top(lines):
 		
 		# Make a duplicate polygon to hold the shadow texture.
 		# TODO: This may be meant to get clipped to within the polygon's body.
-		if !root.shallow:
+		if !root.tint:
 			var shade = poly2d.duplicate()
 			shade.texture = root.top_shade
 			add_child(shade)
@@ -203,7 +203,7 @@ func _create_polygon(verts: Array, normal: Vector2, texture: Texture, origin_idx
 	# Create a polygon node from the terrain's data....
 	var poly2d = Polygon2D.new()
 	poly2d.texture = texture
-	poly2d.color = root.shallow_color if root.shallow else Color(1, 1, 1)
+	poly2d.color = root.tint_color if root.tint else Color(1, 1, 1)
 	# ...and the area's data.
 	poly2d.polygon = verts
 	# This one will be important later.
@@ -390,7 +390,7 @@ func _draw():
 	# Load appearance from the root.
 	body_polygon.texture = root.body
 	body_polygon.polygon = root.polygon
-	body_polygon.color = root.shallow_color if root.shallow else Color(1, 1, 1)
+	body_polygon.color = root.tint_color if root.tint else Color(1, 1, 1)
 	
 	# Clear the draw queue for top edges
 	top_edges.area_queue = []

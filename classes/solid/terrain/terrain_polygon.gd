@@ -17,9 +17,8 @@ export var up_direction = Vector2(0, -1) setget set_down_direction
 export var down_direction = Vector2(0, 1) setget set_null
 export var max_deviation: int = 60
 
-# TODO: "shallow" makes no sense. Name it "tint" instead.
-export var shallow = false
-export var shallow_color = Color(1, 1, 1, 0.5)
+export var tint = false
+export var tint_color = Color(1, 1, 1, 0.5)
 
 # Manually set the type on each edge, rather than using the auto-generated one
 # Types are indexed by first vertex: edge_types[3] will return the
@@ -32,7 +31,7 @@ onready var decorations: TerrainPencil = $Decorations
 
 
 func set_glowing(should_glow):
-	shallow = should_glow
+	tint = should_glow
 	update()
 
 

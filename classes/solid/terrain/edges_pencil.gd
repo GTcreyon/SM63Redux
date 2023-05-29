@@ -112,8 +112,8 @@ func add_edge_segment(is_left, area):
 	# Tint the polygon.
 	# (TODO: Done differently than in pencil.gd???)
 	var base_color = Color(1, 1, 1)
-	if root.shallow:
-		base_color = root.shallow_color
+	if root.tint:
+		base_color = root.tint_color
 	var colors = PoolColorArray([base_color, base_color, base_color, base_color])
 	
 	# Draw the shadow if there's any point inside the polygon.
