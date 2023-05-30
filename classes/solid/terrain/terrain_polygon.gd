@@ -2,6 +2,8 @@ tool
 class_name TerrainPolygon
 extends Polygon2D
 
+const COLLISION_LAYER_TERRAIN = 0
+
 export var texture_spritesheet: Texture setget update_spritesheets
 
 var body: Texture = ImageTexture.new()
@@ -20,6 +22,8 @@ export var max_deviation: int = 60
 export var tint = false
 export var tint_color = Color(1, 1, 1, 0.5)
 
+export var solid = true
+
 # Manually set the type on each edge, rather than using the auto-generated one
 # Types are indexed by first vertex: edge_types[3] will return the
 # type ID of segment (3, 4).
@@ -28,7 +32,8 @@ export var edge_types: Dictionary = {}
 var properties: Dictionary = {}
 
 onready var decorations: TerrainBorder = $Decorations
-onready var collision: CollisionPolygon2D = $Static/Collision
+onready var collision_body: StaticBody2D = $Static
+onready var collision_shape: CollisionPolygon2D = $Static/Collision
 
 
 func _draw():
@@ -39,7 +44,11 @@ func _draw():
 	
 	# Update the collision polygon if not in editor.
 	if !Engine.editor_hint:
-		collision.polygon = polygon
+		# Update cols to match the terrain's designed shape.
+		collision_shape.polygon = polygon
+		
+		# Enable/disable the collision itself as appropriate.
+		collision_body.set_collision_layer_bit(COLLISION_LAYER_TERRAIN, solid)
 
 
 func set_glowing(should_glow):
