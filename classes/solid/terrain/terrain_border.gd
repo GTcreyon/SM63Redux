@@ -12,7 +12,6 @@ enum EdgeType {
 const QUAD_RADIUS = 16
 
 onready var root = $".."
-onready var collision: CollisionPolygon2D = $"../Static/Collision"
 onready var body_polygon: Polygon2D = $"../Body"
 onready var top_edges: TerrainBorderEndcaps = $"../TopEdges"
 
@@ -402,7 +401,3 @@ func _draw():
 	add_full(root.polygon)
 	# Queue drawing the top edges.
 	top_edges.update()
-	
-	# Update the collision polygon if not in editor.
-	if !Engine.editor_hint:
-		collision.polygon = root.polygon

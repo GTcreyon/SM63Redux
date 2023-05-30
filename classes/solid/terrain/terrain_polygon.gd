@@ -28,6 +28,7 @@ export var edge_types: Dictionary = {}
 var properties: Dictionary = {}
 
 onready var decorations: TerrainBorder = $Decorations
+onready var collision: CollisionPolygon2D = $Static/Collision
 
 
 func set_glowing(should_glow):
@@ -72,3 +73,7 @@ func _draw():
 	# (In Godot 4, this function is called "queue_redraw," which explains itself,
 	# so this comment is redundant and can be removed.)
 	decorations.update()
+	
+	# Update the collision polygon if not in editor.
+	if !Engine.editor_hint:
+		collision.polygon = polygon
