@@ -231,7 +231,7 @@ func _create_polygon(
 	poly2d.texture_offset.y = -unit.x * pos.x - unit.y * pos.y - tex_offset.y
 	
 	# Set polygon's Z index.
-	poly2d.z_index = 2
+	poly2d.z_index = z_order
 	
 	# Polygon is ready now; add it to the scene.
 	return poly2d
