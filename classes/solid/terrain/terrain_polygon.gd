@@ -31,6 +31,17 @@ onready var decorations: TerrainBorder = $Decorations
 onready var collision: CollisionPolygon2D = $Static/Collision
 
 
+func _draw():
+	# Queue the decorations to draw (leads to calling _draw()).
+	# (In Godot 4, this function is called "queue_redraw," which explains itself,
+	# so this comment is redundant and can be removed.)
+	decorations.update()
+	
+	# Update the collision polygon if not in editor.
+	if !Engine.editor_hint:
+		collision.polygon = polygon
+
+
 func set_glowing(should_glow):
 	tint = should_glow
 	update()
@@ -45,7 +56,7 @@ func set_null(_new_val):
 	pass
 
 
-func update_spritesheets(new_sheet):
+func update_spritesheets(new_sheet: Texture):
 	texture_spritesheet = new_sheet
 	
 	# Create textures from the spritesheet
@@ -66,14 +77,3 @@ func update_spritesheets(new_sheet):
 	top_shade.flags = Texture.FLAG_REPEAT
 	top_corner_shade.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(72, 36, 32, 32) ) )
 	top_corner_shade.flags = Texture.FLAG_REPEAT
-
-
-func _draw():
-	# Queue the decorations to draw (leads to calling _draw()).
-	# (In Godot 4, this function is called "queue_redraw," which explains itself,
-	# so this comment is redundant and can be removed.)
-	decorations.update()
-	
-	# Update the collision polygon if not in editor.
-	if !Engine.editor_hint:
-		collision.polygon = polygon

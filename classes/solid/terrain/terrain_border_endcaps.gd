@@ -19,6 +19,12 @@ export var area_queue: Array
 onready var root = $".."
 
 
+func _draw():
+	# When we are commanded to, draw everything we have in the queue.
+	for data in area_queue:
+		add_cap_segment(data[0], data[1])
+
+
 # Clips a box-shaped polygon to within the bounds of the main polygon.
 func polygon_clip_box(verts: Array, uvs: Array):
 	var clip_poly = []
@@ -136,9 +142,3 @@ func add_cap_segment(is_left, area):
 	
 	# Draw the actual endcap on top of the shadow.
 	draw_polygon(cap_verts, colors, uvs, root.top_corner)
-
-
-func _draw():
-	# When we are commanded to, draw everything we have in the queue.
-	for data in area_queue:
-		add_cap_segment(data[0], data[1])

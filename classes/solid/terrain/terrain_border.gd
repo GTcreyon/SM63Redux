@@ -16,50 +16,22 @@ onready var body_polygon: Polygon2D = $"../Body"
 onready var top_edges: TerrainBorderEndcaps = $"../TopEdges"
 
 
-func add_in_between_segment(areas, start: Vector2, end: Vector2, circumcenter: Vector2):
-	# A "circumcenter," for clarity, is when you draw a circle that touches all
-	# points of a polygon, then take the center of that circle.
+func _draw():
+	# Clear polygons created last time we updated.
+	for child in get_children():
+		remove_child(child)
 	
-	# Initialize verts array with starting point.
-	var verts = [start]
+	# Load appearance from the root.
+	body_polygon.texture = root.body
+	body_polygon.polygon = root.polygon
+	body_polygon.color = root.tint_color if root.tint else Color(1, 1, 1)
 	
-	# Find angle of the (circumcenter -> start) vector relative to the X axis.
-	var s_unit = circumcenter.direction_to(start)
-	var s_angle = atan2(s_unit.y, s_unit.x)
-	# Likewise for (circumcenter -> end).
-	var e_unit = circumcenter.direction_to(end)
-	var e_angle = atan2(e_unit.y, e_unit.x)
-	
-	# Find angle between start and end.
-	# (Currently, only the sign of this is used, so the division isn't needed.)
-	var delta = (e_angle - s_angle) / 5.0
-	
-	# Circular edges, this doesn't work rn, I'll work on it later
-	
-#    #for if e_angle > s_angle
-#    while angle < e_angle:
-#        angle += delta
-#        var vert = circumcenter + Vector2(cos(angle), sin(angle)) * distance
-#        verts.append(vert)
-#    #for if e_angle < s_angle
-#    angle = s_angle
-#    while angle > e_angle:
-#        angle += delta
-#        var vert = circumcenter + Vector2(cos(angle), sin(angle)) * distance
-#        verts.append(vert)
-	
-	# Add the endpoint.
-	verts.append(end)
-	# Add the circumcenter (to make a triangle?).
-	verts.append(circumcenter)
-	
-	# Add the triangle we just created to the areas.
-	areas.append({
-		verts = verts,
-		normal = start.direction_to(end).rotated(-PI / 2),
-		clock_dir = sign(delta),
-		type = "trio"
-	})
+	# Clear the draw queue for top edges
+	top_edges.area_queue = []
+	# Draw all terrain polygons.
+	add_full(root.polygon)
+	# Queue drawing the top edges.
+	top_edges.update()
 
 
 func generate_polygons_top(lines, z_order = 2):
@@ -107,7 +79,7 @@ func generate_polygons_top(lines, z_order = 2):
 			# Add an area between these.
 			var opp_cur_ind = 2
 			var opp_next_ind = 3
-			add_in_between_segment(
+			_add_inbetween_segment(
 				areas,
 				cur_group[opp_cur_ind],
 				next_group[opp_next_ind],
@@ -130,7 +102,7 @@ func generate_polygons_top(lines, z_order = 2):
 			# Add an area between these.
 			var opp_cur_ind = 1
 			var opp_next_ind = 0
-			add_in_between_segment(
+			_add_inbetween_segment(
 				areas,
 				cur_group[opp_cur_ind],
 				next_group[opp_next_ind],
@@ -160,6 +132,52 @@ func generate_polygons_top(lines, z_order = 2):
 	
 	# Mark the right-side area for drawing.
 	top_edges.area_queue.append([false, areas.back()])
+
+
+func _add_inbetween_segment(areas, start: Vector2, end: Vector2, circumcenter: Vector2):
+	# A "circumcenter," for clarity, is when you draw a circle that touches all
+	# points of a polygon, then take the center of that circle.
+	
+	# Initialize verts array with starting point.
+	var verts = [start]
+	
+	# Find angle of the (circumcenter -> start) vector relative to the X axis.
+	var s_unit = circumcenter.direction_to(start)
+	var s_angle = atan2(s_unit.y, s_unit.x)
+	# Likewise for (circumcenter -> end).
+	var e_unit = circumcenter.direction_to(end)
+	var e_angle = atan2(e_unit.y, e_unit.x)
+	
+	# Find angle between start and end.
+	# (Currently, only the sign of this is used, so the division isn't needed.)
+	var delta = (e_angle - s_angle) / 5.0
+	
+	# Circular edges, this doesn't work rn, I'll work on it later
+	
+#    #for if e_angle > s_angle
+#    while angle < e_angle:
+#        angle += delta
+#        var vert = circumcenter + Vector2(cos(angle), sin(angle)) * distance
+#        verts.append(vert)
+#    #for if e_angle < s_angle
+#    angle = s_angle
+#    while angle > e_angle:
+#        angle += delta
+#        var vert = circumcenter + Vector2(cos(angle), sin(angle)) * distance
+#        verts.append(vert)
+	
+	# Add the endpoint.
+	verts.append(end)
+	# Add the circumcenter (to make a triangle?).
+	verts.append(circumcenter)
+	
+	# Add the triangle we just created to the areas.
+	areas.append({
+		verts = verts,
+		normal = start.direction_to(end).rotated(-PI / 2),
+		clock_dir = sign(delta),
+		type = "trio"
+	})
 
 
 func generate_polygons(lines: Array, texture: Texture, z_index: int):
@@ -383,21 +401,3 @@ func add_full(poly: PoolVector2Array):
 		latest_index = get_connected_lines_overrides(list, overrides, poly, latest_index, EdgeType.SIDE)
 		if list.size() >= 2:
 			generate_polygons(list, root.edge, 1)
-
-
-func _draw():
-	# Clear polygons created last time we updated.
-	for child in get_children():
-		remove_child(child)
-	
-	# Load appearance from the root.
-	body_polygon.texture = root.body
-	body_polygon.polygon = root.polygon
-	body_polygon.color = root.tint_color if root.tint else Color(1, 1, 1)
-	
-	# Clear the draw queue for top edges
-	top_edges.area_queue = []
-	# Draw all terrain polygons.
-	add_full(root.polygon)
-	# Queue drawing the top edges.
-	top_edges.update()
