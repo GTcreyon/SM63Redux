@@ -54,8 +54,6 @@ shader_param/color5 = Color( 0, 1, 1, 1 )
 [node name="Main" type="Node2D"]
 
 [node name="BGT1" parent="." instance=ExtResource( 17 )]
-offset = Vector2( 0, 96 )
-transform = Transform2D( 1, 0, 0, 1, 0, 96 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 21 )]
 visible = false
