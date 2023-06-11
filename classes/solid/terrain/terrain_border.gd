@@ -41,7 +41,7 @@ func add_full(poly: PoolVector2Array):
 	var type_ids: Dictionary = resolve_edge_types(root.edge_types, poly)
 	var latest_index = 0
 	
-	# Draw each edge type in draw order--first sides, then bottom, finally top.
+	# Draw each edge type from back to front: sides, bottom, finally top.
 	# Begin with sides.
 	latest_index = 0
 	# Iterate the polygon until all chains of top-edge have been found
