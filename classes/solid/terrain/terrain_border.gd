@@ -39,6 +39,47 @@ func _draw():
 	top_edges.update()
 
 
+func add_full(poly: PoolVector2Array):
+	# Dictionary of segments which have had their type ID evaluated.
+	# Types are indexed by first vertex: overrides[3] will return the
+	# type ID of segment (3, 4).
+	var overrides: Dictionary = root.edge_types.duplicate()
+	
+	# Draw the top edge texture.
+	var latest_index = 0
+	# Iterate the polygon until all chains of top-edge have been found
+	# (including single-segment chains).
+	while latest_index != null:
+		# Find a single chain of segments with type ID == EdgeType.TOP.
+		var list = []
+		# Also store the last index in the chain, so we can start from there
+		# next iteration of the while loop.
+		latest_index = get_connected_lines_directional(list, overrides, root.up_direction, poly, latest_index, EdgeType.TOP)
+		
+		# Valid chains contain at least 2 vertices.
+		# If the chain is valid, draw it.
+		if list.size() >= 2:
+			generate_polygons_top(list)
+	
+	# Do the bottom as well--same exact deal.
+	latest_index = 0
+	while latest_index != null:
+		var list = []
+		latest_index = get_connected_lines_directional(list, overrides, root.down_direction, poly, latest_index, EdgeType.BOTTOM)
+		if list.size() >= 2:
+			generate_polygons(list, root.bottom, 2)
+
+	# Now the sides.
+	latest_index = 0
+	while latest_index != null:
+		var list = []
+		# All edges' type indices have been marked now. Don't check angle,
+		# just read the types we marked last time.
+		latest_index = get_connected_lines_overrides(list, overrides, poly, latest_index, EdgeType.SIDE)
+		if list.size() >= 2:
+			generate_polygons(list, root.edge, 1)
+
+
 func generate_polygons_top(lines, z_order = 2):
 	# First create quads from each line segment.
 	var quads = []
@@ -365,44 +406,3 @@ func check_override(index: int, type_id: int, override_list: Dictionary) -> bool
 
 func check_line_angle(angle: float) -> bool:
 	return angle >= -root.max_deviation and angle <= root.max_deviation
-
-
-func add_full(poly: PoolVector2Array):
-	# Dictionary of segments which have had their type ID evaluated.
-	# Types are indexed by first vertex: overrides[3] will return the
-	# type ID of segment (3, 4).
-	var overrides: Dictionary = root.edge_types.duplicate()
-	
-	# Draw the top edge texture.
-	var latest_index = 0
-	# Iterate the polygon until all chains of top-edge have been found
-	# (including single-segment chains).
-	while latest_index != null:
-		# Find a single chain of segments with type ID == EdgeType.TOP.
-		var list = []
-		# Also store the last index in the chain, so we can start from there
-		# next iteration of the while loop.
-		latest_index = get_connected_lines_directional(list, overrides, root.up_direction, poly, latest_index, EdgeType.TOP)
-		
-		# Valid chains contain at least 2 vertices.
-		# If the chain is valid, draw it.
-		if list.size() >= 2:
-			generate_polygons_top(list)
-	
-	# Do the bottom as well--same exact deal.
-	latest_index = 0
-	while latest_index != null:
-		var list = []
-		latest_index = get_connected_lines_directional(list, overrides, root.down_direction, poly, latest_index, EdgeType.BOTTOM)
-		if list.size() >= 2:
-			generate_polygons(list, root.bottom, 2)
-
-	# Now the sides.
-	latest_index = 0
-	while latest_index != null:
-		var list = []
-		# All edges' type indices have been marked now. Don't check angle,
-		# just read the types we marked last time.
-		latest_index = get_connected_lines_overrides(list, overrides, poly, latest_index, EdgeType.SIDE)
-		if list.size() >= 2:
-			generate_polygons(list, root.edge, 1)
