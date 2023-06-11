@@ -282,7 +282,7 @@ func get_connected_lines_directional(
 		
 		if (
 			# Has this segment's type been specifically set to the desired type?
-			check_override(ind, type_id, overrides)
+			overrides.has(ind) and overrides[ind] == type_id
 		) or (
 			# If type is not set, is it within the range this type normally is?
 			!overrides.has(ind) and check_line_angle(angle)
@@ -351,11 +351,6 @@ func get_connected_lines_overrides(
 func _normal_of_segment(vert: Vector2, next: Vector2) -> Vector2:
 	# "Up" relative to segment (vert, next).
 	return vert.direction_to(next).tangent()
-
-
-# Check if the type override for the given line index matches with the type id given
-func check_override(index: int, type_id: int, override_list: Dictionary) -> bool:
-	return override_list.has(index) and override_list[index] == type_id
 
 
 func check_line_angle(angle: float) -> bool:
