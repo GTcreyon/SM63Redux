@@ -1,6 +1,8 @@
 tool
 class_name TerrainPolygon
 extends Polygon2D
+# Root node for terrain polygons. All terrain-polygon behavior can be controlled
+# from here.
 
 export var texture_spritesheet: Texture setget update_spritesheets
 

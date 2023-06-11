@@ -1,6 +1,11 @@
 tool
 class_name TerrainBorder
 extends Node2D
+# Handles drawing of terrain polygons' border graphics, except for
+# the endcaps of top edges.
+#
+# Border graphics are always ordered with top edges (and endcaps) in front,
+# then bottom edges, then sides.
 
 enum EdgeType {
 	NONE,
