@@ -29,7 +29,7 @@ export var edge_types: Dictionary = {}
 
 var properties: Dictionary = {}
 
-onready var decorations: TerrainBorder = $Decorations
+onready var decorations: TerrainBorder = $Borders
 onready var collision: CollisionPolygon2D = $Static/Collision
 
 

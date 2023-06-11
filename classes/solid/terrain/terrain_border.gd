@@ -18,7 +18,7 @@ const QUAD_RADIUS = 16
 
 onready var root = $".."
 onready var body_polygon: Polygon2D = $"../Body"
-onready var top_edges: TerrainBorderEndcaps = $"../TopEdges"
+onready var top_edges: TerrainBorderEndcaps = $"../TopEdgeEndcaps"
 
 
 func _draw():
