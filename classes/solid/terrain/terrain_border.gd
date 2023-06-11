@@ -39,40 +39,40 @@ func add_full(poly: PoolVector2Array):
 	# Types are indexed by first vertex: overrides[3] will return the
 	# type ID of segment (3, 4).
 	var type_ids: Dictionary = resolve_edge_types(root.edge_types, poly)
-	
-	# Draw the top edge texture.
 	var latest_index = 0
+	
+	# Draw each edge type in draw order--first sides, then bottom, finally top.
+	# Begin with sides.
+	latest_index = 0
 	# Iterate the polygon until all chains of top-edge have been found
 	# (including single-segment chains).
 	while latest_index != null:
-		# Find a single chain of segments with type ID == EdgeType.TOP.
+		# Find a single chain of segments with type ID == EdgeType.SIDE.
 		var list = []
 		# Also store the last index in the chain, so we can start from there
 		# next iteration of the while loop.
-		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.TOP)
-		
+		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.SIDE)
 		# Valid chains contain at least 2 vertices.
 		# If the chain is valid, draw it.
 		if list.size() >= 2:
-			generate_polygons_top(list)
-	
-	# Do the bottom as well--same exact deal.
+			generate_polygons(list, root.edge, 0)
+
+	# Now the bottom as well--same exact deal as the sides.
 	latest_index = 0
 	while latest_index != null:
 		var list = []
 		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.BOTTOM)
 		if list.size() >= 2:
-			generate_polygons(list, root.bottom, 2)
-
-	# Now the sides.
+			generate_polygons(list, root.bottom, 0)
+	
+	# Now the top--which has a special polygon-gen function to make endcaps.
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		# All edges' type indices have been marked now. Don't check angle,
-		# just read the types we marked last time.
-		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.SIDE)
+		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.TOP)
+		
 		if list.size() >= 2:
-			generate_polygons(list, root.edge, 1)
+			generate_polygons_top(list, 0)
 
 
 func generate_polygons_top(lines, z_order = 2):
