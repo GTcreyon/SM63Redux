@@ -1,7 +1,6 @@
 tool
 class_name TerrainBorderEndcaps
 extends Node2D
-# Handles drawing the endcaps of terrain polygons' top edges.
 
 const QUAD_SIZE = 32 #2*TerrainBorder.QUAD_RADIUS
 
