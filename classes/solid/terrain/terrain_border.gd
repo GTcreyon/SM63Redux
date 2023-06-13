@@ -1,6 +1,11 @@
 tool
 class_name TerrainBorder
 extends Node2D
+# Handles drawing of terrain polygons' border graphics, except for
+# the endcaps of top edges.
+#
+# Border graphics are always ordered with top edges (and endcaps) in front,
+# then bottom edges, then sides.
 
 enum EdgeType {
 	NONE,
@@ -13,7 +18,7 @@ const QUAD_RADIUS = 16
 
 onready var root = $".."
 onready var body_polygon: Polygon2D = $"../Body"
-onready var top_edges: TerrainBorderEndcaps = $"../TopEdges"
+onready var top_edges: TerrainBorderEndcaps = $"../TopEdgeEndcaps"
 
 
 func _draw():

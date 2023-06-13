@@ -1,6 +1,8 @@
 tool
 class_name TerrainPolygon
 extends Polygon2D
+# Root node for terrain polygons. All terrain-polygon behavior can be controlled
+# from here.
 
 const COLLISION_LAYER_TERRAIN = 0
 
@@ -31,7 +33,7 @@ export var edge_types: Dictionary = {}
 
 var properties: Dictionary = {}
 
-onready var decorations: TerrainBorder = $Decorations
+onready var decorations: TerrainBorder = $Borders
 onready var collision_body: StaticBody2D = $Static
 onready var collision_shape: CollisionPolygon2D = $Static/Collision
 
