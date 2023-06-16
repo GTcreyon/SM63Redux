@@ -61,7 +61,7 @@ func add_full(poly: PoolVector2Array):
 		# If the chain is valid, draw it.
 		if list.size() >= 2:
 			generate_polygons(list, root.edge, 0)
-
+	
 	# Now the bottom as well--same exact deal as the sides.
 	latest_index = 0
 	while latest_index != null:
