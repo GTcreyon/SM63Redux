@@ -27,15 +27,11 @@ texture_spritesheet = ExtResource( 3 )
 [node name="Body" type="Polygon2D" parent="."]
 texture = SubResource( 2 )
 
-[node name="TopEdgeEndcaps" type="Node2D" parent="."]
-z_index = 2
-script = ExtResource( 10 )
-__meta__ = {
-"_editor_description_": ""
-}
-
 [node name="Borders" type="Node2D" parent="."]
 script = ExtResource( 4 )
+
+[node name="TopEdgeEndcaps" type="Node2D" parent="."]
+script = ExtResource( 10 )
 
 [node name="Static" type="StaticBody2D" parent="."]
 collision_layer = 8388609
