@@ -1,59 +1,52 @@
 extends Control
 
-onready var info = $LevelInfo
-onready var map = $MapMenu
-onready var fludd = $FluddMenu
-onready var options = $OptionsMenu
-onready var exit = $ExitMenu
-onready var stats = get_tree().get_nodes_in_group("stats")
-onready var map_button = get_parent().get_node("ButtonMap")
-onready var fludd_button = get_parent().get_node("ButtonFludd")
-onready var options_button = get_parent().get_node("ButtonOptions")
-onready var exit_button = get_parent().get_node("ButtonExit")
+onready var info = $Content/LevelInfo
+onready var map = $Content/MapMenu
+onready var fludd = $Content/FluddMenu
+onready var options = $Content/OptionsMenu
+onready var exit = $Content/ExitMenu
+onready var button_map = $ButtonContainer/ButtonMap
+onready var button_fludd = $ButtonContainer/ButtonFludd
+onready var button_options = $ButtonContainer/ButtonOptions
+onready var button_exit = $ButtonContainer/ButtonExit
+onready var bg = $BG
+onready var top = $Top
+onready var left_corner_top = $LeftCornerTop
+onready var left_corner_bottom = $LeftCornerBottom
+onready var right_corner_top = $RightCornerTop
+onready var right_corner_bottom = $RightCornerBottom
+onready var left = $Left
+onready var right = $Right
+
 
 func _process(_delta):
+	var dmod = 60.0 * _delta
+	var buttons = [button_map, button_fludd, button_options, button_exit]
+	var menus = [map, fludd, options, exit]
+	var info_visible: bool = true
+	
+	# Show whichever screen's button is pressed
+	# (The script for the buttons guarantees only one can be pressed at a time)
+	for i in range(4):
+		if buttons[i].pressed and modulate.a > 0:
+			menus[i].visible = true
+			info_visible = false
+		else:
+			menus[i].visible = false
+	
+	# If no button is pressed, show the info screen
 	# Control nodes don't like to be made invisible then visible in one frame, it messes with input
-	for node in stats:
-		node.visible = !Singleton.pause_menu
-	if map_button.pressed:
-		map.visible = true
-		fludd.visible = false
-		options.visible = false
-		exit.visible = false
-		info.visible = false
-	elif fludd_button.pressed:
-		map.visible = false
-		fludd.visible = true
-		options.visible = false
-		exit.visible = false
-		info.visible = false
-	elif options_button.pressed:
-		map.visible = false
-		fludd.visible = false
-		options.visible = true
-		exit.visible = false
-		info.visible = false
-	elif exit_button.pressed:
-		map.visible = false
-		fludd.visible = false
-		options.visible = false
-		exit.visible = true
-		info.visible = false
+	info.visible = info_visible
+	
+	if Singleton.pause_menu:
+		modulate.a = min(modulate.a + 0.2 * dmod, 1)
 	else:
-		map.visible = false
-		fludd.visible = false
-		options.visible = false
-		exit.visible = false
-		info.visible = true
-		for node in stats:
-			node.visible = true
+		modulate.a = max(modulate.a - 0.2 * dmod, 0)
+	visible = modulate.a > 0
 
 
-func resize(scale):
-	rect_scale = Vector2.ONE * scale
-	margin_left = 37 * scale
-	margin_right = -37 * scale - (OS.window_size.x / scale - 74) * (scale - 1)
-	margin_top = 19 * scale
-	margin_bottom = -33 * scale - (OS.window_size.y / scale - 52) * (scale - 1)
-	info.resize(scale)
-	map.resize(scale)
+func resize():
+	button_map.resize()
+	button_fludd.resize()
+	button_options.resize()
+	button_exit.resize()

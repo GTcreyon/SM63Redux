@@ -9,8 +9,25 @@ Ensure that you provide as much detail as possible on *how* the bug happened. Th
 ## Contributing code
 ### Preparation
 If you would like to make a contribution, begin by posting a feature request in the "Issues" section. This will allow us to review your plans, suggest alterations, or potentially reject the idea if necessary. From there, you can fork the project, make your alterations, and issue a pull request.
+### Branching
+Name your branches using the following conventions (fill the blanks as appropriate):
+- `feature-___` if the branch adds large-scale features, such as entire enemies, items, or systems.
+Example: `feature-shy-guys`
+- `enhance-___` when an existing feature is being tweaked or added to.
+Example: `enhance-fludd-spray`
+- `refactor-___` for changes that make the code nicer to work with.
+(Since nodes interact so tightly with the code, they are counted as part of this category.)
+Example: `refactor-enemy-base-class`
+- `bugfix-___` when _only_ fixing something that doesn't work right. Branches in other categories can also fix bugs, of course.
+Example: `bugfix-fish-not-hurting-player`
+- `asset-___` when _only_ integrating art/sound assets into the project. Features and enhancements may also introduce assets.
+Example: `asset-bobomb-sfx`
+- `repo-___` if the change affects the GitHub repository, e.g. `README.md` or `CONTRIBUTING.md`.
+Example: `repo-clarify-styleguide`
+
+Delete branches once they've been merged, to keep the tree clean.
 ### Styling
-Follow the [Godot style guide](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_styleguide.html) as closely as possible, albeit with the following alterations:
+Follow the [Godot style guide](https://docs.godotengine.org/en/3.5/tutorials/scripting/gdscript/gdscript_styleguide.html) as closely as possible, albeit with the following alterations:
 * The keywords `and` and `or` are used in place of the C-like `&&` and `||` as-per the style guide, however we use the `!` symbol as opposed to `not`, to allow easier reading of more complex boolean expressions. So, `if !foo and !bar:`
 * When unfolding longer lines we only use *one* tab, not two. This is contrary to the Godot style guide.
 ### Documentation

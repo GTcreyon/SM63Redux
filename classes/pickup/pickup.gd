@@ -7,12 +7,16 @@ export var parent_is_root: bool = false
 
 # Enables pickup ID behavior, so pickups can only be collected once per level.
 export var persistent_collect = true
+export(float, 0.0, 30.0, 1.0) var respawn_seconds = 0.0
 export var disabled: bool = false setget set_disabled
 export var _sprite_path: NodePath = "Sprite"
+export var _sfx_path: NodePath = "SFXCollect"
 
 var _pickup_id: int = -1
+var _respawn_timer: float = -1
 
 onready var sprite = get_node_or_null(_sprite_path)
+onready var sfx = get_node_or_null(_sfx_path)
 
 
 func _ready():
@@ -27,6 +31,20 @@ func _ready_override() -> void:
 	_connect_signals()
 
 
+func _physics_process(_delta):
+	if respawn_seconds > 0 and _respawn_timer != -1:
+		if _respawn_timer > respawn_seconds:
+			# Show and re-enable the object.
+			set_disabled(false)
+			if sprite != null:
+				sprite.visible = true
+			# Unset the timer.
+			_respawn_timer = -1
+		else:
+			# Tick the respawn timer.
+			_respawn_timer += 1.0 / 60
+
+
 # Allow a pickup ID to be manually assigned.
 # Usually inherited from a spawner.
 func assign_pickup_id(id) -> void:
@@ -36,6 +54,7 @@ func assign_pickup_id(id) -> void:
 
 func pickup(body) -> void:
 	_award_pickup(body)
+	_pickup_sound()
 	_pickup_effect()
 	_kill_pickup()
 	if persistent_collect:
@@ -65,11 +84,37 @@ func _pickup_id_setup() -> void:
 			queue_free()
 
 
-func _kill_pickup() -> void:
-	if parent_is_root:
-		get_parent().queue_free()
+func _pickup_sound():
+	# Check to make sure the object is killable.
+	if respawn_seconds == 0.0:
+		# Check to see if sfx should exist, and does exist.
+		# sfx will exist if it should, but the second condition is a failsafe in case it doesn't.
+		if sfx != null and has_node(_sfx_path):
+			# Find an object we know will survive this object's destruction.
+			var safe_sfx_root = $"/root/Main"
+			# Anchor the sound source to that, then play it.
+			ResidualSFX.new_from_existing(sfx, safe_sfx_root)
+		# Check to see if object should have an sfx, and if it does have an sfx.
+		elif sfx != null and !has_node(_sfx_path):
+			printerr("This pickup should have SFXCollect, but it wasn't found. :(")
 	else:
-		queue_free()
+		sfx.play()
+
+
+func _kill_pickup() -> void:
+	if respawn_seconds == 0.0:
+		# No respawn. Destroy object permanently.
+		if parent_is_root:
+			get_parent().queue_free()
+		else:
+			queue_free()
+	else:
+		# Will respawn soon. Hide and disable in the meantime.
+		set_disabled(true)
+		if sprite != null:
+			sprite.visible = false
+		# Start the respawn timer.
+		_respawn_timer = 0.0
 
 
 func _pickup_effect() -> void:

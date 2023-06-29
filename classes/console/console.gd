@@ -1,13 +1,13 @@
 extends Control
 
-onready var logger = $Logger
-onready var input_line = $Input
-
 var history: PoolStringArray = []
 var hist_index = 0
 var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
 var line_count: int = 0
+
+onready var logger = $Logger
+onready var input_line = $Input
 
 
 func _ready():
@@ -28,21 +28,21 @@ func run_command(cmd: String):
 					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
 					return
 				match args[1]:
-					"t1":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
-					"t1r2":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_2.tscn"
-					"t1r3":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_3.tscn"
-					"t1r4":
-						path = "res://scenes/levels/tutorial_1/tutorial_1_4.tscn"
+					"t1", "tutorial_1":
+						if len(args) <= 2:
+							path = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
+						else:
+							path = "res://scenes/levels/tutorial_1/tutorial_1_" + args[2] + ".tscn"
+					"lobby":
+						path = "res://scenes/levels/castle/lobby/castle_lobby.tscn"
 					_:
 						path = ""
-				if path == "":
+				var err = OK
+				if path == "" or not ResourceLoader.exists(path):
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 				else:
-					Singleton.set_location = null
-					var err = Singleton.warp_to(path)
+					Singleton.warp_location = null
+					err = Singleton.warp_to(path, $"/root/Main/Player")
 					if err == OK or err == null:
 						Singleton.log_msg("Warped to " + path)
 					else:
@@ -51,7 +51,7 @@ func run_command(cmd: String):
 				var scene = "res://" + args[1] + ".tscn"
 				var file_check = File.new()
 				if file_check.file_exists(scene):
-					var err = Singleton.warp_to(scene)
+					var err = Singleton.warp_to(scene, $"/root/Main/Player")
 					if err == OK:
 						Singleton.log_msg("Warped to " + scene)
 					else:
@@ -60,13 +60,14 @@ func run_command(cmd: String):
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 			"water":
 				if args[1].to_lower() == "inf":
-					Singleton.water = INF
+					$"/root/Main/Player".water = INF
 					Singleton.log_msg("Water is now infinite.")
 				else:
-					Singleton.water = int(args[1])
+					$"/root/Main/Player".water = int(args[1])
 					Singleton.log_msg("Water set to %d" % int(args[1]))
 			"ref":
-				Singleton.water = max(Singleton.water, 100)
+				var player = $"/root/Main/Player"
+				player.water = max(player.water, 100)
 				Singleton.log_msg("Water refilled.")
 			"c":
 				Singleton.classic = !Singleton.classic
@@ -81,18 +82,31 @@ func run_command(cmd: String):
 				$"/root/Main/Player".take_damage(int(args[1]))
 				Singleton.log_msg("Took %d damage." % int(args[1]))
 			"fdmg":
-				Singleton.hp -= int(args[1])
+				$"/root/Main/Player".hp -= int(args[1])
 				Singleton.log_msg("Forced %d damage." % int(args[1]))
+			"hit":
+				$"/root/Main/Player".take_damage_shove(int(args[1]), int(args[2]))
+				Singleton.log_msg("Hit for %d damage." % int(args[1]))
+			"hp", "health":
+				var val = int(args[1])
+				if args[1] != "0" and val == 0:
+					Singleton.log_msg("Couldn't set HP to %s." % args[1], Singleton.LogType.ERROR)
+				else:
+					$"/root/Main/Player".hp = val
+					Singleton.log_msg("Set HP to %d." % val)
 			"designer", "ld":
 				Singleton.log_msg("Entered Level Designer.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			"menu":
 				Singleton.log_msg("Warped to menu.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/title/main_menu/main_menu.tscn")
 			"title":
 				Singleton.log_msg("Warped to title.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
 				get_tree().change_scene("res://scenes/menus/title/title.tscn")
 			"vps":
@@ -100,21 +114,22 @@ func run_command(cmd: String):
 				# warning-ignore:return_value_discarded
 				get_tree().change_scene("res://scenes/menus/visual_pipescript/editor.tscn")
 			"fludd":
+				var player = $"/root/Main/Player"
 				match args[1]:
 					"h", "hover", "0":
-						Singleton.collected_nozzles[0] = !Singleton.collected_nozzles[0]
+						player.collected_nozzles[0] = !player.collected_nozzles[0]
 						Singleton.log_msg("Toggled hover.")
 					"r", "rocket", "1":
-						Singleton.collected_nozzles[1] = !Singleton.collected_nozzles[1]
+						player.collected_nozzles[1] = !player.collected_nozzles[1]
 						Singleton.log_msg("Toggled rocket.")
 					"t", "turbo", "2":
-						Singleton.collected_nozzles[2] = !Singleton.collected_nozzles[2]
+						player.collected_nozzles[2] = !player.collected_nozzles[2]
 						Singleton.log_msg("Toggled turbo.")
 					"all":
-						Singleton.collected_nozzles = [true, true, true]
+						player.collected_nozzles = [true, true, true]
 						Singleton.log_msg("All nozzles enabled.")
 					"none":
-						Singleton.collected_nozzles = [false, false, false]
+						player.collected_nozzles = [false, false, false]
 						Singleton.log_msg("All nozzles disabled.")
 			"cherry":
 				var player = load("res://classes/player/player.tscn")
@@ -134,7 +149,7 @@ func run_command(cmd: String):
 
 
 func _process(_delta):
-	if Input.is_action_just_pressed("debug"):
+	if Input.is_action_just_pressed("debug") or Input.is_action_just_pressed("altdebug") and visible == false:
 		visible = !visible
 		get_tree().paused = visible
 		Singleton.set_pause("console", visible)

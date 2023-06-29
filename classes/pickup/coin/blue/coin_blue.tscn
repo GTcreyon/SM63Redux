@@ -1,21 +1,40 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://classes/pickup/coin/blue/coin_blue.gd" type="Script" id=1]
 [ext_resource path="res://classes/pickup/coin/coin_entity.gd" type="Script" id=2]
-[ext_resource path="res://classes/pickup/coin/blue/blue_coin0.png" type="Texture" id=3]
-[ext_resource path="res://classes/pickup/coin/blue/blue_coin4.png" type="Texture" id=4]
-[ext_resource path="res://classes/pickup/coin/blue/blue_coin5.png" type="Texture" id=5]
+[ext_resource path="res://classes/pickup/coin/coins.png" type="Texture" id=3]
 [ext_resource path="res://classes/pickup/coin/blue/coin_particles_blue.png" type="Texture" id=6]
-[ext_resource path="res://classes/pickup/coin/blue/blue_coin2.png" type="Texture" id=8]
-[ext_resource path="res://classes/pickup/coin/blue/blue_coin1.png" type="Texture" id=9]
-[ext_resource path="res://classes/pickup/coin/blue/blue_coin3.png" type="Texture" id=12]
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=13]
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 32, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 3 )
+region = Rect2( 80, 32, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 9 ), ExtResource( 8 ), ExtResource( 12 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ), SubResource( 9 ), SubResource( 10 ) ],
 "loop": true,
-"name": "modern",
+"name": "default",
 "speed": 15.0
 } ]
 
@@ -35,7 +54,6 @@ script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
-animation = "modern"
 script = ExtResource( 13 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -49,6 +67,7 @@ monitorable = false
 script = ExtResource( 1 )
 parent_is_root = true
 _sprite_path = NodePath("../AnimatedSprite")
+_sfx_path = NodePath("")
 particle_texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]

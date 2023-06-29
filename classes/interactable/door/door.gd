@@ -49,7 +49,9 @@ func _enter_pos_offset_x() -> int:
 
 
 func _player_begin_animation(player):
-	player.switch_anim("back")
+	# TODO: Fix for new player sprite system
+	#player.switch_anim("back")
+	
 	# Set player to gradually move onto the door.
 	# NOTE: read_pos_x movement currently has a lerp factor of 0.75 per frame.
 	# Door entry may feel smoother with a factor of 0.25

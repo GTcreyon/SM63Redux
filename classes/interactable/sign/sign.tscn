@@ -20,6 +20,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource( 2 )
 sprite = NodePath("Sprite")
+back_sprite = true
 
 [node name="Sprite" type="Sprite" parent="."]
 use_parent_material = true

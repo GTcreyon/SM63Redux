@@ -18,6 +18,8 @@ onready var options_control = $OptionsControl
 onready var options_menu = $OptionsControl/OptionsMenu
 onready var back_button = $OptionsControl/BackButton
 
+onready var preview_orb = $PreviewOrb
+
 # Only based on window size.
 var visible_positions: Array#[Vector2]
 var center_pos_idx: int
@@ -31,8 +33,8 @@ var num_items: int  # Modulo for cycle_step.
 var show_options = false
 
 
-func _cycle_increment(cycle_direction: int) -> void:
-	cycle_step += cycle_direction
+func _cycle_increment(increment_direction: int) -> void:
+	cycle_step += increment_direction
 	cycle_step = posmod(cycle_step, num_items)
 
 
@@ -57,7 +59,7 @@ func _item_position(idx_frac: float, offset: Vector2) -> Vector2:
 
 func _process(delta: float) -> void:
 	var dmod = 60 * delta
-	var scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)
+	var scale = Singleton.get_screen_scale()
 	_manage_sizes(scale)
 	if visible:
 		options_control.visible = show_options
@@ -66,6 +68,9 @@ func _process(delta: float) -> void:
 			for node in get_tree().get_nodes_in_group("menu_hide"):
 				node.modulate.a = max(node.modulate.a - 0.125 * dmod, 0)
 			options_menu.modulate.a = min(options_menu.modulate.a + 0.125 * dmod, 1)
+			if Input.is_action_just_pressed("ui_cancel"):
+				show_options = false
+				Singleton.get_node("SFX/Back").play()
 		else:
 			for node in get_tree().get_nodes_in_group("menu_hide"):
 				node.modulate.a = min(node.modulate.a + 0.125 * dmod, 1)
@@ -76,7 +81,7 @@ func _process(delta: float) -> void:
 				Vector2(-0.5 * OS.window_size.x, OS.window_size.y),
 				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
 				Vector2(0.5 * OS.window_size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),				
+				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
 				Vector2(1.5 * OS.window_size.x, OS.window_size.y),
 				]
 			center_pos_idx = 2
@@ -108,8 +113,8 @@ func _process(delta: float) -> void:
 				var item = item_arrow[0]
 				var arrow = item_arrow[1]
 				
-				item.position = _item_position(fposmod(item_scroll + idx, num_items), Vector2.ZERO)
-				arrow.position = _item_position(fposmod(arrow_scroll + idx, num_items), arrow_offset)
+				item.position = _item_position(fposmod(item_scroll + idx, num_items), Vector2.ZERO) / scale
+				arrow.position = _item_position(fposmod(arrow_scroll + idx, num_items), arrow_offset) / scale
 			
 			if cycle_direction != 0:
 				cycle_progress += 1 / 12.0 * dmod
@@ -137,7 +142,7 @@ func _process(delta: float) -> void:
 				)
 				and modulate.a > 0
 			):
-				_press_button(posmod(cycle_step + cycle_direction, 4))
+				_press_button(get_selected())
 			
 			if Input.is_action_just_pressed("ui_cancel"):
 				visible = false
@@ -148,13 +153,17 @@ func _process(delta: float) -> void:
 		modulate.a = 0
 
 
+func get_selected() -> int:
+	return posmod(cycle_step + cycle_direction, 4)
+
+
 func _press_button(button: int) -> void:
 	if !get_parent().dampen:
 		match button:
 			0:
 				_menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
-			1:
-				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
+#			1:
+#				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			3:
 				Singleton.get_node("SFX/Confirm").play()
 				show_options = true
@@ -195,30 +204,12 @@ func _cycle_through(direction: int) -> void:
 	
 	_cycle_increment(cycle_direction)
 	cycle_direction = direction
+	preview_orb.transition(get_selected())
 
 
 func _manage_sizes(scale) -> void:
-	story.scale = Vector2.ONE * scale
-	settings.scale = Vector2.ONE * scale
-	extra.scale = Vector2.ONE * scale
-	ld.scale = Vector2.ONE * scale
-	selector_story.scale = Vector2.ONE * scale
-	selector_settings.scale = Vector2.ONE * scale
-	selector_extra.scale = Vector2.ONE * scale
-	selector_ld.scale = Vector2.ONE * scale
-	
-	icon.scale = Vector2.ONE * scale
-	border.rect_scale = Vector2.ONE * scale
-	border.margin_right = (OS.window_size.x + 1) / scale
-	border.margin_bottom = OS.window_size.y / scale
-	
-	options_menu.margin_top = 26 * scale
-	options_menu.margin_bottom = -4 * scale
-	options_menu.margin_left = 4 * scale
-	options_menu.margin_right = -4 * scale
-	
-	back_button.rect_scale = Vector2.ONE * scale
-	back_button.rect_pivot_offset.x = back_button.rect_size.x
+	rect_scale = Vector2.ONE * scale
+	rect_size = OS.window_size / scale
 
 
 func _touch_cycle(step) -> void:
@@ -250,4 +241,5 @@ func _on_StoryButton_pressed() -> void:
 
 func _on_BackButton_pressed() -> void:
 	Singleton.get_node("SFX/Back").play()
+	Singleton.save_input_map_current()
 	show_options = false

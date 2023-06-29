@@ -51,12 +51,13 @@ func _begin_animation(_player):
 	# Set player to center gradually
 	_player.read_pos_x = global_position.x
 	
-	# Give player slide-down animation
-	if not begin_pound:
-		_player.switch_anim("front")
-	else:
-		# TODO: non-fall pound animation may be best?
-		_player.switch_anim("pound_fall")
+	# TODO: Fix for new player sprite system
+#	# Give player slide-down animation
+#	if not begin_pound:
+#		_player.switch_anim("front")
+#	else:
+#		# TODO: non-fall pound animation may be best?
+#		_player.switch_anim("pound_fall")
 	
 	_player.sprite.rotation = 0 # Keeps player from turning sideways
 	_player.voice.volume_db = -INF # Keeps player from making dive sounds
@@ -88,8 +89,7 @@ func _end_animation(_player):
 	_player.voice.volume_db = -5
 	
 	_player.switch_state(_player.S.NEUTRAL)
-	_player.switch_anim("walk")
-	_player.dive_correct(0)
+	#_player.switch_anim("walk")
 
 	# Force end pipe sound, just in case.
 	sound.stop()

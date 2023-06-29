@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "AnimatedSprite",
+"class": "AutoPlaySprite",
+"language": "GDScript",
+"path": "res://classes/autoplay.gd"
+}, {
 "base": "Reference",
 "class": "BaseModifier",
 "language": "GDScript",
@@ -53,6 +58,11 @@ _global_script_classes=[ {
 "class": "CoinPickupYellow",
 "language": "GDScript",
 "path": "res://classes/pickup/coin/yellow/coin_yellow.gd"
+}, {
+"base": "Node",
+"class": "DeathManager",
+"language": "GDScript",
+"path": "res://classes/global/singleton/death_manager.gd"
 }, {
 "base": "Node2D",
 "class": "DejitterGroup",
@@ -114,6 +124,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/entity/enemy/goomba/goomba.gd"
 }, {
+"base": "Reference",
+"class": "InterSceneData",
+"language": "GDScript",
+"path": "res://classes/global/singleton/inter_scene_data.gd"
+}, {
 "base": "Area2D",
 "class": "Interactable",
 "language": "GDScript",
@@ -154,6 +169,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/pickup/pickup.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "PlayerCharacter",
+"language": "GDScript",
+"path": "res://classes/player/player.gd"
+}, {
 "base": "Container",
 "class": "PolygonContainer",
 "language": "GDScript",
@@ -189,10 +209,35 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://classes/interactable/sign/sign.gd"
 }, {
+"base": "Control",
+"class": "SpeedrunTimer",
+"language": "GDScript",
+"path": "res://gui/timer/timer.gd"
+}, {
 "base": "Node2D",
 "class": "Telescoping",
 "language": "GDScript",
 "path": "res://classes/solid/telescoping/telescoping.gd"
+}, {
+"base": "Node2D",
+"class": "TerrainBorder",
+"language": "GDScript",
+"path": "res://classes/solid/terrain/terrain_border.gd"
+}, {
+"base": "Node2D",
+"class": "TerrainBorderEndcaps",
+"language": "GDScript",
+"path": "res://classes/solid/terrain/terrain_border_endcaps.gd"
+}, {
+"base": "Polygon2D",
+"class": "TerrainPolygon",
+"language": "GDScript",
+"path": "res://classes/solid/terrain/terrain_polygon.gd"
+}, {
+"base": "Control",
+"class": "Tickbox",
+"language": "GDScript",
+"path": "res://scenes/menus/feedback/tickbox.gd"
 }, {
 "base": "Node2D",
 "class": "TileToPoly",
@@ -208,8 +253,19 @@ _global_script_classes=[ {
 "class": "Toad",
 "language": "GDScript",
 "path": "res://classes/interactable/npc/toad/toad.gd"
+}, {
+"base": "Polygon2D",
+"class": "Warp",
+"language": "GDScript",
+"path": "res://classes/global/singleton/warp.gd"
+}, {
+"base": "Polygon2D",
+"class": "WindowWarp",
+"language": "GDScript",
+"path": "res://classes/global/singleton/window_warp.gd"
 } ]
 _global_script_class_icons={
+"AutoPlaySprite": "",
 "BaseModifier": "",
 "Bobomb": "",
 "Bottle": "",
@@ -219,6 +275,7 @@ _global_script_class_icons={
 "CoinPickupBlue": "",
 "CoinPickupRed": "",
 "CoinPickupYellow": "",
+"DeathManager": "",
 "DejitterGroup": "res://classes/dejitter_group/dejitter_group.svg",
 "Door": "",
 "DoorSkin": "",
@@ -231,6 +288,7 @@ _global_script_class_icons={
 "FluddEntity": "",
 "FluddPickup": "",
 "Goomba": "",
+"InterSceneData": "",
 "Interactable": "",
 "InteractableDialog": "",
 "InteractableWarp": "",
@@ -239,6 +297,7 @@ _global_script_class_icons={
 "LogFall": "",
 "OutlineContainer": "",
 "Pickup": "",
+"PlayerCharacter": "",
 "PolygonContainer": "",
 "ResidualSFX": "",
 "RideArea": "",
@@ -246,10 +305,17 @@ _global_script_class_icons={
 "SM63ToRedux": "",
 "Serializer": "",
 "Sign": "",
+"SpeedrunTimer": "",
 "Telescoping": "",
+"TerrainBorder": "",
+"TerrainBorderEndcaps": "",
+"TerrainPolygon": "",
+"Tickbox": "",
 "TileToPoly": "",
 "TippingLog": "",
-"Toad": ""
+"Toad": "",
+"Warp": "",
+"WindowWarp": ""
 }
 
 [application]
@@ -274,6 +340,10 @@ window/size/width=640
 window/size/height=360
 mouse_cursor/custom_image="res://gui/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2( 1, 1 )
+
+[gui]
+
+theme/custom="res://gui/theme_gui.tres"
 
 [importer_defaults]
 
@@ -452,8 +522,7 @@ interact={
 }
 debug={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":47,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777255,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 ld_place={
@@ -559,8 +628,7 @@ feedback={
 }
 reset={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [  ]
 }
 ld_queue+={
 "deadzone": 0.5,
@@ -594,8 +662,7 @@ volume_music-={
 }
 dump={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777255,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777218,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 ld_exit={
@@ -638,6 +705,15 @@ ld_cancel_placement={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+timer_show={
+"deadzone": 0.5,
+"events": [  ]
+}
+altdebug={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":47,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [input_devices]
 
@@ -658,7 +734,7 @@ pointing/emulate_touch_from_mouse=true
 
 [locale]
 
-translations=PoolStringArray( "res://locale/translations/es.po", "res://locale/translations/fr.po", "res://locale/translations/it_IT.po", "res://locale/translations/nl.po" )
+translations=PoolStringArray( "res://locale/translations/es.po", "res://locale/translations/fr.po", "res://locale/translations/it_IT.po", "res://locale/translations/nl.po", "res://locale/translations/pt_BR.po" )
 locale_filter=[ 0, [  ] ]
 
 [mono]
