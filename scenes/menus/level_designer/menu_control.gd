@@ -18,6 +18,7 @@ func fill_grid():
 				path = level_editor.item_textures[item_id]["Placed"]
 			
 			var stream: StreamTexture = load(path)
+			assert(stream != null, "Failed to load LD item icon from path " + path)
 			tex.atlas = stream
 			var min_size = Vector2(
 				min(
