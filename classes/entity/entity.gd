@@ -75,13 +75,13 @@ func _physics_step():
 	
 	var snap
 	if is_on_floor() and vel.y >= 0:
-		snap = Vector2(0, 4)
+		snap = 4
 	else:
-		snap = Vector2.ZERO
+		snap = 0
 	
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	set_velocity(vel * 60)
-	# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `snap`
+	floor_snap_length = snap
 	set_up_direction(Vector2.UP)
 	set_floor_stop_on_slope_enabled(true)
 	move_and_slide()

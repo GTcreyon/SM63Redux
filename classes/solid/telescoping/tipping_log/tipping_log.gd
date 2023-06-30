@@ -45,7 +45,7 @@ func physics_step():
 		var dist = position.distance_to(body.position)
 		# warning-ignore:return_value_discarded
 		body.set_velocity(Vector2(rotation_degrees * 0.076 * 32, sin(ang_vel) * dist * 32))
-		# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `Vector2(0, 4)`
+		body.floor_snap_length = 4
 		body.set_up_direction(Vector2.UP)
 		body.set_floor_stop_on_slope_enabled(true)
 		body.move_and_slide()

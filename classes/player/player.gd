@@ -1060,7 +1060,7 @@ func player_move() -> void:
 	var save_pos = position
 	# warning-ignore:return_value_discarded
 	set_velocity(vel * 60.0)
-	# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `snap`
+	floor_snap_length = snap
 	set_up_direction(Vector2(0, -1))
 	set_floor_stop_on_slope_enabled(true)
 	move_and_slide()
@@ -1080,7 +1080,7 @@ func player_move() -> void:
 		position = save_pos
 		# warning-ignore:return_value_discarded
 		set_velocity(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0))
-		# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `snap`
+		floor_snap_length = snap
 		set_up_direction(Vector2(0, -1))
 		set_floor_stop_on_slope_enabled(true)
 		set_max_slides(4)
@@ -1088,7 +1088,7 @@ func player_move() -> void:
 		move_and_slide()
 
 
-func get_snap() -> Vector2:
+func get_snap() -> float:
 	if (
 		!grounded
 		or Input.is_action_just_pressed("jump")
@@ -1102,9 +1102,9 @@ func get_snap() -> Vector2:
 			and Input.is_action_pressed("semi")
 		)
 	):
-		return Vector2.ZERO
+		return 0
 	else:
-		return Vector2(0, 4)
+		return 4
 
 
 const DIVE_VEL = 35.0 * FPS_MOD

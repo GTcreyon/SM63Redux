@@ -3,8 +3,6 @@ extends Polygon2D
 
 var curve = Curve2D.new()
 var curve_top = Vector2.ZERO
-var curve_arc = Vector2(0, get_window().size.y / 2)
-var curve_bottom = Vector2(0, get_window().size.y)
 var direction = 0
 var enter = 0
 var set_location = null
@@ -12,6 +10,8 @@ var scene_path = ""
 var flip = false
 var anim_timer = 0
 
+@onready var curve_arc = Vector2(0, get_window().size.y / 2)
+@onready var curve_bottom = Vector2(0, get_window().size.y)
 
 func _ready():
 	curve.add_point(Vector2(0, 0))
