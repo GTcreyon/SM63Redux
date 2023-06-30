@@ -7,8 +7,7 @@ var buffer: PackedByteArray
 
 
 func _on_OpenDialog_file_selected(path):
-	var file = File.new()
-	file.open(path, File.READ)
+	var file = FileAccess.open(path, File.READ)
 	buffer = file.get_buffer(file.get_length())
 	file.close()
 	var serializer = Serializer.new()

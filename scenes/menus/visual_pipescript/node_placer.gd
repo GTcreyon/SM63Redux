@@ -186,8 +186,7 @@ func add_buttons():
 
 func _ready():
 	# Get the nodes from our nodes file
-	var file = File.new()
-	file.open("res://scenes/menus/visual_pipescript/pieces.json", File.READ)
+	var file = FileAccess.open("res://scenes/menus/visual_pipescript/pieces.json", File.READ)
 	var content = file.get_as_text()
 	file.close()
 	var test_json_conv = JSON.new()

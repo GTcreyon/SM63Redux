@@ -3,7 +3,7 @@ extends Node
 signal before_scene_change
 signal after_scene_change
 
-const DEFAULT_SIZE = Vector2(640, 360)
+const DEFAULT_SIZE = Vector2i(640, 360)
 const VERSION = "v0.1.6.alpha"
 const LD_VERSION = 0
 const LOCALES = [
@@ -105,8 +105,7 @@ func _ready():
 	touch_control = OS.get_name() == "Android"
 	rng.seed = hash("2401")
 	default_input_map = get_input_map_json_current()
-	var file = File.new()
-	if file.file_exists("user://controls.json"):
+	if FileAccess.file_exists("user://controls.json"):
 		load_input_map(get_input_map_json_saved())
 
 
@@ -225,8 +224,7 @@ func set_pause(label: String, set: bool):
 
 
 func get_input_map_json_saved():
-	var file = File.new()
-	file.open("user://controls.json", File.READ)
+	var file = FileAccess.open("user://controls.json", FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()
 	return content
@@ -283,8 +281,7 @@ func save_input_map_current() -> void:
 
 
 func save_input_map(input_json):
-	var file = File.new()
-	file.open("user://controls.json", File.WRITE)
+	var file = FileAccess.open("user://controls.json", FileAccess.WRITE)
 	file.store_string(input_json) # minimize the amount of time spent with the file open
 	file.close()
 

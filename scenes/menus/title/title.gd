@@ -11,10 +11,10 @@ const FADE_SPEED = 1 / pow(2, 4)
 
 var volume_balance = 0
 var dampen = false
-var scale
+var ver_scale
 func _process(delta):
 	var dmod = 60 * delta
-	scale = Vector2.ONE * max(
+	ver_scale = Vector2.ONE * max(
 		1,
 		min(
 			round(get_window().size.x / Singleton.DEFAULT_SIZE.x),
@@ -39,7 +39,7 @@ func _process(delta):
 			text.modulate.a = min(text.modulate.a + 0.125 * dmod, 1)
 		title_song.volume_db = -8 - (volume_balance * 60)
 		menu_song.volume_db = -8 - 60 + (volume_balance * 60)
-	version.scale = scale
+	version.ver_scale = ver_scale
 	version.text = Singleton.VERSION
 
 

@@ -39,7 +39,7 @@ func _on_Submit_pressed():
 		var msg = _assemble_message()
 
 		var data = _assemble_package()
-		var img = await _take_screenshot().completed
+		var img = await _take_screenshot()
 		var contact_info = contact.text
 		var username
 		if contact_info == "":
@@ -61,7 +61,6 @@ func _on_Submit_pressed():
 		req.request_raw(
 			"http://feedback.sm63redux.com",
 			["Content-Type:multipart/form-data; boundary=boundary"],
-			true,
 			HTTPClient.METHOD_POST,
 			payload
 		)
@@ -111,7 +110,7 @@ func _assemble_message() -> String:
 	
 	msg += "\n**Contact:**\n> " + contact_info
 	var hash_text = desc_text + str(Time.get_ticks_msec())
-	msg += "\n**RefCounted:**\n> &" + hash_text.sha1_text().substr(0, 5)
+	msg += "\n**Reference:**\n> &" + hash_text.sha1_text().substr(0, 5)
 	return msg
 
 

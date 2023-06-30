@@ -49,8 +49,7 @@ func run_command(cmd: String):
 						Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
 			"scene":
 				var scene = "res://" + args[1] + ".tscn"
-				var file_check = File.new()
-				if file_check.file_exists(scene):
+				if FileAccess.file_exists(scene):
 					var err = Singleton.warp_to(scene, $"/root/Main/Player")
 					if err == OK:
 						Singleton.log_msg("Warped to " + scene)
@@ -140,10 +139,20 @@ func run_command(cmd: String):
 				TranslationServer.set_locale(args[1])
 				Singleton.log_msg("Locale set to \"%s\"." % args[1])
 			"report":
-				req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, JSON.new().stringify({"content": cmd.substr(7), "username": hook_name}))
+				req.request(
+					"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
+					["Content-Type:application/json"],
+					HTTPClient.METHOD_POST,
+					JSON.new().stringify({"content": cmd.substr(7), "username": hook_name})
+					)
 			"rename":
 				hook_name = cmd.substr(7)
-				req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, JSON.new().stringify({"content":"renamed to \"" + hook_name + "\"", "username": hook_name}))
+				req.request(
+					"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
+					["Content-Type:application/json"], 
+					HTTPClient.METHOD_POST,
+					JSON.new().stringify({"content":"renamed to \"" + hook_name + "\"", "username": hook_name})
+					)
 			_:
 				Singleton.log_msg("Unknown command \"%s\"." % args[0], Singleton.LogType.ERROR)
 

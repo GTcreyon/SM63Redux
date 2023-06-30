@@ -39,10 +39,7 @@ var properties: Dictionary = {}
 
 
 func _draw():
-	# Queue the decorations to draw (leads to calling _draw()).
-	# (In Godot 4, this function is called "queue_redraw," which explains itself,
-	# so this comment is redundant and can be removed.)
-	decorations.update()
+	decorations.queue_redraw()
 	
 	# Update the collision polygon if not in editor.
 	if !Engine.is_editor_hint():
@@ -55,7 +52,7 @@ func _draw():
 
 func set_glowing(should_glow):
 	tint = should_glow
-	update()
+	queue_redraw()
 
 
 func set_down_direction(new_val):
@@ -74,7 +71,7 @@ func update_spritesheets(new_sheet: Texture2D):
 	# I wanted to use atlas texture but support for it is bad
 	
 	body.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(36, 3, 32, 32) ) )
-	body.flags = Texture2D.FLAG_REPEAT
+	body.flags = Texture
 	edge.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(3, 3, 32, 32) ) )
 	edge.flags = Texture2D.FLAG_REPEAT
 	bottom.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(36, 36, 32, 32) ) )
