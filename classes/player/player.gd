@@ -232,7 +232,7 @@ func _on_WaterCheck_area_entered(_area):
 	
 	# Reset reverb effect. This clears any reverb tail left in the buffer
 	# from last time in water (or from the title screen, when the bus is on).
-	Singleton.reset_bus_effect("~Water Verb:", 0)
+	Singleton.reset_bus_effect(Singleton.WATER_VRB_BUS, 0)
 
 
 func _on_WaterCheck_area_exited(_area):
