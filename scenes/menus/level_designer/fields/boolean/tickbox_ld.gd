@@ -1,8 +1,8 @@
 extends Control
 
-onready var sprite = $Button/Sprite
-onready var label = $Label
-onready var parent_menu = $"../.."
+@onready var sprite = $Button/Sprite2D
+@onready var label = $Label
+@onready var parent_menu = $"../.."
 var pressed = false
 
 

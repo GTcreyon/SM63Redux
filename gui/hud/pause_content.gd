@@ -1,22 +1,22 @@
 extends Control
 
-onready var info = $Content/LevelInfo
-onready var map = $Content/MapMenu
-onready var fludd = $Content/FluddMenu
-onready var options = $Content/OptionsMenu
-onready var exit = $Content/ExitMenu
-onready var button_map = $ButtonContainer/ButtonMap
-onready var button_fludd = $ButtonContainer/ButtonFludd
-onready var button_options = $ButtonContainer/ButtonOptions
-onready var button_exit = $ButtonContainer/ButtonExit
-onready var bg = $BG
-onready var top = $Top
-onready var left_corner_top = $LeftCornerTop
-onready var left_corner_bottom = $LeftCornerBottom
-onready var right_corner_top = $RightCornerTop
-onready var right_corner_bottom = $RightCornerBottom
-onready var left = $Left
-onready var right = $Right
+@onready var info = $Content/LevelInfo
+@onready var map = $Content/MapMenu
+@onready var fludd = $Content/FluddMenu
+@onready var options = $Content/OptionsMenu
+@onready var exit = $Content/ExitMenu
+@onready var button_map = $ButtonContainer/ButtonMap
+@onready var button_fludd = $ButtonContainer/ButtonFludd
+@onready var button_options = $ButtonContainer/ButtonOptions
+@onready var button_exit = $ButtonContainer/ButtonExit
+@onready var bg = $BG
+@onready var top = $Top
+@onready var left_corner_top = $LeftCornerTop
+@onready var left_corner_bottom = $LeftCornerBottom
+@onready var right_corner_top = $RightCornerTop
+@onready var right_corner_bottom = $RightCornerBottom
+@onready var left = $Left
+@onready var right = $Right
 
 
 func _process(_delta):

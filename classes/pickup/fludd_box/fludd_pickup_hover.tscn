@@ -4,15 +4,15 @@
 [ext_resource path="res://classes/pickup/fludd_box/fludd_pickup.gd" type="Script" id=2]
 [ext_resource path="res://classes/pickup/fludd_box/fludd_entity.gd" type="Script" id=3]
 [ext_resource path="res://classes/pickup/fludd_box/fludd_pickup_collect.wav" type="AudioStream" id=4]
-[ext_resource path="res://classes/pickup/fludd_box/pickup_hover.png" type="Texture" id=5]
+[ext_resource path="res://classes/pickup/fludd_box/pickup_hover.png" type="Texture2D" id=5]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8, 7.5 )
+size = Vector2( 8, 7.5 )
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 7.5 )
+size = Vector2( 12, 7.5 )
 
-[node name="FluddPickupHover" type="KinematicBody2D"]
+[node name="FluddPickupHover" type="CharacterBody2D"]
 z_index = -1
 collision_layer = 0
 script = ExtResource( 3 )
@@ -30,7 +30,7 @@ parent_is_root = true
 persistent_collect = false
 nozzle_award = 1
 
-[node name="Sprite" type="Sprite" parent="Hover"]
+[node name="Sprite2D" type="Sprite2D" parent="Hover"]
 z_index = -1
 texture = ExtResource( 5 )
 script = ExtResource( 1 )

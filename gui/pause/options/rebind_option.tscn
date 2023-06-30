@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="FontFile" id=1]
 [ext_resource path="res://gui/pause/options/rebind_option.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
@@ -15,13 +15,13 @@
 
 [node name="RebindOption" type="Button"]
 anchor_right = 1.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 0, 18 )
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
-custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+offset_bottom = 20.0
+custom_minimum_size = Vector2( 0, 18 )
+theme_override_styles/hover = SubResource( 1 )
+theme_override_styles/pressed = SubResource( 2 )
+theme_override_styles/focus = SubResource( 3 )
+theme_override_styles/disabled = SubResource( 4 )
+theme_override_styles/normal = SubResource( 5 )
 toggle_mode = true
 action_mode = 0
 button_mask = 3
@@ -29,15 +29,15 @@ script = ExtResource( 2 )
 
 [node name="ActionName" type="Label" parent="."]
 anchor_right = 1.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 0, 16 )
-custom_fonts/font = ExtResource( 1 )
+offset_bottom = 16.0
+custom_minimum_size = Vector2( 0, 16 )
+theme_override_fonts/font = ExtResource( 1 )
 text = "[action]"
 
 [node name="KeyList" type="Label" parent="."]
 anchor_right = 1.0
-rect_pivot_offset = Vector2( 640, 0 )
-custom_fonts/font = ExtResource( 1 )
+pivot_offset = Vector2( 640, 0 )
+theme_override_fonts/font = ExtResource( 1 )
 text = "[keys]"
 align = 2
 

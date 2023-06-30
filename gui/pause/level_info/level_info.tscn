@@ -1,14 +1,14 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://classes/misc/containers/scale_container.gd" type="Script" id=1]
-[ext_resource path="res://gui/pause/map/map_coin_1.png" type="Texture" id=2]
-[ext_resource path="res://gui/pause/map/map_shine_0.png" type="Texture" id=3]
-[ext_resource path="res://gui/pause/map/map_coin_0.png" type="Texture" id=4]
-[ext_resource path="res://gui/pause/map/map_shine_1.png" type="Texture" id=5]
+[ext_resource path="res://gui/pause/map/map_coin_1.png" type="Texture2D" id=2]
+[ext_resource path="res://gui/pause/map/map_shine_0.png" type="Texture2D" id=3]
+[ext_resource path="res://gui/pause/map/map_coin_0.png" type="Texture2D" id=4]
+[ext_resource path="res://gui/pause/map/map_shine_1.png" type="Texture2D" id=5]
 [ext_resource path="res://gui/pause/pause_back.tres" type="StyleBox" id=6]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=7]
-[ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=8]
-[ext_resource path="res://fonts/white/gui_white.fnt" type="BitmapFont" id=9]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="FontFile" id=7]
+[ext_resource path="res://fonts/red/gui_red.fnt" type="FontFile" id=8]
+[ext_resource path="res://fonts/white/gui_white.fnt" type="FontFile" id=9]
 [ext_resource path="res://gui/hud/level_info.gd" type="Script" id=10]
 [ext_resource path="res://shaders/glow.tres" type="Material" id=11]
 
@@ -47,64 +47,64 @@ script = ExtResource( 10 )
 [node name="Divider" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 16
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="MainContainer" type="VBoxContainer" parent="Divider"]
-margin_top = 96.0
-margin_right = 640.0
-margin_bottom = 193.0
+offset_top = 96.0
+offset_right = 640.0
+offset_bottom = 193.0
 
 [node name="LevelNamePanel" type="PanelContainer" parent="Divider/MainContainer"]
-margin_left = 106.0
-margin_right = 534.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 0, 48 )
+offset_left = 106.0
+offset_right = 534.0
+offset_bottom = 48.0
+custom_minimum_size = Vector2( 0, 48 )
 mouse_filter = 2
 size_flags_horizontal = 4
-custom_styles/panel = ExtResource( 6 )
+theme_override_styles/panel = ExtResource( 6 )
 
 [node name="ScaleContainer" type="Container" parent="Divider/MainContainer/LevelNamePanel"]
-margin_left = 5.0
-margin_top = 8.0
-margin_right = 423.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 418, 32 )
+offset_left = 5.0
+offset_top = 8.0
+offset_right = 423.0
+offset_bottom = 40.0
+custom_minimum_size = Vector2( 418, 32 )
 size_flags_vertical = 4
 script = ExtResource( 1 )
 scale = Vector2( 2, 2 )
 
 [node name="LevelName" type="Label" parent="Divider/MainContainer/LevelNamePanel/ScaleContainer"]
-margin_right = 209.0
-margin_bottom = 16.0
-rect_scale = Vector2( 2, 2 )
+offset_right = 209.0
+offset_bottom = 16.0
+scale = Vector2( 2, 2 )
 size_flags_vertical = 1
-custom_fonts/font = ExtResource( 8 )
+theme_override_fonts/font = ExtResource( 8 )
 text = "MUSHROOM KINGDOM"
 align = 1
 
 [node name="CollectPanel" type="PanelContainer" parent="Divider/MainContainer"]
-margin_left = 242.0
-margin_top = 52.0
-margin_right = 398.0
-margin_bottom = 97.0
-rect_min_size = Vector2( 0, 36 )
+offset_left = 242.0
+offset_top = 52.0
+offset_right = 398.0
+offset_bottom = 97.0
+custom_minimum_size = Vector2( 0, 36 )
 mouse_filter = 2
 size_flags_horizontal = 4
-custom_styles/panel = ExtResource( 6 )
+theme_override_styles/panel = ExtResource( 6 )
 
 [node name="CollectRow" type="HBoxContainer" parent="Divider/MainContainer/CollectPanel"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 151.0
-margin_bottom = 40.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 151.0
+offset_bottom = 40.0
 mouse_filter = 2
-custom_constants/separation = 16
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="ShineRow" type="HBoxContainer" parent="Divider/MainContainer/CollectPanel/CollectRow"]
-margin_right = 104.0
-margin_bottom = 35.0
+offset_right = 104.0
+offset_bottom = 35.0
 mouse_filter = 2
 size_flags_horizontal = 0
 alignment = 1
@@ -113,50 +113,50 @@ __meta__ = {
 }
 
 [node name="Shine1" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
-margin_right = 32.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 32, 35 )
+offset_right = 32.0
+offset_bottom = 35.0
+custom_minimum_size = Vector2( 32, 35 )
 mouse_filter = 2
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine1"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine1"]
 material = ExtResource( 11 )
 frames = SubResource( 1 )
 animation = "off"
 centered = false
 
 [node name="Shine2" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
-margin_left = 36.0
-margin_right = 68.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 32, 35 )
+offset_left = 36.0
+offset_right = 68.0
+offset_bottom = 35.0
+custom_minimum_size = Vector2( 32, 35 )
 mouse_filter = 2
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine2"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine2"]
 frames = SubResource( 1 )
 animation = "off"
 centered = false
 
 [node name="Shine3" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
-margin_left = 72.0
-margin_right = 104.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 32, 35 )
+offset_left = 72.0
+offset_right = 104.0
+offset_bottom = 35.0
+custom_minimum_size = Vector2( 32, 35 )
 mouse_filter = 2
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine3"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine3"]
 frames = SubResource( 1 )
 animation = "off"
 centered = false
 
 [node name="Shine4" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
 visible = false
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 32, 35 )
+offset_left = 108.0
+offset_right = 140.0
+offset_bottom = 48.0
+custom_minimum_size = Vector2( 32, 35 )
 mouse_filter = 2
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine4"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine4"]
 position = Vector2( 16, 20 )
 frames = SubResource( 1 )
 animation = "off"
@@ -164,22 +164,22 @@ offset = Vector2( 0, -1 )
 
 [node name="Shine5" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
 visible = false
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 48.0
-rect_min_size = Vector2( 32, 35 )
+offset_left = 108.0
+offset_right = 140.0
+offset_bottom = 48.0
+custom_minimum_size = Vector2( 32, 35 )
 mouse_filter = 2
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine5"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine5"]
 position = Vector2( 16, 26 )
 frames = SubResource( 1 )
 animation = "off"
 offset = Vector2( 0, -1 )
 
 [node name="CoinRow" type="HBoxContainer" parent="Divider/MainContainer/CollectPanel/CollectRow"]
-margin_left = 120.0
-margin_right = 146.0
-margin_bottom = 35.0
+offset_left = 120.0
+offset_right = 146.0
+offset_bottom = 35.0
 mouse_filter = 2
 alignment = 1
 __meta__ = {
@@ -187,11 +187,11 @@ __meta__ = {
 }
 
 [node name="Coin1" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
-margin_right = 26.0
-margin_bottom = 35.0
-rect_min_size = Vector2( 26, 32 )
+offset_right = 26.0
+offset_bottom = 35.0
+custom_minimum_size = Vector2( 26, 32 )
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin1"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin1"]
 position = Vector2( 13, 18 )
 frames = SubResource( 2 )
 animation = "off"
@@ -199,82 +199,82 @@ animation = "off"
 [node name="Coin2" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin2"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin2"]
 frames = SubResource( 2 )
 animation = "on"
 
 [node name="Coin3" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin3"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin3"]
 frames = SubResource( 2 )
 animation = "on"
 
 [node name="Coin4" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin4"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin4"]
 frames = SubResource( 2 )
 animation = "on"
 
 [node name="Coin5" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin5"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin5"]
 frames = SubResource( 2 )
 animation = "on"
 
 [node name="Coin6" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
 visible = false
 
-[node name="Sprite" type="AnimatedSprite" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin6"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin6"]
 frames = SubResource( 2 )
 animation = "on"
 
 [node name="ExtraContainer" type="VBoxContainer" parent="Divider"]
-margin_top = 209.0
-margin_right = 640.0
-margin_bottom = 264.0
+offset_top = 209.0
+offset_right = 640.0
+offset_bottom = 264.0
 
 [node name="MissionNamePanel" type="PanelContainer" parent="Divider/ExtraContainer"]
 show_behind_parent = true
-margin_left = 253.0
-margin_right = 386.0
-margin_bottom = 26.0
+offset_left = 253.0
+offset_right = 386.0
+offset_bottom = 26.0
 size_flags_horizontal = 4
-custom_styles/panel = ExtResource( 6 )
+theme_override_styles/panel = ExtResource( 6 )
 
 [node name="MissionName" type="Label" parent="Divider/ExtraContainer/MissionNamePanel"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 128.0
-margin_bottom = 21.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 128.0
+offset_bottom = 21.0
 size_flags_horizontal = 4
-custom_fonts/font = ExtResource( 9 )
+theme_override_fonts/font = ExtResource( 9 )
 text = "Tutorial 1"
 align = 1
 uppercase = true
 
 [node name="DetailsPanel" type="PanelContainer" parent="Divider/ExtraContainer"]
 show_behind_parent = true
-margin_left = 115.0
-margin_top = 30.0
-margin_right = 525.0
-margin_bottom = 55.0
+offset_left = 115.0
+offset_top = 30.0
+offset_right = 525.0
+offset_bottom = 55.0
 mouse_filter = 2
 size_flags_horizontal = 4
-custom_styles/panel = ExtResource( 6 )
+theme_override_styles/panel = ExtResource( 6 )
 
 [node name="MissionDetails" type="Label" parent="Divider/ExtraContainer/DetailsPanel"]
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 405.0
-margin_bottom = 20.0
-rect_min_size = Vector2( 400, 0 )
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 405.0
+offset_bottom = 20.0
+custom_minimum_size = Vector2( 400, 0 )
 size_flags_horizontal = 4
 size_flags_vertical = 1
-custom_colors/font_color = Color( 0.819608, 0.705882, 0.768627, 1 )
-custom_fonts/font = ExtResource( 7 )
+theme_override_colors/font_color = Color( 0.819608, 0.705882, 0.768627, 1 )
+theme_override_fonts/font = ExtResource( 7 )
 text = "Head to the castle, everybody's waiting!"
 align = 1
 autowrap = true

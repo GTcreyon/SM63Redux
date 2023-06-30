@@ -3,20 +3,20 @@ extends Area2D
 
 # If true, free the parent node as well when collected.
 # Useful for pickup children of physics objects.
-export var parent_is_root: bool = false
+@export var parent_is_root: bool = false
 
 # Enables pickup ID behavior, so pickups can only be collected once per level.
-export var persistent_collect = true
-export(float, 0.0, 30.0, 1.0) var respawn_seconds = 0.0
-export var disabled: bool = false setget set_disabled
-export var _sprite_path: NodePath = "Sprite"
-export var _sfx_path: NodePath = "SFXCollect"
+@export var persistent_collect = true
+@export var respawn_seconds = 0.0 # (float, 0.0, 30.0, 1.0)
+@export var disabled: bool = false: set = set_disabled
+@export var _sprite_path: NodePath = "Sprite2D"
+@export var _sfx_path: NodePath = "SFXCollect"
 
 var _pickup_id: int = -1
 var _respawn_timer: float = -1
 
-onready var sprite = get_node_or_null(_sprite_path)
-onready var sfx = get_node_or_null(_sfx_path)
+@onready var sprite = get_node_or_null(_sprite_path)
+@onready var sfx = get_node_or_null(_sfx_path)
 
 
 func _ready():
@@ -63,7 +63,7 @@ func pickup(body) -> void:
 
 func _connect_signals() -> void:
 	# warning-ignore:return_value_discarded
-	connect("body_entered", self, "pickup")
+	connect("body_entered", Callable(self, "pickup"))
 
 
 func set_disabled(val):

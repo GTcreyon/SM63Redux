@@ -1,6 +1,6 @@
 shader_type canvas_item;
 
-uniform vec4 base_water_color : hint_color = vec4(0.2, 0.7, 1, 0.8);
+uniform vec4 base_water_color : source_color = vec4(0.2, 0.7, 1, 0.8);
 uniform sampler2D viewport_texture;
 uniform sampler2D outline_texture;
 

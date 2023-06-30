@@ -1,7 +1,7 @@
 class_name Door
 extends InteractableWarp
 
-export var door_graphic : SpriteFrames
+@export var door_graphic : SpriteFrames
 
 var player_fade_start_time : int
 var player_fade_rate : float
@@ -60,12 +60,12 @@ func _player_begin_animation(player):
 
 
 func _door_open():
-	$Sprite.play("opening")
+	$Sprite2D.play("opening")
 
 
 func _door_close():
-	$Sprite.play("closing")
+	$Sprite2D.play("closing")
 
 
 func _set_sprite_frames(sprite_frames: SpriteFrames):
-	$Sprite.frames = sprite_frames
+	$Sprite2D.frames = sprite_frames

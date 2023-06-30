@@ -1,5 +1,5 @@
 class_name PlayerCharacter
-extends KinematicBody2D
+extends CharacterBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 
@@ -156,25 +156,25 @@ var dead: bool = false
 var facing_direction: int = 1 # -1 if facing left, 1 if facing right
 var body_rotation: float = 0 # Rotation of the body sprite
 
-onready var base_modifier = BaseModifier.new()
-onready var voice = $Voice
-onready var step = $Step
-onready var spin_sfx = $SpinSFX
-onready var thud = $Thud
-onready var pound_spin_sfx = $PoundSpin
-onready var character_group = $CharacterGroup
-onready var sprite = $CharacterGroup/CharacterSprite
-onready var fludd_sprite = $CharacterGroup/CharacterSprite/Fludd
-onready var camera = $"/root/Main/Player/Camera"
-onready var step_check = $StepCheck
-onready var pound_check_l = $PoundCheckL
-onready var pound_check_r = $PoundCheckR
-onready var angle_cast = $DiveAngling
-onready var hitbox =  $Hitbox
-onready var water_check = $WaterCheck
-onready var switch_sfx = $SwitchSFX
-onready var ground_failsafe_check: Area2D = $GroundFailsafe
-onready var feet_area: Area2D = $Feet
+@onready var base_modifier = BaseModifier.new()
+@onready var voice = $Voice
+@onready var step = $Step
+@onready var spin_sfx = $SpinSFX
+@onready var thud = $Thud
+@onready var pound_spin_sfx = $PoundSpin
+@onready var character_group = $CharacterGroup
+@onready var sprite = $CharacterGroup/CharacterSprite
+@onready var fludd_sprite = $CharacterGroup/CharacterSprite/Fludd
+@onready var camera = $"/root/Main/Player/Camera3D"
+@onready var step_check = $StepCheck
+@onready var pound_check_l = $PoundCheckL
+@onready var pound_check_r = $PoundCheckR
+@onready var angle_cast = $DiveAngling
+@onready var hitbox =  $Hitbox
+@onready var water_check = $WaterCheck
+@onready var switch_sfx = $SwitchSFX
+@onready var ground_failsafe_check: Area2D = $GroundFailsafe
+@onready var feet_area: Area2D = $Feet
 
 
 func _ready():
@@ -645,7 +645,7 @@ func fludd_control():
 					rocket_charge += 1
 				else:
 					fludd_strain = false
-				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(body_rotation) < deg2rad(20) or abs(body_rotation) > deg2rad(340)))):
+				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(body_rotation) < deg_to_rad(20) or abs(body_rotation) > deg_to_rad(340)))):
 					_fludd_spraying_rising = true
 					if state == S.DIVE:
 						var multiplier = 1
@@ -1012,10 +1012,10 @@ func manage_pound_recover() -> void:
 			pound_state = Pound.LAND
 			
 			# Dispatch star effect
-			var fx = ground_pound_effect.instance()
+			var fx = ground_pound_effect.instantiate()
 			get_parent().add_child(fx)
 			fx.global_position = sprite.global_position + Vector2.DOWN * 11
-			fx.find_node("StarsAnim").play("GroundPound")
+			fx.find_child("StarsAnim").play("GroundPound")
 			
 			# Dispatch pound thud
 			# Begin by checking center for a collider
@@ -1059,7 +1059,11 @@ func player_move() -> void:
 	# store the current position in advance
 	var save_pos = position
 	# warning-ignore:return_value_discarded
-	move_and_slide_with_snap(vel * 60.0, snap, Vector2(0, -1), true)
+	set_velocity(vel * 60.0)
+	# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `snap`
+	set_up_direction(Vector2(0, -1))
+	set_floor_stop_on_slope_enabled(true)
+	move_and_slide()
 	
 	# check how far that moved the player
 	var slide_vec = position-save_pos
@@ -1075,7 +1079,13 @@ func player_move() -> void:
 	):
 		position = save_pos
 		# warning-ignore:return_value_discarded
-		move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
+		set_velocity(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0))
+		# TODOConverter40 looks that snap in Godot 4.0 is float, not vector like in Godot 3 - previous value `snap`
+		set_up_direction(Vector2(0, -1))
+		set_floor_stop_on_slope_enabled(true)
+		set_max_slides(4)
+		set_floor_max_angle(deg_to_rad(47))
+		move_and_slide()
 
 
 func get_snap() -> Vector2:
@@ -1192,8 +1202,8 @@ func _get_slide_angle() -> float:
 
 const FADE_TIME = 10
 var fade_timer = 0
-onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(Singleton.WATER_LPF_BUS, 0)
-onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(Singleton.WATER_VRB_BUS, 0)
+@onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(Singleton.WATER_LPF_BUS, 0)
+@onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(Singleton.WATER_VRB_BUS, 0)
 func manage_water_audio(delta):
 	if swimming:
 		# Fade in water fx
@@ -1349,15 +1359,15 @@ func switch_state(new_state):
 	match state:
 		S.DIVE, S.CROUCH:
 			hitbox.position = DIVE_BOX_POS
-			hitbox.shape.extents = DIVE_BOX_EXTENTS
+			hitbox.shape.size = DIVE_BOX_EXTENTS
 		S.POUND:
 			hitbox.position = STAND_BOX_POS
-			hitbox.shape.extents = STAND_BOX_EXTENTS
-			camera.smoothing_speed = 10
+			hitbox.shape.size = STAND_BOX_EXTENTS
+			camera.position_smoothing_speed = 10
 		_:
 			hitbox.position = STAND_BOX_POS
-			hitbox.shape.extents = STAND_BOX_EXTENTS
-			camera.smoothing_speed = 5
+			hitbox.shape.size = STAND_BOX_EXTENTS
+			camera.position_smoothing_speed = 5
 			clear_rotation_origin()
 
 	

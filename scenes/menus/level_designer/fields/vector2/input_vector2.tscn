@@ -1,102 +1,102 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="FontFile" id=1]
 [ext_resource path="res://scenes/menus/level_designer/fields/text_input.tres" type="StyleBox" id=2]
 [ext_resource path="res://scenes/menus/level_designer/fields/vector2/input_vector2.gd" type="Script" id=3]
-[ext_resource path="res://scenes/menus/level_designer/ldui/number_up_pressed.png" type="Texture" id=4]
-[ext_resource path="res://scenes/menus/level_designer/ldui/number_down_pressed.png" type="Texture" id=5]
-[ext_resource path="res://scenes/menus/level_designer/ldui/number_down.png" type="Texture" id=6]
-[ext_resource path="res://scenes/menus/level_designer/ldui/number_up.png" type="Texture" id=7]
+[ext_resource path="res://scenes/menus/level_designer/ldui/number_up_pressed.png" type="Texture2D" id=4]
+[ext_resource path="res://scenes/menus/level_designer/ldui/number_down_pressed.png" type="Texture2D" id=5]
+[ext_resource path="res://scenes/menus/level_designer/ldui/number_down.png" type="Texture2D" id=6]
+[ext_resource path="res://scenes/menus/level_designer/ldui/number_up.png" type="Texture2D" id=7]
 
 [node name="Vector2" type="HBoxContainer"]
-margin_right = 139.0
-margin_bottom = 23.0
-custom_constants/separation = 1
+offset_right = 139.0
+offset_bottom = 23.0
+theme_override_constants/separation = 1
 script = ExtResource( 3 )
 
 [node name="Label" type="Label" parent="."]
-margin_top = 4.0
-margin_right = 45.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
+offset_top = 4.0
+offset_right = 45.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "AAAAA"
 align = 2
 
 [node name="SpacingX" type="Control" parent="."]
-margin_left = 46.0
-margin_right = 51.0
-margin_bottom = 23.0
-rect_min_size = Vector2( 5, 0 )
+offset_left = 46.0
+offset_right = 51.0
+offset_bottom = 23.0
+custom_minimum_size = Vector2( 5, 0 )
 
 [node name="LabelX" type="Label" parent="."]
-margin_left = 52.0
-margin_top = 4.0
-margin_right = 60.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
+offset_left = 52.0
+offset_top = 4.0
+offset_right = 60.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "X"
 align = 2
 
 [node name="LineEditX" type="LineEdit" parent="."]
-margin_left = 61.0
-margin_right = 131.0
-margin_bottom = 23.0
-custom_fonts/font = ExtResource( 1 )
-custom_styles/normal = ExtResource( 2 )
+offset_left = 61.0
+offset_right = 131.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource( 1 )
+theme_override_styles/normal = ExtResource( 2 )
 expand_to_text_length = true
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="UpX" type="TextureButton" parent="."]
-margin_left = 132.0
-margin_right = 164.0
-margin_bottom = 23.0
+offset_left = 132.0
+offset_right = 164.0
+offset_bottom = 23.0
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 4 )
 
 [node name="DownX" type="TextureButton" parent="UpX"]
-margin_top = 12.0
-margin_right = 32.0
-margin_bottom = 35.0
+offset_top = 12.0
+offset_right = 32.0
+offset_bottom = 35.0
 texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 5 )
 
 [node name="SpacingY" type="Control" parent="."]
-margin_left = 165.0
-margin_right = 170.0
-margin_bottom = 23.0
-rect_min_size = Vector2( 5, 0 )
+offset_left = 165.0
+offset_right = 170.0
+offset_bottom = 23.0
+custom_minimum_size = Vector2( 5, 0 )
 
 [node name="LabelY" type="Label" parent="."]
-margin_left = 171.0
-margin_top = 4.0
-margin_right = 180.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
+offset_left = 171.0
+offset_top = 4.0
+offset_right = 180.0
+offset_bottom = 19.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "Y"
 align = 2
 
 [node name="LineEditY" type="LineEdit" parent="."]
-margin_left = 181.0
-margin_right = 251.0
-margin_bottom = 23.0
-custom_fonts/font = ExtResource( 1 )
-custom_styles/normal = ExtResource( 2 )
+offset_left = 181.0
+offset_right = 251.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource( 1 )
+theme_override_styles/normal = ExtResource( 2 )
 expand_to_text_length = true
 caret_blink = true
-caret_blink_speed = 0.5
+caret_blink_interval = 0.5
 
 [node name="UpY" type="TextureButton" parent="."]
-margin_left = 252.0
-margin_right = 284.0
-margin_bottom = 23.0
+offset_left = 252.0
+offset_right = 284.0
+offset_bottom = 23.0
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 4 )
 
 [node name="DownY" type="TextureButton" parent="UpY"]
-margin_top = 12.0
-margin_right = 32.0
-margin_bottom = 35.0
+offset_top = 12.0
+offset_right = 32.0
+offset_bottom = 35.0
 texture_normal = ExtResource( 6 )
 texture_pressed = ExtResource( 5 )
 

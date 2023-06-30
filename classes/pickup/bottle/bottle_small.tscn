@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://classes/pickup/bottle/bottle_small.png" type="Texture" id=1]
+[ext_resource path="res://classes/pickup/bottle/bottle_small.png" type="Texture2D" id=1]
 [ext_resource path="res://classes/pickup/bottle/bottle.gd" type="Script" id=2]
 [ext_resource path="res://classes/pickup/bottle/bottle_small_collect.wav" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6.5, 6 )
+size = Vector2( 6.5, 6 )
 
 [node name="BottleSmall" type="Area2D"]
 collision_layer = 0
@@ -17,7 +17,7 @@ persistent_collect = false
 _sfx_path = NodePath("SFXCollect")
 respawn_seconds = 30.0
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( 0, -1 )
 texture = ExtResource( 1 )
 

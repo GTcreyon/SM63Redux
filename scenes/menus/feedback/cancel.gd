@@ -7,6 +7,6 @@ func _ready():
 
 func _process(_delta):
 	var scalar = Singleton.get_screen_scale()
-	rect_scale = Vector2.ONE * scalar
-	margin_left = 40 * scalar
+	scale = Vector2.ONE * scalar
+	offset_left = 40 * scalar
 	visible = Singleton.touch_control

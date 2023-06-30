@@ -9,7 +9,7 @@ var streak_id: int = 0
 
 
 func _physics_process(delta):
-	if OS.get_ticks_msec() > 3000:
+	if Time.get_ticks_msec() > 3000:
 		var fps = Performance.get_monitor(Performance.TIME_FPS)
 		var time_physics = Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)
 		
@@ -38,7 +38,7 @@ func _physics_process(delta):
 
 
 func print_data():
-	print(JSON.print(dump_data()))
+	print(JSON.stringify(dump_data()))
 
 
 func dump_data() -> Dictionary:

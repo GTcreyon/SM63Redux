@@ -1,8 +1,8 @@
 extends NinePatchRect
 
-onready var node_placer = $"/root/Main"
-onready var compiler = $"/root/Main/PipeScript/VisualCompiler"
-onready var graph = get_parent()
+@onready var node_placer = $"/root/Main"
+@onready var compiler = $"/root/Main/PipeScript/VisualCompiler"
+@onready var graph = get_parent()
 
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
 const STYLEBOX = preload("res://scenes/menus/visual_pipescript/line_edit_style.stylebox")
@@ -29,7 +29,7 @@ var piece_anchor_points = {
 
 # Connection places
 # Do NOT manually set top_connection, invoke the set_top_connection function for that
-var top_connection setget set_top_connection
+var top_connection : set = set_top_connection
 var inner_connection
 var bottom_connection
 
@@ -56,7 +56,7 @@ func get_input_text(idx):
 	# and then checking if it's valid or not
 	if line_edits[idx]:
 		var text = line_edits[idx].text
-		if text.empty():
+		if text.is_empty():
 			compiler.error_flagged = "Input field is empty for %s" % json_data["display-name"]
 			compiler.node_which_flagged = self
 		
@@ -108,23 +108,23 @@ func set_top_connection(conn):
 func update_to_fit_pieces():
 	if json_data.display != "holster":
 		return
-	var original_size = rect_size.y
-	rect_size.y = holster_size_y
+	var original_size = size.y
+	size.y = holster_size_y
 	var piece = self.inner_connection
 	while piece:
-		rect_size.y += piece.rect_size.y
+		size.y += piece.size.y
 		piece = piece.bottom_connection
 	if bottom_connection:
 		bottom_connection.move_piece(
-			bottom_connection.rect_global_position + Vector2(0, rect_size.y - original_size)
+			bottom_connection.global_position + Vector2(0, size.y - original_size)
 		)
 
 func get_anchor_position(type: String) -> Vector2:
 	match type:
 		"bottom_connection":
-			return rect_global_position + Vector2(0, rect_size.y) + piece_anchor_points[json_data.display][type]
+			return global_position + Vector2(0, size.y) + piece_anchor_points[json_data.display][type]
 		_:
-			return rect_global_position + piece_anchor_points[json_data.display][type]
+			return global_position + piece_anchor_points[json_data.display][type]
 
 func get_text_width(text: String) -> Vector2:
 	var width = 0
@@ -140,7 +140,7 @@ func focus_changed(is_focus, index):
 		node_placer.selected_index = index
 
 # Handle switching focus on enter
-func text_entered(_text, index):
+func text_submitted(_text, index):
 	if index + 1 < len(line_edits):
 		line_edits[index + 1].grab_focus()
 	else:
@@ -151,18 +151,18 @@ func text_entered(_text, index):
 func add_input_field_on_press(button, field_text):
 	var text_size = get_text_width(field_text)
 	var label = LineEdit.new()
-	label.add_font_override("font", BYLIGHT)
-	label.add_stylebox_override("normal", STYLEBOX)
+	label.add_theme_font_override("font", BYLIGHT)
+	label.add_theme_stylebox_override("normal", STYLEBOX)
 	label.placeholder_text = field_text
-	label.rect_size = text_size - Vector2(8, 0)
-	label.rect_position = Vector2(button.rect_position.x, 4)
-	label.connect("focus_entered", self, "focus_changed", [true, len(line_edits)])
-	label.connect("focus_exited", self, "focus_changed", [false, len(line_edits)])
-	label.connect("text_entered", self, "text_entered", [len(line_edits)])
+	label.size = text_size - Vector2(8, 0)
+	label.position = Vector2(button.position.x, 4)
+	label.connect("focus_entered", Callable(self, "focus_changed").bind(true, len(line_edits)))
+	label.connect("focus_exited", Callable(self, "focus_changed").bind(false, len(line_edits)))
+	label.connect("text_submitted", Callable(self, "text_submitted").bind(len(line_edits)))
 	add_child(label)
 	line_edits.append(label)
-	button.rect_position.x += text_size.x
-	rect_size.x += text_size.x
+	button.position.x += text_size.x
+	size.x += text_size.x
 
 # Call this to configure the node with json_data
 # Do not call twice on a node
@@ -178,50 +178,50 @@ func setup(data):
 		var text_size = get_text_width(segment)
 		if segment.begins_with("$+"):
 			var button = Button.new()
-			button.add_font_override("font", BYLIGHT)
-			button.add_stylebox_override("normal", STYLEBOX)
+			button.add_theme_font_override("font", BYLIGHT)
+			button.add_theme_stylebox_override("normal", STYLEBOX)
 			button.text = "+"
 			text_size = get_text_width(button.text)
-			button.align = Button.ALIGN_CENTER
-			button.rect_position = Vector2(x_position, 4)
-			button.connect("pressed", self, "add_input_field_on_press", [button, segment.substr(2)])
+			button.align = Button.ALIGNMENT_CENTER
+			button.position = Vector2(x_position, 4)
+			button.connect("pressed", Callable(self, "add_input_field_on_press").bind(button, segment.substr(2)))
 			add_child(button)
 		elif segment.begins_with("$"):
 			var label = LineEdit.new()
-			label.add_font_override("font", BYLIGHT)
-			label.add_stylebox_override("normal", STYLEBOX)
+			label.add_theme_font_override("font", BYLIGHT)
+			label.add_theme_stylebox_override("normal", STYLEBOX)
 			label.placeholder_text = segment.substr(1)
-			label.rect_size = text_size + Vector2(-8, 0)
-			label.rect_position = Vector2(x_position, 4)
-			label.connect("focus_entered", self, "focus_changed", [true, len(line_edits)])
-			label.connect("focus_exited", self, "focus_changed", [false, len(line_edits)])
-			label.connect("text_entered", self, "text_entered", [len(line_edits)])
+			label.size = text_size + Vector2(-8, 0)
+			label.position = Vector2(x_position, 4)
+			label.connect("focus_entered", Callable(self, "focus_changed").bind(true, len(line_edits)))
+			label.connect("focus_exited", Callable(self, "focus_changed").bind(false, len(line_edits)))
+			label.connect("text_submitted", Callable(self, "text_submitted").bind(len(line_edits)))
 			add_child(label)
 			line_edits.append(label)
 		else:
 			var label = Label.new()
-			label.add_font_override("font", BYLIGHT)
+			label.add_theme_font_override("font", BYLIGHT)
 			label.text = segment
-			label.rect_size = text_size + Vector2(0, 8)
+			label.size = text_size + Vector2(0, 8)
 			label.valign = Label.VALIGN_CENTER
-			label.rect_position.x = x_position
+			label.position.x = x_position
 			add_child(label)
 		x_position += text_size.x
 	
 	# Resize the main block
-	rect_min_size = Vector2()
-	rect_size = Vector2(x_position + 20, BYLIGHT.get_height() + 15)
+	custom_minimum_size = Vector2()
+	size = Vector2(x_position + 20, BYLIGHT.get_height() + 15)
 	if data.display == "holster":
-		rect_size.y += 30
-	holster_size_y = rect_size.y
+		size.y += 30
+	holster_size_y = size.y
 
 
 func move_piece(position):
-	var delta = position - rect_global_position
+	var delta = position - global_position
 	var piece_queue = [self]
-	while !piece_queue.empty():
+	while !piece_queue.is_empty():
 		var current_piece = piece_queue.pop_back()
-		current_piece.rect_global_position += delta
+		current_piece.global_position += delta
 		if current_piece.bottom_connection:
 			piece_queue.append(current_piece.bottom_connection)
 		if current_piece.inner_connection:
@@ -303,12 +303,12 @@ func dropdown_pressed(index, text):
 			delete_self(true)
 		"Disconnect below":
 			if bottom_connection:
-				bottom_connection.move_piece(bottom_connection.rect_global_position + Vector2(8, 8))
+				bottom_connection.move_piece(bottom_connection.global_position + Vector2(8, 8))
 				bottom_connection.set_top_connection(null)
 				bottom_connection = null
 		"Disconnect inner":
 			if inner_connection:
-				inner_connection.move_piece(inner_connection.rect_global_position + Vector2(8, 8))
+				inner_connection.move_piece(inner_connection.global_position + Vector2(8, 8))
 				inner_connection.set_top_connection(null)
 				inner_connection = null
 		# TODO: Do the keyboard mode thingy
@@ -339,16 +339,16 @@ func _gui_input(event):
 			("" if inner_connection else "---#") + "Disconnect inner"
 		])
 		dropdown.options = options
-		dropdown.rect_global_position = get_global_mouse_position()# - rect_global_position
+		dropdown.global_position = get_global_mouse_position()# - global_position
 		dropdown.theme = EDITOR_THEME
-		dropdown.connect("button_pressed", self, "dropdown_pressed")
+		dropdown.connect("button_pressed", Callable(self, "dropdown_pressed"))
 		node_placer.add_child(dropdown)
 		
 		accept_event()
 	
 	# Handle being dragged.
 	if event is InputEventMouseButton and event.is_action_pressed("ld_place"):
-		being_dragged = rect_global_position - get_global_mouse_position()
+		being_dragged = global_position - get_global_mouse_position()
 		# Disconnect the node from our top connection
 		if top_connection:
 			if top_connection.bottom_connection == self:

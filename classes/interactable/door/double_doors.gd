@@ -3,7 +3,7 @@ extends Door
 const SINGLE_DOOR_OFFSET = 8
 const FACING_BIAS = 2 # If player's facing one door, they can enter it this many pixels further away.
 
-export var force_exact_target = false
+@export var force_exact_target = false
 
 # This stores which side we've chosen to enter.
 # We need this because the player's facing direction shifts as they enter

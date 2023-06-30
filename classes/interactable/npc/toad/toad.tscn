@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://classes/interactable/npc/toad/toad.png" type="Texture" id=1]
+[ext_resource path="res://classes/interactable/npc/toad/toad.png" type="Texture2D" id=1]
 [ext_resource path="res://shaders/palette.tres" type="Material" id=2]
 [ext_resource path="res://classes/interactable/npc/toad/toad.gd" type="Script" id=3]
 
@@ -37,7 +37,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=12]
-extents = Vector2( 12, 3 )
+size = Vector2( 12, 3 )
 
 [node name="Toad" type="Area2D"]
 material = ExtResource( 2 )
@@ -46,11 +46,11 @@ collision_mask = 2
 input_pickable = false
 monitorable = false
 script = ExtResource( 3 )
-sprite = NodePath("Sprite")
+sprite = NodePath("Sprite2D")
 x_offset = 16
 can_pivot = true
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 z_index = -1
 frames = SubResource( 1 )

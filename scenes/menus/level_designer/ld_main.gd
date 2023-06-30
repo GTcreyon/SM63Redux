@@ -14,13 +14,13 @@ var item_textures = []
 var item_scenes = []
 var in_level = false
 
-var editor_state = EDITOR_STATE.IDLE setget set_editor_state
+var editor_state = EDITOR_STATE.IDLE: set = set_editor_state
 
-onready var open = $"/root/Main/UILayer/OpenDialog"
-onready var sm63_to_redux = SM63ToRedux.new()
-onready var lv_template := preload("./template.tscn")
-onready var ld_ui = $UILayer/LDUI
-onready var ld_camera = $Camera
+@onready var open = $"/root/Main/UILayer/OpenDialog"
+@onready var sm63_to_redux = SM63ToRedux.new()
+@onready var lv_template := preload("./template.tscn")
+@onready var ld_ui = $UILayer/LDUI
+@onready var ld_camera = $Camera3D
 
 # Set the state of the editor
 func set_editor_state(new):
@@ -52,7 +52,7 @@ func get_snapped_mouse_position():
 	return snap_vector(get_global_mouse_position())
 
 func place_terrain(poly):
-	var terrain_ref = TERRAIN_PREFAB.instance()
+	var terrain_ref = TERRAIN_PREFAB.instantiate()
 	terrain_ref.polygon = poly
 	$Template/Terrain.add_child(terrain_ref)
 	return terrain_ref
@@ -62,7 +62,7 @@ func place_item(item_id: int):
 	set_editor_state(EDITOR_STATE.PLACING)
 	
 	# Create and populate loaded item
-	var inst = ITEM_PREFAB.instance()
+	var inst = ITEM_PREFAB.instantiate()
 	inst.ghost = true
 	inst.texture = load(item_textures[item_id]["Placed"])
 	inst.item_id = item_id
@@ -74,7 +74,7 @@ func place_item(item_id: int):
 		if properties[key]["default"] == null:
 			item_properties[key] = default_of_type(properties[key]["type"])
 		else:
-			item_properties[key] = str2var(properties[key]["default"])
+			item_properties[key] = str_to_var(properties[key]["default"])
 	inst.properties = item_properties
 	
 	# Add item to scene
@@ -95,7 +95,7 @@ func default_of_type(type):
 
 
 func _old_place_item(item):
-	var item_ref = ITEM_PREFAB.instance()
+	var item_ref = ITEM_PREFAB.instantiate()
 	item_ref.set("id", item.id)
 	item_ref.set("data", item.data)
 	item_ref.position = item.pos
@@ -110,7 +110,7 @@ func _disabled_draw():
 	
 	for data in lv_data.polygon_data:
 		for poly in data.polygons:
-			var pool = PoolVector2Array()
+			var pool = PackedVector2Array()
 			for vec in poly:
 				pool.append(vec * 32 - Vector2(48, 48))
 #			place_terrain(pool, data.texture_type, data.textures)
@@ -251,19 +251,19 @@ func inherit_class(target, subname: String, type: String, parser: XMLParser):
 
 
 func _ready():
-	var template = lv_template.instance()
+	var template = lv_template.instantiate()
 	add_child(template)
 	read_items()
 	ld_ui.fill_grid()
 	var serializer = Serializer.new()
 	serializer.run_tests(false)
 	
-	if Singleton.ld_buffer != PoolByteArray([]):
+	if Singleton.ld_buffer != PackedByteArray([]):
 		serializer.load_buffer(Singleton.ld_buffer, self)
-		Singleton.ld_buffer = PoolByteArray([])
+		Singleton.ld_buffer = PackedByteArray([])
 
 func _process(_dt):
 	if Input.is_action_just_pressed("ld_exit"): # Return to designer
 		if in_level:
 			in_level = false
-			get_tree().change_scene("res://scenes/menus/level_designer/level_designer.tscn")
+			get_tree().change_scene_to_file("res://scenes/menus/level_designer/level_designer.tscn")

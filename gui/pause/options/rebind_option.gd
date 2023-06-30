@@ -1,10 +1,10 @@
 extends Button
 
-export(String) var action_id = ""
+@export var action_id: String = ""
 
-onready var key_list = $KeyList
-onready var action_name = $ActionName
-var scale: float setget set_scale
+@onready var key_list = $KeyList
+@onready var action_name = $ActionName
+var scale: float: set = set_scale
 var locale_saved: String = ""
 
 
@@ -25,7 +25,7 @@ func _input(event):
 
 
 func update_list():
-	key_list.text = join_action_array(InputMap.get_action_list(action_id))
+	key_list.text = join_action_array(InputMap.action_get_events(action_id))
 
 
 func join_action_array(actions) -> String:
@@ -48,15 +48,15 @@ func join_action_array(actions) -> String:
 
 
 func _on_RebindOption_pressed():
-	if Input.is_mouse_button_pressed(BUTTON_RIGHT):
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		Singleton.get_node("SFX/Back").play()
 		InputMap.action_erase_events(action_id)
 		Singleton.save_input_map(Singleton.get_input_map_json_current())
 		update_list()
 	else:
 		Singleton.get_node("SFX/Next").play()
-		action_name.add_color_override("font_color", Color.green)
-		key_list.add_color_override("font_color", Color.green)
+		action_name.add_theme_color_override("font_color", Color.GREEN)
+		key_list.add_theme_color_override("font_color", Color.GREEN)
 		
 
 func get_brand_id(): # need to get the gamepad brand so we can display correct button icons
@@ -78,20 +78,20 @@ func get_brand_id(): # need to get the gamepad brand so we can display correct b
 
 func _on_RebindOption_mouse_entered():
 	if !pressed:
-		action_name.add_color_override("font_color", Color.aqua)
-		key_list.add_color_override("font_color", Color.aqua)
+		action_name.add_theme_color_override("font_color", Color.AQUA)
+		key_list.add_theme_color_override("font_color", Color.AQUA)
 
 
 func _on_RebindOption_mouse_exited():
 	if !pressed:
-		action_name.add_color_override("font_color", Color.white)
-		key_list.add_color_override("font_color", Color.white)
+		action_name.add_theme_color_override("font_color", Color.WHITE)
+		key_list.add_theme_color_override("font_color", Color.WHITE)
 
 
 func unpress():
 	pressed = false
-	action_name.add_color_override("font_color", Color.white)
-	key_list.add_color_override("font_color", Color.white)
+	action_name.add_theme_color_override("font_color", Color.WHITE)
+	key_list.add_theme_color_override("font_color", Color.WHITE)
 
 
 func get_joypad_motion_name(axis: int, value: float):
@@ -108,9 +108,9 @@ func get_joypad_motion_name(axis: int, value: float):
 
 func set_scale(new_scale):
 	scale = new_scale
-	action_name.rect_scale = Vector2.ONE * new_scale
-	key_list.rect_scale = Vector2.ONE * new_scale
-	key_list.rect_pivot_offset.x = key_list.rect_size.x
+	action_name.scale = Vector2.ONE * new_scale
+	key_list.scale = Vector2.ONE * new_scale
+	key_list.pivot_offset.x = key_list.size.x
 
 
 func _process(_delta):

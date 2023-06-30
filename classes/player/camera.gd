@@ -19,7 +19,7 @@ func _ready():
 	limit_right = 10000000
 	limit_top = -10000000
 	limit_bottom = 10000000
-	if get_path() != "/root/Main/Player/Camera":
+	if get_path() != "/root/Main/Player/Camera3D":
 		queue_free()
 	else:
 		current = true
@@ -47,7 +47,7 @@ func rezoom() -> void:
 func _process(delta):
 	if rezooming:
 		manage_zoom(delta)
-	if OS.window_size.x != 0:
+	if get_window().size.x != 0:
 		var zoom_factor: float = 1 / float(Singleton.get_screen_scale(1))
 		if !get_tree().paused:
 			if Input.is_action_just_pressed("zoom+") and target_zoom > 0.25:
@@ -62,10 +62,10 @@ func _process(delta):
 			limit_right = target_limit_right
 			limit_top = target_limit_top
 			limit_bottom = target_limit_bottom
-			smoothing_enabled = false
+			position_smoothing_enabled = false
 			first_frame = false
 		else:
-			smoothing_enabled = true
+			position_smoothing_enabled = true
 			limit_left = lerp(limit_left, target_limit_left, 0.05)
 			limit_right = lerp(limit_right, target_limit_right, 0.05)
 			limit_top = lerp(limit_top, target_limit_top, 0.05)

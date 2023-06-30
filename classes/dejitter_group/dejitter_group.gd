@@ -6,9 +6,9 @@ extends Node2D
 # DejitterGroup overwrites the object's position.
 # This variable exists so the objects in the group can still have
 # their positions adjusted from code.
-export var dejitter_position = Vector2.ZERO
+@export var dejitter_position = Vector2.ZERO
 
-onready var parent = get_parent()
+@onready var parent = get_parent()
 var last_pos: Vector2
 
 
@@ -16,7 +16,7 @@ func _physics_process(_delta):
 	# Find offset needed to fit uneven-sized sprites to the grid
 	var offset_vec: Vector2
 	var carrier_node = get_node(get_path()) # Get the current node
-	if carrier_node is AnimatedSprite:
+	if carrier_node is AnimatedSprite2D:
 		# Set offset relative to current frame of animation
 		var frames = carrier_node.frames
 		var frame_num = carrier_node.frame

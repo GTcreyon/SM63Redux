@@ -16,19 +16,19 @@ const splash_bank = {
 }
 
 # Settings for water
-export var water_segment_size = 20 # In pixels, this works regardless of water scale.
-export var surface_wave_properties = {
+@export var water_segment_size = 20 # In pixels, this works regardless of water scale.
+@export var surface_wave_properties = {
 	width = 32, # In pixels
 	height = 4, # In pixels
 	speed = 1 # Idk it just works
 }
-export var top_left_corner = Vector2() # Gets automatically set by the parent script
+@export var top_left_corner = Vector2() # Gets automatically set by the parent script
 
 # Private variables
-onready var texture = $"../Viewport/WaterPolygon"
-onready var player = $"/root/Main/Player"
-onready var camera = $"/root/Main/Player/Camera"
-onready var splash = $"../Splash"
+@onready var texture = $"../SubViewport/WaterPolygon"
+@onready var player = $"/root/Main/Player"
+@onready var camera = $"/root/Main/Player/Camera3D"
+@onready var splash = $"../Splash"
 
 var waves = []
 var surface = {}
@@ -38,7 +38,7 @@ var wave_id_counter = 0
 
 # Subdivide the water surface
 func subdivide_surface():
-	var polys = PoolVector2Array()
+	var polys = PackedVector2Array()
 	var size = texture.polygon.size()
 	for i in range(0, size):
 		var dir = texture.polygon[i].direction_to(texture.polygon[(i+1) % size])
@@ -71,7 +71,7 @@ func get_surface_verts():
 
 
 func set_surface_verts(dict):
-	var copy = PoolVector2Array(texture.polygon)
+	var copy = PackedVector2Array(texture.polygon)
 	for k in dict.keys():
 		copy.set(k, dict[k])
 	set_polys(copy)
@@ -202,7 +202,7 @@ func _process(dt):
 				wave_y_modifier[ind] = {[wave.id]: y_mod}
 
 	# Default wave effect
-	var x_os_size = OS.window_size.x
+	var x_os_size = get_window().size.x
 	var x_camera_edge = camera.global_position.x - x_os_size / 2
 	for surf_key in surface.keys():
 		var global_x = surface[surf_key].x + top_left_corner.x
@@ -224,7 +224,7 @@ func _process(dt):
 
 func handle_impact(body, is_exit):
 	if elapsed_time > 0 and (body.get("vel") == null or body.vel.y > 0): # Avoid objects triggering waves when spawning
-		if !(body is KinematicBody2D or body is RigidBody2D):
+		if !(body is CharacterBody2D or body is RigidBody2D):
 			return
 		var this_shape = shape_owner_get_shape(0, 0) # Get our shape
 		var other_shape; var other_owner # Get the other shape and owner_id
@@ -237,11 +237,11 @@ func handle_impact(body, is_exit):
 		var other_transform = body.shape_owner_get_owner(other_owner).global_transform
 		# Get the collision point
 		var contacts = this_shape.collide_and_get_contacts(this_transform, other_shape, other_transform)
-		if contacts.empty(): # If empty, well there's not much we can do then
+		if contacts.is_empty(): # If empty, well there's not much we can do then
 			#print("why are there no contact points?")
 			return
 		var contact = contacts[0] # Get single contact point
-		contact -= top_left_corner; # Transform it to local coordinates
+		contact -= top_left_corner; # Transform3D it to local coordinates
 		
 		# Make the wave size dependant on impact and area
 		var body_vel = 5
@@ -256,7 +256,7 @@ func handle_impact(body, is_exit):
 			splash.stream = splash_bank["small"][randi() % 2]
 		
 		splash.global_position = body.global_position
-		splash.pitch_scale = rand_range(0.6, 1.4)
+		splash.pitch_scale = randf_range(0.6, 1.4)
 		splash.play()
 		
 		body_vel *= (0.5 if is_exit else 1.0)
@@ -267,7 +267,7 @@ func handle_impact(body, is_exit):
 		var speed_mult = sqrt(3 * body_vel) / 2
 		
 		# Multiply area
-		var area_mult = 4 * other_shape.extents.x * other_shape.extents.y / mario_area
+		var area_mult = 4 * other_shape.size.x * other_shape.size.y / mario_area
 		height_mult *= area_mult
 		speed_mult *= area_mult
 		
@@ -299,7 +299,7 @@ func handle_impact(body, is_exit):
 				ind += 1
 				end_of_wave += og_wave_width
 			
-			yield(get_tree(), "idle_frame")
+			await get_tree().idle_frame
 	
 
 func _on_body_entered(body):

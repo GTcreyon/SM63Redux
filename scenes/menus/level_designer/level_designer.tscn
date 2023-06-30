@@ -6,25 +6,25 @@
 [ext_resource path="res://scenes/menus/level_designer/background.tres" type="Material" id=4]
 [ext_resource path="res://scenes/menus/level_designer/music.gd" type="Script" id=5]
 [ext_resource path="res://scenes/menus/level_designer/save_dialog.gd" type="Script" id=6]
-[ext_resource path="res://scenes/menus/level_designer/ldui/top_buttons.png" type="Texture" id=7]
-[ext_resource path="res://scenes/menus/level_designer/ldui/palette.png" type="Texture" id=8]
-[ext_resource path="res://scenes/menus/level_designer/ldui/start_pipe.png" type="Texture" id=9]
-[ext_resource path="res://scenes/menus/level_designer/ldui/start_sign.png" type="Texture" id=10]
-[ext_resource path="res://scenes/menus/level_designer/ldui/big_cog.png" type="Texture" id=11]
+[ext_resource path="res://scenes/menus/level_designer/ldui/top_buttons.png" type="Texture2D" id=7]
+[ext_resource path="res://scenes/menus/level_designer/ldui/palette.png" type="Texture2D" id=8]
+[ext_resource path="res://scenes/menus/level_designer/ldui/start_pipe.png" type="Texture2D" id=9]
+[ext_resource path="res://scenes/menus/level_designer/ldui/start_sign.png" type="Texture2D" id=10]
+[ext_resource path="res://scenes/menus/level_designer/ldui/big_cog.png" type="Texture2D" id=11]
 [ext_resource path="res://scenes/menus/level_designer/ldui/hermes.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/menus/level_designer/ldui/scroll_block_v.png" type="Texture" id=13]
+[ext_resource path="res://scenes/menus/level_designer/ldui/scroll_block_v.png" type="Texture2D" id=13]
 [ext_resource path="res://scenes/menus/level_designer/item_pane.gd" type="Script" id=14]
 [ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scenes/menus/level_designer/start.gd" type="Script" id=16]
 [ext_resource path="res://scenes/menus/level_designer/save.gd" type="Script" id=17]
 [ext_resource path="res://scenes/menus/level_designer/load.gd" type="Script" id=18]
-[ext_resource path="res://scenes/menus/level_designer/ldui/square_outline.png" type="Texture" id=19]
+[ext_resource path="res://scenes/menus/level_designer/ldui/square_outline.png" type="Texture2D" id=19]
 [ext_resource path="res://scenes/menus/level_designer/selection_handler.gd" type="Script" id=20]
-[ext_resource path="res://scenes/menus/level_designer/ldui/poly_editor_button_sheet.png" type="Texture" id=21]
-[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_sheet.png" type="Texture" id=22]
-[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png" type="Texture" id=23]
+[ext_resource path="res://scenes/menus/level_designer/ldui/poly_editor_button_sheet.png" type="Texture2D" id=21]
+[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_sheet.png" type="Texture2D" id=22]
+[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png" type="Texture2D" id=23]
 [ext_resource path="res://scenes/menus/level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
-[ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture" id=25]
+[ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture2D" id=25]
 [ext_resource path="res://scenes/menus/level_designer/bg_grid.gd" type="Script" id=26]
 [ext_resource path="res://scenes/menus/level_designer/open_dialog.gd" type="Script" id=27]
 [ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" type="StyleBox" id=28]
@@ -32,13 +32,13 @@
 [ext_resource path="res://scenes/menus/level_designer/scroller.gd" type="Script" id=30]
 [ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
 [ext_resource path="res://scenes/menus/level_designer/selection_action_handler.gd" type="Script" id=35]
-[ext_resource path="res://scenes/menus/level_designer/ldui/close_button.png" type="Texture" id=36]
+[ext_resource path="res://scenes/menus/level_designer/ldui/close_button.png" type="Texture2D" id=36]
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" type="StyleBox" id=37]
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" type="StyleBox" id=38]
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" type="StyleBox" id=39]
 [ext_resource path="res://scenes/menus/level_designer/polygon_draw.gd" type="Script" id=40]
 [ext_resource path="res://scenes/menus/level_designer/polygon_editor.gd" type="Script" id=41]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=42]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="FontFile" id=42]
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 22 )
@@ -115,7 +115,7 @@ region_rect = Rect2( 0, 0, 70, 70 )
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera3D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
 script = ExtResource( 3 )
@@ -150,10 +150,10 @@ script = ExtResource( 20 )
 [node name="Hover" type="NinePatchRect" parent="UIFollow/Selection"]
 visible = false
 modulate = Color( 0, 0.764706, 1, 1 )
-margin_left = 369.0
-margin_top = 246.0
-margin_right = 436.0
-margin_bottom = 297.0
+offset_left = 369.0
+offset_top = 246.0
+offset_right = 436.0
+offset_bottom = 297.0
 texture = ExtResource( 19 )
 region_rect = Rect2( 0, 0, 8, 8 )
 patch_margin_left = 3
@@ -165,10 +165,10 @@ axis_stretch_vertical = 1
 
 [node name="Buttons" type="Control" parent="UIFollow/Selection"]
 visible = false
-margin_left = 150.0
-margin_top = 100.0
-margin_right = 150.0
-margin_bottom = 132.0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 132.0
 mouse_filter = 2
 script = ExtResource( 35 )
 
@@ -179,14 +179,14 @@ texture_pressed = SubResource( 11 )
 texture_hover = SubResource( 12 )
 
 [node name="Duplicator" type="TextureButton" parent="UIFollow/Selection/Buttons"]
-margin_left = 36.0
+offset_left = 36.0
 mouse_default_cursor_shape = 2
 texture_normal = SubResource( 13 )
 texture_pressed = SubResource( 14 )
 texture_hover = SubResource( 15 )
 
 [node name="Polygon" type="TextureButton" parent="UIFollow/Selection/Buttons"]
-margin_left = 72.0
+offset_left = 72.0
 mouse_default_cursor_shape = 2
 texture_normal = SubResource( 16 )
 texture_pressed = SubResource( 17 )
@@ -197,36 +197,36 @@ mouse_filter = 2
 script = ExtResource( 41 )
 
 [node name="Polygon" type="Control" parent="UIFollow/PolygonEditor"]
-margin_left = 150.0
-margin_top = 100.0
-margin_right = 190.0
-margin_bottom = 140.0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 190.0
+offset_bottom = 140.0
 mouse_filter = 2
 script = ExtResource( 40 )
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="SaveDialog" type="FileDialog" parent="UILayer"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
+offset_right = 315.0
+offset_bottom = 130.0
+exclusive = true
 window_title = "Save Level"
 resizable = true
 mode_overrides_title = false
 access = 2
-filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
+filters = PackedStringArray( "*.63r ; SM63 Redux Level" )
 script = ExtResource( 6 )
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
+offset_right = 315.0
+offset_bottom = 130.0
+exclusive = true
 window_title = "Save Level"
 resizable = true
 mode_overrides_title = false
 mode = 0
 access = 2
-filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
+filters = PackedStringArray( "*.63r ; SM63 Redux Level" )
 script = ExtResource( 27 )
 
 [node name="LDUI" type="Control" parent="UILayer"]
@@ -243,42 +243,42 @@ __meta__ = {
 
 [node name="ColorRect" type="ColorRect" parent="UILayer/LDUI/TopBar"]
 show_behind_parent = true
-margin_right = 136.0
-margin_bottom = 32.0
+offset_right = 136.0
+offset_bottom = 32.0
 color = Color( 0.223529, 0.0941176, 0, 1 )
 
 [node name="File" type="Button" parent="UILayer/LDUI/TopBar"]
-margin_right = 42.0
-margin_bottom = 30.0
-custom_styles/normal = SubResource( 2 )
+offset_right = 42.0
+offset_bottom = 30.0
+theme_override_styles/normal = SubResource( 2 )
 script = ExtResource( 17 )
 
 [node name="Mode" type="Button" parent="UILayer/LDUI/TopBar"]
-margin_left = 46.0
-margin_right = 88.0
-margin_bottom = 30.0
-custom_styles/normal = SubResource( 4 )
+offset_left = 46.0
+offset_right = 88.0
+offset_bottom = 30.0
+theme_override_styles/normal = SubResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Options" type="Button" parent="UILayer/LDUI/TopBar"]
-margin_left = 92.0
-margin_right = 134.0
-margin_bottom = 30.0
-custom_styles/normal = SubResource( 6 )
+offset_left = 92.0
+offset_right = 134.0
+offset_bottom = 30.0
+theme_override_styles/normal = SubResource( 6 )
 script = ExtResource( 18 )
 
 [node name="ItemPane" type="Control" parent="UILayer/LDUI"]
 anchor_bottom = 1.0
-margin_top = 32.0
-margin_right = 96.0
+offset_top = 32.0
+offset_right = 96.0
 script = ExtResource( 14 )
 
 [node name="ItemScrollBar" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 82.0
+offset_left = 82.0
 color = Color( 0.231373, 0.117647, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -287,14 +287,14 @@ __meta__ = {
 [node name="ScrollRegion" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 4.0
-margin_bottom = -93.0
+offset_top = 4.0
+offset_bottom = -93.0
 
 [node name="StopperTop" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
-margin_left = 2.0
-margin_top = -2.0
-margin_right = 12.0
-margin_bottom = 3.0
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 12.0
+offset_bottom = 3.0
 texture = ExtResource( 13 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -303,46 +303,46 @@ __meta__ = {
 [node name="StopperBottom" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = -3.0
-margin_right = 12.0
-margin_bottom = 2.0
+offset_left = 2.0
+offset_top = -3.0
+offset_right = 12.0
+offset_bottom = 2.0
 texture = ExtResource( 13 )
 flip_v = true
 
 [node name="Scroller" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
 anchor_right = 1.0
-margin_left = 2.0
-margin_right = -2.0
-margin_bottom = 60.0
+offset_left = 2.0
+offset_right = -2.0
+offset_bottom = 60.0
 script = ExtResource( 30 )
 
 [node name="ScrollerTop" type="Panel" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion/Scroller"]
 anchor_right = 1.0
 anchor_bottom = 0.5
-rect_min_size = Vector2( 10, 15 )
-custom_styles/panel = ExtResource( 28 )
+custom_minimum_size = Vector2( 10, 15 )
+theme_override_styles/panel = ExtResource( 28 )
 
 [node name="ScrollerBottom" type="Panel" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion/Scroller"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 10, 15 )
-custom_styles/panel = ExtResource( 29 )
+custom_minimum_size = Vector2( 10, 15 )
+theme_override_styles/panel = ExtResource( 29 )
 
 [node name="ItemBlock" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -14.0
+offset_right = -14.0
 color = Color( 0.141176, 0.52549, 0.47451, 1 )
 
 [node name="ItemDisplay" type="Control" parent="UILayer/LDUI/ItemPane/ItemBlock"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -93.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -93.0
 mouse_filter = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -359,11 +359,11 @@ __meta__ = {
 [node name="Base" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
-rect_clip_content = true
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+clip_contents = true
 color = Color( 0.168627, 0.290196, 0.239216, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -372,33 +372,33 @@ __meta__ = {
 [node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/v_separation = 4
+theme_override_constants/h_separation = 4
 columns = 2
 
 [node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme_override_constants/v_separation = 4
+theme_override_constants/h_separation = 4
 columns = 2
 
 [node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/hover = ExtResource( 38 )
-custom_styles/pressed = ExtResource( 39 )
-custom_styles/normal = ExtResource( 37 )
+offset_right = 32.0
+offset_bottom = 32.0
+custom_minimum_size = Vector2( 32, 32 )
+theme_override_styles/hover = ExtResource( 38 )
+theme_override_styles/pressed = ExtResource( 39 )
+theme_override_styles/normal = ExtResource( 37 )
 
 [node name="Icon" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid/Terrain"]
 anchor_right = 1.0
@@ -410,8 +410,8 @@ stretch_mode = 4
 [node name="Palette" type="TextureRect" parent="UILayer/LDUI"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -90.0
-margin_right = 91.0
+offset_top = -90.0
+offset_right = 91.0
 texture = ExtResource( 8 )
 
 [node name="StartButtons" type="Control" parent="UILayer/LDUI"]
@@ -424,16 +424,16 @@ __meta__ = {
 }
 
 [node name="Start" type="Button" parent="UILayer/LDUI/StartButtons"]
-margin_left = -66.0
-margin_top = -65.0
-custom_styles/normal = SubResource( 7 )
+offset_left = -66.0
+offset_top = -65.0
+theme_override_styles/normal = SubResource( 7 )
 script = ExtResource( 16 )
 
 [node name="FromPos" type="Button" parent="UILayer/LDUI/StartButtons"]
-margin_left = -111.0
-margin_top = -36.0
-margin_right = -66.0
-custom_styles/normal = SubResource( 8 )
+offset_left = -111.0
+offset_top = -36.0
+offset_right = -66.0
+theme_override_styles/normal = SubResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -441,11 +441,11 @@ __meta__ = {
 [node name="Cog" type="Button" parent="UILayer/LDUI"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -48.0
-margin_top = -22.0
-margin_right = 22.0
-margin_bottom = 48.0
-custom_styles/normal = SubResource( 9 )
+offset_left = -48.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 48.0
+theme_override_styles/normal = SubResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -472,19 +472,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -90.0
-margin_top = -10.0
-margin_right = 90.0
-margin_bottom = 10.0
-custom_fonts/font = ExtResource( 42 )
+offset_left = -90.0
+offset_top = -10.0
+offset_right = 90.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource( 42 )
 
 [node name="Label" type="Label" parent="UILayer/Loading"]
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -42.0
-margin_bottom = -14.0
-custom_fonts/font = ExtResource( 42 )
+offset_top = -42.0
+offset_bottom = -14.0
+theme_override_fonts/font = ExtResource( 42 )
 text = "Placeholder Loading Text"
 align = 1
 

@@ -3,7 +3,7 @@ extends Control
 
 var pressed: bool = false
 
-onready var sprite = $Sprite
+@onready var sprite = $Sprite2D
 
 
 func _on_Tickbox_pressed():

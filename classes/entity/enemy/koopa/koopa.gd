@@ -24,17 +24,17 @@ enum ShellColor {
 	RED,
 }
 
-export(ShellColor) var color = 0 setget set_color
+@export var color: ShellColor = 0: set = set_color
 
 
 func set_color(new_color):
 	for i in range(3):
-		material.set_shader_param("color" + str(i), COLOR_PRESETS[new_color][i])
+		material.set_shader_parameter("color" + str(i), COLOR_PRESETS[new_color][i])
 	color = new_color
 
 
 func _ready_override():
-	._ready_override()
+	super._ready_override()
 	init_position = position
 	if color != ShellColor.RED:
 		_edge_check_path = ""
@@ -69,7 +69,7 @@ func _hurt_struck(body):
 
 
 func into_shell(vel_x):
-	var inst = SHELL_PREFAB.instance()
+	var inst = SHELL_PREFAB.instantiate()
 	inst.position = position + Vector2(0, 7.5)
 	inst.color = color
 	inst.vel = Vector2(vel_x, 0)

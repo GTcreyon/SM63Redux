@@ -2,12 +2,12 @@ extends Control
 
 signal selection_changed
 
-onready var main = $"/root/Main"
-onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
-onready var camera = $"/root/Main/Camera"
-onready var hover = $Hover
-onready var buttons = $Buttons
-onready var polygon_edit_button = $Buttons/Polygon
+@onready var main = $"/root/Main"
+@onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
+@onready var camera = $"/root/Main/Camera3D"
+@onready var hover = $Hover
+@onready var buttons = $Buttons
+@onready var polygon_edit_button = $Buttons/Polygon
 
 const TEXT_MIN_SIZE = Vector2(8, 8)
 const alpha_bottom = 0.4
@@ -38,7 +38,7 @@ func calculate_selected(max_selected = 32):
 		# Godot pls fix
 		var shape = RectangleShape2D.new()
 		shape.set_extents(selection_rect.size / 2) # Extends is both ways, hence / 2
-		var query = Physics2DShapeQueryParameters.new()
+		var query = PhysicsShapeQueryParameters2D.new()
 		query.collide_with_areas = true
 		query.collide_with_bodies = true
 		query.set_shape(shape)
@@ -74,8 +74,8 @@ func on_release():
 	
 	buttons.visible = len(selection_hit) != 0
 	if buttons.visible:
-		buttons.rect_global_position = main.get_snapped_mouse_position() + Vector2(
-			-buttons.rect_size.x / 2,
+		buttons.global_position = main.get_snapped_mouse_position() + Vector2(
+			-buttons.size.x / 2,
 			4
 		)
 	# Show the polygon edit button
@@ -142,8 +142,8 @@ func _process(dt):
 	selection_rect.size = target_size
 	
 	# Update the actual selection visuals
-	hover.rect_global_position = selection_rect.position
-	hover.rect_size = selection_rect.size
+	hover.global_position = selection_rect.position
+	hover.size = selection_rect.size
 	
 	selection_rect.position += Vector2(1, 1)
 	selection_rect.size -= Vector2(2, 2)

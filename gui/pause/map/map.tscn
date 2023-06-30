@@ -1,27 +1,27 @@
 [gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://classes/pickup/fludd_box/pickup_turbo.png" type="Texture" id=1]
-[ext_resource path="res://classes/pickup/fludd_box/pickup_rocket.png" type="Texture" id=2]
-[ext_resource path="res://classes/pickup/fludd_box/pickup_hover.png" type="Texture" id=3]
-[ext_resource path="res://shaders/flash.shader" type="Shader" id=4]
-[ext_resource path="res://gui/pause/map/paintings/mini.png" type="Texture" id=5]
-[ext_resource path="res://classes/pickup/fludd_box/map_rocket.png" type="Texture" id=7]
-[ext_resource path="res://classes/pickup/fludd_box/map_turbo.png" type="Texture" id=8]
-[ext_resource path="res://classes/pickup/fludd_box/map_hover.png" type="Texture" id=9]
-[ext_resource path="res://gui/pause/map/paintings/bob.png" type="Texture" id=10]
-[ext_resource path="res://gui/pause/map/scroll_handle.png" type="Texture" id=11]
-[ext_resource path="res://gui/pause/map/divider_middle.png" type="Texture" id=12]
-[ext_resource path="res://gui/pause/map/map_shine_0.png" type="Texture" id=13]
-[ext_resource path="res://gui/pause/map/scroll_top.png" type="Texture" id=14]
-[ext_resource path="res://gui/pause/map/map_coin_0.png" type="Texture" id=15]
-[ext_resource path="res://gui/pause/map/scroll_bar.png" type="Texture" id=16]
-[ext_resource path="res://gui/pause/map/pin.png" type="Texture" id=18]
-[ext_resource path="res://gui/pause/map/divider_edge.png" type="Texture" id=19]
-[ext_resource path="res://gui/pause/map/map_shine_1.png" type="Texture" id=20]
+[ext_resource path="res://classes/pickup/fludd_box/pickup_turbo.png" type="Texture2D" id=1]
+[ext_resource path="res://classes/pickup/fludd_box/pickup_rocket.png" type="Texture2D" id=2]
+[ext_resource path="res://classes/pickup/fludd_box/pickup_hover.png" type="Texture2D" id=3]
+[ext_resource path="res://shaders/flash.gdshader" type="Shader" id=4]
+[ext_resource path="res://gui/pause/map/paintings/mini.png" type="Texture2D" id=5]
+[ext_resource path="res://classes/pickup/fludd_box/map_rocket.png" type="Texture2D" id=7]
+[ext_resource path="res://classes/pickup/fludd_box/map_turbo.png" type="Texture2D" id=8]
+[ext_resource path="res://classes/pickup/fludd_box/map_hover.png" type="Texture2D" id=9]
+[ext_resource path="res://gui/pause/map/paintings/bob.png" type="Texture2D" id=10]
+[ext_resource path="res://gui/pause/map/scroll_handle.png" type="Texture2D" id=11]
+[ext_resource path="res://gui/pause/map/divider_middle.png" type="Texture2D" id=12]
+[ext_resource path="res://gui/pause/map/map_shine_0.png" type="Texture2D" id=13]
+[ext_resource path="res://gui/pause/map/scroll_top.png" type="Texture2D" id=14]
+[ext_resource path="res://gui/pause/map/map_coin_0.png" type="Texture2D" id=15]
+[ext_resource path="res://gui/pause/map/scroll_bar.png" type="Texture2D" id=16]
+[ext_resource path="res://gui/pause/map/pin.png" type="Texture2D" id=18]
+[ext_resource path="res://gui/pause/map/divider_edge.png" type="Texture2D" id=19]
+[ext_resource path="res://gui/pause/map/map_shine_1.png" type="Texture2D" id=20]
 [ext_resource path="res://gui/hud/shine_map.gd" type="Script" id=21]
-[ext_resource path="res://fonts/red/gui_red.fnt" type="BitmapFont" id=22]
+[ext_resource path="res://fonts/red/gui_red.fnt" type="FontFile" id=22]
 [ext_resource path="res://gui/pause/map_course.gd" type="Script" id=23]
-[ext_resource path="res://gui/hud/hud_icons.png" type="Texture" id=24]
+[ext_resource path="res://gui/hud/hud_icons.png" type="Texture2D" id=24]
 
 [sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 24 )
@@ -95,40 +95,40 @@ script = ExtResource( 21 )
 [node name="Courses" type="VBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 166
+theme_override_constants/separation = 166
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="MainCourses" type="VBoxContainer" parent="Courses"]
-margin_right = 640.0
-custom_constants/separation = 166
+offset_right = 640.0
+theme_override_constants/separation = 166
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="BoB" type="Control" parent="Courses/MainCourses"]
-margin_right = 640.0
+offset_right = 640.0
 script = ExtResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Painting" type="TextureRect" parent="Courses/MainCourses/BoB"]
-margin_left = 21.0
-margin_top = 12.0
+offset_left = 21.0
+offset_top = 12.0
 texture = ExtResource( 10 )
 
-[node name="Pin" type="Sprite" parent="Courses/MainCourses/BoB/Painting"]
+[node name="Pin" type="Sprite2D" parent="Courses/MainCourses/BoB/Painting"]
 position = Vector2( 52, 0 )
 texture = ExtResource( 18 )
 
 [node name="Name" type="Label" parent="Courses/MainCourses/BoB"]
 anchor_right = 1.0
-margin_left = 133.0
-margin_top = 14.0
-margin_bottom = 49.0
-custom_fonts/font = ExtResource( 22 )
+offset_left = 133.0
+offset_top = 14.0
+offset_bottom = 49.0
+theme_override_fonts/font = ExtResource( 22 )
 text = "Bob-omb Battlefield
  - Coming soon!"
 valign = 1
@@ -139,138 +139,138 @@ __meta__ = {
 }
 
 [node name="CoinRow" type="Control" parent="Courses/MainCourses/BoB"]
-margin_left = 33.0
-margin_top = 113.0
+offset_left = 33.0
+offset_top = 113.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Courses/MainCourses/BoB/CoinRow"]
+[node name="Sprite2D" type="Sprite2D" parent="Courses/MainCourses/BoB/CoinRow"]
 texture = SubResource( 8 )
 centered = false
 
-[node name="X" type="Sprite" parent="Courses/MainCourses/BoB/CoinRow"]
+[node name="X" type="Sprite2D" parent="Courses/MainCourses/BoB/CoinRow"]
 position = Vector2( 19, 4 )
 texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="Courses/MainCourses/BoB/CoinRow"]
 material = SubResource( 3 )
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 72.0
-margin_bottom = 17.0
-custom_fonts/font = ExtResource( 22 )
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 72.0
+offset_bottom = 17.0
+theme_override_fonts/font = ExtResource( 22 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ShineGroup" type="Control" parent="Courses/MainCourses/BoB"]
-margin_left = 178.0
-margin_top = 75.0
-margin_right = 178.0
-margin_bottom = 75.0
+offset_left = 178.0
+offset_top = 75.0
+offset_right = 178.0
+offset_bottom = 75.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Shine1" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
+[node name="Shine1" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
 frames = SubResource( 4 )
 animation = "off"
 
-[node name="Shine2" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
+[node name="Shine2" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
 position = Vector2( 25, 25 )
 frames = SubResource( 4 )
 animation = "off"
 
-[node name="Shine3" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
+[node name="Shine3" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
 position = Vector2( 16, 56 )
 frames = SubResource( 4 )
 animation = "off"
 
-[node name="Shine4" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
+[node name="Shine4" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
 position = Vector2( -16, 56 )
 frames = SubResource( 4 )
 animation = "off"
 
-[node name="Shine5" type="AnimatedSprite" parent="Courses/MainCourses/BoB/ShineGroup"]
+[node name="Shine5" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
 position = Vector2( -25, 25 )
 frames = SubResource( 4 )
 animation = "off"
 
 [node name="CoinGroup" type="GridContainer" parent="Courses/MainCourses/BoB"]
-margin_left = 239.0
-margin_top = 62.0
-custom_constants/vseparation = 2
-custom_constants/hseparation = 3
+offset_left = 239.0
+offset_top = 62.0
+theme_override_constants/v_separation = 2
+theme_override_constants/h_separation = 3
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Coin1" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
-margin_right = 26.0
-margin_bottom = 26.0
+offset_right = 26.0
+offset_bottom = 26.0
 texture = ExtResource( 15 )
 
 [node name="Coin2" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
-margin_left = 29.0
-margin_right = 55.0
-margin_bottom = 26.0
+offset_left = 29.0
+offset_right = 55.0
+offset_bottom = 26.0
 texture = ExtResource( 15 )
 
 [node name="Coin3" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
-margin_top = 28.0
-margin_right = 26.0
-margin_bottom = 54.0
+offset_top = 28.0
+offset_right = 26.0
+offset_bottom = 54.0
 texture = ExtResource( 15 )
 
 [node name="Coin4" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
-margin_left = 29.0
-margin_top = 28.0
-margin_right = 55.0
-margin_bottom = 54.0
+offset_left = 29.0
+offset_top = 28.0
+offset_right = 55.0
+offset_bottom = 54.0
 texture = ExtResource( 15 )
 
 [node name="Coin5" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
-margin_top = 56.0
-margin_right = 26.0
-margin_bottom = 82.0
+offset_top = 56.0
+offset_right = 26.0
+offset_bottom = 82.0
 texture = ExtResource( 15 )
 
 [node name="Coin6" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
-margin_left = 29.0
-margin_top = 56.0
-margin_right = 55.0
-margin_bottom = 82.0
+offset_left = 29.0
+offset_top = 56.0
+offset_right = 55.0
+offset_bottom = 82.0
 texture = ExtResource( 15 )
 
 [node name="FluddGroup" type="Control" parent="Courses/MainCourses/BoB"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -48.0
-margin_top = 75.0
+offset_left = -48.0
+offset_top = 75.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Hover" type="AnimatedSprite" parent="Courses/MainCourses/BoB/FluddGroup"]
+[node name="Hover" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/FluddGroup"]
 frames = SubResource( 5 )
 animation = "off"
 
-[node name="Rocket" type="AnimatedSprite" parent="Courses/MainCourses/BoB/FluddGroup"]
+[node name="Rocket" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/FluddGroup"]
 position = Vector2( 0, 27 )
 frames = SubResource( 6 )
 animation = "off"
 
-[node name="Turbo" type="AnimatedSprite" parent="Courses/MainCourses/BoB/FluddGroup"]
+[node name="Turbo" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/FluddGroup"]
 position = Vector2( 0, 56 )
 frames = SubResource( 9 )
 animation = "off"
 
 [node name="DividerLeft" type="TextureRect" parent="Courses/MainCourses/BoB"]
-margin_left = 12.0
-margin_top = 157.0
+offset_left = 12.0
+offset_top = 157.0
 texture = ExtResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -278,9 +278,9 @@ __meta__ = {
 
 [node name="DividerMiddle" type="TextureRect" parent="Courses/MainCourses/BoB"]
 anchor_right = 1.0
-margin_left = 20.0
-margin_top = 156.0
-margin_right = -35.0
+offset_left = 20.0
+offset_top = 156.0
+offset_right = -35.0
 texture = ExtResource( 12 )
 stretch_mode = 2
 __meta__ = {
@@ -290,8 +290,8 @@ __meta__ = {
 [node name="DividerRight" type="TextureRect" parent="Courses/MainCourses/BoB"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -35.0
-margin_top = 157.0
+offset_left = -35.0
+offset_top = 157.0
 texture = ExtResource( 19 )
 flip_h = true
 __meta__ = {
@@ -300,32 +300,32 @@ __meta__ = {
 
 [node name="SL" type="Control" parent="Courses/MainCourses"]
 visible = false
-margin_top = 166.0
-margin_right = 640.0
-margin_bottom = 166.0
+offset_top = 166.0
+offset_right = 640.0
+offset_bottom = 166.0
 script = ExtResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Painting" type="TextureRect" parent="Courses/MainCourses/SL"]
-margin_left = 21.0
-margin_top = 12.0
+offset_left = 21.0
+offset_top = 12.0
 texture = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Pin" type="Sprite" parent="Courses/MainCourses/SL/Painting"]
+[node name="Pin" type="Sprite2D" parent="Courses/MainCourses/SL/Painting"]
 position = Vector2( 52, 0 )
 texture = ExtResource( 18 )
 
 [node name="Name" type="Label" parent="Courses/MainCourses/SL"]
 anchor_right = 1.0
-margin_left = 133.0
-margin_top = 14.0
-margin_bottom = 49.0
-custom_fonts/font = ExtResource( 22 )
+offset_left = 133.0
+offset_top = 14.0
+offset_bottom = 49.0
+theme_override_fonts/font = ExtResource( 22 )
 text = "Coming soon!"
 valign = 1
 autowrap = true
@@ -335,141 +335,141 @@ __meta__ = {
 }
 
 [node name="CoinRow" type="Control" parent="Courses/MainCourses/SL"]
-margin_left = 33.0
-margin_top = 113.0
+offset_left = 33.0
+offset_top = 113.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Courses/MainCourses/SL/CoinRow"]
+[node name="Sprite2D" type="Sprite2D" parent="Courses/MainCourses/SL/CoinRow"]
 texture = SubResource( 8 )
 centered = false
 
-[node name="X" type="Sprite" parent="Courses/MainCourses/SL/CoinRow"]
+[node name="X" type="Sprite2D" parent="Courses/MainCourses/SL/CoinRow"]
 position = Vector2( 19, 4 )
 texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="Courses/MainCourses/SL/CoinRow"]
 material = SubResource( 3 )
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 72.0
-margin_bottom = 17.0
-custom_fonts/font = ExtResource( 22 )
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 72.0
+offset_bottom = 17.0
+theme_override_fonts/font = ExtResource( 22 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ShineGroup" type="Control" parent="Courses/MainCourses/SL"]
 visible = false
-margin_left = 178.0
-margin_top = 75.0
-margin_right = 178.0
-margin_bottom = 75.0
+offset_left = 178.0
+offset_top = 75.0
+offset_right = 178.0
+offset_bottom = 75.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Shine1" type="AnimatedSprite" parent="Courses/MainCourses/SL/ShineGroup"]
+[node name="Shine1" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
 frames = SubResource( 4 )
 animation = "on"
 
-[node name="Shine2" type="AnimatedSprite" parent="Courses/MainCourses/SL/ShineGroup"]
+[node name="Shine2" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
 position = Vector2( 25, 25 )
 frames = SubResource( 4 )
 animation = "on"
 
-[node name="Shine3" type="AnimatedSprite" parent="Courses/MainCourses/SL/ShineGroup"]
+[node name="Shine3" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
 position = Vector2( 16, 56 )
 frames = SubResource( 4 )
 animation = "on"
 
-[node name="Shine4" type="AnimatedSprite" parent="Courses/MainCourses/SL/ShineGroup"]
+[node name="Shine4" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
 position = Vector2( -16, 56 )
 frames = SubResource( 4 )
 animation = "on"
 
-[node name="Shine5" type="AnimatedSprite" parent="Courses/MainCourses/SL/ShineGroup"]
+[node name="Shine5" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
 position = Vector2( -25, 25 )
 frames = SubResource( 4 )
 animation = "on"
 
 [node name="CoinGroup" type="GridContainer" parent="Courses/MainCourses/SL"]
 visible = false
-margin_left = 239.0
-margin_top = 62.0
-custom_constants/vseparation = 2
-custom_constants/hseparation = 3
+offset_left = 239.0
+offset_top = 62.0
+theme_override_constants/v_separation = 2
+theme_override_constants/h_separation = 3
 columns = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Coin1" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
-margin_right = 26.0
-margin_bottom = 26.0
+offset_right = 26.0
+offset_bottom = 26.0
 texture = ExtResource( 15 )
 
 [node name="Coin2" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
-margin_left = 29.0
-margin_right = 55.0
-margin_bottom = 26.0
+offset_left = 29.0
+offset_right = 55.0
+offset_bottom = 26.0
 texture = ExtResource( 15 )
 
 [node name="Coin3" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
-margin_top = 28.0
-margin_right = 26.0
-margin_bottom = 54.0
+offset_top = 28.0
+offset_right = 26.0
+offset_bottom = 54.0
 texture = ExtResource( 15 )
 
 [node name="Coin4" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
-margin_left = 29.0
-margin_top = 28.0
-margin_right = 55.0
-margin_bottom = 54.0
+offset_left = 29.0
+offset_top = 28.0
+offset_right = 55.0
+offset_bottom = 54.0
 texture = ExtResource( 15 )
 
 [node name="Coin5" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
-margin_top = 56.0
-margin_right = 26.0
-margin_bottom = 82.0
+offset_top = 56.0
+offset_right = 26.0
+offset_bottom = 82.0
 texture = ExtResource( 15 )
 
 [node name="Coin6" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
-margin_left = 29.0
-margin_top = 56.0
-margin_right = 55.0
-margin_bottom = 82.0
+offset_left = 29.0
+offset_top = 56.0
+offset_right = 55.0
+offset_bottom = 82.0
 texture = ExtResource( 15 )
 
 [node name="FluddGroup" type="Control" parent="Courses/MainCourses/SL"]
 visible = false
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -48.0
-margin_top = 75.0
+offset_left = -48.0
+offset_top = 75.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Hover" type="AnimatedSprite" parent="Courses/MainCourses/SL/FluddGroup"]
+[node name="Hover" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/FluddGroup"]
 frames = SubResource( 5 )
 animation = "on"
 
-[node name="Rocket" type="AnimatedSprite" parent="Courses/MainCourses/SL/FluddGroup"]
+[node name="Rocket" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/FluddGroup"]
 position = Vector2( 0, 27 )
 frames = SubResource( 6 )
 animation = "on"
 
-[node name="Turbo" type="AnimatedSprite" parent="Courses/MainCourses/SL/FluddGroup"]
+[node name="Turbo" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/FluddGroup"]
 position = Vector2( 0, 56 )
 frames = SubResource( 9 )
 animation = "on"
 
 [node name="DividerLeft" type="TextureRect" parent="Courses/MainCourses/SL"]
-margin_left = 12.0
-margin_top = 157.0
+offset_left = 12.0
+offset_top = 157.0
 texture = ExtResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -477,9 +477,9 @@ __meta__ = {
 
 [node name="DividerMiddle" type="TextureRect" parent="Courses/MainCourses/SL"]
 anchor_right = 1.0
-margin_left = 20.0
-margin_top = 156.0
-margin_right = -35.0
+offset_left = 20.0
+offset_top = 156.0
+offset_right = -35.0
 texture = ExtResource( 12 )
 stretch_mode = 2
 __meta__ = {
@@ -489,8 +489,8 @@ __meta__ = {
 [node name="DividerRight" type="TextureRect" parent="Courses/MainCourses/SL"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -35.0
-margin_top = 157.0
+offset_left = -35.0
+offset_top = 157.0
 texture = ExtResource( 19 )
 flip_h = true
 __meta__ = {
@@ -499,39 +499,39 @@ __meta__ = {
 
 [node name="MiniCourses" type="VBoxContainer" parent="Courses"]
 visible = false
-margin_top = 166.0
-margin_right = 640.0
-margin_bottom = 166.0
-custom_constants/separation = 166
+offset_top = 166.0
+offset_right = 640.0
+offset_bottom = 166.0
+theme_override_constants/separation = 166
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SSL" type="Control" parent="Courses/MiniCourses"]
-margin_right = 640.0
+offset_right = 640.0
 script = ExtResource( 23 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Painting" type="TextureRect" parent="Courses/MiniCourses/SSL"]
-margin_left = 21.0
-margin_top = 12.0
+offset_left = 21.0
+offset_top = 12.0
 texture = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Pin" type="Sprite" parent="Courses/MiniCourses/SSL/Painting"]
+[node name="Pin" type="Sprite2D" parent="Courses/MiniCourses/SSL/Painting"]
 position = Vector2( 36, 0 )
 texture = ExtResource( 18 )
 
 [node name="Name" type="Label" parent="Courses/MiniCourses/SSL"]
 anchor_right = 1.0
-margin_left = 101.0
-margin_top = 14.0
-margin_bottom = 49.0
-custom_fonts/font = ExtResource( 22 )
+offset_left = 101.0
+offset_top = 14.0
+offset_bottom = 49.0
+theme_override_fonts/font = ExtResource( 22 )
 text = "Shifting
 Sand Land"
 valign = 1
@@ -542,107 +542,107 @@ __meta__ = {
 }
 
 [node name="CoinRow" type="Control" parent="Courses/MiniCourses/SSL"]
-margin_left = 33.0
-margin_top = 81.0
+offset_left = 33.0
+offset_top = 81.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Sprite" type="Sprite" parent="Courses/MiniCourses/SSL/CoinRow"]
+[node name="Sprite2D" type="Sprite2D" parent="Courses/MiniCourses/SSL/CoinRow"]
 texture = SubResource( 8 )
 centered = false
 
-[node name="X" type="Sprite" parent="Courses/MiniCourses/SSL/CoinRow"]
+[node name="X" type="Sprite2D" parent="Courses/MiniCourses/SSL/CoinRow"]
 position = Vector2( 19, 4 )
 texture = SubResource( 7 )
 centered = false
 
 [node name="Count" type="Label" parent="Courses/MiniCourses/SSL/CoinRow"]
 material = SubResource( 3 )
-margin_left = 32.0
-margin_top = 1.0
-margin_right = 72.0
-margin_bottom = 17.0
-custom_fonts/font = ExtResource( 22 )
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 72.0
+offset_bottom = 17.0
+theme_override_fonts/font = ExtResource( 22 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ShineGroup" type="Control" parent="Courses/MiniCourses/SSL"]
-margin_left = 153.0
-margin_top = 75.0
-margin_bottom = 75.0
+offset_left = 153.0
+offset_top = 75.0
+offset_bottom = 75.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Shine1" type="AnimatedSprite" parent="Courses/MiniCourses/SSL/ShineGroup"]
+[node name="Shine1" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/ShineGroup"]
 position = Vector2( -32, 0 )
 frames = SubResource( 4 )
 animation = "on"
 
-[node name="Shine2" type="AnimatedSprite" parent="Courses/MiniCourses/SSL/ShineGroup"]
+[node name="Shine2" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/ShineGroup"]
 frames = SubResource( 4 )
 animation = "on"
 
-[node name="Shine3" type="AnimatedSprite" parent="Courses/MiniCourses/SSL/ShineGroup"]
+[node name="Shine3" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/ShineGroup"]
 position = Vector2( 32, 0 )
 frames = SubResource( 4 )
 animation = "on"
 
 [node name="CoinGroup" type="GridContainer" parent="Courses/MiniCourses/SSL"]
-margin_left = 217.0
-margin_top = 63.0
-custom_constants/vseparation = 2
-custom_constants/hseparation = 3
+offset_left = 217.0
+offset_top = 63.0
+theme_override_constants/v_separation = 2
+theme_override_constants/h_separation = 3
 columns = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Coin1" type="TextureRect" parent="Courses/MiniCourses/SSL/CoinGroup"]
-margin_right = 26.0
-margin_bottom = 26.0
+offset_right = 26.0
+offset_bottom = 26.0
 texture = ExtResource( 15 )
 
 [node name="Coin2" type="TextureRect" parent="Courses/MiniCourses/SSL/CoinGroup"]
-margin_left = 29.0
-margin_right = 55.0
-margin_bottom = 26.0
+offset_left = 29.0
+offset_right = 55.0
+offset_bottom = 26.0
 texture = ExtResource( 15 )
 
 [node name="Coin3" type="TextureRect" parent="Courses/MiniCourses/SSL/CoinGroup"]
-margin_left = 58.0
-margin_right = 84.0
-margin_bottom = 26.0
+offset_left = 58.0
+offset_right = 84.0
+offset_bottom = 26.0
 texture = ExtResource( 15 )
 
 [node name="FluddGroup" type="Control" parent="Courses/MiniCourses/SSL"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -48.0
-margin_top = 20.0
+offset_left = -48.0
+offset_top = 20.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Hover" type="AnimatedSprite" parent="Courses/MiniCourses/SSL/FluddGroup"]
+[node name="Hover" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/FluddGroup"]
 frames = SubResource( 5 )
 animation = "on"
 
-[node name="Rocket" type="AnimatedSprite" parent="Courses/MiniCourses/SSL/FluddGroup"]
+[node name="Rocket" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/FluddGroup"]
 position = Vector2( 0, 27 )
 frames = SubResource( 6 )
 animation = "on"
 
-[node name="Turbo" type="AnimatedSprite" parent="Courses/MiniCourses/SSL/FluddGroup"]
+[node name="Turbo" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/FluddGroup"]
 position = Vector2( 0, 56 )
 frames = SubResource( 9 )
 animation = "on"
 
 [node name="DividerLeft" type="TextureRect" parent="Courses/MiniCourses/SSL"]
-margin_left = 12.0
-margin_top = 104.0
+offset_left = 12.0
+offset_top = 104.0
 texture = ExtResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -650,9 +650,9 @@ __meta__ = {
 
 [node name="DividerMiddle" type="TextureRect" parent="Courses/MiniCourses/SSL"]
 anchor_right = 1.0
-margin_left = 20.0
-margin_top = 103.0
-margin_right = -35.0
+offset_left = 20.0
+offset_top = 103.0
+offset_right = -35.0
 texture = ExtResource( 12 )
 stretch_mode = 2
 __meta__ = {
@@ -662,8 +662,8 @@ __meta__ = {
 [node name="DividerRight" type="TextureRect" parent="Courses/MiniCourses/SSL"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -35.0
-margin_top = 104.0
+offset_left = -35.0
+offset_top = 104.0
 texture = ExtResource( 19 )
 flip_h = true
 __meta__ = {
@@ -674,8 +674,8 @@ __meta__ = {
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -15.0
-margin_top = 2.0
+offset_left = -15.0
+offset_top = 2.0
 texture = ExtResource( 16 )
 expand = true
 stretch_mode = 2
@@ -686,8 +686,8 @@ __meta__ = {
 [node name="ScrollTop" type="TextureRect" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -15.0
-margin_bottom = 2.0
+offset_left = -15.0
+offset_bottom = 2.0
 texture = ExtResource( 14 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -698,9 +698,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -13.0
-margin_top = -1.0
-margin_right = -1.0
+offset_left = -13.0
+offset_top = -1.0
+offset_right = -1.0
 color = Color( 0.607843, 0.639216, 0.780392, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -709,10 +709,10 @@ __meta__ = {
 [node name="ScrollHandle" type="TextureRect" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -13.0
-margin_top = 1.0
-margin_right = -1.0
-margin_bottom = 52.0
+offset_left = -13.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 52.0
 texture = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": false

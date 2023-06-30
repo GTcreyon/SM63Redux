@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 # Handles FLUDD pack visuals, including orienting the water spray effects.
 #
 # The heart of this script is the pose management system. Because a few (but
@@ -108,12 +108,12 @@ const SPRAY_ORIGIN_DIVE = SPRAY_ORIGIN + Vector2(1, 2)
 const PLUME_ORIGIN = Vector2(-10, -2)
 const PLUME_ORIGIN_DIVE = PLUME_ORIGIN + Vector2(1, 2)
 
-onready var player_sprite: AnimatedSprite = $".."
-onready var player_body: KinematicBody2D = $"../../.."
-onready var hover_sfx = $HoverSFX
-onready var hover_loop_sfx = $HoverLoopSFX
-onready var spray_particles = $"../../../SprayViewport/SprayParticles"
-onready var spray_plume = $"../../../SprayPlume"
+@onready var player_sprite: AnimatedSprite2D = $".."
+@onready var player_body: CharacterBody2D = $"../../.."
+@onready var hover_sfx = $HoverSFX
+@onready var hover_loop_sfx = $HoverLoopSFX
+@onready var spray_particles = $"../../../SprayViewport/SprayParticles"
+@onready var spray_plume = $"../../../SprayPlume"
 
 var _nozzle: String = "hover"
 var nozzle_fx_scale = 0

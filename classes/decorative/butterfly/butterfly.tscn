@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://classes/decorative/butterfly/butterfly.png" type="Texture" id=1]
+[ext_resource path="res://classes/decorative/butterfly/butterfly.png" type="Texture2D" id=1]
 [ext_resource path="res://classes/decorative/butterfly/butterfly.gd" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=4]
@@ -97,7 +97,7 @@ animations = [ {
 "speed": 4.0
 } ]
 
-[node name="Butterfly" type="AnimatedSprite"]
+[node name="Butterfly" type="AnimatedSprite2D"]
 frames = SubResource( 1 )
 animation = "white"
 script = ExtResource( 2 )

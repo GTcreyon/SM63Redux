@@ -1,9 +1,9 @@
 [gd_scene load_steps=28 format=2]
 
-[ext_resource path="res://shaders/palette.shader" type="Shader" id=1]
+[ext_resource path="res://shaders/palette.gdshader" type="Shader" id=1]
 [ext_resource path="res://classes/solid/terrain/terrain_polygon.tscn" type="PackedScene" id=7]
 [ext_resource path="res://classes/water/water.tscn" type="PackedScene" id=8]
-[ext_resource path="res://shaders/glow.shader" type="Shader" id=9]
+[ext_resource path="res://shaders/glow.gdshader" type="Shader" id=9]
 [ext_resource path="res://classes/solid/fungus_platform/fungus_stem.tscn" type="PackedScene" id=10]
 [ext_resource path="res://classes/player/player.tscn" type="PackedScene" id=11]
 [ext_resource path="res://classes/interactable/sign/sign.tscn" type="PackedScene" id=12]
@@ -57,7 +57,7 @@ shader_param/color5 = Color( 0, 1, 1, 1 )
 
 [node name="CameraArea" parent="." instance=ExtResource( 21 )]
 visible = false
-polygon = PoolVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
+polygon = PackedVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
 
 [node name="Player" parent="." instance=ExtResource( 11 )]
 position = Vector2( 64, 195.944 )
@@ -67,14 +67,14 @@ position = Vector2( 64, 195.944 )
 [node name="Water" parent="Water" instance=ExtResource( 8 )]
 position = Vector2( 1414, 150 )
 z_index = 2
-polygon = PoolVector2Array( 0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60 )
+polygon = PackedVector2Array( 0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60 )
 
 [node name="Terrain" type="Node2D" parent="."]
 
 [node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 7 )]
 position = Vector2( 0, 215 )
 z_index = 1
-polygon = PoolVector2Array( -435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281 )
+polygon = PackedVector2Array( -435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281 )
 edge_types = {
 18: 3,
 19: 3,
@@ -88,50 +88,50 @@ edge_types = {
 
 [node name="FungusStem6" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 803, 174 )
-points = PoolVector2Array( -6, -3, -10, 4, -11, 14, -10, 25 )
+points = PackedVector2Array( -6, -3, -10, 4, -11, 14, -10, 25 )
 
 [node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 346, 83 )
 z_index = -3
-points = PoolVector2Array( -7, -5, -6, 5, -3, 13, 4, 21, 12, 27, 16, 35, 14, 45, 9, 54, 3, 64, -1, 75, -5, 87, -5, 100, 0, 112 )
+points = PackedVector2Array( -7, -5, -6, 5, -3, 13, 4, 21, 12, 27, 16, 35, 14, 45, 9, 54, 3, 64, -1, 75, -5, 87, -5, 100, 0, 112 )
 
 [node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 326, 133 )
-points = PoolVector2Array( -6, -3, -9, 8, -10, 19, -9, 30, -4, 46, -2, 54, -3, 63 )
+points = PackedVector2Array( -6, -3, -9, 8, -10, 19, -9, 30, -4, 46, -2, 54, -3, 63 )
 
 [node name="FungusStem2" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 399, 150 )
-points = PoolVector2Array( -6, -3, -5, 8, -2, 14, 7, 21, 9, 26, 9, 32, 8, 40, 6, 46 )
+points = PackedVector2Array( -6, -3, -5, 8, -2, 14, 7, 21, 9, 26, 9, 32, 8, 40, 6, 46 )
 
 [node name="FungusStem4" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 688, 146 )
-points = PoolVector2Array( -6, -3, -4, 7, -3, 19, -4, 29, -6, 40, -9, 52, -12, 61 )
+points = PackedVector2Array( -6, -3, -4, 7, -3, 19, -4, 29, -6, 40, -9, 52, -12, 61 )
 
 [node name="FungusStem5" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 770, 107 )
-points = PoolVector2Array( -6, -6, -2, 3, -2, 13, -4, 27, -6, 35, -10, 42, -14, 53, -14, 62, -11, 72, -10, 82, -13, 95 )
+points = PackedVector2Array( -6, -6, -2, 3, -2, 13, -4, 27, -6, 35, -10, 42, -14, 53, -14, 62, -11, 72, -10, 82, -13, 95 )
 
 [node name="FungusStem7" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 848, 85 )
 rotation = -0.349066
-points = PoolVector2Array( -6.8335, -4.61557, -8.97192, 4.18365, -13.2455, 10.0775, -15.6396, 16.6553, -17.0941, 23.5752, -16.3271, 30.2394, -14.2785, 36.306, -10.948, 41.7749, -3.60327, 50.8332, 2.80182, 59.5495, 6.98553, 68.5215, 11.5112, 76.5538, 17.0631, 81.7671 )
+points = PackedVector2Array( -6.8335, -4.61557, -8.97192, 4.18365, -13.2455, 10.0775, -15.6396, 16.6553, -17.0941, 23.5752, -16.3271, 30.2394, -14.2785, 36.306, -10.948, 41.7749, -3.60327, 50.8332, 2.80182, 59.5495, 6.98553, 68.5215, 11.5112, 76.5538, 17.0631, 81.7671 )
 
 [node name="FungusStem8" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 1060, -61 )
-points = PoolVector2Array( -6, -3, -12, 7, -13, 18, -10, 27, -4, 39, -4, 47 )
+points = PackedVector2Array( -6, -3, -12, 7, -13, 18, -10, 27, -4, 39, -4, 47 )
 
 [node name="FungusStem9" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 1398, 61 )
-points = PoolVector2Array( -6, -3, -4, 11, -5, 22, -8, 31, -18, 48 )
+points = PackedVector2Array( -6, -3, -4, 11, -5, 22, -8, 31, -18, 48 )
 
 [node name="FungusStem10" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 1466, 29 )
 rotation = 0.349066
-points = PoolVector2Array( -7.34827, -2.64633, -9.05493, 4.35992, -7.9425, 10.3401, -4.52234, 19.737, -4.60522, 28.2806, -7.25159, 35.6288, -13.3147, 45.2849, -15.277, 54.5125, -14.5895, 68.0966, -14.9281, 78.8616, -18.1721, 87.4916, -18.5969, 95.0955, -20.3036, 102.102 )
+points = PackedVector2Array( -7.34827, -2.64633, -9.05493, 4.35992, -7.9425, 10.3401, -4.52234, 19.737, -4.60522, 28.2806, -7.25159, 35.6288, -13.3147, 45.2849, -15.277, 54.5125, -14.5895, 68.0966, -14.9281, 78.8616, -18.1721, 87.4916, -18.5969, 95.0955, -20.3036, 102.102 )
 
 [node name="FungusStem11" parent="Items/Fungus" instance=ExtResource( 10 )]
 position = Vector2( 972, -149 )
-points = PoolVector2Array( -6, -3, -6, 1, -7, 5, -6, 10, -4, 14, -1, 18, 1, 25, 2, 34, -1, 47, -6, 58, -9, 72, -8, 94, -4, 106, -4, 113 )
+points = PackedVector2Array( -6, -3, -6, 1, -7, 5, -6, 10, -4, 14, -1, 18, 1, 25, 2, 34, -1, 47, -6, 58, -9, 72, -8, 94, -4, 106, -4, 113 )
 
 [node name="FluddBox" parent="Items" instance=ExtResource( 15 )]
 position = Vector2( 548, 187 )

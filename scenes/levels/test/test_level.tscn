@@ -22,4 +22,4 @@ position = Vector2( 327, 44 )
 
 [node name="WaterPolygon" parent="." instance=ExtResource( 5 )]
 position = Vector2( -306, 231 )
-polygon = PoolVector2Array( 0, 0, 99999, 0, 99999, 99999, 0, 99999 )
+polygon = PackedVector2Array( 0, 0, 99999, 0, 99999, 99999, 0, 99999 )

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_explosion.png" type="Texture" id=1]
+[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_explosion.png" type="Texture2D" id=1]
 [ext_resource path="res://classes/entity/enemy/smoke_poof.gd" type="Script" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -31,7 +31,7 @@ animations = [ {
 "speed": 15.0
 } ]
 
-[node name="SmokePoof" type="AnimatedSprite"]
+[node name="SmokePoof" type="AnimatedSprite2D"]
 frames = SubResource( 6 )
 script = ExtResource( 2 )
 

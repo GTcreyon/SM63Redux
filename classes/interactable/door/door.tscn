@@ -4,17 +4,17 @@
 [ext_resource path="res://classes/interactable/door/door.gd" type="Script" id=7]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 11, 15.9999 )
+size = Vector2( 11, 15.9999 )
 
 [node name="Door" type="Area2D"]
 collision_mask = 2
 input_pickable = false
 monitorable = false
 script = ExtResource( 7 )
-sprite = NodePath("Sprite")
+sprite = NodePath("Sprite2D")
 door_graphic = ExtResource( 1 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2( -8, -32 )
 z_index = -1
 frames = ExtResource( 1 )

@@ -4,7 +4,7 @@ extends Polygon2D
 
 var in_time = 25
 var out_time = 15
-onready var cover = $"../CoverLayer/WarpCover"
+@onready var cover = $"../CoverLayer/WarpCover"
 
 var direction = 0
 var enter = 0
@@ -17,9 +17,9 @@ func _ready():
 
 
 func resize_polygon(factor):
-	invert_border = OS.window_size.x
-	var width = OS.window_size.x
-	var height = OS.window_size.y
+	invert_border = get_window().size.x
+	var width = get_window().size.x
+	var height = get_window().size.y
 	var star = [
 		Vector2(0, height/2),
 		Vector2(width/6, height/2 - width/6),

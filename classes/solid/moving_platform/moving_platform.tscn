@@ -1,24 +1,24 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
-[ext_resource path="res://classes/solid/moving_platform/moving_platform.png" type="Texture" id=2]
+[ext_resource path="res://classes/solid/moving_platform/moving_platform.png" type="Texture2D" id=2]
 [ext_resource path="res://classes/zone/safety_net/safety_net.gd" type="Script" id=3]
 [ext_resource path="res://classes/solid/moving_platform/moving_platform.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 24, 7 )
+size = Vector2( 24, 7 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 24, 1 )
+size = Vector2( 24, 1 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 24, 3 )
+size = Vector2( 24, 3 )
 
 [node name="MovingPlatform" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource( 2 )
 script = ExtResource( 1 )
 

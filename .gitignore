@@ -18,3 +18,4 @@ desktop.ini
 # Pipescript Target Ignores
 pipescript/target
 pipescript/compile_tool.sh
+.godot/

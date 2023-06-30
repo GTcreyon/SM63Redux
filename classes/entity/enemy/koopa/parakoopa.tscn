@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=2]
 
-[ext_resource path="res://classes/entity/enemy/koopa/parakoopa.png" type="Texture" id=1]
+[ext_resource path="res://classes/entity/enemy/koopa/parakoopa.png" type="Texture2D" id=1]
 [ext_resource path="res://shaders/palette.tres" type="Material" id=2]
 [ext_resource path="res://classes/entity/enemy/koopa/parakoopa.gd" type="Script" id=8]
 [ext_resource path="res://classes/entity/enemy/koopa/shell_kick.ogg" type="AudioStream" id=9]
@@ -42,12 +42,12 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 10, 8 )
+size = Vector2( 10, 8 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 5, 15 )
+size = Vector2( 5, 15 )
 
-[node name="Parakoopa" type="AnimatedSprite"]
+[node name="Parakoopa" type="AnimatedSprite2D"]
 material = ExtResource( 2 )
 frames = SubResource( 8 )
 animation = "flying"

@@ -3,18 +3,18 @@ extends Control
 signal button_pressed
 signal new_vert_button_pressed
 
-onready var main = $"/root/Main"
+@onready var main = $"/root/Main"
 
-onready var button_texture = preload("res://scenes/menus/level_designer/ldui/drag_circle.png")
-onready var button_texture_hover = preload("res://scenes/menus/level_designer/ldui/drag_circle_hover.png")
-onready var button_texture_pressed = preload("res://scenes/menus/level_designer/ldui/drag_circle_selected.png")
+@onready var button_texture = preload("res://scenes/menus/level_designer/ldui/drag_circle.png")
+@onready var button_texture_hover = preload("res://scenes/menus/level_designer/ldui/drag_circle_hover.png")
+@onready var button_texture_pressed = preload("res://scenes/menus/level_designer/ldui/drag_circle_selected.png")
 
-var polygon = [] setget set_polygon
-var readonly_local_polygon = PoolVector2Array()
-var should_have_buttons = false setget set_buttons
+var polygon = []: set = set_polygon
+var readonly_local_polygon = PackedVector2Array()
+var should_have_buttons = false: set = set_buttons
 var should_draw_predict_line = true
 var should_connector_be_transparent = true
-export(Color) var outline_color = Color(0, 0.2, 0.9)
+@export var outline_color: Color = Color(0, 0.2, 0.9)
 
 func set_buttons(new):
 	should_have_buttons = new
@@ -35,8 +35,8 @@ func reparent_buttons():
 			button.texture_normal = button_texture
 			button.texture_hover = button_texture_hover
 			button.texture_pressed = button_texture_pressed
-			button.rect_position = readonly_local_polygon[index] - Vector2(6, 6)
-			button.connect("pressed", self, "on_button_press", [index])
+			button.position = readonly_local_polygon[index] - Vector2(6, 6)
+			button.connect("pressed", Callable(self, "on_button_press").bind(index))
 			add_child(button)
 		
 		# This button is for adding vertices
@@ -45,8 +45,8 @@ func reparent_buttons():
 		button.texture_normal = button_texture
 		button.texture_hover = button_texture_hover
 		button.texture_pressed = button_texture_pressed
-		button.rect_position = readonly_local_polygon[0] - Vector2(6, 6)
-		button.connect("pressed", self, "on_new_vert_button_pressed")
+		button.position = readonly_local_polygon[0] - Vector2(6, 6)
+		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
 		add_child(button)
 		print(button.name)
 
@@ -66,17 +66,17 @@ func calculate_bounds():
 		max_vec.x = max(item.x, max_vec.x)
 		max_vec.y = max(item.y, max_vec.y)
 		
-	rect_global_position = min_vec
-	rect_size = max_vec - min_vec
-	readonly_local_polygon = PoolVector2Array()
+	global_position = min_vec
+	size = max_vec - min_vec
+	readonly_local_polygon = PackedVector2Array()
 	for item in polygon:
-		readonly_local_polygon.append(item - rect_global_position)
+		readonly_local_polygon.append(item - global_position)
 
 func set_polygon(new):
 	polygon = new
 	
 	# Convert the global coords polygon to a local coords one for drawing
-	readonly_local_polygon = PoolVector2Array()
+	readonly_local_polygon = PackedVector2Array()
 	if len(polygon) != 0:
 		calculate_bounds()
 		
@@ -106,14 +106,14 @@ func _draw():
 		)
 	draw_line(
 		readonly_local_polygon[0],
-		main.get_snapped_mouse_position() - rect_global_position if should_draw_predict_line else readonly_local_polygon[len(readonly_local_polygon) - 1],
+		main.get_snapped_mouse_position() - global_position if should_draw_predict_line else readonly_local_polygon[len(readonly_local_polygon) - 1],
 		transparent_color if should_connector_be_transparent else outline_color,
 		2
 	)
 	
 	# FIXME: this should have it's own flag
 	if should_have_buttons:
-		var mouse_position: Vector2 = main.get_snapped_mouse_position() - rect_global_position
+		var mouse_position: Vector2 = main.get_snapped_mouse_position() - global_position
 		var poly_size = readonly_local_polygon.size()
 		# Find the closest point to the polygon
 		var nearest_position
@@ -121,7 +121,7 @@ func _draw():
 		for index in poly_size - 1:
 			var seg_begin = readonly_local_polygon[index]
 			var seg_end = readonly_local_polygon[(index + 1) % poly_size]
-			var closest_point = Geometry.get_closest_point_to_segment_2d(
+			var closest_point = Geometry.get_closest_point_to_segment(
 				mouse_position,
 				seg_begin,
 				seg_end
@@ -132,13 +132,13 @@ func _draw():
 				nearest_position = closest_point
 		var vert_button = get_node("AddVertButton")
 		if nearest_position and mouse_position and vert_button:
-			vert_button.rect_position = nearest_position - Vector2(6, 6)
+			vert_button.position = nearest_position - Vector2(6, 6)
 #			draw_line(mouse_position, nearest_position, Color(1, 0, 0))
 #			draw_circle(mouse_position, 1, Color(0.7, 0, 0))
 	
 	if should_draw_predict_line:
 		draw_line(
-			main.get_snapped_mouse_position() - rect_global_position,
+			main.get_snapped_mouse_position() - global_position,
 			readonly_local_polygon[len(readonly_local_polygon) - 1],
 			transparent_color,
 			2,

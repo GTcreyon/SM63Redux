@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://classes/decorative/fungus_double.png" type="Texture" id=1]
+[ext_resource path="res://classes/decorative/fungus_double.png" type="Texture2D" id=1]
 
-[node name="FungusDouble" type="Sprite"]
+[node name="FungusDouble" type="Sprite2D"]
 position = Vector2( 0, -17.5 )
 z_index = -1
 texture = ExtResource( 1 )

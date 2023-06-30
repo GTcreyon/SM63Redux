@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://classes/solid/breakable_box/box1.png" type="Texture" id=1]
+[ext_resource path="res://classes/solid/breakable_box/box1.png" type="Texture2D" id=1]
 [ext_resource path="res://classes/solid/breakable_box/breakable_box.gd" type="Script" id=2]
-[ext_resource path="res://classes/solid/breakable_box/box2.png" type="Texture" id=3]
-[ext_resource path="res://classes/solid/breakable_box/box3.png" type="Texture" id=4]
+[ext_resource path="res://classes/solid/breakable_box/box2.png" type="Texture2D" id=3]
+[ext_resource path="res://classes/solid/breakable_box/box3.png" type="Texture2D" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -14,19 +14,19 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 16 )
+size = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 16, 1 )
+size = Vector2( 16, 1 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 18, 16 )
+size = Vector2( 18, 16 )
 
 [node name="BreakableBox" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource( 2 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

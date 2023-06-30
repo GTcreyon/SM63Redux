@@ -1,7 +1,7 @@
 [gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
-[ext_resource path="res://classes/entity/enemy/koopa/shell.png" type="Texture" id=2]
+[ext_resource path="res://classes/entity/enemy/koopa/shell.png" type="Texture2D" id=2]
 [ext_resource path="res://classes/entity/enemy/koopa/koopa_shell.gd" type="Script" id=3]
 [ext_resource path="res://classes/entity/enemy/koopa/shell_kick.ogg" type="AudioStream" id=4]
 [ext_resource path="res://shaders/palette.tres" type="Material" id=5]
@@ -84,18 +84,18 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=18]
-extents = Vector2( 11, 9 )
+size = Vector2( 11, 9 )
 
 [sub_resource type="RectangleShape2D" id=19]
-extents = Vector2( 11, 4.5 )
+size = Vector2( 11, 4.5 )
 
 [sub_resource type="RectangleShape2D" id=21]
-extents = Vector2( 11, 4.5 )
+size = Vector2( 11, 4.5 )
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 1, 1 )
+size = Vector2( 1, 1 )
 
-[node name="Shell" type="KinematicBody2D"]
+[node name="Shell" type="CharacterBody2D"]
 material = ExtResource( 5 )
 collision_layer = 4
 script = ExtResource( 3 )
@@ -106,7 +106,7 @@ _sfx_stomp_path = NodePath("Kick")
 _sfx_struck_path = NodePath("Kick")
 _sfx_struck_land_path = NodePath("")
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 frames = SubResource( 17 )
 animation = "clockwise"

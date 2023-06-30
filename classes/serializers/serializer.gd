@@ -1,11 +1,11 @@
 class_name Serializer
 
 var pointer: int = 0
-var buffer_to_load: PoolByteArray
-var logged_errors = PoolStringArray([])
+var buffer_to_load: PackedByteArray
+var logged_errors = PackedStringArray([])
 
 
-func generate_level_binary(items, polygons, main) -> PoolByteArray:
+func generate_level_binary(items, polygons, main) -> PackedByteArray:
 	# level info
 	var output = encode_uint_bytes(Singleton.LD_VERSION, 1)
 	output.append_array(encode_string_bytes("")) # title
@@ -35,10 +35,10 @@ func generate_level_binary(items, polygons, main) -> PoolByteArray:
 	return output
 
 
-func encode_value_of_type(val, type: String, num: int) -> PoolByteArray:
+func encode_value_of_type(val, type: String, num: int) -> PackedByteArray:
 	match type:
 		"bool":
-			return PoolByteArray([val])
+			return PackedByteArray([val])
 		"uint":
 			return encode_uint_bytes(val, num)
 		"sint":
@@ -51,35 +51,35 @@ func encode_value_of_type(val, type: String, num: int) -> PoolByteArray:
 			return encode_string_bytes(val)
 		_:
 			log_error("Unknown datatype!")
-			return PoolByteArray([])
+			return PackedByteArray([])
 
 
-func encode_vector2_bytes(val: Vector2, num: int) -> PoolByteArray:
+func encode_vector2_bytes(val: Vector2, num: int) -> PackedByteArray:
 	var half = num >> 1
 	var output = encode_sint_bytes(int(val.x), half)
 	output.append_array(encode_sint_bytes(int(val.y), half))
 	return output
 
 
-func encode_float_bytes(val: float, num: int) -> PoolByteArray:
-	var output = PoolByteArray([])
+func encode_float_bytes(val: float, num: int) -> PackedByteArray:
+	var output = PackedByteArray([])
 	if num > 7:
 		log_error("Cannot encode float in this many bytes due to Godot limitations!")
 		num = 7
 	
-	var arr = var2bytes(val) # cut off icky variant data
+	var arr = var_to_bytes(val) # cut off icky variant data
 	var size = arr.size()
 	return arr.subarray(size - num, size - 1)
 
 
-func encode_sint_bytes(val: int, num: int) -> PoolByteArray:
+func encode_sint_bytes(val: int, num: int) -> PackedByteArray:
 	if abs(val) > (1 << ((num << 3) - 1)):
 		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: sint" % [val, num])
 	return encode_int_bytes(val, num)
 
 
-func encode_int_bytes(val: int, num: int) -> PoolByteArray:
-	var output = PoolByteArray([])
+func encode_int_bytes(val: int, num: int) -> PackedByteArray:
+	var output = PackedByteArray([])
 	for i in range(num):
 		var byte = (
 			val >> (
@@ -93,7 +93,7 @@ func encode_int_bytes(val: int, num: int) -> PoolByteArray:
 	return output
 
 
-func encode_uint_bytes(val: int, num: int) -> PoolByteArray:
+func encode_uint_bytes(val: int, num: int) -> PackedByteArray:
 	# val - value to encode
 	# num - number of bytes
 	if val < 0:
@@ -103,7 +103,7 @@ func encode_uint_bytes(val: int, num: int) -> PoolByteArray:
 	return encode_int_bytes(val, num)
 
 
-func generate_mission_list(missions: Array) -> PoolByteArray:
+func generate_mission_list(missions: Array) -> PackedByteArray:
 	var output = encode_uint_bytes(missions.size(), 1)
 	for mission in missions:
 		output.append_array(encode_string_bytes(mission[0]))
@@ -111,14 +111,14 @@ func generate_mission_list(missions: Array) -> PoolByteArray:
 	return output
 
 
-func encode_string_bytes(txt: String) -> PoolByteArray:
-	var arr = txt.to_utf8()
+func encode_string_bytes(txt: String) -> PackedByteArray:
+	var arr = txt.to_utf8_buffer()
 	var output = encode_uint_bytes(arr.size(), 3)
 	output.append_array(arr)
 	return output
 
 
-func load_buffer(buffer: PoolByteArray, target_node: Node):
+func load_buffer(buffer: PackedByteArray, target_node: Node):
 	buffer_to_load = buffer
 	pointer = 0
 	# level info
@@ -130,7 +130,7 @@ func load_buffer(buffer: PoolByteArray, target_node: Node):
 	# item dictionary
 	var item_id = decode_uint_bytes(read_bytes(2))
 	while item_id != 65535: # end character, [255, 255]
-		var inst = target_node.ITEM_PREFAB.instance()
+		var inst = target_node.ITEM_PREFAB.instantiate()
 		var props = target_node.items[item_id].properties
 		for key in props:
 			var val = decode_value_of_type(read_bytes_of_type(props[key]["type"]), props[key]["type"])
@@ -144,10 +144,10 @@ func load_buffer(buffer: PoolByteArray, target_node: Node):
 #
 #	# polygons
 	for i in range(decode_uint_bytes(read_bytes(3))):
-		var inst = target_node.TERRAIN_PREFAB.instance()
+		var inst = target_node.TERRAIN_PREFAB.instantiate()
 		inst.terrain_material = decode_uint_bytes(read_bytes(2))
 		inst.z_index = decode_sint_bytes(read_bytes(2))
-		var polygon = PoolVector2Array([])
+		var polygon = PackedVector2Array([])
 		var vert_count = decode_uint_bytes(read_bytes(2))
 		print(vert_count)
 		for j in range(vert_count):
@@ -181,7 +181,7 @@ func read_bytes_of_type(type: String):
 	return read_bytes(get_value_length_from_type(type))
 
 
-func decode_value_of_type(bytes: PoolByteArray, type: String):
+func decode_value_of_type(bytes: PackedByteArray, type: String):
 	match type:
 		"bool":
 			return bool(decode_uint_bytes(bytes))
@@ -200,7 +200,7 @@ func decode_value_of_type(bytes: PoolByteArray, type: String):
 			return null
 
 
-func decode_vector2_bytes(bytes: PoolByteArray) -> Vector2:
+func decode_vector2_bytes(bytes: PackedByteArray) -> Vector2:
 	var size = bytes.size()
 	var half = size / 2 - 1
 	return Vector2(
@@ -217,21 +217,21 @@ func decode_vector2_bytes(bytes: PoolByteArray) -> Vector2:
 	)
 
 
-func decode_float_bytes(bytes: PoolByteArray) -> float:
+func decode_float_bytes(bytes: PackedByteArray) -> float:
 	var size = bytes.size()
 	if size > 7:
 		log_error("Cannot encode float in this many bytes due to Godot limitations!")
 		size = 7
 	
-	var variant_buffer = PoolByteArray([3])
+	var variant_buffer = PackedByteArray([3])
 	while variant_buffer.size() + size < 8:
 		variant_buffer.append(0)
 	variant_buffer.append_array(bytes)
-	var output = bytes2var(variant_buffer)
+	var output = bytes_to_var(variant_buffer)
 	return output
 
 
-func decode_uint_bytes(bytes: PoolByteArray) -> int:
+func decode_uint_bytes(bytes: PackedByteArray) -> int:
 	var output: int = 0
 	bytes.invert()
 	for i in range(bytes.size()):
@@ -239,7 +239,7 @@ func decode_uint_bytes(bytes: PoolByteArray) -> int:
 	return output
 
 
-func decode_sint_bytes(bytes: PoolByteArray) -> int:
+func decode_sint_bytes(bytes: PackedByteArray) -> int:
 	var size = bytes.size()
 	var output: int = 0
 	bytes.invert()
@@ -267,7 +267,7 @@ func decode_string_bytes() -> String:
 	return output
 
 
-func read_bytes(num: int) -> PoolByteArray:
+func read_bytes(num: int) -> PackedByteArray:
 	var output = buffer_to_load.subarray(pointer, pointer + num - 1)
 	pointer += num
 	return output
@@ -352,5 +352,5 @@ func test_data(input, type: String, num: int, valid: bool, verbose: bool):
 				printerr("No errors logged, despite data being intentionally invalid.")
 		elif verbose:
 			print("Test fail as expected. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
-	logged_errors = PoolStringArray([])
+	logged_errors = PackedStringArray([])
 	return fail

@@ -3,18 +3,18 @@
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
 [ext_resource path="res://classes/player/fludd_spray_renderer.gd" type="Script" id=2]
 [ext_resource path="res://classes/player/player.gd" type="Script" id=3]
-[ext_resource path="res://classes/player/fludd_nozzlefx.png" type="Texture" id=4]
+[ext_resource path="res://classes/player/fludd_nozzlefx.png" type="Texture2D" id=4]
 [ext_resource path="res://gui/hud/hud.tscn" type="PackedScene" id=5]
 [ext_resource path="res://classes/player/sfx/fludd/hover_loop.mp3" type="AudioStream" id=6]
 [ext_resource path="res://classes/player/sfx/fludd/hover.mp3" type="AudioStream" id=7]
-[ext_resource path="res://classes/player/mario_sheet.png" type="Texture" id=8]
+[ext_resource path="res://classes/player/mario_sheet.png" type="Texture2D" id=8]
 [ext_resource path="res://shaders/distance_field.tres" type="Material" id=9]
-[ext_resource path="res://classes/player/fludd_water.png" type="Texture" id=10]
+[ext_resource path="res://classes/player/fludd_water.png" type="Texture2D" id=10]
 [ext_resource path="res://classes/player/dust_material.tres" type="Material" id=11]
-[ext_resource path="res://classes/player/fludd_sheet.png" type="Texture" id=12]
+[ext_resource path="res://classes/player/fludd_sheet.png" type="Texture2D" id=12]
 [ext_resource path="res://classes/player/fludd_spray.tres" type="Material" id=13]
 [ext_resource path="res://classes/player/camera.gd" type="Script" id=14]
-[ext_resource path="res://classes/particles/dust.png" type="Texture" id=15]
+[ext_resource path="res://classes/particles/dust.png" type="Texture2D" id=15]
 [ext_resource path="res://classes/player/sfx/fludd/fludd_switch.wav" type="AudioStream" id=16]
 [ext_resource path="res://classes/player/sfx/pound/pound_spin.wav" type="AudioStream" id=17]
 [ext_resource path="res://classes/player/sfx/spin_air_1.wav" type="AudioStream" id=18]
@@ -740,21 +740,21 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1, 1 )
+size = Vector2( 1, 1 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 6, 14.5 )
+size = Vector2( 6, 14.5 )
 
 [sub_resource type="RectangleShape2D" id=47]
-extents = Vector2( 6, 1 )
+size = Vector2( 6, 1 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 6, 0.999998 )
+size = Vector2( 6, 0.999998 )
 
 [sub_resource type="Gradient" id=53]
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
+colors = PackedColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=54]
+[sub_resource type="GradientTexture2D" id=54]
 gradient = SubResource( 53 )
 
 [sub_resource type="Curve" id=55]
@@ -764,7 +764,7 @@ _data = [ Vector2( 0, 0.495454 ), 0.0, 1.77478, 0, 0, Vector2( 0.5, 1 ), 0.49444
 width = 64
 curve = SubResource( 55 )
 
-[sub_resource type="ParticlesMaterial" id=44]
+[sub_resource type="ParticleProcessMaterial" id=44]
 flag_align_y = true
 flag_disable_z = true
 direction = Vector3( 0, 1, 0 )
@@ -800,7 +800,7 @@ animations = [ {
 "speed": 30.0
 } ]
 
-[sub_resource type="ParticlesMaterial" id=43]
+[sub_resource type="ParticleProcessMaterial" id=43]
 lifetime_randomness = 0.5
 emission_shape = 2
 emission_box_extents = Vector3( 4, 0, 0 )
@@ -813,9 +813,9 @@ orbit_velocity_random = 0.0
 anim_speed = 1.0
 
 [sub_resource type="RectangleShape2D" id=52]
-extents = Vector2( 6, 1 )
+size = Vector2( 6, 1 )
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="CharacterBody2D"]
 collision_layer = 6
 collision_mask = 3
 script = ExtResource( 3 )
@@ -826,13 +826,13 @@ __meta__ = {
 [node name="CharacterGroup" type="Node2D" parent="."]
 script = ExtResource( 1 )
 
-[node name="CharacterSprite" type="AnimatedSprite" parent="CharacterGroup"]
+[node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 frames = SubResource( 3 )
 animation = "walk_neutral"
 script = ExtResource( 21 )
 
-[node name="Fludd" type="AnimatedSprite" parent="CharacterGroup/CharacterSprite"]
+[node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]
 show_behind_parent = true
 z_index = 1
 frames = SubResource( 36 )
@@ -863,15 +863,15 @@ shape = SubResource( 4 )
 position = Vector2( 0, 1.5 )
 shape = SubResource( 5 )
 
-[node name="Camera" type="Camera2D" parent="."]
-pause_mode = 2
+[node name="Camera3D" type="Camera2D" parent="."]
+process_mode = 2
 process_mode = 0
-smoothing_enabled = true
+position_smoothing_enabled = true
 script = ExtResource( 14 )
 
-[node name="HUD" parent="Camera" instance=ExtResource( 5 )]
+[node name="HUD" parent="Camera3D" instance=ExtResource( 5 )]
 layer = 2
-follow_viewport_enable = false
+follow_viewport_enabled = false
 
 [node name="Voice" type="AudioStreamPlayer" parent="."]
 volume_db = -5.0
@@ -897,7 +897,7 @@ bus = "SFX"
 
 [node name="DiveAngling" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, 20 )
+target_position = Vector2( 0, 20 )
 
 [node name="GroundFailsafe" type="Area2D" parent="."]
 position = Vector2( 0, 17 )
@@ -915,14 +915,14 @@ monitorable = false
 position = Vector2( 0, 10 )
 shape = SubResource( 6 )
 
-[node name="SprayViewport" type="Viewport" parent="."]
+[node name="SprayViewport" type="SubViewport" parent="."]
 size = Vector2( 640, 360 )
 hdr = false
 usage = 0
 render_target_v_flip = true
 render_target_update_mode = 3
 
-[node name="SprayParticles" type="Particles2D" parent="SprayViewport"]
+[node name="SprayParticles" type="GPUParticles2D" parent="SprayViewport"]
 material = ExtResource( 9 )
 emitting = false
 amount = 50
@@ -932,7 +932,7 @@ local_coords = false
 process_material = SubResource( 44 )
 texture = ExtResource( 10 )
 
-[node name="SprayPlume" type="AnimatedSprite" parent="."]
+[node name="SprayPlume" type="AnimatedSprite2D" parent="."]
 visible = false
 show_behind_parent = true
 position = Vector2( -9, -1 )
@@ -940,7 +940,7 @@ frames = SubResource( 51 )
 offset = Vector2( 0, 9 )
 script = ExtResource( 22 )
 
-[node name="SprayRenderTarget" type="Sprite" parent="."]
+[node name="SprayRenderTarget" type="Sprite2D" parent="."]
 material = ExtResource( 13 )
 z_index = -1
 script = ExtResource( 2 )
@@ -953,7 +953,7 @@ stream = ExtResource( 16 )
 volume_db = -6.0
 bus = "SFX"
 
-[node name="Dust" type="Particles2D" parent="."]
+[node name="Dust" type="GPUParticles2D" parent="."]
 material = ExtResource( 11 )
 position = Vector2( 0, 11.5 )
 z_index = -1
@@ -967,12 +967,12 @@ texture = ExtResource( 15 )
 
 [node name="StepCheck" type="RayCast2D" parent="."]
 enabled = true
-cast_to = Vector2( 0, 20 )
+target_position = Vector2( 0, 20 )
 
 [node name="PoundCheckR" type="RayCast2D" parent="."]
 position = Vector2( 6, 0 )
 enabled = true
-cast_to = Vector2( 0, 20 )
+target_position = Vector2( 0, 20 )
 __meta__ = {
 "_editor_description_": "Used during ground pound to check if the player's right edge is hitting ground. Aligned with right edge of player's hitbox."
 }
@@ -980,7 +980,7 @@ __meta__ = {
 [node name="PoundCheckL" type="RayCast2D" parent="."]
 position = Vector2( -6, 0 )
 enabled = true
-cast_to = Vector2( 0, 20 )
+target_position = Vector2( 0, 20 )
 __meta__ = {
 "_editor_description_": "Used during ground pound to check if the player's left edge is hitting ground. Aligned with left edge of player's hitbox."
 }

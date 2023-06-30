@@ -6,12 +6,12 @@
 [ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" type="StyleBox" id=4]
 
 [node name="ListItem" type="Button"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/hover = ExtResource( 4 )
-custom_styles/pressed = ExtResource( 3 )
-custom_styles/normal = ExtResource( 1 )
+offset_right = 32.0
+offset_bottom = 32.0
+custom_minimum_size = Vector2( 32, 32 )
+theme_override_styles/hover = ExtResource( 4 )
+theme_override_styles/pressed = ExtResource( 3 )
+theme_override_styles/normal = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="Icon" type="TextureRect" parent="."]

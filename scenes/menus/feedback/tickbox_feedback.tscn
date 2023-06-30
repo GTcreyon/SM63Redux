@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://scenes/menus/feedback/tickbox.png" type="Texture" id=1]
+[ext_resource path="res://scenes/menus/feedback/tickbox.png" type="Texture2D" id=1]
 [ext_resource path="res://scenes/menus/feedback/tickbox.gd" type="Script" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=6]
@@ -26,20 +26,20 @@ animations = [ {
 } ]
 
 [node name="Tickbox" type="Button"]
-margin_left = -10.0
-margin_top = -10.0
-margin_right = 10.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 20, 20 )
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+custom_minimum_size = Vector2( 20, 20 )
 mouse_default_cursor_shape = 2
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/disabled = SubResource( 6 )
-custom_styles/normal = SubResource( 6 )
+theme_override_styles/hover = SubResource( 6 )
+theme_override_styles/pressed = SubResource( 6 )
+theme_override_styles/focus = SubResource( 6 )
+theme_override_styles/disabled = SubResource( 6 )
+theme_override_styles/normal = SubResource( 6 )
 script = ExtResource( 2 )
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2( 10, 10 )
 frames = SubResource( 5 )
 

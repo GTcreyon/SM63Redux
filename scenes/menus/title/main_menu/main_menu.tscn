@@ -1,22 +1,22 @@
 [gd_scene load_steps=53 format=2]
 
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
-[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=2]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="FontFile" id=1]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture2D" id=2]
 [ext_resource path="res://scenes/menus/title/main_menu/border.tres" type="StyleBox" id=3]
-[ext_resource path="res://scenes/menus/title/main_menu/selection_content.png" type="Texture" id=4]
-[ext_resource path="res://scenes/menus/title/main_menu/menu_titles.png" type="Texture" id=5]
-[ext_resource path="res://scenes/menus/title/main_menu/crystal.png" type="Texture" id=6]
+[ext_resource path="res://scenes/menus/title/main_menu/selection_content.png" type="Texture2D" id=4]
+[ext_resource path="res://scenes/menus/title/main_menu/menu_titles.png" type="Texture2D" id=5]
+[ext_resource path="res://scenes/menus/title/main_menu/crystal.png" type="Texture2D" id=6]
 [ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/menus/title/main_menu/menu_orb.png" type="Texture" id=8]
-[ext_resource path="res://scenes/menus/title/main_menu/selector.png" type="Texture" id=9]
+[ext_resource path="res://scenes/menus/title/main_menu/menu_orb.png" type="Texture2D" id=8]
+[ext_resource path="res://scenes/menus/title/main_menu/selector.png" type="Texture2D" id=9]
 [ext_resource path="res://scenes/menus/title/main_menu/main_menu.gd" type="Script" id=11]
 [ext_resource path="res://scenes/menus/title/sheen.gd" type="Script" id=12]
-[ext_resource path="res://scenes/menus/title/main_menu/rope.png" type="Texture" id=13]
-[ext_resource path="res://scenes/menus/title/main_menu/selection_frame.png" type="Texture" id=14]
-[ext_resource path="res://scenes/menus/title/main_menu/hook.png" type="Texture" id=15]
-[ext_resource path="res://scenes/menus/title/main_menu/sheen.png" type="Texture" id=16]
-[ext_resource path="res://scenes/menus/title/main_menu/icon.png" type="Texture" id=17]
-[ext_resource path="res://scenes/menus/title/main_menu/orb_inner.png" type="Texture" id=18]
+[ext_resource path="res://scenes/menus/title/main_menu/rope.png" type="Texture2D" id=13]
+[ext_resource path="res://scenes/menus/title/main_menu/selection_frame.png" type="Texture2D" id=14]
+[ext_resource path="res://scenes/menus/title/main_menu/hook.png" type="Texture2D" id=15]
+[ext_resource path="res://scenes/menus/title/main_menu/sheen.png" type="Texture2D" id=16]
+[ext_resource path="res://scenes/menus/title/main_menu/icon.png" type="Texture2D" id=17]
+[ext_resource path="res://scenes/menus/title/main_menu/orb_inner.png" type="Texture2D" id=18]
 [ext_resource path="res://scenes/menus/title/main_menu/preview_orb.gd" type="Script" id=19]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -24,7 +24,7 @@ atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 126, 36 )
 
 [sub_resource type="RectangleShape2D" id=20]
-extents = Vector2( 74, 28 )
+size = Vector2( 74, 28 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 15 )
@@ -183,20 +183,20 @@ anchor_bottom = 1.0
 mouse_filter = 2
 color = Color( 0.027451, 0, 0.0941176, 0.501961 )
 
-[node name="SelectorStory" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="SelectorStory" type="Sprite2D" parent="." groups=["menu_hide"]]
 position = Vector2( 320, 169 )
 texture = ExtResource( 9 )
 
-[node name="Story" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="Story" type="Sprite2D" parent="." groups=["menu_hide"]]
 position = Vector2( 320, 124 )
 texture = SubResource( 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Story"]
 texture = ExtResource( 16 )
-polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
+polygon = PackedVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
 script = ExtResource( 12 )
 
-[node name="Frame" type="Sprite" parent="Story"]
+[node name="Frame" type="Sprite2D" parent="Story"]
 position = Vector2( -75, -32 )
 texture = ExtResource( 14 )
 centered = false
@@ -206,40 +206,40 @@ position = Vector2( 75, 32 )
 shape = SubResource( 20 )
 shape_centered = false
 
-[node name="Hook" type="Sprite" parent="Story/Frame"]
+[node name="Hook" type="Sprite2D" parent="Story/Frame"]
 position = Vector2( 75, -12 )
 texture = SubResource( 6 )
 
-[node name="CrystalL" type="AnimatedSprite" parent="Story/Frame"]
+[node name="CrystalL" type="AnimatedSprite2D" parent="Story/Frame"]
 position = Vector2( -6, 46 )
 frames = SubResource( 15 )
 frame = 1
 centered = false
 
-[node name="CrystalR" type="AnimatedSprite" parent="Story/Frame"]
+[node name="CrystalR" type="AnimatedSprite2D" parent="Story/Frame"]
 position = Vector2( 135, 46 )
 frames = SubResource( 15 )
 frame = 1
 centered = false
 
-[node name="Title" type="Sprite" parent="Story"]
+[node name="Title" type="Sprite2D" parent="Story"]
 texture = SubResource( 16 )
 
-[node name="SelectorSettings" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="SelectorSettings" type="Sprite2D" parent="." groups=["menu_hide"]]
 position = Vector2( 4, 233 )
 texture = ExtResource( 9 )
 
-[node name="Settings" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="Settings" type="Sprite2D" parent="." groups=["menu_hide"]]
 position = Vector2( 4, 188 )
 texture = SubResource( 4 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Settings"]
 use_parent_material = true
 texture = ExtResource( 16 )
-polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
+polygon = PackedVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
 script = ExtResource( 12 )
 
-[node name="Frame" type="Sprite" parent="Settings"]
+[node name="Frame" type="Sprite2D" parent="Settings"]
 use_parent_material = true
 position = Vector2( -75, -32 )
 texture = ExtResource( 14 )
@@ -250,42 +250,42 @@ position = Vector2( 75, 32 )
 shape = SubResource( 20 )
 shape_centered = false
 
-[node name="Hook" type="Sprite" parent="Settings/Frame"]
+[node name="Hook" type="Sprite2D" parent="Settings/Frame"]
 use_parent_material = true
 position = Vector2( 75, -12 )
 texture = SubResource( 7 )
 
-[node name="CrystalL" type="AnimatedSprite" parent="Settings/Frame"]
+[node name="CrystalL" type="AnimatedSprite2D" parent="Settings/Frame"]
 use_parent_material = true
 position = Vector2( -6, 46 )
 frames = SubResource( 15 )
 centered = false
 
-[node name="CrystalR" type="AnimatedSprite" parent="Settings/Frame"]
+[node name="CrystalR" type="AnimatedSprite2D" parent="Settings/Frame"]
 use_parent_material = true
 position = Vector2( 135, 46 )
 frames = SubResource( 15 )
 centered = false
 
-[node name="Title" type="Sprite" parent="Settings"]
+[node name="Title" type="Sprite2D" parent="Settings"]
 use_parent_material = true
 texture = SubResource( 17 )
 
-[node name="SelectorExtras" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="SelectorExtras" type="Sprite2D" parent="." groups=["menu_hide"]]
 position = Vector2( 320, 645 )
 texture = ExtResource( 9 )
 
-[node name="Extras" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="Extras" type="Sprite2D" parent="." groups=["menu_hide"]]
 position = Vector2( 320, 600 )
 texture = SubResource( 3 )
 
 [node name="Polygon2D" type="Polygon2D" parent="Extras"]
 use_parent_material = true
 texture = ExtResource( 16 )
-polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
+polygon = PackedVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
 script = ExtResource( 12 )
 
-[node name="Frame" type="Sprite" parent="Extras"]
+[node name="Frame" type="Sprite2D" parent="Extras"]
 use_parent_material = true
 position = Vector2( -75, -32 )
 texture = ExtResource( 14 )
@@ -296,42 +296,42 @@ position = Vector2( 75, 32 )
 shape = SubResource( 20 )
 shape_centered = false
 
-[node name="Hook" type="Sprite" parent="Extras/Frame"]
+[node name="Hook" type="Sprite2D" parent="Extras/Frame"]
 use_parent_material = true
 position = Vector2( 75, -11 )
 texture = SubResource( 8 )
 
-[node name="CrystalL" type="AnimatedSprite" parent="Extras/Frame"]
+[node name="CrystalL" type="AnimatedSprite2D" parent="Extras/Frame"]
 use_parent_material = true
 position = Vector2( -6, 46 )
 frames = SubResource( 15 )
 centered = false
 
-[node name="CrystalR" type="AnimatedSprite" parent="Extras/Frame"]
+[node name="CrystalR" type="AnimatedSprite2D" parent="Extras/Frame"]
 use_parent_material = true
 position = Vector2( 135, 46 )
 frames = SubResource( 15 )
 centered = false
 
-[node name="Title" type="Sprite" parent="Extras"]
+[node name="Title" type="Sprite2D" parent="Extras"]
 use_parent_material = true
 texture = SubResource( 18 )
 
-[node name="SelectorLevelDesigner" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="SelectorLevelDesigner" type="Sprite2D" parent="." groups=["menu_hide"]]
 position = Vector2( 636, 233 )
 texture = ExtResource( 9 )
 
-[node name="LevelDesigner" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="LevelDesigner" type="Sprite2D" parent="." groups=["menu_hide"]]
 position = Vector2( 636, 188 )
 texture = SubResource( 2 )
 
 [node name="Polygon2D" type="Polygon2D" parent="LevelDesigner"]
 use_parent_material = true
 texture = ExtResource( 16 )
-polygon = PoolVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
+polygon = PackedVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
 script = ExtResource( 12 )
 
-[node name="Frame" type="Sprite" parent="LevelDesigner"]
+[node name="Frame" type="Sprite2D" parent="LevelDesigner"]
 use_parent_material = true
 position = Vector2( -75, -32 )
 texture = ExtResource( 14 )
@@ -342,28 +342,28 @@ position = Vector2( 75, 32 )
 shape = SubResource( 20 )
 shape_centered = false
 
-[node name="Hook" type="Sprite" parent="LevelDesigner/Frame"]
+[node name="Hook" type="Sprite2D" parent="LevelDesigner/Frame"]
 use_parent_material = true
 position = Vector2( 75, -12 )
 texture = SubResource( 8 )
 
-[node name="CrystalL" type="AnimatedSprite" parent="LevelDesigner/Frame"]
+[node name="CrystalL" type="AnimatedSprite2D" parent="LevelDesigner/Frame"]
 use_parent_material = true
 position = Vector2( -6, 46 )
 frames = SubResource( 15 )
 centered = false
 
-[node name="CrystalR" type="AnimatedSprite" parent="LevelDesigner/Frame"]
+[node name="CrystalR" type="AnimatedSprite2D" parent="LevelDesigner/Frame"]
 use_parent_material = true
 position = Vector2( 135, 46 )
 frames = SubResource( 15 )
 centered = false
 
-[node name="Title" type="Sprite" parent="LevelDesigner"]
+[node name="Title" type="Sprite2D" parent="LevelDesigner"]
 use_parent_material = true
 texture = SubResource( 19 )
 
-[node name="Icon" type="Sprite" parent="." groups=["menu_hide"]]
+[node name="Icon" type="Sprite2D" parent="." groups=["menu_hide"]]
 texture = ExtResource( 17 )
 centered = false
 offset = Vector2( 9, 33 )
@@ -372,22 +372,22 @@ offset = Vector2( 9, 33 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-custom_styles/panel = ExtResource( 3 )
+theme_override_styles/panel = ExtResource( 3 )
 
 [node name="DescriptionBox" type="Control" parent="Border"]
 anchor_right = 1.0
-margin_left = 5.0
-margin_top = 5.0
-margin_right = -5.0
-margin_bottom = 19.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = 19.0
 mouse_filter = 2
 
 [node name="DescStory" type="Label" parent="Border/DescriptionBox"]
 anchor_right = 1.0
-margin_right = -10.0
-margin_bottom = 14.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
+offset_right = -10.0
+offset_bottom = 14.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 1 )
 text = "Take the light back from Bowser and save the Mushroom Kingdom!"
 align = 1
 __meta__ = {
@@ -396,10 +396,10 @@ __meta__ = {
 
 [node name="DescSettings" type="Label" parent="Border/DescriptionBox"]
 anchor_right = 1.0
-margin_right = -10.0
-margin_bottom = 14.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
+offset_right = -10.0
+offset_bottom = 14.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 1 )
 text = "Create your own worlds in this in-depth Level Designer!"
 align = 1
 __meta__ = {
@@ -408,10 +408,10 @@ __meta__ = {
 
 [node name="DescExtras" type="Label" parent="Border/DescriptionBox"]
 anchor_right = 1.0
-margin_right = -10.0
-margin_bottom = 14.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
+offset_right = -10.0
+offset_bottom = 14.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 1 )
 text = "Enjoy a collection of trinkets and goodies!"
 align = 1
 __meta__ = {
@@ -420,10 +420,10 @@ __meta__ = {
 
 [node name="DescLevelDesigner" type="Label" parent="Border/DescriptionBox"]
 anchor_right = 1.0
-margin_right = -10.0
-margin_bottom = 14.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 1 )
+offset_right = -10.0
+offset_bottom = 14.0
+theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
+theme_override_fonts/font = ExtResource( 1 )
 text = "Adjust anything and everything to your liking!"
 align = 1
 __meta__ = {
@@ -433,7 +433,7 @@ __meta__ = {
 [node name="Stripe" type="Line2D" parent="."]
 visible = false
 position = Vector2( 387, 0 )
-points = PoolVector2Array( 2, 1, -1, 6, -3, 12, -4, 17, -3, 22, -1, 29, 2, 34, 7, 38, 15, 42, 26, 28, 69, 43 )
+points = PackedVector2Array( 2, 1, -1, 6, -3, 12, -4, 17, -3, 22, -1, 29, 2, 34, 7, 38, 15, 42, 26, 28, 69, 43 )
 width = 7.0
 default_color = Color( 1, 1, 1, 1 )
 texture = ExtResource( 13 )
@@ -445,7 +445,7 @@ end_cap_mode = 2
 [node name="Polygon2D" type="Polygon2D" parent="."]
 visible = false
 texture = ExtResource( 16 )
-polygon = PoolVector2Array( 0, 0, 0, 304, 448, 304, 448, 0 )
+polygon = PackedVector2Array( 0, 0, 0, 304, 448, 304, 448, 0 )
 
 [node name="FadeOut" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -457,20 +457,20 @@ color = Color( 0, 0, 0, 1 )
 [node name="OptionsControl" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 26.0
-margin_right = -4.0
-margin_bottom = -4.0
-rect_clip_content = true
+offset_left = 4.0
+offset_top = 26.0
+offset_right = -4.0
+offset_bottom = -4.0
+clip_contents = true
 
 [node name="OptionsMenu" parent="OptionsControl" instance=ExtResource( 7 )]
 
 [node name="BackButton" type="TextureButton" parent="OptionsControl"]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -40.0
-margin_bottom = 44.0
-rect_min_size = Vector2( 40, 44 )
+offset_left = -40.0
+offset_bottom = 44.0
+custom_minimum_size = Vector2( 40, 44 )
 texture_normal = SubResource( 22 )
 texture_pressed = SubResource( 21 )
 expand = true
@@ -480,15 +480,15 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_top = -4.0
+offset_top = -4.0
 script = ExtResource( 19 )
 
-[node name="Inner" type="AnimatedSprite" parent="PreviewOrb"]
+[node name="Inner" type="AnimatedSprite2D" parent="PreviewOrb"]
 position = Vector2( -117, -68 )
 frames = SubResource( 33 )
 centered = false
 
-[node name="Outer" type="AnimatedSprite" parent="PreviewOrb"]
+[node name="Outer" type="AnimatedSprite2D" parent="PreviewOrb"]
 position = Vector2( -149, -89 )
 frames = SubResource( 28 )
 animation = "switch"

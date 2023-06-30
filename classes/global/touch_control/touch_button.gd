@@ -14,10 +14,10 @@ const ID_LIST: Array = [
 const TEXTURE_COLUMN_SIZE: int = 7
 const BUTTON_SIZE: Vector2 = Vector2(20, 21)
 
-export var id = ""
-export var actions = PoolStringArray([])
+@export var id = ""
+@export var actions = PackedStringArray([])
 
-onready var parent = get_parent().get_parent()
+@onready var parent = get_parent().get_parent()
 
 func _ready():
 	_setup_textures(id)

@@ -1,7 +1,7 @@
 extends AudioStreamPlayer
 
-onready var fade_out = $FadeOut
-onready var fade_in = $FadeIn
+@onready var fade_out = $FadeOut
+@onready var fade_in = $FadeIn
 
 const song_1 = preload("./music/editor1.ogg")
 const song_2 = preload("./music/editor2.ogg")
@@ -23,7 +23,7 @@ func switch_song():
 	fade_in.interpolate_property(self, "volume_db", -60, 0, 5, 1, Tween.EASE_OUT)
 	fade_in.start()
 	song_length = stream.get_length()
-	length_factor = rand_range(1, 3)
+	length_factor = randf_range(1, 3)
 	#length_factor = 0.3
 	play_length = song_length * length_factor
 	fade_out.interpolate_property(self, "volume_db", 0, -60, 10, 1, Tween.EASE_IN, play_length)

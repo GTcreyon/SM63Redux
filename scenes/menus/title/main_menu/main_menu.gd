@@ -1,24 +1,24 @@
 extends Control
 
-onready var selector_story = $SelectorStory
-onready var selector_settings = $SelectorSettings
-onready var selector_extra = $SelectorExtras
-onready var selector_ld = $SelectorLevelDesigner
+@onready var selector_story = $SelectorStory
+@onready var selector_settings = $SelectorSettings
+@onready var selector_extra = $SelectorExtras
+@onready var selector_ld = $SelectorLevelDesigner
 
-onready var story = $Story
-onready var settings = $Settings
-onready var extra = $Extras
-onready var ld = $LevelDesigner
+@onready var story = $Story
+@onready var settings = $Settings
+@onready var extra = $Extras
+@onready var ld = $LevelDesigner
 
-onready var icon = $Icon
-onready var border = $Border
-onready var description_box = $Border/DescriptionBox
+@onready var icon = $Icon
+@onready var border = $Border
+@onready var description_box = $Border/DescriptionBox
 
-onready var options_control = $OptionsControl
-onready var options_menu = $OptionsControl/OptionsMenu
-onready var back_button = $OptionsControl/BackButton
+@onready var options_control = $OptionsControl
+@onready var options_menu = $OptionsControl/OptionsMenu
+@onready var back_button = $OptionsControl/BackButton
 
-onready var preview_orb = $PreviewOrb
+@onready var preview_orb = $PreviewOrb
 
 # Only based on window size.
 var visible_positions: Array#[Vector2]
@@ -78,11 +78,11 @@ func _process(delta: float) -> void:
 			
 			
 			visible_positions = [
-				Vector2(-0.5 * OS.window_size.x, OS.window_size.y),
-				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(0.5 * OS.window_size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(1.5 * OS.window_size.x, OS.window_size.y),
+				Vector2(-0.5 * get_window().size.x, get_window().size.y),
+				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
+				Vector2(0.5 * get_window().size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
+				Vector2(get_window().size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
+				Vector2(1.5 * get_window().size.x, get_window().size.y),
 				]
 			center_pos_idx = 2
 			
@@ -208,8 +208,8 @@ func _cycle_through(direction: int) -> void:
 
 
 func _manage_sizes(scale) -> void:
-	rect_scale = Vector2.ONE * scale
-	rect_size = OS.window_size / scale
+	scale = Vector2.ONE * scale
+	size = get_window().size / scale
 
 
 func _touch_cycle(step) -> void:

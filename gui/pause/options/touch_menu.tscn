@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
-[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=3]
+[ext_resource path="res://fonts/bylight/bylight.tres" type="FontFile" id=2]
+[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture2D" id=3]
 [ext_resource path="res://gui/pause/options/layout_select.gd" type="Script" id=6]
 [ext_resource path="res://gui/pause/options/change_size.gd" type="Script" id=7]
 [ext_resource path="res://gui/pause/options/swap_sides.gd" type="Script" id=8]
@@ -37,84 +37,84 @@ anchor_bottom = 1.0
 theme = ExtResource( 9 )
 
 [node name="Margin" type="VBoxContainer" parent="."]
-margin_right = 640.0
-margin_bottom = 360.0
-custom_constants/separation = 4
+offset_right = 640.0
+offset_bottom = 360.0
+theme_override_constants/separation = 4
 
 [node name="Label" type="Label" parent="Margin"]
-margin_right = 640.0
-margin_bottom = 15.0
-custom_fonts/font = ExtResource( 2 )
+offset_right = 640.0
+offset_bottom = 15.0
+theme_override_fonts/font = ExtResource( 2 )
 text = "Touch control layout:"
 
 [node name="LayoutSelect" type="OptionButton" parent="Margin"]
-margin_top = 19.0
-margin_right = 640.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 0, 32 )
+offset_top = 19.0
+offset_right = 640.0
+offset_bottom = 51.0
+custom_minimum_size = Vector2( 0, 32 )
 mouse_default_cursor_shape = 2
-custom_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource( 2 )
 script = ExtResource( 6 )
 
 [node name="MiscConfig" type="VBoxContainer" parent="Margin"]
-margin_top = 55.0
-margin_right = 640.0
-margin_bottom = 143.0
+offset_top = 55.0
+offset_right = 640.0
+offset_bottom = 143.0
 
 [node name="SizeChange" type="HBoxContainer" parent="Margin/MiscConfig"]
-margin_left = 238.0
-margin_right = 401.0
-margin_bottom = 42.0
+offset_left = 238.0
+offset_right = 401.0
+offset_bottom = 42.0
 size_flags_horizontal = 6
 script = ExtResource( 7 )
 
 [node name="Label" type="Label" parent="Margin/MiscConfig/SizeChange"]
-margin_top = 13.0
-margin_right = 75.0
-margin_bottom = 28.0
+offset_top = 13.0
+offset_right = 75.0
+offset_bottom = 28.0
 size_flags_horizontal = 7
-custom_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = ExtResource( 2 )
 text = "Change size:"
 align = 1
 
 [node name="SizeUp" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
-margin_left = 79.0
-margin_right = 119.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 40, 42 )
+offset_left = 79.0
+offset_right = 119.0
+offset_bottom = 42.0
+custom_minimum_size = Vector2( 40, 42 )
 size_flags_horizontal = 6
 texture_normal = SubResource( 1 )
 texture_pressed = SubResource( 2 )
 expand = true
 
 [node name="SizeDown" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
-margin_left = 123.0
-margin_right = 163.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 40, 42 )
+offset_left = 123.0
+offset_right = 163.0
+offset_bottom = 42.0
+custom_minimum_size = Vector2( 40, 42 )
 size_flags_horizontal = 6
 texture_normal = SubResource( 3 )
 texture_pressed = SubResource( 4 )
 expand = true
 
 [node name="SwapSides" type="HBoxContainer" parent="Margin/MiscConfig"]
-margin_left = 262.0
-margin_top = 46.0
-margin_right = 377.0
-margin_bottom = 88.0
+offset_left = 262.0
+offset_top = 46.0
+offset_right = 377.0
+offset_bottom = 88.0
 size_flags_horizontal = 6
 
 [node name="Label" type="Label" parent="Margin/MiscConfig/SwapSides"]
-margin_top = 13.0
-margin_right = 71.0
-margin_bottom = 28.0
+offset_top = 13.0
+offset_right = 71.0
+offset_bottom = 28.0
 text = "Swap sides:"
 
 [node name="Swap" type="TextureButton" parent="Margin/MiscConfig/SwapSides"]
-margin_left = 75.0
-margin_right = 115.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 40, 42 )
+offset_left = 75.0
+offset_right = 115.0
+offset_bottom = 42.0
+custom_minimum_size = Vector2( 40, 42 )
 texture_normal = SubResource( 5 )
 texture_pressed = SubResource( 6 )
 expand = true

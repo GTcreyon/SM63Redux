@@ -1,12 +1,12 @@
 extends HBoxContainer
 
 var mask: RegEx = RegEx.new()
-export(Vector2) var pre_value: Vector2 = Vector2.ZERO
+@export var pre_value: Vector2: Vector2 = Vector2.ZERO
 
-onready var label: Label = $Label
-onready var line_edit_x: LineEdit = $LineEditX
-onready var line_edit_y: LineEdit = $LineEditY
-onready var parent_menu = $"../.."
+@onready var label: Label = $Label
+@onready var line_edit_x: LineEdit = $LineEditX
+@onready var line_edit_y: LineEdit = $LineEditY
+@onready var parent_menu = $"../.."
 
 func _init():
 	mask.compile("[^0-9,\\-,.]+")
@@ -36,11 +36,11 @@ func increment(axis, value):
 
 func _on_LineEdit_text_changed(new_text: String, axis):
 	var line_edit = line_edit_x if axis == "X" else line_edit_y
-	var caret_store = line_edit.caret_position # We have to mess around with the caret a bit here otherwise it gets reset
+	var caret_store = line_edit.caret_column # We have to mess around with the caret a bit here otherwise it gets reset
 	line_edit.text = mask.sub(new_text, "", true)
-	line_edit.caret_position = caret_store
-	if line_edit.text != new_text and line_edit.caret_position != new_text.length() - 1:
-		line_edit.caret_position -= 1
+	line_edit.caret_column = caret_store
+	if line_edit.text != new_text and line_edit.caret_column != new_text.length() - 1:
+		line_edit.caret_column -= 1
 	parent_menu.on_value_changed(label.text, Vector2(
 		float(line_edit_x.text),
 		float(line_edit_y.text)

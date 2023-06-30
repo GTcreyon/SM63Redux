@@ -1,7 +1,7 @@
 extends FileDialog
 
 var save_dict: Dictionary
-onready var main = $"/root/Main"
+@onready var main = $"/root/Main"
 
 func _on_SaveDialog_file_selected(path):
 	var file = File.new()

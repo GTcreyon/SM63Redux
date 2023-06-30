@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/editor3.ogg-bef533fa3bddfe534120d2f9c46ba23c.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bma0cor4nm0uu"
+path="res://.godot/imported/editor3.ogg-bef533fa3bddfe534120d2f9c46ba23c.oggvorbisstr"
 
 [deps]
 
 source_file="res://scenes/menus/level_designer/music/editor3.ogg"
-dest_files=[ "res://.import/editor3.ogg-bef533fa3bddfe534120d2f9c46ba23c.oggstr" ]
+dest_files=["res://.godot/imported/editor3.ogg-bef533fa3bddfe534120d2f9c46ba23c.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

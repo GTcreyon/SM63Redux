@@ -52,8 +52,8 @@ enum Nozzles { # FLUDD enum
 	TURBO,
 }
 
-onready var console = $Console
-onready var timer = $Timer
+@onready var console = $Console
+@onready var timer = $Timer
 
 var classic = false
 
@@ -71,7 +71,7 @@ var pause_menu = false
 var line_count: int = 0
 var disable_limits = false
 var touch_control = false
-var ld_buffer = PoolByteArray([])
+var ld_buffer = PackedByteArray([])
 var meta_paused = false
 var meta_pauses = {
 	"feedback":false,
@@ -151,7 +151,7 @@ func reset_game_state():
 
 # Get a scaling factor based on the window dimensions
 func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
-	var scale_vec = OS.window_size / Singleton.DEFAULT_SIZE
+	var scale_vec = get_window().size / Singleton.DEFAULT_SIZE
 	var rounded = Vector2.ONE
 	if threshold == -1:
 		match mode:
@@ -211,7 +211,7 @@ func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.
 	
 	# Do the actual warp.
 	# warning-ignore:RETURN_VALUE_DISCARDED
-	get_tree().call_deferred("change_scene", path)
+	get_tree().call_deferred("change_scene_to_file", path)
 	
 	call_deferred("emit_signal", "after_scene_change")
 
@@ -233,7 +233,9 @@ func get_input_map_json_saved():
 
 
 func load_input_map(input_json):
-	var load_dict: Dictionary = parse_json(input_json)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(input_json)
+	var load_dict: Dictionary = test_json_conv.get_data()
 	for key in WHITELISTED_ACTIONS:
 		InputMap.action_erase_events(key)
 		# Skip unbound actions
@@ -246,7 +248,7 @@ func load_input_map(input_json):
 			match type:
 				"k":
 					event = InputEventKey.new()
-					event.scancode = int(body)
+					event.keycode = int(body)
 				"b":
 					event = InputEventJoypadButton.new()
 					event.button_index = int(body)
@@ -262,18 +264,18 @@ func get_input_map_json_current():
 	var save_dict = {}
 	for key in InputMap.get_actions():
 		if WHITELISTED_ACTIONS.has(key):
-			for action in InputMap.get_action_list(key):
+			for action in InputMap.action_get_events(key):
 				if !save_dict.has(key):
 					save_dict[key] = []
 				var key_entry = save_dict[key]
 				match action.get_class():
 					"InputEventKey":
-						key_entry.append("k:%d" % action.scancode)
+						key_entry.append("k:%d" % action.keycode)
 					"InputEventJoypadButton":
 						key_entry.append("b:%d" % action.button_index)
 					"InputEventJoypadMotion":
 						key_entry.append("a:%d;%d" % [action.axis, action.axis_value])
-	return to_json(save_dict)
+	return JSON.new().stringify(save_dict)
 
 
 func save_input_map_current() -> void:

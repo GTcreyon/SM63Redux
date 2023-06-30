@@ -38,60 +38,60 @@ extends EntityMirrorable
 const COIN_PREFAB = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 const SMOKE_PREFAB = preload("res://classes/entity/enemy/smoke_poof.tscn")
 
-export var coin_count: int = 1
-export var inside_check: bool = true
-export var multi_stomp: bool = false
+@export var coin_count: int = 1
+@export var inside_check: bool = true
+@export var multi_stomp: bool = false
 # When true, produce a poof of smoke on death.
-export var death_smoke: bool = true
+@export var death_smoke: bool = true
 var dead: bool = false
 var stomped: bool = false
 var struck: bool = false
 var _pickup_ids: Array = []
 
-export var _hurtbox_stomp_path: NodePath = "HurtboxStomp"
-onready var hurtbox_stomp = get_node_or_null(_hurtbox_stomp_path)
+@export var _hurtbox_stomp_path: NodePath = "HurtboxStomp"
+@onready var hurtbox_stomp = get_node_or_null(_hurtbox_stomp_path)
 
-export var _hurtbox_strike_path: NodePath = "HurtboxStrike"
-onready var hurtbox_strike = get_node_or_null(_hurtbox_strike_path)
+@export var _hurtbox_strike_path: NodePath = "HurtboxStrike"
+@onready var hurtbox_strike = get_node_or_null(_hurtbox_strike_path)
 
-export var _hitbox_path: NodePath = "Hitbox"
-onready var hitbox = get_node_or_null(_hitbox_path)
+@export var _hitbox_path: NodePath = "Hitbox"
+@onready var hitbox = get_node_or_null(_hitbox_path)
 
 # Optional death sound effects
-export var _sfx_stomp_path: NodePath = "SFXStomped"
-onready var sfx_stomp: AudioStreamPlayer2D = get_node_or_null(_sfx_stomp_path)
+@export var _sfx_stomp_path: NodePath = "SFXStomped"
+@onready var sfx_stomp: AudioStreamPlayer2D = get_node_or_null(_sfx_stomp_path)
 
-export var _sfx_struck_path: NodePath = "SFXStruck"
-onready var sfx_struck: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_path)
+@export var _sfx_struck_path: NodePath = "SFXStruck"
+@onready var sfx_struck: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_path)
 
-export var _sfx_struck_land_path: NodePath = "SFXStruckLanded"
-onready var sfx_struck_landed: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_land_path)
+@export var _sfx_struck_land_path: NodePath = "SFXStruckLanded"
+@onready var sfx_struck_landed: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_land_path)
 
 # Make the enemy die and drop its coins.
 func enemy_die():
 	for _i in range(coin_count):
 		var id = _pickup_ids[_i]
 		if !FlagServer.get_flag_state(id):
-			var spawn = COIN_PREFAB.instance()
+			var spawn = COIN_PREFAB.instantiate()
 			spawn.get_pickup_node().assign_pickup_id(id)
 			spawn.position = position
 			spawn.dropped = true
 			spawn.pop_velocity()
 			get_parent().add_child(spawn)
-	var spawn = SMOKE_PREFAB.instance()
+	var spawn = SMOKE_PREFAB.instantiate()
 	spawn.position = position
 	get_parent().add_child(spawn)
 	queue_free()
 
 
 func _ready_override():
-	._ready_override()
+	super._ready_override()
 	_setup_pickup_ids()
 	_init_animation()
 
 
 func _physics_step():
-	._physics_step()
+	super._physics_step()
 	
 	# Triggered when landing on the floor after being struck by a spin
 	if is_on_floor() and struck and !stomped and vel.y > 0:
@@ -120,7 +120,7 @@ func _hurtbox_check():
 
 
 func _connect_signals():
-	._connect_signals()
+	super._connect_signals()
 	_connect_node_signal_if_exists(hurtbox_stomp, "area_entered", self, "_on_HurtboxStomp_area_entered")
 	_connect_node_signal_if_exists(hurtbox_strike, "body_entered", self, "_on_HurtboxStrike_body_entered")
 	_connect_node_signal_if_exists(hitbox, "body_entered", self, "_on_Hitbox_body_entered")
@@ -128,7 +128,7 @@ func _connect_signals():
 
 
 func set_disabled(val):
-	.set_disabled(val)
+	super.set_disabled(val)
 	_set_node_property_if_exists(hurtbox_stomp, "monitoring", !val)
 	_set_node_property_if_exists(hurtbox_strike, "monitoring", !val)
 	_set_node_property_if_exists(hitbox, "monitoring", !val)
@@ -136,7 +136,7 @@ func set_disabled(val):
 
 
 func _preempt_all_node_readies():
-	._preempt_all_node_readies()
+	super._preempt_all_node_readies()
 	hurtbox_stomp = _preempt_node_ready(hurtbox_stomp, _hurtbox_stomp_path)
 	hurtbox_strike = _preempt_node_ready(hurtbox_strike, _hurtbox_strike_path)
 	hitbox = _preempt_node_ready(hitbox, _hitbox_path)

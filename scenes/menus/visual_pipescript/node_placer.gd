@@ -4,11 +4,11 @@ const PHANTOM_STYLE = preload("res://scenes/menus/visual_pipescript/phantom_styl
 const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
 const EDITOR_THEME = preload("res://scenes/menus/visual_pipescript/visual_editor_theme.tres")
 
-onready var graph = $Graph
-onready var camera := $Camera
-onready var selection_container = $CanvasLayer/Theme/SelectionMenu/VBox
-onready var compiler = $PipeScript/VisualCompiler
-onready var piece_instances = {
+@onready var graph = $Graph
+@onready var camera := $Camera3D
+@onready var selection_container = $CanvasLayer/Theme/SelectionMenu/VBox
+@onready var compiler = $PipeScript/VisualCompiler
+@onready var piece_instances = {
 	holster = preload("res://scenes/menus/visual_pipescript/vps_holster_piece.tscn"),
 	normal = preload("res://scenes/menus/visual_pipescript/vps_piece.tscn"),
 	begin = preload("res://scenes/menus/visual_pipescript/vps_begin.tscn")
@@ -17,8 +17,8 @@ onready var piece_instances = {
 var pieces
 
 # Phantom setup
-var selected_node = null setget set_selected_node
-var selected_index = -1 setget set_selected_index
+var selected_node = null: set = set_selected_node
+var selected_index = -1: set = set_selected_index
 
 var phantom_line_edit = LineEdit.new()
 var phantom_possible_items = Panel.new()
@@ -58,11 +58,11 @@ func phantom_text_entered(text):
 	if !selected:
 		return
 	
-	var instance: NinePatchRect = piece_instances[selected.display].instance()
+	var instance: NinePatchRect = piece_instances[selected.display].instantiate()
 	instance.setup(selected)
-	instance.rect_global_position = selected_node.rect_global_position + Vector2(
+	instance.global_position = selected_node.global_position + Vector2(
 		0 if selected_index == -1 else 20,
-		selected_node.rect_size.y if selected_index == -1 else 26
+		selected_node.size.y if selected_index == -1 else 26
 	)
 	graph.add_child(instance)
 	var connection = instance.snap_to_others()
@@ -92,7 +92,7 @@ func phantom_text_change(text):
 		if display_name.to_lower().begins_with(text.to_lower()):
 			# Make sure we trim the string so we don't have that annoying autowrap with richtextlabels
 			# As for why we do +60, I HAVE NO CLUE, get_text_width() doesn't as this wierd offset
-			var check_width = phantom_line_edit.rect_size.x - 6 + 100
+			var check_width = phantom_line_edit.size.x - 6 + 100
 			var real_text = text
 			while get_text_width(real_text) > check_width:
 				real_text = real_text.left(len(real_text) - 1)
@@ -103,22 +103,22 @@ func phantom_text_change(text):
 			# Create the actual richtextlabel
 			var label = RichTextLabel.new()
 			label.bbcode_enabled = true
-			label.bbcode_text = "[color=#0088ff]%s[/color]%s" % [real_text, real_display]
-			label.rect_position = Vector2(3, pos_y)
-			label.rect_size.x = phantom_line_edit.rect_size.x - 6
-			label.rect_size.y = BYLIGHT.get_height() + 2
+			label.text = "[color=#0088ff]%s[/color]%s" % [real_text, real_display]
+			label.position = Vector2(3, pos_y)
+			label.size.x = phantom_line_edit.size.x - 6
+			label.size.y = BYLIGHT.get_height() + 2
 			label.fit_content_height = true
 			label.scroll_active = false
-			label.add_font_override("font", BYLIGHT)
+			label.add_theme_font_override("font", BYLIGHT)
 			# Make sure the first option is colored slightly darker as it is selected
 			if pos_y == 4:
 				label.modulate = Color(0.8, 0.8, 0.8)
 			phantom_possible_items.add_child(label)
 			phantom_possible_pieces.append(piece)
-			pos_y += label.rect_size.y + 4
+			pos_y += label.size.y + 4
 	
-	phantom_possible_items.rect_size = Vector2(phantom_line_edit.rect_size.x, pos_y)
-	phantom_possible_items.rect_global_position = phantom_line_edit.rect_global_position + Vector2(0, phantom_line_edit.rect_size.y + 4)
+	phantom_possible_items.size = Vector2(phantom_line_edit.size.x, pos_y)
+	phantom_possible_items.global_position = phantom_line_edit.global_position + Vector2(0, phantom_line_edit.size.y + 4)
 	phantom_possible_items.visible = true
 	
 
@@ -146,16 +146,16 @@ func handle_phantom_node():
 	if selected_index < 0 && selected_node:
 		phantom_line_edit.text = ""
 		phantom_line_edit.visible = true
-		phantom_line_edit.rect_global_position = selected_node.rect_global_position + Vector2(
+		phantom_line_edit.global_position = selected_node.global_position + Vector2(
 			(0 if selected_index == -1 else 20) + 2,
-			(selected_node.rect_size.y if selected_index == -1 else 26) + 2
+			(selected_node.size.y if selected_index == -1 else 26) + 2
 		)
-		phantom_line_edit.rect_size.x = selected_node.rect_size.x
+		phantom_line_edit.size.x = selected_node.size.x
 		phantom_line_edit.grab_focus()
-		phantom_possible_items.rect_global_position = phantom_line_edit.rect_global_position + Vector2(0, phantom_line_edit.rect_size.y + 4)
+		phantom_possible_items.global_position = phantom_line_edit.global_position + Vector2(0, phantom_line_edit.size.y + 4)
 
 func drag_begin(piece):
-	var instance: NinePatchRect = piece_instances[piece.display].instance()
+	var instance: NinePatchRect = piece_instances[piece.display].instantiate()
 	instance.setup(piece)
 	instance.creation_drag = true
 	graph.add_child(instance)
@@ -172,7 +172,7 @@ func add_buttons():
 	
 	for category in categories:
 		var heading = Label.new()
-		heading.align = Label.ALIGN_CENTER
+		heading.align = Label.ALIGNMENT_CENTER
 		heading.text = category
 		selection_container.add_child(heading)
 		for piece in pieces:
@@ -181,7 +181,7 @@ func add_buttons():
 				item.text = piece["display-name"]
 				item.align = Button.ALIGN_RIGHT
 				item.focus_mode = Control.FOCUS_NONE
-				item.connect("button_down", self, "drag_begin", [piece])
+				item.connect("button_down", Callable(self, "drag_begin").bind(piece))
 				selection_container.add_child(item)
 
 func _ready():
@@ -190,17 +190,19 @@ func _ready():
 	file.open("res://scenes/menus/visual_pipescript/pieces.json", File.READ)
 	var content = file.get_as_text()
 	file.close()
-	pieces = parse_json(content)
+	var test_json_conv = JSON.new()
+	test_json_conv.parse(content)
+	pieces = test_json_conv.get_data()
 	# Add the buttons
 	add_buttons()
 	
 	# Keyboard shortcuts
 	phantom_line_edit.visible = false
-	phantom_line_edit.add_font_override("font", BYLIGHT)
-	phantom_line_edit.add_stylebox_override("normal", PHANTOM_STYLE)
-	phantom_line_edit.add_stylebox_override("focus", PHANTOM_STYLE)
-	phantom_line_edit.connect("text_changed", self, "phantom_text_change")
-	phantom_line_edit.connect("text_entered", self, "phantom_text_entered")
+	phantom_line_edit.add_theme_font_override("font", BYLIGHT)
+	phantom_line_edit.add_theme_stylebox_override("normal", PHANTOM_STYLE)
+	phantom_line_edit.add_theme_stylebox_override("focus", PHANTOM_STYLE)
+	phantom_line_edit.connect("text_changed", Callable(self, "phantom_text_change"))
+	phantom_line_edit.connect("text_submitted", Callable(self, "phantom_text_entered"))
 	add_child(phantom_line_edit)
 	
 	phantom_possible_items.theme = EDITOR_THEME

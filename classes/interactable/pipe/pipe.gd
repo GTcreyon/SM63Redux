@@ -10,7 +10,7 @@ var ride_area
 var begin_pound = false # Did we land a pound this frame?
 var continue_pound = false # Did a pound send us down this pipe?
 
-onready var sound = $SFX # for sound effect
+@onready var sound = $SFX # for sound effect
 
 # This function is part of an ugly hack to make quick-pipe work.
 # With quick-pipe, the pipe activates if the player is grounded AND either
@@ -37,7 +37,7 @@ func _state_check(player) -> bool:
 	# Also interact if player hits the pipe whilst pounding.
 	begin_pound = player.state == player.S.POUND and player.pound_state != player.Pound.SPIN
 	
-	return (interact_check and ._state_check(player)) or begin_pound
+	return (interact_check and super._state_check(player)) or begin_pound
 
 
 func _animation_length() -> int:
@@ -99,5 +99,5 @@ func _end_animation(_player):
 
 
 func set_disabled(val):
-	.set_disabled(val)
-	$StaticBody2D.set_collision_layer_bit(0, 0 if val else 1)
+	super.set_disabled(val)
+	$StaticBody2D.set_collision_layer_value(0, 0 if val else 1)

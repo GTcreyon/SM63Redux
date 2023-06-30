@@ -1,11 +1,11 @@
 [gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
-[ext_resource path="res://classes/pickup/coin/coins.png" type="Texture" id=2]
+[ext_resource path="res://classes/pickup/coin/coins.png" type="Texture2D" id=2]
 [ext_resource path="res://shaders/aa.tres" type="Material" id=3]
 [ext_resource path="res://classes/pickup/coin/yellow/coin_yellow.gd" type="Script" id=9]
 [ext_resource path="res://classes/pickup/coin/coin_entity.gd" type="Script" id=10]
-[ext_resource path="res://classes/pickup/coin/yellow/coin_particles_yellow.png" type="Texture" id=11]
+[ext_resource path="res://classes/pickup/coin/yellow/coin_particles_yellow.png" type="Texture2D" id=11]
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
@@ -40,19 +40,19 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 8, 8 )
+size = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 8, 8 )
+size = Vector2( 8, 8 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1, 1 )
+size = Vector2( 1, 1 )
 
-[node name="Coin" type="KinematicBody2D"]
+[node name="Coin" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource( 10 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = ExtResource( 3 )
 frames = SubResource( 1 )
 script = ExtResource( 1 )
@@ -67,7 +67,7 @@ input_pickable = false
 monitorable = false
 script = ExtResource( 9 )
 parent_is_root = true
-_sprite_path = NodePath("../AnimatedSprite")
+_sprite_path = NodePath("../AnimatedSprite2D")
 _sfx_path = NodePath("")
 particle_texture = ExtResource( 11 )
 

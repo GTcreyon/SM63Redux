@@ -4,7 +4,7 @@
 [ext_resource path="res://classes/entity/enemy/koopa/koopa.gd" type="Script" id=2]
 [ext_resource path="res://classes/entity/enemy/goomba/goomba_step.wav" type="AudioStream" id=3]
 [ext_resource path="res://shaders/palette.tres" type="Material" id=4]
-[ext_resource path="res://classes/entity/enemy/koopa/koopa_walk.png" type="Texture" id=5]
+[ext_resource path="res://classes/entity/enemy/koopa/koopa_walk.png" type="Texture2D" id=5]
 [ext_resource path="res://classes/entity/enemy/koopa/shell_kick.ogg" type="AudioStream" id=6]
 
 [sub_resource type="AtlasTexture" id=12]
@@ -40,21 +40,21 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 11, 16.5 )
+size = Vector2( 11, 16.5 )
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 11, 7.5 )
+size = Vector2( 11, 7.5 )
 
 [sub_resource type="RectangleShape2D" id=18]
-extents = Vector2( 11, 16.5 )
+size = Vector2( 11, 16.5 )
 
 [sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 5, 14.5 )
+size = Vector2( 5, 14.5 )
 
 [sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 1, 1 )
+size = Vector2( 1, 1 )
 
-[node name="Koopa" type="KinematicBody2D"]
+[node name="Koopa" type="CharacterBody2D"]
 material = ExtResource( 4 )
 collision_layer = 4
 script = ExtResource( 2 )
@@ -65,7 +65,7 @@ step_indexes = [ false, true, false, false, true, false ]
 _alert_area_path = NodePath("")
 _aware_area_path = NodePath("")
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
 position = Vector2( 0, 0.5 )
 frames = SubResource( 7 )
@@ -80,7 +80,7 @@ shape = SubResource( 8 )
 [node name="EdgeCheck" type="RayCast2D" parent="."]
 position = Vector2( 9, 0 )
 enabled = true
-cast_to = Vector2( 0, 35 )
+target_position = Vector2( 0, 35 )
 
 [node name="HurtboxStomp" type="Area2D" parent="."]
 collision_layer = 0

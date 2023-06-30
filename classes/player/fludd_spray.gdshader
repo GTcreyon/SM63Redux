@@ -1,8 +1,8 @@
 shader_type canvas_item;
 
-uniform vec4 base_color : hint_color = vec4(0.54, 0.70, 0.83, 0.63);
-uniform vec4 outline_color : hint_color = vec4(0.47, 0.59, 0.81, 0.63);
-uniform vec4 shine_color : hint_color = vec4(0.98, 0.91, 0.91, 0.63);
+uniform vec4 base_color : source_color = vec4(0.54, 0.70, 0.83, 0.63);
+uniform vec4 outline_color : source_color = vec4(0.47, 0.59, 0.81, 0.63);
+uniform vec4 shine_color : source_color = vec4(0.98, 0.91, 0.91, 0.63);
 uniform sampler2D viewport_texture;
 uniform float zoom;
 

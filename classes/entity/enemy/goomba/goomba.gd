@@ -10,7 +10,7 @@ enum JumpStates {
 var jump_state: int = JumpStates.FLOOR
 var land_timer = 0
 
-onready var sfx_jump = $SFXJump
+@onready var sfx_jump = $SFXJump
 
 
 func _physics_step():
@@ -41,7 +41,7 @@ func _physics_step():
 					else:
 						sprite.frame = 2 + land_timer # Finish up jumping anim
 	
-	._physics_step()
+	super._physics_step()
 
 
 func _target_alert(_body):
@@ -75,7 +75,7 @@ func _stomp_trigger():
 
 
 func _hurt_struck(body):
-	._hurt_struck(body)
+	super._hurt_struck(body)
 	sprite.animation = "jumping"
 	jump_state = JumpStates.AIRBORNE
 

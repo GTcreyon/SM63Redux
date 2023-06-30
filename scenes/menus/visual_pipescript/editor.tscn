@@ -5,7 +5,7 @@
 [ext_resource path="res://scenes/menus/visual_pipescript/camera_mover.gd" type="Script" id=3]
 [ext_resource path="res://scenes/menus/visual_pipescript/visual_editor_theme.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/menus/level_designer/background.tres" type="Material" id=5]
-[ext_resource path="res://scenes/menus/visual_pipescript/editor_background.png" type="Texture" id=6]
+[ext_resource path="res://scenes/menus/visual_pipescript/editor_background.png" type="Texture2D" id=6]
 [ext_resource path="res://scenes/menus/visual_pipescript/visual_compiler.gd" type="Script" id=7]
 
 [node name="Main" type="Control"]
@@ -22,7 +22,7 @@ script = ExtResource( 7 )
 
 [node name="FunctionHandler" type="Node" parent="PipeScript"]
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera3D" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
 script = ExtResource( 3 )
@@ -42,49 +42,49 @@ __meta__ = {
 
 [node name="Titlebar" type="Panel" parent="CanvasLayer/Theme"]
 anchor_right = 1.0
-margin_bottom = 40.0
+offset_bottom = 40.0
 
 [node name="Run" type="Button" parent="CanvasLayer/Theme/Titlebar"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -46.0
-margin_top = -30.0
-margin_right = -10.0
-margin_bottom = -10.0
+offset_left = -46.0
+offset_top = -30.0
+offset_right = -10.0
+offset_bottom = -10.0
 focus_mode = 0
 text = "Run"
 
 [node name="Save" type="Button" parent="CanvasLayer/Theme/Titlebar"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 10.0
-margin_top = -30.0
-margin_bottom = -10.0
+offset_left = 10.0
+offset_top = -30.0
+offset_bottom = -10.0
 focus_mode = 0
 text = "Save"
 
 [node name="Load" type="Button" parent="CanvasLayer/Theme/Titlebar"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 61.0
-margin_top = -30.0
-margin_bottom = -10.0
+offset_left = 61.0
+offset_top = -30.0
+offset_bottom = -10.0
 focus_mode = 0
 text = "Load"
 
 [node name="SelectionMenu" type="ScrollContainer" parent="CanvasLayer/Theme"]
 anchor_bottom = 1.0
-margin_top = 40.0
-margin_right = 4.0
+offset_top = 40.0
+offset_right = 4.0
 scroll_horizontal_enabled = false
 
 [node name="VBox" type="VBoxContainer" parent="CanvasLayer/Theme/SelectionMenu"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 2.0
-margin_bottom = 318.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 2.0
+offset_bottom = 318.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 

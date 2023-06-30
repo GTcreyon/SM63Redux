@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://classes/solid/breakable_box/box_particle.gd" type="Script" id=1]
-[ext_resource path="res://classes/solid/breakable_box/box_particle.png" type="Texture" id=2]
+[ext_resource path="res://classes/solid/breakable_box/box_particle.png" type="Texture2D" id=2]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 2 )
@@ -40,13 +40,13 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
-extents = Vector2( 5, 4 )
+size = Vector2( 5, 4 )
 
-[node name="BoxParticle" type="KinematicBody2D"]
+[node name="BoxParticle" type="CharacterBody2D"]
 collision_layer = 0
 script = ExtResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 8 )
 frame = 2
 playing = true

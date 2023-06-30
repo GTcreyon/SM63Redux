@@ -3,7 +3,7 @@ extends Area2D
 # Box that drops a fludd nozzle when stomped.
 
 
-export(Singleton.Nozzles) var nozzle: int
+@export var nozzle: int # (Singleton.Nozzles)
 
 var PICKUP_PREFABS = [
 	preload("./fludd_pickup_hover.tscn"),
@@ -11,7 +11,7 @@ var PICKUP_PREFABS = [
 	preload("./fludd_pickup_turbo.tscn"),
 ]
 
-onready var sprite: AnimatedSprite = $AnimatedSprite
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 
 func _ready():
@@ -43,7 +43,7 @@ func _on_FluddBox_area_entered(area):
 	if player.vel.y > -2:
 		sprite.animation = "bounce_" + _get_nozzle_label(nozzle)
 		
-		var inst = PICKUP_PREFABS[nozzle - 1].instance()
+		var inst = PICKUP_PREFABS[nozzle - 1].instantiate()
 		inst.position = Vector2(position.x, position.y + 8.5)
 		get_parent().call_deferred("add_child", inst)
 		

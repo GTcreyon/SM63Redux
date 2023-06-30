@@ -2,12 +2,12 @@ class_name InteractableDialog
 extends Interactable
 # Parent class for interactable objects that respond with dialog.
 
-export(Array, String, MULTILINE) var lines = [""]
-export var x_offset: int = 0
-export var can_pivot: bool = false
-export var back_sprite: bool = false
+@export var lines = [""] # (Array, String, MULTILINE)
+@export var x_offset: int = 0
+@export var can_pivot: bool = false
+@export var back_sprite: bool = false
 
-onready var dialog = $"/root/Main/Player/Camera/HUD/HUDControl/DialogBox"
+@onready var dialog = $"/root/Main/Player/Camera3D/HUD/HUDControl/DialogBox"
 
 
 func _interact_with(body):

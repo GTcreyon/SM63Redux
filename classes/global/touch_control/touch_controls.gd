@@ -1,8 +1,8 @@
 extends CanvasLayer
 
 const BUTTON_DIMENSIONS = Vector2(20, 21)
-const ANCHOR_DIRECTION_OFFSETS = PoolVector2Array([Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)])
-const ANCHOR_PIVOT_OFFSETS = PoolVector2Array([Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)])
+const ANCHOR_DIRECTION_OFFSETS = PackedVector2Array([Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)])
+const ANCHOR_PIVOT_OFFSETS = PackedVector2Array([Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)])
 const ANCHOR_REVERSE_OFFSETS = [false, true, false, true]
 const BUTTON_PREFAB = preload("res://classes/global/touch_control/touch_button.tscn")
 const LAYOUT_PRESETS = {
@@ -16,7 +16,7 @@ var action_presses = {} # Record how many buttons are pressing each action
 var anchor_order = [0, 1, 2, 3]
 var current_layout = "new"
 
-onready var anchors = [$AnchorLeft, $AnchorRight, $AnchorLeftUp, $AnchorRightUp]
+@onready var anchors = [$AnchorLeft, $AnchorRight, $AnchorLeftUp, $AnchorRightUp]
 
 func _init():
 	visible = false
@@ -40,20 +40,20 @@ func _get_button_scale() -> int:
 	
 	var output = min(
 		floor(
-			(OS.window_size.x / 2) / (BUTTON_DIMENSIONS.x * 6 * scale.x)
+			(get_window().size.x / 2) / (BUTTON_DIMENSIONS.x * 6 * scale.x)
 		),
 		floor(
-			(OS.window_size.y / 2) / (BUTTON_DIMENSIONS.y * 4 * scale.y)
+			(get_window().size.y / 2) / (BUTTON_DIMENSIONS.y * 4 * scale.y)
 		)
 	)
 	return output
 
 
 func _process(_delta) -> void:
-	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)	
+	var gui_scale = max(floor(get_window().size.x / Singleton.DEFAULT_SIZE.x), 1)	
 	visible = Singleton.touch_control
 	for anchor in anchors:
-		anchor.rect_scale = Vector2.ONE * gui_scale * button_scale
+		anchor.scale = Vector2.ONE * gui_scale * button_scale
 
 
 func _physics_process(_delta) -> void:
@@ -101,7 +101,7 @@ func _generate_buttons(pattern: String) -> void:
 	var anchor_index = 0
 	for corner in pattern.split("@"):
 		for row in corner.split("#"):
-			var buttons: PoolStringArray = row.split("/")
+			var buttons: PackedStringArray = row.split("/")
 			if ANCHOR_REVERSE_OFFSETS[anchor_order[anchor_index]]:
 				buttons.invert()
 			for button in buttons:
@@ -111,7 +111,7 @@ func _generate_buttons(pattern: String) -> void:
 					for action in actions:
 						if !action_presses.has(action):
 							action_presses[action] = 0
-					var inst = BUTTON_PREFAB.instance()
+					var inst = BUTTON_PREFAB.instantiate()
 					inst.id = parts[0]
 					inst.actions = actions
 					inst.position = (

@@ -27,14 +27,14 @@ const FLASH_COUNT: int = 18
 var _is_lit: bool = false
 var _fuse_time: int = FUSE_DURATION
 
-onready var base = $Sprites/Base
-onready var fuse = $Sprites/Fuse
-onready var key = $Sprites/Key
-onready var sfx_fuse = $SFXFuse
-onready var sfx_build = $SFXBuildup
+@onready var base = $Sprites/Base
+@onready var fuse = $Sprites/Fuse
+@onready var key = $Sprites/Key
+@onready var sfx_fuse = $SFXFuse
+@onready var sfx_build = $SFXBuildup
 
 func _ready_override():
-	._ready_override()
+	super._ready_override()
 	fuse = _preempt_node_ready(fuse, "Sprites/Fuse")
 	key = _preempt_node_ready(key, "Sprites/Key")
 	fuse.playing = !disabled
@@ -61,7 +61,7 @@ func _physics_step() -> void:
 	if _fuse_time <= 0:
 		explode()
 	
-	._physics_step()
+	super._physics_step()
 
 
 func _update_sprites() -> void:
@@ -95,13 +95,13 @@ func _target_alert(_body) -> void:
 
 
 func set_disabled(val) -> void:
-	.set_disabled(val)
+	super.set_disabled(val)
 	fuse.playing = !disabled
 	key.playing = !disabled
 
 
 func _hurt_struck(body) -> void:
-	._hurt_struck(body)
+	super._hurt_struck(body)
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false
@@ -125,7 +125,7 @@ func _struck_land():
 
 
 func explode():
-	var spawn = EXPLOSION.instance()
+	var spawn = EXPLOSION.instantiate()
 	spawn.position = position
 	get_parent().add_child(spawn)
 	enemy_die()

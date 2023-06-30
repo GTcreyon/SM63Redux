@@ -2,22 +2,22 @@ extends Control
 
 const LIST_ITEM = preload("./ldui/list_item.tscn")
 
-onready var level_editor := $"/root/Main"
-onready var item_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid
-onready var polygon_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid
+@onready var level_editor := $"/root/Main"
+@onready var item_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid
+@onready var polygon_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid
 
 
 func fill_grid():
 	for item_id in range(level_editor.item_textures.size()):
 		if level_editor.item_textures[item_id] != null:
-			var button = LIST_ITEM.instance()
+			var button = LIST_ITEM.instantiate()
 			var tex: AtlasTexture = AtlasTexture.new()
 			
 			var path = level_editor.item_textures[item_id]["List"]
 			if path == null:
 				path = level_editor.item_textures[item_id]["Placed"]
 			
-			var stream: StreamTexture = load(path)
+			var stream: CompressedTexture2D = load(path)
 			tex.atlas = stream
 			var min_size = Vector2(
 				min(
@@ -33,7 +33,7 @@ func fill_grid():
 				stream.get_size() / 2 - min_size / 2,
 				min_size
 			)
-			button.rect_min_size = Vector2(32, 32)
+			button.custom_minimum_size = Vector2(32, 32)
 			button.get_node("Icon").texture = tex
 			button.item_id = item_id
 			item_grid.add_child(button)

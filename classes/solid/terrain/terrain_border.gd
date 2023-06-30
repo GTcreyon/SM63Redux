@@ -1,4 +1,4 @@
-tool
+@tool
 class_name TerrainBorder
 extends Node2D
 # Handles drawing of terrain polygons' border graphics, except for
@@ -16,9 +16,9 @@ enum EdgeType {
 
 const QUAD_RADIUS = 16
 
-onready var root = $".."
-onready var body_polygon: Polygon2D = $"../Body"
-onready var top_edges: TerrainBorderEndcaps = $"../TopEdgeEndcaps"
+@onready var root = $".."
+@onready var body_polygon: Polygon2D = $"../Body"
+@onready var top_edges: TerrainBorderEndcaps = $"../TopEdgeEndcaps"
 
 
 func _draw():
@@ -39,7 +39,7 @@ func _draw():
 	top_edges.update()
 
 
-func add_full(poly: PoolVector2Array):
+func add_full(poly: PackedVector2Array):
 	# Dictionary of segments which have had their type ID evaluated.
 	# Types are indexed by first vertex: overrides[3] will return the
 	# type ID of segment (3, 4).
@@ -99,7 +99,7 @@ func generate_polygons_top(lines, z_order = 2):
 			index = ind,
 			verts = cur_group,
 			direction = cur_group[0].direction_to(cur_group[1]),
-			normal = cur_group[0].direction_to(cur_group[1]).tangent(),
+			normal = cur_group[0].direction_to(cur_group[1]).orthogonal(),
 			clock_dir = 1,
 			type = "quad"
 		})
@@ -111,7 +111,7 @@ func generate_polygons_top(lines, z_order = 2):
 		# Didn't early exit. Time to resolve intersections between groups.
 		
 		# Does the top of this area intersect the top of the next?
-		var top_intersect = Geometry.segment_intersects_segment_2d(
+		var top_intersect = Geometry.segment_intersects_segment(
 			cur_group[0], cur_group[1],
 			next_group[0], next_group[1]
 		)
@@ -133,7 +133,7 @@ func generate_polygons_top(lines, z_order = 2):
 			)
 		
 		# Does the bottom of this area intersect the bottom of the next?
-		var bottom_intersect = Geometry.segment_intersects_segment_2d(
+		var bottom_intersect = Geometry.segment_intersects_segment(
 			cur_group[2], cur_group[3],
 			next_group[2], next_group[3]
 		)
@@ -226,7 +226,7 @@ func _add_inbetween_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	})
 
 
-func generate_polygons(lines: Array, texture: Texture, z_index: int):
+func generate_polygons(lines: Array, texture: Texture2D, z_index: int):
 	var p_len = lines.size()
 	for ind in range(p_len - 1):
 		# First create quads from each line segment.
@@ -265,7 +265,7 @@ func _generate_quad(chain: Array, start_idx: int, thickness: int = QUAD_RADIUS):
 func _create_polygon(
 	verts: Array, normal: Vector2,
 	z_order: int,
-	texture: Texture, origin_idx: int
+	texture: Texture2D, origin_idx: int
 ) -> Polygon2D:
 	# Create a polygon node from the terrain's data....
 	var poly2d = Polygon2D.new()
@@ -302,7 +302,7 @@ func _create_polygon(
 
 func resolve_edge_types (
 	overrides: Dictionary, # Dict of segements' pre-assigned type IDs.
-	poly: PoolVector2Array # Points in the polygon.
+	poly: PackedVector2Array # Points in the polygon.
 ) -> Dictionary:
 	# Init type-ID dictionary as a copy of the override dictionary.
 	var returner = overrides.duplicate()
@@ -334,7 +334,7 @@ func resolve_edge_types (
 func get_segment_chain(
 	lines: Array, # Output array of polygon points.
 	override_list: Dictionary, # Dict of segements' assigned type IDs.
-	poly: PoolVector2Array, # Points in the polygon.
+	poly: PackedVector2Array, # Points in the polygon.
 	start: int, # Vertex we start/resume the search on.
 	type_id: int # ID of the edge type we're searching for.
 ):
@@ -374,7 +374,7 @@ func get_segment_chain(
 
 func _normal_of_segment(vert: Vector2, next: Vector2) -> Vector2:
 	# "Up" relative to segment (vert, next).
-	return vert.direction_to(next).tangent()
+	return vert.direction_to(next).orthogonal()
 
 
 func check_line_angle(angle: float) -> bool:

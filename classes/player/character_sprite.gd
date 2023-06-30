@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
 const NO_ANIM_CHANGE = ""
 
@@ -8,7 +8,7 @@ const SLOW_SPIN_START_SPEED = 1
 const SLOW_SPIN_END_SPEED = 0.40
 const SLOW_SPIN_TIME = 60
 
-const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
+const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite2D origin is set to this during pound spin
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
 const POUND_SPIN_RISE_TIME = 15
 
@@ -28,15 +28,15 @@ var reading_sign: bool = false # True if the player is reading a sign
 var slow_spin_timer: float = 0 # Frames of progress through the slow spin
 var rng = RandomNumberGenerator.new()
 
-onready var parent: PlayerCharacter = $"../.."
-onready var dust = $"../../Dust"
+@onready var parent: PlayerCharacter = $"../.."
+@onready var dust = $"../../Dust"
 
 
 func _ready() -> void:
 	rng.seed = hash("2401")
 	playing = true
 	# Set up playing next animations when they exist.
-	connect("animation_finished", self, "trigger_next_anim")
+	connect("animation_finished", Callable(self, "trigger_next_anim"))
 
 
 func _physics_process(_delta):
