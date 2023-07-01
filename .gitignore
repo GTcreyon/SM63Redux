@@ -19,3 +19,4 @@ desktop.ini
 pipescript/target
 pipescript/compile_tool.sh
 .godot/
+*.tmp
