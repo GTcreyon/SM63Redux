@@ -51,12 +51,8 @@ func _process(_delta):
 func refresh():
 	# Set the viewport size to the window size
 	viewport.size = get_window().size
-	# Create a new texture for self
-	var tex = ImageTexture.new()
-	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
-	texture = tex
-	# Now give the shader our viewport texture
-	material.set_shader_parameter("viewport_texture", viewport.get_texture())
+	# assign the viewport texture to this sprite
+	texture = viewport.get_texture()
 
 
 # Fetch any viewports that have been moved into Main.
