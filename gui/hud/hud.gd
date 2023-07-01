@@ -18,7 +18,7 @@ extends Control
 
 @onready var warp = $"/root/Singleton/Warp"
 
-var pause_offset = 0
+var pause_offset = 0.0
 var pulse = 0
 var last_size = Vector2.ZERO
 var temp_locale = "en"
@@ -37,7 +37,7 @@ func _ready():
 func resize():
 	var scale_factor = Singleton.get_screen_scale(-1)
 	scale = Vector2.ONE * scale_factor
-	size = (get_window().size / scale_factor).ceil()
+	size = (Vector2(get_window().size) / scale_factor).ceil()
 	pause_menu.resize()
 
 
@@ -73,9 +73,9 @@ func _process(delta):
 				get_tree().paused = true
 	
 	if Singleton.pause_menu:
-		pause_offset = lerp(pause_offset, 1, 0.5)
+		pause_offset = lerp(pause_offset, 1.0, 0.5)
 	else:
-		pause_offset = lerp(pause_offset, 0, 0.5)
+		pause_offset = lerp(pause_offset, 0.0, 0.5)
 	stats.offset_left = 37 * pause_offset
 	stats.offset_right = -37 * pause_offset
 	stats.offset_top = 19 * pause_offset

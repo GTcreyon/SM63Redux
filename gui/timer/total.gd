@@ -4,7 +4,7 @@ extends Label
 @onready var rect = $"../MainRect"
 
 func _process(_delta):
-	var ms_width = ms.get_font("font").get_string_size(".000").x
+	var ms_width = ms.get_theme_font("font").get_string_size(".000").x
 	var sec_mask
 	if text.length() < 5:
 		sec_mask = "0:00"
@@ -14,7 +14,7 @@ func _process(_delta):
 		sec_mask = ":00:00"
 		for _i in range(text.length() - 6):
 			sec_mask = "0" + sec_mask
-	var sec_width = ms.get_font("font").get_string_size(sec_mask).x * 2
+	var sec_width = ms.get_theme_font("font").get_string_size(sec_mask).x * 2
 	var full_width = (
 		sec_width
 		+ 1

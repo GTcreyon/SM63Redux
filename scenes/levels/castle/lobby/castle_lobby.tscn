@@ -1,141 +1,141 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=17 format=3 uid="uid://beqt1u63n4wrg"]
 
-[ext_resource path="res://scenes/levels/castle/lobby/castle_lobby_bg.png" type="Texture2D" id=1]
-[ext_resource path="res://scenes/levels/castle/lobby/castle_lobby_fg.png" type="Texture2D" id=2]
-[ext_resource path="res://scenes/levels/castle/lobby/castle_lobby_rails.png" type="Texture2D" id=3]
-[ext_resource path="res://classes/player/player.tscn" type="PackedScene" id=4]
+[ext_resource type="Texture2D" uid="uid://dkw2lys82o5us" path="res://scenes/levels/castle/lobby/castle_lobby_bg.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://pracrjf6n1yi" path="res://scenes/levels/castle/lobby/castle_lobby_fg.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dkeyfqovaijyb" path="res://scenes/levels/castle/lobby/castle_lobby_rails.png" id="3"]
+[ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="4"]
 
-[sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 24, 24 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(24, 24)
 
-[sub_resource type="RectangleShape2D" id=2]
-size = Vector2( 48, 8 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(48, 8)
 
-[sub_resource type="RectangleShape2D" id=3]
-size = Vector2( 22.6274, 11.3137 )
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(22.6274, 11.3137)
 
-[sub_resource type="RectangleShape2D" id=4]
-size = Vector2( 56, 8 )
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(56, 8)
 
-[sub_resource type="RectangleShape2D" id=5]
-size = Vector2( 22.6273, 11.3138 )
+[sub_resource type="RectangleShape2D" id="5"]
+size = Vector2(22.6273, 11.3138)
 
-[sub_resource type="RectangleShape2D" id=6]
-size = Vector2( 56, 8 )
+[sub_resource type="RectangleShape2D" id="6"]
+size = Vector2(56, 8)
 
-[sub_resource type="RectangleShape2D" id=7]
-size = Vector2( 48, 8 )
+[sub_resource type="RectangleShape2D" id="7"]
+size = Vector2(48, 8)
 
-[sub_resource type="RectangleShape2D" id=8]
-size = Vector2( 32, 8 )
+[sub_resource type="RectangleShape2D" id="8"]
+size = Vector2(32, 8)
 
-[sub_resource type="RectangleShape2D" id=9]
-size = Vector2( 32, 8 )
+[sub_resource type="RectangleShape2D" id="9"]
+size = Vector2(32, 8)
 
-[sub_resource type="RectangleShape2D" id=10]
-size = Vector2( 73.5391, 11.3137 )
+[sub_resource type="RectangleShape2D" id="10"]
+size = Vector2(73.5391, 11.3137)
 
-[sub_resource type="RectangleShape2D" id=11]
-size = Vector2( 32, 8 )
+[sub_resource type="RectangleShape2D" id="11"]
+size = Vector2(32, 8)
 
-[sub_resource type="RectangleShape2D" id=12]
-size = Vector2( 73.5391, 11.3137 )
+[sub_resource type="RectangleShape2D" id="12"]
+size = Vector2(73.5391, 11.3137)
 
 [node name="Main" type="Node2D"]
 
 [node name="BG" type="Sprite2D" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 centered = false
 
 [node name="FG" type="Sprite2D" parent="."]
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 centered = false
 
 [node name="Rails" type="Sprite2D" parent="."]
-position = Vector2( 103, 224 )
-texture = ExtResource( 3 )
+position = Vector2(103, 224)
+texture = ExtResource("3")
 centered = false
 
 [node name="SolidCollision" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="SolidCollision"]
-polygon = PackedVector2Array( 48, 192, 48, 336, 160, 336, 208, 384, 560, 384, 576, 392, 672, 392, 688, 384, 1040, 384, 1088, 336, 1200, 336, 1200, 192, 1008, 0, 736, 0, 736, -64, 1248, -64, 1248, 448, 0, 448, 0, -64, 512, -64, 512, 0, 240, 0 )
+polygon = PackedVector2Array(48, 192, 48, 336, 160, 336, 208, 384, 560, 384, 576, 392, 672, 392, 688, 384, 1040, 384, 1088, 336, 1200, 336, 1200, 192, 1008, 0, 736, 0, 736, -64, 1248, -64, 1248, 448, 0, 448, 0, -64, 512, -64, 512, 0, 240, 0)
 
 [node name="SemisolidCollision" type="StaticBody2D" parent="."]
 
 [node name="PillarL" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 520, 360 )
-shape = SubResource( 1 )
+position = Vector2(520, 360)
+shape = SubResource("1")
 one_way_collision = true
 
 [node name="PillarR" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 728, 360 )
-shape = SubResource( 1 )
+position = Vector2(728, 360)
+shape = SubResource("1")
 one_way_collision = true
 
 [node name="LedgeLU" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 208, 248 )
-shape = SubResource( 2 )
+position = Vector2(208, 248)
+shape = SubResource("2")
 one_way_collision = true
 
 [node name="LedgeLM" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 264, 264 )
+position = Vector2(264, 264)
 rotation = 0.785398
-shape = SubResource( 3 )
+shape = SubResource("3")
 one_way_collision = true
 
 [node name="LedgeLD" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 344, 280 )
-shape = SubResource( 4 )
+position = Vector2(344, 280)
+shape = SubResource("4")
 one_way_collision = true
 
 [node name="LedgeRU" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 1040, 248 )
-shape = SubResource( 2 )
+position = Vector2(1040, 248)
+shape = SubResource("2")
 one_way_collision = true
 
 [node name="LedgeRM" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 984, 264 )
+position = Vector2(984, 264)
 rotation = -0.785398
-shape = SubResource( 5 )
+shape = SubResource("5")
 one_way_collision = true
 
 [node name="LedgeRD" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 904, 280 )
-shape = SubResource( 6 )
+position = Vector2(904, 280)
+shape = SubResource("6")
 one_way_collision = true
 
 [node name="LedgeCU" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 624, 264 )
-shape = SubResource( 7 )
+position = Vector2(624, 264)
+shape = SubResource("7")
 one_way_collision = true
 
 [node name="LedgeCD" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 624, 352 )
-shape = SubResource( 8 )
+position = Vector2(624, 352)
+shape = SubResource("8")
 one_way_collision = true
 
 [node name="StairLU" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 496, 280 )
-shape = SubResource( 9 )
+position = Vector2(496, 280)
+shape = SubResource("9")
 one_way_collision = true
 
 [node name="StairLM" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 420, 332 )
+position = Vector2(420, 332)
 rotation = -0.785398
-shape = SubResource( 10 )
+shape = SubResource("10")
 one_way_collision = true
 
 [node name="StairRU" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 752, 280 )
-shape = SubResource( 11 )
+position = Vector2(752, 280)
+shape = SubResource("11")
 one_way_collision = true
 
 [node name="StairRM" type="CollisionShape2D" parent="SemisolidCollision"]
-position = Vector2( 828, 332 )
+position = Vector2(828, 332)
 rotation = 0.785398
-shape = SubResource( 12 )
+shape = SubResource("12")
 one_way_collision = true
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 624, 240 )
+[node name="Player" parent="." instance=ExtResource("4")]
+position = Vector2(624, 240)

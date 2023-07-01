@@ -173,4 +173,4 @@ func _process(_delta):
 			if hist_index < history.size():
 				input_line.text = history[size - hist_index - 1]
 				hist_index += 1
-	logger.offset_top = -24 - (Singleton.line_count + 1) * (logger.get_font("normal_font").get_height() + 1)
+	logger.offset_top = -24 - (Singleton.line_count + 1) * (logger.get_theme_font("normal_font").get_height() + 1)

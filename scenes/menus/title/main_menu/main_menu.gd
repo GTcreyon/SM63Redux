@@ -207,12 +207,12 @@ func _cycle_through(direction: int) -> void:
 	preview_orb.transition(get_selected())
 
 
-func _manage_sizes(scale) -> void:
-	scale = Vector2.ONE * scale
-	size = get_window().size / scale
+func _manage_sizes(scale_int):
+	scale = Vector2.ONE * scale_int
+	size = get_window().size / scale_int
 
 
-func _touch_cycle(step) -> void:
+func _touch_cycle(step):
 	if !show_options:
 		if step == posmod(cycle_step, 4):
 			_press_button(step)

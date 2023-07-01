@@ -39,7 +39,7 @@ func _process(delta):
 			text.modulate.a = min(text.modulate.a + 0.125 * dmod, 1)
 		title_song.volume_db = -8 - (volume_balance * 60)
 		menu_song.volume_db = -8 - 60 + (volume_balance * 60)
-	version.ver_scale = ver_scale
+	version.scale = ver_scale
 	version.text = Singleton.VERSION
 
 

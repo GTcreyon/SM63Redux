@@ -16,7 +16,7 @@ func _process(_delta):
 		target_scroll = max(courses.offset_top - 20, -max_height)
 	if Input.is_action_just_released("scroll_up"):
 		target_scroll = min(courses.offset_top + 20, 0)
-	courses.offset_top = lerp(courses.offset_top, target_scroll, 0.5)
+	courses.offset_top = lerp(courses.offset_top, float(target_scroll), 0.5)
 	refresh_scroll()
 
 

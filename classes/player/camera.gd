@@ -19,10 +19,10 @@ func _ready():
 	limit_right = 10000000
 	limit_top = -10000000
 	limit_bottom = 10000000
-	if get_path() != "/root/Main/Player/Camera3D":
+	if get_path() != ^"/root/Main/Player/Camera3D":
 		queue_free()
 	else:
-		current = true
+		make_current()
 
 
 func ease_out_expo(x: float) -> float:

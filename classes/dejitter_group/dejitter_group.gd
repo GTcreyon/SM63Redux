@@ -1,4 +1,5 @@
-class_name DejitterGroup, "./dejitter_group.svg"
+@icon("./dejitter_group.svg")
+class_name DejitterGroup
 extends Node2D
 # DejitterGroup ensures that when a visible object is stationary,
 # its pixels are always exactly aligned with world pixels.

@@ -16,10 +16,10 @@ const characters = {
 		},
 	"luigi":
 		[
-			PackedStringArray([
+			[
 				"neutral",
 				"sad",
-			]),
+			],
 			
 			[
 				preload("res://gui/dialog/faces/luigi/neutral.png"),
