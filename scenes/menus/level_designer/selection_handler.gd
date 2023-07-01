@@ -4,7 +4,7 @@ signal selection_changed
 
 @onready var main = $"/root/Main"
 @onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
-@onready var camera = $"/root/Main/Camera3D"
+@onready var camera = $"/root/Main/Camera"
 @onready var hover = $Hover
 @onready var buttons = $Buttons
 @onready var polygon_edit_button = $Buttons/Polygon

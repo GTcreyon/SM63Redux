@@ -115,7 +115,7 @@ region_rect = Rect2( 0, 0, 70, 70 )
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
 
-[node name="Camera3D" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
 current = true
 script = ExtResource( 3 )

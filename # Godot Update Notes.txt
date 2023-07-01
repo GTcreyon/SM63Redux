@@ -9,6 +9,23 @@ Solved problems (that weren't just simple bugfixes):
 - LD field input_vector2.gd had a vec2 export's type hint duplicated
 - warp.gd uses get_window().size in vars outside functions
 	- Solved by marking vars @onready - observed elsewhere too
+- Nodes named Camera have been renamed to Camera3D. These are 
+  found in:
+	- Player
+	- Level Designer
+	- Visual Pipescript editor
+  referenced in:
+	- ld_item.gd
+	- camera.gd
+	- fludd_spray_renderer.gd
+	- player.gd
+	- water.gd
+	- camera_area.gd
+	- bg_grid.gd
+	- follow_viewport_workaround.gd
+	- ld_main.gd
+	- selection_handler.gd
+	- node_placer.gd
 
 
 Major problems:
@@ -32,25 +49,6 @@ Editor interface problems (to do with variable export control):
 
 Uses of OS.window_<> to clean up (not catastrophic this time):
 - input_manager.gd has long lines
-
-
-Nodes named Camera have been renamed to Camera3D. These are 
-  found in:
-	- Player
-	- Level Designer
-	- Visual Pipescript editor
-  referenced in:
-	- ld_item.gd
-	- camera.gd
-	- fludd_spray_renderer.gd
-	- player.gd
-	- water.gd
-	- camera_area.gd
-	- bg_grid.gd
-	- follow_viewport_workaround.gd
-	- ld_main.gd
-	- selection_handler.gd
-	- node_placer.gd
 
 
 Minor text replacement errors:

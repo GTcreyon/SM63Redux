@@ -5,7 +5,7 @@ const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
 const EDITOR_THEME = preload("res://scenes/menus/visual_pipescript/visual_editor_theme.tres")
 
 @onready var graph = $Graph
-@onready var camera := $Camera3D
+@onready var camera := $Camera
 @onready var selection_container = $CanvasLayer/Theme/SelectionMenu/VBox
 @onready var compiler = $PipeScript/VisualCompiler
 @onready var piece_instances = {

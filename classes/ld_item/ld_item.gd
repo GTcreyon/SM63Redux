@@ -2,7 +2,7 @@ extends Sprite2D
 
 const GLOW_MATERIAL = preload("res://shaders/glow.tres")
 
-@onready var cam = $"/root/Main/Camera3D"
+@onready var cam = $"/root/Main/Camera"
 @onready var main = $"/root/Main"
 @onready var control = $"/root/Main/UILayer/LDUI"
 @onready var property_menu = $"/root/Main/UILayer/PropertyMenu"

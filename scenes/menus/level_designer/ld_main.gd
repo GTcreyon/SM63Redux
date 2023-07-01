@@ -20,7 +20,7 @@ var editor_state = EDITOR_STATE.IDLE: set = set_editor_state
 @onready var sm63_to_redux = SM63ToRedux.new()
 @onready var lv_template := preload("./template.tscn")
 @onready var ld_ui = $UILayer/LDUI
-@onready var ld_camera = $Camera3D
+@onready var ld_camera = $Camera
 
 # Set the state of the editor
 func set_editor_state(new):

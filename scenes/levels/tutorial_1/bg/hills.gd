@@ -1,11 +1,11 @@
 extends TextureRect
 
-@onready var cam = $"/root/Main".find_child("Camera3D", true, false)
+@onready var cam = $"/root/Main".find_child("Camera", true, false)
 
 func _process(_delta):
 	scale = Vector2.ONE * Singleton.get_screen_scale(1)
 	if !weakref(cam).get_ref(): # DO NOT use an else statement, this has to happen sequentially
-		cam = $"/root/Main".find_child("Camera3D", true, false)
+		cam = $"/root/Main".find_child("Camera", true, false)
 	if weakref(cam).get_ref():
 		var cam_pos = cam.get_camera_position()
 		var size = texture.get_size().x

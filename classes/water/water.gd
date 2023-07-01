@@ -27,7 +27,7 @@ const splash_bank = {
 # Private variables
 @onready var texture = $"../SubViewport/WaterPolygon"
 @onready var player = $"/root/Main/Player"
-@onready var camera = $"/root/Main/Player/Camera3D"
+@onready var camera = $"/root/Main/Player/Camera"
 @onready var splash = $"../Splash"
 
 var waves = []

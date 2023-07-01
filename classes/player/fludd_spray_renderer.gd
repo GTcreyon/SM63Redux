@@ -11,7 +11,7 @@ extends Sprite2D
 # loads in and ensures the viewport stays the size of the entire screen.
 
 @onready var viewport = prepare_viewport()
-@onready var cam = $"/root/Main/Player/Camera3D"
+@onready var cam = $"/root/Main/Player/Camera"
 @onready var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
 
 

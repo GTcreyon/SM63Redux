@@ -2,7 +2,7 @@
 extends Polygon2D
 
 @onready var player = $"/root/Main/Player"
-@onready var camera = player.get_node("Camera3D")
+@onready var camera = player.get_node("Camera")
 
 @onready var base_modifier = BaseModifier.new()
 
