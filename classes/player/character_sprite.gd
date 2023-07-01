@@ -34,7 +34,7 @@ var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	rng.seed = hash("2401")
-	playing = true
+	play()
 	# Set up playing next animations when they exist.
 	connect("animation_finished", Callable(self, "trigger_next_anim"))
 

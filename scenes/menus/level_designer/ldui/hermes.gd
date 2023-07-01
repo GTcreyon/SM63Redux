@@ -39,7 +39,7 @@ func set_pos(edge, progress) -> bool:
 func _process(delta):
 	var dmod = 60 * delta
 	if Input.is_action_just_pressed("ld_select"):
-		playing = true
+		play()
 	if !playing:
 		if flip_h:
 			progress -= speed * dmod
@@ -70,6 +70,6 @@ func _process(delta):
 
 
 func _on_Hermes_animation_finished():
-	playing = false
+	stop()
 	flip_h = !flip_h
 	frame = 0

@@ -35,7 +35,8 @@ func _ready():
 	if !Engine.is_editor_hint():
 		flip_h = mirror
 		frame = hash(position.x + position.y * PI) % 6
-		playing = !disabled
+		if not disabled:
+			play()
 
 
 func _exit_tree():
@@ -104,4 +105,7 @@ func set_disabled(val):
 	hurtbox.monitoring = !val
 	top_collision.monitoring = !val
 	if !Engine.is_editor_hint():
-		playing = !val
+		if disabled:
+			stop()
+		else:
+			play()

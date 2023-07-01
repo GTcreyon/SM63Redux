@@ -9,7 +9,7 @@ var initial_position: Vector2
 
 func _ready():
 	initial_position = position
-	playing = true
+	play()
 
 
 func _physics_process(_delta):

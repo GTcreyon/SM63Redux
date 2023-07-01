@@ -71,7 +71,7 @@ func _stomp_trigger():
 	struck = false
 	vel.y = 0
 	sprite.frame = 0
-	sprite.playing = true
+	sprite.play()
 
 
 func _hurt_struck(body):

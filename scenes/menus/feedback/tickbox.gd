@@ -16,8 +16,11 @@ func _on_Tickbox_pressed():
 
 
 func _play_press_anim():
-	sprite.playing = pressed
 	sprite.frame = 0
+	if pressed:
+		sprite.play()
+	else:
+		sprite.stop()
 
 
 func set_pressed(new_val: bool):

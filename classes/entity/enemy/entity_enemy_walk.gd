@@ -107,25 +107,25 @@ func _chase_target():
 	if target.position.x - position.x < -20 or (target.position.x < position.x and abs(target.position.y - position.y) < 26):
 		vel.x = max(vel.x - 0.1, -2)
 		mirror = true
-		sprite.playing = true
+		sprite.play()
 		if edge_check != null:
 			edge_check.position.x = -9
 	elif target.position.x - position.x > 20 or (target.position.x > position.x and abs(target.position.y - position.y) < 26):
 		vel.x = min(vel.x + 0.1, 2)
 		mirror = false
-		sprite.playing = true
+		sprite.play()
 		if edge_check != null:
 			edge_check.position.x = 9
 	else:
 		vel.x *= 0.85
 		if sprite.frame == 0:
-			sprite.playing = false
+			sprite.stop()
 
 
 func _wander():
 	if sprite != null:
 		sprite.speed_scale = 1
-		sprite.playing = true
+		sprite.play()
 	if mirror:
 		vel.x = max(vel.x - 0.1, -1)
 	else:

@@ -9,6 +9,6 @@ func _ready():
 func _process(delta):
 	time -= 1 * 60 * delta
 	if time <= 0:
-		playing = true
+		play()
 		frame = 0
 		time = randf_range(2 * 60, 3 * 60)

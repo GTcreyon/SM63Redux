@@ -36,7 +36,8 @@ func _ready() -> void:
 				reset_position = intersect + Vector2.LEFT * 20
 	rng.seed = hash(position.x + position.y * PI) # Each bird will be different, but deterministic
 	sprite.frame = rng.seed % 7
-	sprite.playing = !disabled
+	if not disabled:
+		sprite.play()
 	
 	# warning-ignore:integer_division
 	time_count = rng.randi_range(0, TIME_UP / 2)
@@ -102,7 +103,10 @@ func set_disabled(val) -> void:
 	set_collision_layer_value(0, 0 if val else 1)
 	safety_net.monitoring = !val
 	ride_area.monitoring = !val
-	sprite.playing = !val
+	if disabled:
+		sprite.stop()
+	else:
+		sprite.play()
 
 
 

@@ -170,7 +170,7 @@ frames = SubResource( 2 )
 frames = SubResource( 47 )
 animation = "flash"
 frame = 6
-playing = true
+autoplay = "flash"
 script = ExtResource( 7 )
 
 [node name="CoinRing" type="Sprite2D" parent="MeterBase/Filler/CoinMeter"]
@@ -182,5 +182,5 @@ position = Vector2( -1, -23 )
 z_index = 1
 frames = SubResource( 76 )
 animation = "charge"
-playing = true
+autoplay = "charge"
 script = ExtResource( 7 )

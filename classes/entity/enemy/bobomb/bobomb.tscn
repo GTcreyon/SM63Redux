@@ -1,132 +1,173 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=28 format=3 uid="uid://vunewr3fpf60"]
 
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_fuse_unlit.png" type="Texture2D" id=1]
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_walk.png" type="Texture2D" id=2]
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_0.png" type="Texture2D" id=3]
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_1.png" type="Texture2D" id=4]
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_key_0.png" type="Texture2D" id=5]
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_key_1.png" type="Texture2D" id=6]
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb.gd" type="Script" id=7]
-[ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=8]
-[ext_resource path="res://classes/entity/enemy/bobomb/fuse.wav" type="AudioStream" id=9]
-[ext_resource path="res://classes/entity/enemy/bobomb/knock.wav" type="AudioStream" id=10]
-[ext_resource path="res://classes/entity/enemy/bobomb/explosion_buildup_1.wav" type="AudioStream" id=11]
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb_struck.png" type="Texture2D" id=14]
-[ext_resource path="res://classes/entity/enemy/goomba/goomba_step.wav" type="AudioStream" id=15]
+[ext_resource type="Texture2D" uid="uid://dvxqi07gettjf" path="res://classes/entity/enemy/bobomb/bobomb_fuse_unlit.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://bymmn17pd5ko4" path="res://classes/entity/enemy/bobomb/bobomb_walk.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b81lf6m4dv57n" path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_0.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://ynwncv82vnux" path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_1.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dkhke7nnpqj2c" path="res://classes/entity/enemy/bobomb/bobomb_key_0.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://bf621fisnmh2n" path="res://classes/entity/enemy/bobomb/bobomb_key_1.png" id="6"]
+[ext_resource type="Script" path="res://classes/entity/enemy/bobomb/bobomb.gd" id="7"]
+[ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="8"]
+[ext_resource type="AudioStream" uid="uid://b6y1muqoxhx4p" path="res://classes/entity/enemy/bobomb/fuse.wav" id="9"]
+[ext_resource type="AudioStream" uid="uid://bacx46t0dv8jh" path="res://classes/entity/enemy/bobomb/knock.wav" id="10"]
+[ext_resource type="AudioStream" uid="uid://bsrn5snagyjew" path="res://classes/entity/enemy/bobomb/explosion_buildup_1.wav" id="11"]
+[ext_resource type="Texture2D" uid="uid://ch67m6y5p4418" path="res://classes/entity/enemy/bobomb/bobomb_struck.png" id="14"]
+[ext_resource type="AudioStream" uid="uid://gagulf6yfw6x" path="res://classes/entity/enemy/goomba/goomba_step.wav" id="15"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 18, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("2")
+region = Rect2(18, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 36, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("2")
+region = Rect2(36, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 54, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("2")
+region = Rect2(54, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 72, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("2")
+region = Rect2(72, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
-region = Rect2( 90, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("2")
+region = Rect2(90, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
-region = Rect2( 108, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("2")
+region = Rect2(108, 0, 18, 18)
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
-region = Rect2( 126, 0, 18, 18 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("2")
+region = Rect2(126, 0, 18, 18)
 
-[sub_resource type="SpriteFrames" id=9]
-animations = [ {
-"frames": [ ExtResource( 14 ) ],
+[sub_resource type="SpriteFrames" id="9"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14")
+}],
 "loop": true,
-"name": "struck",
+"name": &"struck",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}],
 "loop": true,
-"name": "walk",
+"name": &"walk",
 "speed": 10.0
-} ]
+}]
 
-[sub_resource type="SpriteFrames" id=10]
-animations = [ {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
+[sub_resource type="SpriteFrames" id="10"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}],
 "loop": true,
-"name": "lit",
+"name": &"lit",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 1 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}],
 "loop": true,
-"name": "unlit",
+"name": &"unlit",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="SpriteFrames" id=11]
-animations = [ {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+[sub_resource type="SpriteFrames" id="11"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="RectangleShape2D" id=12]
-size = Vector2( 8, 9 )
+[sub_resource type="RectangleShape2D" id="12"]
+size = Vector2(8, 9)
 
-[sub_resource type="RectangleShape2D" id=13]
-size = Vector2( 8, 9 )
+[sub_resource type="RectangleShape2D" id="13"]
+size = Vector2(8, 9)
 
-[sub_resource type="RectangleShape2D" id=15]
-size = Vector2( 1, 1 )
+[sub_resource type="RectangleShape2D" id="15"]
+size = Vector2(1, 1)
 
 [node name="Bobomb" type="CharacterBody2D"]
 collision_layer = 4
-script = ExtResource( 7 )
-_sprite_path = NodePath("Sprites/Base")
+script = ExtResource("7")
+step_indexes = [true, false, false, false, true, false, false, false]
+_aware_area_path = NodePath("")
 death_smoke = false
 _hurtbox_stomp_path = NodePath("")
 _hitbox_path = NodePath("")
 _sfx_stomp_path = NodePath("")
 _sfx_struck_land_path = NodePath("")
-step_indexes = [ true, false, false, false, true, false, false, false ]
-_aware_area_path = NodePath("")
+_sprite_path = NodePath("Sprites/Base")
 
 [node name="Sprites" type="Node2D" parent="."]
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="Base" type="AnimatedSprite2D" parent="Sprites"]
-frames = SubResource( 9 )
-animation = "walk"
+sprite_frames = SubResource("9")
+animation = &"walk"
 
 [node name="Fuse" type="AnimatedSprite2D" parent="Sprites"]
-position = Vector2( -5, -15 )
-frames = SubResource( 10 )
-animation = "unlit"
+position = Vector2(-5, -15)
+sprite_frames = SubResource("10")
+animation = &"unlit"
 centered = false
 
 [node name="Key" type="AnimatedSprite2D" parent="Sprites"]
-position = Vector2( -11, 0 )
-frames = SubResource( 11 )
+position = Vector2(-11, 0)
+sprite_frames = SubResource("11")
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 12 )
+shape = SubResource("12")
 
 [node name="EdgeCheck" type="RayCast2D" parent="."]
 visible = false
-position = Vector2( 9, 0 )
-enabled = true
-target_position = Vector2( 0, 21 )
+position = Vector2(9, 0)
+target_position = Vector2(0, 21)
 
 [node name="HurtboxStrike" type="Area2D" parent="."]
 visible = false
@@ -136,7 +177,7 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStrike"]
-shape = SubResource( 13 )
+shape = SubResource("13")
 
 [node name="AlertArea" type="Area2D" parent="."]
 visible = false
@@ -146,10 +187,10 @@ input_pickable = false
 monitorable = false
 
 [node name="EyeRight" type="CollisionPolygon2D" parent="AlertArea"]
-polygon = PackedVector2Array( 208, -59, 208, 32, 160, 35, 128, 35, 96, 33, 48, 27, 11, 20, 11, -10, 48, -29, 96, -48, 128, -55, 160, -59 )
+polygon = PackedVector2Array(208, -59, 208, 32, 160, 35, 128, 35, 96, 33, 48, 27, 11, 20, 11, -10, 48, -29, 96, -48, 128, -55, 160, -59)
 
 [node name="EyeLeft" type="CollisionPolygon2D" parent="AlertArea"]
-polygon = PackedVector2Array( -208, -59, -208, 32, -160, 35, -128, 35, -96, 33, -48, 27, -11, 20, -11, -10, -48, -29, -96, -48, -128, -55, -160, -59 )
+polygon = PackedVector2Array(-208, -59, -208, 32, -160, 35, -128, 35, -96, 33, -48, 27, -11, 20, -11, -10, -48, -29, -96, -48, -128, -55, -160, -59)
 
 [node name="WaterCheck" type="Area2D" parent="."]
 visible = false
@@ -159,26 +200,26 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WaterCheck"]
-shape = SubResource( 15 )
+shape = SubResource("15")
 
 [node name="SFXFuse" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 9 )
+stream = ExtResource("9")
 volume_db = -6.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="SFXBuildup" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource("11")
 volume_db = -6.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="SFXStep" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 15 )
+stream = ExtResource("15")
 volume_db = -6.0
 attenuation = 10.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="SFXStruck" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 10 )
+stream = ExtResource("10")
 volume_db = -6.0
 attenuation = 10.0
-bus = "SFX"
+bus = &"SFX"

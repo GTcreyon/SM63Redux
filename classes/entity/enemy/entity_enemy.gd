@@ -150,10 +150,12 @@ func _setup_pickup_ids():
 
 # Start the sprite's animation and pseudorandomize its start point depending on position in the level
 func _init_animation():
-	if sprite != null and sprite.get("playing") != null:
-		sprite.playing = !disabled
+	if sprite != null and sprite is AnimatedSprite2D:
 		if !disabled:
 			sprite.frame = hash(position.x + position.y * PI) % sprite.frames.get_frame_count(sprite.animation)
+			sprite.play()
+		else:
+			sprite.stop()
 
 
 func _on_HurtboxStomp_area_entered(area):
