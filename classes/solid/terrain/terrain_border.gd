@@ -111,7 +111,7 @@ func generate_polygons_top(lines, z_order = 2):
 		# Didn't early exit. Time to resolve intersections between groups.
 		
 		# Does the top of this area intersect the top of the next?
-		var top_intersect = Geometry.segment_intersects_segment(
+		var top_intersect = Geometry2D.segment_intersects_segment(
 			cur_group[0], cur_group[1],
 			next_group[0], next_group[1]
 		)
@@ -133,7 +133,7 @@ func generate_polygons_top(lines, z_order = 2):
 			)
 		
 		# Does the bottom of this area intersect the bottom of the next?
-		var bottom_intersect = Geometry.segment_intersects_segment(
+		var bottom_intersect = Geometry2D.segment_intersects_segment(
 			cur_group[2], cur_group[3],
 			next_group[2], next_group[3]
 		)

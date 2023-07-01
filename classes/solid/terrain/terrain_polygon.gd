@@ -71,17 +71,10 @@ func update_spritesheets(new_sheet: Texture2D):
 	# I wanted to use atlas texture but support for it is bad
 	
 	body.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(36, 3, 32, 32) ) )
-	body.flags = Texture
 	edge.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(3, 3, 32, 32) ) )
-	edge.flags = Texture2D.FLAG_REPEAT
 	bottom.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(36, 36, 32, 32) ) )
-	bottom.flags = Texture2D.FLAG_REPEAT
 
 	top.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(105, 3, 32, 32) ) )
-	top.flags = Texture2D.FLAG_REPEAT
 	top_corner.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(72, 3, 32, 32) ) )
-	top_corner.flags = Texture2D.FLAG_REPEAT
 	top_shade.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(105, 36, 32, 32) ) )
-	top_shade.flags = Texture2D.FLAG_REPEAT
 	top_corner_shade.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(72, 36, 32, 32) ) )
-	top_corner_shade.flags = Texture2D.FLAG_REPEAT

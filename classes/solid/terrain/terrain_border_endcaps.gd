@@ -47,7 +47,7 @@ func polygon_clip_box(verts: Array, uvs: Array):
 			var c_next_vert: Vector2 = verts[c_next_ind]
 			
 			# Get the intersection point
-			var intersect = Geometry.segment_intersects_segment(
+			var intersect = Geometry2D.segment_intersects_segment(
 				r_vert, r_next_vert,
 				c_vert, c_next_vert)
 			if intersect:
@@ -110,7 +110,7 @@ func add_cap_segment(is_left, area):
 	var inside_count = 0
 	var verts_inside = []
 	for vert in cap_verts:
-		var is_inside = Geometry.is_point_in_polygon(vert, root.polygon)
+		var is_inside = Geometry2D.is_point_in_polygon(vert, root.polygon)
 		if is_inside:
 			verts_inside.append(vert)
 			inside_count += 1
