@@ -1,8 +1,8 @@
 extends CanvasLayer
 
 const BUTTON_DIMENSIONS = Vector2(20, 21)
-const ANCHOR_DIRECTION_OFFSETS = PackedVector2Array([Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)])
-const ANCHOR_PIVOT_OFFSETS = PackedVector2Array([Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)])
+const ANCHOR_DIRECTION_OFFSETS = [Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)]
+const ANCHOR_PIVOT_OFFSETS = [Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)]
 const ANCHOR_REVERSE_OFFSETS = [false, true, false, true]
 const BUTTON_PREFAB = preload("res://classes/global/touch_control/touch_button.tscn")
 const LAYOUT_PRESETS = {
@@ -11,11 +11,11 @@ const LAYOUT_PRESETS = {
 	"classic": "z:pound,interact/x:spin,skip/c:fludd#shift:switch_fludd/pause:pause@left:left/down:down,dive/right:right#_/up:up,jump/_@_/shift:feedback/_",
 }
 
-var button_scale = _get_button_scale()
 var action_presses = {} # Record how many buttons are pressing each action
 var anchor_order = [0, 1, 2, 3]
 var current_layout = "new"
 
+@onready var button_scale = _get_button_scale()
 @onready var anchors = [$AnchorLeft, $AnchorRight, $AnchorLeftUp, $AnchorRightUp]
 
 func _init():
@@ -103,7 +103,7 @@ func _generate_buttons(pattern: String) -> void:
 		for row in corner.split("#"):
 			var buttons: PackedStringArray = row.split("/")
 			if ANCHOR_REVERSE_OFFSETS[anchor_order[anchor_index]]:
-				buttons.invert()
+				buttons.reverse()
 			for button in buttons:
 				if button != "_":
 					var parts = button.split(":")

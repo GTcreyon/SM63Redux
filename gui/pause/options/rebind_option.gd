@@ -4,7 +4,7 @@ extends Button
 
 @onready var key_list = $KeyList
 @onready var action_name = $ActionName
-var scale: float: set = set_scale
+var btn_scale: float: set = set_btn_scale
 var locale_saved: String = ""
 
 
@@ -77,37 +77,37 @@ func get_brand_id(): # need to get the gamepad brand so we can display correct b
 
 
 func _on_RebindOption_mouse_entered():
-	if !pressed:
+	if !button_pressed:
 		action_name.add_theme_color_override("font_color", Color.AQUA)
 		key_list.add_theme_color_override("font_color", Color.AQUA)
 
 
 func _on_RebindOption_mouse_exited():
-	if !pressed:
+	if !button_pressed:
 		action_name.add_theme_color_override("font_color", Color.WHITE)
 		key_list.add_theme_color_override("font_color", Color.WHITE)
 
 
 func unpress():
-	pressed = false
+	set_pressed_no_signal(false)
 	action_name.add_theme_color_override("font_color", Color.WHITE)
 	key_list.add_theme_color_override("font_color", Color.WHITE)
 
 
 func get_joypad_motion_name(axis: int, value: float):
 	match axis:
-		JOY_AXIS_0:
+		JOY_AXIS_LEFT_X:
 			return tr("Left Stick Left") if value < 0 else tr("Left Stick Right")
-		JOY_AXIS_1:
+		JOY_AXIS_LEFT_Y:
 			return tr("Left Stick Up") if value < 0 else tr("Left Stick Down")
-		JOY_AXIS_2:
+		JOY_AXIS_RIGHT_X:
 			return tr("Right Stick Left") if value < 0 else tr("Right Stick Right")
-		JOY_AXIS_3:
+		JOY_AXIS_RIGHT_Y:
 			return tr("Right Stick Up") if value < 0 else tr("Right Stick Down")
 
 
-func set_scale(new_scale):
-	scale = new_scale
+func set_btn_scale(new_scale):
+	btn_scale = new_scale
 	action_name.scale = Vector2.ONE * new_scale
 	key_list.scale = Vector2.ONE * new_scale
 	key_list.pivot_offset.x = key_list.size.x
