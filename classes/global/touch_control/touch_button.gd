@@ -34,8 +34,12 @@ func _setup_textures(new_id: String):
 	pos.x *= 2
 	# Multiply by the size of the button to snap to the grid
 	pos *= BUTTON_SIZE
-	normal.region.position = pos
-	pressed.region.position = pos + Vector2(20, 0)
+	
+	if texture_normal is AtlasTexture and texture_pressed is AtlasTexture:
+		texture_normal.region.position = pos
+		texture_pressed.region.position = pos + Vector2(20, 0)
+	else:
+		push_error("Touch button's default graphics must be AtlasTextures for the touch controls to work properly!")
 
 
 func _on_TouchScreenButton_pressed():
