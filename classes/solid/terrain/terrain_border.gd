@@ -36,7 +36,7 @@ func _draw():
 	# Draw all terrain polygons.
 	add_full(root.polygon)
 	# Queue drawing the top edges.
-	top_edges.update()
+	top_edges.queue_redraw()
 
 
 func add_full(poly: PackedVector2Array):
