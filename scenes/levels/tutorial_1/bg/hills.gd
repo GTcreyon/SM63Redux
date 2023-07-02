@@ -7,7 +7,7 @@ func _process(_delta):
 	if !weakref(cam).get_ref(): # DO NOT use an else statement, this has to happen sequentially
 		cam = $"/root/Main".find_child("Camera", true, false)
 	if weakref(cam).get_ref():
-		var cam_pos = cam.get_camera_position()
+		var cam_pos = cam.position
 		var size = texture.get_size().x
 		var target = max(-343, (-343 -cam_pos.y) / 5 / scale.x - 150 * scale.x)
 		offset_left = (fmod(-cam_pos.x / 20, size) - size) * scale.x

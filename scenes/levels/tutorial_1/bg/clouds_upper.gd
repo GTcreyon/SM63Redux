@@ -1,6 +1,6 @@
 extends TextureRect
 
-@onready var cam = $"/root/Main".find_child("Camera", true, false)
+@onready var cam: Camera2D = $"/root/Main".find_child("Camera", true, false)
 var scroll = 0
 
 
@@ -8,7 +8,7 @@ func _process(delta):
 	if !weakref(cam).get_ref(): # DO NOT use an else statement, this has to happen sequentially
 		cam = $"/root/Main".find_child("Camera", true, false)
 	if weakref(cam).get_ref():
-		var cam_pos = cam.get_camera_position()
+		var cam_pos = cam.position
 		var size = texture.get_size().x
 		scroll += 0.125 * scale.x * delta * 60
 		offset_left = fmod(-scroll, size * scale.x) - size * scale.x
