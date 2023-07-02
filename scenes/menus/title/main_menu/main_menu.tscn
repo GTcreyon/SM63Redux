@@ -1,380 +1,438 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=53 format=3 uid="uid://c4ib2anhw3fvk"]
 
-[ext_resource path="res://fonts/bylight/bylight.tres" type="FontFile" id=1]
-[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture2D" id=2]
-[ext_resource path="res://scenes/menus/title/main_menu/border.tres" type="StyleBox" id=3]
-[ext_resource path="res://scenes/menus/title/main_menu/selection_content.png" type="Texture2D" id=4]
-[ext_resource path="res://scenes/menus/title/main_menu/menu_titles.png" type="Texture2D" id=5]
-[ext_resource path="res://scenes/menus/title/main_menu/crystal.png" type="Texture2D" id=6]
-[ext_resource path="res://gui/pause/options/options_menu.tscn" type="PackedScene" id=7]
-[ext_resource path="res://scenes/menus/title/main_menu/menu_orb.png" type="Texture2D" id=8]
-[ext_resource path="res://scenes/menus/title/main_menu/selector.png" type="Texture2D" id=9]
-[ext_resource path="res://scenes/menus/title/main_menu/main_menu.gd" type="Script" id=11]
-[ext_resource path="res://scenes/menus/title/sheen.gd" type="Script" id=12]
-[ext_resource path="res://scenes/menus/title/main_menu/rope.png" type="Texture2D" id=13]
-[ext_resource path="res://scenes/menus/title/main_menu/selection_frame.png" type="Texture2D" id=14]
-[ext_resource path="res://scenes/menus/title/main_menu/hook.png" type="Texture2D" id=15]
-[ext_resource path="res://scenes/menus/title/main_menu/sheen.png" type="Texture2D" id=16]
-[ext_resource path="res://scenes/menus/title/main_menu/icon.png" type="Texture2D" id=17]
-[ext_resource path="res://scenes/menus/title/main_menu/orb_inner.png" type="Texture2D" id=18]
-[ext_resource path="res://scenes/menus/title/main_menu/preview_orb.gd" type="Script" id=19]
+[ext_resource type="FontFile" path="res://fonts/bylight/bylight.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://babp6is7hdooe" path="res://gui/hud/touch_buttons.png" id="2"]
+[ext_resource type="StyleBox" uid="uid://wni4qj54ny6m" path="res://scenes/menus/title/main_menu/border.tres" id="3"]
+[ext_resource type="Texture2D" uid="uid://hgkl0jrhjuwv" path="res://scenes/menus/title/main_menu/selection_content.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cx38tf8mecf8w" path="res://scenes/menus/title/main_menu/menu_titles.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dhpb0d7m7156g" path="res://scenes/menus/title/main_menu/crystal.png" id="6"]
+[ext_resource type="PackedScene" uid="uid://4rjixlvilqp1" path="res://gui/pause/options/options_menu.tscn" id="7"]
+[ext_resource type="Texture2D" uid="uid://daj5ixeouubua" path="res://scenes/menus/title/main_menu/menu_orb.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://d2s7jp8p701wn" path="res://scenes/menus/title/main_menu/selector.png" id="9"]
+[ext_resource type="Script" path="res://scenes/menus/title/main_menu/main_menu.gd" id="11"]
+[ext_resource type="Script" path="res://scenes/menus/title/sheen.gd" id="12"]
+[ext_resource type="Texture2D" uid="uid://dj1x0o0wycr1b" path="res://scenes/menus/title/main_menu/rope.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://dx44kxuvigx6n" path="res://scenes/menus/title/main_menu/selection_frame.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://b3otfjl87q5ve" path="res://scenes/menus/title/main_menu/hook.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://dtqqke8f50hre" path="res://scenes/menus/title/main_menu/sheen.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://blbgy6cva38gd" path="res://scenes/menus/title/main_menu/icon.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://764v2w1qxay6" path="res://scenes/menus/title/main_menu/orb_inner.png" id="18"]
+[ext_resource type="Script" path="res://scenes/menus/title/main_menu/preview_orb.gd" id="19"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 126, 36 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("4")
+region = Rect2(0, 0, 126, 36)
 
-[sub_resource type="RectangleShape2D" id=20]
-size = Vector2( 74, 28 )
+[sub_resource type="RectangleShape2D" id="20"]
+size = Vector2(74, 28)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 0, 56, 32 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("15")
+region = Rect2(0, 0, 56, 32)
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 0, 21, 21 )
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("6")
+region = Rect2(0, 0, 21, 21)
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 21, 21, 21 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("6")
+region = Rect2(0, 21, 21, 21)
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 42, 21, 21 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("6")
+region = Rect2(0, 42, 21, 21)
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 63, 21, 21 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("6")
+region = Rect2(0, 63, 21, 21)
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 6 )
-region = Rect2( 0, 84, 21, 21 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("6")
+region = Rect2(0, 84, 21, 21)
 
-[sub_resource type="SpriteFrames" id=15]
-animations = [ {
-"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
+[sub_resource type="SpriteFrames" id="15"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 12.0
-} ]
+}]
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 5 )
-region = Rect2( 7, 0, 112, 24 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("5")
+region = Rect2(7, 0, 112, 24)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 108, 126, 36 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("4")
+region = Rect2(0, 108, 126, 36)
 
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 96, 56, 32 )
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("15")
+region = Rect2(0, 96, 56, 32)
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 5 )
-region = Rect2( 21, 72, 82, 24 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("5")
+region = Rect2(21, 72, 82, 24)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 144, 126, 36 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("4")
+region = Rect2(0, 144, 126, 36)
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 15 )
-region = Rect2( 0, 128, 56, 32 )
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("15")
+region = Rect2(0, 128, 56, 32)
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 5 )
-region = Rect2( 46, 96, 34, 24 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("5")
+region = Rect2(46, 96, 34, 24)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 36, 126, 36 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("4")
+region = Rect2(0, 36, 126, 36)
 
-[sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 5 )
-region = Rect2( 2, 24, 122, 24 )
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource("5")
+region = Rect2(2, 24, 122, 24)
 
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 62.8111, 20, 21.1889 )
+[sub_resource type="AtlasTexture" id="22"]
+atlas = ExtResource("2")
+region = Rect2(0, 62.8111, 20, 21.1889)
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 2 )
-region = Rect2( 20, 63, 20, 21 )
+[sub_resource type="AtlasTexture" id="21"]
+atlas = ExtResource("2")
+region = Rect2(20, 63, 20, 21)
 
-[sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 18 )
-region = Rect2( 0, 0, 230, 68 )
+[sub_resource type="AtlasTexture" id="29"]
+atlas = ExtResource("18")
+region = Rect2(0, 0, 230, 68)
 
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 18 )
-region = Rect2( 230, 0, 230, 68 )
+[sub_resource type="AtlasTexture" id="30"]
+atlas = ExtResource("18")
+region = Rect2(230, 0, 230, 68)
 
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 18 )
-region = Rect2( 0, 68, 230, 68 )
+[sub_resource type="AtlasTexture" id="31"]
+atlas = ExtResource("18")
+region = Rect2(0, 68, 230, 68)
 
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 18 )
-region = Rect2( 230, 68, 230, 68 )
+[sub_resource type="AtlasTexture" id="32"]
+atlas = ExtResource("18")
+region = Rect2(230, 68, 230, 68)
 
-[sub_resource type="SpriteFrames" id=33]
-animations = [ {
-"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ) ],
+[sub_resource type="SpriteFrames" id="33"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("29")
+}, {
+"duration": 1.0,
+"texture": SubResource("30")
+}, {
+"duration": 1.0,
+"texture": SubResource("31")
+}, {
+"duration": 1.0,
+"texture": SubResource("32")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 294, 89 )
+[sub_resource type="AtlasTexture" id="34"]
+atlas = ExtResource("8")
+region = Rect2(0, 0, 294, 89)
 
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 89, 294, 89 )
+[sub_resource type="AtlasTexture" id="24"]
+atlas = ExtResource("8")
+region = Rect2(0, 89, 294, 89)
 
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 178, 294, 89 )
+[sub_resource type="AtlasTexture" id="25"]
+atlas = ExtResource("8")
+region = Rect2(0, 178, 294, 89)
 
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 267, 294, 89 )
+[sub_resource type="AtlasTexture" id="26"]
+atlas = ExtResource("8")
+region = Rect2(0, 267, 294, 89)
 
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 356, 294, 89 )
+[sub_resource type="AtlasTexture" id="27"]
+atlas = ExtResource("8")
+region = Rect2(0, 356, 294, 89)
 
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 267, 294, 89 )
+[sub_resource type="AtlasTexture" id="35"]
+atlas = ExtResource("8")
+region = Rect2(0, 267, 294, 89)
 
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 178, 294, 89 )
+[sub_resource type="AtlasTexture" id="36"]
+atlas = ExtResource("8")
+region = Rect2(0, 178, 294, 89)
 
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 89, 294, 89 )
+[sub_resource type="AtlasTexture" id="37"]
+atlas = ExtResource("8")
+region = Rect2(0, 89, 294, 89)
 
-[sub_resource type="SpriteFrames" id=28]
-animations = [ {
-"frames": [ SubResource( 34 ) ],
+[sub_resource type="SpriteFrames" id="28"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("34")
+}],
 "loop": true,
-"name": "idle",
+"name": &"idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("24")
+}, {
+"duration": 1.0,
+"texture": SubResource("25")
+}, {
+"duration": 1.0,
+"texture": SubResource("26")
+}, {
+"duration": 1.0,
+"texture": SubResource("27")
+}, {
+"duration": 1.0,
+"texture": SubResource("35")
+}, {
+"duration": 1.0,
+"texture": SubResource("36")
+}, {
+"duration": 1.0,
+"texture": SubResource("37")
+}],
 "loop": false,
-"name": "switch",
+"name": &"switch",
 "speed": 20.0
-} ]
+}]
 
 [node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-script = ExtResource( 11 )
+script = ExtResource("11")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0.027451, 0, 0.0941176, 0.501961 )
+color = Color(0.027451, 0, 0.0941176, 0.501961)
 
 [node name="SelectorStory" type="Sprite2D" parent="." groups=["menu_hide"]]
-position = Vector2( 320, 169 )
-texture = ExtResource( 9 )
+position = Vector2(320, 169)
+texture = ExtResource("9")
 
 [node name="Story" type="Sprite2D" parent="." groups=["menu_hide"]]
-position = Vector2( 320, 124 )
-texture = SubResource( 1 )
+position = Vector2(320, 124)
+texture = SubResource("1")
 
 [node name="Polygon2D" type="Polygon2D" parent="Story"]
-texture = ExtResource( 16 )
-polygon = PackedVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
-script = ExtResource( 12 )
+texture = ExtResource("16")
+polygon = PackedVector2Array(-66, 32, 66, 32, 66, 28, -66, 28)
+script = ExtResource("12")
 
 [node name="Frame" type="Sprite2D" parent="Story"]
-position = Vector2( -75, -32 )
-texture = ExtResource( 14 )
+position = Vector2(-75, -32)
+texture = ExtResource("14")
 centered = false
 
 [node name="StoryButton" type="TouchScreenButton" parent="Story/Frame"]
-position = Vector2( 75, 32 )
-shape = SubResource( 20 )
+position = Vector2(75, 32)
+shape = SubResource("20")
 shape_centered = false
 
 [node name="Hook" type="Sprite2D" parent="Story/Frame"]
-position = Vector2( 75, -12 )
-texture = SubResource( 6 )
+position = Vector2(75, -12)
+texture = SubResource("6")
 
 [node name="CrystalL" type="AnimatedSprite2D" parent="Story/Frame"]
-position = Vector2( -6, 46 )
-frames = SubResource( 15 )
+position = Vector2(-6, 46)
+sprite_frames = SubResource("15")
 frame = 1
 centered = false
 
 [node name="CrystalR" type="AnimatedSprite2D" parent="Story/Frame"]
-position = Vector2( 135, 46 )
-frames = SubResource( 15 )
+position = Vector2(135, 46)
+sprite_frames = SubResource("15")
 frame = 1
 centered = false
 
 [node name="Title" type="Sprite2D" parent="Story"]
-texture = SubResource( 16 )
+texture = SubResource("16")
 
 [node name="SelectorSettings" type="Sprite2D" parent="." groups=["menu_hide"]]
-position = Vector2( 4, 233 )
-texture = ExtResource( 9 )
+position = Vector2(4, 233)
+texture = ExtResource("9")
 
 [node name="Settings" type="Sprite2D" parent="." groups=["menu_hide"]]
-position = Vector2( 4, 188 )
-texture = SubResource( 4 )
+position = Vector2(4, 188)
+texture = SubResource("4")
 
 [node name="Polygon2D" type="Polygon2D" parent="Settings"]
 use_parent_material = true
-texture = ExtResource( 16 )
-polygon = PackedVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
-script = ExtResource( 12 )
+texture = ExtResource("16")
+polygon = PackedVector2Array(-66, 32, 66, 32, 66, 28, -66, 28)
+script = ExtResource("12")
 
 [node name="Frame" type="Sprite2D" parent="Settings"]
 use_parent_material = true
-position = Vector2( -75, -32 )
-texture = ExtResource( 14 )
+position = Vector2(-75, -32)
+texture = ExtResource("14")
 centered = false
 
 [node name="SettingsButton" type="TouchScreenButton" parent="Settings/Frame"]
-position = Vector2( 75, 32 )
-shape = SubResource( 20 )
+position = Vector2(75, 32)
+shape = SubResource("20")
 shape_centered = false
 
 [node name="Hook" type="Sprite2D" parent="Settings/Frame"]
 use_parent_material = true
-position = Vector2( 75, -12 )
-texture = SubResource( 7 )
+position = Vector2(75, -12)
+texture = SubResource("7")
 
 [node name="CrystalL" type="AnimatedSprite2D" parent="Settings/Frame"]
 use_parent_material = true
-position = Vector2( -6, 46 )
-frames = SubResource( 15 )
+position = Vector2(-6, 46)
+sprite_frames = SubResource("15")
 centered = false
 
 [node name="CrystalR" type="AnimatedSprite2D" parent="Settings/Frame"]
 use_parent_material = true
-position = Vector2( 135, 46 )
-frames = SubResource( 15 )
+position = Vector2(135, 46)
+sprite_frames = SubResource("15")
 centered = false
 
 [node name="Title" type="Sprite2D" parent="Settings"]
 use_parent_material = true
-texture = SubResource( 17 )
+texture = SubResource("17")
 
 [node name="SelectorExtras" type="Sprite2D" parent="." groups=["menu_hide"]]
-position = Vector2( 320, 645 )
-texture = ExtResource( 9 )
+position = Vector2(320, 645)
+texture = ExtResource("9")
 
 [node name="Extras" type="Sprite2D" parent="." groups=["menu_hide"]]
-position = Vector2( 320, 600 )
-texture = SubResource( 3 )
+position = Vector2(320, 600)
+texture = SubResource("3")
 
 [node name="Polygon2D" type="Polygon2D" parent="Extras"]
 use_parent_material = true
-texture = ExtResource( 16 )
-polygon = PackedVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
-script = ExtResource( 12 )
+texture = ExtResource("16")
+polygon = PackedVector2Array(-66, 32, 66, 32, 66, 28, -66, 28)
+script = ExtResource("12")
 
 [node name="Frame" type="Sprite2D" parent="Extras"]
 use_parent_material = true
-position = Vector2( -75, -32 )
-texture = ExtResource( 14 )
+position = Vector2(-75, -32)
+texture = ExtResource("14")
 centered = false
 
 [node name="ExtrasButton" type="TouchScreenButton" parent="Extras/Frame"]
-position = Vector2( 75, 32 )
-shape = SubResource( 20 )
+position = Vector2(75, 32)
+shape = SubResource("20")
 shape_centered = false
 
 [node name="Hook" type="Sprite2D" parent="Extras/Frame"]
 use_parent_material = true
-position = Vector2( 75, -11 )
-texture = SubResource( 8 )
+position = Vector2(75, -11)
+texture = SubResource("8")
 
 [node name="CrystalL" type="AnimatedSprite2D" parent="Extras/Frame"]
 use_parent_material = true
-position = Vector2( -6, 46 )
-frames = SubResource( 15 )
+position = Vector2(-6, 46)
+sprite_frames = SubResource("15")
 centered = false
 
 [node name="CrystalR" type="AnimatedSprite2D" parent="Extras/Frame"]
 use_parent_material = true
-position = Vector2( 135, 46 )
-frames = SubResource( 15 )
+position = Vector2(135, 46)
+sprite_frames = SubResource("15")
 centered = false
 
 [node name="Title" type="Sprite2D" parent="Extras"]
 use_parent_material = true
-texture = SubResource( 18 )
+texture = SubResource("18")
 
 [node name="SelectorLevelDesigner" type="Sprite2D" parent="." groups=["menu_hide"]]
-position = Vector2( 636, 233 )
-texture = ExtResource( 9 )
+position = Vector2(636, 233)
+texture = ExtResource("9")
 
 [node name="LevelDesigner" type="Sprite2D" parent="." groups=["menu_hide"]]
-position = Vector2( 636, 188 )
-texture = SubResource( 2 )
+position = Vector2(636, 188)
+texture = SubResource("2")
 
 [node name="Polygon2D" type="Polygon2D" parent="LevelDesigner"]
 use_parent_material = true
-texture = ExtResource( 16 )
-polygon = PackedVector2Array( -66, 32, 66, 32, 66, 28, -66, 28 )
-script = ExtResource( 12 )
+texture = ExtResource("16")
+polygon = PackedVector2Array(-66, 32, 66, 32, 66, 28, -66, 28)
+script = ExtResource("12")
 
 [node name="Frame" type="Sprite2D" parent="LevelDesigner"]
 use_parent_material = true
-position = Vector2( -75, -32 )
-texture = ExtResource( 14 )
+position = Vector2(-75, -32)
+texture = ExtResource("14")
 centered = false
 
 [node name="LDButton" type="TouchScreenButton" parent="LevelDesigner/Frame"]
-position = Vector2( 75, 32 )
-shape = SubResource( 20 )
+position = Vector2(75, 32)
+shape = SubResource("20")
 shape_centered = false
 
 [node name="Hook" type="Sprite2D" parent="LevelDesigner/Frame"]
 use_parent_material = true
-position = Vector2( 75, -12 )
-texture = SubResource( 8 )
+position = Vector2(75, -12)
+texture = SubResource("8")
 
 [node name="CrystalL" type="AnimatedSprite2D" parent="LevelDesigner/Frame"]
 use_parent_material = true
-position = Vector2( -6, 46 )
-frames = SubResource( 15 )
+position = Vector2(-6, 46)
+sprite_frames = SubResource("15")
 centered = false
 
 [node name="CrystalR" type="AnimatedSprite2D" parent="LevelDesigner/Frame"]
 use_parent_material = true
-position = Vector2( 135, 46 )
-frames = SubResource( 15 )
+position = Vector2(135, 46)
+sprite_frames = SubResource("15")
 centered = false
 
 [node name="Title" type="Sprite2D" parent="LevelDesigner"]
 use_parent_material = true
-texture = SubResource( 19 )
+texture = SubResource("19")
 
 [node name="Icon" type="Sprite2D" parent="." groups=["menu_hide"]]
-texture = ExtResource( 17 )
+texture = ExtResource("17")
 centered = false
-offset = Vector2( 9, 33 )
+offset = Vector2(9, 33)
 
 [node name="Border" type="Panel" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-theme_override_styles/panel = ExtResource( 3 )
+theme_override_styles/panel = ExtResource("3")
 
 [node name="DescriptionBox" type="Control" parent="Border"]
+anchors_preset = 0
 anchor_right = 1.0
 offset_left = 5.0
 offset_top = 5.0
@@ -383,60 +441,47 @@ offset_bottom = 19.0
 mouse_filter = 2
 
 [node name="DescStory" type="Label" parent="Border/DescriptionBox"]
+layout_mode = 0
 anchor_right = 1.0
 offset_right = -10.0
 offset_bottom = 14.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1")
 text = "Take the light back from Bowser and save the Mushroom Kingdom!"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DescSettings" type="Label" parent="Border/DescriptionBox"]
+layout_mode = 0
 anchor_right = 1.0
 offset_right = -10.0
 offset_bottom = 14.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1")
 text = "Create your own worlds in this in-depth Level Designer!"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DescExtras" type="Label" parent="Border/DescriptionBox"]
+layout_mode = 0
 anchor_right = 1.0
 offset_right = -10.0
 offset_bottom = 14.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1")
 text = "Enjoy a collection of trinkets and goodies!"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="DescLevelDesigner" type="Label" parent="Border/DescriptionBox"]
+layout_mode = 0
 anchor_right = 1.0
 offset_right = -10.0
 offset_bottom = 14.0
-theme_override_colors/font_outline_color = Color( 0, 0, 0, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("1")
 text = "Adjust anything and everything to your liking!"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Stripe" type="Line2D" parent="."]
 visible = false
-position = Vector2( 387, 0 )
-points = PackedVector2Array( 2, 1, -1, 6, -3, 12, -4, 17, -3, 22, -1, 29, 2, 34, 7, 38, 15, 42, 26, 28, 69, 43 )
+position = Vector2(387, 0)
+points = PackedVector2Array(2, 1, -1, 6, -3, 12, -4, 17, -3, 22, -1, 29, 2, 34, 7, 38, 15, 42, 26, 28, 69, 43)
 width = 7.0
-default_color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 13 )
+texture = ExtResource("13")
 texture_mode = 1
 joint_mode = 2
 begin_cap_mode = 2
@@ -444,54 +489,61 @@ end_cap_mode = 2
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 visible = false
-texture = ExtResource( 16 )
-polygon = PackedVector2Array( 0, 0, 0, 304, 448, 304, 448, 0 )
+texture = ExtResource("16")
+polygon = PackedVector2Array(0, 0, 0, 304, 448, 304, 448, 0)
 
 [node name="FadeOut" type="ColorRect" parent="."]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 1 )
+color = Color(0, 0, 0, 1)
 
 [node name="OptionsControl" type="Control" parent="."]
+clip_contents = true
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
 offset_top = 26.0
 offset_right = -4.0
 offset_bottom = -4.0
-clip_contents = true
 
-[node name="OptionsMenu" parent="OptionsControl" instance=ExtResource( 7 )]
+[node name="OptionsMenu" parent="OptionsControl" instance=ExtResource("7")]
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 
 [node name="BackButton" type="TextureButton" parent="OptionsControl"]
+custom_minimum_size = Vector2(40, 44)
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 44.0
-custom_minimum_size = Vector2( 40, 44 )
-texture_normal = SubResource( 22 )
-texture_pressed = SubResource( 21 )
-expand = true
+texture_normal = SubResource("22")
+texture_pressed = SubResource("21")
 
 [node name="PreviewOrb" type="Control" parent="." groups=["menu_hide"]]
+anchors_preset = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_top = -4.0
-script = ExtResource( 19 )
+script = ExtResource("19")
 
 [node name="Inner" type="AnimatedSprite2D" parent="PreviewOrb"]
-position = Vector2( -117, -68 )
-frames = SubResource( 33 )
+position = Vector2(-117, -68)
+sprite_frames = SubResource("33")
 centered = false
 
 [node name="Outer" type="AnimatedSprite2D" parent="PreviewOrb"]
-position = Vector2( -149, -89 )
-frames = SubResource( 28 )
-animation = "switch"
+position = Vector2(-149, -89)
+sprite_frames = SubResource("28")
+animation = &"switch"
 centered = false
 
 [connection signal="pressed" from="Story/Frame/StoryButton" to="." method="_on_StoryButton_pressed"]
