@@ -56,10 +56,9 @@ func refresh():
 	root_mat.set_shader_parameter("outline_texture_size", outline_texture_size)
 	material = root_mat
 	
-	# Shader copy time
-	var tex = ImageTexture.new()
-	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_L8)
-	texture = tex
+	# Shader copy time--this is mostly just so it knows the size of pixels
+	var tex = Image.create(viewport.size.x, viewport.size.y, false, Image.FORMAT_L8)
+	texture = ImageTexture.create_from_image(tex)
 	
 	water.color = Color(water_color.r, water_color.g, water_color.b, 1)
 	

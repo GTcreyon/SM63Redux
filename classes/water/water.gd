@@ -140,9 +140,8 @@ func on_ready():
 	
 	# Generate the texture for UV
 	var img_texture = ImageTexture.new()
-	var img = Image.new()
 	# Note: is there a less space needing format? it really only needs to store 2 colors, so 1 bit image format would work
-	img.create(max_x, max_y, false, Image.FORMAT_L8)
+	var img = Image.create(max_x, max_y, false, Image.FORMAT_L8)
 	# Make the texture white
 	img.fill(Color(1, 1, 1, 1))
 	img_texture.create_from_image(img)
