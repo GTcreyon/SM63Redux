@@ -1,26 +1,26 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://c0ewdtrir2xny"]
 
-[ext_resource path="res://classes/interactable/door/skins/castle_door_diamond.tres" type="SpriteFrames" id=1]
-[ext_resource path="res://classes/interactable/door/door.gd" type="Script" id=7]
+[ext_resource type="SpriteFrames" uid="uid://1vbv2fn0hbrq" path="res://classes/interactable/door/skins/castle_door_diamond.tres" id="1"]
+[ext_resource type="Script" path="res://classes/interactable/door/door.gd" id="7"]
 
-[sub_resource type="RectangleShape2D" id=2]
-size = Vector2( 11, 15.9999 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(11, 15.9999)
 
 [node name="Door" type="Area2D"]
 collision_mask = 2
 input_pickable = false
 monitorable = false
-script = ExtResource( 7 )
+script = ExtResource("7")
+door_graphic = ExtResource("1")
 sprite = NodePath("Sprite2D")
-door_graphic = ExtResource( 1 )
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2( -8, -32 )
 z_index = -1
-frames = ExtResource( 1 )
-animation = "opening"
+position = Vector2(-8, -32)
+sprite_frames = ExtResource("1")
+animation = &"opening"
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -16 )
-shape = SubResource( 2 )
+position = Vector2(0, -16)
+shape = SubResource("2")

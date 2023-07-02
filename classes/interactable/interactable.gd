@@ -3,7 +3,7 @@ extends Area2D
 # Root class for objects that can be interacted with by entering an area and performing an action.
 
 @export var disabled: bool = false: set = set_disabled
-@export(NodePath) onready var sprite = get_node(sprite) as Node2D
+@export var sprite: Node2D
 
 
 func _physics_process(_delta):
