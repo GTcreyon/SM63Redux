@@ -147,7 +147,7 @@ func _physics_process(dt):
 		return
 
 	shrink_number = min(1, shrink_number + dt * 5)
-	var target_size = get_window().size * camera.zoom * shrink_number
+	var target_size = Vector2(get_window().size) * camera.zoom * shrink_number
 	if target_size.length() != window_prev_length:
 		set_hitbox_extends(target_size)
 	

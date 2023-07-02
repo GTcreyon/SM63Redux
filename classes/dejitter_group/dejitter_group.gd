@@ -23,7 +23,7 @@ func _physics_process(_delta):
 		var frame_num = carrier_node.frame
 		var animation = carrier_node.animation
 		
-		offset_vec = frames.get_frame(animation, frame_num).get_size().posmod(2) / 2
+		offset_vec = frames.get_frame_texture(animation, frame_num).get_size().posmod(2) / 2
 	else:
 		if carrier_node.get("texture") == null:
 			# No texture, so no offset needed
