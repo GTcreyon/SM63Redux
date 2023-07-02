@@ -9,7 +9,7 @@
 resource_name = "TerrainMaterial"
 light_mode = 1
 
-[sub_resource type="ImageTexture" id="ImageTexture_f10wc"]
+[sub_resource type="ImageTexture" id="ImageTexture_dsil6"]
 
 [node name="TerrainPolygon" type="Polygon2D"]
 texture_repeat = 2
@@ -20,7 +20,7 @@ texture_spritesheet = ExtResource("3")
 [node name="Body" type="Polygon2D" parent="."]
 texture_repeat = 2
 use_parent_material = true
-texture = SubResource("ImageTexture_f10wc")
+texture = SubResource("ImageTexture_dsil6")
 
 [node name="Borders" type="Node2D" parent="."]
 use_parent_material = true

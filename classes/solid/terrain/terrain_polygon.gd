@@ -67,14 +67,14 @@ func set_null(_new_val):
 func update_spritesheets(new_sheet: Texture2D):
 	texture_spritesheet = new_sheet
 	
-	# Create textures from the spritesheet
-	# I wanted to use atlas texture but support for it is bad
+	# Create textures from the spritesheet.
+	# Can't just use atlas textures, they don't loop like we need.
 	
-	body.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(36, 3, 32, 32) ) )
-	edge.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(3, 3, 32, 32) ) )
-	bottom.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(36, 36, 32, 32) ) )
+	body.create_from_image( texture_spritesheet.get_image().get_region( Rect2(36, 3, 32, 32) ) )
+	edge.create_from_image( texture_spritesheet.get_image().get_region( Rect2(3, 3, 32, 32) ) )
+	bottom.create_from_image( texture_spritesheet.get_image().get_region( Rect2(36, 36, 32, 32) ) )
 
-	top.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(105, 3, 32, 32) ) )
-	top_corner.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(72, 3, 32, 32) ) )
-	top_shade.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(105, 36, 32, 32) ) )
-	top_corner_shade.create_from_image( texture_spritesheet.get_data().get_rect( Rect2(72, 36, 32, 32) ) )
+	top.create_from_image( texture_spritesheet.get_image().get_region( Rect2(105, 3, 32, 32) ) )
+	top_corner.create_from_image( texture_spritesheet.get_image().get_region( Rect2(72, 3, 32, 32) ) )
+	top_shade.create_from_image( texture_spritesheet.get_image().get_region( Rect2(105, 36, 32, 32) ) )
+	top_corner_shade.create_from_image( texture_spritesheet.get_image().get_region( Rect2(72, 36, 32, 32) ) )
