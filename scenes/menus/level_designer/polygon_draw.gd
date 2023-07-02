@@ -121,7 +121,7 @@ func _draw():
 		for index in poly_size - 1:
 			var seg_begin = readonly_local_polygon[index]
 			var seg_end = readonly_local_polygon[(index + 1) % poly_size]
-			var closest_point = Geometry.get_closest_point_to_segment(
+			var closest_point = Geometry2D.get_closest_point_to_segment(
 				mouse_position,
 				seg_begin,
 				seg_end

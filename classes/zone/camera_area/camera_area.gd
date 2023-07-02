@@ -82,7 +82,7 @@ func set_physics_polygon(poly):
 		var p_start = inject[ind]
 		var p_end = inject[(ind + 1) % p_size]
 		# Check if there's an intersection, if so, check if it is the nearest one
-		var point = Geometry.segment_intersects_segment(
+		var point = Geometry2D.segment_intersects_segment(
 			ray_start,
 			ray_end,
 			p_start, 

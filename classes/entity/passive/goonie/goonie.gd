@@ -23,7 +23,7 @@ var reset_timer: int = 90
 func _ready() -> void:
 	sprite.flip_h = mirror
 	if camera_area != null:
-		camera_polygon = Geometry.offset_polygon(camera_area.polygon, 224)[0]
+		camera_polygon = Geometry2D.offset_polygon(camera_area.polygon, 224)[0]
 		var points = camera_polygon.size()
 		for i in range(points):
 			var from: Vector2 = camera_polygon[i]
@@ -31,7 +31,7 @@ func _ready() -> void:
 			var back_vec = Vector2(-99999, 0)
 			if mirror:
 				back_vec.x *= -1
-			var intersect = Geometry.segment_intersects_segment(from, to, position, back_vec)
+			var intersect = Geometry2D.segment_intersects_segment(from, to, position, back_vec)
 			if intersect != null:
 				reset_position = intersect + Vector2.LEFT * 20
 	rng.seed = hash(position.x + position.y * PI) # Each bird will be different, but deterministic
@@ -88,7 +88,7 @@ func physics_step() -> void:
 		time_count += 1
 	
 	if camera_area != null:
-		if Geometry.is_point_in_polygon(position, camera_polygon):
+		if Geometry2D.is_point_in_polygon(position, camera_polygon):
 			reset_timer = 90
 		else:
 			reset_timer -= 1

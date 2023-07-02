@@ -23,7 +23,7 @@ func quit_creating(save):
 	drawable_polygon.should_have_buttons = false
 	
 	if len(polygon_data) > 2 and save:
-		if Geometry.is_polygon_clockwise(polygon_data):
+		if Geometry2D.is_polygon_clockwise(polygon_data):
 			polygon_data.invert()
 		
 		polygon_data.append(polygon_data[0])
