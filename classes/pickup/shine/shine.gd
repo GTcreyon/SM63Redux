@@ -19,7 +19,7 @@ func _on_Shine_body_entered(body):
 	body.collect_pos_final = position
 	body.collect_pos_init = body.position
 	body.collect_frames = 0
-	body.camera.target_zoom /= 2
+	body.camera.target_zoom *= 2
 	body.camera.rezoom()
 	body.z_index = 4096
 	z_index = 4096
