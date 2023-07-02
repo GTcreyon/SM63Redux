@@ -4,7 +4,7 @@ extends Polygon2D
 # Root node for terrain polygons. All terrain-polygon behavior can be controlled
 # from here.
 
-const COLLISION_LAYER_TERRAIN = 0
+const COLLISION_LAYER_TERRAIN = 1
 
 @export var texture_spritesheet: Texture2D: set = update_spritesheets
 
