@@ -106,7 +106,7 @@ func set_physics_polygon(poly):
 			
 			# To prevent the injection points from crossing eachother
 			var first_vector = poly[0]
-			poly.invert()
+			poly.reverse()
 			real.append_array(poly)
 			
 			# Add our injection vector

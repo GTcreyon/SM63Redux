@@ -233,7 +233,7 @@ func decode_float_bytes(bytes: PackedByteArray) -> float:
 
 func decode_uint_bytes(bytes: PackedByteArray) -> int:
 	var output: int = 0
-	bytes.invert()
+	bytes.reverse()
 	for i in range(bytes.size()):
 		output += bytes[i] << (i << 3)
 	return output
@@ -242,7 +242,7 @@ func decode_uint_bytes(bytes: PackedByteArray) -> int:
 func decode_sint_bytes(bytes: PackedByteArray) -> int:
 	var size = bytes.size()
 	var output: int = 0
-	bytes.invert()
+	bytes.reverse()
 	for i in range(size):
 		output += bytes[i] << (i << 3)
 	var a = ((size << 3) - 1)

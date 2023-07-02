@@ -24,7 +24,7 @@ func quit_creating(save):
 	
 	if len(polygon_data) > 2 and save:
 		if Geometry2D.is_polygon_clockwise(polygon_data):
-			polygon_data.invert()
+			polygon_data.reverse()
 		
 		polygon_data.append(polygon_data[0])
 		var terrain = main.place_terrain(polygon_data)
