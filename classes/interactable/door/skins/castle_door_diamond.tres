@@ -1,27 +1,63 @@
-[gd_resource type="SpriteFrames" load_steps=8 format=2]
+[gd_resource type="SpriteFrames" script_class="DoorSkin" load_steps=8 format=3 uid="uid://1vbv2fn0hbrq"]
 
-[ext_resource path="res://classes/interactable/door/door3.png" type="Texture2D" id=1]
-[ext_resource path="res://classes/interactable/door/door4.png" type="Texture2D" id=2]
-[ext_resource path="res://classes/interactable/door/door5.png" type="Texture2D" id=3]
-[ext_resource path="res://classes/interactable/door/door1.png" type="Texture2D" id=4]
-[ext_resource path="res://classes/interactable/door/door2.png" type="Texture2D" id=5]
-[ext_resource path="res://classes/interactable/door/door6.png" type="Texture2D" id=6]
-[ext_resource path="res://classes/interactable/door/door_skin.gd" type="Script" id=7]
+[ext_resource type="Texture2D" uid="uid://bhbm6thxelhxb" path="res://classes/interactable/door/door3.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://d2842s8tb46o7" path="res://classes/interactable/door/door4.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://c4gd7hqrnmjbm" path="res://classes/interactable/door/door5.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://ewn35qseinxt" path="res://classes/interactable/door/door1.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dewegx3jhj2es" path="res://classes/interactable/door/door2.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://ci3yju2xcmkoc" path="res://classes/interactable/door/door6.png" id="6"]
+[ext_resource type="Script" path="res://classes/interactable/door/door_skin.gd" id="7"]
 
 [resource]
 resource_name = "Castle Door Diamond"
-animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ) ],
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}],
 "loop": false,
-"name": "closing",
+"name": &"closing",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 1 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 6 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}],
 "loop": false,
-"name": "opening",
+"name": &"opening",
 "speed": 30.0
-} ]
-script = ExtResource( 7 )
+}]
+script = ExtResource("7")
 player_fade_start_time = 20
 player_fade_rate = 0.1
 door_close_start_time = 20
