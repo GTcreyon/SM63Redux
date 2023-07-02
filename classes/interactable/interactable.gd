@@ -1,17 +1,9 @@
 class_name Interactable
 extends Area2D
-# Root class for objects that can be interacted with by entering an area
-# and pressing a button.
-
+# Root class for objects that can be interacted with by entering an area and performing an action.
 
 @export var disabled: bool = false: set = set_disabled
-@export_node_path("Sprite2D", "AnimatedSprite2D") var sprite_path: NodePath
-
-var sprite
-
-func _ready():
-	if not Engine.is_editor_hint(): # In case any inheritors are marked @tool
-		sprite = get_node(sprite_path) as Node2D
+@export(NodePath) onready var sprite = get_node(sprite) as Node2D
 
 
 func _physics_process(_delta):

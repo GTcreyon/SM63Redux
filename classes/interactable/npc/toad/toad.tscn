@@ -1,85 +1,61 @@
-[gd_scene load_steps=12 format=3 uid="uid://bb0uyyyri5y2r"]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource type="Texture2D" uid="uid://bq2pfvrkkdclt" path="res://classes/interactable/npc/toad/toad.png" id="1"]
-[ext_resource type="Material" path="res://shaders/palette.tres" id="2"]
-[ext_resource type="Script" path="res://classes/interactable/npc/toad/toad.gd" id="3"]
+[ext_resource path="res://classes/interactable/npc/toad/toad.png" type="Texture2D" id=1]
+[ext_resource path="res://shaders/palette.tres" type="Material" id=2]
+[ext_resource path="res://classes/interactable/npc/toad/toad.gd" type="Script" id=3]
 
-[sub_resource type="AtlasTexture" id="9"]
-atlas = ExtResource("1")
-region = Rect2(0, 0, 16, 23)
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 16, 23 )
 
-[sub_resource type="AtlasTexture" id="10"]
-atlas = ExtResource("1")
-region = Rect2(16, 0, 16, 23)
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 1 )
+region = Rect2( 16, 0, 16, 23 )
 
-[sub_resource type="AtlasTexture" id="11"]
-atlas = ExtResource("1")
-region = Rect2(32, 0, 16, 23)
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 23 )
 
-[sub_resource type="AtlasTexture" id="5"]
-atlas = ExtResource("1")
-region = Rect2(48, 0, 16, 23)
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 23 )
 
-[sub_resource type="AtlasTexture" id="6"]
-atlas = ExtResource("1")
-region = Rect2(64, 0, 16, 23)
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 16, 23 )
 
-[sub_resource type="AtlasTexture" id="7"]
-atlas = ExtResource("1")
-region = Rect2(80, 0, 16, 23)
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 1 )
+region = Rect2( 80, 0, 16, 23 )
 
-[sub_resource type="SpriteFrames" id="1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("9")
-}, {
-"duration": 1.0,
-"texture": SubResource("9")
-}, {
-"duration": 1.0,
-"texture": SubResource("10")
-}, {
-"duration": 1.0,
-"texture": SubResource("11")
-}, {
-"duration": 1.0,
-"texture": SubResource("5")
-}, {
-"duration": 1.0,
-"texture": SubResource("5")
-}, {
-"duration": 1.0,
-"texture": SubResource("6")
-}, {
-"duration": 1.0,
-"texture": SubResource("7")
-}],
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ SubResource( 9 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 5 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
 "loop": true,
-"name": &"default",
+"name": "default",
 "speed": 10.0
-}]
+} ]
 
-[sub_resource type="RectangleShape2D" id="12"]
-size = Vector2(12, 3)
+[sub_resource type="RectangleShape2D" id=12]
+size = Vector2( 12, 3 )
 
 [node name="Toad" type="Area2D"]
-material = ExtResource("2")
+material = ExtResource( 2 )
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
-script = ExtResource("3")
+script = ExtResource( 3 )
+sprite = NodePath("Sprite2D")
 x_offset = 16
 can_pivot = true
-sprite_path = NodePath("Sprite")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
-z_index = -1
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true
-sprite_frames = SubResource("1")
-offset = Vector2(0, -0.5)
+z_index = -1
+frames = SubResource( 1 )
+offset = Vector2( 0, -0.5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8)
-shape = SubResource("12")
+position = Vector2( 0, 8 )
+shape = SubResource( 12 )
