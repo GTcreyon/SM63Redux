@@ -61,4 +61,4 @@ func _door_close():
 
 
 func _set_sprite_frames(sprite_frames: SpriteFrames):
-	$Sprite2D.frames = sprite_frames
+	$Sprite2D.sprite_frames = sprite_frames

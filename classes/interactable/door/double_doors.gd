@@ -12,8 +12,8 @@ var chosen_side = 0
 
 
 func _set_sprite_frames(sprite_frames: SpriteFrames):
-	$SpriteL.frames = sprite_frames
-	$SpriteR.frames = sprite_frames
+	$SpriteL.sprite_frames = sprite_frames
+	$SpriteR.sprite_frames = sprite_frames
 
 
 func _enter_pos_offset_x() -> int:

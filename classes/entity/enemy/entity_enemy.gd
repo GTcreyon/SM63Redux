@@ -152,7 +152,7 @@ func _setup_pickup_ids():
 func _init_animation():
 	if sprite != null and sprite is AnimatedSprite2D:
 		if !disabled:
-			sprite.frame = hash(position.x + position.y * PI) % sprite.frames.get_frame_count(sprite.animation)
+			sprite.frame = hash(position.x + position.y * PI) % sprite.sprite_frames.get_frame_count(sprite.animation)
 			sprite.play()
 		else:
 			sprite.stop()

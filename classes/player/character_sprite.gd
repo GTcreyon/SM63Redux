@@ -436,8 +436,8 @@ static func _is_footstep_frame (frame: int, anim_name: String) -> bool:
 
 
 func _anim_length_gameframes(anim_name: String) -> int:
-	var frame_count: float = self.frames.get_frame_count(anim_name)
-	var fps: float = self.frames.get_animation_speed(anim_name)
+	var frame_count: float = self.sprite_frames.get_frame_count(anim_name)
+	var fps: float = self.sprite_frames.get_animation_speed(anim_name)
 	
 	return int((frame_count/fps) * 60)
 

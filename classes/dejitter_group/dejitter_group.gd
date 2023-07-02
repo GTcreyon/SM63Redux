@@ -19,7 +19,7 @@ func _physics_process(_delta):
 	var carrier_node = get_node(get_path()) # Get the current node
 	if carrier_node is AnimatedSprite2D:
 		# Set offset relative to current frame of animation
-		var frames = carrier_node.frames
+		var frames = carrier_node.sprite_frames
 		var frame_num = carrier_node.frame
 		var animation = carrier_node.animation
 		
