@@ -48,6 +48,6 @@ func _on_FluddBox_area_entered(area):
 		get_parent().call_deferred("add_child", inst)
 		
 		player.collected_nozzles[nozzle - 1] = true
-		player.vel.y = -6 * 32 / 60
+		player.vel.y = -6.0 * 32.0 / 60.0
 		$Open.play()
 		set_deferred("monitoring", false)

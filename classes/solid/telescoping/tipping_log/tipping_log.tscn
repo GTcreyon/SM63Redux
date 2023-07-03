@@ -1,23 +1,23 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://cujalhk0rkqni"]
 
-[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log_right.png" type="Texture2D" id=1]
-[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log.gd" type="Script" id=2]
-[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log_middle.png" type="Texture2D" id=3]
-[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log_left.png" type="Texture2D" id=4]
-[ext_resource path="res://classes/solid/telescoping/tipping_log/log_pivot.png" type="Texture2D" id=5]
-[ext_resource path="res://classes/ride_area.gd" type="Script" id=6]
+[ext_resource type="Texture2D" uid="uid://l26sfq2rlwyw" path="res://classes/solid/telescoping/tipping_log/tipping_log_right.png" id="1"]
+[ext_resource type="Script" path="res://classes/solid/telescoping/tipping_log/tipping_log.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://boxg8i4c34sso" path="res://classes/solid/telescoping/tipping_log/tipping_log_middle.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://d0obdxfpefspu" path="res://classes/solid/telescoping/tipping_log/tipping_log_left.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dd2aj6mmsywkj" path="res://classes/solid/telescoping/tipping_log/log_pivot.png" id="5"]
+[ext_resource type="Script" path="res://classes/ride_area.gd" id="6"]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id="1"]
 resource_local_to_scene = true
-size = Vector2( 23, 7 )
+size = Vector2(23, 7)
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id="2"]
 resource_local_to_scene = true
-size = Vector2( 16, 1 )
+size = Vector2(16, 1)
 
 [node name="TippingLog" type="Sprite2D"]
-texture = ExtResource( 5 )
-script = ExtResource( 2 )
+texture = ExtResource("5")
+script = ExtResource("2")
 _safety_net_path = NodePath("")
 _collision_path = NodePath("Rod/Collision")
 _left_end_path = NodePath("Rod/Left")
@@ -32,27 +32,27 @@ show_behind_parent = true
 collision_mask = 0
 
 [node name="Left" type="Sprite2D" parent="Rod"]
-position = Vector2( -8, 0 )
-texture = ExtResource( 4 )
+position = Vector2(-8, 0)
+texture = ExtResource("4")
 centered = false
-offset = Vector2( -3, -8 )
+offset = Vector2(-3, -8)
 
 [node name="Middle" type="TextureRect" parent="Rod"]
 offset_left = -8.0
 offset_top = -8.0
 offset_right = 24.0
 offset_bottom = 8.0
-texture = ExtResource( 3 )
+texture = ExtResource("3")
 stretch_mode = 2
 
 [node name="Right" type="Sprite2D" parent="Rod"]
-position = Vector2( 8, 0 )
-texture = ExtResource( 1 )
+position = Vector2(8, 0)
+texture = ExtResource("1")
 centered = false
-offset = Vector2( 0, -8 )
+offset = Vector2(0, -8)
 
 [node name="Collision" type="CollisionShape2D" parent="Rod"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 one_way_collision = true
 one_way_collision_margin = 2.0
 
@@ -61,8 +61,8 @@ collision_layer = 0
 collision_mask = 20
 input_pickable = false
 monitorable = false
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="RideShape" type="CollisionShape2D" parent="Rod/RideArea"]
-position = Vector2( 0, -8 )
-shape = SubResource( 2 )
+position = Vector2(0, -8)
+shape = SubResource("2")

@@ -7,7 +7,7 @@ extends Telescoping
 
 @export var pivot_offset = 0: set = set_pivot_offset
 
-var ang_vel = 0
+var ang_vel = 0.0
 
 
 func set_width(val):
@@ -39,8 +39,8 @@ func physics_step():
 		ang_vel -= deg_to_rad(0.025)
 	elif rotation < deg_to_rad(-1):
 		ang_vel += deg_to_rad(0.025)
-	rotation = lerp(rotation, 0, 0.0125)
-	ang_vel = lerp(ang_vel, 0, 0.0125)
+	rotation = lerp(rotation, 0.0, 0.0125)
+	ang_vel = lerp(ang_vel, 0.0, 0.0125)
 	for body in riders:
 		var dist = position.distance_to(body.position)
 		# warning-ignore:return_value_discarded
