@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="31"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0xprw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpiqj"]
 resource_local_to_scene = true
 shader = ExtResource("24")
 shader_parameter/width = 2
@@ -33,7 +33,7 @@ shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_v87t4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3ejx"]
 resource_local_to_scene = true
 shader = ExtResource("24")
 shader_parameter/width = 2
@@ -41,7 +41,7 @@ shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kxkfh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffx06"]
 resource_local_to_scene = true
 shader = ExtResource("24")
 shader_parameter/width = 2
@@ -342,17 +342,17 @@ position = Vector2(1092, 111)
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign" parent="Items/Signs" instance=ExtResource("17")]
-material = SubResource("ShaderMaterial_0xprw")
+material = SubResource("ShaderMaterial_dpiqj")
 position = Vector2(189, 165)
 lines = ["[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here's a refresher.", "Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact].[/color]", "They have plenty of tips to help out,[@p,3] and if you're not interested,[@p,3] at least say \"Hi\" for me,[@p,3] eh?"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource("17")]
-material = SubResource("ShaderMaterial_v87t4")
+material = SubResource("ShaderMaterial_i3ejx")
 position = Vector2(299, 165)
 lines = ["[@n,Gil Board]Oh hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as thanks?", "You can press [color=#f7c55f][@b,spin][/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, 'eh?"]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource("17")]
-material = SubResource("ShaderMaterial_kxkfh")
+material = SubResource("ShaderMaterial_ffx06")
 position = Vector2(1287, 53)
 lines = ["[@n,Jil Board]Oh [color=#ff8b70]Mario[/color],[@p,3] honey![@p,10] It's been so long since I've seen you...[@p,10] Oh my![@p,10] I see scars from your journeys...", "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an unlucky enemy to refill one [color=#ff7f7f]health point.[/color]", "No one quite understands why,[@p,3] but it's a lifesaver -[@p,3] so keep it in mind,[@p,3] sweetie!"]
 

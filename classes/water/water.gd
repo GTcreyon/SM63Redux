@@ -298,7 +298,7 @@ func handle_impact(body, is_exit):
 				ind += 1
 				end_of_wave += og_wave_width
 			
-			await get_tree().idle_frame
+			await get_tree().process_frame
 	
 
 func _on_body_entered(body):

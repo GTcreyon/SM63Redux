@@ -31,7 +31,7 @@ func set_color(new_color):
 
 
 func _physics_step():
-	vel.x = lerp(vel.x, 0, 0.00625)
+	vel.x = lerp(vel.x, 0.0, 0.00625)
 	if is_on_floor():
 		vel.y = 0
 	if is_on_wall(): # flip when hitting wall

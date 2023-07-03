@@ -1,80 +1,331 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=61 format=3 uid="uid://cbgdqcf3jpq5o"]
 
-[ext_resource path="res://shaders/palette.gdshader" type="Shader" id=1]
-[ext_resource path="res://classes/solid/terrain/terrain_polygon.tscn" type="PackedScene" id=7]
-[ext_resource path="res://classes/water/water.tscn" type="PackedScene" id=8]
-[ext_resource path="res://shaders/glow.gdshader" type="Shader" id=9]
-[ext_resource path="res://classes/solid/fungus_platform/fungus_stem.tscn" type="PackedScene" id=10]
-[ext_resource path="res://classes/player/player.tscn" type="PackedScene" id=11]
-[ext_resource path="res://classes/interactable/sign/sign.tscn" type="PackedScene" id=12]
-[ext_resource path="res://classes/pickup/coin/yellow/coin_yellow.tscn" type="PackedScene" id=13]
-[ext_resource path="res://classes/entity/enemy/goomba/goomba.tscn" type="PackedScene" id=14]
-[ext_resource path="res://classes/pickup/fludd_box/fludd_box.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=17]
-[ext_resource path="res://classes/zone/trigger/warpzone/warp_zone.tscn" type="PackedScene" id=18]
-[ext_resource path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=19]
-[ext_resource path="res://classes/entity/enemy/koopa/parakoopa.tscn" type="PackedScene" id=20]
-[ext_resource path="res://classes/zone/camera_area/camera_area.tscn" type="PackedScene" id=21]
-[ext_resource path="res://classes/decorative/small_tree.tscn" type="PackedScene" id=22]
-[ext_resource path="res://classes/decorative/big_tree.tscn" type="PackedScene" id=23]
-[ext_resource path="res://classes/decorative/fungus_double.tscn" type="PackedScene" id=24]
-[ext_resource path="res://classes/decorative/fungus_single.tscn" type="PackedScene" id=25]
-[ext_resource path="res://classes/decorative/flowers.tscn" type="PackedScene" id=26]
-[ext_resource path="res://classes/decorative/fossil/fossil.tscn" type="PackedScene" id=27]
-[ext_resource path="res://classes/decorative/arrow/arrow.tscn" type="PackedScene" id=28]
-[ext_resource path="res://classes/entity/passive/goonie/goonie.tscn" type="PackedScene" id=29]
-[ext_resource path="res://classes/decorative/butterfly/butterfly.tscn" type="PackedScene" id=30]
+[ext_resource type="Shader" path="res://shaders/palette.gdshader" id="1"]
+[ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="8"]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="9"]
+[ext_resource type="PackedScene" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://classes/pickup/coin/yellow/coin_yellow.tscn" id="13"]
+[ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://classes/entity/enemy/koopa/parakoopa.png" id="13_p3ewm"]
+[ext_resource type="PackedScene" path="res://classes/entity/enemy/goomba/goomba.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://ccwcekurxpnpe" path="res://classes/pickup/fludd_box/fludd_box.tscn" id="15"]
+[ext_resource type="PackedScene" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="17"]
+[ext_resource type="PackedScene" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="18"]
+[ext_resource type="PackedScene" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" id="19"]
+[ext_resource type="PackedScene" path="res://classes/entity/enemy/koopa/parakoopa.tscn" id="20"]
+[ext_resource type="PackedScene" path="res://classes/zone/camera_area/camera_area.tscn" id="21"]
+[ext_resource type="PackedScene" path="res://classes/decorative/small_tree.tscn" id="22"]
+[ext_resource type="Texture2D" uid="uid://w4khahd820d5" path="res://classes/decorative/fossil/fossils.png" id="22_adv7u"]
+[ext_resource type="PackedScene" path="res://classes/decorative/big_tree.tscn" id="23"]
+[ext_resource type="PackedScene" path="res://classes/decorative/fungus_double.tscn" id="24"]
+[ext_resource type="PackedScene" path="res://classes/decorative/fungus_single.tscn" id="25"]
+[ext_resource type="Texture2D" uid="uid://d2hxhncxns8t0" path="res://classes/decorative/butterfly/butterfly.png" id="25_o0muw"]
+[ext_resource type="PackedScene" path="res://classes/decorative/flowers.tscn" id="26"]
+[ext_resource type="PackedScene" path="res://classes/decorative/fossil/fossil.tscn" id="27"]
+[ext_resource type="PackedScene" path="res://classes/decorative/arrow/arrow.tscn" id="28"]
+[ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="29"]
+[ext_resource type="PackedScene" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rcw2p"]
 resource_local_to_scene = true
-shader = ExtResource( 9 )
-shader_param/width = 2
-shader_param/recenter = null
-shader_param/radial = false
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader = ExtResource("9")
+shader_parameter/width = 2
+shader_parameter/recenter = null
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2jp2"]
 resource_local_to_scene = true
-shader = ExtResource( 9 )
-shader_param/width = 2
-shader_param/recenter = null
-shader_param/radial = false
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader = ExtResource("9")
+shader_parameter/width = 2
+shader_parameter/recenter = null
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id=3]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_15ick"]
 resource_local_to_scene = true
-shader = ExtResource( 1 )
-shader_param/color0 = Color( 0.796078, 0.368627, 0.0352941, 1 )
-shader_param/color1 = Color( 0.568627, 0.0705882, 0.188235, 1 )
-shader_param/color2 = Color( 0.478431, 0.258824, 0.203922, 1 )
-shader_param/color3 = Color( 1, 1, 0, 1 )
-shader_param/color4 = Color( 1, 0, 1, 1 )
-shader_param/color5 = Color( 0, 1, 1, 1 )
+shader = ExtResource("1")
+shader_parameter/color0 = Color(0.796078, 0.368627, 0.0352941, 1)
+shader_parameter/color1 = Color(0.568627, 0.0705882, 0.188235, 1)
+shader_parameter/color2 = Color(0.478431, 0.258824, 0.203922, 1)
+shader_parameter/color3 = Color(1, 1, 0, 1)
+shader_parameter/color4 = Color(1, 0, 1, 1)
+shader_parameter/color5 = Color(0, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("13_p3ewm")
+region = Rect2(264, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("13_p3ewm")
+region = Rect2(220, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("13_p3ewm")
+region = Rect2(176, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("13_p3ewm")
+region = Rect2(132, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("13_p3ewm")
+region = Rect2(88, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("13_p3ewm")
+region = Rect2(44, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("13_p3ewm")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="SpriteFrames" id="8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("22_adv7u")
+region = Rect2(0, 0, 34, 24)
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("22_adv7u")
+region = Rect2(0, 24, 34, 24)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("22_adv7u")
+region = Rect2(0, 48, 34, 24)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("22_adv7u")
+region = Rect2(0, 72, 34, 24)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("22_adv7u")
+region = Rect2(0, 96, 34, 24)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("22_adv7u")
+region = Rect2(0, 120, 34, 24)
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}],
+"loop": false,
+"name": &"yellow",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tl2m7"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jg0d8"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(40, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6jnbm"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wfrd"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(32, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8l11"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(16, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6f6v"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(48, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8usos"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tla4"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(8, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cx04"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrfbt"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0p3s"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pjdkj"]
+atlas = ExtResource("25_o0muw")
+region = Rect2(24, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u71ag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tl2m7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jg0d8")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6jnbm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wfrd")
+}],
+"loop": true,
+"name": &"green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8l11")
+}],
+"loop": true,
+"name": &"orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6f6v")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
+"loop": true,
+"name": &"purple",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8usos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tla4")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cx04")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrfbt")
+}],
+"loop": true,
+"name": &"white",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0p3s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pjdkj")
+}],
+"loop": true,
+"name": &"yellow",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node2D"]
 
-[node name="BGT1" parent="." instance=ExtResource( 17 )]
+[node name="BGT1" parent="." instance=ExtResource("17")]
 
-[node name="CameraArea" parent="." instance=ExtResource( 21 )]
+[node name="CameraArea" parent="." instance=ExtResource("21")]
 visible = false
-polygon = PackedVector2Array( 20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847 )
+polygon = PackedVector2Array(20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.6381, 700.154, -337.86, 1827.21, -339.987, 1836.73, 310.847)
 
-[node name="Player" parent="." instance=ExtResource( 11 )]
-position = Vector2( 64, 195.944 )
+[node name="Player" parent="." instance=ExtResource("11")]
+position = Vector2(64, 195.944)
 
 [node name="Water" type="Node2D" parent="."]
 
-[node name="Water" parent="Water" instance=ExtResource( 8 )]
-position = Vector2( 1414, 150 )
+[node name="Water" parent="Water" instance=ExtResource("8")]
 z_index = 2
-polygon = PackedVector2Array( 0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60 )
+position = Vector2(1414, 150)
+polygon = PackedVector2Array(0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60)
 
 [node name="Terrain" type="Node2D" parent="."]
 
-[node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 7 )]
-position = Vector2( 0, 215 )
+[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("7")]
 z_index = 1
-polygon = PackedVector2Array( -435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281 )
+position = Vector2(0, 215)
+polygon = PackedVector2Array(-435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281)
 edge_types = {
 18: 3,
 19: 3,
@@ -86,267 +337,281 @@ edge_types = {
 
 [node name="Fungus" type="Node2D" parent="Items"]
 
-[node name="FungusStem6" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 803, 174 )
-points = PackedVector2Array( -6, -3, -10, 4, -11, 14, -10, 25 )
+[node name="FungusStem6" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(803, 174)
+points = PackedVector2Array(-6, -3, -10, 4, -11, 14, -10, 25)
 
-[node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 346, 83 )
+[node name="FungusStem3" parent="Items/Fungus" instance=ExtResource("10")]
 z_index = -3
-points = PackedVector2Array( -7, -5, -6, 5, -3, 13, 4, 21, 12, 27, 16, 35, 14, 45, 9, 54, 3, 64, -1, 75, -5, 87, -5, 100, 0, 112 )
+position = Vector2(346, 83)
+points = PackedVector2Array(-7, -5, -6, 5, -3, 13, 4, 21, 12, 27, 16, 35, 14, 45, 9, 54, 3, 64, -1, 75, -5, 87, -5, 100, 0, 112)
 
-[node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 326, 133 )
-points = PackedVector2Array( -6, -3, -9, 8, -10, 19, -9, 30, -4, 46, -2, 54, -3, 63 )
+[node name="FungusStem" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(326, 133)
+points = PackedVector2Array(-6, -3, -9, 8, -10, 19, -9, 30, -4, 46, -2, 54, -3, 63)
 
-[node name="FungusStem2" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 399, 150 )
-points = PackedVector2Array( -6, -3, -5, 8, -2, 14, 7, 21, 9, 26, 9, 32, 8, 40, 6, 46 )
+[node name="FungusStem2" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(399, 150)
+points = PackedVector2Array(-6, -3, -5, 8, -2, 14, 7, 21, 9, 26, 9, 32, 8, 40, 6, 46)
 
-[node name="FungusStem4" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 688, 146 )
-points = PackedVector2Array( -6, -3, -4, 7, -3, 19, -4, 29, -6, 40, -9, 52, -12, 61 )
+[node name="FungusStem4" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(688, 146)
+points = PackedVector2Array(-6, -3, -4, 7, -3, 19, -4, 29, -6, 40, -9, 52, -12, 61)
 
-[node name="FungusStem5" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 770, 107 )
-points = PackedVector2Array( -6, -6, -2, 3, -2, 13, -4, 27, -6, 35, -10, 42, -14, 53, -14, 62, -11, 72, -10, 82, -13, 95 )
+[node name="FungusStem5" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(770, 107)
+points = PackedVector2Array(-6, -6, -2, 3, -2, 13, -4, 27, -6, 35, -10, 42, -14, 53, -14, 62, -11, 72, -10, 82, -13, 95)
 
-[node name="FungusStem7" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 848, 85 )
+[node name="FungusStem7" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(848, 85)
 rotation = -0.349066
-points = PackedVector2Array( -6.8335, -4.61557, -8.97192, 4.18365, -13.2455, 10.0775, -15.6396, 16.6553, -17.0941, 23.5752, -16.3271, 30.2394, -14.2785, 36.306, -10.948, 41.7749, -3.60327, 50.8332, 2.80182, 59.5495, 6.98553, 68.5215, 11.5112, 76.5538, 17.0631, 81.7671 )
+points = PackedVector2Array(-6.8335, -4.61557, -8.97192, 4.18365, -13.2455, 10.0775, -15.6396, 16.6553, -17.0941, 23.5752, -16.3271, 30.2394, -14.2785, 36.306, -10.948, 41.7749, -3.60327, 50.8332, 2.80182, 59.5495, 6.98553, 68.5215, 11.5112, 76.5538, 17.0631, 81.7671)
 
-[node name="FungusStem8" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 1060, -61 )
-points = PackedVector2Array( -6, -3, -12, 7, -13, 18, -10, 27, -4, 39, -4, 47 )
+[node name="FungusStem8" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(1060, -61)
+points = PackedVector2Array(-6, -3, -12, 7, -13, 18, -10, 27, -4, 39, -4, 47)
 
-[node name="FungusStem9" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 1398, 61 )
-points = PackedVector2Array( -6, -3, -4, 11, -5, 22, -8, 31, -18, 48 )
+[node name="FungusStem9" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(1398, 61)
+points = PackedVector2Array(-6, -3, -4, 11, -5, 22, -8, 31, -18, 48)
 
-[node name="FungusStem10" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 1466, 29 )
+[node name="FungusStem10" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(1466, 29)
 rotation = 0.349066
-points = PackedVector2Array( -7.34827, -2.64633, -9.05493, 4.35992, -7.9425, 10.3401, -4.52234, 19.737, -4.60522, 28.2806, -7.25159, 35.6288, -13.3147, 45.2849, -15.277, 54.5125, -14.5895, 68.0966, -14.9281, 78.8616, -18.1721, 87.4916, -18.5969, 95.0955, -20.3036, 102.102 )
+points = PackedVector2Array(-7.34827, -2.64633, -9.05493, 4.35992, -7.9425, 10.3401, -4.52234, 19.737, -4.60522, 28.2806, -7.25159, 35.6288, -13.3147, 45.2849, -15.277, 54.5125, -14.5895, 68.0966, -14.9281, 78.8616, -18.1721, 87.4916, -18.5969, 95.0955, -20.3036, 102.102)
 
-[node name="FungusStem11" parent="Items/Fungus" instance=ExtResource( 10 )]
-position = Vector2( 972, -149 )
-points = PackedVector2Array( -6, -3, -6, 1, -7, 5, -6, 10, -4, 14, -1, 18, 1, 25, 2, 34, -1, 47, -6, 58, -9, 72, -8, 94, -4, 106, -4, 113 )
+[node name="FungusStem11" parent="Items/Fungus" instance=ExtResource("10")]
+position = Vector2(972, -149)
+points = PackedVector2Array(-6, -3, -6, 1, -7, 5, -6, 10, -4, 14, -1, 18, 1, 25, 2, 34, -1, 47, -6, 58, -9, 72, -8, 94, -4, 106, -4, 113)
 
-[node name="FluddBox" parent="Items" instance=ExtResource( 15 )]
-position = Vector2( 548, 187 )
+[node name="FluddBox" parent="Items" instance=ExtResource("15")]
+position = Vector2(548, 187)
 nozzle = 1
 
 [node name="Coins" type="Node2D" parent="Items"]
-position = Vector2( 0, 2 )
+position = Vector2(0, 2)
 
-[node name="Coin" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 293, 172 )
+[node name="Coin" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(293, 172)
 
-[node name="Coin2" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 333, 172 )
+[node name="Coin2" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(333, 172)
 
-[node name="Coin3" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 373, 172 )
+[node name="Coin3" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(373, 172)
 
-[node name="Coin4" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 683, 103 )
+[node name="Coin4" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(683, 103)
 
-[node name="Coin5" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 764, 67 )
+[node name="Coin5" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(764, 67)
 
-[node name="Coin6" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 833, 44 )
+[node name="Coin6" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(833, 44)
 
-[node name="Coin7" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 944, -61 )
+[node name="Coin7" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(944, -61)
 
-[node name="Coin8" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 994, -61 )
+[node name="Coin8" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(994, -61)
 
-[node name="Coin9" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 1044, -35 )
+[node name="Coin9" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(1044, -35)
 
-[node name="Coin10" parent="Items/Coins" instance=ExtResource( 13 )]
-position = Vector2( 1084, -35 )
+[node name="Coin10" parent="Items/Coins" instance=ExtResource("13")]
+position = Vector2(1084, -35)
 
 [node name="Signs" type="Node2D" parent="Items"]
 
-[node name="Sign2" parent="Items/Signs" instance=ExtResource( 12 )]
-material = SubResource( 1 )
-position = Vector2( 502, 204 )
-lines = [ "[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!" ]
+[node name="Sign2" parent="Items/Signs" instance=ExtResource("12")]
+material = SubResource("ShaderMaterial_rcw2p")
+position = Vector2(502, 204)
+lines = ["[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!"]
 
-[node name="Sign3" parent="Items/Signs" instance=ExtResource( 12 )]
-material = SubResource( 2 )
-position = Vector2( 1232, 16 )
-lines = [ "[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle." ]
+[node name="Sign3" parent="Items/Signs" instance=ExtResource("12")]
+material = SubResource("ShaderMaterial_m2jp2")
+position = Vector2(1232, 16)
+lines = ["[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle."]
 
 [node name="Enemy" type="Node2D" parent="Items"]
 
-[node name="Parakoopa" parent="Items/Enemy" instance=ExtResource( 20 )]
-material = SubResource( 3 )
-position = Vector2( 1335.47, -15.5049 )
+[node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("20")]
+material = SubResource("ShaderMaterial_15ick")
+position = Vector2(1335.47, -15.5049)
+sprite_frames = SubResource("8")
+animation = &"flying"
 frame = 4
 color = 1
 
-[node name="Goomba" parent="Items/Enemy" instance=ExtResource( 14 )]
-position = Vector2( 261, 183 )
+[node name="Goomba" parent="Items/Enemy" instance=ExtResource("14")]
+position = Vector2(261, 183)
 
-[node name="Cheep Cheep" parent="Items/Enemy" instance=ExtResource( 19 )]
-position = Vector2( 1648.46, 189.27 )
+[node name="Cheep Cheep" parent="Items/Enemy" instance=ExtResource("19")]
+position = Vector2(1648.46, 189.27)
 
-[node name="Cheep Cheep2" parent="Items/Enemy" instance=ExtResource( 19 )]
-position = Vector2( 1489.72, 181.333 )
+[node name="Cheep Cheep2" parent="Items/Enemy" instance=ExtResource("19")]
+position = Vector2(1489.72, 181.333)
 
-[node name="Cheep Cheep3" parent="Items/Enemy" instance=ExtResource( 19 )]
-position = Vector2( 1565.72, 214.333 )
+[node name="Cheep Cheep3" parent="Items/Enemy" instance=ExtResource("19")]
+position = Vector2(1565.72, 214.333)
 
 [node name="Decoration" type="Node2D" parent="Items"]
 
-[node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 22 )]
-position = Vector2( 147, 176 )
+[node name="SmallTree" parent="Items/Decoration" instance=ExtResource("22")]
+position = Vector2(147, 176)
 
-[node name="BigTree" parent="Items/Decoration" instance=ExtResource( 23 )]
-position = Vector2( 240.5, 150 )
+[node name="BigTree" parent="Items/Decoration" instance=ExtResource("23")]
+position = Vector2(240.5, 150)
 
-[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource( 22 )]
-position = Vector2( 465, 165 )
+[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource("22")]
+position = Vector2(465, 165)
 
-[node name="SmallTree3" parent="Items/Decoration" instance=ExtResource( 22 )]
-position = Vector2( 591, 167 )
+[node name="SmallTree3" parent="Items/Decoration" instance=ExtResource("22")]
+position = Vector2(591, 167)
 
-[node name="SmallTree4" parent="Items/Decoration" instance=ExtResource( 22 )]
-position = Vector2( 1796, 2 )
+[node name="SmallTree4" parent="Items/Decoration" instance=ExtResource("22")]
+position = Vector2(1796, 2)
 
-[node name="FungusDouble" parent="Items/Decoration" instance=ExtResource( 24 )]
-position = Vector2( 845, 174.5 )
+[node name="FungusDouble" parent="Items/Decoration" instance=ExtResource("24")]
+position = Vector2(845, 174.5)
 
-[node name="FungusSingle" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 728.5, 180.5 )
+[node name="FungusSingle" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(728.5, 180.5)
 
-[node name="FungusDouble2" parent="Items/Decoration" instance=ExtResource( 24 )]
-position = Vector2( 1126, -23 )
+[node name="FungusDouble2" parent="Items/Decoration" instance=ExtResource("24")]
+position = Vector2(1126, -23)
 
-[node name="Flowers" parent="Items/Decoration" instance=ExtResource( 26 )]
-position = Vector2( 1769, 30.5 )
+[node name="Flowers" parent="Items/Decoration" instance=ExtResource("26")]
+position = Vector2(1769, 30.5)
 
-[node name="FungusSingle2" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 1268.5, -1.5 )
+[node name="FungusSingle2" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(1268.5, -1.5)
 
-[node name="FungusSingle3" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 919.5, -58.5 )
+[node name="FungusSingle3" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(919.5, -58.5)
 
-[node name="FungusDouble3" parent="Items/Decoration" instance=ExtResource( 24 )]
-position = Vector2( 1309, 67.5 )
+[node name="FungusDouble3" parent="Items/Decoration" instance=ExtResource("24")]
+position = Vector2(1309, 67.5)
 
-[node name="FungusSingle4" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 1351.5, 77.5 )
+[node name="FungusSingle4" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(1351.5, 77.5)
 
-[node name="FungusSingle5" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 362.5, 172.5 )
+[node name="FungusSingle5" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(362.5, 172.5)
 
-[node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 26 )]
-position = Vector2( 190, 197.5 )
+[node name="Flowers2" parent="Items/Decoration" instance=ExtResource("26")]
+position = Vector2(190, 197.5)
 
-[node name="Flowers4" parent="Items/Decoration" instance=ExtResource( 26 )]
-position = Vector2( 616, 192.5 )
+[node name="Flowers4" parent="Items/Decoration" instance=ExtResource("26")]
+position = Vector2(616, 192.5)
 
-[node name="Fossil" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 979, 39.8811 )
-animation = "yellow"
+[node name="Fossil" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(979, 39.8811)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 1305, 169 )
-animation = "yellow"
+[node name="Fossil4" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(1305, 169)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 1176, 171 )
-animation = "yellow"
+[node name="Fossil5" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(1176, 171)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 721, 290 )
-animation = "yellow"
+[node name="Fossil6" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(721, 290)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 844, 270 )
-animation = "yellow"
+[node name="Fossil7" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(844, 270)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 325, 298 )
-animation = "yellow"
+[node name="Fossil8" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(325, 298)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil9" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 325, 298 )
-animation = "yellow"
+[node name="Fossil9" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(325, 298)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 1025, 131 )
-animation = "yellow"
+[node name="Fossil2" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(1025, 131)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 1165, 58 )
-animation = "yellow"
+[node name="Fossil3" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(1165, 58)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Arrow" parent="Items/Decoration" instance=ExtResource( 28 )]
-position = Vector2( 832, -2 )
+[node name="Arrow" parent="Items/Decoration" instance=ExtResource("28")]
+position = Vector2(832, -2)
 rotation = -1.5708
 
 [node name="Butterflies" type="Node2D" parent="Items/Decoration"]
 
-[node name="Butterfly" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
-position = Vector2( 191, 176 )
-animation = "green"
+[node name="Butterfly" parent="Items/Decoration/Butterflies" instance=ExtResource("30")]
+position = Vector2(191, 176)
+sprite_frames = SubResource("SpriteFrames_u71ag")
+animation = &"green"
 frame = 1
 
-[node name="Butterfly2" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
-position = Vector2( 291, 95.8 )
-animation = "orange"
+[node name="Butterfly2" parent="Items/Decoration/Butterflies" instance=ExtResource("30")]
+position = Vector2(291, 95.8)
+sprite_frames = SubResource("SpriteFrames_u71ag")
+animation = &"orange"
 frame = 1
 
-[node name="Butterfly3" parent="Items/Decoration/Butterflies" instance=ExtResource( 30 )]
-position = Vector2( 421, 177 )
-animation = "green"
+[node name="Butterfly3" parent="Items/Decoration/Butterflies" instance=ExtResource("30")]
+position = Vector2(421, 177)
+sprite_frames = SubResource("SpriteFrames_u71ag")
+animation = &"green"
 
 [node name="Goonies" type="Node2D" parent="Items"]
 
-[node name="Goonie" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 75, 3 )
+[node name="Goonie" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(75, 3)
 
-[node name="Goonie2" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 207, 247 )
+[node name="Goonie2" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(207, 247)
 
-[node name="Goonie3" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 449, 89 )
+[node name="Goonie3" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(449, 89)
 
-[node name="Goonie4" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 696, 227 )
+[node name="Goonie4" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(696, 227)
 
-[node name="Goonie5" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 862, 164 )
+[node name="Goonie5" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(862, 164)
 
-[node name="Goonie6" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 1119, 92 )
+[node name="Goonie6" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(1119, 92)
 
-[node name="Goonie7" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 1269, -130 )
+[node name="Goonie7" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(1269, -130)
 
-[node name="Goonie8" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 1489, 101 )
+[node name="Goonie8" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(1489, 101)
 
-[node name="Goonie9" parent="Items/Goonies" instance=ExtResource( 29 )]
-position = Vector2( 1669, 55 )
+[node name="Goonie9" parent="Items/Goonies" instance=ExtResource("29")]
+position = Vector2(1669, 55)
 
-[node name="WarpZone" parent="." instance=ExtResource( 18 )]
-position = Vector2( 20, 111 )
-sweep_direction = Vector2( 1, 0 )
-spawn_location = Vector2( 1713, 127 )
+[node name="WarpZone" parent="." instance=ExtResource("18")]
+position = Vector2(20, 111)
+sweep_direction = Vector2(1, 0)
+spawn_location = Vector2(1713, 127)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_2.tscn"
-size = Vector2( 20, 800 )
+size = Vector2(20, 800)
 
-[node name="WarpZone2" parent="." instance=ExtResource( 18 )]
-position = Vector2( 1825, -64 )
-sweep_direction = Vector2( -1, 0 )
-spawn_location = Vector2( 18, 193 )
+[node name="WarpZone2" parent="." instance=ExtResource("18")]
+position = Vector2(1825, -64)
+sweep_direction = Vector2(-1, 0)
+spawn_location = Vector2(18, 193)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_4.tscn"
-size = Vector2( 20, 800 )
+size = Vector2(20, 800)

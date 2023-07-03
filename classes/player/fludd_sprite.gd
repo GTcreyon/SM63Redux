@@ -211,7 +211,7 @@ func _hover_spray() -> void:
 	
 	spray_particles.emitting = player_body.fludd_strain
 	if player_body.fludd_strain:
-		nozzle_fx_scale = min(lerp(0.3, 1, player_body.fludd_power / 100), nozzle_fx_scale + 0.1)
+		nozzle_fx_scale = min(lerp(0.3, 1.0, player_body.fludd_power / 100), nozzle_fx_scale + 0.1)
 	else:
 		nozzle_fx_scale = max(0, nozzle_fx_scale - 0.25)
 	spray_plume.visible = nozzle_fx_scale > 0
