@@ -44,7 +44,7 @@ offset_top = -28.0
 offset_right = 28.0
 offset_bottom = 28.0
 texture = ExtResource("1")
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="Left" type="TextureRect" parent="."]
 use_parent_material = true
@@ -62,7 +62,7 @@ offset_top = -28.0
 offset_right = 32.0
 offset_bottom = 28.0
 texture = SubResource("4")
-stretch_mode = 2
+stretch_mode = 1
 flip_h = true
 
 [node name="Top" type="TextureRect" parent="."]
@@ -72,7 +72,7 @@ offset_top = -32.0
 offset_right = 28.0
 offset_bottom = -28.0
 texture = SubResource("5")
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="Bottom" type="TextureRect" parent="."]
 use_parent_material = true
@@ -81,7 +81,7 @@ offset_top = 28.0
 offset_right = 28.0
 offset_bottom = 32.0
 texture = SubResource("5")
-stretch_mode = 2
+stretch_mode = 1
 flip_v = true
 
 [node name="CornerTL" type="Sprite2D" parent="."]
