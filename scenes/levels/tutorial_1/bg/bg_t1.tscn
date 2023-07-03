@@ -9,7 +9,7 @@
 [ext_resource path="res://scenes/levels/tutorial_1/bg/clouds_upper.gd" type="Script" id=7]
 
 [node name="BGT1" type="CanvasLayer"]
-process_mode = 2
+process_mode = 3
 process_priority = 1
 layer = -100
 

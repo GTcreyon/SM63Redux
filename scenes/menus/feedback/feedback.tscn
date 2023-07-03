@@ -44,7 +44,7 @@ atlas = ExtResource("4")
 region = Rect2(52, 0, 26, 29)
 
 [node name="Feedback" type="CanvasLayer"]
-process_mode = 2
+process_mode = 3
 layer = 2
 script = ExtResource("9")
 
@@ -65,7 +65,7 @@ theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="List" type="VBoxContainer" parent="FeedbackContainer"]
-process_mode = 2
+process_mode = 3
 process_priority = 1
 layout_mode = 2
 size_flags_horizontal = 3
@@ -241,7 +241,7 @@ theme_override_styles/focus = ExtResource("3")
 text = "Submit"
 
 [node name="Cancel" type="Control" parent="."]
-process_mode = 2
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_left = 40.0
@@ -249,7 +249,7 @@ mouse_filter = 2
 script = ExtResource("10")
 
 [node name="Cancel" type="TouchScreenButton" parent="Cancel"]
-process_mode = 2
+process_mode = 3
 modulate = Color(1, 1, 1, 0.501961)
 scale = Vector2(2, 2)
 

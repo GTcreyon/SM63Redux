@@ -51,14 +51,14 @@ __meta__ = {
 }
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-process_mode = 2
+process_mode = 3
 stream = ExtResource( 6 )
 volume_db = -8.0
 bus = "Music"
 script = ExtResource( 7 )
 
 [node name="SFX" type="Node" parent="."]
-process_mode = 2
+process_mode = 3
 
 [node name="Coin" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource( 8 )
@@ -86,7 +86,7 @@ volume_db = -15.0
 bus = "SFX"
 
 [node name="Console" parent="." instance=ExtResource( 17 )]
-process_mode = 2
+process_mode = 3
 visible = false
 mouse_filter = 2
 
@@ -100,5 +100,5 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 
 [node name="InputManager" type="Node" parent="."]
-process_mode = 2
+process_mode = 3
 script = ExtResource( 20 )

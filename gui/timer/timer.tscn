@@ -24,7 +24,7 @@ atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 1, 15 )
 
 [node name="Timer" type="Control"]
-process_mode = 2
+process_mode = 3
 mouse_filter = 2
 script = ExtResource( 3 )
 
@@ -119,7 +119,7 @@ __meta__ = {
 }
 
 [node name="Split" type="Label" parent="SplitRect"]
-process_mode = 2
+process_mode = 3
 anchor_right = 1.0
 offset_bottom = 15.0
 theme_override_fonts/font = ExtResource( 1 )
