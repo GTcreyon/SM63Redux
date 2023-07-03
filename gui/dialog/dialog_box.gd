@@ -33,7 +33,7 @@ const ICON_WIDTH = 40
 
 @onready var player = $"/root/Main/Player"
 @onready var star = $EdgeRight/Star
-@onready var text_area = $Text
+@onready var text_area: RichTextLabel = $Text
 @onready var portrait = $EdgeLeft/Portrait
 @onready var nameplate = $EdgeLeft/Name
 @onready var edge_left = $EdgeLeft
@@ -71,7 +71,7 @@ func insert_keybind_strings(input: String) -> String:
 
 
 func refresh_returns(line):
-	var font = text_area.get_font("normal_font")
+	var font = text_area.get_theme_font("normal_font")
 	var cumulative_length = 0
 	var i = 0
 	while i < line.length():
@@ -197,13 +197,13 @@ func _physics_process(_delta):
 												_:
 													print_debug("Dialog: Unknown tag")
 									_:
-										text_area.append_bbcode(tag)
+										text_area.append_text(tag)
 								if skip_char:
 									char_roll += 1
 									skip_char = false
 								skip_char = true # Skips ahead 1 char to prevent doubling after a tag
 							_:
-								text_area.append_bbcode(target_line[char_index])
+								text_area.append_text(target_line[char_index])
 								if skip_char:
 									char_roll += 1
 									skip_char = false
