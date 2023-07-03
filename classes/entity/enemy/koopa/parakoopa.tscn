@@ -42,10 +42,10 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=9]
-size = Vector2( 10, 8 )
+size = Vector2( 20, 16 )
 
 [sub_resource type="RectangleShape2D" id=10]
-size = Vector2( 5, 15 )
+size = Vector2( 10, 30 )
 
 [node name="Parakoopa" type="AnimatedSprite2D"]
 material = ExtResource( 2 )

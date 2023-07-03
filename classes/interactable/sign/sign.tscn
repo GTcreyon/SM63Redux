@@ -6,7 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://b8c16fs181nx5" path="res://gui/sfx/confirm.wav" id="6"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(16, 8)
+size = Vector2(32, 16)
 
 [sub_resource type="CircleShape2D" id="2"]
 radius = 100.0

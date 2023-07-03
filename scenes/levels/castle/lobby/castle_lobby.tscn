@@ -6,40 +6,40 @@
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="4"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(24, 24)
+size = Vector2(48, 48)
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(48, 8)
+size = Vector2(96, 16)
 
 [sub_resource type="RectangleShape2D" id="3"]
-size = Vector2(22.6274, 11.3137)
+size = Vector2(45.2548, 22.6274)
 
 [sub_resource type="RectangleShape2D" id="4"]
-size = Vector2(56, 8)
+size = Vector2(112, 16)
 
 [sub_resource type="RectangleShape2D" id="5"]
-size = Vector2(22.6273, 11.3138)
+size = Vector2(45.2546, 22.6276)
 
 [sub_resource type="RectangleShape2D" id="6"]
-size = Vector2(56, 8)
+size = Vector2(112, 16)
 
 [sub_resource type="RectangleShape2D" id="7"]
-size = Vector2(48, 8)
+size = Vector2(96, 16)
 
 [sub_resource type="RectangleShape2D" id="8"]
-size = Vector2(32, 8)
+size = Vector2(64, 16)
 
 [sub_resource type="RectangleShape2D" id="9"]
-size = Vector2(32, 8)
+size = Vector2(64, 16)
 
 [sub_resource type="RectangleShape2D" id="10"]
-size = Vector2(73.5391, 11.3137)
+size = Vector2(147.0782, 22.6274)
 
 [sub_resource type="RectangleShape2D" id="11"]
-size = Vector2(32, 8)
+size = Vector2(64, 16)
 
 [sub_resource type="RectangleShape2D" id="12"]
-size = Vector2(73.5391, 11.3137)
+size = Vector2(147.0782, 22.6274)
 
 [node name="Main" type="Node2D"]
 

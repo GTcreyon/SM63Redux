@@ -39,13 +39,13 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-size = Vector2( 8, 8 )
+size = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=3]
-size = Vector2( 8, 8 )
+size = Vector2( 16, 16 )
 
 [sub_resource type="RectangleShape2D" id=4]
-size = Vector2( 1, 1 )
+size = Vector2( 2, 2 )
 
 [node name="CoinRed" type="CharacterBody2D"]
 collision_layer = 4

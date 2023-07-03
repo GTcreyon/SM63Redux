@@ -14,13 +14,13 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
-size = Vector2( 16, 16 )
+size = Vector2( 32, 32 )
 
 [sub_resource type="RectangleShape2D" id=3]
-size = Vector2( 16, 1 )
+size = Vector2( 32, 2 )
 
 [sub_resource type="RectangleShape2D" id=4]
-size = Vector2( 18, 16 )
+size = Vector2( 36, 32 )
 
 [node name="BreakableBox" type="StaticBody2D"]
 collision_mask = 0

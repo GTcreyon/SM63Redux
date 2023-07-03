@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://classes/interactable/door/double_doors.gd" id="2"]
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(19, 15.9999)
+size = Vector2(38, 32)
 
 [node name="DoubleDoor" type="Area2D"]
 monitorable = false

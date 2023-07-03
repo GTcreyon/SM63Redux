@@ -8,11 +8,11 @@
 
 [sub_resource type="RectangleShape2D" id=1]
 resource_local_to_scene = true
-size = Vector2( 23, 8 )
+size = Vector2( 46, 16 )
 
 [sub_resource type="RectangleShape2D" id=2]
 resource_local_to_scene = true
-size = Vector2( 23, 4 )
+size = Vector2( 46, 8 )
 
 [node name="Cloud" type="StaticBody2D"]
 z_index = 1

@@ -61,7 +61,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="12"]
-size = Vector2(12, 3)
+size = Vector2(24, 6)
 
 [node name="Toad" type="Area2D" node_paths=PackedStringArray("sprite")]
 material = ExtResource("2")

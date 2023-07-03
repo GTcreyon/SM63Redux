@@ -6,13 +6,13 @@
 [ext_resource path="res://classes/solid/moving_platform/moving_platform.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 24, 7 )
+size = Vector2( 48, 14 )
 
 [sub_resource type="RectangleShape2D" id=2]
-size = Vector2( 24, 1 )
+size = Vector2( 48, 2 )
 
 [sub_resource type="RectangleShape2D" id=3]
-size = Vector2( 24, 3 )
+size = Vector2( 48, 6 )
 
 [node name="MovingPlatform" type="StaticBody2D"]
 collision_mask = 0

@@ -13,7 +13,7 @@ var ang_vel = 0.0
 func set_width(val):
 	super.set_width(val)
 	# warning-ignore:integer_division
-	$Rod/RideArea/RideShape.shape.size.x = middle_segment_width / 2 * val + end_segment_width
+	$Rod/RideArea/RideShape.shape.size.x = middle_segment_width * val + end_segment_width
 
 
 func _physics_process(_delta):

@@ -62,7 +62,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=14]
-size = Vector2( 9, 10 )
+size = Vector2( 18, 20 )
 
 [node name="Shine" type="Area2D"]
 collision_layer = 0

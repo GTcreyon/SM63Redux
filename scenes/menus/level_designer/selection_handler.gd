@@ -37,7 +37,7 @@ func calculate_selected(max_selected = 32):
 		# Welcome to this horrible boilerplate rectangle collision detection!
 		# Godot pls fix
 		var shape = RectangleShape2D.new()
-		shape.set_extents(selection_rect.size / 2) # Extends is both ways, hence / 2
+		shape.size = selection_rect.size
 		var query = PhysicsShapeQueryParameters2D.new()
 		query.collide_with_areas = true
 		query.collide_with_bodies = true

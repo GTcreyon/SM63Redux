@@ -58,19 +58,19 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="8"]
-size = Vector2(11, 16.5)
+size = Vector2(22, 33)
 
 [sub_resource type="RectangleShape2D" id="9"]
-size = Vector2(11, 7.5)
+size = Vector2(22, 15)
 
 [sub_resource type="RectangleShape2D" id="18"]
-size = Vector2(11, 16.5)
+size = Vector2(22, 33)
 
 [sub_resource type="RectangleShape2D" id="10"]
-size = Vector2(5, 14.5)
+size = Vector2(10, 29)
 
 [sub_resource type="RectangleShape2D" id="11"]
-size = Vector2(1, 1)
+size = Vector2(2, 2)
 
 [node name="Koopa" type="CharacterBody2D"]
 material = ExtResource("4")
@@ -118,7 +118,7 @@ monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="HurtboxStrike"]
 position = Vector2(0, -1)
-shape = SubResource("18")
+shape = SubResource("8")
 
 [node name="Hitbox" type="Area2D" parent="."]
 position = Vector2(0, 2.5)

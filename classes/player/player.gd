@@ -157,22 +157,22 @@ var facing_direction: int = 1 # -1 if facing left, 1 if facing right
 var body_rotation: float = 0 # Rotation of the body sprite
 
 @onready var base_modifier = BaseModifier.new()
-@onready var voice = $Voice
-@onready var step = $Step
-@onready var spin_sfx = $SpinSFX
-@onready var thud = $Thud
-@onready var pound_spin_sfx = $PoundSpin
-@onready var character_group = $CharacterGroup
+@onready var voice: AudioStreamPlayer = $Voice
+@onready var step: AudioStreamPlayer = $Step
+@onready var spin_sfx: AudioStreamPlayer = $SpinSFX
+@onready var thud: AudioStreamPlayer = $Thud
+@onready var pound_spin_sfx: AudioStreamPlayer = $PoundSpin
+@onready var character_group: DejitterGroup = $CharacterGroup
 @onready var sprite = $CharacterGroup/CharacterSprite
 @onready var fludd_sprite = $CharacterGroup/CharacterSprite/Fludd
 @onready var camera = $"/root/Main/Player/Camera"
-@onready var step_check = $StepCheck
-@onready var pound_check_l = $PoundCheckL
-@onready var pound_check_r = $PoundCheckR
-@onready var angle_cast = $DiveAngling
-@onready var hitbox =  $Hitbox
-@onready var water_check = $WaterCheck
-@onready var switch_sfx = $SwitchSFX
+@onready var step_check: RayCast2D = $StepCheck
+@onready var pound_check_l: RayCast2D = $PoundCheckL
+@onready var pound_check_r: RayCast2D = $PoundCheckR
+@onready var angle_cast: RayCast2D = $DiveAngling
+@onready var hitbox: CollisionShape2D =  $Hitbox
+@onready var water_check: Area2D = $WaterCheck
+@onready var switch_sfx: AudioStreamPlayer = $SwitchSFX
 @onready var ground_failsafe_check: Area2D = $GroundFailsafe
 @onready var feet_area: Area2D = $Feet
 
@@ -1341,9 +1341,9 @@ func manage_invuln():
 
 
 const STAND_BOX_POS = Vector2(0, 1.5)
-const STAND_BOX_EXTENTS = Vector2(6, 14.5)
+const STAND_BOX_SIZE = Vector2(12, 29)
 const DIVE_BOX_POS = Vector2(0, 10)
-const DIVE_BOX_EXTENTS = Vector2(6, 6)
+const DIVE_BOX_SIZE = Vector2(12, 12)
 func switch_state(new_state):
 	# Always pause AND stop spin SFX
 	spin_sfx.stop()
@@ -1359,14 +1359,14 @@ func switch_state(new_state):
 	match state:
 		S.DIVE, S.CROUCH:
 			hitbox.position = DIVE_BOX_POS
-			hitbox.shape.size = DIVE_BOX_EXTENTS
+			hitbox.shape.size = DIVE_BOX_SIZE
 		S.POUND:
 			hitbox.position = STAND_BOX_POS
-			hitbox.shape.size = STAND_BOX_EXTENTS
+			hitbox.shape.size = STAND_BOX_SIZE
 			camera.position_smoothing_speed = 10
 		_:
 			hitbox.position = STAND_BOX_POS
-			hitbox.shape.size = STAND_BOX_EXTENTS
+			hitbox.shape.size = STAND_BOX_SIZE
 			camera.position_smoothing_speed = 5
 			clear_rotation_origin()
 

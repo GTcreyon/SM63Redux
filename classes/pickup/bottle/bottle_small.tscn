@@ -5,7 +5,7 @@
 [ext_resource path="res://classes/pickup/bottle/bottle_small_collect.wav" type="AudioStream" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 6.5, 6 )
+size = Vector2( 13, 12 )
 
 [node name="BottleSmall" type="Area2D"]
 collision_layer = 0

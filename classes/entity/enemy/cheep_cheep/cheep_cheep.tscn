@@ -122,19 +122,19 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
-size = Vector2( 9.5, 9.5 )
+size = Vector2( 19, 19 )
 
 [sub_resource type="CircleShape2D" id=2]
 radius = 80.0
 
 [sub_resource type="RectangleShape2D" id=3]
-size = Vector2( 8.5, 8.5 )
+size = Vector2( 17, 17 )
 
 [sub_resource type="RectangleShape2D" id=4]
-size = Vector2( 9.5, 9.5 )
+size = Vector2( 19, 19 )
 
 [sub_resource type="RectangleShape2D" id=5]
-size = Vector2( 1, 1 )
+size = Vector2( 2, 2 )
 
 [node name="CheepCheep" type="CharacterBody2D"]
 collision_layer = 4

@@ -5,7 +5,7 @@
 [ext_resource path="res://classes/solid/log/log.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 8, 9.5 )
+size = Vector2( 16, 19 )
 
 [node name="Log" type="StaticBody2D"]
 z_index = -1

@@ -123,13 +123,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="12"]
-size = Vector2(8, 9)
+size = Vector2(16, 18)
 
 [sub_resource type="RectangleShape2D" id="13"]
-size = Vector2(8, 9)
+size = Vector2(16, 18)
 
 [sub_resource type="RectangleShape2D" id="15"]
-size = Vector2(1, 1)
+size = Vector2(2, 2)
 
 [node name="Bobomb" type="CharacterBody2D"]
 collision_layer = 4

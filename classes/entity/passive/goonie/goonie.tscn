@@ -8,10 +8,10 @@
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="11"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(12, 1)
+size = Vector2(24, 2)
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(12, 7)
+size = Vector2(24, 14)
 
 [sub_resource type="AtlasTexture" id="5"]
 atlas = ExtResource("1")
@@ -79,7 +79,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="4"]
-size = Vector2(12, 3)
+size = Vector2(24, 6)
 
 [node name="Goonie" type="StaticBody2D"]
 z_index = 1

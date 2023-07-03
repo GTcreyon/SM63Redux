@@ -5,18 +5,18 @@
 [ext_resource path="res://classes/particles/dust.png" type="Texture2D" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 16, 16 )
+size = Vector2( 32, 32 )
 
 [sub_resource type="RectangleShape2D" id=2]
-size = Vector2( 16, 8 )
+size = Vector2( 32, 16 )
 
 [sub_resource type="RectangleShape2D" id=3]
 resource_local_to_scene = true
-size = Vector2( 16, 200 )
+size = Vector2( 32, 400 )
 
 [sub_resource type="RectangleShape2D" id=4]
 resource_local_to_scene = true
-size = Vector2( 48, 200 )
+size = Vector2( 96, 400 )
 
 [sub_resource type="CanvasItemMaterial" id=5]
 particles_animation = true

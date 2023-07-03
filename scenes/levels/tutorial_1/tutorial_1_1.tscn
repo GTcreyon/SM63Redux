@@ -18,14 +18,14 @@
 [ext_resource type="PackedScene" path="res://classes/pickup/coin/blue/coin_blue.tscn" id="23"]
 [ext_resource type="Shader" path="res://shaders/glow.gdshader" id="24"]
 [ext_resource type="PackedScene" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="25"]
-[ext_resource type="PackedScene" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="26"]
+[ext_resource type="PackedScene" uid="uid://bclig81j8t46n" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="26"]
 [ext_resource type="PackedScene" path="res://classes/zone/camera_area/camera_area.tscn" id="27"]
 [ext_resource type="PackedScene" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" id="28"]
 [ext_resource type="PackedScene" path="res://classes/decorative/arrow/arrow.tscn" id="29"]
 [ext_resource type="PackedScene" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="31"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dpiqj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4w63j"]
 resource_local_to_scene = true
 shader = ExtResource("24")
 shader_parameter/width = 2
@@ -33,7 +33,7 @@ shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_i3ejx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w4d4s"]
 resource_local_to_scene = true
 shader = ExtResource("24")
 shader_parameter/width = 2
@@ -41,7 +41,7 @@ shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ffx06"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mwr3q"]
 resource_local_to_scene = true
 shader = ExtResource("24")
 shader_parameter/width = 2
@@ -342,17 +342,17 @@ position = Vector2(1092, 111)
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign" parent="Items/Signs" instance=ExtResource("17")]
-material = SubResource("ShaderMaterial_dpiqj")
+material = SubResource("ShaderMaterial_4w63j")
 position = Vector2(189, 165)
 lines = ["[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here's a refresher.", "Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you want to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,interact].[/color]", "They have plenty of tips to help out,[@p,3] and if you're not interested,[@p,3] at least say \"Hi\" for me,[@p,3] eh?"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource("17")]
-material = SubResource("ShaderMaterial_i3ejx")
+material = SubResource("ShaderMaterial_w4d4s")
 position = Vector2(299, 165)
 lines = ["[@n,Gil Board]Oh hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Not many people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as thanks?", "You can press [color=#f7c55f][@b,spin][/color] to perform a [color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up there longer!", "Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet backflip![@p,10] Cool, 'eh?"]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource("17")]
-material = SubResource("ShaderMaterial_ffx06")
+material = SubResource("ShaderMaterial_mwr3q")
 position = Vector2(1287, 53)
 lines = ["[@n,Jil Board]Oh [color=#ff8b70]Mario[/color],[@p,3] honey![@p,10] It's been so long since I've seen you...[@p,10] Oh my![@p,10] I see scars from your journeys...", "No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an unlucky enemy to refill one [color=#ff7f7f]health point.[/color]", "No one quite understands why,[@p,3] but it's a lifesaver -[@p,3] so keep it in mind,[@p,3] sweetie!"]
 
@@ -674,7 +674,7 @@ position = Vector2(1911, -50)
 sweep_direction = Vector2(-1, 0)
 spawn_location = Vector2(-42, 160)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_2.tscn"
-size = Vector2(20, 800)
+size = Vector2(40, 1600)
 
 [node name="Cheep Cheep2" parent="." instance=ExtResource("28")]
 position = Vector2(865.68, 325.02)

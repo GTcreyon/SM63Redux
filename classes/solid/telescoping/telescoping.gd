@@ -32,7 +32,7 @@ func set_width(new_width):
 		middle_section.visible = false
 	else:
 		middle_section.visible = true
-	collision.shape.size.x = (middle_segment_width / 2.0) * width + end_collision_width
+	collision.shape.size.x = (middle_segment_width) * width + end_collision_width
 	if safety_net != null:
 		safety_net.get_child(0).shape.size.x = (middle_segment_width / 2.0) * width + end_collision_width
 	middle_section.size.x = middle_segment_width * width

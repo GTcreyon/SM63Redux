@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://classes/interactable/door/door.gd" id="7"]
 
 [sub_resource type="RectangleShape2D" id="2"]
-size = Vector2(11, 15.9999)
+size = Vector2(22, 32)
 
 [node name="Door" type="Area2D"]
 collision_mask = 2

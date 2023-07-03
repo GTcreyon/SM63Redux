@@ -45,8 +45,8 @@ func set_size(new_size):
 	$CornerTR.position = Vector2(size.x - 4, 4 - size.y) / 2
 	$CornerBL.position = Vector2(4 - size.x, size.y - 4) / 2
 	$CornerBR.position = Vector2(size.x - 4, size.y - 4) / 2
-	$Collision.shape.size = size / 2
-	$RideArea/RideShape.shape.size = size / 2 + Vector2.ONE * 2
+	$Collision.shape.size = size
+	$RideArea/RideShape.shape.size = size + Vector2.ONE * 2
 
 
 func change_texture(id):

@@ -1130,16 +1130,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="4"]
-size = Vector2(1, 1)
+size = Vector2(2, 2)
 
 [sub_resource type="RectangleShape2D" id="5"]
-size = Vector2(6, 14.5)
+size = Vector2(12, 29)
 
 [sub_resource type="RectangleShape2D" id="47"]
-size = Vector2(6, 1)
+size = Vector2(12, 2)
 
 [sub_resource type="RectangleShape2D" id="6"]
-size = Vector2(6, 0.999998)
+size = Vector2(12, 2)
 
 [sub_resource type="Gradient" id="53"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
@@ -1200,7 +1200,7 @@ spread = 10.0
 gravity = Vector3(0, 0, 0)
 
 [sub_resource type="RectangleShape2D" id="52"]
-size = Vector2(6, 1)
+size = Vector2(12, 2)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 6

@@ -7,10 +7,10 @@
 [ext_resource path="res://classes/pickup/fludd_box/pickup_hover.png" type="Texture2D" id=5]
 
 [sub_resource type="RectangleShape2D" id=4]
-size = Vector2( 8, 7.5 )
+size = Vector2( 16, 15 )
 
 [sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 12, 7.5 )
+size = Vector2( 24, 15 )
 
 [node name="FluddPickupHover" type="CharacterBody2D"]
 z_index = -1

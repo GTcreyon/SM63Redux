@@ -27,7 +27,7 @@ func _ready():
 		position = main.snap_vector(get_global_mouse_position())
 	
 	# Size my hitbox to match my texture
-	$ClickArea/CollisionShape2D.shape.size = texture.get_size() / 2
+	$ClickArea/CollisionShape2D.shape.size = texture.get_size()
 
 
 func _input(event):

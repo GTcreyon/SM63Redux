@@ -5,10 +5,10 @@
 [ext_resource path="res://classes/solid/wooden_platform/wooden_platform.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 32, 3 )
+size = Vector2( 64, 6 )
 
 [sub_resource type="RectangleShape2D" id=2]
-size = Vector2( 32, 4 )
+size = Vector2( 64, 8 )
 
 [node name="WoodenPlatform" type="StaticBody2D"]
 collision_mask = 0

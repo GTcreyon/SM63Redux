@@ -61,7 +61,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="9"]
-size = Vector2(5, 4)
+size = Vector2(10, 8)
 
 [node name="BoxParticle" type="CharacterBody2D"]
 collision_layer = 0

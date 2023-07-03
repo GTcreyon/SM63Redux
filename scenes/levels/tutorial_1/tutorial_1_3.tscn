@@ -28,7 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="29"]
 [ext_resource type="PackedScene" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rcw2p"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0rkds"]
 resource_local_to_scene = true
 shader = ExtResource("9")
 shader_parameter/width = 2
@@ -36,7 +36,7 @@ shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_m2jp2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vxbe"]
 resource_local_to_scene = true
 shader = ExtResource("9")
 shader_parameter/width = 2
@@ -44,7 +44,7 @@ shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_15ick"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dafsn"]
 resource_local_to_scene = true
 shader = ExtResource("1")
 shader_parameter/color0 = Color(0.796078, 0.368627, 0.0352941, 1)
@@ -424,19 +424,19 @@ position = Vector2(1084, -35)
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_rcw2p")
+material = SubResource("ShaderMaterial_0rkds")
 position = Vector2(502, 204)
 lines = ["[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!"]
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_m2jp2")
+material = SubResource("ShaderMaterial_5vxbe")
 position = Vector2(1232, 16)
 lines = ["[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle."]
 
 [node name="Enemy" type="Node2D" parent="Items"]
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("20")]
-material = SubResource("ShaderMaterial_15ick")
+material = SubResource("ShaderMaterial_dafsn")
 position = Vector2(1335.47, -15.5049)
 sprite_frames = SubResource("8")
 animation = &"flying"
@@ -607,11 +607,11 @@ position = Vector2(20, 111)
 sweep_direction = Vector2(1, 0)
 spawn_location = Vector2(1713, 127)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_2.tscn"
-size = Vector2(20, 800)
+size = Vector2(40, 1600)
 
 [node name="WarpZone2" parent="." instance=ExtResource("18")]
 position = Vector2(1825, -64)
 sweep_direction = Vector2(-1, 0)
 spawn_location = Vector2(18, 193)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_4.tscn"
-size = Vector2(20, 800)
+size = Vector2(40, 1600)

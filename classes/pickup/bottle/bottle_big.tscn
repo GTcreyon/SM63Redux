@@ -5,7 +5,7 @@
 [ext_resource path="res://classes/pickup/bottle/bottle_big.png" type="Texture2D" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-size = Vector2( 10, 11 )
+size = Vector2( 20, 22 )
 
 [node name="BottleBig" type="Area2D"]
 collision_layer = 0

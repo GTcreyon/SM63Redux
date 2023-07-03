@@ -9,11 +9,11 @@
 
 [sub_resource type="RectangleShape2D" id="1"]
 resource_local_to_scene = true
-size = Vector2(23, 7)
+size = Vector2(46, 14)
 
 [sub_resource type="RectangleShape2D" id="2"]
 resource_local_to_scene = true
-size = Vector2(16, 1)
+size = Vector2(32, 2)
 
 [node name="TippingLog" type="Sprite2D"]
 texture = ExtResource("5")

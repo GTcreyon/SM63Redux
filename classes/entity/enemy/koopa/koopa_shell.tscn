@@ -84,16 +84,16 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=18]
-size = Vector2( 11, 9 )
+size = Vector2( 22, 18 )
 
 [sub_resource type="RectangleShape2D" id=19]
-size = Vector2( 11, 4.5 )
+size = Vector2( 22, 9 )
 
 [sub_resource type="RectangleShape2D" id=21]
-size = Vector2( 11, 4.5 )
+size = Vector2( 22, 9 )
 
 [sub_resource type="RectangleShape2D" id=20]
-size = Vector2( 1, 1 )
+size = Vector2( 2, 2 )
 
 [node name="Shell" type="CharacterBody2D"]
 material = ExtResource( 5 )
@@ -133,7 +133,7 @@ monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStrike"]
 position = Vector2( 0, 4.5 )
-shape = SubResource( 21 )
+shape = SubResource( 19 )
 
 [node name="WaterCheck" type="Area2D" parent="."]
 collision_layer = 0
