@@ -8,13 +8,13 @@ const COLLISION_LAYER_TERRAIN = 1
 
 @export var texture_spritesheet: Texture2D: set = update_spritesheets
 
-var body: Texture2D = ImageTexture.new()
-var top: Texture2D = ImageTexture.new()
-var top_shade: Texture2D = ImageTexture.new()
-var top_corner: Texture2D = ImageTexture.new()
-var top_corner_shade: Texture2D = ImageTexture.new()
-var edge: Texture2D = ImageTexture.new()
-var bottom: Texture2D = ImageTexture.new()
+var body: Texture2D
+var top: Texture2D
+var top_shade: Texture2D
+var top_corner: Texture2D
+var top_corner_shade: Texture2D
+var edge: Texture2D
+var bottom: Texture2D
 
 @export var up_direction = Vector2(0, -1): set = set_down_direction
 # TODO: This should always == -up_direction.
@@ -70,11 +70,11 @@ func update_spritesheets(new_sheet: Texture2D):
 	# Create textures from the spritesheet.
 	# Can't just use atlas textures, they don't loop like we need.
 	
-	body.create_from_image( texture_spritesheet.get_image().get_region( Rect2(36, 3, 32, 32) ) )
-	edge.create_from_image( texture_spritesheet.get_image().get_region( Rect2(3, 3, 32, 32) ) )
-	bottom.create_from_image( texture_spritesheet.get_image().get_region( Rect2(36, 36, 32, 32) ) )
+	body = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(36, 3, 32, 32) ) )
+	edge = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(3, 3, 32, 32) ) )
+	bottom = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(36, 36, 32, 32) ) )
 
-	top.create_from_image( texture_spritesheet.get_image().get_region( Rect2(105, 3, 32, 32) ) )
-	top_corner.create_from_image( texture_spritesheet.get_image().get_region( Rect2(72, 3, 32, 32) ) )
-	top_shade.create_from_image( texture_spritesheet.get_image().get_region( Rect2(105, 36, 32, 32) ) )
-	top_corner_shade.create_from_image( texture_spritesheet.get_image().get_region( Rect2(72, 36, 32, 32) ) )
+	top = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(105, 3, 32, 32) ) )
+	top_corner = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(72, 3, 32, 32) ) )
+	top_shade = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(105, 36, 32, 32) ) )
+	top_corner_shade = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(72, 36, 32, 32) ) )
