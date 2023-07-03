@@ -34,7 +34,7 @@ func _draw():
 	# Clear the draw queue for top edges
 	top_edges.area_queue = []
 	# Draw all terrain polygons.
-	add_full(root.polygon)
+	#add_full(root.polygon) # Temporarily skipped while textures are broken
 	# Queue drawing the top edges.
 	top_edges.queue_redraw()
 
