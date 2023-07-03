@@ -243,6 +243,7 @@ func spin_logic() -> void:
 func trigger_anim(anim: String):
 	if anim != NO_ANIM_CHANGE:
 		animation = anim
+		play()
 
 
 func trigger_next_anim():
