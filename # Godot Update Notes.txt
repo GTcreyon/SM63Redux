@@ -30,6 +30,9 @@ Solved problems (that weren't just simple bugfixes):
 - Likewise with any scene, it seems--see bug report https://github.com/godotengine/godot/issues/78893
 - Terrain renders as magenta blocks
 - RotatingBlock and telescoping objects' repeat flags have been unset.
+- entity_enemy_walk.gd, "step_indexes" is meant to export as a bool array, but has lost the "bool" data.
+- interactable_dialog.gd exports a multiline string array, but apparently has lost the multiline flag.
+- sm63_to_redux.gd loses the "FILE" modifier on a string
 
 
 Major problems:
@@ -39,14 +42,9 @@ Minor problems:
 
 
 Editor interface problems (to do with variable export control):
-- entity_enemy_walk.gd, "step_indexes" is meant to export as a bool array, but has lost the "bool" data.
-- parakoopa.gd, "color" - update to Koopa.ShellColor
-- interactable_dialog.gd exports a multiline string array, but apparently has lost the multiline flag.
 - toad.gd has lost all spot and skin color names
 - fludd_box.gd and fludd_pickup.gd have lost their Singleton.Nozzles typing
 - pickup.gd has lost the params for respawn duration
-- sm63_to_redux.gd loses the "FILE" modifier on a string
-- Telescoping should be updated with direct node refs instead of paths.
 
 
 Uses of OS.window_<> to clean up (not catastrophic this time):
@@ -71,6 +69,10 @@ Notes for unmerged PRs:
 
 
 Notes for future fixes:
+- parakoopa.gd, "color" - update to Koopa.ShellColor
+- actually parakoopa should share color_presets too
+- Telescoping should be updated with direct node refs instead of paths.
+- Likewise with the entity family, but that's more work.
 - Console "report" and "rename" still link to the old vulnerable webhook
 - Check idiomatic formatting of above report and rename calls
 - Fixed player snap has much duplicated work between two updated calls of it.

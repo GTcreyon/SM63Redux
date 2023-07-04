@@ -5,7 +5,7 @@ var stepped = false
 var wander_dist = 0
 var target = null
 
-@export var step_indexes = [] # (Array, bool)
+@export var step_indexes: Array[bool] = [] # (Array, bool)
 
 @export var _alert_area_path: NodePath = "AlertArea"
 @onready var alert_area = get_node_or_null(_alert_area_path)

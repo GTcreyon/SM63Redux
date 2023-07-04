@@ -1,6 +1,6 @@
 class_name SM63ToRedux
 
-@export var tile_groupings # (String, FILE)
+@export_file var tile_groupings: String
 
 const REAL_EMPTY_TILE = ""
 const TILE_SIZE = Vector2(32, 32)

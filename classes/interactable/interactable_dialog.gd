@@ -2,7 +2,7 @@ class_name InteractableDialog
 extends Interactable
 # Parent class for interactable objects that respond with dialog.
 
-@export var lines = [""] # (Array, String, MULTILINE)
+@export_multiline var lines: Array[String] = [""]
 @export var x_offset: int = 0
 @export var can_pivot: bool = false
 @export var back_sprite: bool = false
