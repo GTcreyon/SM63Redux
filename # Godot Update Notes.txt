@@ -26,16 +26,16 @@ Solved problems (that weren't just simple bugfixes):
 	- ld_main.gd
 	- selection_handler.gd
 	- node_placer.gd
+- title.tscn is just completely corrupted, major data loss on all sides
+- Likewise with any scene, it seems--see bug report https://github.com/godotengine/godot/issues/78893
+- Terrain renders as magenta blocks
+- RotatingBlock and telescoping objects' repeat flags have been unset.
 
 
 Major problems:
-- title.tscn is just completely corrupted, major data loss on all sides
-- Likewise with any scene, it seems--see bug report https://github.com/godotengine/godot/issues/78893
 
 
 Minor problems:
-- Terrain renders as magenta blocks
-- RotatingBlock and telescoping objects' repeat flags have been unset.
 
 
 Editor interface problems (to do with variable export control):
