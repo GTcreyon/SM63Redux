@@ -34,7 +34,7 @@ region = Rect2(0, 288, 48, 48)
 atlas = ExtResource("8")
 region = Rect2(432, 240, 48, 48)
 
-[sub_resource type="AtlasTexture" id="102"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_byplk"]
 atlas = ExtResource("8")
 region = Rect2(432, 240, 48, 48)
 
@@ -436,7 +436,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("129")
 }],
-"loop": true,
+"loop": false,
 "name": &"back",
 "speed": 5.0
 }, {
@@ -447,13 +447,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("131")
 }],
-"loop": true,
+"loop": false,
 "name": &"crouch_end",
 "speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("102")
+"texture": SubResource("AtlasTexture_byplk")
 }, {
 "duration": 1.0,
 "texture": SubResource("103")
@@ -514,7 +514,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("180")
 }],
-"loop": true,
+"loop": false,
 "name": &"dive_start",
 "speed": 10.0
 }, {
@@ -550,7 +550,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("132")
 }],
-"loop": true,
+"loop": false,
 "name": &"front",
 "speed": 5.0
 }, {
@@ -578,7 +578,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("73")
 }],
-"loop": true,
+"loop": false,
 "name": &"hurt_start",
 "speed": 10.0
 }, {
@@ -660,7 +660,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("173")
 }],
-"loop": true,
+"loop": false,
 "name": &"land",
 "speed": 10.0
 }, {
@@ -679,7 +679,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("133")
 }],
-"loop": true,
+"loop": false,
 "name": &"pound_land",
 "speed": 5.0
 }, {
@@ -783,7 +783,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("152")
 }],
-"loop": true,
+"loop": false,
 "name": &"spin_start",
 "speed": 45.0
 }, {
@@ -791,7 +791,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("170")
 }],
-"loop": true,
+"loop": false,
 "name": &"spin_water",
 "speed": 15.0
 }, {
@@ -814,7 +814,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("118")
 }],
-"loop": true,
+"loop": false,
 "name": &"squish",
 "speed": 5.0
 }, {
@@ -828,7 +828,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("88")
 }],
-"loop": true,
+"loop": false,
 "name": &"stomp_high",
 "speed": 5.0
 }, {
@@ -839,7 +839,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("90")
 }],
-"loop": true,
+"loop": false,
 "name": &"stomp_low",
 "speed": 5.0
 }, {
@@ -1060,7 +1060,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("202")
 }],
-"loop": true,
+"loop": false,
 "name": &"hover_crouch_start",
 "speed": 5.0
 }, {
@@ -1213,13 +1213,13 @@ script = ExtResource("1")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"walk_neutral"
+animation = &"crouch_start"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]
 show_behind_parent = true
 sprite_frames = SubResource("36")
-animation = &"hover_fr"
+animation = &"hover_crouch_start"
 offset = Vector2(-5, 0)
 script = ExtResource("19")
 

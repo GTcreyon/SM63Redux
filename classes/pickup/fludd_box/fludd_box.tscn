@@ -158,7 +158,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("18")
 }],
-"loop": true,
+"loop": false,
 "name": &"bounce_hover",
 "speed": 90.0
 }, {
@@ -187,7 +187,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("26")
 }],
-"loop": true,
+"loop": false,
 "name": &"open_hover",
 "speed": 60.0
 }, {
@@ -235,7 +235,7 @@ bus = &"SFX"
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = -1
 sprite_frames = SubResource("2")
-animation = &"stand_hover"
+animation = &"bounce_hover"
 autoplay = "stand_hover"
 
 [connection signal="area_entered" from="." to="." method="_on_FluddBox_area_entered"]

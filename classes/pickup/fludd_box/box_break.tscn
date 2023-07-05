@@ -137,17 +137,17 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("23")
 }],
-"loop": true,
+"loop": false,
 "name": &"bounce_hover",
 "speed": 90.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"bounce_rocket",
 "speed": 90.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"bounce_turbo",
 "speed": 90.0
 }, {
@@ -176,17 +176,17 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("8")
 }],
-"loop": true,
+"loop": false,
 "name": &"open_hover",
 "speed": 60.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"open_rocket",
 "speed": 30.0
 }, {
 "frames": [],
-"loop": true,
+"loop": false,
 "name": &"open_turbo",
 "speed": 30.0
 }]
