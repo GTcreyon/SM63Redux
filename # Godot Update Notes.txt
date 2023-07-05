@@ -32,6 +32,7 @@ Solved problems (that weren't just simple bugfixes):
 - RotatingBlock and telescoping objects' repeat flags have been unset.
 - entity_enemy_walk.gd, "step_indexes" is meant to export as a bool array, but has lost the "bool" data.
 - interactable_dialog.gd exports a multiline string array, but apparently has lost the multiline flag.
+- fludd_box.gd and fludd_pickup.gd have lost their Singleton.Nozzles typing
 - sm63_to_redux.gd loses the "FILE" modifier on a string
 
 
@@ -43,7 +44,6 @@ Minor problems:
 
 Editor interface problems (to do with variable export control):
 - toad.gd has lost all spot and skin color names
-- fludd_box.gd and fludd_pickup.gd have lost their Singleton.Nozzles typing
 - pickup.gd has lost the params for respawn duration
 
 
