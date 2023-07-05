@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dejqqeka1tsc" path="res://classes/player/mario_sheet.png" id="8"]
 [ext_resource type="Material" path="res://shaders/distance_field.tres" id="9"]
 [ext_resource type="Texture2D" uid="uid://drc56wscsgnw7" path="res://classes/player/fludd_water.png" id="10"]
-[ext_resource type="Material" path="res://classes/player/dust_material.tres" id="11"]
+[ext_resource type="Material" uid="uid://dvm05x62uobp7" path="res://classes/player/dust_material.tres" id="11"]
 [ext_resource type="Texture2D" uid="uid://b2ujfi4p0015g" path="res://classes/player/fludd_sheet.png" id="12"]
 [ext_resource type="Material" uid="uid://b04v14ipldro2" path="res://classes/player/fludd_spray.tres" id="13"]
 [ext_resource type="Script" path="res://classes/player/camera.gd" id="14"]
@@ -1161,6 +1161,7 @@ spread = 10.0
 gravity = Vector3(0, 450, 0)
 scale_curve = SubResource("56")
 color_ramp = SubResource("54")
+anim_offset_max = 1.0
 
 [sub_resource type="AtlasTexture" id="48"]
 atlas = ExtResource("4")
@@ -1198,6 +1199,8 @@ emission_sphere_radius = 1.0
 direction = Vector3(0, -1, 0)
 spread = 10.0
 gravity = Vector3(0, 0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [sub_resource type="RectangleShape2D" id="52"]
 size = Vector2(12, 2)

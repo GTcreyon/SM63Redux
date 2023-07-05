@@ -237,7 +237,7 @@ func spin_logic() -> void:
 			var spin_progress: float = slow_spin_timer / SLOW_SPIN_TIME
 			var move_mod: float = 1 + min(abs(parent.vel.x / 5), 1)
 			# Lerp speed from fast at the start, to slow at the sustain.
-			speed_scale = lerp(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED, spin_progress) * move_mod
+			speed_scale = lerpf(SLOW_SPIN_START_SPEED, SLOW_SPIN_END_SPEED, spin_progress) * move_mod
 
 
 func trigger_anim(anim: String):
