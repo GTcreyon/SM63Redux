@@ -48,7 +48,7 @@ func _process(delta):
 	if rezooming:
 		manage_zoom(delta)
 	if get_window().size.x != 0:
-		var zoom_factor: float = 1 / float(Singleton.get_screen_scale(1))
+		var zoom_factor: float = 1 * float(Singleton.get_screen_scale(1))
 		if !get_tree().paused:
 			if Input.is_action_just_pressed("zoom+") and target_zoom < 4:
 				target_zoom *= 2
