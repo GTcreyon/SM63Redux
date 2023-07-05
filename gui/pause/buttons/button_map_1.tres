@@ -1,11 +1,11 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=2]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://ded843xj2bca8"]
 
-[ext_resource path="res://gui/pause/buttons/button_map_1.png" type="Texture2D" id=1]
+[ext_resource type="Texture2D" uid="uid://cig6fpiqq7eu0" path="res://gui/pause/buttons/button_map_1.png" id="1"]
 
 [resource]
-texture = ExtResource( 1 )
-region_rect = Rect2( 0, 0, 13, 10 )
-margin_left = 6.0
-margin_right = 6.0
-margin_top = 3.0
-margin_bottom = 6.0
+texture = ExtResource("1")
+texture_margin_left = 6.0
+texture_margin_top = 3.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 0, 13, 10)
