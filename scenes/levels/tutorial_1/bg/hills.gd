@@ -14,4 +14,4 @@ func _process(_delta):
 		if abs(offset_top - target) > 50:
 			offset_top = target
 		else:
-			offset_top = lerp(offset_top, target, 0.05)
+			offset_top = lerpf(offset_top, target, 0.05)
