@@ -937,8 +937,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("63")
 }],
-"loop": true,
-"name": &"walk_neutral",
+"loop": false,
+"name": &"walk_start",
 "speed": 20.0
 }]
 
@@ -1213,7 +1213,7 @@ script = ExtResource("1")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"crouch_start"
+animation = &"walk_start"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]

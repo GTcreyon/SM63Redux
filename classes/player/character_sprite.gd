@@ -93,7 +93,7 @@ func _physics_process(_delta):
 									parent.step_sound()
 								# Ensure we end in the right animation.
 								if animation == "walk_loop":
-									trigger_anim("walk_neutral")
+									trigger_anim("walk_start")
 							else:
 								# If we were stopped, jump to first frame of anim.
 								if speed_scale == 0:
@@ -113,7 +113,7 @@ func _physics_process(_delta):
 							last_frame = frame
 							# Reset to neutral after reading a sign
 							if parent.sign_frames == 0 and animation == "back":
-								trigger_anim("walk_neutral")
+								trigger_anim("walk_start")
 						else:
 							# Not grounded. Revert any speed changes from walk anim.
 							speed_scale = 1
@@ -314,25 +314,25 @@ func _anim_from_new_state(
 func _anim_next_for(current_state: String) -> String:
 	match current_state:
 		"crouch_end":
-			return "walk_neutral"
+			return "walk_start"
 		"dive_start":
 			# Grounded interrupts the start--no need to worry about switching to that.
 			return "dive_air"
 		"dive_reset":
-			return "walk_neutral" #"idle"
+			return "walk_start" #"idle"
 		"hurt_start":
 			return "hurt_loop"
 		"jump_a_trans", "jump_b_trans", "jump_double_trans":
 			return "fall"
 		"landed", "land":
-			return "walk_neutral"
+			return "walk_start"
 		"stomp_high":
 			return "jump_double_start"
 		"stomp_low":
 			return "jump_a_start"
 		"swim_stroke":
 			return "swim_idle"
-		"walk_neutral":
+		"walk_start":
 			return "walk_loop"
 		"spin_start", "spin_water":
 			return "spin_fast"
@@ -357,10 +357,10 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 			return "land"
 		else:
 			# Don't overwrite walking animation if moving.
-			return "walk_neutral"
+			return "walk_start"
 	elif parent.grounded and state_changed and parent.vel.y >= 0:
 		# Return to normal from state change
-		return "walk_neutral"
+		return "walk_start"
 	else:
 		# Store whether a double jump animation is in progress
 		var double_jump = parent.double_jump_state == 2
@@ -424,7 +424,7 @@ static func _is_footstep_frame (frame: int, anim_name: String) -> bool:
 	
 	# Define what is and isn't a step frame for this animation.
 	match anim_name:
-		"walk_neutral":
+		"walk_start":
 			valid_frames = [2, 6]
 		"walk_loop":
 			valid_frames = [1, 4]
