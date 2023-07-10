@@ -32,6 +32,10 @@ window/size/viewport_height=360
 mouse_cursor/custom_image="res://gui/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2(1, 1)
 
+[dotnet]
+
+project/assembly_name="Super Mario 63 Redux"
+
 [gui]
 
 theme/custom="res://gui/theme_gui.tres"
