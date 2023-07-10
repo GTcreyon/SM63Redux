@@ -34,6 +34,7 @@ Solved problems (that weren't just simple bugfixes):
 - interactable_dialog.gd exports a multiline string array, but apparently has lost the multiline flag.
 - fludd_box.gd and fludd_pickup.gd have lost their Singleton.Nozzles typing
 - sm63_to_redux.gd loses the "FILE" modifier on a string
+- water.gd says "Transform3D it"
 
 
 Major problems:
@@ -54,7 +55,6 @@ Uses of OS.window_<> to clean up (not catastrophic this time):
 Minor text replacement errors:
 - inter_scene_data.gd says "RefCounted counted" in the extends statement.
 - character_sprite.gd says "Sprite2D origin is set to this"
-- water.gd says "Transform3D it"
 - visual_pipescript\node.gd has had func "text_entered" renamed "text_submitted"
 
 
@@ -83,3 +83,4 @@ Notes for future fixes:
 - Coins share a hitbox shape. Maybe share an external resource for that? (no need irl but REUSE ALL THE THINGS)
 - FLUDD pickups too, sort of, but not quite.
 - Sirius still needs to make falling log sounds.
+- Water script is space-inefficient, could represent surfaces as start/end pairs instead of all-point dictionaries.
