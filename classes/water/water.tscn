@@ -38,7 +38,6 @@ polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
 [node name="SubViewport" type="SubViewport" parent="."]
 disable_3d = true
 handle_input_locally = false
-snap_2d_vertices_to_pixel = true
 canvas_item_default_texture_filter = 0
 positional_shadow_atlas_size = 0
 size = Vector2i(32, 32)
