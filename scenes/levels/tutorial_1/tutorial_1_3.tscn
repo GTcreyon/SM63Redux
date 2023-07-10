@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="12"]
 [ext_resource type="PackedScene" path="res://classes/pickup/coin/yellow/coin_yellow.tscn" id="13"]
 [ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://classes/entity/enemy/koopa/parakoopa.png" id="13_p3ewm"]
-[ext_resource type="PackedScene" path="res://classes/entity/enemy/goomba/goomba.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://cc1st8k2boes7" path="res://classes/entity/enemy/goomba/goomba.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://ccwcekurxpnpe" path="res://classes/pickup/fludd_box/fludd_box.tscn" id="15"]
 [ext_resource type="PackedScene" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="17"]
-[ext_resource type="PackedScene" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="18"]
+[ext_resource type="PackedScene" uid="uid://bclig81j8t46n" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="18"]
 [ext_resource type="PackedScene" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" id="19"]
 [ext_resource type="PackedScene" path="res://classes/entity/enemy/koopa/parakoopa.tscn" id="20"]
 [ext_resource type="PackedScene" path="res://classes/zone/camera_area/camera_area.tscn" id="21"]
@@ -28,23 +28,23 @@
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="29"]
 [ext_resource type="PackedScene" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0rkds"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t12mh"]
 resource_local_to_scene = true
 shader = ExtResource("9")
-shader_parameter/width = 2
+shader_parameter/width = 1.0
 shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_5vxbe"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hfqey"]
 resource_local_to_scene = true
 shader = ExtResource("9")
-shader_parameter/width = 2
+shader_parameter/width = 1.0
 shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_dafsn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwcc3"]
 resource_local_to_scene = true
 shader = ExtResource("1")
 shader_parameter/color0 = Color(0.796078, 0.368627, 0.0352941, 1)
@@ -424,19 +424,19 @@ position = Vector2(1084, -35)
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_0rkds")
+material = SubResource("ShaderMaterial_t12mh")
 position = Vector2(502, 204)
-lines = ["[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!"]
+lines = Array[String](["[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!"])
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_5vxbe")
+material = SubResource("ShaderMaterial_hfqey")
 position = Vector2(1232, 16)
-lines = ["[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle."]
+lines = Array[String](["[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle."])
 
 [node name="Enemy" type="Node2D" parent="Items"]
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("20")]
-material = SubResource("ShaderMaterial_dafsn")
+material = SubResource("ShaderMaterial_uwcc3")
 position = Vector2(1335.47, -15.5049)
 sprite_frames = SubResource("8")
 animation = &"flying"

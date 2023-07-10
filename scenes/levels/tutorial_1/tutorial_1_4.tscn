@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" path="res://classes/solid/moving_platform/pivot.tscn" id="15"]
 [ext_resource type="PackedScene" path="res://classes/pickup/bottle/bottle_big.tscn" id="16"]
 [ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://classes/entity/enemy/koopa/parakoopa.png" id="16_0a56l"]
-[ext_resource type="PackedScene" path="res://classes/solid/telescoping/cloud/cloud.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://di4rf8vx2kw3a" path="res://classes/solid/telescoping/cloud/cloud.tscn" id="17"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="18"]
 [ext_resource type="PackedScene" uid="uid://cujalhk0rkqni" path="res://classes/solid/telescoping/tipping_log/tipping_log.tscn" id="19"]
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="20"]
@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="23"]
 [ext_resource type="Texture2D" uid="uid://w4khahd820d5" path="res://classes/decorative/fossil/fossils.png" id="23_lh6p4"]
 [ext_resource type="PackedScene" path="res://classes/pickup/coin/yellow/coin_yellow.tscn" id="24"]
-[ext_resource type="PackedScene" path="res://classes/entity/enemy/goomba/goomba.tscn" id="25"]
+[ext_resource type="PackedScene" uid="uid://cc1st8k2boes7" path="res://classes/entity/enemy/goomba/goomba.tscn" id="25"]
 [ext_resource type="PackedScene" path="res://classes/decorative/flowers.tscn" id="26"]
 [ext_resource type="PackedScene" path="res://classes/decorative/big_tree.tscn" id="27"]
 [ext_resource type="PackedScene" path="res://classes/decorative/fungus_single.tscn" id="28"]
@@ -30,7 +30,7 @@
 [ext_resource type="Shader" path="res://shaders/palette.gdshader" id="40"]
 [ext_resource type="PackedScene" uid="uid://bb0uyyyri5y2r" path="res://classes/interactable/npc/toad/toad.tscn" id="41"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_unujd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c7f5l"]
 resource_local_to_scene = true
 shader = ExtResource("40")
 shader_parameter/color0 = Color(0.611765, 0.772549, 0.427451, 1)
@@ -97,7 +97,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jemhh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vrdeo"]
 resource_local_to_scene = true
 shader = ExtResource("40")
 shader_parameter/color0 = Color(0.611765, 0.772549, 0.427451, 1)
@@ -162,31 +162,31 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ylctc"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ve6ku"]
 resource_local_to_scene = true
 shader = ExtResource("32")
-shader_parameter/width = 2
+shader_parameter/width = 1.0
 shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_osubg"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bj2xw"]
 resource_local_to_scene = true
 shader = ExtResource("32")
-shader_parameter/width = 2
+shader_parameter/width = 1.0
 shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_37h8l"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_docot"]
 resource_local_to_scene = true
 shader = ExtResource("32")
-shader_parameter/width = 2
+shader_parameter/width = 1.0
 shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_85mnt"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8g7m"]
 resource_local_to_scene = true
 shader = ExtResource("40")
 shader_parameter/color0 = Color(0.87451, 0.376471, 0.258824, 1)
@@ -461,14 +461,14 @@ position = Vector2(-3, -280)
 position = Vector2(262, 179)
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("35")]
-material = SubResource("ShaderMaterial_unujd")
+material = SubResource("ShaderMaterial_c7f5l")
 position = Vector2(-638, -668)
 sprite_frames = SubResource("8")
 animation = &"flying"
 frame = 0
 
 [node name="Parakoopa2" parent="Items/Enemy" instance=ExtResource("35")]
-material = SubResource("ShaderMaterial_jemhh")
+material = SubResource("ShaderMaterial_vrdeo")
 position = Vector2(-57, -330)
 sprite_frames = SubResource("8")
 animation = &"flying"
@@ -583,24 +583,24 @@ rotation = 0.349066
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource("31")]
-material = SubResource("ShaderMaterial_ylctc")
+material = SubResource("ShaderMaterial_ve6ku")
 position = Vector2(371, 203)
-lines = ["[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it's gone,[@p,3] you won't be able to hover any longer."]
+lines = Array[String](["[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it's gone,[@p,3] you won't be able to hover any longer."])
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource("31")]
-material = SubResource("ShaderMaterial_osubg")
+material = SubResource("ShaderMaterial_bj2xw")
 position = Vector2(-129, -638)
-lines = ["[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] just press [color=#f7c55f][@b,pause][/color] to pause the game!", "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] change FLUDD nozzle,[@p,3] or just sit back and relax!", "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you dare forget that!"]
+lines = Array[String](["[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] just press [color=#f7c55f][@b,pause][/color] to pause the game!", "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] change FLUDD nozzle,[@p,3] or just sit back and relax!", "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you dare forget that!"])
 
 [node name="Sign4" parent="Items/Signs" instance=ExtResource("31")]
-material = SubResource("ShaderMaterial_37h8l")
+material = SubResource("ShaderMaterial_docot")
 position = Vector2(761, -540)
-lines = ["You've reached the end of the [color=#f7c55f]Tiny Demo![/color]", "We hope you enjoyed it, and stay tuned for more!"]
+lines = Array[String](["You've reached the end of the [color=#f7c55f]Tiny Demo![/color]", "We hope you enjoyed it, and stay tuned for more!"])
 
 [node name="Toad" parent="Items" instance=ExtResource("41")]
-material = SubResource("ShaderMaterial_85mnt")
+material = SubResource("ShaderMaterial_b8g7m")
 position = Vector2(-715, -312)
-lines = ["[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that [color=#f28d7c]really[/color] all I'm good for!?"]
+lines = Array[String](["[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that [color=#f28d7c]really[/color] all I'm good for!?"])
 
 [node name="WarpZone2" parent="." instance=ExtResource("37")]
 position = Vector2(-175, 71)
