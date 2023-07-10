@@ -17,9 +17,9 @@ func _ready():
 
 
 func resize_polygon(factor):
-	invert_border = get_window().size.x
-	var width = get_window().size.x
-	var height = get_window().size.y
+	invert_border = float(get_window().size.x)
+	var width = float(get_window().size.x)
+	var height = float(get_window().size.y)
 	var star = [
 		Vector2(0, height/2),
 		Vector2(width/6, height/2 - width/6),
