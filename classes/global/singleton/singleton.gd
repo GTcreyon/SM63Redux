@@ -96,7 +96,7 @@ func log_msg(msg: String, type: int = LogType.INFO):
 			color_tag += "f28d7c"
 	color_tag += "]"
 		
-	console.logger.append_bbcode("\n" + color_tag + str(msg) + "[/color]")
+	console.logger.append_text("\n" + color_tag + str(msg) + "[/color]")
 	line_count += 1
 	print(msg)
 
