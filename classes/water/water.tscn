@@ -35,6 +35,7 @@ polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
 
 [node name="SubViewport" type="SubViewport" parent="."]
 handle_input_locally = false
+canvas_item_default_texture_filter = 0
 size = Vector2i(32, 32)
 render_target_update_mode = 3
 
