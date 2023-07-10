@@ -15,7 +15,6 @@ const splash_bank = {
 	],
 }
 
-# Settings for water
 @export var water_segment_size = 20 # In pixels, this works regardless of water scale.
 @export var surface_wave_properties = {
 	width = 32, # In pixels
@@ -24,17 +23,124 @@ const splash_bank = {
 }
 @export var top_left_corner = Vector2() # Gets automatically set by the parent script
 
-# Private variables
-@onready var texture = $"../SubViewport/WaterPolygon"
-@onready var player = $"/root/Main/Player"
-@onready var camera = $"/root/Main/Player/Camera"
-@onready var splash = $"../Splash"
-
 var waves = []
 var surface = {}
 var surface_width_keys = 0
 var elapsed_time = 0
 var wave_id_counter = 0
+
+@onready var texture = $"../SubViewport/WaterPolygon"
+@onready var player = $"/root/Main/Player"
+@onready var camera = $"/root/Main/Player/Camera"
+@onready var splash = $"../Splash"
+
+
+# Update the shader with the latest information
+func _process(dt):
+	elapsed_time += dt
+	var wave_y_modifier = {}
+	for wave in waves:
+		# First reduce the height
+		wave.height -= wave.reduce * dt
+		wave.width -= wave.reduce_width * dt
+		# If our wave has become incredibly small, remove him
+		if wave.height <= 2 or wave.width <= 2:
+			waves.erase(wave)
+			wave.height = 0 # Do not skip the rest of the code, we set the wave height to 0 and it will clear itself up
+		wave.current_position.x += wave.speed * wave.direction * dt
+		wave.travelled_distance += abs(wave.speed * wave.direction * dt)
+		# Update the current and next vertex position, also flip the direction if needed
+		if (wave.speed * wave.direction >= 0 and wave.current_position.x >= surface[wave.next_vertex_key].x) or (wave.speed * wave.direction <= 0 and wave.current_position.x <= surface[wave.next_vertex_key].x):
+			wave.current_vertex_key = wave.next_vertex_key
+			wave.next_vertex_key = get_next_vertex_key_for_wave(wave)
+			wave.speed *= (1 if wave.next_vertex_key >= wave.current_vertex_key else -1) * sign(wave.speed * wave.direction)
+		# Get the min/max
+		var ind_width = wave.width / water_segment_size
+		var min_ind = round(wave.current_vertex_key - ind_width / 2)
+		var max_ind = round(wave.current_vertex_key + ind_width / 2)
+		# Get the real min/max
+		for ind in range(wave.current_vertex_key, min_ind - 1, -1):
+			if not surface.has(ind):
+				min_ind = ind + 1
+				break
+		for ind in range(wave.current_vertex_key, max_ind):
+			if not surface.has(ind):
+				max_ind = ind - 1
+				break
+		# Get the width
+		ind_width = max_ind - min_ind
+		# Generate a hill effect for this wave using sine
+		var counter = 0
+		for ind in range(min_ind, max_ind):
+			# Add the modifier
+			var y_mod = -sin(float(counter) / float(ind_width) * PI) * wave.height * wave.height_direction
+			counter += 1
+			if wave_y_modifier.has(ind):
+				wave_y_modifier[ind][wave.id] = y_mod
+			else:
+				wave_y_modifier[ind] = {[wave.id]: y_mod}
+
+	# Default wave effect
+	var x_os_size = get_window().size.x
+	var x_camera_edge = camera.global_position.x - x_os_size / 2
+	for surf_key in surface.keys():
+		var global_x = surface[surf_key].x + top_left_corner.x
+		if global_x >= x_camera_edge + x_os_size:
+			break
+		if global_x >= x_camera_edge:
+			surface[surf_key].y = sin(
+				global_x * PI / surface_wave_properties.width
+				+ elapsed_time * 2 * PI * surface_wave_properties.speed
+			) * surface_wave_properties.height
+	
+	# Apply the modifier
+	for surf_key in wave_y_modifier.keys():
+		for add_y in wave_y_modifier[surf_key].values():
+			surface[surf_key].y += add_y
+
+	# Now actually set the verts
+	set_surface_verts(surface)
+
+
+func _on_body_entered(body):
+	handle_impact(body, false)
+
+
+func _on_body_exited(body):
+	handle_impact(body, true)
+	if body == player and get_overlapping_bodies().count(player) == 1:
+		player.call_deferred("switch_state", player.s.walk)
+
+
+func on_ready():
+	# Get the max x and max y
+	# Wiki says textures can't be bigger than 16384x16384 pixels
+	# https://docs.godotengine.org/en/stable/classes/class_image.html?highlight=16384#constants
+	# So that means water can't be bigger than 16384x16384 pixels either (512x512 tiles)
+	var max_x = 1; var max_y = 1
+	for vertex in texture.polygon:
+		if vertex.x >= max_x:
+			max_x = vertex.x
+		if vertex.y >= max_y:
+			max_y = vertex.y
+	
+	# Generate the texture for UV
+	var img_texture = ImageTexture.new()
+	# Note: is there a less space needing format? it really only needs to store 2 colors, so 1 bit image format would work
+	var img = Image.create(max_x, max_y, false, Image.FORMAT_L8)
+	# Make the texture white
+	img.fill(Color(1, 1, 1, 1))
+	img_texture.create_from_image(img)
+	# Set the texture
+	texture.texture = img_texture
+
+	# Make the uv coords equal the one of the polygon BEFORE subdividing
+	#texture.uv = texture.polygon
+	#$Collision.polygon = texture.polygon
+	
+	# The water should be purely visual, so the uv and collision should be set before subdividing
+	subdivide_surface()
+
 
 # Subdivide the water surface
 func subdivide_surface():
@@ -126,101 +232,6 @@ func get_next_vertex_key_for_wave(wave):
 		return wave.current_vertex_key
 
 
-func on_ready():
-	# Get the max x and max y
-	# Wiki says textures can't be bigger than 16384x16384 pixels
-	# https://docs.godotengine.org/en/stable/classes/class_image.html?highlight=16384#constants
-	# So that means water can't be bigger than 16384x16384 pixels either (512x512 tiles)
-	var max_x = 1; var max_y = 1
-	for vertex in texture.polygon:
-		if vertex.x >= max_x:
-			max_x = vertex.x
-		if vertex.y >= max_y:
-			max_y = vertex.y
-	
-	# Generate the texture for UV
-	var img_texture = ImageTexture.new()
-	# Note: is there a less space needing format? it really only needs to store 2 colors, so 1 bit image format would work
-	var img = Image.create(max_x, max_y, false, Image.FORMAT_L8)
-	# Make the texture white
-	img.fill(Color(1, 1, 1, 1))
-	img_texture.create_from_image(img)
-	# Set the texture
-	texture.texture = img_texture
-
-	# Make the uv coords equal the one of the polygon BEFORE subdividing
-	#texture.uv = texture.polygon
-	#$Collision.polygon = texture.polygon
-	
-	# The water should be purely visual, so the uv and collision should be set before subdividing
-	subdivide_surface()
-
-# Update the shader with the latest information
-func _process(dt):
-	elapsed_time += dt
-	var wave_y_modifier = {}
-	for wave in waves:
-		# First reduce the height
-		wave.height -= wave.reduce * dt
-		wave.width -= wave.reduce_width * dt
-		# If our wave has become incredibly small, remove him
-		if wave.height <= 2 or wave.width <= 2:
-			waves.erase(wave)
-			wave.height = 0 # Do not skip the rest of the code, we set the wave height to 0 and it will clear itself up
-		wave.current_position.x += wave.speed * wave.direction * dt
-		wave.travelled_distance += abs(wave.speed * wave.direction * dt)
-		# Update the current and next vertex position, also flip the direction if needed
-		if (wave.speed * wave.direction >= 0 and wave.current_position.x >= surface[wave.next_vertex_key].x) or (wave.speed * wave.direction <= 0 and wave.current_position.x <= surface[wave.next_vertex_key].x):
-			wave.current_vertex_key = wave.next_vertex_key
-			wave.next_vertex_key = get_next_vertex_key_for_wave(wave)
-			wave.speed *= (1 if wave.next_vertex_key >= wave.current_vertex_key else -1) * sign(wave.speed * wave.direction)
-		# Get the min/max
-		var ind_width = wave.width / water_segment_size
-		var min_ind = round(wave.current_vertex_key - ind_width / 2)
-		var max_ind = round(wave.current_vertex_key + ind_width / 2)
-		# Get the real min/max
-		for ind in range(wave.current_vertex_key, min_ind - 1, -1):
-			if not surface.has(ind):
-				min_ind = ind + 1
-				break
-		for ind in range(wave.current_vertex_key, max_ind):
-			if not surface.has(ind):
-				max_ind = ind - 1
-				break
-		# Get the width
-		ind_width = max_ind - min_ind
-		# Generate a hill effect for this wave using sine
-		var counter = 0
-		for ind in range(min_ind, max_ind):
-			# Add the modifier
-			var y_mod = -sin(float(counter) / float(ind_width) * PI) * wave.height * wave.height_direction
-			counter += 1
-			if wave_y_modifier.has(ind):
-				wave_y_modifier[ind][wave.id] = y_mod
-			else:
-				wave_y_modifier[ind] = {[wave.id]: y_mod}
-
-	# Default wave effect
-	var x_os_size = get_window().size.x
-	var x_camera_edge = camera.global_position.x - x_os_size / 2
-	for surf_key in surface.keys():
-		var global_x = surface[surf_key].x + top_left_corner.x
-		if global_x >= x_camera_edge + x_os_size:
-			break
-		if global_x >= x_camera_edge:
-			surface[surf_key].y = sin(
-				global_x * PI / surface_wave_properties.width
-				+ elapsed_time * 2 * PI * surface_wave_properties.speed
-			) * surface_wave_properties.height
-	
-	# Apply the modifier
-	for surf_key in wave_y_modifier.keys():
-		for add_y in wave_y_modifier[surf_key].values():
-			surface[surf_key].y += add_y
-
-	# Now actually set the verts
-	set_surface_verts(surface)
-
 func handle_impact(body, is_exit):
 	if elapsed_time > 0 and (body.get("vel") == null or body.vel.y > 0): # Avoid objects triggering waves when spawning
 		if !(body is CharacterBody2D or body is RigidBody2D):
@@ -299,12 +310,3 @@ func handle_impact(body, is_exit):
 				end_of_wave += og_wave_width
 			
 			await get_tree().process_frame
-	
-
-func _on_body_entered(body):
-	handle_impact(body, false)
-
-func _on_body_exited(body):
-	handle_impact(body, true)
-	if body == player and get_overlapping_bodies().count(player) == 1:
-		player.call_deferred("switch_state", player.s.walk)
