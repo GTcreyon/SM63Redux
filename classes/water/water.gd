@@ -1,6 +1,6 @@
 extends Area2D
 
-const splash_bank = {
+const SPLASH_BANK = {
 	"big": [
 		preload("res://classes/water/splash_big_0.wav"),
 		preload("res://classes/water/splash_big_1.wav"),
@@ -52,7 +52,7 @@ func _process(dt):
 		# Update the current and next vertex position, also flip the direction if needed
 		if (wave.speed * wave.direction >= 0 and wave.current_position.x >= surface[wave.next_vertex_key].x) or (wave.speed * wave.direction <= 0 and wave.current_position.x <= surface[wave.next_vertex_key].x):
 			wave.current_vertex_key = wave.next_vertex_key
-			wave.next_vertex_key = get_next_vertex_key_for_wave(wave)
+			wave.next_vertex_key = _get_next_vertex_key_for_wave(wave)
 			wave.speed *= (1 if wave.next_vertex_key >= wave.current_vertex_key else -1) * sign(wave.speed * wave.direction)
 		# Get the min/max
 		var ind_width = wave.width / water_segment_size
@@ -99,15 +99,15 @@ func _process(dt):
 			surface[surf_key].y += add_y
 
 	# Now actually set the verts
-	set_surface_verts(surface)
+	_set_surface_verts(surface)
 
 
 func _on_body_entered(body):
-	handle_impact(body, false)
+	_handle_impact(body, false)
 
 
 func _on_body_exited(body):
-	handle_impact(body, true)
+	_handle_impact(body, true)
 	if body == player and get_overlapping_bodies().count(player) == 1:
 		player.call_deferred("switch_state", player.s.walk)
 
@@ -139,11 +139,11 @@ func on_ready():
 	#$Collision.polygon = texture.polygon
 	
 	# The water should be purely visual, so the uv and collision should be set before subdividing
-	subdivide_surface()
+	_subdivide_surface()
 
 
 # Subdivide the water surface
-func subdivide_surface():
+func _subdivide_surface():
 	var polys = PackedVector2Array()
 	var size = texture.polygon.size()
 	for i in range(0, size):
@@ -158,16 +158,16 @@ func subdivide_surface():
 		else:
 			polys.append(texture.polygon[i])
 	
-	set_polys(polys)
-	surface = get_surface_verts()
+	_set_polys(polys)
+	surface = _get_surface_verts()
 	surface_width_keys = len(surface) - 1
 
 
-func set_polys(polys):
+func _set_polys(polys):
 	texture.polygon = polys
 
 
-func get_surface_verts():
+func _get_surface_verts():
 	var vertices = {}
 	var size = texture.polygon.size()
 	for i in size:
@@ -176,13 +176,13 @@ func get_surface_verts():
 	return vertices
 
 
-func set_surface_verts(dict):
+func _set_surface_verts(dict):
 	var copy = PackedVector2Array(texture.polygon)
 	for k in dict.keys():
 		copy.set(k, dict[k])
-	set_polys(copy)
+	_set_polys(copy)
 
-func get_nearest_surface_vertex_key(pos):
+func _get_nearest_surface_vertex_key(pos):
 	var key
 	var nearest_dist = INF
 	for vertKey in surface.keys():
@@ -194,15 +194,15 @@ func get_nearest_surface_vertex_key(pos):
 	return key
 
 
-func move_wave(wave, new):
+func _move_wave(wave, new):
 	wave.current_position = new
-	wave.current_vertex_key = get_nearest_surface_vertex_key(new)
-	wave.next_vertex_key = get_next_vertex_key_for_wave(wave)
+	wave.current_vertex_key = _get_nearest_surface_vertex_key(new)
+	wave.next_vertex_key = _get_next_vertex_key_for_wave(wave)
 	wave.speed = wave.speed * (1 if wave.next_vertex_key >= wave.current_vertex_key else -1)
 
-func create_wave(from, speed):
+func _create_wave(from, speed):
 	wave_id_counter += 1
-	var current_vertex_key = get_nearest_surface_vertex_key(from)
+	var current_vertex_key = _get_nearest_surface_vertex_key(from)
 	var wave = {
 		current_position = from,
 		current_vertex_key = current_vertex_key,
@@ -217,12 +217,12 @@ func create_wave(from, speed):
 		height_direction = 1, # Should be either 1 or -1
 		id = wave_id_counter,
 	}
-	wave.next_vertex = get_next_vertex_key_for_wave(wave)
+	wave.next_vertex = _get_next_vertex_key_for_wave(wave)
 	waves.append(wave)
 	return wave
 
 
-func get_next_vertex_key_for_wave(wave):
+func _get_next_vertex_key_for_wave(wave):
 	var check_direction = (1 if wave.speed >= 0 else -1) * wave.direction
 	if surface.has(wave.current_vertex_key + check_direction):
 		return wave.current_vertex_key + check_direction
@@ -232,7 +232,7 @@ func get_next_vertex_key_for_wave(wave):
 		return wave.current_vertex_key
 
 
-func handle_impact(body, is_exit):
+func _handle_impact(body, is_exit):
 	if elapsed_time > 0 and (body.get("vel") == null or body.vel.y > 0): # Avoid objects triggering waves when spawning
 		if !(body is CharacterBody2D or body is RigidBody2D):
 			return
@@ -259,11 +259,11 @@ func handle_impact(body, is_exit):
 			body_vel = abs(body.vel.y)
 		
 		if body_vel > 10:
-			splash.stream = splash_bank["big"][randi() % 2]
+			splash.stream = SPLASH_BANK["big"][randi() % 2]
 		elif body_vel > 5:
-			splash.stream = splash_bank["medium"][randi() % 2]
+			splash.stream = SPLASH_BANK["medium"][randi() % 2]
 		else:
-			splash.stream = splash_bank["small"][randi() % 2]
+			splash.stream = SPLASH_BANK["small"][randi() % 2]
 		
 		splash.global_position = body.global_position
 		splash.pitch_scale = randf_range(0.6, 1.4)
@@ -282,11 +282,11 @@ func handle_impact(body, is_exit):
 		speed_mult *= area_mult
 		
 		# Create the waves
-		var right = create_wave(contact, 128)
+		var right = _create_wave(contact, 128)
 		right.height *= height_mult
 		right.speed *= speed_mult
 		
-		var left = create_wave(contact, 128)
+		var left = _create_wave(contact, 128)
 		left.height *= height_mult
 		left.speed *= speed_mult
 		left.direction = -1
@@ -296,12 +296,12 @@ func handle_impact(body, is_exit):
 		var ind = 1
 		while (left.height >= 1):
 			if left.travelled_distance >= end_of_wave:
-				var right_trail = create_wave(contact, 128)
+				var right_trail = _create_wave(contact, 128)
 				right_trail.height *= height_mult / ind
 				right_trail.speed *= speed_mult
 				right_trail.height_direction = -1
 				
-				var left_trail = create_wave(contact, 128)
+				var left_trail = _create_wave(contact, 128)
 				left_trail.height *= height_mult / ind
 				left_trail.speed *= speed_mult
 				left_trail.direction = -1
