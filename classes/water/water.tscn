@@ -7,10 +7,12 @@
 
 [node name="WaterPolygon" type="Sprite2D"]
 z_index = 1
+texture_filter = 1
+texture_repeat = 2
 material = ExtResource("4")
 script = ExtResource("2")
 polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
-outline_texture = ExtResource("6")
+surface_texture = ExtResource("6")
 water_color = Color(0.501961, 0.670588, 0.862745, 0.498039)
 
 [node name="DetectionArea" type="Area2D" parent="."]
@@ -34,8 +36,11 @@ surface_wave_properties = {
 polygon = PackedVector2Array(0, 0, 32, 0, 32, 32, 0, 32)
 
 [node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
 handle_input_locally = false
+snap_2d_vertices_to_pixel = true
 canvas_item_default_texture_filter = 0
+positional_shadow_atlas_size = 0
 size = Vector2i(32, 32)
 render_target_update_mode = 3
 
