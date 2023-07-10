@@ -5,9 +5,9 @@ const WATER_VIEWPORT_MATERIAL = preload("res://classes/water/water_viewport.tres
 const FRAME_TIMESTEP = 0.2
 
 @export var polygon: PackedVector2Array = PackedVector2Array()
-@export var outline_texture: Texture2D = load("res://classes/water/water_outline_anim.png")
-@export var water_texture_size: Vector2 = Vector2(64, 64)
-@export var outline_texture_size: Vector2 = Vector2(32, 12)
+@export var surface_texture: Texture2D = load("res://classes/water/water_outline_anim.png")
+@export var water_texture_size: Vector2 = Vector2(64, 64) # Unused
+@export var surface_texture_size: Vector2 = Vector2(32, 12)
 @export var water_color: Color = Color(0, 0.7, 1, 0.8)
 #@export var texture_color_impact: float = 0.2;
 #@export var animation_swing_range: float = 32;
@@ -63,16 +63,13 @@ func refresh():
 	
 	# Now give the shader our viewport texture
 	var root_mat = WATER_VIEWPORT_MATERIAL.duplicate()
-	root_mat.set_shader_parameter("viewport_texture", viewport.get_texture())
 	root_mat.set_shader_parameter("base_water_color", water_color)
-	root_mat.set_shader_parameter("outline_texture", outline_texture)
-	root_mat.set_shader_parameter("outline_texture_size", outline_texture_size)
+	root_mat.set_shader_parameter("surface_texture", surface_texture)
+	root_mat.set_shader_parameter("surface_texture_size", surface_texture_size)
 	material = root_mat
-	
-	# Shader copy time--this is mostly just so it knows the size of pixels
-	var tex = Image.create(viewport.size.x, viewport.size.y, false, Image.FORMAT_L8)
 	texture = viewport.get_texture()
 	
+	# For the editor, update the display color.
 	water.color = Color(water_color.r, water_color.g, water_color.b, 1)
 	
 	# Set the water shaders
@@ -108,7 +105,7 @@ func _process(dt):
 	if frame_timer >= next_frame_time:
 		# Advance surface to next flipbook frame.
 		current_frame = (current_frame + 1) % 4
-		material.set_shader_parameter("outline_anim_phase", current_frame)
+		material.set_shader_parameter("surface_anim_phase", current_frame)
 
 		# Reset timer for next frame.
 		next_frame_time = frame_timer + FRAME_TIMESTEP
