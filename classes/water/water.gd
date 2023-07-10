@@ -30,7 +30,7 @@ var surface_width_keys = 0
 var elapsed_time = 0
 var wave_id_counter = 0
 
-@onready var texture: Polygon2D = $"../SubViewport/WaterPolygon"
+@onready var render_polygon: Polygon2D = $"../SubViewport/WaterPolygon"
 @onready var player = $"/root/Main/Player"
 @onready var camera = $"/root/Main/Player/Camera"
 @onready var splash = $"../Splash"
@@ -152,7 +152,7 @@ func _on_body_exited(body):
 func on_ready():
 	# Get the max x and max y
 	var max_x = 1; var max_y = 1
-	for vertex in texture.polygon:
+	for vertex in render_polygon.polygon:
 		max_x = max(vertex.x, max_x)
 		max_y = max(vertex.y, max_y)
 	# Wiki says textures can't be bigger than 16384x16384 pixels
@@ -168,11 +168,11 @@ func on_ready():
 	var img_texture = ImageTexture.new()
 	img_texture.create_from_image(img)
 	# Apply it to the main render polygon
-	texture.texture = img_texture
+	render_polygon.texture = img_texture
 
 	# Make the uv coords equal the one of the polygon BEFORE subdividing
-	#texture.uv = texture.polygon
-	#$Collision.polygon = texture.polygon
+	#render_polygon.uv = render_polygon.polygon
+	#$Collision.polygon = render_polygon.polygon
 	
 	# The water should be purely visual, so the uv and collision should be set before subdividing
 	_subdivide_surface()
@@ -185,27 +185,27 @@ func _subdivide_surface():
 	# This array will contain the recreated (subdivided) polygon.
 	var verts = PackedVector2Array()
 	# We also want to access the size of the source polygon often.
-	var size = texture.polygon.size()
+	var size = render_polygon.polygon.size()
 	
 	for i in range(0, size):
 		# Direction to next vert.
 		# TODO: Direction is a tad slow to calculate. Since we only care if the
 		# segment is exactly flat, we could just compare the verts' Y values.
-		var dir = texture.polygon[i].direction_to(texture.polygon[(i+1) % size])
+		var dir = render_polygon.polygon[i].direction_to(render_polygon.polygon[(i+1) % size])
 		
 		# Start adding verts if the surface is exactly flat.
 		if dir == Vector2.RIGHT:
-			var start = texture.polygon[i]
+			var start = render_polygon.polygon[i]
 			# Add a row of regularly spaced verts as long as the segment.
-			while start.x < texture.polygon[(i+1) % size].x:
+			while start.x < render_polygon.polygon[(i+1) % size].x:
 				verts.append(start)
 				start += dir * water_segment_size
 			# If the row ended up shorter than the source, add the endpoint.
-			if !verts[verts.size() - 1].is_equal_approx(texture.polygon[(i+1) % size]):
-				verts.append(texture.polygon[(i+1) % size])
+			if !verts[verts.size() - 1].is_equal_approx(render_polygon.polygon[(i+1) % size]):
+				verts.append(render_polygon.polygon[(i+1) % size])
 		# If the surface isn't flat, just copy from the source polygon.
 		else:
-			verts.append(texture.polygon[i])
+			verts.append(render_polygon.polygon[i])
 	
 	# Give the new verts to the polygon.
 	_set_polygon_verts(verts)
@@ -215,22 +215,22 @@ func _subdivide_surface():
 
 
 func _set_polygon_verts(verts: PackedVector2Array):
-	texture.polygon = verts
+	render_polygon.polygon = verts
 
 
 func _get_surface_verts():
 	var vertices = {}
-	var size = texture.polygon.size()
+	var size = render_polygon.polygon.size()
 	for i in size:
 		# If this vert is part of a flat surface, save it to the dictionary.
-		if texture.polygon[i].direction_to(texture.polygon[(i + 1) % size]) == Vector2.RIGHT\
-			or texture.polygon[((i - 1) + size) % size].direction_to(texture.polygon[i]) == Vector2.RIGHT:
-			vertices[i] = texture.polygon[i]
+		if render_polygon.polygon[i].direction_to(render_polygon.polygon[(i + 1) % size]) == Vector2.RIGHT\
+			or render_polygon.polygon[((i - 1) + size) % size].direction_to(render_polygon.polygon[i]) == Vector2.RIGHT:
+			vertices[i] = render_polygon.polygon[i]
 	return vertices
 
 
 func _set_surface_verts(dict):
-	var copy = PackedVector2Array(texture.polygon)
+	var copy = PackedVector2Array(render_polygon.polygon)
 	for k in dict.keys():
 		copy.set(k, dict[k])
 	_set_polygon_verts(copy)

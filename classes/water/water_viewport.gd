@@ -18,7 +18,7 @@ var frame_timer = 0
 var current_frame = 0
 
 @onready var viewport: SubViewport = $SubViewport
-@onready var water: Polygon2D = $SubViewport/WaterPolygon
+@onready var water_polygon: Polygon2D = $SubViewport/WaterPolygon
 @onready var detection_area: Area2D = $DetectionArea
 @onready var collision: CollisionPolygon2D = $DetectionArea/Collision
 
@@ -45,8 +45,8 @@ func refresh():
 	viewport.size = size_extents + size_diff
 	
 	# Set up the water polygon.
-	water.position += size_diff / 2 # TODO: what happens w/o this?
-	water.polygon = polygon
+	water_polygon.position += size_diff / 2 # TODO: what happens w/o this?
+	water_polygon.polygon = polygon
 	# Collision polygon is just a rectangle for now.
 	collision.polygon = PackedVector2Array([
 		Vector2(0, 0), Vector2(size_extents.x, 0),
@@ -70,7 +70,7 @@ func refresh():
 	texture = viewport.get_texture()
 	
 	# For the editor, update the display color.
-	water.color = Color(water_color.r, water_color.g, water_color.b, 1)
+	water_polygon.color = Color(water_color.r, water_color.g, water_color.b, 1)
 	
 	# Set the water shaders
 #	var mat = water_material.duplicate()
@@ -80,7 +80,7 @@ func refresh():
 #	mat.set_shader_param("normal_map_mult", texture_color_impact)
 #	mat.set_shader_param("animation_swing_range_px", animation_swing_range)
 #	mat.set_shader_param("animation_speed", animation_speed)
-#	water.material = mat
+#	water_polygon.material = mat
 
 
 func _draw():
