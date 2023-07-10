@@ -182,6 +182,7 @@ func _set_surface_verts(dict):
 		copy.set(k, dict[k])
 	_set_polys(copy)
 
+
 func _get_nearest_surface_vertex_key(pos):
 	var key
 	var nearest_dist = INF
@@ -199,6 +200,7 @@ func _move_wave(wave, new):
 	wave.current_vertex_key = _get_nearest_surface_vertex_key(new)
 	wave.next_vertex_key = _get_next_vertex_key_for_wave(wave)
 	wave.speed = wave.speed * (1 if wave.next_vertex_key >= wave.current_vertex_key else -1)
+
 
 func _create_wave(from, speed):
 	wave_id_counter += 1
