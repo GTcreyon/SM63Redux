@@ -29,6 +29,5 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -24.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[connection signal="text_changed" from="Input" to="." method="_on_Input_text_changed"]

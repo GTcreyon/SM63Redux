@@ -199,3 +199,43 @@ func _process(_delta):
 				input_line.text = history[size - hist_index - 1]
 				hist_index += 1
 	logger.margin_top = -24 - (Singleton.line_count + 1) * (logger.get_font("normal_font").get_height() + 1)
+
+
+func display_completion(options: Array):
+	print(options)
+
+
+func _on_Input_text_changed(text: String):
+	# Did the user even begin typing OR is the user at the first word?
+	# If not, return a list of commands
+	var words = text.split(" ", false)
+	var word_count = len(words)
+	if word_count <= 1:
+		var suggestions = []
+		for hint in command_hints:
+			if typeof(hint[0]) == TYPE_STRING:
+				suggestions.append(hint[0])
+			else:
+				suggestions.append_array(hint[0])
+		display_completion(suggestions)
+		return
+	# Is what the user typed valid?
+	# If not, return nothing
+	var completion = get_autocompletion_for_command(words[0])
+	if completion == null:
+		display_completion([])
+		return
+	var words_in_completion = len(completion)
+	
+	# Is the user trying to provide more arguments than there are?
+	if word_count > words_in_completion:
+		display_completion([])
+	else:
+		var this_completion = completion[word_count - 1]
+		var suggestions = []
+		for suggestion in this_completion:
+			if typeof(suggestion) == TYPE_STRING:
+				suggestions.append(suggestion)
+			else:
+				suggestions.append_array(suggestion)
+		display_completion(suggestions)
