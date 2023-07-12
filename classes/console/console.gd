@@ -26,9 +26,15 @@ var command_hints = [
 	["report", "<report...>"],
 	["rename", "<report...>"],
 ]
+var selected_completion = {
+	selected = false,
+	query = "",
+	option = ""
+}
 
 onready var logger = $Logger
 onready var input_line = $Input
+onready var suggestions_log = $Suggestions
 
 func get_autocompletion_for_command(cmd: String):
 	for completion in command_hints:
@@ -191,8 +197,15 @@ func _process(_delta):
 		input_line.text = input_line.text.replace("/", "")
 	if visible:
 		if Input.is_action_just_pressed("ui_accept"):
-			run_command(input_line.text)
-			input_line.text = ""
+			if selected_completion.selected:
+				var caret = input_line.caret_position
+				var move_caret_by = len(selected_completion.option) - len(selected_completion.query) + 1
+				input_line.text += selected_completion.option.substr(len(selected_completion.query)) + " "
+				input_line.caret_position = caret + move_caret_by
+				_on_Input_text_changed(input_line.text)
+			else:
+				run_command(input_line.text.strip_edges())
+				input_line.text = ""
 		if Input.is_action_just_pressed("ui_up"):
 			var size = history.size()
 			if hist_index < history.size():
@@ -201,14 +214,44 @@ func _process(_delta):
 	logger.margin_top = -24 - (Singleton.line_count + 1) * (logger.get_font("normal_font").get_height() + 1)
 
 
-func display_completion(options: Array):
-	print(options)
+func display_completion(query: String, options: Array):
+	suggestions_log.text = ""
+	
+	var sorted_options = []
+	for option in options:
+		if option.begins_with(query):
+			sorted_options.append(option)
+	
+	# Set the current selected completion to the first one on the list
+	selected_completion.selected = len(sorted_options) > 0
+	if selected_completion.selected:
+		selected_completion.query = query
+		selected_completion.option = sorted_options[0]
+	
+	sorted_options.sort()
+	for option in options:
+		if !option.begins_with(query):
+			sorted_options.append(option)
+	
+	var s = ""
+	for option in sorted_options:
+		if option.begins_with(query):
+			suggestions_log.push_color(Color.aqua)
+			suggestions_log.add_text(query)
+			suggestions_log.pop()
+			suggestions_log.add_text(option.substr(len(query)) + " ")
+		else:
+			suggestions_log.add_text(option + " ")
 
 
 func _on_Input_text_changed(text: String):
 	# Did the user even begin typing OR is the user at the first word?
 	# If not, return a list of commands
 	var words = text.split(" ", false)
+	# Without this check, it lingers on the previous completion until we type something
+	if text.ends_with(" "):
+		words.append("")
+	
 	var word_count = len(words)
 	if word_count <= 1:
 		var suggestions = []
@@ -217,25 +260,27 @@ func _on_Input_text_changed(text: String):
 				suggestions.append(hint[0])
 			else:
 				suggestions.append_array(hint[0])
-		display_completion(suggestions)
+		if word_count == 0:
+			words.append("")
+		display_completion(words[0], suggestions)
 		return
 	# Is what the user typed valid?
 	# If not, return nothing
 	var completion = get_autocompletion_for_command(words[0])
 	if completion == null:
-		display_completion([])
+		display_completion(text, [])
 		return
 	var words_in_completion = len(completion)
 	
 	# Is the user trying to provide more arguments than there are?
 	if word_count > words_in_completion:
-		display_completion([])
+		display_completion("", [])
 	else:
 		var this_completion = completion[word_count - 1]
 		var suggestions = []
 		if typeof(this_completion) == TYPE_STRING:
-			display_completion([this_completion])
+			display_completion(words[word_count - 1], [this_completion])
 			return
 		for suggestion in this_completion:
 			suggestions.append(suggestion)
-		display_completion(suggestions)
+		display_completion(words[word_count - 1], suggestions)
