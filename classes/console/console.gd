@@ -233,9 +233,9 @@ func _on_Input_text_changed(text: String):
 	else:
 		var this_completion = completion[word_count - 1]
 		var suggestions = []
+		if typeof(this_completion) == TYPE_STRING:
+			display_completion([this_completion])
+			return
 		for suggestion in this_completion:
-			if typeof(suggestion) == TYPE_STRING:
-				suggestions.append(suggestion)
-			else:
-				suggestions.append_array(suggestion)
+			suggestions.append(suggestion)
 		display_completion(suggestions)
