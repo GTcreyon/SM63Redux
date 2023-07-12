@@ -5,12 +5,46 @@ var hist_index = 0
 var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
 var line_count: int = 0
+var command_hints = [
+	["w", ["t1", "tutorial_1", "lobby"]],
+	["scene"], # Idea: possible filesystem traversal? Although this seems a bit much for this PR.
+	["water", ["inf", "<integer>"]],
+	["ref"],
+	["c"],
+	["die"],
+	["dmg", "<integer>"],
+	["fdmg", "<integer>"],
+	["hit", "<integer>", "<integer>"],
+	[["hp", "health"], "<integer>"],
+	[["designer", "ld"]],
+	["menu"],
+	["title"],
+	["vps"],
+	["fludd", ["none", "all", "t", "turbo", "2", "r", "rocket", "1", "h", "hover", "0"]],
+	["cherry"],
+	["locale"], # In _ready() all language options will be added
+	["report", "<report...>"],
+	["rename", "<report...>"],
+]
 
 onready var logger = $Logger
 onready var input_line = $Input
 
+func get_autocompletion_for_command(cmd: String):
+	for completion in command_hints:
+		var matching = false
+		if typeof(completion[0]) == TYPE_ARRAY:
+			if completion[0].find(cmd) != -1:
+				matching = true
+		elif completion[0] == cmd:
+			matching = true
+		if matching:
+			return completion
 
 func _ready():
+	var locale_completion = get_autocompletion_for_command("locale")
+	locale_completion.append(TranslationServer.get_loaded_locales())
+
 	add_child(req)
 
 
