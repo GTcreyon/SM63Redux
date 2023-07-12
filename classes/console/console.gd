@@ -189,12 +189,13 @@ func run_command(cmd: String):
 
 
 func _process(_delta):
-	if Input.is_action_just_pressed("debug") or Input.is_action_just_pressed("altdebug") and visible == false:
+	if Input.is_action_just_pressed("debug") or Input.is_action_just_pressed("altdebug"):
 		visible = !visible
 		get_tree().paused = visible
 		Singleton.set_pause("console", visible)
-		input_line.grab_focus()
-		input_line.text = input_line.text.replace("/", "")
+		if visible:
+			input_line.grab_focus()
+			input_line.text = ""
 	if visible:
 		if Input.is_action_just_pressed("ui_accept"):
 			if selected_completion.selected:
