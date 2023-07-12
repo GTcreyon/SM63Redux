@@ -223,7 +223,7 @@ func display_completion(query: String, options: Array):
 			sorted_options.append(option)
 	
 	# Set the current selected completion to the first one on the list
-	selected_completion.selected = len(sorted_options) > 0
+	selected_completion.selected = len(query) > 0 and len(sorted_options) > 0
 	if selected_completion.selected:
 		selected_completion.query = query
 		selected_completion.option = sorted_options[0]
