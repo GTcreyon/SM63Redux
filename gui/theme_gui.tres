@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://dh1vom0ars54l"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://dh1vom0ars54l"]
 
-[ext_resource type="FontFile" uid="uid://bm5tnyk4umodu" path="res://fonts/bylight/bylight.tres" id="1"]
+[ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.tres" id="1"]
 [ext_resource type="StyleBox" uid="uid://dhliyj8vycb7q" path="res://gui/boxes/menu_box_normal.tres" id="6"]
 [ext_resource type="Texture2D" uid="uid://cprnpw3je0r7r" path="res://gui/dropdown_arrow.png" id="7"]
 [ext_resource type="StyleBox" uid="uid://q14towpo4vsu" path="res://gui/dialog/sign_box.tres" id="8"]
@@ -52,6 +52,7 @@ region_rect = Rect2(0, 0, 13, 26)
 
 [resource]
 default_font = ExtResource("1")
+default_font_size = 15
 Label/colors/font_color = Color(0.980392, 0.905882, 0.913725, 1)
 LineEdit/styles/normal = ExtResource("8")
 OptionButton/icons/arrow = ExtResource("7")
