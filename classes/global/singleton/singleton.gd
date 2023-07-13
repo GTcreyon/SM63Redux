@@ -223,7 +223,7 @@ func set_pause(label: String, set: bool):
 		meta_paused = meta_paused or meta_pauses[pause]
 
 
-func get_input_map_json_saved():
+func get_input_map_json_saved() -> String:
 	var file = FileAccess.open("user://controls.json", FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()
@@ -258,7 +258,7 @@ func load_input_map(input_json):
 			InputMap.action_add_event(key, event)
 
 
-func get_input_map_json_current():
+func get_input_map_json_current() -> String:
 	var save_dict = {}
 	for key in InputMap.get_actions():
 		if WHITELISTED_ACTIONS.has(key):
@@ -273,7 +273,7 @@ func get_input_map_json_current():
 						key_entry.append("b:%d" % action.button_index)
 					"InputEventJoypadMotion":
 						key_entry.append("a:%d;%d" % [action.axis, action.axis_value])
-	return JSON.new().stringify(save_dict)
+	return JSON.stringify(save_dict)
 
 
 func save_input_map_current() -> void:

@@ -143,7 +143,7 @@ func run_command(cmd: String):
 					"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
 					["Content-Type:application/json"],
 					HTTPClient.METHOD_POST,
-					JSON.new().stringify({"content": cmd.substr(7), "username": hook_name})
+					JSON.stringify({"content": cmd.substr(7), "username": hook_name})
 					)
 			"rename":
 				hook_name = cmd.substr(7)
@@ -151,7 +151,7 @@ func run_command(cmd: String):
 					"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
 					["Content-Type:application/json"], 
 					HTTPClient.METHOD_POST,
-					JSON.new().stringify({"content":"renamed to \"" + hook_name + "\"", "username": hook_name})
+					JSON.stringify({"content":"renamed to \"" + hook_name + "\"", "username": hook_name})
 					)
 			_:
 				Singleton.log_msg("Unknown command \"%s\"." % args[0], Singleton.LogType.ERROR)
