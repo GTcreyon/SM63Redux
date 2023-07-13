@@ -310,7 +310,7 @@ func _handle_impact(body, is_exit):
 		var speed_mult = sqrt(3 * body_speed) / 2
 		# Factor in body's area
 		var player_area = 348 # Player character's default area is the baseline
-		var area_mult = 4 * (other_shape.size.x * other_shape.size.y / player_area)
+		var area_mult = (other_shape.size.x * other_shape.size.y / player_area)
 		height_mult *= area_mult
 		speed_mult *= area_mult
 		
