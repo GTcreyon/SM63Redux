@@ -105,6 +105,9 @@ func run_command(cmd: String):
 					else:
 						Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
 			"scene":
+				if len(args) == 1:
+					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
+					return
 				var scene = "res://" + args[1] + ".tscn"
 				var file_check = File.new()
 				if file_check.file_exists(scene):
@@ -116,6 +119,9 @@ func run_command(cmd: String):
 				else:
 					Singleton.log_msg("Scene does not exist.", Singleton.LogType.ERROR)
 			"water":
+				if len(args) == 1:
+					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
+					return
 				if args[1].to_lower() == "inf":
 					$"/root/Main/Player".water = INF
 					Singleton.log_msg("Water is now infinite.")
@@ -136,15 +142,27 @@ func run_command(cmd: String):
 				$"/root/Main/Player".take_damage(8)
 				Singleton.log_msg("Dead.")
 			"dmg":
+				if len(args) == 1:
+					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
+					return
 				$"/root/Main/Player".take_damage(int(args[1]))
 				Singleton.log_msg("Took %d damage." % int(args[1]))
 			"fdmg":
+				if len(args) == 1:
+					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
+					return
 				$"/root/Main/Player".hp -= int(args[1])
 				Singleton.log_msg("Forced %d damage." % int(args[1]))
 			"hit":
+				if len(args) <= 2:
+					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
+					return
 				$"/root/Main/Player".take_damage_shove(int(args[1]), int(args[2]))
 				Singleton.log_msg("Hit for %d damage." % int(args[1]))
 			"hp", "health":
+				if len(args) == 1:
+					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
+					return
 				var val = int(args[1])
 				if args[1] != "0" and val == 0:
 					Singleton.log_msg("Couldn't set HP to %s." % args[1], Singleton.LogType.ERROR)
@@ -171,6 +189,9 @@ func run_command(cmd: String):
 				# warning-ignore:return_value_discarded
 				get_tree().change_scene("res://scenes/menus/visual_pipescript/editor.tscn")
 			"fludd":
+				if len(args) == 1:
+					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
+					return
 				var player = $"/root/Main/Player"
 				match args[1]:
 					"h", "hover", "0":
@@ -194,6 +215,9 @@ func run_command(cmd: String):
 				inst.position = $"/root/Main/Player".position + Vector2.UP * 64 + Vector2(rand_range(-16, 16), rand_range(-16, 16))
 				$"/root/Main".add_child(inst)
 			"locale":
+				if len(args) == 1:
+					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
+					return
 				TranslationServer.set_locale(args[1])
 				Singleton.log_msg("Locale set to \"%s\"." % args[1])
 			"report":
