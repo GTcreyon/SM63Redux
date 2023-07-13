@@ -174,26 +174,6 @@ script = ExtResource("3")
 bus = &"Music"
 script = ExtResource("5")
 
-[node name="FadeOut" type="Tween" parent="Music"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
-
-[node name="FadeIn" type="Tween" parent="Music"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
-
 [node name="BGT1" parent="." instance=ExtResource("15")]
 
 [node name="BGGrid" type="TextureRect" parent="BGT1"]
