@@ -28,7 +28,7 @@ func _process(_delta):
 	# Show whichever screen's button is pressed
 	# (The script for the buttons guarantees only one can be pressed at a time)
 	for i in range(4):
-		if buttons[i].pressed and modulate.a > 0:
+		if buttons[i].button_pressed and modulate.a > 0:
 			menus[i].visible = true
 			info_visible = false
 		else:
