@@ -1,6 +1,6 @@
 [gd_scene load_steps=41 format=3 uid="uid://cahb2wxuq4124"]
 
-[ext_resource type="PackedScene" path="res://gui/pause/level_info/level_info.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://d0i3anj5fm6op" path="res://gui/pause/level_info/level_info.tscn" id="1"]
 [ext_resource type="PackedScene" path="res://gui/pause/map/map.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://4rjixlvilqp1" path="res://gui/pause/options/options_menu.tscn" id="3"]
 [ext_resource type="Texture2D" uid="uid://s56rcjea8ltg" path="res://gui/pause/buttons/text_map.png" id="4"]
@@ -34,7 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://b0a0hbweq6cc8" path="res://gui/pause/pause_right_middle.png" id="32"]
 [ext_resource type="Texture2D" uid="uid://ctmrxbnigd3ac" path="res://gui/pause/pause_left_corner_top.png" id="33"]
 [ext_resource type="Texture2D" uid="uid://dciu0pwecptx4" path="res://gui/pause/pause_left_middle.png" id="34"]
-[ext_resource type="PackedScene" path="res://gui/pause/exit/exit.tscn" id="35"]
+[ext_resource type="PackedScene" uid="uid://fyn5gm3oc3v1" path="res://gui/pause/exit/exit.tscn" id="35"]
 
 [sub_resource type="StyleBoxEmpty" id="10"]
 
@@ -78,6 +78,8 @@ offset_bottom = -33.0
 
 [node name="LevelInfo" parent="Content" instance=ExtResource("1")]
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 
 [node name="MapMenu" parent="Content" instance=ExtResource("2")]
 visible = false
@@ -101,6 +103,8 @@ anchor_bottom = 0.0
 [node name="ExitMenu" parent="Content" instance=ExtResource("35")]
 visible = false
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
