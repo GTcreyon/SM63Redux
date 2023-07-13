@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=67 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -27,7 +27,8 @@
 [ext_resource type="Texture2D" uid="uid://dlava3dmxxqjy" path="res://scenes/menus/level_designer/dummy.png" id="25"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/bg_grid.gd" id="26"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/open_dialog.gd" id="27"]
-[ext_resource type="StyleBox" uid="uid://b6ys7xuk1e71f" path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" id="28"]
+[ext_resource type="StyleBox" path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" id="28"]
+[ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="28_0ajtt"]
 [ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" id="29"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/scroller.gd" id="30"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" id="34"]
@@ -280,6 +281,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1")
 
@@ -421,8 +424,7 @@ offset_left = 3.0
 offset_top = 3.0
 offset_right = -3.0
 offset_bottom = -3.0
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
+theme = ExtResource("28_0ajtt")
 columns = 2
 
 [node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
@@ -434,8 +436,7 @@ offset_left = 3.0
 offset_top = 3.0
 offset_right = -3.0
 offset_bottom = -3.0
-theme_override_constants/h_separation = 4
-theme_override_constants/v_separation = 4
+theme = ExtResource("28_0ajtt")
 columns = 2
 
 [node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid"]
@@ -506,6 +507,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="UILayer/Loading"]
 layout_mode = 0
