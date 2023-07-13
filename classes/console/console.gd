@@ -6,6 +6,7 @@ var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
 var line_count: int = 0
 var command_hints = [
+	["help", "Displays the help menu"],
 	["w", ["t1", "tutorial_1", "lobby"], "Wraps to a specific level"],
 	["scene", "Changes the scene to a specific file (without the .tscn)"], # Idea: possible filesystem traversal? Although this seems a bit much for this PR.
 	["water", ["inf", "<integer>"], "Sets the water level for your fludd (normal range 0-100 or infinite)"],
@@ -47,6 +48,7 @@ func get_autocompletion_for_command(cmd: String):
 		if matching:
 			return completion
 
+
 func _ready():
 	var locale_completion = get_autocompletion_for_command("locale")
 	var locales = TranslationServer.get_loaded_locales()
@@ -64,6 +66,19 @@ func run_command(cmd: String):
 		history.append(cmd)
 		var args: PoolStringArray = cmd.split(" ")
 		match args[0].to_lower():
+			"help":
+				for hint in command_hints:
+					var command = hint[0]
+					var formatted = ""
+					if typeof(command) == TYPE_ARRAY:
+						for option in command:
+							formatted += option + ", "
+						formatted = formatted.substr(0, len(formatted) - 2)
+					else:
+						formatted = command
+					var description = hint[len(hint) - 1]
+					#formatted += "\t\t\t" + description
+					Singleton.log_msg("%-20s %s" % [formatted, description], Singleton.LogType.INFO)
 			"w":
 				var path
 				if len(args) == 1:
