@@ -49,7 +49,9 @@ func get_autocompletion_for_command(cmd: String):
 
 func _ready():
 	var locale_completion = get_autocompletion_for_command("locale")
-	locale_completion.append(TranslationServer.get_loaded_locales())
+	var locales = TranslationServer.get_loaded_locales()
+	locales.append("en_US")
+	locale_completion.append(locales)
 
 	add_child(req)
 
@@ -188,16 +190,22 @@ func run_command(cmd: String):
 				Singleton.log_msg("Unknown command \"%s\"." % args[0], Singleton.LogType.ERROR)
 
 
-func _process(_delta):
-	if Input.is_action_just_pressed("debug") or Input.is_action_just_pressed("altdebug"):
-		visible = !visible
-		get_tree().paused = visible
-		Singleton.set_pause("console", visible)
-		if visible:
-			input_line.grab_focus()
-			input_line.text = ""
+func enable(enabled):
+	visible = enabled
+	get_tree().paused = visible
+	Singleton.set_pause("console", visible)
 	if visible:
-		if Input.is_action_just_pressed("ui_accept"):
+		input_line.grab_focus()
+		input_line.text = ""
+
+
+func _input(event):
+	if event.is_action_pressed("altdebug") and visible == false:
+		enable(true)
+		accept_event()
+	
+	if visible:
+		if event.is_action_pressed("ui_accept"):
 			if selected_completion.selected:
 				var caret = input_line.caret_position
 				var move_caret_by = len(selected_completion.option) - len(selected_completion.query) + 1
@@ -206,8 +214,10 @@ func _process(_delta):
 				_on_Input_text_changed(input_line.text)
 			else:
 				run_command(input_line.text.strip_edges())
-				input_line.text = ""
-		if Input.is_action_just_pressed("ui_up"):
+				enable(false)
+				accept_event()
+		
+		if event.is_action_pressed("ui_up"):
 			var size = history.size()
 			if hist_index < history.size():
 				input_line.text = history[size - hist_index - 1]
@@ -234,7 +244,6 @@ func display_completion(query: String, options: Array):
 		if !option.begins_with(query):
 			sorted_options.append(option)
 	
-	var s = ""
 	for option in sorted_options:
 		if option.begins_with(query):
 			suggestions_log.push_color(Color.aqua)
