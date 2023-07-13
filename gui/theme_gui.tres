@@ -1,8 +1,10 @@
 [gd_resource type="Theme" load_steps=17 format=3 uid="uid://dh1vom0ars54l"]
 
 [ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.tres" id="1"]
+[ext_resource type="FontFile" uid="uid://bvufa2xcq80go" path="res://fonts/red/gui_red.fnt" id="1_iucmc"]
 [ext_resource type="StyleBox" uid="uid://dhliyj8vycb7q" path="res://gui/boxes/menu_box_normal.tres" id="6"]
 [ext_resource type="Texture2D" uid="uid://cprnpw3je0r7r" path="res://gui/dropdown_arrow.png" id="7"]
+[ext_resource type="FontFile" uid="uid://dd0b85jy8620" path="res://fonts/white/gui_white.fnt" id="7_nqc2k"]
 [ext_resource type="StyleBox" uid="uid://q14towpo4vsu" path="res://gui/dialog/sign_box.tres" id="8"]
 [ext_resource type="StyleBox" uid="uid://c7gtbox3yrbk7" path="res://gui/boxes/menu_box_hover.tres" id="9"]
 [ext_resource type="StyleBox" uid="uid://b54n55rde5xf6" path="res://gui/boxes/menu_box_pressed.tres" id="10"]
@@ -54,6 +56,14 @@ region_rect = Rect2(0, 0, 13, 26)
 default_font = ExtResource("1")
 default_font_size = 15
 Label/colors/font_color = Color(0.980392, 0.905882, 0.913725, 1)
+Label/colors/font_outline_color = Color(0.235294, 0.0784314, 0, 1)
+Label/constants/outline_size = 1
+LabelRed/base_type = &"Label"
+LabelRed/colors/font_color = Color(1, 1, 1, 1)
+LabelRed/fonts/font = ExtResource("1_iucmc")
+LabelWhite/base_type = &"Label"
+LabelWhite/colors/font_color = Color(1, 1, 1, 1)
+LabelWhite/fonts/font = ExtResource("7_nqc2k")
 LineEdit/styles/normal = ExtResource("8")
 OptionButton/icons/arrow = ExtResource("7")
 OptionButton/styles/hover = ExtResource("9")
