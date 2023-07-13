@@ -6,25 +6,25 @@ var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
 var line_count: int = 0
 var command_hints = [
-	["w", ["t1", "tutorial_1", "lobby"]],
-	["scene"], # Idea: possible filesystem traversal? Although this seems a bit much for this PR.
-	["water", ["inf", "<integer>"]],
-	["ref"],
-	["c"],
-	["die"],
-	["dmg", "<integer>"],
-	["fdmg", "<integer>"],
-	["hit", "<integer>", "<integer>"],
-	[["hp", "health"], "<integer>"],
-	[["designer", "ld"]],
-	["menu"],
-	["title"],
-	["vps"],
-	["fludd", ["none", "all", "t", "turbo", "2", "r", "rocket", "1", "h", "hover", "0"]],
-	["cherry"],
-	["locale"], # In _ready() all language options will be added
-	["report", "<report...>"],
-	["rename", "<report...>"],
+	["w", ["t1", "tutorial_1", "lobby"], "Wraps to a specific level"],
+	["scene", "Changes the scene to a specific file (without the .tscn)"], # Idea: possible filesystem traversal? Although this seems a bit much for this PR.
+	["water", ["inf", "<integer>"], "Sets the water level for your fludd (normal range 0-100 or infinite)"],
+	["ref", "Refills your water"],
+	["c", "Toggles classic mode"],
+	["die", "Instantly kills the player"],
+	["dmg", "<integer>", "Damages the player"],
+	["fdmg", "<integer>", "Damages the player, ignoring any resistances"],
+	["hit", "<integer>", "<1 or -1>", "Damages the player and shoves them into a direction"],
+	[["hp", "health"], "<integer>", "Heals the player"],
+	[["designer", "ld"], "Enters the level designer"],
+	["menu", "Goes back to the menu"],
+	["title", "Goes back to the title screen"],
+	["vps", "Open the Visual PipeScript editor"],
+	["fludd", ["none", "all", "t", "turbo", "2", "r", "rocket", "1", "h", "hover", "0"], "Change your currently equipped fludd"],
+	["cherry", "Clone mario"],
+	["locale", "Changes the language of the game"], # In _ready() all language options will be added
+	["report", "<report...>", "Report a bug"],
+	["rename", "<report...>", "Renames a bug report title"],
 ]
 var selected_completion = {
 	selected = false,
@@ -51,7 +51,7 @@ func _ready():
 	var locale_completion = get_autocompletion_for_command("locale")
 	var locales = TranslationServer.get_loaded_locales()
 	locales.append("en_US")
-	locale_completion.append(locales)
+	locale_completion.insert(1, locales)
 
 	add_child(req)
 
@@ -280,7 +280,7 @@ func _on_Input_text_changed(text: String):
 	if completion == null:
 		display_completion(text, [])
 		return
-	var words_in_completion = len(completion)
+	var words_in_completion = len(completion) - 1 # Ignore the description
 	
 	# Is the user trying to provide more arguments than there are?
 	if word_count > words_in_completion:
