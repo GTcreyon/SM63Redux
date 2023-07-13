@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b4mdlq52ic00u"]
+[gd_scene load_steps=21 format=3 uid="uid://bycv605ap1b6u"]
 
 [ext_resource type="Script" path="res://gui/water_meter/water_meter.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dw42aeibi8ex" path="res://gui/water_meter/water_meter_surface.png" id="2"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bcfdvn7oos1x7" path="res://gui/water_meter/water_meter_bottom.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://fb5mc0pvkmnq" path="res://gui/water_meter/water_meter_fill.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://bslcguplr6tbb" path="res://gui/water_meter/water_meter_power_filler_cover.png" id="9"]
-[ext_resource type="Texture2D" uid="uid://cr6qqqfrqfrdv" path="res://gui/water_meter/water_meter_mask.png" id="9_vqkgl"]
+[ext_resource type="Texture2D" path="res://gui/water_meter/water_meter_mask.png" id="9_vqkgl"]
 [ext_resource type="Texture2D" uid="uid://bx5q6gkqvi6ot" path="res://gui/water_meter/water_meter_bubble_small.png" id="10"]
 [ext_resource type="Texture2D" uid="uid://bv54cehugq8oi" path="res://gui/water_meter/water_meter_bubble_big.png" id="11"]
 [ext_resource type="Texture2D" uid="uid://bkkbjbrgoocex" path="res://classes/pickup/fludd_box/nozzle_rocket.png" id="12"]
@@ -100,11 +100,14 @@ z_index = -1
 texture = ExtResource("2")
 centered = false
 
-[node name="BubbleMask" type="Sprite2D" parent="WaterMeter"]
+[node name="BubbleMask" type="NinePatchRect" parent="WaterMeter"]
 clip_children = 1
 z_index = -2
+offset_right = 32.0
+offset_bottom = 97.0
 texture = ExtResource("9_vqkgl")
-centered = false
+patch_margin_top = 9
+patch_margin_bottom = 9
 
 [node name="BubblesBig" type="GPUParticles2D" parent="WaterMeter/BubbleMask"]
 light_mask = 2
