@@ -150,31 +150,6 @@ func _on_body_exited(body):
 
 
 func on_ready():
-	# Get the max x and max y
-	var max_x = 1; var max_y = 1
-	for vertex in render_polygon.polygon:
-		max_x = max(vertex.x, max_x)
-		max_y = max(vertex.y, max_y)
-	# Wiki says textures can't be bigger than 16384x16384 pixels
-	# https://docs.godotengine.org/en/stable/classes/class_image.html?highlight=16384#constants
-	# So that means water can't be bigger than 16384x16384 pixels either (512x512 tiles)
-	assert(max_x < 16384 and max_y < 16384,
-		"Water cannot be larger than 16384 pixels on any axis! Current width: %s. Current height: %s." % [max_x, max_y])
-	
-	# Generate a white texture for UV
-	# Note: is there a less space needing format? it really only needs to store 2 colors, so 1 bit image format would work
-	var img = Image.create(max_x, max_y, false, Image.FORMAT_L8)
-	img.fill(Color(1, 1, 1, 1))
-	var img_texture = ImageTexture.new()
-	img_texture.create_from_image(img)
-	# Apply it to the main render polygon
-	render_polygon.texture = img_texture
-
-	# Make the uv coords equal the one of the polygon BEFORE subdividing
-	#render_polygon.uv = render_polygon.polygon
-	#$Collision.polygon = render_polygon.polygon
-	
-	# The water should be purely visual, so the uv and collision should be set before subdividing
 	_subdivide_surface()
 
 

@@ -16,7 +16,7 @@ float modf_gles2(float x, float range) {
 }
 
 void fragment() {
-	// To begin with, COLOR comes from the object's color tint factor
+	// To begin with, texture color comes from the object's color tint factor
 	// and UV is basically directly analog to fragment position.
 	
 	// Mask away bits of water that are outside the display polygon.
@@ -26,7 +26,7 @@ void fragment() {
 	}
 	// Fill in water that's inside the polygon.
 	else {
-		// Load the alpha of the base color for now.
+		// Load the base color for now.
 		col.a = base_water_color.a;
 		
 		// Count pixels up from here to the surface.
@@ -73,6 +73,7 @@ void fragment() {
 		// Haven't hit surface band or the outline. Render water color.
 		COLOR = col;
 	}
+	//COLOR = vec4(UV, 0, 1);
 }
 
 /*
