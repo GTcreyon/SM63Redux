@@ -171,16 +171,6 @@ theme_override_colors/default_color = Color(0.976471, 0.909804, 0.909804, 1)
 bbcode_enabled = true
 scroll_active = false
 
-[node name="Tween" type="Tween" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
-
 [node name="Next" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10")
 volume_db = -15.0
