@@ -32,7 +32,7 @@ func _get_nozzle_label(id):
 
 func _on_AnimatedSprite_animation_finished():
 	if sprite.animation.begins_with("bounce_"):
-		sprite.animation = "open_" + _get_nozzle_label(nozzle)
+		sprite.play("open_" + _get_nozzle_label(nozzle))
 	elif sprite.animation.begins_with("open_"):
 		queue_free()
 
