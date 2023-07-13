@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bhcn3kch6t5hu"]
+[gd_scene load_steps=29 format=3 uid="uid://bhcn3kch6t5hu"]
 
 [ext_resource type="Texture2D" uid="uid://hjwjcoop1ep5" path="res://classes/pickup/fludd_box/pickup_turbo.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://01rvhulbgmob" path="res://classes/pickup/fludd_box/pickup_rocket.png" id="2"]
@@ -19,7 +19,6 @@
 [ext_resource type="Texture2D" uid="uid://cfovv2kvv8jx4" path="res://gui/pause/map/divider_edge.png" id="19"]
 [ext_resource type="Texture2D" uid="uid://cw3yd45xx6bf8" path="res://gui/pause/map/map_shine_1.png" id="20"]
 [ext_resource type="Script" path="res://gui/hud/shine_map.gd" id="21"]
-[ext_resource type="FontFile" uid="uid://bvufa2xcq80go" path="res://fonts/red/gui_red.fnt" id="22"]
 [ext_resource type="Script" path="res://gui/pause/map_course.gd" id="23"]
 [ext_resource type="Texture2D" uid="uid://cx81t7mdme5fg" path="res://gui/hud/hud_icons.png" id="24"]
 
@@ -116,6 +115,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("21")
 
 [node name="Courses" type="VBoxContainer" parent="."]
@@ -148,7 +149,7 @@ anchor_right = 1.0
 offset_left = 133.0
 offset_top = 14.0
 offset_bottom = 49.0
-theme_override_fonts/font = ExtResource("22")
+theme_type_variation = &"LabelRed"
 text = "Bob-omb Battlefield
  - Coming soon!"
 uppercase = true
@@ -174,7 +175,7 @@ offset_left = 32.0
 offset_top = 1.0
 offset_right = 72.0
 offset_bottom = 17.0
-theme_override_fonts/font = ExtResource("22")
+theme_type_variation = &"LabelRed"
 
 [node name="ShineGroup" type="Control" parent="Courses/MainCourses/BoB"]
 anchors_preset = 0
@@ -305,7 +306,7 @@ anchor_right = 1.0
 offset_left = 133.0
 offset_top = 14.0
 offset_bottom = 49.0
-theme_override_fonts/font = ExtResource("22")
+theme_type_variation = &"LabelRed"
 text = "Coming soon!"
 uppercase = true
 
@@ -330,7 +331,7 @@ offset_left = 32.0
 offset_top = 1.0
 offset_right = 72.0
 offset_bottom = 17.0
-theme_override_fonts/font = ExtResource("22")
+theme_type_variation = &"LabelRed"
 
 [node name="ShineGroup" type="Control" parent="Courses/MainCourses/SL"]
 visible = false
@@ -468,7 +469,7 @@ anchor_right = 1.0
 offset_left = 101.0
 offset_top = 14.0
 offset_bottom = 49.0
-theme_override_fonts/font = ExtResource("22")
+theme_type_variation = &"LabelRed"
 text = "Shifting
 Sand Land"
 uppercase = true
@@ -494,7 +495,7 @@ offset_left = 32.0
 offset_top = 1.0
 offset_right = 72.0
 offset_bottom = 17.0
-theme_override_fonts/font = ExtResource("22")
+theme_type_variation = &"LabelRed"
 
 [node name="ShineGroup" type="Control" parent="Courses/MiniCourses/SSL"]
 anchors_preset = 0

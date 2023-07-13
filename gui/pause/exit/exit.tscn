@@ -8,6 +8,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("5")
 
@@ -44,7 +46,7 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -8.0
 offset_bottom = 8.0
-theme = ExtResource("3")
+theme_type_variation = &"LabelWhite"
 text = "EXIT LEVEL"
 horizontal_alignment = 1
 
@@ -65,7 +67,7 @@ anchor_bottom = 0.5
 offset_top = -8.02
 offset_bottom = 7.5
 pivot_offset = Vector2(178, 8)
-theme = ExtResource("3")
+theme_type_variation = &"LabelWhite"
 text = "QUIT TO TITLE"
 horizontal_alignment = 1
 
@@ -86,7 +88,7 @@ anchor_bottom = 0.5
 offset_top = -8.02
 offset_bottom = 7.5
 pivot_offset = Vector2(178, 8)
-theme = ExtResource("3")
+theme_type_variation = &"LabelWhite"
 text = "CLOSE GAME"
 horizontal_alignment = 1
 
