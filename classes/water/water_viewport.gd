@@ -68,7 +68,7 @@ func refresh():
 	root_mat.set_shader_parameter("surface_texture_size", surface_texture_size)
 	material = root_mat
 	texture = viewport.get_texture()
-	
+	2
 	# For the editor, update the display color.
 	water_polygon.color = Color(water_color.r, water_color.g, water_color.b, 1)
 	
