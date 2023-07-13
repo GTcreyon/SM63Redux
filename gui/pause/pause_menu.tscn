@@ -55,6 +55,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("6")
 
@@ -93,6 +95,8 @@ mouse_filter = 2
 visible = false
 layout_mode = 0
 anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
 
 [node name="ExitMenu" parent="Content" instance=ExtResource("35")]
 visible = false
