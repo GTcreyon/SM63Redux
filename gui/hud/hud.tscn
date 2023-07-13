@@ -209,4 +209,5 @@ offset_bottom = 17.0
 theme_type_variation = &"LabelRed"
 
 [node name="MeterControl" parent="HUDControl/Stats" instance=ExtResource("11")]
-anchors_preset = 0
+instance=ExtResource("11")]
+layout_mode = 1

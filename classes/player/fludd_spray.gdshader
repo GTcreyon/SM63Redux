@@ -18,7 +18,7 @@ void fragment() {
 	
 		float outline_sum = 0.;
 		
-		vec2 pixel_scale = SCREEN_PIXEL_SIZE / zoom;
+		vec2 pixel_scale = SCREEN_PIXEL_SIZE * zoom;
 		outline_sum += sign(texture(TEXTURE, UV + vec2(0, pixel_scale.y)).r);
 		outline_sum += sign(texture(TEXTURE, UV + vec2(0, pixel_scale.y * 2.)).r);
 		outline_sum += sign(texture(TEXTURE, UV - vec2(0, pixel_scale.y)).r);

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://mquw3fwscah5"
-path="res://.godot/imported/water_meter_mask_filler.png-b07742dee3052a64a40dfc5cf69c080a.ctex"
+uid="uid://cr6qqqfrqfrdv"
+path="res://.godot/imported/water_meter_mask.png-09532bf01c55be07fc7c5852d3be8114.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gui/water_meter/water_meter_mask_filler.png"
-dest_files=["res://.godot/imported/water_meter_mask_filler.png-b07742dee3052a64a40dfc5cf69c080a.ctex"]
+source_file="res://gui/water_meter/water_meter_mask.png"
+dest_files=["res://.godot/imported/water_meter_mask.png-09532bf01c55be07fc7c5852d3be8114.ctex"]
 
 [params]
 
