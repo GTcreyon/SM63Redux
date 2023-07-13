@@ -40,18 +40,19 @@ region = Rect2(51, 3, 16, 17)
 follow_viewport_enabled = true
 
 [node name="HUDControl" type="Control" parent="."]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("14")
 
 [node name="DialogBox" parent="HUDControl" instance=ExtResource("1")]
 visible = false
 layout_mode = 1
-grow_horizontal = 2
-grow_vertical = 0
 
 [node name="PauseMenu" parent="HUDControl" instance=ExtResource("7")]
 visible = false
@@ -62,6 +63,7 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
+grow_horizontal = 2
 
 [node name="Stats" type="Control" parent="HUDControl"]
 anchors_preset = 0

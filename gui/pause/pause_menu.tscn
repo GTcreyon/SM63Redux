@@ -51,6 +51,7 @@ atlas = ExtResource("28")
 region = Rect2(20, 63, 20, 21)
 
 [node name="PauseMenu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,6 +112,8 @@ visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
