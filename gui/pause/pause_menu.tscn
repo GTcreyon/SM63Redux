@@ -78,42 +78,32 @@ offset_right = -37.0
 offset_bottom = -33.0
 
 [node name="LevelInfo" parent="Content" instance=ExtResource("1")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 
 [node name="MapMenu" parent="Content" instance=ExtResource("2")]
 visible = false
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 mouse_filter = 2
 
 [node name="FluddMenu" type="Control" parent="Content"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="OptionsMenu" parent="Content" instance=ExtResource("3")]
 visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ExitMenu" parent="Content" instance=ExtResource("35")]
 visible = false
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
+layout_mode = 1
 
 [node name="ButtonContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -141,8 +131,9 @@ texture_off = ExtResource("17")
 texture_on = ExtResource("20")
 
 [node name="Stars" type="Polygon2D" parent="ButtonContainer/ButtonMap"]
+texture_repeat = 2
 texture = ExtResource("17")
-polygon = PackedVector2Array(1, 3, 95, 3, 95, 32, 1, 32)
+polygon = PackedVector2Array(8, 1, 142, 1, 142, 32, 8, 32)
 
 [node name="Text" type="TextureRect" parent="ButtonContainer/ButtonMap"]
 layout_mode = 0
@@ -171,8 +162,9 @@ texture_off = ExtResource("5")
 texture_on = ExtResource("18")
 
 [node name="Stars" type="Polygon2D" parent="ButtonContainer/ButtonFludd"]
+texture_repeat = 2
 texture = ExtResource("5")
-polygon = PackedVector2Array(1, 3, 95, 3, 95, 32, 1, 32)
+polygon = PackedVector2Array(1, 1, 143, 1, 143, 32, 1, 32)
 
 [node name="Text" type="TextureRect" parent="ButtonContainer/ButtonFludd"]
 layout_mode = 0
@@ -203,8 +195,9 @@ texture_off = ExtResource("14")
 texture_on = ExtResource("24")
 
 [node name="Stars" type="Polygon2D" parent="ButtonContainer/ButtonOptions"]
+texture_repeat = 2
 texture = ExtResource("14")
-polygon = PackedVector2Array(1, 3, 95, 3, 95, 32, 1, 32)
+polygon = PackedVector2Array(1, 1, 142, 1, 142, 32, 1, 32)
 
 [node name="Text" type="TextureRect" parent="ButtonContainer/ButtonOptions"]
 layout_mode = 0
@@ -235,8 +228,9 @@ texture_off = ExtResource("13")
 texture_on = ExtResource("10")
 
 [node name="Stars" type="Polygon2D" parent="ButtonContainer/ButtonExit"]
+texture_repeat = 2
 texture = ExtResource("13")
-polygon = PackedVector2Array(1, 3, 95, 3, 95, 32, 1, 32)
+polygon = PackedVector2Array(1, 1, 143, 1, 143, 32, 1, 32)
 
 [node name="Text" type="TextureRect" parent="ButtonContainer/ButtonExit"]
 layout_mode = 0
@@ -261,7 +255,7 @@ offset_bottom = 19.0
 mouse_filter = 2
 texture = ExtResource("30")
 expand_mode = 1
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="Left" type="TextureRect" parent="."]
 layout_mode = 0
@@ -271,7 +265,7 @@ offset_right = 37.0
 offset_bottom = -33.0
 mouse_filter = 2
 texture = ExtResource("34")
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="Right" type="TextureRect" parent="."]
 layout_mode = 0
@@ -284,7 +278,7 @@ offset_bottom = -33.0
 pivot_offset = Vector2(37, 0)
 mouse_filter = 2
 texture = ExtResource("32")
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="LeftCornerTop" type="TextureRect" parent="."]
 layout_mode = 0
