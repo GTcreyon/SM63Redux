@@ -69,24 +69,24 @@
 
     <item id="0" name="Yellow Coin" description="A single coin.">
 		<scene path="res://classes/pickup/coin/yellow/coin_yellow.tscn" />
-		<texture tag="Placed" path="res://classes/pickup/coin/yellow/coin0.png" />
+		<texture tag="Placed" path="res://scenes/menus/level_designer/icons/pickup/coin_yellow.tres" />
         <inherit name="ball" />
     </item>
 
     <item id="1" name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!" />
 		<scene path="res://classes/pickup/coin/red/coin_red.tscn" />
-		<texture tag="Placed" path="res://classes/pickup/coin/red/red_coin0.png" />
+		<texture tag="Placed" path="res://scenes/menus/level_designer/icons/pickup/coin_red.tres" />
         <inherit name="ball" />
 	</item>
 
     <item id="2" name="Blue Coin" description="Counts for 5 yellow coins!">
 		<scene path="res://classes/pickup/coin/blue/coin_blue.tscn" />
-		<texture tag="Placed" path="res://classes/pickup/coin/blue/blue_coin0.png" />
+		<texture tag="Placed" path="res://scenes/menus/level_designer/icons/pickup/coin_blue.tres" />
         <inherit name="ball" />
     </item>
 
     <item id="3" name="Silver Shine" description="Collect them all to summon a Shine Sprite!">
-		<texture tag="List" path="res://gui/hud/hud_silver_shine.png" />
+		<texture tag="List" path="res://scenes/menus/level_designer/icons/pickup/silver_shine.tres" />
         <inherit name="ball" />
     </item>
 
@@ -183,8 +183,8 @@
 	
     <item id="17" name="Cheep Cheep" description="A fish. It will swim through water, and hop on land. When it sees a target, it will swim toward them and damage them by touching them. It can be attacked to kill it, dropping a coin.">
 		<scene path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" />
-		<texture tag="List" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep1.png" />
-		<texture tag="Placed" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep1.png" />
+		<texture tag="List" path="res://scenes/menus/level_designer/icons/enemy/cheep_cheep.tres" />
+		<texture tag="Placed" path="res://scenes/menus/level_designer/icons/enemy/cheep_cheep.tres" />
         <inherit name="post" />
     </item>
 	
