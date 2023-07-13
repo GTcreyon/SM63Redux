@@ -496,6 +496,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="OptionsControl" type="Control" parent="."]
+visible = false
 clip_contents = true
 anchors_preset = 0
 anchor_right = 1.0
@@ -506,10 +507,9 @@ offset_right = -4.0
 offset_bottom = -4.0
 
 [node name="OptionsMenu" parent="OptionsControl" instance=ExtResource("7")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="BackButton" type="TextureButton" parent="OptionsControl"]
 custom_minimum_size = Vector2(40, 44)
