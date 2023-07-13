@@ -1,6 +1,5 @@
-[gd_scene load_steps=53 format=3 uid="uid://c4ib2anhw3fvk"]
+[gd_scene load_steps=52 format=3 uid="uid://c4ib2anhw3fvk"]
 
-[ext_resource type="FontFile" path="res://fonts/bylight/bylight.tres" id="1"]
 [ext_resource type="Texture2D" uid="uid://babp6is7hdooe" path="res://gui/hud/touch_buttons.png" id="2"]
 [ext_resource type="StyleBox" uid="uid://wni4qj54ny6m" path="res://scenes/menus/title/main_menu/border.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://hgkl0jrhjuwv" path="res://scenes/menus/title/main_menu/selection_content.png" id="4"]
@@ -446,7 +445,6 @@ anchor_right = 1.0
 offset_right = -10.0
 offset_bottom = 14.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1")
 text = "Take the light back from Bowser and save the Mushroom Kingdom!"
 
 [node name="DescSettings" type="Label" parent="Border/DescriptionBox"]
@@ -455,7 +453,6 @@ anchor_right = 1.0
 offset_right = -10.0
 offset_bottom = 14.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1")
 text = "Create your own worlds in this in-depth Level Designer!"
 
 [node name="DescExtras" type="Label" parent="Border/DescriptionBox"]
@@ -464,7 +461,6 @@ anchor_right = 1.0
 offset_right = -10.0
 offset_bottom = 14.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1")
 text = "Enjoy a collection of trinkets and goodies!"
 
 [node name="DescLevelDesigner" type="Label" parent="Border/DescriptionBox"]
@@ -473,7 +469,6 @@ anchor_right = 1.0
 offset_right = -10.0
 offset_bottom = 14.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1")
 text = "Adjust anything and everything to your liking!"
 
 [node name="Stripe" type="Line2D" parent="."]

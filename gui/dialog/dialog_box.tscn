@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dab8j0mumrd1i"]
+[gd_scene load_steps=11 format=3 uid="uid://dab8j0mumrd1i"]
 
 [ext_resource type="Script" path="res://gui/dialog/dialog_box.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://q4n786rssbta" path="res://gui/dialog/faces/toad/anger.png" id="2"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dpkdvhta40a86" path="res://gui/dialog/dialog_star_open.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://c37sl1fw310ah" path="res://gui/dialog/boxes/neutral/neutral_edge.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://c13p4ssbpmjbx" path="res://gui/dialog/boxes/neutral/neutral_middle.png" id="7"]
-[ext_resource type="FontFile" path="res://fonts/bylight/bylight.tres" id="8"]
 [ext_resource type="AudioStream" uid="uid://cjpmppv2q5qt8" path="res://gui/sfx/back.wav" id="9"]
 [ext_resource type="AudioStream" uid="uid://ur631bh6dchh" path="res://gui/sfx/next.wav" id="10"]
 
@@ -43,6 +42,8 @@ offset_left = -128.0
 offset_top = 16.0
 offset_right = 128.0
 offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 script = ExtResource("1")
 
@@ -71,7 +72,6 @@ offset_top = -13.0
 offset_right = 56.0
 offset_bottom = 2.0
 theme_override_colors/font_color = Color(0.819608, 0.705882, 0.768627, 1)
-theme_override_fonts/font = ExtResource("8")
 
 [node name="PlateLeft" type="TextureRect" parent="EdgeLeft/Name"]
 modulate = Color(1, 1, 1, 0.74902)
@@ -168,7 +168,6 @@ offset_right = -12.0002
 offset_bottom = 57.0
 mouse_filter = 2
 theme_override_colors/default_color = Color(0.976471, 0.909804, 0.909804, 1)
-theme_override_fonts/normal_font = ExtResource("8")
 bbcode_enabled = true
 scroll_active = false
 

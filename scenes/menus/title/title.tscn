@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d01h2eqtefhok"]
+[gd_scene load_steps=20 format=3 uid="uid://d01h2eqtefhok"]
 
 [ext_resource type="PackedScene" uid="uid://y2u64ydhoy04" path="res://scenes/menus/title/logo/logo.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://cxdvdhn0m68oq" path="res://scenes/menus/title/title_bg/space_loop.png" id="2"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" path="res://scenes/menus/title/title_bg/magmoon.gd" id="11"]
 [ext_resource type="Script" path="res://scenes/menus/title/title_bg/mushmoon.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://brviibsje1te3" path="res://scenes/menus/title/title_bg/mushmoon.png" id="13"]
-[ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.tres" id="14"]
 [ext_resource type="Script" path="res://scenes/menus/title/start_text.gd" id="15"]
 [ext_resource type="PackedScene" uid="uid://c4ib2anhw3fvk" path="res://scenes/menus/title/main_menu/main_menu.tscn" id="16"]
 [ext_resource type="Script" path="res://scenes/menus/title/title.gd" id="17"]
@@ -106,7 +105,6 @@ anchor_bottom = 1.0
 offset_top = 265.0
 scale = Vector2(2, 2)
 pivot_offset = Vector2(321, 0)
-theme_override_fonts/font = ExtResource("14")
 text = "Press Z to start!"
 script = ExtResource("15")
 
@@ -133,5 +131,4 @@ anchor_bottom = 1.0
 offset_left = 3.0
 offset_top = -15.0
 pivot_offset = Vector2(-2, 15)
-theme_override_fonts/font = ExtResource("14")
 text = "v0.X.X"

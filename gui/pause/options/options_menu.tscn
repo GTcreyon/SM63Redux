@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://4rjixlvilqp1"]
+[gd_scene load_steps=7 format=3 uid="uid://4rjixlvilqp1"]
 
 [ext_resource type="PackedScene" path="res://scenes/menus/feedback/tickbox.tscn" id="1"]
-[ext_resource type="FontFile" path="res://fonts/bylight/bylight.tres" id="2"]
 [ext_resource type="Script" path="res://gui/pause/options/options_menu.gd" id="3"]
 [ext_resource type="Script" path="res://gui/pause/options/locale_select.gd" id="4"]
-[ext_resource type="PackedScene" path="res://gui/pause/options/button_menu.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://gui/pause/options/touch_menu.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://f3qkqx1ju1qa" path="res://gui/pause/options/button_menu.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://0ku6nm2pnx8f" path="res://gui/pause/options/touch_menu.tscn" id="9"]
 [ext_resource type="Theme" uid="uid://dh1vom0ars54l" path="res://gui/theme_gui.tres" id="10"]
 
 [node name="OptionsMenu" type="MarginContainer"]
@@ -38,7 +37,6 @@ layout_mode = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 2.0
-theme_override_fonts/font = ExtResource("2")
 text = "Disable camera limiting [Try this if the camera is broken]"
 
 [node name="TouchControls" parent="ScrollContainer/List" instance=ExtResource("1")]
@@ -48,7 +46,6 @@ layout_mode = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 2.0
-theme_override_fonts/font = ExtResource("2")
 text = "Enable touch controls"
 
 [node name="MuteMusic" parent="ScrollContainer/List" instance=ExtResource("1")]
@@ -58,7 +55,6 @@ layout_mode = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 2.0
-theme_override_fonts/font = ExtResource("2")
 text = "Mute music"
 
 [node name="MuteSFX" parent="ScrollContainer/List" instance=ExtResource("1")]
@@ -68,7 +64,6 @@ layout_mode = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 2.0
-theme_override_fonts/font = ExtResource("2")
 text = "Mute SFX"
 
 [node name="ShowTimer" parent="ScrollContainer/List" instance=ExtResource("1")]
@@ -78,7 +73,6 @@ layout_mode = 2
 layout_mode = 0
 offset_left = 23.0
 offset_top = 2.0
-theme_override_fonts/font = ExtResource("2")
 text = "Show timer
 "
 
@@ -87,7 +81,6 @@ custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-theme_override_fonts/font = ExtResource("2")
 script = ExtResource("4")
 
 [node name="ButtonMenu" parent="ScrollContainer/List" instance=ExtResource("8")]

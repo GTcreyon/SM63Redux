@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=66 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -40,7 +40,6 @@
 [ext_resource type="StyleBox" uid="uid://27dvir8jkf4y" path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" id="39"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_draw.gd" id="40"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_editor.gd" id="41"]
-[ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.tres" id="42"]
 
 [sub_resource type="AtlasTexture" id="10"]
 atlas = ExtResource("22")
@@ -526,7 +525,6 @@ offset_left = -90.0
 offset_top = -10.0
 offset_right = 90.0
 offset_bottom = 10.0
-theme_override_fonts/font = ExtResource("42")
 
 [node name="Label" type="Label" parent="UILayer/Loading"]
 layout_mode = 0
@@ -535,7 +533,6 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -42.0
 offset_bottom = -14.0
-theme_override_fonts/font = ExtResource("42")
 text = "Placeholder Loading Text"
 
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
