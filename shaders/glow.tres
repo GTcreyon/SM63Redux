@@ -1,11 +1,11 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ckiokx8dmutdj"]
 
-[ext_resource path="res://shaders/glow.gdshader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="1"]
 
 [resource]
 resource_local_to_scene = true
-shader = ExtResource( 1 )
-shader_param/width = 2
-shader_param/recenter = true
-shader_param/radial = false
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader = ExtResource("1")
+shader_parameter/width = 1.0
+shader_parameter/recenter = true
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
