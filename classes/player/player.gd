@@ -181,8 +181,6 @@ func _ready():
 	
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	
-	Singleton.reset_bus_effect("~Water Verb:", 0) # prevents garbage reverb
-	
 	# If we came from another scene, load our data from that scene.
 	if Singleton.warp_location != null:
 		position = Singleton.warp_location
@@ -231,6 +229,10 @@ func _on_WaterCheck_area_entered(_area):
 	switch_state(S.NEUTRAL)
 	# Refill FLUDD
 	water = max(water, 100)
+	
+	# Reset reverb effect. This clears any reverb tail left in the buffer
+	# from last time in water (or from the title screen, when the bus is on).
+	Singleton.reset_bus_effect(Singleton.WATER_VRB_BUS, 0)
 
 
 func _on_WaterCheck_area_exited(_area):

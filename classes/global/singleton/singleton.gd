@@ -287,7 +287,10 @@ func save_input_map(input_json):
 
 
 func reset_bus_effect(channel, effect_idx):
-	var bus_index = AudioServer.get_bus_index(channel)
-	var bus_effect = AudioServer.get_bus_effect(bus_index, effect_idx)
-	AudioServer.remove_bus_effect(bus_index, 0) # this just gets rid of any unwanted gunk stuck in the bus
-	AudioServer.add_bus_effect(bus_index, bus_effect, 0)
+	# If the passed channel is a String, convert it to a bus index.
+	if channel is String:
+		channel = AudioServer.get_bus_index(channel)
+	
+	var bus_effect = AudioServer.get_bus_effect(channel, effect_idx)
+	AudioServer.remove_bus_effect(channel, 0) # this just gets rid of any unwanted gunk stuck in the bus
+	AudioServer.add_bus_effect(channel, bus_effect, 0)
