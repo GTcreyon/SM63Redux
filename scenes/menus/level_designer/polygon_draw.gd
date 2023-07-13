@@ -82,13 +82,13 @@ func set_polygon(new):
 		
 		reparent_buttons()
 	
-	update()
+	queue_redraw()
 
 # Yuck
 func _process(_dt):
 	if should_draw_predict_line or should_have_buttons:
 		calculate_bounds()
-		update()
+		queue_redraw()
 
 func _draw():
 	if len(readonly_local_polygon) == 0:

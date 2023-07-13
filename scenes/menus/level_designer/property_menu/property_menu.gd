@@ -9,14 +9,14 @@ var target_node: Node = null
 @onready var main = $"/root/Main"
 
 func _on_CloseButton_pressed():
-	hide()
+	hide_menu()
 
 
-func hide():
+func hide_menu():
 	visible = false
 
 
-func show():
+func show_menu():
 	visible = true
 	var pos = get_global_mouse_position()
 	position = pos

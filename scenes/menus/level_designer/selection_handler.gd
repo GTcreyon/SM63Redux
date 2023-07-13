@@ -45,7 +45,13 @@ func calculate_selected(max_selected = 32):
 		query.transform = Transform2D(0, selection_rect.position + selection_rect.size / 2) # Calculate the center
 		hitboxes = collision_handler.intersect_shape(query, max_selected)
 	else:
-		hitboxes = collision_handler.intersect_point(selection_rect.position, max_selected, [], 0x7FFFFFFF, true, true)
+		# Good news! 4.1 extended the same design to points~
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = selection_rect.position
+		query.collision_mask = 0x7FFFFFFF;
+		query.collide_with_bodies = true
+		query.collide_with_areas = false
+		hitboxes = collision_handler.intersect_point(query, max_selected)
 	
 	# Convert from raw hitboxes to the actual items
 	var hit = []
@@ -87,11 +93,11 @@ func _unhandled_input(event):
 	# Open properties
 	if event.is_action_pressed("ld_open_properties") and len(selection_hit) == 1:
 		if property_menu.visible:
-			property_menu.hide()
+			property_menu.hide_menu()
 			accept_event()
 		else:
 			property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
-			property_menu.show()
+			property_menu.show_menu()
 			accept_event()
 		
 	if event.is_action_pressed("ld_delete"):

@@ -12,7 +12,7 @@ class_name PolygonContainer
 func set_polygon(new):
 	polygon = new
 	queue_sort()
-	update()
+	queue_redraw()
 
 
 func append(pos):
@@ -32,7 +32,7 @@ func append(pos):
 func set_vert(idx, pos):
 	polygon[idx] = pos
 	queue_sort()
-	update()
+	queue_redraw()
 
 
 func reset():
@@ -40,7 +40,7 @@ func reset():
 	for child in get_children():
 		remove_child(child)
 	queue_sort()
-	update()
+	queue_redraw()
 
 
 func _notification(what):

@@ -205,12 +205,12 @@ func decode_vector2_bytes(bytes: PackedByteArray) -> Vector2:
 	var half = size / 2 - 1
 	return Vector2(
 		decode_sint_bytes(
-			bytes.subarray(
+			bytes.slice(
 				0, half
 			)
 		),
 		decode_sint_bytes(
-			bytes.subarray(
+			bytes.slice(
 				half + 1, size - 1
 			)
 		)
@@ -268,7 +268,7 @@ func decode_string_bytes() -> String:
 
 
 func read_bytes(num: int) -> PackedByteArray:
-	var output = buffer_to_load.subarray(pointer, pointer + num - 1)
+	var output = buffer_to_load.slice(pointer, pointer + num - 1)
 	pointer += num
 	return output
 

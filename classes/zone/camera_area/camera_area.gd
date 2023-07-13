@@ -17,7 +17,7 @@ var shrink_number = 0
 var frozen = false
 #func force_draw(val):
 #	spawn_position = val
-#	update()
+#	queue_redraw()
 #
 #func _draw():
 #	if Engine.editor_hint:
