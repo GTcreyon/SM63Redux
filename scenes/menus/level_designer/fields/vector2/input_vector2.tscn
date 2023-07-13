@@ -20,7 +20,7 @@ offset_right = 45.0
 offset_bottom = 19.0
 theme_override_fonts/font = ExtResource( 1 )
 text = "AAAAA"
-align = 2
+horizontal_alignment = 2
 
 [node name="SpacingX" type="Control" parent="."]
 offset_left = 46.0
@@ -35,7 +35,7 @@ offset_right = 60.0
 offset_bottom = 19.0
 theme_override_fonts/font = ExtResource( 1 )
 text = "X"
-align = 2
+horizontal_alignment = 2
 
 [node name="LineEditX" type="LineEdit" parent="."]
 offset_left = 61.0
@@ -74,7 +74,7 @@ offset_right = 180.0
 offset_bottom = 19.0
 theme_override_fonts/font = ExtResource( 1 )
 text = "Y"
-align = 2
+horizontal_alignment = 2
 
 [node name="LineEditY" type="LineEdit" parent="."]
 offset_left = 181.0

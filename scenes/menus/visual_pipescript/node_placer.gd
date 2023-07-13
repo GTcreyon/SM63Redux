@@ -172,7 +172,7 @@ func add_buttons():
 	
 	for category in categories:
 		var heading = Label.new()
-		heading.align = Label.ALIGNMENT_CENTER
+		heading.horizontal_alignment = Label.ALIGNMENT_CENTER
 		heading.text = category
 		selection_container.add_child(heading)
 		for piece in pieces:

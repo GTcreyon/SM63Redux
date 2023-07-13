@@ -55,7 +55,7 @@ func refresh():
 				add_child(line)
 			else:
 				var text = Label.new()
-				text.align = Label.ALIGNMENT_CENTER
+				text.horizontal_alignment = Label.ALIGNMENT_CENTER
 				text.text = option.substr(4)
 				
 				# Inner lines

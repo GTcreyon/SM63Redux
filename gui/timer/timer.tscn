@@ -36,11 +36,11 @@ offset_bottom = -17.0
 scale = Vector2( 2, 2 )
 theme_override_fonts/font = ExtResource( 1 )
 text = "0:00"
-align = 2
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+horizontal_alignment = 2
 
 [node name="TotalMS" type="Label" parent="."]
 offset_left = 14.0
@@ -124,7 +124,7 @@ anchor_right = 1.0
 offset_bottom = 15.0
 theme_override_fonts/font = ExtResource( 1 )
 text = "0:00.000"
-align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+horizontal_alignment = 1

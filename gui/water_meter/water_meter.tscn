@@ -176,7 +176,7 @@ offset_top = 40.0
 offset_right = 31.0
 offset_bottom = 51.0
 theme_override_fonts/font = ExtResource( 20 )
-align = 1
+horizontal_alignment = 1
 
 [node name="Max" type="Sprite2D" parent="WaterMeter"]
 position = Vector2( 15.5, 48 )

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bgv324yrguog4"]
 
-[ext_resource type="FontFile" path="res://fonts/bylight/bylight.tres" id="1"]
+[ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.tres" id="1"]
 [ext_resource type="Script" path="res://gui/pause/options/rebind_option.gd" id="2"]
 
 [sub_resource type="StyleBoxEmpty" id="5"]
@@ -42,6 +42,7 @@ anchor_right = 1.0
 pivot_offset = Vector2(640, 0)
 theme_override_fonts/font = ExtResource("1")
 text = "[keys]"
+horizontal_alignment = 2
 
 [connection signal="mouse_entered" from="." to="." method="_on_RebindOption_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_RebindOption_mouse_exited"]

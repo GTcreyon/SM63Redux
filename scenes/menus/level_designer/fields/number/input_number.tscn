@@ -54,7 +54,7 @@ offset_right = 151.0
 offset_bottom = 19.0
 theme_override_fonts/font = ExtResource( 2 )
 text = "AAAAA"
-align = 2
+horizontal_alignment = 2
 
 [connection signal="text_changed" from="LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Up" to="." method="_on_Up_pressed"]
