@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://scenes/menus/title/title_bg/magmoon.gd" id="11"]
 [ext_resource type="Script" path="res://scenes/menus/title/title_bg/mushmoon.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://brviibsje1te3" path="res://scenes/menus/title/title_bg/mushmoon.png" id="13"]
-[ext_resource type="FontFile" path="res://fonts/bylight/bylight.tres" id="14"]
+[ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.tres" id="14"]
 [ext_resource type="Script" path="res://scenes/menus/title/start_text.gd" id="15"]
 [ext_resource type="PackedScene" uid="uid://c4ib2anhw3fvk" path="res://scenes/menus/title/main_menu/main_menu.tscn" id="16"]
 [ext_resource type="Script" path="res://scenes/menus/title/title.gd" id="17"]
@@ -37,14 +37,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource("2")
 expand_mode = 1
-stretch_mode = 2
+stretch_mode = 1
 script = ExtResource("4")
 
 [node name="LightBeam" type="TextureRect" parent="Space"]
 layout_mode = 0
 anchor_right = 1.0
 texture = ExtResource("9")
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="Magmoon" type="Sprite2D" parent="."]
 texture = ExtResource("10")
@@ -62,7 +62,7 @@ offset_bottom = 360.0
 pivot_offset = Vector2(0, 194)
 texture = ExtResource("3")
 expand_mode = 1
-stretch_mode = 2
+stretch_mode = 1
 script = ExtResource("5")
 
 [node name="Silhouettes" type="TextureRect" parent="Planet"]
@@ -71,7 +71,7 @@ anchor_right = 1.0
 offset_top = 119.0
 pivot_offset = Vector2(0, 75)
 texture = ExtResource("7")
-stretch_mode = 2
+stretch_mode = 1
 
 [node name="Flash" type="ColorRect" parent="Planet"]
 layout_mode = 0

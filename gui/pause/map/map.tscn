@@ -282,7 +282,7 @@ offset_left = 20.0
 offset_top = 156.0
 offset_right = -35.0
 texture = ExtResource( 12 )
-stretch_mode = 2
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -481,7 +481,7 @@ offset_left = 20.0
 offset_top = 156.0
 offset_right = -35.0
 texture = ExtResource( 12 )
-stretch_mode = 2
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -654,7 +654,7 @@ offset_left = 20.0
 offset_top = 103.0
 offset_right = -35.0
 texture = ExtResource( 12 )
-stretch_mode = 2
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -678,7 +678,7 @@ offset_left = -15.0
 offset_top = 2.0
 texture = ExtResource( 16 )
 expand = true
-stretch_mode = 2
+stretch_mode = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
