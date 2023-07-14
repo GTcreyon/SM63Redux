@@ -14,8 +14,6 @@ theme_override_constants/separation = 1
 script = ExtResource("7")
 
 [node name="LineEdit" type="LineEdit" parent="."]
-offset_right = 70.0
-offset_bottom = 23.0
 layout_mode = 2
 theme_override_styles/normal = ExtResource("1")
 expand_to_text_length = true
@@ -23,9 +21,6 @@ caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="Up" type="TextureButton" parent="."]
-offset_left = 71.0
-offset_right = 103.0
-offset_bottom = 23.0
 layout_mode = 2
 texture_normal = ExtResource("6")
 texture_pressed = ExtResource("3")
@@ -39,22 +34,12 @@ texture_normal = ExtResource("5")
 texture_pressed = ExtResource("4")
 
 [node name="Dummy1" type="Control" parent="."]
-offset_left = 104.0
-offset_right = 104.0
-offset_bottom = 23.0
 layout_mode = 2
 
 [node name="Dummy2" type="Control" parent="."]
-offset_left = 105.0
-offset_right = 105.0
-offset_bottom = 23.0
 layout_mode = 2
 
 [node name="Label" type="Label" parent="."]
-offset_left = 106.0
-offset_top = 4.0
-offset_right = 151.0
-offset_bottom = 19.0
 layout_mode = 2
 text = "AAAAA"
 horizontal_alignment = 2

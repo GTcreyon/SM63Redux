@@ -33,13 +33,13 @@ size = Vector2(64, 16)
 size = Vector2(64, 16)
 
 [sub_resource type="RectangleShape2D" id="10"]
-size = Vector2(147.0782, 22.6274)
+size = Vector2(147.078, 22.6274)
 
 [sub_resource type="RectangleShape2D" id="11"]
 size = Vector2(64, 16)
 
 [sub_resource type="RectangleShape2D" id="12"]
-size = Vector2(147.0782, 22.6274)
+size = Vector2(147.078, 22.6274)
 
 [node name="Main" type="Node2D"]
 

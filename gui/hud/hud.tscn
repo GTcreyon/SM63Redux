@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dab8j0mumrd1i" path="res://gui/dialog/dialog_box.tscn" id="1"]
 [ext_resource type="Texture2D" uid="uid://cx81t7mdme5fg" path="res://gui/hud/hud_icons.png" id="2"]
 [ext_resource type="PackedScene" uid="uid://cahb2wxuq4124" path="res://gui/pause/pause_menu.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://gui/water_meter/water_meter.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://bycv605ap1b6u" path="res://gui/water_meter/water_meter.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://bud0fk28v3h76" path="res://gui/life_meter/life_meter.tscn" id="13"]
 [ext_resource type="Script" path="res://gui/hud/hud.gd" id="14"]
 [ext_resource type="Shader" path="res://shaders/flash.gdshader" id="28"]
@@ -82,7 +82,6 @@ mouse_filter = 2
 theme_override_constants/separation = 4
 
 [node name="CoinRow" type="Control" parent="HUDControl/Stats/StatsTL"]
-offset_bottom = 17.0
 custom_minimum_size = Vector2(0, 17)
 layout_mode = 2
 
@@ -105,8 +104,6 @@ offset_bottom = 17.0
 theme_type_variation = &"LabelRed"
 
 [node name="RedCoinRow" type="Control" parent="HUDControl/Stats/StatsTL"]
-offset_top = 21.0
-offset_bottom = 38.0
 custom_minimum_size = Vector2(0, 17)
 layout_mode = 2
 
@@ -128,8 +125,6 @@ offset_bottom = 17.0
 theme_type_variation = &"LabelRed"
 
 [node name="SilverShineRow" type="Control" parent="HUDControl/Stats/StatsTL"]
-offset_top = 42.0
-offset_bottom = 59.0
 custom_minimum_size = Vector2(0, 17)
 layout_mode = 2
 
@@ -162,8 +157,6 @@ mouse_filter = 2
 theme_override_constants/separation = 4
 
 [node name="ShineRow" type="Control" parent="HUDControl/Stats/StatsTR"]
-offset_right = 8.0
-offset_bottom = 17.0
 custom_minimum_size = Vector2(0, 17)
 layout_mode = 2
 
@@ -185,9 +178,6 @@ offset_bottom = 17.0
 theme_type_variation = &"LabelRed"
 
 [node name="ShineCoinRow" type="Control" parent="HUDControl/Stats/StatsTR"]
-offset_top = 21.0
-offset_right = 8.0
-offset_bottom = 38.0
 custom_minimum_size = Vector2(0, 17)
 layout_mode = 2
 
@@ -209,5 +199,4 @@ offset_bottom = 17.0
 theme_type_variation = &"LabelRed"
 
 [node name="MeterControl" parent="HUDControl/Stats" instance=ExtResource("11")]
-instance=ExtResource("11")]
 layout_mode = 1

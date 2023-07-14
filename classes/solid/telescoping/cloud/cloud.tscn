@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://qi47w64smd1b" path="res://classes/solid/telescoping/cloud/cloud_middle.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://cubqpdl65auom" path="res://classes/solid/telescoping/cloud/cloud_left.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://cfk4h8hdklt42" path="res://classes/solid/telescoping/cloud/cloud_right.png" id="4"]
-[ext_resource type="PackedScene" path="res://classes/zone/safety_net/safety_net.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://db2c4rf6tftug" path="res://classes/zone/safety_net/safety_net.tscn" id="5"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 resource_local_to_scene = true

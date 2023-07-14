@@ -4,31 +4,31 @@
 [ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="8"]
 [ext_resource type="Shader" path="res://shaders/glow.gdshader" id="9"]
-[ext_resource type="PackedScene" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://coyt8uat1063g" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="10"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="12"]
-[ext_resource type="PackedScene" path="res://classes/pickup/coin/yellow/coin_yellow.tscn" id="13"]
+[ext_resource type="PackedScene" uid="uid://drpm6hlx76jqc" path="res://classes/pickup/coin/yellow/coin_yellow.tscn" id="13"]
 [ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://classes/entity/enemy/koopa/parakoopa.png" id="13_p3ewm"]
 [ext_resource type="PackedScene" uid="uid://cc1st8k2boes7" path="res://classes/entity/enemy/goomba/goomba.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://ccwcekurxpnpe" path="res://classes/pickup/fludd_box/fludd_box.tscn" id="15"]
-[ext_resource type="PackedScene" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="17"]
 [ext_resource type="PackedScene" uid="uid://bclig81j8t46n" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="18"]
-[ext_resource type="PackedScene" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" id="19"]
-[ext_resource type="PackedScene" path="res://classes/entity/enemy/koopa/parakoopa.tscn" id="20"]
-[ext_resource type="PackedScene" path="res://classes/zone/camera_area/camera_area.tscn" id="21"]
-[ext_resource type="PackedScene" path="res://classes/decorative/small_tree.tscn" id="22"]
+[ext_resource type="PackedScene" uid="uid://cbmd83f1dv4n" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" id="19"]
+[ext_resource type="PackedScene" uid="uid://b6jp4ecuo2iwc" path="res://classes/entity/enemy/koopa/parakoopa.tscn" id="20"]
+[ext_resource type="PackedScene" uid="uid://c1fox2fi1q2ga" path="res://classes/zone/camera_area/camera_area.tscn" id="21"]
+[ext_resource type="PackedScene" uid="uid://b20mdb1tyiflv" path="res://classes/decorative/small_tree.tscn" id="22"]
 [ext_resource type="Texture2D" uid="uid://w4khahd820d5" path="res://classes/decorative/fossil/fossils.png" id="22_adv7u"]
-[ext_resource type="PackedScene" path="res://classes/decorative/big_tree.tscn" id="23"]
-[ext_resource type="PackedScene" path="res://classes/decorative/fungus_double.tscn" id="24"]
-[ext_resource type="PackedScene" path="res://classes/decorative/fungus_single.tscn" id="25"]
+[ext_resource type="PackedScene" uid="uid://do78au40k7meh" path="res://classes/decorative/big_tree.tscn" id="23"]
+[ext_resource type="PackedScene" uid="uid://q8k4pkhj3x60" path="res://classes/decorative/fungus_double.tscn" id="24"]
+[ext_resource type="PackedScene" uid="uid://bm8r1m4hh1g1a" path="res://classes/decorative/fungus_single.tscn" id="25"]
 [ext_resource type="Texture2D" uid="uid://d2hxhncxns8t0" path="res://classes/decorative/butterfly/butterfly.png" id="25_o0muw"]
-[ext_resource type="PackedScene" path="res://classes/decorative/flowers.tscn" id="26"]
-[ext_resource type="PackedScene" path="res://classes/decorative/fossil/fossil.tscn" id="27"]
-[ext_resource type="PackedScene" path="res://classes/decorative/arrow/arrow.tscn" id="28"]
+[ext_resource type="PackedScene" uid="uid://bk3kxkr4ojd03" path="res://classes/decorative/flowers.tscn" id="26"]
+[ext_resource type="PackedScene" uid="uid://x15gxnqh87uj" path="res://classes/decorative/fossil/fossil.tscn" id="27"]
+[ext_resource type="PackedScene" uid="uid://dmvmvmv3te56c" path="res://classes/decorative/arrow/arrow.tscn" id="28"]
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="29"]
-[ext_resource type="PackedScene" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
+[ext_resource type="PackedScene" uid="uid://d1alvph4yehre" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_t12mh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_grs5u"]
 resource_local_to_scene = true
 shader = ExtResource("9")
 shader_parameter/width = 1.0
@@ -36,7 +36,7 @@ shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hfqey"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gewe0"]
 resource_local_to_scene = true
 shader = ExtResource("9")
 shader_parameter/width = 1.0
@@ -44,7 +44,7 @@ shader_parameter/recenter = null
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uwcc3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqhu1"]
 resource_local_to_scene = true
 shader = ExtResource("1")
 shader_parameter/color0 = Color(0.796078, 0.368627, 0.0352941, 1)
@@ -424,22 +424,21 @@ position = Vector2(1084, -35)
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_t12mh")
+material = SubResource("ShaderMaterial_grs5u")
 position = Vector2(502, 204)
 lines = Array[String](["[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!"])
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_hfqey")
+material = SubResource("ShaderMaterial_gewe0")
 position = Vector2(1232, 16)
 lines = Array[String](["[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle."])
 
 [node name="Enemy" type="Node2D" parent="Items"]
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("20")]
-material = SubResource("ShaderMaterial_uwcc3")
+material = SubResource("ShaderMaterial_wqhu1")
 position = Vector2(1335.47, -15.5049)
 sprite_frames = SubResource("8")
-animation = &"flying"
 frame = 4
 color = 1
 

@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cw3yd45xx6bf8" path="res://gui/pause/map/map_shine_1.png" id="5"]
 [ext_resource type="StyleBox" uid="uid://cuiaksyau07pv" path="res://gui/pause/pause_back.tres" id="6"]
 [ext_resource type="Script" path="res://gui/hud/level_info.gd" id="10"]
-[ext_resource type="Material" path="res://shaders/glow.tres" id="11"]
+[ext_resource type="Material" uid="uid://ckiokx8dmutdj" path="res://shaders/glow.tres" id="11"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{

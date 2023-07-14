@@ -22,13 +22,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="BindDivider" type="VBoxContainer" parent="."]
-offset_right = 640.0
-offset_bottom = 360.0
 layout_mode = 2
 
 [node name="ResetBinds" type="TextureButton" parent="BindDivider"]
-offset_right = 640.0
-offset_bottom = 21.0
 custom_minimum_size = Vector2(20, 21)
 layout_mode = 2
 texture_normal = SubResource("1")
@@ -42,18 +38,11 @@ offset_top = 2.0
 text = "Reset controls to default"
 
 [node name="Scroll" type="ScrollContainer" parent="BindDivider"]
-offset_top = 25.0
-offset_right = 640.0
-offset_bottom = 360.0
 layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("5")
 
 [node name="BindList" type="VBoxContainer" parent="BindDivider/Scroll"]
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 634.0
-offset_bottom = 333.0
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

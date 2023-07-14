@@ -1,18 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://coyt8uat1063g"]
 
-[ext_resource path="res://classes/solid/fungus_platform/fungus_stem.png" type="Texture2D" id=1]
-[ext_resource path="res://classes/solid/fungus_platform/fungus_head.tscn" type="PackedScene" id=2]
+[ext_resource type="Texture2D" uid="uid://bblgsybek2egx" path="res://classes/solid/fungus_platform/fungus_stem.png" id="1"]
+[ext_resource type="PackedScene" uid="uid://tpui48lob2kf" path="res://classes/solid/fungus_platform/fungus_head.tscn" id="2"]
 
 [node name="FungusStem" type="Line2D"]
-position = Vector2( 6, 10 )
 z_index = -2
-points = PackedVector2Array( -6, -3, -6, 6 )
+position = Vector2(6, 10)
+points = PackedVector2Array(-6, -3, -6, 6)
 width = 8.0
-default_color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 1 )
+texture = ExtResource("1")
 texture_mode = 1
 joint_mode = 1
 
-[node name="FungusHead" parent="." instance=ExtResource( 2 )]
-position = Vector2( -6, -10 )
+[node name="FungusHead" parent="." instance=ExtResource("2")]
 z_index = 1
+position = Vector2(-6, -10)

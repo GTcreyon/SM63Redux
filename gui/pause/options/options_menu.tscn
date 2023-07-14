@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://4rjixlvilqp1"]
 
-[ext_resource type="PackedScene" path="res://scenes/menus/feedback/tickbox.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://b8tbt3ynvhfy1" path="res://scenes/menus/feedback/tickbox.tscn" id="1"]
 [ext_resource type="Script" path="res://gui/pause/options/options_menu.gd" id="3"]
 [ext_resource type="Script" path="res://gui/pause/options/locale_select.gd" id="4"]
 [ext_resource type="PackedScene" uid="uid://f3qkqx1ju1qa" path="res://gui/pause/options/button_menu.tscn" id="8"]

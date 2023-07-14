@@ -42,8 +42,6 @@ theme_override_constants/separation = 3
 script = ExtResource("2")
 
 [node name="Button" type="Button" parent="."]
-offset_right = 20.0
-offset_bottom = 20.0
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 mouse_default_cursor_shape = 2
@@ -58,10 +56,6 @@ position = Vector2(10, 10)
 sprite_frames = SubResource("5")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 23.0
-offset_top = 2.0
-offset_right = 23.0
-offset_bottom = 17.0
 layout_mode = 2
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

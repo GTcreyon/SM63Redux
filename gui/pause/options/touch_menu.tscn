@@ -37,52 +37,33 @@ anchor_bottom = 1.0
 theme = ExtResource("9")
 
 [node name="Margin" type="VBoxContainer" parent="."]
-offset_right = 640.0
-offset_bottom = 360.0
 layout_mode = 2
 theme_override_constants/separation = 4
 
 [node name="Label" type="Label" parent="Margin"]
-offset_right = 640.0
-offset_bottom = 15.0
 layout_mode = 2
 text = "Touch control layout:"
 
 [node name="LayoutSelect" type="OptionButton" parent="Margin"]
-offset_top = 19.0
-offset_right = 640.0
-offset_bottom = 51.0
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
 mouse_default_cursor_shape = 2
 script = ExtResource("6")
 
 [node name="MiscConfig" type="VBoxContainer" parent="Margin"]
-offset_top = 55.0
-offset_right = 640.0
-offset_bottom = 143.0
 layout_mode = 2
 
 [node name="SizeChange" type="HBoxContainer" parent="Margin/MiscConfig"]
-offset_left = 238.0
-offset_right = 401.0
-offset_bottom = 42.0
 layout_mode = 2
 size_flags_horizontal = 6
 script = ExtResource("7")
 
 [node name="Label" type="Label" parent="Margin/MiscConfig/SizeChange"]
-offset_top = 13.0
-offset_right = 75.0
-offset_bottom = 28.0
 layout_mode = 2
 size_flags_horizontal = 7
 text = "Change size:"
 
 [node name="SizeUp" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
-offset_left = 79.0
-offset_right = 119.0
-offset_bottom = 42.0
 custom_minimum_size = Vector2(40, 42)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -90,9 +71,6 @@ texture_normal = SubResource("1")
 texture_pressed = SubResource("2")
 
 [node name="SizeDown" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
-offset_left = 123.0
-offset_right = 163.0
-offset_bottom = 42.0
 custom_minimum_size = Vector2(40, 42)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -100,23 +78,14 @@ texture_normal = SubResource("3")
 texture_pressed = SubResource("4")
 
 [node name="SwapSides" type="HBoxContainer" parent="Margin/MiscConfig"]
-offset_left = 262.0
-offset_top = 46.0
-offset_right = 377.0
 layout_mode = 2
 size_flags_horizontal = 6
 
 [node name="Label" type="Label" parent="Margin/MiscConfig/SwapSides"]
-offset_top = 13.0
-offset_right = 71.0
-offset_bottom = 28.0
 layout_mode = 2
 text = "Swap sides:"
 
 [node name="Swap" type="TextureButton" parent="Margin/MiscConfig/SwapSides"]
-offset_left = 75.0
-offset_right = 115.0
-offset_bottom = 42.0
 custom_minimum_size = Vector2(40, 42)
 layout_mode = 2
 texture_normal = SubResource("5")

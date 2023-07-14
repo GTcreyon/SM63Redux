@@ -1,46 +1,46 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://ccp5r5gn6d2mj"]
 
-[ext_resource path="res://classes/dejitter_group/dejitter_group.gd" type="Script" id=1]
-[ext_resource path="res://classes/pickup/fludd_box/fludd_pickup.gd" type="Script" id=2]
-[ext_resource path="res://classes/pickup/fludd_box/pickup_rocket.png" type="Texture2D" id=3]
-[ext_resource path="res://classes/pickup/fludd_box/fludd_entity.gd" type="Script" id=4]
-[ext_resource path="res://classes/pickup/fludd_box/fludd_pickup_collect.wav" type="AudioStream" id=5]
+[ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="1"]
+[ext_resource type="Script" path="res://classes/pickup/fludd_box/fludd_pickup.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://01rvhulbgmob" path="res://classes/pickup/fludd_box/pickup_rocket.png" id="3"]
+[ext_resource type="Script" path="res://classes/pickup/fludd_box/fludd_entity.gd" id="4"]
+[ext_resource type="AudioStream" uid="uid://cn3r27x83cqkb" path="res://classes/pickup/fludd_box/fludd_pickup_collect.wav" id="5"]
 
-[sub_resource type="RectangleShape2D" id=4]
-size = Vector2( 16, 15 )
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(16, 15)
 
-[sub_resource type="RectangleShape2D" id=2]
-size = Vector2( 16, 25 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(16, 25)
 
 [node name="FluddPickupRocket" type="CharacterBody2D"]
 z_index = -1
 collision_layer = 0
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 4 )
+shape = SubResource("4")
 
 [node name="Rocket" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
-script = ExtResource( 2 )
+script = ExtResource("2")
+nozzle_award = 2
 parent_is_root = true
 persistent_collect = false
-nozzle_award = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Rocket"]
-position = Vector2( 0, -5 )
 z_index = -1
-texture = ExtResource( 3 )
-script = ExtResource( 1 )
+position = Vector2(0, -5)
+texture = ExtResource("3")
+script = ExtResource("1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Rocket"]
-position = Vector2( 0, -5 )
-shape = SubResource( 2 )
+position = Vector2(0, -5)
+shape = SubResource("2")
 
 [node name="SFXCollect" type="AudioStreamPlayer" parent="Rocket"]
-stream = ExtResource( 5 )
+stream = ExtResource("5")
 volume_db = -11.0
-bus = "SFX"
+bus = &"SFX"

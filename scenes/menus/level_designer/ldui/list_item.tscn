@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2bywvtk37v2j"]
 
-[ext_resource type="StyleBox" path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" id="1"]
+[ext_resource type="StyleBox" uid="uid://c4t05jli7tvcf" path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ldui/list_item.gd" id="2"]
-[ext_resource type="StyleBox" path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" id="3"]
-[ext_resource type="StyleBox" path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" id="4"]
+[ext_resource type="StyleBox" uid="uid://27dvir8jkf4y" path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" id="3"]
+[ext_resource type="StyleBox" uid="uid://bxk000r2o0auh" path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" id="4"]
 
 [node name="ListItem" type="Button"]
 custom_minimum_size = Vector2(32, 32)

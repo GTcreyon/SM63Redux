@@ -14,33 +14,20 @@ theme_override_constants/separation = 1
 script = ExtResource("3")
 
 [node name="Label" type="Label" parent="."]
-offset_top = 4.0
-offset_right = 45.0
-offset_bottom = 19.0
 layout_mode = 2
 text = "AAAAA"
 horizontal_alignment = 2
 
 [node name="SpacingX" type="Control" parent="."]
-offset_left = 46.0
-offset_right = 51.0
-offset_bottom = 23.0
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="LabelX" type="Label" parent="."]
-offset_left = 52.0
-offset_top = 4.0
-offset_right = 60.0
-offset_bottom = 19.0
 layout_mode = 2
 text = "X"
 horizontal_alignment = 2
 
 [node name="LineEditX" type="LineEdit" parent="."]
-offset_left = 61.0
-offset_right = 131.0
-offset_bottom = 23.0
 layout_mode = 2
 theme_override_styles/normal = ExtResource("2")
 expand_to_text_length = true
@@ -48,9 +35,6 @@ caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="UpX" type="TextureButton" parent="."]
-offset_left = 132.0
-offset_right = 164.0
-offset_bottom = 23.0
 layout_mode = 2
 texture_normal = ExtResource("7")
 texture_pressed = ExtResource("4")
@@ -64,25 +48,15 @@ texture_normal = ExtResource("6")
 texture_pressed = ExtResource("5")
 
 [node name="SpacingY" type="Control" parent="."]
-offset_left = 165.0
-offset_right = 170.0
-offset_bottom = 23.0
 custom_minimum_size = Vector2(5, 0)
 layout_mode = 2
 
 [node name="LabelY" type="Label" parent="."]
-offset_left = 171.0
-offset_top = 4.0
-offset_right = 180.0
-offset_bottom = 19.0
 layout_mode = 2
 text = "Y"
 horizontal_alignment = 2
 
 [node name="LineEditY" type="LineEdit" parent="."]
-offset_left = 181.0
-offset_right = 251.0
-offset_bottom = 23.0
 layout_mode = 2
 theme_override_styles/normal = ExtResource("2")
 expand_to_text_length = true
@@ -90,9 +64,6 @@ caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="UpY" type="TextureButton" parent="."]
-offset_left = 252.0
-offset_right = 284.0
-offset_bottom = 23.0
 layout_mode = 2
 texture_normal = ExtResource("7")
 texture_pressed = ExtResource("4")

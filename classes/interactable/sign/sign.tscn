@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b4uyj7rg0vj88" path="res://classes/interactable/sign/sign.png" id="1"]
 [ext_resource type="Script" path="res://classes/interactable/sign/sign.gd" id="2"]
-[ext_resource type="Material" path="res://shaders/glow.tres" id="3"]
+[ext_resource type="Material" uid="uid://ckiokx8dmutdj" path="res://shaders/glow.tres" id="3"]
 [ext_resource type="AudioStream" uid="uid://b8c16fs181nx5" path="res://gui/sfx/confirm.wav" id="6"]
 
 [sub_resource type="RectangleShape2D" id="1"]

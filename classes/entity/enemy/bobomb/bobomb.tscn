@@ -134,7 +134,7 @@ size = Vector2(2, 2)
 [node name="Bobomb" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("7")
-step_indexes = [true, false, false, false, true, false, false, false]
+step_indexes = Array[bool]([true, false, false, false, true, false, false, false])
 _aware_area_path = NodePath("")
 death_smoke = false
 _hurtbox_stomp_path = NodePath("")

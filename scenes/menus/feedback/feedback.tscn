@@ -4,7 +4,7 @@
 [ext_resource type="StyleBox" uid="uid://bdjy8cyn51ljx" path="res://gui/dialog/nx_box.tres" id="3"]
 [ext_resource type="Texture2D" uid="uid://n4hdjoo3pbag" path="res://scenes/menus/feedback/traffic.png" id="4"]
 [ext_resource type="Script" path="res://scenes/menus/feedback/traffic_button.gd" id="5"]
-[ext_resource type="PackedScene" path="res://scenes/menus/feedback/tickbox_feedback.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://r1idl7vtceyu" path="res://scenes/menus/feedback/tickbox_feedback.tscn" id="6"]
 [ext_resource type="StyleBox" uid="uid://dmq873ch8imdh" path="res://gui/dialog/nx_luigi_box.tres" id="7"]
 [ext_resource type="StyleBox" uid="uid://dkoxrwvehkliu" path="res://gui/dialog/nx_wario_box.tres" id="8"]
 [ext_resource type="Script" path="res://scenes/menus/feedback/feedback.gd" id="9"]
