@@ -73,6 +73,7 @@ Notes for future fixes:
 - actually parakoopa should share color_presets too
 - Telescoping should be updated with direct node refs instead of paths.
 - Likewise with the entity family, but that's more work.
+- Also found in pickups, but may not work on account of audio sources' multiple types.
 - Console "report" and "rename" still link to the old vulnerable webhook
 - Check idiomatic formatting of above report and rename calls
 - Fixed player snap has much duplicated work between two updated calls of it.
@@ -84,4 +85,3 @@ Notes for future fixes:
 - FLUDD pickups too, sort of, but not quite.
 - Sirius still needs to make falling log sounds.
 - Water script is space-inefficient, could represent surfaces as start/end pairs instead of all-point dictionaries.
-- Can condense node-path-and-node variable pairs into just the node. Manual data loss prevention will be needed.
