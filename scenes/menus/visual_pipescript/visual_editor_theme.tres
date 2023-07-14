@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=9 format=3 uid="uid://bgmlw13is8tfj"]
 
-[ext_resource type="FontFile" uid="uid://bm5tnyk4umodu" path="res://fonts/bylight/bylight.tres" id="1"]
+[ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.tres" id="1"]
 
 [sub_resource type="StyleBoxFlat" id="2"]
 bg_color = Color(0.388235, 0.388235, 0.388235, 1)
@@ -88,6 +88,7 @@ border_blend = true
 
 [resource]
 default_font = ExtResource("1")
+default_font_size = 15
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_color_disabled = Color(0.38, 0.38, 0.38, 1)
 Button/colors/font_color_focus = Color(1, 1, 1, 1)

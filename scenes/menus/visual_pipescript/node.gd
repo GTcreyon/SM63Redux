@@ -130,7 +130,7 @@ func get_text_width(text: String) -> Vector2:
 	var width = 0
 	for c in text:
 		if c != " ":
-			width += BYLIGHT.get_char_size(c as int).x
+			width += BYLIGHT.get_char_size(c as int, EDITOR_THEME.default_font_size).x
 	return Vector2(width, BYLIGHT.get_height())
 
 # Make sure the node_placer knows which node is currently selected
@@ -182,7 +182,7 @@ func setup(data):
 			button.add_theme_stylebox_override("normal", STYLEBOX)
 			button.text = "+"
 			text_size = get_text_width(button.text)
-			button.align = Button.ALIGNMENT_CENTER
+			button.alignment = HORIZONTAL_ALIGNMENT_CENTER
 			button.position = Vector2(x_position, 4)
 			button.connect("pressed", Callable(self, "add_input_field_on_press").bind(button, segment.substr(2)))
 			add_child(button)
@@ -203,7 +203,7 @@ func setup(data):
 			label.add_theme_font_override("font", BYLIGHT)
 			label.text = segment
 			label.size = text_size + Vector2(0, 8)
-			label.valign = Label.VALIGN_CENTER
+			label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 			label.position.x = x_position
 			add_child(label)
 		x_position += text_size.x
