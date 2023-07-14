@@ -40,6 +40,7 @@ Solved problems (that weren't just simple bugfixes):
 - visual_pipescript\node.gd has had func "text_entered" renamed "text_submitted"
 - toad.gd has lost all spot and skin color names
 - pickup.gd has lost the params for respawn duration
+- input_manager.gd has long lines
 
 
 Major problems:
@@ -52,7 +53,6 @@ Editor interface problems (to do with variable export control):
 
 
 Uses of OS.window_<> to clean up (not catastrophic this time):
-- input_manager.gd has long lines
 
 
 Minor text replacement errors:
@@ -84,3 +84,4 @@ Notes for future fixes:
 - FLUDD pickups too, sort of, but not quite.
 - Sirius still needs to make falling log sounds.
 - Water script is space-inefficient, could represent surfaces as start/end pairs instead of all-point dictionaries.
+- Can condense node-path-and-node variable pairs into just the node. Manual data loss prevention will be needed.
