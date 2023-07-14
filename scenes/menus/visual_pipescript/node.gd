@@ -140,7 +140,7 @@ func focus_changed(is_focus, index):
 		node_placer.selected_index = index
 
 # Handle switching focus on enter
-func text_submitted(_text, index):
+func text_entered(_text, index):
 	if index + 1 < len(line_edits):
 		line_edits[index + 1].grab_focus()
 	else:
@@ -158,7 +158,7 @@ func add_input_field_on_press(button, field_text):
 	label.position = Vector2(button.position.x, 4)
 	label.connect("focus_entered", Callable(self, "focus_changed").bind(true, len(line_edits)))
 	label.connect("focus_exited", Callable(self, "focus_changed").bind(false, len(line_edits)))
-	label.connect("text_submitted", Callable(self, "text_submitted").bind(len(line_edits)))
+	label.connect("text_entered", Callable(self, "text_entered").bind(len(line_edits)))
 	add_child(label)
 	line_edits.append(label)
 	button.position.x += text_size.x
@@ -195,7 +195,7 @@ func setup(data):
 			label.position = Vector2(x_position, 4)
 			label.connect("focus_entered", Callable(self, "focus_changed").bind(true, len(line_edits)))
 			label.connect("focus_exited", Callable(self, "focus_changed").bind(false, len(line_edits)))
-			label.connect("text_submitted", Callable(self, "text_submitted").bind(len(line_edits)))
+			label.connect("text_entered", Callable(self, "text_entered").bind(len(line_edits)))
 			add_child(label)
 			line_edits.append(label)
 		else:

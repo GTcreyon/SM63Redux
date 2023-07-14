@@ -35,6 +35,9 @@ Solved problems (that weren't just simple bugfixes):
 - fludd_box.gd and fludd_pickup.gd have lost their Singleton.Nozzles typing
 - sm63_to_redux.gd loses the "FILE" modifier on a string
 - water.gd says "Transform3D it"
+- inter_scene_data.gd says "RefCounted counted" in the extends statement.
+- character_sprite.gd says "Sprite2D origin is set to this"
+- visual_pipescript\node.gd has had func "text_entered" renamed "text_submitted"
 
 
 Major problems:
@@ -53,9 +56,6 @@ Uses of OS.window_<> to clean up (not catastrophic this time):
 
 
 Minor text replacement errors:
-- inter_scene_data.gd says "RefCounted counted" in the extends statement.
-- character_sprite.gd says "Sprite2D origin is set to this"
-- visual_pipescript\node.gd has had func "text_entered" renamed "text_submitted"
 
 
 Notes for unmerged PRs:

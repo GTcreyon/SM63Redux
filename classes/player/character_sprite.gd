@@ -8,7 +8,7 @@ const SLOW_SPIN_START_SPEED = 1
 const SLOW_SPIN_END_SPEED = 0.40
 const SLOW_SPIN_TIME = 60
 
-const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite2D origin is set to this during pound spin
+const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
 const POUND_SPIN_RISE_TIME = 15
 
