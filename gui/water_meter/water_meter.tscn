@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bcfdvn7oos1x7" path="res://gui/water_meter/water_meter_bottom.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://fb5mc0pvkmnq" path="res://gui/water_meter/water_meter_fill.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://bslcguplr6tbb" path="res://gui/water_meter/water_meter_power_filler_cover.png" id="9"]
-[ext_resource type="Texture2D" path="res://gui/water_meter/water_meter_mask.png" id="9_vqkgl"]
+[ext_resource type="Texture2D" uid="uid://cr6qqqfrqfrdv" path="res://gui/water_meter/water_meter_mask.png" id="9_vqkgl"]
 [ext_resource type="Texture2D" uid="uid://bx5q6gkqvi6ot" path="res://gui/water_meter/water_meter_bubble_small.png" id="10"]
 [ext_resource type="Texture2D" uid="uid://bv54cehugq8oi" path="res://gui/water_meter/water_meter_bubble_big.png" id="11"]
 [ext_resource type="Texture2D" uid="uid://bkkbjbrgoocex" path="res://classes/pickup/fludd_box/nozzle_rocket.png" id="12"]
