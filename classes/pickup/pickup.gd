@@ -1,12 +1,13 @@
 class_name Pickup
 extends Area2D
 
-# If true, free the parent node as well when collected.
-# Useful for pickup children of physics objects.
+## If true, free the parent node as well when collected.
+## Useful for pickup children of physics objects.
 @export var parent_is_root: bool = false
 
-# Enables pickup ID behavior, so pickups can only be collected once per level.
+## Enables pickup ID behavior, so pickups can only be collected once per level.
 @export var persistent_collect = true
+## When collected, the pickup will respawn in this many seconds. 0 to disable.
 @export_range(0, 30, 1.0, "suffix:seconds") var respawn_seconds: float = 0.0
 @export var disabled: bool = false: set = set_disabled
 @export_node_path("Sprite2D", "AnimatedSprite2D") var _sprite_path: NodePath = "Sprite2D"
