@@ -39,6 +39,7 @@ Solved problems (that weren't just simple bugfixes):
 - character_sprite.gd says "Sprite2D origin is set to this"
 - visual_pipescript\node.gd has had func "text_entered" renamed "text_submitted"
 - toad.gd has lost all spot and skin color names
+- pickup.gd has lost the params for respawn duration
 
 
 Major problems:
@@ -48,7 +49,6 @@ Minor problems:
 
 
 Editor interface problems (to do with variable export control):
-- pickup.gd has lost the params for respawn duration
 
 
 Uses of OS.window_<> to clean up (not catastrophic this time):

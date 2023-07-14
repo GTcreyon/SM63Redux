@@ -7,10 +7,10 @@ extends Area2D
 
 # Enables pickup ID behavior, so pickups can only be collected once per level.
 @export var persistent_collect = true
-@export var respawn_seconds = 0.0 # (float, 0.0, 30.0, 1.0)
+@export_range(0, 30, 1.0, "suffix:seconds") var respawn_seconds: float = 0.0
 @export var disabled: bool = false: set = set_disabled
-@export var _sprite_path: NodePath = "Sprite2D"
-@export var _sfx_path: NodePath = "SFXCollect"
+@export_node_path("Sprite2D", "AnimatedSprite2D") var _sprite_path: NodePath = "Sprite2D"
+@export_node_path("AudioStreamPlayer", "AudioStreamPlayer2D") var _sfx_path: NodePath = "SFXCollect"
 
 var _pickup_id: int = -1
 var _respawn_timer: float = -1
