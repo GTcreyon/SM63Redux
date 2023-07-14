@@ -40,7 +40,7 @@ const skin_presets = [
 ]
 
 @export_enum("Red", "Green", "Blue", "Yellow", "Purple") var spot = 0: set = set_spot
-@export var skin = 0: set = set_skin
+@export_range(0, 1) var skin = 0: set = set_skin
 var temp_skin
 var temp_spot
 

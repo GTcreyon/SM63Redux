@@ -38,6 +38,7 @@ Solved problems (that weren't just simple bugfixes):
 - inter_scene_data.gd says "RefCounted counted" in the extends statement.
 - character_sprite.gd says "Sprite2D origin is set to this"
 - visual_pipescript\node.gd has had func "text_entered" renamed "text_submitted"
+- toad.gd has lost all spot and skin color names
 
 
 Major problems:
@@ -47,7 +48,6 @@ Minor problems:
 
 
 Editor interface problems (to do with variable export control):
-- toad.gd has lost all spot and skin color names
 - pickup.gd has lost the params for respawn duration
 
 
