@@ -9,7 +9,6 @@ uniform float surface_anim_phase = 0;
 const vec2 ATLAS_SIZE = vec2(32, 48);
 const vec4 COL_OUTLINE = vec4(0.224, 0.094, 0, 1);
 const float ANIM_STABLE_OFFSET = 0.1 / ATLAS_SIZE.y;
-const vec2 ATLAS_PIXEL_UV_SIZE = vec2(1) / ATLAS_SIZE;
 
 float modf_gles2(float x, float range) {
 	return x - range * floor(x / range);
@@ -56,16 +55,13 @@ void fragment() {
 					UV.x * (1.0 / TEXTURE_PIXEL_SIZE.x) / surface_texture_size.x,
 					1.0
 				),
-				(surface_sum + surface_anim_phase / 4.0) / ATLAS_SIZE.y + ANIM_STABLE_OFFSET
+				surface_sum / ATLAS_SIZE.y +
+				surface_anim_phase / 4.0 +
+				ANIM_STABLE_OFFSET
 			);
 			vec4 tex_col = texture(surface_texture, px, 0);
 			// Overwrite black pixels with the water color.
 			col = is_pixel_black(tex_col) ? col : tex_col;
-			
-			// Render outline only on opaque pixels of the surface.
-			if (col.a != 0.0 && outline != 4.0) {
-				col = COL_OUTLINE;
-			}
 		}
 		// Outside the surface band, render outline anywhere an edge is detected.
 		else if (outline != 4.0) {
@@ -75,14 +71,4 @@ void fragment() {
 		// Haven't hit surface band or the outline. Render water color.
 		COLOR = col;
 	}
-	//COLOR = vec4(UV, 0, 1);
 }
-
-/*
-void fragment() {
-	vec4 color = texture(TEXTURE, UV);
-	if (color.a == 0f) {return;}
-	COLOR = color;
-	//COLOR = vec4(UV.x, 0, 0, 0.5);
-}
-*/
