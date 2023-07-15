@@ -1,4 +1,4 @@
-[gd_scene load_steps=158 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=156 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="1"]
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
@@ -1141,26 +1141,26 @@ size = Vector2(12, 2)
 [sub_resource type="RectangleShape2D" id="6"]
 size = Vector2(12, 2)
 
-[sub_resource type="Gradient" id="53"]
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="54"]
-gradient = SubResource("53")
-
 [sub_resource type="Curve" id="55"]
-_data = [Vector2(0, 0.495454), 0.0, 1.77478, 0, 0, Vector2(0.5, 1), 0.494444, 0.0, 0, 0]
+_data = [Vector2(0.5, 1), 0.494444, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 1.77478, 0, 0]
 point_count = 2
+metadata/_snap_enabled = true
 
 [sub_resource type="CurveTexture" id="56"]
 width = 64
 curve = SubResource("55")
 
 [sub_resource type="ParticleProcessMaterial" id="44"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
 direction = Vector3(0, 1, 0)
 spread = 10.0
 gravity = Vector3(0, 450, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.75
+scale_max = 1.25
 scale_curve = SubResource("56")
-color_ramp = SubResource("54")
 anim_offset_max = 1.0
 
 [sub_resource type="AtlasTexture" id="48"]
