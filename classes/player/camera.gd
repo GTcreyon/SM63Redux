@@ -2,9 +2,9 @@ extends Camera2D
 
 const ZOOM_TIME = 0.5
 
-var current_zoom: float = 1.5
-var prev_zoom: float = 1.5
-var target_zoom: float = 1.5
+var current_zoom: float = 1
+var prev_zoom: float = 1
+var target_zoom: float = 1
 var zoom_timer: float = 0
 var rezooming: bool = false
 var target_limit_left = -10000000
