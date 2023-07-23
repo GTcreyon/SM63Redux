@@ -1,6 +1,7 @@
 shader_type canvas_item;
 
 uniform sampler2D check_texture;
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_nearest;
 
 const vec4 ignore_px = vec4(1.0, 0.0, 188.0 / 255.0, 1.0);
 
