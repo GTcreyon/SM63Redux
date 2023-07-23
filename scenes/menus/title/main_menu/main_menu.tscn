@@ -431,45 +431,55 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("3")
 
 [node name="DescriptionBox" type="Control" parent="Border"]
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = -5.0
 offset_bottom = 19.0
+grow_horizontal = 2
 mouse_filter = 2
 
 [node name="DescStory" type="Label" parent="Border/DescriptionBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_right = -10.0
-offset_bottom = 14.0
+offset_bottom = 18.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Take the light back from Bowser and save the Mushroom Kingdom!"
+horizontal_alignment = 1
 
 [node name="DescSettings" type="Label" parent="Border/DescriptionBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_right = -10.0
-offset_bottom = 14.0
+offset_bottom = 18.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Create your own worlds in this in-depth Level Designer!"
+horizontal_alignment = 1
 
 [node name="DescExtras" type="Label" parent="Border/DescriptionBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_right = -10.0
-offset_bottom = 14.0
+offset_bottom = 18.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Enjoy a collection of trinkets and goodies!"
+horizontal_alignment = 1
 
 [node name="DescLevelDesigner" type="Label" parent="Border/DescriptionBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_right = -10.0
-offset_bottom = 14.0
+offset_bottom = 18.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Adjust anything and everything to your liking!"
+horizontal_alignment = 1
 
 [node name="Stripe" type="Line2D" parent="."]
 visible = false
