@@ -1,8 +1,10 @@
 
 # Godot-specific ignores
 .import/
+.godot/
 export.cfg
 export_presets.cfg
+*.tmp
 
 # Mono-specific ignores
 .mono/
@@ -18,5 +20,3 @@ desktop.ini
 # Pipescript Target Ignores
 pipescript/target
 pipescript/compile_tool.sh
-.godot/
-*.tmp
