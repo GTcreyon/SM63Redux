@@ -44,7 +44,7 @@ void fragment() {
 	ripple_shape *= ripple_frequency;
 	ripple_shape *= 2.0 * PI;
 	// Convert it to a ripple. Double sine looks more 3D.
-	ripple_shape = sin(sin(ripple_shape)*PI);
+	ripple_shape = sin(sin(ripple_shape) * PI);
 	
 
 	// Take the direction to the ripple origin.
@@ -65,20 +65,20 @@ void fragment() {
 	c.a = texture(TEXTURE, UV).a;
 	
 	// Burn ripples lower than a threshold away to white.
-	float burnaway = (ripple_shape / 2. + 0.5);
+	float burnaway = (ripple_shape / 2.0 + 0.5);
 	// Shift the threshold using a mask.
 	float mask = texture(burnaway_mask, pixel_snap(ripple_uv)).r;
-	mask *= 2.;
-	mask -= 1.;
+	mask *= 2.0;
+	mask -= 1.0;
 	mask *= burnaway_mask_factor;
 	burnaway += mask;
 	burnaway = remap(burnaway, 
-		-burnaway_mask_factor, 1.0+burnaway_mask_factor, // Old range
-		0.,1. ); // New range
+		-burnaway_mask_factor, 1.0 + burnaway_mask_factor, // Old range
+		0.0, 1.0 ); // New range
 	// Convert to a solid black-and-white mask.
 	burnaway = leq(burnaway, burnaway_factor);
 	// Invert the mask.
-	burnaway = 1. - burnaway;
+	burnaway = 1.0 - burnaway;
 	// Rid of anything under 0.
 	burnaway = clamp(burnaway, 0, 1);
 
