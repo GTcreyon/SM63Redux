@@ -1,7 +1,6 @@
 @tool
-extends Container
-
 class_name DropdownMenu
+extends Container
 
 signal button_pressed
 
@@ -18,7 +17,7 @@ func clear_all_children():
 	for child in get_children():
 		child.queue_free()
 
-func button_pressed(index, text):
+func press(index, text):
 	emit_signal("button_pressed", index, text)
 	queue_free()
 
@@ -55,7 +54,7 @@ func refresh():
 				add_child(line)
 			else:
 				var text = Label.new()
-				text.horizontal_alignment = Label.ALIGNMENT_CENTER
+				text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 				text.text = option.substr(4)
 				
 				# Inner lines
@@ -71,7 +70,7 @@ func refresh():
 				add_child(text)
 		else:
 			var label = Button.new()
-			label.align = Button.ALIGNMENT_CENTER
+			label.alignment = HORIZONTAL_ALIGNMENT_CENTER
 			label.text = option
 			# Handle disabled options
 			if option.begins_with("---!"):
@@ -83,7 +82,7 @@ func refresh():
 			label.add_theme_stylebox_override("hover", transparent_background)
 			label.add_theme_stylebox_override("disabled", transparent_background)
 			label.add_theme_stylebox_override("pressed", transparent_background)
-			label.connect("pressed", Callable(self, "button_pressed").bind(option_idx, option))
+			label.connect("pressed", Callable(self, "press").bind(option_idx, option))
 			add_child(label)
 	should_update = true
 	
