@@ -61,12 +61,8 @@ func _hurt_stomp(area):
 		else:
 			_stomp_trigger()
 			body.start_bounce()
-			# Use base SFX code.
-			._hurt_stomp(area)
 	else:
 		_stomp_trigger()
-		# Use base SFX code.
-		._hurt_stomp(area)
 
 
 func _stomp_trigger():
@@ -87,8 +83,6 @@ func _hurt_struck(body):
 func _struck_land():
 	target = null
 	_stomp_trigger()
-	# Use base SFX code.
-	._struck_land()
 
 
 func _move_condition() -> bool:
