@@ -8,7 +8,7 @@ var wait = 0.0
 
 func _process(delta):
 	var dmod = 60 * delta
-	scale = get_parent().scale
+	scale = get_parent().scale_vec
 	position.x = round(get_window().size.x / 2)
 	position.y = -(104 * scale.y) + ease_out_quart(min(progress, 60) / 60) * ((104 * scale.y) + round(get_window().size.y / 8 * 3))
 	if wait < 30:

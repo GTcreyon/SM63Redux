@@ -6,7 +6,7 @@ var season_progress = 0
 
 func _process(delta):
 	var dmod = 60 * delta
-	var scalar = get_parent().scale
+	var scalar = get_parent().scale_vec
 	scale = scalar * Vector2.ONE
 	progress += (1.0 / 60.0) / 10 * dmod
 	if progress >= 1.5:
