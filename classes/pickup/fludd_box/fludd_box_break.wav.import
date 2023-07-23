@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/fludd_box_break.wav-0bedd428ab7ba82cb333c2fdadd21c76.sample"
+type="AudioStreamWAV"
+uid="uid://dpu1qmnskdt3m"
+path="res://.godot/imported/fludd_box_break.wav-0bedd428ab7ba82cb333c2fdadd21c76.sample"
 
 [deps]
 
 source_file="res://classes/pickup/fludd_box/fludd_box_break.wav"
-dest_files=[ "res://.import/fludd_box_break.wav-0bedd428ab7ba82cb333c2fdadd21c76.sample" ]
+dest_files=["res://.godot/imported/fludd_box_break.wav-0bedd428ab7ba82cb333c2fdadd21c76.sample"]
 
 [params]
 

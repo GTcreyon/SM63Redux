@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
 var _temp_frame: int = 0
 
@@ -6,7 +6,7 @@ var _temp_frame: int = 0
 func _ready():
 	animation = "charge"
 	frame = 0
-	connect("animation_finished", self, "_on_animation_finished")
+	connect("animation_finished", Callable(self, "_on_animation_finished"))
 
 
 func flash():

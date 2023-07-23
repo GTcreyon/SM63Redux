@@ -47,9 +47,9 @@ extends Interactable
 const TRANSITION_SPEED_IN = 25
 const TRANSITION_SPEED_OUT = 15
 
-export var target_pos = Vector2.ZERO
-export var move_to_scene = false
-export var scene_path : String
+@export var target_pos = Vector2.ZERO
+@export var move_to_scene = false
+@export var scene_path : String
 
 var player = null # This holds a reference to player object during the animation
 var anim_timer = -1 # This goes down by one every frame of the animation
@@ -81,7 +81,7 @@ func _interact_with(body):
 
 
 func _physics_override():
-	._physics_override()
+	super._physics_override()
 	
 	# Run frame-by-frame animation logic.
 	if anim_timer > -1:
@@ -132,7 +132,7 @@ func _exit_pos_offset() -> Vector2:
 
 # Checks if player is in a state where they can interact
 func _state_check(body) -> bool:
-	return !body.locked and ._state_check(body) and body.is_on_floor()
+	return !body.locked and super._state_check(body) and body.is_on_floor()
 
 
 # Checks if the trigger button was pressed

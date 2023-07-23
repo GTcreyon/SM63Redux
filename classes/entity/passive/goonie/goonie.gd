@@ -3,27 +3,27 @@ extends StaticBody2D
 const TIME_UP: int = 469 # Maximum time a bird will flap up
 const TIME_DOWN: int = 84 # Maximum time a bird will swoop down
 
-export var disabled: bool = false setget set_disabled
-export var mirror: bool = false
+@export var disabled: bool = false: set = set_disabled
+@export var mirror: bool = false
 
 var rng = RandomNumberGenerator.new()
 var vel: Vector2 = Vector2.ZERO
 var reset_position: Vector2 = position
-var camera_polygon: PoolVector2Array
+var camera_polygon: PackedVector2Array
 var valid_riders: Array = []
 var time_count: int = 0
 var reset_timer: int = 90
 
-onready var camera_area: Polygon2D = $"/root/Main/CameraArea"
-onready var sprite: AnimatedSprite = $AnimatedSprite
-onready var ride_area: Area2D = $RideArea
-onready var safety_net: Area2D = $SafetyNet
+@onready var camera_area: Polygon2D = $"/root/Main/CameraArea"
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var ride_area: Area2D = $RideArea
+@onready var safety_net: Area2D = $SafetyNet
 
 
 func _ready() -> void:
 	sprite.flip_h = mirror
 	if camera_area != null:
-		camera_polygon = Geometry.offset_polygon_2d(camera_area.polygon, 224)[0]
+		camera_polygon = Geometry2D.offset_polygon(camera_area.polygon, 224)[0]
 		var points = camera_polygon.size()
 		for i in range(points):
 			var from: Vector2 = camera_polygon[i]
@@ -31,12 +31,13 @@ func _ready() -> void:
 			var back_vec = Vector2(-99999, 0)
 			if mirror:
 				back_vec.x *= -1
-			var intersect = Geometry.segment_intersects_segment_2d(from, to, position, back_vec)
+			var intersect = Geometry2D.segment_intersects_segment(from, to, position, back_vec)
 			if intersect != null:
 				reset_position = intersect + Vector2.LEFT * 20
 	rng.seed = hash(position.x + position.y * PI) # Each bird will be different, but deterministic
 	sprite.frame = rng.seed % 7
-	sprite.playing = !disabled
+	if not disabled:
+		sprite.play()
 	
 	# warning-ignore:integer_division
 	time_count = rng.randi_range(0, TIME_UP / 2)
@@ -59,7 +60,10 @@ func physics_step() -> void:
 	if riders.size() > 0:
 		move_vec = Vector2(vel.x * 32.0/60.0 * flip_sign, 0.36)
 		for body in riders:
-			body.move_and_slide(move_vec * 60.0, Vector2.UP)
+			body.set_velocity(move_vec * 60.0)
+			body.set_up_direction(Vector2.UP)
+			body.move_and_slide()
+			body.velocity
 		sprite.animation = "flap"
 		sprite.speed_scale = 3
 		position += move_vec
@@ -84,7 +88,7 @@ func physics_step() -> void:
 		time_count += 1
 	
 	if camera_area != null:
-		if Geometry.is_point_in_polygon(position, camera_polygon):
+		if Geometry2D.is_point_in_polygon(position, camera_polygon):
 			reset_timer = 90
 		else:
 			reset_timer -= 1
@@ -95,11 +99,14 @@ func physics_step() -> void:
 
 func set_disabled(val) -> void:
 	disabled = val
-	yield(self, "ready")
-	set_collision_layer_bit(0, 0 if val else 1)
+	await self.ready
+	set_collision_layer_value(0, 0 if val else 1)
 	safety_net.monitoring = !val
 	ride_area.monitoring = !val
-	sprite.playing = !val
+	if disabled:
+		sprite.stop()
+	else:
+		sprite.play()
 
 
 

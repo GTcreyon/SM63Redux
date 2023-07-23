@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/step_generic_8.wav-a709e1d6367637bf317c10538dfa2e23.sample"
+type="AudioStreamWAV"
+uid="uid://dli4f4iwoxtmt"
+path="res://.godot/imported/step_generic_8.wav-a709e1d6367637bf317c10538dfa2e23.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/step/generic/step_generic_8.wav"
-dest_files=[ "res://.import/step_generic_8.wav-a709e1d6367637bf317c10538dfa2e23.sample" ]
+dest_files=["res://.godot/imported/step_generic_8.wav-a709e1d6367637bf317c10538dfa2e23.sample"]
 
 [params]
 

@@ -16,10 +16,10 @@ const characters = {
 		},
 	"luigi":
 		[
-			PoolStringArray([
+			[
 				"neutral",
 				"sad",
-			]),
+			],
 			
 			[
 				preload("res://gui/dialog/faces/luigi/neutral.png"),
@@ -31,15 +31,15 @@ const characters = {
 const DEFAULT_WIDTH = 320
 const ICON_WIDTH = 40
 
-onready var player = $"/root/Main/Player"
-onready var star = $EdgeRight/Star
-onready var text_area = $Text
-onready var portrait = $EdgeLeft/Portrait
-onready var nameplate = $EdgeLeft/Name
-onready var edge_left = $EdgeLeft
-onready var block_left = $BlockLeft
-onready var sfx_next = $Next
-onready var sfx_close = $Close
+@onready var player = $"/root/Main/Player"
+@onready var star = $EdgeRight/Star
+@onready var text_area: RichTextLabel = $Text
+@onready var portrait = $EdgeLeft/Portrait
+@onready var nameplate = $EdgeLeft/Name
+@onready var edge_left = $EdgeLeft
+@onready var block_left = $BlockLeft
+@onready var sfx_next = $Next
+@onready var sfx_close = $Close
 
 var loaded_lines = []
 var line_index = 0
@@ -66,12 +66,12 @@ func insert_keybind_strings(input: String) -> String:
 	for tag_match in bind_tags:
 		var tag_string: String = tag_match.get_string()
 		var tag_bind = tag_string.substr(4, tag_string.length() - 5)
-		input = input.replace(tag_string, InputMap.get_action_list(tag_bind)[0].as_text())
+		input = input.replace(tag_string, InputMap.action_get_events(tag_bind)[0].as_text())
 	return input
 
 
 func refresh_returns(line):
-	var font = text_area.get_font("normal_font")
+	var font = text_area.get_theme_font("normal_font")
 	var cumulative_length = 0
 	var i = 0
 	while i < line.length():
@@ -106,7 +106,7 @@ func refresh_returns(line):
 
 
 func say_line(index):
-	text_area.bbcode_text = ""
+	text_area.text = ""
 	char_roll = 1
 	char_index = 0
 	
@@ -118,7 +118,7 @@ func say_line(index):
 
 func load_lines(lines):
 	portrait.visible = false
-	text_area.margin_left = 8
+	text_area.offset_left = 8
 	character_id = null
 	character_name = ""
 	swoop_timer = 0
@@ -140,7 +140,7 @@ func _physics_process(_delta):
 			if Input.is_action_pressed("skip"):
 				var regex = RegEx.new()
 				regex.compile("\\[@[^\\]]*\\]") # Remove @ tags
-				text_area.bbcode_text = regex.sub(target_line, "", true)
+				text_area.text = regex.sub(target_line, "", true)
 				char_roll = target_line.length()
 				char_index = char_roll
 			else:
@@ -173,7 +173,7 @@ func _physics_process(_delta):
 												"p":
 													pause_time = float(args[1])
 												"t":
-													add_stylebox_override("panel", styles[args[1]])
+													add_theme_stylebox_override("panel", styles[args[1]])
 												"c":
 													if args.size() < 2:
 														portrait.visible = false
@@ -197,13 +197,13 @@ func _physics_process(_delta):
 												_:
 													print_debug("Dialog: Unknown tag")
 									_:
-										text_area.append_bbcode(tag)
+										text_area.append_text(tag)
 								if skip_char:
 									char_roll += 1
 									skip_char = false
 								skip_char = true # Skips ahead 1 char to prevent doubling after a tag
 							_:
-								text_area.append_bbcode(target_line[char_index])
+								text_area.append_text(target_line[char_index])
 								if skip_char:
 									char_roll += 1
 									skip_char = false
@@ -229,15 +229,15 @@ func _physics_process(_delta):
 		swoop_timer = min(swoop_timer + 1, 80)
 		
 		if character_id == null:
-			margin_left = -((DEFAULT_WIDTH + width_offset) / 2.0) + 2
-			edge_left.margin_left = -16
-			block_left.margin_left = 12
+			offset_left = -((DEFAULT_WIDTH + width_offset) / 2.0) + 2
+			edge_left.offset_left = -16
+			block_left.offset_left = 12
 		else:
-			margin_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset) / 2.0) + 2
-			edge_left.margin_left = -56
-			block_left.margin_left = -28
-		rect_size.x = DEFAULT_WIDTH + width_offset
-		margin_top = ((max(80 / swoop_timer, 5)) - 85)
+			offset_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset) / 2.0) + 2
+			edge_left.offset_left = -56
+			block_left.offset_left = -28
+		size.x = DEFAULT_WIDTH + width_offset
+		offset_top = ((max(80 / swoop_timer, 5)) - 85)
 		
 		if character_name == "":
 			nameplate.visible = false
@@ -247,9 +247,9 @@ func _physics_process(_delta):
 	else:
 		swoop_timer = min(swoop_timer + 0.75, 100)
 		if character_id == null:
-			margin_left = -((DEFAULT_WIDTH + width_offset)) / 2.0
+			offset_left = -((DEFAULT_WIDTH + width_offset)) / 2.0
 		else:
-			margin_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset)) / 2.0
-		margin_top = 20 - (100 / swoop_timer)
+			offset_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset)) / 2.0
+		offset_top = 20 - (100 / swoop_timer)
 		if swoop_timer >= 100:
 			visible = false

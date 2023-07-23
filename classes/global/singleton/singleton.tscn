@@ -1,111 +1,113 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=17 format=3 uid="uid://bmo0pramhjdig"]
 
-[ext_resource path="res://classes/global/singleton/warp.gd" type="Script" id=1]
-[ext_resource path="res://classes/global/singleton/singleton.gd" type="Script" id=2]
-[ext_resource path="res://classes/global/singleton/death_manager.gd" type="Script" id=3]
-[ext_resource path="res://classes/global/singleton/white_warp.gd" type="Script" id=4]
-[ext_resource path="res://scenes/levels/tutorial_1/tutorial_1.mp3" type="AudioStream" id=6]
-[ext_resource path="res://classes/global/singleton/music.gd" type="Script" id=7]
-[ext_resource path="res://classes/pickup/coin/coin_collect.wav" type="AudioStream" id=8]
-[ext_resource path="res://gui/sfx/start.wav" type="AudioStream" id=13]
-[ext_resource path="res://gui/sfx/confirm.wav" type="AudioStream" id=14]
-[ext_resource path="res://gui/sfx/next.wav" type="AudioStream" id=15]
-[ext_resource path="res://gui/sfx/back.wav" type="AudioStream" id=16]
-[ext_resource path="res://classes/console/console.tscn" type="PackedScene" id=17]
-[ext_resource path="res://scenes/menus/feedback/feedback.tscn" type="PackedScene" id=18]
-[ext_resource path="res://gui/timer/timer.tscn" type="PackedScene" id=19]
-[ext_resource path="res://classes/global/singleton/input_manager.gd" type="Script" id=20]
-[ext_resource path="res://classes/global/singleton/window_warp.gd" type="Script" id=21]
+[ext_resource type="Script" path="res://classes/global/singleton/warp.gd" id="1"]
+[ext_resource type="Script" path="res://classes/global/singleton/singleton.gd" id="2"]
+[ext_resource type="Script" path="res://classes/global/singleton/death_manager.gd" id="3"]
+[ext_resource path="res://classes/global/singleton/white_warp.gd" type="Script" id="4"]
+[ext_resource type="AudioStream" uid="uid://bfnotbambq5s6" path="res://scenes/levels/tutorial_1/tutorial_1.mp3" id="6"]
+[ext_resource type="Script" path="res://classes/global/singleton/music.gd" id="7"]
+[ext_resource type="AudioStream" uid="uid://bu02hrqhl4g2v" path="res://classes/pickup/coin/coin_collect.wav" id="8"]
+[ext_resource type="AudioStream" uid="uid://i36mht8vbb0c" path="res://gui/sfx/start.wav" id="13"]
+[ext_resource type="AudioStream" uid="uid://b8c16fs181nx5" path="res://gui/sfx/confirm.wav" id="14"]
+[ext_resource type="AudioStream" uid="uid://ur631bh6dchh" path="res://gui/sfx/next.wav" id="15"]
+[ext_resource type="AudioStream" uid="uid://cjpmppv2q5qt8" path="res://gui/sfx/back.wav" id="16"]
+[ext_resource type="PackedScene" uid="uid://ccp5h74c3svg6" path="res://classes/console/console.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://clrfwr2lrn2aq" path="res://scenes/menus/feedback/feedback.tscn" id="18"]
+[ext_resource type="PackedScene" uid="uid://bq3hvjdh232kq" path="res://gui/timer/timer.tscn" id="19"]
+[ext_resource type="Script" path="res://classes/global/singleton/input_manager.gd" id="20"]
+[ext_resource type="Script" path="res://classes/global/singleton/window_warp.gd" id="21"]
 
 [node name="Singleton" type="CanvasLayer"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Warp" type="Polygon2D" parent="."]
-color = Color( 0, 0, 0, 1 )
-script = ExtResource( 1 )
+color = Color(0, 0, 0, 1)
+script = ExtResource("1")
 
 [node name="WindowWarp" type="Polygon2D" parent="."]
-color = Color( 0, 0, 0, 1 )
-invert_enable = true
+color = Color(0, 0, 0, 1)
+invert_enabled = true
 invert_border = 640.0
-script = ExtResource( 21 )
+script = ExtResource("21")
 
 [node name="WhiteWarp" type="Polygon2D" parent="."]
 color = Color( 0, 0, 0, 1 )
 invert_enable = true
 invert_border = 640.0
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="CoverLayer" type="CanvasLayer" parent="."]
 layer = 2
 
 [node name="WarpCover" type="ColorRect" parent="CoverLayer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 0 )
+color = Color(0, 0, 0, 0)
 
 [node name="DeathManager" type="Node" parent="."]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="DeathCover" type="ColorRect" parent="DeathManager"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0, 0, 0, 0 )
-__meta__ = {
-"_editor_description_": "Sorts behind GUI, unlike WarpCover. This is why it exists as a separate object."
-}
+color = Color(0, 0, 0, 0)
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-pause_mode = 2
-stream = ExtResource( 6 )
+process_mode = 3
+stream = ExtResource("6")
 volume_db = -8.0
-bus = "Music"
-script = ExtResource( 7 )
+bus = &"Music"
+script = ExtResource("7")
 
 [node name="SFX" type="Node" parent="."]
-pause_mode = 2
+process_mode = 3
 
 [node name="Coin" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 8 )
+stream = ExtResource("8")
 volume_db = -2.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="Confirm" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 14 )
+stream = ExtResource("14")
 volume_db = -15.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="Start" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 13 )
+stream = ExtResource("13")
 volume_db = -10.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="Next" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 15 )
+stream = ExtResource("15")
 volume_db = -15.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="Back" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 16 )
+stream = ExtResource("16")
 volume_db = -15.0
-bus = "SFX"
+bus = &"SFX"
 
-[node name="Console" parent="." instance=ExtResource( 17 )]
-pause_mode = 2
+[node name="Console" parent="." instance=ExtResource("17")]
+process_mode = 3
 visible = false
 mouse_filter = 2
 
-[node name="Feedback" parent="." instance=ExtResource( 18 )]
+[node name="Feedback" parent="." instance=ExtResource("18")]
 
-[node name="Timer" parent="." instance=ExtResource( 19 )]
+[node name="Timer" parent="." instance=ExtResource("19")]
 visible = false
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="InputManager" type="Node" parent="."]
-pause_mode = 2
-script = ExtResource( 20 )
+process_mode = 3
+script = ExtResource("20")

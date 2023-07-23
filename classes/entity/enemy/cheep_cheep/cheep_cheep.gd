@@ -72,7 +72,9 @@ func _physics_step():
 	_hitbox_check()
 	
 	# warning-ignore:RETURN_VALUE_DISCARDED
-	move_and_slide(vel * 60, Vector2.UP)
+	set_velocity(vel * 60)
+	set_up_direction(Vector2.UP)
+	move_and_slide()
 
 
 func _on_AlertArea_body_entered(body):
@@ -88,12 +90,11 @@ func _on_AlertArea_body_exited(body):
 
 
 func _on_WaterCheck_area_exited(_area):
-	._on_WaterCheck_area_exited(_area)
+	super._on_WaterCheck_area_exited(_area)
 	vel.y = -5.0
 
 
 func _hurt_struck(body):
-	sfx_struck.play()
 	sprite.play("death")
 	struck = true
 	if body.position.x < position.x:

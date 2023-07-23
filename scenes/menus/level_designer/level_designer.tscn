@@ -1,161 +1,211 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=66 format=3 uid="uid://dj1885yxyxc7y"]
 
-[ext_resource path="res://scenes/menus/level_designer/menu_control.gd" type="Script" id=1]
-[ext_resource path="res://scenes/menus/level_designer/ld_main.gd" type="Script" id=2]
-[ext_resource path="res://scenes/menus/level_designer/ldui/ld_camera.gd" type="Script" id=3]
-[ext_resource path="res://scenes/menus/level_designer/background.tres" type="Material" id=4]
-[ext_resource path="res://scenes/menus/level_designer/music.gd" type="Script" id=5]
-[ext_resource path="res://scenes/menus/level_designer/save_dialog.gd" type="Script" id=6]
-[ext_resource path="res://scenes/menus/level_designer/ldui/top_buttons.png" type="Texture" id=7]
-[ext_resource path="res://scenes/menus/level_designer/ldui/palette.png" type="Texture" id=8]
-[ext_resource path="res://scenes/menus/level_designer/ldui/start_pipe.png" type="Texture" id=9]
-[ext_resource path="res://scenes/menus/level_designer/ldui/start_sign.png" type="Texture" id=10]
-[ext_resource path="res://scenes/menus/level_designer/ldui/big_cog.png" type="Texture" id=11]
-[ext_resource path="res://scenes/menus/level_designer/ldui/hermes.tscn" type="PackedScene" id=12]
-[ext_resource path="res://scenes/menus/level_designer/ldui/scroll_block_v.png" type="Texture" id=13]
-[ext_resource path="res://scenes/menus/level_designer/item_pane.gd" type="Script" id=14]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=15]
-[ext_resource path="res://scenes/menus/level_designer/start.gd" type="Script" id=16]
-[ext_resource path="res://scenes/menus/level_designer/save.gd" type="Script" id=17]
-[ext_resource path="res://scenes/menus/level_designer/load.gd" type="Script" id=18]
-[ext_resource path="res://scenes/menus/level_designer/ldui/square_outline.png" type="Texture" id=19]
-[ext_resource path="res://scenes/menus/level_designer/selection_handler.gd" type="Script" id=20]
-[ext_resource path="res://scenes/menus/level_designer/ldui/poly_editor_button_sheet.png" type="Texture" id=21]
-[ext_resource path="res://scenes/menus/level_designer/ldui/dragger_button_sheet.png" type="Texture" id=22]
-[ext_resource path="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png" type="Texture" id=23]
-[ext_resource path="res://scenes/menus/level_designer/property_menu/property_menu.tscn" type="PackedScene" id=24]
-[ext_resource path="res://scenes/menus/level_designer/dummy.png" type="Texture" id=25]
-[ext_resource path="res://scenes/menus/level_designer/bg_grid.gd" type="Script" id=26]
-[ext_resource path="res://scenes/menus/level_designer/open_dialog.gd" type="Script" id=27]
-[ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" type="StyleBox" id=28]
-[ext_resource path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" type="StyleBox" id=29]
-[ext_resource path="res://scenes/menus/level_designer/scroller.gd" type="Script" id=30]
-[ext_resource path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" type="Script" id=34]
-[ext_resource path="res://scenes/menus/level_designer/selection_action_handler.gd" type="Script" id=35]
-[ext_resource path="res://scenes/menus/level_designer/ldui/close_button.png" type="Texture" id=36]
-[ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" type="StyleBox" id=37]
-[ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" type="StyleBox" id=38]
-[ext_resource path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" type="StyleBox" id=39]
-[ext_resource path="res://scenes/menus/level_designer/polygon_draw.gd" type="Script" id=40]
-[ext_resource path="res://scenes/menus/level_designer/polygon_editor.gd" type="Script" id=41]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=42]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/ldui/ld_camera.gd" id="3"]
+[ext_resource type="Material" uid="uid://7lkhrselib3f" path="res://scenes/menus/level_designer/background.tres" id="4"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/music.gd" id="5"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/save_dialog.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://cdkarb2mvf7s3" path="res://scenes/menus/level_designer/ldui/top_buttons.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://wmxeucqc7ys1" path="res://scenes/menus/level_designer/ldui/palette.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://cp4qc3tnakxr3" path="res://scenes/menus/level_designer/ldui/start_pipe.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://dfxax8x51eclc" path="res://scenes/menus/level_designer/ldui/start_sign.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://kxxwf4iit4sg" path="res://scenes/menus/level_designer/ldui/big_cog.png" id="11"]
+[ext_resource type="PackedScene" uid="uid://cf61txa666j8m" path="res://scenes/menus/level_designer/ldui/hermes.tscn" id="12"]
+[ext_resource type="Texture2D" uid="uid://cb231utoaa0wy" path="res://scenes/menus/level_designer/ldui/scroll_block_v.png" id="13"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/item_pane.gd" id="14"]
+[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="15"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/start.gd" id="16"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/save.gd" id="17"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/load.gd" id="18"]
+[ext_resource type="Texture2D" uid="uid://tbcw22hefp5f" path="res://scenes/menus/level_designer/ldui/square_outline.png" id="19"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/selection_handler.gd" id="20"]
+[ext_resource type="Texture2D" uid="uid://h0ohv2giuogk" path="res://scenes/menus/level_designer/ldui/poly_editor_button_sheet.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://cuicqxy4a1f7k" path="res://scenes/menus/level_designer/ldui/dragger_button_sheet.png" id="22"]
+[ext_resource type="Texture2D" uid="uid://dh5enjquedjsl" path="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png" id="23"]
+[ext_resource type="PackedScene" uid="uid://te73rn1mvd0u" path="res://scenes/menus/level_designer/property_menu/property_menu.tscn" id="24"]
+[ext_resource type="Texture2D" uid="uid://dlava3dmxxqjy" path="res://scenes/menus/level_designer/dummy.png" id="25"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/bg_grid.gd" id="26"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/open_dialog.gd" id="27"]
+[ext_resource type="StyleBox" uid="uid://b6ys7xuk1e71f" path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" id="28"]
+[ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="28_0ajtt"]
+[ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" id="29"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/scroller.gd" id="30"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" id="34"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/selection_action_handler.gd" id="35"]
+[ext_resource type="Texture2D" uid="uid://tg6wa2uikxoh" path="res://scenes/menus/level_designer/ldui/close_button.png" id="36"]
+[ext_resource type="StyleBox" uid="uid://c4t05jli7tvcf" path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" id="37"]
+[ext_resource type="StyleBox" uid="uid://bxk000r2o0auh" path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" id="38"]
+[ext_resource type="Texture2D" uid="uid://cpokwabiivjyv" path="res://scenes/menus/level_designer/ldui/hermes.png" id="38_bx2fd"]
+[ext_resource type="StyleBox" uid="uid://27dvir8jkf4y" path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" id="39"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_draw.gd" id="40"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_editor.gd" id="41"]
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 22 )
-region = Rect2( 0, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("22")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 22 )
-region = Rect2( 64, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("22")
+region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 22 )
-region = Rect2( 32, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("22")
+region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 23 )
-region = Rect2( 0, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("23")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 23 )
-region = Rect2( 64, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("23")
+region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 23 )
-region = Rect2( 32, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("23")
+region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 21 )
-region = Rect2( 0, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("21")
+region = Rect2(0, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 21 )
-region = Rect2( 64, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("21")
+region = Rect2(64, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 21 )
-region = Rect2( 32, 0, 32, 32 )
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource("21")
+region = Rect2(32, 0, 32, 32)
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 7 )
-region = Rect2( 0, 0, 42, 30 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("7")
+region = Rect2(0, 0, 42, 30)
 
-[sub_resource type="StyleBoxTexture" id=2]
-texture = SubResource( 1 )
-region_rect = Rect2( 0, 0, 42, 30 )
+[sub_resource type="StyleBoxTexture" id="2"]
+texture = SubResource("1")
+region_rect = Rect2(0, 0, 42, 30)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 7 )
-region = Rect2( 42, 0, 42, 30 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("7")
+region = Rect2(42, 0, 42, 30)
 
-[sub_resource type="StyleBoxTexture" id=4]
-texture = SubResource( 3 )
-region_rect = Rect2( 0, 0, 42, 30 )
+[sub_resource type="StyleBoxTexture" id="4"]
+texture = SubResource("3")
+region_rect = Rect2(0, 0, 42, 30)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 7 )
-region = Rect2( 84, 0, 42, 30 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("7")
+region = Rect2(84, 0, 42, 30)
 
-[sub_resource type="StyleBoxTexture" id=6]
-texture = SubResource( 5 )
-region_rect = Rect2( 0, 0, 42, 30 )
+[sub_resource type="StyleBoxTexture" id="6"]
+texture = SubResource("5")
+region_rect = Rect2(0, 0, 42, 30)
 
-[sub_resource type="StyleBoxTexture" id=7]
-texture = ExtResource( 10 )
-region_rect = Rect2( 0, 0, 66, 65 )
+[sub_resource type="StyleBoxTexture" id="7"]
+texture = ExtResource("10")
+region_rect = Rect2(0, 0, 66, 65)
 
-[sub_resource type="StyleBoxTexture" id=8]
-texture = ExtResource( 9 )
-region_rect = Rect2( 0, 0, 45, 36 )
+[sub_resource type="StyleBoxTexture" id="8"]
+texture = ExtResource("9")
+region_rect = Rect2(0, 0, 45, 36)
 
-[sub_resource type="StyleBoxTexture" id=9]
-texture = ExtResource( 11 )
-region_rect = Rect2( 0, 0, 70, 70 )
+[sub_resource type="StyleBoxTexture" id="9"]
+texture = ExtResource("11")
+region_rect = Rect2(0, 0, 70, 70)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2gg3"]
+atlas = ExtResource("38_bx2fd")
+region = Rect2(0, 0, 23, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nxacn"]
+atlas = ExtResource("38_bx2fd")
+region = Rect2(0, 13, 23, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uuev6"]
+atlas = ExtResource("38_bx2fd")
+region = Rect2(0, 26, 23, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc0yo"]
+atlas = ExtResource("38_bx2fd")
+region = Rect2(0, 39, 23, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qdnsw"]
+atlas = ExtResource("38_bx2fd")
+region = Rect2(0, 52, 23, 13)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7ksl"]
+atlas = ExtResource("38_bx2fd")
+region = Rect2(0, 65, 23, 13)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yxok2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2gg3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nxacn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uuev6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uc0yo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qdnsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7ksl")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="Main" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Camera" type="Camera2D" parent="."]
 anchor_mode = 0
-current = true
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-bus = "Music"
-script = ExtResource( 5 )
+bus = &"Music"
+script = ExtResource("5")
 
-[node name="FadeOut" type="Tween" parent="Music"]
-
-[node name="FadeIn" type="Tween" parent="Music"]
-
-[node name="BGT1" parent="." instance=ExtResource( 15 )]
+[node name="BGT1" parent="." instance=ExtResource("15")]
 
 [node name="BGGrid" type="TextureRect" parent="BGT1"]
-material = ExtResource( 4 )
+material = ExtResource("4")
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-texture = ExtResource( 25 )
-stretch_mode = 2
-script = ExtResource( 26 )
+texture = ExtResource("25")
+stretch_mode = 1
+script = ExtResource("26")
 
 [node name="UIFollow" type="CanvasLayer" parent="."]
 layer = 0
-script = ExtResource( 34 )
+script = ExtResource("34")
 
 [node name="Selection" type="Control" parent="UIFollow"]
+layout_mode = 3
+anchors_preset = 0
 mouse_filter = 2
-script = ExtResource( 20 )
+script = ExtResource("20")
 
 [node name="Hover" type="NinePatchRect" parent="UIFollow/Selection"]
 visible = false
-modulate = Color( 0, 0.764706, 1, 1 )
-margin_left = 369.0
-margin_top = 246.0
-margin_right = 436.0
-margin_bottom = 297.0
-texture = ExtResource( 19 )
-region_rect = Rect2( 0, 0, 8, 8 )
+modulate = Color(0, 0.764706, 1, 1)
+layout_mode = 0
+offset_left = 369.0
+offset_top = 246.0
+offset_right = 436.0
+offset_bottom = 297.0
+texture = ExtResource("19")
+region_rect = Rect2(0, 0, 8, 8)
 patch_margin_left = 3
 patch_margin_top = 3
 patch_margin_right = 3
@@ -165,331 +215,327 @@ axis_stretch_vertical = 1
 
 [node name="Buttons" type="Control" parent="UIFollow/Selection"]
 visible = false
-margin_left = 150.0
-margin_top = 100.0
-margin_right = 150.0
-margin_bottom = 132.0
+anchors_preset = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 150.0
+offset_bottom = 132.0
 mouse_filter = 2
-script = ExtResource( 35 )
+script = ExtResource("35")
 
 [node name="Dragger" type="TextureButton" parent="UIFollow/Selection/Buttons"]
+layout_mode = 0
 mouse_default_cursor_shape = 6
-texture_normal = SubResource( 10 )
-texture_pressed = SubResource( 11 )
-texture_hover = SubResource( 12 )
+texture_normal = SubResource("10")
+texture_pressed = SubResource("11")
+texture_hover = SubResource("12")
 
 [node name="Duplicator" type="TextureButton" parent="UIFollow/Selection/Buttons"]
-margin_left = 36.0
+layout_mode = 0
+offset_left = 36.0
 mouse_default_cursor_shape = 2
-texture_normal = SubResource( 13 )
-texture_pressed = SubResource( 14 )
-texture_hover = SubResource( 15 )
+texture_normal = SubResource("13")
+texture_pressed = SubResource("14")
+texture_hover = SubResource("15")
 
 [node name="Polygon" type="TextureButton" parent="UIFollow/Selection/Buttons"]
-margin_left = 72.0
+layout_mode = 0
+offset_left = 72.0
 mouse_default_cursor_shape = 2
-texture_normal = SubResource( 16 )
-texture_pressed = SubResource( 17 )
-texture_hover = SubResource( 18 )
+texture_normal = SubResource("16")
+texture_pressed = SubResource("17")
+texture_hover = SubResource("18")
 
 [node name="PolygonEditor" type="Control" parent="UIFollow"]
+layout_mode = 3
+anchors_preset = 0
 mouse_filter = 2
-script = ExtResource( 41 )
+script = ExtResource("41")
 
 [node name="Polygon" type="Control" parent="UIFollow/PolygonEditor"]
-margin_left = 150.0
-margin_top = 100.0
-margin_right = 190.0
-margin_bottom = 140.0
+anchors_preset = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 190.0
+offset_bottom = 140.0
 mouse_filter = 2
-script = ExtResource( 40 )
+script = ExtResource("40")
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="SaveDialog" type="FileDialog" parent="UILayer"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
-window_title = "Save Level"
-resizable = true
 mode_overrides_title = false
 access = 2
-filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
-script = ExtResource( 6 )
+filters = PackedStringArray("*.63r ; SM63 Redux Level")
+script = ExtResource("6")
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
-margin_right = 315.0
-margin_bottom = 130.0
-popup_exclusive = true
-window_title = "Save Level"
-resizable = true
 mode_overrides_title = false
-mode = 0
 access = 2
-filters = PoolStringArray( "*.63r ; SM63 Redux Level" )
-script = ExtResource( 27 )
+filters = PackedStringArray("*.63r ; SM63 Redux Level")
+script = ExtResource("27")
 
 [node name="LDUI" type="Control" parent="UILayer"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="TopBar" type="Control" parent="UILayer/LDUI"]
+anchors_preset = 0
 anchor_right = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ColorRect" type="ColorRect" parent="UILayer/LDUI/TopBar"]
 show_behind_parent = true
-margin_right = 136.0
-margin_bottom = 32.0
-color = Color( 0.223529, 0.0941176, 0, 1 )
+layout_mode = 0
+offset_right = 136.0
+offset_bottom = 32.0
+color = Color(0.223529, 0.0941176, 0, 1)
 
 [node name="File" type="Button" parent="UILayer/LDUI/TopBar"]
-margin_right = 42.0
-margin_bottom = 30.0
-custom_styles/normal = SubResource( 2 )
-script = ExtResource( 17 )
+layout_mode = 0
+offset_right = 42.0
+offset_bottom = 30.0
+theme_override_styles/normal = SubResource("2")
+script = ExtResource("17")
 
 [node name="Mode" type="Button" parent="UILayer/LDUI/TopBar"]
-margin_left = 46.0
-margin_right = 88.0
-margin_bottom = 30.0
-custom_styles/normal = SubResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 46.0
+offset_right = 88.0
+offset_bottom = 30.0
+theme_override_styles/normal = SubResource("4")
 
 [node name="Options" type="Button" parent="UILayer/LDUI/TopBar"]
-margin_left = 92.0
-margin_right = 134.0
-margin_bottom = 30.0
-custom_styles/normal = SubResource( 6 )
-script = ExtResource( 18 )
+layout_mode = 0
+offset_left = 92.0
+offset_right = 134.0
+offset_bottom = 30.0
+theme_override_styles/normal = SubResource("6")
+script = ExtResource("18")
 
 [node name="ItemPane" type="Control" parent="UILayer/LDUI"]
+anchors_preset = 0
 anchor_bottom = 1.0
-margin_top = 32.0
-margin_right = 96.0
-script = ExtResource( 14 )
+offset_top = 32.0
+offset_right = 96.0
+script = ExtResource("14")
 
 [node name="ItemScrollBar" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 82.0
-color = Color( 0.231373, 0.117647, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 82.0
+color = Color(0.231373, 0.117647, 0, 1)
 
 [node name="ScrollRegion" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar"]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 4.0
-margin_bottom = -93.0
+offset_top = 4.0
+offset_bottom = -93.0
 
 [node name="StopperTop" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
-margin_left = 2.0
-margin_top = -2.0
-margin_right = 12.0
-margin_bottom = 3.0
-texture = ExtResource( 13 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = 2.0
+offset_top = -2.0
+offset_right = 12.0
+offset_bottom = 3.0
+texture = ExtResource("13")
 
 [node name="StopperBottom" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = -3.0
-margin_right = 12.0
-margin_bottom = 2.0
-texture = ExtResource( 13 )
+offset_left = 2.0
+offset_top = -3.0
+offset_right = 12.0
+offset_bottom = 2.0
+texture = ExtResource("13")
 flip_v = true
 
 [node name="Scroller" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+anchors_preset = 0
 anchor_right = 1.0
-margin_left = 2.0
-margin_right = -2.0
-margin_bottom = 60.0
-script = ExtResource( 30 )
+offset_left = 2.0
+offset_right = -2.0
+offset_bottom = 60.0
+script = ExtResource("30")
 
 [node name="ScrollerTop" type="Panel" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion/Scroller"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 0.5
-rect_min_size = Vector2( 10, 15 )
-custom_styles/panel = ExtResource( 28 )
+theme_override_styles/panel = ExtResource("28")
 
 [node name="ScrollerBottom" type="Panel" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion/Scroller"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_min_size = Vector2( 10, 15 )
-custom_styles/panel = ExtResource( 29 )
+theme_override_styles/panel = ExtResource("29")
 
 [node name="ItemBlock" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -14.0
-color = Color( 0.141176, 0.52549, 0.47451, 1 )
+offset_right = -14.0
+color = Color(0.141176, 0.52549, 0.47451, 1)
 
 [node name="ItemDisplay" type="Control" parent="UILayer/LDUI/ItemPane/ItemBlock"]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -93.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -93.0
 mouse_filter = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Back" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0.231373, 0.117647, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color(0.231373, 0.117647, 0, 1)
 
 [node name="Base" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
+clip_contents = true
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
-rect_clip_content = true
-color = Color( 0.168627, 0.290196, 0.239216, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+color = Color(0.168627, 0.290196, 0.239216, 1)
 
 [node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme = ExtResource("28_0ajtt")
 columns = 2
 
 [node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 3.0
-margin_right = -3.0
-margin_bottom = -3.0
-custom_constants/vseparation = 4
-custom_constants/hseparation = 4
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = -3.0
+theme = ExtResource("28_0ajtt")
 columns = 2
 
 [node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid"]
-margin_right = 32.0
-margin_bottom = 32.0
-rect_min_size = Vector2( 32, 32 )
-custom_styles/hover = ExtResource( 38 )
-custom_styles/pressed = ExtResource( 39 )
-custom_styles/normal = ExtResource( 37 )
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+theme_override_styles/normal = ExtResource("37")
+theme_override_styles/hover = ExtResource("38")
+theme_override_styles/pressed = ExtResource("39")
 
 [node name="Icon" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid/Terrain"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 36 )
-expand = true
+texture = ExtResource("36")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Palette" type="TextureRect" parent="UILayer/LDUI"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -90.0
-margin_right = 91.0
-texture = ExtResource( 8 )
+offset_top = -90.0
+offset_right = 91.0
+texture = ExtResource("8")
 
 [node name="StartButtons" type="Control" parent="UILayer/LDUI"]
+anchors_preset = 0
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Start" type="Button" parent="UILayer/LDUI/StartButtons"]
-margin_left = -66.0
-margin_top = -65.0
-custom_styles/normal = SubResource( 7 )
-script = ExtResource( 16 )
+layout_mode = 0
+offset_left = -66.0
+offset_top = -65.0
+theme_override_styles/normal = SubResource("7")
+script = ExtResource("16")
 
 [node name="FromPos" type="Button" parent="UILayer/LDUI/StartButtons"]
-margin_left = -111.0
-margin_top = -36.0
-margin_right = -66.0
-custom_styles/normal = SubResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 0
+offset_left = -111.0
+offset_top = -36.0
+offset_right = -66.0
+theme_override_styles/normal = SubResource("8")
 
 [node name="Cog" type="Button" parent="UILayer/LDUI"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -48.0
-margin_top = -22.0
-margin_right = 22.0
-margin_bottom = 48.0
-custom_styles/normal = SubResource( 9 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -48.0
+offset_top = -22.0
+offset_right = 22.0
+offset_bottom = 48.0
+theme_override_styles/normal = SubResource("9")
 
-[node name="Hermes" parent="UILayer/LDUI" instance=ExtResource( 12 )]
-position = Vector2( 278, 353.5 )
+[node name="Hermes" parent="UILayer/LDUI" instance=ExtResource("12")]
 z_index = -1
+position = Vector2(278, 353.5)
+sprite_frames = SubResource("SpriteFrames_yxok2")
 
-[node name="PropertyMenu" parent="UILayer" instance=ExtResource( 24 )]
+[node name="PropertyMenu" parent="UILayer" instance=ExtResource("24")]
 visible = false
 
 [node name="Loading" type="Control" parent="UILayer"]
 visible = false
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Background" type="ColorRect" parent="UILayer/Loading"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 0, 0, 0, 0.521569 )
+color = Color(0, 0, 0, 0.521569)
 
 [node name="ProgressBar" type="ProgressBar" parent="UILayer/Loading"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -90.0
-margin_top = -10.0
-margin_right = 90.0
-margin_bottom = 10.0
-custom_fonts/font = ExtResource( 42 )
+offset_left = -90.0
+offset_top = -10.0
+offset_right = 90.0
+offset_bottom = 10.0
 
 [node name="Label" type="Label" parent="UILayer/Loading"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_top = -42.0
-margin_bottom = -14.0
-custom_fonts/font = ExtResource( 42 )
+offset_top = -42.0
+offset_bottom = -14.0
 text = "Placeholder Loading Text"
-align = 1
 
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
-[connection signal="tween_completed" from="Music/FadeOut" to="Music" method="_on_FadeOut_tween_completed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Dragger" to="UIFollow/Selection/Buttons" method="_on_dragger_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Duplicator" to="UIFollow/Selection/Buttons" method="_on_duplicator_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Polygon" to="UIFollow/Selection/Buttons" method="_on_polygon_pressed"]

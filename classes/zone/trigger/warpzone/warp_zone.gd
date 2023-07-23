@@ -1,16 +1,16 @@
-tool
+@tool
 extends Area2D
 
-onready var sweep_effect: Warp = $"/root/Singleton/Warp"
-onready var player = $"/root/Main/Player"
-export var sweep_direction: Vector2
-export var spawn_location: Vector2
-export var scene_path: String
-export var size: Vector2 setget set_size
+@onready var sweep_effect: Warp = $"/root/Singleton/Warp"
+@onready var player = $"/root/Main/Player"
+@export var sweep_direction: Vector2
+@export var spawn_location: Vector2
+@export var scene_path: String
+@export var size: Vector2: set = set_size
 
 
 func set_size(new_size):
-	$CollisionShape2D.shape.extents = new_size
+	$CollisionShape2D.shape.size = new_size
 	size = new_size
 
 

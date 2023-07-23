@@ -1,8 +1,8 @@
 extends Control
 
-onready var main = $"/root/Main"
-onready var selection_handler = $".."
-onready var polygon_editor = $"../../PolygonEditor"
+@onready var main = $"/root/Main"
+@onready var selection_handler = $".."
+@onready var polygon_editor = $"../../PolygonEditor"
 
 enum DRAG_TYPE { NONE, MOVE, DUPLICATE }
 
@@ -48,8 +48,8 @@ func _unhandled_input(event):
 	if event.is_action_pressed("ld_place") and main.editor_state == main.EDITOR_STATE.DRAGGING:
 		main.editor_state = main.EDITOR_STATE.IDLE
 		visible = true
-		rect_global_position = main.get_snapped_mouse_position() + Vector2(
-			-rect_size.x / 2,
+		global_position = main.get_snapped_mouse_position() + Vector2(
+			-size.x / 2,
 			4
 		)
 		

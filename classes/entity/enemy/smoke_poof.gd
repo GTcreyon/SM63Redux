@@ -1,7 +1,7 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
 func _ready():
-	playing = true
+	play()
 
 
 func _on_SmokePoof_animation_finished():
