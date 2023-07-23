@@ -1,13 +1,13 @@
 extends Control
 
-var history: PoolStringArray = []
+var history: PackedStringArray = []
 var hist_index = 0
 var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
 var line_count: int = 0
 
-onready var logger = $Logger
-onready var input_line = $Input
+@onready var logger = $Logger
+@onready var input_line = $Input
 
 
 func _ready():
@@ -20,7 +20,7 @@ func run_command(cmd: String):
 		if cmd[0] == "/":
 			cmd = cmd.substr(1)
 		history.append(cmd)
-		var args: PoolStringArray = cmd.split(" ")
+		var args: PackedStringArray = cmd.split(" ")
 		match args[0].to_lower():
 			"w":
 				var path
@@ -49,8 +49,7 @@ func run_command(cmd: String):
 						Singleton.log_msg("Error: " + str(err), Singleton.LogType.ERROR)
 			"scene":
 				var scene = "res://" + args[1] + ".tscn"
-				var file_check = File.new()
-				if file_check.file_exists(scene):
+				if FileAccess.file_exists(scene):
 					var err = Singleton.warp_to(scene, $"/root/Main/Player")
 					if err == OK:
 						Singleton.log_msg("Warped to " + scene)
@@ -84,6 +83,9 @@ func run_command(cmd: String):
 			"fdmg":
 				$"/root/Main/Player".hp -= int(args[1])
 				Singleton.log_msg("Forced %d damage." % int(args[1]))
+			"hit":
+				$"/root/Main/Player".take_damage_shove(int(args[1]), int(args[2]))
+				Singleton.log_msg("Hit for %d damage." % int(args[1]))
 			"hp", "health":
 				var val = int(args[1])
 				if args[1] != "0" and val == 0:
@@ -93,20 +95,23 @@ func run_command(cmd: String):
 					Singleton.log_msg("Set HP to %d." % val)
 			"designer", "ld":
 				Singleton.log_msg("Entered Level Designer.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://scenes/menus/level_designer/level_designer.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/level_designer/level_designer.tscn")
 			"menu":
 				Singleton.log_msg("Warped to menu.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://scenes/menus/title/main_menu/main_menu.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/title/main_menu/main_menu.tscn")
 			"title":
 				Singleton.log_msg("Warped to title.")
+				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://scenes/menus/title/title.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/title/title.tscn")
 			"vps":
 				Singleton.log_msg("Entering VPS editor.")
 				# warning-ignore:return_value_discarded
-				get_tree().change_scene("res://scenes/menus/visual_pipescript/editor.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/visual_pipescript/editor.tscn")
 			"fludd":
 				var player = $"/root/Main/Player"
 				match args[1]:
@@ -127,23 +132,33 @@ func run_command(cmd: String):
 						Singleton.log_msg("All nozzles disabled.")
 			"cherry":
 				var player = load("res://classes/player/player.tscn")
-				var inst = player.instance()
-				inst.position = $"/root/Main/Player".position + Vector2.UP * 64 + Vector2(rand_range(-16, 16), rand_range(-16, 16))
+				var inst = player.instantiate()
+				inst.position = $"/root/Main/Player".position + Vector2.UP * 64 + Vector2(randf_range(-16, 16), randf_range(-16, 16))
 				$"/root/Main".add_child(inst)
 			"locale":
 				TranslationServer.set_locale(args[1])
 				Singleton.log_msg("Locale set to \"%s\"." % args[1])
 			"report":
-				req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content": cmd.substr(7), "username": hook_name}))
+				req.request(
+					"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
+					["Content-Type:application/json"],
+					HTTPClient.METHOD_POST,
+					JSON.stringify({"content": cmd.substr(7), "username": hook_name})
+					)
 			"rename":
 				hook_name = cmd.substr(7)
-				req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content":"renamed to \"" + hook_name + "\"", "username": hook_name}))
+				req.request(
+					"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
+					["Content-Type:application/json"], 
+					HTTPClient.METHOD_POST,
+					JSON.stringify({"content":"renamed to \"" + hook_name + "\"", "username": hook_name})
+					)
 			_:
 				Singleton.log_msg("Unknown command \"%s\"." % args[0], Singleton.LogType.ERROR)
 
 
 func _process(_delta):
-	if Input.is_action_just_pressed("debug"):
+	if Input.is_action_just_pressed("debug") or Input.is_action_just_pressed("altdebug") and visible == false:
 		visible = !visible
 		get_tree().paused = visible
 		Singleton.set_pause("console", visible)
@@ -158,4 +173,4 @@ func _process(_delta):
 			if hist_index < history.size():
 				input_line.text = history[size - hist_index - 1]
 				hist_index += 1
-	logger.margin_top = -24 - (Singleton.line_count + 1) * (logger.get_font("normal_font").get_height() + 1)
+	logger.offset_top = -24 - (Singleton.line_count + 1) * (logger.get_theme_font("normal_font").get_height() + 1)

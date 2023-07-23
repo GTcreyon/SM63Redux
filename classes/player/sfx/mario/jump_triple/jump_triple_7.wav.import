@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/jump_triple_7.wav-d28042c2f529b55dd47df4deaeb83a9e.sample"
+type="AudioStreamWAV"
+uid="uid://co0hqlspert60"
+path="res://.godot/imported/jump_triple_7.wav-d28042c2f529b55dd47df4deaeb83a9e.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/mario/jump_triple/jump_triple_7.wav"
-dest_files=[ "res://.import/jump_triple_7.wav-d28042c2f529b55dd47df4deaeb83a9e.sample" ]
+dest_files=["res://.godot/imported/jump_triple_7.wav-d28042c2f529b55dd47df4deaeb83a9e.sample"]
 
 [params]
 

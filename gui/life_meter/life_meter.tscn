@@ -1,134 +1,271 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=39 format=3 uid="uid://bud0fk28v3h76"]
 
-[ext_resource path="res://gui/life_meter/life_meter.gd" type="Script" id=1]
-[ext_resource path="res://gui/life_meter/life_meter.png" type="Texture" id=2]
-[ext_resource path="res://gui/life_meter/coin_ring.png" type="Texture" id=3]
-[ext_resource path="res://gui/life_meter/meter_life_base.png" type="Texture" id=4]
-[ext_resource path="res://gui/life_meter/coin_meter.png" type="Texture" id=5]
+[ext_resource type="Script" path="res://gui/life_meter/life_meter.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://div5k6u60skv4" path="res://gui/life_meter/life_meter.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://2biag3wjges1" path="res://gui/life_meter/coin_ring.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cp8c6lt5bkd5f" path="res://gui/life_meter/meter_life_base.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bl3vryduqtc88" path="res://gui/life_meter/coin_meter.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://c1mltuo3j8sc5" path="res://gui/life_meter/power_indicator.png" id="6"]
+[ext_resource type="Script" path="res://gui/life_meter/coin_charge.gd" id="7"]
 
-[sub_resource type="AtlasTexture" id=48]
-atlas = ExtResource( 2 )
-region = Rect2( 72, 72, 36, 36 )
+[sub_resource type="AtlasTexture" id="48"]
+atlas = ExtResource("2")
+region = Rect2(72, 72, 36, 36)
 
-[sub_resource type="AtlasTexture" id=49]
-atlas = ExtResource( 2 )
-region = Rect2( 36, 72, 36, 36 )
+[sub_resource type="AtlasTexture" id="49"]
+atlas = ExtResource("2")
+region = Rect2(36, 72, 36, 36)
 
-[sub_resource type="AtlasTexture" id=50]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 72, 36, 36 )
+[sub_resource type="AtlasTexture" id="50"]
+atlas = ExtResource("2")
+region = Rect2(0, 72, 36, 36)
 
-[sub_resource type="AtlasTexture" id=51]
-atlas = ExtResource( 2 )
-region = Rect2( 72, 36, 36, 36 )
+[sub_resource type="AtlasTexture" id="51"]
+atlas = ExtResource("2")
+region = Rect2(72, 36, 36, 36)
 
-[sub_resource type="AtlasTexture" id=52]
-atlas = ExtResource( 2 )
-region = Rect2( 36, 36, 36, 36 )
+[sub_resource type="AtlasTexture" id="52"]
+atlas = ExtResource("2")
+region = Rect2(36, 36, 36, 36)
 
-[sub_resource type="AtlasTexture" id=54]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 36, 36, 36 )
+[sub_resource type="AtlasTexture" id="54"]
+atlas = ExtResource("2")
+region = Rect2(0, 36, 36, 36)
 
-[sub_resource type="AtlasTexture" id=53]
-atlas = ExtResource( 2 )
-region = Rect2( 72, 0, 36, 36 )
+[sub_resource type="AtlasTexture" id="53"]
+atlas = ExtResource("2")
+region = Rect2(72, 0, 36, 36)
 
-[sub_resource type="AtlasTexture" id=55]
-atlas = ExtResource( 2 )
-region = Rect2( 36, 0, 36, 36 )
+[sub_resource type="AtlasTexture" id="55"]
+atlas = ExtResource("2")
+region = Rect2(36, 0, 36, 36)
 
-[sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 36, 36 )
+[sub_resource type="AtlasTexture" id="56"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 36, 36)
 
-[sub_resource type="SpriteFrames" id=2]
-animations = [ {
-"frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ), SubResource( 52 ), SubResource( 54 ), SubResource( 53 ), SubResource( 55 ), SubResource( 56 ) ],
+[sub_resource type="SpriteFrames" id="2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("48")
+}, {
+"duration": 1.0,
+"texture": SubResource("49")
+}, {
+"duration": 1.0,
+"texture": SubResource("50")
+}, {
+"duration": 1.0,
+"texture": SubResource("51")
+}, {
+"duration": 1.0,
+"texture": SubResource("52")
+}, {
+"duration": 1.0,
+"texture": SubResource("54")
+}, {
+"duration": 1.0,
+"texture": SubResource("53")
+}, {
+"duration": 1.0,
+"texture": SubResource("55")
+}, {
+"duration": 1.0,
+"texture": SubResource("56")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 12, 12 )
+[sub_resource type="AtlasTexture" id="57"]
+atlas = ExtResource("5")
+region = Rect2(0, 0, 12, 12)
 
-[sub_resource type="AtlasTexture" id=58]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 12, 12, 12 )
+[sub_resource type="AtlasTexture" id="58"]
+atlas = ExtResource("5")
+region = Rect2(0, 12, 12, 12)
 
-[sub_resource type="AtlasTexture" id=59]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 24, 12, 12 )
+[sub_resource type="AtlasTexture" id="59"]
+atlas = ExtResource("5")
+region = Rect2(0, 24, 12, 12)
 
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 36, 12, 12 )
+[sub_resource type="AtlasTexture" id="60"]
+atlas = ExtResource("5")
+region = Rect2(0, 36, 12, 12)
 
-[sub_resource type="AtlasTexture" id=61]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 48, 12, 12 )
+[sub_resource type="AtlasTexture" id="61"]
+atlas = ExtResource("5")
+region = Rect2(0, 48, 12, 12)
 
-[sub_resource type="AtlasTexture" id=62]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 60, 12, 12 )
+[sub_resource type="AtlasTexture" id="62"]
+atlas = ExtResource("5")
+region = Rect2(0, 60, 12, 12)
 
-[sub_resource type="AtlasTexture" id=63]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 72, 12, 12 )
+[sub_resource type="AtlasTexture" id="63"]
+atlas = ExtResource("5")
+region = Rect2(0, 72, 12, 12)
 
-[sub_resource type="AtlasTexture" id=64]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 48, 12, 12 )
+[sub_resource type="AtlasTexture" id="64"]
+atlas = ExtResource("5")
+region = Rect2(0, 48, 12, 12)
 
-[sub_resource type="AtlasTexture" id=65]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 36, 12, 12 )
+[sub_resource type="AtlasTexture" id="65"]
+atlas = ExtResource("5")
+region = Rect2(0, 36, 12, 12)
 
-[sub_resource type="AtlasTexture" id=66]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 24, 12, 12 )
+[sub_resource type="AtlasTexture" id="66"]
+atlas = ExtResource("5")
+region = Rect2(0, 24, 12, 12)
 
-[sub_resource type="AtlasTexture" id=67]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 12, 12, 12 )
+[sub_resource type="AtlasTexture" id="67"]
+atlas = ExtResource("5")
+region = Rect2(0, 12, 12, 12)
 
-[sub_resource type="AtlasTexture" id=68]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 12, 12 )
+[sub_resource type="AtlasTexture" id="68"]
+atlas = ExtResource("5")
+region = Rect2(0, 0, 12, 12)
 
-[sub_resource type="SpriteFrames" id=47]
-animations = [ {
-"frames": [ SubResource( 57 ), SubResource( 58 ), SubResource( 59 ), SubResource( 60 ), SubResource( 61 ) ],
+[sub_resource type="SpriteFrames" id="47"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("57")
+}, {
+"duration": 1.0,
+"texture": SubResource("58")
+}, {
+"duration": 1.0,
+"texture": SubResource("59")
+}, {
+"duration": 1.0,
+"texture": SubResource("60")
+}, {
+"duration": 1.0,
+"texture": SubResource("61")
+}],
 "loop": true,
-"name": "charge",
+"name": &"charge",
 "speed": 0.0
 }, {
-"frames": [ SubResource( 62 ), SubResource( 63 ), SubResource( 64 ), SubResource( 65 ), SubResource( 66 ), SubResource( 67 ), SubResource( 68 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("62")
+}, {
+"duration": 1.0,
+"texture": SubResource("63")
+}, {
+"duration": 1.0,
+"texture": SubResource("64")
+}, {
+"duration": 1.0,
+"texture": SubResource("65")
+}, {
+"duration": 1.0,
+"texture": SubResource("66")
+}, {
+"duration": 1.0,
+"texture": SubResource("67")
+}, {
+"duration": 1.0,
+"texture": SubResource("68")
+}],
 "loop": false,
-"name": "flash",
+"name": &"flash",
 "speed": 15.0
-} ]
+}]
+
+[sub_resource type="AtlasTexture" id="69"]
+atlas = ExtResource("6")
+region = Rect2(0, 0, 62, 14)
+
+[sub_resource type="AtlasTexture" id="70"]
+atlas = ExtResource("6")
+region = Rect2(0, 14, 62, 14)
+
+[sub_resource type="AtlasTexture" id="71"]
+atlas = ExtResource("6")
+region = Rect2(0, 28, 62, 14)
+
+[sub_resource type="AtlasTexture" id="72"]
+atlas = ExtResource("6")
+region = Rect2(0, 42, 62, 14)
+
+[sub_resource type="AtlasTexture" id="73"]
+atlas = ExtResource("6")
+region = Rect2(0, 56, 62, 14)
+
+[sub_resource type="AtlasTexture" id="74"]
+atlas = ExtResource("6")
+region = Rect2(0, 70, 62, 14)
+
+[sub_resource type="AtlasTexture" id="75"]
+atlas = ExtResource("6")
+region = Rect2(0, 84, 62, 14)
+
+[sub_resource type="SpriteFrames" id="76"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("69")
+}, {
+"duration": 1.0,
+"texture": SubResource("70")
+}, {
+"duration": 1.0,
+"texture": SubResource("71")
+}, {
+"duration": 1.0,
+"texture": SubResource("72")
+}, {
+"duration": 1.0,
+"texture": SubResource("73")
+}],
+"loop": true,
+"name": &"charge",
+"speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("74")
+}, {
+"duration": 1.0,
+"texture": SubResource("75")
+}],
+"loop": false,
+"name": &"flash",
+"speed": 15.0
+}]
 
 [node name="LifeMeter" type="Control"]
-rect_pivot_offset = Vector2( 35, 36 )
-script = ExtResource( 1 )
+layout_mode = 3
+anchors_preset = 0
+pivot_offset = Vector2(35, 36)
+script = ExtResource("1")
 
-[node name="MeterBase" type="Sprite" parent="."]
+[node name="MeterBase" type="Sprite2D" parent="."]
 z_index = 1
-texture = ExtResource( 4 )
+texture = ExtResource("4")
 
-[node name="Filler" type="AnimatedSprite" parent="MeterBase"]
+[node name="Filler" type="AnimatedSprite2D" parent="MeterBase"]
 z_index = -1
-frames = SubResource( 2 )
+sprite_frames = SubResource("2")
 
-[node name="CoinMeter" type="AnimatedSprite" parent="MeterBase/Filler"]
-frames = SubResource( 47 )
-animation = "flash"
-frame = 6
-playing = true
+[node name="CoinMeter" type="AnimatedSprite2D" parent="MeterBase/Filler"]
+sprite_frames = SubResource("47")
+animation = &"charge"
+autoplay = "flash"
+script = ExtResource("7")
 
-[node name="CoinRing" type="Sprite" parent="MeterBase/Filler/CoinMeter"]
+[node name="CoinRing" type="Sprite2D" parent="MeterBase/Filler/CoinMeter"]
 visible = false
-texture = ExtResource( 3 )
+texture = ExtResource("3")
+
+[node name="PowerIndicator" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(-1, -23)
+sprite_frames = SubResource("76")
+animation = &"charge"
+autoplay = "charge"
+script = ExtResource("7")

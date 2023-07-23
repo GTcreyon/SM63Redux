@@ -1,489 +1,618 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=51 format=3 uid="uid://be6h11571m34p"]
 
-[ext_resource path="res://classes/solid/terrain/terrain_polygon.tscn" type="PackedScene" id=14]
-[ext_resource path="res://classes/solid/moving_platform/pivot.tscn" type="PackedScene" id=15]
-[ext_resource path="res://classes/pickup/bottle/bottle_big.tscn" type="PackedScene" id=16]
-[ext_resource path="res://classes/solid/telescoping/cloud/cloud.tscn" type="PackedScene" id=17]
-[ext_resource path="res://classes/player/player.tscn" type="PackedScene" id=18]
-[ext_resource path="res://classes/solid/telescoping/tipping_log/tipping_log.tscn" type="PackedScene" id=19]
-[ext_resource path="res://classes/entity/passive/goonie/goonie.tscn" type="PackedScene" id=20]
-[ext_resource path="res://classes/solid/rotating_block/rotating_block.tscn" type="PackedScene" id=21]
-[ext_resource path="res://classes/zone/trigger/timer_end/timer_end.tscn" type="PackedScene" id=22]
-[ext_resource path="res://classes/solid/fungus_platform/fungus_stem.tscn" type="PackedScene" id=23]
-[ext_resource path="res://classes/pickup/coin/yellow/coin_yellow.tscn" type="PackedScene" id=24]
-[ext_resource path="res://classes/entity/enemy/goomba/goomba.tscn" type="PackedScene" id=25]
-[ext_resource path="res://classes/decorative/flowers.tscn" type="PackedScene" id=26]
-[ext_resource path="res://classes/decorative/big_tree.tscn" type="PackedScene" id=27]
-[ext_resource path="res://classes/decorative/fungus_single.tscn" type="PackedScene" id=28]
-[ext_resource path="res://classes/decorative/fungus_double.tscn" type="PackedScene" id=29]
-[ext_resource path="res://classes/decorative/small_tree.tscn" type="PackedScene" id=30]
-[ext_resource path="res://classes/interactable/sign/sign.tscn" type="PackedScene" id=31]
-[ext_resource path="res://shaders/glow.shader" type="Shader" id=32]
-[ext_resource path="res://classes/decorative/arrow/arrow.tscn" type="PackedScene" id=33]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=34]
-[ext_resource path="res://classes/entity/enemy/koopa/parakoopa.tscn" type="PackedScene" id=35]
-[ext_resource path="res://classes/zone/camera_area/camera_area.tscn" type="PackedScene" id=36]
-[ext_resource path="res://classes/zone/trigger/warpzone/warp_zone.tscn" type="PackedScene" id=37]
-[ext_resource path="res://classes/decorative/fossil/fossil.tscn" type="PackedScene" id=39]
-[ext_resource path="res://shaders/palette.shader" type="Shader" id=40]
-[ext_resource path="res://classes/interactable/npc/toad/toad.tscn" type="PackedScene" id=41]
+[ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://fxxe0l6ugcov" path="res://classes/solid/moving_platform/pivot.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://68hiqklvsax3" path="res://classes/pickup/bottle/bottle_big.tscn" id="16"]
+[ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://classes/entity/enemy/koopa/parakoopa.png" id="16_0a56l"]
+[ext_resource type="PackedScene" uid="uid://di4rf8vx2kw3a" path="res://classes/solid/telescoping/cloud/cloud.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="18"]
+[ext_resource type="PackedScene" uid="uid://cujalhk0rkqni" path="res://classes/solid/telescoping/tipping_log/tipping_log.tscn" id="19"]
+[ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="20"]
+[ext_resource type="PackedScene" uid="uid://cnwtfro3mphwq" path="res://classes/solid/rotating_block/rotating_block.tscn" id="21"]
+[ext_resource type="PackedScene" uid="uid://tjph5g5jir77" path="res://classes/zone/trigger/timer_end/timer_end.tscn" id="22"]
+[ext_resource type="PackedScene" uid="uid://coyt8uat1063g" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="23"]
+[ext_resource type="Texture2D" uid="uid://w4khahd820d5" path="res://classes/decorative/fossil/fossils.png" id="23_lh6p4"]
+[ext_resource type="PackedScene" uid="uid://drpm6hlx76jqc" path="res://classes/pickup/coin/yellow/coin_yellow.tscn" id="24"]
+[ext_resource type="PackedScene" uid="uid://cc1st8k2boes7" path="res://classes/entity/enemy/goomba/goomba.tscn" id="25"]
+[ext_resource type="PackedScene" uid="uid://bk3kxkr4ojd03" path="res://classes/decorative/flowers.tscn" id="26"]
+[ext_resource type="PackedScene" uid="uid://do78au40k7meh" path="res://classes/decorative/big_tree.tscn" id="27"]
+[ext_resource type="PackedScene" uid="uid://bm8r1m4hh1g1a" path="res://classes/decorative/fungus_single.tscn" id="28"]
+[ext_resource type="PackedScene" uid="uid://q8k4pkhj3x60" path="res://classes/decorative/fungus_double.tscn" id="29"]
+[ext_resource type="PackedScene" uid="uid://b20mdb1tyiflv" path="res://classes/decorative/small_tree.tscn" id="30"]
+[ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="31"]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="32"]
+[ext_resource type="PackedScene" uid="uid://dmvmvmv3te56c" path="res://classes/decorative/arrow/arrow.tscn" id="33"]
+[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="34"]
+[ext_resource type="PackedScene" uid="uid://b6jp4ecuo2iwc" path="res://classes/entity/enemy/koopa/parakoopa.tscn" id="35"]
+[ext_resource type="PackedScene" uid="uid://c1fox2fi1q2ga" path="res://classes/zone/camera_area/camera_area.tscn" id="36"]
+[ext_resource type="PackedScene" uid="uid://bclig81j8t46n" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="37"]
+[ext_resource type="PackedScene" uid="uid://x15gxnqh87uj" path="res://classes/decorative/fossil/fossil.tscn" id="39"]
+[ext_resource type="Shader" path="res://shaders/palette.gdshader" id="40"]
+[ext_resource type="PackedScene" uid="uid://bb0uyyyri5y2r" path="res://classes/interactable/npc/toad/toad.tscn" id="41"]
 
-[sub_resource type="ShaderMaterial" id=5]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qq3wk"]
 resource_local_to_scene = true
-shader = ExtResource( 40 )
-shader_param/color0 = Color( 0.611765, 0.772549, 0.427451, 1 )
-shader_param/color1 = Color( 0.121569, 0.533333, 0.478431, 1 )
-shader_param/color2 = Color( 0.168627, 0.290196, 0.239216, 1 )
-shader_param/color3 = Color( 1, 1, 0, 1 )
-shader_param/color4 = Color( 1, 0, 1, 1 )
-shader_param/color5 = Color( 0, 1, 1, 1 )
+shader = ExtResource("40")
+shader_parameter/color0 = Color(0.611765, 0.772549, 0.427451, 1)
+shader_parameter/color1 = Color(0.121569, 0.533333, 0.478431, 1)
+shader_parameter/color2 = Color(0.168627, 0.290196, 0.239216, 1)
+shader_parameter/color3 = Color(1, 1, 0, 1)
+shader_parameter/color4 = Color(1, 0, 1, 1)
+shader_parameter/color5 = Color(0, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id=6]
-resource_local_to_scene = true
-shader = ExtResource( 40 )
-shader_param/color0 = Color( 0.611765, 0.772549, 0.427451, 1 )
-shader_param/color1 = Color( 0.121569, 0.533333, 0.478431, 1 )
-shader_param/color2 = Color( 0.168627, 0.290196, 0.239216, 1 )
-shader_param/color3 = Color( 1, 1, 0, 1 )
-shader_param/color4 = Color( 1, 0, 1, 1 )
-shader_param/color5 = Color( 0, 1, 1, 1 )
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("16_0a56l")
+region = Rect2(264, 0, 44, 44)
 
-[sub_resource type="ShaderMaterial" id=1]
-resource_local_to_scene = true
-shader = ExtResource( 32 )
-shader_param/width = 2
-shader_param/radial = false
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("16_0a56l")
+region = Rect2(220, 0, 44, 44)
 
-[sub_resource type="ShaderMaterial" id=2]
-resource_local_to_scene = true
-shader = ExtResource( 32 )
-shader_param/width = 2
-shader_param/radial = false
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("16_0a56l")
+region = Rect2(176, 0, 44, 44)
 
-[sub_resource type="ShaderMaterial" id=3]
-resource_local_to_scene = true
-shader = ExtResource( 32 )
-shader_param/width = 2
-shader_param/radial = false
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("16_0a56l")
+region = Rect2(132, 0, 44, 44)
 
-[sub_resource type="ShaderMaterial" id=4]
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("16_0a56l")
+region = Rect2(88, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("16_0a56l")
+region = Rect2(44, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("16_0a56l")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="SpriteFrames" id="8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 10.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wtyea"]
 resource_local_to_scene = true
-shader = ExtResource( 40 )
-shader_param/color0 = Color( 0.87451, 0.376471, 0.258824, 1 )
-shader_param/color1 = Color( 0.713726, 0.278431, 0.156863, 1 )
-shader_param/color2 = Color( 0.984314, 0.827451, 0.584314, 1 )
-shader_param/color3 = Color( 0.898039, 0.623529, 0.32549, 1 )
-shader_param/color4 = Color( 0.87451, 0.376471, 0.258824, 1 )
-shader_param/color5 = Color( 0.713726, 0.278431, 0.156863, 1 )
+shader = ExtResource("40")
+shader_parameter/color0 = Color(0.611765, 0.772549, 0.427451, 1)
+shader_parameter/color1 = Color(0.121569, 0.533333, 0.478431, 1)
+shader_parameter/color2 = Color(0.168627, 0.290196, 0.239216, 1)
+shader_parameter/color3 = Color(1, 1, 0, 1)
+shader_parameter/color4 = Color(1, 0, 1, 1)
+shader_parameter/color5 = Color(0, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("23_lh6p4")
+region = Rect2(0, 0, 34, 24)
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("23_lh6p4")
+region = Rect2(0, 24, 34, 24)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("23_lh6p4")
+region = Rect2(0, 48, 34, 24)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("23_lh6p4")
+region = Rect2(0, 72, 34, 24)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("23_lh6p4")
+region = Rect2(0, 96, 34, 24)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("23_lh6p4")
+region = Rect2(0, 120, 34, 24)
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}],
+"loop": false,
+"name": &"yellow",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4x3c"]
+resource_local_to_scene = true
+shader = ExtResource("32")
+shader_parameter/width = 1.0
+shader_parameter/recenter = null
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3uxd3"]
+resource_local_to_scene = true
+shader = ExtResource("32")
+shader_parameter/width = 1.0
+shader_parameter/recenter = null
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0jh5e"]
+resource_local_to_scene = true
+shader = ExtResource("32")
+shader_parameter/width = 1.0
+shader_parameter/recenter = null
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v4pse"]
+resource_local_to_scene = true
+shader = ExtResource("40")
+shader_parameter/color0 = Color(0.87451, 0.376471, 0.258824, 1)
+shader_parameter/color1 = Color(0.713726, 0.278431, 0.156863, 1)
+shader_parameter/color2 = Color(0.984314, 0.827451, 0.584314, 1)
+shader_parameter/color3 = Color(0.898039, 0.623529, 0.32549, 1)
+shader_parameter/color4 = Color(0.87451, 0.376471, 0.258824, 1)
+shader_parameter/color5 = Color(0.713726, 0.278431, 0.156863, 1)
 
 [node name="Main" type="Node2D"]
 
-[node name="BGT1" parent="." instance=ExtResource( 34 )]
+[node name="BGT1" parent="." instance=ExtResource("34")]
 
-[node name="CameraArea" parent="." instance=ExtResource( 36 )]
-position = Vector2( 7, 0 )
-polygon = PoolVector2Array( -389, -160, -1008, -160, -1008, -848, 1168, -848, 1168, -400, 816, -400, 747.278, -319.208, 752, 288, -320, 288, -322, -92 )
+[node name="CameraArea" parent="." instance=ExtResource("36")]
+position = Vector2(7, 0)
+polygon = PackedVector2Array(-389, -160, -1008, -160, -1008, -848, 1168, -848, 1168, -400, 816, -400, 747.278, -319.208, 752, 288, -320, 288, -322, -92)
 
-[node name="Player" parent="." instance=ExtResource( 18 )]
-position = Vector2( -81, 193 )
+[node name="Player" parent="." instance=ExtResource("18")]
+position = Vector2(-81, 193)
 
 [node name="Terrain" type="Node2D" parent="."]
 
-[node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 14 )]
-position = Vector2( 0, 209 )
-polygon = PoolVector2Array( -480, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -744, 714, -744, 720, -749, 820, -749, 860, -722, 928, -732, 1068.23, -732, 1068, -1276, 1387, -1276, 1376, 335, -480, 335 )
+[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("14")]
+position = Vector2(0, 209)
+polygon = PackedVector2Array(-480, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -744, 714, -744, 720, -749, 820, -749, 860, -722, 928, -732, 1068.23, -732, 1068, -1276, 1387, -1276, 1376, 335, -480, 335)
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Goonie" parent="Items" instance=ExtResource( 20 )]
-position = Vector2( 93, -310 )
+[node name="Goonie" parent="Items" instance=ExtResource("20")]
+position = Vector2(93, -310)
 
 [node name="Clouds" type="Node2D" parent="Items"]
 
-[node name="Cloud" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( 174, -223 )
+[node name="Cloud" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(174, -223)
 
-[node name="Cloud2" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -2, -261 )
+[node name="Cloud2" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-2, -261)
 
-[node name="Cloud3" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -260, -289 )
+[node name="Cloud3" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-260, -289)
 width = 0
 
-[node name="Cloud4" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -273, -223 )
+[node name="Cloud4" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-273, -223)
 width = 2
 
-[node name="Cloud5" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -443, -354 )
+[node name="Cloud5" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-443, -354)
 
-[node name="Cloud6" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -774, -292 )
+[node name="Cloud6" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-774, -292)
 width = 8
 
-[node name="Cloud7" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -776, -459 )
+[node name="Cloud7" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-776, -459)
 
-[node name="Cloud8" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -776, -459 )
+[node name="Cloud8" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-776, -459)
 
-[node name="Cloud9" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -673, -626 )
+[node name="Cloud9" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-673, -626)
 
-[node name="Cloud12" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -579, -645 )
+[node name="Cloud12" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-579, -645)
 width = 2
 
-[node name="Cloud13" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -863, -594 )
+[node name="Cloud13" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-863, -594)
 width = 2
 
-[node name="Cloud14" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -132, -626 )
+[node name="Cloud14" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-132, -626)
 width = 2
 
-[node name="Cloud15" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( 593, -573 )
+[node name="Cloud15" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(593, -573)
 width = 2
 
-[node name="Cloud16" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( 452, -594 )
+[node name="Cloud16" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(452, -594)
 width = 8
 
-[node name="Cloud10" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -721, -528 )
+[node name="Cloud10" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-721, -528)
 width = 0
 
-[node name="Cloud11" parent="Items/Clouds" instance=ExtResource( 17 )]
-position = Vector2( -764, -597 )
+[node name="Cloud11" parent="Items/Clouds" instance=ExtResource("17")]
+position = Vector2(-764, -597)
 width = 0
 
 [node name="Pivots" type="Node2D" parent="Items"]
 
-[node name="Pivot" parent="Items/Pivots" instance=ExtResource( 15 )]
-position = Vector2( 386, -31 )
+[node name="Pivot" parent="Items/Pivots" instance=ExtResource("15")]
+position = Vector2(386, -31)
 count = 4
 
-[node name="Pivot2" parent="Items/Pivots" instance=ExtResource( 15 )]
-position = Vector2( 438, -183 )
+[node name="Pivot2" parent="Items/Pivots" instance=ExtResource("15")]
+position = Vector2(438, -183)
 count = 4
 
-[node name="Pivot3" parent="Items/Pivots" instance=ExtResource( 15 )]
-position = Vector2( 292, -254 )
+[node name="Pivot3" parent="Items/Pivots" instance=ExtResource("15")]
+position = Vector2(292, -254)
 count = 4
 
-[node name="Pivot4" parent="Items/Pivots" instance=ExtResource( 15 )]
-position = Vector2( -465, -659 )
+[node name="Pivot4" parent="Items/Pivots" instance=ExtResource("15")]
+position = Vector2(-465, -659)
 
-[node name="Pivot5" parent="Items/Pivots" instance=ExtResource( 15 )]
-position = Vector2( -20, -647 )
+[node name="Pivot5" parent="Items/Pivots" instance=ExtResource("15")]
+position = Vector2(-20, -647)
 count = 1
 
-[node name="Pivot6" parent="Items/Pivots" instance=ExtResource( 15 )]
-position = Vector2( 80, -647 )
+[node name="Pivot6" parent="Items/Pivots" instance=ExtResource("15")]
+position = Vector2(80, -647)
 count = 1
 
-[node name="Pivot7" parent="Items/Pivots" instance=ExtResource( 15 )]
-position = Vector2( 180, -647 )
+[node name="Pivot7" parent="Items/Pivots" instance=ExtResource("15")]
+position = Vector2(180, -647)
 count = 1
 
-[node name="Pivot8" parent="Items/Pivots" instance=ExtResource( 15 )]
-position = Vector2( 280, -647 )
+[node name="Pivot8" parent="Items/Pivots" instance=ExtResource("15")]
+position = Vector2(280, -647)
 count = 1
 
 [node name="TiltingPlatforms" type="Node2D" parent="Items"]
 
-[node name="TiltingPlatform" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
-position = Vector2( 86, -241 )
+[node name="TiltingPlatform" parent="Items/TiltingPlatforms" instance=ExtResource("19")]
+position = Vector2(86, -241)
 width = 3
 
-[node name="TiltingPlatform2" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
-position = Vector2( -135, -270 )
+[node name="TiltingPlatform2" parent="Items/TiltingPlatforms" instance=ExtResource("19")]
+position = Vector2(-135, -270)
 width = 6
 
-[node name="TiltingPlatform3" parent="Items/TiltingPlatforms" instance=ExtResource( 19 )]
-position = Vector2( -278, -641 )
+[node name="TiltingPlatform3" parent="Items/TiltingPlatforms" instance=ExtResource("19")]
+position = Vector2(-278, -641)
 width = 6
 
 [node name="RotatingBlocks" type="Node2D" parent="Items"]
 
-[node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
-modulate = Color( 1, 1, 1, 0.5 )
-position = Vector2( -355, -296 )
-size = Vector2( 92, 92 )
+[node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource("21")]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(-355, -296)
+size = Vector2(92, 92)
 wait = 90
 type = 2
 
-[node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
-modulate = Color( 1, 1, 1, 0.5 )
-position = Vector2( -535, -318 )
-size = Vector2( 70, 70 )
+[node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource("21")]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(-535, -318)
+size = Vector2(70, 70)
 wait = 60
 type = 2
 
-[node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource( 21 )]
-modulate = Color( 1, 1, 1, 0.5 )
-position = Vector2( -636, -318 )
-size = Vector2( 70, 70 )
+[node name="RotatingBlock3" parent="Items/RotatingBlocks" instance=ExtResource("21")]
+modulate = Color(1, 1, 1, 0.5)
+position = Vector2(-636, -318)
+size = Vector2(70, 70)
 speed = -1
 wait = 60
 type = 2
 
 [node name="Fungus" type="Node2D" parent="Items"]
 
-[node name="FungusStem" parent="Items/Fungus" instance=ExtResource( 23 )]
-position = Vector2( 440, 54 )
-points = PoolVector2Array( -7, -4, -5, 9, -4, 21, -5, 35, -7, 47, -10, 59, -14, 69, -25, 81, -30, 94, -33, 105, -33, 118, -31, 143, -27, 163 )
+[node name="FungusStem" parent="Items/Fungus" instance=ExtResource("23")]
+position = Vector2(440, 54)
+points = PackedVector2Array(-7, -4, -5, 9, -4, 21, -5, 35, -7, 47, -10, 59, -14, 69, -25, 81, -30, 94, -33, 105, -33, 118, -31, 143, -27, 163)
 
-[node name="FungusStem4" parent="Items/Fungus" instance=ExtResource( 23 )]
-position = Vector2( 591, 61 )
-points = PoolVector2Array( -7, -4, -2, 15, 0, 29, 1, 45, 0, 61, -3, 72, -7, 83, -9, 91, -9, 100, -8, 110, -5, 121, -1, 130, 5, 138 )
+[node name="FungusStem4" parent="Items/Fungus" instance=ExtResource("23")]
+position = Vector2(591, 61)
+points = PackedVector2Array(-7, -4, -2, 15, 0, 29, 1, 45, 0, 61, -3, 72, -7, 83, -9, 91, -9, 100, -8, 110, -5, 121, -1, 130, 5, 138)
 
-[node name="FungusStem2" parent="Items/Fungus" instance=ExtResource( 23 )]
-position = Vector2( 514, 105 )
-points = PoolVector2Array( -7, -4, -8, 3, -7, 10, -4, 21, 4, 42, 9, 54, 10, 68, 8, 91, 3, 112 )
+[node name="FungusStem2" parent="Items/Fungus" instance=ExtResource("23")]
+position = Vector2(514, 105)
+points = PackedVector2Array(-7, -4, -8, 3, -7, 10, -4, 21, 4, 42, 9, 54, 10, 68, 8, 91, 3, 112)
 
-[node name="FungusStem3" parent="Items/Fungus" instance=ExtResource( 23 )]
-position = Vector2( 459, 165 )
-points = PoolVector2Array( -6, -4, -5, 2, -4, 10, -4, 17, -5, 29, -7, 40, -10, 47, -14, 53 )
+[node name="FungusStem3" parent="Items/Fungus" instance=ExtResource("23")]
+position = Vector2(459, 165)
+points = PackedVector2Array(-6, -4, -5, 2, -4, 10, -4, 17, -5, 29, -7, 40, -10, 47, -14, 53)
 
 [node name="Coins" type="Node2D" parent="Items"]
 
-[node name="Coin" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 386, -2 )
+[node name="Coin" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(386, -2)
 
-[node name="Coin2" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 350, -16 )
+[node name="Coin2" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(350, -16)
 
-[node name="Coin3" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 336, -52 )
+[node name="Coin3" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(336, -52)
 
-[node name="Coin4" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 350, -88 )
+[node name="Coin4" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(350, -88)
 
-[node name="Coin5" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 386, -102 )
+[node name="Coin5" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(386, -102)
 
-[node name="Coin6" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 422, -88 )
+[node name="Coin6" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(422, -88)
 
-[node name="Coin7" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 436, -52 )
+[node name="Coin7" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(436, -52)
 
-[node name="Coin8" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 422, -16 )
+[node name="Coin8" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(422, -16)
 
-[node name="Coin9" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 437, -152 )
+[node name="Coin9" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(437, -152)
 
-[node name="Coin10" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 401, -166 )
+[node name="Coin10" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(401, -166)
 
-[node name="Coin11" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 387, -202 )
+[node name="Coin11" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(387, -202)
 
-[node name="Coin12" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 401, -238 )
+[node name="Coin12" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(401, -238)
 
-[node name="Coin13" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 437, -252 )
+[node name="Coin13" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(437, -252)
 
-[node name="Coin14" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 473, -238 )
+[node name="Coin14" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(473, -238)
 
-[node name="Coin15" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 487, -202 )
+[node name="Coin15" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(487, -202)
 
-[node name="Coin16" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 473, -166 )
+[node name="Coin16" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(473, -166)
 
-[node name="Coin17" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -135, -298 )
+[node name="Coin17" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(-135, -298)
 
-[node name="Coin18" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -535, -386 )
+[node name="Coin18" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(-535, -386)
 
-[node name="Coin24" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -356, -375 )
+[node name="Coin24" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(-356, -375)
 
-[node name="Coin19" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -635, -386 )
+[node name="Coin19" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(-635, -386)
 
-[node name="Coin20" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -252, -669 )
+[node name="Coin20" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(-252, -669)
 
-[node name="Coin22" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 401, -627 )
+[node name="Coin22" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(401, -627)
 
-[node name="Coin25" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 503, -627 )
+[node name="Coin25" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(503, -627)
 
-[node name="Coin23" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( 452, -627 )
+[node name="Coin23" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(452, -627)
 
-[node name="Coin21" parent="Items/Coins" instance=ExtResource( 24 )]
-position = Vector2( -305, -669 )
+[node name="Coin21" parent="Items/Coins" instance=ExtResource("24")]
+position = Vector2(-305, -669)
 
 [node name="Bottles" type="Node2D" parent="Items"]
 
-[node name="BottleBig" parent="Items/Bottles" instance=ExtResource( 16 )]
-position = Vector2( 453, 138 )
+[node name="BottleBig" parent="Items/Bottles" instance=ExtResource("16")]
+position = Vector2(453, 138)
 
-[node name="BottleBig2" parent="Items/Bottles" instance=ExtResource( 16 )]
-position = Vector2( -814, -311 )
+[node name="BottleBig2" parent="Items/Bottles" instance=ExtResource("16")]
+position = Vector2(-814, -311)
 
-[node name="BottleBig3" parent="Items/Bottles" instance=ExtResource( 16 )]
-position = Vector2( -3, -280 )
+[node name="BottleBig3" parent="Items/Bottles" instance=ExtResource("16")]
+position = Vector2(-3, -280)
 
 [node name="Enemy" type="Node2D" parent="Items"]
 
-[node name="Goomba" parent="Items/Enemy" instance=ExtResource( 25 )]
-position = Vector2( 262, 179 )
+[node name="Goomba" parent="Items/Enemy" instance=ExtResource("25")]
+position = Vector2(262, 179)
 
-[node name="Parakoopa" parent="Items/Enemy" instance=ExtResource( 35 )]
-material = SubResource( 5 )
-position = Vector2( -638, -668 )
+[node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("35")]
+material = SubResource("ShaderMaterial_qq3wk")
+position = Vector2(-638, -668)
+sprite_frames = SubResource("8")
+frame = 0
 
-[node name="Parakoopa2" parent="Items/Enemy" instance=ExtResource( 35 )]
-material = SubResource( 6 )
-position = Vector2( -57, -330 )
+[node name="Parakoopa2" parent="Items/Enemy" instance=ExtResource("35")]
+material = SubResource("ShaderMaterial_wtyea")
+position = Vector2(-57, -330)
+sprite_frames = SubResource("8")
+frame = 0
 
 [node name="Decoration" type="Node2D" parent="Items"]
 
-[node name="FungusSingle" parent="Items/Decoration" instance=ExtResource( 28 )]
-position = Vector2( 482.5, 193.5 )
+[node name="FungusSingle" parent="Items/Decoration" instance=ExtResource("28")]
+position = Vector2(482.5, 193.5)
 
-[node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 30 )]
-position = Vector2( 340, 169 )
+[node name="SmallTree" parent="Items/Decoration" instance=ExtResource("30")]
+position = Vector2(340, 169)
 
-[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource( 30 )]
-position = Vector2( -52, 175 )
+[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource("30")]
+position = Vector2(-52, 175)
 
-[node name="FungusDouble" parent="Items/Decoration" instance=ExtResource( 29 )]
-position = Vector2( 547, 194.5 )
+[node name="FungusDouble" parent="Items/Decoration" instance=ExtResource("29")]
+position = Vector2(547, 194.5)
 flip_h = true
 
-[node name="Flowers" parent="Items/Decoration" instance=ExtResource( 26 )]
-position = Vector2( 310, 196.5 )
+[node name="Flowers" parent="Items/Decoration" instance=ExtResource("26")]
+position = Vector2(310, 196.5)
 
-[node name="BigTree" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 631, 144 )
+[node name="BigTree" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(631, 144)
 
-[node name="BigTree2" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 195.5, 154 )
+[node name="BigTree2" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(195.5, 154)
 
-[node name="BigTree4" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( -206.5, 160 )
+[node name="BigTree4" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(-206.5, 160)
 
-[node name="BigTree3" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 33.5, 160 )
+[node name="BigTree3" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(33.5, 160)
 
-[node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 26 )]
-position = Vector2( 128, 202.5 )
+[node name="Flowers2" parent="Items/Decoration" instance=ExtResource("26")]
+position = Vector2(128, 202.5)
 
-[node name="Flowers3" parent="Items/Decoration" instance=ExtResource( 26 )]
-position = Vector2( -131, 202.5 )
+[node name="Flowers3" parent="Items/Decoration" instance=ExtResource("26")]
+position = Vector2(-131, 202.5)
 
-[node name="Fossil" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 165, 303 )
-animation = "yellow"
+[node name="Fossil" parent="Items/Decoration" instance=ExtResource("39")]
+position = Vector2(165, 303)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil2" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 461, 296 )
-animation = "yellow"
+[node name="Fossil2" parent="Items/Decoration" instance=ExtResource("39")]
+position = Vector2(461, 296)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil4" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 762, -11 )
-animation = "yellow"
+[node name="Fossil4" parent="Items/Decoration" instance=ExtResource("39")]
+position = Vector2(762, -11)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil5" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 805, -146 )
-animation = "yellow"
+[node name="Fossil5" parent="Items/Decoration" instance=ExtResource("39")]
+position = Vector2(805, -146)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil6" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 758, -292 )
-animation = "yellow"
+[node name="Fossil6" parent="Items/Decoration" instance=ExtResource("39")]
+position = Vector2(758, -292)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil7" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 861, -398 )
-animation = "yellow"
+[node name="Fossil7" parent="Items/Decoration" instance=ExtResource("39")]
+position = Vector2(861, -398)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil3" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 574, 274 )
-animation = "yellow"
+[node name="Fossil3" parent="Items/Decoration" instance=ExtResource("39")]
+position = Vector2(574, 274)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
-[node name="Fossil8" parent="Items/Decoration" instance=ExtResource( 39 )]
-position = Vector2( 795, 209 )
-animation = "yellow"
+[node name="Fossil8" parent="Items/Decoration" instance=ExtResource("39")]
+position = Vector2(795, 209)
+sprite_frames = SubResource("1")
+animation = &"yellow"
 
 [node name="Arrows" type="Node2D" parent="Items/Decoration"]
 
-[node name="Arrow" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
-position = Vector2( 453, 95 )
+[node name="Arrow" parent="Items/Decoration/Arrows" instance=ExtResource("33")]
+position = Vector2(453, 95)
 rotation = 1.5708
 
-[node name="Arrow2" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
-position = Vector2( 386, -31 )
+[node name="Arrow2" parent="Items/Decoration/Arrows" instance=ExtResource("33")]
+position = Vector2(386, -31)
 rotation = -1.23918
 
-[node name="Arrow3" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
-position = Vector2( 438, -183 )
+[node name="Arrow3" parent="Items/Decoration/Arrows" instance=ExtResource("33")]
+position = Vector2(438, -183)
 rotation = -2.68781
 
-[node name="Arrow4" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
-position = Vector2( 292, -254 )
+[node name="Arrow4" parent="Items/Decoration/Arrows" instance=ExtResource("33")]
+position = Vector2(292, -254)
 rotation = 3.14159
 
-[node name="Arrow5" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
-position = Vector2( -776, -330 )
+[node name="Arrow5" parent="Items/Decoration/Arrows" instance=ExtResource("33")]
+position = Vector2(-776, -330)
 rotation = 4.71239
 
-[node name="Arrow6" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
-position = Vector2( -776, -391 )
+[node name="Arrow6" parent="Items/Decoration/Arrows" instance=ExtResource("33")]
+position = Vector2(-776, -391)
 rotation = 4.71239
 
-[node name="Arrow7" parent="Items/Decoration/Arrows" instance=ExtResource( 33 )]
-position = Vector2( 589, -643 )
+[node name="Arrow7" parent="Items/Decoration/Arrows" instance=ExtResource("33")]
+position = Vector2(589, -643)
 rotation = 0.349066
 
 [node name="Signs" type="Node2D" parent="Items"]
 
-[node name="Sign2" parent="Items/Signs" instance=ExtResource( 31 )]
-material = SubResource( 1 )
-position = Vector2( 371, 203 )
-lines = [ "[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it's gone,[@p,3] you won't be able to hover any longer." ]
+[node name="Sign2" parent="Items/Signs" instance=ExtResource("31")]
+material = SubResource("ShaderMaterial_d4x3c")
+position = Vector2(371, 203)
+lines = Array[String](["[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back can save you if you happen to slip off a platform or miss a jump.", "Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only hold [color=#5f75c5]100 flubs[/color] in that tank of theirs.", "Once it's gone,[@p,3] you won't be able to hover any longer."])
 
-[node name="Sign3" parent="Items/Signs" instance=ExtResource( 31 )]
-material = SubResource( 2 )
-position = Vector2( -129, -638 )
-lines = [ "[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] just press [color=#f7c55f][@b,pause][/color] to pause the game!", "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] change FLUDD nozzle,[@p,3] or just sit back and relax!", "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you dare forget that!" ]
+[node name="Sign3" parent="Items/Signs" instance=ExtResource("31")]
+material = SubResource("ShaderMaterial_3uxd3")
+position = Vector2(-129, -638)
+lines = Array[String](["[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] just press [color=#f7c55f][@b,pause][/color] to pause the game!", "In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] change FLUDD nozzle,[@p,3] or just sit back and relax!", "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you dare forget that!"])
 
-[node name="Sign4" parent="Items/Signs" instance=ExtResource( 31 )]
-material = SubResource( 3 )
-position = Vector2( 761, -540 )
-lines = [ "You've reached the end of the [color=#f7c55f]Tiny Demo![/color]", "We hope you enjoyed it, and stay tuned for more!" ]
+[node name="Sign4" parent="Items/Signs" instance=ExtResource("31")]
+material = SubResource("ShaderMaterial_0jh5e")
+position = Vector2(761, -540)
+lines = Array[String](["You've reached the end of the [color=#f7c55f]Tiny Demo![/color]", "We hope you enjoyed it, and stay tuned for more!"])
 
-[node name="Toad" parent="Items" instance=ExtResource( 41 )]
-material = SubResource( 4 )
-position = Vector2( -715, -312 )
-lines = [ "[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that [color=#f28d7c]really[/color] all I'm good for!?" ]
+[node name="Toad" parent="Items" instance=ExtResource("41")]
+material = SubResource("ShaderMaterial_v4pse")
+position = Vector2(-715, -312)
+lines = Array[String](["[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that [color=#f28d7c]really[/color] all I'm good for!?"])
 
-[node name="WarpZone2" parent="." instance=ExtResource( 37 )]
-position = Vector2( -175, 71 )
-sweep_direction = Vector2( 1, 0 )
-spawn_location = Vector2( 1774, 20 )
+[node name="WarpZone2" parent="." instance=ExtResource("37")]
+position = Vector2(-175, 71)
+sweep_direction = Vector2(1, 0)
+spawn_location = Vector2(1774, 20)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_3.tscn"
-size = Vector2( 20, 142 )
+size = Vector2(40, 284)
 
-[node name="WarpZone3" parent="." instance=ExtResource( 37 )]
-position = Vector2( -2195, -21 )
-sweep_direction = Vector2( 0, 1 )
-spawn_location = Vector2( 1000, -400 )
+[node name="WarpZone3" parent="." instance=ExtResource("37")]
+position = Vector2(-2195, -21)
+sweep_direction = Vector2(0, 1)
+spawn_location = Vector2(1000, -400)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_3.tscn"
-size = Vector2( 2000, 50 )
+size = Vector2(4000, 100)
 
-[node name="TimerEnd" parent="." instance=ExtResource( 22 )]
-position = Vector2( 712, -552 )
+[node name="TimerEnd" parent="." instance=ExtResource("22")]
+position = Vector2(712, -552)

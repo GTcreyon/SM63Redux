@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/fludd_switch.wav-fd6641a68fe032bde65a2bcee836920f.sample"
+type="AudioStreamWAV"
+uid="uid://t4j5ffot2i05"
+path="res://.godot/imported/fludd_switch.wav-fd6641a68fe032bde65a2bcee836920f.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/fludd/fludd_switch.wav"
-dest_files=[ "res://.import/fludd_switch.wav-fd6641a68fe032bde65a2bcee836920f.sample" ]
+dest_files=["res://.godot/imported/fludd_switch.wav-fd6641a68fe032bde65a2bcee836920f.sample"]
 
 [params]
 

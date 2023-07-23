@@ -1,22 +1,24 @@
 extends Control
 
-onready var selector_story = $SelectorStory
-onready var selector_settings = $SelectorSettings
-onready var selector_extra = $SelectorExtras
-onready var selector_ld = $SelectorLevelDesigner
+@onready var selector_story = $SelectorStory
+@onready var selector_settings = $SelectorSettings
+@onready var selector_extra = $SelectorExtras
+@onready var selector_ld = $SelectorLevelDesigner
 
-onready var story = $Story
-onready var settings = $Settings
-onready var extra = $Extras
-onready var ld = $LevelDesigner
+@onready var story = $Story
+@onready var settings = $Settings
+@onready var extra = $Extras
+@onready var ld = $LevelDesigner
 
-onready var icon = $Icon
-onready var border = $Border
-onready var description_box = $Border/DescriptionBox
+@onready var icon = $Icon
+@onready var border = $Border
+@onready var description_box = $Border/DescriptionBox
 
-onready var options_control = $OptionsControl
-onready var options_menu = $OptionsControl/OptionsMenu
-onready var back_button = $OptionsControl/BackButton
+@onready var options_control = $OptionsControl
+@onready var options_menu = $OptionsControl/OptionsMenu
+@onready var back_button = $OptionsControl/BackButton
+
+@onready var preview_orb = $PreviewOrb
 
 # Only based on window size.
 var visible_positions: Array#[Vector2]
@@ -66,6 +68,9 @@ func _process(delta: float) -> void:
 			for node in get_tree().get_nodes_in_group("menu_hide"):
 				node.modulate.a = max(node.modulate.a - 0.125 * dmod, 0)
 			options_menu.modulate.a = min(options_menu.modulate.a + 0.125 * dmod, 1)
+			if Input.is_action_just_pressed("ui_cancel"):
+				show_options = false
+				Singleton.get_node("SFX/Back").play()
 		else:
 			for node in get_tree().get_nodes_in_group("menu_hide"):
 				node.modulate.a = min(node.modulate.a + 0.125 * dmod, 1)
@@ -73,11 +78,11 @@ func _process(delta: float) -> void:
 			
 			
 			visible_positions = [
-				Vector2(-0.5 * OS.window_size.x, OS.window_size.y),
-				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(0.5 * OS.window_size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(OS.window_size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * OS.window_size.y),
-				Vector2(1.5 * OS.window_size.x, OS.window_size.y),
+				Vector2(-0.5 * get_window().size.x, get_window().size.y),
+				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
+				Vector2(0.5 * get_window().size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
+				Vector2(get_window().size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
+				Vector2(1.5 * get_window().size.x, get_window().size.y),
 				]
 			center_pos_idx = 2
 			
@@ -137,7 +142,7 @@ func _process(delta: float) -> void:
 				)
 				and modulate.a > 0
 			):
-				_press_button(posmod(cycle_step + cycle_direction, 4))
+				_press_button(get_selected())
 			
 			if Input.is_action_just_pressed("ui_cancel"):
 				visible = false
@@ -148,13 +153,17 @@ func _process(delta: float) -> void:
 		modulate.a = 0
 
 
+func get_selected() -> int:
+	return posmod(cycle_step + cycle_direction, 4)
+
+
 func _press_button(button: int) -> void:
 	if !get_parent().dampen:
 		match button:
 			0:
 				_menu_to_scene("res://scenes/levels/tutorial_1/tutorial_1_1.tscn")
-			1:
-				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
+#			1:
+#				_menu_to_scene("res://scenes/menus/level_designer/level_designer.tscn")
 			3:
 				Singleton.get_node("SFX/Confirm").play()
 				show_options = true
@@ -195,14 +204,15 @@ func _cycle_through(direction: int) -> void:
 	
 	_cycle_increment(cycle_direction)
 	cycle_direction = direction
+	preview_orb.transition(get_selected())
 
 
-func _manage_sizes(scale) -> void:
-	rect_scale = Vector2.ONE * scale
-	rect_size = OS.window_size / scale
+func _manage_sizes(scale_int):
+	scale = Vector2.ONE * scale_int
+	size = get_window().size / scale_int
 
 
-func _touch_cycle(step) -> void:
+func _touch_cycle(step):
 	if !show_options:
 		if step == posmod(cycle_step, 4):
 			_press_button(step)

@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://b20mdb1tyiflv"]
 
-[ext_resource path="res://classes/decorative/small_tree.png" type="Texture" id=1]
-[ext_resource path="res://shaders/aa.tres" type="Material" id=2]
+[ext_resource type="Texture2D" uid="uid://dlnni83l71lr0" path="res://classes/decorative/small_tree.png" id="1"]
+[ext_resource type="Material" uid="uid://bneuwo0j5ktnl" path="res://shaders/aa.tres" id="2"]
 
-[node name="SmallTree" type="Sprite"]
-material = ExtResource( 2 )
-position = Vector2( 0, -35 )
+[node name="SmallTree" type="Sprite2D"]
 z_index = -1
-texture = ExtResource( 1 )
+material = ExtResource("2")
+position = Vector2(0, -35)
+texture = ExtResource("1")

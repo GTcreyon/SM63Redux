@@ -1,63 +1,55 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://r1idl7vtceyu"]
 
-[ext_resource path="res://scenes/menus/feedback/tickbox.png" type="Texture" id=1]
-[ext_resource path="res://scenes/menus/feedback/tickbox.gd" type="Script" id=2]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=3]
+[ext_resource type="Texture2D" uid="uid://cukg1nqkbdm8x" path="res://scenes/menus/feedback/tickbox.png" id="1"]
+[ext_resource type="Script" path="res://scenes/menus/feedback/tickbox.gd" id="2"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 0, 20, 20 )
+[sub_resource type="StyleBoxEmpty" id="6"]
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 40, 20, 20 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 20, 20)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
-region = Rect2( 0, 60, 20, 20 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(0, 40, 20, 20)
 
-[sub_resource type="SpriteFrames" id=5]
-animations = [ {
-"frames": [ SubResource( 1 ), SubResource( 3 ), SubResource( 4 ) ],
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
+region = Rect2(0, 60, 20, 20)
+
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}],
 "loop": false,
-"name": "default",
+"name": &"default",
 "speed": 16.0
-} ]
+}]
 
-[sub_resource type="StyleBoxEmpty" id=6]
-
-[node name="Tickbox" type="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
-mouse_filter = 2
-script = ExtResource( 2 )
-
-[node name="Label" type="Label" parent="."]
-margin_left = -81.0
-margin_top = 20.0
-margin_right = 81.0
-margin_bottom = 35.0
-custom_fonts/font = ExtResource( 3 )
-text = "Lag"
-align = 1
-
-[node name="Sprite" type="AnimatedSprite" parent="."]
-position = Vector2( 0, 10 )
-frames = SubResource( 5 )
-
-[node name="Button" type="Button" parent="Sprite"]
-margin_left = -10.0
-margin_top = -10.0
-margin_right = 10.0
-margin_bottom = 10.0
+[node name="Tickbox" type="Button"]
+custom_minimum_size = Vector2(20, 20)
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 mouse_default_cursor_shape = 2
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 6 )
-custom_styles/disabled = SubResource( 6 )
-custom_styles/normal = SubResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+theme_override_styles/normal = SubResource("6")
+theme_override_styles/hover = SubResource("6")
+theme_override_styles/pressed = SubResource("6")
+theme_override_styles/disabled = SubResource("6")
+theme_override_styles/focus = SubResource("6")
+script = ExtResource("2")
 
-[connection signal="pressed" from="Sprite/Button" to="." method="_on_Button_pressed"]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(10, 10)
+sprite_frames = SubResource("5")
+
+[connection signal="pressed" from="." to="." method="_on_Tickbox_pressed"]

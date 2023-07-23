@@ -18,40 +18,51 @@ extends EntityEnemyWalk
 #	preload("res://classes/entity/enemy/bobomb/explosion_buildup_1.wav"),
 #	preload("res://classes/entity/enemy/bobomb/explosion_buildup_2.wav"),
 #]
-const EXPLOSION = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
-const FUSE_DURATION = 240
-const BUILDUP_SOUND_START = 198
+const EXPLOSION: PackedScene = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
+const FUSE_DURATION: int = 240
+const BUILDUP_SOUND_START: int = 198
+const EASE_FACTOR: float = 1.5
+const FLASH_COUNT: int = 18
 
-var fuse_time = FUSE_DURATION
+var _is_lit: bool = false
+var _fuse_time: int = FUSE_DURATION
 
-onready var base = $Sprites/Base
-onready var fuse = $Sprites/Fuse
-onready var key = $Sprites/Key
-onready var sfx_fuse = $SFXFuse
-onready var sfx_build = $SFXBuildup
+@onready var base = $Sprites/Base
+@onready var fuse = $Sprites/Fuse
+@onready var key = $Sprites/Key
+@onready var sfx_fuse = $SFXFuse
+@onready var sfx_build = $SFXBuildup
 
 func _ready_override():
-	._ready_override()
+	super._ready_override()
 	fuse = _preempt_node_ready(fuse, "Sprites/Fuse")
 	key = _preempt_node_ready(key, "Sprites/Key")
-	fuse.playing = !disabled
-	key.playing = !disabled
+	if not disabled:
+		fuse.play()
+		key.play()
 
 
 func _physics_step() -> void:
 	if !struck:
 		_update_sprites()
 	
-	if fuse.animation == "lit":
-		fuse_time -= 1
+	if _is_lit:
+		fuse.animation = "lit"
+		var buildup_frame: float = max(0, BUILDUP_SOUND_START - _fuse_time)
+		var buildup_progress: float = buildup_frame / BUILDUP_SOUND_START
+		var ease_position: float = pow(buildup_progress, EASE_FACTOR)
+		var red_amount = (1 - cos(ease_position * 2 * PI * FLASH_COUNT)) / 2.0
+		base.modulate.g = 1 - red_amount * buildup_progress
+		base.modulate.b = 1 - red_amount * buildup_progress
+		_fuse_time -= 1
 	
-	if fuse_time == BUILDUP_SOUND_START:
+	if _fuse_time == BUILDUP_SOUND_START:
 		sfx_build.play()
 	
-	if fuse_time <= 0:
+	if _fuse_time <= 0:
 		explode()
 	
-	._physics_step()
+	super._physics_step()
 
 
 func _update_sprites() -> void:
@@ -80,18 +91,22 @@ func _update_sprites() -> void:
 
 
 func _target_alert(_body) -> void:
-	fuse.animation = "lit"
+	_is_lit = true
 	sfx_fuse.play()
 
 
 func set_disabled(val) -> void:
-	.set_disabled(val)
-	fuse.playing = !disabled
-	key.playing = !disabled
+	super.set_disabled(val)
+	if disabled:
+		fuse.stop()
+		key.stop()
+	else:
+		fuse.play()
+		key.play()
 
 
 func _hurt_struck(body) -> void:
-	._hurt_struck(body)
+	super._hurt_struck(body)
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false
@@ -115,7 +130,7 @@ func _struck_land():
 
 
 func explode():
-	var spawn = EXPLOSION.instance()
+	var spawn = EXPLOSION.instantiate()
 	spawn.position = position
 	get_parent().add_child(spawn)
 	enemy_die()

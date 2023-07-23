@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/fuse.wav-4febe52b997a197ff2c5cc70f5f4f38b.sample"
+type="AudioStreamWAV"
+uid="uid://b6y1muqoxhx4p"
+path="res://.godot/imported/fuse.wav-4febe52b997a197ff2c5cc70f5f4f38b.sample"
 
 [deps]
 
 source_file="res://classes/entity/enemy/bobomb/fuse.wav"
-dest_files=[ "res://.import/fuse.wav-4febe52b997a197ff2c5cc70f5f4f38b.sample" ]
+dest_files=["res://.godot/imported/fuse.wav-4febe52b997a197ff2c5cc70f5f4f38b.sample"]
 
 [params]
 

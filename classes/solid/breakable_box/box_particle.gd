@@ -1,6 +1,6 @@
-extends KinematicBody2D
+extends CharacterBody2D
 
-onready var sprite = $AnimatedSprite
+@onready var sprite = $AnimatedSprite2D
 var vel
 var lifetime = 120
 
@@ -18,7 +18,9 @@ func _physics_process(_delta):
 	vel.y += 0.17
 	sprite.speed_scale = floor(abs(vel.y) * 2)
 	# warning-ignore:RETURN_VALUE_DISCARDED
-	move_and_slide(vel * 60, Vector2.UP)
+	set_velocity(vel * 60)
+	set_up_direction(Vector2.UP)
+	move_and_slide()
 	lifetime -= 1
 	if lifetime <= 0:
 		modulate.a -= 0.1

@@ -1,14 +1,24 @@
-extends Control
+extends CanvasLayer
+# Menu to send feedback to the development team.
 
 var req = HTTPRequest.new()
+
+@onready var feedback_container = $FeedbackContainer
+@onready var description = $FeedbackContainer/List/Description
+@onready var contact = $FeedbackContainer/List/Contact
+@onready var traffic = $FeedbackContainer/List/Traffic
+@onready var checkboxes = $FeedbackContainer/List/Checkboxes
+
 
 func _ready():
 	visible = false
 	add_child(req)
 
+
 func _process(_delta):
-	rect_pivot_offset = Vector2(OS.window_size.x / 2, 0)
-	rect_scale = Vector2.ONE * Singleton.get_screen_scale()
+	var scalar = Singleton.get_screen_scale()
+	feedback_container.size = get_window().size / scalar
+	feedback_container.scale = Vector2.ONE * scalar
 	if Input.is_action_just_pressed("feedback"):
 		visible = !visible
 		get_tree().paused = visible or Singleton.pause_menu
@@ -20,68 +30,37 @@ func add_data(tag: String, data) -> String:
 
 
 func _on_Submit_pressed():
-	var desc = $Panel/TextEdit.text
-	if desc == "":
+	if description.text == "":
 		Singleton.get_node("SFX/Back").play()
 	else:
 		visible = false
 		if !Singleton.pause_menu:
 			get_tree().paused = false
-		var msg = "**Description:**\n> "
-		msg += desc
-		
-		msg += "\n**Categories:**"
-		var categories = ""
-		for check in $Checkboxes.get_children():
-			if check.pressed:
-				categories += "\n> " + check.get_name()
-		if categories == "":
-			categories = "\n> `none`"
-		msg += categories
-		
-		msg += "\n**Mood:**\n> "
-		var mood_emote = "`none`"
-		for mood in $Traffic.get_children():
-			if mood.pressed:
-				match mood.get_name():
-					"Negative":
-						mood_emote = ":blue_square: Negative"
-					"Neutral":
-						mood_emote = ":yellow_square: Neutral"
-					"Positive":
-						mood_emote = ":green_square: Positive"
-		msg += mood_emote
-		
-		var username
-		var contact = $Panel2/LineEdit.text
-		if contact == "":
-			username = "Feedback [unnamed]"
-			contact = "`none`"
-		else:
-			username = "Feedback [%s]" % contact
-		
-		msg += "\n**Contact:**\n> " + contact
+		var msg = _assemble_message()
 
-		var data = assemble_package()
+		var data = _assemble_package()
+		var img = await _take_screenshot()
+		var contact_info = contact.text
+		var username
+		if contact_info == "":
+			username = "Feedback [unnamed]"
+		else:
+			username = "Feedback [%s]" % contact_info
+			
 		
-		yield(VisualServer, "frame_post_draw")
-		var img = get_viewport().get_texture().get_data()
-		img.flip_y()
-		img = img.save_png_to_buffer()
 		var payload = ("--boundary\nContent-Disposition:form-data; name=\"content\"\n\n"
 		+ msg
 		+ "\n--boundary\nContent-Disposition:form-data; name=\"username\"\n\n"
 		+ username
 		+ "\n--boundary\nContent-Disposition: form-data; name=\"files[0]\"; filename=\"data.txt\"\nContent-Type: text/plain\n\n"
 		+ data
-		+ "\n--boundary\nContent-Disposition: form-data; name=\"files[1]\"; filename=\"screenshot.png\"\nContent-Type: image/png\n\n").to_utf8()
+		+ "\n--boundary\nContent-Disposition: form-data; name=\"files[1]\"; filename=\"screenshot.png\"\nContent-Type: image/png\n\n").to_utf8_buffer()
 		payload.append_array(img)
-		payload.append_array("\n--boundary--".to_utf8())
+		payload.append_array("\n--boundary--".to_utf8_buffer())
 		#req.connect("request_completed", self, "_on_request_completed")
 		req.request_raw(
-			"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
+			"http://feedback.sm63redux.com",
 			["Content-Type:multipart/form-data; boundary=boundary"],
-			true,
 			HTTPClient.METHOD_POST,
 			payload
 		)
@@ -89,14 +68,60 @@ func _on_Submit_pressed():
 		reset_data()
 
 
-func assemble_package() -> String:
+# Take a screenshot of the gameplay screen
+func _take_screenshot() -> PackedByteArray:
+	await RenderingServer.frame_post_draw
+	var img = get_viewport().get_texture().get_data()
+	img.flip_y()
+	var buffer = img.save_png_to_buffer()
+	return buffer
+
+
+func _assemble_message() -> String:
+	var msg: String = "**Description:**\n> "
+	var desc_text = description.text
+	msg += desc_text.replace("\n", "\n> ")
+	
+	msg += "\n**Categories:**"
+	var categories = ""
+	for check in _get_checkboxes():
+		if check.pressed:
+			categories += "\n> " + check.get_parent().name
+	if categories == "":
+		categories = "\n> `none`"
+	msg += categories
+	
+	msg += "\n**Mood:**\n> "
+	var mood_emote = "`none`"
+	for mood in traffic.get_children():
+		if mood.pressed:
+			match mood.get_name():
+				"Negative":
+					mood_emote = ":blue_square: Negative"
+				"Neutral":
+					mood_emote = ":yellow_square: Neutral"
+				"Positive":
+					mood_emote = ":green_square: Positive"
+	msg += mood_emote
+	
+	var contact_info = contact.text
+	if contact_info == "":
+		contact_info = "`none`"
+	
+	msg += "\n**Contact:**\n> " + contact_info
+	var hash_text = desc_text + str(Time.get_ticks_msec())
+	msg += "\n**Reference:**\n> &" + hash_text.sha1_text().substr(0, 5)
+	return msg
+
+
+func _assemble_package() -> String:
 	var package = ""
 	package += add_data("platform", OS.get_name())
 	package += add_data("version", Singleton.VERSION)
-	package += add_data("timestamp", OS.get_ticks_msec())
-	package += add_data("window_size", OS.get_window_size())
-	package += add_data("fullscreen", OS.window_fullscreen)
-	package += add_data("room", get_tree().get_current_scene().get_filename())
+	package += add_data("timestamp", Time.get_ticks_msec())
+	package += add_data("window_size", get_window().size)
+	package += add_data("fullscreen", ((get_window().mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (get_window().mode == Window.MODE_FULLSCREEN)))
+	package += add_data("room", get_tree().get_current_scene().get_scene_file_path())
 	var player = $"/root/Main/Player"
 	if player == null:
 		package += add_data("no_player", "")
@@ -108,12 +133,19 @@ func assemble_package() -> String:
 	
 
 func reset_data():
-	$Panel/TextEdit.text = ""
-	$Panel2/LineEdit.text = ""
-	for check in $Checkboxes.get_children():
-		check.pressed = false
-	for mood in $Traffic.get_children():
-		mood.pressed = false
+	description.text = ""
+	contact.text = ""
+	for check in _get_checkboxes():
+		check.button_pressed = false
+	for mood in traffic.get_children():
+		mood.button_pressed = false
+
+
+func _get_checkboxes() -> Array:
+	var output = []
+	for box in checkboxes.get_children():
+		output.append(box.get_node("Tickbox"))
+	return output
 
 
 func _on_Cancel_pressed():

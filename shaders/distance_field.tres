@@ -1,9 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d3lpuxs7i73r7"]
 
-[ext_resource path="res://shaders/distance_field.shader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://shaders/distance_field.gdshader" id="1"]
 
 [resource]
 resource_local_to_scene = true
-shader = ExtResource( 1 )
-shader_param/particles_anim_h_frames = 2
-shader_param/particles_anim_v_frames = 2
+shader = ExtResource("1")
+shader_parameter/particles_anim_h_frames = 2
+shader_parameter/particles_anim_v_frames = 2

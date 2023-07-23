@@ -1,254 +1,402 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=38 format=3 uid="uid://bo530bet4fpj0"]
 
-[ext_resource path="res://classes/solid/terrain/terrain_polygon.tscn" type="PackedScene" id=2]
-[ext_resource path="res://classes/player/player.tscn" type="PackedScene" id=3]
-[ext_resource path="res://classes/decorative/butterfly/butterfly.tscn" type="PackedScene" id=5]
-[ext_resource path="res://classes/water/water.tscn" type="PackedScene" id=11]
-[ext_resource path="res://classes/solid/log/log.tscn" type="PackedScene" id=12]
-[ext_resource path="res://classes/solid/breakable_box/breakable_box.tscn" type="PackedScene" id=13]
-[ext_resource path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" type="PackedScene" id=14]
-[ext_resource path="res://classes/entity/enemy/bobomb/bobomb.tscn" type="PackedScene" id=15]
-[ext_resource path="res://classes/zone/trigger/warpzone/warp_zone.tscn" type="PackedScene" id=16]
-[ext_resource path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" type="PackedScene" id=17]
-[ext_resource path="res://classes/zone/camera_area/camera_area.tscn" type="PackedScene" id=18]
-[ext_resource path="res://classes/solid/wooden_platform/wooden_platform.tscn" type="PackedScene" id=19]
-[ext_resource path="res://classes/decorative/big_tree.tscn" type="PackedScene" id=20]
-[ext_resource path="res://classes/entity/passive/goonie/goonie.tscn" type="PackedScene" id=21]
-[ext_resource path="res://classes/interactable/sign/sign.tscn" type="PackedScene" id=22]
-[ext_resource path="res://shaders/glow.shader" type="Shader" id=24]
-[ext_resource path="res://classes/decorative/small_tree.tscn" type="PackedScene" id=25]
-[ext_resource path="res://classes/solid/rocks/big_rock/big_rock.tscn" type="PackedScene" id=26]
-[ext_resource path="res://classes/decorative/flowers.tscn" type="PackedScene" id=27]
+[ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://d1alvph4yehre" path="res://classes/decorative/butterfly/butterfly.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://ckc4syjyp8xrq" path="res://classes/solid/log/log.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://c6hch0hl28ija" path="res://classes/solid/breakable_box/breakable_box.tscn" id="13"]
+[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://vunewr3fpf60" path="res://classes/entity/enemy/bobomb/bobomb.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://bclig81j8t46n" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="16"]
+[ext_resource type="PackedScene" uid="uid://cbmd83f1dv4n" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" id="17"]
+[ext_resource type="Texture2D" uid="uid://d2hxhncxns8t0" path="res://classes/decorative/butterfly/butterfly.png" id="17_pomhx"]
+[ext_resource type="PackedScene" uid="uid://c1fox2fi1q2ga" path="res://classes/zone/camera_area/camera_area.tscn" id="18"]
+[ext_resource type="PackedScene" uid="uid://c3jfqyaj5cyif" path="res://classes/solid/wooden_platform/wooden_platform.tscn" id="19"]
+[ext_resource type="PackedScene" uid="uid://do78au40k7meh" path="res://classes/decorative/big_tree.tscn" id="20"]
+[ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="21"]
+[ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="22"]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="24"]
+[ext_resource type="PackedScene" uid="uid://b20mdb1tyiflv" path="res://classes/decorative/small_tree.tscn" id="25"]
+[ext_resource type="PackedScene" path="res://classes/solid/rocks/big_rock/big_rock.tscn" id="26"]
+[ext_resource type="PackedScene" uid="uid://bk3kxkr4ojd03" path="res://classes/decorative/flowers.tscn" id="27"]
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlxud"]
 resource_local_to_scene = true
-shader = ExtResource( 24 )
-shader_param/width = 2
-shader_param/radial = false
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader = ExtResource("24")
+shader_parameter/width = 1.0
+shader_parameter/recenter = null
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ll25s"]
 resource_local_to_scene = true
-shader = ExtResource( 24 )
-shader_param/width = 2
-shader_param/radial = false
-shader_param/outline_color = Color( 1, 1, 1, 1 )
+shader = ExtResource("24")
+shader_parameter/width = 1.0
+shader_parameter/recenter = null
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(40, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(40, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(32, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(32, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(16, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(48, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(48, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(8, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(0, 8, 8, 8)
+
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(24, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("17_pomhx")
+region = Rect2(24, 8, 8, 8)
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}],
+"loop": true,
+"name": &"blue",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("6")
+}, {
+"duration": 1.0,
+"texture": SubResource("7")
+}],
+"loop": true,
+"name": &"green",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("10")
+}, {
+"duration": 1.0,
+"texture": SubResource("11")
+}],
+"loop": true,
+"name": &"orange",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
+"loop": true,
+"name": &"purple",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}],
+"loop": true,
+"name": &"red",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}],
+"loop": true,
+"name": &"white",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}],
+"loop": true,
+"name": &"yellow",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node2D"]
 
-[node name="BGT1" parent="." instance=ExtResource( 14 )]
+[node name="BGT1" parent="." instance=ExtResource("14")]
 
-[node name="CameraArea" parent="." instance=ExtResource( 18 )]
+[node name="CameraArea" parent="." instance=ExtResource("18")]
 visible = false
-polygon = PoolVector2Array( -80.6043, -76.7664, 1754.29, -76.7664, 1754.29, 395.171, 1378.63, 400.834, 1118.12, 574.507, 576.332, 572.619, 322.258, 388.097, -77.1369, 376.758 )
+polygon = PackedVector2Array(-80.6043, -76.7664, 1754.29, -76.7664, 1754.29, 395.171, 1378.63, 400.834, 1118.12, 574.507, 576.332, 572.619, 322.258, 388.097, -77.1369, 376.758)
 
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( -42, 160 )
+[node name="Player" parent="." instance=ExtResource("3")]
+position = Vector2(-42, 160)
 
 [node name="Water" type="Node2D" parent="."]
 
-[node name="Water" parent="Water" instance=ExtResource( 11 )]
-position = Vector2( 719, 312 )
-polygon = PoolVector2Array( 0, 0, 480, 0, 480, 192, 0, 192 )
+[node name="Water" parent="Water" instance=ExtResource("11")]
+position = Vector2(719, 312)
+polygon = PackedVector2Array(0, 0, 480, 0, 480, 192, 0, 192)
 
 [node name="Terrain" type="Node2D" parent="."]
 
-[node name="TerrainPolygon" parent="Terrain" instance=ExtResource( 2 )]
-position = Vector2( 0, 192 )
+[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("2")]
 z_index = 1
-polygon = PoolVector2Array( -432, -16, 304, -16, 323, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -51, 1699, -51, 1728, -41, 2184, -41, 2184, 523, -432, 523 )
+position = Vector2(0, 192)
+polygon = PackedVector2Array(-432, -16, 304, -16, 323, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -51, 1699, -51, 1728, -41, 2184, -41, 2184, 523, -432, 523)
+edge_types = {
+13: 3,
+14: 3,
+15: 3,
+16: 3,
+17: 3,
+18: 3,
+20: 3
+}
 
-[node name="TerrainPolygon2" parent="Terrain" instance=ExtResource( 2 )]
-position = Vector2( 760, 228 )
+[node name="TerrainPolygon2" parent="Terrain" instance=ExtResource("2")]
 z_index = 1
-polygon = PoolVector2Array( 0, 0, 37, -28, 80, -38, 72, -163, 57, -211, 55, -237, 124, -224, 211, -226, 238, -160, 235, -52, 246, 5, 298, 31, 298, 100, 192, 125, 125, 103, 35, 92, 0, 64 )
+position = Vector2(760, 228)
+polygon = PackedVector2Array(0, 0, 37, -28, 80, -38, 72, -163, 57, -211, 55, -237, 124, -224, 211, -226, 238, -160, 235, -52, 246, 5, 298, 31, 298, 100, 192, 125, 125, 103, 35, 92, 0, 64)
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="Log" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1067, 265 )
+[node name="Log" parent="Items" instance=ExtResource("12")]
+position = Vector2(1067, 265)
 
-[node name="Log2" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1082, 269 )
+[node name="Log2" parent="Items" instance=ExtResource("12")]
+position = Vector2(1082, 269)
 
-[node name="Log3" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1096, 272 )
+[node name="Log3" parent="Items" instance=ExtResource("12")]
+position = Vector2(1096, 272)
 
-[node name="Log4" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1111, 275 )
+[node name="Log4" parent="Items" instance=ExtResource("12")]
+position = Vector2(1111, 275)
 
-[node name="Log5" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1126, 277 )
+[node name="Log5" parent="Items" instance=ExtResource("12")]
+position = Vector2(1126, 277)
 
-[node name="Log6" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1142, 279 )
+[node name="Log6" parent="Items" instance=ExtResource("12")]
+position = Vector2(1142, 279)
 
-[node name="Log7" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1158, 280 )
+[node name="Log7" parent="Items" instance=ExtResource("12")]
+position = Vector2(1158, 280)
 
-[node name="Log8" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1174, 279 )
+[node name="Log8" parent="Items" instance=ExtResource("12")]
+position = Vector2(1174, 279)
 
-[node name="Log9" parent="Items" instance=ExtResource( 12 )]
-position = Vector2( 1190, 278 )
+[node name="Log9" parent="Items" instance=ExtResource("12")]
+position = Vector2(1190, 278)
 
-[node name="BreakableBox" parent="Items" instance=ExtResource( 13 )]
-position = Vector2( 744, 244 )
+[node name="BreakableBox" parent="Items" instance=ExtResource("13")]
+position = Vector2(744, 244)
 
-[node name="BreakableBox2" parent="Items" instance=ExtResource( 13 )]
-position = Vector2( 744, 276 )
+[node name="BreakableBox2" parent="Items" instance=ExtResource("13")]
+position = Vector2(744, 276)
 
-[node name="WoodenPlatform" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1025, 83 )
+[node name="WoodenPlatform" parent="Items" instance=ExtResource("19")]
+position = Vector2(1025, 83)
 
-[node name="WoodenPlatform2" parent="Items" instance=ExtResource( 19 )]
-position = Vector2( 1025, 160 )
+[node name="WoodenPlatform2" parent="Items" instance=ExtResource("19")]
+position = Vector2(1025, 160)
 
-[node name="BigRock" parent="Items" instance=ExtResource( 26 )]
-position = Vector2( 104, 144 )
+[node name="BigRock" parent="Items" instance=ExtResource("26")]
+position = Vector2(104, 144)
 
-[node name="Bobomb" parent="Items" instance=ExtResource( 15 )]
-position = Vector2( 369.972, 183.887 )
-direction = -1
+[node name="Bobomb" parent="Items" instance=ExtResource("15")]
+position = Vector2(369.972, 183.887)
 
-[node name="Bobomb2" parent="Items" instance=ExtResource( 15 )]
-position = Vector2( 439, 193 )
-direction = -1
+[node name="Bobomb2" parent="Items" instance=ExtResource("15")]
+position = Vector2(439, 193)
 
-[node name="Bobomb3" parent="Items" instance=ExtResource( 15 )]
-position = Vector2( 1091.5, 244.758 )
-direction = -1
+[node name="Bobomb3" parent="Items" instance=ExtResource("15")]
+position = Vector2(1091.5, 244.758)
 
-[node name="Sign" parent="Items" instance=ExtResource( 22 )]
-material = SubResource( 1 )
-position = Vector2( 50.6266, 171.279 )
-lines = [ "[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nasty [color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need to go this way?", "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying.", "If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath you!" ]
+[node name="Sign" parent="Items" instance=ExtResource("22")]
+material = SubResource("ShaderMaterial_tlxud")
+position = Vector2(50.6266, 171.279)
+lines = Array[String](["[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nasty [color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need to go this way?", "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying.", "If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath you!"])
 
-[node name="Sign3" parent="Items" instance=ExtResource( 22 )]
-material = SubResource( 2 )
-position = Vector2( 1601, 247 )
-lines = [ "[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]", "If you jump three times while moving,[@p,3] you can jump higher each time,[@p,3] ending with a huge leap!", "That's everything I know,[@p,3] or at least,[@p,3] all I can remember." ]
+[node name="Sign3" parent="Items" instance=ExtResource("22")]
+material = SubResource("ShaderMaterial_ll25s")
+position = Vector2(1601, 247)
+lines = Array[String](["[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]", "If you jump three times while moving,[@p,3] you can jump higher each time,[@p,3] ending with a huge leap!", "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."])
 
-[node name="Cheep Cheep" parent="Items" instance=ExtResource( 17 )]
-position = Vector2( 1089.76, 371.532 )
+[node name="Cheep Cheep" parent="Items" instance=ExtResource("17")]
+position = Vector2(1089.76, 371.532)
 
-[node name="Cheep Cheep2" parent="Items" instance=ExtResource( 17 )]
-position = Vector2( 962.514, 414.344 )
+[node name="Cheep Cheep2" parent="Items" instance=ExtResource("17")]
+position = Vector2(962.514, 414.344)
 
-[node name="BigRock2" parent="Items" instance=ExtResource( 26 )]
-position = Vector2( 638, 205 )
+[node name="BigRock2" parent="Items" instance=ExtResource("26")]
+position = Vector2(638, 205)
 rotation = 0.279253
 
 [node name="Decoration" type="Node2D" parent="Items"]
 
-[node name="BigTree" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 162.5, 123 )
+[node name="BigTree" parent="Items/Decoration" instance=ExtResource("20")]
+position = Vector2(162.5, 123)
 
-[node name="BigTree2" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 350.5, 139 )
+[node name="BigTree2" parent="Items/Decoration" instance=ExtResource("20")]
+position = Vector2(350.5, 139)
 
-[node name="SmallTree" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 240, 138 )
+[node name="SmallTree" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(240, 138)
 
-[node name="BigTree3" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 423.5, 149 )
+[node name="BigTree3" parent="Items/Decoration" instance=ExtResource("20")]
+position = Vector2(423.5, 149)
 
-[node name="BigTree4" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 580.5, 107 )
+[node name="BigTree4" parent="Items/Decoration" instance=ExtResource("20")]
+position = Vector2(580.5, 107)
 
-[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 494, 160 )
+[node name="SmallTree2" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(494, 160)
 
-[node name="SmallTree3" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 1041, 214 )
+[node name="SmallTree3" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(1041, 214)
 
-[node name="BigTree5" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 1289.5, 213 )
+[node name="BigTree5" parent="Items/Decoration" instance=ExtResource("20")]
+position = Vector2(1289.5, 213)
 
-[node name="BigTree6" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 1419.5, 210 )
+[node name="BigTree6" parent="Items/Decoration" instance=ExtResource("20")]
+position = Vector2(1419.5, 210)
 
-[node name="BigTree7" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 1650.5, 196 )
+[node name="BigTree7" parent="Items/Decoration" instance=ExtResource("20")]
+position = Vector2(1650.5, 196)
 
-[node name="SmallTree4" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 1350, 227 )
+[node name="SmallTree4" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(1350, 227)
 
-[node name="SmallTree5" parent="Items/Decoration" instance=ExtResource( 25 )]
-position = Vector2( 1525, 211 )
+[node name="SmallTree5" parent="Items/Decoration" instance=ExtResource("25")]
+position = Vector2(1525, 211)
 
-[node name="Butterfly" parent="Items/Decoration" instance=ExtResource( 5 )]
-position = Vector2( 11, 145 )
-animation = "green"
+[node name="Butterfly" parent="Items/Decoration" instance=ExtResource("5")]
+position = Vector2(11, 145)
+sprite_frames = SubResource("1")
+animation = &"green"
 
-[node name="Flowers" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 11, 165.5 )
+[node name="Flowers" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(11, 165.5)
 
-[node name="Flowers2" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 716, 217.5 )
+[node name="Flowers2" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(716, 217.5)
 
-[node name="Butterfly2" parent="Items/Decoration" instance=ExtResource( 5 )]
-position = Vector2( 717, 199 )
-animation = "green"
+[node name="Butterfly2" parent="Items/Decoration" instance=ExtResource("5")]
+position = Vector2(717, 199)
+sprite_frames = SubResource("1")
+animation = &"green"
 
-[node name="Butterfly3" parent="Items/Decoration" instance=ExtResource( 5 )]
-position = Vector2( 1200, 199 )
-animation = "orange"
+[node name="Butterfly3" parent="Items/Decoration" instance=ExtResource("5")]
+position = Vector2(1200, 199)
+sprite_frames = SubResource("1")
+animation = &"orange"
 frame = 1
 
-[node name="Flowers3" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 1221, 259.5 )
+[node name="Flowers3" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(1221, 259.5)
 
-[node name="Flowers4" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 1557, 239.5 )
+[node name="Flowers4" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(1557, 239.5)
 
-[node name="Flowers5" parent="Items/Decoration" instance=ExtResource( 27 )]
-position = Vector2( 950, -7.5 )
+[node name="Flowers5" parent="Items/Decoration" instance=ExtResource("27")]
+position = Vector2(950, -7.5)
 
-[node name="BigTree8" parent="Items/Decoration" instance=ExtResource( 20 )]
-position = Vector2( 891.5, -50 )
+[node name="BigTree8" parent="Items/Decoration" instance=ExtResource("20")]
+position = Vector2(891.5, -50)
 
-[node name="Butterfly4" parent="Items/Decoration" instance=ExtResource( 5 )]
-position = Vector2( 1557, 214 )
-animation = "green"
+[node name="Butterfly4" parent="Items/Decoration" instance=ExtResource("5")]
+position = Vector2(1557, 214)
+sprite_frames = SubResource("1")
+animation = &"green"
 
 [node name="Goonies" type="Node2D" parent="Items"]
 
-[node name="Goonie" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 160, 16 )
+[node name="Goonie" parent="Items/Goonies" instance=ExtResource("21")]
+position = Vector2(160, 16)
 
-[node name="Goonie2" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 461, 270 )
+[node name="Goonie2" parent="Items/Goonies" instance=ExtResource("21")]
+position = Vector2(461, 270)
 
-[node name="Goonie3" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 630, 305 )
+[node name="Goonie3" parent="Items/Goonies" instance=ExtResource("21")]
+position = Vector2(630, 305)
 
-[node name="Goonie4" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 966.73, 111.522 )
+[node name="Goonie4" parent="Items/Goonies" instance=ExtResource("21")]
+position = Vector2(966.73, 111.522)
 
-[node name="Goonie7" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 1072.73, 259.522 )
+[node name="Goonie7" parent="Items/Goonies" instance=ExtResource("21")]
+position = Vector2(1072.73, 259.522)
 
-[node name="Goonie5" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 800, 360 )
+[node name="Goonie5" parent="Items/Goonies" instance=ExtResource("21")]
+position = Vector2(800, 360)
 
-[node name="Goonie6" parent="Items/Goonies" instance=ExtResource( 21 )]
-position = Vector2( 855, 258 )
+[node name="Goonie6" parent="Items/Goonies" instance=ExtResource("21")]
+position = Vector2(855, 258)
 
-[node name="Bobomb4" parent="Items" instance=ExtResource( 15 )]
-position = Vector2( 1387, 247 )
-direction = -1
+[node name="Bobomb4" parent="Items" instance=ExtResource("15")]
+position = Vector2(1387, 247)
 
-[node name="WarpZone" parent="." instance=ExtResource( 16 )]
-position = Vector2( -81, 92 )
-sweep_direction = Vector2( 1, 0 )
-spawn_location = Vector2( 1843, 24 )
+[node name="WarpZone" parent="." instance=ExtResource("16")]
+position = Vector2(-81, 92)
+sweep_direction = Vector2(1, 0)
+spawn_location = Vector2(1843, 24)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_1.tscn"
-size = Vector2( 20, 800 )
+size = Vector2(40, 1600)
 
-[node name="WarpZone2" parent="." instance=ExtResource( 16 )]
-position = Vector2( 1749, 47 )
-sweep_direction = Vector2( -1, 0 )
-spawn_location = Vector2( 64, 159 )
+[node name="WarpZone2" parent="." instance=ExtResource("16")]
+position = Vector2(1749, 47)
+sweep_direction = Vector2(-1, 0)
+spawn_location = Vector2(64, 159)
 scene_path = "res://scenes/levels/tutorial_1/tutorial_1_3.tscn"
-size = Vector2( 20, 600 )
+size = Vector2(40, 1200)
