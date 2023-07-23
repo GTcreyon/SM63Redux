@@ -12,7 +12,7 @@ extends EntityMirrorable
 # -	_hurt_stomp():
 # 		called when the enemy is stomped.
 #		The default behavior is just to play sfx_stomp, if it exists.
-# - _hurt_strike():
+# - _hurt_struck():
 # 		called when the enemy is struck, e.g. by the player's spin or dive.
 #		The default behavior is to play sfx_struck, if it exists, mark the
 #		enemy as having been struck (struck = true), then pop the enemy a bit
@@ -60,12 +60,15 @@ var _pickup_ids: Array = []
 # Optional death sound effects
 @export var _sfx_stomp_path: NodePath = "SFXStomped"
 @onready var sfx_stomp: AudioStreamPlayer2D = get_node_or_null(_sfx_stomp_path)
+@export var residualize_sfx_stomp = true
 
 @export var _sfx_struck_path: NodePath = "SFXStruck"
 @onready var sfx_struck: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_path)
+@export var residualize_sfx_struck = false
 
 @export var _sfx_struck_land_path: NodePath = "SFXStruckLanded"
 @onready var sfx_struck_landed: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_land_path)
+@export var residualize_sfx_struck_landed = true
 
 # Make the enemy die and drop its coins.
 func enemy_die():
@@ -95,6 +98,12 @@ func _physics_step():
 	
 	# Triggered when landing on the floor after being struck by a spin
 	if is_on_floor() and struck and !stomped and vel.y > 0:
+		# Play the landing sound, if there is one
+		if sfx_struck_landed != null:
+			if residualize_sfx_struck_landed:
+				ResidualSFX.new_from_existing(sfx_struck_landed, get_parent())
+			else:
+				sfx_struck_landed.play()
 		_struck_land()
 	
 	if inside_check:
@@ -116,6 +125,9 @@ func _hurtbox_check():
 	if hurtbox_strike != null:
 		for body in hurtbox_strike.get_overlapping_bodies():
 			if _strike_check(body):
+				# Play the struck sound, if there is one
+				if sfx_struck != null:
+					sfx_struck.play()
 				_hurt_struck(body)
 
 
@@ -160,11 +172,23 @@ func _init_animation():
 
 func _on_HurtboxStomp_area_entered(area):
 	if !stomped or multi_stomp:
+		# Play the stomp sound, if there is one
+		if sfx_stomp != null:
+			if residualize_sfx_stomp:
+				ResidualSFX.new_from_existing(sfx_stomp, get_parent())
+			else:
+				sfx_stomp.play()
 		_hurt_stomp(area)
 
 
 func _on_HurtboxStrike_body_entered(body):
 	if _strike_check(body):
+		# Play the struck sound, if there is one
+		if sfx_struck != null:
+			if residualize_sfx_struck:
+				ResidualSFX.new_from_existing(sfx_struck, get_parent())
+			else:
+				sfx_struck.play()
 		_hurt_struck(body)
 
 
@@ -182,28 +206,16 @@ func _strike_check(body):
 	return !struck and !stomped and (body.is_spinning() or (body.is_diving(true) and abs(body.vel.x) > 1))
 
 
-func _hurt_stomp(_area):
-	# Play the stomp sound, if there is one
-	if sfx_stomp != null:
-		ResidualSFX.new_from_existing(sfx_stomp, get_parent())
-	
+func _hurt_stomp(_area):	
 	pass
 
 
 # Pop the enemy up into the air and off to the side, away from the body that issued the strike
 func _hurt_struck(body):
-	# Play the struck sound, if there is one
-	if sfx_struck != null:
-		sfx_struck.play()
-	
 	struck = true
 	vel.y -= 2.63
 	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
 
 
-func _struck_land():
-	# Play the landing sound, if there is one
-	if sfx_struck_landed != null:
-		ResidualSFX.new_from_existing(sfx_struck_landed, get_parent())
-	
+func _struck_land():	
 	pass

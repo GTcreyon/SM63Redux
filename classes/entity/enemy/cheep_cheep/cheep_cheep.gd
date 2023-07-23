@@ -95,7 +95,6 @@ func _on_WaterCheck_area_exited(_area):
 
 
 func _hurt_struck(body):
-	sfx_struck.play()
 	sprite.play("death")
 	struck = true
 	if body.position.x < position.x:
