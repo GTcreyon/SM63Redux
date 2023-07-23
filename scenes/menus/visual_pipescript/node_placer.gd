@@ -46,7 +46,7 @@ func set_selected_index(new):
 func get_text_width(text: String) -> float:
 	var width = 0
 	for c in text:
-		width += BYLIGHT.get_char_size(c as int).x
+		width += BYLIGHT.get_char_size(c as int, EDITOR_THEME.get_constant("default_font_size", "")).x
 	return width
 
 
@@ -172,21 +172,21 @@ func add_buttons():
 	
 	for category in categories:
 		var heading = Label.new()
-		heading.horizontal_alignment = Label.ALIGNMENT_CENTER
+		heading.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		heading.text = category
 		selection_container.add_child(heading)
 		for piece in pieces:
 			if piece.category == category:
 				var item = Button.new()
 				item.text = piece["display-name"]
-				item.align = Button.ALIGN_RIGHT
+				item.alignment = HORIZONTAL_ALIGNMENT_RIGHT
 				item.focus_mode = Control.FOCUS_NONE
 				item.connect("button_down", Callable(self, "drag_begin").bind(piece))
 				selection_container.add_child(item)
 
 func _ready():
 	# Get the nodes from our nodes file
-	var file = FileAccess.open("res://scenes/menus/visual_pipescript/pieces.json", File.READ)
+	var file = FileAccess.open("res://scenes/menus/visual_pipescript/pieces.json", FileAccess.READ)
 	var content = file.get_as_text()
 	file.close()
 	var test_json_conv = JSON.new()
