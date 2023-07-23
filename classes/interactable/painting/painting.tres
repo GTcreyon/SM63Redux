@@ -1,16 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=2]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dhaofnr22oe8q"]
 
-[ext_resource path="res://classes/interactable/painting/painting.shader" type="Shader" id=1]
-[ext_resource path="res://classes/interactable/painting/burnaway_noise.png" type="Texture" id=2]
+[ext_resource type="Shader" path="res://classes/interactable/painting/painting.gdshader" id="1_qp614"]
+[ext_resource type="Texture2D" uid="uid://cledpxgjk110r" path="res://classes/interactable/painting/burnaway_noise.png" id="2"]
 
 [resource]
-shader = ExtResource( 1 )
-shader_param/texture_resolution = Vector2( 82, 82 )
-shader_param/ripple_origin = Vector2( 0.5, 0.5 )
-shader_param/ripple_amplitude = 0.0
-shader_param/ripple_phase = 0.0
-shader_param/ripple_frequency = 2.0
-shader_param/flash_factor = 0.0
-shader_param/burnaway_factor = 0.0
-shader_param/burnaway_mask_factor = 0.274
-shader_param/burnaway_mask = ExtResource( 2 )
+shader = ExtResource("1_qp614")
+shader_parameter/texture_resolution = Vector2(82, 82)
+shader_parameter/ripple_origin = Vector2(0.5, 0.5)
+shader_parameter/ripple_amplitude = 0.0
+shader_parameter/ripple_phase = 0.0
+shader_parameter/ripple_frequency = 2.0
+shader_parameter/flash_factor = 0.0
+shader_parameter/burnaway_factor = 0.0
+shader_parameter/burnaway_mask_factor = 0.01
+shader_parameter/burnaway_mask = ExtResource("2")

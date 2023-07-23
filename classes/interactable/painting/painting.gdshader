@@ -12,9 +12,6 @@ uniform float burnaway_factor = 0;
 uniform sampler2D burnaway_mask;
 uniform float burnaway_mask_factor = 0.01;
 
-
-const float PI = 3.1415927;
-
 // Float version of lhs <= rhs.
 float leq (float lhs, float rhs) {
 	return floor(lhs / rhs);
