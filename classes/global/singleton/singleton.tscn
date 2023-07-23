@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://classes/global/singleton/warp.gd" id="1"]
 [ext_resource type="Script" path="res://classes/global/singleton/singleton.gd" id="2"]
 [ext_resource type="Script" path="res://classes/global/singleton/death_manager.gd" id="3"]
-[ext_resource path="res://classes/global/singleton/white_warp.gd" type="Script" id="4"]
+[ext_resource type="Script" path="res://classes/global/singleton/white_warp.gd" id="4"]
 [ext_resource type="AudioStream" uid="uid://bfnotbambq5s6" path="res://scenes/levels/tutorial_1/tutorial_1.mp3" id="6"]
 [ext_resource type="Script" path="res://classes/global/singleton/music.gd" id="7"]
 [ext_resource type="AudioStream" uid="uid://bu02hrqhl4g2v" path="res://classes/pickup/coin/coin_collect.wav" id="8"]
@@ -31,8 +31,8 @@ invert_border = 640.0
 script = ExtResource("21")
 
 [node name="WhiteWarp" type="Polygon2D" parent="."]
-color = Color( 0, 0, 0, 1 )
-invert_enable = true
+color = Color(0, 0, 0, 1)
+invert_enabled = true
 invert_border = 640.0
 script = ExtResource("4")
 
