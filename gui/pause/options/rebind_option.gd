@@ -24,6 +24,10 @@ func _input(event):
 			update_list()
 
 
+func _process(_delta):
+	update_list()
+
+
 func update_list():
 	key_list.text = join_action_array(InputMap.action_get_events(action_id))
 
@@ -111,10 +115,6 @@ func set_btn_scale(new_scale):
 	action_name.scale = Vector2.ONE * new_scale
 	key_list.scale = Vector2.ONE * new_scale
 	key_list.pivot_offset.x = key_list.size.x
-
-
-func _process(_delta):
-	update_list()
 
 
 func _get_joypad_buttons() -> Array:
