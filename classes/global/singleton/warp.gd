@@ -3,8 +3,6 @@ extends Polygon2D
 
 var curve = Curve2D.new()
 var curve_top = Vector2.ZERO
-var curve_arc = Vector2(0, OS.window_size.y / 2)
-var curve_bottom = Vector2(0, OS.window_size.y)
 var direction = 0
 var enter = 0
 var set_location = null
@@ -12,11 +10,13 @@ var scene_path = ""
 var flip = false
 var anim_timer = 0
 
+@onready var curve_arc = Vector2(0, get_window().size.y / 2)
+@onready var curve_bottom = Vector2(0, get_window().size.y)
 
 func _ready():
 	curve.add_point(Vector2(0, 0))
-	curve.add_point(Vector2(0, OS.window_size.y))
-	polygon = PoolVector2Array([Vector2(0, 0), Vector2(0, OS.window_size.y / 2), Vector2(0, OS.window_size.y), Vector2(0, OS.window_size.y), Vector2(0, 0)])
+	curve.add_point(Vector2(0, get_window().size.y))
+	polygon = PackedVector2Array([Vector2(0, 0), Vector2(0, get_window().size.y / 2), Vector2(0, get_window().size.y), Vector2(0, get_window().size.y), Vector2(0, 0)])
 
 
 func warp(dir: Vector2, location: Vector2, path: String):
@@ -30,15 +30,15 @@ func warp(dir: Vector2, location: Vector2, path: String):
 	
 	var pos
 	if direction.y == 0:
-		pos = (1 - direction.x) * OS.window_size.x / 2
+		pos = (1 - direction.x) * get_window().size.x / 2
 		curve_top = Vector2(pos, 0)
-		curve_arc = Vector2(0, OS.window_size.y / 2)
-		curve_bottom = Vector2(pos, OS.window_size.y)
+		curve_arc = Vector2(0, get_window().size.y / 2)
+		curve_bottom = Vector2(pos, get_window().size.y)
 	else:
-		pos = (1 - direction.y) * OS.window_size.y / 2
+		pos = (1 - direction.y) * get_window().size.y / 2
 		curve_top = Vector2(0, pos)
-		curve_arc = Vector2(OS.window_size.x / 2, 0)
-		curve_bottom = Vector2(OS.window_size.x, pos)
+		curve_arc = Vector2(get_window().size.x / 2, 0)
+		curve_bottom = Vector2(get_window().size.x, pos)
 
 
 func _physics_process(_delta):
@@ -51,17 +51,17 @@ func _physics_process(_delta):
 		curve.add_point(Vector2(0, 0))
 		var pos
 		if direction.x == 0:
-			curve.add_point(Vector2(0, OS.window_size.y))
-			pos = (1 - direction.y) * OS.window_size.y / 2
+			curve.add_point(Vector2(0, get_window().size.y))
+			pos = (1 - direction.y) * get_window().size.y / 2
 			curve_top = Vector2(0, pos)
-			curve_arc = Vector2(OS.window_size.x / 2, 0)
-			curve_bottom = Vector2(OS.window_size.x, pos)
+			curve_arc = Vector2(get_window().size.x / 2, 0)
+			curve_bottom = Vector2(get_window().size.x, pos)
 		else:
-			curve.add_point(Vector2(OS.window_size.x, 0))
-			pos = (1 - direction.x) * OS.window_size.x / 2
+			curve.add_point(Vector2(get_window().size.x, 0))
+			pos = (1 - direction.x) * get_window().size.x / 2
 			curve_top = Vector2(pos, 0)
-			curve_arc = Vector2(0, OS.window_size.y / 2)
-			curve_bottom = Vector2(pos, OS.window_size.y)
+			curve_arc = Vector2(0, get_window().size.y / 2)
+			curve_bottom = Vector2(pos, get_window().size.y)
 		
 		Singleton.warp_to(scene_path, $"/root/Main/Player")
 		
@@ -78,9 +78,9 @@ func _process(delta):
 		visible = true
 		var speed
 		if direction.x == 0:
-			speed = OS.window_size.y / Singleton.DEFAULT_SIZE.y
+			speed = get_window().size.y / Singleton.DEFAULT_SIZE.y
 		else:
-			speed = OS.window_size.x / Singleton.DEFAULT_SIZE.x
+			speed = get_window().size.x / Singleton.DEFAULT_SIZE.x
 		curve_top += 20 * direction * speed * dmod
 		curve_arc -= 5 * direction * enter * speed * dmod
 		curve_bottom += 20 * direction * speed * dmod
@@ -89,11 +89,11 @@ func _process(delta):
 		curve.set_point_position(1, curve_bottom)
 		if direction.x == 0:
 			if direction.y * enter == -1:
-				polygon = PoolVector2Array([Vector2(0, OS.window_size.y)] + Array(curve.get_baked_points()) + [Vector2(OS.window_size.x, OS.window_size.y)])
+				polygon = PackedVector2Array([Vector2(0, get_window().size.y)] + Array(curve.get_baked_points()) + [Vector2(get_window().size.x, get_window().size.y)])
 			else:
-				polygon = PoolVector2Array([Vector2(0, 0)] + Array(curve.get_baked_points()) + [Vector2(OS.window_size.x, 0)])
+				polygon = PackedVector2Array([Vector2(0, 0)] + Array(curve.get_baked_points()) + [Vector2(get_window().size.x, 0)])
 		else:
 			if direction.x * enter == -1:
-				polygon = PoolVector2Array([Vector2(OS.window_size.x, 0)] + Array(curve.get_baked_points()) + [Vector2(OS.window_size.x, OS.window_size.y)])
+				polygon = PackedVector2Array([Vector2(get_window().size.x, 0)] + Array(curve.get_baked_points()) + [Vector2(get_window().size.x, get_window().size.y)])
 			else:
-				polygon = PoolVector2Array([Vector2(0, 0)] + Array(curve.get_baked_points()) + [Vector2(0, OS.window_size.y)])
+				polygon = PackedVector2Array([Vector2(0, 0)] + Array(curve.get_baked_points()) + [Vector2(0, get_window().size.y)])

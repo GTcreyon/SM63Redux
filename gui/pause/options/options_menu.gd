@@ -7,15 +7,15 @@ var _bus_sfx = AudioServer.get_bus_index("SFX")
 var _bus_sfx_underwater = AudioServer.get_bus_index("SFX Clear In Water")
 var _prev_visible = false
 
-onready var _camera_fix = $ScrollContainer/List/CameraFix
-onready var _touch_controls = $ScrollContainer/List/TouchControls
-onready var _mute_music = $ScrollContainer/List/MuteMusic
-onready var _mute_sfx = $ScrollContainer/List/MuteSFX
-onready var _show_timer = $ScrollContainer/List/ShowTimer
-onready var _locale_select = $ScrollContainer/List/LocaleSelect
+@onready var _camera_fix = $ScrollContainer/List/CameraFix
+@onready var _touch_controls = $ScrollContainer/List/TouchControls
+@onready var _mute_music = $ScrollContainer/List/MuteMusic
+@onready var _mute_sfx = $ScrollContainer/List/MuteSFX
+@onready var _show_timer = $ScrollContainer/List/ShowTimer
+@onready var _locale_select = $ScrollContainer/List/LocaleSelect
 
-onready var _button_menu = $ScrollContainer/List/ButtonMenu
-onready var _touch_menu = $ScrollContainer/List/TouchMenu
+@onready var _button_menu = $ScrollContainer/List/ButtonMenu
+@onready var _touch_menu = $ScrollContainer/List/TouchMenu
 
 
 func _ready():

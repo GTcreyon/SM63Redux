@@ -1,14 +1,14 @@
-tool
+@tool
 extends Polygon2D
 
-onready var player = $"/root/Main/Player"
-onready var camera = player.get_node("Camera")
+@onready var player = $"/root/Main/Player"
+@onready var camera = player.get_node("Camera")
 
-onready var base_modifier = BaseModifier.new()
+@onready var base_modifier = BaseModifier.new()
 
-onready var collision = $StaticBody2D/CollisionPolygon2D
-onready var body = $KinematicBody2D
-onready var body_collision: CollisionPolygon2D = $KinematicBody2D/CollisionPolygon2D
+@onready var collision = $StaticBody2D/CollisionPolygon2D
+@onready var body = $CharacterBody2D
+@onready var body_collision: CollisionPolygon2D = $CharacterBody2D/CollisionPolygon2D
 
 #export var spawn_position: Vector2 setget force_draw
 
@@ -17,7 +17,7 @@ var shrink_number = 0
 var frozen = false
 #func force_draw(val):
 #	spawn_position = val
-#	update()
+#	queue_redraw()
 #
 #func _draw():
 #	if Engine.editor_hint:
@@ -82,7 +82,7 @@ func set_physics_polygon(poly):
 		var p_start = inject[ind]
 		var p_end = inject[(ind + 1) % p_size]
 		# Check if there's an intersection, if so, check if it is the nearest one
-		var point = Geometry.segment_intersects_segment_2d(
+		var point = Geometry2D.segment_intersects_segment(
 			ray_start,
 			ray_end,
 			p_start, 
@@ -106,7 +106,7 @@ func set_physics_polygon(poly):
 			
 			# To prevent the injection points from crossing eachother
 			var first_vector = poly[0]
-			poly.invert()
+			poly.reverse()
 			real.append_array(poly)
 			
 			# Add our injection vector
@@ -120,7 +120,7 @@ func set_physics_polygon(poly):
 
 
 func set_hitbox_extends(size):
-	body_collision.polygon = PoolVector2Array([
+	body_collision.polygon = PackedVector2Array([
 		Vector2(0, -size.y / 2),
 		Vector2(size.x / 2, 0),
 		Vector2(0, size.y / 2),
@@ -129,13 +129,13 @@ func set_hitbox_extends(size):
 	window_prev_length = size.length()
 
 func _ready():
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	# Invert the current polygon
 	set_physics_polygon(polygon)
 	
 #	body_collision.shape.set_extents(OS.window_size / 2)
-	set_hitbox_extends(OS.window_size)
+	set_hitbox_extends(get_window().size)
 	shrink_number = 0
 	
 	body.position = player.position # spawn_position
@@ -143,16 +143,16 @@ func _ready():
 	color = Color(0, 0, 0, 0)
 	
 func _physics_process(dt):
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 
 	shrink_number = min(1, shrink_number + dt * 5)
-	var target_size = OS.window_size * camera.zoom * shrink_number
+	var target_size = Vector2(get_window().size) / camera.zoom * shrink_number
 	if target_size.length() != window_prev_length:
 		set_hitbox_extends(target_size)
 	
 		window_prev_length = target_size.length()
-		body_collision.polygon = PoolVector2Array([
+		body_collision.polygon = PackedVector2Array([
 			Vector2(0, -target_size.y / 2),
 			Vector2(target_size.x / 2, 0),
 			Vector2(0, target_size.y / 2),
@@ -161,13 +161,13 @@ func _physics_process(dt):
 	
 	# Emergency workaround
 	if Singleton.disable_limits:
-		body_collision.polygon = PoolVector2Array([
+		body_collision.polygon = PackedVector2Array([
 			Vector2.ZERO,
 		])
-	elif body_collision.polygon == PoolVector2Array([
+	elif body_collision.polygon == PackedVector2Array([
 			Vector2.ZERO,
 		]):
-		body_collision.polygon = PoolVector2Array([
+		body_collision.polygon = PackedVector2Array([
 			Vector2(0, -target_size.y / 2),
 			Vector2(target_size.x / 2, 0),
 			Vector2(0, target_size.y / 2),
@@ -177,7 +177,9 @@ func _physics_process(dt):
 	# Update the camera position and stuff
 	var target = player.position
 	if !frozen:
-		body.move_and_slide(((target - body.position) / dt))
+		body.set_velocity(((target - body.position) / dt))
+		body.move_and_slide()
+		body.velocity
 
 	# Set the base of the camera to the body
 	base_modifier.set_base(camera, "position", body.position - player.position)

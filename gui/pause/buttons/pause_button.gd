@@ -4,12 +4,12 @@ extends Button
 var scroll = 0
 var scroll_goal = 0
 
-onready var stars = $Stars
-onready var text_node = $Text
-onready var buttons = [get_parent().get_node("ButtonMap"), get_parent().get_node("ButtonFludd"), get_parent().get_node("ButtonOptions"), get_parent().get_node("ButtonExit")]
+@onready var stars = $Stars
+@onready var text_node = $Text
+@onready var buttons = [get_parent().get_node("ButtonMap"), get_parent().get_node("ButtonFludd"), get_parent().get_node("ButtonOptions"), get_parent().get_node("ButtonExit")]
 
-export var texture_off: StreamTexture
-export var texture_on: StreamTexture
+@export var texture_off: CompressedTexture2D
+@export var texture_on: CompressedTexture2D
 
 
 func _process(delta):
@@ -49,18 +49,18 @@ func _process(delta):
 
 # Adjust the star polygon to match the size of the button
 func resize():
-	stars.polygon[1].x = rect_size.x - 1
-	stars.polygon[2].x = rect_size.x - 1
+	stars.polygon[1].x = size.x - 1
+	stars.polygon[2].x = size.x - 1
 
 
 func _on_Button_toggled(button_pressed):
 	if button_pressed:
 		# Move the text down by one to make it look pressed down
-		text_node.margin_top = -7
+		text_node.offset_top = -7
 		
 		# Unpress all other buttons
 		for button in buttons:
 			if button != self:
-				button.pressed = false
+				button.button_pressed = false
 	else:
-		text_node.margin_top = -8
+		text_node.offset_top = -8

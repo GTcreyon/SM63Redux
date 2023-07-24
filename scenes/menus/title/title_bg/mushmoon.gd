@@ -1,4 +1,4 @@
-extends Sprite
+extends Sprite2D
 
 var progress = 0.5
 var season_progress = 0
@@ -12,5 +12,5 @@ func _process(delta):
 	if progress >= 1.5:
 		season_progress = (season_progress + 1) % 9
 		progress = 0
-	position.y = OS.window_size.y * (1 - progress)
-	position.x = OS.window_size.x / 10 * -progress + OS.window_size.x / 10 * (8 - season_progress)
+	position.y = get_window().size.y * (1 - progress)
+	position.x = get_window().size.x / 10 * -progress + get_window().size.x / 10 * (8 - season_progress)

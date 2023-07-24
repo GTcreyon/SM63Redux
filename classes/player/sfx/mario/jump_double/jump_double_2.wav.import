@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/jump_double_2.wav-7bbe47b0f961b1ee317f68de40cd9139.sample"
+type="AudioStreamWAV"
+uid="uid://bwtprx6hpsu8k"
+path="res://.godot/imported/jump_double_2.wav-7bbe47b0f961b1ee317f68de40cd9139.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/mario/jump_double/jump_double_2.wav"
-dest_files=[ "res://.import/jump_double_2.wav-7bbe47b0f961b1ee317f68de40cd9139.sample" ]
+dest_files=["res://.godot/imported/jump_double_2.wav-7bbe47b0f961b1ee317f68de40cd9139.sample"]
 
 [params]
 

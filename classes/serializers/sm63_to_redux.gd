@@ -1,6 +1,6 @@
 class_name SM63ToRedux
 
-export(String, FILE) var tile_groupings
+@export_file var tile_groupings: String
 
 const REAL_EMPTY_TILE = ""
 const TILE_SIZE = Vector2(32, 32)
@@ -35,7 +35,7 @@ func convert_xml_to_readable():
 			var char_1 = floor(sum / 75) + 49
 			var char_2 = sum - (char_1 - 49) * 75 + 49
 			# Convert to a PoolByteArray since then we can convert to ascii
-			var chars = PoolByteArray([char_1, char_2])
+			var chars = PackedByteArray([char_1, char_2])
 			var string = chars.get_string_from_ascii()
 			numeric_id_to_tile_id[sum] = string
 			

@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/menu_day.mp3-9e77367551e5cbf624f21592e369f604.mp3str"
+uid="uid://m5ow6xhevs2x"
+path="res://.godot/imported/menu_day.mp3-9e77367551e5cbf624f21592e369f604.mp3str"
 
 [deps]
 
 source_file="res://scenes/menus/title/main_menu/menu_day.mp3"
-dest_files=[ "res://.import/menu_day.mp3-9e77367551e5cbf624f21592e369f604.mp3str" ]
+dest_files=["res://.godot/imported/menu_day.mp3-9e77367551e5cbf624f21592e369f604.mp3str"]
 
 [params]
 
 loop=true
 loop_offset=4.01
+bpm=0
+beat_count=0
+bar_beats=4

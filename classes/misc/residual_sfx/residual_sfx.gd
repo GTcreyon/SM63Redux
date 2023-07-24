@@ -8,7 +8,7 @@ extends AudioStreamPlayer2D
 func _ready():
 	# Set self up to self-destruct once the sound is finished.
 	# warning-ignore:return_value_discarded
-	connect("finished", self, "_on_ResidualSFX_finished")
+	connect("finished", Callable(self, "_on_ResidualSFX_finished"))
 	
 	# Ensure we are on the SFX bus
 	bus = "SFX"
@@ -58,12 +58,12 @@ static func new_from_existing (
 	# (and if it's not already set that way--Godot complains otherwise).
 	if destroy_on_finished:
 		# VALIDATE: The SFX hasn't been set to destroy itself already, right?
-		if sfx.is_connected("finished", sfx, "queue_free"):
+		if sfx.is_connected("finished", Callable(sfx, "queue_free")):
 			push_error("""Set SFX to destroy on finished that was already set to destroy on finish.
 				Double-check that the SFX isn't being residualized twice.""")
 		# If not, we're all set to set it up like that.
 		else:
-			sfx.connect("finished", sfx, "queue_free")
+			sfx.connect("finished", Callable(sfx, "queue_free"))
 	# Lesgo
 	sfx.play()
 

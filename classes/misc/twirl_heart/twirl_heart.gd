@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var sprite = $AnimatedSprite
+@onready var sprite = $AnimatedSprite2D
 
 var crossed_item = false
 var mario = null
@@ -8,7 +8,7 @@ var timer = 30
 
 
 func _ready():
-	sprite.playing = true
+	sprite.play()
 
 
 func _physics_process(_delta):

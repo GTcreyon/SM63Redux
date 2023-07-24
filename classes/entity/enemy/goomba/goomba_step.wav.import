@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/goomba_step.wav-d6dc7e07d12f33530db59f23b4279d4b.sample"
+type="AudioStreamWAV"
+uid="uid://gagulf6yfw6x"
+path="res://.godot/imported/goomba_step.wav-d6dc7e07d12f33530db59f23b4279d4b.sample"
 
 [deps]
 
 source_file="res://classes/entity/enemy/goomba/goomba_step.wav"
-dest_files=[ "res://.import/goomba_step.wav-d6dc7e07d12f33530db59f23b4279d4b.sample" ]
+dest_files=["res://.godot/imported/goomba_step.wav-d6dc7e07d12f33530db59f23b4279d4b.sample"]
 
 [params]
 

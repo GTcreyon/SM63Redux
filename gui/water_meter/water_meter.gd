@@ -1,26 +1,26 @@
-extends Sprite
+extends Sprite2D
 
-onready var bottom = $Bottom
-onready var filler = $Filler
-onready var mask_filler = $BubbleMask/BubbleMaskFiller
-onready var surface = $Surface
-onready var bubbles_big = $BubblesBig
-onready var bubbles_medium = $BubblesMedium
-onready var bubbles_small = $BubblesSmall
-onready var label = $WaterMeterLabel
-onready var power_filler = $PowerFiller
-onready var power_filler_cover = $PowerFiller/Cover
-onready var cover = $Cover
-onready var power_mask = $PowerMask
-onready var max_sprite = $Max
-onready var icon = $Icon
+@onready var bottom = $Bottom
+@onready var filler = $Filler
+@onready var surface = $Surface
+@onready var bubble_mask = $BubbleMask
+@onready var bubbles_big = $BubbleMask/BubblesBig
+@onready var bubbles_medium = $BubbleMask/BubblesMedium
+@onready var bubbles_small = $BubbleMask/BubblesSmall
+@onready var label = $WaterMeterLabel
+@onready var power_filler = $PowerFiller
+@onready var power_filler_cover = $PowerFiller/Cover
+@onready var cover = $Cover
+@onready var power_mask = $PowerMask
+@onready var max_sprite = $Max
+@onready var icon = $Icon
 
-onready var player = $"/root/Main/Player"
+@onready var player = $"/root/Main/Player"
 
 var power_prev = 100
 var water_prev = 100
 var icon_bob = 0
-var font_white = BitmapFont.new()
+var font_white = FontFile.new()
 
 func refresh():
 	visible = true
@@ -62,7 +62,7 @@ func _process(delta):
 		filler.scale.y = 79
 	else:
 		filler.scale.y = player.water * 79 / 100
-	mask_filler.scale.y = -filler.scale.y
+	bubble_mask.offset_top = 79 - filler.scale.y
 	power_filler.scale.y = player.fludd_power * 83 / 100
 	if player.water > 0:
 		surface.visible = true

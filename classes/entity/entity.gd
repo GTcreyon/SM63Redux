@@ -1,5 +1,5 @@
 class_name Entity
-extends KinematicBody2D
+extends CharacterBody2D
 # Root class for entities that move in any way.
 # Entities have the Entity collision layer bit enabled, so they can influence weights.
 # They have water collision built-in.
@@ -10,7 +10,7 @@ const GRAVITY = 0.17
 const TERM_VEL_AIR = 6
 const TERM_VEL_WATER = 2
 
-export var disabled = false setget set_disabled
+@export var disabled = false: set = set_disabled
 var vel = Vector2.ZERO
 var _water_bodies: int = 0
 
@@ -21,8 +21,8 @@ var _water_bodies: int = 0
 # For that, we use a private exported node path, that can be assigned in the scene editor.
 # This is then loaded into the main variable on ready.
 # If this returns null, we assume the node does not exist, and as such functionality is disabled.
-export var _water_check_path: NodePath = "WaterCheck"
-onready var water_check = get_node_or_null(_water_check_path)
+@export var _water_check_path: NodePath = "WaterCheck"
+@onready var water_check = get_node_or_null(_water_check_path)
 
 
 # Virtual methods such as _ready(), _process() and _physics_process() behave unusually when inherited.
@@ -75,12 +75,16 @@ func _physics_step():
 	
 	var snap
 	if is_on_floor() and vel.y >= 0:
-		snap = Vector2(0, 4)
+		snap = 4
 	else:
-		snap = Vector2.ZERO
+		snap = 0
 	
 	# warning-ignore:RETURN_VALUE_DISCARDED
-	move_and_slide_with_snap(vel * 60, snap, Vector2.UP, true)
+	set_velocity(vel * 60)
+	floor_snap_length = snap
+	set_up_direction(Vector2.UP)
+	set_floor_stop_on_slope_enabled(true)
+	move_and_slide()
 
 
 # WaterCheck signal methods.
@@ -97,7 +101,7 @@ func _on_WaterCheck_area_exited(_area):
 func set_disabled(val):
 	disabled = val
 	_preempt_all_node_readies()
-	set_collision_layer_bit(0, 0 if val else 1)
+	set_collision_layer_value(0, 0 if val else 1)
 
 
 # The following functions deal with child nodes that may or may not exist.
@@ -120,4 +124,4 @@ func _set_node_property_if_exists(node: Node, property: String, val) -> void:
 # Connect a node to a signal if the node exists.
 func _connect_node_signal_if_exists(node, signame: String, target, method: String) -> void:
 	if node != null:
-		node.connect(signame, target, method)
+		node.connect(signame, Callable(target, method))

@@ -1,130 +1,110 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://bq3hvjdh232kq"]
 
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=1]
-[ext_resource path="res://gui/timer/timer_main.png" type="Texture" id=2]
-[ext_resource path="res://gui/timer/timer.gd" type="Script" id=3]
-[ext_resource path="res://gui/timer/timer_sub.png" type="Texture" id=4]
-[ext_resource path="res://gui/timer/timer_sub_edge.png" type="Texture" id=5]
-[ext_resource path="res://gui/timer/total.gd" type="Script" id=6]
+[ext_resource type="Texture2D" uid="uid://cahhxa84tmyfg" path="res://gui/timer/timer_main.png" id="2"]
+[ext_resource type="Script" path="res://gui/timer/timer.gd" id="3"]
+[ext_resource type="Texture2D" uid="uid://bb8uvn7uyfmxo" path="res://gui/timer/timer_sub.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dv14y15xtmqn5" path="res://gui/timer/timer_sub_edge.png" id="5"]
+[ext_resource type="Script" path="res://gui/timer/total.gd" id="6"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 10, 0, 1, 32 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("2")
+region = Rect2(10, 0, 1, 32)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 10, 32 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("2")
+region = Rect2(0, 0, 10, 32)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 2, 15 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("5")
+region = Rect2(0, 0, 2, 15)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 0, 1, 15 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("5")
+region = Rect2(0, 0, 1, 15)
 
 [node name="Timer" type="Control"]
-pause_mode = 2
+process_mode = 3
+layout_mode = 3
+anchors_preset = 0
 mouse_filter = 2
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Total" type="Label" parent="."]
-margin_left = -39.0
-margin_top = -32.0
-margin_right = -12.0
-margin_bottom = -17.0
-rect_scale = Vector2( 2, 2 )
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = -39.0
+offset_top = -32.0
+offset_right = -12.0
+offset_bottom = -17.0
+scale = Vector2(2, 2)
 text = "0:00"
-align = 2
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 2
+script = ExtResource("6")
 
 [node name="TotalMS" type="Label" parent="."]
-margin_left = 14.0
-margin_top = -19.0
-margin_right = 41.0
-margin_bottom = -4.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 14.0
+offset_top = -19.0
+offset_right = 41.0
+offset_bottom = -4.0
 text = ".000"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="MainRect" type="TextureRect" parent="."]
 show_behind_parent = true
-margin_left = -43.0
-margin_top = -32.0
-margin_right = 43.0
+layout_mode = 0
+offset_left = -43.0
+offset_top = -32.0
+offset_right = 43.0
 mouse_filter = 2
-texture = SubResource( 1 )
+texture = SubResource("1")
 stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="TextureRect" type="TextureRect" parent="MainRect"]
 show_behind_parent = true
-margin_left = -10.0
-margin_bottom = 32.0
+layout_mode = 0
+offset_left = -10.0
+offset_bottom = 32.0
 mouse_filter = 2
-texture = SubResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = SubResource("2")
 
 [node name="TextureRect2" type="TextureRect" parent="MainRect"]
 show_behind_parent = true
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 mouse_filter = 2
-texture = SubResource( 2 )
+texture = SubResource("2")
 flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="SplitRect" type="TextureRect" parent="."]
 show_behind_parent = true
-margin_left = -35.0
-margin_top = -47.0
-margin_right = 35.0
-margin_bottom = -32.0
+layout_mode = 0
+offset_left = -35.0
+offset_top = -47.0
+offset_right = 35.0
+offset_bottom = -32.0
 mouse_filter = 2
-texture = ExtResource( 4 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource("4")
+stretch_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="SplitRect"]
-margin_left = -1.0
-margin_right = 1.0
-margin_bottom = 15.0
+layout_mode = 0
+offset_left = -1.0
+offset_right = 1.0
+offset_bottom = 15.0
 mouse_filter = 2
-texture = SubResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = SubResource("3")
 
 [node name="TextureRect2" type="TextureRect" parent="SplitRect"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 mouse_filter = 2
-texture = SubResource( 4 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = SubResource("4")
 
 [node name="Split" type="Label" parent="SplitRect"]
-pause_mode = 2
+process_mode = 3
+layout_mode = 0
 anchor_right = 1.0
-margin_bottom = 15.0
-custom_fonts/font = ExtResource( 1 )
+offset_bottom = 15.0
 text = "0:00.000"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1

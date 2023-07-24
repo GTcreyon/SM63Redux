@@ -1,5 +1,5 @@
 class_name FluddEntity
-extends KinematicBody2D
+extends CharacterBody2D
 
 
 var vel = Vector2()
@@ -10,4 +10,7 @@ func _physics_process(_delta):
 		vel.y = 0
 	vel.y += 1.67
 	# warning-ignore:RETURN_VALUE_DISCARDED
-	move_and_slide(vel * 60, Vector2.UP, true)
+	set_velocity(vel * 60)
+	set_up_direction(Vector2.UP)
+	set_floor_stop_on_slope_enabled(true)
+	move_and_slide()

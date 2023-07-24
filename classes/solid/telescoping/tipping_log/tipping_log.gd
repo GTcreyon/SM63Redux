@@ -1,23 +1,23 @@
-tool
+@tool
 class_name TippingLog
 extends Telescoping
 
-onready var rod = $Rod
-onready var ride_area = $Rod/RideArea
+@onready var rod = $Rod
+@onready var ride_area = $Rod/RideArea
 
-export var pivot_offset = 0 setget set_pivot_offset
+@export var pivot_offset = 0: set = set_pivot_offset
 
-var ang_vel = 0
+var ang_vel = 0.0
 
 
 func set_width(val):
-	.set_width(val)
+	super.set_width(val)
 	# warning-ignore:integer_division
-	$Rod/RideArea/RideShape.shape.extents.x = middle_segment_width / 2 * val + end_segment_width
+	$Rod/RideArea/RideShape.shape.size.x = middle_segment_width * val + end_segment_width
 
 
 func _physics_process(_delta):
-	if !Engine.editor_hint and !disabled:
+	if !Engine.is_editor_hint() and !disabled:
 		physics_step()
 
 
@@ -35,16 +35,21 @@ func physics_step():
 		ang_vel += perpendicular_dist / 8000 / width
 	
 	rotation += ang_vel
-	if rotation > deg2rad(1):
-		ang_vel -= deg2rad(0.025)
-	elif rotation < deg2rad(-1):
-		ang_vel += deg2rad(0.025)
-	rotation = lerp(rotation, 0, 0.0125)
-	ang_vel = lerp(ang_vel, 0, 0.0125)
+	if rotation > deg_to_rad(1):
+		ang_vel -= deg_to_rad(0.025)
+	elif rotation < deg_to_rad(-1):
+		ang_vel += deg_to_rad(0.025)
+	rotation = lerp(rotation, 0.0, 0.0125)
+	ang_vel = lerp(ang_vel, 0.0, 0.0125)
 	for body in riders:
 		var dist = position.distance_to(body.position)
 		# warning-ignore:return_value_discarded
-		body.move_and_slide_with_snap(Vector2(rotation_degrees * 0.076 * 32, sin(ang_vel) * dist * 32), Vector2(0, 4), Vector2.UP, true)
+		body.set_velocity(Vector2(rotation_degrees * 0.076 * 32, sin(ang_vel) * dist * 32))
+		body.floor_snap_length = 4
+		body.set_up_direction(Vector2.UP)
+		body.set_floor_stop_on_slope_enabled(true)
+		body.move_and_slide()
+		body.velocity
 
 
 func set_disabled(val):
@@ -53,7 +58,7 @@ func set_disabled(val):
 		rod = $Rod
 	if ride_area == null:
 		ride_area = $Rod/RideArea
-	rod.set_collision_layer_bit(0, 0 if val else 1)
+	rod.set_collision_layer_value(0, 0 if val else 1)
 	ride_area.monitoring = !val
 
 

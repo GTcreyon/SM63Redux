@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dmvmvmv3te56c"]
 
-[ext_resource path="res://classes/decorative/arrow/arrow.png" type="Texture" id=1]
+[ext_resource type="Texture2D" uid="uid://dkywuyiypek76" path="res://classes/decorative/arrow/arrow.png" id="1"]
 
-[node name="Arrow" type="Sprite"]
+[node name="Arrow" type="Sprite2D"]
 z_index = -1
-texture = ExtResource( 1 )
-offset = Vector2( 6.5, 0.5 )
+texture = ExtResource("1")
+offset = Vector2(6.5, 0.5)

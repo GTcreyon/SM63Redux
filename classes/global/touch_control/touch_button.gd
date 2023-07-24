@@ -14,10 +14,10 @@ const ID_LIST: Array = [
 const TEXTURE_COLUMN_SIZE: int = 7
 const BUTTON_SIZE: Vector2 = Vector2(20, 21)
 
-export var id = ""
-export var actions = PoolStringArray([])
+@export var id = ""
+@export var actions = PackedStringArray([])
 
-onready var parent = get_parent().get_parent()
+@onready var parent = get_parent().get_parent()
 
 func _ready():
 	_setup_textures(id)
@@ -34,8 +34,12 @@ func _setup_textures(new_id: String):
 	pos.x *= 2
 	# Multiply by the size of the button to snap to the grid
 	pos *= BUTTON_SIZE
-	normal.region.position = pos
-	pressed.region.position = pos + Vector2(20, 0)
+	
+	if texture_normal is AtlasTexture and texture_pressed is AtlasTexture:
+		texture_normal.region.position = pos
+		texture_pressed.region.position = pos + Vector2(20, 0)
+	else:
+		push_error("Touch button's default graphics must be AtlasTextures for the touch controls to work properly!")
 
 
 func _on_TouchScreenButton_pressed():

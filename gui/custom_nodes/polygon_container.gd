@@ -2,17 +2,17 @@ extends Container
 
 class_name PolygonContainer
 
-export(PoolVector2Array) var polygon = PoolVector2Array() setget set_polygon
-export(Color) var color = Color(0.5, 0.25, 0)
-export(Color) var head_color = Color.white
-export(Color) var foot_color = Color.white
-export(int) var width = 2
+@export var polygon: PackedVector2Array = PackedVector2Array(): set = set_polygon
+@export var color: Color = Color(0.5, 0.25, 0)
+@export var head_color: Color = Color.WHITE
+@export var foot_color: Color = Color.WHITE
+@export var width: int = 2
 
 
 func set_polygon(new):
 	polygon = new
 	queue_sort()
-	update()
+	queue_redraw()
 
 
 func append(pos):
@@ -32,7 +32,7 @@ func append(pos):
 func set_vert(idx, pos):
 	polygon[idx] = pos
 	queue_sort()
-	update()
+	queue_redraw()
 
 
 func reset():
@@ -40,7 +40,7 @@ func reset():
 	for child in get_children():
 		remove_child(child)
 	queue_sort()
-	update()
+	queue_redraw()
 
 
 func _notification(what):
@@ -56,8 +56,8 @@ func _notification(what):
 			elif idx == 0:
 				child.modulate = foot_color
 			else:
-				child.modulate = Color.white
-			child.set_position(polygon[idx] - child.rect_size / 2)
+				child.modulate = Color.WHITE
+			child.set_position(polygon[idx] - child.size / 2)
 
 
 func _draw():

@@ -1,7 +1,5 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
 
-const EDGE_V_LENGTH = OS.window_size.y - 22
-const EDGE_H_LENGTH = OS.window_size.x - 80 - 22
 const EDGE_L_POS = 96
 const EDGE_M_POS = 0
 const EDGE_R_POS = 0
@@ -9,7 +7,10 @@ const CENTRE_OFFSET = 6.5
 
 var speed = 0.2
 var edge = 1
-var progress = EDGE_H_LENGTH / 2
+
+@onready var EDGE_V_LENGTH = get_window().size.y - 22
+@onready var EDGE_H_LENGTH = get_window().size.x - 80 - 22
+@onready var progress = EDGE_H_LENGTH / 2
 
 
 func set_pos(edge, progress) -> bool:
@@ -22,13 +23,13 @@ func set_pos(edge, progress) -> bool:
 				return true
 		1:
 			position.x = EDGE_L_POS + progress
-			position.y = OS.window_size.y - EDGE_M_POS - CENTRE_OFFSET
+			position.y = get_window().size.y - EDGE_M_POS - CENTRE_OFFSET
 			rotation_degrees = 0
 			if progress > EDGE_H_LENGTH or progress < 0:
 				return true
 		2:
-			position.x = OS.window_size.x - EDGE_R_POS - CENTRE_OFFSET
-			position.y = OS.window_size.y - EDGE_R_POS - progress
+			position.x = get_window().size.x - EDGE_R_POS - CENTRE_OFFSET
+			position.y = get_window().size.y - EDGE_R_POS - progress
 			rotation_degrees = 270
 			if progress > EDGE_V_LENGTH or progress < 0:
 				return true
@@ -39,8 +40,8 @@ func set_pos(edge, progress) -> bool:
 func _process(delta):
 	var dmod = 60 * delta
 	if Input.is_action_just_pressed("ld_select"):
-		playing = true
-	if !playing:
+		play()
+	if !self.is_playing():
 		if flip_h:
 			progress -= speed * dmod
 		else:
@@ -70,6 +71,6 @@ func _process(delta):
 
 
 func _on_Hermes_animation_finished():
-	playing = false
+	stop()
 	flip_h = !flip_h
 	frame = 0

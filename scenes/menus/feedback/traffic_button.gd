@@ -1,19 +1,19 @@
 extends Button
 
-export var color: Color
+@export var color: Color
 var save_press = false
 
 
 func _process(_delta):
-	if pressed:
+	if button_pressed:
 		if !save_press:
 			modulate = color
 			for button in get_parent().get_children():
-				button.pressed = false
-			pressed = true
+				button.button_pressed = false
+			button_pressed = true
 			save_press = true
 			Singleton.get_node("SFX/Next").play()
 	else:
-		modulate = Color.white
+		modulate = Color.WHITE
 		save_press = false
 

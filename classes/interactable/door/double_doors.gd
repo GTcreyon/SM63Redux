@@ -3,7 +3,7 @@ extends Door
 const SINGLE_DOOR_OFFSET = 8
 const FACING_BIAS = 2 # If player's facing one door, they can enter it this many pixels further away.
 
-export var force_exact_target = false
+@export var force_exact_target = false
 
 # This stores which side we've chosen to enter.
 # We need this because the player's facing direction shifts as they enter
@@ -12,8 +12,8 @@ var chosen_side = 0
 
 
 func _set_sprite_frames(sprite_frames: SpriteFrames):
-	$SpriteL.frames = sprite_frames
-	$SpriteR.frames = sprite_frames
+	$SpriteL.sprite_frames = sprite_frames
+	$SpriteR.sprite_frames = sprite_frames
 
 
 func _enter_pos_offset_x() -> int:
