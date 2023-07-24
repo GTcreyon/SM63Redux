@@ -2,6 +2,7 @@ extends AnimatedSprite2D
 
 const NO_ANIM_CHANGE = ""
 
+@warning_ignore("integer_division")
 const TRIPLE_FLIP_HALFWAY = PlayerCharacter.TRIPLE_FLIP_TIME / 2
 
 const SLOW_SPIN_START_SPEED = 1

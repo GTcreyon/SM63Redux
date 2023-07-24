@@ -12,7 +12,7 @@ var ang_vel = 0.0
 
 func set_width(val):
 	super.set_width(val)
-	# warning-ignore:integer_division
+	@warning_ignore("integer_division")
 	$Rod/RideArea/RideShape.shape.size.x = middle_segment_width * val + end_segment_width
 
 
