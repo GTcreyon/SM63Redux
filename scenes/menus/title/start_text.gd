@@ -11,7 +11,7 @@ func _init():
 
 func _process(delta):
 	var dmod = 60 * delta
-	var scale = get_parent().scale
+	var scale = get_parent().scale_vec
 	scale = scale * 2 * Vector2.ONE
 	pivot_offset.x = get_window().size.x / 2
 	offset_top = get_window().size.y / 4 * 3
