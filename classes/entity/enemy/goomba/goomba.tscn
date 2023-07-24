@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://blo16m8dcq48j"]
+[gd_scene load_steps=31 format=3 uid="uid://cc1st8k2boes7"]
 
 [ext_resource type="Texture2D" uid="uid://du2p4qnic7ks4" path="res://classes/entity/enemy/goomba/goomba_walk.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://c64s82ifh0umj" path="res://classes/entity/enemy/goomba/goomba_jump.png" id="2"]
