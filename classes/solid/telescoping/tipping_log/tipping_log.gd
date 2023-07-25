@@ -43,13 +43,11 @@ func physics_step():
 	ang_vel = lerp(ang_vel, 0.0, 0.0125)
 	for body in riders:
 		var dist = position.distance_to(body.position)
-		# warning-ignore:return_value_discarded
 		body.set_velocity(Vector2(rotation_degrees * 0.076 * 32, sin(ang_vel) * dist * 32))
 		body.floor_snap_length = 4
 		body.set_up_direction(Vector2.UP)
 		body.set_floor_stop_on_slope_enabled(true)
 		body.move_and_slide()
-		body.velocity
 
 
 func set_disabled(val):

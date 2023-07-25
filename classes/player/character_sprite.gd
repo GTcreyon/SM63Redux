@@ -252,7 +252,7 @@ func trigger_next_anim():
 
 func _anim_from_new_state(
 	new_state: int, old_state: int,
-	swimming: bool, last_swimming: bool
+	swimming: bool, old_swimming: bool
 ) -> String:
 	if swimming:
 		match new_state:
@@ -274,13 +274,13 @@ func _anim_from_new_state(
 				if animation == "swim_stroke":
 					return "swim_stroke"
 				if parent.grounded:
-					return _state_neutral(old_state, last_swimming)
+					return _state_neutral(old_state, old_swimming)
 				return "swim_idle"
 	else:
 		match new_state:
 			parent.S.NEUTRAL:
 				# Neutral has several substates. Return whichever's appropriate now.
-				return _state_neutral(old_state, last_swimming)
+				return _state_neutral(old_state, old_swimming)
 			parent.S.TRIPLE_JUMP:
 				return "flip"
 			parent.S.CROUCH:
@@ -419,7 +419,8 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 
 # Returns whether the given frame of the given animation should play a
 # footstep sound.
-static func _is_footstep_frame (frame: int, anim_name: String) -> bool:
+@warning_ignore("shadowed_variable_base_class")
+func _is_footstep_frame (frame: int, anim_name: String) -> bool:
 	var valid_frames = []
 	
 	# Define what is and isn't a step frame for this animation.

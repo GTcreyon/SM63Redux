@@ -226,6 +226,7 @@ func _add_inbetween_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	})
 
 
+@warning_ignore("shadowed_variable_base_class")
 func generate_polygons(lines: Array, texture: Texture2D, z_index: int):
 	var p_len = lines.size()
 	for ind in range(p_len - 1):

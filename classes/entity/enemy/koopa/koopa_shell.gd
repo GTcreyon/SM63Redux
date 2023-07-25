@@ -21,10 +21,10 @@ enum ShellColor {
 	RED,
 }
 
-@export var color: ShellColor = 0: set = set_color
+@export var color: ShellColor = ShellColor.GREEN: set = set_color
 
 
-func set_color(new_color):
+func set_color(new_color: ShellColor):
 	for i in range(3):
 		material.set_shader_parameter("color" + str(i), color_presets[new_color][i])
 	color = new_color

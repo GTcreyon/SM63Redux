@@ -179,7 +179,6 @@ func _physics_process(dt):
 	if !frozen:
 		body.set_velocity(((target - body.position) / dt))
 		body.move_and_slide()
-		body.velocity
 
 	# Set the base of the camera to the body
 	base_modifier.set_base(camera, "position", body.position - player.position)
