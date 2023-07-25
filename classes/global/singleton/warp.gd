@@ -42,8 +42,8 @@ func warp(dir: Vector2, location: Vector2, path: String):
 	if direction.y == 0:
 		pos = (1 - direction.x) * window_size.x / 2
 		curve_top = Vector2(pos, 0)
-		curve_arc = Vector2(0, window.size.y / 2)
-		curve_bottom = Vector2(pos, window.size.y)
+		curve_arc = Vector2(0, window_size.y / 2)
+		curve_bottom = Vector2(pos, window_size.y)
 	else:
 		pos = (1 - direction.y) * window_size.y / 2
 		curve_top = Vector2(0, pos)
