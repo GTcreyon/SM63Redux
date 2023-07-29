@@ -22,12 +22,12 @@ func _process(delta):
 		mouse_filter = MOUSE_FILTER_STOP
 	
 	# Change which star polygon is visible
-	if pressed:
+	if button_pressed:
 		stars.texture = texture_on
 	else:
 		stars.texture = texture_off
 	
-	if pressed:
+	if button_pressed:
 		scroll = fmod((scroll + 0.01 * dmod), 1.0)
 		scroll_goal = 0
 	elif is_hovered():
