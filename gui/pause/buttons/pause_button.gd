@@ -1,8 +1,8 @@
 extends Button
 # A button on the pause menu that selects which menu is active
 
-var scroll = 0
-var scroll_goal = 0
+var scroll: float = 0.0
+var scroll_goal: float = 0.0
 
 @onready var stars = $Stars
 @onready var text_node = $Text
@@ -40,9 +40,9 @@ func _process(delta):
 			else:
 				scroll_goal = 1
 		elif scroll_goal == 1:
-			scroll = lerp(scroll, 1, 0.02)
+			scroll = lerp(scroll, 1.0, 0.02)
 		else:
-			scroll = lerp(scroll, 1, 0.04)
+			scroll = lerp(scroll, 1.0, 0.04)
 	
 	stars.texture_offset = Vector2(-15, -10) * scroll + Vector2(0, -2)
 
