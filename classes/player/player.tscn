@@ -1251,6 +1251,7 @@ position = Vector2(0, 1.5)
 shape = SubResource("5")
 
 [node name="Camera" type="Camera2D" parent="."]
+process_mode = 3
 position_smoothing_enabled = true
 script = ExtResource("14")
 
