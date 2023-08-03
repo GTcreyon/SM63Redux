@@ -1,6 +1,14 @@
 @tool
 extends Polygon2D
 
+#@export var spawn_position: Vector2 setget force_draw
+
+
+var window_prev_length: float
+var shrink_number = 0
+var frozen = false
+
+
 @onready var player = $"/root/Main/Player"
 @onready var camera = player.get_node("Camera")
 
@@ -10,15 +18,65 @@ extends Polygon2D
 @onready var body = $CharacterBody2D
 @onready var body_collision: CollisionPolygon2D = $CharacterBody2D/CollisionPolygon2D
 
-#export var spawn_position: Vector2 setget force_draw
 
-var window_prev_length: float
-var shrink_number = 0
-var frozen = false
-#func force_draw(val):
-#	spawn_position = val
-#	queue_redraw()
-#
+func _ready():
+	if Engine.is_editor_hint():
+		return
+	# Invert the current polygon
+	set_physics_polygon(polygon)
+	
+#	body_collision.shape.set_extents(OS.window_size / 2)
+	set_hitbox_extents(get_window().size)
+	shrink_number = 0
+	
+	body.position = player.position # spawn_position
+	# Make it invisible
+	color = Color(0, 0, 0, 0)
+
+
+func _physics_process(dt):
+	if Engine.is_editor_hint():
+		return
+
+	shrink_number = min(1, shrink_number + dt * 5)
+	var target_size = Vector2(get_window().size) / camera.zoom * shrink_number
+	if target_size.length() != window_prev_length:
+		set_hitbox_extents(target_size)
+	
+		window_prev_length = target_size.length()
+		body_collision.polygon = PackedVector2Array([
+			Vector2(0, -target_size.y / 2),
+			Vector2(target_size.x / 2, 0),
+			Vector2(0, target_size.y / 2),
+			Vector2(-target_size.x / 2, 0)
+		])
+	
+	# Emergency workaround
+	if Singleton.disable_limits:
+		body_collision.polygon = PackedVector2Array([
+			Vector2.ZERO,
+		])
+	elif body_collision.polygon == PackedVector2Array([
+			Vector2.ZERO,
+		]):
+		body_collision.polygon = PackedVector2Array([
+			Vector2(0, -target_size.y / 2),
+			Vector2(target_size.x / 2, 0),
+			Vector2(0, target_size.y / 2),
+			Vector2(-target_size.x / 2, 0)
+		])
+		
+	# Update the camera position and stuff
+	var target = player.position
+	if !frozen:
+		body.set_velocity(((target - body.position) / dt))
+		body.move_and_slide()
+		body.velocity
+
+	# Set the base of the camera to the body
+	base_modifier.set_base(camera, "position", body.position - player.position)
+
+
 #func _draw():
 #	if Engine.editor_hint:
 #		draw_rect(Rect2(
@@ -29,6 +87,12 @@ var frozen = false
 #			spawn_position - Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y) / 2,
 #			Vector2(Singleton.DEFAULT_SIZE.x, Singleton.DEFAULT_SIZE.y)
 #		), Color(0, 0, 1, 0.5))
+#
+#
+#func force_draw(val):
+#	spawn_position = val
+#	queue_redraw()
+
 
 func get_rect(poly, margin = 0):
 	var min_v = Vector2.INF
@@ -39,6 +103,7 @@ func get_rect(poly, margin = 0):
 		max_v.x = max(max_v.x, vec.x)
 		max_v.y = max(max_v.y, vec.y)
 	return Rect2(min_v - Vector2(margin, margin), max_v - min_v + Vector2(margin, margin) * 2)
+
 
 func set_physics_polygon(poly):
 	var rect = get_rect(poly, 20)
@@ -119,7 +184,7 @@ func set_physics_polygon(poly):
 	collision.polygon = real
 
 
-func set_hitbox_extends(size):
+func set_hitbox_extents(size):
 	body_collision.polygon = PackedVector2Array([
 		Vector2(0, -size.y / 2),
 		Vector2(size.x / 2, 0),
@@ -127,59 +192,3 @@ func set_hitbox_extends(size):
 		Vector2(-size.x / 2, 0)
 	])
 	window_prev_length = size.length()
-
-func _ready():
-	if Engine.is_editor_hint():
-		return
-	# Invert the current polygon
-	set_physics_polygon(polygon)
-	
-#	body_collision.shape.set_extents(OS.window_size / 2)
-	set_hitbox_extends(get_window().size)
-	shrink_number = 0
-	
-	body.position = player.position # spawn_position
-	# Make it invisible
-	color = Color(0, 0, 0, 0)
-	
-func _physics_process(dt):
-	if Engine.is_editor_hint():
-		return
-
-	shrink_number = min(1, shrink_number + dt * 5)
-	var target_size = Vector2(get_window().size) / camera.zoom * shrink_number
-	if target_size.length() != window_prev_length:
-		set_hitbox_extends(target_size)
-	
-		window_prev_length = target_size.length()
-		body_collision.polygon = PackedVector2Array([
-			Vector2(0, -target_size.y / 2),
-			Vector2(target_size.x / 2, 0),
-			Vector2(0, target_size.y / 2),
-			Vector2(-target_size.x / 2, 0)
-		])
-	
-	# Emergency workaround
-	if Singleton.disable_limits:
-		body_collision.polygon = PackedVector2Array([
-			Vector2.ZERO,
-		])
-	elif body_collision.polygon == PackedVector2Array([
-			Vector2.ZERO,
-		]):
-		body_collision.polygon = PackedVector2Array([
-			Vector2(0, -target_size.y / 2),
-			Vector2(target_size.x / 2, 0),
-			Vector2(0, target_size.y / 2),
-			Vector2(-target_size.x / 2, 0)
-		])
-		
-	# Update the camera position and stuff
-	var target = player.position
-	if !frozen:
-		body.set_velocity(((target - body.position) / dt))
-		body.move_and_slide()
-		body.velocity
-
-	# Set the base of the camera to the body
-	base_modifier.set_base(camera, "position", body.position - player.position)
