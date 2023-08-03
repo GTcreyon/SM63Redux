@@ -1,4 +1,3 @@
-@tool
 extends Polygon2D
 
 #@export var spawn_position: Vector2 setget force_draw
@@ -20,8 +19,6 @@ var frozen = false
 
 
 func _ready():
-	if Engine.is_editor_hint():
-		return
 	# Invert the current polygon
 	set_physics_polygon(polygon)
 	
@@ -35,9 +32,6 @@ func _ready():
 
 
 func _physics_process(dt):
-	if Engine.is_editor_hint():
-		return
-
 	shrink_number = min(1, shrink_number + dt * 5)
 	var target_size = Vector2(get_window().size) / camera.zoom * shrink_number
 	if target_size.length() != window_prev_length:
