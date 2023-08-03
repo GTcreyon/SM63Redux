@@ -6,8 +6,6 @@ extends Area2D
 @export var scene_path: String
 @export var size: Vector2: set = set_size
 
-@onready var player = $"/root/Main/Player"
-
 
 func set_size(new_size):
 	$CollisionShape2D.shape.size = new_size
