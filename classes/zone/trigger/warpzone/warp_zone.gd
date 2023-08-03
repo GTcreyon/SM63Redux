@@ -1,12 +1,13 @@
 @tool
 extends Area2D
 
-@onready var sweep_effect: Warp = $"/root/Singleton/Warp"
-@onready var player = $"/root/Main/Player"
 @export var sweep_direction: Vector2
 @export var spawn_location: Vector2
 @export var scene_path: String
 @export var size: Vector2: set = set_size
+
+@onready var sweep_effect: Warp = $"/root/Singleton/Warp"
+@onready var player = $"/root/Main/Player"
 
 
 func set_size(new_size):
