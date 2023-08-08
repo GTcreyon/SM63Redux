@@ -24,7 +24,7 @@ const QUAD_RADIUS = 16
 func _draw():
 	# Clear polygons created last time we updated.
 	for child in get_children():
-		remove_child(child)
+		child.queue_free()
 	
 	# Load appearance from the root.
 	body_polygon.texture = root.body

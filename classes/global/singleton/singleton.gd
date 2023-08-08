@@ -150,7 +150,7 @@ func reset_game_state():
 
 # Get a scaling factor based on the window dimensions
 func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
-	var scale_vec = get_window().size / Singleton.DEFAULT_SIZE
+	var scale_vec = Vector2(get_window().size) / Vector2(Singleton.DEFAULT_SIZE)
 	var rounded = Vector2.ONE
 	if threshold == -1:
 		match mode:

@@ -14,11 +14,12 @@ var dampen = false
 var scale_vec
 func _process(delta):
 	var dmod = 60 * delta
+	var window_size = Vector2(get_window().size) # convert to float vector - avoids int div warning
 	scale_vec = Vector2.ONE * max(
 		1,
 		min(
-			round(get_window().size.x / Singleton.DEFAULT_SIZE.x),
-			round(get_window().size.y / Singleton.DEFAULT_SIZE.y)
+			round(window_size.x / Singleton.DEFAULT_SIZE.x),
+			round(window_size.y / Singleton.DEFAULT_SIZE.y)
 		)
 	)
 	if Input.is_action_just_pressed("interact") and !menu.visible:
