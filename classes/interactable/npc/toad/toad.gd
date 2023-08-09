@@ -57,6 +57,7 @@ func set_skin(new_skin):
 
 
 func _ready():
+	# Sets up palette when instancing in the editor
 	set_spot(spot)
 	set_skin(skin)
 	
