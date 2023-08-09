@@ -122,6 +122,6 @@ func _set_node_property_if_exists(node: Node, property: String, val) -> void:
 
 
 # Connect a node to a signal if the node exists.
-func _connect_node_signal_if_exists(node, signame: String, target, method: String) -> void:
+func _connect_node_signal_if_exists(node, signame: String, target, method: String, deferred : bool = false) -> void:
 	if node != null:
-		node.connect(signame, Callable(target, method))
+		node.connect(signame, Callable(target, method), CONNECT_DEFERRED if deferred else 0)
