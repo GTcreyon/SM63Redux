@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://b6jp4ecuo2iwc"]
 
 [ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://classes/entity/enemy/koopa/parakoopa.png" id="1"]
-[ext_resource type="Material" path="res://shaders/palette.tres" id="2"]
+[ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://shaders/palette.tres" id="2"]
 [ext_resource type="Script" path="res://classes/entity/enemy/koopa/parakoopa.gd" id="8"]
 [ext_resource type="AudioStream" uid="uid://bgidqcur663qn" path="res://classes/entity/enemy/koopa/shell_kick.ogg" id="9"]
 
@@ -102,4 +102,4 @@ monitorable = false
 shape = SubResource("10")
 
 [connection signal="body_entered" from="TopCollision" to="." method="_on_TopCollision_body_entered"]
-[connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered"]
+[connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered" flags=3]
