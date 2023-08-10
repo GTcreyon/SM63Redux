@@ -53,7 +53,7 @@ func _on_TopCollision_body_entered(body):
 	if body.is_spinning():
 		spawn_shell(body)
 	elif body.vel.y > -2:
-		change_state()
+		defeat()
 		get_parent().call_deferred("add_child", koopa)
 		koopa.position = Vector2(position.x, body.position.y + 33)
 		koopa.vel.y = body.vel.y
@@ -78,7 +78,7 @@ func _on_Damage_body_entered(body):
 
 
 func spawn_shell(body):
-	change_state()
+	defeat()
 	body.vel.y = -5
 	get_parent().call_deferred("add_child", shell)
 	shell.position = position + Vector2(0, 7.5)
@@ -88,8 +88,8 @@ func spawn_shell(body):
 		shell.vel.x = -5
 
 
-# Called whenever the parakoopa loses its wings
-func change_state():
+# Called when the parakoopa loses its wings
+func defeat():
 	$Kick.play()
 	top_collision.set_deferred("monitoring", false)
 	hurtbox.set_deferred("monitoring", false)
