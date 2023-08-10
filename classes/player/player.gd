@@ -466,6 +466,7 @@ var pound_spin_frames: int = 0
 var pound_spin_factor: float = 0.0
 func action_pound() -> void:
 	if state == S.POUND and pound_state == Pound.SPIN:
+		off_ground()
 		pound_spin_frames += 1
 		# Spin frames normalized from 0-1.
 		# Min makes it stop after one full spin.
