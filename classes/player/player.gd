@@ -1476,13 +1476,12 @@ func resist(val, sub, div): # ripped from source
 	return val * FPS_MOD
 
 
-@warning_ignore("shadowed_variable")
-func set_rotation_origin(facing_direction: int, origin: Vector2):
-	# Vector to flip the offset's X, as appropriate.
-	var facing = Vector2(facing_direction, 1)
+func set_rotation_origin(facing_dir: int, origin: Vector2):
+	# Flip origin, if appropriate.
+	origin.x *= facing_dir
 	
-	sprite.offset = origin * facing
-	sprite.position = -origin * facing
+	sprite.offset = origin
+	sprite.position = -origin
 
 
 func clear_rotation_origin():
