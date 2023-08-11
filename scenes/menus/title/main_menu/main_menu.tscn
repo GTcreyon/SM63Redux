@@ -222,6 +222,7 @@ animations = [{
 }]
 
 [node name="Menu" type="Control"]
+texture_repeat = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
