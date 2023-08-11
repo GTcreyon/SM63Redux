@@ -420,8 +420,7 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 
 # Returns whether the given frame of the given animation should play a
 # footstep sound.
-@warning_ignore("shadowed_variable_base_class")
-func _is_footstep_frame (frame: int, anim_name: String) -> bool:
+func _is_footstep_frame (checked_frame: int, anim_name: String) -> bool:
 	var valid_frames = []
 	
 	# Define what is and isn't a step frame for this animation.
@@ -435,7 +434,7 @@ func _is_footstep_frame (frame: int, anim_name: String) -> bool:
 			pass
 	
 	# Return whether the passed frame is one of the defined step frames.
-	return valid_frames.has(frame)
+	return valid_frames.has(checked_frame)
 
 
 func _anim_length_gameframes(anim_name: String) -> int:
