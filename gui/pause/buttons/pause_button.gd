@@ -53,9 +53,8 @@ func resize():
 	stars.polygon[2].x = size.x - 1
 
 
-@warning_ignore("shadowed_variable_base_class")
-func _on_Button_toggled(is_pressed: bool):
-	if is_pressed:
+func _on_Button_toggled(is_button_pressed: bool):
+	if is_button_pressed:
 		# Move the text down by one to make it look pressed down
 		text_node.offset_top = -7
 		
