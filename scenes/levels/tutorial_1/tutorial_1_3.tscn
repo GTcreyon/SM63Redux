@@ -1,9 +1,8 @@
-[gd_scene load_steps=61 format=3 uid="uid://cbgdqcf3jpq5o"]
+[gd_scene load_steps=58 format=3 uid="uid://cbgdqcf3jpq5o"]
 
 [ext_resource type="Shader" path="res://shaders/palette.gdshader" id="1"]
 [ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="8"]
-[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="9"]
 [ext_resource type="PackedScene" uid="uid://coyt8uat1063g" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="10"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="12"]
@@ -28,23 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="29"]
 [ext_resource type="PackedScene" uid="uid://d1alvph4yehre" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_grs5u"]
-resource_local_to_scene = true
-shader = ExtResource("9")
-shader_parameter/width = 1.0
-shader_parameter/recenter = null
-shader_parameter/radial = false
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gewe0"]
-resource_local_to_scene = true
-shader = ExtResource("9")
-shader_parameter/width = 1.0
-shader_parameter/recenter = null
-shader_parameter/radial = false
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqhu1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltupr"]
 resource_local_to_scene = true
 shader = ExtResource("1")
 shader_parameter/color0 = Color(0.796078, 0.368627, 0.0352941, 1)
@@ -424,19 +407,17 @@ position = Vector2(1084, -35)
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_grs5u")
 position = Vector2(502, 204)
 lines = Array[String](["[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!"])
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_gewe0")
 position = Vector2(1232, 16)
 lines = Array[String](["[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle."])
 
 [node name="Enemy" type="Node2D" parent="Items"]
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("20")]
-material = SubResource("ShaderMaterial_wqhu1")
+material = SubResource("ShaderMaterial_ltupr")
 position = Vector2(1335.47, -15.5049)
 sprite_frames = SubResource("8")
 frame = 4

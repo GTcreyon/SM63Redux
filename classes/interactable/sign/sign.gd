@@ -7,6 +7,10 @@ extends InteractableDialog
 var pulse: float = 0.0
 
 
+func _ready():
+	material = material.duplicate()
+
+
 func _process(delta):
 	var glow_factor = 0
 	for body in glow_check.get_overlapping_bodies():
