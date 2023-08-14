@@ -3,7 +3,6 @@
 [ext_resource type="Shader" path="res://shaders/glow.gdshader" id="1_1ac2n"]
 
 [resource]
-resource_local_to_scene = true
 shader = ExtResource("1_1ac2n")
 shader_parameter/width = 2.0
 shader_parameter/recenter = false

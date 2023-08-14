@@ -29,7 +29,7 @@
 [ext_resource type="Shader" path="res://shaders/palette.gdshader" id="40"]
 [ext_resource type="PackedScene" uid="uid://bb0uyyyri5y2r" path="res://classes/interactable/npc/toad/toad.tscn" id="41"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_iwimd"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4sksv"]
 resource_local_to_scene = true
 shader = ExtResource("40")
 shader_parameter/color0 = Color(0.611765, 0.772549, 0.427451, 1)
@@ -96,7 +96,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tksyv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_44eex"]
 resource_local_to_scene = true
 shader = ExtResource("40")
 shader_parameter/color0 = Color(0.611765, 0.772549, 0.427451, 1)
@@ -161,7 +161,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8v732"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2oim1"]
 resource_local_to_scene = true
 shader = ExtResource("40")
 shader_parameter/color0 = Color(0.87451, 0.376471, 0.258824, 1)
@@ -436,13 +436,13 @@ position = Vector2(-3, -280)
 position = Vector2(262, 179)
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("35")]
-material = SubResource("ShaderMaterial_iwimd")
+material = SubResource("ShaderMaterial_4sksv")
 position = Vector2(-638, -668)
 sprite_frames = SubResource("8")
 frame = 0
 
 [node name="Parakoopa2" parent="Items/Enemy" instance=ExtResource("35")]
-material = SubResource("ShaderMaterial_tksyv")
+material = SubResource("ShaderMaterial_44eex")
 position = Vector2(-57, -330)
 sprite_frames = SubResource("8")
 frame = 0
@@ -568,7 +568,7 @@ position = Vector2(761, -540)
 lines = Array[String](["You've reached the end of the [color=#f7c55f]Tiny Demo![/color]", "We hope you enjoyed it, and stay tuned for more!"])
 
 [node name="Toad" parent="Items" instance=ExtResource("41")]
-material = SubResource("ShaderMaterial_8v732")
+material = SubResource("ShaderMaterial_2oim1")
 position = Vector2(-715, -312)
 lines = Array[String](["[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that [color=#f28d7c]really[/color] all I'm good for!?"])
 
