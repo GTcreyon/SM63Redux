@@ -8,6 +8,8 @@ var pulse: float = 0.0
 
 
 func _ready():
+	# Duplicate materials since Godot 4.1 is missing instance shader uniforms
+	# and using resource_local_to_scene makes things hard to edit
 	material = material.duplicate()
 
 
