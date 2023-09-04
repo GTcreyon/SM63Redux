@@ -1309,6 +1309,8 @@ position = Vector2(0, 10)
 shape = SubResource("6")
 
 [node name="SprayViewport" type="SubViewport" parent="."]
+disable_3d = true
+positional_shadow_atlas_16_bits = false
 size = Vector2i(640, 180)
 render_target_update_mode = 3
 
