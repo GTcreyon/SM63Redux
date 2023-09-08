@@ -63,7 +63,6 @@ func physics_step() -> void:
 			body.set_velocity(move_vec * 60.0)
 			body.set_up_direction(Vector2.UP)
 			body.move_and_slide()
-			body.velocity
 		sprite.animation = "flap"
 		sprite.speed_scale = 3
 		position += move_vec

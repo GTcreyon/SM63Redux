@@ -169,8 +169,8 @@ func _process(_delta):
 			run_command(input_line.text)
 			input_line.text = ""
 		if Input.is_action_just_pressed("ui_up"):
-			var size = history.size()
-			if hist_index < history.size():
-				input_line.text = history[size - hist_index - 1]
+			var hist_size = history.size()
+			if hist_index < hist_size:
+				input_line.text = history[hist_size - hist_index - 1]
 				hist_index += 1
 	logger.offset_top = -24 - (Singleton.line_count + 1) * (logger.get_theme_font("normal_font").get_height() + 1)
