@@ -135,8 +135,9 @@ func _connect_signals():
 	super._connect_signals()
 	_connect_node_signal_if_exists(hurtbox_stomp, "area_entered", self, "_on_HurtboxStomp_area_entered")
 	_connect_node_signal_if_exists(hurtbox_strike, "body_entered", self, "_on_HurtboxStrike_body_entered")
-	_connect_node_signal_if_exists(hitbox, "body_entered", self, "_on_Hitbox_body_entered")
-	_connect_node_signal_if_exists(hitbox, "body_exited", self, "_on_Hitbox_body_exited")
+	# Connect enemy hitboxes in deferred mode to give them lower priority
+	_connect_node_signal_if_exists(hitbox, "body_entered", self, "_on_Hitbox_body_entered", true)
+	_connect_node_signal_if_exists(hitbox, "body_exited", self, "_on_Hitbox_body_exited", true)
 
 
 func set_disabled(val):
