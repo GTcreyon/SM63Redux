@@ -7,34 +7,34 @@ enum WrapMode {
 	INFINITE = 1 << 0 | 1 << 1,
 }
 
-export var parallax_factor = Vector2(1.0/20, 1.0/5)
-export var autoscroll = Vector2(0, 0)
+@export var parallax_factor = Vector2(1.0/20, 1.0/5)
+@export var autoscroll = Vector2(0, 0)
 # TODO: Implement this one.
-export(WrapMode) var wrap_x_mode = WrapMode.INFINITE
-export(WrapMode) var wrap_y_mode = WrapMode.NO_WRAP
+@export var wrap_x_mode: WrapMode = WrapMode.INFINITE
+@export var wrap_y_mode: WrapMode = WrapMode.NO_WRAP
 
 var autoscroll_state = Vector2(0, 0)
 
-onready var cam: Camera2D = $"/root/Main".find_node("Camera", true, false)
-onready var tex_size = texture.get_size()
-onready var start_rect_size = rect_size
-onready var offset_global = (get_parent().get_parent() as CanvasLayer).offset
-onready var offset_local = Vector2(margin_left, margin_top)
+@onready var cam: Camera2D = $"/root/Main".find_child("Camera", true, false) # Find recursively
+@onready var tex_size = texture.get_size()
+@onready var start_size = size
+@onready var offset_global = (get_parent().get_parent() as CanvasLayer).offset
+@onready var offset_local = Vector2(offset_left, offset_top)
 
 
 func _process(delta):
 	# Get zoom level so we can factor that in.
-	rect_scale = Vector2.ONE * Singleton.get_screen_scale(1)
+	scale = Vector2.ONE * Singleton.get_screen_scale(1)
 	
 	# Ensure we have a valid camera reference.
 	if !weakref(cam).get_ref(): # DO NOT use an else statement, this has to happen sequentially
-		cam = $"/root/Main".find_node("Camera", true, false)
+		cam = $"/root/Main".find_child("Camera", true, false)
 	
 	# If we successfully got a valid camera reference, do parallax logic.
 	if weakref(cam).get_ref():
 		# Save visual position of camera for later.
-		var cam_pos = cam.get_camera_screen_center()
-		var screen_size = get_viewport_rect().size / rect_scale
+		var cam_pos = cam.get_screen_center_position()
+		var screen_size = get_viewport_rect().size / scale
 		
 		# Plane can't actually move relative to the camera.
 		# Instead, simulate scrolling.
@@ -47,7 +47,7 @@ func _process(delta):
 		position += offset_local + vec2lerp(-offset_global, offset_global, parallax_factor)
 		
 		# Update automatic scrolling.
-		autoscroll_state += autoscroll * rect_scale.x * delta * 60
+		autoscroll_state += autoscroll * scale.x * delta * 60
 		# Wrap autoscroll position within texture size.
 		autoscroll_state = autoscroll_state.posmodv(tex_size)
 		# Apply autoscroll.
@@ -57,36 +57,36 @@ func _process(delta):
 		if wrap_x_mode & WrapMode.INFINITE_BEFORE:
 			# Wrap within the main width of the texture,
 			# so the size stays manageable.
-			margin_left = fmod(position.x - tex_size.x, tex_size.x)
+			offset_left = fmod(position.x - tex_size.x, tex_size.x)
 		else:
-			margin_left = position.x
+			offset_left = position.x
 		
 		# Make plane infinite on the right, if desired.
 		if wrap_x_mode & WrapMode.INFINITE_AFTER:
-			margin_right = max(screen_size.x + offset_global.x, margin_left)
+			offset_right = max(screen_size.x + offset_global.x, offset_left)
 		else:
-			margin_right = margin_left + start_rect_size.x
+			offset_right = offset_left + start_size.x
 		
 		# Assign Y position authored in the editor.
 		if wrap_y_mode & WrapMode.INFINITE_BEFORE:
 			# Wrap within the main width of the texture,
 			# so the size stays manageable.
-			margin_top = fmod(position.y - tex_size.y, tex_size.y)
+			offset_top = fmod(position.y - tex_size.y, tex_size.y)
 		else:
-			margin_top = position.y
+			offset_top = position.y
 		# Counteract camera zoom so BG stays same size onscreen.
 		# Ensure the camera never crosses below the plane.
-		#margin_top = max(-tex_size.y, margin_top)
+		#offset_top = max(-tex_size.y, offset_top)
 		
 		# Make plane infinite on the bottom, if desired.
 		if wrap_y_mode & WrapMode.INFINITE_AFTER:
-			margin_bottom = max(screen_size.y, margin_top)
+			offset_bottom = max(screen_size.y, offset_top)
 		else:
-			margin_bottom = margin_top + start_rect_size.y
+			offset_bottom = offset_top + start_size.y
 			
 		# Counteract camera zoom so BG stays same size onscreen.
-		margin_left *= rect_scale.x
-		margin_top *= rect_scale.x
+		offset_left *= scale.x
+		offset_top *= scale.x
 
 
 func vec2lerp(from: Vector2, to: Vector2, fac: Vector2):
