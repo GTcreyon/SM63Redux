@@ -5,7 +5,7 @@ render_mode unshaded;
 uniform float width = 1.;
 uniform bool recenter;
 uniform bool radial;
-uniform vec4 outline_color : hint_color = vec4(1);
+uniform vec4 outline_color : source_color = vec4(1);
 
 varying vec2 extra_movement;
 

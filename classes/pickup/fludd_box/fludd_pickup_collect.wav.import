@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/fludd_pickup_collect.wav-fb2a9238d86fc353b3b356567c5f1a80.sample"
+type="AudioStreamWAV"
+uid="uid://cn3r27x83cqkb"
+path="res://.godot/imported/fludd_pickup_collect.wav-fb2a9238d86fc353b3b356567c5f1a80.sample"
 
 [deps]
 
 source_file="res://classes/pickup/fludd_box/fludd_pickup_collect.wav"
-dest_files=[ "res://.import/fludd_pickup_collect.wav-fb2a9238d86fc353b3b356567c5f1a80.sample" ]
+dest_files=["res://.godot/imported/fludd_pickup_collect.wav-fb2a9238d86fc353b3b356567c5f1a80.sample"]
 
 [params]
 

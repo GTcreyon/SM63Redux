@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/dive_1.wav-deabae025ee225faed26c2cb6e2a0483.sample"
+type="AudioStreamWAV"
+uid="uid://bme1w2vbarqmd"
+path="res://.godot/imported/dive_1.wav-deabae025ee225faed26c2cb6e2a0483.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/mario/dive/dive_1.wav"
-dest_files=[ "res://.import/dive_1.wav-deabae025ee225faed26c2cb6e2a0483.sample" ]
+dest_files=["res://.godot/imported/dive_1.wav-deabae025ee225faed26c2cb6e2a0483.sample"]
 
 [params]
 

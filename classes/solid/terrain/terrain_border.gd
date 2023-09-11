@@ -1,4 +1,4 @@
-tool
+@tool
 class_name TerrainBorder
 extends Node2D
 # Handles drawing of terrain polygons' border graphics, except for
@@ -16,9 +16,9 @@ enum EdgeType {
 
 const QUAD_RADIUS = 16
 
-onready var root = $".."
-onready var body_polygon: Polygon2D = $"../Body"
-onready var top_edges: TerrainBorderEndcaps = $"../TopEdgeEndcaps"
+@onready var root = $".."
+@onready var body_polygon: Polygon2D = $"../Body"
+@onready var top_edges: TerrainBorderEndcaps = $"../TopEdgeEndcaps"
 
 
 func _draw():
@@ -36,48 +36,48 @@ func _draw():
 	# Draw all terrain polygons.
 	add_full(root.polygon)
 	# Queue drawing the top edges.
-	top_edges.update()
+	top_edges.queue_redraw()
 
 
-func add_full(poly: PoolVector2Array):
+func add_full(poly: PackedVector2Array):
 	# Dictionary of segments which have had their type ID evaluated.
 	# Types are indexed by first vertex: overrides[3] will return the
 	# type ID of segment (3, 4).
-	var overrides: Dictionary = root.edge_types.duplicate()
-	
-	# Draw the top edge texture.
+	var type_ids: Dictionary = resolve_edge_types(root.edge_types, poly)
 	var latest_index = 0
+	
+	# Draw each edge type from back to front: sides, bottom, finally top.
+	# Begin with sides.
+	latest_index = 0
 	# Iterate the polygon until all chains of top-edge have been found
 	# (including single-segment chains).
 	while latest_index != null:
-		# Find a single chain of segments with type ID == EdgeType.TOP.
+		# Find a single chain of segments with type ID == EdgeType.SIDE.
 		var list = []
 		# Also store the last index in the chain, so we can start from there
 		# next iteration of the while loop.
-		latest_index = get_connected_lines_directional(list, overrides, root.up_direction, poly, latest_index, EdgeType.TOP)
-		
+		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.SIDE)
 		# Valid chains contain at least 2 vertices.
 		# If the chain is valid, draw it.
 		if list.size() >= 2:
-			generate_polygons_top(list)
+			generate_polygons(list, root.edge, 0)
 	
-	# Do the bottom as well--same exact deal.
+	# Now the bottom as well--same exact deal as the sides.
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		latest_index = get_connected_lines_directional(list, overrides, root.down_direction, poly, latest_index, EdgeType.BOTTOM)
+		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.BOTTOM)
 		if list.size() >= 2:
-			generate_polygons(list, root.bottom, 2)
-
-	# Now the sides.
+			generate_polygons(list, root.bottom, 0)
+	
+	# Now the top--which has a special polygon-gen function to make endcaps.
 	latest_index = 0
 	while latest_index != null:
 		var list = []
-		# All edges' type indices have been marked now. Don't check angle,
-		# just read the types we marked last time.
-		latest_index = get_connected_lines_overrides(list, overrides, poly, latest_index, EdgeType.SIDE)
+		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.TOP)
+		
 		if list.size() >= 2:
-			generate_polygons(list, root.edge, 1)
+			generate_polygons_top(list, 0)
 
 
 func generate_polygons_top(lines, z_order = 2):
@@ -99,7 +99,7 @@ func generate_polygons_top(lines, z_order = 2):
 			index = ind,
 			verts = cur_group,
 			direction = cur_group[0].direction_to(cur_group[1]),
-			normal = cur_group[0].direction_to(cur_group[1]).tangent(),
+			normal = cur_group[0].direction_to(cur_group[1]).orthogonal(),
 			clock_dir = 1,
 			type = "quad"
 		})
@@ -111,7 +111,7 @@ func generate_polygons_top(lines, z_order = 2):
 		# Didn't early exit. Time to resolve intersections between groups.
 		
 		# Does the top of this area intersect the top of the next?
-		var top_intersect = Geometry.segment_intersects_segment_2d(
+		var top_intersect = Geometry2D.segment_intersects_segment(
 			cur_group[0], cur_group[1],
 			next_group[0], next_group[1]
 		)
@@ -133,7 +133,7 @@ func generate_polygons_top(lines, z_order = 2):
 			)
 		
 		# Does the bottom of this area intersect the bottom of the next?
-		var bottom_intersect = Geometry.segment_intersects_segment_2d(
+		var bottom_intersect = Geometry2D.segment_intersects_segment(
 			cur_group[2], cur_group[3],
 			next_group[2], next_group[3]
 		)
@@ -226,7 +226,7 @@ func _add_inbetween_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	})
 
 
-func generate_polygons(lines: Array, texture: Texture, z_index: int):
+func generate_polygons(lines: Array, texture: Texture2D, z_index: int):
 	var p_len = lines.size()
 	for ind in range(p_len - 1):
 		# First create quads from each line segment.
@@ -265,7 +265,7 @@ func _generate_quad(chain: Array, start_idx: int, thickness: int = QUAD_RADIUS):
 func _create_polygon(
 	verts: Array, normal: Vector2,
 	z_order: int,
-	texture: Texture, origin_idx: int
+	texture: Texture2D, origin_idx: int
 ) -> Polygon2D:
 	# Create a polygon node from the terrain's data....
 	var poly2d = Polygon2D.new()
@@ -300,74 +300,50 @@ func _create_polygon(
 	return poly2d
 
 
+func resolve_edge_types (
+	overrides: Dictionary, # Dict of segements' pre-assigned type IDs.
+	poly: PackedVector2Array # Points in the polygon.
+) -> Dictionary:
+	# Init type-ID dictionary as a copy of the override dictionary.
+	var returner = overrides.duplicate()
+	
+	var p_len = poly.size()
+	
+	for ind in p_len:
+		# "Up" relative to segment (ind, ind+1) wrapping.
+		var normal: Vector2 = _normal_of_segment(poly[ind], poly[(ind + 1) % p_len])
+		
+		# Is this segment unset?
+		if (!returner.has(ind)):
+			# Find segment's type from its angle.
+			# Save it into the override dict for future accessing.
+			if check_line_angle(normal.angle_to(root.up_direction) / PI * 180):
+				returner[ind] = EdgeType.TOP
+			elif check_line_angle(normal.angle_to(root.down_direction) / PI * 180):
+				returner[ind] = EdgeType.BOTTOM
+			else:
+				returner[ind] = EdgeType.SIDE
+	
+	return returner
+
+
 # Beginning from a given point in a polygon, find a chain of line segments that
-# share a type ID, OR that should have that ID based on the segments' angles.
+# share a type ID.
 # Appends the verts in the chain into the end of `lines`, then returns the index
 # of the tail-end vertex.
-func get_connected_lines_directional(
+func get_segment_chain(
 	lines: Array, # Output array of polygon points.
-	overrides: Dictionary, # Dict of segements' assigned type IDs.
-	direction: Vector2, # Direction angle is checked against.
-	poly: PoolVector2Array, # Points in the polygon.
+	override_list: Dictionary, # Dict of segements' assigned type IDs.
+	poly: PackedVector2Array, # Points in the polygon.
 	start: int, # Vertex we start/resume the search on.
 	type_id: int # ID of the edge type we're searching for.
 ):
+	var p_len = poly.size()
+	var added = false
+	
 	# The core idea is: iterate the polygon from a given starting point until
 	# we find a chain of lines that have the desired type ID.
 	# Then, add verts to the output buffer until we reach the end of that chain.
-	var p_len = poly.size()
-	var added = false
-	
-	for ind in range(start, p_len):
-		# Current vertex.
-		var vert: Vector2 = poly[ind]
-		# "Up" relative to segment (vert, next).
-		var normal: Vector2 = _normal_of_segment(vert, poly[(ind + 1) % p_len])
-		# The surface's angle relative to the reference direction.
-		var angle: float = normal.angle_to(direction) / PI * 180
-		
-		if (
-			# Has this segment's type been specifically set to the desired type?
-			check_override(ind, type_id, overrides)
-		) or (
-			# If type is not set, is it within the range this type normally is?
-			!overrides.has(ind) and check_line_angle(angle)
-		):
-			# Save this segment's type so we can look it up in the future.
-			overrides[ind] = type_id
-			# Add the vertex to the output buffer.
-			lines.append(vert)
-			
-			# Remember that we've now started a chain.
-			added = true
-		elif added:
-			# We've reached the end of this chain.
-			# Add the tail vert, then return where the chain stops.
-			lines.append(vert)
-			return ind
-		else:
-			# No chain has started yet. Keep iterating.
-			pass
-	
-	# The whole polygon has been iterated. Either no more chains have been
-	# found, or the chain continues past the final vert.
-	return null
-
-
-# Beginning from a given point in a polygon, find a chain of line segments that
-# share a type ID, without checking the segments' angles.
-# Appends the verts in the chain into the end of `lines`, then returns the index
-# of the tail-end vertex.
-func get_connected_lines_overrides(
-	lines: Array, # Output array of polygon points.
-	override_list: Dictionary, # Dict of segements' assigned type IDs.
-	poly: PoolVector2Array, # Points in the polygon.
-	start: int, # Vertex we start/resume the search on.
-	type_id: int # ID of the edge type we're searching for.
-):
-	var p_len = poly.size()
-	var added = false
-	
 	for ind in range(start, p_len):
 		var vert: Vector2 = poly[ind]
 		
@@ -378,7 +354,8 @@ func get_connected_lines_overrides(
 			added = true
 		# If we've started a chain, is the segment's type NOT what we want?
 		elif added:
-			# Save this vert, then return the final index of the chain.
+			# We've reached the end of this chain.
+			# Add the tail vert, then return the spot where the chain stops.
 			lines.append(vert)
 			return ind
 		# If we haven't started a chain...
@@ -390,18 +367,14 @@ func get_connected_lines_overrides(
 	if added:
 		lines.append(poly[0])
 	
-	# The whole polygon has been iterated.
+	# The whole polygon has been iterated. Either no more chains have been
+	# found, or the chain continues past the final vert.
 	return null
 
 
 func _normal_of_segment(vert: Vector2, next: Vector2) -> Vector2:
 	# "Up" relative to segment (vert, next).
-	return vert.direction_to(next).tangent()
-
-
-# Check if the type override for the given line index matches with the type id given
-func check_override(index: int, type_id: int, override_list: Dictionary) -> bool:
-	return override_list.has(index) and override_list[index] == type_id
+	return vert.direction_to(next).orthogonal()
 
 
 func check_line_angle(angle: float) -> bool:

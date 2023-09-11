@@ -4,17 +4,17 @@ const SCROLL_SPEED = 0.5
 var wait = 0.0
 var progress = 0.0
 
-onready var flash = $Flash
+@onready var flash = $Flash
 
 
 func _process(delta):
 	var dmod = 60 * delta
 	var scale = get_parent().scale
-	margin_left -= SCROLL_SPEED * scale.x * dmod
-	margin_top = (OS.window_size.y - 194 * ease_out_quart(min(progress, 60) / 60))
-	margin_bottom = OS.window_size.y
-	rect_pivot_offset.y = rect_size.y
-	rect_scale = scale
+	offset_left -= SCROLL_SPEED * scale.x * dmod
+	offset_top = (get_window().size.y - 194 * ease_out_quart(min(progress, 60) / 60))
+	offset_bottom = get_window().size.y
+	pivot_offset.y = size.y
+	scale = scale
 	if wait < 50:
 		wait += dmod
 	else:

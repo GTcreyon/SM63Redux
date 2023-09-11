@@ -1,11 +1,11 @@
 extends Area2D
 
-onready var sprite = $AnimatedSprite
-onready var collision = $CollisionShape2D
+@onready var sprite = $AnimatedSprite2D
+@onready var collision = $CollisionShape2D
 
 
 func _ready():
-	sprite.playing = true
+	sprite.play()
 
 
 func _process(_delta):

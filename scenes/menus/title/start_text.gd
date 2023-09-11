@@ -12,9 +12,9 @@ func _init():
 func _process(delta):
 	var dmod = 60 * delta
 	var scale = get_parent().scale
-	rect_scale = scale * 2 * Vector2.ONE
-	rect_pivot_offset.x = OS.window_size.x / 2
-	margin_top = OS.window_size.y / 4 * 3
+	scale = scale * 2 * Vector2.ONE
+	pivot_offset.x = get_window().size.x / 2
+	offset_top = get_window().size.y / 4 * 3
 	if wait < 150:
 		wait += dmod
 	else:

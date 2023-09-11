@@ -1,4 +1,4 @@
-extends Sprite
+extends Sprite2D
 # Script to manage an extra render target for FLUDD spray.
 # 
 # The FLUDD spray effect is surprisingly complex, graphically speaking.
@@ -10,9 +10,9 @@ extends Sprite
 # the output, but it also puts the particles in the right place when the player
 # loads in and ensures the viewport stays the size of the entire screen.
 
-onready var viewport = prepare_viewport()
-onready var cam = $"/root/Main/Player/Camera"
-onready var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
+@onready var viewport = prepare_viewport()
+@onready var cam = $"/root/Main/Player/Camera"
+@onready var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
 
 
 func _ready():
@@ -43,30 +43,26 @@ func _process(_delta):
 	viewport.canvas_transform = get_canvas_transform()
 	# Set the position to the screen center
 	scale = Vector2(1, 1) / cam.get_canvas_transform().get_scale()
-	position = (viewport.size / 2 - cam.get_canvas_transform().origin) * scale
+	position = (Vector2(viewport.size) / 2 - cam.get_canvas_transform().origin) * scale
 	# Update shader pixel scale so the bubble outline is independent of viewport res
-	material.set_shader_param("zoom", cam.zoom.x * 1.5 )
+	material.set_shader_parameter("zoom", cam.zoom.x / 2 )
 
 
 func refresh():
 	# Set the viewport size to the window size
-	viewport.size = OS.window_size
-	# Create a new texture for self
-	var tex = ImageTexture.new()
-	tex.create(viewport.size.x, viewport.size.y, Image.FORMAT_RGB8)
-	texture = tex
-	# Now give the shader our viewport texture
-	material.set_shader_param("viewport_texture", viewport.get_texture())
+	viewport.size = get_window().size
+	# assign the viewport texture to this sprite
+	texture = viewport.get_texture()
 
 
 # Fetch any viewports that have been moved into Main.
 # If there are none, move this object's parent viewport into Main.
-func prepare_viewport() -> Viewport:
+func prepare_viewport() -> SubViewport:
 	var my_viewport = $"../SprayViewport"
 	
 	if $"/root/Main".has_node("SprayViewport"):
 		# Viewport exists in main.
-		var global_viewport: Viewport = $"/root/Main/SprayViewport"
+		var global_viewport: SubViewport = $"/root/Main/SprayViewport"
 		
 		# Move spray particles to the global viewport.
 		var my_particles = my_viewport.get_node("SprayParticles")
