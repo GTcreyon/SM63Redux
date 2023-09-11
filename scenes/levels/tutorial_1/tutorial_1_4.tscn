@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://coyt8uat1063g" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="23"]
 [ext_resource type="Texture2D" uid="uid://w4khahd820d5" path="res://classes/decorative/fossil/fossils.png" id="23_lh6p4"]
 [ext_resource type="PackedScene" uid="uid://drpm6hlx76jqc" path="res://classes/pickup/coin/yellow/coin_yellow.tscn" id="24"]
-[ext_resource type="PackedScene" uid="uid://cc1st8k2boes7" path="res://classes/entity/enemy/goomba/goomba.tscn" id="25"]
+[ext_resource type="PackedScene" uid="uid://blo16m8dcq48j" path="res://classes/entity/enemy/goomba/goomba.tscn" id="25"]
 [ext_resource type="PackedScene" uid="uid://bk3kxkr4ojd03" path="res://classes/decorative/flowers.tscn" id="26"]
 [ext_resource type="PackedScene" uid="uid://do78au40k7meh" path="res://classes/decorative/big_tree.tscn" id="27"]
 [ext_resource type="PackedScene" uid="uid://bm8r1m4hh1g1a" path="res://classes/decorative/fungus_single.tscn" id="28"]
@@ -22,7 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="31"]
 [ext_resource type="Shader" path="res://shaders/glow.gdshader" id="32"]
 [ext_resource type="PackedScene" uid="uid://dmvmvmv3te56c" path="res://classes/decorative/arrow/arrow.tscn" id="33"]
-[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://backgrounds/grass/bg_grass.tscn" id="34"]
+[ext_resource type="PackedScene" uid="uid://co5skpkyfj5fh" path="res://backgrounds/grass/bg_grass.tscn" id="34"]
 [ext_resource type="PackedScene" uid="uid://b6jp4ecuo2iwc" path="res://classes/entity/enemy/koopa/parakoopa.tscn" id="35"]
 [ext_resource type="PackedScene" uid="uid://c1fox2fi1q2ga" path="res://classes/zone/camera_area/camera_area.tscn" id="36"]
 [ext_resource type="PackedScene" uid="uid://bclig81j8t46n" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="37"]
@@ -199,8 +199,8 @@ shader_parameter/color5 = Color(0.713726, 0.278431, 0.156863, 1)
 [node name="Main" type="Node2D"]
 
 [node name="BGT1" parent="." instance=ExtResource("34")]
-offset = Vector2( 0, 128 )
-transform = Transform2D( 1, 0, 0, 1, 0, 128 )
+offset = Vector2(0, 128)
+transform = Transform2D(1, 0, 0, 1, 0, 128)
 
 [node name="CameraArea" parent="." instance=ExtResource("36")]
 position = Vector2(7, 0)

@@ -9,9 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://drpm6hlx76jqc" path="res://classes/pickup/coin/yellow/coin_yellow.tscn" id="13"]
 [ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://classes/entity/enemy/koopa/parakoopa.png" id="13_p3ewm"]
-[ext_resource type="PackedScene" uid="uid://cc1st8k2boes7" path="res://classes/entity/enemy/goomba/goomba.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://blo16m8dcq48j" path="res://classes/entity/enemy/goomba/goomba.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://ccwcekurxpnpe" path="res://classes/pickup/fludd_box/fludd_box.tscn" id="15"]
-[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://backgrounds/grass/bg_grass.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://co5skpkyfj5fh" path="res://backgrounds/grass/bg_grass.tscn" id="17"]
 [ext_resource type="PackedScene" uid="uid://bclig81j8t46n" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="18"]
 [ext_resource type="PackedScene" uid="uid://cbmd83f1dv4n" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" id="19"]
 [ext_resource type="PackedScene" uid="uid://b6jp4ecuo2iwc" path="res://classes/entity/enemy/koopa/parakoopa.tscn" id="20"]
@@ -305,8 +305,8 @@ animations = [{
 [node name="Main" type="Node2D"]
 
 [node name="BGT1" parent="." instance=ExtResource("17")]
-offset = Vector2( 0, 96 )
-transform = Transform2D( 1, 0, 0, 1, 0, 96 )
+offset = Vector2(0, 96)
+transform = Transform2D(1, 0, 0, 1, 0, 96)
 
 [node name="CameraArea" parent="." instance=ExtResource("21")]
 visible = false

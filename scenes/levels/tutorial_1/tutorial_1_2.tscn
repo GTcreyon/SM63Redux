@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://ckc4syjyp8xrq" path="res://classes/solid/log/log.tscn" id="12"]
 [ext_resource type="PackedScene" uid="uid://c6hch0hl28ija" path="res://classes/solid/breakable_box/breakable_box.tscn" id="13"]
-[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://backgrounds/grass/bg_grass.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://co5skpkyfj5fh" path="res://backgrounds/grass/bg_grass.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://vunewr3fpf60" path="res://classes/entity/enemy/bobomb/bobomb.tscn" id="15"]
 [ext_resource type="PackedScene" uid="uid://bclig81j8t46n" path="res://classes/zone/trigger/warpzone/warp_zone.tscn" id="16"]
 [ext_resource type="PackedScene" uid="uid://cbmd83f1dv4n" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.tscn" id="17"]
@@ -176,8 +176,8 @@ animations = [{
 [node name="Main" type="Node2D"]
 
 [node name="BGT1" parent="." instance=ExtResource("14")]
-offset = Vector2( 0, 64 )
-transform = Transform2D( 1, 0, 0, 1, 0, 64 )
+offset = Vector2(0, 64)
+transform = Transform2D(1, 0, 0, 1, 0, 64)
 
 [node name="CameraArea" parent="." instance=ExtResource("18")]
 visible = false
