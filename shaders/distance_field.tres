@@ -6,3 +6,4 @@
 resource_local_to_scene = true
 shader = ExtResource("1")
 shader_parameter/frame_count = Vector2i(2, 2)
+shader_parameter/cutoff_threshold = 0.0
