@@ -2,7 +2,7 @@
 shader_type canvas_item;
 
 uniform ivec2 frame_count = ivec2(2, 2);
-uniform float cutoff_threshold: hint_range(0, 1) = 0.01;
+uniform float expand_reduce: hint_range(-1, 1) = 0.01;
 
 void vertex() {
 	vec2 frames = vec2(frame_count);
@@ -27,5 +27,9 @@ void vertex() {
 void fragment()
 {
 	// Cut it off by a threshold. Above is white; below is black.
-	COLOR.a = floor(texture(TEXTURE, UV).a + COLOR.a - cutoff_threshold);
+	COLOR.a = floor(
+		texture(TEXTURE, UV).a +
+		COLOR.a +
+		expand_reduce * COLOR.a
+	);
 }
