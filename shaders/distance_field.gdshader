@@ -1,7 +1,7 @@
 // made by RandomCatDude for revamped fludd particle fx
 shader_type canvas_item;
 
-uniform ivec2 frame_count;
+uniform ivec2 frame_count = ivec2(2, 2);
 
 void vertex() {
 	vec2 frames = vec2(frame_count);
