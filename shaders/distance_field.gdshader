@@ -25,11 +25,16 @@ void vertex() {
 }
 
 void fragment()
-{
-	// Cut it off by a threshold. Above is white; below is black.
-	COLOR.a = floor(
-		texture(TEXTURE, UV).a +
-		COLOR.a +
-		expand_reduce * COLOR.a
-	);
+{	
+	// Take the default alpha (vertex color times texture).
+	float new_alpha = COLOR.a;
+	// Expand/reduce the alpha.
+	new_alpha *= 1.0 + expand_reduce;
+	// Add the raw texture onto it. This bypasses vertex colors, meaning
+	// adding it pushes everything we care about above 1.
+	// (We can't just add a flat 1 to everything--that'd make everything
+	// pass the floor test we do later!)
+	new_alpha += texture(TEXTURE, UV).a;
+	// Finally, cut off the fraction. Anything above 1 will be kept.
+	COLOR.a = floor(new_alpha);
 }
