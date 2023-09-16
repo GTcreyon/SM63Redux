@@ -22,29 +22,6 @@ var water_prev = 100
 var icon_bob = 0
 var font_white = FontFile.new()
 
-func refresh():
-	visible = true
-	match player.current_nozzle:
-		1:
-			icon.animation = "hover"
-		2:
-			icon.animation = "rocket"
-		3:
-			icon.animation = "turbo"
-		_:
-			visible = false
-	if player.water == 100:
-		max_sprite.visible = true
-		label.visible = false
-	else:
-		max_sprite.visible = false
-		label.visible = true
-		if player.water == INF:
-			label.text = "INF"
-		else:
-			# keeps the display in range 1-99
-			label.text = str(floor((player.water + 1) / 100 * 99))
-
 
 func _ready():
 	refresh()
@@ -95,3 +72,27 @@ func _process(delta):
 	elif cover.modulate.a > 0:
 		cover.modulate.a -= 0.1 * dmod
 	water_prev = player.water
+
+
+func refresh():
+	visible = true
+	match player.current_nozzle:
+		1:
+			icon.animation = "hover"
+		2:
+			icon.animation = "rocket"
+		3:
+			icon.animation = "turbo"
+		_:
+			visible = false
+	if player.water == 100:
+		max_sprite.visible = true
+		label.visible = false
+	else:
+		max_sprite.visible = false
+		label.visible = true
+		if player.water == INF:
+			label.text = "INF"
+		else:
+			# keeps the display in range 1-99
+			label.text = str(floor((player.water + 1) / 100 * 99))
