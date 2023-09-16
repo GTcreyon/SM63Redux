@@ -180,11 +180,6 @@ func _physics_process(_delta):
 						
 						# Offset origin's X less at the start of the spin. (Looks better!?)
 						position.x *= parent.pound_spin_factor
-						
-						# A little rising as we wind up makes it look real nice.
-						position.y = POUND_ORIGIN_OFFSET.y
-						position.y += POUND_SPIN_RISE_TIME - POUND_SPIN_RISE * min(parent.pound_spin_frames, POUND_SPIN_RISE_TIME)
-						print(position.y)
 				parent.S.SPIN:
 					spin_logic()
 				parent.S.CROUCH:
