@@ -20,7 +20,6 @@ extends Sprite2D
 var power_prev = 100
 var water_prev = 100
 var icon_bob = 0
-var font_white = FontFile.new()
 
 
 func _ready():
