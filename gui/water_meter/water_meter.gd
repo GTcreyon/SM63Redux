@@ -1,5 +1,9 @@
 extends Sprite2D
 
+var power_prev = 100
+var water_prev = 100
+var icon_bob = 0
+
 @onready var bottom = $Bottom
 @onready var filler = $Filler
 @onready var surface = $Surface
@@ -16,10 +20,6 @@ extends Sprite2D
 @onready var icon = $Icon
 
 @onready var player = $"/root/Main/Player"
-
-var power_prev = 100
-var water_prev = 100
-var icon_bob = 0
 
 
 func _ready():
