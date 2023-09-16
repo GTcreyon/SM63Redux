@@ -12,6 +12,9 @@ main.tscn
 # Windows-specific ignores
 desktop.ini
 
+# MacOS-speciffic ignores
+.DS_Store
+
 # IDE-specific ignores
 .vscode/*
 
