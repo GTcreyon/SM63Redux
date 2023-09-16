@@ -465,32 +465,6 @@ const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
 var pound_spin_frames: int = 0
 var pound_spin_factor: float = 0.0
 func action_pound() -> void:
-	if state == S.POUND and pound_state == Pound.SPIN:
-		off_ground()
-		pound_spin_frames += 1
-		# Spin frames normalized from 0-1.
-		# Min makes it stop after one full spin.
-		pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
-		# Blend between 0% and 100% smoothed animation.
-		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
-		
-		# Set rotation according to position in the animation.
-		body_rotation = TAU * pound_spin_factor
-		# Adjust rotation depending on our facing direction.
-		body_rotation *= facing_direction
-		
-		# Once spin animation ends, fall.
-		if pound_spin_frames >= POUND_TIME_TO_FALL:
-			# Reset sprite transforms.
-			clear_rotation_origin()
-			
-			body_rotation = 0
-			
-			pound_state = Pound.FALL
-			pound_land_frames = 15
-			vel.y = 8
-
-
 	if Input.is_action_pressed("pound"):
 		if state == S.DIVE and gp_dive_timer > 0:
 			var mag = vel.length()
@@ -525,6 +499,32 @@ func action_pound() -> void:
 				body_rotation = 0
 				pound_spin_frames = 0
 				pound_spin_sfx.play()
+	
+	
+	if state == S.POUND and pound_state == Pound.SPIN:
+		off_ground()
+		pound_spin_frames += 1
+		# Spin frames normalized from 0-1.
+		# Min makes it stop after one full spin.
+		pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		# Blend between 0% and 100% smoothed animation.
+		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
+		
+		# Set rotation according to position in the animation.
+		body_rotation = TAU * pound_spin_factor
+		# Adjust rotation depending on our facing direction.
+		body_rotation *= facing_direction
+		
+		# Once spin animation ends, fall.
+		if pound_spin_frames >= POUND_TIME_TO_FALL:
+			# Reset sprite transforms.
+			clear_rotation_origin()
+			
+			body_rotation = 0
+			
+			pound_state = Pound.FALL
+			pound_land_frames = 15
+			vel.y = 8
 
 
 const SPIN_TIME = 30
