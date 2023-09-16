@@ -11,6 +11,11 @@ extends Control
 @onready var shine_counter = $Stats/StatsTR/ShineRow/Count
 @onready var shine_coin_counter = $Stats/StatsTR/ShineCoinRow/Count
 @onready var life_meter = $LifeMeter
+
+@onready var water_bubbles_big = $Stats/MeterControl/WaterMeter/BubbleMask/BubblesBig
+@onready var water_bubbles_medium = $Stats/MeterControl/WaterMeter/BubbleMask/BubblesMedium
+@onready var water_bubbles_small = $Stats/MeterControl/WaterMeter/BubbleMask/BubblesSmall
+
 @onready var stats = $Stats
 
 @onready var pause_menu = $PauseMenu
@@ -41,6 +46,13 @@ func resize():
 	position = Vector2.ZERO
 	pause_menu.resize()
 
+	# Any particles wont be scaled properly if we don't change the scale_max and scale_min values
+	water_bubbles_big.process_material.scale_max = scale_factor
+	water_bubbles_medium.process_material.scale_max = scale_factor
+	water_bubbles_small.process_material.scale_max = scale_factor
+	water_bubbles_big.process_material.scale_min = scale_factor
+	water_bubbles_medium.process_material.scale_min = scale_factor
+	water_bubbles_small.process_material.scale_min = scale_factor
 
 func _process(delta):
 	var dmod = 60 * delta
