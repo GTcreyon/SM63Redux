@@ -5,5 +5,5 @@
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1")
-shader_parameter/particles_anim_h_frames = 2
-shader_parameter/particles_anim_v_frames = 2
+shader_parameter/frame_count = Vector2i(2, 2)
+shader_parameter/expand_reduce = 0.25
