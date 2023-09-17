@@ -9,22 +9,23 @@ var power_prev = 100
 var water_prev = 100
 var icon_bob = 0
 
-@onready var bottom = $Bottom
-@onready var filler = $Filler
-@onready var surface = $Surface
-@onready var bubble_mask = $BubbleMask
-@onready var bubbles_big = $BubbleMask/BubblesBig
-@onready var bubbles_medium = $BubbleMask/BubblesMedium
-@onready var bubbles_small = $BubbleMask/BubblesSmall
-@onready var label = $WaterMeterLabel
-@onready var power_filler = $PowerFiller
-@onready var power_filler_cover = $PowerFiller/Cover
-@onready var cover = $Cover
-@onready var power_mask = $PowerMask
-@onready var max_sprite = $Max
-@onready var icon = $Icon
 
-@onready var player = $"/root/Main/Player"
+@onready var bottom: Sprite2D = $Bottom
+@onready var filler: Sprite2D = $Filler
+@onready var surface: Sprite2D = $Surface
+@onready var bubble_mask: NinePatchRect = $BubbleMask
+@onready var bubbles_big: GPUParticles2D = $BubbleMask/BubblesBig
+@onready var bubbles_medium: GPUParticles2D = $BubbleMask/BubblesMedium
+@onready var bubbles_small: GPUParticles2D = $BubbleMask/BubblesSmall
+@onready var label: Label = $WaterMeterLabel
+@onready var max_sprite: Sprite2D = $Max
+@onready var power_filler: Sprite2D = $PowerFiller
+@onready var power_filler_cover: Sprite2D = $PowerFiller/Cover
+@onready var power_mask: Light2D = $PowerMask
+@onready var cover: Sprite2D = $Cover
+@onready var icon: AnimatedSprite2D = $Icon
+
+@onready var player: PlayerCharacter = $"/root/Main/Player"
 
 
 func _ready():
@@ -67,6 +68,9 @@ func _process(delta):
 			surface.position.y = 0
 		else:
 			surface.position.y = (100 - player.water) * WATER_FILL_HEIGHT / 100
+		# Size bubbles to match the canvas, since this doesn't happen automatically.
+		var bubble_scale = hud_root.scale.x # Scale X and Y should always be equal.
+		bubbles_big
 	else:
 		# Tank is empty. Show nothing.
 		surface.visible = false
