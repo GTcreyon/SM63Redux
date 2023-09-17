@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bo530bet4fpj0"]
+[gd_scene load_steps=35 format=3 uid="uid://bo530bet4fpj0"]
 
 [ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="3"]
@@ -16,26 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://do78au40k7meh" path="res://classes/decorative/big_tree.tscn" id="20"]
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="21"]
 [ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="22"]
-[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="24"]
 [ext_resource type="PackedScene" uid="uid://b20mdb1tyiflv" path="res://classes/decorative/small_tree.tscn" id="25"]
 [ext_resource type="PackedScene" path="res://classes/solid/rocks/big_rock/big_rock.tscn" id="26"]
 [ext_resource type="PackedScene" uid="uid://bk3kxkr4ojd03" path="res://classes/decorative/flowers.tscn" id="27"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_pkjer"]
-resource_local_to_scene = true
-shader = ExtResource("24")
-shader_parameter/width = 1.0
-shader_parameter/recenter = null
-shader_parameter/radial = false
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ycucq"]
-resource_local_to_scene = true
-shader = ExtResource("24")
-shader_parameter/width = 1.0
-shader_parameter/recenter = null
-shader_parameter/radial = false
-shader_parameter/outline_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="4"]
 atlas = ExtResource("17_pomhx")
@@ -238,12 +221,10 @@ position = Vector2(439, 193)
 position = Vector2(1091.5, 244.758)
 
 [node name="Sign" parent="Items" instance=ExtResource("22")]
-material = SubResource("ShaderMaterial_pkjer")
 position = Vector2(50.6266, 171.279)
 lines = Array[String](["[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nasty [color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need to go this way?", "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying.", "If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath you!"])
 
 [node name="Sign3" parent="Items" instance=ExtResource("22")]
-material = SubResource("ShaderMaterial_ycucq")
 position = Vector2(1601, 247)
 lines = Array[String](["[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]", "If you jump three times while moving,[@p,3] you can jump higher each time,[@p,3] ending with a huge leap!", "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."])
 
