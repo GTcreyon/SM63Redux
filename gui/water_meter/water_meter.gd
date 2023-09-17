@@ -26,6 +26,7 @@ var icon_bob = 0
 @onready var icon: AnimatedSprite2D = $Icon
 
 @onready var player: PlayerCharacter = $"/root/Main/Player"
+@onready var hud_root: Control = $"/root/Main/Player/Camera/HUD/HUDControl"
 
 
 func _ready():
@@ -68,9 +69,18 @@ func _process(delta):
 			surface.position.y = 0
 		else:
 			surface.position.y = (100 - player.water) * WATER_FILL_HEIGHT / 100
-		# Size bubbles to match the canvas, since this doesn't happen automatically.
-		var bubble_scale = hud_root.scale.x # Scale X and Y should always be equal.
-		bubbles_big
+		
+		# Size bubbles to match the canvas (as GPU particles, scale doesn't
+		# seem to affect them).
+		# Begin by fetching the particle process material. All the systems
+		# share this, so (for now) we only need to get this once.
+		var ptcl_mat = bubbles_big.process_material as ParticleProcessMaterial
+		if ptcl_mat != null:
+			# The HUD root control scales all children. Get that scale factor.
+			var bubble_scale = hud_root.scale.x # Scale X and Y should always be equal.
+			# Apply it to the particles.
+			ptcl_mat.scale_min = bubble_scale
+			ptcl_mat.scale_max = bubble_scale
 	else:
 		# Tank is empty. Show nothing.
 		surface.visible = false
