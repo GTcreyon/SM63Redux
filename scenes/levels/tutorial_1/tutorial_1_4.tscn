@@ -182,12 +182,6 @@ polygon = PackedVector2Array(-389, -160, -1008, -160, -1008, -848, 1168, -848, 1
 [node name="Player" parent="." instance=ExtResource("18")]
 position = Vector2(-81, 193)
 
-[node name="Terrain" type="Node2D" parent="."]
-
-[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("14")]
-position = Vector2(0, 209)
-polygon = PackedVector2Array(-480, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -744, 714, -744, 720, -749, 820, -749, 860, -722, 928, -732, 1068.23, -732, 1068, -1276, 1387, -1276, 1376, 335, -480, 335)
-
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Goonie" parent="Items" instance=ExtResource("20")]
@@ -571,6 +565,13 @@ lines = Array[String](["You've reached the end of the [color=#f7c55f]Tiny Demo![
 material = SubResource("ShaderMaterial_2oim1")
 position = Vector2(-715, -312)
 lines = Array[String](["[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that [color=#f28d7c]really[/color] all I'm good for!?"])
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("14")]
+z_index = 1
+position = Vector2(0, 209)
+polygon = PackedVector2Array(-480, 4, 160, 4, 274, -21, 297, -2, 387, -2, 400, 6, 544, 6, 592, -12, 670, -12, 670, -744, 714, -744, 720, -749, 820, -749, 860, -722, 928, -732, 1068.23, -732, 1068, -1276, 1387, -1276, 1376, 335, -480, 335)
 
 [node name="WarpZone2" parent="." instance=ExtResource("37")]
 position = Vector2(-175, 71)

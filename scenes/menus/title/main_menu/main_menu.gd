@@ -59,8 +59,10 @@ func _item_position(idx_frac: float, offset: Vector2) -> Vector2:
 
 func _process(delta: float) -> void:
 	var dmod = 60 * delta
-	var scale = Singleton.get_screen_scale()
-	_manage_sizes(scale)
+	
+	var screen_scale = Singleton.get_screen_scale()
+	_manage_sizes(screen_scale)
+	
 	if visible:
 		options_control.visible = show_options
 		options_menu.visible = show_options
@@ -76,12 +78,11 @@ func _process(delta: float) -> void:
 				node.modulate.a = min(node.modulate.a + 0.125 * dmod, 1)
 			options_menu.modulate.a = max(options_menu.modulate.a - 0.125 * dmod, 0)
 			
-			
 			visible_positions = [
 				Vector2(-0.5 * get_window().size.x, get_window().size.y),
-				Vector2(4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
+				Vector2(4 * screen_scale, (188.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
 				Vector2(0.5 * get_window().size.x, (124.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
-				Vector2(get_window().size.x - 4 * scale, (188.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
+				Vector2(get_window().size.x - 4 * screen_scale, (188.0 / Singleton.DEFAULT_SIZE.y) * get_window().size.y),
 				Vector2(1.5 * get_window().size.x, get_window().size.y),
 				]
 			center_pos_idx = 2
@@ -104,17 +105,17 @@ func _process(delta: float) -> void:
 			# Arrows move linearly.
 			var arrow_scroll: float = center_pos_idx + cycle_step + (cycle_direction * cycle_progress)
 			
-			# Has integer coordinates because scale is an integer.
+			# Has integer coordinates because screen_scale is an integer.
 			# Don't need to round before passing into _item_position.
-			var arrow_offset = Vector2.DOWN * 45 * scale
+			var arrow_offset = Vector2.DOWN * 45 * screen_scale
 			
 			for idx in num_items:
 				var item_arrow = items[idx]
 				var item = item_arrow[0]
 				var arrow = item_arrow[1]
 				
-				item.position = _item_position(fposmod(item_scroll + idx, num_items), Vector2.ZERO) / scale
-				arrow.position = _item_position(fposmod(arrow_scroll + idx, num_items), arrow_offset) / scale
+				item.position = _item_position(fposmod(item_scroll + idx, num_items), Vector2.ZERO) / screen_scale
+				arrow.position = _item_position(fposmod(arrow_scroll + idx, num_items), arrow_offset) / screen_scale
 			
 			if cycle_direction != 0:
 				cycle_progress += 1 / 12.0 * dmod
@@ -207,7 +208,7 @@ func _cycle_through(direction: int) -> void:
 	preview_orb.transition(get_selected())
 
 
-func _manage_sizes(scale_int):
+func _manage_sizes(scale_int: int):
 	scale = Vector2.ONE * scale_int
 	size = get_window().size / scale_int
 

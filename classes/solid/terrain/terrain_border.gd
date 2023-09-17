@@ -226,7 +226,7 @@ func _add_inbetween_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 	})
 
 
-func generate_polygons(lines: Array, texture: Texture2D, z_index: int):
+func generate_polygons(lines: Array, texture: Texture2D, z_order: int):
 	var p_len = lines.size()
 	for ind in range(p_len - 1):
 		# First create quads from each line segment.
@@ -238,7 +238,7 @@ func generate_polygons(lines: Array, texture: Texture2D, z_index: int):
 		var normal := _normal_of_segment(lines[ind], lines[(ind + 1) % p_len])
 		
 		# Create a child polygon node.
-		add_child(_create_polygon(verts, normal, z_index, texture, 0))
+		add_child(_create_polygon(verts, normal, z_order, texture, 0))
 
 
 func _generate_quad(chain: Array, start_idx: int, thickness: int = QUAD_RADIUS):

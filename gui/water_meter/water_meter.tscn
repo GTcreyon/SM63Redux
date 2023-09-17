@@ -20,6 +20,7 @@
 [ext_resource type="FontFile" uid="uid://dd0b85jy8620" path="res://fonts/white/gui_white.fnt" id="20"]
 
 [sub_resource type="ParticleProcessMaterial" id="7"]
+resource_name = "BubbleParticles"
 emission_shape = 3
 emission_box_extents = Vector3(15, 0, 0)
 particle_flag_disable_z = true

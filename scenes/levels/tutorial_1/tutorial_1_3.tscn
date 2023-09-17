@@ -296,26 +296,6 @@ polygon = PackedVector2Array(20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.63
 [node name="Player" parent="." instance=ExtResource("11")]
 position = Vector2(64, 195.944)
 
-[node name="Water" type="Node2D" parent="."]
-
-[node name="Water" parent="Water" instance=ExtResource("8")]
-z_index = 2
-position = Vector2(1414, 150)
-polygon = PackedVector2Array(0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60)
-
-[node name="Terrain" type="Node2D" parent="."]
-
-[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("7")]
-z_index = 1
-position = Vector2(0, 215)
-polygon = PackedVector2Array(-435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281)
-edge_types = {
-18: 3,
-19: 3,
-20: 3,
-21: 3
-}
-
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Fungus" type="Node2D" parent="Items"]
@@ -581,6 +561,26 @@ position = Vector2(1489, 101)
 
 [node name="Goonie9" parent="Items/Goonies" instance=ExtResource("29")]
 position = Vector2(1669, 55)
+
+[node name="Water" type="Node2D" parent="."]
+
+[node name="Water" parent="Water" instance=ExtResource("8")]
+z_index = 2
+position = Vector2(1414, 150)
+polygon = PackedVector2Array(0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60)
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("7")]
+z_index = 1
+position = Vector2(0, 215)
+polygon = PackedVector2Array(-435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281)
+edge_types = {
+18: 3,
+19: 3,
+20: 3,
+21: 3
+}
 
 [node name="WarpZone" parent="." instance=ExtResource("18")]
 position = Vector2(20, 111)
