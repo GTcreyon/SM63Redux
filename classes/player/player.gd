@@ -1371,7 +1371,6 @@ func switch_state(new_state):
 			hitbox.shape.size = STAND_BOX_SIZE
 			camera.position_smoothing_speed = 5
 			clear_rotation_origin()
-
 	
 	# On any state change, reset the following things:
 	pound_state = Pound.NONE
