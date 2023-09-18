@@ -174,12 +174,28 @@ func _physics_process(_delta):
 								trigger_anim("pound_land")
 					elif parent.pound_state == parent.Pound.SPIN:
 						# Modify the pound spin animation.
-						# TODO: Should be possible to move the spin itself into this script.
-						# All body_rotation does in player.gd is set FLUDD spray angle, and you
-						# can't FLUDD while beginning a pound anyway.
+						
+						# Spin frames normalized from 0-1.
+						var pound_spin_factor: float = parent.pound_spin_frames
+						pound_spin_factor /= parent.POUND_SPIN_DURATION
+						# Min makes it stop after one full spin.
+						pound_spin_factor = min(pound_spin_factor, 1)
+						# Blend between 0% and 100% smoothed animation.
+						pound_spin_factor = lerp(
+							pound_spin_factor,
+							sqrt(pound_spin_factor),
+							parent.POUND_SPIN_SMOOTHING)
+						
+						# Set rotation according to progress in the animation.
+						# This will overwrite the earlier assignment from
+						# parent.body_rotation, so we don't need to worry
+						# about conflicts from that.
+						rotation = TAU * pound_spin_factor
+						# Adjust rotation depending on our facing direction.
+						rotation *= parent.facing_direction
 						
 						# Offset origin's X less at the start of the spin. (Looks better!?)
-						position.x *= parent.pound_spin_factor
+						position.x *= pound_spin_factor
 						
 						# A little rising as we wind up makes it look real nice.
 						position.y = POUND_ORIGIN_OFFSET.y
