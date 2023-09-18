@@ -498,7 +498,7 @@ func action_pound() -> void:
 				pound_state = Pound.SPIN
 				body_rotation = 0
 				pound_spin_frames = 0
-				pound_spin_sfx.play()	
+				pound_spin_sfx.play()
 	
 	if state == S.POUND and pound_state == Pound.SPIN:
 		off_ground()
