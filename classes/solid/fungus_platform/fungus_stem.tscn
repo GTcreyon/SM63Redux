@@ -5,6 +5,7 @@
 
 [node name="FungusStem" type="Line2D"]
 z_index = -2
+texture_repeat = 2
 position = Vector2(6, 10)
 points = PackedVector2Array(-6, -3, -6, 6)
 width = 8.0

@@ -1,9 +1,8 @@
-[gd_scene load_steps=61 format=3 uid="uid://cbgdqcf3jpq5o"]
+[gd_scene load_steps=58 format=3 uid="uid://cbgdqcf3jpq5o"]
 
 [ext_resource type="Shader" path="res://shaders/palette.gdshader" id="1"]
 [ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="8"]
-[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="9"]
 [ext_resource type="PackedScene" uid="uid://coyt8uat1063g" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="10"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="12"]
@@ -28,23 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="29"]
 [ext_resource type="PackedScene" uid="uid://d1alvph4yehre" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_grs5u"]
-resource_local_to_scene = true
-shader = ExtResource("9")
-shader_parameter/width = 1.0
-shader_parameter/recenter = null
-shader_parameter/radial = false
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gewe0"]
-resource_local_to_scene = true
-shader = ExtResource("9")
-shader_parameter/width = 1.0
-shader_parameter/recenter = null
-shader_parameter/radial = false
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wqhu1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltupr"]
 resource_local_to_scene = true
 shader = ExtResource("1")
 shader_parameter/color0 = Color(0.796078, 0.368627, 0.0352941, 1)
@@ -313,26 +296,6 @@ polygon = PackedVector2Array(20.7465, 303.45, 22.3339, -87.0507, 484.268, -88.63
 [node name="Player" parent="." instance=ExtResource("11")]
 position = Vector2(64, 195.944)
 
-[node name="Water" type="Node2D" parent="."]
-
-[node name="Water" parent="Water" instance=ExtResource("8")]
-z_index = 2
-position = Vector2(1414, 150)
-polygon = PackedVector2Array(0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60)
-
-[node name="Terrain" type="Node2D" parent="."]
-
-[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("7")]
-z_index = 1
-position = Vector2(0, 215)
-polygon = PackedVector2Array(-435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281)
-edge_types = {
-18: 3,
-19: 3,
-20: 3,
-21: 3
-}
-
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Fungus" type="Node2D" parent="Items"]
@@ -424,19 +387,17 @@ position = Vector2(1084, -35)
 [node name="Signs" type="Node2D" parent="Items"]
 
 [node name="Sign2" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_grs5u")
 position = Vector2(502, 204)
 lines = Array[String](["[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the [color=#f7c55f]F.L.U.D.D.[/color] pack!"])
 
 [node name="Sign3" parent="Items/Signs" instance=ExtResource("12")]
-material = SubResource("ShaderMaterial_gewe0")
 position = Vector2(1232, 16)
 lines = Array[String](["[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump into a pool of water, or find a refill bottle."])
 
 [node name="Enemy" type="Node2D" parent="Items"]
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("20")]
-material = SubResource("ShaderMaterial_wqhu1")
+material = SubResource("ShaderMaterial_ltupr")
 position = Vector2(1335.47, -15.5049)
 sprite_frames = SubResource("8")
 frame = 4
@@ -600,6 +561,26 @@ position = Vector2(1489, 101)
 
 [node name="Goonie9" parent="Items/Goonies" instance=ExtResource("29")]
 position = Vector2(1669, 55)
+
+[node name="Water" type="Node2D" parent="."]
+
+[node name="Water" parent="Water" instance=ExtResource("8")]
+z_index = 2
+position = Vector2(1414, 150)
+polygon = PackedVector2Array(0, 0, 346, 0, 346, 58, 309, 97, 119, 81, 57, 90, 0, 60)
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("7")]
+z_index = 1
+position = Vector2(0, 215)
+polygon = PackedVector2Array(-435, 0, 136, 0, 309, -21, 456, -21, 480, -11, 702, -11, 784, -19, 884, -19, 884, -263, 911, -252, 1008, -252, 1032, -230, 1107, -230, 1196, -195, 1282, -195, 1282, -128, 1325, -128, 1414, -99, 1414, -5, 1471, 25, 1533, 16, 1723, 32, 1760, -7, 1760, -175, 2207, -175, 2207, 281, -435, 281)
+edge_types = {
+18: 3,
+19: 3,
+20: 3,
+21: 3
+}
 
 [node name="WarpZone" parent="." instance=ExtResource("18")]
 position = Vector2(20, 111)
