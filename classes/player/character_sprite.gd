@@ -10,6 +10,14 @@ const SLOW_SPIN_END_SPEED = 0.40
 const SLOW_SPIN_TIME = 60
 
 const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
+## Between the pound spin and drop, the player hangs without rotating
+## for this many frames.
+const _POUND_HANG_TIME = 9
+## How long the pound spin animation lasts.
+const POUND_SPIN_DURATION = PlayerCharacter.POUND_TIME_TO_FALL - _POUND_HANG_TIME
+## Range from 0 to 1.
+## Blends pound spin between a linear and exponential rotation curve.
+const POUND_SPIN_SMOOTHING = 0.5 
 const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
 const POUND_SPIN_RISE_TIME = 15
 
@@ -177,14 +185,14 @@ func _physics_process(_delta):
 						
 						# Spin frames normalized from 0-1.
 						var pound_spin_factor: float = parent.pound_spin_frames
-						pound_spin_factor /= parent.POUND_SPIN_DURATION
+						pound_spin_factor /= POUND_SPIN_DURATION
 						# Min makes it stop after one full spin.
 						pound_spin_factor = min(pound_spin_factor, 1)
 						# Blend between 0% and 100% smoothed animation.
 						pound_spin_factor = lerp(
 							pound_spin_factor,
 							sqrt(pound_spin_factor),
-							parent.POUND_SPIN_SMOOTHING)
+							POUND_SPIN_SMOOTHING)
 						
 						# Set rotation according to progress in the animation.
 						# This will overwrite the earlier assignment from
