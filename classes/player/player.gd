@@ -921,7 +921,7 @@ func player_fall() -> void:
 		vel = Vector2.ZERO
 		# A little rising during the wind-up makes it look real nice.
 		if pound_spin_frames <= POUND_SPIN_RISE_TIME:
-			vel.y -= POUND_SPIN_RISE_AMOUNT
+			vel.y = -POUND_SPIN_RISE_AMOUNT
 	else:
 		if state == S.POUND and pound_state == Pound.FALL:
 			fall_adjust += 0.814
