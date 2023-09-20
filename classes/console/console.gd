@@ -263,8 +263,7 @@ func _input(event):
 			if hist_index < history.size():
 				input_line.text = history[size - hist_index - 1]
 				hist_index += 1
-	logger.margin_top = -24 - (Singleton.line_count + 1) * (logger.get_font("normal_font").get_height() + 1)
-
+	logger.margin_top = -40 - (Singleton.line_count + 1) * (logger.get_font("normal_font").get_height() + 1)
 
 func display_completion(query: String, options: Array):
 	suggestions_log.text = ""
