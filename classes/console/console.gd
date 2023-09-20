@@ -236,6 +236,7 @@ func enable(enabled):
 	if visible:
 		input_line.grab_focus()
 		input_line.text = ""
+		_on_Input_text_changed("")
 
 
 func _input(event):
