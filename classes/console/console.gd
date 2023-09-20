@@ -234,9 +234,7 @@ func enable(enabled):
 	get_tree().paused = visible
 	Singleton.set_pause("console", visible)
 	if visible:
-		input_line.grab_focus()
-		input_line.text = ""
-		_on_Input_text_changed("")
+		input_line.clear()
 
 
 func _input(event):
@@ -254,7 +252,7 @@ func _input(event):
 				var move_caret_by = len(selected_completion.option) - len(selected_completion.query) + 1
 				input_line.text += selected_completion.option.substr(len(selected_completion.query)) + " "
 				input_line.caret_position = caret + move_caret_by
-				_on_Input_text_changed(input_line.text)
+				input_line.update_text()
 			else:
 				run_command(input_line.text.strip_edges())
 		
