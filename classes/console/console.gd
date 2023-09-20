@@ -239,8 +239,11 @@ func enable(enabled):
 
 
 func _input(event):
-	if event.is_action_pressed("altdebug") and visible == false:
+	if event.is_action_pressed("altdebug") and not visible:
 		enable(true)
+		accept_event()
+	elif event.is_action_pressed("altdebug") and visible:
+		enable(false)
 		accept_event()
 	
 	if visible:
@@ -253,8 +256,6 @@ func _input(event):
 				_on_Input_text_changed(input_line.text)
 			else:
 				run_command(input_line.text.strip_edges())
-				enable(false)
-				accept_event()
 		
 		if event.is_action_pressed("ui_up"):
 			var size = history.size()
