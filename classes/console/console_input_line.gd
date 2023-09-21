@@ -2,7 +2,7 @@ extends LineEdit
 
 
 ## Clears the entered text.
-func clear() -> void:
+func begin_new() -> void:
 	grab_focus()
 	text = ""
 	update_text()

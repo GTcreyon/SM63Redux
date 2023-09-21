@@ -243,7 +243,7 @@ func enable(enabled):
 	get_tree().paused = visible
 	Singleton.set_pause("console", visible)
 	if visible:
-		input_line.clear()
+		input_line.begin_new()
 
 
 func _input(event):
@@ -293,7 +293,7 @@ func display_completion(query: String, options: Array):
 	
 	for option in sorted_options:
 		if option.begins_with(query):
-			suggestions_log.push_color(Color.aqua)
+			suggestions_log.push_color(Color.AQUA)
 			suggestions_log.add_text(query)
 			suggestions_log.pop()
 			suggestions_log.add_text(option.substr(len(query)) + " ")
