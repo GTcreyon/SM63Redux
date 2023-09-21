@@ -15,7 +15,7 @@ func _process(delta):
 	var window_size = Vector2(get_window().size) # convert to float vector - avoids int div warning
 	scale = scale_vec * 2 * Vector2.ONE
 	pivot_offset.x = window_size.x / 2
-	offset_top = window_size.y / 4 * 3
+	
 	if wait < 150:
 		wait += dmod
 	else:
