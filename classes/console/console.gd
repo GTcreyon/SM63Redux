@@ -247,10 +247,10 @@ func enable(enabled):
 
 
 func _input(event):
-	if event.is_action_pressed("altdebug") and not visible:
+	if event.is_action_pressed("debug") or event.is_action_pressed("altdebug") and not visible:
 		enable(true)
 		accept_event()
-	elif event.is_action_pressed("altdebug") and visible:
+	elif event.is_action_pressed("debug") or event.is_action_pressed("altdebug") and visible:
 		enable(false)
 		accept_event()
 	
