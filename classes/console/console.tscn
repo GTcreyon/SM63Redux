@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ccp5h74c3svg6"]
+[gd_scene load_steps=3 format=3 uid="uid://ccp5h74c3svg6"]
 
 [ext_resource type="Script" path="res://classes/console/console.gd" id="1"]
+[ext_resource type="Script" path="res://classes/console/console_input_line.gd" id="3"]
 
 [node name="Console" type="Control"]
 layout_mode = 3
@@ -16,7 +17,19 @@ layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -144.0
+offset_top = -160.0
+offset_bottom = -40.0
+mouse_filter = 2
+bbcode_enabled = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Suggestions" type="RichTextLabel" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
 offset_bottom = -24.0
 mouse_filter = 2
 bbcode_enabled = true
@@ -27,3 +40,6 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -24.0
+script = ExtResource("3")
+
+[connection signal="text_changed" from="Input" to="." method="_on_Input_text_changed"]
