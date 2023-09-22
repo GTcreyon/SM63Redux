@@ -118,6 +118,7 @@ texture = ExtResource("11")
 lifetime = 2.5
 preprocess = 2.0
 visibility_rect = Rect2(-15, -95, 30, 87)
+local_coords = true
 
 [node name="BubblesMedium" type="GPUParticles2D" parent="WaterMeter/BubbleMask"]
 light_mask = 2
@@ -128,6 +129,7 @@ texture = ExtResource("13")
 lifetime = 2.5
 preprocess = 2.0
 visibility_rect = Rect2(-15, -95, 30, 87)
+local_coords = true
 
 [node name="BubblesSmall" type="GPUParticles2D" parent="WaterMeter/BubbleMask"]
 light_mask = 2
@@ -138,6 +140,7 @@ texture = ExtResource("10")
 lifetime = 2.5
 preprocess = 2.0
 visibility_rect = Rect2(-15, -95, 30, 87)
+local_coords = true
 
 [node name="WaterMeterLabel" type="Label" parent="WaterMeter"]
 offset_left = 1.0
