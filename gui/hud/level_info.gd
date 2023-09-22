@@ -1,6 +1,6 @@
 extends Control
 
-const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
+const BYLIGHT = preload("res://fonts/bylight/bylight.otf")
 const RUBY = preload("res://fonts/red/gui_red.fnt")
 
 @onready var level_name = $Divider/MainContainer/LevelNamePanel/ScaleContainer/LevelName

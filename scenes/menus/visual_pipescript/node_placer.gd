@@ -1,7 +1,7 @@
 extends Node
 
 const PHANTOM_STYLE = preload("res://scenes/menus/visual_pipescript/phantom_style.tres")
-const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
+const BYLIGHT = preload("res://fonts/bylight/bylight.otf")
 const EDITOR_THEME = preload("res://scenes/menus/visual_pipescript/visual_editor_theme.tres")
 
 @onready var graph = $Graph
