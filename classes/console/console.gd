@@ -270,7 +270,7 @@ func _input(event):
 	logger.offset_top = -40 - (Singleton.line_count + 1) * (logger.get_theme_font("normal_font").get_height() + 1)
 
 func display_completion(query: String, options: Array):
-	suggestions_log.text = ""
+	suggestions_log.clear()
 	
 	var sorted_options = []
 	for option in options:
