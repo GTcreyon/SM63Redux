@@ -7,7 +7,7 @@ extends Interactable
 @export var can_pivot: bool = false
 @export var back_sprite: bool = false
 
-@onready var dialog = $"/root/Main/Player/Camera/HUD/HUDControl/DialogBox" if !Engine.is_editor_hint() else null
+@onready var dialog = $"/root/Main/Player/Camera/HUD/HUDControl/DialogBox"
 
 
 func _interact_with(body):

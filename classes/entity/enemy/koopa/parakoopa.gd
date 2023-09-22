@@ -1,4 +1,3 @@
-@tool
 extends AnimatedSprite2D
 
 @onready var hurtbox = $Damage
@@ -34,11 +33,10 @@ func set_color(new_color):
 
 
 func _ready():
-	if !Engine.is_editor_hint():
-		flip_h = mirror
-		frame = hash(position.x + position.y * PI) % 6
-		if not disabled:
-			play()
+	flip_h = mirror
+	frame = hash(position.x + position.y * PI) % 6
+	if not disabled:
+		play()
 
 
 func _exit_tree():
@@ -100,8 +98,7 @@ func set_disabled(val):
 	disabled = val
 	hurtbox.monitoring = !val
 	top_collision.monitoring = !val
-	if !Engine.is_editor_hint():
-		if disabled:
-			stop()
-		else:
-			play()
+	if disabled:
+		stop()
+	else:
+		play()
