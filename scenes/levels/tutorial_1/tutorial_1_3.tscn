@@ -1,6 +1,5 @@
-[gd_scene load_steps=58 format=3 uid="uid://cbgdqcf3jpq5o"]
+[gd_scene load_steps=56 format=3 uid="uid://cbgdqcf3jpq5o"]
 
-[ext_resource type="Shader" path="res://shaders/palette.gdshader" id="1"]
 [ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://coyt8uat1063g" path="res://classes/solid/fungus_platform/fungus_stem.tscn" id="10"]
@@ -26,16 +25,6 @@
 [ext_resource type="PackedScene" uid="uid://dmvmvmv3te56c" path="res://classes/decorative/arrow/arrow.tscn" id="28"]
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="29"]
 [ext_resource type="PackedScene" uid="uid://d1alvph4yehre" path="res://classes/decorative/butterfly/butterfly.tscn" id="30"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltupr"]
-resource_local_to_scene = true
-shader = ExtResource("1")
-shader_parameter/color0 = Color(0.796078, 0.368627, 0.0352941, 1)
-shader_parameter/color1 = Color(0.568627, 0.0705882, 0.188235, 1)
-shader_parameter/color2 = Color(0.478431, 0.258824, 0.203922, 1)
-shader_parameter/color3 = Color(1, 1, 0, 1)
-shader_parameter/color4 = Color(1, 0, 1, 1)
-shader_parameter/color5 = Color(0, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="11"]
 atlas = ExtResource("13_p3ewm")
@@ -397,7 +386,6 @@ lines = Array[String](["[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/c
 [node name="Enemy" type="Node2D" parent="Items"]
 
 [node name="Parakoopa" parent="Items/Enemy" instance=ExtResource("20")]
-material = SubResource("ShaderMaterial_ltupr")
 position = Vector2(1335.47, -15.5049)
 sprite_frames = SubResource("8")
 frame = 4
