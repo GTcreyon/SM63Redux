@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://c4ib2anhw3fvk"]
+[gd_scene load_steps=52 format=3 uid="uid://c4ib2anhw3fvk"]
 
 [ext_resource type="Texture2D" uid="uid://babp6is7hdooe" path="res://gui/hud/touch_buttons.png" id="2"]
 [ext_resource type="StyleBox" uid="uid://wni4qj54ny6m" path="res://scenes/menus/title/main_menu/border.tres" id="3"]
@@ -13,7 +13,6 @@
 [ext_resource type="Texture2D" uid="uid://dj1x0o0wycr1b" path="res://scenes/menus/title/main_menu/rope.png" id="13"]
 [ext_resource type="Texture2D" uid="uid://dx44kxuvigx6n" path="res://scenes/menus/title/main_menu/selection_frame.png" id="14"]
 [ext_resource type="Texture2D" uid="uid://b3otfjl87q5ve" path="res://scenes/menus/title/main_menu/hook.png" id="15"]
-[ext_resource type="Script" path="res://scenes/menus/title/main_menu/back_button.gd" id="15_o0yry"]
 [ext_resource type="Texture2D" uid="uid://dtqqke8f50hre" path="res://scenes/menus/title/main_menu/sheen.png" id="16"]
 [ext_resource type="Texture2D" uid="uid://blbgy6cva38gd" path="res://scenes/menus/title/main_menu/icon.png" id="17"]
 [ext_resource type="Texture2D" uid="uid://764v2w1qxay6" path="res://scenes/menus/title/main_menu/orb_inner.png" id="18"]
@@ -535,7 +534,6 @@ scale = Vector2(2, 2)
 pivot_offset = Vector2(20, 0)
 texture_normal = SubResource("22")
 texture_pressed = SubResource("21")
-script = ExtResource("15_o0yry")
 
 [node name="PreviewOrb" type="Control" parent="." groups=["menu_hide"]]
 anchors_preset = 0
