@@ -48,6 +48,7 @@ func physics_step():
 		body.set_up_direction(Vector2.UP)
 		body.set_floor_stop_on_slope_enabled(true)
 		body.move_and_slide()
+		body.apply_floor_snap()
 
 
 func set_disabled(val):
