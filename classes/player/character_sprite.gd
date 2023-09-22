@@ -10,8 +10,6 @@ const SLOW_SPIN_END_SPEED = 0.40
 const SLOW_SPIN_TIME = 60
 
 const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
-const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
-const POUND_SPIN_RISE_TIME = 15
 
 const SLIDE_MAX_SPEED: float = 5.0
 
@@ -180,11 +178,6 @@ func _physics_process(_delta):
 						
 						# Offset origin's X less at the start of the spin. (Looks better!?)
 						position.x *= parent.pound_spin_factor
-						
-						# A little rising as we wind up makes it look real nice.
-						position.y = POUND_ORIGIN_OFFSET.y
-						position.y -= POUND_SPIN_RISE * min(parent.pound_spin_frames,
-							POUND_SPIN_RISE_TIME)
 				parent.S.SPIN:
 					spin_logic()
 				parent.S.CROUCH:
