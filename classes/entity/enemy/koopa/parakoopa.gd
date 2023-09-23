@@ -42,9 +42,9 @@ func _ready():
 		set_color(color)
 		
 		flip_h = mirror
-			frame = hash(position.x + position.y * PI) % 6
-			if not disabled:
-				play()
+		frame = hash(position.x + position.y * PI) % 6
+		if not disabled:
+			play()
 
 
 func _exit_tree():
