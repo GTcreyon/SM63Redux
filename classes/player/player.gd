@@ -460,6 +460,10 @@ func wall_stop() -> void:
 const POUND_TIME_TO_FALL = 18 # Time to move from pound spin to pound fall
 const _POUND_HANG_TIME = 9
 const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spin animation lasts
+## How many frames the player will rise during the pound spin.
+const POUND_SPIN_RISE_TIME = 15
+## How much the player rises each frame of the pound spin.
+const POUND_SPIN_RISE_AMOUNT = 1
 const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
 
 var pound_spin_frames: int = 0
@@ -913,7 +917,11 @@ func ground_failsafe_condition() -> bool:
 func player_fall() -> void:
 	var fall_adjust = vel.y # used to adjust downward acceleration to account for framerate difference
 	if state == S.POUND and pound_state == Pound.SPIN:
+		# Don't move during the pound spin.
 		vel = Vector2.ZERO
+		# A little rising during the wind-up makes it look real nice.
+		if pound_spin_frames <= POUND_SPIN_RISE_TIME:
+			vel.y = -POUND_SPIN_RISE_AMOUNT
 	else:
 		if state == S.POUND and pound_state == Pound.FALL:
 			fall_adjust += 0.814
@@ -1371,7 +1379,6 @@ func switch_state(new_state):
 			hitbox.shape.size = STAND_BOX_SIZE
 			camera.position_smoothing_speed = 5
 			clear_rotation_origin()
-
 	
 	# On any state change, reset the following things:
 	pound_state = Pound.NONE
