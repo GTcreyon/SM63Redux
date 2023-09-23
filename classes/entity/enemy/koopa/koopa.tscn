@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="1"]
 [ext_resource type="Script" path="res://classes/entity/enemy/koopa/koopa.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://gagulf6yfw6x" path="res://classes/entity/enemy/goomba/goomba_step.wav" id="3"]
-[ext_resource type="Material" path="res://shaders/palette.tres" id="4"]
+[ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://shaders/palette.tres" id="4"]
 [ext_resource type="Texture2D" uid="uid://bjlgu2ch3ey1y" path="res://classes/entity/enemy/koopa/koopa_walk.png" id="5"]
 [ext_resource type="AudioStream" uid="uid://bgidqcur663qn" path="res://classes/entity/enemy/koopa/shell_kick.ogg" id="6"]
 
