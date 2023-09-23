@@ -255,6 +255,7 @@ func _input(event):
 				input_line.update_text()
 			else:
 				run_command(input_line.text.strip_edges())
+				input_line.clear()
 		
 		if event.is_action_pressed("ui_up"):
 			var size = history.size()
