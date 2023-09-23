@@ -1,4 +1,3 @@
-@tool
 class_name Toad
 extends InteractableDialog
 
@@ -58,12 +57,9 @@ func _init():
 	material = material.duplicate()
 	set_spot(spot)
 	set_skin(skin)
-	
+
 
 func _ready():
-	if Engine.is_editor_hint():
-		return
-	
 	sprite.frame = fmod(position.x + position.y * PI, 7)
 	sprite.play()
 

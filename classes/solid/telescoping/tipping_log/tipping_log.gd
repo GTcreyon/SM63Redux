@@ -1,4 +1,3 @@
-@tool
 class_name TippingLog
 extends Telescoping
 
@@ -17,7 +16,7 @@ func set_width(val):
 
 
 func _physics_process(_delta):
-	if !Engine.is_editor_hint() and !disabled:
+	if !disabled:
 		physics_step()
 
 
