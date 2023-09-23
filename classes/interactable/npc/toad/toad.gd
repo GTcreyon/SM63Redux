@@ -40,30 +40,30 @@ const skin_presets = [
 	],
 ]
 
-@export_enum("Red", "Green", "Blue", "Yellow", "Purple") var spot = 0: set = set_spot
-@export_range(0, 1) var skin = 0: set = set_skin
+@export_enum("Red", "Green", "Blue", "Yellow", "Purple") var spot: int = 0
+@export_range(0, 1) var skin: int = 0
 
 
 func set_spot(new_spot):
 	for i in range(2):
 		material.set_shader_parameter("color" + str(i), spot_presets[new_spot][i])
-	spot = new_spot
 
 
 func set_skin(new_skin):
 	for i in range(4):
 		material.set_shader_parameter("color" + str(i + 2), skin_presets[new_skin][i])
-	skin = new_skin
 
 
-func _ready():
-	# Sets up palette when instancing in the editor
+func _init():
+	material = material.duplicate()
 	set_spot(spot)
 	set_skin(skin)
 	
+
+func _ready():
 	if Engine.is_editor_hint():
 		return
-		
+	
 	sprite.frame = fmod(position.x + position.y * PI, 7)
 	sprite.play()
 

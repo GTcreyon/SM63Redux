@@ -22,23 +22,29 @@ const color_presets = [
 
 @export var disabled = false: set = set_disabled
 @export var mirror = false
-@export var color: Koopa.ShellColor = Koopa.ShellColor.GREEN: set = set_color
+@export var color := Koopa.ShellColor.GREEN
 
 
 func set_color(new_color):
 	for i in range(3):
 		material.set_shader_parameter("color" + str(i), color_presets[new_color][i])
-	color = new_color
 	koopa.color = color
 	shell.color = color
 
 
 func _ready():
 	if !Engine.is_editor_hint():
+		# Ensure that the material is unique so we can set its parameters.
+		# "Local to scene" causes issues with source control, because UIDs are refreshed on loading the scene.
+		# This method refreshes them at runtime instead of in the editor.
+		material = material.duplicate()
+		
+		set_color(color)
+		
 		flip_h = mirror
-		frame = hash(position.x + position.y * PI) % 6
-		if not disabled:
-			play()
+			frame = hash(position.x + position.y * PI) % 6
+			if not disabled:
+				play()
 
 
 func _exit_tree():
