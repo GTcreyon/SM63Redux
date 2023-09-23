@@ -247,7 +247,7 @@ func _input(event):
 	
 	if visible:
 		if event.is_action_pressed("ui_accept"):
-			if selected_completion.selected:
+			if selected_completion.selected && selected_completion.query != selected_completion.option:
 				var caret = input_line.caret_position
 				var move_caret_by = len(selected_completion.option) - len(selected_completion.query) + 1
 				input_line.text += selected_completion.option.substr(len(selected_completion.query)) + " "
