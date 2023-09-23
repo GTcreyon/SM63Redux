@@ -1,4 +1,4 @@
-extends GPUParticles2D
+extends CPUParticles2D
 
 
 func _ready():
