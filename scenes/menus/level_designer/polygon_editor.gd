@@ -1,7 +1,7 @@
 extends Control
 
-onready var main = $"/root/Main"
-onready var drawable_polygon = $Polygon
+@onready var main = $"/root/Main"
+@onready var drawable_polygon = $Polygon
 
 
 func _unhandled_input(event):
@@ -15,16 +15,16 @@ func _unhandled_input(event):
 
 func quit_creating(save):
 	main.editor_state = main.EDITOR_STATE.IDLE
-	var polygon_data = PoolVector2Array(drawable_polygon.readonly_local_polygon)
-	var polygon_position = drawable_polygon.rect_global_position
+	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
+	var polygon_position = drawable_polygon.global_position
 	drawable_polygon.polygon = []
 	drawable_polygon.should_connector_be_transparent = false
 	drawable_polygon.should_draw_predict_line = false
 	drawable_polygon.should_have_buttons = false
 	
 	if len(polygon_data) > 2 and save:
-		if Geometry.is_polygon_clockwise(polygon_data):
-			polygon_data.invert()
+		if Geometry2D.is_polygon_clockwise(polygon_data):
+			polygon_data.reverse()
 		
 		polygon_data.append(polygon_data[0])
 		var terrain = main.place_terrain(polygon_data)

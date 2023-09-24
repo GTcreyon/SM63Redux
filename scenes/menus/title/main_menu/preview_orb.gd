@@ -1,7 +1,7 @@
 extends Control
 
-onready var inner = $Inner
-onready var outer = $Outer
+@onready var inner = $Inner
+@onready var outer = $Outer
 
 var switch_frame: int = 0
 

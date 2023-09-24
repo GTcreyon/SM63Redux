@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/splash_medium_0.wav-4d2ce805992af2427c7794f331f4132c.sample"
+type="AudioStreamWAV"
+uid="uid://yva6v8fdxhty"
+path="res://.godot/imported/splash_medium_0.wav-4d2ce805992af2427c7794f331f4132c.sample"
 
 [deps]
 
 source_file="res://classes/water/splash_medium_0.wav"
-dest_files=[ "res://.import/splash_medium_0.wav-4d2ce805992af2427c7794f331f4132c.sample" ]
+dest_files=["res://.godot/imported/splash_medium_0.wav-4d2ce805992af2427c7794f331f4132c.sample"]
 
 [params]
 

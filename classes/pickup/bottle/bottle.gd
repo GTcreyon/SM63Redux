@@ -2,7 +2,7 @@ class_name Bottle
 extends Pickup
 
 
-export var amount: int = 15
+@export var amount: int = 15
 
 
 func _award_pickup(_body) -> void:

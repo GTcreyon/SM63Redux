@@ -14,39 +14,39 @@ const TEXTURE_LIST = [
 	],
 ]
 
-export var size = Vector2(64, 64) setget set_size
-export var speed = 1
-export var wait = 120
-export var time_offset = 0
-export var interval = 90
-export var angle_offset = 0
-export var type = 1 setget set_type
+@export var size = Vector2(64, 64): set = set_size
+@export var speed = 1
+@export var wait = 120
+@export var time_offset = 0
+@export var interval = 90
+@export var angle_offset = 0
+@export var type = 1: set = set_type
 
 var timer = 0
 var turning = false
 var total_interval = 0
 
-onready var ride_area = $RideArea
+@onready var ride_area = $RideArea
 
 
 func set_size(new_size):
 	size = new_size
-	$Middle.rect_size = size - (Vector2.ONE * 8)
-	$Middle.rect_position = (Vector2.ONE * 8 - size) / 2
-	$Top.rect_size = Vector2(size.x - 8, 4)
-	$Top.rect_position = Vector2(8 - size.x, -size.y) / 2
-	$Bottom.rect_size = Vector2(size.x - 8, 4)
-	$Bottom.rect_position = Vector2(8 - size.x, size.y - 8) / 2
-	$Left.rect_size = Vector2(4, size.y - 8)
-	$Left.rect_position = Vector2(-size.x, 8 - size.y) / 2
-	$Right.rect_size = Vector2(4, size.y - 8)
-	$Right.rect_position = Vector2(size.x - 8, 8 - size.y) / 2
+	$Middle.size = size - (Vector2.ONE * 8)
+	$Middle.position = (Vector2.ONE * 8 - size) / 2
+	$Top.size = Vector2(size.x - 8, 4)
+	$Top.position = Vector2(8 - size.x, -size.y) / 2
+	$Bottom.size = Vector2(size.x - 8, 4)
+	$Bottom.position = Vector2(8 - size.x, size.y - 8) / 2
+	$Left.size = Vector2(4, size.y - 8)
+	$Left.position = Vector2(-size.x, 8 - size.y) / 2
+	$Right.size = Vector2(4, size.y - 8)
+	$Right.position = Vector2(size.x - 8, 8 - size.y) / 2
 	$CornerTL.position = Vector2(4 - size.x, 4 - size.y) / 2
 	$CornerTR.position = Vector2(size.x - 4, 4 - size.y) / 2
 	$CornerBL.position = Vector2(4 - size.x, size.y - 4) / 2
 	$CornerBR.position = Vector2(size.x - 4, size.y - 4) / 2
-	$Collision.shape.extents = size / 2
-	$RideArea/RideShape.shape.extents = size / 2 + Vector2.ONE * 2
+	$Collision.shape.size = size
+	$RideArea/RideShape.shape.size = size + Vector2.ONE * 2
 
 
 func change_texture(id):
@@ -79,15 +79,15 @@ func _physics_process(_delta):
 		turning = true
 		timer = 0
 	if turning:
-		if abs(rotation) < deg2rad(total_interval + interval):
-			rotation += deg2rad(speed)
+		if abs(rotation) < deg_to_rad(total_interval + interval):
+			rotation += deg_to_rad(speed)
 		else:
 			turning = false
 			total_interval += interval
-			rotation = deg2rad(total_interval) * sign(speed)
+			rotation = deg_to_rad(total_interval) * sign(speed)
 		for body in ride_area.get_riding_bodies():
 			var vec = position - body.position
 			var dist = position.distance_to(body.position)
 			var rot = atan2(vec.y, vec.x);
-			var diff = Vector2(cos(rot) * dist - cos(rot + deg2rad(speed)) * dist, sin(rot) * dist - sin(rot + deg2rad(speed)) * dist)
+			var diff = Vector2(cos(rot) * dist - cos(rot + deg_to_rad(speed)) * dist, sin(rot) * dist - sin(rot + deg_to_rad(speed)) * dist)
 			body.position += diff

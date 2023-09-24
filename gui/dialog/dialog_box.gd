@@ -16,10 +16,10 @@ const characters = {
 		},
 	"luigi":
 		[
-			PoolStringArray([
+			[
 				"neutral",
 				"sad",
-			]),
+			],
 			
 			[
 				preload("res://gui/dialog/faces/luigi/neutral.png"),
@@ -31,15 +31,15 @@ const characters = {
 const DEFAULT_WIDTH = 320
 const ICON_WIDTH = 40
 
-onready var player = $"/root/Main/Player"
-onready var star = $EdgeRight/Star
-onready var text_area = $Text
-onready var portrait = $EdgeLeft/Portrait
-onready var nameplate = $EdgeLeft/Name
-onready var edge_left = $EdgeLeft
-onready var block_left = $BlockLeft
-onready var sfx_next = $Next
-onready var sfx_close = $Close
+@onready var player = $"/root/Main/Player"
+@onready var star = $EdgeRight/Star
+@onready var text_area: RichTextLabel = $Text
+@onready var portrait = $EdgeLeft/Portrait
+@onready var nameplate = $EdgeLeft/Name
+@onready var edge_left = $EdgeLeft
+@onready var block_left = $BlockLeft
+@onready var sfx_next = $Next
+@onready var sfx_close = $Close
 
 var loaded_lines = []
 var line_index = 0
@@ -66,12 +66,12 @@ func insert_keybind_strings(input: String) -> String:
 	for tag_match in bind_tags:
 		var tag_string: String = tag_match.get_string()
 		var tag_bind = tag_string.substr(4, tag_string.length() - 5)
-		input = input.replace(tag_string, InputMap.get_action_list(tag_bind)[0].as_text())
+		input = input.replace(tag_string, InputMap.action_get_events(tag_bind)[0].as_text())
 	return input
 
 
 func refresh_returns(line):
-	var font = text_area.get_font("normal_font")
+	var font = text_area.get_theme_font("normal_font")
 	var cumulative_length = 0
 	var i = 0
 	while i < line.length():
@@ -106,19 +106,19 @@ func refresh_returns(line):
 
 
 func say_line(index):
-	text_area.bbcode_text = ""
+	text_area.clear()
 	char_roll = 1
 	char_index = 0
 	
 	raw_line = insert_keybind_strings(TranslationServer.translate(loaded_lines[index]))
-	target_line = refresh_returns(raw_line)
+	process_header_tags()
 	visible = true
 	active = true
 
 
 func load_lines(lines):
 	portrait.visible = false
-	text_area.margin_left = 8
+	text_area.offset_left = 8
 	character_id = null
 	character_name = ""
 	swoop_timer = 0
@@ -140,7 +140,8 @@ func _physics_process(_delta):
 			if Input.is_action_pressed("skip"):
 				var regex = RegEx.new()
 				regex.compile("\\[@[^\\]]*\\]") # Remove @ tags
-				text_area.bbcode_text = regex.sub(target_line, "", true)
+				text_area.clear()
+				text_area.append_text(regex.sub(target_line, "", true))
 				char_roll = target_line.length()
 				char_index = char_roll
 			else:
@@ -160,50 +161,17 @@ func _physics_process(_delta):
 								tag += target_line[char_index]
 								match tag[1]:
 									"/":
-										text_area.pop() # Closes tag
+										text_area.pop() # Closing tag
 									"@":
-										if tag[2] == "/":
-											var _a = 0
-										else:
-											var subtag = tag.substr(2, tag.length() - 3)
-											var args = subtag.split(",")
-											match args[0]:
-												"s":
-													text_speed = float(args[1])
-												"p":
-													pause_time = float(args[1])
-												"t":
-													add_stylebox_override("panel", styles[args[1]])
-												"c":
-													if args.size() < 2:
-														portrait.visible = false
-														target_line = refresh_returns(raw_line)
-													else:
-														portrait.visible = true
-														character_id = args[1]
-														if characters.has(character_id):
-															if args.size() >= 3:
-																portrait.texture = characters[character_id][1][int(args[2])]
-														else:
-															Singleton.log_msg("Unknown character \"%s\"." % character_id, Singleton.LogType.ERROR)
-														target_line = refresh_returns(raw_line)
-												"m":
-													portrait.texture = characters[character_id][args[1]]
-												"n":
-													character_name = args[1]
-												"w":
-													width_offset = int(args[1])
-													target_line = refresh_returns(raw_line)
-												_:
-													print_debug("Dialog: Unknown tag")
+										process_tag(tag.substr(2, tag.length() - 3))
 									_:
-										text_area.append_bbcode(tag)
+										text_area.append_text(tag)
 								if skip_char:
 									char_roll += 1
 									skip_char = false
 								skip_char = true # Skips ahead 1 char to prevent doubling after a tag
 							_:
-								text_area.append_bbcode(target_line[char_index])
+								text_area.append_text(target_line[char_index])
 								if skip_char:
 									char_roll += 1
 									skip_char = false
@@ -229,15 +197,15 @@ func _physics_process(_delta):
 		swoop_timer = min(swoop_timer + 1, 80)
 		
 		if character_id == null:
-			margin_left = -((DEFAULT_WIDTH + width_offset) / 2.0) + 2
-			edge_left.margin_left = -16
-			block_left.margin_left = 12
+			offset_left = -((DEFAULT_WIDTH + width_offset) / 2.0) + 2
+			edge_left.offset_left = -16
+			block_left.offset_left = 12
 		else:
-			margin_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset) / 2.0) + 2
-			edge_left.margin_left = -56
-			block_left.margin_left = -28
-		rect_size.x = DEFAULT_WIDTH + width_offset
-		margin_top = ((max(80 / swoop_timer, 5)) - 85)
+			offset_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset) / 2.0) + 2
+			edge_left.offset_left = -56
+			block_left.offset_left = -28
+		size.x = DEFAULT_WIDTH + width_offset
+		offset_top = ((max(80 / swoop_timer, 5)) - 85)
 		
 		if character_name == "":
 			nameplate.visible = false
@@ -247,9 +215,63 @@ func _physics_process(_delta):
 	else:
 		swoop_timer = min(swoop_timer + 0.75, 100)
 		if character_id == null:
-			margin_left = -((DEFAULT_WIDTH + width_offset)) / 2.0
+			offset_left = -((DEFAULT_WIDTH + width_offset)) / 2.0
 		else:
-			margin_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset)) / 2.0
-		margin_top = 20 - (100 / swoop_timer)
+			offset_left = -((DEFAULT_WIDTH - ICON_WIDTH + width_offset)) / 2.0
+		offset_top = 20 - (100 / swoop_timer)
 		if swoop_timer >= 100:
 			visible = false
+
+
+# Processes tags that appear before dialog text
+func process_header_tags():
+	var header_tag_char_count = 0
+	var tags = raw_line.split("]", false)
+	for tag in tags:
+		# Check if we've finished processing header tags
+		if !tag.begins_with("[@"):
+			break
+		
+		# Update header tag char count (+1 for missing end tag)
+		header_tag_char_count += tag.length() + 1
+		# Process each header tag
+		process_tag(tag.substr(2, tag.length() - 2))
+	
+	#remove header tags from the target line and refresh returns
+	target_line = refresh_returns(raw_line.erase(0, header_tag_char_count))
+
+
+# Processes a tag. Tags must have "[@]" characters removed.
+func process_tag(tag):
+	var args = tag.split(",")
+	match args[0]:
+		# Header tags
+		"t":
+			add_theme_stylebox_override("panel", styles[args[1]])
+		"m":
+			portrait.texture = characters[character_id][args[1]]
+		"n":
+			character_name = args[1]
+		"c":
+			if args.size() < 2:
+				portrait.visible = false
+				target_line = refresh_returns(raw_line)
+			else:
+				portrait.visible = true
+				character_id = args[1]
+				if characters.has(character_id):
+					if args.size() >= 3:
+						portrait.texture = characters[character_id][1][int(args[2])]
+				else:
+					Singleton.log_msg("Unknown character \"%s\"." % character_id, Singleton.LogType.ERROR)
+				target_line = refresh_returns(raw_line)
+		# Runtime tags
+		"s":
+			text_speed = float(args[1])
+		"p":
+			pause_time = float(args[1])
+		"w":
+			width_offset = int(args[1])
+			target_line = refresh_returns(raw_line)
+		_:
+			print_debug("Dialog: Unknown tag " + args[0])

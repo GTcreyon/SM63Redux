@@ -1,42 +1,36 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://cdq16avoknj8d"]
 
-[ext_resource path="res://classes/interactable/pipe/pipe_enter.ogg" type="AudioStream" id=1]
-[ext_resource path="res://classes/interactable/pipe/pipe.png" type="Texture" id=2]
-[ext_resource path="res://classes/interactable/pipe/pipe.gd" type="Script" id=3]
+[ext_resource type="AudioStream" uid="uid://p4qs2vbyne32" path="res://classes/interactable/pipe/pipe_enter.ogg" id="1"]
+[ext_resource type="Texture2D" uid="uid://db0lo5xhoksdx" path="res://classes/interactable/pipe/pipe.png" id="2"]
+[ext_resource type="Script" path="res://classes/interactable/pipe/pipe.gd" id="3"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4.36713, 15 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8.73426, 16)
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 15.9792, 16.0339 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(32, 32)
 
 [node name="Pipe" type="Area2D"]
-collision_mask = 0
+collision_mask = 2
 monitorable = false
-script = ExtResource( 3 )
-sprite = NodePath("Sprite")
+script = ExtResource("3")
+sprite = NodePath("Sprite2D")
 
 [node name="DetectorArea" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -25 )
-shape = SubResource( 1 )
-__meta__ = {
-"_editor_description_": "When the player is in this area, they can go down the pipe."
-}
+position = Vector2(0, -25)
+shape = SubResource("1")
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, -16 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
-texture = ExtResource( 2 )
+position = Vector2(0, -16)
+texture = ExtResource("2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 0, -16 )
 z_index = 1
-shape = SubResource( 2 )
-__meta__ = {
-"_editor_description_": ""
-}
+position = Vector2(0, -16)
+shape = SubResource("2")
 
 [node name="SFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 1 )
+stream = ExtResource("1")

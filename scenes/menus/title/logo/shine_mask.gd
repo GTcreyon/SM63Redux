@@ -1,4 +1,4 @@
-extends Light2D
+extends PointLight2D
 
 var time = 7 * 60
 

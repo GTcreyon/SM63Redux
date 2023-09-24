@@ -1,4 +1,4 @@
-tool
+@tool
 class_name TerrainBorderEndcaps
 extends Node2D
 # Handles drawing the endcaps of terrain polygons' top edges.
@@ -15,9 +15,9 @@ const QUAD_SIZE = 32 #2*TerrainBorder.QUAD_RADIUS
 #	normal: Vector2 = which direction is "outward" for this area.
 #	clock_dir: int = -1 for counterclockwise, +1 for clockwise.
 #	type: String = "quad" or "trio" depending on vert count.
-export var area_queue: Array
+@export var area_queue: Array
 
-onready var root = $".."
+@onready var root = $".."
 
 
 func _draw():
@@ -47,7 +47,7 @@ func polygon_clip_box(verts: Array, uvs: Array):
 			var c_next_vert: Vector2 = verts[c_next_ind]
 			
 			# Get the intersection point
-			var intersect = Geometry.segment_intersects_segment_2d(
+			var intersect = Geometry2D.segment_intersects_segment(
 				r_vert, r_next_vert,
 				c_vert, c_next_vert)
 			if intersect:
@@ -91,7 +91,7 @@ func add_cap_segment(is_left, area):
 	var normal_sign = -1 if is_left else 1
 	
 	# Generate the polygon's verts in a simple box shape.
-	var cap_verts = PoolVector2Array([
+	var cap_verts = PackedVector2Array([
 		corner,
 		corner + area.direction * QUAD_SIZE * normal_sign,
 		corner + area.direction * QUAD_SIZE * normal_sign - area.normal * QUAD_SIZE,
@@ -99,7 +99,7 @@ func add_cap_segment(is_left, area):
 	])
 	# Create UV coords for this polygon.
 	# (Endcap polygons are always just boxes, so this is really easy.)
-	var uvs = PoolVector2Array([
+	var uvs = PackedVector2Array([
 		Vector2(1, 0), Vector2(0, 0),
 		Vector2(0, 1), Vector2(1, 1)
 	])
@@ -110,7 +110,7 @@ func add_cap_segment(is_left, area):
 	var inside_count = 0
 	var verts_inside = []
 	for vert in cap_verts:
-		var is_inside = Geometry.is_point_in_polygon(vert, root.polygon)
+		var is_inside = Geometry2D.is_point_in_polygon(vert, root.polygon)
 		if is_inside:
 			verts_inside.append(vert)
 			inside_count += 1
@@ -120,7 +120,7 @@ func add_cap_segment(is_left, area):
 	var base_color = Color(1, 1, 1)
 	if root.tint:
 		base_color = root.tint_color
-	var colors = PoolColorArray([base_color, base_color, base_color, base_color])
+	var colors = PackedColorArray([base_color, base_color, base_color, base_color])
 	
 	# Draw the shadow if there's any point inside the polygon.
 	if inside_count > 0:

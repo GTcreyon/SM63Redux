@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/hover.mp3-a1df3f58a5b0dcad5bf99e1000908044.mp3str"
+uid="uid://bu0n0xnjqrko6"
+path="res://.godot/imported/hover.mp3-a1df3f58a5b0dcad5bf99e1000908044.mp3str"
 
 [deps]
 
 source_file="res://classes/player/sfx/fludd/hover.mp3"
-dest_files=[ "res://.import/hover.mp3-a1df3f58a5b0dcad5bf99e1000908044.mp3str" ]
+dest_files=["res://.godot/imported/hover.mp3-a1df3f58a5b0dcad5bf99e1000908044.mp3str"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
