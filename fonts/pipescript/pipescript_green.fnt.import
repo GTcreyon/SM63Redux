@@ -1,0 +1,16 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://dhxir7a6yii6h"
+path="res://.godot/imported/pipescript_green.fnt-f358139bf80fed866fd341ef59bdb731.fontdata"
+
+[deps]
+
+source_file="res://fonts/pipescript/pipescript_green.fnt"
+dest_files=["res://.godot/imported/pipescript_green.fnt-f358139bf80fed866fd341ef59bdb731.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true

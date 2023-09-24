@@ -30,7 +30,9 @@ func _physics_step():
 		if is_on_floor():
 			vel.x *= 0.75
 		# warning-ignore:RETURN_VALUE_DISCARDED
-		move_and_slide(vel * 60, Vector2.UP)
+		set_velocity(vel * 60)
+		set_up_direction(Vector2.UP)
+		move_and_slide()
 
 
 # Add some velocity to make spawned coins jump in different directions.

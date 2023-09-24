@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-onready var ride_area = $RideArea
+@onready var ride_area = $RideArea
 
 var prev_position = position
 

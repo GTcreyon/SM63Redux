@@ -1,13 +1,13 @@
 extends LineEdit
 
 
-## Clears the entered text.
-func clear() -> void:
+## Initializes and focuses the widget.
+func begin_new() -> void:
 	grab_focus()
-	text = ""
+	clear()
 	update_text()
 
 
-## Trigger text change event.
+## Triggers text-changed signal.
 func update_text() -> void:
 	emit_signal("text_changed", text)

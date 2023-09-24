@@ -2,10 +2,10 @@ extends Control
 
 const TITLE_SCENE: String = "res://scenes/menus/title/title.tscn"
 
-onready var exit_lvl_button = $VBoxContainer/VBoxContainer/ButtonExit
-onready var to_title_button = $VBoxContainer/VBoxContainer/ButtonQuit
-onready var close_game_button = $VBoxContainer/VBoxContainer/ButtonClose
-onready var transition_out = $"/root/Singleton/WindowWarp"
+@onready var exit_lvl_button = $VBoxContainer/VBoxContainer/ButtonExit
+@onready var to_title_button = $VBoxContainer/VBoxContainer/ButtonQuit
+@onready var close_game_button = $VBoxContainer/VBoxContainer/ButtonClose
+@onready var transition_out = $"/root/Singleton/WindowWarp"
 
 
 func _ready():
@@ -26,14 +26,14 @@ func _on_ButtonExitLevel_pressed():
 
 func _on_ButtonQuitToTitle_pressed():
 	# Reset game state once scene change is over.
-	Singleton.connect("after_scene_change", self, "_reset_to_title_state")
+	Singleton.connect("after_scene_change", Callable(self, "_reset_to_title_state"))
 	# Do scene change.
 	_do_transition_out(TITLE_SCENE, 1)
 
 
 func _on_ButtonCloseGame_pressed():
 	# Close game before actually changing scenes.
-	Singleton.connect("before_scene_change", self, "_close_game")
+	Singleton.connect("before_scene_change", Callable(self, "_close_game"))
 	# Do the transition though.
 	_do_transition_out(TITLE_SCENE) #this path just because why not
 
@@ -41,9 +41,9 @@ func _on_ButtonCloseGame_pressed():
 func _hide_close_button():
 	close_game_button.visible = false
 	# move the other two buttons down to fill the space
-	var button_height = close_game_button.rect_size.y
-	exit_lvl_button.rect_position.y += button_height
-	to_title_button.rect_position.y += button_height
+	var button_height = close_game_button.size.y
+	exit_lvl_button.position.y += button_height
+	to_title_button.position.y += button_height
 
 
 func _do_transition_out(scene: String, transition_out_time = 15):
@@ -51,7 +51,7 @@ func _do_transition_out(scene: String, transition_out_time = 15):
 	# TODO: Freeze pause menu so it can't close or change mid-exit.
 	
 	# Force the transition to execute during pause.
-	transition_out.pause_mode = Node.PAUSE_MODE_PROCESS
+	transition_out.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 	transition_out.warp(null, scene, 25, transition_out_time)
 
@@ -63,7 +63,7 @@ func _unpause_game():
 	
 	# Revert WindowWarp's pause mode.
 	# (Don't want pipe entry to become unpausable after quitting to title!)
-	transition_out.pause_mode = Node.PAUSE_MODE_INHERIT
+	transition_out.process_mode = Node.PROCESS_MODE_INHERIT
 
 
 func _reset_to_title_state():

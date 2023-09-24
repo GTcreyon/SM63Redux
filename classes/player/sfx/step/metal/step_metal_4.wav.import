@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/step_metal_4.wav-762fa9701f97269721e455fe975e195d.sample"
+type="AudioStreamWAV"
+uid="uid://hs1bq6q25j8e"
+path="res://.godot/imported/step_metal_4.wav-762fa9701f97269721e455fe975e195d.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/step/metal/step_metal_4.wav"
-dest_files=[ "res://.import/step_metal_4.wav-762fa9701f97269721e455fe975e195d.sample" ]
+dest_files=["res://.godot/imported/step_metal_4.wav-762fa9701f97269721e455fe975e195d.sample"]
 
 [params]
 

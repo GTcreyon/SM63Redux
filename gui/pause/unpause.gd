@@ -1,13 +1,13 @@
 extends Control
 
-onready var parent = $".."
+@onready var parent = $".."
 
 func _init():
 	visible = false
 
 
 func _ready():
-	rect_scale = Vector2.ONE * max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1) * 2
+	scale = Vector2.ONE * max(floor(float(get_window().size.x) / Singleton.DEFAULT_SIZE.x), 1) * 2
 
 
 func _process(_delta):

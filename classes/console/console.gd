@@ -1,6 +1,6 @@
 extends Control
 
-var history: PoolStringArray = []
+var history: PackedStringArray = []
 var hist_index = 0
 var req = HTTPRequest.new()
 var hook_name = "Ingame Webhook"
@@ -33,9 +33,9 @@ var selected_completion = {
 	option = ""
 }
 
-onready var logger = $Logger
-onready var input_line = $Input
-onready var suggestions_log = $Suggestions
+@onready var logger = $Logger
+@onready var input_line = $Input
+@onready var suggestions_log = $Suggestions
 
 func get_autocompletion_for_command(cmd: String):
 	for completion in command_hints:
@@ -64,7 +64,7 @@ func run_command(cmd: String):
 		if cmd[0] == "/":
 			cmd = cmd.substr(1)
 		history.append(cmd)
-		var args: PoolStringArray = cmd.split(" ")
+		var args: PackedStringArray = cmd.split(" ")
 		match args[0].to_lower():
 			"help":
 				for hint in command_hints:
@@ -109,8 +109,7 @@ func run_command(cmd: String):
 					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
 					return
 				var scene = "res://" + args[1] + ".tscn"
-				var file_check = File.new()
-				if file_check.file_exists(scene):
+				if FileAccess.file_exists(scene):
 					var err = Singleton.warp_to(scene, $"/root/Main/Player")
 					if err == OK:
 						Singleton.log_msg("Warped to " + scene)
@@ -173,21 +172,21 @@ func run_command(cmd: String):
 				Singleton.log_msg("Entered Level Designer.")
 				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://scenes/menus/level_designer/level_designer.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/level_designer/level_designer.tscn")
 			"menu":
 				Singleton.log_msg("Warped to menu.")
 				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://scenes/menus/title/main_menu/main_menu.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/title/main_menu/main_menu.tscn")
 			"title":
 				Singleton.log_msg("Warped to title.")
 				Singleton.prepare_exit_game()
 				# warning-ignore:RETURN_VALUE_DISCARDED
-				get_tree().change_scene("res://scenes/menus/title/title.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/title/title.tscn")
 			"vps":
 				Singleton.log_msg("Entering VPS editor.")
 				# warning-ignore:return_value_discarded
-				get_tree().change_scene("res://scenes/menus/visual_pipescript/editor.tscn")
+				get_tree().change_scene_to_file("res://scenes/menus/visual_pipescript/editor.tscn")
 			"fludd":
 				if len(args) == 1:
 					Singleton.log_msg("No second argument.", Singleton.LogType.ERROR)
@@ -211,8 +210,8 @@ func run_command(cmd: String):
 						Singleton.log_msg("All nozzles disabled.")
 			"cherry":
 				var player = load("res://classes/player/player.tscn")
-				var inst = player.instance()
-				inst.position = $"/root/Main/Player".position + Vector2.UP * 64 + Vector2(rand_range(-16, 16), rand_range(-16, 16))
+				var inst = player.instantiate()
+				inst.position = $"/root/Main/Player".position + Vector2.UP * 64 + Vector2(randf_range(-16, 16), randf_range(-16, 16))
 				$"/root/Main".add_child(inst)
 			"locale":
 				if len(args) == 1:
@@ -221,10 +220,20 @@ func run_command(cmd: String):
 				TranslationServer.set_locale(args[1])
 				Singleton.log_msg("Locale set to \"%s\"." % args[1])
 			"report":
-				req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content": cmd.substr(7), "username": hook_name}))
+				req.request(
+					"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
+					["Content-Type:application/json"],
+					HTTPClient.METHOD_POST,
+					JSON.stringify({"content": cmd.substr(7), "username": hook_name})
+					)
 			"rename":
 				hook_name = cmd.substr(7)
-				req.request("https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad", ["Content-Type:application/json"], true, HTTPClient.METHOD_POST, to_json({"content":"renamed to \"" + hook_name + "\"", "username": hook_name}))
+				req.request(
+					"https://discord.com/api/webhooks/937358472788475934/YQppuK8SSgYv_v0pRosF3AWBufPiVZui2opq5msMKJ1h-fNhVKsvm3cBRhvHOZ9XqSad",
+					["Content-Type:application/json"], 
+					HTTPClient.METHOD_POST,
+					JSON.stringify({"content":"renamed to \"" + hook_name + "\"", "username": hook_name})
+					)
 			_:
 				Singleton.log_msg("Unknown command \"%s\"." % args[0], Singleton.LogType.ERROR)
 
@@ -234,37 +243,35 @@ func enable(enabled):
 	get_tree().paused = visible
 	Singleton.set_pause("console", visible)
 	if visible:
-		input_line.clear()
+		input_line.begin_new()
 
 
 func _input(event):
-	if event.is_action_pressed("altdebug") and not visible:
-		enable(true)
-		accept_event()
-	elif event.is_action_pressed("altdebug") and visible:
-		enable(false)
+	if event.is_action_pressed("debug") or event.is_action_pressed("altdebug"):
+		enable(!visible)
 		accept_event()
 	
 	if visible:
 		if event.is_action_pressed("ui_accept"):
 			if selected_completion.selected && selected_completion.query != selected_completion.option:
-				var caret = input_line.caret_position
+        var caret = input_line.caret_column
 				var move_caret_by = len(selected_completion.option) - len(selected_completion.query) + 1
 				input_line.text += selected_completion.option.substr(len(selected_completion.query)) + " "
-				input_line.caret_position = caret + move_caret_by
+				input_line.caret_column = caret + move_caret_by
 				input_line.update_text()
 			else:
 				run_command(input_line.text.strip_edges())
+				input_line.clear()
 		
 		if event.is_action_pressed("ui_up"):
-			var size = history.size()
-			if hist_index < history.size():
-				input_line.text = history[size - hist_index - 1]
+			var hist_size = history.size()
+			if hist_index < hist_size:
+				input_line.text = history[hist_size - hist_index - 1]
 				hist_index += 1
-	logger.margin_top = -40 - (Singleton.line_count + 1) * (logger.get_font("normal_font").get_height() + 1)
+	logger.offset_top = -40 - (Singleton.line_count + 1) * (logger.get_theme_font("normal_font").get_height() + 1)
 
 func display_completion(query: String, options: Array):
-	suggestions_log.text = ""
+	suggestions_log.clear()
 	
 	var sorted_options = []
 	for option in options:
@@ -284,7 +291,7 @@ func display_completion(query: String, options: Array):
 	
 	for option in sorted_options:
 		if option.begins_with(query):
-			suggestions_log.push_color(Color.aqua)
+			suggestions_log.push_color(Color.AQUA)
 			suggestions_log.add_text(query)
 			suggestions_log.pop()
 			suggestions_log.add_text(option.substr(len(query)) + " ")

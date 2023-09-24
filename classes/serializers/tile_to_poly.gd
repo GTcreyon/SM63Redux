@@ -103,8 +103,8 @@ func draw_grid(grid, corner = Vector2(10, 10), mul = 5):
 # Draw the contour edges
 func debug_draw_edges(sorted, offset = Vector2(10, 10)):
 	var e_size = sorted.size()
-	var colors = PoolColorArray()
-	var verts = PoolVector2Array()
+	var colors = PackedColorArray()
+	var verts = PackedVector2Array()
 	var color = Color(randf(), randf(), randf(), 0.2)
 	var t_offset = {}
 	var mul = 32
@@ -243,12 +243,12 @@ func remove_collinear_points(polygon):
 func are_polygons_inside_eachother(a, b):
 	var a_succes = true
 	for vec in a:
-		if !Geometry.is_point_in_polygon(vec, b):
+		if !Geometry2D.is_point_in_polygon(vec, b):
 			a_succes = false
 			break
 	var b_succes = true
 	for vec in b:
-		if !Geometry.is_point_in_polygon(vec, a):
+		if !Geometry2D.is_point_in_polygon(vec, a):
 			b_succes = false
 			break
 	return [a_succes, b_succes]
@@ -270,7 +270,7 @@ func intersect_and_inject_polygon(start_pos, end_pos, polygon, exclude_start = f
 			start_ind = ind
 		# Thanks godot for confusing me with segment and line for 15 minutes lol
 		# Check if there's an intersection, if so, check if it is the nearest one
-		var point = Geometry.segment_intersects_segment_2d(
+		var point = Geometry2D.segment_intersects_segment(
 			start_pos,
 			end_pos,
 			p_start,
@@ -335,7 +335,7 @@ func get_intersection_count(vert, other_polygons):
 	for poly in other_polygons:
 		var p_size = poly.size()
 		for ind in range(p_size):
-			if Geometry.segment_intersects_segment_2d(
+			if Geometry2D.segment_intersects_segment(
 				vert,
 				end_vert,
 				poly[ind],
