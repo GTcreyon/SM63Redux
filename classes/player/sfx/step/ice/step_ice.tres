@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://bja70l1spagm5"]
+
+[ext_resource type="Script" path="res://classes/player/sfx/mario/sfx_bank.gd" id="1_ajcd8"]
+
+[resource]
+script = ExtResource("1_ajcd8")
+sound_bank = Array[AudioStreamWAV]([])
+group_bank = Array[ExtResource("1_ajcd8")]([])
