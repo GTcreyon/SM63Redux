@@ -14,7 +14,7 @@ func get_riding_bodies() -> Array:
 
 # Returns true if a rider is present.
 func has_rider() -> bool:
-	return !get_riding_bodies().empty()
+	return !get_riding_bodies().is_empty()
 
 
 # If the body does not have a feet area, return true.

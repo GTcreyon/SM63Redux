@@ -11,10 +11,11 @@ func _init():
 
 func _process(delta):
 	var dmod = 60 * delta
-	var scale = get_parent().scale
-	rect_scale = scale * 2 * Vector2.ONE
-	rect_pivot_offset.x = OS.window_size.x / 2
-	margin_top = OS.window_size.y / 4 * 3
+	var scale_vec = get_parent().scale_vec
+	var window_size = Vector2(get_window().size) # convert to float vector - avoids int div warning
+	scale = scale_vec * 2 * Vector2.ONE
+	pivot_offset.x = window_size.x / 2
+	
 	if wait < 150:
 		wait += dmod
 	else:

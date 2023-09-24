@@ -1,5 +1,5 @@
 class_name PlayerCharacter
-extends KinematicBody2D
+extends CharacterBody2D
 
 const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 
@@ -156,25 +156,25 @@ var dead: bool = false
 var facing_direction: int = 1 # -1 if facing left, 1 if facing right
 var body_rotation: float = 0 # Rotation of the body sprite
 
-onready var base_modifier = BaseModifier.new()
-onready var voice = $Voice
-onready var step = $Step
-onready var spin_sfx = $SpinSFX
-onready var thud = $Thud
-onready var pound_spin_sfx = $PoundSpin
-onready var character_group = $CharacterGroup
-onready var sprite = $CharacterGroup/CharacterSprite
-onready var fludd_sprite = $CharacterGroup/CharacterSprite/Fludd
-onready var camera = $"/root/Main/Player/Camera"
-onready var step_check = $StepCheck
-onready var pound_check_l = $PoundCheckL
-onready var pound_check_r = $PoundCheckR
-onready var angle_cast = $DiveAngling
-onready var hitbox =  $Hitbox
-onready var water_check = $WaterCheck
-onready var switch_sfx = $SwitchSFX
-onready var ground_failsafe_check: Area2D = $GroundFailsafe
-onready var feet_area: Area2D = $Feet
+@onready var base_modifier = BaseModifier.new()
+@onready var voice: AudioStreamPlayer = $Voice
+@onready var step: AudioStreamPlayer = $Step
+@onready var spin_sfx: AudioStreamPlayer = $SpinSFX
+@onready var thud: AudioStreamPlayer = $Thud
+@onready var pound_spin_sfx: AudioStreamPlayer = $PoundSpin
+@onready var character_group: DejitterGroup = $CharacterGroup
+@onready var sprite = $CharacterGroup/CharacterSprite
+@onready var fludd_sprite = $CharacterGroup/CharacterSprite/Fludd
+@onready var camera = $"/root/Main/Player/Camera"
+@onready var step_check: RayCast2D = $StepCheck
+@onready var pound_check_l: RayCast2D = $PoundCheckL
+@onready var pound_check_r: RayCast2D = $PoundCheckR
+@onready var angle_cast: RayCast2D = $DiveAngling
+@onready var hitbox: CollisionShape2D =  $Hitbox
+@onready var water_check: Area2D = $WaterCheck
+@onready var switch_sfx: AudioStreamPlayer = $SwitchSFX
+@onready var ground_failsafe_check: Area2D = $GroundFailsafe
+@onready var feet_area: Area2D = $Feet
 
 
 func _ready():
@@ -460,36 +460,15 @@ func wall_stop() -> void:
 const POUND_TIME_TO_FALL = 18 # Time to move from pound spin to pound fall
 const _POUND_HANG_TIME = 9
 const POUND_SPIN_DURATION = POUND_TIME_TO_FALL - _POUND_HANG_TIME # Time the spin animation lasts
+## How many frames the player will rise during the pound spin.
+const POUND_SPIN_RISE_TIME = 15
+## How much the player rises each frame of the pound spin.
+const POUND_SPIN_RISE_AMOUNT = 1
 const POUND_SPIN_SMOOTHING = 0.5 # Range from 0 to 1
 
 var pound_spin_frames: int = 0
 var pound_spin_factor: float = 0.0
 func action_pound() -> void:
-	if state == S.POUND and pound_state == Pound.SPIN:
-		pound_spin_frames += 1
-		# Spin frames normalized from 0-1.
-		# Min makes it stop after one full spin.
-		pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
-		# Blend between 0% and 100% smoothed animation.
-		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
-		
-		# Set rotation according to position in the animation.
-		body_rotation = TAU * pound_spin_factor
-		# Adjust rotation depending on our facing direction.
-		body_rotation *= facing_direction
-		
-		# Once spin animation ends, fall.
-		if pound_spin_frames >= POUND_TIME_TO_FALL:
-			# Reset sprite transforms.
-			clear_rotation_origin()
-			
-			body_rotation = 0
-			
-			pound_state = Pound.FALL
-			pound_land_frames = 15
-			vel.y = 8
-
-
 	if Input.is_action_pressed("pound"):
 		if state == S.DIVE and gp_dive_timer > 0:
 			var mag = vel.length()
@@ -524,6 +503,31 @@ func action_pound() -> void:
 				body_rotation = 0
 				pound_spin_frames = 0
 				pound_spin_sfx.play()
+	
+	if state == S.POUND and pound_state == Pound.SPIN:
+		off_ground()
+		pound_spin_frames += 1
+		# Spin frames normalized from 0-1.
+		# Min makes it stop after one full spin.
+		pound_spin_factor = min(float(pound_spin_frames) / POUND_SPIN_DURATION, 1)
+		# Blend between 0% and 100% smoothed animation.
+		pound_spin_factor = lerp(pound_spin_factor, sqrt(pound_spin_factor), POUND_SPIN_SMOOTHING)
+		
+		# Set rotation according to position in the animation.
+		body_rotation = TAU * pound_spin_factor
+		# Adjust rotation depending on our facing direction.
+		body_rotation *= facing_direction
+		
+		# Once spin animation ends, fall.
+		if pound_spin_frames >= POUND_TIME_TO_FALL:
+			# Reset sprite transforms.
+			clear_rotation_origin()
+			
+			body_rotation = 0
+			
+			pound_state = Pound.FALL
+			pound_land_frames = 15
+			vel.y = 8
 
 
 const SPIN_TIME = 30
@@ -647,7 +651,7 @@ func fludd_control():
 					rocket_charge += 1
 				else:
 					fludd_strain = false
-				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(body_rotation) < deg2rad(20) or abs(body_rotation) > deg2rad(340)))):
+				if rocket_charge >= 14 / FPS_MOD and (state != S.TRIPLE_JUMP or ((abs(body_rotation) < deg_to_rad(20) or abs(body_rotation) > deg_to_rad(340)))):
 					_fludd_spraying_rising = true
 					if state == S.DIVE:
 						var multiplier = 1
@@ -913,7 +917,11 @@ func ground_failsafe_condition() -> bool:
 func player_fall() -> void:
 	var fall_adjust = vel.y # used to adjust downward acceleration to account for framerate difference
 	if state == S.POUND and pound_state == Pound.SPIN:
+		# Don't move during the pound spin.
 		vel = Vector2.ZERO
+		# A little rising during the wind-up makes it look real nice.
+		if pound_spin_frames <= POUND_SPIN_RISE_TIME:
+			vel.y = -POUND_SPIN_RISE_AMOUNT
 	else:
 		if state == S.POUND and pound_state == Pound.FALL:
 			fall_adjust += 0.814
@@ -1014,10 +1022,10 @@ func manage_pound_recover() -> void:
 			pound_state = Pound.LAND
 			
 			# Dispatch star effect
-			var fx = ground_pound_effect.instance()
+			var fx = ground_pound_effect.instantiate()
 			get_parent().add_child(fx)
 			fx.global_position = sprite.global_position + Vector2.DOWN * 11
-			fx.find_node("StarsAnim").play("GroundPound")
+			fx.find_child("StarsAnim").play("GroundPound")
 			
 			# Dispatch pound thud
 			# Begin by checking center for a collider
@@ -1061,7 +1069,11 @@ func player_move() -> void:
 	# store the current position in advance
 	var save_pos = position
 	# warning-ignore:return_value_discarded
-	move_and_slide_with_snap(vel * 60.0, snap, Vector2(0, -1), true)
+	set_velocity(vel * 60.0)
+	floor_snap_length = snap
+	set_up_direction(Vector2(0, -1))
+	set_floor_stop_on_slope_enabled(true)
+	move_and_slide()
 	
 	# check how far that moved the player
 	var slide_vec = position-save_pos
@@ -1077,10 +1089,16 @@ func player_move() -> void:
 	):
 		position = save_pos
 		# warning-ignore:return_value_discarded
-		move_and_slide_with_snap(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0), snap, Vector2(0, -1), true, 4, deg2rad(47))
+		set_velocity(Vector2(vel.x * 60.0 * (vel.x / slide_vec.x), vel.y * 60.0))
+		floor_snap_length = snap
+		set_up_direction(Vector2(0, -1))
+		set_floor_stop_on_slope_enabled(true)
+		set_max_slides(4)
+		set_floor_max_angle(deg_to_rad(47))
+		move_and_slide()
 
 
-func get_snap() -> Vector2:
+func get_snap() -> float:
 	if (
 		!grounded
 		or Input.is_action_just_pressed("jump")
@@ -1094,9 +1112,9 @@ func get_snap() -> Vector2:
 			and Input.is_action_pressed("semi")
 		)
 	):
-		return Vector2.ZERO
+		return 0
 	else:
-		return Vector2(0, 4)
+		return 4
 
 
 const DIVE_VEL = 35.0 * FPS_MOD
@@ -1194,8 +1212,8 @@ func _get_slide_angle() -> float:
 
 const FADE_TIME = 10
 var fade_timer = 0
-onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(Singleton.WATER_LPF_BUS, 0)
-onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(Singleton.WATER_VRB_BUS, 0)
+@onready var lowpass: AudioEffectFilter = AudioServer.get_bus_effect(Singleton.WATER_LPF_BUS, 0)
+@onready var reverb: AudioEffectReverb = AudioServer.get_bus_effect(Singleton.WATER_VRB_BUS, 0)
 func manage_water_audio(delta):
 	if swimming:
 		# Fade in water fx
@@ -1333,9 +1351,9 @@ func manage_invuln():
 
 
 const STAND_BOX_POS = Vector2(0, 1.5)
-const STAND_BOX_EXTENTS = Vector2(6, 14.5)
+const STAND_BOX_SIZE = Vector2(12, 29)
 const DIVE_BOX_POS = Vector2(0, 10)
-const DIVE_BOX_EXTENTS = Vector2(6, 6)
+const DIVE_BOX_SIZE = Vector2(12, 12)
 func switch_state(new_state):
 	# Always pause AND stop spin SFX
 	spin_sfx.stop()
@@ -1351,17 +1369,16 @@ func switch_state(new_state):
 	match state:
 		S.DIVE, S.CROUCH:
 			hitbox.position = DIVE_BOX_POS
-			hitbox.shape.extents = DIVE_BOX_EXTENTS
+			hitbox.shape.size = DIVE_BOX_SIZE
 		S.POUND:
 			hitbox.position = STAND_BOX_POS
-			hitbox.shape.extents = STAND_BOX_EXTENTS
-			camera.smoothing_speed = 10
+			hitbox.shape.size = STAND_BOX_SIZE
+			camera.position_smoothing_speed = 10
 		_:
 			hitbox.position = STAND_BOX_POS
-			hitbox.shape.extents = STAND_BOX_EXTENTS
-			camera.smoothing_speed = 5
+			hitbox.shape.size = STAND_BOX_SIZE
+			camera.position_smoothing_speed = 5
 			clear_rotation_origin()
-
 	
 	# On any state change, reset the following things:
 	pound_state = Pound.NONE
@@ -1466,12 +1483,12 @@ func resist(val, sub, div): # ripped from source
 	return val * FPS_MOD
 
 
-func set_rotation_origin(facing_direction: int, origin: Vector2):
-	# Vector to flip the offset's X, as appropriate.
-	var facing = Vector2(facing_direction, 1)
+func set_rotation_origin(facing_dir: int, origin: Vector2):
+	# Flip origin, if appropriate.
+	origin.x *= facing_dir
 	
-	sprite.offset = origin * facing
-	sprite.position = -origin * facing
+	sprite.offset = origin
+	sprite.position = -origin
 
 
 func clear_rotation_origin():

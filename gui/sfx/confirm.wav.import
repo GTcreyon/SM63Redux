@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/confirm.wav-f351f817e136b3cb9eb830946910e99b.sample"
+type="AudioStreamWAV"
+uid="uid://b8c16fs181nx5"
+path="res://.godot/imported/confirm.wav-f351f817e136b3cb9eb830946910e99b.sample"
 
 [deps]
 
 source_file="res://gui/sfx/confirm.wav"
-dest_files=[ "res://.import/confirm.wav-f351f817e136b3cb9eb830946910e99b.sample" ]
+dest_files=["res://.godot/imported/confirm.wav-f351f817e136b3cb9eb830946910e99b.sample"]
 
 [params]
 

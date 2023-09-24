@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/cheep_cheep_die.wav-a522b873cff5458fd75127cd77936fbd.sample"
+type="AudioStreamWAV"
+uid="uid://bmp344vx6nmct"
+path="res://.godot/imported/cheep_cheep_die.wav-a522b873cff5458fd75127cd77936fbd.sample"
 
 [deps]
 
 source_file="res://classes/entity/enemy/cheep_cheep/cheep_cheep_die.wav"
-dest_files=[ "res://.import/cheep_cheep_die.wav-a522b873cff5458fd75127cd77936fbd.sample" ]
+dest_files=["res://.godot/imported/cheep_cheep_die.wav-a522b873cff5458fd75127cd77936fbd.sample"]
 
 [params]
 

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/knock.wav-647d4c141e011330923d4687e3c9b5e5.sample"
+type="AudioStreamWAV"
+uid="uid://bacx46t0dv8jh"
+path="res://.godot/imported/knock.wav-647d4c141e011330923d4687e3c9b5e5.sample"
 
 [deps]
 
 source_file="res://classes/entity/enemy/bobomb/knock.wav"
-dest_files=[ "res://.import/knock.wav-647d4c141e011330923d4687e3c9b5e5.sample" ]
+dest_files=["res://.godot/imported/knock.wav-647d4c141e011330923d4687e3c9b5e5.sample"]
 
 [params]
 

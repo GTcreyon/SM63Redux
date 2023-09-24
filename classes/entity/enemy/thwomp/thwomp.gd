@@ -1,17 +1,16 @@
 extends StaticBody2D
-tool
 
-onready var detect_area = $DetectionBox
-onready var detect_shape = $DetectionBox/CollisionShape2D
-onready var ouchies_area = $Hurtbox
-onready var peek_zone = $PeekZone
-onready var peek_shape = $PeekZone/CollisionShape2D
-onready var sprite = $Sprite
-onready var sfx = $SFXUmph
-onready var dustleft = $DustLeft
-onready var dustright = $DustRight
+@onready var detect_area = $DetectionBox
+@onready var detect_shape = $DetectionBox/CollisionShape2D
+@onready var ouchies_area = $Hurtbox
+@onready var peek_zone = $PeekZone
+@onready var peek_shape = $PeekZone/CollisionShape2D
+@onready var sprite = $Sprite2D
+@onready var sfx = $SFXUmph
+@onready var dustleft = $DustLeft
+@onready var dustright = $DustRight
 
-onready var raycasters = $Raycasters.get_children()
+@onready var raycasters = $Raycasters.get_children()
 
 enum MODE {
 	AWAIT_PLAYER = 0,
@@ -19,21 +18,21 @@ enum MODE {
 	ALWAYS_ATTACK = 2,
 }
 
-export(int, "Wait for Player", "Wait for Input", "Always Attack") var attack_mode = MODE.AWAIT_PLAYER
+@export var attack_mode = MODE.AWAIT_PLAYER # (int, "Wait for Player", "Wait for Input", "Always Attack")
 
 # times are measured in secs
 # speeds in pixels/sec
-export var attack_delay = 0.2 # delay before attacking
-export var ground_wait = 0.5 # after landing, delay before rising
-export var always_attack_initial_delay = 0.0 # additional delay prior to first attack, 'always attack' mode only
+@export var attack_delay = 0.2 # delay before attacking
+@export var ground_wait = 0.5 # after landing, delay before rising
+@export var always_attack_initial_delay = 0.0 # additional delay prior to first attack, 'always attack' mode only
 
-export var falling_speed = 300.0
-export var falling_accel = 1200.0
+@export var falling_speed = 300.0
+@export var falling_accel = 1200.0
 
-export var rising_speed = 100.0
-export var rising_accel = 100.0
+@export var rising_speed = 100.0
+@export var rising_accel = 100.0
 
-export var detection_range = Vector2(16, 200) setget set_detection_range
+@export var detection_range = Vector2(16, 200): set = set_detection_range
 
 enum S { # state enum
 	WAITING,
@@ -51,13 +50,13 @@ enum F {
 	LOOKRIGHT = 4
 }
 
-onready var _original_pos = position
-onready var _groundref = raycasters[0].cast_to.y #distance from center to bottom
+@onready var _original_pos = position
+@onready var _groundref = raycasters[0].target_position.y #distance from center to bottom
 
 var _state = S.WAITING
 var _velocity = 0.0 # float because no horizontal motion, only vertical !!
 var _timer = 0.0
-var _blinktimer = rand_range(3.0, 5.0)
+var _blinktimer = randf_range(3.0, 5.0)
 var _first_attack = true
 
 
@@ -67,9 +66,9 @@ func set_detection_range(val: Vector2):
 	# without this it sometimes errors upon project start idk why
 	if detect_shape == null: return
 	
-	detect_shape.shape.extents = val
+	detect_shape.shape.size = val
 	detect_shape.position.y = val.y
-	peek_shape.shape.extents = val + Vector2(32, 0)
+	peek_shape.shape.size = val + Vector2(32, 0)
 	peek_shape.position.y = val.y
 
 
@@ -93,8 +92,6 @@ func attack():
 
 
 func _physics_process(delta):
-	if Engine.is_editor_hint(): return
-	
 	_timer += delta
 	
 	match _state:
@@ -103,7 +100,7 @@ func _physics_process(delta):
 				_blinktimer-=delta
 				sprite.frame = F.IDLE if _blinktimer > 0.15 else F.BLINK
 				
-				if _blinktimer < 0: _blinktimer = rand_range(3.0, 5.0)
+				if _blinktimer < 0: _blinktimer = randf_range(3.0, 5.0)
 			else:
 				if peek_zone.get_overlapping_bodies()[0].global_position.x < global_position.x:
 					sprite.frame = F.LOOKLEFT

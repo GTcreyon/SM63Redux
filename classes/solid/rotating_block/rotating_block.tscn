@@ -1,146 +1,127 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://cnwtfro3mphwq"]
 
-[ext_resource path="res://classes/solid/rotating_block/block_normal_fill.png" type="Texture" id=1]
-[ext_resource path="res://classes/solid/rotating_block/block_normal_case.png" type="Texture" id=2]
-[ext_resource path="res://classes/ride_area.gd" type="Script" id=3]
-[ext_resource path="res://classes/solid/rotating_block/rotating_block.gd" type="Script" id=6]
+[ext_resource type="Texture2D" uid="uid://bkxae5vg0qr8k" path="res://classes/solid/rotating_block/block_normal_fill.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://c1sybk06ymc5j" path="res://classes/solid/rotating_block/block_normal_case.png" id="2"]
+[ext_resource type="Script" path="res://classes/ride_area.gd" id="3"]
+[ext_resource type="Script" path="res://classes/solid/rotating_block/rotating_block.gd" id="6"]
 
-[sub_resource type="AtlasTexture" id=4]
+[sub_resource type="AtlasTexture" id="4"]
 resource_local_to_scene = true
-flags = 3
-atlas = ExtResource( 2 )
-region = Rect2( 0, 9, 4, 1 )
+atlas = ExtResource("2")
+region = Rect2(0, 9, 4, 1)
 
-[sub_resource type="AtlasTexture" id=5]
+[sub_resource type="AtlasTexture" id="5"]
 resource_local_to_scene = true
-flags = 3
-atlas = ExtResource( 2 )
-region = Rect2( 3, 6, 1, 4 )
+atlas = ExtResource("2")
+region = Rect2(3, 6, 1, 4)
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id="6"]
 resource_local_to_scene = true
-flags = 3
-atlas = ExtResource( 2 )
-region = Rect2( 0, 6, 4, 4 )
+atlas = ExtResource("2")
+region = Rect2(0, 6, 4, 4)
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id="7"]
 resource_local_to_scene = true
-flags = 3
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 6, 6 )
+atlas = ExtResource("2")
+region = Rect2(0, 0, 6, 6)
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id="1"]
 resource_local_to_scene = true
-extents = Vector2( 32, 32 )
+size = Vector2(64, 64)
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id="2"]
 resource_local_to_scene = true
-extents = Vector2( 34, 34 )
+size = Vector2(68, 68)
 
 [node name="RotatingBlock" type="StaticBody2D"]
 collision_mask = 0
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="Middle" type="TextureRect" parent="."]
 use_parent_material = true
-margin_left = -28.0
-margin_top = -28.0
-margin_right = 28.0
-margin_bottom = 28.0
-texture = ExtResource( 1 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 28.0
+offset_bottom = 28.0
+texture = ExtResource("1")
+stretch_mode = 1
 
 [node name="Left" type="TextureRect" parent="."]
 use_parent_material = true
-margin_left = -32.0
-margin_top = -28.0
-margin_right = -28.0
-margin_bottom = 28.0
-texture = SubResource( 4 )
+offset_left = -32.0
+offset_top = -28.0
+offset_right = -28.0
+offset_bottom = 28.0
+texture = SubResource("4")
 stretch_mode = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Right" type="TextureRect" parent="."]
 use_parent_material = true
-margin_left = 28.0
-margin_top = -28.0
-margin_right = 32.0
-margin_bottom = 28.0
-texture = SubResource( 4 )
-stretch_mode = 2
+offset_left = 28.0
+offset_top = -28.0
+offset_right = 32.0
+offset_bottom = 28.0
+texture = SubResource("4")
+stretch_mode = 1
 flip_h = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Top" type="TextureRect" parent="."]
 use_parent_material = true
-margin_left = -28.0
-margin_top = -32.0
-margin_right = 28.0
-margin_bottom = -28.0
-texture = SubResource( 5 )
-stretch_mode = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -28.0
+offset_top = -32.0
+offset_right = 28.0
+offset_bottom = -28.0
+texture = SubResource("5")
+stretch_mode = 1
 
 [node name="Bottom" type="TextureRect" parent="."]
 use_parent_material = true
-margin_left = -28.0
-margin_top = 28.0
-margin_right = 28.0
-margin_bottom = 32.0
-texture = SubResource( 5 )
-stretch_mode = 2
+offset_left = -28.0
+offset_top = 28.0
+offset_right = 28.0
+offset_bottom = 32.0
+texture = SubResource("5")
+stretch_mode = 1
 flip_v = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="CornerTL" type="Sprite" parent="."]
+[node name="CornerTL" type="Sprite2D" parent="."]
 use_parent_material = true
-position = Vector2( -30, -30 )
-texture = SubResource( 6 )
+position = Vector2(-30, -30)
+texture = SubResource("6")
 
-[node name="CornerTR" type="Sprite" parent="."]
+[node name="CornerTR" type="Sprite2D" parent="."]
 use_parent_material = true
-position = Vector2( 30, -30 )
-texture = SubResource( 6 )
+position = Vector2(30, -30)
+texture = SubResource("6")
 flip_h = true
 
-[node name="CornerBL" type="Sprite" parent="."]
+[node name="CornerBL" type="Sprite2D" parent="."]
 use_parent_material = true
-position = Vector2( -30, 30 )
-texture = SubResource( 6 )
+position = Vector2(-30, 30)
+texture = SubResource("6")
 flip_v = true
 
-[node name="CornerBR" type="Sprite" parent="."]
+[node name="CornerBR" type="Sprite2D" parent="."]
 use_parent_material = true
-position = Vector2( 30, 30 )
-texture = SubResource( 6 )
+position = Vector2(30, 30)
+texture = SubResource("6")
 flip_h = true
 flip_v = true
 
-[node name="Center" type="Sprite" parent="."]
+[node name="Center" type="Sprite2D" parent="."]
 use_parent_material = true
-texture = SubResource( 7 )
+texture = SubResource("7")
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="RideArea" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 20
 input_pickable = false
 monitorable = false
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="RideShape" type="CollisionShape2D" parent="RideArea"]
-shape = SubResource( 2 )
+shape = SubResource("2")

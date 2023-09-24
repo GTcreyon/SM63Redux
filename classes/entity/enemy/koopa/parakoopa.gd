@@ -1,11 +1,10 @@
-tool
-extends AnimatedSprite
+extends AnimatedSprite2D
 
-onready var hurtbox = $Damage
-onready var top_collision = $TopCollision
+@onready var hurtbox = $Damage
+@onready var top_collision = $TopCollision
 
-var koopa = preload("koopa.tscn").instance()
-var shell = preload("koopa_shell.tscn").instance()
+var koopa = preload("koopa.tscn").instantiate()
+var shell = preload("koopa_shell.tscn").instantiate()
 
 const color_presets = [
 	[ # green
@@ -20,22 +19,30 @@ const color_presets = [
 	],
 ]
 
-export var disabled = false setget set_disabled
-export var mirror = false
-export(int, "green", "red") var color = 0 setget set_color
+@export var disabled = false: set = set_disabled
+@export var mirror = false
+@export var color := Koopa.ShellColor.GREEN
 
 
 func set_color(new_color):
 	for i in range(3):
-		material.set_shader_param("color" + str(i), color_presets[new_color][i])
-	color = new_color
+		material.set_shader_parameter("color" + str(i), color_presets[new_color][i])
+	koopa.color = color
+	shell.color = color
 
 
 func _ready():
-	if !Engine.editor_hint:
-		flip_h = mirror
-		frame = hash(position.x + position.y * PI) % 6
-		playing = !disabled
+	# Ensure that the material is unique so we can set its parameters.
+	# "Local to scene" causes issues with source control, because UIDs are refreshed on loading the scene.
+	# This method refreshes them at runtime instead of in the editor.
+	material = material.duplicate()
+	
+	set_color(color)
+	
+	flip_h = mirror
+	frame = hash(position.x + position.y * PI) % 6
+	if not disabled:
+		play()
 
 
 func _exit_tree():
@@ -49,27 +56,21 @@ func _exit_tree():
 func _on_TopCollision_body_entered(body):
 	if body.is_spinning():
 		spawn_shell(body)
-	else:
-		if body.vel.y > -2:
-			$Kick.play()
-			koopa.position = Vector2(position.x, body.position.y + 33)
-			koopa.vel.y = body.vel.y
-			koopa.mirror = flip_h
-			koopa.color = color
-			body.vel.y = -5.5
-			body.vel.x *= 1.2
-			get_parent().call_deferred("add_child", koopa)
-			$TopCollision.set_deferred("monitoring", false)
-			$Damage.set_deferred("monitoring", false)
-			set_deferred("visible", false)
-			visible = false
-
-
-func _on_Kick_finished():
-	queue_free()
+	elif body.vel.y > -2:
+		defeat()
+		get_parent().call_deferred("add_child", koopa)
+		koopa.position = Vector2(position.x, body.position.y + 33)
+		koopa.vel.y = body.vel.y
+		koopa.mirror = flip_h
+		body.vel.y = -5
+		body.vel.x *= 1.2
 
 
 func _on_Damage_body_entered(body):
+	# Parakoopa was already defeated, return early
+	if !visible:
+		return
+	
 	if !body.is_diving(true):
 		if body.is_spinning():
 			spawn_shell(body)
@@ -81,27 +82,29 @@ func _on_Damage_body_entered(body):
 
 
 func spawn_shell(body):
-	$Kick.play()
+	defeat()
 	body.vel.y = -5
 	get_parent().call_deferred("add_child", shell)
 	shell.position = position + Vector2(0, 7.5)
-	shell.color = color
 	if body.global_position.x < global_position.x:
 		shell.vel.x = 5
 	else:
 		shell.vel.x = -5
-	$TopCollision.set_deferred("monitoring", false)
-	$Damage.set_deferred("monitoring", false)
-	set_deferred("visible", false)
+
+
+# Called when the parakoopa loses its wings
+func defeat():
+	$Kick.play()
+	top_collision.set_deferred("monitoring", false)
+	hurtbox.set_deferred("monitoring", false)
+	visible = false
 
 
 func set_disabled(val):
 	disabled = val
-	if hurtbox == null:
-		hurtbox = $Damage
-	if top_collision == null:
-		top_collision = $TopCollision
 	hurtbox.monitoring = !val
 	top_collision.monitoring = !val
-	if !Engine.editor_hint:
-		playing = !val
+	if disabled:
+		stop()
+	else:
+		play()

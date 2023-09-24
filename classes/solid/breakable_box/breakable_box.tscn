@@ -1,37 +1,46 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://c6hch0hl28ija"]
 
-[ext_resource path="res://classes/solid/breakable_box/box1.png" type="Texture" id=1]
-[ext_resource path="res://classes/solid/breakable_box/breakable_box.gd" type="Script" id=2]
-[ext_resource path="res://classes/solid/breakable_box/box2.png" type="Texture" id=3]
-[ext_resource path="res://classes/solid/breakable_box/box3.png" type="Texture" id=4]
+[ext_resource type="Texture2D" uid="uid://cbvx6a6whd3w4" path="res://classes/solid/breakable_box/box1.png" id="1"]
+[ext_resource type="Script" path="res://classes/solid/breakable_box/breakable_box.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bpnxav8hdwq3k" path="res://classes/solid/breakable_box/box2.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://hs7vrm0gnwxr" path="res://classes/solid/breakable_box/box3.png" id="4"]
 
-[sub_resource type="SpriteFrames" id=1]
-animations = [ {
-"frames": [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 4 ) ],
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4")
+}],
 "loop": true,
-"name": "default",
+"name": &"default",
 "speed": 5.0
-} ]
+}]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 16 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 16, 1 )
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(32, 2)
 
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 18, 16 )
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(36, 32)
 
 [node name="BreakableBox" type="StaticBody2D"]
 collision_mask = 0
-script = ExtResource( 2 )
+script = ExtResource("2")
 
-[node name="Sprite" type="AnimatedSprite" parent="."]
-frames = SubResource( 1 )
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
-shape = SubResource( 2 )
+shape = SubResource("2")
 
 [node name="PoundArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -40,8 +49,8 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PoundArea"]
-position = Vector2( 0, -17 )
-shape = SubResource( 3 )
+position = Vector2(0, -17)
+shape = SubResource("3")
 
 [node name="SpinArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -50,7 +59,7 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpinArea"]
-shape = SubResource( 4 )
+shape = SubResource("4")
 
 [connection signal="body_entered" from="PoundArea" to="." method="_on_PoundArea_body_entered"]
 [connection signal="body_entered" from="SpinArea" to="." method="_on_SpinArea_body_entered"]

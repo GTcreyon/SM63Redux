@@ -66,4 +66,4 @@ func _add_flag(room: String, val: bool = false):
 
 # Get the ID of the current room.
 func _get_room_id() -> String:
-	return get_tree().get_current_scene().get_filename()
+	return get_tree().get_current_scene().get_scene_file_path()

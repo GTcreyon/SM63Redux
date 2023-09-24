@@ -1,7 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://euhu3pb6vcxg"]
 
-[ext_resource path="res://shaders/flash.shader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://shaders/flash.gdshader" id="1"]
 
 [resource]
-shader = ExtResource( 1 )
-shader_param/flash_factor = 0.0
+shader = ExtResource("1")
+shader_parameter/flash_factor = 0.0

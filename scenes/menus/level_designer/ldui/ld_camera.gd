@@ -4,8 +4,8 @@ signal test_level
 
 const SCROLL_SPEED = 8
 
-onready var LD = get_parent()
-onready var music = LD.get_node("Music")
+@onready var LD = get_parent()
+@onready var music = LD.get_node("Music")
 
 var mouse_pos = Vector2(0, 0)
 var mouse_pos_store = Vector2(0, 0)
@@ -14,7 +14,7 @@ var objects_loaded = {}
 const player = preload("res://classes/player/player.tscn")
 
 func _ready():
-	position = Vector2(-120, -OS.window_size.y + 60)
+	position = Vector2(-120, -get_window().size.y + 60)
 
 func _process(_delta):
 	var i_left = Input.is_action_pressed("ld_cam_left")
@@ -34,7 +34,7 @@ func _process(_delta):
 	mouse_pos_store = mouse_pos
 
 	if i_down and Input.is_action_just_pressed("debug"):
-		var player_spawn = player.instance()
+		var player_spawn = player.instantiate()
 		player_spawn.position = get_parent().start_pos
 		get_parent().add_child(player_spawn)
 		emit_signal("test_level")

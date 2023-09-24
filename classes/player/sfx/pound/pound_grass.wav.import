@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/pound_grass.wav-3bd399ed8e7d935fe295c454a2f695ef.sample"
+type="AudioStreamWAV"
+uid="uid://b5gkjlbwcl1ss"
+path="res://.godot/imported/pound_grass.wav-3bd399ed8e7d935fe295c454a2f695ef.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/pound/pound_grass.wav"
-dest_files=[ "res://.import/pound_grass.wav-3bd399ed8e7d935fe295c454a2f695ef.sample" ]
+dest_files=["res://.godot/imported/pound_grass.wav-3bd399ed8e7d935fe295c454a2f695ef.sample"]
 
 [params]
 

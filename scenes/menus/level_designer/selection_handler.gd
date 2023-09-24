@@ -2,12 +2,12 @@ extends Control
 
 signal selection_changed
 
-onready var main = $"/root/Main"
-onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
-onready var camera = $"/root/Main/Camera"
-onready var hover = $Hover
-onready var buttons = $Buttons
-onready var polygon_edit_button = $Buttons/Polygon
+@onready var main = $"/root/Main"
+@onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
+@onready var camera = $"/root/Main/Camera"
+@onready var hover = $Hover
+@onready var buttons = $Buttons
+@onready var polygon_edit_button = $Buttons/Polygon
 
 const TEXT_MIN_SIZE = Vector2(8, 8)
 const alpha_bottom = 0.4
@@ -37,15 +37,21 @@ func calculate_selected(max_selected = 32):
 		# Welcome to this horrible boilerplate rectangle collision detection!
 		# Godot pls fix
 		var shape = RectangleShape2D.new()
-		shape.set_extents(selection_rect.size / 2) # Extends is both ways, hence / 2
-		var query = Physics2DShapeQueryParameters.new()
+		shape.size = selection_rect.size
+		var query = PhysicsShapeQueryParameters2D.new()
 		query.collide_with_areas = true
 		query.collide_with_bodies = true
 		query.set_shape(shape)
 		query.transform = Transform2D(0, selection_rect.position + selection_rect.size / 2) # Calculate the center
 		hitboxes = collision_handler.intersect_shape(query, max_selected)
 	else:
-		hitboxes = collision_handler.intersect_point(selection_rect.position, max_selected, [], 0x7FFFFFFF, true, true)
+		# Good news! 4.1 extended the same design to points~
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = selection_rect.position
+		query.collision_mask = 0x7FFFFFFF;
+		query.collide_with_bodies = true
+		query.collide_with_areas = false
+		hitboxes = collision_handler.intersect_point(query, max_selected)
 	
 	# Convert from raw hitboxes to the actual items
 	var hit = []
@@ -74,8 +80,8 @@ func on_release():
 	
 	buttons.visible = len(selection_hit) != 0
 	if buttons.visible:
-		buttons.rect_global_position = main.get_snapped_mouse_position() + Vector2(
-			-buttons.rect_size.x / 2,
+		buttons.global_position = main.get_snapped_mouse_position() + Vector2(
+			-buttons.size.x / 2,
 			4
 		)
 	# Show the polygon edit button
@@ -87,11 +93,11 @@ func _unhandled_input(event):
 	# Open properties
 	if event.is_action_pressed("ld_open_properties") and len(selection_hit) == 1:
 		if property_menu.visible:
-			property_menu.hide()
+			property_menu.hide_menu()
 			accept_event()
 		else:
 			property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
-			property_menu.show()
+			property_menu.show_menu()
 			accept_event()
 		
 	if event.is_action_pressed("ld_delete"):
@@ -142,8 +148,8 @@ func _process(dt):
 	selection_rect.size = target_size
 	
 	# Update the actual selection visuals
-	hover.rect_global_position = selection_rect.position
-	hover.rect_size = selection_rect.size
+	hover.global_position = selection_rect.position
+	hover.size = selection_rect.size
 	
 	selection_rect.position += Vector2(1, 1)
 	selection_rect.size -= Vector2(2, 2)

@@ -1,4 +1,4 @@
-extends AnimatedSprite
+extends AnimatedSprite2D
  
 func _ready():
 	frame = randi() % 3
