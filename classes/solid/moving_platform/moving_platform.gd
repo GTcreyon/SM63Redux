@@ -8,7 +8,7 @@ var prev_position = position
 func _physics_process(_delta):
 	var move_vec = position - prev_position
 	for body in ride_area.get_overlapping_bodies():
-		if body.is_on_floor() && body.position.y < ride_area.position.y:
+		if body.is_on_floor() and !$InsideArea.overlaps_body(body):
 			body.position += move_vec
 			pass
 	prev_position = position
