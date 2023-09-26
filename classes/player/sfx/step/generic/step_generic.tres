@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://c66opicl7nuyy"]
 
-[ext_resource type="Script" path="res://classes/player/sfx/mario/sfx_bank.gd" id="1_eq44v"]
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_eq44v"]
 
 [resource]
 script = ExtResource("1_eq44v")
