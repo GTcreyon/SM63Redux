@@ -1,4 +1,3 @@
-@tool
 extends Area2D
 
 @export var sweep_direction: Vector2

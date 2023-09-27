@@ -1,4 +1,3 @@
-@tool
 extends Node2D
 
 const dot_tex = preload("./dot.png")
@@ -54,8 +53,7 @@ func refresh_ring():
 
 
 func _physics_process(_delta):
-	if !Engine.is_editor_hint():
-		for i in $Platforms.get_child_count():
-			var angle = (2 * PI / count) * i + offset + rot
-			$Platforms.get_child(i).position = Vector2(cos(angle) * radius, sin(angle) * radius)
-		rot += (2 * PI / 360) * (speed / 10)
+	for i in $Platforms.get_child_count():
+		var angle = (2 * PI / count) * i + offset + rot
+		$Platforms.get_child(i).position = Vector2(cos(angle) * radius, sin(angle) * radius)
+	rot += (2 * PI / 360) * (speed / 10)

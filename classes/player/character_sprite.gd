@@ -18,12 +18,7 @@ const _POUND_HANG_TIME = 9
 const POUND_SPIN_DURATION = PlayerCharacter.POUND_TIME_TO_FALL - _POUND_HANG_TIME
 ## Range from 0 to 1.
 ## Blends pound spin between a linear and exponential rotation curve.
-const POUND_SPIN_SMOOTHING = 0.5 
-## How much the player rises each frame of pound spin.
-const POUND_SPIN_RISE = 1
-## How many total frames of pound spin the player will rise on.
-## After this, the player will stop rising, even if the spin isn't over.
-const POUND_SPIN_RISE_TIME = 15
+const POUND_SPIN_SMOOTHING = 0.5
 
 const SLIDE_MAX_SPEED: float = 5.0
 
@@ -208,11 +203,6 @@ func _physics_process(_delta):
 						
 						# Offset origin's X less at the start of the spin. (Looks better!?)
 						position.x *= pound_spin_factor
-						
-						# A little rising as we wind up makes it look real nice.
-						position.y = POUND_ORIGIN_OFFSET.y
-						position.y -= POUND_SPIN_RISE * min(parent.pound_spin_frames,
-							POUND_SPIN_RISE_TIME)
 				parent.S.SPIN:
 					spin_logic()
 				parent.S.CROUCH:

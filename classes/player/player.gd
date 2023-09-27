@@ -458,24 +458,14 @@ func wall_stop() -> void:
 
 
 const POUND_TIME_TO_FALL = 18 # Time to move from pound spin to pound fall
+## How many total frames of pound spin the player will rise on.
+## After this, the player will stop rising, even if the spin isn't over.
+const POUND_SPIN_RISE_TIME = 15
+## How much the player rises each frame of pound spin.
+const POUND_SPIN_RISE_AMOUNT = 1
 
 var pound_spin_frames: int = 0
 func action_pound() -> void:
-	if state == S.POUND and pound_state == Pound.SPIN:
-		pound_spin_frames += 1
-		
-		# Once spin animation ends, fall.
-		if pound_spin_frames >= POUND_TIME_TO_FALL:
-			# Reset sprite transforms.
-			clear_rotation_origin()
-			
-			body_rotation = 0
-			
-			pound_state = Pound.FALL
-			pound_land_frames = 15
-			vel.y = 8
-
-
 	if Input.is_action_pressed("pound"):
 		if state == S.DIVE and gp_dive_timer > 0:
 			var mag = vel.length()
@@ -510,6 +500,21 @@ func action_pound() -> void:
 				body_rotation = 0
 				pound_spin_frames = 0
 				pound_spin_sfx.play()
+
+	if state == S.POUND and pound_state == Pound.SPIN:
+		off_ground()
+    
+    pound_spin_frames += 1
+		# Once spin animation ends, fall.
+		if pound_spin_frames >= POUND_TIME_TO_FALL:
+			# Reset sprite transforms.
+			clear_rotation_origin()
+			
+			body_rotation = 0
+			
+			pound_state = Pound.FALL
+			pound_land_frames = 15
+			vel.y = 8
 
 
 const SPIN_TIME = 30
@@ -899,7 +904,11 @@ func ground_failsafe_condition() -> bool:
 func player_fall() -> void:
 	var fall_adjust = vel.y # used to adjust downward acceleration to account for framerate difference
 	if state == S.POUND and pound_state == Pound.SPIN:
+		# Don't move during the pound spin.
 		vel = Vector2.ZERO
+		# A little rising during the wind-up makes it look real nice.
+		if pound_spin_frames <= POUND_SPIN_RISE_TIME:
+			vel.y = -POUND_SPIN_RISE_AMOUNT
 	else:
 		if state == S.POUND and pound_state == Pound.FALL:
 			fall_adjust += 0.814
@@ -1357,7 +1366,6 @@ func switch_state(new_state):
 			hitbox.shape.size = STAND_BOX_SIZE
 			camera.position_smoothing_speed = 5
 			clear_rotation_origin()
-
 	
 	# On any state change, reset the following things:
 	pound_state = Pound.NONE

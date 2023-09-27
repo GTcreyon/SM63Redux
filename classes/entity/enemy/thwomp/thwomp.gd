@@ -1,4 +1,3 @@
-@tool
 extends StaticBody2D
 
 @onready var detect_area = $DetectionBox
@@ -93,8 +92,6 @@ func attack():
 
 
 func _physics_process(delta):
-	if Engine.is_editor_hint(): return
-	
 	_timer += delta
 	
 	match _state:

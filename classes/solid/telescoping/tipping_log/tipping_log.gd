@@ -1,4 +1,3 @@
-@tool
 class_name TippingLog
 extends Telescoping
 
@@ -17,7 +16,7 @@ func set_width(val):
 
 
 func _physics_process(_delta):
-	if !Engine.is_editor_hint() and !disabled:
+	if !disabled:
 		physics_step()
 
 
@@ -48,6 +47,7 @@ func physics_step():
 		body.set_up_direction(Vector2.UP)
 		body.set_floor_stop_on_slope_enabled(true)
 		body.move_and_slide()
+		body.apply_floor_snap()
 
 
 func set_disabled(val):
