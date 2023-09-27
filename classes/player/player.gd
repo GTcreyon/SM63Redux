@@ -503,8 +503,8 @@ func action_pound() -> void:
 
 	if state == S.POUND and pound_state == Pound.SPIN:
 		off_ground()
-    
-    pound_spin_frames += 1
+	
+		pound_spin_frames += 1
 		# Once spin animation ends, fall.
 		if pound_spin_frames >= POUND_TIME_TO_FALL:
 			# Reset sprite transforms.
