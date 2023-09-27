@@ -24,10 +24,10 @@ enum ShellColor {
 	RED,
 }
 
-@export var color: ShellColor = 0: set = set_color
+@export var color: ShellColor = ShellColor.GREEN: set = set_color
 
 
-func set_color(new_color):
+func set_color(new_color: ShellColor):
 	for i in range(3):
 		material.set_shader_parameter("color" + str(i), COLOR_PRESETS[new_color][i])
 	color = new_color
@@ -50,7 +50,6 @@ func _wander():
 
 
 func _hurt_stomp(area):
-	ResidualSFX.new_from_existing(sfx_stomp, get_parent())
 	var body = area.get_parent()
 	body.vel.y = -5
 	into_shell(0)
@@ -61,7 +60,6 @@ func _hurt_struck(body):
 		return
 
 	struck = true
-	ResidualSFX.new_from_existing(sfx_struck, get_parent())
 	if body.global_position.x < global_position.x:
 		into_shell(5)
 	else:

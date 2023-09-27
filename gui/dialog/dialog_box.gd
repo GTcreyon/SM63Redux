@@ -106,12 +106,12 @@ func refresh_returns(line):
 
 
 func say_line(index):
-	text_area.text = ""
+	text_area.clear()
 	char_roll = 1
 	char_index = 0
 	
 	raw_line = insert_keybind_strings(TranslationServer.translate(loaded_lines[index]))
-	target_line = refresh_returns(raw_line)
+	process_header_tags()
 	visible = true
 	active = true
 
@@ -140,7 +140,8 @@ func _physics_process(_delta):
 			if Input.is_action_pressed("skip"):
 				var regex = RegEx.new()
 				regex.compile("\\[@[^\\]]*\\]") # Remove @ tags
-				text_area.text = regex.sub(target_line, "", true)
+				text_area.clear()
+				text_area.append_text(regex.sub(target_line, "", true))
 				char_roll = target_line.length()
 				char_index = char_roll
 			else:
@@ -160,42 +161,9 @@ func _physics_process(_delta):
 								tag += target_line[char_index]
 								match tag[1]:
 									"/":
-										text_area.pop() # Closes tag
+										text_area.pop() # Closing tag
 									"@":
-										if tag[2] == "/":
-											var _a = 0
-										else:
-											var subtag = tag.substr(2, tag.length() - 3)
-											var args = subtag.split(",")
-											match args[0]:
-												"s":
-													text_speed = float(args[1])
-												"p":
-													pause_time = float(args[1])
-												"t":
-													add_theme_stylebox_override("panel", styles[args[1]])
-												"c":
-													if args.size() < 2:
-														portrait.visible = false
-														target_line = refresh_returns(raw_line)
-													else:
-														portrait.visible = true
-														character_id = args[1]
-														if characters.has(character_id):
-															if args.size() >= 3:
-																portrait.texture = characters[character_id][1][int(args[2])]
-														else:
-															Singleton.log_msg("Unknown character \"%s\"." % character_id, Singleton.LogType.ERROR)
-														target_line = refresh_returns(raw_line)
-												"m":
-													portrait.texture = characters[character_id][args[1]]
-												"n":
-													character_name = args[1]
-												"w":
-													width_offset = int(args[1])
-													target_line = refresh_returns(raw_line)
-												_:
-													print_debug("Dialog: Unknown tag")
+										process_tag(tag.substr(2, tag.length() - 3))
 									_:
 										text_area.append_text(tag)
 								if skip_char:
@@ -253,3 +221,57 @@ func _physics_process(_delta):
 		offset_top = 20 - (100 / swoop_timer)
 		if swoop_timer >= 100:
 			visible = false
+
+
+# Processes tags that appear before dialog text
+func process_header_tags():
+	var header_tag_char_count = 0
+	var tags = raw_line.split("]", false)
+	for tag in tags:
+		# Check if we've finished processing header tags
+		if !tag.begins_with("[@"):
+			break
+		
+		# Update header tag char count (+1 for missing end tag)
+		header_tag_char_count += tag.length() + 1
+		# Process each header tag
+		process_tag(tag.substr(2, tag.length() - 2))
+	
+	#remove header tags from the target line and refresh returns
+	target_line = refresh_returns(raw_line.erase(0, header_tag_char_count))
+
+
+# Processes a tag. Tags must have "[@]" characters removed.
+func process_tag(tag):
+	var args = tag.split(",")
+	match args[0]:
+		# Header tags
+		"t":
+			add_theme_stylebox_override("panel", styles[args[1]])
+		"m":
+			portrait.texture = characters[character_id][args[1]]
+		"n":
+			character_name = args[1]
+		"c":
+			if args.size() < 2:
+				portrait.visible = false
+				target_line = refresh_returns(raw_line)
+			else:
+				portrait.visible = true
+				character_id = args[1]
+				if characters.has(character_id):
+					if args.size() >= 3:
+						portrait.texture = characters[character_id][1][int(args[2])]
+				else:
+					Singleton.log_msg("Unknown character \"%s\"." % character_id, Singleton.LogType.ERROR)
+				target_line = refresh_returns(raw_line)
+		# Runtime tags
+		"s":
+			text_speed = float(args[1])
+		"p":
+			pause_time = float(args[1])
+		"w":
+			width_offset = int(args[1])
+			target_line = refresh_returns(raw_line)
+		_:
+			print_debug("Dialog: Unknown tag " + args[0])

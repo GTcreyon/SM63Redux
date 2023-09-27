@@ -71,8 +71,7 @@ func _on_Submit_pressed():
 # Take a screenshot of the gameplay screen
 func _take_screenshot() -> PackedByteArray:
 	await RenderingServer.frame_post_draw
-	var img = get_viewport().get_texture().get_data()
-	img.flip_y()
+	var img = get_viewport().get_texture().get_image()
 	var buffer = img.save_png_to_buffer()
 	return buffer
 

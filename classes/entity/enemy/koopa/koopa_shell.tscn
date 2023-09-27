@@ -148,8 +148,10 @@ inside_check = false
 multi_stomp = true
 _hitbox_path = NodePath("")
 _sfx_stomp_path = NodePath("Kick")
+residualize_sfx_stomp = false
 _sfx_struck_path = NodePath("Kick")
 _sfx_struck_land_path = NodePath("")
+residualize_sfx_struck_landed = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 use_parent_material = true

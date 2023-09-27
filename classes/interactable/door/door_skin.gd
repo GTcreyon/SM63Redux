@@ -1,4 +1,3 @@
-@tool
 class_name DoorSkin
 extends SpriteFrames
 

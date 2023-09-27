@@ -222,6 +222,7 @@ animations = [{
 }]
 
 [node name="Menu" type="Control"]
+texture_repeat = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -246,7 +247,7 @@ texture = ExtResource("9")
 position = Vector2(320, 124)
 texture = SubResource("1")
 
-[node name="Polygon2D" type="Polygon2D" parent="Story"]
+[node name="Sheen" type="Polygon2D" parent="Story"]
 texture = ExtResource("16")
 polygon = PackedVector2Array(-66, 32, 66, 32, 66, 28, -66, 28)
 script = ExtResource("12")
@@ -288,7 +289,7 @@ texture = ExtResource("9")
 position = Vector2(4, 188)
 texture = SubResource("4")
 
-[node name="Polygon2D" type="Polygon2D" parent="Settings"]
+[node name="Sheen" type="Polygon2D" parent="Settings"]
 use_parent_material = true
 texture = ExtResource("16")
 polygon = PackedVector2Array(-66, 32, 66, 32, 66, 28, -66, 28)
@@ -334,7 +335,7 @@ texture = ExtResource("9")
 position = Vector2(320, 600)
 texture = SubResource("3")
 
-[node name="Polygon2D" type="Polygon2D" parent="Extras"]
+[node name="Sheen" type="Polygon2D" parent="Extras"]
 use_parent_material = true
 texture = ExtResource("16")
 polygon = PackedVector2Array(-66, 32, 66, 32, 66, 28, -66, 28)
@@ -380,7 +381,7 @@ texture = ExtResource("9")
 position = Vector2(636, 188)
 texture = SubResource("2")
 
-[node name="Polygon2D" type="Polygon2D" parent="LevelDesigner"]
+[node name="Sheen" type="Polygon2D" parent="LevelDesigner"]
 use_parent_material = true
 texture = ExtResource("16")
 polygon = PackedVector2Array(-66, 32, 66, 32, 66, 28, -66, 28)
@@ -431,45 +432,55 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("3")
 
 [node name="DescriptionBox" type="Control" parent="Border"]
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
 offset_left = 5.0
 offset_top = 5.0
 offset_right = -5.0
 offset_bottom = 19.0
+grow_horizontal = 2
 mouse_filter = 2
 
 [node name="DescStory" type="Label" parent="Border/DescriptionBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_right = -10.0
-offset_bottom = 14.0
+offset_bottom = 18.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Take the light back from Bowser and save the Mushroom Kingdom!"
+horizontal_alignment = 1
 
 [node name="DescSettings" type="Label" parent="Border/DescriptionBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_right = -10.0
-offset_bottom = 14.0
+offset_bottom = 18.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Create your own worlds in this in-depth Level Designer!"
+horizontal_alignment = 1
 
 [node name="DescExtras" type="Label" parent="Border/DescriptionBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_right = -10.0
-offset_bottom = 14.0
+offset_bottom = 18.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Enjoy a collection of trinkets and goodies!"
+horizontal_alignment = 1
 
 [node name="DescLevelDesigner" type="Label" parent="Border/DescriptionBox"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
 anchor_right = 1.0
-offset_right = -10.0
-offset_bottom = 14.0
+offset_bottom = 18.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 text = "Adjust anything and everything to your liking!"
+horizontal_alignment = 1
 
 [node name="Stripe" type="Line2D" parent="."]
 visible = false
@@ -482,7 +493,7 @@ joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Sheen" type="Polygon2D" parent="."]
 visible = false
 texture = ExtResource("16")
 polygon = PackedVector2Array(0, 0, 0, 304, 448, 304, 448, 0)

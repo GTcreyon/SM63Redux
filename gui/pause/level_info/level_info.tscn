@@ -75,10 +75,11 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("6")
 
 [node name="ScaleContainer" type="Container" parent="Divider/MainContainer/LevelNamePanel"]
-custom_minimum_size = Vector2(209, 19)
+custom_minimum_size = Vector2(418, 38)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("1")
+scale_factor = Vector2(2, 2)
 
 [node name="LevelName" type="Label" parent="Divider/MainContainer/LevelNamePanel/ScaleContainer"]
 layout_mode = 2

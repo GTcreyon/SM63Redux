@@ -27,7 +27,7 @@ func _setup_textures(new_id: String):
 	var index = ID_LIST.find(new_id)
 	var pos = Vector2.ZERO
 	# Get the column of the button
-	pos.x = floor(index / TEXTURE_COLUMN_SIZE)
+	pos.x = floor(float(index) / TEXTURE_COLUMN_SIZE)
 	# Get the row
 	pos.y = index % TEXTURE_COLUMN_SIZE
 	# Multiply x coord by 2, because there are two buttons per cell

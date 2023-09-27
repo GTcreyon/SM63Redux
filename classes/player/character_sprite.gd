@@ -2,6 +2,7 @@ extends AnimatedSprite2D
 
 const NO_ANIM_CHANGE = ""
 
+@warning_ignore("integer_division")
 const TRIPLE_FLIP_HALFWAY = PlayerCharacter.TRIPLE_FLIP_TIME / 2
 
 const SLOW_SPIN_START_SPEED = 1
@@ -9,8 +10,6 @@ const SLOW_SPIN_END_SPEED = 0.40
 const SLOW_SPIN_TIME = 60
 
 const POUND_ORIGIN_OFFSET = Vector2(-2,-3) # Sprite origin is set to this during pound spin
-const POUND_SPIN_RISE = 1 # How much the player rises each frame of pound
-const POUND_SPIN_RISE_TIME = 15
 
 const SLIDE_MAX_SPEED: float = 5.0
 
@@ -179,11 +178,6 @@ func _physics_process(_delta):
 						
 						# Offset origin's X less at the start of the spin. (Looks better!?)
 						position.x *= parent.pound_spin_factor
-						
-						# A little rising as we wind up makes it look real nice.
-						position.y = POUND_ORIGIN_OFFSET.y
-						position.y -= POUND_SPIN_RISE * min(parent.pound_spin_frames,
-							POUND_SPIN_RISE_TIME)
 				parent.S.SPIN:
 					spin_logic()
 				parent.S.CROUCH:
@@ -252,7 +246,7 @@ func trigger_next_anim():
 
 func _anim_from_new_state(
 	new_state: int, old_state: int,
-	swimming: bool, last_swimming: bool
+	swimming: bool, old_swimming: bool
 ) -> String:
 	if swimming:
 		match new_state:
@@ -274,13 +268,13 @@ func _anim_from_new_state(
 				if animation == "swim_stroke":
 					return "swim_stroke"
 				if parent.grounded:
-					return _state_neutral(old_state, last_swimming)
+					return _state_neutral(old_state, old_swimming)
 				return "swim_idle"
 	else:
 		match new_state:
 			parent.S.NEUTRAL:
 				# Neutral has several substates. Return whichever's appropriate now.
-				return _state_neutral(old_state, last_swimming)
+				return _state_neutral(old_state, old_swimming)
 			parent.S.TRIPLE_JUMP:
 				return "flip"
 			parent.S.CROUCH:
@@ -419,7 +413,7 @@ func _state_neutral(old_state: int, old_swimming: bool) -> String:
 
 # Returns whether the given frame of the given animation should play a
 # footstep sound.
-static func _is_footstep_frame (frame: int, anim_name: String) -> bool:
+func _is_footstep_frame (checked_frame: int, anim_name: String) -> bool:
 	var valid_frames = []
 	
 	# Define what is and isn't a step frame for this animation.
@@ -433,7 +427,7 @@ static func _is_footstep_frame (frame: int, anim_name: String) -> bool:
 			pass
 	
 	# Return whether the passed frame is one of the defined step frames.
-	return valid_frames.has(frame)
+	return valid_frames.has(checked_frame)
 
 
 func _anim_length_gameframes(anim_name: String) -> int:

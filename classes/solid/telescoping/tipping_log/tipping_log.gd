@@ -1,4 +1,3 @@
-@tool
 class_name TippingLog
 extends Telescoping
 
@@ -12,12 +11,12 @@ var ang_vel = 0.0
 
 func set_width(val):
 	super.set_width(val)
-	# warning-ignore:integer_division
+	@warning_ignore("integer_division")
 	$Rod/RideArea/RideShape.shape.size.x = middle_segment_width * val + end_segment_width
 
 
 func _physics_process(_delta):
-	if !Engine.is_editor_hint() and !disabled:
+	if !disabled:
 		physics_step()
 
 
@@ -43,13 +42,12 @@ func physics_step():
 	ang_vel = lerp(ang_vel, 0.0, 0.0125)
 	for body in riders:
 		var dist = position.distance_to(body.position)
-		# warning-ignore:return_value_discarded
 		body.set_velocity(Vector2(rotation_degrees * 0.076 * 32, sin(ang_vel) * dist * 32))
 		body.floor_snap_length = 4
 		body.set_up_direction(Vector2.UP)
 		body.set_floor_stop_on_slope_enabled(true)
 		body.move_and_slide()
-		body.velocity
+		body.apply_floor_snap()
 
 
 func set_disabled(val):

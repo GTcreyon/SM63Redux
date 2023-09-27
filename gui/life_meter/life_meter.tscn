@@ -255,7 +255,6 @@ sprite_frames = SubResource("2")
 [node name="CoinMeter" type="AnimatedSprite2D" parent="MeterBase/Filler"]
 sprite_frames = SubResource("47")
 animation = &"charge"
-autoplay = "flash"
 script = ExtResource("7")
 
 [node name="CoinRing" type="Sprite2D" parent="MeterBase/Filler/CoinMeter"]

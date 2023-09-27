@@ -1,8 +1,8 @@
 extends Button
 # A button on the pause menu that selects which menu is active
 
-var scroll = 0
-var scroll_goal = 0
+var scroll: float = 0.0
+var scroll_goal: float = 0.0
 
 @onready var stars = $Stars
 @onready var text_node = $Text
@@ -22,12 +22,12 @@ func _process(delta):
 		mouse_filter = MOUSE_FILTER_STOP
 	
 	# Change which star polygon is visible
-	if pressed:
+	if button_pressed:
 		stars.texture = texture_on
 	else:
 		stars.texture = texture_off
 	
-	if pressed:
+	if button_pressed:
 		scroll = fmod((scroll + 0.01 * dmod), 1.0)
 		scroll_goal = 0
 	elif is_hovered():
@@ -40,9 +40,9 @@ func _process(delta):
 			else:
 				scroll_goal = 1
 		elif scroll_goal == 1:
-			scroll = lerp(scroll, 1, 0.02)
+			scroll = lerp(scroll, 1.0, 0.02)
 		else:
-			scroll = lerp(scroll, 1, 0.04)
+			scroll = lerp(scroll, 1.0, 0.04)
 	
 	stars.texture_offset = Vector2(-15, -10) * scroll + Vector2(0, -2)
 
@@ -53,8 +53,8 @@ func resize():
 	stars.polygon[2].x = size.x - 1
 
 
-func _on_Button_toggled(button_pressed):
-	if button_pressed:
+func _on_Button_toggled(is_button_pressed: bool):
+	if is_button_pressed:
 		# Move the text down by one to make it look pressed down
 		text_node.offset_top = -7
 		
