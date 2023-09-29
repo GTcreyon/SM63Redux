@@ -1,8 +1,16 @@
-[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://dipax2b86dw1m"]
+[gd_resource type="Resource" script_class="SFXBank" load_steps=10 format=3 uid="uid://dipax2b86dw1m"]
 
-[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_rgpry"]
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_u83m6"]
+[ext_resource type="AudioStream" uid="uid://dnyqmw1x6btm5" path="res://classes/player/sfx/mario/jump_triple/jump_triple_0.wav" id="2_33mcm"]
+[ext_resource type="AudioStream" uid="uid://bevxp68htjvwt" path="res://classes/player/sfx/mario/jump_triple/jump_triple_1.wav" id="3_tdy5y"]
+[ext_resource type="AudioStream" uid="uid://xf30ilew10lt" path="res://classes/player/sfx/mario/jump_triple/jump_triple_2.wav" id="4_g41i7"]
+[ext_resource type="AudioStream" uid="uid://clwmovdnu210l" path="res://classes/player/sfx/mario/jump_triple/jump_triple_3.wav" id="5_4u3u5"]
+[ext_resource type="AudioStream" uid="uid://wki3bbxxy6dk" path="res://classes/player/sfx/mario/jump_triple/jump_triple_4.wav" id="6_mn7h0"]
+[ext_resource type="AudioStream" uid="uid://dn4lcu2ch07em" path="res://classes/player/sfx/mario/jump_triple/jump_triple_5.wav" id="7_lx38n"]
+[ext_resource type="AudioStream" uid="uid://ckqy2k626u51u" path="res://classes/player/sfx/mario/jump_triple/jump_triple_6.wav" id="8_fjeku"]
+[ext_resource type="AudioStream" uid="uid://co0hqlspert60" path="res://classes/player/sfx/mario/jump_triple/jump_triple_7.wav" id="9_8ynky"]
 
 [resource]
-script = ExtResource("1_rgpry")
-sound_bank = Array[AudioStreamWAV]([])
+script = ExtResource("1_u83m6")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_33mcm"), ExtResource("3_tdy5y"), ExtResource("4_g41i7"), ExtResource("5_4u3u5"), ExtResource("6_mn7h0"), ExtResource("7_lx38n"), ExtResource("8_fjeku"), ExtResource("9_8ynky")])
 group_bank = {}

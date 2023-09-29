@@ -1,8 +1,12 @@
-[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://c0te8w5fdocm2"]
+[gd_resource type="Resource" script_class="SFXBank" load_steps=6 format=3 uid="uid://c0te8w5fdocm2"]
 
-[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_s4k6n"]
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_ql1v4"]
+[ext_resource type="AudioStream" uid="uid://dbnwmumutor2o" path="res://classes/player/sfx/step/grass/step_grass_0.wav" id="2_llcqw"]
+[ext_resource type="AudioStream" uid="uid://det8fw8qao2ib" path="res://classes/player/sfx/step/grass/step_grass_1.wav" id="3_avec4"]
+[ext_resource type="AudioStream" uid="uid://c2uyn1ygtkbkc" path="res://classes/player/sfx/step/grass/step_grass_2.wav" id="4_jwmmm"]
+[ext_resource type="AudioStream" uid="uid://q5q6byuos712" path="res://classes/player/sfx/step/grass/step_grass_3.wav" id="5_esq7h"]
 
 [resource]
-script = ExtResource("1_s4k6n")
-sound_bank = Array[AudioStreamWAV]([])
-group_bank = Array[Resource]([])
+script = ExtResource("1_ql1v4")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_llcqw"), ExtResource("3_avec4"), ExtResource("4_jwmmm"), ExtResource("5_esq7h")])
+group_bank = {}

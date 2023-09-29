@@ -1,8 +1,21 @@
-[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://b8xubbrssrlxt"]
+[gd_resource type="Resource" script_class="SFXBank" load_steps=8 format=3 uid="uid://b8xubbrssrlxt"]
 
-[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_cxvm0"]
+[ext_resource type="Resource" uid="uid://bs7p6ojov5r7h" path="res://classes/player/sfx/step/cloud/step_cloud.tres" id="1_osb1q"]
+[ext_resource type="Resource" uid="uid://c66opicl7nuyy" path="res://classes/player/sfx/step/generic/step_generic.tres" id="2_xfql4"]
+[ext_resource type="Resource" uid="uid://c0te8w5fdocm2" path="res://classes/player/sfx/step/grass/step_grass.tres" id="3_w26ib"]
+[ext_resource type="Resource" uid="uid://bja70l1spagm5" path="res://classes/player/sfx/step/ice/step_ice.tres" id="4_ra63w"]
+[ext_resource type="Resource" uid="uid://de207uac0qevq" path="res://classes/player/sfx/step/metal/step_metal.tres" id="5_pqjdr"]
+[ext_resource type="Resource" uid="uid://c662hm3kejgbd" path="res://classes/player/sfx/step/snow/step_snow.tres" id="6_yq6ah"]
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="7_twso4"]
 
 [resource]
-script = ExtResource("1_cxvm0")
+script = ExtResource("7_twso4")
 sound_bank = Array[AudioStreamWAV]([])
-group_bank = {}
+group_bank = {
+"cloud": ExtResource("1_osb1q"),
+"generic": ExtResource("2_xfql4"),
+"grass": ExtResource("3_w26ib"),
+"ice": ExtResource("4_ra63w"),
+"metal": ExtResource("5_pqjdr"),
+"snow": ExtResource("6_yq6ah")
+}

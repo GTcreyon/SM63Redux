@@ -1,8 +1,17 @@
-[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://de207uac0qevq"]
+[gd_resource type="Resource" script_class="SFXBank" load_steps=11 format=3 uid="uid://de207uac0qevq"]
 
-[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_ojvqu"]
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_72uxo"]
+[ext_resource type="AudioStream" uid="uid://oog3qgyjsm85" path="res://classes/player/sfx/step/metal/step_metal_0.wav" id="2_1e76c"]
+[ext_resource type="AudioStream" uid="uid://beqaev37km22x" path="res://classes/player/sfx/step/metal/step_metal_1.wav" id="3_dmkaw"]
+[ext_resource type="AudioStream" uid="uid://csosodkyypuqs" path="res://classes/player/sfx/step/metal/step_metal_2.wav" id="4_bv1ii"]
+[ext_resource type="AudioStream" uid="uid://is0bpcfqf1a3" path="res://classes/player/sfx/step/metal/step_metal_3.wav" id="5_ltlag"]
+[ext_resource type="AudioStream" uid="uid://hs1bq6q25j8e" path="res://classes/player/sfx/step/metal/step_metal_4.wav" id="6_13jsb"]
+[ext_resource type="AudioStream" uid="uid://d1der0l2ufqeb" path="res://classes/player/sfx/step/metal/step_metal_5.wav" id="7_h2h21"]
+[ext_resource type="AudioStream" uid="uid://cdg8meyn5w7db" path="res://classes/player/sfx/step/metal/step_metal_6.wav" id="8_5edb6"]
+[ext_resource type="AudioStream" uid="uid://b2j7dvxejef4p" path="res://classes/player/sfx/step/metal/step_metal_7.wav" id="9_rwoyj"]
+[ext_resource type="AudioStream" uid="uid://bnprcpva3fqt0" path="res://classes/player/sfx/step/metal/step_metal_8.wav" id="10_lim8p"]
 
 [resource]
-script = ExtResource("1_ojvqu")
-sound_bank = Array[AudioStreamWAV]([])
-group_bank = Array[ExtResource("1_ojvqu")]([])
+script = ExtResource("1_72uxo")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_1e76c"), ExtResource("3_dmkaw"), ExtResource("4_bv1ii"), ExtResource("5_ltlag"), ExtResource("6_13jsb"), ExtResource("7_h2h21"), ExtResource("8_5edb6"), ExtResource("9_rwoyj"), ExtResource("10_lim8p"), null])
+group_bank = {}

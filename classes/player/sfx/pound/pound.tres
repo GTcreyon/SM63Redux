@@ -1,8 +1,14 @@
-[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://cqhdept6ofyhg"]
+[gd_resource type="Resource" script_class="SFXBank" load_steps=8 format=3 uid="uid://cqhdept6ofyhg"]
 
-[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_dcshn"]
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_0ag51"]
+[ext_resource type="AudioStream" uid="uid://birxaybjftsn8" path="res://classes/player/sfx/pound/pound_cloud.wav" id="2_8obqq"]
+[ext_resource type="AudioStream" uid="uid://dmitc7a2xslr3" path="res://classes/player/sfx/pound/pound_generic.wav" id="3_aqt33"]
+[ext_resource type="AudioStream" uid="uid://b5gkjlbwcl1ss" path="res://classes/player/sfx/pound/pound_grass.wav" id="4_nro4n"]
+[ext_resource type="AudioStream" uid="uid://7pow0ko8kqsh" path="res://classes/player/sfx/pound/pound_sand.wav" id="5_xgm5y"]
+[ext_resource type="AudioStream" uid="uid://cufbjh1o3hjo6" path="res://classes/player/sfx/pound/pound_snow.wav" id="6_ac7vx"]
+[ext_resource type="AudioStream" uid="uid://bxupwlkn26gd6" path="res://classes/player/sfx/pound/pound_spin.wav" id="7_h4kkb"]
 
 [resource]
-script = ExtResource("1_dcshn")
-sound_bank = Array[AudioStreamWAV]([])
+script = ExtResource("1_0ag51")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_8obqq"), ExtResource("3_aqt33"), ExtResource("4_nro4n"), ExtResource("5_xgm5y"), ExtResource("6_ac7vx"), ExtResource("7_h4kkb")])
 group_bank = {}

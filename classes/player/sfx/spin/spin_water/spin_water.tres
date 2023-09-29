@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SFXBank" load_steps=3 format=3 uid="uid://curud6oj335bx"]
+
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_tf3nc"]
+[ext_resource type="AudioStream" uid="uid://empd8ph3r0fe" path="res://classes/player/sfx/spin/spin_water/spin_water_0.wav" id="2_droas"]
+
+[resource]
+script = ExtResource("1_tf3nc")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_droas")])
+group_bank = {}

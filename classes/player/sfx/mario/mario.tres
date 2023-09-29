@@ -1,8 +1,17 @@
-[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://c0yulv5cvuo2j"]
+[gd_resource type="Resource" script_class="SFXBank" load_steps=6 format=3 uid="uid://c0yulv5cvuo2j"]
 
-[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_k2i6k"]
+[ext_resource type="Resource" uid="uid://dbsecn47isqs8" path="res://classes/player/sfx/mario/dive/dive.tres" id="1_bq8on"]
+[ext_resource type="Resource" uid="uid://coxqky4wuo073" path="res://classes/player/sfx/mario/jump_double/jump_double.tres" id="2_uo2e6"]
+[ext_resource type="Resource" uid="uid://uim7th7masm8" path="res://classes/player/sfx/mario/jump_single/jump_single.tres" id="3_5ceaa"]
+[ext_resource type="Resource" uid="uid://dipax2b86dw1m" path="res://classes/player/sfx/mario/jump_triple/jump_triple.tres" id="4_8rpky"]
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="5_7f7ky"]
 
 [resource]
-script = ExtResource("1_k2i6k")
+script = ExtResource("5_7f7ky")
 sound_bank = Array[AudioStreamWAV]([])
-group_bank = {}
+group_bank = {
+"dive": ExtResource("1_bq8on"),
+"jump_double": ExtResource("2_uo2e6"),
+"jump_single": ExtResource("3_5ceaa"),
+"jump_triple": ExtResource("4_8rpky")
+}

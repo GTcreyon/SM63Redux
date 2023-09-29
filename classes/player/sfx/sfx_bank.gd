@@ -18,7 +18,7 @@ class_name SFXBank
 # 2. Convert sound_bank to a dictionary (Cannot be typed, useless for every other sound)
 # 3. Use group_bank to store them (We would need a new function for returning sounds)
 # 4. Create a new dictionary for named sounds (Potentially a waste of resources)
-# 5. Make a new resource for each named pound (Same as 4 but could be useful in future if we make more pound sounds)
+# 5. Make a new resource for each named pound (Same as 4 but could be useful in future if we make more sounds per pound)
 
 # Also, the main sfx.tres resource has groups and sounds
 # I'm using this as a way to store misc. sounds like step_ice_squeak and spin_water_end
@@ -27,9 +27,9 @@ class_name SFXBank
 
 # Right now I don't see any point in adding settters
 # If you come up with a reason to change a bank at runtime, you can add them
-func get_group(key) -> SFXBank:
+func get_group(key : String) -> SFXBank:
 	return group_bank[key]
 
 
-func get_sound(idx) -> AudioStreamWAV:
+func get_sound(idx : int) -> AudioStreamWAV:
 	return sound_bank[idx]

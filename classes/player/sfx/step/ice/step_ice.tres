@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://bja70l1spagm5"]
+[gd_resource type="Resource" script_class="SFXBank" load_steps=4 format=3 uid="uid://bja70l1spagm5"]
 
-[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_ajcd8"]
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_tcvgw"]
+[ext_resource type="AudioStream" uid="uid://1ycr2uq515xk" path="res://classes/player/sfx/step/ice/step_ice_0.wav" id="2_eoapy"]
+[ext_resource type="AudioStream" uid="uid://clwsyovhbrm4p" path="res://classes/player/sfx/step/ice/step_ice_1.wav" id="3_kolbm"]
 
 [resource]
-script = ExtResource("1_ajcd8")
-sound_bank = Array[AudioStreamWAV]([])
-group_bank = Array[ExtResource("1_ajcd8")]([])
+script = ExtResource("1_tcvgw")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_eoapy"), ExtResource("3_kolbm")])
+group_bank = {}

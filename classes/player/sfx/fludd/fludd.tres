@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://ulux5lmoo7y6"]
+[gd_resource type="Resource" script_class="SFXBank" load_steps=3 format=3 uid="uid://ulux5lmoo7y6"]
 
 [ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_4brx4"]
+[ext_resource type="AudioStream" uid="uid://t4j5ffot2i05" path="res://classes/player/sfx/fludd/fludd_switch.wav" id="2_7vo1p"]
 
 [resource]
 script = ExtResource("1_4brx4")
-sound_bank = Array[AudioStreamWAV]([])
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_7vo1p"), null, null])
 group_bank = {}
