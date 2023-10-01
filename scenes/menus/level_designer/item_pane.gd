@@ -9,13 +9,24 @@ const GRID_THEME_TYPE = ""
 
 
 func _on_LeftBar_gui_input(event):
-	var full_height = ceil(main.items.size() / 2) * (32 + grid.theme.get_constant("v_separation", GRID_THEME_TYPE)) - grid.offset_left - base.size.y + 2
+	# Calculate the full height of all cells on top of each other.
+	# Start with the total number of items.
+	var full_height = ceil(main.items.size() / 2)
+	# Find height of that many cells plus padding.
+	full_height *= (32 + grid.theme.get_constant("v_separation", GRID_THEME_TYPE))
+	# Add some padding to the margins.
+	# offset_top is the actual scrolled position; read offset_left instead.
+	full_height -= grid.offset_left + base.size.y - 2
 	
+	# Cache the amount of movement in the checked event.
+	# (If there's no amount listed, use 1.)
 	var factor
 	if event.factor == 0:
 		factor = 1
 	else:
 		factor = event.factor
+	
+	# Shift grid down in response to mouse wheel events.
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			grid.offset_top = max(grid.offset_top - SCROLL_SPEED * factor, -full_height)
