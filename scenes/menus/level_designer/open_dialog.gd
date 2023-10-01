@@ -1,9 +1,10 @@
 extends FileDialog
 
-@onready var main = $"/root/Main"
 var load_dict: Dictionary
 var pointer: int = 0
 var buffer: PackedByteArray
+
+@onready var main = $"/root/Main"
 
 
 func _on_OpenDialog_file_selected(path):

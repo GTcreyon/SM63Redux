@@ -22,15 +22,38 @@ var editor_state = EDITOR_STATE.IDLE: set = set_editor_state
 @onready var ld_ui = $UILayer/LDUI
 @onready var ld_camera = $Camera
 
+
+func _ready():
+	var template = lv_template.instantiate()
+	add_child(template)
+	read_items()
+	ld_ui.fill_grid()
+	var serializer = Serializer.new()
+	serializer.run_tests(false)
+	
+	if Singleton.ld_buffer != PackedByteArray([]):
+		serializer.load_buffer(Singleton.ld_buffer, self)
+		Singleton.ld_buffer = PackedByteArray([])
+
+
+func _process(_dt):
+	if Input.is_action_just_pressed("ld_exit"): # Return to designer
+		if in_level:
+			in_level = false
+			get_tree().change_scene_to_file("res://scenes/menus/level_designer/level_designer.tscn")
+
+
 # Set the state of the editor
 func set_editor_state(new):
 	var old = editor_state
 	editor_state = new
 	emit_signal("editor_state_changed", old, editor_state)
 
+
 # Retrieve the current level in the editor
 func get_level():
 	return $"/root/Main/Template"
+
 
 #func is_selected(item):
 #	for selected in selection.hit:
@@ -48,8 +71,10 @@ func snap_vector(vec, grid = 8):
 		floor(vec.y / grid + 0.5) * grid
 	)
 
+
 func get_snapped_mouse_position():
 	return snap_vector(get_global_mouse_position())
+
 
 func place_terrain(poly):
 	var terrain_ref = TERRAIN_PREFAB.instantiate()
@@ -248,22 +273,3 @@ func inherit_class(target, subname: String, type: String, parser: XMLParser):
 	var parent_class = item_classes[parser.get_named_attribute_value("name")]
 	for key in parent_class:
 		item_class_properties[key] = parent_class[key]
-
-
-func _ready():
-	var template = lv_template.instantiate()
-	add_child(template)
-	read_items()
-	ld_ui.fill_grid()
-	var serializer = Serializer.new()
-	serializer.run_tests(false)
-	
-	if Singleton.ld_buffer != PackedByteArray([]):
-		serializer.load_buffer(Singleton.ld_buffer, self)
-		Singleton.ld_buffer = PackedByteArray([])
-
-func _process(_dt):
-	if Input.is_action_just_pressed("ld_exit"): # Return to designer
-		if in_level:
-			in_level = false
-			get_tree().change_scene_to_file("res://scenes/menus/level_designer/level_designer.tscn")

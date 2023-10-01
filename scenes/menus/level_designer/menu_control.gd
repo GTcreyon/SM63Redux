@@ -52,6 +52,7 @@ func fill_grid():
 			button.item_id = item_id
 			item_grid.add_child(button)
 
+
 func _on_Mode_pressed():
 	item_grid.visible = !item_grid.visible
 	polygon_grid.visible = !item_grid.visible

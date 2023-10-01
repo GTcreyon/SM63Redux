@@ -8,8 +8,10 @@ var target_node: Node = null
 @onready var list: VBoxContainer = $PropertyList
 @onready var main = $"/root/Main"
 
-func _on_CloseButton_pressed():
-	hide_menu()
+
+func _input(event):
+	if event is InputEventMouseMotion:
+		position += event.relative
 
 
 func hide_menu():
@@ -69,6 +71,10 @@ func on_value_changed(label, value):
 	target_node.set_property(label, value)
 
 
+func _on_CloseButton_pressed():
+	hide_menu()
+
+
 #TODO: make the dragger cross device
 func _on_Dragger_button_down():
 	set_process_input(true)
@@ -76,8 +82,3 @@ func _on_Dragger_button_down():
 
 func _on_Dragger_button_up():
 	set_process_input(false)
-
-
-func _input(event):
-	if event is InputEventMouseMotion:
-		position += event.relative
