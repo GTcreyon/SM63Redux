@@ -19,7 +19,6 @@ var editor_state = EDITOR_STATE.IDLE: set = set_editor_state
 @onready var open = $"/root/Main/UILayer/OpenDialog"
 @onready var sm63_to_redux = SM63ToRedux.new()
 @onready var lv_template := preload("./template.tscn")
-@onready var ld_ui = $UILayer/LDUI
 @onready var ld_camera = $Camera
 
 
@@ -27,7 +26,6 @@ func _ready():
 	var template = lv_template.instantiate()
 	add_child(template)
 	read_items()
-	ld_ui.fill_grid()
 	var serializer = Serializer.new()
 	serializer.run_tests(false)
 	
