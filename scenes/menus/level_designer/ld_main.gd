@@ -142,13 +142,25 @@ func _disabled_draw():
 		place_item(item)
 
 
+## Writes to:
+## - items
+## - item_scenes
+## - item_textures
+## - item_classes
+## - item_static_properties
 func read_items():
+	# TODO: JSON is easier (faster) for both humans and computers to read.
+	# Consider using that instead?
+	# Or maybe just use a resource file? (Can those be made and saved
+	# at runtime?)
 	var parser = XMLParser.new()
+	# TODO: Storing raw XML as a .tres file causes warnings on editor startup.
 	parser.open("res://scenes/menus/level_designer/items.xml.tres")
 	
 	var parent_name
 	var parent_subname
 	var allow_reparent: bool = true
+	# While there's XML nodes left to read, read them and parse them.
 	while (!parser.read()):
 		var node_type = parser.get_node_type()
 		match node_type:
@@ -167,26 +179,37 @@ func read_items():
 			# Useful nodes
 			parser.NODE_ELEMENT:
 				var node_name = parser.get_node_name()
-				# Interpret classes
 				if parent_name == "class":
-					match node_name:
-						"property":
-							register_property(item_classes, parent_subname, parent_name, parser)
-						"implement":
-							implement_property(item_classes, parent_subname, parent_name, parser)
-						"inherit":
-							inherit_class(item_classes, parent_subname, parent_name, parser)
+					# Parent node is a class. Parse children of a class.
+					
+					# This doesn't actually do anything. None of these functions
+					# return anything or have any side effects.
+					# Other than possibly modifying the parser's internal state,
+					# which shouldn't happen with normal attribute reads I think.
+					#match node_name:
+					#	"property":
+					#		register_property(item_classes, parent_subname, parent_name, parser)
+					#	"implement":
+					#		implement_property(item_classes, parent_subname, parent_name, parser)
+					#	"inherit":
+					#		inherit_class(item_classes, parent_subname, parent_name, parser)
+					pass
 				elif parent_name == "item":
+					# Parent node is an item. Parse children of an item.
 					match node_name:
 						"scene":
+							# Save the filepath of the described item's scene.
 							var path = parser.get_named_attribute_value_safe("path")
 							var item_id = int(parent_subname)
 							if item_scenes.size() < item_id + 1:
 								item_scenes.resize(item_id + 1)
 							item_scenes[item_id] = path
 						"property":
-							register_property(items, parent_subname, parent_name, parser)
+							# Does nothing.
+							#register_property(items, parent_subname, parent_name, parser)
+							pass
 						"texture":
+							# Save the filepath of the described item's icon.
 							var item_id = int(parent_subname)
 							if item_textures.size() < item_id + 1:
 								item_textures.resize(item_id + 1)
@@ -195,39 +218,60 @@ func read_items():
 							var path = parser.get_named_attribute_value_safe("path")
 							item_textures[item_id][parser.get_named_attribute_value_safe("tag")] = path
 						"implement":
-							implement_property(items, parent_subname, parent_name, parser)
+							# Currently does nothing.
+							#implement_property(items, parent_subname, parent_name, parser)
+							pass
 						"inherit":
-							inherit_class(items, parent_subname, parent_name, parser)
+							# Currently does nothing.
+							#inherit_class(items, parent_subname, parent_name, parser)
+							pass
 				
+				# Not sure what's going on here.
 				if allow_reparent:
+					# Reparent the node if needed.
 					if node_name == "class":
 						var subname = parser.get_named_attribute_value_safe("name")
-						parent_subname = subname
+						# Add this subname to class dictionary
 						item_classes[subname] = {}
+						
+						# Save class name as next node's parent subname.
+						parent_subname = subname
 						allow_reparent = false
 					elif node_name == "item":
+						# Read item ID
 						var subname = parser.get_named_attribute_value_safe("id")
-						parent_subname = subname
 						var item_id = int(subname)
+						# Ensure the array can fit item_id as an index.
 						if items.size() < item_id + 1:
 							items.resize(item_id + 1)
+						# Add this item to the list.
 						items[item_id] = {
 							name = parser.get_named_attribute_value_safe("name"),
 							properties = {},
 						}
+						
+						# Save ID as next node's parent subname.
+						parent_subname = subname
 						allow_reparent = false
 					elif node_name == "static":
+						# Load name and properties, simple as that.
 						var prop_name = parser.get_named_attribute_value_safe("label")
 						item_static_properties[prop_name] = collect_property_values(parser)
+						
 						# Idk if allow_reparent should be added, don't think so since it's a single tag
+					
+					# Save this node's name for the next node to use.
 					parent_name = node_name
 			parser.NODE_ELEMENT_END:
+				# Reset allow_reparent for the next XML element.
 				var node_name = parser.get_node_name()
 				if node_name == "class" or node_name == "item":
 					allow_reparent = true
 
 
-func register_property(target, subname: String, type: String, parser: XMLParser):
+## Returns:
+## - Nothing? item_class_properties is declared in-function, never returned....
+func register_property(target: Dictionary, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
 	if type == "item":
 		item_class_properties = target[int(subname)].properties
@@ -236,7 +280,9 @@ func register_property(target, subname: String, type: String, parser: XMLParser)
 	item_class_properties[parser.get_named_attribute_value("label")] = collect_property_values(parser)
 
 
-func implement_property(target, subname: String, type: String, parser: XMLParser):
+## Returns:
+## Nothing? item_class_properties is declared in-function, never returned....
+func implement_property(target: Dictionary, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
 	if type == "item":
 		item_class_properties = target[int(subname)].properties
@@ -248,10 +294,12 @@ func implement_property(target, subname: String, type: String, parser: XMLParser
 	item_class_properties[prop_name] = item_static_properties[get_prop].duplicate()
 
 
+## Appears to parse XML attributes from a single node into a dictionary.
 func collect_property_values(parser: XMLParser):
 	var var_txt = parser.get_named_attribute_value_safe("var")
 	var default = parser.get_named_attribute_value_safe("default")
 	var increment = parser.get_named_attribute_value_safe("increment")
+	
 	var properties = {
 		type = parser.get_named_attribute_value("type"),
 		var_name = null if var_txt == "" else var_txt,
@@ -259,10 +307,13 @@ func collect_property_values(parser: XMLParser):
 		increment = 1 if increment == "" else increment,
 		description = parser.get_named_attribute_value("description")
 	}
+	
 	return properties
 
 
-func inherit_class(target, subname: String, type: String, parser: XMLParser):
+## Returns:
+## Nothing? item_class_properties is declared in-function, never returned....
+func inherit_class(target: Dictionary, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
 	if type == "item":
 		item_class_properties = target[int(subname)].properties
