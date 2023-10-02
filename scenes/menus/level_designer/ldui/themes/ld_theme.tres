@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://bfffbep7u0f87"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bfffbep7u0f87"]
 
 [ext_resource type="StyleBox" uid="uid://q14towpo4vsu" path="res://gui/dialog/sign_box.tres" id="1_bly62"]
 [ext_resource type="Texture2D" uid="uid://cprnpw3je0r7r" path="res://gui/dropdown_arrow.png" id="2_4ray6"]
@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://dhliyj8vycb7q" path="res://gui/boxes/menu_box_normal.tres" id="4_adjba"]
 [ext_resource type="StyleBox" uid="uid://b54n55rde5xf6" path="res://gui/boxes/menu_box_pressed.tres" id="5_tl50b"]
 [ext_resource type="StyleBox" uid="uid://cgemqfbup0gd8" path="res://gui/boxes/menu_box_drop.tres" id="6_g5imp"]
-[ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.otf" id="7_44i8b"]
+[ext_resource type="FontFile" uid="uid://dgedr6b237a5e" path="res://fonts/bylight/bylight.otf" id="7_44i8b"]
 
 [sub_resource type="AtlasTexture" id="8"]
 region = Rect2(0, 0, 14, 15)
@@ -19,6 +19,20 @@ content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 6.0
 content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6gsb"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.167969, 0.289063, 0.238281, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.231373, 0.117647, 0, 1)
+corner_detail = 1
+anti_aliasing = false
 
 [sub_resource type="StyleBoxTexture" id="3"]
 texture_margin_left = 6.0
@@ -64,6 +78,7 @@ PopupMenu/icons/radio_checked = SubResource("8")
 PopupMenu/icons/radio_unchecked = SubResource("9")
 PopupMenu/styles/panel = ExtResource("6_g5imp")
 ScrollContainer/styles/bg = SubResource("4")
+ScrollContainer/styles/panel = SubResource("StyleBoxFlat_s6gsb")
 TextEdit/styles/normal = ExtResource("1_bly62")
 VScrollBar/styles/grabber = SubResource("3")
 VScrollBar/styles/grabber_highlight = SubResource("5")
