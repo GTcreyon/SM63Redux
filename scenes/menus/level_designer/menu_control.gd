@@ -1,7 +1,7 @@
 extends Control
 
-@onready var item_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/ItemGrid
-@onready var polygon_grid = $ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid
+@onready var item_grid = $ItemPane/ItemBlock/ItemScroll
+@onready var polygon_grid = $ItemPane/ItemBlock/PolygonScroll
 
 
 func _on_Mode_pressed():
