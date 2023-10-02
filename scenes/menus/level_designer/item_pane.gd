@@ -12,8 +12,9 @@ func _on_LeftBar_gui_input(event):
 	# Calculate the full height of all cells on top of each other.
 	# Start with the total number of items.
 	var full_height = ceil(main.items.size() / 2)
-	# Find height of that many cells plus padding.
-	full_height *= (32 + grid.theme.get_constant("v_separation", GRID_THEME_TYPE))
+	# Find height of one cell plus padding.
+	var cell_height = 32 + grid.theme.get_constant("v_separation", GRID_THEME_TYPE)
+	full_height *= cell_height
 	# Add some padding to the margins.
 	# offset_top is the actual scrolled position; read offset_left instead.
 	full_height -= grid.offset_left + base.size.y - 2
