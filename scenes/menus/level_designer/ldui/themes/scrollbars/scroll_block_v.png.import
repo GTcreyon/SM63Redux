@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxmftdkqlv5fp"
-path="res://.godot/imported/scroll_h.png-e9356bce671c7ecd4c470dbc9161df48.ctex"
+uid="uid://cb231utoaa0wy"
+path="res://.godot/imported/scroll_block_v.png-6832e4c8cfad22327086e774713a0f69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/menus/level_designer/ldui/scroll_h.png"
-dest_files=["res://.godot/imported/scroll_h.png-e9356bce671c7ecd4c470dbc9161df48.ctex"]
+source_file="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_block_v.png"
+dest_files=["res://.godot/imported/scroll_block_v.png-6832e4c8cfad22327086e774713a0f69.ctex"]
 
 [params]
 

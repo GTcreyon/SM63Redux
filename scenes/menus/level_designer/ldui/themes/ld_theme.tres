@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=18 format=3 uid="uid://bfffbep7u0f87"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bfffbep7u0f87"]
 
 [ext_resource type="StyleBox" uid="uid://q14towpo4vsu" path="res://gui/dialog/sign_box.tres" id="1_bly62"]
 [ext_resource type="Texture2D" uid="uid://cprnpw3je0r7r" path="res://gui/dropdown_arrow.png" id="2_4ray6"]
@@ -7,6 +7,8 @@
 [ext_resource type="StyleBox" uid="uid://b54n55rde5xf6" path="res://gui/boxes/menu_box_pressed.tres" id="5_tl50b"]
 [ext_resource type="StyleBox" uid="uid://cgemqfbup0gd8" path="res://gui/boxes/menu_box_drop.tres" id="6_g5imp"]
 [ext_resource type="FontFile" uid="uid://dgedr6b237a5e" path="res://fonts/bylight/bylight.otf" id="7_44i8b"]
+[ext_resource type="Texture2D" uid="uid://cq8hb86e6yh5e" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v.png" id="7_ex1l3"]
+[ext_resource type="Texture2D" uid="uid://cb231utoaa0wy" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_block_v.png" id="8_2da01"]
 
 [sub_resource type="AtlasTexture" id="8"]
 region = Rect2(0, 0, 14, 15)
@@ -35,34 +37,17 @@ corner_detail = 1
 anti_aliasing = false
 
 [sub_resource type="StyleBoxTexture" id="3"]
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(0, 0, 11, 13)
+resource_name = "ScrollbarV"
+texture = ExtResource("7_ex1l3")
+texture_margin_top = 3.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(0, 0, 10, 7)
 
-[sub_resource type="StyleBoxTexture" id="5"]
-texture_margin_left = 5.0
-texture_margin_top = 6.0
-texture_margin_right = 5.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(0, 0, 11, 13)
-
-[sub_resource type="StyleBoxTexture" id="6"]
-texture_margin_left = 5.0
-texture_margin_top = 8.0
-texture_margin_right = 5.0
-texture_margin_bottom = 6.0
-region_rect = Rect2(1, 0, 11, 13)
-
-[sub_resource type="StyleBoxTexture" id="7"]
-texture_margin_left = 3.0
-texture_margin_top = 1.0
-texture_margin_right = 3.0
-texture_margin_bottom = 1.0
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-region_rect = Rect2(0, 0, 13, 26)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vcfg"]
+bg_color = Color(0.231373, 0.117647, 0, 1)
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+anti_aliasing = false
 
 [resource]
 default_font = ExtResource("7_44i8b")
@@ -80,7 +65,9 @@ PopupMenu/styles/panel = ExtResource("6_g5imp")
 ScrollContainer/styles/bg = SubResource("4")
 ScrollContainer/styles/panel = SubResource("StyleBoxFlat_s6gsb")
 TextEdit/styles/normal = ExtResource("1_bly62")
+VScrollBar/icons/decrement = ExtResource("8_2da01")
+VScrollBar/icons/increment = ExtResource("8_2da01")
 VScrollBar/styles/grabber = SubResource("3")
-VScrollBar/styles/grabber_highlight = SubResource("5")
-VScrollBar/styles/grabber_pressed = SubResource("6")
-VScrollBar/styles/scroll = SubResource("7")
+VScrollBar/styles/grabber_highlight = SubResource("3")
+VScrollBar/styles/grabber_pressed = SubResource("3")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_4vcfg")

@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://dfxax8x51eclc" path="res://scenes/menus/level_designer/ldui/start_sign.png" id="10"]
 [ext_resource type="Texture2D" uid="uid://kxxwf4iit4sg" path="res://scenes/menus/level_designer/ldui/big_cog.png" id="11"]
 [ext_resource type="PackedScene" uid="uid://cf61txa666j8m" path="res://scenes/menus/level_designer/ldui/hermes.tscn" id="12"]
-[ext_resource type="Texture2D" uid="uid://cb231utoaa0wy" path="res://scenes/menus/level_designer/ldui/scroll_block_v.png" id="13"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/item_pane.gd" id="14"]
 [ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="15"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/start.gd" id="16"]
@@ -24,12 +23,13 @@
 [ext_resource type="Texture2D" uid="uid://cuicqxy4a1f7k" path="res://scenes/menus/level_designer/ldui/dragger_button_sheet.png" id="22"]
 [ext_resource type="Texture2D" uid="uid://dh5enjquedjsl" path="res://scenes/menus/level_designer/ldui/duplicator_button_sheet.png" id="23"]
 [ext_resource type="PackedScene" uid="uid://te73rn1mvd0u" path="res://scenes/menus/level_designer/property_menu/property_menu.tscn" id="24"]
+[ext_resource type="Texture2D" uid="uid://cb231utoaa0wy" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_block_v.png" id="24_mplds"]
 [ext_resource type="Texture2D" uid="uid://dlava3dmxxqjy" path="res://scenes/menus/level_designer/dummy.png" id="25"]
+[ext_resource type="StyleBox" uid="uid://b6ys7xuk1e71f" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v_top.tres" id="25_d8poo"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/bg_grid.gd" id="26"]
+[ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v_bottom.tres" id="26_t4wci"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/open_dialog.gd" id="27"]
-[ext_resource type="StyleBox" uid="uid://b6ys7xuk1e71f" path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" id="28"]
 [ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="28_0ajtt"]
-[ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" id="29"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" id="34"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/selection_action_handler.gd" id="35"]
 [ext_resource type="Texture2D" uid="uid://tg6wa2uikxoh" path="res://scenes/menus/level_designer/ldui/close_button.png" id="36"]
@@ -326,6 +326,7 @@ offset_right = 96.0
 script = ExtResource("14")
 
 [node name="ScrollBar" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -333,7 +334,6 @@ offset_left = 82.0
 color = Color(0.231373, 0.117647, 0, 1)
 
 [node name="ScrollRegion" type="Control" parent="UILayer/LDUI/ItemPane/ScrollBar"]
-visible = false
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -346,7 +346,7 @@ offset_left = 2.0
 offset_top = -2.0
 offset_right = 12.0
 offset_bottom = 3.0
-texture = ExtResource("13")
+texture = ExtResource("24_mplds")
 
 [node name="StopperBottom" type="TextureRect" parent="UILayer/LDUI/ItemPane/ScrollBar/ScrollRegion"]
 layout_mode = 0
@@ -356,7 +356,7 @@ offset_left = 2.0
 offset_top = -3.0
 offset_right = 12.0
 offset_bottom = 2.0
-texture = ExtResource("13")
+texture = ExtResource("24_mplds")
 flip_v = true
 
 [node name="Scroller" type="Control" parent="UILayer/LDUI/ItemPane/ScrollBar/ScrollRegion"]
@@ -371,7 +371,7 @@ custom_minimum_size = Vector2(10, 15)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 0.5
-theme_override_styles/panel = ExtResource("28")
+theme_override_styles/panel = ExtResource("25_d8poo")
 
 [node name="ScrollerBottom" type="Panel" parent="UILayer/LDUI/ItemPane/ScrollBar/ScrollRegion/Scroller"]
 custom_minimum_size = Vector2(10, 15)
@@ -379,7 +379,7 @@ layout_mode = 0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme_override_styles/panel = ExtResource("29")
+theme_override_styles/panel = ExtResource("26_t4wci")
 
 [node name="ItemBlock" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
 layout_mode = 0
@@ -392,7 +392,7 @@ color = Color(0.141176, 0.52549, 0.47451, 1)
 layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
-offset_right = 79.0
+offset_right = 97.0
 offset_bottom = 235.0
 theme = ExtResource("28_0ajtt")
 scroll_vertical_custom_step = 9.0
