@@ -305,7 +305,10 @@ func decode_float_bytes(bytes: PackedByteArray) -> float:
 	var size = bytes.size()
 	if size > 7:
 		log_error("Cannot encode float in this many bytes due to Godot limitations!")
-		size = 7 # TODO: Is this the most responsible way to handle this?
+		size = 7
+		# TODO: Is this the most responsible way to handle this? Truncating
+		# the read to 7 bytes and trusting that the user didn't *reeeeally*
+		# mean >7?
 	
 	var variant_buffer = PackedByteArray([3])
 	while variant_buffer.size() + size < 8:
@@ -359,10 +362,14 @@ func decode_mission_list() -> Array:
 ## A set of unit tests to be run to check if the serialisation is working
 ## correctly.
 func run_tests(verbose: bool):
-	# arrange
 	print("Serializer tests start! Errors are normal - the tests are checking if the warnings work correctly. Only worry if you see full caps.")
 	var fail = false
-	# Dictionary of 
+	
+	# Dictionary of tests to be run.
+	# Each type has an entry with the following data:
+	# - "bytes": number of bytes in a value of this type.
+	# - "data": contains two arrays, "valid" and "error."
+	#			"valid" values should pass all tests; "error" values should fail.
 	var tests = {
 		"bool": {
 			"bytes": 1,
@@ -396,19 +403,21 @@ func run_tests(verbose: bool):
 		# there's barely anything to test anyway
 	}
 	# act
-	for key in tests:
+	for typestring in tests:
+		var byte_count = tests[typestring].bytes
+		if verbose:
+			print("Valid tests for ", typestring, ":")
 		# Test valid data.
-		if verbose:
-			print("Valid tests for ", key, ":")
-		for input in tests[key].data.valid:
-			fail = fail or test_data(input, key, tests[key].bytes, true, verbose)
+		for input in tests[typestring].data.valid:
+			fail |= test_data(input, typestring, byte_count, true, verbose)
 		
-		# Test errors.
 		if verbose:
-			print("Error tests for ", key, ":")
-		for input in tests[key].data.error:
-			var test_result = test_data(input, key, tests[key].bytes, false, verbose)
-			fail = test_result or fail # done like this to avoid issues with lazy evaluation
+			print("Error tests for ", typestring, ":")
+		# Test that invalid data errors correctly.
+		for input in tests[typestring].data.error:
+			var result = test_data(input, typestring, byte_count, false, verbose)
+			fail |= result
+			# done in two steps like this to avoid issues with lazy evaluation.
 	# assert ???
 	if fail:
 		printerr("SERIALIZER TEST FAILED.")
@@ -416,25 +425,41 @@ func run_tests(verbose: bool):
 		print("Serializer tests OK!")
 
 
+## Tests binary-encoding and -decoding a given [param input].
 func test_data(input, type: String, byte_count: int, valid: bool, verbose: bool):
 	var fail = false
+	
+	# Round-trip the value through encoding and decoding.
 	var encoded = encode_value_of_type(input, type, byte_count)
 	var decoded = decode_value_of_type(encoded, type)
+	
 	if valid:
+		# Given valid data. Expect no errors. 
+		
+		# If the decoded value doesn't match (or some other error occurred),
+		# fail the test.
 		if decoded != input or logged_errors.size() > 0:
 			fail = true
+			
 			if verbose:
 				printerr("TEST FAIL. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
 				printerr("Logged errors: ", logged_errors)
+		# No errors found. Report if necessary.
 		elif verbose:
 			print("Test pass. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
 	else:
+		# Given invalid data. If errors did NOT occur, fail the test.
 		if logged_errors.size() == 0:
 			fail = true
+			
 			if verbose:
 				printerr("TEST VOID. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
 				printerr("No errors logged, despite data being intentionally invalid.")
+		# Errors found, as expected. Report if necessary.
 		elif verbose:
 			print("Test fail as expected. Input: ", input, " Encoded: ", encoded, " Decoded: ", decoded)
+	
+	# Clean up after ourselves.
 	logged_errors = PackedStringArray([])
+	
 	return fail
