@@ -10,6 +10,10 @@ enum EDITOR_STATE { IDLE, PLACING, SELECTING, DRAGGING, POLYGON_CREATE, POLYGON_
 var item_classes = {}
 var item_static_properties = {}
 var items = []
+## Graphics for items to use.
+## Each entry is a dictionary with the following properties:[br]
+## - [b]List:[/b] This item's icon in the placeable-item list.[br]
+## - [b]Placed:[/b] The sprite shown where this item is placed in the actual level.[br]
 var item_textures = []
 var item_scenes = []
 var in_level = false
@@ -209,7 +213,8 @@ func read_items():
 							#register_property(items, parent_subname, parent_name, parser)
 							pass
 						"texture":
-							# Save the filepath of the described item's icon.
+							# Save the filepaths of the described item's
+							# placed and in-list graphics.
 							var item_id = int(parent_subname)
 							if item_textures.size() < item_id + 1:
 								item_textures.resize(item_id + 1)
