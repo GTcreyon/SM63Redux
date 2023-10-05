@@ -2,11 +2,6 @@ extends Sprite2D
 
 const GLOW_MATERIAL = preload("res://shaders/glow.tres")
 
-@onready var cam = $"/root/Main/Camera"
-@onready var main = $"/root/Main"
-@onready var control = $"/root/Main/UILayer/LDUI"
-@onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
-
 var item_id: int
 
 var glow_factor = 1
@@ -14,11 +9,10 @@ var pulse = 0
 var ghost = false # If true, item has not been placed yet.
 var properties: Dictionary = {}
 
-func set_glowing(should_glow):
-	if should_glow:
-		material = GLOW_MATERIAL
-	else:
-		material = null
+@onready var cam = $"/root/Main/Camera"
+@onready var main = $"/root/Main"
+@onready var control = $"/root/Main/UILayer/LDUI"
+@onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
 
 
 func _ready():
@@ -72,9 +66,11 @@ func _process(_delta):
 		pulse = fmod((pulse + 0.1), 2 * PI)
 		material.set_shader_parameter("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
 
+
 func set_property(label, value) -> void:
 	properties[label] = value
 	update_visual_property(label, value)
+
 
 func update_visual_property(label, value) -> void:
 	match label:
@@ -88,6 +84,13 @@ func update_visual_property(label, value) -> void:
 			rotation_degrees = float(value)
 		"Mirror":
 			flip_h = value
+
+
+func set_glowing(should_glow):
+	if should_glow:
+		material = GLOW_MATERIAL
+	else:
+		material = null
 
 
 func item_disabled_tint(disabled) -> void:
