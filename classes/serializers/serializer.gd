@@ -1,52 +1,72 @@
 class_name Serializer
 
+const ITEM_END_MARKER_BYTES = [255, 255]
+const ITEM_END_MARKER_VALUE = (255 << 8) | 255
+
 var pointer: int = 0
 var buffer_to_load: PackedByteArray
 var logged_errors = PackedStringArray([])
 
 
-func generate_level_binary(items, polygons, main) -> PackedByteArray:
-	# level info
-	var output = encode_uint_bytes(Singleton.LD_VERSION, 1)
+## Generates a binary representation of the level.
+func generate_level_binary(
+	items: Array[Node], polygons: Array[Node], main: LDMain
+) -> PackedByteArray:
+	var output: PackedByteArray
+	
+	# Serialize level metadata.
+	output = encode_uint_bytes(Singleton.LD_VERSION, 1)
 	output.append_array(encode_string_bytes("")) # title
 	output.append_array(encode_string_bytes("")) # author
-	output.append_array(generate_mission_list([["", ""]])) # missions
+	output.append_array(encode_mission_list([["", ""]])) # missions
 	
-	# item dictionary
+	# Serialize items in the level.
 	for item in items:
+		# Item ID.
 		output.append_array(encode_uint_bytes(item.item_id, 2))
+		# Item's properties.
 		for key in item.properties:
+			# Get type of property so we know what type to serialize.
 			var type = main.items[item.item_id].properties[key].type
-			var val = encode_value_of_type(item.properties[key], type, get_value_length_from_type(type))
+			# Serialize value as that type.
+			var val = encode_value_of_type(item.properties[key], type, 
+				get_value_length_from_type(type))
 			output.append_array(val)
-	output.append_array([255, 255]) # end character, replaces ID
+	# Mark end of item array.
+	output.append_array([255, 255])
 		
-	# polygons
+	# Serialize polygons.
 	output.append_array(encode_uint_bytes(polygons.size(), 3))
 	for polygon in polygons:
-		output.append_array(encode_uint_bytes(0, 2)) # TODO: material
+		# Material, for footstep sound purposes.
+		# TODO: Temped until this can be set per-polygon.
+		output.append_array(encode_uint_bytes(0, 2))
+		# Z index.
 		output.append_array(encode_sint_bytes(polygon.z_index, 2))
+		# Vertex count.
 		output.append_array(encode_uint_bytes(polygon.polygon.size(), 2))
+		# Individual vertices.
 		for vertex in polygon.polygon:
 			output.append_array(encode_vector2_bytes(vertex, 6))
 	
-	# pipescript
-	# TODO
+	# TODO: Serialize Pipescript.
+	
 	return output
 
 
-func encode_value_of_type(val, type: String, num: int) -> PackedByteArray:
+## Encodes value in its [param type]'s appropriate binary representation.
+func encode_value_of_type(val, type: String, byte_count: int) -> PackedByteArray:
 	match type:
 		"bool":
 			return PackedByteArray([val])
 		"uint":
-			return encode_uint_bytes(val, num)
+			return encode_uint_bytes(val, byte_count)
 		"sint":
-			return encode_sint_bytes(val, num)
+			return encode_sint_bytes(val, byte_count)
 		"float":
-			return encode_float_bytes(val, num)
+			return encode_float_bytes(val, byte_count)
 		"Vector2":
-			return encode_vector2_bytes(val, num)
+			return encode_vector2_bytes(val, byte_count)
 		"String":
 			return encode_string_bytes(val)
 		_:
@@ -54,37 +74,59 @@ func encode_value_of_type(val, type: String, num: int) -> PackedByteArray:
 			return PackedByteArray([])
 
 
-func encode_vector2_bytes(val: Vector2, num: int) -> PackedByteArray:
-	var half = num >> 1
+## Encodes a Vector2 as a binary byte array.
+func encode_vector2_bytes(val: Vector2, byte_count: int) -> PackedByteArray:
+	var half = byte_count >> 1
 	var output = encode_sint_bytes(int(val.x), half)
 	output.append_array(encode_sint_bytes(int(val.y), half))
 	return output
 
 
-func encode_float_bytes(val: float, num: int) -> PackedByteArray:
+## Encodes a float as a binary byte array.
+func encode_float_bytes(val: float, byte_count: int) -> PackedByteArray:
 	var output = PackedByteArray([])
-	if num > 7:
-		log_error("Cannot encode float in this many bytes due to Godot limitations!")
-		num = 7
+	if byte_count > 7:
+		log_error("Floats cannot be encoded in more than 7 bytes due to Godot limitations. Reducing to 7 bytes....")
+		byte_count = 7
 	
-	var arr = var_to_bytes(val) # cut off icky variant data
+	var arr = var_to_bytes(val)
+	# cut off icky variant data
 	var size = arr.size()
-	return arr.subarray(size - num, size - 1)
+	return arr.subarray(size - byte_count, size - 1)
 
 
-func encode_sint_bytes(val: int, num: int) -> PackedByteArray:
-	if abs(val) > (1 << ((num << 3) - 1)):
-		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: sint" % [val, num])
-	return encode_int_bytes(val, num)
+## Encodes a signed integer as a binary byte array.
+func encode_sint_bytes(val: int, byte_count: int) -> PackedByteArray:
+	# Internally, this validates the passed int, then passes it off to
+	# _encode_int_bytes(...).
+	
+	if abs(val) > (1 << ((byte_count << 3) - 1)):
+		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: sint" % [val, byte_count])
+	return _encode_int_bytes(val, byte_count)
 
 
-func encode_int_bytes(val: int, num: int) -> PackedByteArray:
+## Encodes an unsigned integer as a binary byte array.
+func encode_uint_bytes(val: int, byte_count: int) -> PackedByteArray:
+	# Internally, this validates the passed int, then passes it off to
+	# _encode_int_bytes(...).
+	
+	# val - value to encode
+	# byte_count - number of bytes
+	if val < 0:
+		log_error("%d is negative - this is an unsigned integer, and cannot encode negative values. Corruption may occur!" % val)
+	if abs(val) >= (1 << (byte_count << 3)):
+		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: uint" % [val, byte_count])
+	return _encode_int_bytes(val, byte_count)
+
+
+# Internal function that encodes any integer as a binary byte array.
+func _encode_int_bytes(val: int, byte_count: int) -> PackedByteArray:
 	var output = PackedByteArray([])
-	for i in range(num):
+	for i in range(byte_count):
 		var byte = (
 			val >> (
 				(
-					num - i - 1
+					byte_count - i - 1
 				) << 3
 			) # cut off everything before this byte
 			& 255 # cut off everything after this byte
@@ -93,24 +135,9 @@ func encode_int_bytes(val: int, num: int) -> PackedByteArray:
 	return output
 
 
-func encode_uint_bytes(val: int, num: int) -> PackedByteArray:
-	# val - value to encode
-	# num - number of bytes
-	if val < 0:
-		log_error("%d is negative - this is an unsigned integer, and cannot encode negative values. Corruption may occur!" % val)
-	if abs(val) >= (1 << (num << 3)):
-		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: uint" % [val, num])
-	return encode_int_bytes(val, num)
-
-
-func generate_mission_list(missions: Array) -> PackedByteArray:
-	var output = encode_uint_bytes(missions.size(), 1)
-	for mission in missions:
-		output.append_array(encode_string_bytes(mission[0]))
-		output.append_array(encode_string_bytes(mission[1]))
-	return output
-
-
+## Encodes a string as a binary byte array.
+## Resulting array begins with the size of the text,
+## followed by the text in UTF-8 format.
 func encode_string_bytes(txt: String) -> PackedByteArray:
 	var arr = txt.to_utf8_buffer()
 	var output = encode_uint_bytes(arr.size(), 3)
@@ -118,49 +145,102 @@ func encode_string_bytes(txt: String) -> PackedByteArray:
 	return output
 
 
-func load_buffer(buffer: PackedByteArray, target_node: Node):
+## Encodes this level's mission names and descriptions as a binary byte array.
+func encode_mission_list(missions: Array) -> PackedByteArray:
+	var output = encode_uint_bytes(missions.size(), 1)
+	for mission in missions:
+		output.append_array(encode_string_bytes(mission[0]))
+		output.append_array(encode_string_bytes(mission[1]))
+	return output
+
+
+## Loads a level from binary representation, then adds it to the scene template
+## inside of [param target_node].
+func load_buffer(buffer: PackedByteArray, target_node: LDMain):
+	# Save class wide
 	buffer_to_load = buffer
 	pointer = 0
-	# level info
+	
+	# Level info has to be read in order for the level data to be read properly.
+	# For now, print it to console (since there's nowhere better to put it).
 	print("version: ", decode_uint_bytes(read_bytes(1)))
 	print("title: ", decode_string_bytes())
 	print("author: ", decode_string_bytes())
 	print("missions: ", decode_mission_list())
 
-	# item dictionary
+	# Load level's items into nodes.
+	
+	# Prime the loop....
 	var item_id = decode_uint_bytes(read_bytes(2))
-	while item_id != 65535: # end character, [255, 255]
+	# Loop until we reach the end-of-item-array marker.
+	while item_id != ITEM_END_MARKER_VALUE:
+		# Create node for this item.
 		var inst = target_node.ITEM_PREFAB.instantiate()
+		
+		# Load item's properties into their right spot.
+		# Begin by getting a copy of this item type's properties dictionary.
 		var props = target_node.items[item_id].properties
+		# Populate its values from the loaded buffer.
 		for key in props:
 			var val = decode_value_of_type(read_bytes_of_type(props[key]["type"]), props[key]["type"])
 			inst.properties[key] = val
 			inst.update_visual_property(key, val)
+		# Load assorted other important data.
 		inst.texture = load(target_node.item_textures[item_id]["Placed"])
 		inst.item_id = item_id
 		inst.position = inst.properties["Position"]
+		
+		# Add new item node to the right part of the scene tree.
 		target_node.get_node("Template/Items").add_child(inst)
+		
+		# Fetch next item ID.
 		item_id = decode_uint_bytes(read_bytes(2))
-#
-#	# polygons
+	
+	# Load polygons into nodes as well.
+	# The 3 bytes here tell us how many polygons to load.
 	for i in range(decode_uint_bytes(read_bytes(3))):
+		# Create node for this polygon.
 		var inst = target_node.TERRAIN_PREFAB.instantiate()
+		# Load non-polygon data.
 		inst.terrain_material = decode_uint_bytes(read_bytes(2))
 		inst.z_index = decode_sint_bytes(read_bytes(2))
+		
 		var polygon = PackedVector2Array([])
 		var vert_count = decode_uint_bytes(read_bytes(2))
 		print(vert_count)
+		# Load actual polygon shape, vertex by vertex.
 		for j in range(vert_count):
 			polygon.append(decode_vector2_bytes(read_bytes(6)))
+		# Assign it to the node.
 		inst.polygon = polygon
+		
+		# Add new terrain node to the right part of the scene tree.
 		target_node.get_node("Template/Terrain").add_child(inst)
-#
-#	# pipescript
-#	# TODO
-#	return output
+
+	# TODO: Load Pipescript.
+
+	#return output
 
 
+## Reads [param byte_count] bytes from the loaded buffer.
+func read_bytes(byte_count: int) -> PackedByteArray:
+	var output = buffer_to_load.slice(pointer, pointer + byte_count - 1)
+	pointer += byte_count
+	return output
+
+
+## Prints an error to the console, and saves it in the error log.
+func log_error(txt: String):
+	printerr(txt)
+	logged_errors.append(txt)
+
+
+## Returns the byte length of [param type]'s binary representation.
 func get_value_length_from_type(type: String):
+	# TODO: Function returns null for invalid types.
+	# But that makes it impossible to give the function a return type of
+	# int, as would be appropriate.
+	# Null values are never explicitly handled anyway, though....
 	match type:
 		"bool":
 			return 1
@@ -177,10 +257,12 @@ func get_value_length_from_type(type: String):
 			return null
 
 
+## Reads enough bytes to contain a value of type [param type].
 func read_bytes_of_type(type: String):
 	return read_bytes(get_value_length_from_type(type))
 
 
+## Decodes [param bytes] into a value of type [param type].
 func decode_value_of_type(bytes: PackedByteArray, type: String):
 	match type:
 		"bool":
@@ -200,6 +282,7 @@ func decode_value_of_type(bytes: PackedByteArray, type: String):
 			return null
 
 
+## Decodes [param bytes] into a Vector2.
 func decode_vector2_bytes(bytes: PackedByteArray) -> Vector2:
 	var size = bytes.size()
 	var half = size / 2 - 1
@@ -217,11 +300,12 @@ func decode_vector2_bytes(bytes: PackedByteArray) -> Vector2:
 	)
 
 
+## Decodes [param bytes] into a float.
 func decode_float_bytes(bytes: PackedByteArray) -> float:
 	var size = bytes.size()
 	if size > 7:
 		log_error("Cannot encode float in this many bytes due to Godot limitations!")
-		size = 7
+		size = 7 # TODO: Is this the most responsible way to handle this?
 	
 	var variant_buffer = PackedByteArray([3])
 	while variant_buffer.size() + size < 8:
@@ -231,6 +315,7 @@ func decode_float_bytes(bytes: PackedByteArray) -> float:
 	return output
 
 
+## Decodes [param bytes] into an unsigned integer.
 func decode_uint_bytes(bytes: PackedByteArray) -> int:
 	var output: int = 0
 	bytes.reverse()
@@ -239,6 +324,7 @@ func decode_uint_bytes(bytes: PackedByteArray) -> int:
 	return output
 
 
+## Decodes [param bytes] into a signed integer.
 func decode_sint_bytes(bytes: PackedByteArray) -> int:
 	var size = bytes.size()
 	var output: int = 0
@@ -253,6 +339,15 @@ func decode_sint_bytes(bytes: PackedByteArray) -> int:
 	return output
 
 
+## Reads and decodes a UTF-8 string from the loaded buffer.
+func decode_string_bytes() -> String:
+	var length = decode_uint_bytes(read_bytes(3))
+	var output = read_bytes(length).get_string_from_utf8()
+	return output
+
+
+## Reads and decodes this level's mission names and descriptions
+## from the loaded buffer.
 func decode_mission_list() -> Array:
 	var output = []
 	var length = decode_uint_bytes(read_bytes(1))
@@ -261,27 +356,13 @@ func decode_mission_list() -> Array:
 	return output
 
 
-func decode_string_bytes() -> String:
-	var length = decode_uint_bytes(read_bytes(3))
-	var output = read_bytes(length).get_string_from_utf8()
-	return output
-
-
-func read_bytes(num: int) -> PackedByteArray:
-	var output = buffer_to_load.slice(pointer, pointer + num - 1)
-	pointer += num
-	return output
-
-
-func log_error(txt: String):
-	printerr(txt)
-	logged_errors.append(txt)
-
-
-func run_tests(verbose: bool): # a set of unit tests to be run to check if the serialisation is working correctly
+## A set of unit tests to be run to check if the serialisation is working
+## correctly.
+func run_tests(verbose: bool):
 	# arrange
 	print("Serializer tests start! Errors are normal - the tests are checking if the warnings work correctly. Only worry if you see full caps.")
 	var fail = false
+	# Dictionary of 
 	var tests = {
 		"bool": {
 			"bytes": 1,
@@ -316,10 +397,13 @@ func run_tests(verbose: bool): # a set of unit tests to be run to check if the s
 	}
 	# act
 	for key in tests:
+		# Test valid data.
 		if verbose:
 			print("Valid tests for ", key, ":")
 		for input in tests[key].data.valid:
 			fail = fail or test_data(input, key, tests[key].bytes, true, verbose)
+		
+		# Test errors.
 		if verbose:
 			print("Error tests for ", key, ":")
 		for input in tests[key].data.error:
@@ -332,9 +416,9 @@ func run_tests(verbose: bool): # a set of unit tests to be run to check if the s
 		print("Serializer tests OK!")
 
 
-func test_data(input, type: String, num: int, valid: bool, verbose: bool):
+func test_data(input, type: String, byte_count: int, valid: bool, verbose: bool):
 	var fail = false
-	var encoded = encode_value_of_type(input, type, num)
+	var encoded = encode_value_of_type(input, type, byte_count)
 	var decoded = decode_value_of_type(encoded, type)
 	if valid:
 		if decoded != input or logged_errors.size() > 0:
