@@ -15,6 +15,7 @@ theme_override_styles/pressed = ExtResource("3")
 script = ExtResource("2")
 
 [node name="Icon" type="TextureRect" parent="."]
+editor_description = "The icon of the contained item. Using the button's builtin Icon field leads to all kinds of layout troubles, so for simplicity we just layer it over the top as a separate node."
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
