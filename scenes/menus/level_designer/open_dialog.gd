@@ -12,4 +12,4 @@ func _on_OpenDialog_file_selected(path):
 	buffer = file.get_buffer(file.get_length())
 	file.close()
 	var serializer = Serializer.new()
-	serializer.load_buffer(buffer, main)
+	serializer.load_level_binary(buffer, main)

@@ -156,9 +156,9 @@ func encode_mission_list(missions: Array) -> PackedByteArray:
 
 ## Loads a level from binary representation, then adds it to the scene template
 ## inside of [param target_node].
-func load_buffer(buffer: PackedByteArray, target_node: LDMain):
+func load_level_binary(binary_level: PackedByteArray, target_node: LDMain):
 	# Save class wide
-	buffer_to_load = buffer
+	buffer_to_load = binary_level
 	pointer = 0
 	
 	# Level info has to be read in order for the level data to be read properly.
@@ -180,7 +180,7 @@ func load_buffer(buffer: PackedByteArray, target_node: LDMain):
 		# Load item's properties into their right spot.
 		# Begin by getting a copy of this item type's properties dictionary.
 		var props = target_node.items[item_id].properties
-		# Populate its values from the loaded buffer.
+		# Populate its values from the loaded level data.
 		for key in props:
 			var val = decode_value_of_type(read_bytes_of_type(props[key]["type"]), props[key]["type"])
 			inst.properties[key] = val
@@ -222,7 +222,7 @@ func load_buffer(buffer: PackedByteArray, target_node: LDMain):
 	#return output
 
 
-## Reads [param byte_count] bytes from the loaded buffer.
+## Reads [param byte_count] bytes from the loaded level data.
 func read_bytes(byte_count: int) -> PackedByteArray:
 	var output = buffer_to_load.slice(pointer, pointer + byte_count - 1)
 	pointer += byte_count
@@ -339,7 +339,7 @@ func decode_sint_bytes(bytes: PackedByteArray) -> int:
 	return output
 
 
-## Reads and decodes a UTF-8 string from the loaded buffer.
+## Reads and decodes a UTF-8 string from the loaded level data.
 func decode_string_bytes() -> String:
 	var length = decode_uint_bytes(read_bytes(3))
 	var output = read_bytes(length).get_string_from_utf8()
@@ -347,7 +347,7 @@ func decode_string_bytes() -> String:
 
 
 ## Reads and decodes this level's mission names and descriptions
-## from the loaded buffer.
+## from the loaded level data.
 func decode_mission_list() -> Array:
 	var output = []
 	var length = decode_uint_bytes(read_bytes(1))

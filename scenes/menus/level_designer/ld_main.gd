@@ -35,7 +35,7 @@ func _ready():
 	serializer.run_tests(false)
 	
 	if Singleton.ld_buffer != PackedByteArray([]):
-		serializer.load_buffer(Singleton.ld_buffer, self)
+		serializer.load_level_binary(Singleton.ld_buffer, self)
 		Singleton.ld_buffer = PackedByteArray([])
 
 
