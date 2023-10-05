@@ -1,3 +1,4 @@
+class_name LDMain
 extends Node2D
 
 signal editor_state_changed
