@@ -34,12 +34,7 @@ border_color = Color(0.231373, 0.117647, 0, 1)
 corner_detail = 1
 anti_aliasing = false
 
-[sub_resource type="StyleBoxTexture" id="3"]
-texture_margin_left = 6.0
-texture_margin_top = 6.0
-texture_margin_right = 6.0
-texture_margin_bottom = 8.0
-region_rect = Rect2(0, 0, 11, 13)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lqfr"]
 
 [sub_resource type="StyleBoxTexture" id="5"]
 texture_margin_left = 5.0
@@ -80,7 +75,7 @@ PopupMenu/styles/panel = ExtResource("6_g5imp")
 ScrollContainer/styles/bg = SubResource("4")
 ScrollContainer/styles/panel = SubResource("StyleBoxFlat_s6gsb")
 TextEdit/styles/normal = ExtResource("1_bly62")
-VScrollBar/styles/grabber = SubResource("3")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_3lqfr")
 VScrollBar/styles/grabber_highlight = SubResource("5")
 VScrollBar/styles/grabber_pressed = SubResource("6")
 VScrollBar/styles/scroll = SubResource("7")
