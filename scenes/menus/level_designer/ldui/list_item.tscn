@@ -19,6 +19,6 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 expand_mode = 1
-stretch_mode = 4
+stretch_mode = 3
 
 [connection signal="pressed" from="." to="." method="_on_ListItem_pressed"]
