@@ -1,2 +1,6 @@
 TODO:
 - Rewrite and formalize comments in ld_main.gd.
+
+TOFIX:
+- In-level display icons' glow cuts off at the edges.
+- Some in-level display icons move off-center when selected.
