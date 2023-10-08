@@ -2,5 +2,12 @@ TODO:
 - Rewrite and formalize comments in ld_main.gd.
 
 TOFIX:
+- Test serializing Vector2 (1, 1) fails (result: (0, 0)).
+- RMB on LD item causes instant crash.
+
+FIXED:
 - In-level display icons' glow cuts off at the edges.
 - Some in-level display icons move off-center when selected.
+
+FOR FUTURE:
+- Don't let nulti-select area appear until a drag event occurs. Not only is it annoying to see the blue blip anytime I click, but if I place a goomba and koopa right next to each other, it's hard to select only one because the select box immediately picks both. (Depending which one I pick, that is.)
