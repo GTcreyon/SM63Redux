@@ -1,3 +1,4 @@
+class_name LDPlacedItem
 extends Sprite2D
 
 const GLOW_MATERIAL = preload("res://shaders/glow.tres")
