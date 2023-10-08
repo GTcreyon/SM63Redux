@@ -3,6 +3,15 @@ TODO:
 
 TOFIX:
 - Test serializing Vector2 (1, 1) fails (result: (0, 0)).
+- OUTLINE: First Shine Sprite icon in pause menu is invisible due to shader
+- OUTLINE: Sprite offset squishes/expands texture as it goes down/up,
+	proportional to outline width. (An offset of 0,0 looks normal.)
+- OUTLINE: Sprite offset slightly shifts texture along offset direction,
+	also proportional to outline width. When Y offset = -1.5, each outline
+	step moves the sprite 1/16 a pixel upwards.
+- OUTLINE: When the outline is wide enough, bits of neighboring frames
+	will show up on the edges of the bounding box.
+
 - RMB on LD item causes instant crash.
 
 FIXED:
