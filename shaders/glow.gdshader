@@ -18,8 +18,10 @@ void vertex()
 	// Shine Sprites.
 	vec2 expand_vertex = vec2(float(width)) * sign(VERTEX);
 	// Contract the UVs to compensate for the expanded vertex bounds.
-	// TODO: Not yet compatible with multi-frame textures.
-	UV += expand_vertex / (2.0 * abs(VERTEX));
+	UV += (expand_vertex / VERTEX) * UV;
+	// Shift it back to center by one pixel.
+	UV -= float(width) * TEXTURE_PIXEL_SIZE;
+	
 	VERTEX += expand_vertex;
 }
 
@@ -48,6 +50,7 @@ void fragment()
 		}
 	}
 	
+	// DEBUG: Highlight spots outside the texture.
 	//COLOR.rg = sign(abs(UV - clamp(UV, 0.0, 1.0)));
 	//COLOR.ba = vec2(0.0, 1.0);
 }
