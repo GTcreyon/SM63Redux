@@ -5,7 +5,6 @@
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1")
-shader_parameter/width = 1.0
-shader_parameter/recenter = true
+shader_parameter/width = 1
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)

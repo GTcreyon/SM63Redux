@@ -2,43 +2,38 @@
 shader_type canvas_item;
 render_mode unshaded;
 
-uniform float width = 1.;
-uniform bool recenter;
+uniform int width : hint_range(0, 32) = 1;
 uniform bool radial;
 uniform vec4 outline_color : source_color = vec4(1);
 
-varying vec2 extra_movement;
-
 void vertex()
 {
-	// increase the size by the the width, this extra space is needed for the outline
-	extra_movement = TEXTURE_PIXEL_SIZE * width * 2.;
-	VERTEX *= 1. + extra_movement;
-	if (recenter)
-	{
-		VERTEX -= vec2(width);
-	}
+	// Expand the polygon bounds to make space for the outline to show.
+	
+	// Multiply the width by the sign of this vert's position.
+	// Sign of vert is a quick, cheap way to get a "move each edge one pixel
+	// outward" vector, assuming the mesh is a simple quad and the origin is
+	// the exact center.
+	// This is true in most cases currently attested in the game, except for
+	// Shine Sprites.
+	vec2 expand_vertex = vec2(float(width)) * sign(VERTEX);
+	// Contract the UVs to compensate for the expanded vertex bounds.
+	// TODO: Not yet compatible with multi-frame textures.
+	UV += expand_vertex / (2.0 * abs(VERTEX));
+	VERTEX += expand_vertex;
 }
 
-void fragment(){
-	//using capitals here since this is read only
-	vec2 REALUV = UV;
-	// yes it's important to FIRST recenter, THEN inverse the size increase
-	// otherwise the texture will shrink a bit
-	// recenter
-	REALUV -= extra_movement * .5 - TEXTURE_PIXEL_SIZE * .25;
-	// inverse the vertex size increase
-	REALUV /= 1. - extra_movement + TEXTURE_PIXEL_SIZE * .5;
-	
-	COLOR = texture(TEXTURE, REALUV);
-	if(COLOR.a <= 0. || REALUV.x > 1. || REALUV.x < 0. || REALUV.y > 1. || REALUV.y < 0.){
+void fragment() 
+{	
+	COLOR = texture(TEXTURE, UV);
+	if(COLOR.a <= 0. || UV.x > 1. || UV.x < 0. || UV.y > 1. || UV.y < 0.){
 		for(float x = -float(width); x <= float(width); x += 1.){ //idk why this needs to be a float AWNSER: because you can't do int + float, and x is a float
 			for(float y = -float(width); y <= float(width); y += 1.){
 				//exclude pixels outside the mask
 				if(distance(vec2(0), vec2(float(x), float(y))) > float(width) && radial || abs(x) == abs(y) && !radial)
 					continue;
 
-				vec2 neighbor_uv = REALUV + vec2(TEXTURE_PIXEL_SIZE.x * float(x), TEXTURE_PIXEL_SIZE.y * float(y)); 
+				vec2 neighbor_uv = UV + vec2(TEXTURE_PIXEL_SIZE.x * float(x), TEXTURE_PIXEL_SIZE.y * float(y)); 
 
 				//fail when OoB
 				vec4 neighbor_col = texture(TEXTURE, neighbor_uv);
@@ -52,4 +47,7 @@ void fragment(){
 			}
 		}
 	}
+	
+	//COLOR.rg = sign(abs(UV - clamp(UV, 0.0, 1.0)));
+	//COLOR.ba = vec2(0.0, 1.0);
 }
