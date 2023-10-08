@@ -409,14 +409,14 @@ func run_tests(verbose: bool):
 			print("Valid tests for ", typestring, ":")
 		# Test valid data.
 		for input in tests[typestring].data.valid:
-			fail |= test_data(input, typestring, byte_count, true, verbose)
+			fail = fail || test_data(input, typestring, byte_count, true, verbose)
 		
 		if verbose:
 			print("Error tests for ", typestring, ":")
 		# Test that invalid data errors correctly.
 		for input in tests[typestring].data.error:
 			var result = test_data(input, typestring, byte_count, false, verbose)
-			fail |= result
+			fail = fail || result
 			# done in two steps like this to avoid issues with lazy evaluation.
 	# assert ???
 	if fail:
