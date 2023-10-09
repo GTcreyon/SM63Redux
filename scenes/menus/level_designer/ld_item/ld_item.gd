@@ -62,10 +62,22 @@ func _process(_delta):
 		position = main.snap_vector(get_global_mouse_position())
 		properties["Position"] = position
 	
-	# If I have a glow material, make that pulse slowly
+	# If I have a glow material, apply visual effects.
 	if material != null:
+		# Make the glow outline pulse slowly.
 		pulse = fmod((pulse + 0.1), 2 * PI)
 		material.set_shader_parameter("outline_color", Color(1, 1, 1, (sin(pulse) * 0.25 + 0.5) * glow_factor))
+		
+		# Set cel count (# of rows/columns) based on what type the texture is.
+		# By default, assume entire image is one cel.
+		var cel_count := Vector2.ONE
+		# If the source image is from an atlas, instead calculate the number of
+		# cels based on atlas and cel sizes.
+		if texture is AtlasTexture:
+			var trimmed_tex = texture as AtlasTexture
+			cel_count = trimmed_tex.atlas.get_size() / trimmed_tex.get_size()
+		# Send this data to the shader.
+		material.set_shader_parameter("cel_count", cel_count)
 
 
 func set_property(label, value) -> void:
