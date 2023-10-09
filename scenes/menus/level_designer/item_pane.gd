@@ -1,12 +1,12 @@
 extends Control
 
 const LIST_ITEM = preload("./ldui/list_item.tscn")
-const MSG_ICON_LOAD_FAIL = "Failed to load LD item icon from path "
+const MSG_ICON_LOAD_FAIL = "Failed to load LD item icon from path \"%s\"."
 
 const SCROLL_SPEED = 9
 const GRID_THEME_TYPE = ""
 
-@onready var main = $"/root/Main"
+@onready var main: LDMain = $"/root/Main"
 @onready var base = $ItemBlock/ItemScroll
 @onready var grid = $ItemBlock/ItemScroll/ItemGrid
 
@@ -24,11 +24,15 @@ func fill_grid():
 			var tex: Texture
 			
 			# Find the path to this item's icon texture.
-			var path = main.item_textures[item_id]["List"]
-			if path == null:
-				path = main.item_textures[item_id]["Placed"]
+			var path = main.item_textures[item_id].get("List", "")
+			if path == "":
+				path = main.item_textures[item_id].get("Placed", "")
 			
-			if path.ends_with(".png") or path.ends_with(".gif"):
+			if path == "":
+				# No path is defined for this object. Report, then roll with it.
+				print_debug("Item \"%s\" has no assigned icon textures." % main.items[item_id].name)
+				tex = null
+			elif path.ends_with(".png") or path.ends_with(".gif"):
 				# Path is to an image file. Attempt opening it.
 				var stream: CompressedTexture2D = load(path)
 				assert(stream != null, MSG_ICON_LOAD_FAIL + path)
@@ -53,7 +57,10 @@ func fill_grid():
 			elif path.ends_with(".tres"):
 				# Path is to a texture resource. Open it directly,
 				tex = load(path) as Texture
-				assert(tex != null, MSG_ICON_LOAD_FAIL + path)
+				assert(tex != null, MSG_ICON_LOAD_FAIL % path)
+			else:
+				# Path is to something invalid.
+				assert(false, "Path \"%s\" is not to a supported texture file. Supported formats are .png, .gif, and .tres." % path)
 			
 			button.custom_minimum_size = Vector2(32, 32)
 			button.get_node("Icon").texture = tex
