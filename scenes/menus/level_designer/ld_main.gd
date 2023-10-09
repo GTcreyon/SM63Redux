@@ -15,7 +15,7 @@ var items = []
 ## Each entry is a dictionary with the following properties:[br]
 ## - [b]List:[/b] This item's icon in the placeable-item list.[br]
 ## - [b]Placed:[/b] The sprite shown where this item is placed in the actual level.[br]
-var item_textures = []
+var item_textures: Array[Dictionary] = []
 var item_scenes = []
 var in_level = false
 
@@ -216,11 +216,14 @@ func read_items():
 						"texture":
 							# Save the filepaths of the described item's
 							# placed and in-list graphics.
+							
 							var item_id = int(parent_subname)
-							if item_textures.size() < item_id + 1:
-								item_textures.resize(item_id + 1)
-							if item_textures[item_id] == null:
-								item_textures[item_id] = {"Placed": null, "List": null}
+							
+							# Item textures dictionary should have been initted
+							# when the item was first read in. Assert that.
+							assert(not item_textures[item_id].is_empty(),
+								"Item %s \"%s\" has no initialized texture dictionary!" % [item_id, items[item_id].name])
+							
 							var path = parser.get_named_attribute_value_safe("path")
 							item_textures[item_id][parser.get_named_attribute_value_safe("tag")] = path
 						"implement":
@@ -232,7 +235,7 @@ func read_items():
 							#inherit_class(items, parent_subname, parent_name, parser)
 							pass
 				
-				# Not sure what's going on here.
+				# Parse object root nodes.
 				if allow_reparent:
 					# Reparent the node if needed.
 					if node_name == "class":
@@ -250,11 +253,14 @@ func read_items():
 						# Ensure the array can fit item_id as an index.
 						if items.size() < item_id + 1:
 							items.resize(item_id + 1)
+							item_textures.resize(item_id + 1)
 						# Add this item to the list.
 						items[item_id] = {
 							name = parser.get_named_attribute_value_safe("name"),
 							properties = {},
 						}
+						# Initialize item's texture dictionary.
+						item_textures[item_id] = {"Placed": null, "List": null}
 						
 						# Save ID as next node's parent subname.
 						parent_subname = subname

@@ -24,11 +24,11 @@ func fill_grid():
 			var tex: Texture
 			
 			# Find the path to this item's icon texture.
-			var path = main.item_textures[item_id].get("List", "")
-			if path == "":
-				path = main.item_textures[item_id].get("Placed", "")
+			var path = main.item_textures[item_id]["List"]
+			if path == null:
+				path = main.item_textures[item_id]["Placed"]
 			
-			if path == "":
+			if path == null:
 				# No path is defined for this object. Report, then roll with it.
 				print_debug("Item \"%s\" has no assigned icon textures." % main.items[item_id].name)
 				tex = null
