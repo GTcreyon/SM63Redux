@@ -191,13 +191,13 @@ func read_items():
 					# return anything or have any side effects.
 					# Other than possibly modifying the parser's internal state,
 					# which shouldn't happen with normal attribute reads I think.
-					#match node_name:
-					#	"property":
-					#		register_property(item_classes, parent_subname, parent_name, parser)
-					#	"implement":
-					#		implement_property(item_classes, parent_subname, parent_name, parser)
-					#	"inherit":
-					#		inherit_class(item_classes, parent_subname, parent_name, parser)
+					match node_name:
+						"property":
+							register_property(item_classes, parent_subname, parent_name, parser)
+						"implement":
+							implement_property(item_classes, parent_subname, parent_name, parser)
+						"inherit":
+							inherit_class(item_classes, parent_subname, parent_name, parser)
 					pass
 				elif parent_name == "item":
 					# Parent node is an item. Parse children of an item.
@@ -211,8 +211,7 @@ func read_items():
 							item_scenes[item_id] = path
 						"property":
 							# Does nothing.
-							#register_property(items, parent_subname, parent_name, parser)
-							pass
+							register_property(items, parent_subname, parent_name, parser)
 						"texture":
 							# Save the filepaths of the described item's
 							# placed and in-list graphics.
@@ -228,12 +227,10 @@ func read_items():
 							item_textures[item_id][parser.get_named_attribute_value_safe("tag")] = path
 						"implement":
 							# Currently does nothing.
-							#implement_property(items, parent_subname, parent_name, parser)
-							pass
+							implement_property(items, parent_subname, parent_name, parser)
 						"inherit":
 							# Currently does nothing.
-							#inherit_class(items, parent_subname, parent_name, parser)
-							pass
+							inherit_class(items, parent_subname, parent_name, parser)
 				
 				# Parse object root nodes.
 				if allow_reparent:
@@ -283,23 +280,27 @@ func read_items():
 
 ## Returns:
 ## - Nothing? item_class_properties is declared in-function, never returned....
-func register_property(target: Dictionary, subname: String, type: String, parser: XMLParser):
+func register_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
+	
 	if type == "item":
 		item_class_properties = target[int(subname)].properties
 	else:
 		item_class_properties = target[subname]
+	
 	item_class_properties[parser.get_named_attribute_value("label")] = collect_property_values(parser)
 
 
 ## Returns:
 ## Nothing? item_class_properties is declared in-function, never returned....
-func implement_property(target: Dictionary, subname: String, type: String, parser: XMLParser):
+func implement_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
+	
 	if type == "item":
 		item_class_properties = target[int(subname)].properties
 	else:
 		item_class_properties = target[subname]
+	
 	var prop_name = parser.get_named_attribute_value("label")
 	var get_prop = parser.get_named_attribute_value("name")
 	# NOTE: should we dupe this?
@@ -325,12 +326,14 @@ func collect_property_values(parser: XMLParser):
 
 ## Returns:
 ## Nothing? item_class_properties is declared in-function, never returned....
-func inherit_class(target: Dictionary, subname: String, type: String, parser: XMLParser):
+func inherit_class(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
+	
 	if type == "item":
 		item_class_properties = target[int(subname)].properties
 	else:
 		item_class_properties = target[subname]
+	
 	var parent_class = item_classes[parser.get_named_attribute_value("name")]
 	for key in parent_class:
 		item_class_properties[key] = parent_class[key]
