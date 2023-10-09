@@ -6,7 +6,7 @@ extends StaticBody2D
 
 func set_disabled(val):
 	disabled = val
-	set_collision_layer_value(0, 0 if val else 1)
+	set_collision_layer_value(1, 0 if val else 1)
 
 
 func set_mirror(val):
