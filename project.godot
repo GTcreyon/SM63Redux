@@ -414,6 +414,10 @@ altdebug={
 
 pointing/emulate_touch_from_mouse=true
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://locale/translations/es.po", "res://locale/translations/fr.po", "res://locale/translations/it_IT.po", "res://locale/translations/nl.po", "res://locale/translations/pt_BR.po")
+
 [layer_names]
 
 2d_physics/layer_1="terrain"
