@@ -10,7 +10,12 @@ enum EDITOR_STATE { IDLE, PLACING, SELECTING, DRAGGING, POLYGON_CREATE, POLYGON_
 
 var item_classes = {}
 var item_static_properties = {}
-var items = []
+## Definitions for each type of item that can be placed.
+## Each entry is a dictionary with the following properties:[br]
+## - [b]"name":[/b] This item's displayed name.[br]
+## - [b]"properties":[/b] A dictionary of the item's editable properties.
+##		TODO: This is never actually written, so its format is unclear.
+var items: Array[Dictionary] = []
 ## Graphics for items to use.
 ## Each entry is a dictionary with the following properties:[br]
 ## - [b]List:[/b] This item's icon in the placeable-item list.[br]
