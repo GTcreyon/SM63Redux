@@ -56,7 +56,7 @@ func set_disabled(val):
 		safety_net = $SafetyNet
 	safety_net.monitoring = !val
 	
-	var carrier_node = get_node(get_path())
+	var carrier_node = self
 	if carrier_node is StaticBody2D:
 		carrier_node.set_collision_layer_value(1, 0 if val else 1)
 	# Hack solution to allow inheriting in classes that aren't StaticBody2D
