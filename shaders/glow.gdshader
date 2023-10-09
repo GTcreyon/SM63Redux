@@ -5,6 +5,9 @@ render_mode unshaded;
 uniform int width : hint_range(0, 32) = 1;
 uniform bool radial;
 uniform vec4 outline_color : source_color = vec4(1);
+// Number of cels in this object's spritesheet, across and down.
+// Assumes a grid arrangement.
+uniform vec2 cel_count = vec2(1,1);
 
 void vertex()
 {
@@ -19,10 +22,17 @@ void vertex()
 	vec2 expand_vertex = vec2(float(width)) * sign(VERTEX);
 	vec2 expand_factor = VERTEX / (VERTEX + expand_vertex);
 	
+	// Figure out which cel of the spritesheet we're currently in.
+	vec2 cel_index = vec2(UV * cel_count) - vec2(1);
+	// Outer edge thinks it's in the next cel over by position.
+	// Account for that.
+	cel_index -= min(sign(VERTEX), vec2(0));
+	
 	// Contract the UVs to compensate for the expanded vertex bounds.
 	UV /= expand_factor;
-	// Shift it back to center by one pixel.
-	UV -= float(width) * TEXTURE_PIXEL_SIZE;
+	// Shift it back to center by two pixels per cel traveled from top-left,
+	// plus one.
+	UV -= float(width) * TEXTURE_PIXEL_SIZE * (2.0 * cel_index + vec2(1));
 	
 	VERTEX += expand_vertex;
 }
@@ -54,5 +64,6 @@ void fragment()
 	
 	// DEBUG: Highlight spots outside the texture.
 	//COLOR.rg = sign(abs(UV - clamp(UV, 0.0, 1.0)));
+	//COLOR.rg = UV.rg;
 	//COLOR.ba = vec2(0.0, 1.0);
 }
