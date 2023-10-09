@@ -6,7 +6,7 @@ const INPUT_VECTOR2 = preload("../fields/vector2/input_vector2.tscn")
 var properties: Dictionary = {}
 var target_node: Node = null
 @onready var list: VBoxContainer = $PropertyList
-@onready var main = $"/root/Main"
+@onready var main: LDMain = $"/root/Main"
 
 
 func _input(event):
@@ -31,30 +31,35 @@ func clear_children():
 		child.queue_free()
 
 
-func set_properties(new_properties, node):
+func set_properties(new_properties: Dictionary, node: LDPlacedItem):
 	properties = new_properties
 	clear_children()
 	
-	for key in new_properties:
+	for propname in new_properties:
 		var inst = null
-		var val = new_properties[key]
-		match main.items[node.item_id].properties[key]["type"]:
+		var val = new_properties[propname]
+		
+		# Create the appropriate field for properties of this type,
+		# and show the property's value in it.
+		# If no instance exists after this step, the type is invalid.
+		match main.items[node.item_id].properties[propname]["type"]:
 			"Vector2":
 				inst = INPUT_VECTOR2.instantiate()
-				inst.get_node("Label").text = key
-				inst.pre_value = Vector2.ZERO if val == null else new_properties[key]
+				inst.get_node("Label").text = propname
+				inst.pre_value = Vector2.ZERO if val == null else new_properties[propname]
 			"bool":
 				inst = TICKBOX.instantiate()
-				inst.get_node("Label").text = key
-				inst.button_pressed = new_properties[key]
+				inst.get_node("Label").text = propname
+				inst.button_pressed = new_properties[propname]
 			"uint", "sint":
 				inst = INPUT_NUMBER.instantiate()
-				inst.get_node("Label").text = key
+				inst.get_node("Label").text = propname
 				inst.pre_text = str(0 if val == null else val)
 			"float":
 				inst = INPUT_NUMBER.instantiate()
-				inst.get_node("Label").text = key
+				inst.get_node("Label").text = propname
 				inst.pre_text = str(0 if val == null else val)
+		# If instance exists (type was recognized), put it in the display box.
 		if inst != null:
 			list.add_child(inst)
 	
