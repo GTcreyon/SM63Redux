@@ -8,4 +8,4 @@ shader = ExtResource("1")
 shader_parameter/width = 1
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
-shader_parameter/cel_count = Vector2(6, 3)
+shader_parameter/cel_count = Vector2(1, 1)
