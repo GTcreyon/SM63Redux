@@ -58,7 +58,7 @@ func set_disabled(val):
 	
 	var carrier_node = get_node(get_path())
 	if carrier_node is StaticBody2D:
-		carrier_node.set_collision_layer_value(0, 0 if val else 1)
+		carrier_node.set_collision_layer_value(1, 0 if val else 1)
 	# Hack solution to allow inheriting in classes that aren't StaticBody2D
 	# Hoping 4.0 will have a way to avoid this
 	# If anyone knows a solution in the short-term, please speak up!
