@@ -2,7 +2,7 @@ class_name FluddBox
 extends Area2D
 # Box that drops a fludd nozzle when stomped.
 
-@export var nozzle: FluddPickup.Nozzles# = FluddPickup.Nozzles.HOVER
+@export var nozzle: FluddPickup.Nozzles = FluddPickup.Nozzles.HOVER
 
 var PICKUP_PREFABS = [
 	preload("./fludd_pickup_hover.tscn"),
