@@ -50,7 +50,7 @@ func set_properties(new_properties: Dictionary, node: LDPlacedItem):
 			"bool":
 				inst = TICKBOX.instantiate()
 				inst.get_node("Label").text = propname
-				inst.button_pressed = new_properties[propname]
+				inst.pressed = new_properties[propname]
 			"uint", "sint":
 				inst = INPUT_NUMBER.instantiate()
 				inst.get_node("Label").text = propname
