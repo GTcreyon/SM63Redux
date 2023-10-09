@@ -17,8 +17,10 @@ void vertex()
 	// This is true in most cases currently attested in the game, except for
 	// Shine Sprites.
 	vec2 expand_vertex = vec2(float(width)) * sign(VERTEX);
+	vec2 expand_factor = VERTEX / (VERTEX + expand_vertex);
+	
 	// Contract the UVs to compensate for the expanded vertex bounds.
-	UV += (expand_vertex / VERTEX) * UV;
+	UV /= expand_factor;
 	// Shift it back to center by one pixel.
 	UV -= float(width) * TEXTURE_PIXEL_SIZE;
 	
