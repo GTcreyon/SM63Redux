@@ -89,10 +89,10 @@ func encode_float_bytes(val: float, byte_count: int) -> PackedByteArray:
 		log_error("Floats cannot be encoded in more than 7 bytes due to Godot limitations. Reducing to 7 bytes....")
 		byte_count = 7
 	
-	var arr = var_to_bytes(val)
+	var arr := var_to_bytes(val)
 	# cut off icky variant data
 	var size = arr.size()
-	return arr.subarray(size - byte_count, size - 1)
+	return arr.slice(size - byte_count, size - 1)
 
 
 ## Encodes a signed integer as a binary byte array.
