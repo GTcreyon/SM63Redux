@@ -156,7 +156,7 @@ func encode_mission_list(missions: Array) -> PackedByteArray:
 
 ## Loads a level from binary representation, then adds it to the scene template
 ## inside of [param target_node].
-func load_level_binary(binary_level: PackedByteArray, target_node: LDMain):
+func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 	# Save class wide
 	buffer_to_load = binary_level
 	pointer = 0
