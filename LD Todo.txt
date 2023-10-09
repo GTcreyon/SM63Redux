@@ -11,6 +11,7 @@ TOFIX:
 	step moves the sprite 1/16 a pixel upwards.
 - OUTLINE: When the outline is wide enough, bits of neighboring frames
 	will show up on the edges of the bounding box.
+- OUTLINE: Multi-select looks wrong for items that use different sprite sheets.
 
 FIXED:
 - In-level display icons' glow cuts off at the edges.
