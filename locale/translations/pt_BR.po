@@ -368,7 +368,7 @@ msgid ""
 "to go this way?"
 msgstr ""
 "[@n,Dill Board]Cuidado com seu passo,[@p,3] amigo![@p,10] Há algumas "
-"desagradáveis [cor=#f7c55f]bob-ombs [/color]atrás desta pedra.[@p,10] Oh,"
+"desagradáveis [color=#f7c55f]bob-ombs [/color]atrás desta pedra.[@p,10] Oh,"
 "[@p,3] você precisa ir por esse caminho?"
 
 #: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
