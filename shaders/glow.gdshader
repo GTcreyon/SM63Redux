@@ -40,22 +40,32 @@ void vertex()
 void fragment() 
 {	
 	COLOR = texture(TEXTURE, UV);
-	if(COLOR.a <= 0. || UV.x > 1. || UV.x < 0. || UV.y > 1. || UV.y < 0.){
-		for(float x = -float(width); x <= float(width); x += 1.){ //idk why this needs to be a float AWNSER: because you can't do int + float, and x is a float
-			for(float y = -float(width); y <= float(width); y += 1.){
-				//exclude pixels outside the mask
-				if(distance(vec2(0), vec2(float(x), float(y))) > float(width) && radial || abs(x) == abs(y) && !radial)
+	if(COLOR.a <= 0. || UV.x > 1. || UV.x < 0. || UV.y > 1. || UV.y < 0.) {
+		float widthf = float(width); // Not to be confused with fwidth!
+		
+		//idk why this needs to be a float
+		//AWNSER: because you can't do int + float, and x is a float
+		for (float x = -widthf; x <= widthf; x += 1.) {
+			for (float y = -widthf; y <= widthf; y += 1.) {
+				// don't count pixels outside the mask
+				if (
+					radial && distance(vec2(0), vec2(x, y)) > widthf ||
+					!radial && abs(x) == abs(y)
+				)
 					continue;
 
-				vec2 neighbor_uv = UV + vec2(TEXTURE_PIXEL_SIZE.x * float(x), TEXTURE_PIXEL_SIZE.y * float(y)); 
-
-				//fail when OoB
+				vec2 neighbor_uv = UV + vec2(TEXTURE_PIXEL_SIZE.x * float(x),
+					TEXTURE_PIXEL_SIZE.y * float(y));
 				vec4 neighbor_col = texture(TEXTURE, neighbor_uv);
-				if((neighbor_uv.x < 0. || neighbor_uv.x > 1.) || (neighbor_uv.y < 0. || neighbor_uv.y > 1.)){
+
+				// pixels outsize the UV area fail automatically
+				// (clamping only changes values outside the wanted area--
+				// which means detecting change means detecting those values.)
+				if (clamp(neighbor_uv, 0, 1) != neighbor_uv) {
 					neighbor_col = vec4(0);
 				}
 
-				if(neighbor_col.a > 0.){
+				if (neighbor_col.a > 0.) {
 					COLOR = outline_color;
 				}
 			}
