@@ -377,7 +377,7 @@ func read_bytes(byte_count: int) -> PackedByteArray:
 		"Trying to read %s bytes when there's just %s bytes left in the buffer!" %
 		[byte_count, buffer_to_load.size() - pointer])
 	
-	var output = buffer_to_load.slice(pointer, pointer + byte_count - 1)
+	var output = buffer_to_load.slice(pointer, pointer + byte_count)
 	pointer += byte_count
 	return output
 
