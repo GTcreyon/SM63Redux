@@ -193,7 +193,7 @@ func decode_value_of_type(bytes: PackedByteArray, type: String):
 			return null
 
 
-## Encodes a Vector2 as a binary byte array.
+## Encodes a Vector2 as a binary byte array, discarding the decimal portion.
 func encode_vector2_bytes(val: Vector2, byte_count: int) -> PackedByteArray:
 	var half = byte_count >> 1
 	var output = encode_sint_bytes(int(val.x), half)
@@ -219,7 +219,9 @@ func decode_vector2_bytes(bytes: PackedByteArray) -> Vector2:
 	)
 
 
-## Encodes a float as a binary byte array.
+## Encodes a float as a binary byte array [param byte_count] bytes long.[br]
+## Due to engine limitations, [param byte_count] maxes out at 7 bytes. Any
+## larger number of bytes will be clamped.
 func encode_float_bytes(val: float, byte_count: int) -> PackedByteArray:
 	var output = PackedByteArray([])
 	if byte_count > 7:
@@ -232,15 +234,14 @@ func encode_float_bytes(val: float, byte_count: int) -> PackedByteArray:
 	return arr.slice(size - byte_count, size - 1)
 
 
-## Decodes [param bytes] into a float.
+## Decodes [param bytes] into a float.[br]
+## Due to engine limitations, floats max out at 7 bytes of useful data. Any
+## bytes past that number will be ignored.
 func decode_float_bytes(bytes: PackedByteArray) -> float:
 	var size = bytes.size()
 	if size > 7:
 		log_error("Cannot encode float in this many bytes due to Godot limitations!")
 		size = 7
-		# TODO: Is this the most responsible way to handle this? Truncating
-		# the read to 7 bytes and trusting that the user didn't *reeeeally*
-		# mean >7?
 	
 	var variant_buffer = PackedByteArray([3])
 	while variant_buffer.size() + size < 8:
@@ -250,7 +251,8 @@ func decode_float_bytes(bytes: PackedByteArray) -> float:
 	return output
 
 
-## Encodes a signed integer as a binary byte array.
+## Encodes a signed integer as a binary byte array [param byte_count] bytes
+## long.
 func encode_sint_bytes(val: int, byte_count: int) -> PackedByteArray:
 	# Internally, this validates the passed int, then passes it off to
 	# _encode_int_bytes(...).
@@ -275,7 +277,8 @@ func decode_sint_bytes(bytes: PackedByteArray) -> int:
 	return output
 
 
-## Encodes an unsigned integer as a binary byte array.
+## Encodes an unsigned integer as a binary byte array [param byte_count] bytes
+## long.
 func encode_uint_bytes(val: int, byte_count: int) -> PackedByteArray:
 	# Internally, this validates the passed int, then passes it off to
 	# _encode_int_bytes(...).
@@ -314,8 +317,8 @@ func _encode_int_bytes(val: int, byte_count: int) -> PackedByteArray:
 	return output
 
 
-## Encodes a string as a binary byte array.
-## Resulting array begins with the size of the text (3 bytes),
+## Encodes a string as a binary byte array.[br]
+## Result begins with the size of the text (3 bytes),
 ## followed by the text in UTF-8 format.
 func encode_string_bytes(txt: String) -> PackedByteArray:
 	var arr = txt.to_utf8_buffer()
@@ -324,15 +327,19 @@ func encode_string_bytes(txt: String) -> PackedByteArray:
 	return output
 
 
-## Reads and decodes a UTF-8 string from the loaded level data.
-## Begins by reading 3 bytes
+## Reads and decodes a UTF-8 string from the loaded level data.[br]
+## Begins by reading the size of the text (3 bytes),
+## followed by the text in UTF-8 format.
 func decode_string_bytes() -> String:
 	var length = decode_uint_bytes(read_bytes(3))
 	var output = read_bytes(length).get_string_from_utf8()
 	return output
 
 
-## Encodes this level's mission names and descriptions as a binary byte array.
+## Encodes this level's mission names and descriptions as a binary byte array.[br]
+## Result begins with the mission count (1 byte), followed by each mission's
+## name as a string, formatted as with [method encode_string_bytes] and [method
+## decode_string_bytes].
 func encode_mission_list(missions: Array) -> PackedByteArray:
 	var output = encode_uint_bytes(missions.size(), 1)
 	for mission in missions:
@@ -342,7 +349,10 @@ func encode_mission_list(missions: Array) -> PackedByteArray:
 
 
 ## Reads and decodes this level's mission names and descriptions
-## from the loaded level data.
+## from the loaded level data.[br]
+## Begins by reading the mission count (1 byte), followed by each mission's
+## name as a string, formatted as with [method encode_string_bytes] and [method
+## decode_string_bytes].
 func decode_mission_list() -> Array:
 	var output = []
 	var length = decode_uint_bytes(read_bytes(1))
