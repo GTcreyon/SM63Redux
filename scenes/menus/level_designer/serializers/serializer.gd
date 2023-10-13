@@ -85,10 +85,12 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 		# Begin by getting a copy of this item type's properties dictionary.
 		var props = target_node.items[item_id].properties
 		# Populate its values from the loaded level data.
-		for key in props:
-			var val = decode_value_of_type(read_bytes_of_type(props[key]["type"]), props[key]["type"])
-			inst.properties[key] = val
-			inst.update_visual_property(key, val)
+		for propname in props:
+			var val = decode_value_of_type(
+				read_bytes_of_type(props[propname]["type"]),
+				props[propname]["type"])
+			inst.properties[propname] = val
+			inst.update_visual_property(propname, val)
 		# Load assorted other important data.
 		inst.texture = load(target_node.item_textures[item_id]["Placed"])
 		inst.item_id = item_id
