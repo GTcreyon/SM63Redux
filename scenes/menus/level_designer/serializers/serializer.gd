@@ -243,11 +243,17 @@ func decode_float_bytes(bytes: PackedByteArray) -> float:
 		log_error("Cannot encode float in this many bytes due to Godot limitations!")
 		size = 7
 	
-	var variant_buffer = PackedByteArray([3])
+	# Construct a float from raw bytes.
+	# To work as a Godot Variant value, begin with a type marker.
+	var variant_buffer = PackedByteArray([TYPE_FLOAT])
+	# If the source bytes plus the type marker will total fewer than 8 bytes,
+	# pad with zeroes.
 	while variant_buffer.size() + size < 8:
 		variant_buffer.append(0)
+	# Add in the source bytes and convert to a float.
 	variant_buffer.append_array(bytes)
 	var output = bytes_to_var(variant_buffer)
+	
 	return output
 
 
