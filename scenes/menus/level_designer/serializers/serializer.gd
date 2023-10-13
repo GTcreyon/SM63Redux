@@ -206,16 +206,16 @@ func encode_vector2_bytes(val: Vector2, byte_count: int) -> PackedByteArray:
 ## Decodes [param bytes] into a Vector2.
 func decode_vector2_bytes(bytes: PackedByteArray) -> Vector2:
 	var size = bytes.size()
-	var half = size / 2 - 1
+	var half = size / 2
 	return Vector2(
 		decode_sint_bytes(
 			bytes.slice(
-				0, half
+				0, half - 1
 			)
 		),
 		decode_sint_bytes(
 			bytes.slice(
-				half + 1, size - 1
+				half, size - 1
 			)
 		)
 	)
