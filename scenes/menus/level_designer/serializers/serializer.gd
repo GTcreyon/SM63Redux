@@ -128,6 +128,31 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 	#return output
 
 
+## Encodes this level's mission names and descriptions as a binary byte array.[br]
+## Result begins with the mission count (1 byte), followed by each mission's
+## name as a string, formatted as with [method encode_string_bytes] and [method
+## decode_string_bytes].
+func encode_mission_list(missions: Array) -> PackedByteArray:
+	var output = encode_uint_bytes(missions.size(), 1)
+	for mission in missions:
+		output.append_array(encode_string_bytes(mission[0]))
+		output.append_array(encode_string_bytes(mission[1]))
+	return output
+
+
+## Reads and decodes this level's mission names and descriptions
+## from the loaded level data.[br]
+## Begins by reading the mission count (1 byte), followed by each mission's
+## name as a string, formatted as with [method encode_string_bytes] and [method
+## decode_string_bytes].
+func decode_mission_list() -> Array:
+	var output = []
+	var length = decode_uint_bytes(read_bytes(1))
+	for i in range(length):
+		output.append([decode_string_bytes(), decode_string_bytes()])
+	return output
+
+
 ## Returns the byte length of [param type]'s binary representation.
 func get_value_length_from_type(type: String):
 	# TODO: Function returns null for invalid types.
@@ -341,31 +366,6 @@ func encode_string_bytes(txt: String) -> PackedByteArray:
 func decode_string_bytes() -> String:
 	var length = decode_uint_bytes(read_bytes(3))
 	var output = read_bytes(length).get_string_from_utf8()
-	return output
-
-
-## Encodes this level's mission names and descriptions as a binary byte array.[br]
-## Result begins with the mission count (1 byte), followed by each mission's
-## name as a string, formatted as with [method encode_string_bytes] and [method
-## decode_string_bytes].
-func encode_mission_list(missions: Array) -> PackedByteArray:
-	var output = encode_uint_bytes(missions.size(), 1)
-	for mission in missions:
-		output.append_array(encode_string_bytes(mission[0]))
-		output.append_array(encode_string_bytes(mission[1]))
-	return output
-
-
-## Reads and decodes this level's mission names and descriptions
-## from the loaded level data.[br]
-## Begins by reading the mission count (1 byte), followed by each mission's
-## name as a string, formatted as with [method encode_string_bytes] and [method
-## decode_string_bytes].
-func decode_mission_list() -> Array:
-	var output = []
-	var length = decode_uint_bytes(read_bytes(1))
-	for i in range(length):
-		output.append([decode_string_bytes(), decode_string_bytes()])
 	return output
 
 
