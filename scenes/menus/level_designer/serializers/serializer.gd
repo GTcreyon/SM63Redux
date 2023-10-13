@@ -54,106 +54,6 @@ func generate_level_binary(
 	return output
 
 
-## Encodes value in its [param type]'s appropriate binary representation.
-func encode_value_of_type(val, type: String, byte_count: int) -> PackedByteArray:
-	match type:
-		"bool":
-			return PackedByteArray([val])
-		"uint":
-			return encode_uint_bytes(val, byte_count)
-		"sint":
-			return encode_sint_bytes(val, byte_count)
-		"float":
-			return encode_float_bytes(val, byte_count)
-		"Vector2":
-			return encode_vector2_bytes(val, byte_count)
-		"String":
-			return encode_string_bytes(val)
-		_:
-			log_error("Unknown datatype!")
-			return PackedByteArray([])
-
-
-## Encodes a Vector2 as a binary byte array.
-func encode_vector2_bytes(val: Vector2, byte_count: int) -> PackedByteArray:
-	var half = byte_count >> 1
-	var output = encode_sint_bytes(int(val.x), half)
-	output.append_array(encode_sint_bytes(int(val.y), half))
-	return output
-
-
-## Encodes a float as a binary byte array.
-func encode_float_bytes(val: float, byte_count: int) -> PackedByteArray:
-	var output = PackedByteArray([])
-	if byte_count > 7:
-		log_error("Floats cannot be encoded in more than 7 bytes due to Godot limitations. Reducing to 7 bytes....")
-		byte_count = 7
-	
-	var arr := var_to_bytes(val)
-	# cut off icky variant data
-	var size = arr.size()
-	return arr.slice(size - byte_count, size - 1)
-
-
-## Encodes a signed integer as a binary byte array.
-func encode_sint_bytes(val: int, byte_count: int) -> PackedByteArray:
-	# Internally, this validates the passed int, then passes it off to
-	# _encode_int_bytes(...).
-	
-	if abs(val) > (1 << ((byte_count << 3) - 1)):
-		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: sint" % [val, byte_count])
-	return _encode_int_bytes(val, byte_count)
-
-
-## Encodes an unsigned integer as a binary byte array.
-func encode_uint_bytes(val: int, byte_count: int) -> PackedByteArray:
-	# Internally, this validates the passed int, then passes it off to
-	# _encode_int_bytes(...).
-	
-	# val - value to encode
-	# byte_count - number of bytes
-	if val < 0:
-		log_error("%d is negative - this is an unsigned integer, and cannot encode negative values. Corruption may occur!" % val)
-	if abs(val) >= (1 << (byte_count << 3)):
-		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: uint" % [val, byte_count])
-	return _encode_int_bytes(val, byte_count)
-
-
-# Internal function that encodes any integer as a binary byte array.
-func _encode_int_bytes(val: int, byte_count: int) -> PackedByteArray:
-	var output = PackedByteArray([])
-	for i in range(byte_count):
-		var byte = (
-			val >> (
-				(
-					byte_count - i - 1
-				) << 3
-			) # cut off everything before this byte
-			& 255 # cut off everything after this byte
-		)
-		output.append(byte)
-	return output
-
-
-## Encodes a string as a binary byte array.
-## Resulting array begins with the size of the text (3 bytes),
-## followed by the text in UTF-8 format.
-func encode_string_bytes(txt: String) -> PackedByteArray:
-	var arr = txt.to_utf8_buffer()
-	var output = encode_uint_bytes(arr.size(), 3)
-	output.append_array(arr)
-	return output
-
-
-## Encodes this level's mission names and descriptions as a binary byte array.
-func encode_mission_list(missions: Array) -> PackedByteArray:
-	var output = encode_uint_bytes(missions.size(), 1)
-	for mission in missions:
-		output.append_array(encode_string_bytes(mission[0]))
-		output.append_array(encode_string_bytes(mission[1]))
-	return output
-
-
 ## Loads a level from binary representation, then adds it to the scene template
 ## inside of [param target_node].
 func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
@@ -226,24 +126,6 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 	#return output
 
 
-## Reads [param byte_count] bytes from the loaded level data.
-func read_bytes(byte_count: int) -> PackedByteArray:
-	# Assert that there's enough bytes left to read.
-	assert(pointer + byte_count - 1 < buffer_to_load.size(),
-		"Trying to read %s bytes when there's just %s bytes left in the buffer!" %
-		[byte_count, buffer_to_load.size() - pointer])
-	
-	var output = buffer_to_load.slice(pointer, pointer + byte_count - 1)
-	pointer += byte_count
-	return output
-
-
-## Prints an error to the console, and saves it in the error log.
-func log_error(txt: String):
-	printerr(txt)
-	logged_errors.append(txt)
-
-
 ## Returns the byte length of [param type]'s binary representation.
 func get_value_length_from_type(type: String):
 	# TODO: Function returns null for invalid types.
@@ -271,6 +153,26 @@ func read_bytes_of_type(type: String):
 	return read_bytes(get_value_length_from_type(type))
 
 
+## Encodes value in its [param type]'s appropriate binary representation.
+func encode_value_of_type(val, type: String, byte_count: int) -> PackedByteArray:
+	match type:
+		"bool":
+			return PackedByteArray([val])
+		"uint":
+			return encode_uint_bytes(val, byte_count)
+		"sint":
+			return encode_sint_bytes(val, byte_count)
+		"float":
+			return encode_float_bytes(val, byte_count)
+		"Vector2":
+			return encode_vector2_bytes(val, byte_count)
+		"String":
+			return encode_string_bytes(val)
+		_:
+			log_error("Unknown datatype!")
+			return PackedByteArray([])
+
+
 ## Decodes [param bytes] into a value of type [param type].
 func decode_value_of_type(bytes: PackedByteArray, type: String):
 	match type:
@@ -291,6 +193,14 @@ func decode_value_of_type(bytes: PackedByteArray, type: String):
 			return null
 
 
+## Encodes a Vector2 as a binary byte array.
+func encode_vector2_bytes(val: Vector2, byte_count: int) -> PackedByteArray:
+	var half = byte_count >> 1
+	var output = encode_sint_bytes(int(val.x), half)
+	output.append_array(encode_sint_bytes(int(val.y), half))
+	return output
+
+
 ## Decodes [param bytes] into a Vector2.
 func decode_vector2_bytes(bytes: PackedByteArray) -> Vector2:
 	var size = bytes.size()
@@ -307,6 +217,19 @@ func decode_vector2_bytes(bytes: PackedByteArray) -> Vector2:
 			)
 		)
 	)
+
+
+## Encodes a float as a binary byte array.
+func encode_float_bytes(val: float, byte_count: int) -> PackedByteArray:
+	var output = PackedByteArray([])
+	if byte_count > 7:
+		log_error("Floats cannot be encoded in more than 7 bytes due to Godot limitations. Reducing to 7 bytes....")
+		byte_count = 7
+	
+	var arr := var_to_bytes(val)
+	# cut off icky variant data
+	var size = arr.size()
+	return arr.slice(size - byte_count, size - 1)
 
 
 ## Decodes [param bytes] into a float.
@@ -327,13 +250,14 @@ func decode_float_bytes(bytes: PackedByteArray) -> float:
 	return output
 
 
-## Decodes [param bytes] into an unsigned integer.
-func decode_uint_bytes(bytes: PackedByteArray) -> int:
-	var output: int = 0
-	bytes.reverse()
-	for i in range(bytes.size()):
-		output += bytes[i] << (i << 3)
-	return output
+## Encodes a signed integer as a binary byte array.
+func encode_sint_bytes(val: int, byte_count: int) -> PackedByteArray:
+	# Internally, this validates the passed int, then passes it off to
+	# _encode_int_bytes(...).
+	
+	if abs(val) > (1 << ((byte_count << 3) - 1)):
+		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: sint" % [val, byte_count])
+	return _encode_int_bytes(val, byte_count)
 
 
 ## Decodes [param bytes] into a signed integer.
@@ -351,10 +275,69 @@ func decode_sint_bytes(bytes: PackedByteArray) -> int:
 	return output
 
 
+## Encodes an unsigned integer as a binary byte array.
+func encode_uint_bytes(val: int, byte_count: int) -> PackedByteArray:
+	# Internally, this validates the passed int, then passes it off to
+	# _encode_int_bytes(...).
+	
+	# val - value to encode
+	# byte_count - number of bytes
+	if val < 0:
+		log_error("%d is negative - this is an unsigned integer, and cannot encode negative values. Corruption may occur!" % val)
+	if abs(val) >= (1 << (byte_count << 3)):
+		log_error("%d is too big to fit in %d bytes! Corruption may occur! Type: uint" % [val, byte_count])
+	return _encode_int_bytes(val, byte_count)
+
+
+## Decodes [param bytes] into an unsigned integer.
+func decode_uint_bytes(bytes: PackedByteArray) -> int:
+	var output: int = 0
+	bytes.reverse()
+	for i in range(bytes.size()):
+		output += bytes[i] << (i << 3)
+	return output
+
+
+# Internal function that encodes any integer as a binary byte array.
+func _encode_int_bytes(val: int, byte_count: int) -> PackedByteArray:
+	var output = PackedByteArray([])
+	for i in range(byte_count):
+		var byte = (
+			val >> (
+				(
+					byte_count - i - 1
+				) << 3
+			) # cut off everything before this byte
+			& 255 # cut off everything after this byte
+		)
+		output.append(byte)
+	return output
+
+
+## Encodes a string as a binary byte array.
+## Resulting array begins with the size of the text (3 bytes),
+## followed by the text in UTF-8 format.
+func encode_string_bytes(txt: String) -> PackedByteArray:
+	var arr = txt.to_utf8_buffer()
+	var output = encode_uint_bytes(arr.size(), 3)
+	output.append_array(arr)
+	return output
+
+
 ## Reads and decodes a UTF-8 string from the loaded level data.
+## Begins by reading 3 bytes
 func decode_string_bytes() -> String:
 	var length = decode_uint_bytes(read_bytes(3))
 	var output = read_bytes(length).get_string_from_utf8()
+	return output
+
+
+## Encodes this level's mission names and descriptions as a binary byte array.
+func encode_mission_list(missions: Array) -> PackedByteArray:
+	var output = encode_uint_bytes(missions.size(), 1)
+	for mission in missions:
+		output.append_array(encode_string_bytes(mission[0]))
+		output.append_array(encode_string_bytes(mission[1]))
 	return output
 
 
@@ -366,6 +349,25 @@ func decode_mission_list() -> Array:
 	for i in range(length):
 		output.append([decode_string_bytes(), decode_string_bytes()])
 	return output
+
+
+## Reads [param byte_count] bytes from the loaded level data.
+func read_bytes(byte_count: int) -> PackedByteArray:
+	print_debug("Reading %s bytes." % byte_count)
+	# Assert that there's enough bytes left to read.
+	assert(pointer + byte_count - 1 < buffer_to_load.size(),
+		"Trying to read %s bytes when there's just %s bytes left in the buffer!" %
+		[byte_count, buffer_to_load.size() - pointer])
+	
+	var output = buffer_to_load.slice(pointer, pointer + byte_count - 1)
+	pointer += byte_count
+	return output
+
+
+## Prints an error to the console, and saves it in the error log.
+func log_error(txt: String):
+	printerr(txt)
+	logged_errors.append(txt)
 
 
 ## A set of unit tests to be run to check if the serialisation is working
