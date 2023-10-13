@@ -1,7 +1,7 @@
 class_name Serializer
 
 const ITEM_END_MARKER_BYTES = [255, 255]
-const ITEM_END_MARKER_VALUE = (255 << 8) | 255
+const ITEM_END_MARKER_VALUE = (255 << 8) | 255 # 255, 255 = 65536
 
 var pointer: int = 0
 var buffer_to_load: PackedByteArray
@@ -136,7 +136,7 @@ func _encode_int_bytes(val: int, byte_count: int) -> PackedByteArray:
 
 
 ## Encodes a string as a binary byte array.
-## Resulting array begins with the size of the text,
+## Resulting array begins with the size of the text (3 bytes),
 ## followed by the text in UTF-8 format.
 func encode_string_bytes(txt: String) -> PackedByteArray:
 	var arr = txt.to_utf8_buffer()
@@ -174,6 +174,10 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 	var item_id = decode_uint_bytes(read_bytes(2))
 	# Loop until we reach the end-of-item-array marker.
 	while item_id != ITEM_END_MARKER_VALUE:
+		assert(item_id < target_node.items.size(),
+			"Loading item with invalid ID %s. Highest valid ID is %s." %
+			[item_id, target_node.items.size() - 1])
+		
 		# Create node for this item.
 		var inst = target_node.ITEM_PREFAB.instantiate()
 		
@@ -224,6 +228,11 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 
 ## Reads [param byte_count] bytes from the loaded level data.
 func read_bytes(byte_count: int) -> PackedByteArray:
+	# Assert that there's enough bytes left to read.
+	assert(pointer + byte_count - 1 < buffer_to_load.size(),
+		"Trying to read %s bytes when there's just %s bytes left in the buffer!" %
+		[byte_count, buffer_to_load.size() - pointer])
+	
 	var output = buffer_to_load.slice(pointer, pointer + byte_count - 1)
 	pointer += byte_count
 	return output
