@@ -48,7 +48,7 @@ var editor_state: EDITOR_STATE = EDITOR_STATE.IDLE: set = _set_editor_state
 @onready var sm63_to_redux = SM63ToRedux.new()
 ## The node tree template which level items shall be added to.
 @onready var lv_template := preload("./template.tscn")
-@onready var ld_camera: Camera2D = $Camera
+@onready var ld_camera: LDCamera = $Camera
 
 
 func _ready():

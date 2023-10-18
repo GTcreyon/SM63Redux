@@ -1,3 +1,4 @@
+class_name LDCamera
 extends Camera2D
 
 signal test_level
