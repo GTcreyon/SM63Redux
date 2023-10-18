@@ -336,6 +336,9 @@ texture_pressed = SubResource("9")
 stretch_mode = 4
 script = ExtResource("25")
 
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+volume_db = -6.0
+
 [connection signal="toggled" from="ButtonContainer/ButtonMap" to="ButtonContainer/ButtonMap" method="_on_Button_toggled"]
 [connection signal="toggled" from="ButtonContainer/ButtonFludd" to="ButtonContainer/ButtonFludd" method="_on_Button_toggled"]
 [connection signal="toggled" from="ButtonContainer/ButtonOptions" to="ButtonContainer/ButtonOptions" method="_on_Button_toggled"]

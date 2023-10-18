@@ -1,5 +1,8 @@
 extends Control
 
+const SND_PAUSE = preload("res://gui/sfx/pause.wav")
+const SND_UNPAUSE = preload("res://gui/sfx/unpause.wav")
+
 # Absolute cache
 @onready var player = $"/root/Main/Player"
 
@@ -15,6 +18,7 @@ extends Control
 
 @onready var pause_menu = $PauseMenu
 @onready var info = $PauseMenu/Content/LevelInfo
+@onready var pause_sfx: AudioStreamPlayer = $"PauseMenu/SFX"
 
 @onready var warp = $"/root/Singleton/Warp"
 
@@ -66,12 +70,20 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("pause"):
 		if Singleton.pause_menu:
+			# Game is currently paused. Resume it.
 			Singleton.pause_menu = false
 			get_tree().paused = false
-		else:
-			if !get_tree().paused:
-				Singleton.pause_menu = true
-				get_tree().paused = true
+			
+			pause_sfx.stream = SND_UNPAUSE
+			pause_sfx.play()
+		elif !get_tree().paused:
+			# Game is currently unpaused. Pause it.
+			Singleton.pause_menu = true
+			get_tree().paused = true
+			
+			pause_sfx.stream = SND_PAUSE
+			pause_sfx.play()
+		
 	
 	if Singleton.pause_menu:
 		pause_offset = lerp(pause_offset, 1.0, 0.5)
