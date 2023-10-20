@@ -1,5 +1,5 @@
 TODO:
-- Rewrite and formalize comments in ld_main.gd.
+- Figure out what the dang the seemingly unused functions in ld_main do.
 
 TOFIX:
 - OUTLINE: First Shine Sprite icon in pause menu is invisible due to shader
@@ -22,6 +22,7 @@ FIXED:
 - RMB on LD item causes instant crash.
 - OUTLINE: When the outline is wide enough, bits of neighboring frames
 	will show up on the edges of the bounding box.
+- Rewrite and formalize comments in ld_main.gd.
 
 FOR FUTURE:
 - Don't let nulti-select area appear until a drag event occurs. Not only is it annoying to see the blue blip anytime I click, but if I place a goomba and koopa right next to each other, it's hard to select only one because the select box immediately picks both. (Depending which one I pick, that is.)
