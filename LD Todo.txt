@@ -3,6 +3,9 @@ TODO:
 
 TOFIX:
 - OUTLINE: First Shine Sprite icon in pause menu is invisible due to shader
+	- Update: this is due to the sprite having "Centered" unchecked.
+	  If I uncheck it and recreate the same displacement with sprite offset,
+	  I at least get a couple stray pixels.
 - OUTLINE: Sprite offset squishes/expands texture as it goes down/up,
 	proportional to outline width. (An offset of 0,0 looks normal.)
 - OUTLINE: Sprite offset slightly shifts texture along offset direction,
