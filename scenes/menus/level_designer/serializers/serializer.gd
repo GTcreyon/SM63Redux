@@ -82,13 +82,13 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 		var inst = target_node.ITEM_PREFAB.instantiate()
 		
 		# Load item's properties into their right spot.
-		# Begin by getting a copy of this item type's properties dictionary.
-		var props = target_node.items[item_id].properties
+		# Begin by getting a copy of this item type's property metadata.
+		var prop_meta = target_node.items[item_id].properties
 		# Populate its values from the loaded level data.
-		for propname in props:
+		for propname in prop_meta:
 			var val = decode_value_of_type(
-				read_bytes_of_type(props[propname]["type"]),
-				props[propname]["type"])
+				read_bytes_of_type(prop_meta[propname]["type"]),
+				prop_meta[propname]["type"])
 			inst.properties[propname] = val
 			inst.update_visual_property(propname, val)
 		# Load assorted other important data.
@@ -424,7 +424,7 @@ func run_tests(verbose: bool):
 		"Vector2": {
 			"bytes": 6,
 			"data": {
-				"valid": [Vector2(0, 0), Vector2(-1, -1), Vector2(1, 1)],
+				"valid": [Vector2(0, 0), Vector2(-1, -1), Vector2(0,0), Vector2(-7, -7), Vector2(7, 7), Vector2(-7, 7), Vector2(1, 1)],
 				"error": [],
 			},
 		},
