@@ -2,6 +2,10 @@ extends GPUParticles2D
 ## Compatibility class that swaps GPU particles out for CPU particles on devices that don't support it.
 ## Might be worth making an engine proposal for this kind of thing, since this is somewhat hacky.
 
+## Flags that ensure that the property is editor-accessible and also stored in the scene file.
+## If it's not both of those, then there's no point copying it over.
+const USAGE_FLAGS = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
+
 ## The replacement CPUParticles2D node.
 var _replacement: CPUParticles2D = null
 
@@ -35,7 +39,7 @@ func _copy_properties() -> void:
 	
 	for property in get_property_list():
 		var prop_name = property.name
-		if property.usage != 6:
+		if property.usage != USAGE_FLAGS:
 			continue
 		if prop_name in _replacement:
 			_replacement.set(prop_name, get(prop_name))
@@ -71,7 +75,7 @@ func _get(property):
 		if prop.name != property:
 			continue
 		
-		if prop.usage != 6:
+		if prop.usage != USAGE_FLAGS:
 			return null
 	
 	return _replacement.get(property)
