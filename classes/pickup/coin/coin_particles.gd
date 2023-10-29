@@ -1,10 +1,10 @@
-extends CPUParticles2D
+extends GenericParticles2D
 
 
 func _ready():
-	emitting = true
+	g_emitting = true
 
 
 func _process(_delta):
-	if !emitting:
+	if !g_emitting:
 		queue_free()

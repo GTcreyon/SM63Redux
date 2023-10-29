@@ -1,10 +1,11 @@
+class_name FallbackParticles
 extends GPUParticles2D
 ## Compatibility class that swaps GPU particles out for CPU particles on devices that don't support it.
 ## Might be worth making an engine proposal for this kind of thing, since this is somewhat hacky.
 
 ## Flags that ensure that the property is editor-accessible and also stored in the scene file.
 ## If it's not both of those, then there's no point copying it over.
-const USAGE_FLAGS = PROPERTY_USAGE_STORAGE | PROPERTY_USAGE_EDITOR
+const USAGE_FLAGS = 6
 
 ## The replacement CPUParticles2D node.
 var _replacement: CPUParticles2D = null

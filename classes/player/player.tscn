@@ -1,4 +1,4 @@
-[gd_scene load_steps=159 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=158 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="1"]
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" path="res://classes/player/camera.gd" id="14"]
 [ext_resource type="Texture2D" uid="uid://dpgkodpraunrv" path="res://classes/particles/dust.png" id="15"]
 [ext_resource type="AudioStream" uid="uid://t4j5ffot2i05" path="res://classes/player/sfx/fludd/fludd_switch.wav" id="16"]
-[ext_resource type="Script" path="res://classes/particles/fallback_particles.gd" id="16_s1hea"]
 [ext_resource type="AudioStream" uid="uid://bxupwlkn26gd6" path="res://classes/player/sfx/pound/pound_spin.wav" id="17"]
 [ext_resource type="AudioStream" uid="uid://bfe8lwyp5f0yt" path="res://classes/player/sfx/spin_air_1.wav" id="18"]
 [ext_resource type="Script" path="res://classes/player/fludd_sprite.gd" id="19"]
@@ -1324,7 +1323,6 @@ texture = ExtResource("10")
 lifetime = 0.5
 fixed_fps = 0
 visibility_rect = Rect2(-14, 0, 26, 211)
-script = ExtResource("16_s1hea")
 
 [node name="SprayPlume" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -1354,7 +1352,6 @@ process_material = SubResource("43")
 texture = ExtResource("15")
 lifetime = 0.35
 visibility_rect = Rect2(-4, -12, 8, 12)
-script = ExtResource("16_s1hea")
 
 [node name="StepCheck" type="RayCast2D" parent="."]
 target_position = Vector2(0, 20)
