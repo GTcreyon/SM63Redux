@@ -1,9 +1,11 @@
-[gd_scene load_steps=158 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=160 format=3 uid="uid://bujgheqb6pmrc"]
 
-[ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="1"]
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
+[ext_resource type="Script" path="res://classes/state/state_manager.gd" id="2_2lngf"]
 [ext_resource type="Script" path="res://classes/player/player.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://hcq2v7bx252u" path="res://classes/player/fludd_nozzlefx.png" id="4"]
+[ext_resource type="Script" path="res://classes/player/player_av.gd" id="4_gwk21"]
+[ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="4_q4bau"]
 [ext_resource type="PackedScene" uid="uid://bqum1bps2pujq" path="res://gui/hud/hud.tscn" id="5"]
 [ext_resource type="AudioStream" uid="uid://bebevnpo8kc1p" path="res://classes/player/sfx/fludd/hover_loop.mp3" id="6"]
 [ext_resource type="AudioStream" uid="uid://bu0n0xnjqrko6" path="res://classes/player/sfx/fludd/hover.mp3" id="7"]
@@ -1219,8 +1221,67 @@ collision_layer = 6
 collision_mask = 3
 script = ExtResource("3")
 
+[node name="StateManager" type="Node" parent="." node_paths=PackedStringArray("target_actor")]
+script = ExtResource("2_2lngf")
+target_actor = NodePath("..")
+
+[node name="Ground" type="Node" parent="StateManager"]
+
+[node name="Idle" type="Node" parent="StateManager/Ground"]
+
+[node name="Walk" type="Node" parent="StateManager/Ground"]
+
+[node name="Crouch" type="Node" parent="StateManager/Ground"]
+
+[node name="PoundLand" type="Node" parent="StateManager/Ground"]
+
+[node name="Slide" type="Node" parent="StateManager/Ground"]
+
+[node name="Air" type="Node" parent="StateManager"]
+
+[node name="Fall" type="Node" parent="StateManager/Air"]
+
+[node name="Jump" type="Node" parent="StateManager/Air"]
+
+[node name="JumpDouble" type="Node" parent="StateManager/Air"]
+
+[node name="JumpTriple" type="Node" parent="StateManager/Air"]
+
+[node name="Backflip" type="Node" parent="StateManager/Air"]
+
+[node name="Dive" type="Node" parent="StateManager/Air"]
+
+[node name="Hurt" type="Node" parent="StateManager/Air"]
+
+[node name="PoundAir" type="Node" parent="StateManager/Air"]
+
+[node name="PoundSpin" type="Node" parent="StateManager/Air/PoundAir"]
+
+[node name="PoundFall" type="Node" parent="StateManager/Air/PoundAir"]
+
+[node name="Spin" type="Node" parent="StateManager"]
+
+[node name="AVManager" type="Node" parent="."]
+script = ExtResource("4_gwk21")
+
+[node name="Walk" type="Node" parent="AVManager"]
+
+[node name="JumpTriple" type="Node" parent="AVManager"]
+
+[node name="Backflip" type="Node" parent="AVManager"]
+
+[node name="PoundSpin" type="Node" parent="AVManager"]
+
+[node name="PoundLand" type="Node" parent="AVManager"]
+
+[node name="Dive" type="Node" parent="AVManager"]
+
+[node name="Slide" type="Node" parent="AVManager"]
+
+[node name="Spin" type="Node" parent="AVManager"]
+
 [node name="CharacterGroup" type="Node2D" parent="."]
-script = ExtResource("1")
+script = ExtResource("4_q4bau")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
