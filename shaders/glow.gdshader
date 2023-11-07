@@ -8,6 +8,10 @@ uniform vec4 outline_color : source_color = vec4(1);
 // Number of cels in this object's spritesheet, across and down.
 // Assumes a grid arrangement.
 uniform vec2 cel_count = vec2(1,1);
+// Vertex offset from center, in pixels.
+// Should always equal the sprite's Offset value,
+// plus half the sprite's size if not Centered.
+uniform vec2 sprite_offset = vec2(0,0);
 
 varying vec2 cel_index;
 
@@ -15,20 +19,23 @@ void vertex()
 {
 	// Expand the polygon bounds to make space for the outline to show.
 	
+	// Temporarily remove all offset from the sprite mesh.
+	// The following calculations identify vertices and derive mesh size
+	// based on vertex position, so offset vertices will throw everything off.
+	vec2 vert_centered = VERTEX - sprite_offset;
+	
 	// Multiply the width by the sign of this vert's position.
 	// Sign of vert is a quick, cheap way to get a "move each edge one pixel
-	// outward" vector, assuming the mesh is a simple quad and the origin is
-	// the exact center.
-	// This is true in most cases currently attested in the game, except for
-	// Shine Sprites.
-	vec2 expand_vertex = vec2(float(width)) * sign(VERTEX);
-	vec2 expand_factor = VERTEX / (VERTEX + expand_vertex);
+	// outward" vector, assuming the mesh is a simple quad (in Godot, a sprite
+	// always is) and the origin is the exact center (ensured by vert_centered).
+	vec2 expand_vertex = vec2(float(width)) * sign(vert_centered);
+	vec2 expand_factor = vert_centered / (vert_centered + expand_vertex);
 	
 	// Figure out which cel of the spritesheet we're currently in.
 	cel_index = vec2(UV * cel_count) - vec2(1);
 	// Outer edge thinks it's in the next cel over by position.
 	// Account for that.
-	cel_index -= min(sign(VERTEX), vec2(0));
+	cel_index -= min(sign(vert_centered), vec2(0));
 	
 	// Contract the UVs to compensate for the expanded vertex bounds.
 	UV /= expand_factor;
