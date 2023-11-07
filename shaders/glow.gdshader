@@ -2,6 +2,8 @@
 shader_type canvas_item;
 render_mode unshaded;
 
+const float EPSILON = 0.000001;
+
 uniform int width : hint_range(0, 32) = 1;
 uniform bool radial;
 uniform vec4 outline_color : source_color = vec4(1);
@@ -53,7 +55,7 @@ bool uv_outside_cel(vec2 uv) {
 	// Detect the spots outside the texture.
 	// Clamping only changes values outside the wanted area--
 	// so detecting change means detecting those values.
-	return clamp(uv_scaled, 0, 1) != uv_scaled;
+	return clamp(uv_scaled, EPSILON, 1.0-EPSILON) != uv_scaled;
 }
 
 
@@ -96,6 +98,6 @@ void fragment()
 	}
 	
 	// DEBUG: Highlight spots outside the texture.
-	//COLOR.rg = sign(abs(UV - clamp(UV, 0.0, 1.0)));
+	//COLOR.rg = uv_outside_cel(UV)? vec2(1.0, 1.0) : vec2(0.0, 0.0);
 	//COLOR.ba = vec2(0.0, 1.0);
 }
