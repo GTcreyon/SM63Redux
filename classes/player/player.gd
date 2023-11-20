@@ -691,7 +691,7 @@ func player_control_x() -> void:
 					| S.SPIN
 					| S.TRIPLE_JUMP
 					| S.ROLLOUT
-				)
+				) or crouch_resetting
 			):
 				facing_direction = dir # Will never be 0
 			if (grounded or (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) and ground_except)) and !swimming:
