@@ -694,22 +694,22 @@ func player_control_x() -> void:
 				) or crouch_resetting
 			if can_turn_around:
 				facing_direction = dir # Will never be 0
-		if pound_state != Pound.SPIN and (state != S.CROUCH or crouch_resetting):
-			if (grounded or (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) and ground_except)) and !swimming:
-				if state == S.POUND:
-					vel.x = 0
-				elif state != S.DIVE:
-					vel.x += dir * WALK_ACCEL
-			else:
-				var core_vel = dir * max((AIR_ACCEL - dir * vel.x) / (AIR_SPEED_CAP / (3 * FPS_MOD)), 0)
-				if state & (S.TRIPLE_JUMP | S.SPIN | S.BACKFLIP | S.HURT):
-					vel.x += core_vel / (1.5 / FPS_MOD)
-				elif state & (S.DIVE | S.ROLLOUT):
-					vel.x += core_vel / (8 / FPS_MOD)
-				elif state == S.POUND:
-					vel.x += core_vel / (2 / FPS_MOD)
+			if state != S.CROUCH or crouch_resetting:
+				if (grounded or (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) and ground_except)) and !swimming:
+					if state == S.POUND:
+						vel.x = 0
+					elif state != S.DIVE:
+						vel.x += dir * WALK_ACCEL
 				else:
-					vel.x += core_vel
+					var core_vel = dir * max((AIR_ACCEL - dir * vel.x) / (AIR_SPEED_CAP / (3 * FPS_MOD)), 0)
+					if state & (S.TRIPLE_JUMP | S.SPIN | S.BACKFLIP | S.HURT):
+						vel.x += core_vel / (1.5 / FPS_MOD)
+					elif state & (S.DIVE | S.ROLLOUT):
+						vel.x += core_vel / (8 / FPS_MOD)
+					elif state == S.POUND:
+						vel.x += core_vel / (2 / FPS_MOD)
+					else:
+						vel.x += core_vel
 
 
 func get_walk_direction() -> int:
