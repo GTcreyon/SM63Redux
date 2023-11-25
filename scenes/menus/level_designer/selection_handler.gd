@@ -117,7 +117,7 @@ func calculate_selected(max_selected = 32):
 		# Good news! 4.1 extended the same design to points~
 		var query = PhysicsPointQueryParameters2D.new()
 		query.position = selection_rect.position
-		query.collision_mask = 0x7FFFFFFF;
+		query.collision_mask = 0b0111_1111_1111_1111_1111_1111_1111_1111
 		query.collide_with_bodies = true
 		query.collide_with_areas = false
 		hitboxes = collision_handler.intersect_point(query, max_selected)
