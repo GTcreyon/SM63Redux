@@ -12,7 +12,7 @@ var av: AVManager
 
 ## The name of the AV effect that this state should trigger.
 @export var effect := &""
-@export var links: Array[State] = []
+var links: Array[State] = []
 var _link_cache: Dictionary = {}
 
 ## True when on the first cycle of the physics loop.

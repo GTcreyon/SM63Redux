@@ -3,7 +3,7 @@ extends Node
 ## An interface that manages audiovisual effects.
 
 ## If an effect does not exist, try to set this sprite's animation to the name of the effect.
-@onready var _fallback_sprite: AnimatedSprite2D = null
+@export var _fallback_sprite: AnimatedSprite2D = null
 
 ## Cache of effects that can be triggered.
 var _effect_cache: Dictionary = {}
