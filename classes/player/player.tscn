@@ -1167,11 +1167,9 @@ particle_flag_align_y = true
 particle_flag_disable_z = true
 direction = Vector3(0, 1, 0)
 spread = 7.5
-gravity = Vector3(0, 675, 0)
 initial_velocity_min = 300.0
 initial_velocity_max = 450.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
+gravity = Vector3(0, 675, 0)
 scale_min = 1.25
 scale_max = 1.5
 scale_curve = SubResource("56")
@@ -1233,6 +1231,7 @@ script = ExtResource("2_2lngf")
 target_actor = NodePath("..")
 target_av = NodePath("../AVManager")
 initial_state = NodePath("Air")
+effect = null
 
 [node name="Ground" type="Node" parent="StateManager"]
 script = ExtResource("3_iy3xo")

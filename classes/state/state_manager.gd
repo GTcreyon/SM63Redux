@@ -9,10 +9,16 @@ extends State
 
 
 func _ready():
-	recurse_descendents(&"set", [&"actor", target_actor])
-	recurse_descendents(&"set", [&"av", target_av])
+	var pass_downs = {
+		&"actor": target_actor,
+		&"av": target_av,
+		&"manager": self,
+	}
+	pass_downs.merge(_custom_passdowns())
+	for key in pass_downs:
+		recurse_descendents(&"set", [key, pass_downs[key]])
 	await target_actor.ready
-	
+
 	# Switch to and initialise the initial state, if there is one.
 	if initial_state != null:
 		var link = StateLink.new(self, initial_state)
@@ -21,8 +27,12 @@ func _ready():
 
 
 func _physics_process(_delta):
-	recurse_live("probe_switch")
+	recurse_live("probe_switch", [], true)
 
 	if live_substate != null:
 		# Call the tick hook function.
 		live_substate.recurse_live("tick_hook")
+
+
+func _custom_passdowns() -> Dictionary:
+	return {}
