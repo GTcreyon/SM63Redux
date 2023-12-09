@@ -1,138 +1,99 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=12 format=3 uid="uid://0ku6nm2pnx8f"]
 
-[ext_resource path="res://gui/dialog/nx_wario_box.tres" type="StyleBox" id=1]
-[ext_resource path="res://fonts/bylight/bylight.tres" type="DynamicFont" id=2]
-[ext_resource path="res://gui/hud/touch_buttons.png" type="Texture" id=3]
-[ext_resource path="res://gui/dialog/nx_luigi_box.tres" type="StyleBox" id=4]
-[ext_resource path="res://gui/dialog/nx_box.tres" type="StyleBox" id=5]
-[ext_resource path="res://gui/pause/options/layout_select.gd" type="Script" id=6]
-[ext_resource path="res://gui/pause/options/change_size.gd" type="Script" id=7]
-[ext_resource path="res://gui/pause/options/swap_sides.gd" type="Script" id=8]
-[ext_resource path="res://gui/theme_gui.tres" type="Theme" id=9]
+[ext_resource type="Texture2D" uid="uid://babp6is7hdooe" path="res://gui/hud/touch_buttons.png" id="3"]
+[ext_resource type="Script" path="res://gui/pause/options/layout_select.gd" id="6"]
+[ext_resource type="Script" path="res://gui/pause/options/change_size.gd" id="7"]
+[ext_resource type="Script" path="res://gui/pause/options/swap_sides.gd" id="8"]
+[ext_resource type="Theme" uid="uid://dh1vom0ars54l" path="res://gui/theme_gui.tres" id="9"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 21, 20, 21 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("3")
+region = Rect2(0, 21, 20, 21)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 3 )
-region = Rect2( 20, 21, 20, 21 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3")
+region = Rect2(20, 21, 20, 21)
 
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 42, 20, 21 )
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("3")
+region = Rect2(0, 42, 20, 21)
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 3 )
-region = Rect2( 20, 42, 20, 21 )
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("3")
+region = Rect2(20, 42, 20, 21)
 
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 20, 21 )
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("3")
+region = Rect2(0, 0, 20, 21)
 
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 3 )
-region = Rect2( 20, 0, 20, 21 )
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("3")
+region = Rect2(20, 0, 20, 21)
 
 [node name="TouchMenu" type="MarginContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 9 )
-custom_constants/margin_right = 8
-custom_constants/margin_top = 8
-custom_constants/margin_left = 8
-custom_constants/margin_bottom = 8
+theme = ExtResource("9")
 
 [node name="Margin" type="VBoxContainer" parent="."]
-margin_left = 8.0
-margin_top = 8.0
-margin_right = 632.0
-margin_bottom = 352.0
-custom_constants/separation = 4
+layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="Label" type="Label" parent="Margin"]
-margin_right = 624.0
-margin_bottom = 15.0
-custom_fonts/font = ExtResource( 2 )
+layout_mode = 2
 text = "Touch control layout:"
 
 [node name="LayoutSelect" type="OptionButton" parent="Margin"]
-margin_top = 19.0
-margin_right = 624.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 0, 32 )
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
 mouse_default_cursor_shape = 2
-custom_fonts/font = ExtResource( 2 )
-custom_styles/hover = ExtResource( 1 )
-custom_styles/pressed = ExtResource( 4 )
-custom_styles/focus = ExtResource( 5 )
-custom_styles/normal = ExtResource( 5 )
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="MiscConfig" type="VBoxContainer" parent="Margin"]
-margin_top = 55.0
-margin_right = 624.0
-margin_bottom = 143.0
+layout_mode = 2
 
 [node name="SizeChange" type="HBoxContainer" parent="Margin/MiscConfig"]
-margin_left = 230.0
-margin_right = 393.0
-margin_bottom = 42.0
+layout_mode = 2
 size_flags_horizontal = 6
-script = ExtResource( 7 )
+script = ExtResource("7")
 
 [node name="Label" type="Label" parent="Margin/MiscConfig/SizeChange"]
-margin_top = 13.0
-margin_right = 75.0
-margin_bottom = 28.0
+layout_mode = 2
 size_flags_horizontal = 7
-custom_fonts/font = ExtResource( 2 )
 text = "Change size:"
-align = 1
 
 [node name="SizeUp" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
-margin_left = 79.0
-margin_right = 119.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 40, 42 )
+custom_minimum_size = Vector2(40, 42)
+layout_mode = 2
 size_flags_horizontal = 6
-texture_normal = SubResource( 1 )
-texture_pressed = SubResource( 2 )
-expand = true
+texture_normal = SubResource("1")
+texture_pressed = SubResource("2")
+stretch_mode = 4
 
 [node name="SizeDown" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
-margin_left = 123.0
-margin_right = 163.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 40, 42 )
+custom_minimum_size = Vector2(40, 42)
+layout_mode = 2
 size_flags_horizontal = 6
-texture_normal = SubResource( 3 )
-texture_pressed = SubResource( 4 )
-expand = true
+texture_normal = SubResource("3")
+texture_pressed = SubResource("4")
+stretch_mode = 4
 
 [node name="SwapSides" type="HBoxContainer" parent="Margin/MiscConfig"]
-margin_left = 254.0
-margin_top = 46.0
-margin_right = 369.0
-margin_bottom = 88.0
+layout_mode = 2
 size_flags_horizontal = 6
 
 [node name="Label" type="Label" parent="Margin/MiscConfig/SwapSides"]
-margin_top = 13.0
-margin_right = 71.0
-margin_bottom = 28.0
+layout_mode = 2
 text = "Swap sides:"
 
 [node name="Swap" type="TextureButton" parent="Margin/MiscConfig/SwapSides"]
-margin_left = 75.0
-margin_right = 115.0
-margin_bottom = 42.0
-rect_min_size = Vector2( 40, 42 )
-texture_normal = SubResource( 5 )
-texture_pressed = SubResource( 6 )
-expand = true
+custom_minimum_size = Vector2(40, 42)
+layout_mode = 2
+texture_normal = SubResource("5")
+texture_pressed = SubResource("6")
 stretch_mode = 4
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [connection signal="item_selected" from="Margin/LayoutSelect" to="Margin/LayoutSelect" method="_on_LayoutSelect_item_selected"]
 [connection signal="pressed" from="Margin/MiscConfig/SizeChange/SizeUp" to="Margin/MiscConfig/SizeChange" method="_on_SizeUp_pressed"]

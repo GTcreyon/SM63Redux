@@ -1,12 +1,21 @@
 extends Node
 
+@onready var window = get_window()
+
 
 func _process(_delta):
 	if Input.is_action_just_pressed("fullscreen") and OS.get_name() != "HTML5":
-		OS.window_fullscreen = !OS.window_fullscreen
-	if Input.is_action_just_pressed("screen+") and OS.window_size.x + Singleton.DEFAULT_SIZE.x < OS.get_screen_size().x and OS.window_size.y + Singleton.DEFAULT_SIZE.y < OS.get_screen_size().y:
-		OS.window_size.x += Singleton.DEFAULT_SIZE.x
-		OS.window_size.y += Singleton.DEFAULT_SIZE.y
-	if Input.is_action_just_pressed("screen-") and OS.window_size.x - Singleton.DEFAULT_SIZE.x >= Singleton.DEFAULT_SIZE.x:
-		OS.window_size.x -= Singleton.DEFAULT_SIZE.x
-		OS.window_size.y -= Singleton.DEFAULT_SIZE.y
+		if window.mode != Window.MODE_EXCLUSIVE_FULLSCREEN and window.mode != Window.MODE_FULLSCREEN:
+			window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+		else:
+			window.mode = Window.MODE_WINDOWED
+	
+	if Input.is_action_just_pressed("screen+") \
+		and window.size.x + Singleton.DEFAULT_SIZE.x < DisplayServer.screen_get_size().x \
+		and window.size.y + Singleton.DEFAULT_SIZE.y < DisplayServer.screen_get_size().y:
+		window.size.x += Singleton.DEFAULT_SIZE.x
+		window.size.y += Singleton.DEFAULT_SIZE.y
+	if Input.is_action_just_pressed("screen-") \
+		and window.size.x - Singleton.DEFAULT_SIZE.x >= Singleton.DEFAULT_SIZE.x:
+		window.size.x -= Singleton.DEFAULT_SIZE.x
+		window.size.y -= Singleton.DEFAULT_SIZE.y

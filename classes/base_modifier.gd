@@ -1,5 +1,5 @@
 class_name BaseModifier
-extends Reference
+extends RefCounted
 
 var items = {}
 

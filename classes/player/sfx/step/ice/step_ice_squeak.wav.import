@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/step_ice_squeak.wav-f32f7dc56b567616421fb1dbad3a2bff.sample"
+type="AudioStreamWAV"
+uid="uid://bj0cobpbrbyek"
+path="res://.godot/imported/step_ice_squeak.wav-f32f7dc56b567616421fb1dbad3a2bff.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/step/ice/step_ice_squeak.wav"
-dest_files=[ "res://.import/step_ice_squeak.wav-f32f7dc56b567616421fb1dbad3a2bff.sample" ]
+dest_files=["res://.godot/imported/step_ice_squeak.wav-f32f7dc56b567616421fb1dbad3a2bff.sample"]
 
 [params]
 

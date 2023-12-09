@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/spin_air_1.wav-7c65f006e2a60bb7df30375c662ccf4f.sample"
+type="AudioStreamWAV"
+uid="uid://bfe8lwyp5f0yt"
+path="res://.godot/imported/spin_air_1.wav-7c65f006e2a60bb7df30375c662ccf4f.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/spin_air_1.wav"
-dest_files=[ "res://.import/spin_air_1.wav-7c65f006e2a60bb7df30375c662ccf4f.sample" ]
+dest_files=["res://.godot/imported/spin_air_1.wav-7c65f006e2a60bb7df30375c662ccf4f.sample"]
 
 [params]
 

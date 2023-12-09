@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/step_cloud_1.wav-4c7aa3b848e849a98e5cc0533ea33c1a.sample"
+type="AudioStreamWAV"
+uid="uid://do5dgnofb6kf0"
+path="res://.godot/imported/step_cloud_1.wav-4c7aa3b848e849a98e5cc0533ea33c1a.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/step/cloud/step_cloud_1.wav"
-dest_files=[ "res://.import/step_cloud_1.wav-4c7aa3b848e849a98e5cc0533ea33c1a.sample" ]
+dest_files=["res://.godot/imported/step_cloud_1.wav-4c7aa3b848e849a98e5cc0533ea33c1a.sample"]
 
 [params]
 

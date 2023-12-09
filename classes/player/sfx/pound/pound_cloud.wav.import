@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/pound_cloud.wav-6634058b7d4c90b129ffcef45998880e.sample"
+type="AudioStreamWAV"
+uid="uid://birxaybjftsn8"
+path="res://.godot/imported/pound_cloud.wav-6634058b7d4c90b129ffcef45998880e.sample"
 
 [deps]
 
 source_file="res://classes/player/sfx/pound/pound_cloud.wav"
-dest_files=[ "res://.import/pound_cloud.wav-6634058b7d4c90b129ffcef45998880e.sample" ]
+dest_files=["res://.godot/imported/pound_cloud.wav-6634058b7d4c90b129ffcef45998880e.sample"]
 
 [params]
 

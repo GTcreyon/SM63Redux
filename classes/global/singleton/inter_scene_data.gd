@@ -1,7 +1,7 @@
 class_name InterSceneData
-extends Reference # Reference counted because where to consistently free an Object?
+extends RefCounted # Reference counted because where to consistently free an Object?
 
-var sprite_flip # Direction player faces after a warp
+var facing_direction: int # Direction player faces after a warp
 var hp = 8
 var coins_toward_health = 0 # If it hits 5, gets reset
 var life_meter = 8 # apparently unused
@@ -11,7 +11,7 @@ var water = 100.0
 var fludd_power = 100
 
 func _init(player: PlayerCharacter):
-	sprite_flip = player.sprite.flip_h
+	facing_direction = player.facing_direction
 
 	hp = player.hp
 	coins_toward_health = player.coins_toward_health

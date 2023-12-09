@@ -7,13 +7,13 @@ const GRAVITY = 0.17
 const MAX_SPEED = 4
 const JITTER = 2
 
-onready var sprite: Sprite = $Sprite
-onready var visibility: VisibilityNotifier2D = $VisibilityNotifier2D
-onready var ride_area: RideArea = $RideArea
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var visibility: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+@onready var ride_area: RideArea = $RideArea
 
-export var disabled: bool = false setget set_disabled
-export var wait_time: int = 60
-export var lifetime: int = 60
+@export var disabled: bool = false: set = set_disabled
+@export var wait_time: int = 60
+@export var lifetime: int = 60
 
 var vel = Vector2.ZERO
 var falling: bool = false
@@ -64,6 +64,11 @@ func _physics_process(_delta):
 func set_disabled(val):
 	disabled = val
 	if !is_inside_tree():
-		yield(self, "ready")
-	set_collision_layer_bit(0, 0 if val else 1)
+		await self.ready
+	set_collision_layer_value(0, 0 if val else 1)
 	ride_area.monitoring = !val
+
+
+func _on_WaterCheck_area_entered(_area):
+	# Disable collision when entering water
+	collision_layer = 0
