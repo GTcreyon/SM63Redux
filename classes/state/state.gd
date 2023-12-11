@@ -12,9 +12,6 @@ var live_substate: State = null
 ## The target of this state machine's behavior.
 var actor: CharacterBody2D = null
 
-## The AVManager of this state machine.
-var av: AVManager = null
-
 ## The root of the state machine.
 var manager: StateManager = null
 
@@ -60,9 +57,6 @@ func switch_substate(new_state: State, handover: Variant):
 func trigger_enter(handover: Variant):
 	_first_cycle = true
 	_on_enter(handover)
-
-	if av != null and effect != &"":
-		av.trigger_effect(effect)
 
 
 ## Call a function on this state and all its live descendents.

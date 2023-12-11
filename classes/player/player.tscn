@@ -1,4 +1,4 @@
-[gd_scene load_steps=164 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=163 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/state/state_manager.gd" id="2_2lngf"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://classes/player/state/ground.gd" id="3_iy3xo"]
 [ext_resource type="Texture2D" uid="uid://hcq2v7bx252u" path="res://classes/player/fludd_nozzlefx.png" id="4"]
 [ext_resource type="Script" path="res://classes/player/state/idle.gd" id="4_2ro3p"]
-[ext_resource type="Script" path="res://classes/player/player_av.gd" id="4_gwk21"]
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="4_q4bau"]
 [ext_resource type="Script" path="res://classes/player/state/air.gd" id="4_saxvj"]
 [ext_resource type="PackedScene" uid="uid://bqum1bps2pujq" path="res://gui/hud/hud.tscn" id="5"]
@@ -1226,12 +1225,10 @@ script = ExtResource("3")
 [node name="Input" type="Node" parent="."]
 script = ExtResource("2_h2ygt")
 
-[node name="StateManager" type="Node" parent="." node_paths=PackedStringArray("target_actor", "target_av", "initial_state")]
+[node name="StateManager" type="Node" parent="." node_paths=PackedStringArray("target_actor", "initial_state")]
 script = ExtResource("2_2lngf")
 target_actor = NodePath("..")
-target_av = NodePath("../AVManager")
 initial_state = NodePath("Air")
-effect = null
 
 [node name="Ground" type="Node" parent="StateManager"]
 script = ExtResource("3_iy3xo")
@@ -1272,25 +1269,6 @@ script = ExtResource("4_saxvj")
 [node name="PoundFall" type="Node" parent="StateManager/Air/PoundAir"]
 
 [node name="Spin" type="Node" parent="StateManager"]
-
-[node name="AVManager" type="Node" parent="."]
-script = ExtResource("4_gwk21")
-
-[node name="Walk" type="Node" parent="AVManager"]
-
-[node name="JumpTriple" type="Node" parent="AVManager"]
-
-[node name="Backflip" type="Node" parent="AVManager"]
-
-[node name="PoundSpin" type="Node" parent="AVManager"]
-
-[node name="PoundLand" type="Node" parent="AVManager"]
-
-[node name="Dive" type="Node" parent="AVManager"]
-
-[node name="Slide" type="Node" parent="AVManager"]
-
-[node name="Spin" type="Node" parent="AVManager"]
 
 [node name="CharacterGroup" type="Node2D" parent="."]
 script = ExtResource("4_q4bau")

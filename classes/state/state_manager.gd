@@ -4,14 +4,12 @@ extends State
 ## Manages the execution of hook functions in the machine.
 
 @export var target_actor: Node = owner
-@export var target_av: AVManager = null
 @export var initial_state: State = null
 
 
 func _ready():
 	var pass_downs = {
 		&"actor": target_actor,
-		&"av": target_av,
 		&"manager": self,
 	}
 	pass_downs.merge(_custom_passdowns())
