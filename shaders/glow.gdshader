@@ -69,7 +69,7 @@ void fragment()
 		COLOR = vec4(0);
 	}
 	
-	if(COLOR.a <= 0. || UV.x > 1. || UV.x < 0. || UV.y > 1. || UV.y < 0.) {
+	if(COLOR.a <= 0.) {
 		float widthf = float(width); // Not to be confused with fwidth!
 		
 		for (float x = -widthf; x <= widthf; x += 1.) {
