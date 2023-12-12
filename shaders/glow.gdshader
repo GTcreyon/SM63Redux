@@ -69,11 +69,11 @@ void fragment()
 		COLOR = vec4(0);
 	}
 	
-	if(COLOR.a <= 0.) {
+	if(COLOR.a <= 0.0) {
 		float widthf = float(width); // Not to be confused with fwidth!
 		
-		for (float x = -widthf; x <= widthf; x += 1.) {
-			for (float y = -widthf; y <= widthf; y += 1.) {
+		for (float x = -widthf; x <= widthf; x += 1.0) {
+			for (float y = -widthf; y <= widthf; y += 1.0) {
 				// Skip outlining pixels outside the detection area.
 				// This rounds the corners--aggressively in radial mode,
 				// gently otherwise.
@@ -88,9 +88,9 @@ void fragment()
 				vec4 neighbor_col = texture(TEXTURE, neighbor_uv);
 				
 				// Draw the outline if there's anything at all visible there.
-				// Pixels outsize the UV area fail automatically, lest we 
+				// Pixels outside the UV area fail automatically, lest we 
 				// accidentally outline bits of neighboring cels.
-				if (!uv_outside_cel(neighbor_uv) && neighbor_col.a > 0.) {
+				if (!uv_outside_cel(neighbor_uv) && neighbor_col.a > 0.0) {
 					COLOR = outline_color;
 				}
 			}
