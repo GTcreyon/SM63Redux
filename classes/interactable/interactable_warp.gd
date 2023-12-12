@@ -70,7 +70,7 @@ func _ready():
 func _interact_with(body):
 	player = body
 	
-	# Zero player's velocity so they doesn't keep kicking up dust
+	# Zero player's velocity so they don't keep kicking up dust
 	player.vel = Vector2.ZERO
 	# Lock player's input so they can't be controlled
 	player.locked = true
