@@ -29,7 +29,7 @@ func _interact_check() -> bool:
 
 
 func _state_check(body) -> bool:
-	return body.state == body.S.NEUTRAL and body.sign_frames <= 0
+	return body.state == PlayerCharacter.S.NEUTRAL and body.sign_frames <= 0
 
 
 func set_disabled(val):
