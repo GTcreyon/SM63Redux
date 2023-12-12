@@ -685,15 +685,27 @@ func player_control_x() -> void:
 	var dir = get_walk_direction()
 	if dir != 0:
 		if pound_state != Pound.SPIN:
-			var can_turn_around: bool = state & (
-					S.NEUTRAL
-					| S.SPIN
-					| S.TRIPLE_JUMP
-					| S.ROLLOUT
-					| S.CROUCH
-				) or crouch_resetting
-			if can_turn_around:
-				facing_direction = dir # Will never be 0
+			# Check if the player can turn around while crouched.
+			# This only needs to be applied when trying to face the opposite direction.
+			if state == S.CROUCH and facing_direction != dir:
+				# We apply a delay between the input and the action to give the player a window
+				# to perform a backflip with maximum force; otherwise, the player would just
+				# instantly turn around and the backflip would come out all messed up.
+				# The player would require frame-perfect precision to perform such backflip, if not
+				# for this delay.
+				manage_crouch_turn_around_delay()
+				if can_turn_around_while_crouched:
+					facing_direction = dir
+					reset_crouch_turn_around_delay()
+			else:
+				var can_turn_around: bool = state & (
+						S.NEUTRAL
+						| S.SPIN
+						| S.TRIPLE_JUMP
+						| S.ROLLOUT
+					) or crouch_resetting
+				if can_turn_around:
+					facing_direction = dir # Will never be 0
 			if state != S.CROUCH or crouch_resetting:
 				if (grounded or (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) and ground_except)) and !swimming:
 					if state == S.POUND:
@@ -710,6 +722,24 @@ func player_control_x() -> void:
 						vel.x += core_vel / (2 / FPS_MOD)
 					else:
 						vel.x += core_vel
+	else:
+		reset_crouch_turn_around_delay() # Reset crouch turn around delay if player is not trying to move
+
+
+const CROUCH_TURN_AROUND_DELAY_TIME: int = 18 # How long the player must hold a direction to turn around while crouched
+var crouch_turn_around_delay_frames: int = 0
+var can_turn_around_while_crouched: bool = false
+func manage_crouch_turn_around_delay() -> void:
+	if crouch_turn_around_delay_frames > 0:
+		crouch_turn_around_delay_frames -= 1
+		can_turn_around_while_crouched = false
+	else:
+		can_turn_around_while_crouched = true
+
+
+func reset_crouch_turn_around_delay() -> void:
+	crouch_turn_around_delay_frames = CROUCH_TURN_AROUND_DELAY_TIME
+	can_turn_around_while_crouched = false
 
 
 func get_walk_direction() -> int:
