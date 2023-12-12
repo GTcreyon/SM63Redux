@@ -8,9 +8,9 @@ func _process(_delta):
 		cam = $"/root/Main".find_child("Camera", true, false)
 	if weakref(cam).get_ref():
 		var cam_pos = cam.position
-		var size = texture.get_size().x
+		var tex_size = texture.get_size().x
 		var target = max(-343, (-343 -cam_pos.y) / 5 / scale.x - 150 * scale.x)
-		offset_left = (fmod(-cam_pos.x / 20, size) - size) * scale.x
+		offset_left = (fmod(-cam_pos.x / 20, tex_size) - tex_size) * scale.x
 		if abs(offset_top - target) > 50:
 			offset_top = target
 		else:

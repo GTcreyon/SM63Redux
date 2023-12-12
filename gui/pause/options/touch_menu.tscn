@@ -69,6 +69,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 texture_normal = SubResource("1")
 texture_pressed = SubResource("2")
+stretch_mode = 4
 
 [node name="SizeDown" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
 custom_minimum_size = Vector2(40, 42)
@@ -76,6 +77,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 texture_normal = SubResource("3")
 texture_pressed = SubResource("4")
+stretch_mode = 4
 
 [node name="SwapSides" type="HBoxContainer" parent="Margin/MiscConfig"]
 layout_mode = 2

@@ -4,7 +4,7 @@ extends NinePatchRect
 @onready var compiler = $"/root/Main/PipeScript/VisualCompiler"
 @onready var graph = get_parent()
 
-const BYLIGHT = preload("res://fonts/bylight/bylight.tres")
+const BYLIGHT = preload("res://fonts/bylight/bylight.otf")
 const STYLEBOX = preload("res://scenes/menus/visual_pipescript/line_edit_style.stylebox")
 const EDITOR_THEME = preload("res://scenes/menus/visual_pipescript/visual_editor_theme.tres")
 

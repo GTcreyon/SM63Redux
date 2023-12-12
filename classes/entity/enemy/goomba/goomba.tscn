@@ -1,8 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://cc1st8k2boes7"]
+[gd_scene load_steps=31 format=3 uid="uid://cc1st8k2boes7"]
 
 [ext_resource type="Texture2D" uid="uid://du2p4qnic7ks4" path="res://classes/entity/enemy/goomba/goomba_walk.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://c64s82ifh0umj" path="res://classes/entity/enemy/goomba/goomba_jump.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://cbqy1ucvelmeq" path="res://classes/entity/enemy/goomba/goomba_squish.png" id="3"]
+[ext_resource type="AudioStream" uid="uid://trumsj5f0wi7" path="res://classes/entity/enemy/goomba/goomba_stomped.wav" id="4"]
+[ext_resource type="AudioStream" uid="uid://u1tw3qkvqr56" path="res://classes/entity/enemy/goomba/goomba_struck.wav" id="5"]
+[ext_resource type="AudioStream" uid="uid://c1jt3dptfd62j" path="res://classes/entity/enemy/goomba/goomba_struck_landed.wav" id="6"]
 [ext_resource type="AudioStream" uid="uid://cy1dja62lk07l" path="res://classes/entity/enemy/goomba/goomba_jump.ogg" id="6_p8ash"]
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="15"]
 [ext_resource type="Script" path="res://classes/entity/enemy/goomba/goomba.gd" id="16"]
@@ -144,9 +147,6 @@ collision_layer = 4
 collision_mask = 2147483649
 script = ExtResource("16")
 step_indexes = Array[bool]([true, false, false, true, false, false])
-_sfx_stomp_path = NodePath("")
-_sfx_struck_path = NodePath("")
-_sfx_struck_land_path = NodePath("")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
@@ -230,5 +230,20 @@ bus = &"SFX"
 [node name="SFXStep" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("17")
 volume_db = -6.0
+attenuation = 10.0
+bus = &"SFX"
+
+[node name="SFXStomped" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4")
+attenuation = 10.0
+bus = &"SFX"
+
+[node name="SFXStruck" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5")
+attenuation = 10.0
+bus = &"SFX"
+
+[node name="SFXStruckLanded" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6")
 attenuation = 10.0
 bus = &"SFX"

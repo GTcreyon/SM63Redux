@@ -22,4 +22,5 @@ func _process(_delta):
 
 func refresh_scroll():
 	if max_height != 0:
-		scroll.offset_top = 1-(courses.offset_top / max_height) * (get_window().size.y / gui_scale - 54 - 51)
+		scroll.offset_top = 1-(courses.offset_top / max_height) \
+			* (float(get_window().size.y) / gui_scale - 54 - 51)

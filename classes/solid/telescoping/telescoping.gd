@@ -1,4 +1,3 @@
-@tool
 class_name Telescoping
 extends Node2D
 # Root class for objects that can change lengths, such as clouds and tipping logs.

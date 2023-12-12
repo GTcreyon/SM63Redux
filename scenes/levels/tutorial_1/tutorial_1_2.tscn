@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bo530bet4fpj0"]
+[gd_scene load_steps=35 format=3 uid="uid://bo530bet4fpj0"]
 
 [ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="3"]
@@ -16,26 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://do78au40k7meh" path="res://classes/decorative/big_tree.tscn" id="20"]
 [ext_resource type="PackedScene" uid="uid://r5f5n67eg4l4" path="res://classes/entity/passive/goonie/goonie.tscn" id="21"]
 [ext_resource type="PackedScene" uid="uid://bxr8jnnuk4ac" path="res://classes/interactable/sign/sign.tscn" id="22"]
-[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="24"]
 [ext_resource type="PackedScene" uid="uid://b20mdb1tyiflv" path="res://classes/decorative/small_tree.tscn" id="25"]
 [ext_resource type="PackedScene" path="res://classes/solid/rocks/big_rock/big_rock.tscn" id="26"]
 [ext_resource type="PackedScene" uid="uid://bk3kxkr4ojd03" path="res://classes/decorative/flowers.tscn" id="27"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlxud"]
-resource_local_to_scene = true
-shader = ExtResource("24")
-shader_parameter/width = 1.0
-shader_parameter/recenter = null
-shader_parameter/radial = false
-shader_parameter/outline_color = Color(1, 1, 1, 1)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ll25s"]
-resource_local_to_scene = true
-shader = ExtResource("24")
-shader_parameter/width = 1.0
-shader_parameter/recenter = null
-shader_parameter/radial = false
-shader_parameter/outline_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="4"]
 atlas = ExtResource("17_pomhx")
@@ -184,33 +167,6 @@ polygon = PackedVector2Array(-80.6043, -76.7664, 1754.29, -76.7664, 1754.29, 395
 [node name="Player" parent="." instance=ExtResource("3")]
 position = Vector2(-42, 160)
 
-[node name="Water" type="Node2D" parent="."]
-
-[node name="Water" parent="Water" instance=ExtResource("11")]
-position = Vector2(719, 312)
-polygon = PackedVector2Array(0, 0, 480, 0, 480, 192, 0, 192)
-
-[node name="Terrain" type="Node2D" parent="."]
-
-[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("2")]
-z_index = 1
-position = Vector2(0, 192)
-polygon = PackedVector2Array(-432, -16, 304, -16, 323, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -51, 1699, -51, 1728, -41, 2184, -41, 2184, 523, -432, 523)
-edge_types = {
-13: 3,
-14: 3,
-15: 3,
-16: 3,
-17: 3,
-18: 3,
-20: 3
-}
-
-[node name="TerrainPolygon2" parent="Terrain" instance=ExtResource("2")]
-z_index = 1
-position = Vector2(760, 228)
-polygon = PackedVector2Array(0, 0, 37, -28, 80, -38, 72, -163, 57, -211, 55, -237, 124, -224, 211, -226, 238, -160, 235, -52, 246, 5, 298, 31, 298, 100, 192, 125, 125, 103, 35, 92, 0, 64)
-
 [node name="Items" type="Node2D" parent="."]
 
 [node name="Log" parent="Items" instance=ExtResource("12")]
@@ -265,12 +221,10 @@ position = Vector2(439, 193)
 position = Vector2(1091.5, 244.758)
 
 [node name="Sign" parent="Items" instance=ExtResource("22")]
-material = SubResource("ShaderMaterial_tlxud")
 position = Vector2(50.6266, 171.279)
 lines = Array[String](["[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nasty [color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need to go this way?", "Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying.", "If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath you!"])
 
 [node name="Sign3" parent="Items" instance=ExtResource("22")]
-material = SubResource("ShaderMaterial_ll25s")
 position = Vector2(1601, 247)
 lines = Array[String](["[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]", "If you jump three times while moving,[@p,3] you can jump higher each time,[@p,3] ending with a huge leap!", "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."])
 
@@ -386,6 +340,33 @@ position = Vector2(855, 258)
 
 [node name="Bobomb4" parent="Items" instance=ExtResource("15")]
 position = Vector2(1387, 247)
+
+[node name="Water" type="Node2D" parent="."]
+
+[node name="Water" parent="Water" instance=ExtResource("11")]
+position = Vector2(719, 312)
+polygon = PackedVector2Array(0, 0, 480, 0, 480, 192, 0, 192)
+
+[node name="Terrain" type="Node2D" parent="."]
+
+[node name="TerrainPolygon" parent="Terrain" instance=ExtResource("2")]
+z_index = 1
+position = Vector2(0, 192)
+polygon = PackedVector2Array(-432, -16, 304, -16, 323, 0, 384, 0, 400, 10, 447, 10, 464, 0, 522, 9, 531, -32, 602, -32, 615, 32, 728, 36, 728, 160, 738, 192, 840, 216, 940, 255, 961, 268, 1062, 258, 1088, 259, 1107, 253, 1160, 137, 1194, 134, 1198, 79, 1286, 74, 1388, 74, 1487, 57, 1675, 57, 1681, 39, 1686, -51, 1699, -51, 1728, -41, 2184, -41, 2184, 523, -432, 523)
+edge_types = {
+13: 3,
+14: 3,
+15: 3,
+16: 3,
+17: 3,
+18: 3,
+20: 3
+}
+
+[node name="TerrainPolygon2" parent="Terrain" instance=ExtResource("2")]
+z_index = 1
+position = Vector2(760, 228)
+polygon = PackedVector2Array(0, 0, 37, -28, 80, -38, 72, -163, 57, -211, 55, -237, 124, -224, 211, -226, 238, -160, 235, -52, 246, 5, 298, 31, 298, 100, 192, 125, 125, 103, 35, 92, 0, 64)
 
 [node name="WarpZone" parent="." instance=ExtResource("16")]
 position = Vector2(-81, 92)

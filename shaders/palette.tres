@@ -1,13 +1,12 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://doskvnt6b4sl2"]
 
-[ext_resource path="res://shaders/palette.gdshader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://shaders/palette.gdshader" id="1"]
 
 [resource]
-resource_local_to_scene = true
-shader = ExtResource( 1 )
-shader_param/color0 = Color( 0.611765, 0.772549, 0.427451, 1 )
-shader_param/color1 = Color( 0.121569, 0.533333, 0.478431, 1 )
-shader_param/color2 = Color( 0.168627, 0.290196, 0.239216, 1 )
-shader_param/color3 = Color( 1, 1, 0, 1 )
-shader_param/color4 = Color( 1, 0, 1, 1 )
-shader_param/color5 = Color( 0, 1, 1, 1 )
+shader = ExtResource("1")
+shader_parameter/color0 = Color(1, 0, 0, 1)
+shader_parameter/color1 = Color(0, 1, 0, 1)
+shader_parameter/color2 = Color(0, 0, 1, 1)
+shader_parameter/color3 = Color(1, 1, 0, 1)
+shader_parameter/color4 = Color(1, 0, 1, 1)
+shader_parameter/color5 = Color(0, 1, 1, 1)
