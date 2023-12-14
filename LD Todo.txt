@@ -2,7 +2,6 @@ TODO:
 - Figure out what the dang the seemingly unused functions in ld_main do.
 
 TOFIX:
-- OUTLINE: Multi-select looks wrong for items that use different sprite sheets.
 - OUTLINE: Level Info shine icon outlines pixels that should be removed.
 
 WONTFIX:
@@ -24,6 +23,7 @@ FIXED:
 - OUTLINE: Sprite offset slightly shifts texture along offset direction,
 	also proportional to outline width. When Y offset = -1.5, each outline
 	step moves the sprite 1/16 a pixel upwards.
+- OUTLINE: Multi-select looks wrong for items that use different sprite sheets.
 
 FOR FUTURE:
 - Don't let nulti-select area appear until a drag event occurs. Not only is it annoying to see the blue blip anytime I click, but if I place a goomba and koopa right next to each other, it's hard to select only one because the select box immediately picks both. (Depending which one I pick, that is.)
