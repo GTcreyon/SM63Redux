@@ -1,4 +1,4 @@
-[gd_scene load_steps=163 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=179 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/state/state_manager.gd" id="2_2lngf"]
@@ -11,20 +11,36 @@
 [ext_resource type="Script" path="res://classes/player/state/air.gd" id="4_saxvj"]
 [ext_resource type="PackedScene" uid="uid://bqum1bps2pujq" path="res://gui/hud/hud.tscn" id="5"]
 [ext_resource type="AudioStream" uid="uid://bebevnpo8kc1p" path="res://classes/player/sfx/fludd/hover_loop.mp3" id="6"]
+[ext_resource type="Script" path="res://classes/player/state/walk.gd" id="6_70jfv"]
 [ext_resource type="AudioStream" uid="uid://bu0n0xnjqrko6" path="res://classes/player/sfx/fludd/hover.mp3" id="7"]
+[ext_resource type="Script" path="res://classes/player/state/crouch.gd" id="7_djbi5"]
 [ext_resource type="Texture2D" uid="uid://dejqqeka1tsc" path="res://classes/player/mario_sheet.png" id="8"]
+[ext_resource type="Script" path="res://classes/player/state/pound_land.gd" id="8_bxvk2"]
 [ext_resource type="Material" uid="uid://d3lpuxs7i73r7" path="res://shaders/distance_field.tres" id="9"]
+[ext_resource type="Script" path="res://classes/player/state/slide.gd" id="9_lxi1s"]
 [ext_resource type="Texture2D" uid="uid://drc56wscsgnw7" path="res://classes/player/fludd_water.png" id="10"]
 [ext_resource type="Material" path="res://classes/player/dust_material.tres" id="11"]
+[ext_resource type="Script" path="res://classes/player/state/fall.gd" id="11_4iuru"]
 [ext_resource type="Texture2D" uid="uid://b2ujfi4p0015g" path="res://classes/player/fludd_sheet.png" id="12"]
+[ext_resource type="Script" path="res://classes/player/state/dummy_jump.gd" id="12_b8c2a"]
+[ext_resource type="Script" path="res://classes/player/state/jump.gd" id="12_tvb72"]
 [ext_resource type="Material" uid="uid://b04v14ipldro2" path="res://classes/player/fludd_spray.tres" id="13"]
+[ext_resource type="Script" path="res://classes/player/state/jump_double.gd" id="13_ckv7c"]
 [ext_resource type="Script" path="res://classes/player/camera.gd" id="14"]
+[ext_resource type="Script" path="res://classes/player/state/jump_triple.gd" id="14_6nqsp"]
 [ext_resource type="Texture2D" uid="uid://dpgkodpraunrv" path="res://classes/particles/dust.png" id="15"]
+[ext_resource type="Script" path="res://classes/player/state/backflip.gd" id="15_5fy1x"]
 [ext_resource type="AudioStream" uid="uid://t4j5ffot2i05" path="res://classes/player/sfx/fludd/fludd_switch.wav" id="16"]
+[ext_resource type="Script" path="res://classes/player/state/dive.gd" id="16_vh6so"]
 [ext_resource type="AudioStream" uid="uid://bxupwlkn26gd6" path="res://classes/player/sfx/pound/pound_spin.wav" id="17"]
+[ext_resource type="Script" path="res://classes/player/state/hurt.gd" id="17_s7v4w"]
 [ext_resource type="AudioStream" uid="uid://bfe8lwyp5f0yt" path="res://classes/player/sfx/spin_air_1.wav" id="18"]
+[ext_resource type="Script" path="res://classes/player/state/pound_air.gd" id="18_yyx6c"]
 [ext_resource type="Script" path="res://classes/player/fludd_sprite.gd" id="19"]
+[ext_resource type="Script" path="res://classes/player/state/pound_spin.gd" id="19_ieyet"]
+[ext_resource type="Script" path="res://classes/player/state/pound_fall.gd" id="20_ri21n"]
 [ext_resource type="Script" path="res://classes/player/character_sprite.gd" id="21"]
+[ext_resource type="Script" path="res://classes/player/state/spin.gd" id="21_0w5dd"]
 [ext_resource type="Script" path="res://classes/autoplay.gd" id="22"]
 
 [sub_resource type="AtlasTexture" id="129"]
@@ -1238,37 +1254,55 @@ script = ExtResource("4_2ro3p")
 effect = &"Idle"
 
 [node name="Walk" type="Node" parent="StateManager/Ground"]
+script = ExtResource("6_70jfv")
 
 [node name="Crouch" type="Node" parent="StateManager/Ground"]
+script = ExtResource("7_djbi5")
 
 [node name="PoundLand" type="Node" parent="StateManager/Ground"]
+script = ExtResource("8_bxvk2")
 
 [node name="Slide" type="Node" parent="StateManager/Ground"]
+script = ExtResource("9_lxi1s")
 
 [node name="Air" type="Node" parent="StateManager"]
 script = ExtResource("4_saxvj")
 
 [node name="Fall" type="Node" parent="StateManager/Air"]
+script = ExtResource("11_4iuru")
 
-[node name="Jump" type="Node" parent="StateManager/Air"]
+[node name="DummyJump" type="Node" parent="StateManager/Air"]
+script = ExtResource("12_b8c2a")
 
-[node name="JumpDouble" type="Node" parent="StateManager/Air"]
+[node name="Jump" type="Node" parent="StateManager/Air/DummyJump"]
+script = ExtResource("12_tvb72")
 
-[node name="JumpTriple" type="Node" parent="StateManager/Air"]
+[node name="JumpDouble" type="Node" parent="StateManager/Air/DummyJump"]
+script = ExtResource("13_ckv7c")
+
+[node name="JumpTriple" type="Node" parent="StateManager/Air/DummyJump"]
+script = ExtResource("14_6nqsp")
 
 [node name="Backflip" type="Node" parent="StateManager/Air"]
+script = ExtResource("15_5fy1x")
 
 [node name="Dive" type="Node" parent="StateManager/Air"]
+script = ExtResource("16_vh6so")
 
 [node name="Hurt" type="Node" parent="StateManager/Air"]
+script = ExtResource("17_s7v4w")
 
 [node name="PoundAir" type="Node" parent="StateManager/Air"]
+script = ExtResource("18_yyx6c")
 
 [node name="PoundSpin" type="Node" parent="StateManager/Air/PoundAir"]
+script = ExtResource("19_ieyet")
 
 [node name="PoundFall" type="Node" parent="StateManager/Air/PoundAir"]
+script = ExtResource("20_ri21n")
 
 [node name="Spin" type="Node" parent="StateManager"]
+script = ExtResource("21_0w5dd")
 
 [node name="CharacterGroup" type="Node2D" parent="."]
 script = ExtResource("4_q4bau")

@@ -206,6 +206,7 @@ func _process(delta):
 
 
 func _physics_process(_delta):
+	return
 	if locked:
 		locked_behaviour()
 	else:
