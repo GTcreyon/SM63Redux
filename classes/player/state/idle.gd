@@ -1,7 +1,12 @@
 extends PlayerState
 
 
-func tell_switch():
-	if input.is_moving_x():
-		return &"Walk"
+func _post_tick():
+	if abs(motion.get_vel_component(motion.x)) > 2.0:
+		motion.decel(0.5)
+
+
+func _tell_switch():
+	if input.buffered_input(&"jump"):
+		return &"DummyJump"
 	return &""

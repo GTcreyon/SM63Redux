@@ -1,5 +1,6 @@
 extends PlayerState
 
 
-func tell_switch():
-	return &""
+func _cycle_tick():
+	motion.apply_gravity()
+	motion.motion_x(false)

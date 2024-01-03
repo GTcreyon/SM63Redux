@@ -1,5 +1,3 @@
-extends PlayerState
-
-
-func tell_switch():
-	return &""
+class_name JumpDouble
+extends Jump
+## Double jump. Jumps higher than single jump.

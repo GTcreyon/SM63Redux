@@ -2,8 +2,12 @@ class_name Motion
 extends Node
 ## Handles movement of the actor.
 
+## Time delay allowed before cancelling a double/triple jump.
+const CONSEC_JUMP_TIME: int = 8
+const COYOTE_TIME: int = 5
 const RESIST_DECREMENT: float = 1.0 / 20.0
 
+## Target actor of this motion manager.
 @export var actor: CharacterBody2D = owner
 @export var gravity: float = 1.875
 @export var term_vel: float = 4.0
@@ -14,6 +18,9 @@ var vel := Vector2.ZERO
 var vel_prev := Vector2.ZERO
 var last_direction_x: int = 1
 var resist: float = 0
+var consec_jump_timer: int = 0
+var coyote_timer: int = 0
+var consec_jumps: int = 0
 
 
 func _physics_process(delta):
@@ -34,6 +41,36 @@ func apply_gravity(multiplier: float = 1.0, cap: float = term_vel) -> void:
 	if abs(vel.dot(y)) < 1:
 		down_force *= 0.5
 	accel_capped(Vector2(0, down_force * multiplier), cap)
+
+
+## Activate the consecutive jump timer.
+func activate_consec_timer() -> void:
+	consec_jump_timer = CONSEC_JUMP_TIME
+
+
+## Return whether the consecutive jump timer is or isn't running.
+func active_consec_time() -> bool:
+	return consec_jump_timer > 0
+
+
+## Consume the consecutive jump timer, ridding of any chance at a consecutive jump.
+func consume_consec_timer() -> void:
+	consec_jump_timer = -1
+
+
+## Activate the coyote timer.
+func activate_coyote_timer() -> void:
+	coyote_timer = COYOTE_TIME
+
+
+## Return whether the coyote timer is or isn't running.
+func active_coyote_time() -> bool:
+	return coyote_timer > 0
+
+
+## Consume the coyote timer, ridding of any chance at a coyote input.
+func consume_coyote_timer() -> void:
+	coyote_timer = 0
 
 
 ## Accelerate by a given velocity, up to a certain limit.
@@ -101,47 +138,6 @@ func get_axis_direction(axis: Vector2) -> int:
 ## Return true if the actor is not moving in the X axis.
 func is_moving_axis(axis: Vector2) -> bool:
 	return !is_zero_approx(get_vel_component(axis))
-
-
-## Return true if the actor should quickturn.
-func should_quickturn(dir: float, threshold: float) -> bool:
-	dir = sign(dir)
-	if resist > 0:
-		return false
-
-	if !is_moving_axis(x):
-		return false
-
-	if dir == get_axis_direction(x):
-		return false
-
-	if abs(vel.x) > threshold:
-		return false
-
-	return true
-
-
-func motion_x(can_quickturn: bool) -> void:
-	var mul = 1 - resist
-	if PlayerInput.is_moving_x():
-		var dir = PlayerInput.get_x()
-		if can_quickturn and should_quickturn(dir, 2.0):
-			# Quick turnaround
-			quickturn(dir * x, 0.5)
-		else:
-			accel_capped(dir * 0.5 * x * mul, 2.0)
-	else:
-		decel(0.5 * mul)
-
-
-## Turn quickly to the opposite direction to the one given, applying a damping factor.
-func quickturn(dir: Vector2, damp: float) -> void:
-	var dir_perp = dir.orthogonal()
-
-	var para = vel.dot(dir)
-	var perp = vel.dot(dir_perp)
-
-	vel = (para * -dir * damp) + (perp * dir_perp)
 
 
 ## Return the direction vector of the velocity vector.
