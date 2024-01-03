@@ -1258,7 +1258,6 @@ script = ExtResource("3_iy3xo")
 
 [node name="Idle" type="Node" parent="StateManager/Ground"]
 script = ExtResource("4_2ro3p")
-effect = &"Idle"
 
 [node name="Walk" type="Node" parent="StateManager/Ground"]
 script = ExtResource("6_70jfv")
