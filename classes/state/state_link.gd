@@ -2,10 +2,10 @@ class_name StateLink
 extends RefCounted
 ## Stores connection data between states.
 
-## Cached source state
+## Cached source state.
 var _head: State = null
 
-## Cached target state
+## Cached target state.
 var _target: State = null
 
 ## Path from source state to target state.
@@ -29,13 +29,13 @@ func _init(head, target):
 func _generate_path() -> void:
 	# NodePath from source state to target state
 	var path: NodePath = _head.get_path_to(_target)
-	
+
 	var concat = path.get_concatenated_names()
 	var list = concat.split("/")
+
 	_peak = list.rfind("..")
-	
 	_state_path.clear()
-	
+
 	var current_state: State = _head
 	for i in path.get_name_count():
 		# Need to coerce this from StringName to String

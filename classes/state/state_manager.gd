@@ -3,7 +3,8 @@ extends State
 ## Root node of a state machine.
 ## Manages the execution of hook functions in the machine.
 
-@export var target_actor: Node = owner
+
+@export var target_actor: Node = null
 @export var initial_state: State = null
 
 
@@ -12,9 +13,12 @@ func _ready():
 		&"actor": target_actor,
 		&"manager": self,
 	}
+
 	pass_downs.merge(_custom_passdowns())
+
 	for key in pass_downs:
 		recurse_descendents(&"set", [key, pass_downs[key]])
+
 	await target_actor.ready
 
 	# Switch to and initialise the initial state, if there is one.
