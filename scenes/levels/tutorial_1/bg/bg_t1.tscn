@@ -9,6 +9,7 @@
 [node name="BGT1" type="ParallaxBackground"]
 process_mode = 3
 process_priority = 1
+scroll_ignore_camera_zoom = true
 
 [node name="Sky" type="TextureRect" parent="."]
 anchors_preset = 15
