@@ -1,11 +1,11 @@
-tool
+@tool
 extends Container
 
 class_name OutlineContainer
 
-export(PoolVector2Array) var anchor_around = [] setget set_anchor_around
-export(PoolVector2Array) var px_offset = [] setget set_px_offset
-export(PoolVector2Array) var item_anchor = [] setget set_item_anchor
+@export var anchor_around: PackedVector2Array = []: set = set_anchor_around
+@export var px_offset: PackedVector2Array = []: set = set_px_offset
+@export var item_anchor: PackedVector2Array = []: set = set_item_anchor
 
 
 func set_anchor_around(new):
@@ -37,9 +37,9 @@ func _notification(what):
 	for idx in get_child_count():
 		var child = get_child(idx)
 		if child.size_flags_horizontal == SIZE_FILL:
-			child.set_size(Vector2(rect_size.x, child.rect_size.y))
+			child.set_size(Vector2(size.x, child.size.y))
 		if child.size_flags_vertical == SIZE_FILL:
-			child.set_size(Vector2(child.rect_size.x, rect_size.y))
+			child.set_size(Vector2(child.size.x, size.y))
 		child.set_position(
-			rect_size * anchor_around[idx] - child.rect_size * item_anchor[idx] + px_offset[idx]
+			size * anchor_around[idx] - child.size * item_anchor[idx] + px_offset[idx]
 		)

@@ -39,31 +39,27 @@ const skin_presets = [
 	],
 ]
 
-export(int, "red", "green", "blue", "yellow", "purple") var spot = 0 setget set_spot
-export(int, 1) var skin = 0 setget set_skin
-var temp_skin
-var temp_spot
-
-
-func _init():
-	temp_skin = skin
-	temp_spot = spot
+@export_enum("Red", "Green", "Blue", "Yellow", "Purple") var spot: int = 0
+@export_range(0, 1) var skin: int = 0
 
 
 func set_spot(new_spot):
 	for i in range(2):
-		material.set_shader_param("color" + str(i), spot_presets[new_spot][i])
-	spot = new_spot
-	temp_spot = new_spot
+		material.set_shader_parameter("color" + str(i), spot_presets[new_spot][i])
 
 
 func set_skin(new_skin):
 	for i in range(4):
-		material.set_shader_param("color" + str(i + 2), skin_presets[new_skin][i])
-	skin = new_skin
-	temp_skin = new_skin
+		material.set_shader_parameter("color" + str(i + 2), skin_presets[new_skin][i])
+
+
+func _init():
+	material = material.duplicate()
+	set_spot(spot)
+	set_skin(skin)
 
 
 func _ready():
 	sprite.frame = fmod(position.x + position.y * PI, 7)
 	sprite.play()
+

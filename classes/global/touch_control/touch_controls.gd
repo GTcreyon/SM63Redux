@@ -1,22 +1,22 @@
 extends CanvasLayer
 
 const BUTTON_DIMENSIONS = Vector2(20, 21)
-const ANCHOR_DIRECTION_OFFSETS = PoolVector2Array([Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)])
-const ANCHOR_PIVOT_OFFSETS = PoolVector2Array([Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)])
+const ANCHOR_DIRECTION_OFFSETS = [Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)]
+const ANCHOR_PIVOT_OFFSETS = [Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)]
 const ANCHOR_REVERSE_OFFSETS = [false, true, false, true]
 const BUTTON_PREFAB = preload("res://classes/global/touch_control/touch_button.tscn")
 const LAYOUT_PRESETS = {
-	"new": "u:jump,up/d:dive,down/z:pound,interact#c:fludd/x:spin,skip@l:left/r:right#s:switch_fludd/p:pause@_/s:feedback/_",
-	"one-finger": "s:switch_fludd,skip/z:pound,interact/d:down#p:pause@_/l:left/x:spin,skip/r:right/_#d:dive,left/u:jump,left/u:jump,up/u:jump,right/d:dive,right#_/c:fludd,left/c:fludd/c:fludd,right/_@_/s:feedback/_",
-	"classic": "z:pound,interact/x:spin,skip/c:fludd#s:switch_fludd/p:pause@l:left/d:down,dive/r:right#_/u:up,jump/_@_/s:feedback/_",
+	"new": "up:jump,up/down:dive,down/z:pound,interact#fludd:fludd/x:spin,skip@left:left/right:right#nozzle:switch_fludd/pause:pause@_/shift:feedback/_",
+	"one-finger": "nozzle:switch_fludd,skip/z:pound,interact/pipe:down#pause:pause@_/left:left/x:spin,skip/right:right/_#dl:dive,left/jleft:jump,left/up:jump,up/jright:jump,right/dr:dive,right#_/fleft:fludd,left/fludd:fludd/fright:fludd,right/_@_/shift:feedback/_",
+	"classic": "z:pound,interact/x:spin,skip/c:fludd#shift:switch_fludd/pause:pause@left:left/down:down,dive/right:right#_/up:up,jump/_@_/shift:feedback/_",
 }
 
-var button_scale = _get_button_scale()
 var action_presses = {} # Record how many buttons are pressing each action
 var anchor_order = [0, 1, 2, 3]
 var current_layout = "new"
 
-onready var anchors = [$AnchorLeft, $AnchorRight, $AnchorLeftUp, $AnchorRightUp]
+@onready var button_scale = _get_button_scale()
+@onready var anchors = [$AnchorLeft, $AnchorRight, $AnchorLeftUp, $AnchorRightUp]
 
 func _init():
 	visible = false
@@ -38,22 +38,25 @@ func _get_button_scale() -> int:
 	# Divide *that* by the value we found earlier, and floor it. Do that for both X and Y.
 	# Take the smaller value of those two. We will use this as the default scale multiplier.
 	
+	var window_size = Vector2(get_window().size)
 	var output = min(
 		floor(
-			(OS.window_size.x / 2) / (BUTTON_DIMENSIONS.x * 6 * scale.x)
+			(window_size.x / 2) / (BUTTON_DIMENSIONS.x * 6 * scale.x)
 		),
 		floor(
-			(OS.window_size.y / 2) / (BUTTON_DIMENSIONS.y * 4 * scale.y)
+			(window_size.y / 2) / (BUTTON_DIMENSIONS.y * 4 * scale.y)
 		)
 	)
 	return output
 
 
 func _process(_delta) -> void:
-	var gui_scale = max(floor(OS.window_size.x / Singleton.DEFAULT_SIZE.x), 1)	
+	var gui_scale = max(
+		floor( float(get_window().size.x) / Singleton.DEFAULT_SIZE.x),
+		1)
 	visible = Singleton.touch_control
 	for anchor in anchors:
-		anchor.rect_scale = Vector2.ONE * gui_scale * button_scale
+		anchor.scale = Vector2.ONE * gui_scale * button_scale
 
 
 func _physics_process(_delta) -> void:
@@ -101,9 +104,9 @@ func _generate_buttons(pattern: String) -> void:
 	var anchor_index = 0
 	for corner in pattern.split("@"):
 		for row in corner.split("#"):
-			var buttons: PoolStringArray = row.split("/")
+			var buttons: PackedStringArray = row.split("/")
 			if ANCHOR_REVERSE_OFFSETS[anchor_order[anchor_index]]:
-				buttons.invert()
+				buttons.reverse()
 			for button in buttons:
 				if button != "_":
 					var parts = button.split(":")
@@ -111,7 +114,7 @@ func _generate_buttons(pattern: String) -> void:
 					for action in actions:
 						if !action_presses.has(action):
 							action_presses[action] = 0
-					var inst = BUTTON_PREFAB.instance()
+					var inst = BUTTON_PREFAB.instantiate()
 					inst.id = parts[0]
 					inst.actions = actions
 					inst.position = (

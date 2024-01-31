@@ -1,6 +1,6 @@
 extends Area2D
 
-onready var collision = $CollisionShape2D
+@onready var collision = $CollisionShape2D
 var bodies = []
 
 func snap_bodies():
@@ -8,9 +8,9 @@ func snap_bodies():
 		for body in bodies:
 			var player_box = body.get_node("Hitbox")
 			if (body.vel.y > 0
-			and body.position.y + player_box.shape.extents.y + player_box.position.y - 4 < global_position.y + collision.shape.extents.y
+			and body.position.y + player_box.shape.size.y / 2 + player_box.position.y - 4 < global_position.y + collision.shape.size.y / 2
 			):
-				body.position.y = global_position.y - collision.shape.extents.y - player_box.shape.extents.y - player_box.position.y
+				body.position.y = global_position.y - collision.shape.size.y / 2 - player_box.shape.size.y / 2 - player_box.position.y
 				body.vel.y = 1
 
 

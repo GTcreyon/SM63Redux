@@ -1,34 +1,28 @@
 // Gradle build config for Godot Engine's Android port.
-//
-// Do not remove/modify comments ending with BEGIN/END, they are used to inject
-// addon-specific configuration.
-apply from: 'config.gradle'
-
 buildscript {
     apply from: 'config.gradle'
 
     repositories {
         google()
         mavenCentral()
-//CHUNK_BUILDSCRIPT_REPOSITORIES_BEGIN
-//CHUNK_BUILDSCRIPT_REPOSITORIES_END
     }
     dependencies {
         classpath libraries.androidGradlePlugin
         classpath libraries.kotlinGradlePlugin
-//CHUNK_BUILDSCRIPT_DEPENDENCIES_BEGIN
-//CHUNK_BUILDSCRIPT_DEPENDENCIES_END
     }
 }
 
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+apply from: 'config.gradle'
 
 allprojects {
     repositories {
         google()
         mavenCentral()
-//CHUNK_ALLPROJECTS_REPOSITORIES_BEGIN
-//CHUNK_ALLPROJECTS_REPOSITORIES_END
 
         // Godot user plugins custom maven repos
         String[] mavenRepos = getGodotPluginsMavenRepos()
@@ -42,6 +36,11 @@ allprojects {
     }
 }
 
+configurations {
+    // Initializes a placeholder for the devImplementation dependency configuration.
+    devImplementation {}
+}
+
 dependencies {
     implementation libraries.kotlinStdLib
     implementation libraries.androidxFragment
@@ -51,9 +50,10 @@ dependencies {
     } else if (rootProject.findProject(":godot:lib")) {
         implementation project(":godot:lib")
     } else {
-        // Custom build mode. In this scenario this project is the only one around and the Godot
+        // Godot gradle build mode. In this scenario this project is the only one around and the Godot
         // library is available through the pre-generated godot-lib.*.aar android archive files.
         debugImplementation fileTree(dir: 'libs/debug', include: ['*.jar', '*.aar'])
+        devImplementation fileTree(dir: 'libs/dev', include: ['*.jar', '*.aar'])
         releaseImplementation fileTree(dir: 'libs/release', include: ['*.jar', '*.aar'])
     }
 
@@ -70,18 +70,20 @@ dependencies {
     if (pluginsBinaries != null && pluginsBinaries.size() > 0) {
         implementation files(pluginsBinaries)
     }
-
-//CHUNK_DEPENDENCIES_BEGIN
-//CHUNK_DEPENDENCIES_END
 }
 
 android {
     compileSdkVersion versions.compileSdk
     buildToolsVersion versions.buildTools
+    ndkVersion versions.ndkVersion
 
     compileOptions {
         sourceCompatibility versions.javaVersion
         targetCompatibility versions.javaVersion
+    }
+
+    kotlinOptions {
+        jvmTarget = versions.javaVersion
     }
 
     assetPacks = [":assetPacks:installTime"]
@@ -103,10 +105,10 @@ android {
         applicationId getExportPackageName()
         versionCode getExportVersionCode()
         versionName getExportVersionName()
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
-//CHUNK_ANDROID_DEFAULTCONFIG_BEGIN
-//CHUNK_ANDROID_DEFAULTCONFIG_END
+        minSdkVersion getExportMinSdkVersion()
+        targetSdkVersion getExportTargetSdkVersion()
+
+        missingDimensionStrategy 'products', 'template'
     }
 
     lintOptions {
@@ -151,7 +153,19 @@ android {
 
         debug {
             // Signing and zip-aligning are skipped for prebuilt builds, but
-            // performed for custom builds.
+            // performed for Godot gradle builds.
+            zipAlignEnabled shouldZipAlign()
+            if (shouldSign()) {
+                signingConfig signingConfigs.debug
+            } else {
+                signingConfig null
+            }
+        }
+
+        dev {
+            initWith debug
+            // Signing and zip-aligning are skipped for prebuilt builds, but
+            // performed for Godot gradle builds.
             zipAlignEnabled shouldZipAlign()
             if (shouldSign()) {
                 signingConfig signingConfigs.debug
@@ -162,7 +176,7 @@ android {
 
         release {
             // Signing and zip-aligning are skipped for prebuilt builds, but
-            // performed for custom builds.
+            // performed for Godot gradle builds.
             zipAlignEnabled shouldZipAlign()
             if (shouldSign()) {
                 signingConfig signingConfigs.release
@@ -175,37 +189,14 @@ android {
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = [
-                'src'
-//DIR_SRC_BEGIN
-//DIR_SRC_END
-            ]
-            res.srcDirs = [
-                'res'
-//DIR_RES_BEGIN
-//DIR_RES_END
-            ]
-            aidl.srcDirs = [
-                'aidl'
-//DIR_AIDL_BEGIN
-//DIR_AIDL_END
-            ]
-            assets.srcDirs = [
-                'assets'
-//DIR_ASSETS_BEGIN
-//DIR_ASSETS_END
-            ]
+            java.srcDirs = ['src']
+            res.srcDirs = ['res']
+            aidl.srcDirs = ['aidl']
+            assets.srcDirs = ['assets']
         }
-        debug.jniLibs.srcDirs = [
-            'libs/debug'
-//DIR_JNI_DEBUG_BEGIN
-//DIR_JNI_DEBUG_END
-        ]
-        release.jniLibs.srcDirs = [
-            'libs/release'
-//DIR_JNI_RELEASE_BEGIN
-//DIR_JNI_RELEASE_END
-        ]
+        debug.jniLibs.srcDirs = ['libs/debug', 'libs/debug/vulkan_validation_layers']
+        dev.jniLibs.srcDirs = ['libs/dev']
+        release.jniLibs.srcDirs = ['libs/release']
     }
 
     applicationVariants.all { variant ->
@@ -221,6 +212,12 @@ task copyAndRenameDebugApk(type: Copy) {
     rename "android_debug.apk", getExportFilename()
 }
 
+task copyAndRenameDevApk(type: Copy) {
+    from "$buildDir/outputs/apk/dev/android_dev.apk"
+    into getExportPath()
+    rename "android_dev.apk", getExportFilename()
+}
+
 task copyAndRenameReleaseApk(type: Copy) {
     from "$buildDir/outputs/apk/release/android_release.apk"
     into getExportPath()
@@ -233,11 +230,14 @@ task copyAndRenameDebugAab(type: Copy) {
     rename "build-debug.aab", getExportFilename()
 }
 
+task copyAndRenameDevAab(type: Copy) {
+    from "$buildDir/outputs/bundle/dev/build-dev.aab"
+    into getExportPath()
+    rename "build-dev.aab", getExportFilename()
+}
+
 task copyAndRenameReleaseAab(type: Copy) {
     from "$buildDir/outputs/bundle/release/build-release.aab"
     into getExportPath()
     rename "build-release.aab", getExportFilename()
 }
-
-//CHUNK_GLOBAL_BEGIN
-//CHUNK_GLOBAL_END
