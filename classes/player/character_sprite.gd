@@ -39,6 +39,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta):
+	return
 	rotation = parent.body_rotation
 	flip_h = parent.facing_direction == -1
 	speed_scale = 1

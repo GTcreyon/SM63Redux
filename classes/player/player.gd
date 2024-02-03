@@ -205,8 +205,12 @@ func _process(delta):
 	manage_water_audio(delta)
 
 
+var active = false
 func _physics_process(_delta):
-	return
+	if Input.is_action_just_pressed("ld_snap"):
+		active = !active
+	if !active:
+		return
 	if locked:
 		locked_behaviour()
 	else:

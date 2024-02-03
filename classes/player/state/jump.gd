@@ -28,7 +28,7 @@ func _post_tick():
 
 
 func _cycle_tick():
-	motion.motion_x(false)
+	motion.motion_x()
 	_variable_height()
 
 

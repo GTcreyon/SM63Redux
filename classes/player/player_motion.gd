@@ -28,13 +28,6 @@ func _physics_process(delta):
 	resist = max(resist - RESIST_DECREMENT, 0)
 
 
-## Move the actor using the stored `vel` value.
-func _move_actor(delta: float) -> void:
-	actor.velocity = vel / delta
-	actor.move_and_slide()
-	vel = actor.velocity * delta
-
-
 ## Apply downward acceleration.
 func apply_gravity(multiplier: float = 1.0, cap: float = term_vel) -> void:
 	var down_force = gravity
@@ -98,6 +91,16 @@ func accel_capped(add_vel: Vector2, cap: float) -> void:
 	vel = para_vec + perp_vec
 
 
+## Accelerate on the X axis.
+func accel_x(amount: float) -> void:
+	accel(amount * Vector2.RIGHT)
+
+
+## Apply friction on the X axis.
+func friction_x(sub: float, div: float) -> void:
+	vel.x = _resist(vel.x, sub, div)
+
+
 ## Accelerate by a given velocity.
 func accel(add_vel: Vector2) -> void:
 	vel += add_vel
@@ -143,3 +146,34 @@ func is_moving_axis(axis: Vector2) -> bool:
 ## Return the direction vector of the velocity vector.
 func get_direction() -> Vector2:
 	return vel.normalized()
+
+
+## Move the actor using the stored `vel` value.
+func _move_actor(delta: float) -> void:
+	actor.floor_constant_speed = true
+
+	actor.velocity = vel / delta
+	actor.move_and_slide()
+	vel = actor.velocity * delta
+
+
+### Resistance function from OG SM63.
+#func _resist(val: float, sub: float, div: float) -> float:
+	#var vel_sign = sign(val)
+	#val = abs(val) / 1.875
+	#if val < sub:
+		#return 0
+	#val -= sub
+	#val /= div
+	#val *= vel_sign
+	#return val * 1.875
+
+func _resist(val, sub, div): # ripped from source
+	val = val * 1.875
+	var vel_sign = sign(val)
+	val = abs(val)
+	val -= sub
+	val = max(0, val)
+	val /= div
+	val *= vel_sign
+	return val / 1.875

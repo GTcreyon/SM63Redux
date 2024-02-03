@@ -2,14 +2,16 @@ class_name Walk
 extends PlayerState
 ## Moving left and right on the ground.
 
+const WALK_ACCEL: float = 0.586667
 
 func _cycle_tick():
-	motion.motion_x(false)
-	actor.doll.speed_scale = actor.vel.x / motion.max_speed * 2
+	motion.friction_x(0.3, 1.15)
+	motion.accel_x(WALK_ACCEL * input.get_x())
+	actor.sprite.speed_scale = motion.vel.x / 6.0 * 2
 
 
 func _on_exit():
-	actor.doll.speed_scale = 1
+	actor.sprite.speed_scale = 1
 
 
 func _tell_switch():
