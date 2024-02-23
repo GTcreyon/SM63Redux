@@ -1,4 +1,6 @@
+class_name SolidObjectMirrorable
 extends StaticBody2D
+## A StaticBody2D which can be both disabled or mirrored in the level designer.
 
 @export var disabled = false: set = set_disabled
 @export var mirror = false: set = set_mirror
