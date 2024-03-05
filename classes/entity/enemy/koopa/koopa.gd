@@ -67,9 +67,10 @@ func _hurt_struck(body):
 
 
 func into_shell(vel_x):
-	var inst = SHELL_PREFAB.instantiate()
-	inst.position = position + Vector2(0, 7.5)
-	inst.color = color
-	inst.vel = Vector2(vel_x, 0)
-	get_parent().call_deferred("add_child", inst)
-	queue_free()
+	if !self.is_queued_for_deletion():
+		var inst = SHELL_PREFAB.instantiate()
+		inst.position = position + Vector2(0, 7.5)
+		inst.color = color
+		inst.vel = Vector2(vel_x, 0)
+		get_parent().call_deferred("add_child", inst)
+		queue_free()
