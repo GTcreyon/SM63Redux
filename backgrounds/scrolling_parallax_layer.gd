@@ -10,8 +10,13 @@ extends ParallaxLayer
 func _process(delta):
 	# Update scroll.
 	scroll_state += scroll_speed * delta * 60
-	# Wrap autoscroll position within visible repeat area.
-	scroll_state = scroll_state.posmodv(motion_mirroring)
+	# Wrap autoscroll position within visible repeat area (unless there's no
+	# repetition).
+	# Done per-axis to avoid dividing by zero (
+	if motion_mirroring.x != 0:
+		scroll_state.x = fposmod(scroll_state.x, motion_mirroring.x)
+	if motion_mirroring.y != 0:
+		scroll_state.y = fposmod(scroll_state.y, motion_mirroring.y)
 	# Apply.
 	motion_offset = scroll_state
 	
