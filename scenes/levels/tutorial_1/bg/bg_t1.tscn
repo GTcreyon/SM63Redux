@@ -45,6 +45,7 @@ color = Color(0.701961, 0.776471, 0.894118, 1)
 
 [node name="CloudsUpper" type="ParallaxLayer" parent="."]
 motion_scale = Vector2(0, 0)
+motion_offset = Vector2(0, -50)
 motion_mirroring = Vector2(649, 0)
 script = ExtResource("3_xsx85")
 scroll_speed = Vector2(-0.125, 0)
