@@ -67,8 +67,11 @@ func _hurt_struck(body):
 
 
 func into_shell(vel_x):
-	# If this object is queued for deletion, we know not to spawn a second
-	# shell.
+	# Only do anything if this koopa is NOT queued for deletion.
+	# If it is, we know it's already been hit by an attack (or it's meant to be
+	# outright deleted by next frame).
+	# This should fix a bug wherein stomping and spinning the koopa in the same
+	# frame spawns two shells, one for each attack that landed.
 	if !is_queued_for_deletion():
 		# Create a new shell at this koopa's position.
 		var inst = SHELL_PREFAB.instantiate()
