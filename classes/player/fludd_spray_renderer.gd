@@ -12,7 +12,7 @@ extends Sprite2D
 
 @onready var viewport = prepare_viewport()
 @onready var cam = $"/root/Main/Player/Camera"
-@onready var last_viewport_size: Vector2 = get_canvas_transform().get_scale()
+@onready var last_viewport_size: Vector2i = get_window().size
 
 
 func _ready():
@@ -34,7 +34,7 @@ func _ready():
 
 func _process(_delta):
 	# When window size changes, resize viewport texture.
-	var viewport_size = get_canvas_transform().get_scale()
+	var viewport_size = get_window().size
 	if viewport_size != last_viewport_size:
 		refresh()
 	# Save current size to compare against next frame.

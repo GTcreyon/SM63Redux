@@ -150,7 +150,7 @@ func reset_game_state():
 
 # Get a scaling factor based on the window dimensions
 func get_screen_scale(mode: int = 0, threshold: float = -1) -> int:
-	var scale_vec = get_window().size / Singleton.DEFAULT_SIZE
+	var scale_vec = Vector2(get_window().size) / Vector2(Singleton.DEFAULT_SIZE)
 	var rounded = Vector2.ONE
 	if threshold == -1:
 		match mode:
@@ -216,8 +216,8 @@ func warp_to(path: String, player: PlayerCharacter, position: Vector2 = Vector2.
 
 
 # Sets a certain pause label - when all pause labels are false, gameplay takes place
-func set_pause(label: String, set: bool):
-	meta_pauses[label] = set
+func set_pause(label: String, value: bool):
+	meta_pauses[label] = value
 	meta_paused = false
 	for pause in meta_pauses:
 		meta_paused = meta_paused or meta_pauses[pause]

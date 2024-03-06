@@ -118,7 +118,7 @@ func _process(dt):
 
 	# Apply default "still water" ripple.
 	var x_os_size = get_window().size.x
-	var x_camera_edge = camera.global_position.x - x_os_size / 2
+	var x_camera_edge = camera.global_position.x - float(x_os_size) / 2
 	for key in surface.keys():
 		var global_x = surface[key].x + top_left_corner.x
 		if global_x >= x_camera_edge + x_os_size:

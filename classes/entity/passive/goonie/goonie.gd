@@ -39,7 +39,7 @@ func _ready() -> void:
 	if not disabled:
 		sprite.play()
 	
-	# warning-ignore:integer_division
+	@warning_ignore("integer_division")
 	time_count = rng.randi_range(0, TIME_UP / 2)
 	vel.x = 2 + rng.randf() * 0.5
 	vel.y = -0.7 - rng.randf() * 0.25
@@ -63,7 +63,6 @@ func physics_step() -> void:
 			body.set_velocity(move_vec * 60.0)
 			body.set_up_direction(Vector2.UP)
 			body.move_and_slide()
-			body.velocity
 		sprite.animation = "flap"
 		sprite.speed_scale = 3
 		position += move_vec
@@ -75,7 +74,7 @@ func physics_step() -> void:
 			if time_count >= TIME_UP and sprite.frame == 2:
 				sprite.animation = "swoop"
 				
-				# warning-ignore:integer_division
+				@warning_ignore("integer_division")
 				time_count = rng.randi_range(0, TIME_DOWN/2)
 		else:
 			move_vec = Vector2(vel.x * 1.5 * 32/60 * flip_sign, 1.5*32/60)
@@ -83,7 +82,7 @@ func physics_step() -> void:
 			if time_count >= TIME_DOWN:
 				sprite.animation = "flap"
 				sprite.frame = 5
-				# warning-ignore:integer_division
+				@warning_ignore("integer_division")
 				time_count = rng.randi_range(0, TIME_UP/2)
 		time_count += 1
 	

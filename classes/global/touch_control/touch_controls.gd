@@ -38,19 +38,22 @@ func _get_button_scale() -> int:
 	# Divide *that* by the value we found earlier, and floor it. Do that for both X and Y.
 	# Take the smaller value of those two. We will use this as the default scale multiplier.
 	
+	var window_size = Vector2(get_window().size)
 	var output = min(
 		floor(
-			(get_window().size.x / 2) / (BUTTON_DIMENSIONS.x * 6 * scale.x)
+			(window_size.x / 2) / (BUTTON_DIMENSIONS.x * 6 * scale.x)
 		),
 		floor(
-			(get_window().size.y / 2) / (BUTTON_DIMENSIONS.y * 4 * scale.y)
+			(window_size.y / 2) / (BUTTON_DIMENSIONS.y * 4 * scale.y)
 		)
 	)
 	return output
 
 
 func _process(_delta) -> void:
-	var gui_scale = max(floor(get_window().size.x / Singleton.DEFAULT_SIZE.x), 1)	
+	var gui_scale = max(
+		floor( float(get_window().size.x) / Singleton.DEFAULT_SIZE.x),
+		1)
 	visible = Singleton.touch_control
 	for anchor in anchors:
 		anchor.scale = Vector2.ONE * gui_scale * button_scale

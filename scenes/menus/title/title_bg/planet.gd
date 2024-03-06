@@ -9,12 +9,12 @@ var progress = 0.0
 
 func _process(delta):
 	var dmod = 60 * delta
-	var scale = get_parent().scale
-	offset_left -= SCROLL_SPEED * scale.x * dmod
+	var scale_vec = get_parent().scale_vec
+	offset_left -= SCROLL_SPEED * scale_vec.x * dmod
 	offset_top = (get_window().size.y - 194 * ease_out_quart(min(progress, 60) / 60))
 	offset_bottom = get_window().size.y
 	pivot_offset.y = size.y
-	scale = scale
+	scale = scale_vec
 	if wait < 50:
 		wait += dmod
 	else:

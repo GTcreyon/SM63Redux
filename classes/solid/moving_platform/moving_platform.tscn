@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhg2gporb67om"]
+[gd_scene load_steps=9 format=3 uid="uid://dhg2gporb67om"]
 
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://7lk1tkfwl3p0" path="res://classes/solid/moving_platform/moving_platform.png" id="2"]
@@ -13,6 +13,9 @@ size = Vector2(48, 2)
 
 [sub_resource type="RectangleShape2D" id="3"]
 size = Vector2(48, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydfij"]
+size = Vector2(48, 1)
 
 [node name="MovingPlatform" type="StaticBody2D"]
 collision_mask = 0
@@ -45,6 +48,13 @@ script = ExtResource("3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SafetyNet"]
 shape = SubResource("3")
+
+[node name="InsideArea" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InsideArea"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_ydfij")
 
 [connection signal="body_entered" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_entered"]
 [connection signal="body_exited" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_exited"]

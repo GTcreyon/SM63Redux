@@ -6,10 +6,6 @@ func _init():
 	visible = false
 
 
-func _ready():
-	scale = Vector2.ONE * max(floor(get_window().size.x / Singleton.DEFAULT_SIZE.x), 1) * 2
-
-
 func _process(_delta):
 	visible = Singleton.touch_control
 

@@ -75,6 +75,7 @@ theme = ExtResource("1")
 [node name="Title" type="Label" parent="FeedbackContainer/List"]
 layout_mode = 2
 text = "Feedback"
+horizontal_alignment = 1
 
 [node name="DescLabel" type="Label" parent="FeedbackContainer/List"]
 layout_mode = 2
@@ -158,6 +159,7 @@ size_flags_horizontal = 4
 [node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Gameplay"]
 layout_mode = 2
 text = "Gameplay"
+horizontal_alignment = 1
 
 [node name="Visual" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
 custom_minimum_size = Vector2(64, 42)
@@ -170,6 +172,7 @@ size_flags_horizontal = 6
 [node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Visual"]
 layout_mode = 2
 text = "Visual"
+horizontal_alignment = 1
 
 [node name="Bug" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
 custom_minimum_size = Vector2(64, 42)
@@ -182,6 +185,7 @@ size_flags_horizontal = 6
 [node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Bug"]
 layout_mode = 2
 text = "Bug"
+horizontal_alignment = 1
 
 [node name="Lag" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
 custom_minimum_size = Vector2(64, 42)
@@ -194,6 +198,7 @@ size_flags_horizontal = 6
 [node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Lag"]
 layout_mode = 2
 text = "Lag"
+horizontal_alignment = 1
 
 [node name="Other" type="VBoxContainer" parent="FeedbackContainer/List/Checkboxes"]
 custom_minimum_size = Vector2(64, 42)
@@ -207,6 +212,7 @@ size_flags_horizontal = 6
 [node name="Label" type="Label" parent="FeedbackContainer/List/Checkboxes/Other"]
 layout_mode = 2
 text = "Other"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="FeedbackContainer/List"]
 layout_mode = 2
