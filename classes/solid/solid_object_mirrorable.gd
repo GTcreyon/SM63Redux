@@ -36,7 +36,7 @@ func set_mirror(val):
 		
 		# Flip sprites.
 		if child is Sprite2D or child is AnimatedSprite2D:
-			child.flip_h ^= changed
+			child.flip_h = !child.flip_h if changed else child.flip_h
 		
 		# Flip polygons and collision polygons, which conveniently share an
 		# interface as of Godot 4.1.
