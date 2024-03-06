@@ -46,7 +46,22 @@ func set_mirror(val):
 		# Flip collision shapes that can flip.
 		elif child is CollisionShape2D:
 			var shape := (child as CollisionShape2D).shape
-				
+			if changed and mirror:
+				# On becoming mirrored, make a copy of the shape resource
+				# so we can mirror its data without messing up any other users
+				# of the shape resource (yes, the shapes are resources!).
+				shape = shape.duplicate()
+				child.shape = shape.duplicate()
+				# Resources are reference-counted, and theoretically every
+				# duplicate is unique to the object that created it--meaning
+				# old duplicates should automatically be deleted and it 
+				# shouldn't become a memory leak.
+				# If that's not the case (or having a separate mirrored copy
+				# for every mirrored solid becomes a problem), a more complex
+				# solution involving static dictionaries may be in order.
+				# Admittedly, the current solution was chosen for its simplicity
+				# more than its optimalcy.
+			
 			# Line segment with two points. Invert X of both points.
 			if shape is SegmentShape2D:
 				(shape as SegmentShape2D).a.x *= -1
