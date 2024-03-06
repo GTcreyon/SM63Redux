@@ -28,14 +28,14 @@ func set_mirror(val):
 			(child as Node2D).position.x *= -1
 			(child as Node2D).rotation *= -1
 		
+		# Type-specific mirroring logic may also be needed.
+		
 		# If the child has its own mirroring logic, fall through into that.
 		if child.has_method("set_mirror"):
 			child.set_mirror(mirror)
-			# Assume this child has handled all it needed to, and go to next.
-			continue
 		
 		# Flip sprites.
-		if child is Sprite2D or child is AnimatedSprite2D:
+		elif child is Sprite2D or child is AnimatedSprite2D:
 			child.flip_h = !child.flip_h if changed else child.flip_h
 		
 		# Flip polygons and collision polygons, which conveniently share an
