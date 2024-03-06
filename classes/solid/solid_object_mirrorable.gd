@@ -85,6 +85,6 @@ func set_mirror(val):
 
 func flip_points(points: PackedVector2Array) -> PackedVector2Array:
 	# Invert X of all points.
-	for point in points:
-		point.x *= -1
+	for i in points.size():
+		points[i].x *= -1
 	return points
