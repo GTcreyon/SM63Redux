@@ -51,7 +51,7 @@ func set_mirror(val):
 				# so we can mirror its data without messing up any other users
 				# of the shape resource (yes, the shapes are resources!).
 				shape = shape.duplicate()
-				child.shape = shape.duplicate()
+				child.shape = shape
 				# Resources are reference-counted, and theoretically every
 				# duplicate is unique to the object that created it--meaning
 				# old duplicates should automatically be deleted and it 
