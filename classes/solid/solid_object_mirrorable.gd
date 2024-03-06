@@ -50,8 +50,8 @@ func set_mirror(val):
 				# On becoming mirrored, make a copy of the shape resource
 				# so we can mirror its data without messing up any other users
 				# of the shape resource (yes, the shapes are resources!).
-				shape = shape.duplicate()
-				child.shape = shape
+				shape = shape.duplicate() # Make and store the duplicate...
+				child.shape = shape # ...then give it to the collider.
 				# Resources are reference-counted, and theoretically every
 				# duplicate is unique to the object that created it--meaning
 				# old duplicates should automatically be deleted and it 
