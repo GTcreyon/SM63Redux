@@ -67,10 +67,15 @@ func _hurt_struck(body):
 
 
 func into_shell(vel_x):
-	if !self.is_queued_for_deletion():
+	# If this object is queued for deletion, we know not to spawn a second
+	# shell.
+	if !is_queued_for_deletion():
+		# Create a new shell at this koopa's position.
 		var inst = SHELL_PREFAB.instantiate()
 		inst.position = position + Vector2(0, 7.5)
 		inst.color = color
 		inst.vel = Vector2(vel_x, 0)
+		# Add it to the world.
 		get_parent().call_deferred("add_child", inst)
+		
 		queue_free()
