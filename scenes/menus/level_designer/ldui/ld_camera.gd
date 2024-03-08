@@ -45,12 +45,6 @@ func _process(_delta):
 		LD.save_code()
 
 
-# Disabled this for now as I planned to use left drag for selecting items
-#func _input(event):
-#	if event is InputEventScreenDrag:
-#		position -= event.relative
-
-
 func object_load(id):
 	if !objects_loaded.has(id):
 		objects_loaded[id] = load("res://classes/items/" + str(id) + "/" + str(id) + ".tscn")
