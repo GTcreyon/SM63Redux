@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=64 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -30,7 +30,6 @@
 [ext_resource type="StyleBox" uid="uid://b6ys7xuk1e71f" path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" id="28"]
 [ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="28_0ajtt"]
 [ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" id="29"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" id="34"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/selection_action_handler.gd" id="35"]
 [ext_resource type="Texture2D" uid="uid://tg6wa2uikxoh" path="res://scenes/menus/level_designer/ldui/close_button.png" id="36"]
 [ext_resource type="StyleBox" uid="uid://c4t05jli7tvcf" path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" id="37"]
@@ -187,7 +186,7 @@ script = ExtResource("26")
 
 [node name="UIFollow" type="CanvasLayer" parent="."]
 layer = 0
-script = ExtResource("34")
+follow_viewport_enabled = true
 
 [node name="Selection" type="Control" parent="UIFollow"]
 editor_description = "Handles actions on selected objects."
