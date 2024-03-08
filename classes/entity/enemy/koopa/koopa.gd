@@ -67,9 +67,18 @@ func _hurt_struck(body):
 
 
 func into_shell(vel_x):
-	var inst = SHELL_PREFAB.instantiate()
-	inst.position = position + Vector2(0, 7.5)
-	inst.color = color
-	inst.vel = Vector2(vel_x, 0)
-	get_parent().call_deferred("add_child", inst)
-	queue_free()
+	# Only do anything if this koopa is NOT queued for deletion.
+	# If it is, we know it's already been hit by an attack (or it's meant to be
+	# outright deleted by next frame).
+	# This should fix a bug wherein stomping and spinning the koopa in the same
+	# frame spawns two shells, one for each attack that landed.
+	if !is_queued_for_deletion():
+		# Create a new shell at this koopa's position.
+		var inst = SHELL_PREFAB.instantiate()
+		inst.position = position + Vector2(0, 7.5)
+		inst.color = color
+		inst.vel = Vector2(vel_x, 0)
+		# Add it to the world.
+		get_parent().call_deferred("add_child", inst)
+		
+		queue_free()
