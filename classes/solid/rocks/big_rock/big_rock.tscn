@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c82aviccwqqby"]
+[gd_scene load_steps=3 format=3 uid="uid://bhiyyqle055lo"]
 
 [ext_resource type="Texture2D" uid="uid://dq4ylqrb3vjk6" path="res://classes/solid/rocks/big_rock/big_rock.png" id="1"]
-[ext_resource type="Script" path="res://classes/solid/rocks/big_rock/big_rock.gd" id="2"]
+[ext_resource type="Script" path="res://classes/solid/solid_object_mirrorable.gd" id="1_47710"]
 
 [node name="BigRock" type="StaticBody2D"]
-script = ExtResource("2")
+script = ExtResource("1_47710")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1")

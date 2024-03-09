@@ -266,11 +266,9 @@ width = 6
 [node name="RotatingBlocks" type="Node2D" parent="Items"]
 
 [node name="RotatingBlock" parent="Items/RotatingBlocks" instance=ExtResource("21")]
-modulate = Color(1, 1, 1, 0.5)
 position = Vector2(-355, -296)
 size = Vector2(92, 92)
 wait = 90
-type = 2
 
 [node name="RotatingBlock2" parent="Items/RotatingBlocks" instance=ExtResource("21")]
 modulate = Color(1, 1, 1, 0.5)
