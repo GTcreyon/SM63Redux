@@ -56,9 +56,7 @@ func set_disabled(val):
 		safety_net = $SafetyNet
 	safety_net.monitoring = !val
 	
-	var carrier_node = self
-	if carrier_node is StaticBody2D:
-		carrier_node.set_collision_layer_value(1, 0 if val else 1)
-	# Hack solution to allow inheriting in classes that aren't StaticBody2D
-	# Hoping 4.0 will have a way to avoid this
-	# If anyone knows a solution in the short-term, please speak up!
+	if disabled:
+		process_mode = PROCESS_MODE_DISABLED
+	else:
+		process_mode = PROCESS_MODE_INHERIT
