@@ -339,7 +339,7 @@ func player_physics():
 				if can_jump():
 					player_jump()
 				elif jump_vary_frames > 0 and state == S.NEUTRAL:
-					vel.y -= GRAV * pow(FPS_MOD, 3) # Variable jump height
+					player_jump_vary_height()
 	
 	player_control_x()
 	if swimming:
@@ -797,6 +797,8 @@ func action_jump() -> void:
 	# warning-ignore:return_value_discarded
 	move_and_collide(Vector2(0, -3)) # helps jumps feel more responsive
 
+func player_jump_vary_height():
+	vel.y -= GRAV * pow(FPS_MOD, 3) # Variable jump height
 
 func ease_out_quart(x: float) -> float: # for replacing tweens
 	return 1 - pow(1 - x, 4) # https://easings.net/#easeOutQuart <3
