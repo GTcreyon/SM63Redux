@@ -2,12 +2,27 @@ class_name Walk
 extends PlayerState
 ## Moving left and right on the ground.
 
-const WALK_ACCEL: float = 0.586667
+const WALK_ACCEL: float = 0.50
+const WALK_SPEED: float = 3.5
+
+
+func _on_enter(_handover):
+	_anim("walk_start")
+
+
+func _anim_finished():
+	if actor.sprite.animation == &"walk_start":
+		_anim("walk_loop")
+
 
 func _cycle_tick():
-	motion.friction_x(0.3, 1.15)
-	motion.accel_x(WALK_ACCEL * input.get_x())
-	actor.sprite.speed_scale = motion.vel.x / 6.0 * 2
+	var input_x = input.get_x()
+	var input_x_dir = input.get_x_dir()
+	if input_x_dir != sign(motion.vel.x):
+		motion.decel(WALK_SPEED)
+	motion.accel_x_capped(WALK_ACCEL * input_x, WALK_SPEED)
+	actor.sprite.speed_scale = motion.vel.x / 6.0 * 2.0
+	actor.sprite.flip_h = input.get_last_x() == -1
 
 
 func _on_exit():
@@ -18,7 +33,7 @@ func _tell_switch():
 	if input.buffered_input(&"jump"):
 		return &"DummyJump"
 
-	if input.buffered_input(&"spin") and motion.can_spin():
+	if input.buffered_input(&"spin"):
 		return &"Spin"
 
 	if Input.is_action_just_pressed(&"dive"):

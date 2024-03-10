@@ -178,7 +178,6 @@ var body_rotation: float = 0 # Rotation of the body sprite
 
 
 func _ready():
-	
 	switch_state(S.NEUTRAL) # reset state to avoid short mario glitch
 	
 	# If we came from another scene, load our data from that scene.

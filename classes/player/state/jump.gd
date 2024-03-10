@@ -4,7 +4,7 @@ extends PlayerState
 
 
 ## Upwards velocity added when jumping
-@export var jump_power: float = 18.75
+@export var jump_power: float = 10
 
 ## Ordinal number of this jump. 0 = Single, 1 = Double, 2 = Triple
 @export var jump_number: int = 0
@@ -12,44 +12,45 @@ extends PlayerState
 ## ID of fall state to transition into.
 @export var fall_state := &"Fall"
 
-## Set to `true` once height variation has been applied. Prevents re-application.
-var _applied_variation: bool = false
-
-
 func _on_enter(_handover):
-	_applied_variation = false
-	actor.vel.y = -jump_power
-
+	motion.legacy_accel_y(-jump_power, true)
 	motion.consec_jumps = jump_number
 
 
 func _post_tick():
-	motion.apply_gravity(-actor.vel.y / jump_power)
-
-
-func _cycle_tick():
-	motion.motion_x()
 	_variable_height()
+	motion.apply_gravity(1.0, true)
+	motion.legacy_friction_x(0, 1.001)
+	motion.legacy_friction_y(0, 1.001)
 
 
+
+const WALK_ACCEL: float = 0.586667
+const AIR_ACCEL: float = 2.66667 # Functions differently to WALK_ACCEL
+const AIR_SPEED_CAP: float = 10.6667
+func _cycle_tick():
+	var dir = input.get_x()
+	var core_vel = dir * max((AIR_ACCEL - dir * motion.vel.x) / (AIR_SPEED_CAP / 1.6), 0)
+	motion.legacy_accel_x(core_vel, false)
+
+
+## Handle variable jump height.
 func _variable_height() -> void:
-	var vel_y = motion.get_vel_component(motion.y)
-	if Input.is_action_just_released("jump") and not _applied_variation:
-		_applied_variation = true
-		motion.set_vel_component(vel_y * 0.375, motion.y)
+	if Input.is_action_pressed("jump"):
+		motion.legacy_accel_y(-0.2, false)
 
 
 func _tell_switch():
 	if Input.is_action_just_pressed(&"dive") and motion.can_air_action():
 		return &"Dive"
 
-	if input.buffered_input(&"spin") and motion.can_spin():
+	if input.buffered_input(&"spin"):
 		return &"Spin"
 
 	if Input.is_action_just_pressed(&"pound") and motion.can_air_action():
 		return &"PoundSpin"
 
-	if actor.vel.y > 0:
+	if motion.vel.y > 0:
 		return fall_state
 
 	return &""

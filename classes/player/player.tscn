@@ -1282,16 +1282,17 @@ script = ExtResource("12_b8c2a")
 
 [node name="Jump" type="Node" parent="StateManager/Air/DummyJump"]
 script = ExtResource("12_tvb72")
-jump_power = 23.438
+jump_power = 10.75
 jump_number = 1
 
 [node name="JumpDouble" type="Node" parent="StateManager/Air/DummyJump"]
 script = ExtResource("13_ckv7c")
+jump_power = 12.5
 jump_number = 1
 
 [node name="JumpTriple" type="Node" parent="StateManager/Air/DummyJump"]
 script = ExtResource("14_6nqsp")
-jump_power = 28.125
+jump_power = 15.0
 jump_number = 2
 
 [node name="Backflip" type="Node" parent="StateManager/Air"]
