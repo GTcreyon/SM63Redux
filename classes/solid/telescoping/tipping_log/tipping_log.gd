@@ -56,7 +56,8 @@ func set_disabled(val):
 		rod = $Rod
 	if ride_area == null:
 		ride_area = $Rod/RideArea
-	rod.set_collision_layer_value(0, 0 if val else 1)
+	
+	rod.set_collision_layer_value(1, 0 if val else 1)
 	ride_area.monitoring = !val
 
 

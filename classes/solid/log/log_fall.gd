@@ -65,7 +65,7 @@ func set_disabled(val):
 	disabled = val
 	if !is_inside_tree():
 		await self.ready
-	set_collision_layer_value(0, 0 if val else 1)
+	set_collision_layer_value(1, 0 if val else 1)
 	ride_area.monitoring = !val
 
 

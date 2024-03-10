@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=64 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -30,8 +30,6 @@
 [ext_resource type="StyleBox" uid="uid://b6ys7xuk1e71f" path="res://scenes/menus/level_designer/ldui/scroll_v_top.tres" id="28"]
 [ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="28_0ajtt"]
 [ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.tres" id="29"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/scroller.gd" id="30"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" id="34"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/selection_action_handler.gd" id="35"]
 [ext_resource type="Texture2D" uid="uid://tg6wa2uikxoh" path="res://scenes/menus/level_designer/ldui/close_button.png" id="36"]
 [ext_resource type="StyleBox" uid="uid://c4t05jli7tvcf" path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" id="37"]
@@ -176,6 +174,15 @@ script = ExtResource("5")
 
 [node name="BGT1" parent="." instance=ExtResource("15")]
 
+[node name="BGDarkener" type="ColorRect" parent="BGT1"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.298039)
+
 [node name="BGGrid" type="TextureRect" parent="BGT1"]
 material = ExtResource("4")
 anchors_preset = 15
@@ -188,9 +195,10 @@ script = ExtResource("26")
 
 [node name="UIFollow" type="CanvasLayer" parent="."]
 layer = 0
-script = ExtResource("34")
+follow_viewport_enabled = true
 
 [node name="Selection" type="Control" parent="UIFollow"]
+editor_description = "Handles actions on selected objects."
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
@@ -264,13 +272,18 @@ script = ExtResource("40")
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="SaveDialog" type="FileDialog" parent="UILayer"]
+size = Vector2i(390, 137)
 mode_overrides_title = false
 access = 2
 filters = PackedStringArray("*.63r ; SM63 Redux Level")
 script = ExtResource("6")
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
+title = "Open a File"
+size = Vector2i(390, 137)
+ok_button_text = "Open"
 mode_overrides_title = false
+file_mode = 0
 access = 2
 filters = PackedStringArray("*.63r ; SM63 Redux Level")
 script = ExtResource("27")
@@ -325,21 +338,22 @@ offset_top = 32.0
 offset_right = 96.0
 script = ExtResource("14")
 
-[node name="ItemScrollBar" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
+[node name="ScrollBar" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 82.0
 color = Color(0.231373, 0.117647, 0, 1)
 
-[node name="ScrollRegion" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar"]
+[node name="ScrollRegion" type="Control" parent="UILayer/LDUI/ItemPane/ScrollBar"]
+visible = false
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 4.0
 offset_bottom = -93.0
 
-[node name="StopperTop" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+[node name="StopperTop" type="TextureRect" parent="UILayer/LDUI/ItemPane/ScrollBar/ScrollRegion"]
 layout_mode = 0
 offset_left = 2.0
 offset_top = -2.0
@@ -347,7 +361,7 @@ offset_right = 12.0
 offset_bottom = 3.0
 texture = ExtResource("13")
 
-[node name="StopperBottom" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+[node name="StopperBottom" type="TextureRect" parent="UILayer/LDUI/ItemPane/ScrollBar/ScrollRegion"]
 layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -358,22 +372,21 @@ offset_bottom = 2.0
 texture = ExtResource("13")
 flip_v = true
 
-[node name="Scroller" type="Control" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion"]
+[node name="Scroller" type="Control" parent="UILayer/LDUI/ItemPane/ScrollBar/ScrollRegion"]
 anchors_preset = 0
 anchor_right = 1.0
 offset_left = 2.0
 offset_right = -2.0
 offset_bottom = 60.0
-script = ExtResource("30")
 
-[node name="ScrollerTop" type="Panel" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion/Scroller"]
+[node name="ScrollerTop" type="Panel" parent="UILayer/LDUI/ItemPane/ScrollBar/ScrollRegion/Scroller"]
 custom_minimum_size = Vector2(10, 15)
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 0.5
 theme_override_styles/panel = ExtResource("28")
 
-[node name="ScrollerBottom" type="Panel" parent="UILayer/LDUI/ItemPane/ItemScrollBar/ScrollRegion/Scroller"]
+[node name="ScrollerBottom" type="Panel" parent="UILayer/LDUI/ItemPane/ScrollBar/ScrollRegion/Scroller"]
 custom_minimum_size = Vector2(10, 15)
 layout_mode = 0
 anchor_top = 0.5
@@ -388,64 +401,48 @@ anchor_bottom = 1.0
 offset_right = -14.0
 color = Color(0.141176, 0.52549, 0.47451, 1)
 
-[node name="ItemDisplay" type="Control" parent="UILayer/LDUI/ItemPane/ItemBlock"]
-anchors_preset = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="ItemScroll" type="ScrollContainer" parent="UILayer/LDUI/ItemPane/ItemBlock"]
+layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -93.0
-mouse_filter = 1
+offset_right = 79.0
+offset_bottom = 235.0
+theme = ExtResource("28_0ajtt")
+follow_focus = true
+scroll_vertical_custom_step = 9.0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 2
 
-[node name="Back" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color(0.231373, 0.117647, 0, 1)
-
-[node name="Base" type="ColorRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back"]
-clip_contents = true
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = -1.0
-offset_bottom = -1.0
-color = Color(0.168627, 0.290196, 0.239216, 1)
-
-[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -3.0
+[node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemScroll"]
+layout_mode = 2
 theme = ExtResource("28_0ajtt")
 columns = 2
 
-[node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base"]
+[node name="PolygonScroll" type="ScrollContainer" parent="UILayer/LDUI/ItemPane/ItemBlock"]
 visible = false
 layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = 3.0
 offset_top = 3.0
-offset_right = -3.0
-offset_bottom = -3.0
+offset_right = 79.0
+offset_bottom = 235.0
+theme = ExtResource("28_0ajtt")
+scroll_vertical_custom_step = 9.0
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 2
+
+[node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll"]
+layout_mode = 2
 theme = ExtResource("28_0ajtt")
 columns = 2
 
-[node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid"]
+[node name="Terrain" type="Button" parent="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll/PolygonGrid"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 theme_override_styles/normal = ExtResource("37")
 theme_override_styles/hover = ExtResource("38")
 theme_override_styles/pressed = ExtResource("39")
 
-[node name="Icon" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid/Terrain"]
+[node name="Icon" type="TextureRect" parent="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll/PolygonGrid/Terrain"]
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -544,6 +541,5 @@ text = "Placeholder Loading Text"
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_Mode_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
-[connection signal="gui_input" from="UILayer/LDUI/ItemPane" to="UILayer/LDUI/ItemPane" method="_on_LeftBar_gui_input"]
-[connection signal="pressed" from="UILayer/LDUI/ItemPane/ItemBlock/ItemDisplay/Back/Base/PolygonGrid/Terrain" to="UIFollow/PolygonEditor" method="_demo_press"]
+[connection signal="pressed" from="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll/PolygonGrid/Terrain" to="UIFollow/PolygonEditor" method="_demo_press"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]

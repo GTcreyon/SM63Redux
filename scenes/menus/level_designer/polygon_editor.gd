@@ -13,6 +13,7 @@ func _unhandled_input(event):
 		if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
 			quit_creating(true)
 
+
 func quit_creating(save):
 	main.editor_state = main.EDITOR_STATE.IDLE
 	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)

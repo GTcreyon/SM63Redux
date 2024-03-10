@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 var mask: RegEx = RegEx.new()
-@export var pre_text: String: String
+@export var pre_text: String
 
 @onready var label: Label = $Label
 @onready var line_edit: LineEdit = $LineEdit

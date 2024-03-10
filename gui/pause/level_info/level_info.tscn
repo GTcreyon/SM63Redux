@@ -1,13 +1,23 @@
-[gd_scene load_steps=11 format=3 uid="uid://d0i3anj5fm6op"]
+[gd_scene load_steps=12 format=3 uid="uid://d0i3anj5fm6op"]
 
 [ext_resource type="Script" path="res://classes/misc/containers/scale_container.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://87w6u8a6gqvy" path="res://gui/pause/map/map_coin_1.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://1pctsggfusdc" path="res://gui/pause/map/map_shine_0.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://dr5le5k54odf6" path="res://gui/pause/map/map_coin_0.png" id="4"]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="4_ne3kv"]
 [ext_resource type="Texture2D" uid="uid://cw3yd45xx6bf8" path="res://gui/pause/map/map_shine_1.png" id="5"]
 [ext_resource type="StyleBox" uid="uid://cuiaksyau07pv" path="res://gui/pause/pause_back.tres" id="6"]
 [ext_resource type="Script" path="res://gui/hud/level_info.gd" id="10"]
-[ext_resource type="Material" uid="uid://ckiokx8dmutdj" path="res://shaders/glow.tres" id="11"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_niip7"]
+resource_local_to_scene = true
+resource_name = "shine_row_glow"
+shader = ExtResource("4_ne3kv")
+shader_parameter/width = 1
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/cel_count = Vector2(1, 1)
+shader_parameter/sprite_offset = Vector2(16, 17)
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -113,7 +123,7 @@ layout_mode = 2
 mouse_filter = 2
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine1"]
-material = ExtResource("11")
+material = SubResource("ShaderMaterial_niip7")
 sprite_frames = SubResource("1")
 animation = &"off"
 centered = false

@@ -1,8 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://cbo20l1o5giao"]
+[gd_scene load_steps=19 format=3 uid="uid://cbo20l1o5giao"]
 
 [ext_resource type="Texture2D" uid="uid://dtydgkpoe56rn" path="res://classes/pickup/shine/shine.png" id="1"]
 [ext_resource type="Script" path="res://classes/pickup/shine/shine.gd" id="2"]
-[ext_resource type="Material" uid="uid://ckiokx8dmutdj" path="res://shaders/glow.tres" id="4"]
+[ext_resource type="Shader" path="res://shaders/glow.gdshader" id="2_sdcq1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ig4yr"]
+resource_local_to_scene = true
+resource_name = "shine_glow"
+shader = ExtResource("2_sdcq1")
+shader_parameter/width = 1
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/cel_count = Vector2(12, 1)
+shader_parameter/sprite_offset = Vector2(0, -1.5)
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = ExtResource("1")
@@ -107,7 +117,7 @@ monitorable = false
 script = ExtResource("2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = ExtResource("4")
+material = SubResource("ShaderMaterial_ig4yr")
 sprite_frames = SubResource("13")
 offset = Vector2(0, -1.5)
 

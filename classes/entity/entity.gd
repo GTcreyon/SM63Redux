@@ -101,7 +101,7 @@ func _on_WaterCheck_area_exited(_area):
 func set_disabled(val):
 	disabled = val
 	_preempt_all_node_readies()
-	set_collision_layer_value(0, 0 if val else 1)
+	set_collision_layer_value(3, 0 if val else 1)
 
 
 # The following functions deal with child nodes that may or may not exist.

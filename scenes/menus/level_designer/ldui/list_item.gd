@@ -1,3 +1,4 @@
+class_name LDListItem
 extends Button
 
 var item_id

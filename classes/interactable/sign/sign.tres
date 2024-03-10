@@ -4,7 +4,8 @@
 
 [resource]
 shader = ExtResource("1_1ac2n")
-shader_parameter/width = 2.0
-shader_parameter/recenter = false
+shader_parameter/width = 2
 shader_parameter/radial = false
 shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/cel_count = Vector2(1, 1)
+shader_parameter/sprite_offset = Vector2(0, 0)

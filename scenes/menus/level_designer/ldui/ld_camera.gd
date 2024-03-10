@@ -1,7 +1,9 @@
+class_name LDCamera
 extends Camera2D
 
 signal test_level
 
+const player = preload("res://classes/player/player.tscn")
 const SCROLL_SPEED = 8
 
 @onready var LD = get_parent()
@@ -11,10 +13,10 @@ var mouse_pos = Vector2(0, 0)
 var mouse_pos_store = Vector2(0, 0)
 var objects_loaded = {}
 
-const player = preload("res://classes/player/player.tscn")
 
 func _ready():
 	position = Vector2(-120, -get_window().size.y + 60)
+
 
 func _process(_delta):
 	var i_left = Input.is_action_pressed("ld_cam_left")
@@ -42,12 +44,8 @@ func _process(_delta):
 	if i_right and Input.is_action_pressed("debug"):
 		LD.save_code()
 
+
 func object_load(id):
 	if !objects_loaded.has(id):
 		objects_loaded[id] = load("res://classes/items/" + str(id) + "/" + str(id) + ".tscn")
 	return objects_loaded[id]
-
-# Disabled this for now as I planned to use left drag for selecting items
-#func _input(event):
-#	if event is InputEventScreenDrag:
-#		position -= event.relative
