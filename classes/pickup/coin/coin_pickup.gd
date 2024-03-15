@@ -29,7 +29,7 @@ func _add_coins(num: int, player: PlayerCharacter) -> void:
 
 func _pickup_effect() -> void:
 	Singleton.get_node("SFX/Coin").play()
-	var inst: GPUParticles2D = PARTICLE_SCENE.instantiate()
+	var inst = PARTICLE_SCENE.instantiate()
 	inst.texture = particle_texture
 	if parent_is_root:
 		inst.position = get_parent().position
