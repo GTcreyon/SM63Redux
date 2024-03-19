@@ -9,10 +9,22 @@ extends PlayerState
 ## Ordinal number of this jump. 0 = Single, 1 = Double, 2 = Triple
 @export var jump_number: int = 0
 
-## ID of fall state to transition into.
+## ID of fall state to transition into
 @export var fall_state := &"Fall"
 
+## Possible animations to play to start the jump
+@export var start_anims: PackedStringArray
+
+## Possible animations to play to transition into falling
+@export var trans_anims: PackedStringArray
+
+## Index of the animation being used for the jump
+var _anim_index: int
+
+
 func _on_enter(_handover):
+	_anim_index = randi_range(0, start_anims.size() - 1)
+	_anim(start_anims[_anim_index])
 	motion.legacy_accel_y(-jump_power, true)
 	motion.consec_jumps = jump_number
 
@@ -51,6 +63,6 @@ func _tell_switch():
 		return &"PoundSpin"
 
 	if motion.vel.y > 0:
-		return fall_state
+		return [fall_state, trans_anims[_anim_index]]
 
 	return &""

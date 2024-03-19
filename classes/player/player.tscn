@@ -1284,16 +1284,22 @@ script = ExtResource("12_b8c2a")
 script = ExtResource("12_tvb72")
 jump_power = 10.75
 jump_number = 1
+start_anims = PackedStringArray("jump_a_start", "jump_b_start")
+trans_anims = PackedStringArray("jump_a_trans", "jump_b_trans")
 
 [node name="JumpDouble" type="Node" parent="StateManager/Air/DummyJump"]
 script = ExtResource("13_ckv7c")
 jump_power = 12.5
 jump_number = 1
+start_anims = PackedStringArray("jump_double_start")
+trans_anims = PackedStringArray("jump_double_trans")
 
 [node name="JumpTriple" type="Node" parent="StateManager/Air/DummyJump"]
 script = ExtResource("14_6nqsp")
 jump_power = 15.0
 jump_number = 2
+start_anims = PackedStringArray("flip")
+trans_anims = PackedStringArray("fall")
 
 [node name="Backflip" type="Node" parent="StateManager/Air"]
 script = ExtResource("15_5fy1x")
@@ -1322,7 +1328,7 @@ script = ExtResource("4_q4bau")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"walk_start"
+animation = &"fall"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]

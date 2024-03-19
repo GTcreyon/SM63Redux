@@ -1,6 +1,13 @@
 extends PlayerState
 
 
+func _on_enter(handover):
+	if handover == null:
+		_anim(&"fall")
+	else:
+		_anim(handover)
+
+
 func _cycle_tick():
 	if Input.is_action_pressed("jump"):
 		motion.legacy_accel_y(-0.1, true)
