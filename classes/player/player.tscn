@@ -705,9 +705,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_o2uhx")
 }],
-"loop": true,
+"loop": false,
 "name": &"land_style",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1327,16 +1327,17 @@ trans_anims = PackedStringArray("jump_a_trans", "jump_b_trans")
 [node name="JumpDouble" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
 script = ExtResource("13_ckv7c")
 jump_power = 12.5
-jump_number = 1
+jump_number = 2
 start_anims = PackedStringArray("jump_double_start")
 trans_anims = PackedStringArray("jump_double_trans")
 
 [node name="JumpTriple" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
 script = ExtResource("14_6nqsp")
 jump_power = 15.0
-jump_number = 2
 start_anims = PackedStringArray("flip")
-trans_anims = PackedStringArray("fall")
+manual_fall = true
+stylish = true
+friction_divisor = 1.5
 
 [node name="Backflip" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("15_5fy1x")
@@ -1365,7 +1366,7 @@ script = ExtResource("4_q4bau")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"walk_start"
+animation = &"land_style"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]

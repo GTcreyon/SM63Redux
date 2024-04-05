@@ -17,11 +17,12 @@ func _tell_defer():
 
 	match motion.consec_jumps:
 		2:
-			if abs(actor.vel.x) > TRIPLE_MIN_VEL and sign(actor.vel.x) == motion.facing_direction:
-				return &"TripleJump"
+			var x_dir = input.get_x()
+			if abs(motion.vel.x) > TRIPLE_MIN_VEL and sign(motion.vel.x) == x_dir:
+				return &"JumpTriple"
 			else:
-				return &"DoubleJump"
+				return &"JumpDouble"
 		1:
-			return &"DoubleJump"
+			return &"JumpDouble"
 		_:
 			return &"Jump"

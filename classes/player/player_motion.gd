@@ -28,6 +28,8 @@ var consec_jump_timer: int = 0
 var coyote_timer: int = 0
 var consec_jumps: int = 0
 
+var _rotation: float = 0.0
+
 
 func _ready():
 	var v = 0
@@ -47,6 +49,14 @@ func _ready():
 func _physics_process(delta):
 	_move_actor(delta)
 	resist = max(resist - RESIST_DECREMENT, 0)
+	if active_consec_time():
+		consec_jump_timer -= 1
+
+
+## Set the player's rotation to the given value.
+func set_rotation(value: float) -> void:
+	_rotation = value
+	actor.sprite.rotation = value
 
 
 ## Apply downward acceleration.
@@ -68,7 +78,7 @@ func active_consec_time() -> bool:
 	return consec_jump_timer > 0
 
 
-## Consume the consecutive jump timer, ridding of any chance at a consecutive jump.
+## Consume the consecutive jump timer, removing the chance for a consecutive jump.
 func consume_consec_timer() -> void:
 	consec_jump_timer = -1
 

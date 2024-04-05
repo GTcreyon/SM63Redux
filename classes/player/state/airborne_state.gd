@@ -1,18 +1,22 @@
 class_name AirborneState
 extends PlayerState
 
+## Divisor that applies friction to aerial motion.
+@export var friction_divisor: float = 1.0
+
 const HORIZONTAL_MAX_VEL: float = 2.65
 const HORIZONTAL_ACCEL: float = 0.34
 const HORIZONTAL_DECEL: float = 0.001
 
 
 func _cycle_tick():
+	var x_accel = HORIZONTAL_ACCEL / friction_divisor
 	var x_dir = input.get_x()
 	if x_dir == 0:
 		# Decelerate if there's no input.
 		motion.decel(HORIZONTAL_DECEL)
 	elif x_dir != sign(motion.vel.x):
 		# Decelerate a lot to return to neutral if we're changing directions.
-		motion.decel(HORIZONTAL_ACCEL)
-	motion.accel_x_capped(x_dir * HORIZONTAL_ACCEL, HORIZONTAL_MAX_VEL)
+		motion.decel(x_accel)
+	motion.accel_x_capped(x_dir * x_accel, HORIZONTAL_MAX_VEL)
 	_update_facing()

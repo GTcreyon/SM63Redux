@@ -18,6 +18,9 @@ extends AirborneState
 ## Possible animations to play to transition into falling
 @export var trans_anims: PackedStringArray
 
+## If true, don't automatically switch to the fall state.
+@export var manual_fall: bool
+
 ## Whether or not the landing will result in a stylish animation.
 @export var stylish: bool
 
@@ -36,17 +39,10 @@ func _post_tick():
 	if Input.is_action_pressed("jump"):
 		motion.legacy_accel_y(-0.2, false)
 	motion.apply_gravity(1.0, true)
-	motion.legacy_friction_y(0, 1.001)
-
-
-
-#const WALK_ACCEL: float = 0.586667
-#const AIR_ACCEL: float = 2.66667 # Functions differently to WALK_ACCEL
-#const AIR_SPEED_CAP: float = 10.6667
-#func _cycle_tick():
-	#var dir = input.get_x()
-	#var core_vel = dir * max((AIR_ACCEL - dir * motion.vel.x) / (AIR_SPEED_CAP / 1.6), 0)
-	#motion.legacy_accel_x(core_vel, false)
+	if motion.vel.y > 0:
+		motion.legacy_friction_y(0.2, 1.05)
+	else:
+		motion.legacy_friction_y(0, 1.001)
 
 
 func _tell_switch():
@@ -59,7 +55,7 @@ func _tell_switch():
 	if Input.is_action_just_pressed(&"pound") and motion.can_air_action():
 		return &"PoundSpin"
 
-	if motion.vel.y > 0:
+	if not manual_fall and motion.vel.y > 0:
 		return [fall_state, [trans_anims[_anim_index], stylish]]
 
 	return &""

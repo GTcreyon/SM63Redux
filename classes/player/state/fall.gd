@@ -23,7 +23,7 @@ func _cycle_tick():
 func _tell_switch():
 	if actor.is_on_floor():
 		if _stylish:
-			return &"LandStyle"
+			return &"StylishLand"
 		else:
 			return &"Land"
 	return &""
