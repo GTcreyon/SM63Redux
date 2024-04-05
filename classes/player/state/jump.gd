@@ -1,5 +1,5 @@
 class_name JumpState
-extends PlayerState
+extends AirborneState
 ## Generic jump state. 
 
 
@@ -33,26 +33,20 @@ func _on_enter(_handover):
 
 
 func _post_tick():
-	_variable_height()
+	if Input.is_action_pressed("jump"):
+		motion.legacy_accel_y(-0.2, false)
 	motion.apply_gravity(1.0, true)
-	motion.legacy_friction_x(0, 1.001)
 	motion.legacy_friction_y(0, 1.001)
 
 
 
-const WALK_ACCEL: float = 0.586667
-const AIR_ACCEL: float = 2.66667 # Functions differently to WALK_ACCEL
-const AIR_SPEED_CAP: float = 10.6667
-func _cycle_tick():
-	var dir = input.get_x()
-	var core_vel = dir * max((AIR_ACCEL - dir * motion.vel.x) / (AIR_SPEED_CAP / 1.6), 0)
-	motion.legacy_accel_x(core_vel, false)
-
-
-## Handle variable jump height.
-func _variable_height() -> void:
-	if Input.is_action_pressed("jump"):
-		motion.legacy_accel_y(-0.2, false)
+#const WALK_ACCEL: float = 0.586667
+#const AIR_ACCEL: float = 2.66667 # Functions differently to WALK_ACCEL
+#const AIR_SPEED_CAP: float = 10.6667
+#func _cycle_tick():
+	#var dir = input.get_x()
+	#var core_vel = dir * max((AIR_ACCEL - dir * motion.vel.x) / (AIR_SPEED_CAP / 1.6), 0)
+	#motion.legacy_accel_x(core_vel, false)
 
 
 func _tell_switch():

@@ -19,7 +19,6 @@ func _anim_finished():
 
 func _tell_switch():
 	if _done:
-		print("a")
 		return &"Idle"
 	if input.buffered_input(&"jump"):
 		return &"Backflip"

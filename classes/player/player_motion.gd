@@ -159,9 +159,13 @@ func accel_capped(add_vel: Vector2, cap: float) -> void:
 	# Calculate how much speed we'd be allowed to add before getting capped.
 	var cap_difference = cap - para
 
-	# We lower-clamp at 0 so we don't decelerate.
-	para_add = clamp(para_add, 0, cap_difference)
-
+	# Cap off at that speed.
+	para_add = min(para_add, cap_difference)
+	
+	# We don't want to decelerate, so break if less than zero.
+	if para_add <= 0:
+		return
+	
 	# Apply the speed in the correct direction.
 	var para_add_vec = para_add * para_dir
 

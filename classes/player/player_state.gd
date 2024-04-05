@@ -28,3 +28,7 @@ func trigger_exit():
 	if actor.sprite.is_connected(&"animation_finished", _anim_finished):
 		actor.sprite.disconnect(&"animation_finished", _anim_finished)
 	super()
+
+
+func _update_facing():
+	actor.sprite.flip_h = input.get_last_x() == -1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=185 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=186 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/player/player_input.gd" id="2_h2ygt"]
@@ -17,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://bu0n0xnjqrko6" path="res://classes/player/sfx/fludd/hover.mp3" id="7"]
 [ext_resource type="Script" path="res://classes/player/state/crouch.gd" id="7_djbi5"]
 [ext_resource type="Texture2D" uid="uid://dejqqeka1tsc" path="res://classes/player/mario_sheet.png" id="8"]
+[ext_resource type="Script" path="res://classes/player/state/stand.gd" id="8_65mnq"]
 [ext_resource type="Script" path="res://classes/player/state/pound_land.gd" id="8_bxvk2"]
 [ext_resource type="Script" path="res://classes/player/state/land.gd" id="8_qrq2k"]
 [ext_resource type="Material" uid="uid://d3lpuxs7i73r7" path="res://shaders/distance_field.tres" id="9"]
@@ -1284,6 +1285,17 @@ script = ExtResource("3_iy3xo")
 [node name="Idle" type="Node" parent="StateManager/Neutral/Ground"]
 script = ExtResource("4_2ro3p")
 
+[node name="Stand" type="Node" parent="StateManager/Neutral/Ground/Idle"]
+script = ExtResource("8_65mnq")
+
+[node name="Land" type="Node" parent="StateManager/Neutral/Ground/Idle"]
+script = ExtResource("8_qrq2k")
+animation = &"land"
+
+[node name="StylishLand" type="Node" parent="StateManager/Neutral/Ground/Idle"]
+script = ExtResource("12_he0sq")
+animation = &"land_style"
+
 [node name="Walk" type="Node" parent="StateManager/Neutral/Ground"]
 script = ExtResource("6_70jfv")
 
@@ -1295,14 +1307,6 @@ script = ExtResource("8_bxvk2")
 
 [node name="Slide" type="Node" parent="StateManager/Neutral/Ground"]
 script = ExtResource("9_lxi1s")
-
-[node name="Land" type="Node" parent="StateManager/Neutral/Ground"]
-script = ExtResource("8_qrq2k")
-animation = &"land"
-
-[node name="StylishLand" type="Node" parent="StateManager/Neutral/Ground"]
-script = ExtResource("12_he0sq")
-animation = &"land_style"
 
 [node name="Air" type="Node" parent="StateManager/Neutral"]
 script = ExtResource("4_saxvj")

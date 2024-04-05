@@ -22,7 +22,7 @@ func _cycle_tick():
 		motion.decel(WALK_SPEED)
 	motion.accel_x_capped(WALK_ACCEL * input_x, WALK_SPEED)
 	actor.sprite.speed_scale = motion.vel.x / 6.0 * 2.0
-	actor.sprite.flip_h = input.get_last_x() == -1
+	_update_facing()
 
 
 func _on_exit():
