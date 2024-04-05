@@ -6,7 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://dhliyj8vycb7q" path="res://gui/boxes/menu_box_normal.tres" id="4_adjba"]
 [ext_resource type="StyleBox" uid="uid://b54n55rde5xf6" path="res://gui/boxes/menu_box_pressed.tres" id="5_tl50b"]
 [ext_resource type="StyleBox" uid="uid://cgemqfbup0gd8" path="res://gui/boxes/menu_box_drop.tres" id="6_g5imp"]
-[ext_resource type="FontFile" uid="uid://caqw4rjpuutk8" path="res://fonts/bylight/bylight.otf" id="7_44i8b"]
+[ext_resource type="FontFile" uid="uid://dgedr6b237a5e" path="res://fonts/bylight/bylight.otf" id="7_44i8b"]
 
 [sub_resource type="AtlasTexture" id="8"]
 region = Rect2(0, 0, 14, 15)

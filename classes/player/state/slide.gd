@@ -1,5 +1,5 @@
 extends PlayerState
 
 
-func tell_switch():
+func _tell_switch():
 	return &""

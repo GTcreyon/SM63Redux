@@ -1,3 +1,3 @@
 class_name JumpDouble
-extends Jump
+extends JumpState
 ## Double jump. Jumps higher than single jump.

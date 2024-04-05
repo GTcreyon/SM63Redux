@@ -7,12 +7,12 @@ const WALK_SPEED: float = 3.5
 
 
 func _on_enter(_handover):
-	_anim("walk_start")
+	_anim(&"walk_start")
 
 
 func _anim_finished():
-	if actor.sprite.animation == &"walk_start":
-		_anim("walk_loop")
+	if _last_anim == &"walk_start":
+		_anim(&"walk_loop")
 
 
 func _cycle_tick():
@@ -36,8 +36,8 @@ func _tell_switch():
 	if input.buffered_input(&"spin"):
 		return &"Spin"
 
-	if Input.is_action_just_pressed(&"dive"):
-		return &"Dive"
+	if Input.is_action_pressed(&"dive"):
+		return &"Slide"
 
 	if !input.is_moving_x():
 		return &"Idle"

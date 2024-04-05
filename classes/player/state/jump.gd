@@ -1,4 +1,4 @@
-class_name Jump
+class_name JumpState
 extends PlayerState
 ## Generic jump state. 
 
@@ -17,6 +17,9 @@ extends PlayerState
 
 ## Possible animations to play to transition into falling
 @export var trans_anims: PackedStringArray
+
+## Whether or not the landing will result in a stylish animation.
+@export var stylish: bool
 
 ## Index of the animation being used for the jump
 var _anim_index: int
@@ -63,6 +66,6 @@ func _tell_switch():
 		return &"PoundSpin"
 
 	if motion.vel.y > 0:
-		return [fall_state, trans_anims[_anim_index]]
+		return [fall_state, [trans_anims[_anim_index], stylish]]
 
 	return &""
