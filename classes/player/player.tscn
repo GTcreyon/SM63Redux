@@ -1,4 +1,4 @@
-[gd_scene load_steps=186 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=185 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/player/player_input.gd" id="2_h2ygt"]
@@ -32,9 +32,7 @@
 [ext_resource type="Material" uid="uid://b04v14ipldro2" path="res://classes/player/fludd_spray.tres" id="13"]
 [ext_resource type="Script" path="res://classes/player/state/jump_double.gd" id="13_ckv7c"]
 [ext_resource type="Script" path="res://classes/player/camera.gd" id="14"]
-[ext_resource type="Script" path="res://classes/player/state/jump_triple.gd" id="14_6nqsp"]
 [ext_resource type="Texture2D" uid="uid://dpgkodpraunrv" path="res://classes/particles/dust.png" id="15"]
-[ext_resource type="Script" path="res://classes/player/state/backflip.gd" id="15_5fy1x"]
 [ext_resource type="AudioStream" uid="uid://t4j5ffot2i05" path="res://classes/player/sfx/fludd/fludd_switch.wav" id="16"]
 [ext_resource type="Script" path="res://classes/player/state/dive.gd" id="16_vh6so"]
 [ext_resource type="AudioStream" uid="uid://bxupwlkn26gd6" path="res://classes/player/sfx/pound/pound_spin.wav" id="17"]
@@ -43,6 +41,7 @@
 [ext_resource type="Script" path="res://classes/player/state/pound_air.gd" id="18_yyx6c"]
 [ext_resource type="Script" path="res://classes/player/fludd_sprite.gd" id="19"]
 [ext_resource type="Script" path="res://classes/player/state/pound_spin.gd" id="19_ieyet"]
+[ext_resource type="Script" path="res://classes/player/state/jump_flip.gd" id="20_2lqw5"]
 [ext_resource type="Script" path="res://classes/player/state/pound_fall.gd" id="20_ri21n"]
 [ext_resource type="Script" path="res://classes/player/character_sprite.gd" id="21"]
 [ext_resource type="Script" path="res://classes/player/state/spin.gd" id="21_0w5dd"]
@@ -1313,6 +1312,7 @@ script = ExtResource("4_saxvj")
 
 [node name="Fall" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("11_4iuru")
+tight_movement = true
 
 [node name="DummyJump" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("12_b8c2a")
@@ -1323,6 +1323,7 @@ jump_power = 10.75
 jump_number = 1
 start_anims = PackedStringArray("jump_a_start", "jump_b_start")
 trans_anims = PackedStringArray("jump_a_trans", "jump_b_trans")
+tight_movement = true
 
 [node name="JumpDouble" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
 script = ExtResource("13_ckv7c")
@@ -1330,17 +1331,30 @@ jump_power = 12.5
 jump_number = 2
 start_anims = PackedStringArray("jump_double_start")
 trans_anims = PackedStringArray("jump_double_trans")
+tight_movement = true
 
 [node name="JumpTriple" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
-script = ExtResource("14_6nqsp")
+script = ExtResource("20_2lqw5")
 jump_power = 15.0
 start_anims = PackedStringArray("flip")
+trans_anims = PackedStringArray("jump_double_trans")
 manual_fall = true
 stylish = true
 friction_divisor = 1.5
+tight_movement = true
 
 [node name="Backflip" type="Node" parent="StateManager/Neutral/Air"]
-script = ExtResource("15_5fy1x")
+script = ExtResource("20_2lqw5")
+_full_rotations = -1.0
+_full_rotations_fludd = -1.0
+_flip_time = 42
+_x_vel = -6.0
+jump_power = 12.75
+start_anims = PackedStringArray("jump_static")
+trans_anims = PackedStringArray("jump_a_trans")
+manual_fall = true
+friction_divisor = 1.5
+allow_turnaround = false
 
 [node name="Dive" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("16_vh6so")
@@ -1366,7 +1380,7 @@ script = ExtResource("4_q4bau")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"land_style"
+animation = &"walk_start"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]

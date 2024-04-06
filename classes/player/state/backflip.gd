@@ -1,5 +1,2 @@
-extends PlayerState
+extends JumpState
 
-
-func _tell_switch():
-	return &""

@@ -22,13 +22,15 @@ var y = Vector2.DOWN
 var x = y.orthogonal()
 var vel := Vector2.ZERO
 var vel_prev := Vector2.ZERO
-var last_direction_x: int = 1
 var resist: float = 0
 var consec_jump_timer: int = 0
 var coyote_timer: int = 0
 var consec_jumps: int = 0
 
 var _rotation: float = 0.0
+
+## The direction that the player is facing.
+var _facing_direction: int = 0
 
 
 func _ready():
@@ -57,6 +59,17 @@ func _physics_process(delta):
 func set_rotation(value: float) -> void:
 	_rotation = value
 	actor.sprite.rotation = value
+
+
+## Set the direction that the player is facing.
+func set_facing(dir: int):
+	_facing_direction = dir
+	actor.sprite.flip_h = dir == -1
+
+
+## Get the direction that the player is facing.
+func get_facing() -> int:
+	return _facing_direction
 
 
 ## Apply downward acceleration.

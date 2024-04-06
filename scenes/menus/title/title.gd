@@ -12,6 +12,8 @@ const FADE_SPEED = 1 / pow(2, 4)
 var volume_balance = 0
 var dampen = false
 var scale_vec
+
+
 func _process(delta):
 	var dmod = 60 * delta
 	var window_size = Vector2(get_window().size) # convert to float vector - avoids int div warning

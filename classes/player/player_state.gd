@@ -31,4 +31,4 @@ func trigger_exit():
 
 
 func _update_facing():
-	actor.sprite.flip_h = input.get_last_x() == -1
+	motion.set_facing(input.get_last_x())
