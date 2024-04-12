@@ -48,8 +48,7 @@ func switch_song():
 		self, "volume_db",
 		-60,
 		10
-	).set_delay(play_length)
-	
+	).from(0).set_delay(play_length)
 
 
 func _on_FadeOut_tween_completed():

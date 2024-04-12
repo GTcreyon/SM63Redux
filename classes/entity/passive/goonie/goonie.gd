@@ -99,7 +99,7 @@ func physics_step() -> void:
 func set_disabled(val) -> void:
 	disabled = val
 	await self.ready
-	set_collision_layer_value(0, 0 if val else 1)
+	set_collision_layer_value(1, 0 if val else 1)
 	safety_net.monitoring = !val
 	ride_area.monitoring = !val
 	if disabled:
