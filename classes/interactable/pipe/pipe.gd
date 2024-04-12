@@ -100,4 +100,4 @@ func _end_animation(_player):
 
 func set_disabled(val):
 	super.set_disabled(val)
-	$StaticBody2D.set_collision_layer_value(0, 0 if val else 1)
+	$StaticBody2D.set_collision_layer_value(1, 0 if val else 1)

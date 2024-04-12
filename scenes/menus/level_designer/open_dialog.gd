@@ -1,9 +1,10 @@
 extends FileDialog
 
-@onready var main = $"/root/Main"
 var load_dict: Dictionary
 var pointer: int = 0
 var buffer: PackedByteArray
+
+@onready var main = $"/root/Main"
 
 
 func _on_OpenDialog_file_selected(path):
@@ -11,4 +12,4 @@ func _on_OpenDialog_file_selected(path):
 	buffer = file.get_buffer(file.get_length())
 	file.close()
 	var serializer = Serializer.new()
-	serializer.load_buffer(buffer, main)
+	serializer.load_level_binary(buffer, main)
