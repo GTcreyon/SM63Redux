@@ -28,9 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://b2ujfi4p0015g" path="res://classes/player/fludd_sheet.png" id="12"]
 [ext_resource type="Script" path="res://classes/player/state/dummy_jump.gd" id="12_b8c2a"]
 [ext_resource type="Script" path="res://classes/player/state/stylish_land.gd" id="12_he0sq"]
-[ext_resource type="Script" path="res://classes/player/state/jump.gd" id="12_tvb72"]
 [ext_resource type="Material" uid="uid://b04v14ipldro2" path="res://classes/player/fludd_spray.tres" id="13"]
-[ext_resource type="Script" path="res://classes/player/state/jump_double.gd" id="13_ckv7c"]
 [ext_resource type="Script" path="res://classes/player/camera.gd" id="14"]
 [ext_resource type="Texture2D" uid="uid://dpgkodpraunrv" path="res://classes/particles/dust.png" id="15"]
 [ext_resource type="AudioStream" uid="uid://t4j5ffot2i05" path="res://classes/player/sfx/fludd/fludd_switch.wav" id="16"]
@@ -38,11 +36,13 @@
 [ext_resource type="AudioStream" uid="uid://bxupwlkn26gd6" path="res://classes/player/sfx/pound/pound_spin.wav" id="17"]
 [ext_resource type="Script" path="res://classes/player/state/hurt.gd" id="17_s7v4w"]
 [ext_resource type="AudioStream" uid="uid://bfe8lwyp5f0yt" path="res://classes/player/sfx/spin_air_1.wav" id="18"]
+[ext_resource type="Script" path="res://classes/player/state/jump_simple.gd" id="18_gecu5"]
 [ext_resource type="Script" path="res://classes/player/state/pound_air.gd" id="18_yyx6c"]
 [ext_resource type="Script" path="res://classes/player/fludd_sprite.gd" id="19"]
 [ext_resource type="Script" path="res://classes/player/state/pound_spin.gd" id="19_ieyet"]
-[ext_resource type="Script" path="res://classes/player/state/jump_flip.gd" id="20_2lqw5"]
+[ext_resource type="Script" path="res://classes/player/state/jump_triple.gd" id="19_tou37"]
 [ext_resource type="Script" path="res://classes/player/state/pound_fall.gd" id="20_ri21n"]
+[ext_resource type="Script" path="res://classes/player/state/backflip.gd" id="20_rye67"]
 [ext_resource type="Script" path="res://classes/player/character_sprite.gd" id="21"]
 [ext_resource type="Script" path="res://classes/player/state/spin.gd" id="21_0w5dd"]
 [ext_resource type="Script" path="res://classes/autoplay.gd" id="22"]
@@ -1318,46 +1318,46 @@ tight_movement = true
 script = ExtResource("12_b8c2a")
 
 [node name="Jump" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
-script = ExtResource("12_tvb72")
+script = ExtResource("18_gecu5")
 jump_power = 10.75
 jump_number = 1
 start_anims = PackedStringArray("jump_a_start", "jump_b_start")
 trans_anims = PackedStringArray("jump_a_trans", "jump_b_trans")
+allow_modulation = true
 tight_movement = true
 
 [node name="JumpDouble" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
-script = ExtResource("13_ckv7c")
+script = ExtResource("18_gecu5")
 jump_power = 12.5
 jump_number = 2
 start_anims = PackedStringArray("jump_double_start")
 trans_anims = PackedStringArray("jump_double_trans")
+allow_modulation = true
 tight_movement = true
 
 [node name="JumpTriple" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
-script = ExtResource("20_2lqw5")
+script = ExtResource("19_tou37")
 jump_power = 15.0
 start_anims = PackedStringArray("flip")
 trans_anims = PackedStringArray("jump_double_trans")
-manual_fall = true
-stylish = true
 friction_divisor = 1.5
 tight_movement = true
 
 [node name="Backflip" type="Node" parent="StateManager/Neutral/Air"]
-script = ExtResource("20_2lqw5")
+script = ExtResource("20_rye67")
 _full_rotations = -1.0
 _full_rotations_fludd = -1.0
-_flip_time = 42
 _x_vel = -6.0
 jump_power = 12.75
 start_anims = PackedStringArray("jump_static")
 trans_anims = PackedStringArray("jump_a_trans")
-manual_fall = true
 friction_divisor = 1.5
 allow_turnaround = false
 
 [node name="Dive" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("16_vh6so")
+friction_divisor = 8.0
+allow_turnaround = false
 
 [node name="Hurt" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("17_s7v4w")
@@ -1380,7 +1380,7 @@ script = ExtResource("4_q4bau")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"walk_start"
+animation = &"dive_start"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]

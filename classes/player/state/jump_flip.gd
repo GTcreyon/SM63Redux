@@ -15,12 +15,12 @@ extends JumpState
 ## X velocity to add.
 @export var _x_vel: float = 3.0
 
-
 ## Half the flip time - used for the transition animation.
 var _flip_time_half: int = _flip_time / 2
 
 ## Progress through the flip in frames.
 var _flip_frames: int = 0
+
 
 func _on_enter(_h):
 	super(_h)
@@ -66,6 +66,9 @@ func _anim_finished():
 
 
 func _tell_switch():
+	if input.buffered_input(&"pound"):
+		return &"PoundSpin"
+
 	if _flip_frames >= _flip_time:
 		return [&"Fall", [&"fall", stylish]]
 	return super()

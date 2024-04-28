@@ -21,9 +21,19 @@ func _cycle_tick():
 
 
 func _tell_switch():
+	if input.buffered_input(&"spin"):
+		return &"Spin"
+
 	if actor.is_on_floor():
 		if _stylish:
 			return &"StylishLand"
 		else:
 			return &"Land"
+
+	if input.buffered_input(&"dive"):
+		return &"Dive"
+
+	if input.buffered_input(&"pound"):
+		return &"PoundSpin"
+
 	return &""

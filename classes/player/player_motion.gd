@@ -61,6 +61,11 @@ func set_rotation(value: float) -> void:
 	actor.sprite.rotation = value
 
 
+## Get the player's rotation.
+func get_rotation() -> float:
+	return _rotation
+
+
 ## Set the direction that the player is facing.
 func set_facing(dir: int):
 	_facing_direction = dir
