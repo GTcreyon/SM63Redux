@@ -1,7 +1,7 @@
 extends PlayerState
 
 
-func _tell_defer():
+func _defer_rules():
 	if actor.is_on_floor():
 		return &"Ground"
 	else:

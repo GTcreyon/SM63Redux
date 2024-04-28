@@ -30,7 +30,7 @@ func _anim_finished():
 		_anim("spin_fast")
 
 
-func _cycle_tick():
+func _all_ticks():
 	if _strike_time > 0:
 		_strike_time -= 1
 		if _strike_time == 0:
@@ -46,7 +46,7 @@ func _cycle_tick():
 		actor.sprite.speed_scale = lerpf(SOFT_START_SPEED, SOFT_END_SPEED, spin_progress) * move_mod
 
 
-func _tell_switch():
+func _trans_rules():
 	if !Input.is_action_pressed("spin") and _strike_time <= 0:
 		return &"Neutral"
 	return &""

@@ -7,7 +7,7 @@ func _on_enter(_h):
 	_anim(&"crouch_start")
 
 
-func _cycle_tick():
+func _all_ticks():
 	if Input.is_action_just_released(&"down"):
 		_anim(&"crouch_end")
 
@@ -17,7 +17,7 @@ func _anim_finished():
 		_done = true
 
 
-func _tell_switch():
+func _trans_rules():
 	if _done:
 		return &"Idle"
 	if input.buffered_input(&"jump"):

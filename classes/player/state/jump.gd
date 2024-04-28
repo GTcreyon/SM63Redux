@@ -32,7 +32,7 @@ func _on_enter(_h):
 	_anim(start_anims[_anim_index])
 
 
-func _post_tick():
+func _subsequent_ticks():
 	if Input.is_action_pressed("jump") and allow_modulation:
 		motion.legacy_accel_y(-0.2, false)
 	motion.apply_gravity(1.0, true)

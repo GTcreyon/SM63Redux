@@ -5,7 +5,7 @@ const COYOTE_DURATION: int = 6
 var _coyote_remaining: int = 0
 
 
-func _tell_switch():
+func _trans_rules():
 	if actor.is_on_floor():
 		return &"Ground"
 
@@ -16,7 +16,7 @@ func _tell_switch():
 	return &""
 
 
-func _tell_defer():
+func _defer_rules():
 	return &"Fall"
 
 

@@ -1337,22 +1337,35 @@ tight_movement = true
 
 [node name="JumpTriple" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
 script = ExtResource("19_tou37")
+_full_rotations = null
+_full_rotations_fludd = null
+_flip_time = null
+_x_vel = null
 jump_power = 15.0
+jump_number = null
 start_anims = PackedStringArray("flip")
 trans_anims = PackedStringArray("jump_double_trans")
+stylish = null
+allow_modulation = null
 friction_divisor = 1.5
+allow_turnaround = null
 tight_movement = true
 
 [node name="Backflip" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("20_rye67")
 _full_rotations = -1.0
 _full_rotations_fludd = -1.0
+_flip_time = null
 _x_vel = -6.0
 jump_power = 12.75
+jump_number = null
 start_anims = PackedStringArray("jump_static")
 trans_anims = PackedStringArray("jump_a_trans")
+stylish = null
+allow_modulation = null
 friction_divisor = 1.5
 allow_turnaround = false
+tight_movement = null
 
 [node name="Dive" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("16_vh6so")

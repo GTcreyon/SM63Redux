@@ -18,7 +18,7 @@ func _anim_finished():
 	_done = true
 
 
-func _tell_switch():
+func _trans_rules():
 	if _done:
 		return &"Stand"
 	return &""

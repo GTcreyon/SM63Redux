@@ -5,12 +5,12 @@ func _on_enter(_h):
 	motion.activate_consec_timer()
 
 
-func _tell_switch():
+func _trans_rules():
 	if not actor.is_on_floor():
 		return [&"Air", true]
 
 	return &""
 
 
-func _tell_defer():
+func _defer_rules():
 	return &"Idle"

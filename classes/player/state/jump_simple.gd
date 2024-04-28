@@ -2,7 +2,7 @@ class_name JumpSimple
 extends JumpState
 
 
-func _tell_switch():
+func _trans_rules():
 	if input.buffered_input(&"dive"):
 		return &"Dive"
 

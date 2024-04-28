@@ -15,7 +15,7 @@ const HORIZONTAL_ACCEL: float = 0.34
 const HORIZONTAL_DECEL: float = 0.001
 
 
-func _cycle_tick():
+func _all_ticks():
 	var x_accel = HORIZONTAL_ACCEL / pow(friction_divisor, 1.875)
 	var x_dir = input.get_x()
 	if x_dir == 0:

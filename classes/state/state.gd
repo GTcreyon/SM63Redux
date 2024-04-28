@@ -26,12 +26,12 @@ func _to_string():
 ## Calls the fixed tick functions
 func tick_hook() -> void:
 	if _first_cycle:
-		_pre_tick()
+		_first_tick()
 		_first_cycle = false
 	else:
-		_post_tick()
+		_subsequent_ticks()
 
-	_cycle_tick()
+	_all_ticks()
 
 
 ## Call a callable from a function name and given arguments.
@@ -101,7 +101,7 @@ func switch_substate(new_state: State, handover: Variant):
 
 
 ## Probe the active substate for a state to switch to.
-## This is based on its transition rules defined in _tell_switch().
+## This is based on its transition rules defined in _trans_rules().
 ## If a state is found, switch to that state.
 func probe_switch(defer: bool = false) -> void:
 	if !_is_live():
@@ -109,10 +109,10 @@ func probe_switch(defer: bool = false) -> void:
 	var link_name
 	var handover = null
 	if defer:
-		link_name = _tell_defer()
+		link_name = _defer_rules()
 	else:
 		var data
-		data = _tell_switch()
+		data = _trans_rules()
 		if data is Array:
 			link_name = data[0]
 			handover = data[1]
@@ -153,17 +153,17 @@ func _cache_link(key: StringName) -> StateLink:
 
 
 ## Called on all cycles of the physics process loop.
-func _cycle_tick() -> void:
+func _all_ticks() -> void:
 	pass
 
 
 ## Called on the first cycle of the physics process loop.
-func _pre_tick() -> void:
+func _first_tick() -> void:
 	pass
 
 
 ## Called on subsequent cycles of the physics process loop.
-func _post_tick() -> void:
+func _subsequent_ticks() -> void:
 	pass
 
 
@@ -180,14 +180,14 @@ func _on_exit() -> void:
 ## Return the name of a state for the parent to switch to, or `null` for no change.
 ## This is called by the parent state during probe_switch() at the start of the physics tick.
 ## This function should be used to define the transition rules for the state.
-func _tell_switch() -> Variant:
+func _trans_rules() -> Variant:
 	return &""
 
 
 ## Return the name of a passthrough state.
 ## When this state is switched to, immediately switch to that state.
 ## This means that other states don't have to guess the behavior of this state when switching to a child of it.
-func _tell_defer() -> StringName:
+func _defer_rules() -> StringName:
 	return &""
 
 

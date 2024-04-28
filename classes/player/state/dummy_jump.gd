@@ -11,7 +11,7 @@ func _on_enter(_handover):
 	motion.consume_coyote_timer()
 
 
-func _tell_defer():
+func _defer_rules():
 	if not motion.active_consec_time():
 		return &"Jump"
 

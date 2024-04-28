@@ -1,15 +1,15 @@
 extends PlayerState
 
 
-func _cycle_tick():
+func _all_ticks():
 	motion.decel(0.65)
 
 
-func _tell_defer():
+func _defer_rules():
 	return &"Stand"
 
 
-func _tell_switch():
+func _trans_rules():
 	if input.buffered_input(&"jump"):
 		return &"DummyJump"
 	if input.buffered_input(&"spin"):

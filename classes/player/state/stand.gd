@@ -4,7 +4,7 @@ func _on_enter(_handover):
 	_anim(&"walk_start")
 
 
-func _cycle_tick():
+func _all_ticks():
 	if motion.vel.x == 0:
 		actor.sprite.frame = 0
 	else:

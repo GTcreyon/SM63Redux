@@ -14,7 +14,7 @@ func _anim_finished():
 		_anim(&"dive_air")
 
 
-func _cycle_tick():
+func _all_ticks():
 	super()
 	motion.apply_gravity(1.0, true)
 	if motion.vel.y > 0:
@@ -29,7 +29,7 @@ func _on_exit():
 	motion.set_rotation(0)
 
 
-func _tell_switch():
+func _trans_rules():
 	if actor.is_on_floor():
 		return &"Idle"
 	return &""

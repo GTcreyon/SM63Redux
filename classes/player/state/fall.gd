@@ -11,7 +11,7 @@ func _on_enter(handover):
 		_stylish = handover[1]
 
 
-func _cycle_tick():
+func _all_ticks():
 	super()
 	if Input.is_action_pressed("jump"):
 		motion.legacy_accel_y(-0.1, true)
@@ -20,7 +20,7 @@ func _cycle_tick():
 		motion.legacy_friction_y(0.2, 1.05)
 
 
-func _tell_switch():
+func _trans_rules():
 	if input.buffered_input(&"spin"):
 		return &"Spin"
 

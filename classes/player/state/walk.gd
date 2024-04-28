@@ -15,7 +15,7 @@ func _anim_finished():
 		_anim(&"walk_loop")
 
 
-func _cycle_tick():
+func _all_ticks():
 	var input_x = input.get_x()
 	var input_x_dir = input.get_x_dir()
 	if input_x_dir != sign(motion.vel.x):
@@ -29,7 +29,7 @@ func _on_exit():
 	actor.sprite.speed_scale = 1
 
 
-func _tell_switch():
+func _trans_rules():
 	if input.buffered_input(&"jump"):
 		return &"DummyJump"
 

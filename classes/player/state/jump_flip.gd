@@ -30,7 +30,7 @@ func _on_enter(_h):
 	motion.legacy_accel_x(accel_value * motion.get_facing(), true)
 
 
-func _cycle_tick():
+func _all_ticks():
 	super()
 	# Tick the flip timer up
 	_flip_frames += 1
@@ -65,7 +65,7 @@ func _anim_finished():
 		_anim(&"fall")
 
 
-func _tell_switch():
+func _trans_rules():
 	if input.buffered_input(&"pound"):
 		return &"PoundSpin"
 
