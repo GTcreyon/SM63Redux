@@ -2,7 +2,13 @@ extends AirborneState
 
 
 func _on_enter(_h):
-	var x_speed = abs(motion.vel.x)
+	var x_speed = abs(motion.vel.x) * 1.875
+
+	## Reimplements a mistake that allows backflip chaining to be possible
+	## Only do this when moving backwards though, to avoid messing with regular dives
+	if motion.get_facing() == -motion.get_x_direction() and x_speed > 5 * 1.875:
+		x_speed *= 1.875
+
 	var accel_value = 7 - x_speed / 5
 	motion.legacy_accel_x(accel_value * motion.get_facing(), true)
 	motion.legacy_accel_y(3, true)
@@ -31,5 +37,6 @@ func _on_exit():
 
 func _trans_rules():
 	if actor.is_on_floor():
-		return &"Idle"
+		motion.move(Vector2(0, -10))
+		return &"Slide"
 	return &""

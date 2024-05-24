@@ -17,5 +17,8 @@ func _trans_rules():
 	if input.is_moving_x():
 		return &"Walk"
 	if Input.is_action_pressed(&"dive"):
-		return &"Crouch"
+		if motion.is_moving_x():
+			return &"Slide"
+		else:
+			return &"Crouch"
 	return &""

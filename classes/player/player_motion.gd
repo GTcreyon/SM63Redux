@@ -30,7 +30,7 @@ var consec_jumps: int = 0
 var _rotation: float = 0.0
 
 ## The direction that the player is facing.
-var _facing_direction: int = 0
+var _facing_direction: int = 1
 
 
 func _ready():
@@ -241,19 +241,39 @@ func get_vel_component(axis: Vector2) -> float:
 	return vel.dot(axis)
 
 
-## Return 1 if the actor is moving to the right, -1 if left, and 0 if not moving.
+## Return 1 if the actor is moving along the axis, -1 if opposite, and 0 if not moving.
 func get_axis_direction(axis: Vector2) -> int:
 	return sign(get_vel_component(axis))
 
 
-## Return true if the actor is not moving in the X axis.
+## Return 1 if the actor is moving to the right, -1 if left, and 0 if not moving.
+func get_x_direction() -> int:
+	return get_axis_direction(x)
+
+
+## Return true if the actor is moving in the given axis.
 func is_moving_axis(axis: Vector2) -> bool:
 	return !is_zero_approx(get_vel_component(axis))
+
+
+## Return true if the actor is moving in the X axis.
+func is_moving_x() -> bool:
+	return is_moving_axis(x)
+
+
+## Return true if the actor is moving opposite to the facing direction.
+func is_moving_backwards() -> bool:
+	return is_moving_x() and get_x_direction() != get_facing()
 
 
 ## Return the direction vector of the velocity vector.
 func get_direction() -> Vector2:
 	return vel.normalized()
+
+
+## Move the actor by a set vector.
+func move(vec: Vector2) -> void:
+	actor.position += vec
 
 
 ## Move the actor using the stored `vel` value.

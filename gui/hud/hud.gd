@@ -42,12 +42,13 @@ func resize():
 	pause_menu.resize()
 
 
-func _process(delta):
+func _physics_process(delta):
 	var dmod = 60 * delta
 	var new_locale = TranslationServer.get_locale()
 	if new_locale != temp_locale:
 		resize()
 		temp_locale = new_locale
+
 	pulse += 0.1 * dmod
 	#$PauseContent/LevelInfo/CollectRow/ShineRow/Shine1/Sprite.material.set_shader_param("outline_color", Color(1, 1, 1, sin(pulse) * 0.25 + 0.5))
 	coin_counter.material.set_shader_parameter("flash_factor", max(coin_counter.material.get_shader_parameter("flash_factor") - 0.1, 0))

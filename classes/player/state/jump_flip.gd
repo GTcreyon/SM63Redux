@@ -16,7 +16,7 @@ extends JumpState
 @export var _x_vel: float = 3.0
 
 ## Half the flip time - used for the transition animation.
-var _flip_time_half: int = _flip_time / 2
+@onready var _flip_time_half: int = _flip_time / 2
 
 ## Progress through the flip in frames.
 var _flip_frames: int = 0
@@ -25,8 +25,8 @@ var _flip_frames: int = 0
 func _on_enter(_h):
 	super(_h)
 	_flip_frames = 0
-	var x_speed = abs(motion.vel.x)
-	var accel_value = _x_vel - x_speed / 5
+	var current_speed = abs(motion.vel.x) * sign(_x_vel) * 1.875
+	var accel_value = _x_vel - current_speed / 5
 	motion.legacy_accel_x(accel_value * motion.get_facing(), true)
 
 
@@ -71,4 +71,4 @@ func _trans_rules():
 
 	if _flip_frames >= _flip_time:
 		return [&"Fall", [&"fall", stylish]]
-	return super()
+	return &""

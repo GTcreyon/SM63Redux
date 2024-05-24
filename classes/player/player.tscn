@@ -1,4 +1,4 @@
-[gd_scene load_steps=185 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=188 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/player/player_input.gd" id="2_h2ygt"]
@@ -46,6 +46,7 @@
 [ext_resource type="Script" path="res://classes/player/character_sprite.gd" id="21"]
 [ext_resource type="Script" path="res://classes/player/state/spin.gd" id="21_0w5dd"]
 [ext_resource type="Script" path="res://classes/autoplay.gd" id="22"]
+[ext_resource type="Script" path="res://classes/player/state/rollout.gd" id="22_tddom"]
 
 [sub_resource type="AtlasTexture" id="129"]
 atlas = ExtResource("8")
@@ -1179,6 +1180,12 @@ size = Vector2(2, 2)
 [sub_resource type="RectangleShape2D" id="5"]
 size = Vector2(12, 29)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6ia8g"]
+size = Vector2(12, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ngkfe"]
+size = Vector2(12, 12)
+
 [sub_resource type="RectangleShape2D" id="47"]
 size = Vector2(12, 2)
 
@@ -1259,6 +1266,7 @@ size = Vector2(12, 2)
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 6
 collision_mask = 3
+floor_snap_length = 8.0
 script = ExtResource("3")
 
 [node name="Input" type="Node" parent="."]
@@ -1306,6 +1314,7 @@ script = ExtResource("8_bxvk2")
 
 [node name="Slide" type="Node" parent="StateManager/Neutral/Ground"]
 script = ExtResource("9_lxi1s")
+hitbox = 1
 
 [node name="Air" type="Node" parent="StateManager/Neutral"]
 script = ExtResource("4_saxvj")
@@ -1337,40 +1346,38 @@ tight_movement = true
 
 [node name="JumpTriple" type="Node" parent="StateManager/Neutral/Air/DummyJump"]
 script = ExtResource("19_tou37")
-_full_rotations = null
-_full_rotations_fludd = null
-_flip_time = null
-_x_vel = null
 jump_power = 15.0
-jump_number = null
 start_anims = PackedStringArray("flip")
 trans_anims = PackedStringArray("jump_double_trans")
-stylish = null
-allow_modulation = null
 friction_divisor = 1.5
-allow_turnaround = null
 tight_movement = true
 
 [node name="Backflip" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("20_rye67")
 _full_rotations = -1.0
 _full_rotations_fludd = -1.0
-_flip_time = null
+_flip_time = 41
 _x_vel = -6.0
 jump_power = 12.75
-jump_number = null
 start_anims = PackedStringArray("jump_static")
 trans_anims = PackedStringArray("jump_a_trans")
-stylish = null
-allow_modulation = null
 friction_divisor = 1.5
 allow_turnaround = false
-tight_movement = null
 
 [node name="Dive" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("16_vh6so")
 friction_divisor = 8.0
 allow_turnaround = false
+hitbox = 2
+
+[node name="Rollout" type="Node" parent="StateManager/Neutral/Air"]
+script = ExtResource("22_tddom")
+_full_rotations = 1.0
+_flip_time = 16
+jump_power = 7.0
+start_anims = PackedStringArray("flip")
+trans_anims = PackedStringArray("jump_a_trans")
+friction_divisor = 8.0
 
 [node name="Hurt" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("17_s7v4w")
@@ -1393,7 +1400,7 @@ script = ExtResource("4_q4bau")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"dive_start"
+animation = &"dive_ground"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]
@@ -1424,8 +1431,21 @@ monitorable = false
 shape = SubResource("4")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 1.5)
 shape = SubResource("5")
+disabled = true
+
+[node name="HitboxNormal" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("5")
+
+[node name="HitboxDive" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_6ia8g")
+
+[node name="HitboxSmall" type="CollisionShape2D" parent="."]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_ngkfe")
 
 [node name="Camera" type="Camera2D" parent="."]
 process_mode = 3
@@ -1458,10 +1478,12 @@ stream = ExtResource("17")
 volume_db = -18.0
 bus = &"SFX"
 
-[node name="DiveAngling" type="RayCast2D" parent="."]
+[node name="SlideCast" type="RayCast2D" parent="."]
+unique_name_in_owner = true
 target_position = Vector2(0, 20)
 
 [node name="GroundFailsafe" type="Area2D" parent="."]
+visible = false
 position = Vector2(0, 17)
 collision_layer = 0
 
@@ -1469,6 +1491,7 @@ collision_layer = 0
 shape = SubResource("47")
 
 [node name="BackupAngle" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 input_pickable = false
 monitorable = false
@@ -1533,6 +1556,7 @@ position = Vector2(-6, 0)
 target_position = Vector2(0, 20)
 
 [node name="Feet" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 0
 
