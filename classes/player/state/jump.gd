@@ -34,7 +34,7 @@ func _on_enter(_h):
 
 func _subsequent_ticks():
 	if Input.is_action_pressed("jump") and allow_modulation:
-		motion.legacy_accel_y(-0.2, false)
+		motion.legacy_accel_y(-0.2)
 	motion.apply_gravity(1.0, true)
 	if motion.vel.y > 0:
 		motion.legacy_friction_y(0.2, 1.05)

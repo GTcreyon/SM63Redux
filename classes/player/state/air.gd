@@ -7,7 +7,7 @@ var _coyote_remaining: int = 0
 
 func _trans_rules():
 	if actor.is_on_floor():
-		return &"Ground"
+		return &"Floor"
 
 	if Input.is_action_just_pressed(&"jump"):
 		if _coyote_remaining > 0:

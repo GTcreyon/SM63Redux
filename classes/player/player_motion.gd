@@ -271,6 +271,17 @@ func get_direction() -> Vector2:
 	return vel.normalized()
 
 
+## Simple walking logic.
+func walk(input_x: float, accel: float, max_speed: float) -> void:
+	var input_x_dir = sign(input_x)
+	var current_x_dir = sign(vel.x)
+	if input_x_dir != current_x_dir:
+		decel(max_speed)
+	accel_x_capped(accel * input_x, max_speed)
+	if input_x_dir != 0:
+		set_facing(input_x_dir)
+
+
 ## Move the actor by a set vector.
 func move(vec: Vector2) -> void:
 	actor.position += vec

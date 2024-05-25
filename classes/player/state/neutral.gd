@@ -3,6 +3,6 @@ extends PlayerState
 
 func _defer_rules():
 	if actor.is_on_floor():
-		return &"Ground"
+		return &"Floor"
 	else:
 		return &"Air"

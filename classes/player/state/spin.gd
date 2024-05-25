@@ -1,10 +1,10 @@
 extends PlayerState
 
 ## Length in frames of the attacking phase of the spin
-const STRIKE_PERIOD: int = 30
+const STRIKE_PERIOD: float = 24.0
 
 ## Time taken for the harmless phase of the spin to fully slow down
-const SOFT_PERIOD: int = 60
+const SOFT_PERIOD: float = 24.0
 
 ## Initial animation speed of the soft phase
 const SOFT_START_SPEED: float = 1.0
@@ -13,10 +13,10 @@ const SOFT_START_SPEED: float = 1.0
 const SOFT_END_SPEED: float = 0.4
 
 ## Remaining time in the strike phase
-var _strike_time: int
+var _strike_time: float
 
 ## Remaining time in the soft phase
-var _soft_time: int
+var _soft_time: float
 
 
 func _on_enter(_h):
@@ -47,6 +47,19 @@ func _all_ticks():
 
 
 func _trans_rules():
+	if input.buffered_input(&"dive"):
+		return &"Dive"
+		
 	if !Input.is_action_pressed("spin") and _strike_time <= 0:
-		return &"Neutral"
+		# Include a delay while in the air to prevent unlimited spinning
+		if actor.is_on_floor() or _soft_time <= 0:
+			return &"Neutral"
+
 	return &""
+
+
+func _defer_rules():
+	if actor.is_on_floor():
+		return &"SpinFloor"
+	else:
+		return &"SpinAir"

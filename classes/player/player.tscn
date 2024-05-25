@@ -1,4 +1,4 @@
-[gd_scene load_steps=188 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=190 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/player/player_input.gd" id="2_h2ygt"]
@@ -47,6 +47,8 @@
 [ext_resource type="Script" path="res://classes/player/state/spin.gd" id="21_0w5dd"]
 [ext_resource type="Script" path="res://classes/autoplay.gd" id="22"]
 [ext_resource type="Script" path="res://classes/player/state/rollout.gd" id="22_tddom"]
+[ext_resource type="Script" path="res://classes/player/state/spin_air.gd" id="28_gtw61"]
+[ext_resource type="Script" path="res://classes/player/state/spin_floor.gd" id="29_lj851"]
 
 [sub_resource type="AtlasTexture" id="129"]
 atlas = ExtResource("8")
@@ -84,14 +86,6 @@ region = Rect2(240, 240, 48, 48)
 atlas = ExtResource("8")
 region = Rect2(288, 240, 48, 48)
 
-[sub_resource type="AtlasTexture" id="111"]
-atlas = ExtResource("8")
-region = Rect2(336, 240, 48, 48)
-
-[sub_resource type="AtlasTexture" id="112"]
-atlas = ExtResource("8")
-region = Rect2(384, 240, 48, 48)
-
 [sub_resource type="AtlasTexture" id="127"]
 atlas = ExtResource("8")
 region = Rect2(288, 144, 48, 48)
@@ -99,6 +93,14 @@ region = Rect2(288, 144, 48, 48)
 [sub_resource type="AtlasTexture" id="128"]
 atlas = ExtResource("8")
 region = Rect2(336, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="111"]
+atlas = ExtResource("8")
+region = Rect2(336, 240, 48, 48)
+
+[sub_resource type="AtlasTexture" id="112"]
+atlas = ExtResource("8")
+region = Rect2(384, 240, 48, 48)
 
 [sub_resource type="AtlasTexture" id="106"]
 atlas = ExtResource("8")
@@ -515,17 +517,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("111")
-}, {
-"duration": 1.0,
-"texture": SubResource("112")
-}],
-"loop": true,
-"name": &"dive_ground",
-"speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("127")
 }, {
 "duration": 1.0,
@@ -534,6 +525,17 @@ animations = [{
 "loop": false,
 "name": &"dive_reset",
 "speed": 0.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("111")
+}, {
+"duration": 1.0,
+"texture": SubResource("112")
+}],
+"loop": true,
+"name": &"dive_slide",
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -1286,33 +1288,33 @@ initial_state = NodePath("Neutral")
 [node name="Neutral" type="Node" parent="StateManager"]
 script = ExtResource("5_wqc8b")
 
-[node name="Ground" type="Node" parent="StateManager/Neutral"]
+[node name="Floor" type="Node" parent="StateManager/Neutral"]
 script = ExtResource("3_iy3xo")
 
-[node name="Idle" type="Node" parent="StateManager/Neutral/Ground"]
+[node name="Idle" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("4_2ro3p")
 
-[node name="Stand" type="Node" parent="StateManager/Neutral/Ground/Idle"]
+[node name="Stand" type="Node" parent="StateManager/Neutral/Floor/Idle"]
 script = ExtResource("8_65mnq")
 
-[node name="Land" type="Node" parent="StateManager/Neutral/Ground/Idle"]
+[node name="Land" type="Node" parent="StateManager/Neutral/Floor/Idle"]
 script = ExtResource("8_qrq2k")
 animation = &"land"
 
-[node name="StylishLand" type="Node" parent="StateManager/Neutral/Ground/Idle"]
+[node name="StylishLand" type="Node" parent="StateManager/Neutral/Floor/Idle"]
 script = ExtResource("12_he0sq")
 animation = &"land_style"
 
-[node name="Walk" type="Node" parent="StateManager/Neutral/Ground"]
+[node name="Walk" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("6_70jfv")
 
-[node name="Crouch" type="Node" parent="StateManager/Neutral/Ground"]
+[node name="Crouch" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("7_djbi5")
 
-[node name="PoundLand" type="Node" parent="StateManager/Neutral/Ground"]
+[node name="PoundLand" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("8_bxvk2")
 
-[node name="Slide" type="Node" parent="StateManager/Neutral/Ground"]
+[node name="Slide" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("9_lxi1s")
 hitbox = 1
 
@@ -1394,13 +1396,20 @@ script = ExtResource("20_ri21n")
 [node name="Spin" type="Node" parent="StateManager"]
 script = ExtResource("21_0w5dd")
 
+[node name="SpinAir" type="Node" parent="StateManager/Spin"]
+script = ExtResource("28_gtw61")
+friction_divisor = 1.5
+
+[node name="SpinFloor" type="Node" parent="StateManager/Spin"]
+script = ExtResource("29_lj851")
+
 [node name="CharacterGroup" type="Node2D" parent="."]
 script = ExtResource("4_q4bau")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"dive_ground"
+animation = &"dive_slide"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]

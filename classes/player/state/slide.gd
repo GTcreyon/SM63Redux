@@ -6,7 +6,7 @@ const QUARTER_CIRCLE = TAU * 0.25
 
 func _on_enter(_h):
 	actor.sprite.offset = Vector2(0, 8)
-	_anim(&"dive_ground")
+	_anim(&"dive_slide")
 
 
 func _all_ticks():
@@ -24,7 +24,7 @@ func _all_ticks():
 		actor.sprite.speed_scale = 0
 
 
-## Returns the angle of the ground below
+## Returns the angle of the floor below
 func _get_slide_angle() -> float:
 	return _angle_cast.get_collision_normal().angle() + QUARTER_CIRCLE
 

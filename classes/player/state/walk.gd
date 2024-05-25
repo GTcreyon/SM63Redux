@@ -16,13 +16,8 @@ func _anim_finished():
 
 
 func _all_ticks():
-	var input_x = input.get_x()
-	var input_x_dir = input.get_x_dir()
-	if input_x_dir != sign(motion.vel.x):
-		motion.decel(WALK_SPEED)
-	motion.accel_x_capped(WALK_ACCEL * input_x, WALK_SPEED)
+	motion.walk(input.get_x(), WALK_ACCEL, WALK_SPEED)
 	actor.sprite.speed_scale = motion.vel.x / 6.0 * 2.0
-	_update_facing()
 
 
 func _on_exit():
