@@ -689,14 +689,13 @@ func player_control_x() -> void:
 	var dir = get_walk_direction()
 	if dir != 0:
 		if pound_state != Pound.SPIN and (state != S.CROUCH or crouch_resetting):
-			if (
-				state & (
+			var can_turn_around: bool = state & (
 					S.NEUTRAL
 					| S.SPIN
 					| S.TRIPLE_JUMP
 					| S.ROLLOUT
-				)
-			):
+				) or crouch_resetting
+			if can_turn_around:
 				facing_direction = dir # Will never be 0
 			if (grounded or (state & (S.ROLLOUT | S.BACKFLIP | S.DIVE | S.NEUTRAL) and ground_except)) and !swimming:
 				if state == S.POUND:

@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://5ngfdqcrslpp" path="res://scenes/menus/title/title_bg/purple_haze.png" id="3"]
 [ext_resource type="Script" path="res://scenes/menus/title/space.gd" id="4"]
 [ext_resource type="Script" path="res://scenes/menus/title/title_bg/planet.gd" id="5"]
-[ext_resource type="AudioStream" uid="uid://dn5e540uqrxsd" path="res://scenes/menus/title/title.ogg" id="6"]
 [ext_resource type="Texture2D" uid="uid://b8au5h7blne74" path="res://scenes/menus/title/title_bg/silhouettes.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://6bc8uf6k8lo4" path="res://scenes/menus/title/logo/logo_outline.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://c76emcvc5hkgg" path="res://scenes/menus/title/title_bg/light_beam.png" id="9"]
@@ -13,6 +12,7 @@
 [ext_resource type="Script" path="res://scenes/menus/title/title_bg/magmoon.gd" id="11"]
 [ext_resource type="Script" path="res://scenes/menus/title/title_bg/mushmoon.gd" id="12"]
 [ext_resource type="Texture2D" uid="uid://brviibsje1te3" path="res://scenes/menus/title/title_bg/mushmoon.png" id="13"]
+[ext_resource type="AudioStream" uid="uid://d0pje4c7me8tk" path="res://scenes/menus/title/title.mp3" id="14_vgww8"]
 [ext_resource type="Script" path="res://scenes/menus/title/start_text.gd" id="15"]
 [ext_resource type="PackedScene" uid="uid://c4ib2anhw3fvk" path="res://scenes/menus/title/main_menu/main_menu.tscn" id="16"]
 [ext_resource type="Script" path="res://scenes/menus/title/title.gd" id="17"]
@@ -87,7 +87,7 @@ modulate = Color(1, 1, 1, 0)
 texture = ExtResource("8")
 
 [node name="TitleLoop" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6")
+stream = ExtResource("14_vgww8")
 volume_db = -8.0
 bus = &"Music"
 script = ExtResource("19")

@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/tutorial_1.mp3-a981350c45e23415086a8d9df6ec3b
 [params]
 
 loop=true
-loop_offset=0
-bpm=0
+loop_offset=10.013
+bpm=0.0
 beat_count=0
 bar_beats=4
