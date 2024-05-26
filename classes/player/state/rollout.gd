@@ -16,4 +16,6 @@ func _on_enter(handover):
 func _trans_rules():
 	if input.buffered_input(&"dive") and _flip_frames > _flip_time_half:
 		return &"Dive"
+	if input.buffered_input(&"spin"):
+		return &"Spin"
 	return super()
