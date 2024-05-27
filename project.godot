@@ -36,6 +36,10 @@ mouse_cursor/custom_image_hotspot=Vector2(1, 1)
 
 project/assembly_name="Super Mario 63 Redux"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/tileset_from_image/plugin.cfg")
+
 [gui]
 
 theme/custom="res://gui/theme_gui.tres"
