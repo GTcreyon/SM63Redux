@@ -65,25 +65,56 @@ func set_null(_new_val):
 
 
 func reload_tileset(new_ts: TerrainSkin):
+	# Callback to make the terrain lump update when the skin is modified.
+	var redraw_on_skin_change = Callable(self, "update_and_redraw")
+	
+	# Clean up this terrain lump's callback from off the old skin (if it exists).
+	if skin != null:
+		#assert(skin.changed.is_connected(redraw_on_skin_change))
+		
+		skin.disconnect("changed", redraw_on_skin_change.bind(skin))
+	
+	# Replace the old skin with the new.
 	skin = new_ts
 	
-	if skin != null:
-		body = new_ts.body
-		side = new_ts.side
-		bottom = new_ts.bottom
-
-		top = new_ts.top
-		top_endcap = new_ts.top_endcap
-		top_clip = new_ts.top_clip
-		top_endcap_clip = new_ts.top_endcap_clip
+	if new_ts != null:
+		# If the new skin isn't nothing, read in its new textures.
+		update_textures(new_ts)
+		# Also subscribe to updates, so this lump stays in sync.
+		new_ts.changed.connect(redraw_on_skin_change.bind(new_ts))
+		
+		assert(new_ts.changed.is_connected(redraw_on_skin_change))
 	else:
-		body = null
-		side = null
-		bottom = null
-
-		top = null
-		top_endcap = null
-		top_clip = null
-		top_endcap_clip = null
+		# If the new skin is nothing, set the textures to nothing as well.
+		clear_textures()
 	
+	# Push graphics updates to child nodes.
 	decorations.queue_redraw()
+
+
+func update_and_redraw(new_skin: TerrainSkin):
+	update_textures(new_skin)
+	decorations.queue_redraw()
+
+
+func update_textures(src_skin: TerrainSkin):
+	body = src_skin.body
+	side = src_skin.side
+	bottom = src_skin.bottom
+
+	top = src_skin.top
+	top_endcap = src_skin.top_endcap
+	top_clip = src_skin.top_clip
+	top_endcap_clip = src_skin.top_endcap_clip
+
+
+func clear_textures():
+	body = null
+	side = null
+	bottom = null
+
+	top = null
+	top_endcap = null
+	top_clip = null
+	top_endcap_clip = null
+	
