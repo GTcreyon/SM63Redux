@@ -85,3 +85,5 @@ func reload_tileset(new_ts: TerrainSkin):
 		top_endcap = null
 		top_clip = null
 		top_endcap_clip = null
+	
+	decorations.queue_redraw()
