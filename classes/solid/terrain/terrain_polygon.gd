@@ -89,7 +89,10 @@ func reload_tileset(new_ts: TerrainSkin):
 		clear_textures()
 	
 	# Push graphics updates to child nodes.
-	decorations.queue_redraw()
+	# Said nodes can apparently be null right when the editor starts up,
+	# so only update when these nodes exist.
+	if decorations != null:
+		decorations.queue_redraw()
 
 
 func update_and_redraw(new_skin: TerrainSkin):
