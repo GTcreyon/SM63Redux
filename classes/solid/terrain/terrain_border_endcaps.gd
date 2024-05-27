@@ -132,14 +132,14 @@ func add_cap_segment(is_left, area):
 			var clip_uv = clip_box[1]
 			# VALIDATE: Make sure the cut box is 4 verts
 			if clip_poly.size() == 4:
-				draw_polygon(clip_poly, colors, clip_uv, root.top_corner_shade)
+				draw_polygon(clip_poly, colors, clip_uv, root.skin.top_endcap_shadow)
 			else:
 				# This should not happen!
 				#print("oh no: ", area.index, ": ", clip_poly.size(), " - ", clip_uv.size())
 				pass
 		# If the polygon is fully surrounded, simply draw the shadow.
 		else:
-			draw_polygon(cap_verts, colors, uvs, root.top_corner_shade)
+			draw_polygon(cap_verts, colors, uvs, root.skin.top_endcap_shadow)
 	
 	# Draw the actual endcap on top of the shadow.
-	draw_polygon(cap_verts, colors, uvs, root.top_corner)
+	draw_polygon(cap_verts, colors, uvs, root.skin.top_endcap)

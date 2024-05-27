@@ -8,14 +8,6 @@ const COLLISION_LAYER_TERRAIN = 1
 
 @export var skin: TerrainSkin: set = reload_tileset
 
-var body: Texture2D
-var top: Texture2D
-var top_shade: Texture2D
-var top_corner: Texture2D
-var top_corner_shade: Texture2D
-var edge: Texture2D
-var bottom: Texture2D
-
 @export var up_direction = Vector2(0, -1): set = set_down_direction
 # TODO: This should always == -up_direction.
 @export var down_direction = Vector2(0, 1): set = set_null
@@ -66,22 +58,3 @@ func set_null(_new_val):
 
 func reload_tileset(new_ts: TerrainSkin):
 	skin = new_ts
-	
-	if skin != null:
-		body = new_ts.body
-		edge = new_ts.side
-		bottom = new_ts.bottom
-
-		top = new_ts.top
-		top_corner = new_ts.top_endcap
-		top_shade = new_ts.top_shadow
-		top_corner_shade = new_ts.top_endcap_shadow
-	else:
-		body = null
-		edge = null
-		bottom = null
-
-		top = null
-		top_corner = null
-		top_shade = null
-		top_corner_shade = null
