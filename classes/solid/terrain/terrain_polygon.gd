@@ -67,11 +67,21 @@ func set_null(_new_val):
 func reload_tileset(new_ts: TerrainSkin):
 	skin = new_ts
 	
-	body = new_ts.body
-	edge = new_ts.side
-	bottom = new_ts.bottom
+	if skin != null:
+		body = new_ts.body
+		edge = new_ts.side
+		bottom = new_ts.bottom
 
-	top = new_ts.top
-	top_corner = new_ts.top_endcap
-	top_shade = new_ts.top_shadow
-	top_corner_shade = new_ts.top_endcap_shadow
+		top = new_ts.top
+		top_corner = new_ts.top_endcap
+		top_shade = new_ts.top_shadow
+		top_corner_shade = new_ts.top_endcap_shadow
+	else:
+		body = null
+		edge = null
+		bottom = null
+
+		top = null
+		top_corner = null
+		top_shade = null
+		top_corner_shade = null
