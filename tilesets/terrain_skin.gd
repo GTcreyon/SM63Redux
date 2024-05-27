@@ -1,4 +1,4 @@
-class_name Tileset
+class_name TerrainSkin
 extends Resource
 
 @export var body: Texture2D
