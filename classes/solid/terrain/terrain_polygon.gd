@@ -25,6 +25,14 @@ const COLLISION_LAYER_TERRAIN = 1
 
 var properties: Dictionary = {}
 
+var body: Texture2D
+var top: Texture2D
+var top_shadow: Texture2D
+var top_endcap: Texture2D
+var top_endcap_shadow: Texture2D
+var side: Texture2D
+var bottom: Texture2D
+
 @onready var decorations: TerrainBorder = $Borders
 @onready var collision_body: StaticBody2D = $Static
 @onready var collision_shape: CollisionPolygon2D = $Static/Collision
@@ -58,3 +66,22 @@ func set_null(_new_val):
 
 func reload_tileset(new_ts: TerrainSkin):
 	skin = new_ts
+	
+	if skin != null:
+		body = new_ts.body
+		side = new_ts.side
+		bottom = new_ts.bottom
+
+		top = new_ts.top
+		top_endcap = new_ts.top_endcap
+		top_shadow = new_ts.top_shadow
+		top_endcap_shadow = new_ts.top_endcap_shadow
+	else:
+		body = null
+		side = null
+		bottom = null
+
+		top = null
+		top_endcap = null
+		top_shadow = null
+		top_endcap_shadow = null

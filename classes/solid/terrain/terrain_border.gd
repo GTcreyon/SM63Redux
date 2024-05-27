@@ -27,7 +27,7 @@ func _draw():
 		child.queue_free()
 	
 	# Load appearance from the root.
-	body_polygon.texture = root.skin.body
+	body_polygon.texture = root.body
 	body_polygon.polygon = root.polygon
 	body_polygon.color = root.tint_color if root.tint else Color(1, 1, 1)
 	
@@ -60,7 +60,7 @@ func draw_all_borders(poly: PackedVector2Array):
 		# Valid chains contain at least 2 vertices.
 		# If the chain is valid, draw it.
 		if list.size() >= 2:
-			generate_polygons(list, root.skin.side, 0)
+			generate_polygons(list, root.side, 0)
 	
 	# Now the bottom as well--same exact deal as the sides.
 	latest_index = 0
@@ -68,7 +68,7 @@ func draw_all_borders(poly: PackedVector2Array):
 		var list = []
 		latest_index = get_segment_chain(list, type_ids, poly, latest_index, EdgeType.BOTTOM)
 		if list.size() >= 2:
-			generate_polygons(list, root.skin.bottom, 0)
+			generate_polygons(list, root.bottom, 0)
 	
 	# Now the top--which has a special polygon-gen function to make endcaps.
 	latest_index = 0
@@ -162,7 +162,7 @@ func generate_polygons_top(lines, z_order = 2):
 	# Draw all areas.
 	for area in areas:
 		# Turn this area into a polygon node.
-		var poly2d = _create_polygon(area.verts, area.normal, z_order, root.skin.top,
+		var poly2d = _create_polygon(area.verts, area.normal, z_order, root.top,
 			0 if area.type == "quad" or (area.clock_dir == -1 and area.type == "trio") 
 			else area.verts.size() - 2)
 		
@@ -173,7 +173,7 @@ func generate_polygons_top(lines, z_order = 2):
 		# TODO: This may be meant to get clipped to within the polygon's body.
 		if !root.tint:
 			var shade = poly2d.duplicate()
-			shade.texture = root.skin.top_shadow
+			shade.texture = root.top_shadow
 			add_child(shade)
 	
 	# Mark the right-side area for drawing.
