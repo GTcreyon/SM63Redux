@@ -17,7 +17,7 @@ const QUAD_SIZE = 32 #2*TerrainBorder.QUAD_RADIUS
 #	type: String = "quad" or "trio" depending on vert count.
 @export var area_queue: Array
 
-@onready var root = $".."
+@onready var root: TerrainPolygon = $".."
 
 
 func _draw():
@@ -113,7 +113,7 @@ func add_cap_segment(is_left, area):
 		base_color = root.tint_color
 	var colors = PackedColorArray([base_color, base_color, base_color, base_color])
 	
-	# Check if our cap should show its clip tex or not
+	# Check if any point of the cap is inside the polygon. 
 	var inside_count = 0
 	var verts_inside = []
 	for vert in cap_verts:
@@ -122,9 +122,9 @@ func add_cap_segment(is_left, area):
 			verts_inside.append(vert)
 			inside_count += 1
 	
-	# Draw the clip tex if there's any point inside the polygon.
-	if inside_count > 0:
-		# Is the polygon 
+	# Draw the clip tex (if it exists) if there's any point inside the polygon
+	if inside_count > 0 and root.top_endcap_clip != null:
+		# Is any point *outside* the polygon?
 		if inside_count != vert_count:
 			# Clip the box so it fits in the polygon
 			var clip_box = polygon_clip_box(cap_verts, uvs)
@@ -142,4 +142,5 @@ func add_cap_segment(is_left, area):
 			draw_polygon(cap_verts, colors, uvs, root.top_endcap_clip)
 	
 	# Draw the regular endcap on top of the clip texture.
-	draw_polygon(cap_verts, colors, uvs, root.top_endcap)
+	if root.top_endcap != null:
+		draw_polygon(cap_verts, colors, uvs, root.top_endcap)

@@ -16,7 +16,7 @@ enum EdgeType {
 
 const QUAD_RADIUS = 16
 
-@onready var root = $".."
+@onready var root: TerrainPolygon = $".."
 @onready var body_polygon: Polygon2D = $"../Body"
 @onready var endcaps: TerrainBorderEndcaps = $"../TopEdgeEndcaps"
 
@@ -26,10 +26,15 @@ func _draw():
 	for child in get_children():
 		child.queue_free()
 	
-	# Load appearance from the root.
-	body_polygon.texture = root.body
-	body_polygon.polygon = root.polygon
-	body_polygon.color = root.tint_color if root.tint else Color(1, 1, 1)
+	# Load body appearance from the root, if there's a body texture.
+	if root.body != null:
+		body_polygon.visible = true
+		body_polygon.texture = root.body
+		body_polygon.polygon = root.polygon
+		body_polygon.color = root.tint_color if root.tint else Color(1, 1, 1)
+	# If the root has no body texture, hide the body polygon.
+	else:
+		body_polygon.visible = false
 	
 	# Clear the draw queue for endcaps.
 	endcaps.area_queue = []
@@ -166,10 +171,11 @@ func generate_polygons_top(lines, z_order = 2):
 			0 if area.type == "quad" or (area.clock_dir == -1 and area.type == "trio") 
 			else area.verts.size() - 2)
 		
-		# Add it as a child.
-		add_child(poly2d)
+		# Add it as a child, if its texture exists.
+		if root.top != null:
+			add_child(poly2d)
 		
-		# Make a duplicate polygon to hold the clip texture.
+		# Make a duplicate polygon to hold the clip texture, if any.
 		# This texture is meant to get clipped to within the polygon's body.
 		# TODO: Is it doing that though?
 		if !root.tint:
@@ -228,6 +234,10 @@ func _add_inbetween_segment(areas, start: Vector2, end: Vector2, circumcenter: V
 
 
 func generate_polygons(lines: Array, texture: Texture2D, z_order: int):
+	# If this chain of polygons has no texture set, completely skip it.
+	if texture == null:
+		return
+	
 	var p_len = lines.size()
 	for ind in range(p_len - 1):
 		# First create quads from each line segment.
