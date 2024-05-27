@@ -6,7 +6,7 @@ extends Polygon2D
 
 const COLLISION_LAYER_TERRAIN = 1
 
-@export var texture_spritesheet: Texture2D: set = update_spritesheets
+@export var skin: TerrainSkin: set = reload_tileset
 
 var body: Texture2D
 var top: Texture2D
@@ -64,17 +64,14 @@ func set_null(_new_val):
 	pass
 
 
-func update_spritesheets(new_sheet: Texture2D):
-	texture_spritesheet = new_sheet
+func reload_tileset(new_ts: TerrainSkin):
+	skin = new_ts
 	
-	# Create textures from the spritesheet.
-	# Can't just use atlas textures, they don't loop like we need.
-	
-	body = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(36, 3, 32, 32) ) )
-	edge = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(3, 3, 32, 32) ) )
-	bottom = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(36, 36, 32, 32) ) )
+	body = new_ts.body
+	edge = new_ts.side
+	bottom = new_ts.bottom
 
-	top = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(105, 3, 32, 32) ) )
-	top_corner = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(72, 3, 32, 32) ) )
-	top_shade = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(105, 36, 32, 32) ) )
-	top_corner_shade = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(72, 36, 32, 32) ) )
+	top = new_ts.top
+	top_corner = new_ts.top_endcap
+	top_shade = new_ts.top_shadow
+	top_corner_shade = new_ts.top_endcap_shadow
