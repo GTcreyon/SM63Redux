@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://uxujeycb0ytl"]
 
 [ext_resource type="Script" path="res://classes/solid/terrain/terrain_polygon.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://bfx115eob35tv" path="res://classes/solid/terrain/tilesets/jungle/jungle_normal_spritesheet.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bfx115eob35tv" path="res://tilesets/grass/grass.png" id="3"]
 [ext_resource type="Script" path="res://classes/solid/terrain/terrain_border.gd" id="4"]
 [ext_resource type="Script" path="res://classes/solid/terrain/terrain_border_endcaps.gd" id="10"]
 
