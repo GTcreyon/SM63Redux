@@ -105,8 +105,15 @@ func add_cap_segment(is_left, area):
 	])
 	
 	var vert_count = cap_verts.size() # TODO: Always == 4 :P
+
+	# Tint the polygon.
+	# (TODO: Done differently than in terrain_border_endcaps.gd???)
+	var base_color = Color(1, 1, 1)
+	if root.tint:
+		base_color = root.tint_color
+	var colors = PackedColorArray([base_color, base_color, base_color, base_color])
 	
-	# Check if our cap should have a shadow or not
+	# Check if our cap should show its clip tex or not
 	var inside_count = 0
 	var verts_inside = []
 	for vert in cap_verts:
@@ -115,14 +122,7 @@ func add_cap_segment(is_left, area):
 			verts_inside.append(vert)
 			inside_count += 1
 	
-	# Tint the polygon.
-	# (TODO: Done differently than in pencil.gd???)
-	var base_color = Color(1, 1, 1)
-	if root.tint:
-		base_color = root.tint_color
-	var colors = PackedColorArray([base_color, base_color, base_color, base_color])
-	
-	# Draw the shadow if there's any point inside the polygon.
+	# Draw the clip tex if there's any point inside the polygon.
 	if inside_count > 0:
 		# Is the polygon 
 		if inside_count != vert_count:
@@ -132,14 +132,14 @@ func add_cap_segment(is_left, area):
 			var clip_uv = clip_box[1]
 			# VALIDATE: Make sure the cut box is 4 verts
 			if clip_poly.size() == 4:
-				draw_polygon(clip_poly, colors, clip_uv, root.top_endcap_shadow)
+				draw_polygon(clip_poly, colors, clip_uv, root.top_endcap_clip)
 			else:
 				# This should not happen!
 				#print("oh no: ", area.index, ": ", clip_poly.size(), " - ", clip_uv.size())
 				pass
-		# If the polygon is fully surrounded, simply draw the shadow.
+		# If the polygon is fully surrounded, simply draw the texture.
 		else:
-			draw_polygon(cap_verts, colors, uvs, root.top_endcap_shadow)
+			draw_polygon(cap_verts, colors, uvs, root.top_endcap_clip)
 	
-	# Draw the actual endcap on top of the shadow.
+	# Draw the regular endcap on top of the clip texture.
 	draw_polygon(cap_verts, colors, uvs, root.top_endcap)

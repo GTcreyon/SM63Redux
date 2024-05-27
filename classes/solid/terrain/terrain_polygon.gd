@@ -27,9 +27,9 @@ var properties: Dictionary = {}
 
 var body: Texture2D
 var top: Texture2D
-var top_shadow: Texture2D
+var top_clip: Texture2D
 var top_endcap: Texture2D
-var top_endcap_shadow: Texture2D
+var top_endcap_clip: Texture2D
 var side: Texture2D
 var bottom: Texture2D
 
@@ -74,8 +74,8 @@ func reload_tileset(new_ts: TerrainSkin):
 
 		top = new_ts.top
 		top_endcap = new_ts.top_endcap
-		top_shadow = new_ts.top_shadow
-		top_endcap_shadow = new_ts.top_endcap_shadow
+		top_clip = new_ts.top_clip
+		top_endcap_clip = new_ts.top_endcap_clip
 	else:
 		body = null
 		side = null
@@ -83,5 +83,5 @@ func reload_tileset(new_ts: TerrainSkin):
 
 		top = null
 		top_endcap = null
-		top_shadow = null
-		top_endcap_shadow = null
+		top_clip = null
+		top_endcap_clip = null

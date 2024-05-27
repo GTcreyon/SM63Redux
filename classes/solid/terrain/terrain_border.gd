@@ -169,11 +169,12 @@ func generate_polygons_top(lines, z_order = 2):
 		# Add it as a child.
 		add_child(poly2d)
 		
-		# Make a duplicate polygon to hold the shadow texture.
-		# TODO: This may be meant to get clipped to within the polygon's body.
+		# Make a duplicate polygon to hold the clip texture.
+		# This texture is meant to get clipped to within the polygon's body.
+		# TODO: Is it doing that though?
 		if !root.tint:
 			var shade = poly2d.duplicate()
-			shade.texture = root.top_shadow
+			shade.texture = root.top_clip
 			add_child(shade)
 	
 	# Mark the right-side area for drawing.
