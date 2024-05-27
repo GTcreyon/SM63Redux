@@ -1,44 +1,45 @@
+@tool
 class_name TerrainSkin
 extends Resource
 
 @export var body: Texture2D:
 	set(value):
 		if value != body:
+			body = value
 			emit_changed()
-		body = value
 
 @export var top: Texture2D:
 	set(value):
 		if value != top:
+			top = value
 			emit_changed()
-		top = value
 
 @export var top_clip: Texture2D:
 	set(value):
 		if value != top_clip:
+			top_clip = value
 			emit_changed()
-		top_clip = value
 
 @export var top_endcap: Texture2D:
 	set(value):
 		if value != top_endcap:
+			top_endcap = value
 			emit_changed()
-		top_endcap = value
 
 @export var top_endcap_clip: Texture2D:
 	set(value):
 		if value != top_endcap_clip:
+			top_endcap_clip = value
 			emit_changed()
-		top_endcap_clip = value
 
 @export var side: Texture2D:
 	set(value):
 		if value != side:
+			side = value
 			emit_changed()
-		side = value
 
 @export var bottom: Texture2D:
 	set(value):
 		if value != bottom:
+			bottom = value
 			emit_changed()
-		bottom = value

@@ -70,7 +70,7 @@ func reload_tileset(new_ts: TerrainSkin):
 	
 	# Clean up this terrain lump's callback from off the old skin (if it exists).
 	if skin != null:
-		#assert(skin.changed.is_connected(redraw_on_skin_change))
+		assert(skin.changed.is_connected(redraw_on_skin_change))
 		
 		skin.disconnect("changed", redraw_on_skin_change.bind(skin))
 	
