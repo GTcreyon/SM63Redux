@@ -31,11 +31,11 @@ func _get_import_options(path, preset_index):
 
 
 func _get_importer_name():
-	return "63r.tileset_template"
+	return "63r.terrain_skin"
 
 
 func _get_visible_name():
-	return "Tileset Template"
+	return "Terrain Skin Template"
 
 
 func _get_recognized_extensions():
