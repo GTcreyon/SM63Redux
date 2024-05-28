@@ -39,7 +39,7 @@ func _get_visible_name():
 
 
 func _get_recognized_extensions():
-	return ["png", "gif"]
+	return ["bmp", "png", "jpg", "jpeg", "tga", "webp"]
 
 
 func _get_save_extension():
@@ -47,8 +47,11 @@ func _get_save_extension():
 
 
 func _get_resource_type():
-	return "Tileset"
+	return "Resource"
 
+
+func _get_import_order():
+	return 0
 
 ## Returns true for any option which is visible.
 func _get_option_visibility(path, option_name, options):
@@ -57,19 +60,49 @@ func _get_option_visibility(path, option_name, options):
 
 func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	# Open the given file (and error if invalid).
-	var file = FileAccess.open(source_file, FileAccess.READ)
+	var file := FileAccess.get_file_as_bytes(source_file)
 	if file == null:
 		return FileAccess.get_open_error()
 	
-	# TODO: Do things with the loaded file.
-	# Like validate that it's an image, for example.
-	var out_res: Resource
+	# Load image data from the bytes.
+	var img := Image.new()
+	var parse_result
+	match source_file.get_extension().to_lower() :
+		"bmp":
+			parse_result = img.load_bmp_from_buffer(file)
+		"png":
+			parse_result = img.load_png_from_buffer(file)
+		"jpg", "jpeg":
+			# Not an ideal format, but heck, no reason to prevent it
+			parse_result = img.load_jpg_from_buffer(file)
+		"tga":
+			parse_result = img.load_tga_from_buffer(file)
+		"webp": # why
+			parse_result = img.load_webp_from_buffer(file)
+		_:
+			parse_result = ERR_INVALID_DATA
+	# Abort if the load failed.
+	if parse_result != OK:
+		return parse_result
+	
+	var out_res := TerrainSkin.new()
+	
+	# Slice textures from the spritesheet.
+	# Can't just use atlas textures, they don't loop like we need.
+	out_res.body = ImageTexture.create_from_image(img.get_region( Rect2(36, 3, 32, 32) ) )
+	out_res.side = ImageTexture.create_from_image(img.get_region( Rect2(3, 3, 32, 32) ) )
+	out_res.bottom = ImageTexture.create_from_image(img.get_region( Rect2(36, 36, 32, 32) ) )
+
+	out_res.top = ImageTexture.create_from_image(img.get_region( Rect2(105, 3, 32, 32) ) )
+	out_res.top_endcap = ImageTexture.create_from_image(img.get_region( Rect2(72, 3, 32, 32) ) )
+	out_res.top_clip = ImageTexture.create_from_image(img.get_region( Rect2(105, 36, 32, 32) ) )
+	out_res.top_endcap_clip = ImageTexture.create_from_image(img.get_region( Rect2(72, 36, 32, 32) ) )
+	
+	# If we want to save the sliced textures separately, use ResourceSaver,
+	# then push their paths to r_gen_files.
 	
 	# If there's different variants of this resource for different platforms,
 	# push the feature tag to r_platform_variants, then insert the tag between
-	# save_path and _get_save_extension() (. separated) when returning.
-	
-	# If extra files are written outside the import settings, push their paths
-	# to r_gen_files.
+	# save_path and _get_save_extension() (. separated) when saving the files.
 	
 	return ResourceSaver.save(out_res, "%s.%s" % [save_path, _get_save_extension()])
