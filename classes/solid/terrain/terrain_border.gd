@@ -178,7 +178,7 @@ func generate_polygons_top(lines, z_order = 2):
 		# Make a duplicate polygon to hold the clip texture, if any.
 		# This texture is meant to get clipped to within the polygon's body.
 		# TODO: Is it doing that though?
-		if !root.tint:
+		if !root.tint and root.top_clip != null:
 			var shade = poly2d.duplicate()
 			shade.texture = root.top_clip
 			add_child(shade)
