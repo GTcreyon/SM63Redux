@@ -27,9 +27,13 @@ func _get_import_options(path, preset_index):
 		Presets.FORMAT_V1:
 			return [
 				{
+					"name": "external_textures",
+					"default_value": false
+				},
+				{
 					"name": "Texture Rects",
 					"default_value": null,
-					"usage": PROPERTY_USAGE_GROUP | PROPERTY_USAGE_INTERNAL,
+					"usage": PROPERTY_USAGE_GROUP,
 				},
 				{
 					"name": "body",
@@ -122,9 +126,33 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	
 	var out_res := TerrainSkin.new()
 	out_res.resource_path = "%s.%s" % [save_path, _get_save_extension()]
+
+	var in_extension = source_file.get_extension()
 	var tex_name = source_file.get_file()
-	out_res.resource_name = tex_name
+	# Remove the extension from the end of name.
+	tex_name = tex_name.erase(
+		tex_name.length() - (in_extension.length() + 1),
+		in_extension.length() + 1
+	)
 	
+	out_res.resource_name = tex_name
+
+	# Needed when "External Textures" is checked.
+	var tex_folder: String
+	var editor_fs: EditorFileSystem
+	if options["external_textures"]:
+		# Create a folder to store the separated texture resources.
+		tex_folder = "%s/%s" % [source_file.get_base_dir(), tex_name]
+		DirAccess.make_dir_absolute(tex_folder)
+
+		# Get access to the editor filesystem--need this to make the editor
+		# acknowledge newly created files.
+		editor_fs = EditorInterface.get_resource_filesystem()
+		
+		# Make the editor acknowledge the textures directory.
+		editor_fs.update_file(tex_folder)
+		
+
 	# Slice each non-zero-sized texture from the spritesheet.
 	# (Can't just use atlas textures, they don't loop like we need.)
 	for tex_type in [
@@ -137,14 +165,51 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 			var slice = img.get_region(options[tex_type])
 			# If the slice has any visible pixels...
 			if !slice.is_invisible():
-				# ...save it to the resource.
-				out_res.set(tex_type, ImageTexture.create_from_image(slice))
-				# Then name it.
-				out_res.get(tex_type).resource_name = "%s_%s" % \
-					[tex_name, tex_type]
-	
-	# If we want to save the sliced textures separately, use ResourceSaver,
-	# then push their paths to r_gen_files.
+				# ...create a texture from it.
+				var tex = ImageTexture.create_from_image(slice)
+				#tex.set_meta(&"_source_image", out_res.
+
+				# Name the texture resource.
+				tex.resource_name = "%s_%s" % [tex_name, tex_type]
+
+				# If we want separate texture files, save those. 
+				if options["external_textures"]:
+					var tex_path = "%s/%s.png" % \
+						[tex_folder, tex_type]
+
+					# Save this texture into that folder.
+					var ext_file = FileAccess.open(tex_path, FileAccess.WRITE)
+					if ext_file == null:
+						push_error("Failed to write to %s: %s" % [
+							tex_path, 
+							error_string(FileAccess.get_open_error()),
+						])
+					ext_file.store_buffer(slice.save_png_to_buffer())
+					ext_file.close()
+
+					# Make the editor acknowledge this file.
+					editor_fs.update_file(tex_path)
+
+					# Try importing the sliced texture. 
+					var imp_result = append_import_external_resource(
+						tex_path,
+					)
+					# If import failed, report and leave the texture blank.
+					if imp_result != OK:
+						push_error("%s's %s texture failed to import: %s" % [
+							tex_name, tex_type.capitalize(), 
+							error_string(imp_result)
+						])
+						continue
+
+					# Register this as one of the generated files.
+					r_gen_files.push_back(tex_path)
+
+					# Replace the source texture with the one on disk.
+					tex = ResourceLoader.load(tex_path, "Texture2D")
+				
+				# Separate or embedded, save it to the resource.
+				out_res.set(tex_type, tex)
 	
 	# If there's different variants of this resource for different platforms,
 	# push the feature tag to r_platform_variants, then insert the tag between
