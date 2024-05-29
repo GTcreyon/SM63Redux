@@ -1,34 +1,23 @@
 [remap]
 
-importer="texture"
-type="CompressedTexture2D"
+importer="63r.terrain_skin"
+type="Resource"
 uid="uid://ds40y3dtlp7h3"
-path="res://.godot/imported/bricks_red.png-9d92720e306b8dc0a4f66a9de46786c8.ctex"
-metadata={
-"vram_texture": false
-}
+path="res://.godot/imported/bricks_red.png-9d92720e306b8dc0a4f66a9de46786c8.res"
 
 [deps]
 
 source_file="res://terrain_skins/bricks_colored/bricks_red.png"
-dest_files=["res://.godot/imported/bricks_red.png-9d92720e306b8dc0a4f66a9de46786c8.ctex"]
+dest_files=["res://.godot/imported/bricks_red.png-9d92720e306b8dc0a4f66a9de46786c8.res"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=false
-compress/lossy_quality=0.7
-compress/hdr_compression=1
-compress/normal_map=0
-compress/channel_pack=0
-mipmaps/generate=false
-mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
-process/fix_alpha_border=true
-process/premult_alpha=false
-process/normal_map_invert_y=false
-process/hdr_as_srgb=false
-process/hdr_clamp_exposure=false
-process/size_limit=0
-detect_3d/compress_to=1
+external_textures=false
+Texture Rects=null
+body=Rect2(36, 3, 32, 32)
+side=Rect2(3, 3, 32, 32)
+bottom=Rect2(36, 36, 32, 32)
+top=Rect2(105, 3, 32, 32)
+top_endcap=Rect2(72, 3, 32, 32)
+top_clip=Rect2(105, 36, 32, 32)
+top_endcap_clip=Rect2(72, 36, 32, 32)
