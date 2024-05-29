@@ -239,4 +239,4 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	# push the feature tag to r_platform_variants, then insert the tag between
 	# save_path and _get_save_extension() (. separated) when saving the files.
 	
-	return ResourceSaver.save(out_res, "%s.%s" % [save_path, _get_save_extension()])
+	return ResourceSaver.save(out_res)
