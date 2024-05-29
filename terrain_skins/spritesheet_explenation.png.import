@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bv1i70c70fuhl"
-path="res://.godot/imported/grass_top.png-eecda33a8042bebdb898cb8110ac90b7.ctex"
+uid="uid://p8n6lgy1kx1c"
+path="res://.godot/imported/spritesheet_explenation.png-38e35dae46bc8c23b5c91578a2ff5e59.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain_skins/grass/grass_top.png"
-dest_files=["res://.godot/imported/grass_top.png-eecda33a8042bebdb898cb8110ac90b7.ctex"]
+source_file="res://terrain_skins/spritesheet_explenation.png"
+dest_files=["res://.godot/imported/spritesheet_explenation.png-38e35dae46bc8c23b5c91578a2ff5e59.ctex"]
 
 [params]
 
