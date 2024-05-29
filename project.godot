@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Super Mario 63 Redux"
 run/main_scene="res://scenes/menus/title/title.tscn"
-config/features=PackedStringArray("4.1")
+config/features=PackedStringArray("4.2")
 boot_splash/image="res://splash.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
