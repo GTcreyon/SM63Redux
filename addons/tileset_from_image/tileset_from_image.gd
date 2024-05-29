@@ -101,6 +101,18 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	# If we want to save the sliced textures separately, use ResourceSaver,
 	# then push their paths to r_gen_files.
 	
+	# Name the new texture resources.
+	# This does not allow TerrainPolygon to reference these rather than
+	# storing a copy, unfortunately.
+	var tex_name = source_file.get_file()
+	out_res.body.resource_name = "%s_body" % tex_name
+	out_res.side.resource_name = "%s_side" % tex_name
+	out_res.bottom.resource_name = "%s_bottom" % tex_name
+	out_res.top.resource_name = "%s_top" % tex_name
+	out_res.top_endcap.resource_name = "%s_top_endcap" % tex_name
+	out_res.top_clip.resource_name = "%s_top_clip" % tex_name
+	out_res.top_endcap_clip.resource_name = "%s_top_endcap_clip" % tex_name
+	
 	# If there's different variants of this resource for different platforms,
 	# push the feature tag to r_platform_variants, then insert the tag between
 	# save_path and _get_save_extension() (. separated) when saving the files.
