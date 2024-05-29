@@ -12,6 +12,7 @@ dest_files=["res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.re
 
 [params]
 
+external_textures=false
 Texture Rects=null
 body=Rect2(36, 3, 32, 32)
 side=Rect2(3, 3, 32, 32)
