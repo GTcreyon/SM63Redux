@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://dxmdaybntbv58" path="res://classes/entity/enemy/thwomp/thwomp.tscn" id="3"]
-[ext_resource type="Texture2D" uid="uid://di2vqvn2nug0k" path="res://tilesets/bricks_colored/bricks_blue.png" id="3_wa6n0"]
+[ext_resource type="Texture2D" uid="uid://di2vqvn2nug0k" path="res://terrain_skins/bricks_colored/bricks_blue_hat.png" id="3_wa6n0"]
 [ext_resource type="PackedScene" uid="uid://xmvx2vnac2u5" path="res://classes/misc/twirl_heart/twirl_heart.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="6"]
 

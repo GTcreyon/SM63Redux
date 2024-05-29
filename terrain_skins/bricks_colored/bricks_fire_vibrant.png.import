@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfx115eob35tv"
-path="res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.ctex"
+uid="uid://bk6yrd5xeqaaq"
+path="res://.godot/imported/bricks_fire_vibrant.png-566f8ae085515cc72e677bfdacb71c51.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain_skins/grass/grass.png"
-dest_files=["res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.ctex"]
+source_file="res://terrain_skins/bricks_colored/bricks_fire_vibrant.png"
+dest_files=["res://.godot/imported/bricks_fire_vibrant.png-566f8ae085515cc72e677bfdacb71c51.ctex"]
 
 [params]
 

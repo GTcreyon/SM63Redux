@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfx115eob35tv"
-path="res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.ctex"
+uid="uid://b0u2avs1g133m"
+path="res://.godot/imported/jungle_grass.png-3deda297c755b6931862fb96f4e63937.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain_skins/grass/grass.png"
-dest_files=["res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.ctex"]
+source_file="res://terrain_skins/jungle/jungle_grass.png"
+dest_files=["res://.godot/imported/jungle_grass.png-3deda297c755b6931862fb96f4e63937.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfx115eob35tv"
-path="res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.ctex"
+uid="uid://d4ekptgbhf8om"
+path="res://.godot/imported/castle_carpet.png-c483e168e99b6b479f506494ab6c47ff.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain_skins/grass/grass.png"
-dest_files=["res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.ctex"]
+source_file="res://terrain_skins/castle_int/castle_carpet.png"
+dest_files=["res://.godot/imported/castle_carpet.png-c483e168e99b6b479f506494ab6c47ff.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfx115eob35tv"
-path="res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.ctex"
+uid="uid://p5wn7uq15drj"
+path="res://.godot/imported/castle_wall.png-1fb64f43d2a63cf4eddf36d9b155797f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://terrain_skins/grass/grass.png"
-dest_files=["res://.godot/imported/grass.png-335b218b9e2737131bc8650c2e58216f.ctex"]
+source_file="res://terrain_skins/castle_ext/castle_wall.png"
+dest_files=["res://.godot/imported/castle_wall.png-1fb64f43d2a63cf4eddf36d9b155797f.ctex"]
 
 [params]
 
