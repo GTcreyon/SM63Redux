@@ -127,55 +127,21 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	
 	# Slice each non-zero-sized texture from the spritesheet.
 	# (Can't just use atlas textures, they don't loop like we need.)
-	if options["body"].size.x > 0 and options["body"].size.y > 0:
-		var slice = img.get_region(options["body"])
-		# If the slice has any visible pixels...
-		if !slice.is_invisible():
-			# ...save it to the resource.
-			out_res.body = ImageTexture.create_from_image(slice)
-			# Then name them and give them a path (in an unsuccessful attempt to allow
-			# TerrainPolygon to reference these rather than storing a copy of the
-			# texture data in its scene file).
-			out_res.body.resource_name = "%s_body" % tex_name
-			out_res.body.resource_path = "%s::body" % out_res.resource_path
-	# Do the same for every texture.
-	if options["side"].size.x > 0 and options["side"].size.y > 0:
-		var slice = img.get_region(options["side"])
-		if !slice.is_invisible():
-			out_res.side = ImageTexture.create_from_image(slice)
-			out_res.side.resource_name = "%s_side" % tex_name
-			out_res.side.resource_path = "%s::side" % out_res.resource_path
-	if options["bottom"].size.x > 0 and options["bottom"].size.y > 0:
-		var slice = img.get_region(options["bottom"])
-		if !slice.is_invisible():
-			out_res.bottom = ImageTexture.create_from_image(slice)
-			out_res.bottom.resource_name = "%s_bottom" % tex_name
-			out_res.bottom.resource_path = "%s::bottom" % out_res.resource_path
-
-	if options["top"].size.x > 0 and options["top"].size.y > 0:
-		var slice = img.get_region(options["top"])
-		if !slice.is_invisible():
-			out_res.top = ImageTexture.create_from_image(slice)
-			out_res.top.resource_name = "%s_top" % tex_name
-			out_res.top.resource_path = "%s::top" % out_res.resource_path
-	if options["top_endcap"].size.x > 0 and options["top_endcap"].size.y > 0:
-		var slice = img.get_region(options["top_endcap"])
-		if !slice.is_invisible():
-			out_res.top_endcap = ImageTexture.create_from_image(slice)
-			out_res.top_endcap.resource_name = "%s_top_endcap" % tex_name
-			out_res.top_endcap.resource_path = "%s::top_endcap" % out_res.resource_path
-	if options["top_clip"].size.x > 0 and options["top_clip"].size.y > 0:
-		var slice = img.get_region(options["top_clip"])
-		if !slice.is_invisible():
-			out_res.top_clip = ImageTexture.create_from_image(slice)
-			out_res.top_clip.resource_name = "%s_top_clip" % tex_name
-			out_res.top_clip.resource_path = "%s::top_clip" % out_res.resource_path
-	if options["top_endcap_clip"].size.x > 0 and options["top_endcap_clip"].size.y > 0:
-		var slice = img.get_region(options["top_endcap_clip"])
-		if !slice.is_invisible():
-			out_res.top_endcap_clip = ImageTexture.create_from_image(slice)
-			out_res.top_endcap_clip.resource_name = "%s_top_endcap_clip" % tex_name
-			out_res.top_endcap_clip.resource_path = "%s::top_endcap_clip" % out_res.resource_path
+	for tex_type in [
+		"body",
+		"top", "top_clip",
+		"top_endcap", "top_endcap_clip",
+		"side", "bottom"
+	]:
+		if options[tex_type].size.x > 0 and options[tex_type].size.y > 0:
+			var slice = img.get_region(options[tex_type])
+			# If the slice has any visible pixels...
+			if !slice.is_invisible():
+				# ...save it to the resource.
+				out_res.set(tex_type, ImageTexture.create_from_image(slice))
+				# Then name it.
+				out_res.get(tex_type).resource_name = "%s_%s" % \
+					[tex_name, tex_type]
 	
 	# If we want to save the sliced textures separately, use ResourceSaver,
 	# then push their paths to r_gen_files.
