@@ -1,21 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://gf683qffhbge"]
+[gd_scene load_steps=8 format=3 uid="uid://gf683qffhbge"]
 
 [ext_resource type="PackedScene" uid="uid://uxujeycb0ytl" path="res://classes/solid/terrain/terrain_polygon.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="2"]
+[ext_resource type="Resource" uid="uid://l7m368hsbs6x" path="res://terrain_skins/wall_panels/wall_panels.png" id="2_bmvso"]
 [ext_resource type="PackedScene" uid="uid://dxmdaybntbv58" path="res://classes/entity/enemy/thwomp/thwomp.tscn" id="3"]
-[ext_resource type="Texture2D" uid="uid://di2vqvn2nug0k" path="res://terrain_skins/bricks_colored/bricks_blue_hat.png" id="3_wa6n0"]
 [ext_resource type="PackedScene" uid="uid://xmvx2vnac2u5" path="res://classes/misc/twirl_heart/twirl_heart.tscn" id="4"]
+[ext_resource type="Resource" uid="uid://ds40y3dtlp7h3" path="res://terrain_skins/bricks_colored/bricks_red.png" id="4_0l1db"]
 [ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="6"]
 
 [node name="Main" type="Node2D"]
+
+[node name="BackgroundPolygon" parent="." instance=ExtResource("1")]
+position = Vector2(33, 89)
+polygon = PackedVector2Array(10, -140, 593, -143, 592, 120, 6, 120)
+skin = ExtResource("2_bmvso")
+max_deviation = 30
+solid = false
 
 [node name="Player" parent="." instance=ExtResource("2")]
 position = Vector2(328, 28)
 
 [node name="TerrainPolygon" parent="." instance=ExtResource("1")]
 position = Vector2(33, 89)
-polygon = PackedVector2Array(251, -18, 335, -18, 335, 35, 251, 35, 238, 10)
-texture_spritesheet = ExtResource("3_wa6n0")
+polygon = PackedVector2Array(23, -16, 332, -16, 332, 33, 34, 33, 4, 9)
+skin = ExtResource("4_0l1db")
+max_deviation = 30
 
 [node name="thwomp" parent="." instance=ExtResource("3")]
 position = Vector2(142, -176)
