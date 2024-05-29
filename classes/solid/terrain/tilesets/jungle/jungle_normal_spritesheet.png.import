@@ -12,3 +12,11 @@ dest_files=["res://.godot/imported/jungle_normal_spritesheet.png-5e9f32a8f565203
 
 [params]
 
+Texture Rects=null
+body=Rect2(36, 3, 32, 32)
+side=Rect2(3, 3, 32, 32)
+bottom=Rect2(36, 36, 32, 32)
+top=Rect2(105, 3, 32, 32)
+top_endcap=Rect2(72, 3, 32, 32)
+top_clip=Rect2(105, 36, 32, 32)
+top_endcap_clip=Rect2(72, 36, 32, 32)

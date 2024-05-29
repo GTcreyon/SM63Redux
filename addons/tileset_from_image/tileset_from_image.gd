@@ -25,7 +25,42 @@ func _get_preset_name(preset_index):
 func _get_import_options(path, preset_index):
 	match preset_index:
 		Presets.FORMAT_V1:
-			return []
+			return [
+				{
+					"name": "Texture Rects",
+					"default_value": null,
+					"usage": PROPERTY_USAGE_GROUP | PROPERTY_USAGE_INTERNAL,
+				},
+				{
+					"name": "body",
+					"default_value": Rect2(36, 3, 32, 32)
+				},
+				{
+					"name": "side",
+					"default_value": Rect2(3, 3, 32, 32)
+				},
+				{
+					"name": "bottom",
+					"default_value": Rect2(36, 36, 32, 32)
+				},
+
+				{
+					"name": "top",
+					"default_value": Rect2(105, 3, 32, 32)
+				},
+				{
+					"name": "top_endcap",
+					"default_value": Rect2(72, 3, 32, 32)
+				},
+				{
+					"name": "top_clip",
+					"default_value": Rect2(105, 36, 32, 32)
+				},
+				{
+					"name": "top_endcap_clip",
+					"default_value": Rect2(72, 36, 32, 32)
+				},
+			]
 		_: # 
 			return []
 
@@ -89,14 +124,14 @@ func _import(source_file, save_path, options, r_platform_variants, r_gen_files):
 	
 	# Slice textures from the spritesheet.
 	# Can't just use atlas textures, they don't loop like we need.
-	out_res.body = ImageTexture.create_from_image(img.get_region( Rect2(36, 3, 32, 32) ) )
-	out_res.side = ImageTexture.create_from_image(img.get_region( Rect2(3, 3, 32, 32) ) )
-	out_res.bottom = ImageTexture.create_from_image(img.get_region( Rect2(36, 36, 32, 32) ) )
+	out_res.body = ImageTexture.create_from_image(img.get_region( options["body"] ) )
+	out_res.side = ImageTexture.create_from_image(img.get_region( options["side"] ) )
+	out_res.bottom = ImageTexture.create_from_image(img.get_region( options["bottom"] ) )
 
-	out_res.top = ImageTexture.create_from_image(img.get_region( Rect2(105, 3, 32, 32) ) )
-	out_res.top_endcap = ImageTexture.create_from_image(img.get_region( Rect2(72, 3, 32, 32) ) )
-	out_res.top_clip = ImageTexture.create_from_image(img.get_region( Rect2(105, 36, 32, 32) ) )
-	out_res.top_endcap_clip = ImageTexture.create_from_image(img.get_region( Rect2(72, 36, 32, 32) ) )
+	out_res.top = ImageTexture.create_from_image(img.get_region( options["top"] ) )
+	out_res.top_endcap = ImageTexture.create_from_image(img.get_region( options["top_endcap"] ) )
+	out_res.top_clip = ImageTexture.create_from_image(img.get_region( options["top_clip"] ) )
+	out_res.top_endcap_clip = ImageTexture.create_from_image(img.get_region( options["top_endcap_clip"] ) )
 	
 	# If we want to save the sliced textures separately, use ResourceSaver,
 	# then push their paths to r_gen_files.
