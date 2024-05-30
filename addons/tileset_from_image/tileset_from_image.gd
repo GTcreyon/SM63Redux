@@ -40,15 +40,6 @@ func _get_import_options(path, preset_index):
 					"default_value": Rect2(36, 3, 32, 32)
 				},
 				{
-					"name": "side",
-					"default_value": Rect2(3, 3, 32, 32)
-				},
-				{
-					"name": "bottom",
-					"default_value": Rect2(36, 36, 32, 32)
-				},
-
-				{
 					"name": "top",
 					"default_value": Rect2(105, 3, 32, 32)
 				},
@@ -64,6 +55,15 @@ func _get_import_options(path, preset_index):
 					"name": "top_endcap_clip",
 					"default_value": Rect2(72, 36, 32, 32)
 				},
+				{
+					"name": "side",
+					"default_value": Rect2(3, 3, 32, 32)
+				},
+				{
+					"name": "bottom",
+					"default_value": Rect2(36, 36, 32, 32)
+				},
+
 			]
 		_: # 
 			return []
