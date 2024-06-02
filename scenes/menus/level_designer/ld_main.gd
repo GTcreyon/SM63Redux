@@ -14,7 +14,15 @@ signal editor_state_changed
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 const ITEM_PREFAB = preload("res://scenes/menus/level_designer/ld_item/ld_item.tscn")
 
-enum EDITOR_STATE { IDLE, PLACING, SELECTING, DRAGGING, POLYGON_CREATE, POLYGON_EDIT }
+enum EDITOR_STATE {
+	IDLE,
+	PLACING,
+	SELECTING,
+	DRAGGING,
+	POLYGON_CREATE,
+	POLYGON_EDIT,
+	POLYGON_DRAG_VERTEX
+}
 
 ## Definitions for base classes that items can implement.
 var item_classes = {}

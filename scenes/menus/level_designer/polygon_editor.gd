@@ -3,19 +3,27 @@ extends Control
 @onready var main = $"/root/Main"
 @onready var drawable_polygon = $Polygon
 
+var dragging_index = null
+
 
 func _unhandled_input(event):
-	if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
-		quit_creating(false)
-	
-	if event.is_action_released("ld_poly_finish"):
-		quit_creating(true)
-	
-	if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
-		drawable_polygon.polygon = drawable_polygon.polygon + [main.get_snapped_mouse_position()]
-		if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
+	if main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
+		if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
+			quit_creating(false)
+		
+		if event.is_action_released("ld_poly_finish"):
 			quit_creating(true)
-
+		
+		if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
+			drawable_polygon.polygon = drawable_polygon.polygon + [main.get_snapped_mouse_position()]
+			if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
+				quit_creating(true)
+	elif main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX:
+		# Assuming 
+		if event.is_action_released("ld_place"):
+			print("Placed!")
+			dragging_index = null
+			main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
 
 func quit_creating(save):
 	main.editor_state = main.EDITOR_STATE.IDLE
@@ -48,10 +56,19 @@ func start_polygon_creation():
 
 func _on_new_vertex(wanted_position, start_index, end_index):
 	print("New ", wanted_position, ", ", start_index, ", ", end_index)
+	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
+	
+	# We have to copy the array, otherwise the set-invocation won't work
+	var copied = drawable_polygon.polygon.duplicate(false)
+	copied.insert(end_index, drawable_polygon.position + wanted_position)
+	drawable_polygon.polygon = copied
+	dragging_index = end_index
 
 
 func _on_vertex_move(index):
 	print("Moving ", index)
+	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
+	dragging_index = index
 
 
 func edit_polygon(obj_to_edit):
@@ -70,6 +87,13 @@ func edit_polygon(obj_to_edit):
 	drawable_polygon.should_connector_be_transparent = false
 	drawable_polygon.should_draw_predict_line = false
 	drawable_polygon.should_have_buttons = true
+
+
+func _process(delta):
+	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index:
+		var mouse_position = main.get_snapped_mouse_position()
+		drawable_polygon.polygon[dragging_index] = mouse_position
+		drawable_polygon.polygon = drawable_polygon.polygon
 
 
 func _demo_press():
