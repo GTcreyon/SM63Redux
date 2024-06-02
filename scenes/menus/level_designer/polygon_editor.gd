@@ -113,7 +113,7 @@ func stop_editing_polygon(save):
 	main.polygon_edit_node.visible = true
 
 func _process(delta):
-	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index:
+	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index != null:
 		var mouse_position = main.get_snapped_mouse_position()
 		drawable_polygon.polygon[dragging_index] = mouse_position
 		drawable_polygon.polygon = drawable_polygon.polygon
