@@ -1,7 +1,7 @@
 extends Control
 
-signal button_pressed
-signal new_vert_button_pressed
+signal move_vertex(index)
+signal new_vertex(wanted_position, start_index, end_index)
 
 @export var outline_color: Color = Color(0, 0.2, 0.9)
 
@@ -10,6 +10,15 @@ var readonly_local_polygon = PackedVector2Array()
 var should_have_buttons = false: set = set_buttons
 var should_draw_predict_line = true
 var should_connector_be_transparent = true
+
+const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
+
+# Private
+var new_node_data = {
+	position = Vector2.ZERO,
+	start_index = 0,
+	end_index = 0,
+}
 
 @onready var main = $"/root/Main"
 
@@ -65,11 +74,13 @@ func _draw():
 			if distance < nearest_distance:
 				nearest_distance = distance
 				nearest_position = closest_point
+				
+				new_node_data.position = nearest_position
+				new_node_data.start_index = index
+				new_node_data.end_index = (index + 1) % poly_size
 		var vert_button = get_node("AddVertButton")
 		if nearest_position and mouse_position and vert_button:
-			vert_button.position = nearest_position - Vector2(6, 6)
-#			draw_line(mouse_position, nearest_position, Color(1, 0, 0))
-#			draw_circle(mouse_position, 1, Color(0.7, 0, 0))
+			vert_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
 	
 	if should_draw_predict_line:
 		draw_line(
@@ -87,11 +98,16 @@ func set_buttons(new):
 
 
 func on_button_press(index):
-	emit_signal("button_pressed", index)
+	emit_signal("move_vertex", index)
 
 
 func on_new_vert_button_pressed():
-	emit_signal("new_vert_button_pressed")
+	emit_signal(
+		"new_vertex",
+		new_node_data.position,
+		new_node_data.start_index,
+		new_node_data.end_index
+	)
 
 
 func reparent_buttons():
@@ -103,7 +119,7 @@ func reparent_buttons():
 			button.texture_normal = button_texture
 			button.texture_hover = button_texture_hover
 			button.texture_pressed = button_texture_pressed
-			button.position = readonly_local_polygon[index] - Vector2(6, 6)
+			button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
 			button.connect("pressed", Callable(self, "on_button_press").bind(index))
 			add_child(button)
 		
@@ -113,7 +129,7 @@ func reparent_buttons():
 		button.texture_normal = button_texture
 		button.texture_hover = button_texture_hover
 		button.texture_pressed = button_texture_pressed
-		button.position = readonly_local_polygon[0] - Vector2(6, 6)
+		button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
 		add_child(button)
 

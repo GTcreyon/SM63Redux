@@ -33,6 +33,8 @@ var item_textures: Array[Dictionary] = []
 ## The scenes corresponding to each item. These can be used to create
 ## a playable node tree based on the [LDPlacedItem]s in the level.
 var item_scenes = []
+## The current polygon node which is being edited
+var polygon_edit_node
 
 ## Set to [code]true[/code] to enable returning to the level designer
 ## when [kbd]ld_exit[/kbd] is pressed.

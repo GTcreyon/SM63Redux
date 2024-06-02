@@ -272,7 +272,7 @@ script = ExtResource("40")
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="SaveDialog" type="FileDialog" parent="UILayer"]
-size = Vector2i(390, 137)
+size = Vector2i(390, 154)
 mode_overrides_title = false
 access = 2
 filters = PackedStringArray("*.63r ; SM63 Redux Level")
@@ -280,7 +280,7 @@ script = ExtResource("6")
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
 title = "Open a File"
-size = Vector2i(390, 137)
+size = Vector2i(390, 154)
 ok_button_text = "Open"
 mode_overrides_title = false
 file_mode = 0
@@ -536,6 +536,8 @@ text = "Placeholder Loading Text"
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Dragger" to="UIFollow/Selection/Buttons" method="_on_dragger_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Duplicator" to="UIFollow/Selection/Buttons" method="_on_duplicator_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Polygon" to="UIFollow/Selection/Buttons" method="_on_polygon_pressed"]
+[connection signal="move_vertex" from="UIFollow/PolygonEditor/Polygon" to="UIFollow/PolygonEditor" method="_on_vertex_move"]
+[connection signal="new_vertex" from="UIFollow/PolygonEditor/Polygon" to="UIFollow/PolygonEditor" method="_on_new_vertex"]
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
 [connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]

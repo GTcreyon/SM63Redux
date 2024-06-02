@@ -46,10 +46,19 @@ func start_polygon_creation():
 	drawable_polygon.should_have_buttons = false
 
 
+func _on_new_vertex(wanted_position, start_index, end_index):
+	print("New ", wanted_position, ", ", start_index, ", ", end_index)
+
+
+func _on_vertex_move(index):
+	print("Moving ", index)
+
+
 func edit_polygon(obj_to_edit):
 	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
 	main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
+	main.polygon_edit_node = obj_to_edit
 	
 	obj_to_edit.visible = false
 	
