@@ -19,6 +19,7 @@ var new_node_data = {
 	start_index = 0,
 	end_index = 0,
 }
+var new_vertex_button
 
 @onready var main = $"/root/Main"
 
@@ -78,9 +79,8 @@ func _draw():
 				new_node_data.position = nearest_position
 				new_node_data.start_index = index
 				new_node_data.end_index = (index + 1) % poly_size
-		var vert_button = get_node("AddVertButton")
-		if nearest_position and mouse_position and vert_button:
-			vert_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
+		if nearest_position and mouse_position and new_vertex_button:
+			new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
 	
 	if should_draw_predict_line:
 		draw_line(
@@ -126,13 +126,13 @@ func reparent_buttons():
 		
 		# This button is for adding vertices
 		var button = TextureButton.new()
-		button.name = "AddVertButton"
 		button.texture_normal = button_texture
 		button.texture_hover = button_texture_hover
 		button.texture_pressed = button_texture_pressed
 		button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 		button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
 		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
+		new_vertex_button = button
 		add_child(button)
 
 
