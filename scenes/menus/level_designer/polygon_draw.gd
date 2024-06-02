@@ -111,30 +111,45 @@ func on_new_vert_button_pressed():
 
 
 func reparent_buttons():
-	for child in get_children():
-		child.queue_free()
-	if should_have_buttons:
-		for index in readonly_local_polygon.size():
-			var button = TextureButton.new()
+	if !should_have_buttons:
+		for child in get_children():
+			child.queue_free()
+		return
+	
+	var actual_child_count = get_child_count() - 1
+	if actual_child_count > readonly_local_polygon.size():
+		for index in range(readonly_local_polygon.size(), actual_child_count):
+			var button = get_node_or_null("Vertex" + str(index))
+			if !button:
+				printerr("Too many buttons for this polygon, but unable to find index ", index)
+				continue
+			button.queue_free()
+	
+	for index in readonly_local_polygon.size():
+		var button = get_node_or_null("Vertex" + str(index))
+		if !button:
+			button = TextureButton.new()
+			button.name = "Vertex" + str(index)
 			button.texture_normal = button_texture
 			button.texture_hover = button_texture_hover
 			button.texture_pressed = button_texture_pressed
-			button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
 			button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
 			button.connect("pressed", Callable(self, "on_button_press").bind(index))
 			add_child(button)
-		
-		# This button is for adding vertices
+		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
+	
+	# This button is for adding vertices
+	if !new_vertex_button:
 		var button = TextureButton.new()
+		button.name = "NewVertex"
 		button.texture_normal = button_texture
 		button.texture_hover = button_texture_hover
 		button.texture_pressed = button_texture_pressed
-		button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 		button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
 		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
 		new_vertex_button = button
 		add_child(button)
-
+	new_vertex_button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 
 func calculate_bounds():
 	var min_vec = Vector2.INF
