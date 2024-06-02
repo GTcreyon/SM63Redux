@@ -12,6 +12,7 @@ var should_draw_predict_line = true
 var should_connector_be_transparent = true
 
 const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
+const VERT_BUTTON_PARAMETER_SQUARED = (VERT_BUTTON_HALF_SIZE.x * 2) ** 2
 
 # Private
 var new_node_data = {
@@ -62,6 +63,7 @@ func _draw():
 		# Find the closest point to the polygon
 		var nearest_position
 		var nearest_distance = INF
+		var can_place = true
 		for index in poly_size - 1:
 			var seg_begin = readonly_local_polygon[index]
 			var seg_end = readonly_local_polygon[(index + 1) % poly_size]
@@ -75,10 +77,18 @@ func _draw():
 				nearest_distance = distance
 				nearest_position = closest_point
 				
+				# Check if the button is too close to the normal buttons
+				# If so, don't allow it
+				var too_close_distance = min(
+					seg_begin.distance_squared_to(nearest_position),
+					seg_end.distance_squared_to(nearest_position)
+				)
+				can_place = too_close_distance > VERT_BUTTON_PARAMETER_SQUARED
+				
 				new_node_data.position = nearest_position
 				new_node_data.start_index = index
 				new_node_data.end_index = (index + 1) % poly_size
-		if nearest_position and mouse_position and new_vertex_button:
+		if nearest_position and mouse_position and new_vertex_button and can_place:
 			new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
 	
 	if should_draw_predict_line:
