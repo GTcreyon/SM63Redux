@@ -19,11 +19,15 @@ func _unhandled_input(event):
 			if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
 				quit_creating(true)
 	elif main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX:
-		# Assuming 
 		if event.is_action_released("ld_place"):
-			print("Placed!")
 			dragging_index = null
+			drawable_polygon.should_have_buttons = true
 			main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
+	elif main.editor_state == main.EDITOR_STATE.POLYGON_EDIT:
+		if event.is_action_released("ld_poly_cancel"):
+			stop_editing_polygon(false)
+		if event.is_action_released("ld_poly_finish"):
+			stop_editing_polygon(true)
 
 func quit_creating(save):
 	main.editor_state = main.EDITOR_STATE.IDLE
@@ -58,6 +62,7 @@ func _on_new_vertex(wanted_position, start_index, end_index):
 	print("New ", wanted_position, ", ", start_index, ", ", end_index)
 	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
 	
+	drawable_polygon.should_have_buttons = false
 	# We have to copy the array, otherwise the set-invocation won't work
 	var copied = drawable_polygon.polygon.duplicate(false)
 	copied.insert(end_index, drawable_polygon.position + wanted_position)
@@ -68,6 +73,7 @@ func _on_new_vertex(wanted_position, start_index, end_index):
 func _on_vertex_move(index):
 	print("Moving ", index)
 	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
+	drawable_polygon.should_have_buttons = false
 	dragging_index = index
 
 
@@ -88,6 +94,23 @@ func edit_polygon(obj_to_edit):
 	drawable_polygon.should_draw_predict_line = false
 	drawable_polygon.should_have_buttons = true
 
+
+func stop_editing_polygon(save):
+	if main.editor_state != main.EDITOR_STATE.POLYGON_EDIT:
+		return
+	main.editor_state = main.EDITOR_STATE.IDLE
+	
+	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
+	var polygon_position = drawable_polygon.global_position
+	drawable_polygon.polygon = []
+	drawable_polygon.should_connector_be_transparent = false
+	drawable_polygon.should_draw_predict_line = false
+	drawable_polygon.should_have_buttons = false
+	
+	if save:
+		main.polygon_edit_node.position = polygon_position
+		main.polygon_edit_node.polygon = polygon_data
+	main.polygon_edit_node.visible = true
 
 func _process(delta):
 	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index:

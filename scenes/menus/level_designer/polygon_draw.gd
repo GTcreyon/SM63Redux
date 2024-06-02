@@ -56,7 +56,6 @@ func _draw():
 		2
 	)
 	
-	# FIXME: this should have it's own flag
 	if should_have_buttons:
 		var mouse_position: Vector2 = main.get_snapped_mouse_position() - global_position
 		var poly_size = readonly_local_polygon.size()
@@ -133,7 +132,7 @@ func reparent_buttons():
 			button.texture_normal = button_texture
 			button.texture_hover = button_texture_hover
 			button.texture_pressed = button_texture_pressed
-			button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
+			button.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
 			button.connect("pressed", Callable(self, "on_button_press").bind(index))
 			add_child(button)
 		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
@@ -145,7 +144,7 @@ func reparent_buttons():
 		button.texture_normal = button_texture
 		button.texture_hover = button_texture_hover
 		button.texture_pressed = button_texture_pressed
-		button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
+		button.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
 		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
 		new_vertex_button = button
 		add_child(button)
