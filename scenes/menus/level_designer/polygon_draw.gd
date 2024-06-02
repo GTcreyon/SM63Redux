@@ -1,7 +1,7 @@
 extends Control
 
-signal button_pressed
-signal new_vert_button_pressed
+signal move_vertex(index)
+signal new_vertex(wanted_position, start_index, end_index)
 
 @export var outline_color: Color = Color(0, 0.2, 0.9)
 
@@ -10,6 +10,17 @@ var readonly_local_polygon = PackedVector2Array()
 var should_have_buttons = false: set = set_buttons
 var should_draw_predict_line = true
 var should_connector_be_transparent = true
+
+const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
+const VERT_BUTTON_PARAMETER_SQUARED = (VERT_BUTTON_HALF_SIZE.x * 2) ** 2
+
+# Private
+var new_node_data = {
+	position = Vector2.ZERO,
+	start_index = 0,
+	end_index = 0,
+}
+var new_vertex_button
 
 @onready var main = $"/root/Main"
 
@@ -46,13 +57,13 @@ func _draw():
 		2
 	)
 	
-	# FIXME: this should have it's own flag
 	if should_have_buttons:
 		var mouse_position: Vector2 = main.get_snapped_mouse_position() - global_position
 		var poly_size = readonly_local_polygon.size()
 		# Find the closest point to the polygon
 		var nearest_position
 		var nearest_distance = INF
+		var can_place = true
 		for index in poly_size - 1:
 			var seg_begin = readonly_local_polygon[index]
 			var seg_end = readonly_local_polygon[(index + 1) % poly_size]
@@ -65,11 +76,20 @@ func _draw():
 			if distance < nearest_distance:
 				nearest_distance = distance
 				nearest_position = closest_point
-		var vert_button = get_node("AddVertButton")
-		if nearest_position and mouse_position and vert_button:
-			vert_button.position = nearest_position - Vector2(6, 6)
-#			draw_line(mouse_position, nearest_position, Color(1, 0, 0))
-#			draw_circle(mouse_position, 1, Color(0.7, 0, 0))
+				
+				# Check if the button is too close to the normal buttons
+				# If so, don't allow it
+				var too_close_distance = min(
+					seg_begin.distance_squared_to(nearest_position),
+					seg_end.distance_squared_to(nearest_position)
+				)
+				can_place = too_close_distance > VERT_BUTTON_PARAMETER_SQUARED
+				
+				new_node_data.position = nearest_position
+				new_node_data.start_index = index
+				new_node_data.end_index = (index + 1) % poly_size
+		if nearest_position and mouse_position and new_vertex_button and can_place:
+			new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
 	
 	if should_draw_predict_line:
 		draw_line(
@@ -87,37 +107,58 @@ func set_buttons(new):
 
 
 func on_button_press(index):
-	emit_signal("button_pressed", index)
+	emit_signal("move_vertex", index)
 
 
 func on_new_vert_button_pressed():
-	emit_signal("new_vert_button_pressed")
+	emit_signal(
+		"new_vertex",
+		new_node_data.position,
+		new_node_data.start_index,
+		new_node_data.end_index
+	)
 
 
 func reparent_buttons():
-	for child in get_children():
-		child.queue_free()
-	if should_have_buttons:
-		for index in readonly_local_polygon.size():
-			var button = TextureButton.new()
+	if !should_have_buttons:
+		for child in get_children():
+			child.queue_free()
+		return
+	
+	var actual_child_count = get_child_count() - 1
+	if actual_child_count > readonly_local_polygon.size():
+		for index in range(readonly_local_polygon.size(), actual_child_count):
+			var button = get_node_or_null("Vertex" + str(index))
+			if !button:
+				printerr("Too many buttons for this polygon, but unable to find index ", index)
+				continue
+			button.queue_free()
+	
+	for index in readonly_local_polygon.size():
+		var button = get_node_or_null("Vertex" + str(index))
+		if !button:
+			button = TextureButton.new()
+			button.name = "Vertex" + str(index)
 			button.texture_normal = button_texture
 			button.texture_hover = button_texture_hover
 			button.texture_pressed = button_texture_pressed
-			button.position = readonly_local_polygon[index] - Vector2(6, 6)
+			button.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
 			button.connect("pressed", Callable(self, "on_button_press").bind(index))
 			add_child(button)
-		
-		# This button is for adding vertices
+		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
+	
+	# This button is for adding vertices
+	if !new_vertex_button:
 		var button = TextureButton.new()
-		button.name = "AddVertButton"
+		button.name = "NewVertex"
 		button.texture_normal = button_texture
 		button.texture_hover = button_texture_hover
 		button.texture_pressed = button_texture_pressed
-		button.position = readonly_local_polygon[0] - Vector2(6, 6)
+		button.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
 		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
+		new_vertex_button = button
 		add_child(button)
-		print(button.name)
-
+	new_vertex_button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 
 func calculate_bounds():
 	var min_vec = Vector2.INF

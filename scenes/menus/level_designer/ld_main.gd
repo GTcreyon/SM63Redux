@@ -14,7 +14,15 @@ signal editor_state_changed
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 const ITEM_PREFAB = preload("res://scenes/menus/level_designer/ld_item/ld_item.tscn")
 
-enum EDITOR_STATE { IDLE, PLACING, SELECTING, DRAGGING, POLYGON_CREATE, POLYGON_EDIT }
+enum EDITOR_STATE {
+	IDLE,
+	PLACING,
+	SELECTING,
+	DRAGGING,
+	POLYGON_CREATE,
+	POLYGON_EDIT,
+	POLYGON_DRAG_VERTEX
+}
 
 ## Definitions for base classes that items can implement.
 var item_classes = {}
@@ -33,6 +41,8 @@ var item_textures: Array[Dictionary] = []
 ## The scenes corresponding to each item. These can be used to create
 ## a playable node tree based on the [LDPlacedItem]s in the level.
 var item_scenes = []
+## The current polygon node which is being edited
+var polygon_edit_node
 
 ## Set to [code]true[/code] to enable returning to the level designer
 ## when [kbd]ld_exit[/kbd] is pressed.
