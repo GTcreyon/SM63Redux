@@ -116,7 +116,6 @@ func reparent_buttons():
 		button.position = readonly_local_polygon[0] - Vector2(6, 6)
 		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
 		add_child(button)
-		print(button.name)
 
 
 func calculate_bounds():

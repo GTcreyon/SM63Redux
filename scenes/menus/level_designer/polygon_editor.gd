@@ -5,8 +5,11 @@ extends Control
 
 
 func _unhandled_input(event):
-	if event.is_action_released("ld_cancel_placement"):
+	if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
 		quit_creating(false)
+	
+	if event.is_action_released("ld_poly_finish"):
+		quit_creating(true)
 	
 	if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
 		drawable_polygon.polygon = drawable_polygon.polygon + [main.get_snapped_mouse_position()]
