@@ -120,6 +120,7 @@ func reparent_buttons():
 			button.texture_hover = button_texture_hover
 			button.texture_pressed = button_texture_pressed
 			button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
+			button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
 			button.connect("pressed", Callable(self, "on_button_press").bind(index))
 			add_child(button)
 		
@@ -130,6 +131,7 @@ func reparent_buttons():
 		button.texture_hover = button_texture_hover
 		button.texture_pressed = button_texture_pressed
 		button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
+		button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
 		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
 		add_child(button)
 
