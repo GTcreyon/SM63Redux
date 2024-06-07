@@ -2,10 +2,11 @@ extends Button
 
 @export var action_id: String = ""
 
-@onready var key_list = $KeyList
-@onready var action_name = $ActionName
 var btn_scale: float: set = set_btn_scale
 var locale_saved: String = ""
+
+@onready var key_list = $KeyList
+@onready var action_name = $ActionName
 
 
 func _ready():

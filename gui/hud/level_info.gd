@@ -3,9 +3,14 @@ extends Control
 const BYLIGHT = preload("res://fonts/bylight/bylight.otf")
 const RUBY = preload("res://fonts/red/gui_red.fnt")
 
-@onready var level_name = $Divider/MainContainer/LevelNamePanel/ScaleContainer/LevelName
 
 var perm_scale = 1
+
+@onready var level_name = $Divider/MainContainer/LevelNamePanel/ScaleContainer/LevelName
+
+
+func _process(_delta):
+	refresh_caps()
 
 
 func refresh_caps():
@@ -15,7 +20,3 @@ func refresh_caps():
 	else:
 		level_name.add_theme_font_override("font", BYLIGHT)
 		level_name.uppercase = false
-
-
-func _process(_delta):
-	refresh_caps()
