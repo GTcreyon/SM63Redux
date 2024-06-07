@@ -10,10 +10,7 @@ var perm_scale = 1
 
 
 func _process(_delta):
-	refresh_caps()
-
-
-func refresh_caps():
+	# Update the font used, in case locale's changed.
 	if TranslationServer.get_locale().substr(0, 2) == "en":
 		level_name.add_theme_font_override("font", RUBY)
 		level_name.uppercase = true
