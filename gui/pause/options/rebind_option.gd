@@ -119,6 +119,15 @@ func set_btn_scale(new_scale):
 
 
 func _get_joypad_buttons() -> Array:
+	var start := tr("Start")
+	var click_ls := tr("Left Stick Click")
+	var click_rs := tr("Right Stick Click")
+	var logo := tr("Logo")
+	var dpad_u := tr("D-Up")
+	var dpad_d := tr("D-Down")
+	var dpad_l := tr("D-Left")
+	var dpad_r := tr("D-Right")
+	
 	return [
 		["B", "A", "X"],
 		["A", "B", "O"],
@@ -127,16 +136,16 @@ func _get_joypad_buttons() -> Array:
 		["L", "LB", "L1"],
 		["R", "RB", "R1"],
 		["-", tr("Back"), tr("Select")],
-		["+", tr("Start"), tr("Start")],
-		[tr("Left Stick Click"), tr("Left Stick Click"), tr("Left Stick Click")],
-		[tr("Right Stick Click"), tr("Right Stick Click"), tr("Right Stick Click")],
+		["+", start, start],
+		[click_ls, click_ls, click_ls],
+		[click_rs, click_rs, click_rs],
 		["ZL", "LT", "L2"],
 		["ZR", "RT", "R2"],
-		[tr("Logo"), tr("Logo"), tr("Logo")],
-		[tr("D-Up"), tr("D-Up"), tr("D-Up")],
-		[tr("D-Down"), tr("D-Down"), tr("D-Down")],
-		[tr("D-Left"), tr("D-Left"), tr("D-Left")],
-		[tr("D-Right"), tr("D-Right"), tr("D-Right")],
+		[logo, logo, logo],
+		[dpad_u, dpad_u, dpad_u],
+		[dpad_d, dpad_d, dpad_d],
+		[dpad_l, dpad_l, dpad_l],
+		[dpad_r, dpad_r, dpad_r],
 	]
 
 func _get_action_map() -> Dictionary:
