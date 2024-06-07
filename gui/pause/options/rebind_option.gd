@@ -1,5 +1,11 @@
 extends Button
 
+enum GamepadBrand {
+	NINTENDO,
+	MICROSOFT,
+	SONY
+}
+
 @export var action_id: String = ""
 
 var btn_scale: float: set = set_btn_scale
@@ -41,7 +47,7 @@ func join_action_array(actions) -> String:
 			if action.button_index > buttons.size():
 				output += "(?)"
 			else:
-				output += "(%s)" % buttons[action.button_index][get_brand_id()]
+				output += "(%s)" % buttons[action.button_index][get_joypad_brand()]
 		elif action is InputEventJoypadMotion:
 			output += "(%s)" % get_joypad_motion_name(action.axis, action.axis_value)
 		else:
@@ -62,23 +68,6 @@ func _on_RebindOption_pressed():
 		Singleton.get_node("SFX/Next").play()
 		action_name.add_theme_color_override("font_color", Color.GREEN)
 		key_list.add_theme_color_override("font_color", Color.GREEN)
-		
-
-func get_brand_id(): # need to get the gamepad brand so we can display correct button icons
-	if Input.get_connected_joypads().size() > 0:
-		var guid = Input.get_joy_guid(0)
-		var vendor_id = guid.substr(8, 4)
-		match vendor_id:
-			"7e05": # nintendo
-				return 0
-			"5e04": # microsoft
-				return 1
-			"1716", "7264", "4c05", "510a", "ce0f", "ba12": # sony
-				return 2
-			_:
-				return 0
-	else:
-		return 0
 
 
 func _on_RebindOption_mouse_entered():
@@ -109,6 +98,23 @@ func get_joypad_motion_name(axis: int, value: float):
 			return tr("Right Stick Left") if value < 0 else tr("Right Stick Right")
 		JOY_AXIS_RIGHT_Y:
 			return tr("Right Stick Up") if value < 0 else tr("Right Stick Down")
+
+
+func get_joypad_brand(): # need to get the gamepad brand so we can display correct button icons
+	if Input.get_connected_joypads().size() > 0:
+		var guid = Input.get_joy_guid(0)
+		var vendor_id = guid.substr(8, 4)
+		match vendor_id:
+			"7e05":
+				return GamepadBrand.NINTENDO
+			"5e04":
+				return GamepadBrand.MICROSOFT
+			"1716", "7264", "4c05", "510a", "ce0f", "ba12":
+				return GamepadBrand.SONY
+			_:
+				return 0
+	else:
+		return 0
 
 
 func set_btn_scale(new_scale):
