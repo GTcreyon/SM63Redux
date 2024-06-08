@@ -6,6 +6,11 @@ enum GamepadBrand {
 	SONY
 }
 
+## 2D array of every button's name for every controller vendor.
+## Some of these names have to be translateable, so it can't be const.
+static var joypad_buttons: Array
+
+
 @export var action_id: String = ""
 
 var btn_scale: float: set = set_btn_scale
@@ -18,6 +23,12 @@ var locale_saved: String = ""
 func _ready():
 	var action_map = _get_action_map()
 	action_name.text = action_map[action_id]
+	
+	# If another rebind hasn't cached it already, cache the appropriate set of
+	# joypad button names for this translation.
+	if len(joypad_buttons) == 0:
+		joypad_buttons = _get_joypad_buttons()
+	
 	update_list()
 
 
@@ -41,20 +52,23 @@ func update_list():
 
 func join_action_array(actions) -> String:
 	var output: String = ""
+	var joy_brand = get_joypad_brand()
+	
 	for action in actions:
 		if action is InputEventJoypadButton:
-			var buttons = _get_joypad_buttons()
-			if action.button_index > buttons.size():
+			if action.button_index > joypad_buttons.size():
 				output += "(?)"
 			else:
-				output += "(%s)" % buttons[action.button_index][get_joypad_brand()]
+				output += "(%s)" % joypad_buttons[action.button_index][joy_brand]
 		elif action is InputEventJoypadMotion:
 			output += "(%s)" % get_joypad_motion_name(action.axis, action.axis_value)
 		else:
 			# TODO: make these translatable
 			output += action.as_text()
 		output += ", "
+	# Trim the final comma for visual cleanliness.
 	output = output.trim_suffix(", ")
+	
 	return output
 
 
@@ -189,4 +203,8 @@ func _get_action_map() -> Dictionary:
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_TRANSLATION_CHANGED:
+			# Refresh the joypad button names.
+			# TODO: Called once per rebind option. Could be called once total.
+			joypad_buttons = _get_joypad_buttons()
+			# Update the list.
 			update_list()
