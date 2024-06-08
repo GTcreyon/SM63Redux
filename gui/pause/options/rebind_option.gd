@@ -9,6 +9,22 @@ enum GamepadBrand {
 ## 2D array of every button's name for every controller vendor.
 ## Some of these names have to be translateable, so it can't be const.
 static var joypad_buttons: Array
+## Translated name of input "Left Stick Left".
+static var lstick_l: String
+## Translated name of input "Left Stick Right".
+static var lstick_r: String
+## Translated name of input "Left Stick Up".
+static var lstick_u: String
+## Translated name of input "Left Stick Down".
+static var lstick_d: String
+## Translated name of input "Right Stick Left".
+static var rstick_l: String
+## Translated name of input "Right Stick Right".
+static var rstick_r: String
+## Translated name of input "Right Stick Up".
+static var rstick_u: String
+## Translated name of input "Right Stick Down".
+static var rstick_d: String
 
 
 @export var action_id: String = ""
@@ -27,7 +43,7 @@ func _ready():
 	# If another rebind hasn't cached it already, cache the appropriate set of
 	# joypad button names for this translation.
 	if len(joypad_buttons) == 0:
-		joypad_buttons = _get_joypad_buttons()
+		_update_translations()
 	
 	# Generate initial display name
 	update_list()
@@ -104,13 +120,13 @@ func unpress():
 func get_joypad_motion_name(axis: int, value: float):
 	match axis:
 		JOY_AXIS_LEFT_X:
-			return tr("Left Stick Left") if value < 0 else tr("Left Stick Right")
+			return lstick_l if value < 0 else lstick_r
 		JOY_AXIS_LEFT_Y:
-			return tr("Left Stick Up") if value < 0 else tr("Left Stick Down")
+			return lstick_u if value < 0 else lstick_d
 		JOY_AXIS_RIGHT_X:
-			return tr("Right Stick Left") if value < 0 else tr("Right Stick Right")
+			return rstick_l if value < 0 else rstick_r
 		JOY_AXIS_RIGHT_Y:
-			return tr("Right Stick Up") if value < 0 else tr("Right Stick Down")
+			return rstick_u if value < 0 else rstick_d
 
 
 func get_joypad_brand(): # need to get the gamepad brand so we can display correct button icons
@@ -135,6 +151,18 @@ func set_btn_scale(new_scale):
 	action_name.scale = Vector2.ONE * new_scale
 	key_list.scale = Vector2.ONE * new_scale
 	key_list.pivot_offset.x = key_list.size.x
+
+
+func _update_translations():
+	joypad_buttons = _get_joypad_buttons()
+	lstick_l = tr("Left Stick Left")
+	lstick_r = tr("Left Stick Right")
+	lstick_u = tr("Left Stick Up")
+	lstick_d = tr("Left Stick Down")
+	rstick_l = tr("Right Stick Left")
+	rstick_r = tr("Right Stick Right")
+	rstick_u = tr("Right Stick Up")
+	rstick_d = tr("Right Stick Down")
 
 
 func _get_joypad_buttons() -> Array:
@@ -166,6 +194,7 @@ func _get_joypad_buttons() -> Array:
 		[dpad_l, dpad_l, dpad_l],
 		[dpad_r, dpad_r, dpad_r],
 	]
+
 
 func _get_action_map() -> Dictionary:
 	return {
@@ -202,8 +231,7 @@ func _get_action_map() -> Dictionary:
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_TRANSLATION_CHANGED:
-			# Refresh the joypad button names.
 			# TODO: Called once per rebind option. Could be called once total.
-			joypad_buttons = _get_joypad_buttons()
+			_update_translations()
 			# Update the list.
 			update_list()
