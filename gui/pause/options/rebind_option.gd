@@ -11,6 +11,8 @@ enum GamepadBrand {
 static var locale_current: String
 ## 2D array of every button's name for every controller vendor.
 ## Some of these names have to be translateable, so it can't be const.
+##
+## To fetch a button's display name, read joypad_buttons[button][GamepadBrand].
 static var joypad_buttons: Array
 ## Translated name of input "Left Stick Left".
 static var lstick_l: String
@@ -64,29 +66,37 @@ func _input(event):
 
 
 func update_list():
-	key_list.text = join_action_array(InputMap.action_get_events(action_id))
-
-
-func join_action_array(actions) -> String:
 	var output: String = ""
 	var joy_brand = get_joypad_brand()
 	
-	for action in actions:
-		if action is InputEventJoypadButton:
-			if action.button_index > joypad_buttons.size():
+	# Read bindings from this action's input map.
+	var bindings = InputMap.action_get_events(action_id)
+	# List out the action's bindings in a readable format.
+	for bind in bindings:
+		# Add this action's display name to the output.
+		# Joypad inputs are surrounded with (parentheses), others are raw.
+		if bind is InputEventJoypadButton:
+			# Binding is a joypad button.
+			# Print the brand-accurate name for this button, or an error symbol
+			# if the button's not recognized.
+			if bind.button_index > joypad_buttons.size():
 				output += "(?)"
 			else:
-				output += "(%s)" % joypad_buttons[action.button_index][joy_brand]
-		elif action is InputEventJoypadMotion:
-			output += "(%s)" % get_joypad_motion_name(action.axis, action.axis_value)
+				output += "(%s)" % joypad_buttons[bind.button_index][joy_brand]
+		elif bind is InputEventJoypadMotion:
+			# Binding is some direction on an analog stick.
+			output += "(%s)" % get_joypad_motion_name(bind.axis, bind.axis_value)
 		else:
+			# Binding is a non-joypad action.
+			# Keyboard keys are included here.
 			# TODO: make these translatable
-			output += action.as_text()
+			output += bind.as_text()
+		# Add separator between this and the next binding.
 		output += ", "
-	# Trim the final comma for visual cleanliness.
+	# Trim off the final separator for visual cleanliness.
 	output = output.trim_suffix(", ")
 	
-	return output
+	key_list.text = output
 
 
 func _on_RebindOption_pressed():
