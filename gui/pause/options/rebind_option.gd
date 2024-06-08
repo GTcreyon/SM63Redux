@@ -6,6 +6,9 @@ enum GamepadBrand {
 	SONY
 }
 
+## The currently set locale. Used to avoid repeating work between
+## rebind-option instances.
+static var locale_current: String
 ## 2D array of every button's name for every controller vendor.
 ## Some of these names have to be translateable, so it can't be const.
 static var joypad_buttons: Array
@@ -30,7 +33,6 @@ static var rstick_d: String
 @export var action_id: String = ""
 
 var btn_scale: float: set = set_btn_scale
-var locale_saved: String = ""
 
 @onready var key_list = $KeyList
 @onready var action_name = $ActionName
@@ -154,6 +156,8 @@ func set_btn_scale(new_scale):
 
 
 func _update_translations():
+	locale_current = TranslationServer.get_locale().substr(0, 2)
+
 	joypad_buttons = _get_joypad_buttons()
 	lstick_l = tr("Left Stick Left")
 	lstick_r = tr("Left Stick Right")
@@ -231,7 +235,9 @@ func _get_action_map() -> Dictionary:
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_TRANSLATION_CHANGED:
-			# TODO: Called once per rebind option. Could be called once total.
-			_update_translations()
+			# Update cached strings (but only if the first instance hasn't
+			# already done that).
+			if locale_current != TranslationServer.get_locale().substr(0, 2):
+				_update_translations()
 			# Update the list.
 			update_list()
