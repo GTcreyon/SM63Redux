@@ -29,7 +29,10 @@ func _ready():
 	if len(joypad_buttons) == 0:
 		joypad_buttons = _get_joypad_buttons()
 	
+	# Generate initial display name
 	update_list()
+	# Update display name on resetting the keymap.
+	$"../../../ResetBinds".reset.connect(Callable(self, "update_list"))
 
 
 func _input(event):
@@ -40,10 +43,6 @@ func _input(event):
 			unpress()
 			Singleton.save_input_map(Singleton.get_input_map_json_current())
 			update_list()
-
-
-func _process(_delta):
-	update_list()
 
 
 func update_list():
