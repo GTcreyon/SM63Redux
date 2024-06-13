@@ -32,6 +32,14 @@ extends Interactable
 #		Please note that if the particular warp is set to move to a different scene,
 #		the exit transition will begin TRANSITION_SPEED_IN frames before the end of
 #		the animation.
+# - _transition_in_time() -> int:
+#		time it takes the transition to come fully in.
+#		Note: think the OPPOSITE meanings of fade-in/fade-out.
+# - _transition_out_time() -> int:
+#		time it takes the transition to fully leave.
+#		Note: think the OPPOSITE meanings of fade-in/fade-out.
+# - _bypass_transition() -> bool:
+#		returns true if no transition is desired even in move-to-scene mode.
 # -	_exit_pos_offset() -> Vector2:
 #		shifts the destination position by some amount.
 #		The value returned will be added to target_pos.
@@ -62,7 +70,7 @@ func _ready():
 func _interact_with(body):
 	player = body
 	
-	# Zero player's velocity so they doesn't keep kicking up dust
+	# Zero player's velocity so they don't keep kicking up dust
 	player.vel = Vector2.ZERO
 	# Lock player's input so they can't be controlled
 	player.locked = true
@@ -82,22 +90,33 @@ func _physics_override():
 		# with frames-elapsed instead of frames-left.
 		_update_animation(_animation_length() - anim_timer, player)
 		
-		# Begin scene-change transition if the animation is ready
-		if anim_timer == min(TRANSITION_SPEED_IN, _animation_length()) and move_to_scene == true:
-			_begin_scene_change(target_pos + _exit_pos_offset(), scene_path)
 		
-		# If timer rings and we're not scene-changing, finalize the warp.
-		if anim_timer == 0 and !move_to_scene:
-			# Set player at the destination, ready to move.
-			player.position = target_pos + _exit_pos_offset()
-			player.locked = false
-			# TODO: Find a way to make exit animations!
-			
-			# Finalize the animation.
-			_end_animation(player)
-			
-			# No longer need this reference, let's drop it.
-			player = null
+		# The length the transition will actually come out as.
+		# (Never longer than the animation, never shorter than 1.)
+		var working_in_len = clamp( _transition_in_time(), 1,
+			_animation_length())
+		
+		# Begin scene-change transition if the animation is ready
+		if anim_timer == working_in_len and move_to_scene == true and _bypass_transition() == false:
+			_begin_scene_change(target_pos + _exit_pos_offset(), scene_path,
+				working_in_len, _transition_out_time())
+		
+		# When timer rings...
+		if anim_timer == 0:
+			if move_to_scene and _bypass_transition():
+				Singleton.warp_to(scene_path, player, target_pos)
+			else:
+				# We're not scene-changing. Finalize the warp.
+				# Set player at the destination, ready to move.
+				player.position = target_pos + _exit_pos_offset()
+				player.locked = false
+				# TODO: Find a way to make exit animations!
+				
+				# Finalize the animation.
+				_end_animation(player)
+				
+				# No longer need this reference, let's drop it.
+				player = null
 		
 		# Tick the animation timer.
 		# This is also what stops the timer when it runs out--
@@ -139,10 +158,24 @@ func _end_animation(_player):
 
 
 # Begins the exit transition. Called TRANSITION_SPEED_IN frames BEFORE the animation ends!
-func _begin_scene_change(dst_pos: Vector2, dst_scene: String):
+func _begin_scene_change(dst_pos: Vector2, dst_scene: String, in_time: int, out_time: int):
 	# Default warp transition is a star iris
 	var sweep_effect = $"/root/Singleton/WindowWarp"
-	sweep_effect.warp(dst_pos, dst_scene, TRANSITION_SPEED_IN, TRANSITION_SPEED_OUT)
+	sweep_effect.warp(dst_pos, dst_scene, in_time, out_time)
+	# TODO: Refactor transitions so they share a base class.
+
+
+func _transition_in_time() -> int:
+	return TRANSITION_SPEED_IN
+
+
+func _transition_out_time() -> int:
+	return TRANSITION_SPEED_OUT
+
+
+# Should the exit transition be skipped?
+func _bypass_transition() -> bool:
+	return false
 
 
 #func _player_shift_to_position(player, position, shift_rate):
