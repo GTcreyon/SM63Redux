@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SFXBank" load_steps=7 format=3 uid="uid://b464ctw1img3m"]
+
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_qyb53"]
+[ext_resource type="Resource" uid="uid://ulux5lmoo7y6" path="res://classes/player/sfx/fludd/fludd.tres" id="1_ywws4"]
+[ext_resource type="Resource" uid="uid://c0yulv5cvuo2j" path="res://classes/player/sfx/mario/mario.tres" id="2_olhhl"]
+[ext_resource type="Resource" uid="uid://cqhdept6ofyhg" path="res://classes/player/sfx/pound/pound.tres" id="3_hn4ql"]
+[ext_resource type="Resource" uid="uid://dvp64hhskxase" path="res://classes/player/sfx/spin/spin.tres" id="4_t1jc1"]
+[ext_resource type="Resource" uid="uid://b8xubbrssrlxt" path="res://classes/player/sfx/step/step.tres" id="5_0cliy"]
+
+[resource]
+script = ExtResource("1_qyb53")
+sound_bank = Array[AudioStreamWAV]([])
+group_bank = {
+"fludd": ExtResource("1_ywws4"),
+"mario": ExtResource("2_olhhl"),
+"pound": ExtResource("3_hn4ql"),
+"spin": ExtResource("4_t1jc1"),
+"step": ExtResource("5_0cliy")
+}

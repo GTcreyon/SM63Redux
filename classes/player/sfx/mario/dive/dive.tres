@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SFXBank" load_steps=6 format=3 uid="uid://dbsecn47isqs8"]
+
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_wwxkr"]
+[ext_resource type="AudioStream" uid="uid://cbcs5onkixei1" path="res://classes/player/sfx/mario/dive/dive_0.wav" id="2_ad5js"]
+[ext_resource type="AudioStream" uid="uid://bme1w2vbarqmd" path="res://classes/player/sfx/mario/dive/dive_1.wav" id="3_fubjj"]
+[ext_resource type="AudioStream" uid="uid://d215b8dnd8b6u" path="res://classes/player/sfx/mario/dive/dive_2.wav" id="4_3lylm"]
+[ext_resource type="AudioStream" uid="uid://b1av4qem061x6" path="res://classes/player/sfx/mario/dive/dive_3.wav" id="5_t13by"]
+
+[resource]
+script = ExtResource("1_wwxkr")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_ad5js"), ExtResource("3_fubjj"), ExtResource("4_3lylm"), ExtResource("5_t13by")])
+group_bank = {}

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="SFXBank" load_steps=2 format=3 uid="uid://ck1qn4qlv23yr"]
+
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_1kpu0"]
+
+[resource]
+script = ExtResource("1_1kpu0")
+sound_bank = Array[AudioStreamWAV]([])
+group_bank = {}
