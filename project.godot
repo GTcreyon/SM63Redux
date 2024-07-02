@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Super Mario 63 Redux"
 run/main_scene="res://scenes/menus/title/title.tscn"
-config/features=PackedStringArray("4.1")
+config/features=PackedStringArray("4.2")
 boot_splash/image="res://splash.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
@@ -413,6 +413,10 @@ altdebug={
 [input_devices]
 
 pointing/emulate_touch_from_mouse=true
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://locale/translations/es.po", "res://locale/translations/fr.po", "res://locale/translations/it_IT.po", "res://locale/translations/nl.po", "res://locale/translations/pt_BR.po")
 
 [layer_names]
 

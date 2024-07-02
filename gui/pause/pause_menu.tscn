@@ -322,14 +322,18 @@ mouse_filter = 2
 texture = ExtResource("29")
 
 [node name="Unpause" type="TextureButton" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -102.0
-offset_top = 24.0
-offset_bottom = 45.0
+offset_left = -77.0
+offset_top = 19.0
+offset_right = -37.0
+offset_bottom = 61.0
+grow_horizontal = 0
 texture_normal = SubResource("8")
 texture_pressed = SubResource("9")
+stretch_mode = 4
 script = ExtResource("25")
 
 [connection signal="toggled" from="ButtonContainer/ButtonMap" to="ButtonContainer/ButtonMap" method="_on_Button_toggled"]

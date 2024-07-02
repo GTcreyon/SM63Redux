@@ -1,3 +1,4 @@
+class_name LDCamera
 extends Camera2D
 
 signal test_level
@@ -42,12 +43,6 @@ func _process(_delta):
 		
 	if i_right and Input.is_action_pressed("debug"):
 		LD.save_code()
-
-
-# Disabled this for now as I planned to use left drag for selecting items
-#func _input(event):
-#	if event is InputEventScreenDrag:
-#		position -= event.relative
 
 
 func object_load(id):

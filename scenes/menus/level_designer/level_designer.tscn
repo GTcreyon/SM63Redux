@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=64 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -30,7 +30,6 @@
 [ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v_bottom.tres" id="26_t4wci"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/open_dialog.gd" id="27"]
 [ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="28_0ajtt"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/follow_viewport_workaround.gd" id="34"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/selection_action_handler.gd" id="35"]
 [ext_resource type="Texture2D" uid="uid://tg6wa2uikxoh" path="res://scenes/menus/level_designer/ldui/close_button.png" id="36"]
 [ext_resource type="StyleBox" uid="uid://c4t05jli7tvcf" path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" id="37"]
@@ -175,6 +174,15 @@ script = ExtResource("5")
 
 [node name="BGT1" parent="." instance=ExtResource("15")]
 
+[node name="BGDarkener" type="ColorRect" parent="BGT1"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.298039)
+
 [node name="BGGrid" type="TextureRect" parent="BGT1"]
 material = ExtResource("4")
 anchors_preset = 15
@@ -187,7 +195,7 @@ script = ExtResource("26")
 
 [node name="UIFollow" type="CanvasLayer" parent="."]
 layer = 0
-script = ExtResource("34")
+follow_viewport_enabled = true
 
 [node name="Selection" type="Control" parent="UIFollow"]
 editor_description = "Handles actions on selected objects."
@@ -264,13 +272,18 @@ script = ExtResource("40")
 [node name="UILayer" type="CanvasLayer" parent="."]
 
 [node name="SaveDialog" type="FileDialog" parent="UILayer"]
+size = Vector2i(392, 154)
 mode_overrides_title = false
 access = 2
 filters = PackedStringArray("*.63r ; SM63 Redux Level")
 script = ExtResource("6")
 
 [node name="OpenDialog" type="FileDialog" parent="UILayer"]
+title = "Open a File"
+size = Vector2i(390, 154)
+ok_button_text = "Open"
 mode_overrides_title = false
+file_mode = 0
 access = 2
 filters = PackedStringArray("*.63r ; SM63 Redux Level")
 script = ExtResource("27")
@@ -334,6 +347,7 @@ offset_left = 82.0
 color = Color(0.231373, 0.117647, 0, 1)
 
 [node name="ScrollRegion" type="Control" parent="UILayer/LDUI/ItemPane/ScrollBar"]
+visible = false
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0

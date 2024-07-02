@@ -1,2 +1,0 @@
-TODO:
-- Rewrite and formalize comments in ld_main.gd.

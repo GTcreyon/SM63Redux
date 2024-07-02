@@ -368,7 +368,7 @@ msgid ""
 "to go this way?"
 msgstr ""
 "[@n,Dill Board]Cuidado com seu passo,[@p,3] amigo![@p,10] Há algumas "
-"desagradáveis [cor=#f7c55f]bob-ombs [/color]atrás desta pedra.[@p,10] Oh,"
+"desagradáveis [color=#f7c55f]bob-ombs [/color]atrás desta pedra.[@p,10] Oh,"
 "[@p,3] você precisa ir por esse caminho?"
 
 #: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
@@ -461,15 +461,15 @@ msgid ""
 msgstr ""
 "No menu de pausa,[@p,3] você pode mudar as configurações,[@p,3] ver "
 "estatísticas,[@p,3] mudar o bico do F.L.U.D.D.,[@p,3] ou simplesmente sentar-"
-"se e relaxar!"
+"se e"
 
 #: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
 msgid ""
 "Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you "
 "dare forget that!"
 msgstr ""
-"Autocuidado é importante,[@p,3] [color=#df6042]Mario![/color][@p,10] Não se "
-"atreva a se esquecer disso!"
+"relaxar! Autocuidado é importante,[@p,3] [color=#df6042]Mario![/color]"
+"[@p,10] Não se atreva a se esquecer disso!"
 
 #: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:467
 msgid "You've reached the end of the [color=#f7c55f]Tiny Demo![/color]"
