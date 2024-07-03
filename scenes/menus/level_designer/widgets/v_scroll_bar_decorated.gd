@@ -18,13 +18,13 @@ var deco_sprite: TextureRect
 	.get_icon("decoration_pressed", type_variation_or("VScrollBarDecorated"))
 
 # Need these to get the actual displayed bar height.
-@onready var _inc_height = theme \
-	.get_icon("increment", type_variation_or("VScrollBar")) \
-	.get_height()
-@onready var _dec_height = theme \
-	.get_icon("decrement", type_variation_or("VScrollBar")) \
-	.get_height()
-@onready var _grabber_pad = _v_margins(theme \
+@onready var _inc_height := height_if_some(
+	theme.get_icon("increment", type_variation_or("VScrollBar"))
+	)
+@onready var _dec_height := height_if_some(
+	theme.get_icon("decrement", type_variation_or("VScrollBar")) \
+	)
+@onready var _grabber_pad := _v_margins(theme \
 	.get_stylebox("grabber", type_variation_or("VScrollBar")))
 
 func _ready():
@@ -41,7 +41,10 @@ func _ready():
 
 
 func _draw():
-	var cur_sprite = deco_tex # TODO: Select by mouse-over state?
+	var cur_sprite: Texture2D = deco_tex # TODO: Select by mouse-over state?
+	# Abort if no texture.
+	if cur_sprite == null:
+		return
 	
 	# Calculate height of actual background area (without inc+dec buttons or
 	# the inflexible parts of the grabber).
@@ -59,8 +62,7 @@ func _draw():
 	grabber_pos += _dec_height
 	
 	deco_sprite.position = Vector2(0, 
-		grabber_pos - cur_sprite \
-		.get_height()/2.0 + grabber_height/2.0)
+		grabber_pos - cur_sprite.get_height()/2.0 + grabber_height/2.0)
 
 
 ## Returns [member Control.theme_type_variation] if it isn't [code]&""[/code], or the given [param default]
@@ -74,3 +76,12 @@ func type_variation_or(default: StringName) -> StringName:
 
 func _v_margins(stylebox: StyleBoxTexture) -> float:
 	return stylebox.texture_margin_bottom + stylebox.texture_margin_top
+
+
+func height_if_some(texture: Texture2D) -> float:
+	if texture:
+		print("Tex is none")
+		return texture.get_height()
+	else:
+		print("Tex is none")
+		return 0
