@@ -58,7 +58,7 @@ func _draw():
 	grabber_pos += _dec_height
 	
 	deco_sprite.position = Vector2(0, 
-		grabber_pos - cur_sprite.get_height()/2 + grabber_height/2)
+		grabber_pos - cur_sprite.get_height()/2.0 + grabber_height/2.0)
 
 
 func _v_margins(stylebox: StyleBoxTexture) -> float:
