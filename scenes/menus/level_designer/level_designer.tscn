@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=66 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://scenes/menus/level_designer/bg_grid.gd" id="26"]
 [ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v_bottom.tres" id="26_t4wci"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/open_dialog.gd" id="27"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/widgets/ld_scroll_container.gd" id="27_837is"]
 [ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="28_0ajtt"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/widgets/v_scroll_bar_decorated.gd" id="32_dpc1f"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/selection_action_handler.gd" id="35"]
@@ -397,7 +398,6 @@ anchor_bottom = 1.0
 theme_override_styles/panel = ExtResource("26_t4wci")
 
 [node name="ItemBlock" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
-visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -414,6 +414,7 @@ theme = ExtResource("28_0ajtt")
 scroll_vertical_custom_step = 9.0
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 2
+script = ExtResource("27_837is")
 
 [node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemScroll"]
 layout_mode = 2
@@ -431,6 +432,7 @@ theme = ExtResource("28_0ajtt")
 scroll_vertical_custom_step = 9.0
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 2
+script = ExtResource("27_837is")
 
 [node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll"]
 layout_mode = 2
@@ -454,6 +456,7 @@ stretch_mode = 4
 
 [node name="TestScrollBar" type="VScrollBar" parent="UILayer/LDUI/ItemPane"]
 editor_description = "Used to test during the development of VScrollBarDecorated."
+visible = false
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
