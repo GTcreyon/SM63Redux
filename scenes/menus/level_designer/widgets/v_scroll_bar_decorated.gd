@@ -7,12 +7,12 @@ extends VScrollBar
 ## only be consistently correct if the scrollbar theme graphics have consistent
 ## size and padding across regular, focused, highlighted, and pressed states.
 
-@export var decoration: Texture2D
-
 var deco_sprite: TextureRect
-var deco_tex: Texture2D
-var deco_tex_highlight: Texture2D
-var deco_tex_pressed: Texture2D
+
+# Load decoration graphics from the theme.
+@onready var deco_tex = theme.get_icon("decoration", "VScrollBarDecorated")
+@onready var deco_tex_highlight = theme.get_icon("decoration_highlight", "VScrollBarDecorated")
+@onready var deco_tex_pressed = theme.get_icon("decoration_pressed", "VScrollBarDecorated")
 
 # Need these to get the actual displayed bar height.
 @onready var _inc_height = theme.get_icon("increment", "VScrollBar").get_height()
@@ -25,18 +25,11 @@ func _ready():
 	deco_sprite = TextureRect.new()
 	deco_sprite.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 	deco_sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	# Init sprite to non-interacted texture.
+	deco_sprite.texture = deco_tex
 	
 	# Add it to the tree.
 	add_child(deco_sprite, false, Node.INTERNAL_MODE_BACK)
-	
-	# Load decoration visuals from the theme.
-	deco_tex = decoration
-	#deco_tex = theme.get_icon("decoration", "VScrollBarDecorated")
-	#deco_tex_highlight = theme.get_icon("decoration_highlight", "VScrollBarDecorated")
-	#deco_tex_pressed = theme.get_icon("decoration_pressed", "VScrollBarDecorated")
-	
-	# Init sprite to showing one.
-	deco_sprite.texture = deco_tex
 
 
 func _draw():
