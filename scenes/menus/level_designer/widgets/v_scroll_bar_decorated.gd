@@ -10,14 +10,22 @@ extends VScrollBar
 var deco_sprite: TextureRect
 
 # Load decoration graphics from the theme.
-@onready var deco_tex = theme.get_icon("decoration", "VScrollBarDecorated")
-@onready var deco_tex_highlight = theme.get_icon("decoration_highlight", "VScrollBarDecorated")
-@onready var deco_tex_pressed = theme.get_icon("decoration_pressed", "VScrollBarDecorated")
+@onready var deco_tex = theme \
+	.get_icon("decoration", type_variation_or("VScrollBarDecorated"))
+@onready var deco_tex_highlight = theme \
+	.get_icon("decoration_highlight", type_variation_or("VScrollBarDecorated"))
+@onready var deco_tex_pressed = theme \
+	.get_icon("decoration_pressed", type_variation_or("VScrollBarDecorated"))
 
 # Need these to get the actual displayed bar height.
-@onready var _inc_height = theme.get_icon("increment", "VScrollBar").get_height()
-@onready var _dec_height = theme.get_icon("decrement", "VScrollBar").get_height()
-@onready var _grabber_pad = _v_margins(theme.get_stylebox("grabber", "VScrollBar"))
+@onready var _inc_height = theme \
+	.get_icon("increment", type_variation_or("VScrollBar")) \
+	.get_height()
+@onready var _dec_height = theme \
+	.get_icon("decrement", type_variation_or("VScrollBar")) \
+	.get_height()
+@onready var _grabber_pad = _v_margins(theme \
+	.get_stylebox("grabber", type_variation_or("VScrollBar")))
 
 func _ready():
 	# Read decoration textures from theme
@@ -51,7 +59,17 @@ func _draw():
 	grabber_pos += _dec_height
 	
 	deco_sprite.position = Vector2(0, 
-		grabber_pos - cur_sprite.get_height()/2.0 + grabber_height/2.0)
+		grabber_pos - cur_sprite \
+		.get_height()/2.0 + grabber_height/2.0)
+
+
+## Returns [member Control.theme_type_variation] if it isn't [code]&""[/code], or the given [param default]
+## if it is.
+func type_variation_or(default: StringName) -> StringName:
+	if theme_type_variation == &"":
+		return default
+	else:
+		return theme_type_variation
 
 
 func _v_margins(stylebox: StyleBoxTexture) -> float:
