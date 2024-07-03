@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=66 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -30,6 +30,8 @@
 [ext_resource type="StyleBox" uid="uid://l3o8q41iq32" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v_bottom.tres" id="26_t4wci"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/open_dialog.gd" id="27"]
 [ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="28_0ajtt"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/widgets/v_scroll_bar_decorated.gd" id="32_dpc1f"]
+[ext_resource type="Texture2D" uid="uid://b00bh677q30x5" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v_eyes.png" id="33_02aq7"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/selection_action_handler.gd" id="35"]
 [ext_resource type="Texture2D" uid="uid://tg6wa2uikxoh" path="res://scenes/menus/level_designer/ldui/close_button.png" id="36"]
 [ext_resource type="StyleBox" uid="uid://c4t05jli7tvcf" path="res://scenes/menus/level_designer/ldui/list_item_box_normal.tres" id="37"]
@@ -396,6 +398,7 @@ anchor_bottom = 1.0
 theme_override_styles/panel = ExtResource("26_t4wci")
 
 [node name="ItemBlock" type="ColorRect" parent="UILayer/LDUI/ItemPane"]
+visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -449,6 +452,21 @@ anchor_bottom = 1.0
 texture = ExtResource("36")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="TestScrollBar" type="VScrollBar" parent="UILayer/LDUI/ItemPane"]
+editor_description = "Used to test during the development of VScrollBarDecorated."
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -6.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("28_0ajtt")
+page = 60.0
+script = ExtResource("32_dpc1f")
+decoration = ExtResource("33_02aq7")
 
 [node name="Palette" type="TextureRect" parent="UILayer/LDUI"]
 layout_mode = 0
