@@ -9,30 +9,42 @@ extends VScrollBar
 
 var deco_sprite: TextureRect
 
-# Load decoration graphics from the theme.
-@onready var deco_tex = theme \
-	.get_icon("decoration", type_variation_or("VScrollBarDecorated"))
-@onready var deco_tex_highlight = theme \
-	.get_icon("decoration_highlight", type_variation_or("VScrollBarDecorated"))
-@onready var deco_tex_pressed = theme \
-	.get_icon("decoration_pressed", type_variation_or("VScrollBarDecorated"))
+# Graphics, loaded from theme.
+var deco_tex: Texture2D
+var deco_tex_highlight: Texture2D
+var deco_tex_pressed: Texture2D
 
-# Need these to get the actual displayed bar height.
-@onready var _inc_height := height_if_some(
-	theme.get_icon("increment", type_variation_or("VScrollBar"))
-	)
-@onready var _dec_height := height_if_some(
-	theme.get_icon("decrement", type_variation_or("VScrollBar")) \
-	)
-@onready var _grabber_pad := _v_margins(theme \
-	.get_stylebox("grabber", type_variation_or("VScrollBar")))
+# Sizes of textures surrounding the grabber. Need these to get the actual
+# displayed bar height.
+var _inc_height := 0.0
+var _dec_height := 0.0
+var _grabber_pad := 0.0
 
 func _ready():
 	# Read decoration textures from theme
+	deco_tex = theme \
+		.get_icon("decoration", theme_variation_or("VScrollBarDecorated"))
+	deco_tex_highlight = theme \
+		.get_icon("decoration_highlight", theme_variation_or("VScrollBarDecorated"))
+	deco_tex_pressed = theme \
+		.get_icon("decoration_pressed", theme_variation_or("VScrollBarDecorated"))
+
+	# Read heights of the surrounding textures.
+	_inc_height = height_if_some(
+		theme.get_icon("increment", theme_variation_or("VScrollBar"))
+		)
+	_dec_height = height_if_some(
+		theme.get_icon("decrement", theme_variation_or("VScrollBar"))
+		)
+	_grabber_pad = _v_margins(
+		theme.get_stylebox("grabber", theme_variation_or("VScrollBar"))
+		)
+	
 	# Create decoration node.
 	deco_sprite = TextureRect.new()
 	deco_sprite.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
 	deco_sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	deco_sprite.z_index = 1
 	# Init sprite to non-interacted texture.
 	deco_sprite.texture = deco_tex
 	
@@ -67,7 +79,7 @@ func _draw():
 
 ## Returns [member Control.theme_type_variation] if it isn't [code]&""[/code], or the given [param default]
 ## if it is.
-func type_variation_or(default: StringName) -> StringName:
+func theme_variation_or(default: StringName) -> StringName:
 	if theme_type_variation == &"":
 		return default
 	else:
@@ -80,8 +92,6 @@ func _v_margins(stylebox: StyleBoxTexture) -> float:
 
 func height_if_some(texture: Texture2D) -> float:
 	if texture:
-		print("Tex is none")
 		return texture.get_height()
 	else:
-		print("Tex is none")
 		return 0

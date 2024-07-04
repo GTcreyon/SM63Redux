@@ -7,9 +7,7 @@ const V_BAR_SCRIPT = preload("res://scenes/menus/level_designer/widgets/v_scroll
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_v_scroll_bar().set_script(V_BAR_SCRIPT)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	var v_scroller = get_v_scroll_bar()
+	v_scroller.theme = self.theme
+	v_scroller.set_script(V_BAR_SCRIPT)
+	(v_scroller as VScrollBarDecorated)._ready()
