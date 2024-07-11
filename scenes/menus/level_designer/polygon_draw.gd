@@ -8,8 +8,8 @@ signal new_vertex(wanted_position, start_index, end_index)
 var polygon = []: set = set_polygon
 var readonly_local_polygon = PackedVector2Array()
 var show_verts = false: set = set_buttons
-var should_draw_predict_line = true
-var should_connector_be_transparent = true
+var draw_predict_line = true
+var transparent_connector = true
 
 const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
 const VERT_BUTTON_PARAMETER_SQUARED = (VERT_BUTTON_HALF_SIZE.x * 2) ** 2
@@ -31,7 +31,7 @@ var new_vertex_button
 
 # Yuck
 func _process(_dt):
-	if should_draw_predict_line or show_verts:
+	if draw_predict_line or show_verts:
 		calculate_bounds()
 		queue_redraw()
 
@@ -52,8 +52,8 @@ func _draw():
 		)
 	draw_line(
 		readonly_local_polygon[0],
-		main.get_snapped_mouse_position() - global_position if should_draw_predict_line else readonly_local_polygon[len(readonly_local_polygon) - 1],
-		transparent_color if should_connector_be_transparent else outline_color,
+		main.get_snapped_mouse_position() - global_position if draw_predict_line else readonly_local_polygon[len(readonly_local_polygon) - 1],
+		transparent_color if transparent_connector else outline_color,
 		2
 	)
 	
@@ -91,7 +91,7 @@ func _draw():
 		if nearest_position and mouse_position and new_vertex_button and can_place:
 			new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
 	
-	if should_draw_predict_line:
+	if draw_predict_line:
 		draw_line(
 			main.get_snapped_mouse_position() - global_position,
 			readonly_local_polygon[len(readonly_local_polygon) - 1],
@@ -169,7 +169,7 @@ func calculate_bounds():
 		max_vec.x = max(item.x, max_vec.x)
 		max_vec.y = max(item.y, max_vec.y)
 	
-	if should_draw_predict_line:
+	if draw_predict_line:
 		var item = main.get_snapped_mouse_position()
 		min_vec.x = min(item.x, min_vec.x)
 		min_vec.y = min(item.y, min_vec.y)
