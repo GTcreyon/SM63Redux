@@ -7,7 +7,7 @@ signal new_vertex(wanted_position, start_index, end_index)
 
 var polygon = []: set = set_polygon
 var readonly_local_polygon = PackedVector2Array()
-var should_have_buttons = false: set = set_buttons
+var show_verts = false: set = set_buttons
 var should_draw_predict_line = true
 var should_connector_be_transparent = true
 
@@ -31,7 +31,7 @@ var new_vertex_button
 
 # Yuck
 func _process(_dt):
-	if should_draw_predict_line or should_have_buttons:
+	if should_draw_predict_line or show_verts:
 		calculate_bounds()
 		queue_redraw()
 
@@ -57,7 +57,7 @@ func _draw():
 		2
 	)
 	
-	if should_have_buttons:
+	if show_verts:
 		var mouse_position: Vector2 = main.get_snapped_mouse_position() - global_position
 		var poly_size = readonly_local_polygon.size()
 		# Find the closest point to the polygon
@@ -102,7 +102,7 @@ func _draw():
 
 
 func set_buttons(new):
-	should_have_buttons = new
+	show_verts = new
 	reparent_buttons()
 
 
@@ -120,7 +120,7 @@ func on_new_vert_button_pressed():
 
 
 func reparent_buttons():
-	if !should_have_buttons:
+	if !show_verts:
 		for child in get_children():
 			child.queue_free()
 		return

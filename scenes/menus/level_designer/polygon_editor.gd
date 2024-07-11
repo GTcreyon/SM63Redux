@@ -21,7 +21,7 @@ func _unhandled_input(event):
 	elif main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX:
 		if event.is_action_released("ld_place"):
 			dragging_index = null
-			drawable_polygon.should_have_buttons = true
+			drawable_polygon.show_verts = true
 			main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
 	elif main.editor_state == main.EDITOR_STATE.POLYGON_EDIT:
 		if event.is_action_released("ld_poly_cancel"):
@@ -36,7 +36,7 @@ func quit_creating(save):
 	drawable_polygon.polygon = []
 	drawable_polygon.should_connector_be_transparent = false
 	drawable_polygon.should_draw_predict_line = false
-	drawable_polygon.should_have_buttons = false
+	drawable_polygon.show_verts = false
 	
 	if len(polygon_data) > 2 and save:
 		if Geometry2D.is_polygon_clockwise(polygon_data):
@@ -55,14 +55,14 @@ func start_polygon_creation():
 	drawable_polygon.polygon = []
 	drawable_polygon.should_connector_be_transparent = true
 	drawable_polygon.should_draw_predict_line = true
-	drawable_polygon.should_have_buttons = false
+	drawable_polygon.show_verts = false
 
 
 func _on_new_vertex(wanted_position, start_index, end_index):
 	print("New ", wanted_position, ", ", start_index, ", ", end_index)
 	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
 	
-	drawable_polygon.should_have_buttons = false
+	drawable_polygon.show_verts = false
 	# We have to copy the array, otherwise the set-invocation won't work
 	var copied = drawable_polygon.polygon.duplicate(false)
 	copied.insert(end_index, drawable_polygon.position + wanted_position)
@@ -73,7 +73,7 @@ func _on_new_vertex(wanted_position, start_index, end_index):
 func _on_vertex_move(index):
 	print("Moving ", index)
 	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
-	drawable_polygon.should_have_buttons = false
+	drawable_polygon.show_verts = false
 	dragging_index = index
 
 
@@ -92,7 +92,7 @@ func edit_polygon(obj_to_edit):
 	drawable_polygon.polygon = data
 	drawable_polygon.should_connector_be_transparent = false
 	drawable_polygon.should_draw_predict_line = false
-	drawable_polygon.should_have_buttons = true
+	drawable_polygon.show_verts = true
 
 
 func stop_editing_polygon(save):
@@ -105,7 +105,7 @@ func stop_editing_polygon(save):
 	drawable_polygon.polygon = []
 	drawable_polygon.should_connector_be_transparent = false
 	drawable_polygon.should_draw_predict_line = false
-	drawable_polygon.should_have_buttons = false
+	drawable_polygon.show_verts = false
 	
 	if save:
 		main.polygon_edit_node.position = polygon_position
