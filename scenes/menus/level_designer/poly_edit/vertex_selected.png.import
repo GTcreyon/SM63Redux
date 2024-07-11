@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://rr2wt15543er"
-path="res://.godot/imported/drag_circle.png-fee40679159382a5708d415846ed0bdd.ctex"
+uid="uid://b7x3r25ki34uj"
+path="res://.godot/imported/vertex_selected.png-d20c60c602c30dfe2b6bb3eb193e410d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/menus/level_designer/ldui/drag_circle.png"
-dest_files=["res://.godot/imported/drag_circle.png-fee40679159382a5708d415846ed0bdd.ctex"]
+source_file="res://scenes/menus/level_designer/poly_edit/vertex_selected.png"
+dest_files=["res://.godot/imported/vertex_selected.png-d20c60c602c30dfe2b6bb3eb193e410d.ctex"]
 
 [params]
 

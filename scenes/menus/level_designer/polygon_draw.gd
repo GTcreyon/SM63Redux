@@ -24,9 +24,9 @@ var new_vertex_button
 
 @onready var main = $"/root/Main"
 
-@onready var button_texture = preload("res://scenes/menus/level_designer/ldui/drag_circle.png")
-@onready var button_texture_hover = preload("res://scenes/menus/level_designer/ldui/drag_circle_hover.png")
-@onready var button_texture_pressed = preload("res://scenes/menus/level_designer/ldui/drag_circle_selected.png")
+@onready var button_texture = preload("res://scenes/menus/level_designer/poly_edit/vertex.png")
+@onready var button_texture_hover = preload("res://scenes/menus/level_designer/poly_edit/vertex_hover.png")
+@onready var button_texture_pressed = preload("res://scenes/menus/level_designer/poly_edit/vertex_selected.png")
 
 
 # Yuck
