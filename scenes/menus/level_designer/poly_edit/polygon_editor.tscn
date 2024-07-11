@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc8sxs7wl5feb"]
+
+[ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_editor.gd" id="1_qu7dx"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_draw.gd" id="2_0n75t"]
+
+[node name="PolygonEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_qu7dx")
+
+[node name="Polygon" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 190.0
+offset_bottom = 140.0
+mouse_filter = 2
+script = ExtResource("2_0n75t")
+
+[connection signal="move_vertex" from="Polygon" to="." method="_on_vertex_move"]
+[connection signal="new_vertex" from="Polygon" to="." method="_on_new_vertex"]

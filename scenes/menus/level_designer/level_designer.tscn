@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=63 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cf61txa666j8m" path="res://scenes/menus/level_designer/ldui/hermes.tscn" id="12"]
 [ext_resource type="Texture2D" uid="uid://cb231utoaa0wy" path="res://scenes/menus/level_designer/ldui/scroll_block_v.png" id="13"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/item_pane.gd" id="14"]
+[ext_resource type="PackedScene" uid="uid://cc8sxs7wl5feb" path="res://scenes/menus/level_designer/poly_edit/polygon_editor.tscn" id="14_vnnf2"]
 [ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="15"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/start.gd" id="16"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/save.gd" id="17"]
@@ -36,8 +37,6 @@
 [ext_resource type="StyleBox" uid="uid://bxk000r2o0auh" path="res://scenes/menus/level_designer/ldui/list_item_box_hover.tres" id="38"]
 [ext_resource type="Texture2D" uid="uid://cpokwabiivjyv" path="res://scenes/menus/level_designer/ldui/hermes.png" id="38_bx2fd"]
 [ext_resource type="StyleBox" uid="uid://27dvir8jkf4y" path="res://scenes/menus/level_designer/ldui/list_item_box_press.tres" id="39"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_draw.gd" id="40"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_editor.gd" id="41"]
 
 [sub_resource type="AtlasTexture" id="10"]
 atlas = ExtResource("22")
@@ -254,20 +253,7 @@ texture_normal = SubResource("16")
 texture_pressed = SubResource("17")
 texture_hover = SubResource("18")
 
-[node name="PolygonEditor" type="Control" parent="UIFollow"]
-layout_mode = 3
-anchors_preset = 0
-mouse_filter = 2
-script = ExtResource("41")
-
-[node name="Polygon" type="Control" parent="UIFollow/PolygonEditor"]
-anchors_preset = 0
-offset_left = 150.0
-offset_top = 100.0
-offset_right = 190.0
-offset_bottom = 140.0
-mouse_filter = 2
-script = ExtResource("40")
+[node name="PolygonEditor" parent="UIFollow" instance=ExtResource("14_vnnf2")]
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 
@@ -536,12 +522,9 @@ text = "Placeholder Loading Text"
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Dragger" to="UIFollow/Selection/Buttons" method="_on_dragger_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Duplicator" to="UIFollow/Selection/Buttons" method="_on_duplicator_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Polygon" to="UIFollow/Selection/Buttons" method="_on_polygon_pressed"]
-[connection signal="move_vertex" from="UIFollow/PolygonEditor/Polygon" to="UIFollow/PolygonEditor" method="_on_vertex_move"]
-[connection signal="new_vertex" from="UIFollow/PolygonEditor/Polygon" to="UIFollow/PolygonEditor" method="_on_new_vertex"]
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
 [connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_Mode_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
-[connection signal="pressed" from="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll/PolygonGrid/Terrain" to="UIFollow/PolygonEditor" method="_demo_press"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]
