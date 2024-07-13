@@ -21,7 +21,7 @@ offset_bottom = 140.0
 mouse_filter = 2
 script = ExtResource("2_0n75t")
 
-[node name="AddVert" type="TextureButton" parent="Polygon"]
+[node name="NewVert" type="TextureButton" parent="Polygon"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
