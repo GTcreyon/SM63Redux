@@ -527,4 +527,5 @@ text = "Placeholder Loading Text"
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_Mode_pressed"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
+[connection signal="pressed" from="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll/PolygonGrid/Terrain" to="UIFollow/PolygonEditor" method="_demo_press"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]
