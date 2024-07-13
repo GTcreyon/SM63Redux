@@ -28,6 +28,13 @@ var new_vertex_button
 @onready var button_texture_hover = preload("res://scenes/menus/level_designer/poly_edit/vertex_hover.png")
 @onready var button_texture_pressed = preload("res://scenes/menus/level_designer/poly_edit/vertex_selected.png")
 
+@onready var placed_vert_template: TextureButton = $"PlacedVert"
+
+
+func _ready():
+	# Pull these out of the scene tree so they can be used as templates.
+	remove_child(placed_vert_template)
+
 
 # Yuck
 func _process(_dt):
@@ -134,17 +141,19 @@ func reparent_buttons():
 				continue
 			button.queue_free()
 	
+	# Update placed vertices.
 	for index in readonly_local_polygon.size():
+		# Find vert with this index.
 		var button = get_node_or_null("Vertex" + str(index))
+		# Create and add it if it doesn't exist.
 		if !button:
-			button = TextureButton.new()
+			button = placed_vert_template.duplicate()
 			button.name = "Vertex" + str(index)
-			button.texture_normal = button_texture
-			button.texture_hover = button_texture_hover
-			button.texture_pressed = button_texture_pressed
-			button.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
+			# Connect it to the button-press signal, binding the correct index.
+			# The index binding means we can't set this in the editor.
 			button.connect("pressed", Callable(self, "on_button_press").bind(index))
 			add_child(button)
+		# Put it at the correct position for this index.
 		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
 	
 	# This button is for adding vertices
