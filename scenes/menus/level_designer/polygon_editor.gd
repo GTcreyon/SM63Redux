@@ -34,7 +34,6 @@ func quit_creating(save):
 	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
 	var polygon_position = drawable_polygon.global_position
 	drawable_polygon.polygon = []
-	drawable_polygon.transparent_connector = false
 	drawable_polygon.draw_predict_line = false
 	drawable_polygon.show_verts = false
 	
@@ -53,7 +52,6 @@ func start_polygon_creation():
 	main.editor_state = main.EDITOR_STATE.POLYGON_CREATE
 	
 	drawable_polygon.polygon = []
-	drawable_polygon.transparent_connector = true
 	drawable_polygon.draw_predict_line = true
 	drawable_polygon.show_verts = false
 
@@ -90,7 +88,6 @@ func edit_polygon(obj_to_edit):
 		data.append(vec + obj_to_edit.position)
 	
 	drawable_polygon.polygon = data
-	drawable_polygon.transparent_connector = false
 	drawable_polygon.draw_predict_line = false
 	drawable_polygon.show_verts = true
 
@@ -103,7 +100,6 @@ func stop_editing_polygon(save):
 	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
 	var polygon_position = drawable_polygon.global_position
 	drawable_polygon.polygon = []
-	drawable_polygon.transparent_connector = false
 	drawable_polygon.draw_predict_line = false
 	drawable_polygon.show_verts = false
 	

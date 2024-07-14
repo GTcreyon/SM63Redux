@@ -3,16 +3,20 @@ extends Control
 signal move_vertex(index)
 signal new_vertex(wanted_position, start_index, end_index)
 
+const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
+const VERT_BUTTON_PARAMETER_SQUARED = (VERT_BUTTON_HALF_SIZE.x * 2) ** 2
+
+const LINE_WIDTH = 2
+const LINE_ANTIALIAS = false
+
 @export var outline_color: Color = Color(0, 0.2, 0.9)
 
 var polygon = []: set = set_polygon
 var readonly_local_polygon = PackedVector2Array()
 var show_verts = false: set = set_buttons
+## Used to show transparent lines during initial polygon creation.
 var draw_predict_line = true
-var transparent_connector = true
 
-const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
-const VERT_BUTTON_PARAMETER_SQUARED = (VERT_BUTTON_HALF_SIZE.x * 2) ** 2
 
 # Private
 var new_node_data = {
@@ -46,25 +50,50 @@ func _process(_dt):
 
 
 func _draw():
+	# Abort if the polygon is empty, since there'd be nothing to draw.
 	if len(readonly_local_polygon) == 0:
 		return
 	
 	var transparent_color = Color(outline_color)
 	transparent_color.a = 0.4
 	
+	# Render all placed edges.
 	for index in readonly_local_polygon.size() - 1:
 		draw_line(
 			readonly_local_polygon[index],
 			readonly_local_polygon[index + 1],
 			outline_color,
-			2
+			LINE_WIDTH,
+			LINE_ANTIALIAS
 		)
-	draw_line(
-		readonly_local_polygon[0],
-		main.get_snapped_mouse_position() - global_position if draw_predict_line else readonly_local_polygon[len(readonly_local_polygon) - 1],
-		transparent_color if transparent_connector else outline_color,
-		2
-	)
+	
+	if draw_predict_line:
+		# During initial polygon placement, speculatively bridge the gap between
+		# the start and end vertices with transparent lines to and from
+		# the mouse cursor. This to preview where the next vert *could* be.
+		draw_line(
+			readonly_local_polygon[0],
+			main.get_snapped_mouse_position() - global_position,
+			transparent_color,
+			LINE_WIDTH,
+			LINE_ANTIALIAS
+		)
+		draw_line(
+			main.get_snapped_mouse_position() - global_position,
+			readonly_local_polygon[len(readonly_local_polygon) - 1],
+			transparent_color,
+			LINE_WIDTH,
+			LINE_ANTIALIAS
+		)
+	else:
+		# Draw a line to bridge the gap between the start and end vertices.
+		draw_line(
+			readonly_local_polygon[0],
+			readonly_local_polygon[len(readonly_local_polygon) - 1],
+			outline_color,
+			LINE_WIDTH,
+			LINE_ANTIALIAS
+		)
 	
 	if show_verts:
 		var mouse_position: Vector2 = main.get_snapped_mouse_position() - global_position
@@ -99,15 +128,6 @@ func _draw():
 				new_node_data.end_index = (index + 1) % poly_size
 		if nearest_position and mouse_position and new_vertex_button and can_place:
 			new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
-	
-	if draw_predict_line:
-		draw_line(
-			main.get_snapped_mouse_position() - global_position,
-			readonly_local_polygon[len(readonly_local_polygon) - 1],
-			transparent_color,
-			2,
-			true
-		)
 
 
 func set_buttons(new):
