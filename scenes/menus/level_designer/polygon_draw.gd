@@ -129,18 +129,27 @@ func on_new_vert_button_pressed():
 
 
 func reparent_buttons():
+	# If this function is called when verts are hidden, delete all vertex UI
+	# elements, then abort.
 	if !show_verts:
 		for child in get_children():
 			child.queue_free()
 		return
 	
+	# Clean up placed-verts which are extra for this size of polygon.
+	# First, check if there actually are extras....
 	var actual_child_count = get_child_count() - 1
 	if actual_child_count > readonly_local_polygon.size():
+		# Iterate all verts past the needed number.
 		for index in range(readonly_local_polygon.size(), actual_child_count):
+			# Find the widget for this index.
 			var button = get_node_or_null("Vertex" + str(index))
+			# VALIDATE: this widget ought to exist if we're already checking for it,
+			# i.e. there should be no gaps in the sequence of editable indices.
 			if !button:
-				printerr("Too many buttons for this polygon, but unable to find index ", index)
+				printerr("Unable to find vertex ", index, " despite having extra vertex widgets.")
 				continue
+			# Delete it.
 			button.queue_free()
 	
 	# Update placed vertices.
@@ -165,6 +174,8 @@ func reparent_buttons():
 	if !new_vertex_button:
 		new_vertex_button = new_vert_template.duplicate()
 		add_child(new_vertex_button)
+	# Place the new-vert button in a sensible temp spot. (Mouse input should
+	# overwrite this soon, but just in case.)
 	new_vertex_button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 
 func calculate_bounds():
