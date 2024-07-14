@@ -40,3 +40,4 @@ texture_hover = ExtResource("5_icii8")
 
 [connection signal="move_vertex" from="Polygon" to="." method="_on_vertex_move"]
 [connection signal="new_vertex" from="Polygon" to="." method="_on_new_vertex"]
+[connection signal="pressed" from="Polygon/NewVert" to="Polygon" method="on_new_vert_button_pressed"]

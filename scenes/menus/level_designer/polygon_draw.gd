@@ -28,11 +28,13 @@ var new_vertex_button
 @onready var button_texture_hover = preload("res://scenes/menus/level_designer/poly_edit/vertex_hover.png")
 @onready var button_texture_pressed = preload("res://scenes/menus/level_designer/poly_edit/vertex_selected.png")
 
+@onready var new_vert_template: TextureButton = $"NewVert"
 @onready var placed_vert_template: TextureButton = $"PlacedVert"
 
 
 func _ready():
 	# Pull these out of the scene tree so they can be used as templates.
+	remove_child(new_vert_template)
 	remove_child(placed_vert_template)
 
 
@@ -156,17 +158,13 @@ func reparent_buttons():
 		# Put it at the correct position for this index.
 		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
 	
-	# This button is for adding vertices
+	# Create new-vert button if it doesn't exist yet.
+	# (Using the template node directly, and just removing it from the
+	#  tree at the appropriate time, causes vertex adding to behave oddly.)
+	# (Like unusably so.)
 	if !new_vertex_button:
-		var button = TextureButton.new()
-		button.name = "NewVertex"
-		button.texture_normal = button_texture
-		button.texture_hover = button_texture_hover
-		button.texture_pressed = button_texture_pressed
-		button.action_mode = BaseButton.ACTION_MODE_BUTTON_RELEASE
-		button.connect("pressed", Callable(self, "on_new_vert_button_pressed"))
-		new_vertex_button = button
-		add_child(button)
+		new_vertex_button = new_vert_template.duplicate()
+		add_child(new_vertex_button)
 	new_vertex_button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 
 func calculate_bounds():
