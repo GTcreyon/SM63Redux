@@ -4,7 +4,9 @@ signal move_vertex(index)
 signal new_vertex(wanted_position, start_index, end_index)
 
 const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
-const VERT_BUTTON_PARAMETER_SQUARED = (VERT_BUTTON_HALF_SIZE.x * 2) ** 2
+## If the mouse is within this distance of a placed vertex,
+## the new-vertex widget will be disabled.
+const NO_ADD_VERT_DIST = VERT_BUTTON_HALF_SIZE.x * 2
 
 const LINE_WIDTH = 2
 const LINE_ANTIALIAS = false
@@ -95,38 +97,50 @@ func _draw():
 			LINE_ANTIALIAS
 		)
 	
+	# Draw the add-vert widget (if verts are shown right now).
 	if show_verts:
+		var vert_count = readonly_local_polygon.size()
 		var mouse_position: Vector2 = main.get_snapped_mouse_position() - global_position
-		var poly_size = readonly_local_polygon.size()
-		# Find the closest point to the polygon
+		
+		# Find the point on the polygon which is nearest to the mouse.
 		var nearest_position
 		var nearest_distance = INF
 		var can_place = true
-		for index in poly_size - 1:
+		for index in vert_count - 1:
+			# Find the closest point on this segment (the segment starting on
+			# this index).
 			var seg_begin = readonly_local_polygon[index]
-			var seg_end = readonly_local_polygon[(index + 1) % poly_size]
+			var seg_end = readonly_local_polygon[(index + 1) % vert_count]
 			var closest_point = Geometry2D.get_closest_point_to_segment(
 				mouse_position,
 				seg_begin,
 				seg_end
 			)
+			
+			# Compare with this frame's shortest-distance record.
 			var distance = mouse_position.distance_squared_to(closest_point)
 			if distance < nearest_distance:
+				# It's a new shortest-distance record!
 				nearest_distance = distance
+				# Save the position which did it.
 				nearest_position = closest_point
 				
-				# Check if the button is too close to the normal buttons
-				# If so, don't allow it
-				var too_close_distance = min(
+				# If the new vert is too close to the placed verts, disable its
+				# updating (TODO: and hide it).
+				var dist_to_placed = min(
 					seg_begin.distance_squared_to(nearest_position),
 					seg_end.distance_squared_to(nearest_position)
 				)
-				can_place = too_close_distance > VERT_BUTTON_PARAMETER_SQUARED
+				can_place = dist_to_placed > NO_ADD_VERT_DIST * NO_ADD_VERT_DIST
 				
+				# Save data about this segment for the adding process to use.
 				new_node_data.position = nearest_position
 				new_node_data.start_index = index
-				new_node_data.end_index = (index + 1) % poly_size
-		if nearest_position and mouse_position and new_vertex_button and can_place:
+				new_node_data.end_index = (index + 1) % vert_count
+		
+		# Place new-vert widget on the calculated nearest point, if it exists,
+		# there is a nearest point, and it's not too close to a placed vertex.
+		if nearest_distance < INF and new_vertex_button != null and can_place:
 			new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
 
 
