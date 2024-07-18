@@ -1,6 +1,14 @@
 class_name PolygonEditor
 extends Control
 
+## Emitted when tthe polygon is deleted from within the polygon editor.
+## (Currently, this can only happen by removing verts until there's < 3 left.)
+##
+## The parameter is a reference to the deleted polygon. Keep in mind, this
+## polygon has already had queue_free() called on it by the time the signal is
+## emitted!
+signal polygon_deleted(polygon: Polygon2D)
+
 @onready var main = $"/root/Main"
 @onready var drawable_polygon = $Polygon
 
@@ -144,6 +152,8 @@ func _begin_move_vertex(index):
 func delete_polygon():
 	_end_edit(false)
 	main.polygon_edit_node.queue_free()
+	
+	polygon_deleted.emit(main.polygon_edit_node)
 
 
 func _demo_press():
