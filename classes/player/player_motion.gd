@@ -33,21 +33,6 @@ var _rotation: float = 0.0
 var _facing_direction: int = 1
 
 
-func _ready():
-	var v = 0
-	var oldv = 0
-	for i in 999:
-		v += 1# * 32.0 / 60.0 * 32.0 / 60.0
-		print(v)
-		oldv = v
-		#v = _resist(v, 0.2, 1.05, true)
-		#v = _resist(v, 0, 1.001, true)
-		v = _resist(v, 0.2, 1.051, false)
-		print(v)
-	print(oldv * 1.875)
-	print(v * 1.875)
-
-
 func _physics_process(delta):
 	_move_actor(delta)
 	resist = max(resist - RESIST_DECREMENT, 0)
@@ -227,13 +212,14 @@ func set_vel(value: Vector2) -> void:
 	vel = value
 
 
+## Get the velocity.
+func get_vel(value: Vector2) -> void:
+	vel = value
+
+
 ## Set a component of the velocity in a given axis to a given value.
 func set_vel_component(value: float, axis: Vector2) -> void:
-	var axis_perp = axis.orthogonal()
-
-	var perp = vel.dot(axis_perp)
-
-	vel = (axis * value) + (axis_perp * perp)
+	vel = (axis * value) + vel.slide(axis)
 
 
 ## Return the component of velocity along a given axis.
@@ -298,7 +284,7 @@ func _move_actor(delta: float) -> void:
 	vel = actor.velocity * delta
 
 
-### Resistance function from OG SM63.
+## Resistance function from OG SM63.
 func _resist(val: float, sub: float, div: float, legacy: bool = false):
 	var modsub
 	if legacy:

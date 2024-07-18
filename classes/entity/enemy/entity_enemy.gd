@@ -9,10 +9,10 @@ extends EntityMirrorable
 #		the update function, of course.
 #		The default behavior handles landing from a spin/dive strike, then calls
 #		 _hurtbox_check() if inside_check is set.
-# -	_hurt_stomp():
+# -	_hurt_crush():
 # 		called when the enemy is stomped.
 #		The default behavior is just to play sfx_stomp, if it exists.
-# - _hurt_struck():
+# - _hurt_strike():
 # 		called when the enemy is struck, e.g. by the player's spin or dive.
 #		The default behavior is to play sfx_struck, if it exists, mark the
 #		enemy as having been struck (struck = true), then pop the enemy a bit
@@ -22,14 +22,6 @@ extends EntityMirrorable
 # -	_struck_land():
 # 		called when the enemy lands after being struck.
 #		The default behavior is just to play sfx_struck_landed, if it exists.
-
-# Functions which child classes MAY implement:
-# - _strike_check(body) -> bool:
-#	checks if a given body should start a new strike.
-#	A body passed to this function is guaranteed to be intersecting the enemy.
-#	TODO: This function currently checks two things, whether the enemy CAN BE
-#	struck and whether it IS BEING struck. For extensibility, these should
-#	be two separate functions.
 
 # Functions for child classes to use IN their implementations:
 # - enemy_die():
@@ -47,15 +39,6 @@ var dead: bool = false
 var stomped: bool = false
 var struck: bool = false
 var _pickup_ids: Array = []
-
-@export var _hurtbox_stomp_path: NodePath = "HurtboxStomp"
-@onready var hurtbox_stomp = get_node_or_null(_hurtbox_stomp_path)
-
-@export var _hurtbox_strike_path: NodePath = "HurtboxStrike"
-@onready var hurtbox_strike = get_node_or_null(_hurtbox_strike_path)
-
-@export var _hitbox_path: NodePath = "Hitbox"
-@onready var hitbox = get_node_or_null(_hitbox_path)
 
 # Optional death sound effects
 @export var _sfx_stomp_path: NodePath = "SFXStomped"
@@ -105,54 +88,47 @@ func _physics_step():
 			else:
 				sfx_struck_landed.play()
 		_struck_land()
-	
-	if inside_check:
-		_hurtbox_check()
-	
-	_hitbox_check()
 
 
-# Reference to the player's body. Set from on_Hitbox_body_entered/on_Hitbox_body_exited
-var player_body
+func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
+	if disabled:
+		return false
 
-# Damages the player if player_body isn't null
-func _hitbox_check():
-	if player_body and !struck and !stomped:
-		player_body.take_damage_shove(1, sign(player_body.position.x - position.x))
-
-
-func _hurtbox_check():
-	if hurtbox_strike != null:
-		for body in hurtbox_strike.get_overlapping_bodies():
-			if _strike_check(body):
-				# Play the struck sound, if there is one
-				if sfx_struck != null:
+	# Default hurt behavior. Can be overridden.
+	match type:
+		Hitbox.Type.CRUSH, Hitbox.Type.CRUSH_HEAVY:
+			if stomped:
+				return false
+			# Play the stomp sound, if there is one
+			if sfx_stomp != null:
+				if residualize_sfx_stomp:
+					ResidualSFX.new_from_existing(sfx_stomp, get_parent())
+				else:
+					sfx_stomp.play()
+			_hurt_crush(handler)
+			return true
+		Hitbox.Type.STRIKE:
+			if struck:
+				return false
+			# Play the struck sound, if there is one
+			if sfx_struck != null:
+				if residualize_sfx_struck:
+					ResidualSFX.new_from_existing(sfx_struck, get_parent())
+				else:
 					sfx_struck.play()
-				_hurt_struck(body)
-
-
-func _connect_signals():
-	super._connect_signals()
-	_connect_node_signal_if_exists(hurtbox_stomp, "area_entered", self, "_on_HurtboxStomp_area_entered")
-	_connect_node_signal_if_exists(hurtbox_strike, "body_entered", self, "_on_HurtboxStrike_body_entered")
-	# Connect enemy hitboxes in deferred mode to give them lower priority
-	_connect_node_signal_if_exists(hitbox, "body_entered", self, "_on_Hitbox_body_entered", true)
-	_connect_node_signal_if_exists(hitbox, "body_exited", self, "_on_Hitbox_body_exited", true)
+			_hurt_strike(handler)
+			return true
+		_:
+			return false
 
 
 func set_disabled(val):
 	super.set_disabled(val)
-	_set_node_property_if_exists(hurtbox_stomp, "monitoring", !val)
-	_set_node_property_if_exists(hurtbox_strike, "monitoring", !val)
-	_set_node_property_if_exists(hitbox, "monitoring", !val)
 	_set_node_property_if_exists(sprite, "playing", !val)
 
 
 func _preempt_all_node_readies():
 	super._preempt_all_node_readies()
-	hurtbox_stomp = _preempt_node_ready(hurtbox_stomp, _hurtbox_stomp_path)
-	hurtbox_strike = _preempt_node_ready(hurtbox_strike, _hurtbox_strike_path)
-	hitbox = _preempt_node_ready(hitbox, _hitbox_path)
 	sprite = _preempt_node_ready(sprite, _sprite_path)
 
 
@@ -171,52 +147,16 @@ func _init_animation():
 			sprite.stop()
 
 
-func _on_HurtboxStomp_area_entered(area):
-	if !stomped or multi_stomp:
-		# Play the stomp sound, if there is one
-		if sfx_stomp != null:
-			if residualize_sfx_stomp:
-				ResidualSFX.new_from_existing(sfx_stomp, get_parent())
-			else:
-				sfx_stomp.play()
-		_hurt_stomp(area)
-
-
-func _on_HurtboxStrike_body_entered(body):
-	if _strike_check(body):
-		# Play the struck sound, if there is one
-		if sfx_struck != null:
-			if residualize_sfx_struck:
-				ResidualSFX.new_from_existing(sfx_struck, get_parent())
-			else:
-				sfx_struck.play()
-		_hurt_struck(body)
-
-
-func _on_Hitbox_body_entered(body):
-	player_body = body # Assign to colliding body
-	_hitbox_check() # Attempt to damage the player immediately
-
-
-func _on_Hitbox_body_exited(_body):
-	player_body = null # Unassign player body reference
-
-
-# Check if the colliding body can strike this enemy
-func _strike_check(body):
-	return !struck and !stomped and (body.is_spinning() or (body.is_diving(true) and abs(body.vel.x) > 1))
-
-
-func _hurt_stomp(_area):	
+func _hurt_crush(_handler: HitHandler):
 	pass
 
 
-# Pop the enemy up into the air and off to the side, away from the body that issued the strike
-func _hurt_struck(body):
+## Pop the enemy up into the air and off to the side, away from the body that issued the strike
+func _hurt_strike(handler: HitHandler):
 	struck = true
 	vel.y -= 2.63
-	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - body.position.x) / 10 / 1.5
+	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - handler.get_pos().x) / 10 / 1.5
 
 
-func _struck_land():	
+func _struck_land():
 	pass

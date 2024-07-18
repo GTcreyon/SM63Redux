@@ -53,16 +53,8 @@ func _target_alert(_body):
 		vel.y = -2.5
 
 
-func _hurt_stomp(area):
-	if area != null:
-		var body = area.get_parent()
-		if body.state == body.S.DIVE && Input.is_action_pressed("down"):
-			_hurt_struck(body)
-		else:
-			_stomp_trigger()
-			body.start_bounce()
-	else:
-		_stomp_trigger()
+func _hurt_crush(source: Node):
+	_stomp_trigger()
 
 
 func _stomp_trigger():
@@ -74,8 +66,8 @@ func _stomp_trigger():
 	sprite.play()
 
 
-func _hurt_struck(body):
-	super._hurt_struck(body)
+func _hurt_strike(body):
+	super._hurt_strike(body)
 	sprite.animation = "jumping"
 	jump_state = JumpStates.AIRBORNE
 

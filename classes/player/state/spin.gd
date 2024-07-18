@@ -12,6 +12,9 @@ const SOFT_START_SPEED: float = 1.0
 ## Final animation speed of the soft phase
 const SOFT_END_SPEED: float = 0.4
 
+## Area2D used to detect entities to strike
+@export var _hitbox: Hitbox
+
 ## Remaining time in the strike phase
 var _strike_time: float
 
@@ -23,6 +26,7 @@ func _on_enter(_h):
 	_strike_time = STRIKE_PERIOD
 	_soft_time = SOFT_PERIOD
 	_anim("spin_start")
+	_hitbox.start_hit()
 
 
 func _anim_finished():
@@ -63,3 +67,7 @@ func _defer_rules():
 		return &"SpinFloor"
 	else:
 		return &"SpinAir"
+
+
+func _on_exit():
+	_hitbox.stop_hit()

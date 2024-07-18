@@ -1,7 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://b6jp4ecuo2iwc"]
+[gd_scene load_steps=21 format=3 uid="uid://b6jp4ecuo2iwc"]
 
 [ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://classes/entity/enemy/koopa/parakoopa.png" id="1"]
 [ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://shaders/palette.tres" id="2"]
+[ext_resource type="PackedScene" uid="uid://bmgwliruc3ptg" path="res://classes/entity/enemy/koopa/koopa.tscn" id="4_3vw85"]
+[ext_resource type="Script" path="res://classes/entity/hurtbox.gd" id="4_b08t6"]
+[ext_resource type="Script" path="res://classes/hit_handler.gd" id="4_wifkt"]
+[ext_resource type="PackedScene" uid="uid://cp0db5ewq3t6p" path="res://classes/entity/enemy/koopa/koopa_shell.tscn" id="5_pdeod"]
+[ext_resource type="Script" path="res://classes/entity/hitbox.gd" id="6_x1ygv"]
 [ext_resource type="Script" path="res://classes/entity/enemy/koopa/parakoopa.gd" id="8"]
 [ext_resource type="AudioStream" uid="uid://bgidqcur663qn" path="res://classes/entity/enemy/koopa/shell_kick.ogg" id="9"]
 
@@ -63,43 +68,71 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="9"]
-size = Vector2(20, 16)
+size = Vector2(22, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_csenf"]
+size = Vector2(22, 33)
 
 [sub_resource type="RectangleShape2D" id="10"]
-size = Vector2(10, 30)
+size = Vector2(10, 24)
 
 [node name="Parakoopa" type="AnimatedSprite2D"]
 material = ExtResource("2")
 sprite_frames = SubResource("8")
 animation = &"flying"
-frame = 1
+frame = 4
+offset = Vector2(-2, 1)
 script = ExtResource("8")
+koopa_scene = ExtResource("4_3vw85")
+shell_scene = ExtResource("5_pdeod")
 
-[node name="TopCollision" type="Area2D" parent="."]
-position = Vector2(2, -14)
-collision_layer = 0
-collision_mask = 2
+[node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]
+script = ExtResource("4_wifkt")
+_source = NodePath("..")
+
+[node name="HurtboxStomp" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+position = Vector2(0, -14)
+collision_layer = 4
+collision_mask = 0
 input_pickable = false
-monitorable = false
+monitoring = false
+script = ExtResource("4_b08t6")
+_target = NodePath("..")
+_hurt_mask = 2
 
-[node name="HitDetection" type="CollisionShape2D" parent="TopCollision"]
+[node name="HitDetection" type="CollisionShape2D" parent="HurtboxStomp"]
 position = Vector2(0, 6)
 shape = SubResource("9")
+
+[node name="HurtboxOther" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+position = Vector2(2, -14)
+collision_layer = 4
+collision_mask = 0
+input_pickable = false
+monitoring = false
+script = ExtResource("4_b08t6")
+_target = NodePath("..")
+_hurt_mask = 61
+
+[node name="HitDetection" type="CollisionShape2D" parent="HurtboxOther"]
+position = Vector2(-2, 14.5)
+shape = SubResource("RectangleShape2D_csenf")
 
 [node name="Kick" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("9")
 volume_db = 5.0
 bus = &"SFX"
 
-[node name="Damage" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("_handler")]
 position = Vector2(2, 3)
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
+script = ExtResource("6_x1ygv")
+_hit_type = 8
+_handler = NodePath("../HitHandler")
 
-[node name="Collision" type="CollisionShape2D" parent="Damage"]
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-2, -3)
 shape = SubResource("10")
-
-[connection signal="body_entered" from="TopCollision" to="." method="_on_TopCollision_body_entered"]
-[connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered" flags=3]

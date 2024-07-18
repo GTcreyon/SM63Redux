@@ -3,30 +3,13 @@ extends EntityEnemy
 
 var speed = 5
 
-const color_presets = [
-	[ # green
-		Color("9cc56d"),
-		Color("1f887a"),
-		Color("2b4a3d"),
-	],
-	[ # red
-		Color("CB5E09"),
-		Color("911230"),
-		Color("7A4234"),
-	],
-]
-
-enum ShellColor {
-	GREEN,
-	RED,
-}
-
-@export var color: ShellColor = ShellColor.GREEN: set = set_color
+@export var color: Koopa.ShellColor = Koopa.ShellColor.GREEN: set = set_color
+@export var sfx_kick: AudioStreamPlayer2D
 
 
-func set_color(new_color: ShellColor):
+func set_color(new_color: Koopa.ShellColor):
 	for i in range(3):
-		material.set_shader_parameter("color" + str(i), color_presets[new_color][i])
+		material.set_shader_parameter("color" + str(i), Koopa.COLOR_PRESETS[new_color][i])
 	color = new_color
 
 
@@ -45,23 +28,26 @@ func _physics_step():
 	super._physics_step()
 
 
-# Stub the strike check so the player doesn't have to spin to hit the shell
-func _strike_check(_body):
-	return true
+func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
+	if disabled:
+		return false
 
-
-func _hurt_stomp(area):
-	stomped = true
-	var body = area.get_parent()
-	body.vel.y = -5
-	if body.position.x < position.x:
-		vel.x = speed
-	else:
-		vel.x = -speed
-
-
-func _hurt_struck(body):
-	if body.position.x < position.x:
-		vel.x = speed
-	elif body.position.x > position.x:
-		vel.x = -speed
+	# Default hurt behavior. Can be overridden.
+	match type:
+		Hitbox.Type.CRUSH:
+			handler.set_vel_component(5, Vector2.UP)
+			if handler.get_pos().x < position.x:
+				vel.x = speed
+			else:
+				vel.x = -speed
+			sfx_kick.play()
+			return true
+		Hitbox.Type.STRIKE, Hitbox.Type.NUDGE:
+			if handler.get_pos().x < position.x:
+				vel.x = speed
+			elif handler.get_pos().x > position.x:
+				vel.x = -speed
+			sfx_kick.play()
+			return true
+		_:
+			return false

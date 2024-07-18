@@ -1,6 +1,7 @@
-[gd_scene load_steps=190 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=195 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
+[ext_resource type="Script" path="res://classes/player/player_hit_handler.gd" id="2_48bkb"]
 [ext_resource type="Script" path="res://classes/player/player_input.gd" id="2_h2ygt"]
 [ext_resource type="Script" path="res://classes/player/player.gd" id="3"]
 [ext_resource type="Script" path="res://classes/player/player_motion.gd" id="3_1b2wa"]
@@ -49,6 +50,7 @@
 [ext_resource type="Script" path="res://classes/player/state/rollout.gd" id="22_tddom"]
 [ext_resource type="Script" path="res://classes/player/state/spin_air.gd" id="28_gtw61"]
 [ext_resource type="Script" path="res://classes/player/state/spin_floor.gd" id="29_lj851"]
+[ext_resource type="Script" path="res://classes/entity/hitbox.gd" id="37_gj4ca"]
 
 [sub_resource type="AtlasTexture" id="129"]
 atlas = ExtResource("8")
@@ -1176,6 +1178,15 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xl3ss"]
+size = Vector2(60, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orq1p"]
+size = Vector2(12, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q5s4m"]
+size = Vector2(12, 28)
+
 [sub_resource type="RectangleShape2D" id="4"]
 size = Vector2(2, 2)
 
@@ -1270,6 +1281,11 @@ collision_layer = 6
 collision_mask = 3
 floor_snap_length = 8.0
 script = ExtResource("3")
+
+[node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("motion", "_source")]
+script = ExtResource("2_48bkb")
+motion = NodePath("../Motion")
+_source = NodePath("..")
 
 [node name="Input" type="Node" parent="."]
 script = ExtResource("2_h2ygt")
@@ -1393,8 +1409,9 @@ script = ExtResource("19_ieyet")
 [node name="PoundFall" type="Node" parent="StateManager/Neutral/Air/PoundAir"]
 script = ExtResource("20_ri21n")
 
-[node name="Spin" type="Node" parent="StateManager"]
+[node name="Spin" type="Node" parent="StateManager" node_paths=PackedStringArray("_hitbox")]
 script = ExtResource("21_0w5dd")
+_hitbox = NodePath("../../Hitboxes/HitboxSpin")
 
 [node name="SpinAir" type="Node" parent="StateManager/Spin"]
 script = ExtResource("28_gtw61")
@@ -1409,7 +1426,7 @@ script = ExtResource("4_q4bau")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"dive_slide"
+animation = &"walk_start"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]
@@ -1429,6 +1446,49 @@ stream = ExtResource("6")
 volume_db = -10.0
 bus = &"SFX"
 
+[node name="Hitboxes" type="Node2D" parent="."]
+
+[node name="HitboxSpin" type="Area2D" parent="Hitboxes" node_paths=PackedStringArray("_handler")]
+collision_layer = 0
+collision_mask = 4
+input_pickable = false
+monitorable = false
+script = ExtResource("37_gj4ca")
+_hit_type = 8
+_handler = NodePath("../../HitHandler")
+_persistent = false
+_start_active = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HitboxSpin"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_xl3ss")
+
+[node name="HitboxStomp" type="Area2D" parent="Hitboxes" node_paths=PackedStringArray("_handler")]
+collision_layer = 0
+collision_mask = 4
+input_pickable = false
+monitorable = false
+script = ExtResource("37_gj4ca")
+_hit_type = 2
+_handler = NodePath("../../HitHandler")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HitboxStomp"]
+position = Vector2(0, 15.5)
+shape = SubResource("RectangleShape2D_orq1p")
+
+[node name="HitboxNudge" type="Area2D" parent="Hitboxes" node_paths=PackedStringArray("_handler")]
+collision_layer = 0
+collision_mask = 4
+input_pickable = false
+monitorable = false
+script = ExtResource("37_gj4ca")
+_hit_type = 64
+_handler = NodePath("../../HitHandler")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HitboxNudge"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_q5s4m")
+
 [node name="WaterCheck" type="Area2D" parent="."]
 position = Vector2(0, 4)
 collision_layer = 0
@@ -1445,14 +1505,14 @@ position = Vector2(0, 1.5)
 shape = SubResource("5")
 disabled = true
 
-[node name="HitboxNormal" type="CollisionShape2D" parent="."]
+[node name="CollisionStand" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1.5)
 shape = SubResource("5")
 
-[node name="HitboxDive" type="CollisionShape2D" parent="."]
+[node name="CollisionDive" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_6ia8g")
 
-[node name="HitboxSmall" type="CollisionShape2D" parent="."]
+[node name="CollisionSmall" type="CollisionShape2D" parent="."]
 position = Vector2(0, 10)
 shape = SubResource("RectangleShape2D_ngkfe")
 

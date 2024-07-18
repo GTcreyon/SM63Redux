@@ -1,7 +1,8 @@
-[gd_scene load_steps=28 format=3 uid="uid://vunewr3fpf60"]
+[gd_scene load_steps=30 format=3 uid="uid://vunewr3fpf60"]
 
 [ext_resource type="Texture2D" uid="uid://dvxqi07gettjf" path="res://classes/entity/enemy/bobomb/bobomb_fuse_unlit.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://bymmn17pd5ko4" path="res://classes/entity/enemy/bobomb/bobomb_walk.png" id="2"]
+[ext_resource type="Script" path="res://classes/hit_handler.gd" id="2_5yk2i"]
 [ext_resource type="Texture2D" uid="uid://b81lf6m4dv57n" path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_0.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://ynwncv82vnux" path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_1.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://dkhke7nnpqj2c" path="res://classes/entity/enemy/bobomb/bobomb_key_0.png" id="5"]
@@ -10,6 +11,7 @@
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="8"]
 [ext_resource type="AudioStream" uid="uid://b6y1muqoxhx4p" path="res://classes/entity/enemy/bobomb/fuse.wav" id="9"]
 [ext_resource type="AudioStream" uid="uid://bacx46t0dv8jh" path="res://classes/entity/enemy/bobomb/knock.wav" id="10"]
+[ext_resource type="Script" path="res://classes/entity/hurtbox.gd" id="10_rg6ed"]
 [ext_resource type="AudioStream" uid="uid://bsrn5snagyjew" path="res://classes/entity/enemy/bobomb/explosion_buildup_1.wav" id="11"]
 [ext_resource type="Texture2D" uid="uid://ch67m6y5p4418" path="res://classes/entity/enemy/bobomb/bobomb_struck.png" id="14"]
 [ext_resource type="AudioStream" uid="uid://gagulf6yfw6x" path="res://classes/entity/enemy/goomba/goomba_step.wav" id="15"]
@@ -137,11 +139,13 @@ script = ExtResource("7")
 step_indexes = Array[bool]([true, false, false, false, true, false, false, false])
 _aware_area_path = NodePath("")
 death_smoke = false
-_hurtbox_stomp_path = NodePath("")
-_hitbox_path = NodePath("")
 _sfx_stomp_path = NodePath("")
 _sfx_struck_land_path = NodePath("")
 _sprite_path = NodePath("Sprites/Base")
+
+[node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]
+script = ExtResource("2_5yk2i")
+_source = NodePath("..")
 
 [node name="Sprites" type="Node2D" parent="."]
 script = ExtResource("8")
@@ -169,12 +173,15 @@ visible = false
 position = Vector2(9, 0)
 target_position = Vector2(0, 21)
 
-[node name="HurtboxStrike" type="Area2D" parent="."]
+[node name="HurtboxStrike" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
 visible = false
-collision_layer = 0
-collision_mask = 2
+collision_layer = 4
+collision_mask = 0
 input_pickable = false
-monitorable = false
+monitoring = false
+script = ExtResource("10_rg6ed")
+_target = NodePath("..")
+_hurt_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStrike"]
 shape = SubResource("13")

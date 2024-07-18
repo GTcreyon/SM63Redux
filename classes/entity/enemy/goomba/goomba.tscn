@@ -1,12 +1,14 @@
-[gd_scene load_steps=31 format=3 uid="uid://cc1st8k2boes7"]
+[gd_scene load_steps=33 format=3 uid="uid://cc1st8k2boes7"]
 
 [ext_resource type="Texture2D" uid="uid://du2p4qnic7ks4" path="res://classes/entity/enemy/goomba/goomba_walk.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://c64s82ifh0umj" path="res://classes/entity/enemy/goomba/goomba_jump.png" id="2"]
+[ext_resource type="Script" path="res://classes/hit_handler.gd" id="2_k8ju5"]
 [ext_resource type="Texture2D" uid="uid://cbqy1ucvelmeq" path="res://classes/entity/enemy/goomba/goomba_squish.png" id="3"]
 [ext_resource type="AudioStream" uid="uid://trumsj5f0wi7" path="res://classes/entity/enemy/goomba/goomba_stomped.wav" id="4"]
 [ext_resource type="AudioStream" uid="uid://u1tw3qkvqr56" path="res://classes/entity/enemy/goomba/goomba_struck.wav" id="5"]
 [ext_resource type="AudioStream" uid="uid://c1jt3dptfd62j" path="res://classes/entity/enemy/goomba/goomba_struck_landed.wav" id="6"]
 [ext_resource type="AudioStream" uid="uid://cy1dja62lk07l" path="res://classes/entity/enemy/goomba/goomba_jump.ogg" id="6_p8ash"]
+[ext_resource type="Script" path="res://classes/entity/hurtbox.gd" id="6_u7yil"]
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="15"]
 [ext_resource type="Script" path="res://classes/entity/enemy/goomba/goomba.gd" id="16"]
 [ext_resource type="AudioStream" uid="uid://gagulf6yfw6x" path="res://classes/entity/enemy/goomba/goomba_step.wav" id="17"]
@@ -148,6 +150,10 @@ collision_mask = 2147483649
 script = ExtResource("16")
 step_indexes = Array[bool]([true, false, false, true, false, false])
 
+[node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]
+script = ExtResource("2_k8ju5")
+_source = NodePath("..")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
 animation = &"walking"
@@ -184,13 +190,16 @@ monitorable = false
 [node name="EyeFull" type="CollisionShape2D" parent="AwareArea"]
 shape = SubResource("3")
 
-[node name="HurtboxStrike" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
+[node name="HurtboxOther" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+collision_layer = 4
+collision_mask = 0
 input_pickable = false
-monitorable = false
+monitoring = false
+script = ExtResource("6_u7yil")
+_target = NodePath("..")
+_hurt_mask = 57
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStrike"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxOther"]
 position = Vector2(0, 0.5)
 shape = SubResource("2")
 
@@ -204,11 +213,14 @@ monitorable = false
 position = Vector2(0, 1)
 shape = SubResource("32")
 
-[node name="HurtboxStomp" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 16
+[node name="HurtboxStomp" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+collision_layer = 4
+collision_mask = 0
 input_pickable = false
-monitorable = false
+monitoring = false
+script = ExtResource("6_u7yil")
+_target = NodePath("..")
+_hurt_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStomp"]
 position = Vector2(0, -5)

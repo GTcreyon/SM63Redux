@@ -1,11 +1,8 @@
 class_name Koopa
 extends EntityEnemyWalk
 
-var SHELL_PREFAB = preload("./koopa_shell.tscn")
-
-var speed = 0.9
-var init_position = 0
-
+const COOLDOWN_TIME: int = 30
+const SHELL_PREFAB = preload("./koopa_shell.tscn")
 const COLOR_PRESETS = [
 	[ # green
 		Color("9cc56d"),
@@ -18,11 +15,14 @@ const COLOR_PRESETS = [
 		Color("7A4234"),
 	],
 ]
-
 enum ShellColor {
 	GREEN,
 	RED,
 }
+
+var speed = 0.9
+var init_position = 0
+var cooldown_time_left: int = 0
 
 @export var color: ShellColor = ShellColor.GREEN: set = set_color
 
@@ -42,6 +42,16 @@ func _ready_override():
 		edge_check = null
 
 
+func _physics_step():
+	super()
+	if cooldown_time_left > 0:
+		cooldown_time_left -= 1
+
+
+func hit_cooldown():
+	cooldown_time_left = COOLDOWN_TIME
+
+
 func _wander():
 	vel.x = -speed if mirror else speed
 	
@@ -49,18 +59,17 @@ func _wander():
 		turn_around()
 
 
-func _hurt_stomp(area):
-	var body = area.get_parent()
-	body.vel.y = -5
+func _hurt_crush(handler):
+	if cooldown_time_left > 0:
+		return
+	handler.set_vel_component(5, Vector2.UP)
 	into_shell(0)
 
 
-func _hurt_struck(body):
-	if struck: # Enemy has already been struck
+func _hurt_strike(handler):
+	if cooldown_time_left > 0:
 		return
-
-	struck = true
-	if body.global_position.x < global_position.x:
+	if handler.get_pos().x < handler.get_pos().x:
 		into_shell(5)
 	else:
 		into_shell(-5)

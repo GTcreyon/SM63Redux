@@ -68,9 +68,6 @@ func _physics_step():
 			rotation = lerp_angle(rotation, 0, 0.25)
 			mirror = vel.x < 0
 	
-	_hurtbox_check()
-	_hitbox_check()
-	
 	# warning-ignore:RETURN_VALUE_DISCARDED
 	set_velocity(vel * 60)
 	set_up_direction(Vector2.UP)

@@ -1,9 +1,12 @@
-[gd_scene load_steps=33 format=3 uid="uid://cbmd83f1dv4n"]
+[gd_scene load_steps=36 format=3 uid="uid://cbmd83f1dv4n"]
 
 [ext_resource type="Texture2D" uid="uid://diq6frk6o27j1" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.png" id="1"]
+[ext_resource type="Script" path="res://classes/hit_handler.gd" id="2_vsnlt"]
 [ext_resource type="Script" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep.gd" id="3"]
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="4"]
 [ext_resource type="AudioStream" uid="uid://bmp344vx6nmct" path="res://classes/entity/enemy/cheep_cheep/cheep_cheep_die.wav" id="5"]
+[ext_resource type="Script" path="res://classes/entity/hurtbox.gd" id="5_1cjc0"]
+[ext_resource type="Script" path="res://classes/entity/hitbox.gd" id="6_jkwxn"]
 
 [sub_resource type="AtlasTexture" id="29"]
 atlas = ExtResource("1")
@@ -208,20 +211,26 @@ size = Vector2(2, 2)
 [node name="CheepCheep" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("3")
-_hurtbox_stomp_path = NodePath("")
 _sfx_stomp_path = NodePath("")
 _sfx_struck_land_path = NodePath("")
+
+[node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]
+script = ExtResource("2_vsnlt")
+_source = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
 animation = &"idle"
 script = ExtResource("4")
 
-[node name="HurtboxStrike" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2147483650
+[node name="HurtboxStrike" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+collision_layer = 4
+collision_mask = 2147483648
 input_pickable = false
-monitorable = false
+monitoring = false
+script = ExtResource("5_1cjc0")
+_target = NodePath("..")
+_hurt_mask = 8
 
 [node name="Collision" type="CollisionShape2D" parent="HurtboxStrike"]
 shape = SubResource("6")
@@ -240,6 +249,7 @@ collision_layer = 0
 collision_mask = 2147483650
 input_pickable = false
 monitorable = false
+script = ExtResource("6_jkwxn")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("3")

@@ -2,14 +2,14 @@ class_name PlayerState
 extends State
 ## State class specific to the player.
 
-enum Hitbox {
+enum CollisionBox {
 	NORMAL,
 	SMALL,
 	DIVE,
 }
 
 ## The hitbox that this state uses.
-@export var hitbox: Hitbox = Hitbox.NORMAL
+@export var hitbox := CollisionBox.NORMAL
 
 ## Interface for player input
 var input: PlayerInput = null
@@ -40,9 +40,9 @@ func trigger_enter(handover: Variant):
 		# Have to do this here because the actor node isn't ready by the time the state is.
 		# Maybe improvable, but this seems fine.
 		_hitboxes = {
-			Hitbox.NORMAL: actor.get_node(^"HitboxNormal"),
-			Hitbox.SMALL: actor.get_node(^"HitboxSmall"),
-			Hitbox.DIVE: actor.get_node(^"HitboxDive"),
+			CollisionBox.NORMAL: actor.get_node(^"CollisionStand"),
+			CollisionBox.SMALL: actor.get_node(^"CollisionSmall"),
+			CollisionBox.DIVE: actor.get_node(^"CollisionDive"),
 		}
 
 	# Enable the correct hitbox, disable all others.

@@ -105,8 +105,8 @@ func set_disabled(val) -> void:
 		key.play()
 
 
-func _hurt_struck(body) -> void:
-	super._hurt_struck(body)
+func _hurt_strike(handler) -> void:
+	super._hurt_strike(handler)
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false

@@ -420,11 +420,11 @@ locale/translations=PackedStringArray("res://locale/translations/es.po", "res://
 
 [layer_names]
 
-2d_physics/layer_1="terrain"
+2d_physics/layer_1="solid"
 2d_physics/layer_2="player"
 2d_physics/layer_3="entity"
 2d_physics/layer_4="water"
-2d_physics/layer_5="feet"
+2d_physics/layer_5="hurtbox"
 2d_physics/layer_20="ice"
 2d_physics/layer_21="cloud"
 2d_physics/layer_22="snow"
