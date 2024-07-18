@@ -16,10 +16,11 @@ var dragging_index = null
 
 
 func _process(delta):
+	# If dragging a vertex, place the visual vertex on the mouse.
 	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index != null:
 		var mouse_position = main.get_snapped_mouse_position()
 		drawable_polygon.polygon[dragging_index] = mouse_position
-		drawable_polygon.polygon = drawable_polygon.polygon
+		drawable_polygon.refresh_polygon()
 
 
 func _unhandled_input(event):
