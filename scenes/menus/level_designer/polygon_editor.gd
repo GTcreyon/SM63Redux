@@ -115,8 +115,22 @@ func add_vertex(at_position: Vector2, at_index: int):
 func remove_vertex(index):
 	print("Remove ", index)
 	
-	drawable_polygon.polygon.remove_at(index)
-	drawable_polygon.refresh_polygon()
+	# Check if there'll be enough verts left without this one to still form
+	# a polygon.
+	# (Why -1? Because there's an extra one being added to close the gap between
+	# first and last.)
+	if drawable_polygon.polygon.size()-1 <= 3:
+		# Polygon has too few verts to remove one and still be a polygon.
+		# Delete the entire target node rather than let the geometry
+		# become degenerate.
+		print("Delete polygon")
+		delete_polygon()
+		# TODO: Eventually would be nice to use this same system for placing
+		# open lines as well as closed polygons.
+		# In that case, fewer than 3 verts should be allowable.
+	else:
+		drawable_polygon.polygon.remove_at(index)
+		drawable_polygon.refresh_polygon()
 
 
 func _begin_move_vertex(index):
@@ -125,6 +139,11 @@ func _begin_move_vertex(index):
 	dragging_index = index
 	
 	drawable_polygon.begin_drag()
+
+
+func delete_polygon():
+	_end_edit(false)
+	main.polygon_edit_node.queue_free()
 
 
 func _demo_press():
