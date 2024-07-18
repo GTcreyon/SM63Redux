@@ -1,3 +1,4 @@
+class_name PolygonEditor
 extends Control
 
 @onready var main = $"/root/Main"
@@ -56,19 +57,19 @@ func start_polygon_creation():
 	drawable_polygon.show_verts = false
 
 
-func _on_new_vertex(wanted_position, start_index, end_index):
-	print("New ", wanted_position, ", ", start_index, ", ", end_index)
+func add_vertex(at_position: Vector2, at_index: int):
+	print("New at ", at_position, ", index ", at_index)
 	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
 	
 	drawable_polygon.show_verts = false
 	# We have to copy the array, otherwise the set-invocation won't work
 	var copied = drawable_polygon.polygon.duplicate(false)
-	copied.insert(end_index, drawable_polygon.position + wanted_position)
+	copied.insert(at_index, drawable_polygon.position + at_position)
 	drawable_polygon.polygon = copied
-	dragging_index = end_index
+	dragging_index = at_index
 
 
-func _on_vertex_move(index):
+func _begin_move_vertex(index):
 	print("Moving ", index)
 	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
 	drawable_polygon.show_verts = false

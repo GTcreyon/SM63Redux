@@ -1,7 +1,5 @@
 extends Control
 
-signal new_vertex(wanted_position, start_index, end_index)
-signal move_vertex(index)
 signal delete_vertex(index)
 
 const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
@@ -19,6 +17,8 @@ var readonly_local_polygon = PackedVector2Array()
 var show_verts = false: set = set_buttons
 ## Used to show transparent lines during initial polygon creation.
 var draw_predict_line = true
+
+@onready var polyedit_main: PolygonEditor = $".."
 
 
 # Private
@@ -151,16 +151,14 @@ func set_buttons(new):
 
 
 func _on_new_vert_pressed():
-	emit_signal(
-		"new_vertex",
+	polyedit_main.add_vertex(
 		new_node_data.position,
-		new_node_data.start_index,
 		new_node_data.end_index
 	)
 
 
 func _on_placed_vert_move(index):
-	emit_signal("move_vertex", index)
+	polyedit_main._begin_move_vertex(index)
 
 
 func _on_placed_vert_delete(index):
