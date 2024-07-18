@@ -24,16 +24,16 @@ script = ExtResource("2_0n75t")
 
 [node name="NewVert" type="TextureButton" parent="Polygon"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 12.0
+offset_bottom = 12.0
 texture_normal = ExtResource("3_5w5y3")
 texture_pressed = ExtResource("4_1lddh")
 texture_hover = ExtResource("5_icii8")
 
 [node name="PlacedVert" type="TextureButton" parent="Polygon"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 12.0
+offset_bottom = 12.0
 button_mask = 3
 texture_normal = ExtResource("3_5w5y3")
 texture_pressed = ExtResource("4_1lddh")
