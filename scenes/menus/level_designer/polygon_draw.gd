@@ -1,7 +1,5 @@
 extends Control
 
-signal delete_vertex(index)
-
 const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
 ## If the mouse is within this distance of a placed vertex,
 ## the new-vertex widget will be disabled.
@@ -197,7 +195,7 @@ func _on_placed_vert_move(index):
 
 
 func _on_placed_vert_delete(index):
-	emit_signal("delete_vertex", index)
+	polyedit_main.remove_vertex(index)
 
 
 func _refresh_widgets():

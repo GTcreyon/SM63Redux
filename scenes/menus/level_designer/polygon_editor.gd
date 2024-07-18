@@ -112,6 +112,13 @@ func add_vertex(at_position: Vector2, at_index: int):
 	_begin_move_vertex(at_index)
 
 
+func remove_vertex(index):
+	print("Remove ", index)
+	
+	drawable_polygon.polygon.remove_at(index)
+	drawable_polygon.refresh_polygon()
+
+
 func _begin_move_vertex(index):
 	print("Moving ", index)
 	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
