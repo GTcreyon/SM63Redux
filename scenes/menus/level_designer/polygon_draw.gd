@@ -1,7 +1,7 @@
 extends Control
 
-signal move_vertex(index)
 signal new_vertex(wanted_position, start_index, end_index)
+signal move_vertex(index)
 
 const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
 ## If the mouse is within this distance of a placed vertex,
@@ -149,7 +149,7 @@ func set_buttons(new):
 	reparent_buttons()
 
 
-func on_new_vert_button_pressed():
+func _on_new_vert_pressed():
 	emit_signal(
 		"new_vertex",
 		new_node_data.position,
@@ -158,7 +158,7 @@ func on_new_vert_button_pressed():
 	)
 
 
-func on_move_button_pressed(index):
+func _on_placed_vert_move(index):
 	emit_signal("move_vertex", index)
 
 
@@ -196,7 +196,7 @@ func reparent_buttons():
 			button.name = "Vertex" + str(index)
 			# Connect it to the button-press signal, binding the correct index.
 			# The index binding means we can't set this in the editor.
-			button.connect("pressed_left", Callable(self, "on_move_button_pressed").bind(index))
+			button.connect("pressed_left", Callable(self, "_on_placed_vert_move").bind(index))
 			add_child(button)
 		# Put it at the correct position for this index.
 		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE

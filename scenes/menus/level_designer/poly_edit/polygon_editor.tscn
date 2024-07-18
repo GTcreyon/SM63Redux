@@ -42,4 +42,4 @@ script = ExtResource("6_bex66")
 
 [connection signal="move_vertex" from="Polygon" to="." method="_on_vertex_move"]
 [connection signal="new_vertex" from="Polygon" to="." method="_on_new_vertex"]
-[connection signal="pressed" from="Polygon/NewVert" to="Polygon" method="on_new_vert_button_pressed"]
+[connection signal="pressed" from="Polygon/NewVert" to="Polygon" method="_on_new_vert_pressed"]
