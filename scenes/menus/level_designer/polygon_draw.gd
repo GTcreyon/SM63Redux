@@ -19,6 +19,7 @@ var show_verts = false:
 		show_verts = new
 		_refresh_widgets()
 
+## Copy of polygon in local space.
 var readonly_local_polygon = PackedVector2Array()
 
 ## Used to show transparent lines during initial polygon creation.
@@ -251,6 +252,7 @@ func _refresh_widgets():
 
 
 func calculate_bounds():
+	# Find the AABB of all points in the polygon.
 	var min_vec = Vector2.INF
 	var max_vec = -Vector2.INF
 	for item in polygon:
@@ -259,15 +261,19 @@ func calculate_bounds():
 		max_vec.x = max(item.x, max_vec.x)
 		max_vec.y = max(item.y, max_vec.y)
 	
+	# If creating a polygon, also include wherever the mouse is.
 	if draw_predict_line:
 		var item = main.get_snapped_mouse_position()
 		min_vec.x = min(item.x, min_vec.x)
 		min_vec.y = min(item.y, min_vec.y)
 		max_vec.x = max(item.x, max_vec.x)
 		max_vec.y = max(item.y, max_vec.y)
-		
+	
+	# Object origin is the top-left corner. Calculate size as well.
 	global_position = min_vec
 	size = max_vec - min_vec
+	
+	# Create a local-space copy of the polygon.
 	readonly_local_polygon = PackedVector2Array()
 	for item in polygon:
 		readonly_local_polygon.append(item - global_position)

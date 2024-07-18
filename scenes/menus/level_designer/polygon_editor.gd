@@ -26,23 +26,38 @@ func _process(delta):
 func _unhandled_input(event):
 	match main.editor_state:
 		main.EDITOR_STATE.POLYGON_CREATE:
+			# Creating a polygon.
+			
+			# Cancel creation if either cancel button is pressed.
 			if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
 				_end_create(false)
 			
+			# Finish creation on presseing finish.
 			if event.is_action_released("ld_poly_finish"):
 				_end_create(true)
 			
+			# Place verts on click.
 			if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
+				# Add a vert at the end of the chain, wherever we clicked.
 				drawable_polygon.polygon.append(main.get_snapped_mouse_position())
 				drawable_polygon.refresh_polygon()
+				
+				# Finish the polygon on placing the third point (without the
+				# keep-placing button held).
 				if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
 					_end_create(true)
 		main.EDITOR_STATE.POLYGON_DRAG_VERTEX:
+			# Dragging a vertex.
+			
+			# On click, finish the drag wherever the mouse is.
 			if event.is_action_released("ld_place"):
+				drawable_polygon.end_drag()
+				
 				main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
 				dragging_index = null
-				drawable_polygon.end_drag()
 		main.EDITOR_STATE.POLYGON_EDIT:
+			# Editing a placed polygon.
+			
 			if event.is_action_released("ld_poly_cancel"):
 				_end_edit(false)
 			if event.is_action_released("ld_poly_finish"):
@@ -50,8 +65,10 @@ func _unhandled_input(event):
 
 
 func _begin_create():
+	# Can't begin creating a polygon if we're doing something else.
 	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
+	
 	main.editor_state = main.EDITOR_STATE.POLYGON_CREATE
 	
 	# Godot doesn't accept [] as a typed array, so for now, a workaround.
@@ -60,31 +77,43 @@ func _begin_create():
 
 
 func _end_create(save: bool):
+	# Revert to main state.
 	main.editor_state = main.EDITOR_STATE.IDLE
+	
+	# Copy needed data out of the drawable.
 	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
 	var polygon_position = drawable_polygon.global_position
+	# Drawable is done now.
 	drawable_polygon.end_edit()
 	
+	# Save polygon (if it has enough points to be a polygon) if needed.
 	if len(polygon_data) > 2 and save:
+		# Ensure the polygon winds counter-clockwise.
 		if Geometry2D.is_polygon_clockwise(polygon_data):
 			polygon_data.reverse()
 		
+		# Add an extra point at the end to close the polygon.
 		polygon_data.append(polygon_data[0])
+		# Save the polygon data to a new node.
 		var terrain = main.place_terrain(polygon_data)
 		terrain.position = polygon_position
 
 
 ## Begins editing the given Polygon2D.
 func begin_edit(obj_to_edit: Polygon2D):
+	# Can't begin editing a polygon if we're doing something else.
 	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
+	
 	main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
 	
+	# Save a global reference to the target node.
 	main.polygon_edit_node = obj_to_edit
 	
 	assert(obj_to_edit.polygon.size() > 0,
 		"Shouldn't be possible to enter polygon edit mode on an empty polygon.")
 	
+	# Hide the target node for editing.
 	obj_to_edit.visible = false
 	
 	# Create a world-space copy of the polygon's points array.
@@ -96,17 +125,24 @@ func begin_edit(obj_to_edit: Polygon2D):
 
 
 func _end_edit(save: bool):
+	# Can't end editing a polygon if we're not already editing a polygon.
 	if main.editor_state != main.EDITOR_STATE.POLYGON_EDIT:
 		return
+	
 	main.editor_state = main.EDITOR_STATE.IDLE
 	
+	# Copy needed data out of the drawable.
 	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
 	var polygon_position = drawable_polygon.global_position
+	# Drawable is done now.
 	drawable_polygon.end_edit()
 	
+	# Write edited polygon to the target node if needed.
 	if save:
 		main.polygon_edit_node.position = polygon_position
 		main.polygon_edit_node.polygon = polygon_data
+	
+	# Re-show the hidden target node.
 	main.polygon_edit_node.visible = true
 
 
@@ -151,6 +187,7 @@ func _begin_move_vertex(index):
 	drawable_polygon.begin_drag()
 
 
+## Deletes the entire polygon.
 func delete_polygon():
 	_end_edit(false)
 	main.polygon_edit_node.queue_free()
@@ -158,5 +195,6 @@ func delete_polygon():
 	polygon_deleted.emit(main.polygon_edit_node)
 
 
+## Temp function which hooks up to 
 func _demo_press():
 	_begin_create()
