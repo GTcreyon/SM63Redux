@@ -26,6 +26,10 @@ func _gui_input(event: InputEvent):
 		if !action_occurred:
 			return
 		
+		# Abort if the click event has moved off the button.
+		if !Rect2(global_position, size).has_point(event.global_position):
+			return
+		
 		# We didn't abort. Emit the appropriate event for the button.
 		match event.button_index:
 			MOUSE_BUTTON_LEFT:
