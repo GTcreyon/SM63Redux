@@ -23,28 +23,29 @@ func _process(delta):
 
 
 func _unhandled_input(event):
-	if main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
-		if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
-			_end_create(false)
-		
-		if event.is_action_released("ld_poly_finish"):
-			_end_create(true)
-		
-		if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
-			drawable_polygon.polygon.append(main.get_snapped_mouse_position())
-			drawable_polygon.refresh_polygon()
-			if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
+	match main.editor_state:
+		main.EDITOR_STATE.POLYGON_CREATE:
+			if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
+				_end_create(false)
+			
+			if event.is_action_released("ld_poly_finish"):
 				_end_create(true)
-	elif main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX:
-		if event.is_action_released("ld_place"):
-			main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
-			dragging_index = null
-			drawable_polygon.end_drag()
-	elif main.editor_state == main.EDITOR_STATE.POLYGON_EDIT:
-		if event.is_action_released("ld_poly_cancel"):
-			_end_edit(false)
-		if event.is_action_released("ld_poly_finish"):
-			_end_edit(true)
+			
+			if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
+				drawable_polygon.polygon.append(main.get_snapped_mouse_position())
+				drawable_polygon.refresh_polygon()
+				if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
+					_end_create(true)
+		main.EDITOR_STATE.POLYGON_DRAG_VERTEX:
+			if event.is_action_released("ld_place"):
+				main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
+				dragging_index = null
+				drawable_polygon.end_drag()
+		main.EDITOR_STATE.POLYGON_EDIT:
+			if event.is_action_released("ld_poly_cancel"):
+				_end_edit(false)
+			if event.is_action_released("ld_poly_finish"):
+				_end_edit(true)
 
 
 func _begin_create():
