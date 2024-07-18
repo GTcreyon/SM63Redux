@@ -93,7 +93,12 @@ func _end_create(save: bool):
 			polygon_data.reverse()
 		
 		# Add an extra point at the end to close the polygon.
-		polygon_data.append(polygon_data[0])
+		# Disabled because it wasn't really fixing anything, and was creating
+		# stacked verts at the start/end (which could be edited and dragged
+		# apart, by accident...and regularly were).
+		# If you re-enable this line, make sure to update remove_vertex to check
+		# for one extra vertex in a min-sized polygon.
+		#polygon_data.append(polygon_data[0])
 		# Save the polygon data to a new node.
 		var terrain = main.place_terrain(polygon_data)
 		terrain.position = polygon_position
@@ -163,9 +168,7 @@ func remove_vertex(index):
 	
 	# Check if there'll be enough verts left without this one to still form
 	# a polygon.
-	# (Why -1? Because there's an extra one being added to close the gap between
-	# first and last.)
-	if drawable_polygon.polygon.size()-1 <= 3:
+	if drawable_polygon.polygon.size() <= 3:
 		# Polygon has too few verts to remove one and still be a polygon.
 		# Delete the entire target node rather than let the geometry
 		# become degenerate.
