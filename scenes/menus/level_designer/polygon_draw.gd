@@ -222,6 +222,17 @@ func _refresh_widgets():
 			# Delete it.
 			button.queue_free()
 	
+	# Create new-vert button if it doesn't exist yet.
+	# (Using the template node directly, and just removing it from the
+	#  tree at the appropriate time, causes vertex adding to behave oddly.)
+	# (Like unusably so.)
+	if !new_vertex_button:
+		new_vertex_button = new_vert_template.duplicate()
+		add_child(new_vertex_button)
+	# Place the new-vert button in a sensible temp spot. (Mouse input should
+	# overwrite this soon, but just in case.)
+	new_vertex_button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
+	
 	# Update placed vertices.
 	for index in readonly_local_polygon.size():
 		# Find vert with this index.
@@ -237,17 +248,6 @@ func _refresh_widgets():
 			add_child(button)
 		# Put it at the correct position for this index.
 		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
-	
-	# Create new-vert button if it doesn't exist yet.
-	# (Using the template node directly, and just removing it from the
-	#  tree at the appropriate time, causes vertex adding to behave oddly.)
-	# (Like unusably so.)
-	if !new_vertex_button:
-		new_vertex_button = new_vert_template.duplicate()
-		add_child(new_vertex_button)
-	# Place the new-vert button in a sensible temp spot. (Mouse input should
-	# overwrite this soon, but just in case.)
-	new_vertex_button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 
 
 func calculate_bounds():
