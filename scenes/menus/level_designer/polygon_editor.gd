@@ -7,6 +7,13 @@ extends Control
 var dragging_index = null
 
 
+func _process(delta):
+	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index != null:
+		var mouse_position = main.get_snapped_mouse_position()
+		drawable_polygon.polygon[dragging_index] = mouse_position
+		drawable_polygon.polygon = drawable_polygon.polygon
+
+
 func _unhandled_input(event):
 	if main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
 		if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
@@ -32,6 +39,16 @@ func _unhandled_input(event):
 			_end_edit(true)
 
 
+func _begin_create():
+	if main.editor_state != main.EDITOR_STATE.IDLE:
+		return
+	main.editor_state = main.EDITOR_STATE.POLYGON_CREATE
+	
+	# Godot doesn't accept [] as a typed array, so for now, a workaround.
+	var empty_array: Array[Vector2] = []
+	drawable_polygon.begin_edit(empty_array)
+
+
 func _end_create(save: bool):
 	main.editor_state = main.EDITOR_STATE.IDLE
 	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
@@ -45,36 +62,6 @@ func _end_create(save: bool):
 		polygon_data.append(polygon_data[0])
 		var terrain = main.place_terrain(polygon_data)
 		terrain.position = polygon_position
-
-
-func _begin_create():
-	if main.editor_state != main.EDITOR_STATE.IDLE:
-		return
-	main.editor_state = main.EDITOR_STATE.POLYGON_CREATE
-	
-	# Godot doesn't accept [] as a typed array, so for now, a workaround.
-	var empty_array: Array[Vector2] = []
-	drawable_polygon.begin_edit(empty_array)
-
-
-func add_vertex(at_position: Vector2, at_index: int):
-	print("New at ", at_position, ", index ", at_index)
-	
-	# Update the drawable's polygon.
-	drawable_polygon.polygon.insert(at_index, drawable_polygon.position + at_position)
-	# Awkwardly enough, we have to reassign a copy of the array in order for
-	# the drawable to run its update-on-change code.
-	drawable_polygon.refresh_polygon()
-	
-	_begin_move_vertex(at_index)
-
-
-func _begin_move_vertex(index):
-	print("Moving ", index)
-	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
-	dragging_index = index
-	
-	drawable_polygon.begin_drag()
 
 
 ## Begins editing the given Polygon2D.
@@ -112,11 +99,25 @@ func _end_edit(save: bool):
 		main.polygon_edit_node.polygon = polygon_data
 	main.polygon_edit_node.visible = true
 
-func _process(delta):
-	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index != null:
-		var mouse_position = main.get_snapped_mouse_position()
-		drawable_polygon.polygon[dragging_index] = mouse_position
-		drawable_polygon.polygon = drawable_polygon.polygon
+
+func add_vertex(at_position: Vector2, at_index: int):
+	print("New at ", at_position, ", index ", at_index)
+	
+	# Update the drawable's polygon.
+	drawable_polygon.polygon.insert(at_index, drawable_polygon.position + at_position)
+	# Awkwardly enough, the drawable won't run its update-on-change code when
+	# polygon is modified instead of set fresh. Run it manually instead.
+	drawable_polygon.refresh_polygon()
+	
+	_begin_move_vertex(at_index)
+
+
+func _begin_move_vertex(index):
+	print("Moving ", index)
+	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
+	dragging_index = index
+	
+	drawable_polygon.begin_drag()
 
 
 func _demo_press():

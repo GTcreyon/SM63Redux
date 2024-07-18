@@ -275,6 +275,9 @@ func calculate_bounds():
 		readonly_local_polygon.append(item - global_position)
 
 
+## Acknowledges a changed [polygon] by applying its values to internal state.
+## Call this anytime you call a function on [polygon] which modifies it
+## in-place.
 func refresh_polygon():
 	# Convert the global coords polygon to a local coords one for drawing
 	readonly_local_polygon = PackedVector2Array()
