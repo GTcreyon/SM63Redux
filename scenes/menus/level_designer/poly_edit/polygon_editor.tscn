@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cc8sxs7wl5feb"]
+[gd_scene load_steps=7 format=3 uid="uid://cc8sxs7wl5feb"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_editor.gd" id="1_qu7dx"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_draw.gd" id="2_0n75t"]
 [ext_resource type="Texture2D" uid="uid://rr2wt15543er" path="res://scenes/menus/level_designer/poly_edit/vertex.png" id="3_5w5y3"]
 [ext_resource type="Texture2D" uid="uid://b7x3r25ki34uj" path="res://scenes/menus/level_designer/poly_edit/vertex_selected.png" id="4_1lddh"]
 [ext_resource type="Texture2D" uid="uid://cicskwmcgq06f" path="res://scenes/menus/level_designer/poly_edit/vertex_hover.png" id="5_icii8"]
+[ext_resource type="Script" path="res://gui/custom_nodes/texture_button_rmb.gd" id="6_bex66"]
 
 [node name="PolygonEditor" type="Control"]
 layout_mode = 3
@@ -37,6 +38,7 @@ button_mask = 3
 texture_normal = ExtResource("3_5w5y3")
 texture_pressed = ExtResource("4_1lddh")
 texture_hover = ExtResource("5_icii8")
+script = ExtResource("6_bex66")
 
 [connection signal="move_vertex" from="Polygon" to="." method="_on_vertex_move"]
 [connection signal="new_vertex" from="Polygon" to="." method="_on_new_vertex"]
