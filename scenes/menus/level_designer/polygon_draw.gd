@@ -149,10 +149,6 @@ func set_buttons(new):
 	reparent_buttons()
 
 
-func on_button_press(index):
-	emit_signal("move_vertex", index)
-
-
 func on_new_vert_button_pressed():
 	emit_signal(
 		"new_vertex",
@@ -160,6 +156,10 @@ func on_new_vert_button_pressed():
 		new_node_data.start_index,
 		new_node_data.end_index
 	)
+
+
+func on_move_button_pressed(index):
+	emit_signal("move_vertex", index)
 
 
 func reparent_buttons():
@@ -196,7 +196,7 @@ func reparent_buttons():
 			button.name = "Vertex" + str(index)
 			# Connect it to the button-press signal, binding the correct index.
 			# The index binding means we can't set this in the editor.
-			button.connect("pressed", Callable(self, "on_button_press").bind(index))
+			button.connect("pressed_left", Callable(self, "on_move_button_pressed").bind(index))
 			add_child(button)
 		# Put it at the correct position for this index.
 		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
