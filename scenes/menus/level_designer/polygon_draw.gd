@@ -2,6 +2,7 @@ extends Control
 
 signal new_vertex(wanted_position, start_index, end_index)
 signal move_vertex(index)
+signal delete_vertex(index)
 
 const VERT_BUTTON_HALF_SIZE = Vector2(6, 6)
 ## If the mouse is within this distance of a placed vertex,
@@ -162,6 +163,10 @@ func _on_placed_vert_move(index):
 	emit_signal("move_vertex", index)
 
 
+func _on_placed_vert_delete(index):
+	emit_signal("delete_vertex", index)
+
+
 func reparent_buttons():
 	# If this function is called when verts are hidden, delete all vertex UI
 	# elements, then abort.
@@ -194,9 +199,10 @@ func reparent_buttons():
 		if !button:
 			button = placed_vert_template.duplicate()
 			button.name = "Vertex" + str(index)
-			# Connect it to the button-press signal, binding the correct index.
+			# Connect it to the move/delete signals, binding the correct index.
 			# The index binding means we can't set this in the editor.
 			button.connect("pressed_left", Callable(self, "_on_placed_vert_move").bind(index))
+			button.connect("pressed_right", Callable(self, "_on_placed_vert_delete").bind(index))
 			add_child(button)
 		# Put it at the correct position for this index.
 		button.position = readonly_local_polygon[index] - VERT_BUTTON_HALF_SIZE
