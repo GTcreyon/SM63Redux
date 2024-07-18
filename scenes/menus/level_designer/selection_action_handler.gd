@@ -81,4 +81,4 @@ func _on_duplicator_pressed():
 
 func _on_polygon_pressed():
 	if len(selection_handler.selection_hit) == 1:
-		polygon_editor.edit_polygon(selection_handler.selection_hit[0])
+		polygon_editor.begin_edit(selection_handler.selection_hit[0])

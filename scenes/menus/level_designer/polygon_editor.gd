@@ -10,33 +10,33 @@ var dragging_index = null
 func _unhandled_input(event):
 	if main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
 		if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
-			quit_creating(false)
+			_end_create(false)
 		
 		if event.is_action_released("ld_poly_finish"):
-			quit_creating(true)
+			_end_create(true)
 		
 		if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
-			drawable_polygon.polygon = drawable_polygon.polygon + [main.get_snapped_mouse_position()]
+			drawable_polygon.polygon.append(main.get_snapped_mouse_position())
+			drawable_polygon.refresh_polygon()
 			if len(drawable_polygon.polygon) > 2 and !Input.is_action_pressed("ld_keep_place"):
-				quit_creating(true)
+				_end_create(true)
 	elif main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX:
 		if event.is_action_released("ld_place"):
-			dragging_index = null
-			drawable_polygon.show_verts = true
 			main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
+			dragging_index = null
+			drawable_polygon.end_drag()
 	elif main.editor_state == main.EDITOR_STATE.POLYGON_EDIT:
 		if event.is_action_released("ld_poly_cancel"):
-			stop_editing_polygon(false)
+			_end_edit(false)
 		if event.is_action_released("ld_poly_finish"):
-			stop_editing_polygon(true)
+			_end_edit(true)
 
-func quit_creating(save):
+
+func _end_create(save: bool):
 	main.editor_state = main.EDITOR_STATE.IDLE
 	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
 	var polygon_position = drawable_polygon.global_position
-	drawable_polygon.polygon = []
-	drawable_polygon.draw_predict_line = false
-	drawable_polygon.show_verts = false
+	drawable_polygon.end_edit()
 	
 	if len(polygon_data) > 2 and save:
 		if Geometry2D.is_polygon_clockwise(polygon_data):
@@ -47,62 +47,65 @@ func quit_creating(save):
 		terrain.position = polygon_position
 
 
-func start_polygon_creation():
+func _begin_create():
 	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
 	main.editor_state = main.EDITOR_STATE.POLYGON_CREATE
 	
-	drawable_polygon.polygon = []
-	drawable_polygon.draw_predict_line = true
-	drawable_polygon.show_verts = false
+	# Godot doesn't accept [] as a typed array, so for now, a workaround.
+	var empty_array: Array[Vector2] = []
+	drawable_polygon.begin_edit(empty_array)
 
 
 func add_vertex(at_position: Vector2, at_index: int):
 	print("New at ", at_position, ", index ", at_index)
-	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
 	
-	drawable_polygon.show_verts = false
-	# We have to copy the array, otherwise the set-invocation won't work
-	var copied = drawable_polygon.polygon.duplicate(false)
-	copied.insert(at_index, drawable_polygon.position + at_position)
-	drawable_polygon.polygon = copied
-	dragging_index = at_index
+	# Update the drawable's polygon.
+	drawable_polygon.polygon.insert(at_index, drawable_polygon.position + at_position)
+	# Awkwardly enough, we have to reassign a copy of the array in order for
+	# the drawable to run its update-on-change code.
+	drawable_polygon.refresh_polygon()
+	
+	_begin_move_vertex(at_index)
 
 
 func _begin_move_vertex(index):
 	print("Moving ", index)
 	main.editor_state = main.EDITOR_STATE.POLYGON_DRAG_VERTEX
-	drawable_polygon.show_verts = false
 	dragging_index = index
+	
+	drawable_polygon.begin_drag()
 
 
-func edit_polygon(obj_to_edit):
+## Begins editing the given Polygon2D.
+func begin_edit(obj_to_edit: Polygon2D):
 	if main.editor_state != main.EDITOR_STATE.IDLE:
 		return
 	main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
+	
 	main.polygon_edit_node = obj_to_edit
+	
+	assert(obj_to_edit.polygon.size() > 0,
+		"Shouldn't be possible to enter polygon edit mode on an empty polygon.")
 	
 	obj_to_edit.visible = false
 	
-	var data = []
-	for vec in obj_to_edit.polygon:
-		data.append(vec + obj_to_edit.position)
+	# Create a world-space copy of the polygon's points array.
+	var data: Array[Vector2] = [] # type hint required so inner begin_edit works
+	for point in obj_to_edit.polygon:
+		data.append(point + obj_to_edit.position)
 	
-	drawable_polygon.polygon = data
-	drawable_polygon.draw_predict_line = false
-	drawable_polygon.show_verts = true
+	drawable_polygon.begin_edit(data)
 
 
-func stop_editing_polygon(save):
+func _end_edit(save: bool):
 	if main.editor_state != main.EDITOR_STATE.POLYGON_EDIT:
 		return
 	main.editor_state = main.EDITOR_STATE.IDLE
 	
 	var polygon_data = PackedVector2Array(drawable_polygon.readonly_local_polygon)
 	var polygon_position = drawable_polygon.global_position
-	drawable_polygon.polygon = []
-	drawable_polygon.draw_predict_line = false
-	drawable_polygon.show_verts = false
+	drawable_polygon.end_edit()
 	
 	if save:
 		main.polygon_edit_node.position = polygon_position
@@ -117,4 +120,4 @@ func _process(delta):
 
 
 func _demo_press():
-	start_polygon_creation()
+	_begin_create()

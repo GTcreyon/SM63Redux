@@ -12,9 +12,17 @@ const LINE_ANTIALIAS = false
 
 @export var outline_color: Color = Color(0, 0.2, 0.9)
 
-var polygon = []: set = set_polygon
+var polygon: Array[Vector2]:
+	set(new):
+		polygon = new
+		refresh_polygon()
+var show_verts = false: 
+	set(new):
+		show_verts = new
+		_refresh_widgets()
+
 var readonly_local_polygon = PackedVector2Array()
-var show_verts = false: set = set_buttons
+
 ## Used to show transparent lines during initial polygon creation.
 var draw_predict_line = true
 
@@ -145,9 +153,36 @@ func _draw():
 			new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
 
 
-func set_buttons(new):
-	show_verts = new
-	reparent_buttons()
+## Begins editing a polygon with the given vertices.
+## If the given polygon is empty, editing begins in polygon creation mode.
+func begin_edit(cur_polygon: Array[Vector2]):
+	polygon = cur_polygon
+	
+	if cur_polygon.size() == 0:
+		show_verts = false
+		# Begin drawing predict line only if the passed polygon is empty.
+		draw_predict_line = true
+	else:
+		# Setting this property to true should create the widgets for us.
+		show_verts = true
+		draw_predict_line = false
+
+
+## Finishes editing whatever polygon is active, and cleans up the editor.
+func end_edit():
+	polygon = []
+	# Remember, this property has a setter that cleans up for us!
+	show_verts = false
+	
+	draw_predict_line = false
+
+
+func begin_drag():
+	show_verts = false
+
+
+func end_drag():
+	show_verts = true
 
 
 func _on_new_vert_pressed():
@@ -165,7 +200,7 @@ func _on_placed_vert_delete(index):
 	emit_signal("delete_vertex", index)
 
 
-func reparent_buttons():
+func _refresh_widgets():
 	# If this function is called when verts are hidden, delete all vertex UI
 	# elements, then abort.
 	if !show_verts:
@@ -216,6 +251,7 @@ func reparent_buttons():
 	# overwrite this soon, but just in case.)
 	new_vertex_button.position = readonly_local_polygon[0] - VERT_BUTTON_HALF_SIZE
 
+
 func calculate_bounds():
 	var min_vec = Vector2.INF
 	var max_vec = -Vector2.INF
@@ -239,14 +275,12 @@ func calculate_bounds():
 		readonly_local_polygon.append(item - global_position)
 
 
-func set_polygon(new):
-	polygon = new
-	
+func refresh_polygon():
 	# Convert the global coords polygon to a local coords one for drawing
 	readonly_local_polygon = PackedVector2Array()
 	if len(polygon) != 0:
 		calculate_bounds()
 		
-		reparent_buttons()
+		_refresh_widgets()
 	
 	queue_redraw()
