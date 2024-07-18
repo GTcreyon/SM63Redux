@@ -82,7 +82,7 @@ func _unhandled_input(event):
 	if event.is_action_released("ld_select") and main.editor_state == main.EDITOR_STATE.SELECTING:
 		start_position = Vector2.ZERO
 		hover.visible = false
-		on_release()
+		_on_release()
 		main.editor_state = main.EDITOR_STATE.IDLE
 		accept_event()
 
@@ -98,7 +98,7 @@ func is_a_polygon_item(item):
 
 # Return how many items were selected by the previous selection
 # The function is named `calculate` because it does collision detection calculations which can be pretty expensive
-func calculate_selected(max_selected = 32):
+func _calculate_selected(max_selected = 32):
 	var collision_handler = get_world_2d().direct_space_state
 	
 	var hitboxes = []
@@ -137,13 +137,13 @@ func calculate_selected(max_selected = 32):
 	return hit
 
 
-func on_release():
+func _on_release():
 	# Remove the effect of previous selection
 	for hit in selection_hit:
 		hit.set_glowing(false)
 	
 	# Get the new selection & give them the hover effect
-	selection_hit = calculate_selected()
+	selection_hit = _calculate_selected()
 	for hit in selection_hit:
 		hit.set_glowing(true)
 	
