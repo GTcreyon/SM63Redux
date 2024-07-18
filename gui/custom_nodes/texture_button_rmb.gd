@@ -27,7 +27,7 @@ func _gui_input(event: InputEvent):
 			return
 		
 		# Abort if the click event has moved off the button.
-		if !Rect2(global_position, size).has_point(event.global_position):
+		if !is_hovered():
 			return
 		
 		# We didn't abort. Emit the appropriate event for the button.
