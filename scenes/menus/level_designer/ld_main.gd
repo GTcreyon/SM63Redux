@@ -328,17 +328,7 @@ func _read_items():
 
 ## Loads a property from the parsed XML into the target dictionary.
 func register_property(target, subname: String, type: String, parser: XMLParser):
-	# Decide which subset of the target we're writing to, based on type.
-	# Dictionaries and arrays are passed by reference, so by assigning the
-	# subset to item_class_properties, we get a window into the target.
-	var item_class_properties
-	if type == "item":
-		# Properties of items should be written into the desired item's
-		# properties dictionary.
-		item_class_properties = target[int(subname)].properties
-	else:
-		# Properties of anything else go directly into the desired thing.
-		item_class_properties = target[subname]
+	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
 	# Write property values to the target, on the entry keyed to this
 	# XML node's label.
@@ -348,11 +338,7 @@ func register_property(target, subname: String, type: String, parser: XMLParser)
 ## Loads a predefined property, specified by the parsed XML,
 ## into the given target dictionary.
 func implement_property(target, subname: String, type: String, parser: XMLParser):
-	var item_class_properties
-	if type == "item":
-		item_class_properties = target[int(subname)].properties
-	else:
-		item_class_properties = target[subname]
+	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
 	var prop_name = parser.get_named_attribute_value("label")
 	var get_prop = parser.get_named_attribute_value("name")
@@ -380,12 +366,23 @@ func collect_property_values(parser: XMLParser) -> Dictionary:
 ## Loads an entire set of predefined properties, specified by the parsed XML, 
 ## into the given target dictionary.
 func inherit_class(target, subname: String, type: String, parser: XMLParser):
-	var item_class_properties
-	if type == "item":
-		item_class_properties = target[int(subname)].properties
-	else:
-		item_class_properties = target[subname]
+	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
 	var parent_class = item_classes[parser.get_named_attribute_value("name")]
 	for key in parent_class:
 		item_class_properties[key] = parent_class[key]
+
+
+## Returns a reference to the properties dictionary of the given target,
+## using type and subname to pick where to index and where to access.
+func _property_dictionary_of(target, subname: String, type: String) -> Dictionary:
+	# Decide which subset of the target we're writing to, based on type.
+	# Dictionaries and arrays are passed by reference, so returning a path to a
+	# subdictionary should get us a window into the target instead of a copy.
+	if type == "item":
+		# Properties of items should be written into the desired item's
+		# properties dictionary.
+		return target[int(subname)].properties
+	else:
+		# Properties of anything else go directly into the desired thing.
+		return target[subname]
