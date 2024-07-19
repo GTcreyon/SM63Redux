@@ -35,15 +35,15 @@ var item_static_properties = {}
 ##		[b]"increment":[/b] For spinners, amount up/down a single arrow click goes.
 ##			1 if unset.[br]
 ##		[b]"description":[/b] Description of the property, shown in tooltips.[br]
-var items: Array[Dictionary] = []
+var items: Dictionary = {}
 ## Graphics for items to use.
 ## Each entry is a dictionary with the following properties:[br]
 ## - [b]List:[/b] This item's icon in the placeable-item list.[br]
 ## - [b]Placed:[/b] The sprite shown where this item is placed in the actual level.[br]
-var item_textures: Array[Dictionary] = []
+var item_textures: Dictionary = {}
 ## The scenes corresponding to each item. These can be used to create
 ## a playable node tree based on the [LDPlacedItem]s in the level.
-var item_scenes = []
+var item_scenes = {}
 
 ## Set to [code]true[/code] to enable returning to the level designer
 ## when [kbd]ld_exit[/kbd] is pressed.
@@ -132,7 +132,7 @@ func place_terrain(poly: PackedVector2Array) -> TerrainPolygon:
 ## for ID [param item_id].
 ## The new item will begin with [member LDPlacedItem.ghost] set to
 ## [code]true[/code].
-func place_item(item_id: int) -> LDPlacedItem:
+func place_item(item_id: StringName) -> LDPlacedItem:
 	_set_editor_state(EDITOR_STATE.PLACING)
 	
 	# Create and populate loaded item
@@ -255,9 +255,7 @@ func _read_items():
 						"scene":
 							# Save the filepath of the described item's scene.
 							var path = parser.get_named_attribute_value_safe("path")
-							var item_id = int(parent_subname)
-							if item_scenes.size() < item_id + 1:
-								item_scenes.resize(item_id + 1)
+							var item_id = parent_subname
 							item_scenes[item_id] = path
 						"property":
 							# Load the property definition.
@@ -266,7 +264,7 @@ func _read_items():
 							# Save the filepaths of the described item's
 							# placed and in-list graphics.
 							
-							var item_id = int(parent_subname)
+							var item_id = parent_subname
 							
 							# Item textures dictionary should have been initted
 							# when the item was first read in. Assert that.
@@ -295,12 +293,7 @@ func _read_items():
 						allow_reparent = false
 					elif node_name == "item":
 						# Read item ID
-						var subname = parser.get_named_attribute_value_safe("id")
-						var item_id = int(subname)
-						# Ensure the array can fit item_id as an index.
-						if items.size() < item_id + 1:
-							items.resize(item_id + 1)
-							item_textures.resize(item_id + 1)
+						var item_id = parser.get_named_attribute_value_safe("id")
 						# Add this item to the list.
 						items[item_id] = {
 							name = parser.get_named_attribute_value_safe("name"),
@@ -310,7 +303,7 @@ func _read_items():
 						item_textures[item_id] = {"Placed": null, "List": null}
 						
 						# Save ID as next node's parent subname.
-						parent_subname = subname
+						parent_subname = item_id
 						allow_reparent = false
 					elif node_name == "static":
 						# Load name and properties, simple as that.
@@ -329,7 +322,7 @@ func _read_items():
 
 
 ## Loads a property from the parsed XML into the target dictionary.
-func register_property(target, subname: String, type: String, parser: XMLParser):
+func register_property(target, subname: StringName, type: String, parser: XMLParser):
 	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
 	# Write property values to the target, on the entry keyed to this
@@ -339,7 +332,7 @@ func register_property(target, subname: String, type: String, parser: XMLParser)
 
 ## Loads a predefined property, specified by the parsed XML,
 ## into the given target dictionary.
-func implement_property(target, subname: String, type: String, parser: XMLParser):
+func implement_property(target, subname: StringName, type: String, parser: XMLParser):
 	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
 	# Parse enough information from the XML that we can find the static property.
@@ -381,14 +374,14 @@ func inherit_class(target, subname: String, type: String, parser: XMLParser):
 
 ## Returns a reference to the properties dictionary of the given target,
 ## using type and subname to pick where to index and where to access.
-func _property_dictionary_of(target, subname: String, type: String) -> Dictionary:
+func _property_dictionary_of(target, subname: StringName, type: String) -> Dictionary:
 	# Decide which subset of the target we're writing to, based on type.
 	# Dictionaries and arrays are passed by reference, so returning a path to a
 	# subdictionary should get us a window into the target instead of a copy.
 	if type == "item":
 		# Properties of items should be written into the desired item's
 		# properties dictionary.
-		return target[int(subname)].properties
+		return target[subname].properties
 	else:
 		# Properties of anything else go directly into the desired thing.
 		return target[subname]
