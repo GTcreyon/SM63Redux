@@ -31,7 +31,8 @@ var item_static_properties = {}
 ##		[b]"default":[/b] Value the property defaults to on newly created
 ##			instances. If unset, the default value for the type will be used.
 ##			[br]
-##		[b]"increment":[/b] For spinners, amount up/down a single arrow click goes.[br]
+##		[b]"increment":[/b] For spinners, amount up/down a single arrow click goes.
+##			1 if unset.[br]
 ##		[b]"description":[/b] Description of the property, shown in tooltips.[br]
 var items: Array[Dictionary] = []
 ## Graphics for items to use.
@@ -340,9 +341,11 @@ func register_property(target, subname: String, type: String, parser: XMLParser)
 func implement_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
+	# Parse enough information from the XML that we can find the static property.
 	var prop_name = parser.get_named_attribute_value("label")
 	var get_prop = parser.get_named_attribute_value("name")
-	# NOTE: should we dupe this?
+	# Copy the static property into the item.
+	# NOTE: does the property need duping?
 	item_class_properties[prop_name] = item_static_properties[get_prop].duplicate()
 
 
@@ -368,7 +371,9 @@ func collect_property_values(parser: XMLParser) -> Dictionary:
 func inherit_class(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
+	# Pick class based on this XML node's name.
 	var parent_class = item_classes[parser.get_named_attribute_value("name")]
+	# Copy the class's properties into the item.
 	for key in parent_class:
 		item_class_properties[key] = parent_class[key]
 
