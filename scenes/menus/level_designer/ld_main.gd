@@ -22,8 +22,17 @@ var item_static_properties = {}
 ## Definitions for each type of item that can be placed.
 ## Each entry is a dictionary with the following properties:[br]
 ## - [b]"name":[/b] This item's displayed name.[br]
-## - [b]"properties":[/b] A dictionary of the item's editable properties.
-##		TODO: This is never actually written, so its format is unclear.
+## - [b]"properties":[/b] A dictionary of the item's editable properties,
+##		keyed by the label shown when inspected.		
+##		Each property is a dictionary with the following properties:[br]
+##		[b]"type":[/b] Property's datatype.[br]
+##		[b]"var_name":[/b] Name of the script variable the property edits.
+##			If null, will be extrapolated from the property's label.[br]
+##		[b]"default":[/b] Value the property defaults to on newly created
+##			instances. If unset, the default value for the type will be used.
+##			[br]
+##		[b]"increment":[/b] For spinners, amount up/down a single arrow click goes.[br]
+##		[b]"description":[/b] Description of the property, shown in tooltips.[br]
 var items: Array[Dictionary] = []
 ## Graphics for items to use.
 ## Each entry is a dictionary with the following properties:[br]
@@ -134,6 +143,8 @@ func place_item(item_id: int) -> LDPlacedItem:
 	var properties: Dictionary = items[item_id].properties
 	var item_properties: Dictionary = {}
 	for propname in properties:
+		# Initialize property to its default value.
+		# If no default is set, use the type's default value.
 		if properties[propname]["default"] == null:
 			item_properties[propname] = default_of_type(properties[propname]["type"])
 		else:
@@ -226,10 +237,8 @@ func _read_items():
 				if parent_name == "class":
 					# Parent node is a class. Parse children of a class.
 					
-					# This doesn't actually do anything. None of these functions
-					# return anything or have any side effects.
-					# Other than possibly modifying the parser's internal state,
-					# which shouldn't happen with normal attribute reads I think.
+					# These functions don't appear to do anything, but they
+					# actually write data into the passed array (item_classes).
 					match node_name:
 						"property":
 							register_property(item_classes, parent_subname, parent_name, parser)
@@ -249,7 +258,7 @@ func _read_items():
 								item_scenes.resize(item_id + 1)
 							item_scenes[item_id] = path
 						"property":
-							# Does nothing.
+							# Load the property definition.
 							register_property(items, parent_subname, parent_name, parser)
 						"texture":
 							# Save the filepaths of the described item's
@@ -265,7 +274,7 @@ func _read_items():
 							var path = parser.get_named_attribute_value_safe("path")
 							item_textures[item_id][parser.get_named_attribute_value_safe("tag")] = path
 						"implement":
-							# Currently does nothing.
+							# Copy the named property from the list of predefined properties.
 							implement_property(items, parent_subname, parent_name, parser)
 						"inherit":
 							# Currently does nothing.
@@ -317,24 +326,29 @@ func _read_items():
 					allow_reparent = true
 
 
-## Returns:
-## - Nothing? item_class_properties is declared in-function, never returned....
+## Loads a property from the parsed XML into the target dictionary.
 func register_property(target, subname: String, type: String, parser: XMLParser):
+	# Decide which subset of the target we're writing to, based on type.
+	# Dictionaries and arrays are passed by reference, so by assigning the
+	# subset to item_class_properties, we get a window into the target.
 	var item_class_properties
-	
 	if type == "item":
+		# Properties of items should be written into the desired item's
+		# properties dictionary.
 		item_class_properties = target[int(subname)].properties
 	else:
+		# Properties of anything else go directly into the desired thing.
 		item_class_properties = target[subname]
 	
+	# Write property values to the target, on the entry keyed to this
+	# XML node's label.
 	item_class_properties[parser.get_named_attribute_value("label")] = collect_property_values(parser)
 
 
-## Returns:
-## Nothing? item_class_properties is declared in-function, never returned....
+## Loads a predefined property, specified by the parsed XML,
+## into the given target dictionary.
 func implement_property(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
-	
 	if type == "item":
 		item_class_properties = target[int(subname)].properties
 	else:
@@ -363,11 +377,10 @@ func collect_property_values(parser: XMLParser) -> Dictionary:
 	return properties
 
 
-## Returns:
-## Nothing? item_class_properties is declared in-function, never returned....
+## Loads an entire set of predefined properties, specified by the parsed XML, 
+## into the given target dictionary.
 func inherit_class(target, subname: String, type: String, parser: XMLParser):
 	var item_class_properties
-	
 	if type == "item":
 		item_class_properties = target[int(subname)].properties
 	else:
