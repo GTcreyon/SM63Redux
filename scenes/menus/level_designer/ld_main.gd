@@ -18,6 +18,7 @@ enum EDITOR_STATE { IDLE, PLACING, SELECTING, DRAGGING, POLYGON_CREATE, POLYGON_
 
 ## Definitions for base classes that items can implement.
 var item_classes = {}
+## Definitions for define-once properties that can be reused between items.
 var item_static_properties = {}
 ## Definitions for each type of item that can be placed.
 ## Each entry is a dictionary with the following properties:[br]
