@@ -21,10 +21,7 @@ enum EDITOR_STATE {
 	DRAGGING,
 	POLYGON_CREATE,
 	POLYGON_EDIT,
-	POLYGON_DRAG_VERTEX,
-	## The state of playtesting the level.
-	## Pressing [kbd]ld_exit[/kbd] will return to the level designer.
-	PLAYTESTING,
+	POLYGON_DRAG_VERTEX
 }
 
 ## Definitions for base classes that items can implement.
@@ -46,6 +43,10 @@ var item_textures: Array[Dictionary] = []
 var item_scenes = []
 ## The current polygon node which is being edited
 var polygon_edit_node
+
+## Set to [code]true[/code] to enable returning to the level designer
+## when [kbd]ld_exit[/kbd] is pressed.
+var in_level = false
 
 ## The current state (mode) the level editor interface is in.
 ## Emits [signal editor_state_changed] when changed.
@@ -74,8 +75,8 @@ func _ready():
 
 func _process(_dt):
 	if Input.is_action_just_pressed("ld_exit"): # Return to designer
-		if editor_state == EDITOR_STATE.PLAYTESTING:
-			editor_state = EDITOR_STATE.IDLE
+		if in_level:
+			in_level = false
 			get_tree().change_scene_to_file("res://scenes/menus/level_designer/level_designer.tscn")
 
 
