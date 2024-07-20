@@ -73,7 +73,7 @@
         <inherit name="ball" />
     </item>
 
-    <item id="red_coin" name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!" />
+    <item id="coin_red" name="Red Coin" description="Counts for 2 yellow coins. Collect them all to summon a Shine Sprite!" />
 		<scene path="res://classes/pickup/coin/red/coin_red.tscn" />
 		<texture tag="Placed" path="res://scenes/menus/level_designer/icons/pickup/coin_red.tres" />
         <inherit name="ball" />
