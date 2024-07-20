@@ -1,7 +1,6 @@
 class_name Serializer
 
-const ITEM_END_MARKER_BYTES = [255, 255]
-const ITEM_END_MARKER_VALUE = (255 << 8) | 255 # 255, 255 = 65536
+const ITEM_END_MARKER_VALUE = "end_items"
 
 var pointer: int = 0
 var buffer_to_load: PackedByteArray
@@ -23,7 +22,7 @@ func generate_level_binary(
 	# Serialize items in the level.
 	for item in items:
 		# Item ID.
-		output.append_array(encode_uint_bytes(item.item_id, 2))
+		output.append_array(encode_string_bytes(String(item.item_id)))
 		# Item's properties.
 		for key in item.properties:
 			# Get type of property so we know what type to serialize.
@@ -33,7 +32,7 @@ func generate_level_binary(
 				get_value_length_from_type(type))
 			output.append_array(val)
 	# Mark end of item array.
-	output.append_array([255, 255])
+	output.append_array(encode_string_bytes(ITEM_END_MARKER_VALUE))
 		
 	# Serialize polygons.
 	output.append_array(encode_uint_bytes(polygons.size(), 3))
@@ -71,13 +70,9 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 	# Load level's items into nodes.
 	
 	# Prime the loop....
-	var item_id = decode_uint_bytes(read_bytes(2))
+	var item_id = decode_string_bytes()
 	# Loop until we reach the end-of-item-array marker.
-	while item_id != ITEM_END_MARKER_VALUE:
-		assert(item_id < target_node.items.size(),
-			"Loading item with invalid ID %s. Highest valid ID is %s." %
-			[item_id, target_node.items.size() - 1])
-		
+	while item_id != ITEM_END_MARKER_VALUE:		
 		# Create node for this item.
 		var inst = target_node.ITEM_PREFAB.instantiate()
 		
@@ -100,7 +95,7 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 		target_node.get_node("Template/Items").add_child(inst)
 		
 		# Fetch next item ID.
-		item_id = decode_uint_bytes(read_bytes(2))
+		item_id = decode_string_bytes()
 	
 	# Load polygons into nodes as well.
 	# The 3 bytes here tell us how many polygons to load.
