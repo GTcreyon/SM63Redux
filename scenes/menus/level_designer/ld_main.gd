@@ -10,9 +10,11 @@ extends Node2D
 
 ## Emitted when [member editor_state] is changed.
 signal editor_state_changed(old: EDITOR_STATE, new: EDITOR_STATE)
-## Emitted just before playtesting begins.
+## Emitted just before playtesting begins, while the editor is still in a fully
+## valid state.
 signal playtest_started
-## Emitted just after playtesting ends.
+## Emitted just after playtesting ends, once the editor is back to a fully valid
+## state.
 signal playtest_ended
 
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
@@ -81,8 +83,8 @@ func _process(_dt):
 	if Input.is_action_just_pressed("ld_exit"): # Return to designer
 		if in_level:
 			in_level = false
-			playtest_ended.emit()
 			get_tree().change_scene_to_file("res://scenes/menus/level_designer/level_designer.tscn")
+			playtest_ended.emit()
 
 
 # Sets the state of the editor.
