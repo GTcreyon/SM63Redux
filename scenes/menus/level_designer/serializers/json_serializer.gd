@@ -1,10 +1,10 @@
 class_name JSONSerializer
 extends Node
 
-var save_json := {}
-
 const LD_ITEM = preload("res://scenes/menus/level_designer/ld_item/ld_item.tscn")
 const LD_TERRAIN = preload("res://classes/solid/terrain/terrain_polygon.tscn")
+
+var save_json := {}
 
 
 ## Generates a JSON representation of the level.
@@ -28,6 +28,14 @@ func generate_level_json(editor: Node) -> String:
 	
 	print(save_json)
 	return JSON.stringify(save_json)
+
+
+func load_level_json(file_content, editor: Node):
+	var file_json = JSON.parse_string(file_content)
+	
+	_load_items_json(file_json.items, editor)
+	_load_polygons_json(file_json.polygons, editor)
+	_load_editor_json(file_json.editor, editor)
 
 
 func _generate_items_json(editor: Node) -> Dictionary:
@@ -92,14 +100,6 @@ func _generate_editor_json(editor: Node) -> Dictionary: # better logic can be ad
 		"version": Singleton.LD_VERSION,
 		"last_camera_pos": Vector2(camera.position.x, camera.position.y)
 	}
-
-
-func load_level_json(file_content, editor: Node):
-	var file_json = JSON.parse_string(file_content)
-	
-	_load_items_json(file_json.items, editor)
-	_load_polygons_json(file_json.polygons, editor)
-	_load_editor_json(file_json.editor, editor)
 
 
 func _load_items_json(items_json, editor: Node):
