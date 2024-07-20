@@ -9,7 +9,7 @@ extends Node2D
 ## and snap vectors (and the mouse cursor) to the grid.
 
 ## Emitted when [member editor_state] is changed.
-signal editor_state_changed
+signal editor_state_changed(old: EDITOR_STATE, new: EDITOR_STATE)
 
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 const ITEM_PREFAB = preload("res://scenes/menus/level_designer/ld_item/ld_item.tscn")
@@ -83,7 +83,7 @@ func _process(_dt):
 func _set_editor_state(new: EDITOR_STATE):
 	var old = editor_state
 	editor_state = new
-	emit_signal("editor_state_changed", old, editor_state)
+	editor_state_changed.emit(old, editor_state)
 
 
 ## Gets the currently edited level node tree.
