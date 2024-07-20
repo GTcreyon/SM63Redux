@@ -1,15 +1,8 @@
 extends FileDialog
 
-var load_dict: Dictionary
-var pointer: int = 0
-var buffer: PackedByteArray
-
-@onready var main = $"/root/Main"
-
-
 func _on_OpenDialog_file_selected(path):
-	var file = FileAccess.open(path, FileAccess.READ)
-	buffer = file.get_buffer(file.get_length())
-	file.close()
 	var serializer = Serializer.new()
-	serializer.load_level_binary(buffer, main)
+	var EditorRoot = get_node("/root/Main/Template")
+	var file = FileAccess.open(path, FileAccess.READ)
+	
+	serializer.load_level_json(file.get_as_text(), EditorRoot)

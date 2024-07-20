@@ -66,7 +66,8 @@ func _ready():
 	add_child(template)
 	_read_items()
 	var serializer = Serializer.new()
-	serializer.run_tests(true)
+	# serializer.run_tests(true)
+	# Disabled this for now, idk if its needed anymore
 	
 	if Singleton.ld_buffer != PackedByteArray([]):
 		serializer.load_level_binary(Singleton.ld_buffer, self)
