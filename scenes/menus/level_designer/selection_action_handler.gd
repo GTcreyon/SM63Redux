@@ -82,15 +82,3 @@ func _on_duplicator_pressed():
 func _on_polygon_pressed():
 	if len(selection_handler.selection_hit) == 1:
 		polygon_editor.begin_edit(selection_handler.selection_hit[0])
-		polygon_editor.polygon_deleted.connect(Callable(self, "_on_polygon_deleted"))
-
-
-func _on_polygon_deleted(polygon: Polygon2D):
-	# Remove the now-deleted polygon from the selection.
-	# Currently it's not possible to open the polygon editor if there's
-	# more than just one terrain lump selected, but if we ever implement
-	# multi-edit, we'll want more selective logic than just deselect-all.
-	selection_handler.remove_from_selection(polygon)
-	# Detach this callback from the signal, to keep the system clean and avoid
-	# side effects.
-	polygon_editor.polygon_deleted.disconnect(Callable(self, "_on_polygon_deleted"))

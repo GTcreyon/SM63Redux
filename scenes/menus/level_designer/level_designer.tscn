@@ -522,6 +522,7 @@ text = "Placeholder Loading Text"
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Dragger" to="UIFollow/Selection/Buttons" method="_on_dragger_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Duplicator" to="UIFollow/Selection/Buttons" method="_on_duplicator_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Polygon" to="UIFollow/Selection/Buttons" method="_on_polygon_pressed"]
+[connection signal="polygon_deleted" from="UIFollow/PolygonEditor" to="UIFollow/Selection" method="_on_polygon_deleted"]
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
 [connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]

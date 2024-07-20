@@ -98,6 +98,14 @@ static func is_a_polygon_item(item: Node) -> bool:
 	return parent_name == "Terrain" or parent_name == "Water" or parent_name == "CameraLimits"
 
 
+func _on_polygon_deleted(polygon: Polygon2D):
+	# Remove the now-deleted polygon from the selection.
+	# Currently it's not possible to open the polygon editor if there's
+	# more than just one terrain lump selected, but if we ever implement
+	# multi-edit, we'll want more selective logic than just deselect-all.
+	remove_from_selection(polygon)
+
+
 ## Sets the selection to the given item or array of items. The previous
 ## selection will be cleared.
 func set_selection(item):
