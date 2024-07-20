@@ -89,7 +89,7 @@ func _unhandled_input(event):
 		accept_event()
 
 
-static func is_a_polygon_item(item: Node) -> bool:
+func is_a_polygon_item(item: Node) -> bool:
 	if !item:
 		return false
 	if !item.get_parent():
