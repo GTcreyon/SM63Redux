@@ -49,9 +49,6 @@ func _generate_items_json(editor: Node) -> Dictionary:
 
 	for item in scene_items:
 		var item_id = item.item_id
-		if typeof(item.item_id == TYPE_INT):
-			# This line & function can be removed once string IDs are implemented
-			item_id = translate_id(item.item_id)
 		# item_properties will prob. be a dictionary with extra data like rotation, scale, etc.
 		var item_data = [item.position.x, item.position.y, item_properties]
 		if !item_data[-1]:
@@ -104,15 +101,13 @@ func _load_items_json(items_json, editor: Node):
 	var main = editor.get_node("/root/Main")
 	var new_items_parent = Node2D.new()
 	
-	for item_type in items_json:
-		# Yet again, will not be necessary after string IDs implementation
-		var item_id = translate_id(item_type)
-		for item in items_json[item_type]:
+	for item_id in items_json:
+		for inst in items_json[item_id]:
 			var new_item = LD_ITEM.instantiate()
-			new_item.item_id = int(item_id)
-			new_item.position = Vector2(item[0], item[1])
+			new_item.item_id = item_id
+			new_item.position = Vector2(inst[0], inst[1])
 			new_item.texture = load(main.item_textures[item_id]["Placed"])
-			# item[2] would be properties, which can be applied once that is up and working
+			# inst[2] would be properties, which can be applied once that is up and working
 			new_items_parent.add_child(new_item)
 			
 	# This approach makes sure everything ran fine before loading the new items
@@ -184,52 +179,3 @@ func str_to_vec2(str := "") -> Vector2: # t
 	new_str = new_str.erase(new_str.length() -1, 1)
 	var array = new_str.split(", ")
 	return Vector2(int(array[0]), int(array[1]))
-
-
-# TODO: Everything under this line will most likely be removed once string IDs are properly implemented
-
-func translate_id(item_id):
-	# NUMBER -> STRING
-	if typeof(item_id) == TYPE_INT:
-		return ITEM_MAPPING[item_id]
-
-	# STRING -> NUMBER
-	elif typeof(item_id) == TYPE_STRING:
-		for item in ITEM_MAPPING.keys():
-			if ITEM_MAPPING[item] == item_id: return item
-
-	return null
-
-
-const ITEM_MAPPING = {
-	0: "coin",
-	1: "red_coin",
-	2: "blue_coin",
-	3: "silver_shine",
-	4: "shine_sprite",
-	5: "spin_block",
-	6: "log",
-	7: "falling_log",
-	8: "tipping_log",
-	9: "cloud_middle",
-	10: "wood_platform",
-	11: "pipe",
-	12: "goomba",
-	13: "parakoopa",
-	14: "koopa",
-	15: "koopashell",
-	16: "bobomb",
-	17: "cheep_cheep",
-	18: "goonie",
-	19: "butterfly",
-	20: "sign",
-	21: "water_bottle_small",
-	22: "water_bottle_big",
-	23: "hover_fludd_box",
-	24: "big_tree",
-	25: "small_tree",
-	26: "big_rock",
-	27: "arrow",
-	28: "twirl_heart",
-	29: "breakable_box",
-}
