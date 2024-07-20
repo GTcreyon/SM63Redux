@@ -1,7 +1,7 @@
 extends FileDialog
 
 func _on_OpenDialog_file_selected(path):
-	var serializer = Serializer.new()
+	var serializer = JSONSerializer.new()
 	var EditorRoot = get_node("/root/Main/Template")
 	var file = FileAccess.open(path, FileAccess.READ)
 	
