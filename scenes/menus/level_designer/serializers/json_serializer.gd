@@ -85,7 +85,7 @@ func _generate_polygons_json(editor: Node) -> Dictionary:
 			# Prepare list if there are polygons of this type
 			polygons_json[polygon_type] = []
 		for polygon in scene_polygons[polygon_type]:
-			var polygon_properties = fetch_polygon_properties(polygon)
+			var polygon_properties = _fetch_polygon_properties(polygon)
 			polygons_json[polygon_type].append(polygon_properties)
 	return polygons_json
 
@@ -130,13 +130,13 @@ func _load_polygons_json(polygons_json, editor: Node):
 				"terrain": new_polygon = LD_TERRAIN.instantiate()
 				"water": pass # TODO: water not ready yet
 
-			new_polygon.position = str_to_vec2(polygon.position)
+			new_polygon.position = _str_to_vec2(polygon.position)
 			# new_polygon.properties = polygon.properties
 
 			for vertex in polygon.vertices:
 				if polygon.vertices.size() < 3:
 					break
-				new_polygon_vertices.append(str_to_vec2(vertex))
+				new_polygon_vertices.append(_str_to_vec2(vertex))
 
 			new_polygon.polygon = new_polygon_vertices
 
@@ -149,12 +149,12 @@ func _load_polygons_json(polygons_json, editor: Node):
 
 func _load_editor_json(editor_json, editor: Node):
 	var Camera = editor.get_node("../Camera")
-	Camera.position = str_to_vec2(editor_json.last_camera_pos)
+	Camera.position = _str_to_vec2(editor_json.last_camera_pos)
 
 
 # EXTRA STUFF
 
-func fetch_polygon_properties(polygon: Node) -> Dictionary:
+func _fetch_polygon_properties(polygon: Node) -> Dictionary:
 	var polygon_properties = {}
 	
 	# Store position
@@ -173,7 +173,7 @@ func fetch_polygon_properties(polygon: Node) -> Dictionary:
 	return polygon_properties
 
 
-func str_to_vec2(str := "") -> Vector2: # t
+func _str_to_vec2(str := "") -> Vector2: # t
 	var new_str = str
 	new_str = new_str.erase(0, 1)
 	new_str = new_str.erase(new_str.length() -1, 1)
