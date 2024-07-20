@@ -16,7 +16,6 @@ func generate_level_json(editor: Node) -> String:
 	save_json.items = _generate_items_json(editor)
 	# All polygons loaded
 	save_json.polygons = _generate_polygons_json(editor)
-	var editor_json = _generate_editor_json(editor)
 	
 	print(save_json)
 	return JSON.stringify(save_json)
