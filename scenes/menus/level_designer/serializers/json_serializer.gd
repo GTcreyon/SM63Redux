@@ -15,9 +15,9 @@ func generate_level_json(editor: Node) -> String:
 		author = "",
 		missions = [],
 		# used for forward/backward compat between at least published demos
-		format_ver = "0.0.0"
+		format_ver = Singleton.LD_VERSION
 	}
-	# Extra data (Editor version, Last camera position, etc.)
+	# Editor state saved between sessions (maybe strip in minified exports?)
 	save_json.editor = _generate_editor_json(editor)
 	assert(save_json.editor)
 	# All entities / items loaded
@@ -96,7 +96,6 @@ func _generate_polygons_json(editor: Node) -> Dictionary:
 func _generate_editor_json(editor: Node) -> Dictionary: # better logic can be added later
 	var camera: Camera2D = editor.get_node("../Camera")
 	return {
-		"version": Singleton.LD_VERSION,
 		"last_camera_pos": Vector2(camera.position.x, camera.position.y)
 	}
 
