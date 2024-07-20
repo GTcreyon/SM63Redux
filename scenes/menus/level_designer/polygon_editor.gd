@@ -121,6 +121,12 @@ func begin_edit(obj_to_edit: Polygon2D):
 	# Hide the target node for editing.
 	obj_to_edit.visible = false
 	
+	# Ensure the polyeditor properly cleans up and commits future edits
+	# if the user starts playtesting.
+	# (CONNECT_ONE_SHOT does no good here--manual cleanup from within _end_edit
+	#  is still needed for other cases. More details in _end_edit.)
+	main.playtest_started.connect(Callable(self, "_end_edit").bind(true))
+	
 	# Create a world-space copy of the polygon's points array.
 	var data: Array[Vector2] = [] # type hint required so inner begin_edit works
 	for point in obj_to_edit.polygon:
@@ -149,6 +155,16 @@ func _end_edit(save: bool):
 	
 	# Re-show the hidden target node.
 	main.polygon_edit_node.visible = true
+	
+	# Disconnect the apply-on-playtest callback.
+	# (Using CONNECT_ONE_SHOT at callback register time does no good here--
+	#  because _end_edit can be called without invoking the callback. Then
+	#  the callback isn't emitted, doesn't disconnect anything, and when the
+	#  playtest starts, _end_edit gets called outside of a poly-edit operation.
+	#  As such, either way manual cleanup is required for tidiness.)
+	# (This fn is currently set up to self-abort in that case, but
+	#  practicing callback hygiene is never wrong.)
+	main.playtest_started.disconnect(Callable(self, "_end_edit"))
 
 
 func add_vertex(at_position: Vector2, at_index: int):
