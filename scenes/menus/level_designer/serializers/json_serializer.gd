@@ -4,27 +4,19 @@ extends Node
 const LD_ITEM = preload("res://scenes/menus/level_designer/ld_item/ld_item.tscn")
 const LD_TERRAIN = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 
-var save_json := {}
-
 
 ## Generates a JSON representation of the level.
 func generate_level_json(editor: Node) -> String:
-	# All entities / items loaded
-	var items_json = _generate_items_json(editor)
-	# All polygons loaded
-	var polygons_json = _generate_polygons_json(editor)
+	var save_json := {}
+	
 	# Extra data (Editor version, Last camera position, etc.)
+	save_json.editor = _generate_editor_json(editor)
+	assert(save_json.editor)
+	# All entities / items loaded
+	save_json.items = _generate_items_json(editor)
+	# All polygons loaded
+	save_json.polygons = _generate_polygons_json(editor)
 	var editor_json = _generate_editor_json(editor)
-	
-	# Optimization: Only add dictionaries with content in them 
-	if items_json:
-		save_json.items = items_json 
-	if polygons_json:
-		save_json.polygons = polygons_json
-	
-	# Editor metadata has to be saved though
-	assert(editor_json)
-	save_json.editor = editor_json
 	
 	print(save_json)
 	return JSON.stringify(save_json)
