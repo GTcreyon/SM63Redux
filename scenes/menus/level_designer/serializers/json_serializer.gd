@@ -9,6 +9,14 @@ const LD_TERRAIN = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 func generate_level_json(editor: Node) -> String:
 	var save_json := {}
 	
+	# Level info
+	save_json.info = {
+		title = "",
+		author = "",
+		missions = [],
+		# used for forward/backward compat between at least published demos
+		format_ver = "0.0.0"
+	}
 	# Extra data (Editor version, Last camera position, etc.)
 	save_json.editor = _generate_editor_json(editor)
 	assert(save_json.editor)
