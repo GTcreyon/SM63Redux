@@ -13,8 +13,8 @@ var red = 0
 var water_bodies = 0
 
 
-func _ready_override() -> void:
-	super._ready_override()
+func _ready():
+	super()
 	
 	if vel == Vector2.INF:
 		vel.x = (Singleton.rng.randf() * 4 - 2) * 0.53

@@ -70,8 +70,8 @@ func enemy_die():
 	queue_free()
 
 
-func _ready_override():
-	super._ready_override()
+func _ready():
+	super()
 	_setup_pickup_ids()
 	_init_animation()
 

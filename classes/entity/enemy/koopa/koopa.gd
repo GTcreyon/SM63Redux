@@ -33,8 +33,8 @@ func set_color(new_color: ShellColor):
 	color = new_color
 
 
-func _ready_override():
-	super._ready_override()
+func _ready():
+	super()
 	init_position = position
 	if color != ShellColor.RED:
 		_edge_check_path = ""

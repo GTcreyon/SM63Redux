@@ -25,16 +25,7 @@ var _water_bodies: int = 0
 @onready var water_check = get_node_or_null(_water_check_path)
 
 
-# Virtual methods such as _ready(), _process() and _physics_process() behave unusually when inherited.
-# This (I think) is because Godot manages these with notifications, unlike other methods.
-# As such, overriding them doesn't actually disable the original functionality.
-# For this reason, we wrap the code in a separate function, which can be overridden properly.
-# See _ready_override().
 func _ready():
-	_ready_override()
-
-
-func _ready_override():
 	_connect_signals()
 
 

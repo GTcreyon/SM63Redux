@@ -21,10 +21,6 @@ var _respawn_timer: float = -1
 
 
 func _ready():
-	_ready_override()
-
-
-func _ready_override() -> void:
 	if sprite != null:
 		if not disabled and sprite.has_method("play"):
 			sprite.play()

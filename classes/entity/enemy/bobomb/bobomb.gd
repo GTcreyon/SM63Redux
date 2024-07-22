@@ -33,8 +33,8 @@ var _fuse_time: int = FUSE_DURATION
 @onready var sfx_fuse = $SFXFuse
 @onready var sfx_build = $SFXBuildup
 
-func _ready_override():
-	super._ready_override()
+func _ready():
+	super()
 	fuse = _preempt_node_ready(fuse, "Sprites/Fuse")
 	key = _preempt_node_ready(key, "Sprites/Key")
 	if not disabled:

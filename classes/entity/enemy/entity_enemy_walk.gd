@@ -46,8 +46,8 @@ func turn_around():
 		edge_check.position.x *= -1
 
 
-func _ready_override():
-	super._ready_override()
+func _ready():
+	super()
 	if edge_check != null and mirror:
 		edge_check.position.x *= -1
 
