@@ -21,13 +21,13 @@ var target = null
 
 
 func _connect_signals():
-	super._connect_signals()
+	super()
 	_connect_node_signal_if_exists(alert_area, "body_entered", self, "_on_AlertArea_body_entered")
 	_connect_node_signal_if_exists(aware_area, "body_exited", self, "_on_AwareArea_body_exited")
 
 
 func set_disabled(val):
-	super.set_disabled(val)
+	super(val)
 	_set_node_property_if_exists(alert_area, "disabled", val)
 	_set_node_property_if_exists(aware_area, "disabled", val)
 	_set_node_property_if_exists(edge_check, "disabled", val)
@@ -46,7 +46,7 @@ func _ready():
 
 
 func _physics_step():
-	super._physics_step()
+	super()
 	
 	if stomped:
 		return
