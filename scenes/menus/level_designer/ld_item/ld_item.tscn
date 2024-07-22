@@ -9,6 +9,7 @@ resource_local_to_scene = true
 [node name="LDItem" type="Sprite2D"]
 texture = ExtResource("2")
 script = ExtResource("1")
+metadata/load_properties = {}
 
 [node name="ClickArea" type="Area2D" parent="."]
 
