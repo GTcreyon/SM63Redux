@@ -8,7 +8,6 @@ extends Entity
 @onready var sprite = get_node_or_null(_sprite_path)
 
 
-func _process_override(_delta):
-	super._process_override(_delta)
+func _process(delta):
 	if sprite != null:
 		sprite.flip_h = mirror

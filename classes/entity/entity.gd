@@ -41,17 +41,9 @@ func _preempt_all_node_readies():
 	water_check = _preempt_node_ready(water_check, _water_check_path)
 
 
-func _process(delta):
-	_process_override(delta)
-
-
 func _physics_process(_delta):
 	if !disabled:
 		_physics_step()
-
-
-func _process_override(_delta):
-	pass
 
 
 # The default entity physics step.
