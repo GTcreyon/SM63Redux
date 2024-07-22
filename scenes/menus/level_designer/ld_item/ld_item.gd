@@ -53,6 +53,9 @@ var properties: Dictionary = {}
 
 
 func _ready():
+	
+	_on_level_load()
+	
 	if ghost:
 		modulate.a = 0.5
 		position = main.snap_vector(get_global_mouse_position())
@@ -60,6 +63,15 @@ func _ready():
 	# Size my hitbox to match my texture
 	$ClickArea/CollisionShape2D.shape.size = texture.get_size()
 
+func _on_level_load():
+	if get_meta("load_properties"):
+		properties = get_meta("load_properties")
+		property_menu.properties = properties
+		scale = properties.get("Scale", Vector2(1, 1))
+		rotation_degrees = properties.get("Rotation", 0.0)
+		flip_h = properties.get("Mirror", false)
+		item_disabled_tint(properties.get("Disabled", false))
+		remove_meta("load_properties")
 
 func _input(event):
 	# Instead of this guard, can we like disconnect the _input event?
