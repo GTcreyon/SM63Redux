@@ -42,7 +42,7 @@ func _physics_process(_delta):
 		_physics_step()
 
 
-# The default entity physics step.
+## Called in _physics_process when not disabled.
 func _physics_step():
 	if _water_bodies > 0:
 		vel.y = min(vel.y + GRAVITY, TERM_VEL_WATER)
@@ -75,8 +75,7 @@ func _on_WaterCheck_area_exited(_area):
 	_water_bodies -= 1
 
 
-# Setget for the "disabled" property
-# Can be overridden in child classes
+## Sets the disabled state.
 func set_disabled(val):
 	disabled = val
 	set_collision_layer_value(3, 0 if val else 1)
@@ -85,13 +84,13 @@ func set_disabled(val):
 # The following functions deal with child nodes that may or may not exist.
 # This is useful for having optional functionality.
 
-# Set a node's property if the node exists.
+## Set a node's property if the node exists.
 func _set_node_property_if_exists(node: Node, property: String, val) -> void:
 	if node != null:
 		node.set(property, val)
 
 
-# Connect a node to a signal if the node exists.
+## Connect a node to a signal if the node exists.
 func _connect_node_signal_if_exists(node, signame: String, target, method: String, deferred : bool = false) -> void:
 	if node != null:
 		node.connect(signame, Callable(target, method), CONNECT_DEFERRED if deferred else 0)

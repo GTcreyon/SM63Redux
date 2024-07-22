@@ -1,31 +1,9 @@
 class_name EntityEnemy
 extends EntityMirrorable
-# Parent class for enemy entities.
-# Enemies are able to hurt the player with a hitbox, and be hurt/killed with a hurtbox.
-# Enemies can drop a specified number of coins when killed.
-# 
-# Functions which child classes SHOULD implement:
-# - _physics_step():
-#		the update function, of course.
-#		The default behavior handles landing from a spin/dive strike, then calls
-#		 _hurtbox_check() if inside_check is set.
-# -	_hurt_crush():
-# 		called when the enemy is stomped.
-#		The default behavior is just to play sfx_stomp, if it exists.
-# - _hurt_strike():
-# 		called when the enemy is struck, e.g. by the player's spin or dive.
-#		The default behavior is to play sfx_struck, if it exists, mark the
-#		enemy as having been struck (struck = true), then pop the enemy a bit
-#		upwards and to the side (away from the source of impact) by setting
-#		velocity.
-#		Generally _struck_land() handles the actual enemy death.
-# -	_struck_land():
-# 		called when the enemy lands after being struck.
-#		The default behavior is just to play sfx_struck_landed, if it exists.
-
-# Functions for child classes to use IN their implementations:
-# - enemy_die():
-#	destroys the enemy and spawns its coin pickups.
+## Abstract class for enemy entities.
+##
+## Enemies are able to hurt the player with a hitbox, and be hurt/killed with a hurtbox.
+## Enemies can drop a specified number of coins when killed.
 
 const COIN_PREFAB = preload("res://classes/pickup/coin/yellow/coin_yellow.tscn")
 const SMOKE_PREFAB = preload("res://classes/entity/enemy/smoke_poof.tscn")
@@ -53,7 +31,8 @@ var _pickup_ids: Array = []
 @onready var sfx_struck_landed: AudioStreamPlayer2D = get_node_or_null(_sfx_struck_land_path)
 @export var residualize_sfx_struck_landed = true
 
-# Make the enemy die and drop its coins.
+
+## Make the enemy die and drop its coins.
 func enemy_die():
 	for _i in range(coin_count):
 		var id = _pickup_ids[_i]
@@ -77,9 +56,9 @@ func _ready():
 
 
 func _physics_step():
-	super._physics_step()
+	super()
 	
-	# Triggered when landing on the floor after being struck by a spin
+	# Triggered when landing on the floor after being struck
 	if is_on_floor() and struck and !stomped and vel.y > 0:
 		# Play the landing sound, if there is one
 		if sfx_struck_landed != null:
@@ -123,7 +102,7 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 
 
 func set_disabled(val):
-	super.set_disabled(val)
+	super(val)
 	_set_node_property_if_exists(sprite, "playing", !val)
 
 
@@ -142,16 +121,19 @@ func _init_animation():
 			sprite.stop()
 
 
+## Called when the enemy is stomped.
 func _hurt_crush(_handler: HitHandler):
 	pass
 
 
-## Pop the enemy up into the air and off to the side, away from the body that issued the strike
+## Called when the enemy is struck.
+## Default behavior is to pop the enemy up into the air and off to the side, away from the attacker.
 func _hurt_strike(handler: HitHandler):
 	struck = true
 	vel.y -= 2.63
 	vel.x = max((12 + abs(vel.x) / 1.5), 0) * 5.4 * sign(position.x - handler.get_pos().x) / 10 / 1.5
 
 
+## Called when the enemy lands after being struck.
 func _struck_land():
 	pass
