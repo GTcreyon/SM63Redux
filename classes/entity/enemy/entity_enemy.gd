@@ -127,11 +127,6 @@ func set_disabled(val):
 	_set_node_property_if_exists(sprite, "playing", !val)
 
 
-func _preempt_all_node_readies():
-	super._preempt_all_node_readies()
-	sprite = _preempt_node_ready(sprite, _sprite_path)
-
-
 # Get IDs from the collect server for each coin
 func _setup_pickup_ids():
 	_pickup_ids = FlagServer.claim_flag_id_array(coin_count)

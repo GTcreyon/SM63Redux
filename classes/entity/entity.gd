@@ -10,7 +10,7 @@ const GRAVITY = 0.17
 const TERM_VEL_AIR = 6
 const TERM_VEL_WATER = 2
 
-@export var disabled = false: set = set_disabled
+@export var disabled = false
 var vel = Vector2.ZERO
 var _water_bodies: int = 0
 
@@ -26,19 +26,15 @@ var _water_bodies: int = 0
 
 
 func _ready():
+	set_disabled(disabled)
 	_connect_signals()
 
 
 # Connect WaterCheck signals through code.
 # Since this is in a parent class, this cannot be done in the scene editor.
 func _connect_signals():
-	_preempt_all_node_readies()
 	_connect_node_signal_if_exists(water_check, "area_entered", self, "_on_WaterCheck_area_entered")
 	_connect_node_signal_if_exists(water_check, "area_exited", self, "_on_WaterCheck_area_exited")
-
-
-func _preempt_all_node_readies():
-	water_check = _preempt_node_ready(water_check, _water_check_path)
 
 
 func _physics_process(_delta):
@@ -83,20 +79,11 @@ func _on_WaterCheck_area_exited(_area):
 # Can be overridden in child classes
 func set_disabled(val):
 	disabled = val
-	_preempt_all_node_readies()
 	set_collision_layer_value(3, 0 if val else 1)
 
 
 # The following functions deal with child nodes that may or may not exist.
 # This is useful for having optional functionality.
-
-# Almost functionally identical to simply running get_node_or_null(path).
-# However, this function is used due to its semantic significance.
-# It is also marginally more secure, as it will not destroy the reference if the node is reparented.
-# This is used during the ready cycle, when a node may not be assigned to its variable properly.
-func _preempt_node_ready(node, path: NodePath) -> Node:
-	return get_node_or_null(path) if node == null else node
-
 
 # Set a node's property if the node exists.
 func _set_node_property_if_exists(node: Node, property: String, val) -> void:

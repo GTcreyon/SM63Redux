@@ -6,7 +6,7 @@ extends AnimatedSprite2D
 
 @export var koopa_scene: PackedScene
 @export var shell_scene: PackedScene
-@export var disabled = false: set = set_disabled
+@export var disabled = false
 @export var mirror = false
 @export var color := Koopa.ShellColor.GREEN
 
@@ -17,6 +17,7 @@ func set_color(new_color):
 
 
 func _ready():
+	set_disabled(disabled)
 	# Ensure that the material is unique so we can set its parameters.
 	# "Local to scene" causes issues with source control, because UIDs are refreshed on loading the scene.
 	# This method refreshes them at runtime instead of in the editor.

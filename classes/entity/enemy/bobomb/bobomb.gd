@@ -35,8 +35,6 @@ var _fuse_time: int = FUSE_DURATION
 
 func _ready():
 	super()
-	fuse = _preempt_node_ready(fuse, "Sprites/Fuse")
-	key = _preempt_node_ready(key, "Sprites/Key")
 	if not disabled:
 		fuse.play()
 		key.play()

@@ -79,7 +79,6 @@ size = Vector2(2, 2)
 material = ExtResource("4")
 collision_layer = 4
 script = ExtResource("2")
-color = null
 step_indexes = Array[bool]([false, true, false, false, true, false])
 _alert_area_path = NodePath("")
 _aware_area_path = NodePath("")
@@ -97,7 +96,6 @@ _sfx_struck_land_path = NodePath("")
 residualize_sfx_struck_landed = null
 mirror = null
 _sprite_path = null
-disabled = null
 _water_check_path = null
 
 [node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]

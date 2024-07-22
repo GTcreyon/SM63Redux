@@ -20,13 +20,6 @@ var target = null
 @onready var sfx_step = get_node_or_null(_sfx_step_path)
 
 
-func _preempt_all_node_readies():
-	super._preempt_all_node_readies()
-	edge_check = _preempt_node_ready(edge_check, _edge_check_path)
-	alert_area = _preempt_node_ready(alert_area, _alert_area_path)
-	aware_area = _preempt_node_ready(aware_area, _aware_area_path)
-
-
 func _connect_signals():
 	super._connect_signals()
 	_connect_node_signal_if_exists(alert_area, "body_entered", self, "_on_AlertArea_body_entered")

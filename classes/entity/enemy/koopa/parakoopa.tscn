@@ -85,9 +85,6 @@ offset = Vector2(-2, 1)
 script = ExtResource("8")
 koopa_scene = ExtResource("4_3vw85")
 shell_scene = ExtResource("5_pdeod")
-disabled = null
-mirror = null
-color = null
 
 [node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]
 script = ExtResource("4_wifkt")

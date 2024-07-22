@@ -35,7 +35,7 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 	# Default hurt behavior. Can be overridden.
 	match type:
 		Hitbox.Type.CRUSH:
-			handler.set_vel_component(5, Vector2.UP)
+			handler.set_vel_component(Vector2.UP, 5)
 			if handler.get_pos().x < position.x:
 				vel.x = speed
 			else:
