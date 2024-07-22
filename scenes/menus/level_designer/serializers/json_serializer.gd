@@ -41,17 +41,23 @@ func _generate_items_json(editor: Node) -> Dictionary:
 	var scene_items = editor.get_node("Items").get_children()
 	var item_json = {}
 
-# Don't even bother running if there are no items placed
-	if !scene_items.size(): return {} 
+	if !scene_items.size(): 
+		return {} # Don't even bother running if there are no items placed
+
+	# This can probably fetch an item's properties (as a dictionary) in the future
+	var item_properties = null
 
 	for item in scene_items:
 		var item_id = item.item_id
-		var item_properties = _filter_item_properties(item.properties)
-		var item_data := [item.position.x, item.position.y, item_properties] 
-		if !item_properties: item_data.pop_back()
-			
+		# item_properties will prob. be a dictionary with extra data like rotation, scale, etc.
+		var item_data = [item.position.x, item.position.y, item_properties]
+		if !item_data[-1]:
+			# Delete the last element if no extra properties exist
+			# (will always do this right now bc properties aren't implemented)
+			item_data.pop_back()
 		if item_id not in item_json.keys():
-			item_json[item_id] = [item_data] # add new item key if it doesn't exist yet
+			# add new item key if it doesn't exist yet
+			item_json[item_id] = [item_data]
 		else:
 			item_json[item_id].append(item_data) # append if the key exists
 
@@ -97,11 +103,11 @@ func _load_items_json(items_json, editor: Node):
 	
 	for item_id in items_json:
 		for inst in items_json[item_id]:
-			var new_item: Node = LD_ITEM.instantiate()
+			var new_item = LD_ITEM.instantiate()
 			new_item.item_id = item_id
 			new_item.position = Vector2(inst[0], inst[1])
 			new_item.texture = load(main.item_textures[item_id]["Placed"])
-			new_item.set_meta('load_properties', _fetch_item_properties(inst, item_id, main))
+			# inst[2] would be properties, which can be applied once that is up and working
 			new_items_parent.add_child(new_item)
 			
 	# This approach makes sure everything ran fine before loading the new items
@@ -146,51 +152,7 @@ func _load_editor_json(editor_json, editor: Node):
 	Camera.position = _str_to_vec2(editor_json.last_camera_pos)
 
 
-
-# Removes any default configurations from the save JSON
-func _filter_item_properties(item: Dictionary):
-	var item_properties = item.duplicate()
-	item_properties.erase("Position")
-
-	if !item_properties.get("Disabled"): item_properties.erase("Disabled")
-	if item_properties.get("Scale") == Vector2(1, 1): item_properties.erase("Scale")
-	
-	return item_properties
-
-
-func _fetch_item_properties(json_item, item_id, main):
-	var item_properties = main.items[item_id]["properties"].duplicate()
-
-	# Fetch defaults from the main properties
-	for default_property in item_properties:
-		var default_value = null
-		if typeof(item_properties[default_property]) == TYPE_DICTIONARY and item_properties[default_property].has("default"):
-			default_value = item_properties[default_property]["default"]
-			item_properties[default_property] = default_value
-		else: default_value = item_properties[default_property]
-
-		# Update with saved properties from JSON, if available
-		if json_item.size() == 3:
-			var saved_properties = json_item[2]
-			for saved_property in saved_properties:
-				item_properties[saved_property] = saved_properties[saved_property]
-
-		# Convert string properties with Vector2 to actual values
-		if typeof(default_value) == TYPE_STRING and "(" in default_value:
-			item_properties[default_property] = _str_to_vec2(default_value)
-			if json_item.size() == 3:
-				json_item[2][default_property] = item_properties[default_property]
-
-	# Set the Position property using Vector2 from JSON data
-	var position = Vector2(json_item[0], json_item[1])
-	item_properties.Position = position
-
-	# Ensure Disabled property is set to false if not present
-	if item_properties.get("Disabled") == null:
-		item_properties.Disabled = false
-
-	return item_properties
-
+# EXTRA STUFF
 
 func _fetch_polygon_properties(polygon: Node) -> Dictionary:
 	var polygon_properties = {}
@@ -212,12 +174,8 @@ func _fetch_polygon_properties(polygon: Node) -> Dictionary:
 
 
 func _str_to_vec2(str := "") -> Vector2: # t
-	if "Vector2(" in str:
-		return str_to_var(str)
-	elif "(" in str:
-		var new_str = str
-		new_str = new_str.erase(0, 1)
-		new_str = new_str.erase(new_str.length() -1, 1)
-		var array = new_str.split(", ")
-		return Vector2(int(array[0]), int(array[1]))
-	return Vector2.ZERO
+	var new_str = str
+	new_str = new_str.erase(0, 1)
+	new_str = new_str.erase(new_str.length() -1, 1)
+	var array = new_str.split(", ")
+	return Vector2(int(array[0]), int(array[1]))

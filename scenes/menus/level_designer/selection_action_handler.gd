@@ -70,9 +70,6 @@ func _on_duplicator_pressed():
 	being_dragged = []
 	for original in selection_handler.selection_hit:
 		var dupe = original.duplicate()
-		dupe.item_id = original.item_id
-		dupe.properties = original.properties
-		dupe.property_menu = original.property_menu
 		original.get_parent().add_child(dupe)
 		being_dragged.append(dupe)
 	
