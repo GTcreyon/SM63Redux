@@ -1,8 +1,12 @@
 extends AirborneState
 
+@export var _stomp_hitbox: Hitbox = null
+
 var _stylish: bool
 
+
 func _on_enter(handover):
+	_stomp_hitbox.start_hit()
 	_stylish = false
 	if handover == null:
 		_anim(&"fall")
@@ -37,3 +41,7 @@ func _trans_rules():
 		return &"PoundSpin"
 
 	return &""
+
+
+func _on_exit():
+	_stomp_hitbox.stop_hit()

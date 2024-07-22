@@ -84,7 +84,7 @@ func get_vel() -> Vector2:
 
 
 ## Sets the source's speed in the given [param direction] to the given scalar [param amount].
-func set_vel_component(amount: float, direction: Vector2) -> void:
+func set_vel_component(direction: Vector2, amount: float) -> void:
 	var vel = get_vel()
 	set_vel(direction * amount + vel.slide(direction))
 

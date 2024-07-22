@@ -49,6 +49,7 @@
 [ext_resource type="Script" path="res://classes/autoplay.gd" id="22"]
 [ext_resource type="Script" path="res://classes/player/state/rollout.gd" id="22_tddom"]
 [ext_resource type="Script" path="res://classes/player/state/spin_air.gd" id="28_gtw61"]
+[ext_resource type="Script" path="res://classes/player/state/stomp_bounce.gd" id="28_rne8p"]
 [ext_resource type="Script" path="res://classes/player/state/spin_floor.gd" id="29_lj851"]
 [ext_resource type="Script" path="res://classes/entity/hitbox.gd" id="37_gj4ca"]
 
@@ -352,10 +353,6 @@ region = Rect2(0, 240, 48, 48)
 atlas = ExtResource("8")
 region = Rect2(48, 240, 48, 48)
 
-[sub_resource type="AtlasTexture" id="86"]
-atlas = ExtResource("8")
-region = Rect2(288, 96, 48, 48)
-
 [sub_resource type="AtlasTexture" id="87"]
 atlas = ExtResource("8")
 region = Rect2(384, 96, 48, 48)
@@ -364,13 +361,13 @@ region = Rect2(384, 96, 48, 48)
 atlas = ExtResource("8")
 region = Rect2(432, 96, 48, 48)
 
-[sub_resource type="AtlasTexture" id="89"]
-atlas = ExtResource("8")
-region = Rect2(288, 96, 48, 48)
-
 [sub_resource type="AtlasTexture" id="90"]
 atlas = ExtResource("8")
 region = Rect2(336, 96, 48, 48)
+
+[sub_resource type="AtlasTexture" id="86"]
+atlas = ExtResource("8")
+region = Rect2(288, 96, 48, 48)
 
 [sub_resource type="AtlasTexture" id="91"]
 atlas = ExtResource("8")
@@ -869,9 +866,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("86")
-}, {
-"duration": 1.0,
 "texture": SubResource("87")
 }, {
 "duration": 1.0,
@@ -883,13 +877,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("89")
-}, {
-"duration": 1.0,
 "texture": SubResource("90")
 }],
 "loop": false,
 "name": &"stomp_low",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("86")
+}],
+"loop": true,
+"name": &"stomp_start",
 "speed": 5.0
 }, {
 "frames": [{
@@ -1301,8 +1300,9 @@ _motion = NodePath("../Motion")
 target_actor = NodePath("..")
 initial_state = NodePath("Neutral")
 
-[node name="Neutral" type="Node" parent="StateManager"]
+[node name="Neutral" type="Node" parent="StateManager" node_paths=PackedStringArray("hit_handler")]
 script = ExtResource("5_wqc8b")
+hit_handler = NodePath("../../HitHandler")
 
 [node name="Floor" type="Node" parent="StateManager/Neutral"]
 script = ExtResource("3_iy3xo")
@@ -1337,8 +1337,9 @@ hitbox = 1
 [node name="Air" type="Node" parent="StateManager/Neutral"]
 script = ExtResource("4_saxvj")
 
-[node name="Fall" type="Node" parent="StateManager/Neutral/Air"]
+[node name="Fall" type="Node" parent="StateManager/Neutral/Air" node_paths=PackedStringArray("_stomp_hitbox")]
 script = ExtResource("11_4iuru")
+_stomp_hitbox = NodePath("../../../../Hitboxes/HitboxStomp")
 tight_movement = true
 
 [node name="DummyJump" type="Node" parent="StateManager/Neutral/Air"]
@@ -1420,13 +1421,16 @@ friction_divisor = 1.5
 [node name="SpinFloor" type="Node" parent="StateManager/Spin"]
 script = ExtResource("29_lj851")
 
+[node name="StompBounce" type="Node" parent="StateManager"]
+script = ExtResource("28_rne8p")
+
 [node name="CharacterGroup" type="Node2D" parent="."]
 script = ExtResource("4_q4bau")
 
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"walk_start"
+animation = &"stomp_low"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]

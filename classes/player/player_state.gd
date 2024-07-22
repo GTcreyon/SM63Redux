@@ -23,6 +23,7 @@ var _last_anim: StringName
 ## Dictionary of all hitboxes
 @onready var _hitboxes = null
 
+
 func _anim(anim_name: StringName) -> void:
 	if not actor.sprite.is_connected(&"animation_finished", _anim_finished):
 		actor.sprite.connect(&"animation_finished", _anim_finished)

@@ -213,12 +213,12 @@ func set_vel(value: Vector2) -> void:
 
 
 ## Get the velocity.
-func get_vel(value: Vector2) -> void:
-	vel = value
+func get_vel() -> Vector2:
+	return vel
 
 
 ## Set a component of the velocity in a given axis to a given value.
-func set_vel_component(value: float, axis: Vector2) -> void:
+func set_vel_component(axis: Vector2, value: float) -> void:
 	vel = (axis * value) + vel.slide(axis)
 
 

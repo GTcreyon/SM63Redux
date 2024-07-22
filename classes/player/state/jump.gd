@@ -25,11 +25,14 @@ extends AirborneState
 var _anim_index: int
 
 
-func _on_enter(_h):
+func _on_enter(handover):
 	motion.legacy_accel_y(-jump_power, true)
-	motion.consec_jumps = jump_number
+
 	_anim_index = randi_range(0, start_anims.size() - 1)
 	_anim(start_anims[_anim_index])
+
+	if not handover is bool or handover == true:
+		motion.consec_jumps = jump_number
 
 
 func _subsequent_ticks():

@@ -62,7 +62,7 @@ func _wander():
 func _hurt_crush(handler):
 	if cooldown_time_left > 0:
 		return
-	handler.set_vel_component(5, Vector2.UP)
+	handler.set_vel_component(Vector2.UP, 5)
 	into_shell(0)
 
 

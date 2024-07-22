@@ -55,8 +55,11 @@ func _ready_override():
 func _physics_step():
 	super._physics_step()
 	
+	if stomped:
+		return
+
 	_manage_footsteps()
-	
+
 	if target != null and target.locked:
 		target = null
 	if target == null:

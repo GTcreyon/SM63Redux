@@ -14,15 +14,10 @@ var land_timer = 0
 
 
 func _physics_step():
-	if stomped:
-		if dead:
-			enemy_die()
-		else:
-			dead = sprite.frame >= 3
-	else:
-		if !is_on_floor():
+	if not stomped:
+		if not is_on_floor():
 			sprite.frame = 1
-			sprite.animation = "jumping"
+			sprite.play(&"jumping")
 			jump_state = JumpStates.AIRBORNE
 		
 		if !struck:
@@ -35,8 +30,7 @@ func _physics_step():
 					
 					land_timer += 0.2
 					if land_timer >= 1.8:
-						sprite.frame = 0
-						sprite.animation = "walking"
+						sprite.play(&"walking")
 						jump_state = JumpStates.FLOOR
 					else:
 						sprite.frame = 2 + land_timer # Finish up jumping anim
@@ -53,17 +47,17 @@ func _target_alert(_body):
 		vel.y = -2.5
 
 
-func _hurt_crush(source: Node):
+func _hurt_crush(source: HitHandler):
+	source.stomp_bounce()
 	_stomp_trigger()
 
 
 func _stomp_trigger():
+	sprite.speed_scale = 1
+	sprite.play(&"squish")
 	stomped = true
-	sprite.animation = "squish"
 	struck = false
 	vel.y = 0
-	sprite.frame = 0
-	sprite.play()
 
 
 func _hurt_strike(body):
@@ -79,3 +73,9 @@ func _struck_land():
 
 func _move_condition() -> bool:
 	return jump_state == JumpStates.FLOOR
+
+
+func _on_animated_sprite_2d_animation_finished():
+	if stomped:
+		dead = true
+		enemy_die()

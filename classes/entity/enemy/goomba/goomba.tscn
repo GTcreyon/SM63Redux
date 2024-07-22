@@ -99,9 +99,15 @@ animations = [{
 "texture": SubResource("23")
 }, {
 "duration": 1.0,
+"texture": SubResource("23")
+}, {
+"duration": 1.0,
+"texture": SubResource("21")
+}, {
+"duration": 1.0,
 "texture": SubResource("24")
 }],
-"loop": true,
+"loop": false,
 "name": &"squish",
 "speed": 20.0
 }, {
@@ -156,7 +162,7 @@ _source = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
-animation = &"walking"
+animation = &"squish"
 script = ExtResource("15")
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
@@ -259,3 +265,5 @@ bus = &"SFX"
 stream = ExtResource("6")
 attenuation = 10.0
 bus = &"SFX"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

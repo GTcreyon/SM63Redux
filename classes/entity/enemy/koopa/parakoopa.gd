@@ -43,7 +43,7 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 			koopa.position = position
 			koopa.hit_cooldown()
 			koopa.mirror = flip_h
-			handler.set_vel_component(5, Vector2.UP)
+			handler.set_vel_component(Vector2.UP, 5)
 			defeat()
 			return true
 		Hitbox.Type.STRIKE:

@@ -24,6 +24,7 @@ Singleton="*res://classes/global/singleton/singleton.tscn"
 PerformanceMonitor="*res://classes/global/performance/performance_monitor.gd"
 FlagServer="*res://classes/global/flag_server/flag_server.gd"
 TouchControls="*res://classes/global/touch_control/touch_controls.tscn"
+FrameAdvance="*res://classes/global/singleton/frame_advance.gd"
 
 [display]
 
@@ -407,6 +408,16 @@ timer_show={
 altdebug={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":47,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+frame_pause={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":92,"key_label":0,"unicode":35,"echo":false,"script":null)
+]
+}
+frame_advance={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":167,"key_label":0,"unicode":92,"echo":false,"script":null)
 ]
 }
 
