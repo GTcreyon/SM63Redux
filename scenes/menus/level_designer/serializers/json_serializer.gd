@@ -47,10 +47,7 @@ func _generate_items_json(editor: Node) -> Dictionary:
 	for item in scene_items:
 		var item_id = item.item_id
 		var item_properties = _filter_item_properties(item.properties)
-		var item_data := [item.position.x, item.position.y, item_properties] 
-		# Remove props dictionary if not found.
-		if !item_properties:
-			item_data.pop_back()
+		var item_data := [item.position.x, item.position.y, item_properties]
 			
 		if item_id not in item_json.keys():
 			item_json[item_id] = [item_data] # add new item key if it doesn't exist yet
