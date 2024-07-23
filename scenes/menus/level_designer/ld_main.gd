@@ -34,7 +34,13 @@ var item_static_properties = {}
 ## - [b]"properties":[/b] A dictionary of the item's editable properties,
 ##		keyed by the label shown when inspected.		
 ##		Each property is a dictionary with the following properties:[br]
-##		[b]"type":[/b] Property's datatype.[br]
+##		[b]"type":[/b] Property's datatype. Valid values are:
+##			`"bool"`; 
+##			`"uint"`; `"sint"`;
+##			`"float"`;
+##			`"Vector2"`;
+##			`"String"`.
+##			[br]
 ##		[b]"var_name":[/b] Name of the script variable the property edits.
 ##			If null, will be extrapolated from the property's label.[br]
 ##		[b]"default":[/b] Value the property defaults to on newly created
