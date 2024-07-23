@@ -95,7 +95,10 @@ func _generate_editor_json(editor: Node) -> Dictionary: # better logic can be ad
 
 func _load_items_json(items_json: Dictionary, editor: Node):
 	var main: LDMain = editor.get_node("/root/Main")
+	# Create a parallel Items tree to load into, just in case level loading
+	# fails at any point.
 	var new_items_parent = Node2D.new()
+	new_items_parent.name = "Items"
 	
 	for item_id: String in items_json.keys():
 		print("Loading all ", item_id)
@@ -141,11 +144,12 @@ func _load_items_json(items_json: Dictionary, editor: Node):
 			
 			new_items_parent.add_child(inst)
 			
-	# This approach makes sure everything ran fine before loading the new items
-	editor.remove_child(editor.get_node("Items"))
-	# TODO: Memory leak detected!
-	new_items_parent.name = "Items"
-	editor.add_child(new_items_parent) 
+	# If we didn't hit any errors during loading, the new tree is in a
+	# valid state. Swap the trees and delete the old one.
+	var old_items_parent = editor.get_node("Items")
+	old_items_parent.queue_free()
+	editor.remove_child(old_items_parent)
+	editor.add_child(new_items_parent)
 
 
 func _load_polygons_json(polygons_json, editor: Node):
