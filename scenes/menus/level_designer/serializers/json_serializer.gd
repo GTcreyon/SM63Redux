@@ -57,9 +57,11 @@ func _generate_items_json(editor: Node) -> Dictionary:
 	# Don't even bother running if there are no items placed
 	if !scene_items.size(): return {} 
 
-	for item in scene_items:
+	for item: LDPlacedItem in scene_items:
 		var item_id = item.item_id
-		var item_properties = _filter_item_properties(item.properties)
+		var item_properties = _only_modified_props(item.properties, 
+			editor.get_node("/root/Main"), item_id,)
+		item_properties.erase("Position")
 		var item_data := [item.position.x, item.position.y, item_properties]
 			
 		if item_id not in item_json.keys():
@@ -132,18 +134,17 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: SemVer):
 			for propname: String in prop_meta.keys():
 				#print("Parse prop ", propname)
 				
-				var prop_type = prop_meta[propname].type
 				# Parse the value if it exists; use the default if not.
 				var val
 				if inst_props.has(propname):
+					var prop_type = prop_meta[propname].type
 					val = _decode_value_of_type(inst_props[propname], prop_type)
 					#print(val)
-				elif prop_meta[propname].default != null:
-					val = _decode_value_of_type(prop_meta[propname].default, prop_type)
-					#print("Unset, prop default ", val)
 				else:
-					val = main.default_of_type(prop_type)
-					#print("Unset w/no prop default, type default ", val)
+					val = _decode_value_of_type(
+						main.default_of_property(prop_meta[propname]),
+						prop_meta[propname].type)
+					#print("Unset, prop default ", val)
 				
 				inst.properties[propname] = val
 				inst.update_visual_property(propname, val)
@@ -198,28 +199,36 @@ func _load_editor_json(editor_json, editor: Node, fmt_ver: SemVer):
 	Camera.position = _str_to_vec2(editor_json.last_camera_pos)
 
 
-# Removes any default configurations from the save JSON
-func _filter_item_properties(item: Dictionary):
-	var item_properties = item.duplicate()
-	item_properties.erase("Position")
-
-	if !item_properties.get("Disabled"): item_properties.erase("Disabled")
-	if item_properties.get("Scale") == Vector2(1, 1): item_properties.erase("Scale")
+## Removes properties which are set to their default values, returning
+## only the properties with changed values.
+func _only_modified_props(instance: Dictionary, main: LDMain, item_id: StringName):
+	# Fetch this item's property metadata.
+	var prop_meta = main.items[item_id].properties
 	
-	return item_properties
+	var not_default = {}
+	for propname: String in instance.keys():
+		var prop_default = _decode_value_of_type(
+			main.default_of_property(prop_meta[propname]), prop_meta[propname].type)
+		# If the property is NOT its default value, add it to the output dict.
+		if instance[propname] != prop_default:
+			not_default[propname] = instance[propname]
+	
+	return not_default
 
 
 func _decode_value_of_type(value, type: String):
-	match type:
-		"Vector2":
-			return _str_to_vec2(value)
-		"String":
-			return value
-		_:
-			if value is String:
-				return str_to_var(value)
-			else:
+	if value is String:
+		# Try and convert the string to the requested type.
+		match type:
+			"Vector2":
+				return _str_to_vec2(value)
+			"String":
+				# It's a string already, silly. No need to convert.
 				return value
+			_:
+				return str_to_var(value)
+	else:
+		return value
 
 
 func _fetch_polygon_properties(polygon: Node) -> Dictionary:

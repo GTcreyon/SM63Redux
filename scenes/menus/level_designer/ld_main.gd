@@ -188,6 +188,16 @@ func default_of_type(type):
 			return Vector2.ZERO
 
 
+## Returns the default value for [param property]. If no default is set,
+## returns the default for the property type.
+func default_of_property(property: Dictionary):
+	var default = property.default
+	if default == null:
+		default = default_of_type(property.type)
+	
+	return default
+
+
 func _old_place_item(item):
 	var item_ref = ITEM_PREFAB.instantiate()
 	item_ref.set("id", item.id)
