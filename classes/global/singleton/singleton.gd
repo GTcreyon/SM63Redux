@@ -5,7 +5,7 @@ signal after_scene_change
 
 const DEFAULT_SIZE = Vector2i(640, 360)
 const VERSION = "v0.1.6.alpha"
-const LD_VERSION = 0
+const LD_VERSION = 1
 const LOCALES = [
 	["en", "English"],
 	["es", "Español"],
