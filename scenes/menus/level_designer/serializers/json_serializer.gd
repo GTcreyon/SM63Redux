@@ -208,8 +208,13 @@ func _decode_value_of_type(value, type: String):
 	match type:
 		"Vector2":
 			return _str_to_vec2(value)
+		"String":
+			return value
 		_:
-			return str_to_var(value)
+			if value is String:
+				return str_to_var(value)
+			else:
+				return value
 
 
 func _fetch_polygon_properties(polygon: Node) -> Dictionary:
