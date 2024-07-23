@@ -14,7 +14,16 @@ func generate_level_binary(
 	var output: PackedByteArray
 	
 	# Serialize level metadata.
-	output = encode_uint_bytes(Singleton.LD_VERSION, 1)
+	var ld_version = SemVer.from_string(Singleton.LD_VERSION)
+	# SemVer format numbers postdate binary serialization.
+	# Fortunately, the version number was never bumped during binary's tenure,
+	# so if there's a non-zero int at the start of the file, we can be sure
+	# the file was serialized after the introduction of SemVer numbers.
+	output = encode_uint_bytes(1, 1)
+	# Serialize all three format numbers.
+	output = encode_uint_bytes(ld_version.major, 1)
+	output = encode_uint_bytes(ld_version.minor, 1)
+	output = encode_uint_bytes(ld_version.patch, 1)
 	output.append_array(encode_string_bytes("")) # title
 	output.append_array(encode_string_bytes("")) # author
 	output.append_array(encode_mission_list([["", ""]])) # missions
@@ -62,7 +71,20 @@ func load_level_binary(binary_level: PackedByteArray, target_node: Node2D):
 	
 	# Level info has to be read in order for the level data to be read properly.
 	# For now, print it to console (since there's nowhere better to put it).
-	print("version: ", decode_uint_bytes(read_bytes(1)))
+	if decode_uint_bytes(read_bytes(1)) != 0:
+		# Because version number was never changed during binary files' tenure,
+		# a first byte not equal to zero can be used to indicate "read SemVer
+		# version divisions."
+		# If those are found, read three extra bytes to get those.
+		var major = decode_uint_bytes(read_bytes(1))
+		var minor = decode_uint_bytes(read_bytes(1))
+		var patch = decode_uint_bytes(read_bytes(1))
+		print("version: ", SemVer.new(major, minor, patch))
+	else:
+		# Files made before SemVer numbers have no space allocated for those.
+		# Do not read three extra bytes, lest the cursor get offset and we
+		# end up reading garbage data for the rest of the file.
+		print("version: ", decode_uint_bytes(read_bytes(1)))
 	print("title: ", decode_string_bytes())
 	print("author: ", decode_string_bytes())
 	print("missions: ", decode_mission_list())

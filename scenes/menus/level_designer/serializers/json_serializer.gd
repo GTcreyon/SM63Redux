@@ -32,7 +32,19 @@ func generate_level_json(editor: Node) -> String:
 func load_level_json(file_content, editor: Node):
 	var file_json = JSON.parse_string(file_content)
 	
-	var fmt_ver = file_json.info.format_ver
+	# Load file format version as semantic version.
+	var fmt_ver: SemVer
+	# VERSION: if the file format is stored as a number, interpret that
+	# number as the patch release.
+	# This is for compatibility with the oldest JSON LD files, made while
+	# developing the JSON serializer. Their version is 0--not even "0.0.0",
+	# just 0.
+	if file_json.info.format_ver is float:
+		fmt_ver = SemVer.new(0,0,file_json.info.format_ver)
+	else:
+		fmt_ver = SemVer.from_string(file_json.info.format_ver)
+	print("File is format version ", fmt_ver)
+	
 	_load_items_json(file_json.items, editor, fmt_ver)
 	_load_polygons_json(file_json.polygons, editor, fmt_ver)
 	_load_editor_json(file_json.editor, editor, fmt_ver)
@@ -91,7 +103,7 @@ func _generate_editor_json(editor: Node) -> Dictionary: # better logic can be ad
 	}
 
 
-func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: int):
+func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: SemVer):
 	var main: LDMain = editor.get_node("/root/Main")
 	# Create a parallel Items tree to load into, just in case level loading
 	# fails at any point.
@@ -110,7 +122,7 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: int):
 			# VERSION: Version 0 stores properties as an array, with the
 			# properties dictionary proper the third entry and the position
 			# as the first two.
-			if fmt_ver > 0:
+			if fmt_ver.greater_than(SemVer.new(0,0,0)):
 				inst_props = inst_data
 			else:
 				if len(inst_data) >= 3:
@@ -123,20 +135,20 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: int):
 			var prop_meta = main.items[item_id].properties
 			# Populate the placed item from the loaded level data.
 			for propname: String in prop_meta.keys():
-				print("Parse prop ", propname)
+				#print("Parse prop ", propname)
 				
 				var prop_type = prop_meta[propname].type
 				# Parse the value if it exists; use the default if not.
 				var val
 				if inst_props.has(propname):
 					val = _decode_value_of_type(inst_props[propname], prop_type)
-					print(val)
+					#print(val)
 				elif prop_meta[propname].default != null:
 					val = _decode_value_of_type(prop_meta[propname].default, prop_type)
-					print("Unset, prop default ", val)
+					#print("Unset, prop default ", val)
 				else:
 					val = main.default_of_type(prop_type)
-					print("Unset w/no prop default, type default ", val)
+					#print("Unset w/no prop default, type default ", val)
 				
 				inst.properties[propname] = val
 				inst.update_visual_property(propname, val)
@@ -144,7 +156,7 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: int):
 			# VERSION: Version 0 stores position in the first two entries of the
 			# properties array. Overwrite the null value from the properties
 			# dictionary.
-			if fmt_ver == 0:
+			if fmt_ver.equals(SemVer.new(0,0,0)):
 				inst.position = Vector2(inst_data[0], inst_data[1])
 				inst.properties["Position"] = inst.position
 			
@@ -158,7 +170,7 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: int):
 	editor.add_child(new_items_parent)
 
 
-func _load_polygons_json(polygons_json, editor: Node, fmt_ver: int):
+func _load_polygons_json(polygons_json, editor: Node, fmt_ver: SemVer):
 	var main = editor.get_node("/root/Main")
 	var new_polygon_parent = Node2D.new()
 	
@@ -189,7 +201,7 @@ func _load_polygons_json(polygons_json, editor: Node, fmt_ver: int):
 		editor.add_child(new_polygon_parent)
 
 
-func _load_editor_json(editor_json, editor: Node, fmt_ver: int):
+func _load_editor_json(editor_json, editor: Node, fmt_ver: SemVer):
 	var Camera = editor.get_node("../Camera")
 	Camera.position = _str_to_vec2(editor_json.last_camera_pos)
 
