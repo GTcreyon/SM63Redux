@@ -15,7 +15,7 @@ func generate_level_json(editor: Node) -> String:
 		author = "",
 		missions = [],
 		# used for forward/backward compat between at least published demos
-		format_ver = Singleton.LD_VERSION
+		format_ver = Singleton.LD_VERSION,
 	}
 	# Editor state saved between sessions (maybe strip in minified exports?)
 	save_json.editor = _generate_editor_json(editor)
@@ -32,9 +32,10 @@ func generate_level_json(editor: Node) -> String:
 func load_level_json(file_content, editor: Node):
 	var file_json = JSON.parse_string(file_content)
 	
-	_load_items_json(file_json.items, editor)
-	_load_polygons_json(file_json.polygons, editor)
-	_load_editor_json(file_json.editor, editor)
+	var fmt_ver = file_json.info.format_ver
+	_load_items_json(file_json.items, editor, fmt_ver)
+	_load_polygons_json(file_json.polygons, editor, fmt_ver)
+	_load_editor_json(file_json.editor, editor, fmt_ver)
 
 
 func _generate_items_json(editor: Node) -> Dictionary:
@@ -90,7 +91,7 @@ func _generate_editor_json(editor: Node) -> Dictionary: # better logic can be ad
 	}
 
 
-func _load_items_json(items_json: Dictionary, editor: Node):
+func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: int):
 	var main: LDMain = editor.get_node("/root/Main")
 	# Create a parallel Items tree to load into, just in case level loading
 	# fails at any point.
@@ -149,7 +150,7 @@ func _load_items_json(items_json: Dictionary, editor: Node):
 	editor.add_child(new_items_parent)
 
 
-func _load_polygons_json(polygons_json, editor: Node):
+func _load_polygons_json(polygons_json, editor: Node, fmt_ver: int):
 	var main = editor.get_node("/root/Main")
 	var new_polygon_parent = Node2D.new()
 	
@@ -180,10 +181,9 @@ func _load_polygons_json(polygons_json, editor: Node):
 		editor.add_child(new_polygon_parent)
 
 
-func _load_editor_json(editor_json, editor: Node):
+func _load_editor_json(editor_json, editor: Node, fmt_ver: int):
 	var Camera = editor.get_node("../Camera")
 	Camera.position = _str_to_vec2(editor_json.last_camera_pos)
-
 
 
 # Removes any default configurations from the save JSON
