@@ -48,7 +48,9 @@ func _generate_items_json(editor: Node) -> Dictionary:
 		var item_id = item.item_id
 		var item_properties = _filter_item_properties(item.properties)
 		var item_data := [item.position.x, item.position.y, item_properties] 
-		if !item_properties: item_data.pop_back()
+		# Remove props dictionary if not found.
+		if !item_properties:
+			item_data.pop_back()
 			
 		if item_id not in item_json.keys():
 			item_json[item_id] = [item_data] # add new item key if it doesn't exist yet
@@ -91,21 +93,57 @@ func _generate_editor_json(editor: Node) -> Dictionary: # better logic can be ad
 	}
 
 
-func _load_items_json(items_json, editor: Node):
-	var main = editor.get_node("/root/Main")
+func _load_items_json(items_json: Dictionary, editor: Node):
+	var main: LDMain = editor.get_node("/root/Main")
 	var new_items_parent = Node2D.new()
 	
-	for item_id in items_json:
-		for inst in items_json[item_id]:
-			var new_item: Node = LD_ITEM.instantiate()
-			new_item.item_id = item_id
-			new_item.position = Vector2(inst[0], inst[1])
-			new_item.texture = load(main.item_textures[item_id]["Placed"])
-			new_item.set_meta('load_properties', _fetch_item_properties(inst, item_id, main))
-			new_items_parent.add_child(new_item)
+	for item_id: String in items_json.keys():
+		print("Loading all ", item_id)
+		for inst_data: Array in items_json[item_id]:
+			var inst: LDPlacedItem = LD_ITEM.instantiate()
+			
+			inst.item_id = item_id
+			inst.texture = load(main.item_textures[item_id]["Placed"])
+			
+			var inst_props: Dictionary
+			if len(inst_data) < 3:
+				push_warning("Instance has no properties.")
+				inst_props = {}
+			else:
+				inst_props = inst_data[2]
+			
+			# Load item's properties into their right spot.
+			# Begin by getting a copy of this item type's property metadata.
+			var prop_meta = main.items[item_id].properties
+			# Populate the placed item from the loaded level data.
+			for propname: String in prop_meta.keys():
+				print("Parse prop ", propname)
+				
+				var prop_type = prop_meta[propname].type
+				# Parse the value if it exists; use the default if not.
+				var val
+				if inst_props.has(propname):
+					val = _decode_value_of_type(inst_props[propname], prop_type)
+					print(val)
+				elif prop_meta[propname].default != null:
+					val = _decode_value_of_type(prop_meta[propname].default, prop_type)
+					print("Unset, prop default ", val)
+				else:
+					val = main.default_of_type(prop_type)
+					print("Unset w/no prop default, type default ", val)
+				
+				inst.properties[propname] = val
+				inst.update_visual_property(propname, val)
+			
+			# Set position specially for now, since it's stored separately.
+			inst.position = Vector2(inst_data[0], inst_data[1])
+			inst.properties["Position"] = inst.position
+			
+			new_items_parent.add_child(inst)
 			
 	# This approach makes sure everything ran fine before loading the new items
 	editor.remove_child(editor.get_node("Items"))
+	# TODO: Memory leak detected!
 	new_items_parent.name = "Items"
 	editor.add_child(new_items_parent) 
 
@@ -158,38 +196,12 @@ func _filter_item_properties(item: Dictionary):
 	return item_properties
 
 
-func _fetch_item_properties(json_item, item_id, main):
-	var item_properties = main.items[item_id]["properties"].duplicate()
-
-	# Fetch defaults from the main properties
-	for default_property in item_properties:
-		var default_value = null
-		if typeof(item_properties[default_property]) == TYPE_DICTIONARY and item_properties[default_property].has("default"):
-			default_value = item_properties[default_property]["default"]
-			item_properties[default_property] = default_value
-		else: default_value = item_properties[default_property]
-
-		# Update with saved properties from JSON, if available
-		if json_item.size() == 3:
-			var saved_properties = json_item[2]
-			for saved_property in saved_properties:
-				item_properties[saved_property] = saved_properties[saved_property]
-
-		# Convert string properties with Vector2 to actual values
-		if typeof(default_value) == TYPE_STRING and "(" in default_value:
-			item_properties[default_property] = _str_to_vec2(default_value)
-			if json_item.size() == 3:
-				json_item[2][default_property] = item_properties[default_property]
-
-	# Set the Position property using Vector2 from JSON data
-	var position = Vector2(json_item[0], json_item[1])
-	item_properties.Position = position
-
-	# Ensure Disabled property is set to false if not present
-	if item_properties.get("Disabled") == null:
-		item_properties.Disabled = false
-
-	return item_properties
+func _decode_value_of_type(value, type: String):
+	match type:
+		"Vector2":
+			return _str_to_vec2(value)
+		_:
+			return str_to_var(value)
 
 
 func _fetch_polygon_properties(polygon: Node) -> Dictionary:
