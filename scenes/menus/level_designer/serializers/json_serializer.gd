@@ -60,12 +60,12 @@ func _generate_items_json(editor: Node) -> Dictionary:
 	for item in scene_items:
 		var item_id = item.item_id
 		var item_properties = _filter_item_properties(item.properties)
+		var item_data := [item.position.x, item.position.y, item_properties]
 			
 		if item_id not in item_json.keys():
-			# Item key doesn't exist yet. Init array, with one entry.
-			item_json[item_id] = [item_properties]
+			item_json[item_id] = [item_data] # add new item key if it doesn't exist yet
 		else:
-			item_json[item_id].append(item_properties) # append if the key exists
+			item_json[item_id].append(item_data) # append if the key exists
 
 	return item_json
 
@@ -112,23 +112,18 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: SemVer):
 	
 	for item_id: String in items_json.keys():
 		print("Loading all ", item_id)
-		for inst_data in items_json[item_id]:
+		for inst_data: Array in items_json[item_id]:
 			var inst: LDPlacedItem = LD_ITEM.instantiate()
 			
 			inst.item_id = item_id
 			inst.texture = load(main.item_textures[item_id]["Placed"])
 			
 			var inst_props: Dictionary
-			# VERSION: Version 0 stores properties as an array, with the
-			# properties dictionary proper the third entry and the position
-			# as the first two.
-			if fmt_ver.greater_than(SemVer.new(0,0,0)):
-				inst_props = inst_data
+			if len(inst_data) < 3:
+				push_warning("Instance has no properties.")
+				inst_props = {}
 			else:
-				if len(inst_data) >= 3:
-					inst_props = inst_data[2]
-				else:
-					inst_props = {}
+				inst_props = inst_data[2]
 			
 			# Load item's properties into their right spot.
 			# Begin by getting a copy of this item type's property metadata.
@@ -153,12 +148,9 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: SemVer):
 				inst.properties[propname] = val
 				inst.update_visual_property(propname, val)
 			
-			# VERSION: Version 0 stores position in the first two entries of the
-			# properties array. Overwrite the null value from the properties
-			# dictionary.
-			if fmt_ver.equals(SemVer.new(0,0,0)):
-				inst.position = Vector2(inst_data[0], inst_data[1])
-				inst.properties["Position"] = inst.position
+			# Set position specially, since it's stored separately.
+			inst.position = Vector2(inst_data[0], inst_data[1])
+			inst.properties["Position"] = inst.position
 			
 			new_items_parent.add_child(inst)
 			
@@ -209,6 +201,7 @@ func _load_editor_json(editor_json, editor: Node, fmt_ver: SemVer):
 # Removes any default configurations from the save JSON
 func _filter_item_properties(item: Dictionary):
 	var item_properties = item.duplicate()
+	item_properties.erase("Position")
 
 	if !item_properties.get("Disabled"): item_properties.erase("Disabled")
 	if item_properties.get("Scale") == Vector2(1, 1): item_properties.erase("Scale")
