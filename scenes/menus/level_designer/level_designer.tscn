@@ -520,6 +520,7 @@ offset_top = -42.0
 offset_bottom = -14.0
 text = "Placeholder Loading Text"
 
+[connection signal="loaded_level_shown" from="." to="UIFollow/Selection" method="deselect_all"]
 [connection signal="finished" from="Music" to="Music" method="_on_Music_finished"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Dragger" to="UIFollow/Selection/Buttons" method="_on_dragger_pressed"]
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Duplicator" to="UIFollow/Selection/Buttons" method="_on_duplicator_pressed"]
