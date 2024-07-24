@@ -29,7 +29,7 @@ func generate_level_json(editor: Node) -> String:
 	return JSON.stringify(save_json)
 
 
-func load_level_json(file_content, editor: Node):
+func load_level_json(file_content, main: LDMain):
 	var file_json = JSON.parse_string(file_content)
 	
 	# Load file format version as semantic version.
@@ -45,9 +45,42 @@ func load_level_json(file_content, editor: Node):
 		fmt_ver = SemVer.from_string(file_json.info.format_ver)
 	print("File is format version ", fmt_ver)
 	
-	_load_items_json(file_json.items, editor, fmt_ver)
-	_load_polygons_json(file_json.polygons, editor, fmt_ver)
-	_load_editor_json(file_json.editor, editor, fmt_ver)
+	_load_editor_json(file_json.editor, main, fmt_ver)
+	
+	# Create a parallel item tree to load into, just in case level loading
+	# fails at any point.
+	var new_level = Node2D.new()
+	new_level.name = "Template"
+	
+	# Load the items from the JSON file.
+	var item_tree = _load_items_json(file_json.items, main, fmt_ver)
+	# Error code handling goes here....
+	# Items loaded successfully. Add to new-level tree.
+	new_level.add_child(item_tree)
+	
+	# Load the polygons in similar fashion.
+	var poly_trees = _load_polygons_json(file_json.polygons, main, fmt_ver)
+	# Error code handling goes here....
+	# Polygons loaded successfully. One root per type; add them all to the tree.
+	for polyset in poly_trees:
+		new_level.add_child(polyset)
+	
+	# TODO: Add the rest of the template's node tree to avoid future errors.
+	
+	# TODO: Emit signal before despawning the old tree, so that Selection
+	# has a chance to deselect everything from the old tree.
+	
+	# If we didn't hit any errors during loading, the new level is correctly
+	# enough loaded to be displayed. Swap the trees.
+	var old_level = main.get_node("Template")
+	main.remove_child(old_level)
+	main.add_child(new_level)
+	
+	# If there's any errors, this is the user's last chance to abort.
+	# Manual error resolution goes here.
+	
+	# Ditch the old tree. Loading is complete.
+	old_level.queue_free()
 
 
 func _generate_items_json(editor: Node) -> Dictionary:
@@ -105,8 +138,7 @@ func _generate_editor_json(editor: Node) -> Dictionary: # better logic can be ad
 	}
 
 
-func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: SemVer):
-	var main: LDMain = editor.get_node("/root/Main")
+func _load_items_json(items_json: Dictionary, main: LDMain, fmt_ver: SemVer):
 	# Create a parallel Items tree to load into, just in case level loading
 	# fails at any point.
 	var new_items_parent = Node2D.new()
@@ -154,20 +186,12 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: SemVer):
 			inst.properties["Position"] = inst.position
 			
 			new_items_parent.add_child(inst)
-			
-	# If we didn't hit any errors during loading, the new tree is in a
-	# valid state. Swap the trees and delete the old one.
-	var old_items_parent = editor.get_node("Items")
-	old_items_parent.queue_free()
-	editor.remove_child(old_items_parent)
-	editor.add_child(new_items_parent)
-
-
 	
+	return new_items_parent
 
 
-func _load_polygons_json(polygons_json: Dictionary, editor: Node, fmt_ver: SemVer):
-	var main: LDMain = editor.get_node("/root/Main")
+func _load_polygons_json(polygons_json: Dictionary, main: LDMain, fmt_ver: SemVer) -> Array[Node2D]:
+	var polygon_sets: Array[Node2D] = []
 	
 	for polygon_type: String in polygons_json:
 		# Create a parent to save polygons of this type into.
@@ -199,17 +223,14 @@ func _load_polygons_json(polygons_json: Dictionary, editor: Node, fmt_ver: SemVe
 			# Add the instance to the type's parent.
 			poly_type_parent.add_child(inst)
 		
-		# This poly-type's loading is done, no errors. Swap it with the current
-		# tree.
-		var old_tree = editor.get_node(polygon_type.to_pascal_case())
-		editor.remove_child(old_tree)
-		old_tree.queue_free()
-		editor.add_child(poly_type_parent)
+		# This poly-type's loading is done, no errors. Add it to the output array.
+		polygon_sets.append(poly_type_parent)
 	
+	return polygon_sets
 
 
-func _load_editor_json(editor_json, editor: Node, fmt_ver: SemVer):
-	var Camera = editor.get_node("../Camera")
+func _load_editor_json(editor_json, main: LDMain, fmt_ver: SemVer):
+	var Camera = main.get_node("Camera")
 	Camera.position = _str_to_vec2(editor_json.last_camera_pos)
 
 
