@@ -163,35 +163,49 @@ func _load_items_json(items_json: Dictionary, editor: Node, fmt_ver: SemVer):
 	editor.add_child(new_items_parent)
 
 
-func _load_polygons_json(polygons_json, editor: Node, fmt_ver: SemVer):
-	var main = editor.get_node("/root/Main")
-	var new_polygon_parent = Node2D.new()
 	
-	for polygon_type in polygons_json: 
-		for polygon in polygons_json[polygon_type]:
 
-			var new_polygon_vertices: PackedVector2Array
-			var new_polygon = Polygon2D.new()
 
+func _load_polygons_json(polygons_json: Dictionary, editor: Node, fmt_ver: SemVer):
+	var main: LDMain = editor.get_node("/root/Main")
+	
+	for polygon_type: String in polygons_json:
+		# Create a parent to save polygons of this type into.
+		var poly_type_parent := Node2D.new()
+		poly_type_parent.name = polygon_type.to_pascal_case()
+		
+		for loaded_poly: Dictionary in polygons_json[polygon_type]:
+			# Skip malformed polygons with too few verts.
+			if loaded_poly.vertices.size() < 3:
+				push_warning("Found ", polygon_type, " with too few verts: ", loaded_poly)
+				continue
+			
+			# Duplicate the correct polygon instance for the type.
+			var inst: Polygon2D
 			match polygon_type:
-				"terrain": new_polygon = LD_TERRAIN.instantiate()
+				"terrain": inst = LD_TERRAIN.instantiate()
 				"water": pass # TODO: water not ready yet
 
-			new_polygon.position = _str_to_vec2(polygon.position)
-			# new_polygon.properties = polygon.properties
+			inst.position = _str_to_vec2(loaded_poly.position)
+			# inst.properties = polygon.properties
 
-			for vertex in polygon.vertices:
-				if polygon.vertices.size() < 3:
-					break
+			# Load the deserialized verts into the instance node.
+			var new_polygon_vertices := PackedVector2Array()
+			for vertex in loaded_poly.vertices:
+				# Convert the deserialized string into a valid Vector2.
 				new_polygon_vertices.append(_str_to_vec2(vertex))
-
-			new_polygon.polygon = new_polygon_vertices
-
-			new_polygon_parent.add_child(new_polygon)
-
-		editor.remove_child(editor.get_node(polygon_type.to_pascal_case()))
-		new_polygon_parent.name = polygon_type.to_pascal_case()
-		editor.add_child(new_polygon_parent)
+			inst.polygon = new_polygon_vertices
+			
+			# Add the instance to the type's parent.
+			poly_type_parent.add_child(inst)
+		
+		# This poly-type's loading is done, no errors. Swap it with the current
+		# tree.
+		var old_tree = editor.get_node(polygon_type.to_pascal_case())
+		editor.remove_child(old_tree)
+		old_tree.queue_free()
+		editor.add_child(poly_type_parent)
+	
 
 
 func _load_editor_json(editor_json, editor: Node, fmt_ver: SemVer):
