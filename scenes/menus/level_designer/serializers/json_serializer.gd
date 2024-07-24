@@ -7,6 +7,8 @@ const LD_TERRAIN = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 
 ## Generates a JSON representation of the level.
 func generate_level_json(main: LDMain, level: Node2D) -> String:
+	main.save_level_finished.emit()
+	
 	var save_json := {}
 	
 	# Level info
@@ -24,6 +26,8 @@ func generate_level_json(main: LDMain, level: Node2D) -> String:
 	save_json.items = _generate_items_json(main, level)
 	# All polygons loaded
 	save_json.polygons = _generate_polygons_json(level)
+	
+	main.save_level_finished.emit()
 	
 	print(save_json)
 	return JSON.stringify(save_json)
@@ -67,17 +71,19 @@ func load_level_json(file_content, main: LDMain):
 	
 	# TODO: Add the rest of the template's node tree to avoid future errors.
 	
-	# TODO: Emit signal before despawning the old tree, so that Selection
-	# has a chance to deselect everything from the old tree.
-	
 	# If we didn't hit any errors during loading, the new level is correctly
-	# enough loaded to be displayed. Swap the trees.
+	# enough loaded to be displayed.
+	# Emit signal saying so.
+	main.loaded_level_ready.emit(new_level)
+	# Swap the trees.
 	var old_level = main.get_node("Template")
 	main.remove_child(old_level)
 	main.add_child(new_level)
 	
 	# If there's any errors, this is the user's last chance to abort.
+	# Emit a signal saying so.
 	# Manual error resolution goes here.
+	main.loaded_level_shown.emit()
 	
 	# Ditch the old tree. Loading is complete.
 	old_level.queue_free()

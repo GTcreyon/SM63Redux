@@ -11,6 +11,22 @@ extends Node2D
 ## Emitted when [member editor_state] is changed.
 signal editor_state_changed
 
+## Emitted before the level begins saving.
+signal save_level_started
+## Emitted after the level finishes saving.
+signal save_level_finished
+
+## Emitted when a new level finishes loading, but before it gets shown to
+## the user.
+## Can be used to preprocess the loaded level.
+signal loaded_level_ready(level_root: Node2D)
+## Emitted when a newly loaded level becomes visible to the user, but before 
+## the old level's node tree is freed. This can be used to abort in case the new
+## level e.g. is corrupted and the user decides not to try and fix it.
+signal loaded_level_shown
+# Would it be useful to have a "load_finalized" signal emit when the old tree
+# is freed?
+
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 const ITEM_PREFAB = preload("res://scenes/menus/level_designer/ld_item/ld_item.tscn")
 
