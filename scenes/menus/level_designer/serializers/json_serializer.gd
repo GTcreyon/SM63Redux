@@ -6,7 +6,7 @@ const LD_TERRAIN = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 
 
 ## Generates a JSON representation of the level.
-func generate_level_json(editor: Node) -> String:
+func generate_level_json(main: LDMain, level: Node2D) -> String:
 	var save_json := {}
 	
 	# Level info
@@ -18,12 +18,12 @@ func generate_level_json(editor: Node) -> String:
 		format_ver = Singleton.LD_VERSION,
 	}
 	# Editor state saved between sessions (maybe strip in minified exports?)
-	save_json.editor = _generate_editor_json(editor)
+	save_json.editor = _generate_editor_json(main)
 	assert(save_json.editor)
 	# All entities / items loaded
-	save_json.items = _generate_items_json(editor)
+	save_json.items = _generate_items_json(level)
 	# All polygons loaded
-	save_json.polygons = _generate_polygons_json(editor)
+	save_json.polygons = _generate_polygons_json(level)
 	
 	print(save_json)
 	return JSON.stringify(save_json)
@@ -83,8 +83,8 @@ func load_level_json(file_content, main: LDMain):
 	old_level.queue_free()
 
 
-func _generate_items_json(editor: Node) -> Dictionary:
-	var scene_items = editor.get_node("Items").get_children()
+func _generate_items_json(main: LDMain, level: Node) -> Dictionary:
+	var scene_items = level.get_node("Items").get_children()
 	var item_json = {}
 
 	# Don't even bother running if there are no items placed
@@ -92,8 +92,7 @@ func _generate_items_json(editor: Node) -> Dictionary:
 
 	for item: LDPlacedItem in scene_items:
 		var item_id = item.item_id
-		var item_properties = _only_modified_props(item.properties, 
-			editor.get_node("/root/Main"), item_id,)
+		var item_properties = _only_modified_props(item.properties, main, item_id)
 		item_properties.erase("Position")
 		var item_data := [item.position.x, item.position.y, item_properties]
 			
@@ -131,8 +130,8 @@ func _generate_polygons_json(editor: Node) -> Dictionary:
 	return polygons_json
 
 
-func _generate_editor_json(editor: Node) -> Dictionary: # better logic can be added later
-	var camera: Camera2D = editor.get_node("../Camera")
+func _generate_editor_json(main: LDMain) -> Dictionary: # better logic can be added later
+	var camera: Camera2D = main.get_node("Camera")
 	return {
 		"last_camera_pos": Vector2(camera.position.x, camera.position.y)
 	}
