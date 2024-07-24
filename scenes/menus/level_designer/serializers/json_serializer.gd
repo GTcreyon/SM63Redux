@@ -21,7 +21,7 @@ func generate_level_json(main: LDMain, level: Node2D) -> String:
 	save_json.editor = _generate_editor_json(main)
 	assert(save_json.editor)
 	# All entities / items loaded
-	save_json.items = _generate_items_json(level)
+	save_json.items = _generate_items_json(main, level)
 	# All polygons loaded
 	save_json.polygons = _generate_polygons_json(level)
 	
