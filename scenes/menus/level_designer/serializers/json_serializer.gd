@@ -7,7 +7,7 @@ const LD_TERRAIN = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 
 ## Generates a JSON representation of the level.
 func generate_level_json(main: LDMain, level: Node2D) -> String:
-	main.save_level_finished.emit()
+	main.save_level_started.emit()
 	
 	var save_json := {}
 	
