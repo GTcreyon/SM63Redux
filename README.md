@@ -1,7 +1,7 @@
 # Super Mario 63 Redux
 <p align="center">
-  <a href="https://godotengine.org">
-    <img src="https://cdn.discordapp.com/attachments/877587232234536990/1014244379164168343/unknown.png" width="400" alt="Super Mario 63 Redux logo">
+  <a href="https://sm63redux.com">
+    <img src="logo.png" width="400" alt="Super Mario 63 Redux logo">
   </a>
 </p>
 
