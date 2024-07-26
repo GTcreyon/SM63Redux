@@ -12,20 +12,23 @@ signal pressed_right
 
 func _gui_input(event: InputEvent):
 	if event is InputEventMouseButton:
-		# Abort if the click event has moved off the button.
-		if !is_hovered():
-			return
+		# Set mouse-over cursor shape to click indicator on RMB-down events;
+		# otherwise, set to move indicator.
+		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+			mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
+		else:
+			mouse_default_cursor_shape = Control.CURSOR_MOVE
 		
-		# We didn't abort. Emit the appropriate event for the button, assuming
-		# the click event is appropriate for the button.
-		match event.button_index:
-			MOUSE_BUTTON_LEFT:
-				# Respond to left clicks on press, for a drag-and-drop-like
-				# user experience.
-				if event.pressed:
-					pressed_left.emit()
-			MOUSE_BUTTON_RIGHT:
-				# Respond to right clicks only on release, to allow the user a
-				# moment to change their mind before vertex deletion.
-				if !event.pressed:
-					pressed_right.emit()
+		# Emit click events if the mouse is on the button.
+		if is_hovered():
+			match event.button_index:
+				MOUSE_BUTTON_LEFT:
+					# Respond to left clicks on press, for a drag-and-drop-like
+					# user experience.
+					if event.pressed:
+						pressed_left.emit()
+				MOUSE_BUTTON_RIGHT:
+					# Respond to right clicks only on release, to allow the user a
+					# moment to change their mind before vertex deletion.
+					if !event.pressed:
+						pressed_right.emit()
