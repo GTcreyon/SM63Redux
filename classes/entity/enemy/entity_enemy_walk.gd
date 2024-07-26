@@ -47,8 +47,8 @@ func _ready():
 
 func _physics_step():
 	super()
-	
-	if stomped:
+
+	if stomped or struck:
 		return
 
 	_manage_footsteps()
@@ -83,19 +83,21 @@ func _target_behavior():
 
 
 func _wander_behavior():
-	if _move_condition():
-		if is_on_wall():
-			vel.x = 0
+	if not _move_condition():
+		return
+
+	if is_on_wall():
+		vel.x = 0
+		turn_around()
+		wander_dist = 0
+	
+	if edge_check != null:
+		edge_check.enabled = is_on_floor()
+		
+		if edge_check.enabled and !edge_check.is_colliding():
 			turn_around()
-			wander_dist = 0
-		
-		if edge_check != null:
-			edge_check.enabled = is_on_floor()
-			
-			if edge_check.enabled and !edge_check.is_colliding():
-				turn_around()
-		
-		_wander()
+	
+	_wander()
 
 
 func _chase_target():

@@ -14,37 +14,44 @@ var land_timer = 0
 
 
 func _physics_step():
-	if not stomped:
-		if not is_on_floor():
-			sprite.frame = 1
-			sprite.play(&"jumping")
-			jump_state = JumpStates.AIRBORNE
-		
-		if !struck:
-			if is_on_floor():
-				if jump_state != JumpStates.FLOOR:
-					if jump_state != JumpStates.LANDING:
-						sprite.frame = 2
-						land_timer = 0
-						jump_state = JumpStates.LANDING
-					
-					land_timer += 0.2
-					if land_timer >= 1.8:
-						sprite.play(&"walking")
-						jump_state = JumpStates.FLOOR
-					else:
-						sprite.frame = 2 + land_timer # Finish up jumping anim
+	super()
+	if stomped:
+		return
+
+	if not is_on_floor():
+		sprite.frame = 1
+		sprite.play(&"jumping")
+		jump_state = JumpStates.AIRBORNE
+		return
 	
-	super._physics_step()
+	if struck:
+		return
+
+	if jump_state == JumpStates.FLOOR:
+		return
+
+	if jump_state != JumpStates.LANDING:
+		sprite.frame = 2
+		land_timer = 0
+		jump_state = JumpStates.LANDING
+
+	land_timer += 0.2
+	if land_timer >= 1.8:
+		sprite.play(&"walking")
+		jump_state = JumpStates.FLOOR
+	else:
+		sprite.frame = 2 + land_timer # Finish up jumping anim
 
 
 func _target_alert(_body):
-	if is_on_floor():
-		sprite.animation = "jumping"
-		sfx_jump.play()
-		sprite.frame = 0
-		jump_state = JumpStates.AIRBORNE
-		vel.y = -2.5
+	if not is_on_floor():
+		return
+
+	sprite.animation = "jumping"
+	sfx_jump.play()
+	sprite.frame = 0
+	jump_state = JumpStates.AIRBORNE
+	vel.y = -2.5
 
 
 func _hurt_crush(source: HitHandler):
@@ -61,7 +68,7 @@ func _stomp_trigger():
 
 
 func _hurt_strike(body):
-	super._hurt_strike(body)
+	super(body)
 	sprite.animation = "jumping"
 	jump_state = JumpStates.AIRBORNE
 
