@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://vunewr3fpf60"]
+[gd_scene load_steps=31 format=3 uid="uid://vunewr3fpf60"]
 
 [ext_resource type="Texture2D" uid="uid://dvxqi07gettjf" path="res://classes/entity/enemy/bobomb/bobomb_fuse_unlit.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://bymmn17pd5ko4" path="res://classes/entity/enemy/bobomb/bobomb_walk.png" id="2"]
 [ext_resource type="Script" path="res://classes/hit_handler.gd" id="2_5yk2i"]
+[ext_resource type="PackedScene" uid="uid://myyekq2c5f7l" path="res://classes/entity/enemy/bobomb/explosion.tscn" id="2_p0r1x"]
 [ext_resource type="Texture2D" uid="uid://b81lf6m4dv57n" path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_0.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://ynwncv82vnux" path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_1.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://dkhke7nnpqj2c" path="res://classes/entity/enemy/bobomb/bobomb_key_0.png" id="5"]
@@ -136,6 +137,7 @@ size = Vector2(2, 2)
 [node name="Bobomb" type="CharacterBody2D"]
 collision_layer = 4
 script = ExtResource("7")
+explosion_scene = ExtResource("2_p0r1x")
 step_indexes = Array[bool]([true, false, false, false, true, false, false, false])
 _aware_area_path = NodePath("")
 death_smoke = false

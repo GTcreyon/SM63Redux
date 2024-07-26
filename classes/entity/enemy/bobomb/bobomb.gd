@@ -18,11 +18,12 @@ extends EntityEnemyWalk
 #	preload("res://classes/entity/enemy/bobomb/explosion_buildup_1.wav"),
 #	preload("res://classes/entity/enemy/bobomb/explosion_buildup_2.wav"),
 #]
-const EXPLOSION: PackedScene = preload("res://classes/entity/enemy/bobomb/explosion.tscn")
 const FUSE_DURATION: int = 240
 const BUILDUP_SOUND_START: int = 198
 const EASE_FACTOR: float = 1.5
 const FLASH_COUNT: int = 18
+
+@export var explosion_scene: PackedScene
 
 var _is_lit: bool = false
 var _fuse_time: int = FUSE_DURATION
@@ -60,7 +61,7 @@ func _physics_step() -> void:
 	if _fuse_time <= 0:
 		explode()
 	
-	super._physics_step()
+	super()
 
 
 func _update_sprites() -> void:
@@ -94,7 +95,7 @@ func _target_alert(_body) -> void:
 
 
 func set_disabled(val) -> void:
-	super.set_disabled(val)
+	super(val)
 	if disabled:
 		fuse.stop()
 		key.stop()
@@ -104,7 +105,7 @@ func set_disabled(val) -> void:
 
 
 func _hurt_strike(handler) -> void:
-	super._hurt_strike(handler)
+	super(handler)
 	base.animation = "struck"
 	fuse.visible = false
 	key.visible = false
@@ -128,7 +129,7 @@ func _struck_land():
 
 
 func explode():
-	var spawn = EXPLOSION.instantiate()
+	var spawn = explosion_scene.instantiate()
 	spawn.position = position
 	get_parent().add_child(spawn)
 	enemy_die()
