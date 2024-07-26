@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://rr2wt15543er" path="res://scenes/menus/level_designer/poly_edit/vertex.png" id="3_5w5y3"]
 [ext_resource type="Texture2D" uid="uid://b7x3r25ki34uj" path="res://scenes/menus/level_designer/poly_edit/vertex_selected.png" id="4_1lddh"]
 [ext_resource type="Texture2D" uid="uid://cicskwmcgq06f" path="res://scenes/menus/level_designer/poly_edit/vertex_hover.png" id="5_icii8"]
-[ext_resource type="Script" path="res://gui/custom_nodes/texture_button_rmb.gd" id="6_bex66"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/poly_edit/placed_vert.gd" id="6_c87d5"]
 
 [node name="PolygonEditor" type="Control"]
 layout_mode = 3
@@ -34,11 +34,11 @@ texture_hover = ExtResource("5_icii8")
 layout_mode = 0
 offset_right = 12.0
 offset_bottom = 12.0
-mouse_default_cursor_shape = 2
+mouse_default_cursor_shape = 13
 button_mask = 3
 texture_normal = ExtResource("3_5w5y3")
 texture_pressed = ExtResource("4_1lddh")
 texture_hover = ExtResource("5_icii8")
-script = ExtResource("6_bex66")
+script = ExtResource("6_c87d5")
 
 [connection signal="pressed" from="Polygon/NewVert" to="Polygon" method="_on_new_vert_pressed"]
