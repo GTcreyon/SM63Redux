@@ -1,7 +1,7 @@
 # Super Mario 63 Redux
 <p align="center">
   <a href="https://sm63redux.com">
-    <img src="logo.png" width="400" alt="Super Mario 63 Redux logo">
+    <img src="repo-logo.png" width="400" alt="Super Mario 63 Redux logo">
   </a>
 </p>
 
