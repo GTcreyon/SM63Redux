@@ -67,7 +67,7 @@ func _anim_finished():
 
 func _trans_rules():
 	if input.buffered_input(&"pound"):
-		return &"PoundSpin"
+		return &"PoundWindup"
 
 	if _flip_frames >= _flip_time:
 		return [&"Fall", [&"fall", stylish]]

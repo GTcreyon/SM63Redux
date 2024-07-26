@@ -10,7 +10,7 @@ func _trans_rules():
 		return &"Spin"
 
 	if input.buffered_input(&"pound"):
-		return &"PoundSpin"
+		return &"PoundWindup"
 
 	if motion.vel.y > 0:
 		return [&"Fall", [trans_anims[_anim_index], false]]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=195 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=196 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/player/player_hit_handler.gd" id="2_48bkb"]
@@ -32,6 +32,7 @@
 [ext_resource type="Material" uid="uid://b04v14ipldro2" path="res://classes/player/fludd_spray.tres" id="13"]
 [ext_resource type="Script" path="res://classes/player/camera.gd" id="14"]
 [ext_resource type="Texture2D" uid="uid://dpgkodpraunrv" path="res://classes/particles/dust.png" id="15"]
+[ext_resource type="PackedScene" uid="uid://c4vgmri5j81ik" path="res://classes/player/ground_pound_effect.tscn" id="15_cum7c"]
 [ext_resource type="AudioStream" uid="uid://t4j5ffot2i05" path="res://classes/player/sfx/fludd/fludd_switch.wav" id="16"]
 [ext_resource type="Script" path="res://classes/player/state/dive.gd" id="16_vh6so"]
 [ext_resource type="AudioStream" uid="uid://bxupwlkn26gd6" path="res://classes/player/sfx/pound/pound_spin.wav" id="17"]
@@ -1329,6 +1330,7 @@ script = ExtResource("7_djbi5")
 
 [node name="PoundLand" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("8_bxvk2")
+effect_scene = ExtResource("15_cum7c")
 
 [node name="Slide" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("9_lxi1s")
@@ -1404,7 +1406,7 @@ script = ExtResource("17_s7v4w")
 [node name="PoundAir" type="Node" parent="StateManager/Neutral/Air"]
 script = ExtResource("18_yyx6c")
 
-[node name="PoundSpin" type="Node" parent="StateManager/Neutral/Air/PoundAir"]
+[node name="PoundWindup" type="Node" parent="StateManager/Neutral/Air/PoundAir"]
 script = ExtResource("19_ieyet")
 
 [node name="PoundFall" type="Node" parent="StateManager/Neutral/Air/PoundAir"]
@@ -1430,7 +1432,7 @@ script = ExtResource("4_q4bau")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"stomp_low"
+animation = &"flip"
 script = ExtResource("21")
 
 [node name="Fludd" type="AnimatedSprite2D" parent="CharacterGroup/CharacterSprite"]

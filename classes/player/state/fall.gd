@@ -38,7 +38,7 @@ func _trans_rules():
 		return &"Dive"
 
 	if input.buffered_input(&"pound"):
-		return &"PoundSpin"
+		return &"PoundWindup"
 
 	return &""
 

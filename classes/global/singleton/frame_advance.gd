@@ -10,9 +10,9 @@ func _input(event):
 		get_tree().paused = not get_tree().paused
 
 
-func _physics_process(delta):
+func _process(delta):
 	if Input.is_action_just_pressed("frame_advance"):
 		if get_tree().paused:
 			get_tree().paused = false
-		await get_tree().physics_frame
+		await get_tree().process_frame
 		get_tree().paused = true
