@@ -1,8 +1,13 @@
 class_name JSONSerializer
 extends Node
 
+const LD_TEMPLATE = preload("res://scenes/menus/level_designer/template.tscn")
 const LD_ITEM = preload("res://scenes/menus/level_designer/ld_item/ld_item.tscn")
-const LD_TERRAIN = preload("res://classes/solid/terrain/terrain_polygon.tscn")
+const POLYGON_PREFABS = {
+	"Terrain": preload("res://classes/solid/terrain/terrain_polygon.tscn"),
+	"Water": preload("res://classes/water/water.tscn"),
+	"CameraLimits": preload("res://classes/zone/camera_area/camera_area.tscn")
+}
 
 
 ## Generates a JSON representation of the level.
@@ -53,21 +58,42 @@ func load_level_json(file_content, main: LDMain):
 	
 	# Create a parallel item tree to load into, just in case level loading
 	# fails at any point.
-	var new_level = Node2D.new()
-	new_level.name = "Template"
+	var new_level = LD_TEMPLATE.instantiate()
 	
 	# Load the items from the JSON file.
-	var item_tree = _load_items_json(file_json.items, main, fmt_ver)
+	var new_items = _load_items_json(file_json.items, main, fmt_ver)
 	# Error code handling goes here....
 	# Items loaded successfully. Add to new-level tree.
-	new_level.add_child(item_tree)
+	var item_tree = new_level.get_node("Items")
+	for item in new_items:
+		item_tree.add_child(item)
 	
 	# Load the polygons in similar fashion.
-	var poly_trees = _load_polygons_json(file_json.polygons, main, fmt_ver)
-	# Error code handling goes here....
-	# Polygons loaded successfully. One root per type; add them all to the tree.
-	for polyset in poly_trees:
-		new_level.add_child(polyset)
+	for poly_type: String in POLYGON_PREFABS.keys():
+		# VALIDATE: Does this JSON file have a dictionary of this type of
+		# polygon?
+		var poly_type_snakecase = poly_type.to_snake_case()
+		if not file_json.polygons.has(poly_type_snakecase):
+			# Not a deal breaker. Just skip to the next dictionary.
+			print("No section for ", poly_type, " polygons found")
+			continue
+		
+		# Load polygons of this type, if any.
+		var polygons = _load_polygons_json(
+			file_json.polygons[poly_type_snakecase], POLYGON_PREFABS[poly_type],
+			fmt_ver, poly_type)
+		
+		# Error code handling goes here....
+		
+		# Polygons loaded successfully. Get the type's root and add them
+		# to the tree.
+		# NOTE: This will crash if template.tscn doesn't have the needed
+		# root. That's intentional. Better to see a blaring warning so we know
+		# to fix something (e.g. add versioning code) than to brush it under
+		# the rug so nobody ever knows there's a problem.
+		var poly_type_parent = new_level.get_node(poly_type)
+		for polygon in polygons:
+			poly_type_parent.add_child(polygon)
 	
 	# TODO: Add the rest of the template's node tree to avoid future errors.
 	
@@ -110,9 +136,9 @@ func _generate_items_json(main: LDMain, level: Node) -> Dictionary:
 	return item_json
 
 
-func _generate_polygons_json(editor: Node) -> Dictionary:
-	var terrain_polygons = editor.get_node("Terrain").get_children()
-	var water_polygons = editor.get_node("Water").get_children()
+func _generate_polygons_json(level: Node) -> Dictionary:
+	var terrain_polygons = level.get_node("Terrain").get_children()
+	var water_polygons = level.get_node("Water").get_children()
 
 	var scene_polygons = {
 		"terrain": terrain_polygons, 
@@ -143,11 +169,8 @@ func _generate_editor_json(main: LDMain) -> Dictionary: # better logic can be ad
 	}
 
 
-func _load_items_json(items_json: Dictionary, main: LDMain, fmt_ver: SemVer):
-	# Create a parallel Items tree to load into, just in case level loading
-	# fails at any point.
-	var new_items_parent = Node2D.new()
-	new_items_parent.name = "Items"
+func _load_items_json(items_json: Dictionary, main: LDMain, _fmt_ver: SemVer):
+	var new_items = []
 	
 	for item_id: String in items_json.keys():
 		print("Loading all ", item_id)
@@ -190,48 +213,40 @@ func _load_items_json(items_json: Dictionary, main: LDMain, fmt_ver: SemVer):
 			inst.position = Vector2(inst_data[0], inst_data[1])
 			inst.properties["Position"] = inst.position
 			
-			new_items_parent.add_child(inst)
+			new_items.append(inst)
 	
-	return new_items_parent
+	return new_items
 
 
-func _load_polygons_json(polygons_json: Dictionary, main: LDMain, fmt_ver: SemVer) -> Array[Node2D]:
-	var polygon_sets: Array[Node2D] = []
+## Load polygons of a specific type
+func _load_polygons_json(
+	instances_json, prefab: PackedScene, _fmt_ver: SemVer,
+	debug_name: String) -> Array[Node2D]:
+	var polygons: Array[Node2D] = []
 	
-	for polygon_type: String in polygons_json:
-		# Create a parent to save polygons of this type into.
-		var poly_type_parent := Node2D.new()
-		poly_type_parent.name = polygon_type.to_pascal_case()
+	for loaded_poly: Dictionary in instances_json:
+		# Skip malformed polygons with too few verts.
+		if loaded_poly.vertices.size() < 3:
+			push_warning("Found ", debug_name, " with too few verts: ", loaded_poly)
+			continue
 		
-		for loaded_poly: Dictionary in polygons_json[polygon_type]:
-			# Skip malformed polygons with too few verts.
-			if loaded_poly.vertices.size() < 3:
-				push_warning("Found ", polygon_type, " with too few verts: ", loaded_poly)
-				continue
-			
-			# Duplicate the correct polygon instance for the type.
-			var inst: Polygon2D
-			match polygon_type:
-				"terrain": inst = LD_TERRAIN.instantiate()
-				"water": pass # TODO: water not ready yet
+		# Duplicate the correct polygon instance for the type.
+		var inst: Polygon2D = prefab.instantiate()
 
-			inst.position = _str_to_vec2(loaded_poly.position)
-			# inst.properties = polygon.properties
+		inst.position = _str_to_vec2(loaded_poly.position)
+		# inst.properties = polygon.properties
 
-			# Load the deserialized verts into the instance node.
-			var new_polygon_vertices := PackedVector2Array()
-			for vertex in loaded_poly.vertices:
-				# Convert the deserialized string into a valid Vector2.
-				new_polygon_vertices.append(_str_to_vec2(vertex))
-			inst.polygon = new_polygon_vertices
-			
-			# Add the instance to the type's parent.
-			poly_type_parent.add_child(inst)
+		# Load the deserialized verts into the instance node.
+		var new_polygon_vertices := PackedVector2Array()
+		for vertex in loaded_poly.vertices:
+			# Convert the deserialized string into a valid Vector2.
+			new_polygon_vertices.append(_str_to_vec2(vertex))
+		inst.polygon = new_polygon_vertices
 		
-		# This poly-type's loading is done, no errors. Add it to the output array.
-		polygon_sets.append(poly_type_parent)
+		# Add the instance to the type's parent.
+		polygons.append(inst)
 	
-	return polygon_sets
+	return polygons
 
 
 func _load_editor_json(editor_json, main: LDMain, fmt_ver: SemVer):
