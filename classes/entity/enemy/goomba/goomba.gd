@@ -64,7 +64,7 @@ func _stomp_trigger():
 	sprite.play(&"squish")
 	stomped = true
 	struck = false
-	vel.y = 0
+	vel = Vector2.ZERO
 
 
 func _hurt_strike(body):
