@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://bmgwliruc3ptg"]
+[gd_scene load_steps=23 format=3 uid="uid://bmgwliruc3ptg"]
 
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="1"]
 [ext_resource type="Script" path="res://classes/entity/enemy/koopa/koopa.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://gagulf6yfw6x" path="res://classes/entity/enemy/goomba/goomba_step.wav" id="3"]
 [ext_resource type="Script" path="res://classes/hit_handler.gd" id="3_436eq"]
+[ext_resource type="PackedScene" uid="uid://cp0db5ewq3t6p" path="res://classes/entity/enemy/koopa/koopa_shell.tscn" id="3_lwmf2"]
 [ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://shaders/palette.tres" id="4"]
 [ext_resource type="Texture2D" uid="uid://bjlgu2ch3ey1y" path="res://classes/entity/enemy/koopa/koopa_walk.png" id="5"]
 [ext_resource type="Script" path="res://classes/entity/hurtbox.gd" id="5_06d11"]
@@ -79,24 +80,13 @@ size = Vector2(2, 2)
 material = ExtResource("4")
 collision_layer = 4
 script = ExtResource("2")
+shell_scene = ExtResource("3_lwmf2")
 step_indexes = Array[bool]([false, true, false, false, true, false])
 _alert_area_path = NodePath("")
 _aware_area_path = NodePath("")
-_edge_check_path = null
-_sfx_step_path = null
-coin_count = null
-inside_check = null
-multi_stomp = null
-death_smoke = null
 _sfx_stomp_path = NodePath("SFXKick")
-residualize_sfx_stomp = null
 _sfx_struck_path = NodePath("SFXKick")
-residualize_sfx_struck = null
 _sfx_struck_land_path = NodePath("")
-residualize_sfx_struck_landed = null
-mirror = null
-_sprite_path = null
-_water_check_path = null
 
 [node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]
 script = ExtResource("3_436eq")

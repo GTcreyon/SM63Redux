@@ -1,7 +1,7 @@
 class_name KoopaShell
 extends EntityEnemy
 
-var speed = 5
+const HIT_SPEED: int = 5
 
 @export var color: Koopa.ShellColor = Koopa.ShellColor.GREEN: set = set_color
 @export var sfx_kick: AudioStreamPlayer2D
@@ -25,7 +25,7 @@ func _physics_step():
 		sprite.animation = "counterclockwise"
 	else:
 		sprite.animation = "clockwise"
-	super._physics_step()
+	super()
 
 
 func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
@@ -36,18 +36,18 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 	match type:
 		Hitbox.Type.CRUSH:
 			handler.set_vel_component(Vector2.UP, 5)
-			if handler.get_pos().x < position.x:
-				vel.x = speed
-			else:
-				vel.x = -speed
-			sfx_kick.play()
+			_kick(handler)
 			return true
 		Hitbox.Type.STRIKE, Hitbox.Type.NUDGE:
-			if handler.get_pos().x < position.x:
-				vel.x = speed
-			elif handler.get_pos().x > position.x:
-				vel.x = -speed
-			sfx_kick.play()
+			_kick(handler)
 			return true
 		_:
 			return false
+
+
+func _kick(handler: HitHandler):
+	if handler.get_pos().x < position.x:
+		vel.x = HIT_SPEED
+	else:
+		vel.x = -HIT_SPEED
+	sfx_kick.play()

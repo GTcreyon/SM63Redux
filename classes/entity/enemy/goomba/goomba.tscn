@@ -162,7 +162,7 @@ _source = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
-animation = &"squish"
+animation = &"walking"
 script = ExtResource("15")
 
 [node name="KinematicShape" type="CollisionShape2D" parent="."]

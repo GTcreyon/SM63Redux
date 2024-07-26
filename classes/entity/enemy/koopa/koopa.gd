@@ -1,8 +1,8 @@
 class_name Koopa
 extends EntityEnemyWalk
 
+const HIT_SPEED: int = 5
 const COOLDOWN_TIME: int = 30
-const SHELL_PREFAB = preload("./koopa_shell.tscn")
 const COLOR_PRESETS = [
 	[ # green
 		Color("9cc56d"),
@@ -24,6 +24,7 @@ var speed = 0.9
 var init_position = 0
 var cooldown_time_left: int = 0
 
+@export var shell_scene: PackedScene
 @export var color: ShellColor = ShellColor.GREEN: set = set_color
 
 
@@ -55,7 +56,8 @@ func hit_cooldown():
 func _wander():
 	vel.x = -speed if mirror else speed
 	
-	if (position.x - init_position.x > 100 and vel.x > 0) or (position.x - init_position.x < -100 and vel.x < 0):
+	var position_offset = position.x - init_position.x
+	if position_offset * sign(vel.x) > 100:
 		turn_around()
 
 
@@ -69,10 +71,10 @@ func _hurt_crush(handler):
 func _hurt_strike(handler):
 	if cooldown_time_left > 0:
 		return
-	if handler.get_pos().x < handler.get_pos().x:
-		into_shell(5)
+	if handler.get_pos().x < position.x:
+		into_shell(HIT_SPEED)
 	else:
-		into_shell(-5)
+		into_shell(-HIT_SPEED)
 
 
 func into_shell(vel_x):
@@ -81,13 +83,15 @@ func into_shell(vel_x):
 	# outright deleted by next frame).
 	# This should fix a bug wherein stomping and spinning the koopa in the same
 	# frame spawns two shells, one for each attack that landed.
-	if !is_queued_for_deletion():
-		# Create a new shell at this koopa's position.
-		var inst = SHELL_PREFAB.instantiate()
-		inst.position = position + Vector2(0, 7.5)
-		inst.color = color
-		inst.vel = Vector2(vel_x, 0)
-		# Add it to the world.
-		get_parent().call_deferred("add_child", inst)
-		
-		queue_free()
+	if is_queued_for_deletion():
+		return
+
+	# Create a new shell at this koopa's position.
+	var inst = shell_scene.instantiate()
+	inst.position = position + Vector2(0, 7.5)
+	inst.color = color
+	inst.vel = Vector2(vel_x, 0)
+	# Add it to the world.
+	get_parent().call_deferred("add_child", inst)
+	
+	queue_free()

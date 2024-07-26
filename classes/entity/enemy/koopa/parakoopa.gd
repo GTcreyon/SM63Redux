@@ -1,5 +1,7 @@
 extends AnimatedSprite2D
 
+const HIT_SPEED: int = 5
+
 @onready var hitbox = $Hitbox
 @onready var hurtbox_stomp = $HurtboxStomp
 @onready var hurtbox_other = $HurtboxOther
@@ -22,9 +24,9 @@ func _ready():
 	# "Local to scene" causes issues with source control, because UIDs are refreshed on loading the scene.
 	# This method refreshes them at runtime instead of in the editor.
 	material = material.duplicate()
-	
+
 	set_color(color)
-	
+
 	flip_h = mirror
 	frame = hash(position.x + position.y * PI) % 6
 	if not disabled:
@@ -34,7 +36,7 @@ func _ready():
 func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 	if disabled:
 		return false
-	
+
 	match type:
 		Hitbox.Type.CRUSH:
 			var koopa = koopa_scene.instantiate()
@@ -53,20 +55,6 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 		_:
 			return false
 
-#func _on_Damage_body_entered(body):
-	## Parakoopa was already defeated, return early
-	#if !visible:
-		#return
-	#
-	#if !body.is_diving(true):
-		#if body.is_spinning():
-			#spawn_shell(body)
-		#else:
-			#if body.global_position.x < global_position.x:
-				#body.take_damage_shove(1, -1)
-			#elif body.global_position.x > global_position.x:
-				#body.take_damage_shove(1, 1)
-
 
 func spawn_shell(handler: HitHandler):
 	defeat()
@@ -75,9 +63,9 @@ func spawn_shell(handler: HitHandler):
 	shell.position = position + Vector2(0, 7.5)
 	shell.color = color
 	if handler.get_pos().x < position.x:
-		shell.vel.x = 5
+		shell.vel.x = HIT_SPEED
 	else:
-		shell.vel.x = -5
+		shell.vel.x = -HIT_SPEED
 
 
 # Called when the parakoopa loses its wings
