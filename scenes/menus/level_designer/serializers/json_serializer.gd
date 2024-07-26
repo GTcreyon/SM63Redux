@@ -11,7 +11,7 @@ const POLYGON_PREFABS = {
 
 
 ## Generates a JSON representation of the level.
-func generate_level_json(main: LDMain, level: Node2D) -> String:
+func generate_level_json(main: LDMain, level: Node2D, minify := false) -> String:
 	main.save_level_started.emit()
 	
 	var save_json := {}
@@ -34,8 +34,13 @@ func generate_level_json(main: LDMain, level: Node2D) -> String:
 	
 	main.save_level_finished.emit()
 	
+	# Print the final dictionary compactly.
 	print(save_json)
-	return JSON.stringify(save_json)
+	# Return the dictionary as JSON text.
+	# Indent (which also adds newlines) unless the output is meant to be 
+	# minified.
+	var indent = "" if minify else "\t"
+	return JSON.stringify(save_json, indent)
 
 
 func load_level_json(file_content, main: LDMain):
