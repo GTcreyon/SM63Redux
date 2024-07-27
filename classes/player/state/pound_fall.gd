@@ -6,6 +6,7 @@ extends PlayerState
 func _on_enter(_h):
 	pound_hitbox.start_hit()
 	_anim(&"pound_fall")
+	actor.sprite.offset.y = 3
 
 
 func _all_ticks():
@@ -15,6 +16,7 @@ func _all_ticks():
 
 func _on_exit():
 	pound_hitbox.stop_hit()
+	actor.sprite.offset.y = 0
 
 
 func _trans_rules():

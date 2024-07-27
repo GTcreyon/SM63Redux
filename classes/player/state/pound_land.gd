@@ -9,6 +9,8 @@ var time: int
 
 
 func _on_enter(_h):
+	actor.sprite.offset.y = 3
+
 	# Start a short hit so breakable floors can break properly.
 	pound_hitbox.start_hit()
 	time = 0
@@ -39,7 +41,13 @@ func _all_ticks():
 		pound_hitbox.stop_hit()
 
 
+func _on_exit():
+	actor.sprite.offset.y = 0
+
+
 func _trans_rules():
+	if input.buffered_input(&"jump"):
+		return &"JumpDouble"
 	if not actor.is_on_floor():
 		return &"PoundFall"
 	if time > DURATION:

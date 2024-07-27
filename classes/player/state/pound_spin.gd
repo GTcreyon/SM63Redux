@@ -15,7 +15,7 @@ func _on_enter(_h):
 func _all_ticks():
 	progress += 1.0
 	if progress <= SPIN_DURATION:
-		motion.set_rotation(ease(progress / SPIN_DURATION, 0.5) * TAU)
+		motion.set_rotation(ease(progress / SPIN_DURATION, 0.5) * TAU * motion.get_facing())
 
 
 func _trans_rules():
