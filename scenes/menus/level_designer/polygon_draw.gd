@@ -178,10 +178,12 @@ func end_edit():
 
 func begin_drag():
 	show_verts = false
+	Input.set_default_cursor_shape(Input.CURSOR_DRAG)
 
 
 func end_drag():
 	show_verts = true
+	Input.set_default_cursor_shape()
 
 
 func _on_new_vert_pressed():
