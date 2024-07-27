@@ -26,6 +26,7 @@ var _anim_index: int
 
 
 func _on_enter(handover):
+	motion.vel.y = min(motion.vel.y, 0)
 	motion.legacy_accel_y(-jump_power, true)
 
 	_anim_index = randi_range(0, start_anims.size() - 1)

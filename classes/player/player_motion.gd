@@ -38,6 +38,8 @@ func _physics_process(delta):
 	resist = max(resist - RESIST_DECREMENT, 0)
 	if active_consec_time():
 		consec_jump_timer -= 1
+	if active_coyote_time():
+		coyote_timer -= 1
 
 
 ## Set the player's rotation to the given value.
