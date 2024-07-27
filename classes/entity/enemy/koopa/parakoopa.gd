@@ -61,6 +61,7 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 
 
 func spawn_shell(handler: HitHandler) -> Node2D:
+	hitbox.stop_hit()
 	defeat()
 	var shell = shell_scene.instantiate()
 	get_parent().call_deferred("add_child", shell)

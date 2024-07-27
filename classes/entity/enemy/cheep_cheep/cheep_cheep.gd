@@ -3,6 +3,8 @@ extends EntityEnemy
 
 const SPEED = 0.5
 
+@export var hitbox: Hitbox
+
 var follow_targets = []
 var direction = null
 var idle_time = 0
@@ -88,6 +90,7 @@ func _pursue():
 
 
 func _struck_spin():
+	hitbox.stop_hit()
 	vel *= 0.9
 	rotation += vel.length() * sign(vel.x) * 0.1
 	if round(vel.length()) == 0:

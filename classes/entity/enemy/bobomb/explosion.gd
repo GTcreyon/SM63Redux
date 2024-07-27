@@ -15,7 +15,3 @@ func _process(_delta):
 		monitoring = false
 	if sprite.frame == 10:
 		queue_free()
-
-
-func _on_Explosion_body_entered(body):
-	body.take_damage_shove(1, sign(body.position.x - position.x))

@@ -1,7 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://myyekq2c5f7l"]
+[gd_scene load_steps=18 format=3 uid="uid://myyekq2c5f7l"]
 
-[ext_resource type="Script" path="res://classes/entity/enemy/bobomb/explosion.gd" id="1"]
+[ext_resource type="Script" path="res://classes/entity/hitbox.gd" id="1_uciw4"]
 [ext_resource type="Texture2D" uid="uid://dicw0r6w4gwfx" path="res://classes/entity/enemy/bobomb/bobomb_explosion.png" id="2"]
+[ext_resource type="Script" path="res://classes/hit_handler.gd" id="2_dsmg3"]
 [ext_resource type="AudioStream" uid="uid://cehq1ry7xs8pi" path="res://classes/entity/enemy/bobomb/explosion.wav" id="3"]
 
 [sub_resource type="CircleShape2D" id="1"]
@@ -92,12 +93,19 @@ animations = [{
 "speed": 15.0
 }]
 
-[node name="Explosion" type="Area2D"]
+[node name="Explosion" type="Area2D" node_paths=PackedStringArray("_handler")]
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
-script = ExtResource("1")
+script = ExtResource("1_uciw4")
+_hit_type = 32
+_handler = NodePath("HitHandler")
+_persistent = false
+
+[node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]
+script = ExtResource("2_dsmg3")
+_source = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
@@ -110,5 +118,3 @@ stream = ExtResource("3")
 autoplay = true
 attenuation = 10.0
 bus = &"SFX"
-
-[connection signal="body_entered" from="." to="." method="_on_Explosion_body_entered"]

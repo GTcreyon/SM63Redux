@@ -7,6 +7,8 @@ enum JumpStates {
 	AIRBORNE,
 }
 
+@export var hitbox: Hitbox
+
 var jump_state: JumpStates = JumpStates.FLOOR
 var land_timer = 0
 
@@ -55,6 +57,7 @@ func _target_alert(_body):
 
 
 func _hurt_crush(source, pound):
+	hitbox.stop_hit()
 	if not pound:
 		source.stomp_bounce()
 	_crush_trigger(pound)
@@ -73,6 +76,7 @@ func _crush_trigger(pound: bool):
 
 func _hurt_strike(body):
 	super(body)
+	hitbox.stop_hit()
 	sprite.animation = "jumping"
 	jump_state = JumpStates.AIRBORNE
 

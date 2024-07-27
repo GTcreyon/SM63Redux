@@ -26,6 +26,7 @@ var cooldown_time_left: int = 0
 
 @export var shell_scene: PackedScene
 @export var color: ShellColor = ShellColor.GREEN: set = set_color
+@export var hitbox: Hitbox
 
 
 func set_color(new_color: ShellColor):
@@ -62,6 +63,7 @@ func _wander():
 
 
 func _hurt_crush(handler, pound):
+	hitbox.stop_hit()
 	if cooldown_time_left > 0:
 		return
 	if pound:
@@ -73,6 +75,7 @@ func _hurt_crush(handler, pound):
 
 
 func _hurt_strike(handler):
+	hitbox.stop_hit()
 	if cooldown_time_left > 0:
 		return
 	if handler.get_pos().x < position.x:

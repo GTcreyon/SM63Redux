@@ -208,9 +208,10 @@ size = Vector2(19, 19)
 [sub_resource type="RectangleShape2D" id="5"]
 size = Vector2(2, 2)
 
-[node name="CheepCheep" type="CharacterBody2D"]
+[node name="CheepCheep" type="CharacterBody2D" node_paths=PackedStringArray("hitbox")]
 collision_layer = 4
 script = ExtResource("3")
+hitbox = NodePath("Hitbox")
 _sfx_stomp_path = NodePath("")
 _sfx_struck_land_path = NodePath("")
 
