@@ -9,18 +9,27 @@ extends Control
 ## emitted!
 signal polygon_deleted(polygon: Polygon2D)
 
-@onready var main = $"/root/Main"
-@onready var drawable_polygon = $Polygon
+## Should the changes be shown in realtime on the edited polygon?
+@export var show_target := true
 
 var dragging_index = null
+
+@onready var main: LDMain = $"/root/Main"
+@onready var drawable_polygon = $Polygon
 
 
 func _process(delta):
 	# If dragging a vertex, place the visual vertex on the mouse.
 	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index != null:
 		var mouse_position = main.get_snapped_mouse_position()
+		
 		drawable_polygon.polygon[dragging_index] = mouse_position
 		drawable_polygon.refresh_polygon()
+		
+		# Update the target polygon, if updating the target is enabled.
+		if show_target:
+			main.polygon_edit_node.polygon[dragging_index] = mouse_position - \
+				main.polygon_edit_node.position
 
 
 func _unhandled_input(event):
@@ -119,7 +128,10 @@ func begin_edit(obj_to_edit: Polygon2D):
 		"Shouldn't be possible to enter polygon edit mode on an empty polygon.")
 	
 	# Hide the target node for editing.
-	obj_to_edit.visible = false
+	if show_target:
+		obj_to_edit.set_glowing(false)
+	else:
+		obj_to_edit.visible = false
 	
 	# Ensure the polyeditor properly cleans up and commits future edits
 	# if the user starts playtesting.

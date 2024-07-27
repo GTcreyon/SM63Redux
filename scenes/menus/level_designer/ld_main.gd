@@ -10,6 +10,7 @@ extends Node2D
 
 ## Emitted when [member editor_state] is changed.
 signal editor_state_changed(old: EDITOR_STATE, new: EDITOR_STATE)
+
 ## Emitted just before playtesting begins, while the editor is still in a fully
 ## valid state.
 signal playtest_started
@@ -48,7 +49,7 @@ var item_textures: Array[Dictionary] = []
 ## a playable node tree based on the [LDPlacedItem]s in the level.
 var item_scenes = []
 ## The current polygon node which is being edited
-var polygon_edit_node
+var polygon_edit_node: Polygon2D
 
 ## Set to [code]true[/code] to enable returning to the level designer
 ## when [kbd]ld_exit[/kbd] is pressed.
