@@ -61,11 +61,15 @@ func _wander():
 		turn_around()
 
 
-func _hurt_crush(handler):
+func _hurt_crush(handler, pound):
 	if cooldown_time_left > 0:
 		return
-	handler.set_vel_component(Vector2.UP, 5)
-	into_shell(0)
+	if pound:
+		var shell = into_shell(0)
+		shell.destroy(handler)
+	else:
+		handler.set_vel_component(Vector2.UP, 5)
+		into_shell(0)
 
 
 func _hurt_strike(handler):
@@ -77,7 +81,7 @@ func _hurt_strike(handler):
 		into_shell(-HIT_SPEED)
 
 
-func into_shell(vel_x):
+func into_shell(vel_x: float) -> Node2D:
 	# Only do anything if this koopa is NOT queued for deletion.
 	# If it is, we know it's already been hit by an attack (or it's meant to be
 	# outright deleted by next frame).
@@ -95,3 +99,4 @@ func into_shell(vel_x):
 	get_parent().call_deferred("add_child", inst)
 	
 	queue_free()
+	return inst

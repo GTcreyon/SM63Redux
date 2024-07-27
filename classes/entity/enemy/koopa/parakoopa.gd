@@ -38,7 +38,7 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 		return false
 
 	match type:
-		Hitbox.Type.CRUSH:
+		Hitbox.Type.STOMP:
 			var koopa = koopa_scene.instantiate()
 			get_parent().add_child.call_deferred(koopa)
 			#koopa.position = Vector2(position.x, body.position.y + 33)
@@ -52,11 +52,15 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 		Hitbox.Type.STRIKE:
 			spawn_shell(handler)
 			return true
+		Hitbox.Type.POUND:
+			var shell = spawn_shell(handler)
+			shell.destroy(handler)
+			return true
 		_:
 			return false
 
 
-func spawn_shell(handler: HitHandler):
+func spawn_shell(handler: HitHandler) -> Node2D:
 	defeat()
 	var shell = shell_scene.instantiate()
 	get_parent().call_deferred("add_child", shell)
@@ -66,6 +70,7 @@ func spawn_shell(handler: HitHandler):
 		shell.vel.x = HIT_SPEED
 	else:
 		shell.vel.x = -HIT_SPEED
+	return shell
 
 
 # Called when the parakoopa loses its wings

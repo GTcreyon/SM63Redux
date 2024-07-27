@@ -75,7 +75,7 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 
 	# Default hurt behavior. Can be overridden.
 	match type:
-		Hitbox.Type.CRUSH, Hitbox.Type.CRUSH_HEAVY:
+		Hitbox.Type.STOMP, Hitbox.Type.POUND:
 			if stomped:
 				return false
 			# Play the stomp sound, if there is one
@@ -84,7 +84,10 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 					ResidualSFX.new_from_existing(sfx_stomp, get_parent())
 				else:
 					sfx_stomp.play()
-			_hurt_crush(handler)
+			var pound := false
+			if type == Hitbox.Type.POUND:
+				pound = true
+			_hurt_crush(handler, pound)
 			return true
 		Hitbox.Type.STRIKE:
 			if struck:
@@ -121,8 +124,8 @@ func _init_animation():
 			sprite.stop()
 
 
-## Called when the enemy is stomped.
-func _hurt_crush(_handler: HitHandler):
+## Called when the enemy is stomped or pounded.
+func _hurt_crush(_handler: HitHandler, _pound: bool):
 	pass
 
 

@@ -7,7 +7,7 @@ extends Area2D
 
 ## The damage types that the hurtbox will detect.
 ## See the [Hitbox] class for specific explanations.
-@export_flags("Generic", "Crush", "Heavy Crush", "Strike", "Burn", "Explosion", "Nudge") var _hurt_mask: int = 1
+@export_flags("Generic", "Stomp", "Pound", "Strike", "Burn", "Explosion", "Nudge") var _hurt_mask: int = 1
 
 ## If true, the hurtbox will be available to receive hits.
 var _enabled: bool = true

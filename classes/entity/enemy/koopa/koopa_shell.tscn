@@ -144,11 +144,13 @@ size = Vector2(22, 18)
 [sub_resource type="RectangleShape2D" id="20"]
 size = Vector2(2, 2)
 
-[node name="Shell" type="CharacterBody2D" node_paths=PackedStringArray("sfx_kick")]
+[node name="Shell" type="CharacterBody2D" node_paths=PackedStringArray("sfx_kick", "collision", "on_screen")]
 material = ExtResource("5")
 collision_layer = 4
 script = ExtResource("3")
 sfx_kick = NodePath("Kick")
+collision = NodePath("KinematicShape")
+on_screen = NodePath("OnScreen")
 inside_check = false
 multi_stomp = true
 _sfx_stomp_path = NodePath("Kick")
@@ -204,3 +206,7 @@ shape = SubResource("20")
 stream = ExtResource("4")
 volume_db = 5.0
 bus = &"SFX"
+
+[node name="OnScreen" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(8.04663e-07, 8.9407e-08)
+rect = Rect2(-11, -9, 22, 18)

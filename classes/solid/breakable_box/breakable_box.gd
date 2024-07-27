@@ -5,9 +5,6 @@ const PARTICLE_PREFAB = preload("./box_particle.tscn")
 const BOOM_A = preload("./boom.wav")
 const BOOM_B = preload("./box_break.wav")
 
-@onready var pound_area = $PoundArea
-@onready var spin_area = $SpinArea
-
 var rng = RandomNumberGenerator.new()
 var _pickup_ids = []
 
@@ -17,26 +14,11 @@ var _pickup_ids = []
 func _ready():
 	_pickup_ids = FlagServer.claim_flag_id_array(coin_count)
 	rng.seed = hash(position.x + position.y * PI)
-	$Sprite2D.frame = randi() % 3
+	$Sprite.frame = randi() % 3
 
 
-func _process(_delta):
-	for body in pound_area.get_overlapping_bodies():
-		if body.state == body.S.POUND and body.pound_state != body.Pound.SPIN:
-			destroy()
-	for body in spin_area.get_overlapping_bodies():
-		if body.is_spinning(): 
-			destroy()
-
-
-func _on_PoundArea_body_entered(body):
-	if body.state == body.S.POUND and body.pound_state != body.Pound.SPIN:
-		destroy()
-
-
-func _on_SpinArea_body_entered(body):
-	if body.is_spinning():
-		destroy()
+func take_hit(type: Hitbox.Type, _handler) -> void:
+	destroy()
 
 
 func destroy():

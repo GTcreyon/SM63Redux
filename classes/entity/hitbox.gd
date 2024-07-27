@@ -5,10 +5,10 @@ extends Area2D
 enum Type {
 	## Fallback type for damage of non-specific origin, e.g. /dmg.
 	GENERIC = 0b1,
-	## Light crush, e.g. jumping on a Goomba.
-	CRUSH = 0b10,
-	## Heavier crush, e.g. ground-pounding a Goomba or being crushed by a Thwomp.
-	CRUSH_HEAVY = 0b100,
+	## Stomp / light crush, e.g. jumping on a Goomba.
+	STOMP = 0b10,
+	## Pound / heavy crush, e.g. ground-pounding a Goomba or being crushed by a Thwomp.
+	POUND = 0b100,
 	## Impact, e.g. spin attack or Bullet Bill.
 	STRIKE = 0b1000,
 	## Heat damage, e.g. fire or lava.

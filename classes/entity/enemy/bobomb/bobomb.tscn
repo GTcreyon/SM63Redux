@@ -1,8 +1,7 @@
-[gd_scene load_steps=31 format=3 uid="uid://vunewr3fpf60"]
+[gd_scene load_steps=30 format=3 uid="uid://vunewr3fpf60"]
 
 [ext_resource type="Texture2D" uid="uid://dvxqi07gettjf" path="res://classes/entity/enemy/bobomb/bobomb_fuse_unlit.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://bymmn17pd5ko4" path="res://classes/entity/enemy/bobomb/bobomb_walk.png" id="2"]
-[ext_resource type="Script" path="res://classes/hit_handler.gd" id="2_5yk2i"]
 [ext_resource type="PackedScene" uid="uid://myyekq2c5f7l" path="res://classes/entity/enemy/bobomb/explosion.tscn" id="2_p0r1x"]
 [ext_resource type="Texture2D" uid="uid://b81lf6m4dv57n" path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_0.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://ynwncv82vnux" path="res://classes/entity/enemy/bobomb/bobomb_fuse_lit_1.png" id="4"]
@@ -145,10 +144,6 @@ _sfx_stomp_path = NodePath("")
 _sfx_struck_land_path = NodePath("")
 _sprite_path = NodePath("Sprites/Base")
 
-[node name="HitHandler" type="Node" parent="." node_paths=PackedStringArray("_source")]
-script = ExtResource("2_5yk2i")
-_source = NodePath("..")
-
 [node name="Sprites" type="Node2D" parent="."]
 script = ExtResource("8")
 
@@ -183,7 +178,7 @@ input_pickable = false
 monitoring = false
 script = ExtResource("10_rg6ed")
 _target = NodePath("..")
-_hurt_mask = 8
+_hurt_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStrike"]
 shape = SubResource("13")

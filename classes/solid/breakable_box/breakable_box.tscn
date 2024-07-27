@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6hch0hl28ija"]
+[gd_scene load_steps=11 format=3 uid="uid://c6hch0hl28ija"]
 
 [ext_resource type="Texture2D" uid="uid://cbvx6a6whd3w4" path="res://classes/solid/breakable_box/box1.png" id="1"]
 [ext_resource type="Script" path="res://classes/solid/breakable_box/breakable_box.gd" id="2"]
 [ext_resource type="Texture2D" uid="uid://bpnxav8hdwq3k" path="res://classes/solid/breakable_box/box2.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://hs7vrm0gnwxr" path="res://classes/solid/breakable_box/box3.png" id="4"]
+[ext_resource type="Script" path="res://classes/entity/hurtbox.gd" id="5_801h4"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -26,40 +27,57 @@ animations = [{
 size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="3"]
-size = Vector2(32, 2)
+size = Vector2(32, 4)
 
 [sub_resource type="RectangleShape2D" id="4"]
-size = Vector2(36, 32)
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qafin"]
+size = Vector2(32, 32)
 
 [node name="BreakableBox" type="StaticBody2D"]
 collision_mask = 0
 script = ExtResource("2")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("2")
 
-[node name="PoundArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
+[node name="HurtboxPound" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+collision_layer = 4
+collision_mask = 0
 input_pickable = false
-monitorable = false
+monitoring = false
+script = ExtResource("5_801h4")
+_target = NodePath("..")
+_hurt_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PoundArea"]
-position = Vector2(0, -17)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxPound"]
+position = Vector2(0, -16)
 shape = SubResource("3")
 
-[node name="SpinArea" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
+[node name="HurtboxStrike" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+collision_layer = 4
+collision_mask = 0
 input_pickable = false
-monitorable = false
+monitoring = false
+script = ExtResource("5_801h4")
+_target = NodePath("..")
+_hurt_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SpinArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStrike"]
 shape = SubResource("4")
 
-[connection signal="body_entered" from="PoundArea" to="." method="_on_PoundArea_body_entered"]
-[connection signal="body_entered" from="SpinArea" to="." method="_on_SpinArea_body_entered"]
+[node name="HurtboxExplosion" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+collision_layer = 4
+collision_mask = 0
+input_pickable = false
+monitoring = false
+script = ExtResource("5_801h4")
+_target = NodePath("..")
+_hurt_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxExplosion"]
+shape = SubResource("RectangleShape2D_qafin")

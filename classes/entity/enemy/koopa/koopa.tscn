@@ -134,14 +134,15 @@ _hurt_mask = 61
 position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_hejf3")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("_handler")]
 position = Vector2(0, 2.5)
 collision_layer = 0
 collision_mask = 2
 input_pickable = false
 monitorable = false
 script = ExtResource("6_lc2np")
-_hit_type = 3
+_hit_type = 8
+_handler = NodePath("../HitHandler")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("10")

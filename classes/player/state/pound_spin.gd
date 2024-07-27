@@ -20,5 +20,6 @@ func _all_ticks():
 
 func _trans_rules():
 	if progress > FULL_DURATION:
+		motion.set_vel_component(Vector2.DOWN, 10.0)
 		return &"PoundFall"
 	return &""

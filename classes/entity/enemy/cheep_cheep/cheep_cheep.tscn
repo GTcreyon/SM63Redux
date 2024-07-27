@@ -244,12 +244,14 @@ monitorable = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AlertArea"]
 shape = SubResource("2")
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("_handler")]
 collision_layer = 0
 collision_mask = 2147483650
 input_pickable = false
 monitorable = false
 script = ExtResource("6_jkwxn")
+_hit_type = 8
+_handler = NodePath("../HitHandler")
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource("3")

@@ -13,6 +13,11 @@ var target_limit_top = -10000000
 var target_limit_bottom = 10000000
 var first_frame = true
 
+var shake_impulse: Vector2
+var shake_period: float
+var shake_length: float
+var shake_time: float
+
 
 func _ready():
 	limit_left = -10000000
@@ -27,6 +32,27 @@ func _ready():
 
 func ease_out_expo(x: float) -> float:
 	return 1 - pow(2, -10 * x)
+
+
+## Shake the camera.
+## [param impulse] is the initial velocity applied to the camera.
+## [param period] is the time in frames taken for one full oscillation.
+## [param length] is the time in frames taken for the shake to end.
+func shake(impulse: Vector2, period: float, length: float) -> void:
+	shake_impulse = impulse
+	shake_period = period
+	shake_length = length
+	shake_time = 0
+
+
+func manage_shake() -> void:
+	if shake_length == 0:
+		return
+	
+	offset = shake_impulse * cos(TAU * shake_time / shake_period) * (1 - shake_time / shake_length)
+	shake_time += 1.0
+	if shake_time >= shake_length:
+		shake_length = 0
 
 
 func manage_zoom(delta) -> void:
@@ -47,6 +73,10 @@ func rezoom() -> void:
 func _process(delta):
 	if rezooming:
 		manage_zoom(delta)
+
+	manage_shake()
+
+	# TODO: Explain why this check is here.
 	if get_window().size.x != 0:
 		var zoom_factor: float = 1 * float(Singleton.get_screen_scale(1))
 		if !get_tree().paused:

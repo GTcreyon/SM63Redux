@@ -1,4 +1,4 @@
-[gd_scene load_steps=196 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=197 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/player/player_hit_handler.gd" id="2_48bkb"]
@@ -1184,6 +1184,9 @@ size = Vector2(60, 33)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_orq1p"]
 size = Vector2(12, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dhgkb"]
+size = Vector2(12, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q5s4m"]
 size = Vector2(12, 28)
 
@@ -1328,9 +1331,10 @@ script = ExtResource("6_70jfv")
 [node name="Crouch" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("7_djbi5")
 
-[node name="PoundLand" type="Node" parent="StateManager/Neutral/Floor"]
+[node name="PoundLand" type="Node" parent="StateManager/Neutral/Floor" node_paths=PackedStringArray("pound_hitbox")]
 script = ExtResource("8_bxvk2")
 effect_scene = ExtResource("15_cum7c")
+pound_hitbox = NodePath("../../../../Hitboxes/HitboxPound")
 
 [node name="Slide" type="Node" parent="StateManager/Neutral/Floor"]
 script = ExtResource("9_lxi1s")
@@ -1409,8 +1413,9 @@ script = ExtResource("18_yyx6c")
 [node name="PoundWindup" type="Node" parent="StateManager/Neutral/Air/PoundAir"]
 script = ExtResource("19_ieyet")
 
-[node name="PoundFall" type="Node" parent="StateManager/Neutral/Air/PoundAir"]
+[node name="PoundFall" type="Node" parent="StateManager/Neutral/Air/PoundAir" node_paths=PackedStringArray("pound_hitbox")]
 script = ExtResource("20_ri21n")
+pound_hitbox = NodePath("../../../../../Hitboxes/HitboxPound")
 
 [node name="Spin" type="Node" parent="StateManager" node_paths=PackedStringArray("_hitbox")]
 script = ExtResource("21_0w5dd")
@@ -1481,6 +1486,21 @@ _handler = NodePath("../../HitHandler")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HitboxStomp"]
 position = Vector2(0, 15.5)
 shape = SubResource("RectangleShape2D_orq1p")
+
+[node name="HitboxPound" type="Area2D" parent="Hitboxes" node_paths=PackedStringArray("_handler")]
+collision_layer = 0
+collision_mask = 4
+input_pickable = false
+monitorable = false
+script = ExtResource("37_gj4ca")
+_hit_type = 4
+_handler = NodePath("../../HitHandler")
+_persistent = false
+_start_active = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitboxes/HitboxPound"]
+position = Vector2(0, 15.5)
+shape = SubResource("RectangleShape2D_dhgkb")
 
 [node name="HitboxNudge" type="Area2D" parent="Hitboxes" node_paths=PackedStringArray("_handler")]
 collision_layer = 0

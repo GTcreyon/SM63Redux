@@ -54,14 +54,18 @@ func _target_alert(_body):
 	vel.y = -2.5
 
 
-func _hurt_crush(source: HitHandler):
-	source.stomp_bounce()
-	_stomp_trigger()
+func _hurt_crush(source, pound):
+	if not pound:
+		source.stomp_bounce()
+	_crush_trigger(pound)
 
 
-func _stomp_trigger():
+func _crush_trigger(pound: bool):
 	sprite.speed_scale = 1
-	sprite.play(&"squish")
+	if pound:
+		sprite.play(&"crush")
+	else:
+		sprite.play(&"squish")
 	stomped = true
 	struck = false
 	vel = Vector2.ZERO
@@ -75,7 +79,7 @@ func _hurt_strike(body):
 
 func _struck_land():
 	target = null
-	_stomp_trigger()
+	_crush_trigger(false)
 
 
 func _move_condition() -> bool:
