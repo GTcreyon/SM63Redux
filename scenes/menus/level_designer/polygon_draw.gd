@@ -134,7 +134,8 @@ func _draw():
 				nearest_position = closest_point
 				
 				# If the new vert is too close to the placed verts, disable its
-				# updating (TODO: and hide it).
+				# updating.
+				# Calculating this here lets it access seg_begin and seg_end.
 				var dist_to_placed = min(
 					seg_begin.distance_squared_to(nearest_position),
 					seg_end.distance_squared_to(nearest_position)
@@ -148,8 +149,10 @@ func _draw():
 		
 		# Place new-vert widget on the calculated nearest point, if it exists,
 		# there is a nearest point, and it's not too close to a placed vertex.
-		if nearest_distance < INF and new_vertex_button != null and can_place:
-			new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
+		if new_vertex_button != null:
+			new_vertex_button.visible = nearest_distance < INF and can_place
+			if new_vertex_button.visible:
+				new_vertex_button.position = nearest_position - VERT_BUTTON_HALF_SIZE
 
 
 ## Begins editing a polygon with the given vertices.
