@@ -6,9 +6,10 @@ const SPRITE_OFFSET: float = 3
 
 
 func _on_enter(_h):
+	motion.set_vel_component(Vector2.DOWN, 10.0)
 	pound_hitbox.start_hit()
-	_anim(&"pound_fall")
 	
+	_anim(&"pound_fall")
 	# Offset the sprite down for a slightly more impactful drop.
 	actor.sprite.offset.y = SPRITE_OFFSET
 

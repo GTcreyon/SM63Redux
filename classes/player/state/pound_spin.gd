@@ -46,9 +46,5 @@ func _on_exit():
 
 func _trans_rules():
 	if progress > FULL_DURATION:
-		# TODO: this motion is kind of an attribute of the fall.
-		# Would it work the same to put it in PoundFall._on_enter()?
-		motion.set_vel_component(Vector2.DOWN, 10.0)
-		
 		return &"PoundFall"
 	return &""
