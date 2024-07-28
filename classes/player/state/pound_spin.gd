@@ -6,6 +6,7 @@ const SPIN_DURATION: float = FULL_DURATION - HANG_DURATION
 
 # Sprite origin is set to this during pound spin
 const SPIN_ORIGIN := Vector2(-2,-3)
+const SPIN_EASE_CURVE: float = 0.5
 
 ## How many frames the player will be rising during the pound spin.
 const RISE_TIME: float = 15
@@ -25,9 +26,11 @@ func _on_enter(_h):
 func _all_ticks():
 	progress += 1.0
 	
-	# Rotation animation.
+	# Animation of the player doing a flip to wind up for the pound.
+	# Spin faster towards the start, slowing as progress nears SPIN_DURATION.
 	if progress <= SPIN_DURATION:
-		motion.set_rotation(ease(progress / SPIN_DURATION, 0.5) * TAU * motion.get_facing())
+		var spin_fac = ease(progress / SPIN_DURATION, SPIN_EASE_CURVE)
+		motion.set_rotation(spin_fac * TAU * motion.get_facing())
 	
 	# A little rising during the wind-up makes it look real nice.
 	# This feels best if it affects the literal, physical position of the player
