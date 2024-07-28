@@ -245,6 +245,19 @@ func trigger_next_anim():
 	trigger_anim(_anim_next_for(animation))
 
 
+## Changes the rotation origin without changing the visual position.
+func set_rotation_origin(facing_dir: int, origin: Vector2):
+	# Flip origin, if appropriate.
+	origin.x *= facing_dir
+	
+	offset = origin
+	position = -origin
+
+
+func clear_rotation_origin():
+	set_rotation_origin(1, Vector2.ZERO)
+
+
 func _anim_from_new_state(
 	new_state: int, old_state: int,
 	swimming: bool, old_swimming: bool

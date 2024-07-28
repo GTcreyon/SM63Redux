@@ -1,12 +1,16 @@
 extends PlayerState
 
+const SPRITE_OFFSET: float = 3
+
 @export var pound_hitbox: Hitbox = null
 
 
 func _on_enter(_h):
 	pound_hitbox.start_hit()
 	_anim(&"pound_fall")
-	actor.sprite.offset.y = 3
+	
+	# Offset the sprite down for a slightly more impactful drop.
+	actor.sprite.offset.y = SPRITE_OFFSET
 
 
 func _all_ticks():

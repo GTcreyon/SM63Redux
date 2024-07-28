@@ -1,7 +1,11 @@
 extends PlayerState
 
 const FULL_DURATION: float = 18
-const SPIN_DURATION: float = 9
+const HANG_DURATION: float = 9
+const SPIN_DURATION: float = FULL_DURATION - HANG_DURATION
+
+# Sprite origin is set to this during pound spin
+const SPIN_ORIGIN := Vector2(-2,-3)
 
 ## How many frames the player will be rising during the pound spin.
 const RISE_TIME: float = 15
@@ -15,6 +19,7 @@ func _on_enter(_h):
 	_anim(&"flip")
 	progress = 0.0
 	motion.set_vel(Vector2.ZERO)
+	actor.sprite.set_rotation_origin(motion.get_facing(), SPIN_ORIGIN)
 
 
 func _all_ticks():
@@ -31,8 +36,16 @@ func _all_ticks():
 		motion.set_vel_component(Vector2.DOWN, -RISE_RATE)
 
 
+func _on_exit():
+	# Revert altered rotation origin.
+	actor.sprite.clear_rotation_origin()
+
+
 func _trans_rules():
 	if progress > FULL_DURATION:
+		# TODO: this motion is kind of an attribute of the fall.
+		# Would it work the same to put it in PoundFall._on_enter()?
 		motion.set_vel_component(Vector2.DOWN, 10.0)
+		
 		return &"PoundFall"
 	return &""
