@@ -35,7 +35,7 @@ func _ready() -> void:
 	rng.seed = hash("2401")
 	play()
 	# Set up playing next animations when they exist.
-	#connect("animation_finished", Callable(self, "trigger_next_anim"))
+	connect("animation_finished", Callable(self, "trigger_next_anim"))
 
 
 func _physics_process(_delta):
