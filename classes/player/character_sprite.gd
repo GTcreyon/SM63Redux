@@ -168,7 +168,7 @@ func _physics_process(_delta):
 							parent.Pound.FALL:
 								trigger_anim("pound_fall")
 								# Reset rotation origin to normal.
-								_clear_rotation_origin()
+								clear_rotation_origin()
 							parent.Pound.LAND:
 								trigger_anim("pound_land")
 					elif parent.pound_state == parent.Pound.SPIN:
@@ -301,7 +301,7 @@ func _anim_from_new_state(
 				return "jump_static"
 			parent.S.POUND:
 				# Move sprite origin for nicer rotation animation
-				_set_rotation_origin(parent.facing_direction, POUND_ORIGIN_OFFSET)
+				set_rotation_origin(parent.facing_direction, POUND_ORIGIN_OFFSET)
 				return "flip"
 			parent.S.SPIN:
 				slow_spin_timer = 0
@@ -453,15 +453,3 @@ func _anim_length_gameframes(anim_name: String) -> int:
 
 func _get_flip_frame() -> int:
 	return int(abs(rotation) / PI * 2 + 0.5) % 4
-
-
-func _set_rotation_origin(facing_direction: int, origin: Vector2) -> void:
-	# Vector to flip the offset's X, as appropriate.
-	var facing = Vector2(facing_direction, 1)
-	
-	offset = origin * facing
-	position = -origin * facing
-
-
-func _clear_rotation_origin() -> void:
-	_set_rotation_origin(1, Vector2.ZERO)
