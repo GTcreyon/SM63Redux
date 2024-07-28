@@ -18,7 +18,7 @@ func _ready():
 
 
 func fill_grid():
-	for item_id in range(main.item_textures.size()):
+	for item_id in main.items.keys():
 		if main.item_textures[item_id] != null:
 			var button: LDListItem = LIST_ITEM.instantiate()
 			var tex: Texture
