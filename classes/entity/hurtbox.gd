@@ -8,6 +8,9 @@ extends Area2D
 ## The damage types that the hurtbox will detect.
 ## See the [Hitbox] class for specific explanations.
 @export_flags("Generic", "Stomp", "Pound", "Strike", "Burn", "Explosion", "Nudge") var _hurt_mask: int = 1
+# NOTE: Unfortunately, setting the variable to type [Hitbox.Type] removes the
+# ability to set multiple flags. This is the only way to do that short of a
+# custom property function.
 
 ## If true, the hurtbox will be available to receive hits.
 var _enabled: bool = true
@@ -20,6 +23,7 @@ func set_enabled(value: bool) -> void:
 
 
 ## Inflicts a hit on this hurtbox.
+## Returns a reference to the owner.
 func take_hit(damage_type: Hitbox.Type, source: HitHandler) -> Node:
 	# Don't allow self-damage.
 	if source == _target:
@@ -30,4 +34,5 @@ func take_hit(damage_type: Hitbox.Type, source: HitHandler) -> Node:
 		assert(_target.has_method("take_hit"))
 		if _target.take_hit(damage_type, source):
 			return _target
+	
 	return null
