@@ -20,7 +20,7 @@ func _on_enter(_h):
 	_anim(&"flip")
 	progress = 0.0
 	motion.set_vel(Vector2.ZERO)
-	actor.sprite.set_rotation_origin(motion.get_facing(), SPIN_ORIGIN)
+	actor.sprite.set_rotation_origin(SPIN_ORIGIN)
 
 
 func _all_ticks():

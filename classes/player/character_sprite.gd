@@ -28,6 +28,7 @@ var slow_spin_timer: float = 0 # Frames of progress through the slow spin
 var rng = RandomNumberGenerator.new()
 
 @onready var parent: PlayerCharacter = $"../.."
+@onready var motion: Motion = $"../../Motion"
 @onready var dust = $"../../Dust"
 
 
@@ -246,16 +247,16 @@ func trigger_next_anim():
 
 
 ## Changes the rotation origin without changing the visual position.
-func set_rotation_origin(facing_dir: int, origin: Vector2):
+func set_rotation_origin(origin: Vector2):
 	# Flip origin, if appropriate.
-	origin.x *= facing_dir
+	origin.x *= motion.get_facing()
 	
 	offset = origin
 	position = -origin
 
 
 func clear_rotation_origin():
-	set_rotation_origin(1, Vector2.ZERO)
+	set_rotation_origin(Vector2.ZERO)
 
 
 func _anim_from_new_state(
@@ -301,7 +302,7 @@ func _anim_from_new_state(
 				return "jump_static"
 			parent.S.POUND:
 				# Move sprite origin for nicer rotation animation
-				set_rotation_origin(parent.facing_direction, POUND_ORIGIN_OFFSET)
+				set_rotation_origin(POUND_ORIGIN_OFFSET)
 				return "flip"
 			parent.S.SPIN:
 				slow_spin_timer = 0
