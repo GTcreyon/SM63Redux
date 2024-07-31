@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dm0n1yq3d10ir"]
+[gd_scene load_steps=7 format=3 uid="uid://dm0n1yq3d10ir"]
 
 [ext_resource type="Texture2D" uid="uid://b70tcg0mwl806" path="res://scenes/levels/tutorial_1/bg/t1_layer_2.png" id="1"]
+[ext_resource type="Script" path="res://backgrounds/zooming_parallax_background.gd" id="1_g6svc"]
 [ext_resource type="Texture2D" uid="uid://0ef6u2gixkhc" path="res://scenes/levels/tutorial_1/bg/t1_layer_1.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://btjnqwmh8aevg" path="res://scenes/levels/tutorial_1/bg/t1_layer_0.png" id="3"]
 [ext_resource type="Script" path="res://backgrounds/scrolling_parallax_layer.gd" id="3_xsx85"]
@@ -9,6 +10,8 @@
 [node name="BGT1" type="ParallaxBackground"]
 process_mode = 3
 process_priority = 1
+scroll_ignore_camera_zoom = true
+script = ExtResource("1_g6svc")
 
 [node name="Sky" type="TextureRect" parent="."]
 anchors_preset = 15
