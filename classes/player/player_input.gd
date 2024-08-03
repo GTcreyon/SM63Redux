@@ -4,10 +4,10 @@ extends Node
 ## Should be placed high up in the scene tree so that inputs are processed before they are checked.
 
 ## Duration in frames that the input buffer should last for.
-const BUFFER_DURATION: int = 8
+const BUFFER_DURATION: int = 6
 
 ## If true, the player must continue holding an input for the buffer to apply.
-const HOLD_TO_BUFFER: bool = true
+const HOLD_TO_BUFFER: bool = false
 
 ## Remaining frames of input buffer for an action. Entries must be defined in _buffer_cache.
 var _buffers: Dictionary = {}
@@ -96,7 +96,7 @@ func _update_last_x() -> void:
 func _burn_buffers() -> void:
 	for id in _buffers:
 		# Cancel the buffer if HOLD_TO_BUFFER is on and the player is not holding an input.
-		if HOLD_TO_BUFFER and !Input.is_action_pressed(id):
+		if HOLD_TO_BUFFER and not Input.is_action_pressed(id):
 			_buffers[id] = 0
 			continue
 

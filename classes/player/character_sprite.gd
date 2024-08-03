@@ -263,6 +263,7 @@ func _anim_from_new_state(
 	new_state: int, old_state: int,
 	swimming: bool, old_swimming: bool
 ) -> String:
+	return NO_ANIM_CHANGE
 	if swimming:
 		match new_state:
 			parent.S.SPIN:
@@ -321,6 +322,7 @@ func _anim_from_new_state(
 
 
 func _anim_next_for(current_state: String) -> String:
+	return NO_ANIM_CHANGE
 	match current_state:
 		"crouch_end":
 			return "walk_start"

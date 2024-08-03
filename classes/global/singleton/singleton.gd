@@ -17,7 +17,9 @@ const LOCALES = [
 const WHITELISTED_ACTIONS = [
 	"left",
 	"right",
+	"down",
 	"jump",
+	"swim",
 	"dive",
 	"spin",
 	"pound",
@@ -28,7 +30,6 @@ const WHITELISTED_ACTIONS = [
 	"skip",
 	"zoom+",
 	"zoom-",
-	"semi",
 	"reset",
 	"timer_show",
 	"volume_music+",
@@ -244,6 +245,9 @@ func load_input_map(input_json):
 			var body = action.substr(2)
 			var event
 			match type:
+				"p":
+					event = InputEventKey.new()
+					event.physical_keycode = int(body)
 				"k":
 					event = InputEventKey.new()
 					event.keycode = int(body)
@@ -268,7 +272,10 @@ func get_input_map_json_current() -> String:
 				var key_entry = save_dict[key]
 				match action.get_class():
 					"InputEventKey":
-						key_entry.append("k:%d" % action.keycode)
+						if action.physical_keycode != 0:
+							key_entry.append("p:%d" % action.physical_keycode)
+						else:
+							key_entry.append("k:%d" % action.keycode)
 					"InputEventJoypadButton":
 						key_entry.append("b:%d" % action.button_index)
 					"InputEventJoypadMotion":

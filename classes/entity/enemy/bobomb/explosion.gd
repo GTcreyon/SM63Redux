@@ -1,11 +1,7 @@
-extends Area2D
+extends Hitbox
 
 @onready var sprite = $AnimatedSprite2D
 @onready var collision = $CollisionShape2D
-
-
-func _ready():
-	sprite.play()
 
 
 func _process(_delta):

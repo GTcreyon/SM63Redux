@@ -1,4 +1,4 @@
-[gd_scene load_steps=200 format=3 uid="uid://bujgheqb6pmrc"]
+[gd_scene load_steps=210 format=3 uid="uid://bujgheqb6pmrc"]
 
 [ext_resource type="Script" path="res://classes/player/fludd_spray_renderer.gd" id="2"]
 [ext_resource type="Script" path="res://classes/player/player_hit_handler.gd" id="2_48bkb"]
@@ -53,6 +53,10 @@
 [ext_resource type="Script" path="res://classes/player/state/spin_air.gd" id="28_gtw61"]
 [ext_resource type="Script" path="res://classes/player/state/stomp_bounce.gd" id="28_rne8p"]
 [ext_resource type="Script" path="res://classes/player/state/spin_floor.gd" id="29_lj851"]
+[ext_resource type="Script" path="res://classes/player/state/swim.gd" id="30_jvacl"]
+[ext_resource type="Script" path="res://classes/player/state/spin_water.gd" id="32_f6s7q"]
+[ext_resource type="Script" path="res://classes/player/state/water_boost.gd" id="32_jjdyu"]
+[ext_resource type="Script" path="res://classes/player/state/water.gd" id="35_ic83m"]
 [ext_resource type="Script" path="res://classes/entity/hitbox.gd" id="37_gj4ca"]
 [ext_resource type="Script" path="res://classes/entity/hurtbox.gd" id="41_shud4"]
 
@@ -396,25 +400,49 @@ region = Rect2(192, 144, 48, 48)
 atlas = ExtResource("8")
 region = Rect2(240, 144, 48, 48)
 
-[sub_resource type="AtlasTexture" id="97"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2714m"]
 atlas = ExtResource("8")
-region = Rect2(288, 144, 48, 48)
+region = Rect2(144, 192, 48, 48)
 
-[sub_resource type="AtlasTexture" id="98"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoxp0"]
+atlas = ExtResource("8")
+region = Rect2(0, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v06cv"]
+atlas = ExtResource("8")
+region = Rect2(48, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tiowq"]
+atlas = ExtResource("8")
+region = Rect2(96, 192, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4eci"]
 atlas = ExtResource("8")
 region = Rect2(336, 144, 48, 48)
 
-[sub_resource type="AtlasTexture" id="99"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rp7y"]
 atlas = ExtResource("8")
 region = Rect2(384, 144, 48, 48)
 
-[sub_resource type="AtlasTexture" id="100"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxyr6"]
 atlas = ExtResource("8")
 region = Rect2(432, 144, 48, 48)
 
-[sub_resource type="AtlasTexture" id="101"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_iucxt"]
 atlas = ExtResource("8")
-region = Rect2(0, 192, 48, 48)
+region = Rect2(288, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_et3hf"]
+atlas = ExtResource("8")
+region = Rect2(336, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6vm6"]
+atlas = ExtResource("8")
+region = Rect2(384, 144, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygeme"]
+atlas = ExtResource("8")
+region = Rect2(432, 144, 48, 48)
 
 [sub_resource type="AtlasTexture" id="60"]
 atlas = ExtResource("8")
@@ -919,22 +947,50 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("97")
-}, {
-"duration": 1.0,
-"texture": SubResource("98")
-}, {
-"duration": 1.0,
-"texture": SubResource("99")
-}, {
-"duration": 1.0,
-"texture": SubResource("100")
-}, {
-"duration": 1.0,
-"texture": SubResource("101")
+"texture": SubResource("AtlasTexture_2714m")
 }],
 "loop": false,
-"name": &"swim_stroke",
+"name": &"swim_stroke_end",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoxp0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v06cv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tiowq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4eci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rp7y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxyr6")
+}],
+"loop": false,
+"name": &"swim_stroke_loop",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iucxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_et3hf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6vm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygeme")
+}],
+"loop": false,
+"name": &"swim_stroke_start",
 "speed": 15.0
 }, {
 "frames": [{
@@ -1312,9 +1368,10 @@ initial_state = NodePath("All")
 [node name="All" type="Node" parent="StateManager"]
 script = ExtResource("6_teaqg")
 
-[node name="Neutral" type="Node" parent="StateManager/All" node_paths=PackedStringArray("hit_handler")]
+[node name="Neutral" type="Node" parent="StateManager/All" node_paths=PackedStringArray("hit_handler", "water_check")]
 script = ExtResource("5_wqc8b")
 hit_handler = NodePath("../../../HitHandler")
+water_check = NodePath("../../../WaterCheck")
 
 [node name="Floor" type="Node" parent="StateManager/All/Neutral"]
 script = ExtResource("3_iy3xo")
@@ -1351,6 +1408,9 @@ hitbox = 1
 [node name="Air" type="Node" parent="StateManager/All/Neutral"]
 script = ExtResource("4_saxvj")
 
+[node name="StompBounce" type="Node" parent="StateManager/All/Neutral/Air"]
+script = ExtResource("28_rne8p")
+
 [node name="Fall" type="Node" parent="StateManager/All/Neutral/Air" node_paths=PackedStringArray("_stomp_hitbox")]
 script = ExtResource("11_4iuru")
 _stomp_hitbox = NodePath("../../../../../Hitboxes/HitboxStomp")
@@ -1383,6 +1443,14 @@ jump_power = 15.0
 start_anims = PackedStringArray("flip")
 trans_anims = PackedStringArray("jump_double_trans")
 friction_divisor = 1.5
+tight_movement = true
+
+[node name="WaterEscape" type="Node" parent="StateManager/All/Neutral/Air"]
+script = ExtResource("18_gecu5")
+jump_power = 8.0
+start_anims = PackedStringArray("jump_a_start", "jump_b_start")
+trans_anims = PackedStringArray("jump_a_trans", "jump_b_trans")
+allow_modulation = true
 tight_movement = true
 
 [node name="Backflip" type="Node" parent="StateManager/All/Neutral/Air"]
@@ -1425,9 +1493,13 @@ script = ExtResource("19_ieyet")
 script = ExtResource("20_ri21n")
 pound_hitbox = NodePath("../../../../../../Hitboxes/HitboxPound")
 
-[node name="Spin" type="Node" parent="StateManager/All" node_paths=PackedStringArray("_hitbox")]
+[node name="Spin" type="Node" parent="StateManager/All" node_paths=PackedStringArray("water_check", "strike_hitbox")]
 script = ExtResource("21_0w5dd")
-_hitbox = NodePath("../../../Hitboxes/HitboxSpin")
+water_check = NodePath("../../../WaterCheck")
+strike_hitbox = NodePath("../../../Hitboxes/HitboxSpin")
+
+[node name="SpinWater" type="Node" parent="StateManager/All/Spin"]
+script = ExtResource("32_f6s7q")
 
 [node name="SpinAir" type="Node" parent="StateManager/All/Spin"]
 script = ExtResource("28_gtw61")
@@ -1436,8 +1508,16 @@ friction_divisor = 1.5
 [node name="SpinFloor" type="Node" parent="StateManager/All/Spin"]
 script = ExtResource("29_lj851")
 
-[node name="StompBounce" type="Node" parent="StateManager/All"]
-script = ExtResource("28_rne8p")
+[node name="Water" type="Node" parent="StateManager/All"]
+script = ExtResource("35_ic83m")
+
+[node name="Swim" type="Node" parent="StateManager/All/Water" node_paths=PackedStringArray("water_check")]
+script = ExtResource("30_jvacl")
+water_check = NodePath("../../../../WaterCheck")
+
+[node name="WaterBoost" type="Node" parent="StateManager/All/Water" node_paths=PackedStringArray("water_check")]
+script = ExtResource("32_jjdyu")
+water_check = NodePath("../../../../WaterCheck")
 
 [node name="CharacterGroup" type="Node2D" parent="."]
 script = ExtResource("4_q4bau")
@@ -1445,7 +1525,7 @@ script = ExtResource("4_q4bau")
 [node name="CharacterSprite" type="AnimatedSprite2D" parent="CharacterGroup"]
 process_priority = 1
 sprite_frames = SubResource("3")
-animation = &"hurt_start"
+animation = &"walk_start"
 autoplay = "walk_start"
 script = ExtResource("21")
 
@@ -1680,7 +1760,5 @@ collision_mask = 0
 position = Vector2(0, 15)
 shape = SubResource("52")
 
-[connection signal="area_entered" from="WaterCheck" to="." method="_on_WaterCheck_area_entered"]
-[connection signal="area_exited" from="WaterCheck" to="." method="_on_WaterCheck_area_exited"]
 [connection signal="body_entered" from="BackupAngle" to="." method="_on_BackupAngle_body_entered"]
 [connection signal="body_exited" from="BackupAngle" to="." method="_on_BackupAngle_body_exited"]

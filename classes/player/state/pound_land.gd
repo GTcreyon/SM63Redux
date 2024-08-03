@@ -1,5 +1,6 @@
 extends PlayerState
 
+const SPRITE_OFFSET: float = 3
 const DURATION: int = 15
 
 @export var effect_scene: PackedScene
@@ -9,7 +10,7 @@ var time: int
 
 
 func _on_enter(_h):
-	actor.sprite.offset.y = 3
+	actor.sprite.offset.y = SPRITE_OFFSET
 
 	# Start a short hit so breakable floors can break properly.
 	pound_hitbox.start_hit()

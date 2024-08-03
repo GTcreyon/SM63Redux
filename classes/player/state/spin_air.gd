@@ -2,11 +2,16 @@ extends AirborneState
 
 const BOUNCE_VEL: float = 2.0
 const FLOAT_PERIOD: float = 22.0
+
 var _float_time: float = 0.0
 
-func _on_enter(_h):
+
+func _on_enter(handover):
 	_float_time = FLOAT_PERIOD
-	if motion.vel.y > -BOUNCE_VEL:
+	var bounce = true
+	if handover is bool:
+		bounce = handover
+	if bounce and motion.vel.y > -BOUNCE_VEL:
 		motion.vel.y = 0
 		motion.accel_y(-BOUNCE_VEL)
 
@@ -27,6 +32,6 @@ func _subsequent_ticks():
 
 
 func _trans_rules():
-	if actor.is_on_floor():
-		return &"SpinFloor"
+	if input.buffered_input(&"dive"):
+		return &"Dive"
 	return &""

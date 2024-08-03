@@ -227,6 +227,7 @@ func _on_BackupAngle_body_exited(_body):
 
 var water_areas: int = 0
 func _on_WaterCheck_area_entered(_area):
+	return
 	swimming = true
 	water_areas += 1
 	# Reset state to normal
@@ -238,15 +239,6 @@ func _on_WaterCheck_area_entered(_area):
 	# from last time in water (or from the title screen, when the bus is on).
 	Singleton.reset_bus_effect(Singleton.WATER_VRB_BUS, 0)
 
-
-func _on_WaterCheck_area_exited(_area):
-	water_areas -= 1
-	
-	# Only run exit-water code if we're now in NO water
-	if water_areas <= 0:
-		swimming = false
-		if vel.y < 0 and !fludd_strain and !is_spinning():
-			vel.y -= 3
 
 # player physics constants
 const GP_DIVE_TIME = 6
@@ -329,8 +321,6 @@ func player_physics():
 			airborne_anim()
 		if get_walk_direction() == 0:
 			vel.x = resist(vel.x, 0, 1.001) # Air decel
-	
-	action_spin()
 	
 	if bouncing:
 		action_bounce()
@@ -532,42 +522,6 @@ func action_pound() -> void:
 			pound_state = Pound.FALL
 			pound_land_frames = 15
 			vel.y = 8
-
-
-const SPIN_TIME = 30
-var spin_frames = 0
-func action_spin() -> void:
-	if state == S.SPIN:
-		if spin_frames > 0:
-			# Tick spin state
-			spin_frames -= 1
-		elif !Input.is_action_pressed("spin"):
-			end_spin()
-	if (
-		Input.is_action_pressed("spin")
-		and (
-			state == S.NEUTRAL
-			or (state == S.ROLLOUT and Input.is_action_just_pressed("spin"))
-		)
-		and (vel.y > -3.3 * FPS_MOD or state == S.ROLLOUT or swimming)
-	):
-		# begin spin
-		switch_state(S.SPIN)
-		# switch_state stops spin_sfx; always play it again after state switch.
-		if swimming:
-			play_sfx("spin", "water")
-		else:
-			play_sfx("spin", "air")
-		if !grounded:
-			if swimming:
-				vel.y = min(-2, vel.y)
-			else:
-				vel.y = min(-3.5 * FPS_MOD * 1.3, vel.y - 3.5 * FPS_MOD)
-		spin_frames = SPIN_TIME
-
-
-func end_spin():
-	switch_state(S.NEUTRAL)
 
 
 var _fludd_spraying: bool = false
@@ -1467,10 +1421,6 @@ func invincibility_on_effect():
 	invincible = true
 
 
-func is_spinning(allow_continued: bool = false):
-	return state == S.SPIN and (spin_frames > 0 or allow_continued)
-
-
 func is_diving(allow_rollout):
 	return (state == S.DIVE or (state == S.ROLLOUT and allow_rollout))
 
@@ -1500,8 +1450,4 @@ func clear_rotation_origin():
 
 # Called when interacting with signs and toads
 func start_interaction():
-	# Ends spinning if active
-	if state == S.SPIN:
-		end_spin()
-	
 	end_fludd()

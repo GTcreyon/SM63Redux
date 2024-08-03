@@ -43,6 +43,11 @@ func join_action_array(actions) -> String:
 				output += "(%s)" % buttons[action.button_index][get_brand_id()]
 		elif action is InputEventJoypadMotion:
 			output += "(%s)" % get_joypad_motion_name(action.axis, action.axis_value)
+		elif action is InputEventKey:
+			if action.physical_keycode != 0:
+				output += tr("%s (Physical)") % action.as_text_physical_keycode()
+			else:
+				output += action.as_text_keycode()
 		else:
 			# TODO: make these translatable
 			output += action.as_text()
@@ -142,6 +147,7 @@ func _get_action_map() -> Dictionary:
 	return {
 		"left":tr("Left"),
 		"right":tr("Right"),
+		"down":tr("Down"),
 		"jump":tr("Jump"),
 		"dive":tr("Dive"),
 		"spin":tr("Spin"),
@@ -153,7 +159,7 @@ func _get_action_map() -> Dictionary:
 		"skip":tr("Skip Text"),
 		"zoom+":tr("Zoom In"),
 		"zoom-":tr("Zoom Out"),
-		"semi":tr("Power Swim"),
+		"swim":tr("Swim"),
 		"reset":tr("Reset Run"),
 		"timer_show":tr("Show Timer"),
 		"mute_music":tr("Mute Music"),
