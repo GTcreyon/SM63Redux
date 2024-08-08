@@ -42,7 +42,7 @@ func _ready():
 	
 	# Create decoration node.
 	deco_sprite = TextureRect.new()
-	deco_sprite.stretch_mode = TextureRect.STRETCH_KEEP_CENTERED
+	deco_sprite.stretch_mode = TextureRect.STRETCH_KEEP
 	deco_sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	deco_sprite.z_index = 1
 	# Init sprite to non-interacted texture.
@@ -75,6 +75,7 @@ func _draw():
 	
 	deco_sprite.position = Vector2(0, 
 		grabber_pos - cur_sprite.get_height()/2.0 + grabber_height/2.0)
+	deco_sprite.size.y = cur_sprite.get_height()
 
 
 ## Returns [member Control.theme_type_variation] if it isn't [code]&""[/code], or the given [param default]
