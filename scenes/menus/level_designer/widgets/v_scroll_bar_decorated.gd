@@ -67,10 +67,8 @@ func _ready():
 	# Add them to the tree.
 	add_child(block_top, false, Node.INTERNAL_MODE_BACK)
 	add_child(block_bottom, false, Node.INTERNAL_MODE_BACK)
-	
-	# Place the blockers right on the edges of the inc/dec buttons.
-	block_top.position = Vector2(0, _inc_height)
-	block_bottom.position = Vector2(0, size.y - _dec_height)
+	# Put them where they belong.
+	_update_blocker_pos()
 
 
 func _draw():
@@ -97,6 +95,19 @@ func _draw():
 	deco_sprite.position = Vector2(0, 
 		grabber_pos - cur_sprite.get_height()/2.0 + grabber_height/2.0)
 	deco_sprite.size.y = cur_sprite.get_height()
+
+
+func _notification(what):
+	if what == NOTIFICATION_RESIZED and is_node_ready():
+		# Update blocker positions.
+		_update_blocker_pos()
+
+
+func _update_blocker_pos():
+	# Place the blockers right on the edges of the inc/dec buttons,
+	# halfway above and halfway below.
+	block_top.position = Vector2(0, _inc_height - blocker_tex.get_height() / 2)
+	block_bottom.position = Vector2(0, (size.y - _dec_height) - blocker_tex.get_height() / 2)
 
 
 ## Returns [member Control.theme_type_variation] if it isn't [code]&""[/code], or the given [param default]
