@@ -22,22 +22,22 @@ var _grabber_pad := 0.0
 
 func _ready():
 	# Read decoration textures from theme
-	deco_tex = theme \
-		.get_icon("decoration", theme_variation_or("VScrollBarDecorated"))
-	deco_tex_highlight = theme \
-		.get_icon("decoration_highlight", theme_variation_or("VScrollBarDecorated"))
-	deco_tex_pressed = theme \
-		.get_icon("decoration_pressed", theme_variation_or("VScrollBarDecorated"))
+	deco_tex = get_theme_icon("decoration", 
+		theme_variation_or("VScrollBarDecorated"))
+	deco_tex_highlight = get_theme_icon("decoration_highlight", 
+		theme_variation_or("VScrollBarDecorated"))
+	deco_tex_pressed = get_theme_icon("decoration_pressed", 
+		theme_variation_or("VScrollBarDecorated"))
 
 	# Read heights of the surrounding textures.
 	_inc_height = height_if_some(
-		theme.get_icon("increment", theme_variation_or("VScrollBar"))
+		get_theme_icon("increment", theme_variation_or("VScrollBar"))
 		)
 	_dec_height = height_if_some(
-		theme.get_icon("decrement", theme_variation_or("VScrollBar"))
+		get_theme_icon("decrement", theme_variation_or("VScrollBar"))
 		)
 	_grabber_pad = _v_margins(
-		theme.get_stylebox("grabber", theme_variation_or("VScrollBar"))
+		get_theme_stylebox("grabber", theme_variation_or("VScrollBar"))
 		)
 	
 	# Create decoration node.
