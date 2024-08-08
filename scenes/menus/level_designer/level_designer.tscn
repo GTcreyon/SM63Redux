@@ -404,35 +404,39 @@ anchor_bottom = 1.0
 offset_right = -14.0
 color = Color(0.141176, 0.52549, 0.47451, 1)
 
-[node name="ItemScroll" type="ScrollContainer" parent="UILayer/LDUI/ItemPane/ItemBlock"]
+[node name="ItemScroll" type="Container" parent="UILayer/LDUI/ItemPane/ItemBlock"]
+clip_contents = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 97.0
 offset_bottom = 235.0
 theme = ExtResource("28_0ajtt")
-scroll_vertical_custom_step = 9.0
+script = ExtResource("27_837is")
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 2
-script = ExtResource("27_837is")
+scroll_horizontal_custom_step = -1.0
+scroll_vertical_custom_step = 9.0
 
 [node name="ItemGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/ItemScroll"]
 layout_mode = 2
 theme = ExtResource("28_0ajtt")
 columns = 2
 
-[node name="PolygonScroll" type="ScrollContainer" parent="UILayer/LDUI/ItemPane/ItemBlock"]
+[node name="PolygonScroll" type="Container" parent="UILayer/LDUI/ItemPane/ItemBlock"]
 visible = false
+clip_contents = true
 layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
 offset_right = 79.0
 offset_bottom = 235.0
 theme = ExtResource("28_0ajtt")
-scroll_vertical_custom_step = 9.0
+script = ExtResource("27_837is")
 horizontal_scroll_mode = 3
 vertical_scroll_mode = 2
-script = ExtResource("27_837is")
+scroll_horizontal_custom_step = -1.0
+scroll_vertical_custom_step = 9.0
 
 [node name="PolygonGrid" type="GridContainer" parent="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll"]
 layout_mode = 2
