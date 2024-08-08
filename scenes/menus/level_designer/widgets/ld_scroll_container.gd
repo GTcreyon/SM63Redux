@@ -34,12 +34,6 @@ var beyond_deadzone := false
 
 var _panel_style: StyleBox
 
-# Normally an internal part of Node; duplicated here because logic relies on it.
-# Seems to become true when _ready() is called, but the inner workings of Godot
-# are an eldritch enigma whose workings elude the grasp of mere mortals (and
-# also poorly commented), so this is a best guess at best.
-var _is_ready := false
-
 # Protected
 var _updating_scrollbars := false
 
@@ -48,9 +42,7 @@ var _updating_scrollbars := false
 #include "scene/theme/theme_db.h"
 
 
-func _init():
-	_is_ready = false
-	
+func _init():	
 	_panel_style = get_theme_stylebox(&"panel", &"ScrollContainer")
 	
 	_h_scroll = HScrollBar.new()
@@ -69,8 +61,6 @@ func _init():
 
 
 func _ready():
-	_is_ready = true
-	
 	var viewport := get_viewport()
 	assert(viewport != null)
 	viewport.connect("gui_focus_changed", Callable(self, &"_gui_focus_changed"))
@@ -89,7 +79,7 @@ func _notification(p_what: int):
 			_updating_scrollbars = true
 			# Update children only if _ready() has finished;
 			# otherwise just update the scrollbars.
-			call_deferred(&"_reposition_children" if _is_ready else &"_update_scrollbar_position")
+			call_deferred(&"_reposition_children" if is_node_ready() else &"_update_scrollbar_position")
 		NOTIFICATION_SORT_CHILDREN:
 			_reposition_children()
 		NOTIFICATION_INTERNAL_PHYSICS_PROCESS:
