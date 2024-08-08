@@ -8,11 +8,14 @@ extends VScrollBar
 ## size and padding across regular, focused, highlighted, and pressed states.
 
 var deco_sprite: TextureRect
+var block_top: TextureRect
+var block_bottom: TextureRect
 
 # Graphics, loaded from theme.
 var deco_tex: Texture2D
 var deco_tex_highlight: Texture2D
 var deco_tex_pressed: Texture2D
+var blocker_tex: Texture2D
 
 # Sizes of textures surrounding the grabber. Need these to get the actual
 # displayed bar height.
@@ -27,6 +30,8 @@ func _ready():
 	deco_tex_highlight = get_theme_icon("decoration_highlight", 
 		theme_variation_or("VScrollBarDecorated"))
 	deco_tex_pressed = get_theme_icon("decoration_pressed", 
+		theme_variation_or("VScrollBarDecorated"))
+	blocker_tex = get_theme_icon("blocker",
 		theme_variation_or("VScrollBarDecorated"))
 
 	# Read heights of the surrounding textures.
@@ -46,9 +51,26 @@ func _ready():
 	deco_sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	# Init sprite to non-interacted texture.
 	deco_sprite.texture = deco_tex
-	
 	# Add it to the tree.
 	add_child(deco_sprite, false, Node.INTERNAL_MODE_BACK)
+	
+	# Create blocker nodes. Unlike the buttons, these can overlap the grabber.
+	block_top = TextureRect.new()
+	block_top.stretch_mode = TextureRect.STRETCH_KEEP
+	block_top.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	block_top.texture = blocker_tex
+	# Blocker should be a fixed size.
+	block_top.custom_minimum_size = blocker_tex.get_size()
+	# Both blockers are the same, just one's flipped.
+	block_bottom = block_top.duplicate()
+	block_bottom.flip_v = true
+	# Add them to the tree.
+	add_child(block_top, false, Node.INTERNAL_MODE_BACK)
+	add_child(block_bottom, false, Node.INTERNAL_MODE_BACK)
+	
+	# Place the blockers right on the edges of the inc/dec buttons.
+	block_top.position = Vector2(0, _inc_height)
+	block_bottom.position = Vector2(0, size.y - _dec_height)
 
 
 func _draw():
