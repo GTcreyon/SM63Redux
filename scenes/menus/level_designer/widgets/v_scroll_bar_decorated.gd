@@ -25,14 +25,12 @@ var _grabber_pad := 0.0
 
 func _ready():
 	# Read decoration textures from theme
-	deco_tex = get_theme_icon("decoration", 
-		theme_variation_or("VScrollBarDecorated"))
-	deco_tex_highlight = get_theme_icon("decoration_highlight", 
-		theme_variation_or("VScrollBarDecorated"))
-	deco_tex_pressed = get_theme_icon("decoration_pressed", 
-		theme_variation_or("VScrollBarDecorated"))
-	blocker_tex = get_theme_icon("blocker",
-		theme_variation_or("VScrollBarDecorated"))
+	var theme_variation = theme_variation_or("VScrollBarDecorated")
+	deco_tex = get_theme_icon("decoration", theme_variation)
+	deco_tex_highlight = get_theme_icon("decoration_highlight", theme_variation)
+	deco_tex_pressed = get_theme_icon("decoration_pressed", theme_variation)
+	blocker_tex = get_theme_icon(&"blocker", theme_variation) if has_theme_icon(
+		&"blocker", theme_variation) else null
 
 	# Read heights of the surrounding textures.
 	_inc_height = height_if_some(
@@ -54,21 +52,22 @@ func _ready():
 	# Add it to the tree.
 	add_child(deco_sprite, false, Node.INTERNAL_MODE_BACK)
 	
-	# Create blocker nodes. Unlike the buttons, these can overlap the grabber.
-	block_top = TextureRect.new()
-	block_top.stretch_mode = TextureRect.STRETCH_KEEP
-	block_top.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	block_top.texture = blocker_tex
-	# Blocker should be a fixed size.
-	block_top.custom_minimum_size = blocker_tex.get_size()
-	# Both blockers are the same, just one's flipped.
-	block_bottom = block_top.duplicate()
-	block_bottom.flip_v = true
-	# Add them to the tree.
-	add_child(block_top, false, Node.INTERNAL_MODE_BACK)
-	add_child(block_bottom, false, Node.INTERNAL_MODE_BACK)
-	# Put them where they belong.
-	_update_blocker_pos()
+	if blocker_tex:
+		# Create blocker nodes. Unlike the buttons, these can overlap the grabber.
+		block_top = TextureRect.new()
+		block_top.stretch_mode = TextureRect.STRETCH_KEEP
+		block_top.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		block_top.texture = blocker_tex
+		# Blocker should be a fixed size.
+		block_top.custom_minimum_size = blocker_tex.get_size()
+		# Both blockers are the same, just one's flipped.
+		block_bottom = block_top.duplicate()
+		block_bottom.flip_v = true
+		# Add them to the tree.
+		add_child(block_top, false, Node.INTERNAL_MODE_BACK)
+		add_child(block_bottom, false, Node.INTERNAL_MODE_BACK)
+		# Put them where they belong.
+		_update_blocker_pos()
 
 
 func _draw():
@@ -104,10 +103,11 @@ func _notification(what):
 
 
 func _update_blocker_pos():
-	# Place the blockers right on the edges of the inc/dec buttons,
-	# halfway above and halfway below.
-	block_top.position = Vector2(0, _inc_height - blocker_tex.get_height() / 2)
-	block_bottom.position = Vector2(0, (size.y - _dec_height) - blocker_tex.get_height() / 2)
+	if blocker_tex:
+		# Place the blockers right on the edges of the inc/dec buttons,
+		# halfway above and halfway below.
+		block_top.position = Vector2(0, _inc_height - blocker_tex.get_height() / 2)
+		block_bottom.position = Vector2(0, (size.y - _dec_height) - blocker_tex.get_height() / 2)
 
 
 ## Returns [member Control.theme_type_variation] if it isn't [code]&""[/code], or the given [param default]

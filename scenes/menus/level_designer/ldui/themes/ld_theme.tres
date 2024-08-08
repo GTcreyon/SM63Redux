@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=24 format=3 uid="uid://bfffbep7u0f87"]
+[gd_resource type="Theme" load_steps=23 format=3 uid="uid://bfffbep7u0f87"]
 
 [ext_resource type="StyleBox" uid="uid://q14towpo4vsu" path="res://gui/dialog/sign_box.tres" id="1_bly62"]
 [ext_resource type="Texture2D" uid="uid://cprnpw3je0r7r" path="res://gui/dropdown_arrow.png" id="2_4ray6"]
@@ -9,7 +9,6 @@
 [ext_resource type="FontFile" uid="uid://dgedr6b237a5e" path="res://fonts/bylight/bylight.otf" id="7_44i8b"]
 [ext_resource type="Texture2D" uid="uid://cq8hb86e6yh5e" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v.png" id="7_ex1l3"]
 [ext_resource type="Texture2D" uid="uid://c8g10blb1p1ek" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_buttons.png" id="7_j1ltf"]
-[ext_resource type="Texture2D" uid="uid://cb231utoaa0wy" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_block_v.png" id="9_25tkj"]
 [ext_resource type="Texture2D" uid="uid://b00bh677q30x5" path="res://scenes/menus/level_designer/ldui/themes/scrollbars/scroll_v_eyes.png" id="9_r0b1y"]
 
 [sub_resource type="AtlasTexture" id="8"]
@@ -108,7 +107,6 @@ VScrollBar/styles/grabber_highlight = SubResource("3")
 VScrollBar/styles/grabber_pressed = SubResource("3")
 VScrollBar/styles/scroll = SubResource("StyleBoxFlat_4vcfg")
 VScrollBarDecorated/base_type = &"VScrollBar"
-VScrollBarDecorated/icons/blocker = ExtResource("9_25tkj")
 VScrollBarDecorated/icons/decoration = ExtResource("9_r0b1y")
 VScrollBarDecorated/icons/decoration_highlight = null
 VScrollBarDecorated/icons/decoration_pressed = null
