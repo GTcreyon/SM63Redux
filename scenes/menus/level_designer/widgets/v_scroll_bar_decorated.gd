@@ -44,7 +44,6 @@ func _ready():
 	deco_sprite = TextureRect.new()
 	deco_sprite.stretch_mode = TextureRect.STRETCH_KEEP
 	deco_sprite.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	deco_sprite.z_index = 1
 	# Init sprite to non-interacted texture.
 	deco_sprite.texture = deco_tex
 	
