@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://c11gx3yrp2wa3"]
+
+[ext_resource type="Texture2D" uid="uid://bvqbsbsusjv70" path="res://classes/pickup/bottle/bottle_splash.png" id="1_1v7qb"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_km54p"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_hy6fs"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.10925, 0.0, 0, 0]
+point_count = 2
+
+[node name="PickupSplash" type="CPUParticles2D"]
+material = SubResource("CanvasItemMaterial_km54p")
+emitting = false
+amount = 16
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.31
+lifetime_randomness = 0.79
+texture = ExtResource("1_1v7qb")
+direction = Vector2(0, -1)
+spread = 47.01
+gravity = Vector2(0, 140)
+initial_velocity_min = 53.76
+initial_velocity_max = 115.21
+anim_speed_min = 0.5
+anim_speed_max = 0.75
+anim_offset_max = 1.0
+anim_offset_curve = SubResource("Curve_hy6fs")
