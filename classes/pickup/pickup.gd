@@ -12,12 +12,15 @@ extends Area2D
 @export var disabled: bool = false: set = set_disabled
 @export_node_path("Sprite2D", "AnimatedSprite2D") var _sprite_path: NodePath = "Sprite2D"
 @export_node_path("AudioStreamPlayer", "AudioStreamPlayer2D") var _sfx_path: NodePath = "SFXCollect"
+## The pickup will emit these particles when collected.
+@export_node_path("CPUParticles2D", "GPUParticles2D") var _particle_path: NodePath = ""
 
 var _pickup_id: int = -1
 var _respawn_timer: float = -1
 
 @onready var sprite = get_node_or_null(_sprite_path)
 @onready var sfx = get_node_or_null(_sfx_path)
+@onready var particle = get_node_or_null(_particle_path)
 
 
 func _ready():
@@ -92,20 +95,43 @@ func _pickup_id_setup() -> void:
 
 
 func _pickup_sound():
-	# Check to make sure the object is killable.
+	# Check whether the object is killable.
 	if respawn_seconds == 0.0:
-		# Check to see if sfx should exist, and does exist.
-		# sfx will exist if it should, but the second condition is a failsafe in case it doesn't.
-		if sfx != null and has_node(_sfx_path):
+		# Object is permanently killable.
+		
+		if sfx:
 			# Find an object we know will survive this object's destruction.
-			var safe_sfx_root = $"/root/Main"
-			# Anchor the sound source to that, then play it.
-			ResidualSFX.new_from_existing(sfx, safe_sfx_root)
-		# Check to see if object should have an sfx, and if it does have an sfx.
-		elif sfx != null and !has_node(_sfx_path):
-			push_error("This pickup should have SFXCollect, but it wasn't found. :(")
+			var safe_root = $"/root/Main"
+			# Anchor SFX (if they exist) to that, so they can play past
+			# the death of this object.
+			ResidualSFX.new_from_existing(sfx, safe_root)
 	else:
-		sfx.play()
+		# Object respawns after a set time. Child effects guaranteed to survive
+		# when the object is collected; use them in-place.
+		if sfx:
+			sfx.play()
+
+
+func _pickup_effect():
+	# Check whether the object is killable.
+	if respawn_seconds == 0.0:
+		# Object is permanently killable.
+		# Find an object we know will survive this object's destruction.
+		var safe_root = $"/root/Main"
+		
+		if particle:
+			# Anchor child effects (if they exist) to that, so they can play past
+			# the death of this object.
+			remove_child(particle)
+			safe_root.add_child(particle)
+			particle.position = self.global_position
+			
+			particle.restart()
+	else:
+		# Object respawns after a set time. Child effects guaranteed to survive
+		# when the object is collected; use them in-place.
+		if particle:
+			particle.restart()
 
 
 func _kill_pickup() -> void:
@@ -122,10 +148,6 @@ func _kill_pickup() -> void:
 			sprite.visible = false
 		# Start the respawn timer.
 		_respawn_timer = 0.0
-
-
-func _pickup_effect() -> void:
-	pass
 
 
 func _award_pickup(_body) -> void:
