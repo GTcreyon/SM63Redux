@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://e0mmc74uv8ro"]
 
-[ext_resource type="Script" path="res://classes/pickup/coin/coin_particles.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://dqs2ws73wu5dh" path="res://classes/pickup/coin/yellow/coin_particles_yellow.png" id="2"]
+[ext_resource type="Script" path="res://classes/pickup/temporary_particles.gd" id="2_cdyh8"]
 
 [sub_resource type="CanvasItemMaterial" id="2"]
 particles_animation = true
@@ -25,4 +25,4 @@ process_material = SubResource("3")
 texture = ExtResource("2")
 one_shot = true
 explosiveness = 1.0
-script = ExtResource("1")
+script = ExtResource("2_cdyh8")
