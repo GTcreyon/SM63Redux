@@ -39,7 +39,7 @@ func _ready_override() -> void:
 
 
 func _physics_process(_delta):
-	if respawn_seconds > 0 and _respawn_timer != -1:
+	if respawns() and _respawn_timer != -1:
 		if _respawn_timer > respawn_seconds:
 			# Show and re-enable the object.
 			set_disabled(false)
@@ -52,8 +52,8 @@ func _physics_process(_delta):
 			_respawn_timer += 1.0 / 60
 
 
-# Allow a pickup ID to be manually assigned.
-# Usually inherited from a spawner.
+## Allow a pickup ID to be manually assigned.
+## Usually inherited from a spawner.
 func assign_pickup_id(id) -> void:
 	persistent_collect = true
 	_pickup_id = id
@@ -66,6 +66,12 @@ func pickup(body) -> void:
 	_kill_pickup()
 	if persistent_collect:
 		FlagServer.set_flag_state(_pickup_id, true)
+
+
+## Returns whether this pickup respawns after [param respawn_seconds] seconds.[br]
+## True if and only if [code]respawn_seconds != 0.0[/code].
+func respawns() -> bool:
+	return respawn_seconds > 0.0
 
 
 func _connect_signals() -> void:
@@ -96,7 +102,7 @@ func _pickup_id_setup() -> void:
 
 func _pickup_sound():
 	# Check whether the object is killable.
-	if respawn_seconds == 0.0:
+	if !respawns():
 		# Object is permanently killable.
 		
 		if sfx:
@@ -114,7 +120,7 @@ func _pickup_sound():
 
 func _pickup_effect():
 	# Check whether the object is killable.
-	if respawn_seconds == 0.0:
+	if !respawns():
 		# Object is permanently killable.
 		# Find an object we know will survive this object's destruction.
 		var safe_root = $"/root/Main"
@@ -135,7 +141,7 @@ func _pickup_effect():
 
 
 func _kill_pickup() -> void:
-	if respawn_seconds == 0.0:
+	if !respawns():
 		# No respawn. Destroy object permanently.
 		if parent_is_root:
 			get_parent().queue_free()
