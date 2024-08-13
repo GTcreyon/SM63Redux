@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://68hiqklvsax3"]
+[gd_scene load_steps=6 format=3 uid="uid://68hiqklvsax3"]
 
 [ext_resource type="Script" path="res://classes/pickup/bottle/bottle.gd" id="1"]
 [ext_resource type="AudioStream" uid="uid://b2ubjocc22qol" path="res://classes/pickup/bottle/bottle_big_collect.wav" id="2"]
+[ext_resource type="PackedScene" uid="uid://c11gx3yrp2wa3" path="res://classes/pickup/bottle/bottle_particles.tscn" id="2_xqlj0"]
 [ext_resource type="Texture2D" uid="uid://kw1eak5jbndw" path="res://classes/pickup/bottle/bottle_big.png" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -16,6 +17,7 @@ script = ExtResource("1")
 amount = 50
 persistent_collect = false
 respawn_seconds = 30.0
+death_fx = ExtResource("2_xqlj0")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = -1
