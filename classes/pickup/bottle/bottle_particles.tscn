@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c11gx3yrp2wa3"]
+[gd_scene load_steps=7 format=3 uid="uid://c11gx3yrp2wa3"]
 
 [ext_resource type="Texture2D" uid="uid://bvqbsbsusjv70" path="res://classes/pickup/bottle/bottle_splash.png" id="1_1v7qb"]
+[ext_resource type="Script" path="res://classes/pickup/temporary_particles.gd" id="2_bophd"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_km54p"]
 particles_animation = true
@@ -9,25 +10,36 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [sub_resource type="Curve" id="Curve_hy6fs"]
+bake_resolution = 64
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.10925, 0.0, 0, 0]
 point_count = 2
 
-[node name="PickupSplash" type="CPUParticles2D"]
+[sub_resource type="CurveTexture" id="CurveTexture_jcynk"]
+width = 64
+texture_mode = 1
+curve = SubResource("Curve_hy6fs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6gkvm"]
+lifetime_randomness = 0.79
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 47.01
+initial_velocity_min = 53.76
+initial_velocity_max = 138.88
+gravity = Vector3(0, 280, 0)
+anim_speed_min = 0.5
+anim_speed_max = 0.75
+anim_offset_max = 1.0
+anim_offset_curve = SubResource("CurveTexture_jcynk")
+
+[node name="PickupSplash" type="GPUParticles2D"]
 material = SubResource("CanvasItemMaterial_km54p")
 emitting = false
 amount = 16
+process_material = SubResource("ParticleProcessMaterial_6gkvm")
+texture = ExtResource("1_1v7qb")
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 randomness = 0.31
-lifetime_randomness = 0.79
-texture = ExtResource("1_1v7qb")
-direction = Vector2(0, -1)
-spread = 47.01
-gravity = Vector2(0, 140)
-initial_velocity_min = 53.76
-initial_velocity_max = 115.21
-anim_speed_min = 0.5
-anim_speed_max = 0.75
-anim_offset_max = 1.0
-anim_offset_curve = SubResource("Curve_hy6fs")
+script = ExtResource("2_bophd")
