@@ -1,11 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://c11gx3yrp2wa3"]
+[gd_scene load_steps=7 format=3 uid="uid://du755xdivd1lt"]
 
 [ext_resource type="Texture2D" uid="uid://bvqbsbsusjv70" path="res://classes/pickup/bottle/bottle_splash.png" id="1_1v7qb"]
 [ext_resource type="Script" path="res://classes/pickup/temporary_particles.gd" id="2_bophd"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_km54p"]
 particles_animation = true
-particles_anim_h_frames = 2
+particles_anim_h_frames = 3
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
@@ -27,8 +27,8 @@ spread = 47.01
 initial_velocity_min = 53.76
 initial_velocity_max = 138.88
 gravity = Vector3(0, 280, 0)
-anim_speed_min = 0.5
-anim_speed_max = 0.75
+anim_speed_min = 0.33
+anim_speed_max = 0.5
 anim_offset_max = 1.0
 anim_offset_curve = SubResource("CurveTexture_jcynk")
 
