@@ -6,18 +6,6 @@ extends Pickup
 @export var particle_texture: CompressedTexture2D
 
 var dropped = false
-var vel: Vector2 = Vector2.INF
-var yellow = 0
-var red = 0
-var water_bodies = 0
-
-
-func _ready_override() -> void:
-	super._ready_override()
-	
-	if vel == Vector2.INF:
-		vel.x = (Singleton.rng.randf() * 4 - 2) * 0.53
-		vel.y = -7 * 0.53
 
 
 func _add_coins(num: int, player: PlayerCharacter) -> void:
