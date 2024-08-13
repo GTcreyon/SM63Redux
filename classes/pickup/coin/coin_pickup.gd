@@ -26,8 +26,11 @@ func _add_coins(num: int, player: PlayerCharacter) -> void:
 		player.coins_toward_health += num
 
 
-func _pickup_effect() -> Node2D:
+func _pickup_sound():
 	Singleton.get_node("SFX/Coin").play()
+
+
+func _pickup_effect() -> Node2D:
 	# Change the instantiated particles' texture
 	var inst = super()
 	inst.texture = particle_texture
