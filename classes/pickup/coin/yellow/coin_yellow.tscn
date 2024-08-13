@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://drpm6hlx76jqc"]
+[gd_scene load_steps=18 format=3 uid="uid://drpm6hlx76jqc"]
 
 [ext_resource type="Script" path="res://classes/dejitter_group/dejitter_group.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3ybxc3gorepi" path="res://classes/pickup/coin/coins.png" id="2"]
 [ext_resource type="Material" uid="uid://bneuwo0j5ktnl" path="res://shaders/aa.tres" id="3"]
+[ext_resource type="PackedScene" uid="uid://e0mmc74uv8ro" path="res://classes/pickup/coin/coin_particles.tscn" id="7_qgl0h"]
 [ext_resource type="Script" path="res://classes/pickup/coin/yellow/coin_yellow.gd" id="9"]
 [ext_resource type="Script" path="res://classes/pickup/coin/coin_entity.gd" id="10"]
 [ext_resource type="Texture2D" uid="uid://dqs2ws73wu5dh" path="res://classes/pickup/coin/yellow/coin_particles_yellow.png" id="11"]
@@ -88,6 +89,7 @@ particle_texture = ExtResource("11")
 parent_is_root = true
 _sprite_path = NodePath("../AnimatedSprite2D")
 _sfx_path = NodePath("")
+death_fx = ExtResource("7_qgl0h")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
 shape = SubResource("3")

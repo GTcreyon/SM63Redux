@@ -1,9 +1,8 @@
 class_name CoinPickup
 extends Pickup
 
-const PARTICLE_SCENE = preload("./coin_particles.tscn")
-
-# Texture file for the particle effect.
+## Texture for the particles. Should usually match the color of the
+## main sprite.
 @export var particle_texture: CompressedTexture2D
 
 var dropped = false
@@ -27,13 +26,9 @@ func _add_coins(num: int, player: PlayerCharacter) -> void:
 		player.coins_toward_health += num
 
 
-func _pickup_effect() -> void:
+func _pickup_effect() -> Node2D:
 	Singleton.get_node("SFX/Coin").play()
-	var inst: GPUParticles2D = PARTICLE_SCENE.instantiate()
+	# Change the instantiated particles' texture
+	var inst = super()
 	inst.texture = particle_texture
-	if parent_is_root:
-		inst.position = get_parent().position
-		get_parent().get_parent().add_child(inst)
-	else:
-		inst.position = position
-		get_parent().add_child(inst)
+	return inst
