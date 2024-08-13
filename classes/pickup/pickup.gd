@@ -12,15 +12,14 @@ extends Area2D
 @export var disabled: bool = false: set = set_disabled
 @export_node_path("Sprite2D", "AnimatedSprite2D") var _sprite_path: NodePath = "Sprite2D"
 @export_node_path("AudioStreamPlayer", "AudioStreamPlayer2D") var _sfx_path: NodePath = "SFXCollect"
-## The pickup will emit these particles when collected.
-@export_node_path("CPUParticles2D", "GPUParticles2D") var _particle_path: NodePath = ""
+## The pickup will emit this effect when collected.
+@export var death_fx: PackedScene
 
 var _pickup_id: int = -1
 var _respawn_timer: float = -1
 
 @onready var sprite = get_node_or_null(_sprite_path)
 @onready var sfx = get_node_or_null(_sfx_path)
-@onready var particle = get_node_or_null(_particle_path)
 
 
 func _ready():
@@ -62,7 +61,15 @@ func assign_pickup_id(id) -> void:
 func pickup(body) -> void:
 	_award_pickup(body)
 	_pickup_sound()
-	_pickup_effect()
+	var effect = _pickup_effect()
+	if effect:
+		# Find an object we know will survive this object's destruction.
+		var safe_root = $"/root/Main"
+		
+		# Anchor child effects (if they exist) to that, so they can play past
+		# the death of this object.
+		safe_root.add_child(effect)
+		effect.global_position = self.global_position
 	_kill_pickup()
 	if persistent_collect:
 		FlagServer.set_flag_state(_pickup_id, true)
@@ -118,26 +125,8 @@ func _pickup_sound():
 			sfx.play()
 
 
-func _pickup_effect():
-	# Check whether the object is killable.
-	if !respawns():
-		# Object is permanently killable.
-		# Find an object we know will survive this object's destruction.
-		var safe_root = $"/root/Main"
-		
-		if particle:
-			# Anchor child effects (if they exist) to that, so they can play past
-			# the death of this object.
-			remove_child(particle)
-			safe_root.add_child(particle)
-			particle.position = self.global_position
-			
-			particle.restart()
-	else:
-		# Object respawns after a set time. Child effects guaranteed to survive
-		# when the object is collected; use them in-place.
-		if particle:
-			particle.restart()
+func _pickup_effect() -> Node2D:
+	return death_fx.instantiate() if death_fx else null
 
 
 func _kill_pickup() -> void:
