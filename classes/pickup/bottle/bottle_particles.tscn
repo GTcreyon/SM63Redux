@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://du755xdivd1lt"]
+[gd_scene load_steps=9 format=3 uid="uid://du755xdivd1lt"]
 
 [ext_resource type="Texture2D" uid="uid://bvqbsbsusjv70" path="res://classes/pickup/bottle/bottle_splash.png" id="1_1v7qb"]
 [ext_resource type="Script" path="res://classes/pickup/temporary_particles.gd" id="2_bophd"]
+[ext_resource type="Texture2D" uid="uid://dejqqeka1tsc" path="res://classes/player/mario_sheet.png" id="3_k1kuy"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_km54p"]
 particles_animation = true
-particles_anim_h_frames = 3
+particles_anim_h_frames = 4
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
@@ -23,19 +24,23 @@ curve = SubResource("Curve_hy6fs")
 lifetime_randomness = 0.79
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
-spread = 47.01
-initial_velocity_min = 53.76
-initial_velocity_max = 138.88
+spread = 61.921
+initial_velocity_min = 107.52
+initial_velocity_max = 277.76
 gravity = Vector3(0, 280, 0)
-anim_speed_min = 0.33
-anim_speed_max = 0.5
-anim_offset_max = 1.0
+anim_speed_min = 0.25
+anim_speed_max = 0.33
+anim_offset_max = 0.5
 anim_offset_curve = SubResource("CurveTexture_jcynk")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wk1gx"]
+atlas = ExtResource("3_k1kuy")
+region = Rect2(144, 0, 48, 48)
 
 [node name="PickupSplash" type="GPUParticles2D"]
 material = SubResource("CanvasItemMaterial_km54p")
 emitting = false
-amount = 16
+amount = 32
 process_material = SubResource("ParticleProcessMaterial_6gkvm")
 texture = ExtResource("1_1v7qb")
 lifetime = 0.5
@@ -43,3 +48,8 @@ one_shot = true
 explosiveness = 1.0
 randomness = 0.31
 script = ExtResource("2_bophd")
+
+[node name="Mario for Reference" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -8)
+texture = SubResource("AtlasTexture_wk1gx")
