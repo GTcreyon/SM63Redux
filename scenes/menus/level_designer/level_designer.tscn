@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dj1885yxyxc7y"]
+[gd_scene load_steps=62 format=3 uid="uid://dj1885yxyxc7y"]
 
 [ext_resource type="Script" path="res://scenes/menus/level_designer/menu_control.gd" id="1"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/ld_main.gd" id="2"]
@@ -17,8 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cc8sxs7wl5feb" path="res://scenes/menus/level_designer/poly_edit/polygon_editor.tscn" id="14_vnnf2"]
 [ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="15"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/start.gd" id="16"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/save_load/save.gd" id="17"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/save_load/load.gd" id="18"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/save_load/save_load_menu_button.gd" id="17"]
 [ext_resource type="Texture2D" uid="uid://tbcw22hefp5f" path="res://scenes/menus/level_designer/ldui/square_outline.png" id="19"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/selection_handler.gd" id="20"]
 [ext_resource type="Texture2D" uid="uid://h0ohv2giuogk" path="res://scenes/menus/level_designer/ldui/poly_editor_button_sheet.png" id="21"]
@@ -297,12 +296,13 @@ offset_right = 136.0
 offset_bottom = 32.0
 color = Color(0.223529, 0.0941176, 0, 1)
 
-[node name="File" type="Button" parent="UILayer/LDUI/TopBar"]
+[node name="File" type="Button" parent="UILayer/LDUI/TopBar" node_paths=PackedStringArray("dialog")]
 layout_mode = 0
 offset_right = 42.0
 offset_bottom = 30.0
 theme_override_styles/normal = SubResource("2")
 script = ExtResource("17")
+dialog = NodePath("../../../SaveDialog")
 
 [node name="Mode" type="Button" parent="UILayer/LDUI/TopBar"]
 layout_mode = 0
@@ -311,13 +311,14 @@ offset_right = 88.0
 offset_bottom = 30.0
 theme_override_styles/normal = SubResource("4")
 
-[node name="Options" type="Button" parent="UILayer/LDUI/TopBar"]
+[node name="Options" type="Button" parent="UILayer/LDUI/TopBar" node_paths=PackedStringArray("dialog")]
 layout_mode = 0
 offset_left = 92.0
 offset_right = 134.0
 offset_bottom = 30.0
 theme_override_styles/normal = SubResource("6")
-script = ExtResource("18")
+script = ExtResource("17")
+dialog = NodePath("../../../OpenDialog")
 
 [node name="ItemPane" type="Control" parent="UILayer/LDUI"]
 anchors_preset = 0
@@ -527,8 +528,8 @@ text = "Placeholder Loading Text"
 [connection signal="pressed" from="UIFollow/Selection/Buttons/Polygon" to="UIFollow/Selection/Buttons" method="_on_polygon_pressed"]
 [connection signal="file_selected" from="UILayer/SaveDialog" to="UILayer/SaveDialog" method="_on_SaveDialog_file_selected"]
 [connection signal="file_selected" from="UILayer/OpenDialog" to="UILayer/OpenDialog" method="_on_OpenDialog_file_selected"]
-[connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="_on_File_pressed"]
+[connection signal="pressed" from="UILayer/LDUI/TopBar/File" to="UILayer/LDUI/TopBar/File" method="open_dialog"]
 [connection signal="pressed" from="UILayer/LDUI/TopBar/Mode" to="UILayer/LDUI" method="_on_Mode_pressed"]
-[connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="_on_Open_pressed"]
+[connection signal="pressed" from="UILayer/LDUI/TopBar/Options" to="UILayer/LDUI/TopBar/Options" method="open_dialog"]
 [connection signal="pressed" from="UILayer/LDUI/ItemPane/ItemBlock/PolygonScroll/PolygonGrid/Terrain" to="UIFollow/PolygonEditor" method="_demo_press"]
 [connection signal="pressed" from="UILayer/LDUI/StartButtons/Start" to="UILayer/LDUI/StartButtons/Start" method="_on_Start_pressed"]
