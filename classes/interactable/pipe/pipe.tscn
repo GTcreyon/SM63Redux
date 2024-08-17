@@ -14,18 +14,17 @@ size = Vector2(32, 32)
 collision_mask = 2
 monitorable = false
 script = ExtResource("3")
-sprite = NodePath("Sprite2D")
 
 [node name="DetectorArea" type="CollisionShape2D" parent="."]
-position = Vector2(0, -25)
+position = Vector2(0, -9)
 shape = SubResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(0, -16)
 texture = ExtResource("2")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 16)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 z_index = 1
