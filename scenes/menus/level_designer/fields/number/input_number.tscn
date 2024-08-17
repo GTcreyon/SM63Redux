@@ -13,16 +13,6 @@ offset_bottom = 23.0
 theme_override_constants/separation = 1
 script = ExtResource("7")
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
-text = "AAAAA"
-horizontal_alignment = 2
-
-[node name="Spacer" type="Control" parent="."]
-custom_minimum_size = Vector2(20, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 2
 theme_override_styles/normal = ExtResource("1")
@@ -42,6 +32,17 @@ offset_right = 32.0
 offset_bottom = 35.0
 texture_normal = ExtResource("5")
 texture_pressed = ExtResource("4")
+
+[node name="Dummy1" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Dummy2" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "AAAAA"
+horizontal_alignment = 2
 
 [connection signal="text_changed" from="LineEdit" to="." method="_on_LineEdit_text_changed"]
 [connection signal="pressed" from="Up" to="." method="_on_Up_pressed"]
