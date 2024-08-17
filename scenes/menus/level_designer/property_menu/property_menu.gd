@@ -1,8 +1,9 @@
 extends Panel
 
-const TICKBOX = preload("../fields/boolean/tickbox_ld.tscn")
+const INPUT_BOOLEAN = preload("../fields/boolean/input_boolean.tscn")
 const INPUT_NUMBER = preload("../fields/number/input_number.tscn")
 const INPUT_VECTOR2 = preload("../fields/vector2/input_vector2.tscn")
+
 var properties: Dictionary = {}
 var target_node: Node = null
 @onready var list: VBoxContainer = $PropertyList
@@ -48,7 +49,7 @@ func set_properties(new_properties: Dictionary, node: LDPlacedItem):
 				inst.get_node("Label").text = propname
 				inst.pre_value = Vector2.ZERO if val == null else new_properties[propname]
 			"bool":
-				inst = TICKBOX.instantiate()
+				inst = INPUT_BOOLEAN.instantiate()
 				inst.get_node("Label").text = propname
 				inst.pressed = new_properties[propname]
 			"uint", "sint":

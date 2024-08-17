@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnri8d1imbuvd"]
+
+[ext_resource type="Script" path="res://scenes/menus/level_designer/fields/boolean/input_boolean.gd" id="1_ime1i"]
+[ext_resource type="Theme" uid="uid://bfffbep7u0f87" path="res://scenes/menus/level_designer/ldui/themes/ld_theme.tres" id="2_uikdv"]
+[ext_resource type="Texture2D" uid="uid://bxuodxe7e5ytm" path="res://scenes/menus/level_designer/fields/boolean/checkmark.png" id="3_nmbwg"]
+
+[node name="Boolean" type="HBoxContainer"]
+offset_right = 20.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_constants/separation = 3
+script = ExtResource("1_ime1i")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme = ExtResource("2_uikdv")
+theme_type_variation = &"BooleanProp"
+
+[node name="Checkmark" type="Sprite2D" parent="Button"]
+visible = false
+position = Vector2(10, 10)
+texture = ExtResource("3_nmbwg")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
