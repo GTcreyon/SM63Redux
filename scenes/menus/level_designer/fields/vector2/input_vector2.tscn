@@ -18,9 +18,10 @@ layout_mode = 2
 text = "AAAAA"
 horizontal_alignment = 2
 
-[node name="SpacingX" type="Control" parent="."]
-custom_minimum_size = Vector2(5, 0)
+[node name="SpacerX" type="Control" parent="."]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="LabelX" type="Label" parent="."]
 layout_mode = 2
