@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://tg6wa2uikxoh" path="res://scenes/menus/level_designer/ldui/close_button.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://3f464248uj0d" path="res://scenes/menus/level_designer/ldui/close_button_pressed.png" id="3"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/property_menu/property_menu.gd" id="4"]
-[ext_resource type="PackedScene" uid="uid://dnri8d1imbuvd" path="res://scenes/menus/level_designer/fields/boolean/input_boolean.tscn" id="5_qrbxj"]
+[ext_resource type="PackedScene" uid="uid://dnri8d1imbuvd" path="res://scenes/menus/level_designer/fields/boolean/tickbox_ld.tscn" id="5"]
 
 [node name="PropertyMenu" type="Panel"]
 offset_right = 100.0
@@ -31,10 +31,10 @@ offset_right = 38.0
 offset_bottom = 38.0
 theme_override_constants/separation = 8
 
-[node name="Boolean" parent="PropertyList" instance=ExtResource("5_qrbxj")]
+[node name="Tickbox" parent="PropertyList" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="Boolean2" parent="PropertyList" instance=ExtResource("5_qrbxj")]
+[node name="Tickbox2" parent="PropertyList" instance=ExtResource("5")]
 layout_mode = 2
 
 [node name="Dragger" type="TextureButton" parent="."]

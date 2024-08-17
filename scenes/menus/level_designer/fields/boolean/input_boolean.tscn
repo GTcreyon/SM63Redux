@@ -32,3 +32,4 @@ position = Vector2(10, 10)
 texture = ExtResource("3_nmbwg")
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
+

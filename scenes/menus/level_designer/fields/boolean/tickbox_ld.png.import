@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1y1odl6e1x3r"
-path="res://.godot/imported/boolean_panel.png-8955bc3195b9b6526d42ec4b41145649.ctex"
+uid="uid://rnytdurrgxfa"
+path="res://.godot/imported/tickbox_ld.png-2e20bf02a74e4138de0ad8613e1e3317.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/menus/level_designer/fields/boolean/boolean_panel.png"
-dest_files=["res://.godot/imported/boolean_panel.png-8955bc3195b9b6526d42ec4b41145649.ctex"]
+source_file="res://scenes/menus/level_designer/fields/boolean/tickbox_ld.png"
+dest_files=["res://.godot/imported/tickbox_ld.png-2e20bf02a74e4138de0ad8613e1e3317.ctex"]
 
 [params]
 
