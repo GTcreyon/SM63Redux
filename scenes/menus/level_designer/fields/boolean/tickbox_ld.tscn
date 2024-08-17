@@ -46,6 +46,10 @@ mouse_filter = 2
 theme_override_constants/separation = 3
 script = ExtResource("2")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "AAAAAA"
+
 [node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
@@ -60,8 +64,5 @@ theme_override_styles/focus = SubResource("6")
 position = Vector2(10, 10)
 sprite_frames = SubResource("5")
 animation = &"unchecked"
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
