@@ -4,15 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://tg6wa2uikxoh" path="res://scenes/menus/level_designer/ldui/close_button.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://3f464248uj0d" path="res://scenes/menus/level_designer/ldui/close_button_pressed.png" id="3"]
 [ext_resource type="Script" path="res://scenes/menus/level_designer/property_menu/property_menu.gd" id="4"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ll2b4"]
-bg_color = Color(0.196078, 0.666667, 0.52549, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_color = Color(0.223529, 0.0941176, 0, 1)
-expand_margin_left = 5.0
-expand_margin_right = 5.0
+[ext_resource type="PackedScene" uid="uid://dnri8d1imbuvd" path="res://scenes/menus/level_designer/fields/boolean/input_boolean.tscn" id="5_qrbxj"]
 
 [node name="PropertyMenu" type="Panel"]
 offset_right = 100.0
@@ -39,24 +31,18 @@ offset_right = 38.0
 offset_bottom = 38.0
 theme_override_constants/separation = 8
 
+[node name="Boolean" parent="PropertyList" instance=ExtResource("5_qrbxj")]
+layout_mode = 2
+
+[node name="Boolean2" parent="PropertyList" instance=ExtResource("5_qrbxj")]
+layout_mode = 2
+
 [node name="Dragger" type="TextureButton" parent="."]
 layout_mode = 0
 anchor_right = 1.0
 offset_right = -16.0
 offset_bottom = 8.0
 mouse_default_cursor_shape = 6
-
-[node name="ItemName" type="Label" parent="."]
-layout_mode = 2
-offset_left = 5.0
-offset_top = -15.0
-offset_right = 17.0
-offset_bottom = 2.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_ll2b4")
-text = "Item"
-horizontal_alignment = 1
-vertical_alignment = 1
-justification_flags = 161
 
 [connection signal="pressed" from="CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="button_down" from="Dragger" to="." method="_on_Dragger_button_down"]

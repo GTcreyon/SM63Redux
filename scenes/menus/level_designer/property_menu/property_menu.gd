@@ -8,7 +8,6 @@ var properties: Dictionary = {}
 var target_node: Node = null
 @onready var list: VBoxContainer = $PropertyList
 @onready var main: LDMain = $"/root/Main"
-@onready var item_name = $ItemName
 
 
 func _input(event):
@@ -37,7 +36,6 @@ func set_properties(new_properties: Dictionary, node: LDPlacedItem):
 	properties = new_properties
 	clear_children()
 	
-	item_name.text = main.items[node.item_id].name
 	for propname in new_properties:
 		var inst = null
 		var val = new_properties[propname]
