@@ -6,8 +6,8 @@ extends Control
 
 var pressed: bool = false
 
-func _ready() -> void: 
-	checkmark.frame = 1
+func _ready() -> void:
+	checkmark.visible = pressed
 
 func _on_Button_pressed() -> void:
 	pressed = !pressed
