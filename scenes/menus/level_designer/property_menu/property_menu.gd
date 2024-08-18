@@ -5,7 +5,7 @@ const INPUT_NUMBER = preload("../fields/number/input_number.tscn")
 const INPUT_VECTOR2 = preload("../fields/vector2/input_vector2.tscn")
 var properties: Dictionary = {}
 var target_node: Node = null
-@onready var list: VBoxContainer = $PropertyList
+@onready var list: Container = $PropertyList
 @onready var main: LDMain = $"/root/Main"
 
 
@@ -26,6 +26,7 @@ func show_menu():
 
 
 func clear_children():
+	print("clear children")
 	for child in list.get_children(): # clear previous properties
 		list.remove_child(child)
 		child.queue_free()

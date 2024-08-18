@@ -24,7 +24,7 @@ mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2")
 texture_pressed = ExtResource("3")
 
-[node name="PropertyList" type="VBoxContainer" parent="."]
+[node name="PropertyList" type="Container" parent="."]
 layout_mode = 0
 offset_left = 18.0
 offset_top = 18.0
