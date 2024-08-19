@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnri8d1imbuvd"]
+[gd_scene load_steps=8 format=3 uid="uid://8uiv86jlx2wb"]
 
 [ext_resource type="Texture2D" uid="uid://rnytdurrgxfa" path="res://scenes/menus/level_designer/fields/boolean/tickbox_ld.png" id="1"]
-[ext_resource type="Script" path="res://scenes/menus/level_designer/fields/boolean/tickbox_ld.gd" id="2"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/fields/boolean/input_boolean.gd" id="1_hym5b"]
 
 [sub_resource type="StyleBoxEmpty" id="6"]
 
@@ -39,12 +39,12 @@ animations = [{
 "speed": 16.0
 }]
 
-[node name="Tickbox" type="HBoxContainer"]
+[node name="Boolean" type="HBoxContainer"]
 offset_right = 20.0
 offset_bottom = 20.0
 mouse_filter = 2
 theme_override_constants/separation = 3
-script = ExtResource("2")
+script = ExtResource("1_hym5b")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
