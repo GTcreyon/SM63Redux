@@ -28,8 +28,11 @@ func _process(delta):
 		
 		# Update the target polygon, if updating the target is enabled.
 		if show_target:
-			main.polygon_edit_node.polygon[dragging_index] = mouse_position - \
-				main.polygon_edit_node.position
+			if dragging_index >= main.polygon_edit_node.polygon.size():
+				main.polygon_edit_node.polygon.append(mouse_position - main.polygon_edit_node.position)
+			else:
+				main.polygon_edit_node.polygon[dragging_index] = mouse_position - \
+					main.polygon_edit_node.position
 
 
 func _unhandled_input(event):

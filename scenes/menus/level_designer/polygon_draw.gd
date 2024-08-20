@@ -114,7 +114,7 @@ func _draw():
 		var nearest_position
 		var nearest_distance = INF
 		var can_place = true
-		for index in vert_count - 1:
+		for index in vert_count:
 			# Find the closest point on this segment (the segment starting on
 			# this index).
 			var seg_begin = readonly_local_polygon[index]
