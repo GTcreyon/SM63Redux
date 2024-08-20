@@ -114,6 +114,8 @@ func _draw():
 		var nearest_position
 		var nearest_distance = INF
 		var can_place = true
+		# Iterate every vertex *plus one*, so that the edge between the last
+		# and first verts is included in the check.
 		for index in vert_count:
 			# Find the closest point on this segment (the segment starting on
 			# this index).

@@ -28,11 +28,31 @@ func _process(delta):
 		
 		# Update the target polygon, if updating the target is enabled.
 		if show_target:
+			# Position of mouse relative to the display polygon.
+			var local_mouse = mouse_position - main.polygon_edit_node.position
+
 			if dragging_index >= main.polygon_edit_node.polygon.size():
-				main.polygon_edit_node.polygon.append(mouse_position - main.polygon_edit_node.position)
+				# Dragged vert is past the end of the current polygon.
+				
+				# VALIDATE: currently dragging_index cannot validly be past
+				# the end vert by more than 1 index.
+				# Assert validity with a useful message.
+				# For the record, current buggy behavior would add new verts
+				# every frame until the drag index is reached.
+				assert(dragging_index == main.polygon_edit_node.polygon.size(),
+					"""Index of dragged vertex is further beyond the end than
+					polygon preview rendering can currently handle.
+					At the moment it can support up to 1 beyond the end.
+					""")
+				
+				# For display purposes, add the dragged vert to the polygon.
+				main.polygon_edit_node.polygon.append(local_mouse)
+				# TODO: Ensure that if vertex-adding becomes cancelable,
+				# this temporary display vert is properly removed.
 			else:
-				main.polygon_edit_node.polygon[dragging_index] = mouse_position - \
-					main.polygon_edit_node.position
+				# Dragged vert is in the polygon already. Set its position
+				# normally.
+				main.polygon_edit_node.polygon[dragging_index] = local_mouse
 
 
 func _unhandled_input(event):
@@ -189,7 +209,7 @@ func add_vertex(at_position: Vector2, at_index: int):
 	# Awkwardly enough, the drawable won't run its update-on-change code when
 	# polygon is modified instead of set fresh. Run it manually instead.
 	drawable_polygon.refresh_polygon()
-	refresh_display_polygon()
+	_refresh_display_polygon()
 	_begin_move_vertex(at_index)
 
 
@@ -209,7 +229,7 @@ func remove_vertex(index):
 	else:
 		drawable_polygon.polygon.remove_at(index)
 		drawable_polygon.refresh_polygon()
-		refresh_display_polygon()
+		_refresh_display_polygon()
 
 
 func _begin_move_vertex(index):
@@ -227,9 +247,11 @@ func delete_polygon():
 	
 	polygon_deleted.emit(main.polygon_edit_node)
 
-func refresh_display_polygon():
+
+func _refresh_display_polygon():
 	main.polygon_edit_node.polygon = drawable_polygon.readonly_local_polygon
 	main.polygon_edit_node.position = drawable_polygon.global_position
+
 
 ## Temp function which hooks up to 
 func _demo_press():
