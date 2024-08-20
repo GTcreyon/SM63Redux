@@ -181,19 +181,17 @@ func _end_edit(save: bool):
 
 func add_vertex(at_position: Vector2, at_index: int):
 	print("New at ", at_position, ", index ", at_index)
-	
 	# Update the drawable's polygon.
 	drawable_polygon.polygon.insert(at_index, drawable_polygon.position + at_position)
 	# Awkwardly enough, the drawable won't run its update-on-change code when
 	# polygon is modified instead of set fresh. Run it manually instead.
 	drawable_polygon.refresh_polygon()
-	
+	refresh_display_polygon()
 	_begin_move_vertex(at_index)
 
 
 func remove_vertex(index):
 	print("Remove ", index)
-	
 	# Check if there'll be enough verts left without this one to still form
 	# a polygon.
 	if drawable_polygon.polygon.size() <= 3:
@@ -208,6 +206,7 @@ func remove_vertex(index):
 	else:
 		drawable_polygon.polygon.remove_at(index)
 		drawable_polygon.refresh_polygon()
+		refresh_display_polygon()
 
 
 func _begin_move_vertex(index):
@@ -225,6 +224,9 @@ func delete_polygon():
 	
 	polygon_deleted.emit(main.polygon_edit_node)
 
+func refresh_display_polygon():
+	main.polygon_edit_node.polygon = drawable_polygon.readonly_local_polygon
+	main.polygon_edit_node.position = drawable_polygon.global_position
 
 ## Temp function which hooks up to 
 func _demo_press():
