@@ -8,7 +8,14 @@ const NO_ADD_VERT_DIST = VERT_BUTTON_HALF_SIZE.x * 2
 const LINE_WIDTH = 2
 const LINE_ANTIALIAS = false
 
-@export var outline_color: Color = Color(0, 0.2, 0.9)
+@export var valid_outline_color: Color = Color(0, 0.2, 0.9)
+@export var invalid_outline_color: Color = Color(0.9, 0.2, 0.3)
+var outline_color: Color = invalid_outline_color
+
+var is_valid: bool = false:
+	set(valid):
+		outline_color = valid_outline_color if valid else invalid_outline_color
+		is_valid = valid
 
 var polygon: Array[Vector2]:
 	set(new):

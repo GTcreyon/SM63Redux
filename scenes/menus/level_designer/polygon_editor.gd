@@ -17,13 +17,13 @@ var dragging_index = null
 @onready var main: LDMain = $"/root/Main"
 @onready var drawable_polygon = $Polygon
 
-
 func _process(delta):
 	# If dragging a vertex, place the visual vertex on the mouse.
 	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index != null:
 		var mouse_position = main.get_snapped_mouse_position()
-		
 		drawable_polygon.polygon[dragging_index] = mouse_position
+		drawable_polygon.is_valid = PolygonValidator.new().validate_polygon(
+			drawable_polygon.polygon, drawable_polygon.polygon[dragging_index])
 		drawable_polygon.refresh_polygon()
 		
 		# Update the target polygon, if updating the target is enabled.
@@ -59,7 +59,6 @@ func _unhandled_input(event):
 	match main.editor_state:
 		main.EDITOR_STATE.POLYGON_CREATE:
 			# Creating a polygon.
-			
 			# Cancel creation if either cancel button is pressed.
 			if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
 				_end_create(false)
@@ -73,6 +72,9 @@ func _unhandled_input(event):
 				# Add a vert at the end of the chain, wherever we clicked.
 				drawable_polygon.polygon.append(main.get_snapped_mouse_position())
 				drawable_polygon.refresh_polygon()
+				
+				# Don't need to run it through the validator here due to all triangles being simple polygons
+				if len(drawable_polygon.polygon) >= 2: drawable_polygon.is_valid = true
 				
 				# Finish the polygon on placing the third point (without the
 				# keep-placing button held).
@@ -249,6 +251,7 @@ func delete_polygon():
 
 
 func _refresh_display_polygon():
+	if !main.polygon_edit_node: return
 	main.polygon_edit_node.polygon = drawable_polygon.readonly_local_polygon
 	main.polygon_edit_node.position = drawable_polygon.global_position
 
