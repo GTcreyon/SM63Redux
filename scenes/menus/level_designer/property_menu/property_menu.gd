@@ -1,3 +1,4 @@
+class_name LDPropertyMenu
 extends Panel
 
 const TICKBOX = preload("../fields/boolean/tickbox_ld.tscn")

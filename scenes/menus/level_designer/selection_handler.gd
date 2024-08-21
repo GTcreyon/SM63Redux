@@ -14,7 +14,7 @@ var selection_rect = Rect2(Vector2.ZERO, Vector2.ZERO)
 var selection_hit = []
 
 @onready var main = $"/root/Main"
-@onready var property_menu = $"/root/Main/UILayer/PropertyMenu"
+@onready var property_menu: LDPropertyMenu = $"/root/Main/UILayer/PropertyMenu"
 @onready var camera = $"/root/Main/Camera"
 @onready var hover = $Hover
 @onready var buttons = $Buttons
