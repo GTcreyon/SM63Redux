@@ -59,8 +59,7 @@ func _unhandled_input(event):
 			property_menu.hide_menu()
 			accept_event()
 		else:
-			# TODO: Implement property menu for terrain as well as items.
-			property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
+			property_menu.set_properties(selection_hit[0])
 			property_menu.show_menu()
 			accept_event()
 		

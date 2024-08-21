@@ -26,16 +26,26 @@ func show_menu():
 	set_process_input(false)
 
 
-func clear_children():
+func set_properties(node: Node):
 	for child in list.get_children(): # clear previous properties
 		list.remove_child(child)
 		child.queue_free()
-
-
-func set_properties(new_properties: Dictionary, node: LDPlacedItem):
-	properties = new_properties
-	clear_children()
 	
+	# Load the properties list from the node in some way, depending on its
+	# type.
+	if node is LDPlacedItem:
+		properties = node.properties
+	elif node is TerrainPolygon:
+		pass # TODO
+	
+	# Save properties list into a temporary variable.
+	# This is because there's two property-menu branches active as of Aug 21,
+	# 2024 (feature-ld-polygon-properties and refactor-ld-property-box).
+	# Using a temp variable helps minimize the changes which'll eventually
+	# need merging. Hopefully.
+	var new_properties = properties
+	
+	# Create editor widgets for each property.
 	for propname in new_properties:
 		var inst = null
 		var val = new_properties[propname]
