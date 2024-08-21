@@ -50,10 +50,16 @@ func set_properties(node: Node):
 		var inst = null
 		var val = new_properties[propname]
 		
+		var proptype: StringName
+		if node is LDPlacedItem:
+			proptype = main.items[node.item_id].properties[propname]["type"]
+		else:
+			pass # TODO
+		
 		# Create the appropriate field for properties of this type,
 		# and show the property's value in it.
 		# If no instance exists after this step, the type is invalid.
-		match main.items[node.item_id].properties[propname]["type"]:
+		match proptype:
 			"Vector2":
 				inst = INPUT_VECTOR2.instantiate()
 				inst.get_node("Label").text = propname
