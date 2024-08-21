@@ -55,14 +55,14 @@ func _unhandled_input(event):
 	# Open properties
 	
 	if event.is_action_pressed("ld_open_properties") and len(selection_hit) == 1:
-		if selection_hit[0] is LDPlacedItem:
-			if property_menu.visible:
-				property_menu.hide_menu()
-				accept_event()
-			else:
-				property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
-				property_menu.show_menu()
-				accept_event()
+		if property_menu.visible:
+			property_menu.hide_menu()
+			accept_event()
+		else:
+			# TODO: Implement property menu for terrain as well as items.
+			property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
+			property_menu.show_menu()
+			accept_event()
 		
 	if event.is_action_pressed("ld_delete"):
 		start_position = Vector2.ZERO
