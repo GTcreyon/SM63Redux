@@ -53,7 +53,7 @@ func set_properties(node: Node):
 		var proptype: StringName
 		if node is LDPlacedItem:
 			proptype = main.items[node.item_id].properties[propname]["type"]
-		else:
+		elif node is TerrainPolygon:
 			pass # TODO
 		
 		# Create the appropriate field for properties of this type,
