@@ -185,6 +185,8 @@ func end_edit():
 	polygon = []
 	# Remember, this property has a setter that cleans up for us!
 	show_verts = false
+	# Just in case we end editing during a drag.
+	Input.set_default_cursor_shape()
 	
 	draw_predict_line = false
 

@@ -76,14 +76,24 @@ func _unhandled_input(event):
 			if event.is_action_released("ld_cancel_placement") or event.is_action_released("ld_poly_cancel"):
 				_end_create(false)
 			
-			# Finish creation on presseing finish.
+			# Finish creation on pressing finish.
 			if event.is_action_released("ld_poly_finish"):
 				_end_create(true)
 			
 			# Place verts on click.
 			if event.is_action_released("ld_place") and main.editor_state == main.EDITOR_STATE.POLYGON_CREATE:
+				var mouse_position = main.get_snapped_mouse_position()
+				
+				if len(drawable_polygon.polygon) > 0:
+					# If the new vert is colocated with the one immediately before
+					# or after, just fail to add it.
+					var next_vert = drawable_polygon.polygon[0]
+					var last_vert = drawable_polygon.polygon[len(drawable_polygon.polygon) - 1]
+					if mouse_position == next_vert or mouse_position == last_vert:
+						return
+				
 				# Add a vert at the end of the chain, wherever we clicked.
-				drawable_polygon.polygon.append(main.get_snapped_mouse_position())
+				drawable_polygon.polygon.append(mouse_position)
 				drawable_polygon.refresh_polygon()
 				
 				# Finish the polygon on placing the third point (without the
@@ -95,9 +105,23 @@ func _unhandled_input(event):
 			
 			# On click, finish the drag wherever the mouse is.
 			if event.is_action_released("ld_place"):
-				drawable_polygon.end_drag()
+				# If the vert is now colocated with the vert immediately before
+				# or after it, merge it with the one that's already there.
+				var poly_len = len(drawable_polygon.polygon)
+				var cur_vert = drawable_polygon.polygon[dragging_index]
+				var last_vert = drawable_polygon.polygon[(dragging_index - 1) % poly_len]
+				var next_vert = drawable_polygon.polygon[(dragging_index + 1) % poly_len]
+				if cur_vert == last_vert or cur_vert == next_vert:
+					# Colocated with one of these verts. Quietly remove 
+					# this one from the polygon.
+					remove_vertex(dragging_index)
 				
-				main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
+				# If, after potentially deleting a vertex, the polygon still
+				# exists, then keep editing.
+				if not main.polygon_edit_node.is_queued_for_deletion():
+					drawable_polygon.end_drag()
+					main.editor_state = main.EDITOR_STATE.POLYGON_EDIT
+				
 				dragging_index = null
 		main.EDITOR_STATE.POLYGON_EDIT:
 			# Editing a placed polygon.
@@ -191,7 +215,8 @@ func begin_edit(obj_to_edit: Polygon2D):
 
 func _end_edit(save: bool):
 	# Can't end editing a polygon if we're not already editing a polygon.
-	if main.editor_state != main.EDITOR_STATE.POLYGON_EDIT:
+	if (main.editor_state != main.EDITOR_STATE.POLYGON_EDIT
+		and main.editor_state != main.EDITOR_STATE.POLYGON_DRAG_VERTEX):
 		return
 	
 	main.editor_state = main.EDITOR_STATE.IDLE
