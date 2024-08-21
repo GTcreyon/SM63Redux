@@ -46,19 +46,19 @@ func set_properties(new_properties: Dictionary, node: LDPlacedItem):
 		match main.items[node.item_id].properties[propname]["type"]:
 			"Vector2":
 				inst = INPUT_VECTOR2.instantiate()
-				inst.get_node("Label").text = propname
+				inst.name = propname
 				inst.pre_value = Vector2.ZERO if val == null else new_properties[propname]
 			"bool":
 				inst = TICKBOX.instantiate()
-				inst.get_node("Label").text = propname
+				inst.name = propname
 				inst.pressed = new_properties[propname]
 			"uint", "sint":
 				inst = INPUT_NUMBER.instantiate()
-				inst.get_node("Label").text = propname
+				inst.name = propname
 				inst.pre_text = str(0 if val == null else val)
 			"float":
 				inst = INPUT_NUMBER.instantiate()
-				inst.get_node("Label").text = propname
+				inst.name = propname
 				inst.pre_text = str(0 if val == null else val)
 		# If instance exists (type was recognized), put it in the display box.
 		if inst != null:
