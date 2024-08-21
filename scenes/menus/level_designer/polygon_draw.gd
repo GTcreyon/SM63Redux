@@ -12,10 +12,11 @@ const LINE_ANTIALIAS = false
 @export var invalid_outline_color: Color = Color(0.9, 0.2, 0.3)
 var outline_color: Color = invalid_outline_color
 
+## Whether the polygon is free of overlapping edges and vertices.
 var is_valid: bool = false:
 	set(valid):
-		outline_color = valid_outline_color if valid else invalid_outline_color
 		is_valid = valid
+		outline_color = valid_outline_color if valid else invalid_outline_color
 
 var polygon: Array[Vector2]:
 	set(new):

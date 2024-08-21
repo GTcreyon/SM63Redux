@@ -22,7 +22,7 @@ func _process(delta):
 	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index != null:
 		var mouse_position = main.get_snapped_mouse_position()
 		drawable_polygon.polygon[dragging_index] = mouse_position
-		drawable_polygon.is_valid = PolygonValidator.new().validate_polygon(
+		drawable_polygon.is_valid = PolygonValidator.validate_polygon(
 			drawable_polygon.polygon, drawable_polygon.polygon[dragging_index])
 		drawable_polygon.refresh_polygon()
 		
@@ -73,8 +73,10 @@ func _unhandled_input(event):
 				drawable_polygon.polygon.append(main.get_snapped_mouse_position())
 				drawable_polygon.refresh_polygon()
 				
-				# Don't need to run it through the validator here due to all triangles being simple polygons
-				if len(drawable_polygon.polygon) >= 2: drawable_polygon.is_valid = true
+				# Don't need to run it through the validator here due to all
+				# triangles being simple polygons
+				if len(drawable_polygon.polygon) >= 2:
+					drawable_polygon.is_valid = true
 				
 				# Finish the polygon on placing the third point (without the
 				# keep-placing button held).
@@ -148,6 +150,9 @@ func begin_edit(obj_to_edit: Polygon2D):
 	
 	# Save a global reference to the target node.
 	main.polygon_edit_node = obj_to_edit
+	
+	# Set up so that if the polygon gets deleted mid-edit (e.g. by the
+	# selection handler), the editor properly cleans itself up.
 	main.polygon_edit_node.tree_exiting.connect(func(): 
 		drawable_polygon.end_edit()
 		drawable_polygon.is_valid = false
@@ -223,7 +228,6 @@ func remove_vertex(index):
 	print("Remove ", index)
 	# Check if there'll be enough verts left without this one to still form
 	# a polygon.
-	
 	if drawable_polygon.polygon.size() <= 3:
 		# Polygon has too few verts to remove one and still be a polygon.
 		# Delete the entire target node rather than let the geometry
@@ -236,8 +240,8 @@ func remove_vertex(index):
 	else:
 		drawable_polygon.polygon.remove_at(index)
 		drawable_polygon.refresh_polygon()
+		drawable_polygon.is_valid = PolygonValidator.validate_polygon(drawable_polygon.polygon)
 		_refresh_display_polygon()
-		drawable_polygon.is_valid = PolygonValidator.new().validate_polygon(drawable_polygon.polygon)
 
 
 func _begin_move_vertex(index):
@@ -257,7 +261,10 @@ func delete_polygon():
 
 
 func _refresh_display_polygon():
-	if !main.polygon_edit_node: return
+	# Abort if no edit target (display polygon) exists.
+	if !main.polygon_edit_node:
+		return
+	
 	main.polygon_edit_node.polygon = drawable_polygon.readonly_local_polygon
 	main.polygon_edit_node.position = drawable_polygon.global_position
 
