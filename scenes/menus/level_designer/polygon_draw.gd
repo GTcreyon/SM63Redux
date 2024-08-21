@@ -10,7 +10,7 @@ const LINE_ANTIALIAS = false
 
 @export var valid_outline_color: Color = Color(0, 0.2, 0.9)
 @export var invalid_outline_color: Color = Color(0.9, 0.2, 0.3)
-var outline_color: Color = invalid_outline_color
+var outline_color: Color = valid_outline_color
 
 ## Whether the polygon is free of overlapping edges and vertices.
 var is_valid: bool = false:

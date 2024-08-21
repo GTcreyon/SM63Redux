@@ -22,8 +22,6 @@ func _process(delta):
 	if main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX and dragging_index != null:
 		var mouse_position = main.get_snapped_mouse_position()
 		drawable_polygon.polygon[dragging_index] = mouse_position
-		drawable_polygon.is_valid = PolygonValidator.validate_polygon(
-			drawable_polygon.polygon, drawable_polygon.polygon[dragging_index])
 		drawable_polygon.refresh_polygon()
 		
 		# Update the target polygon, if updating the target is enabled.
@@ -53,6 +51,21 @@ func _process(delta):
 				# Dragged vert is in the polygon already. Set its position
 				# normally.
 				main.polygon_edit_node.polygon[dragging_index] = local_mouse
+	
+	# If verts are moving, update the validity of the polygon.
+	if (main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX
+		or main.editor_state == main.EDITOR_STATE.POLYGON_CREATE):
+		# When more than 3 points exist, lines can intersect.
+		# Check polygon validity.
+		if len(drawable_polygon.polygon) >= 4:
+			drawable_polygon.is_valid = PolygonValidator.validate_polygon(
+				drawable_polygon.polygon,
+				main.get_snapped_mouse_position())
+		# If there's 3 points or fewer, show the polygon in a guaranteed
+		# valid state (lest the first line of a created polygon show in alarming
+		# red).
+		else:
+			drawable_polygon.is_valid = true
 
 
 func _unhandled_input(event):
@@ -72,11 +85,6 @@ func _unhandled_input(event):
 				# Add a vert at the end of the chain, wherever we clicked.
 				drawable_polygon.polygon.append(main.get_snapped_mouse_position())
 				drawable_polygon.refresh_polygon()
-				
-				# Don't need to run it through the validator here due to all
-				# triangles being simple polygons
-				if len(drawable_polygon.polygon) >= 2:
-					drawable_polygon.is_valid = true
 				
 				# Finish the polygon on placing the third point (without the
 				# keep-placing button held).
