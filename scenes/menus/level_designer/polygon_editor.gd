@@ -55,13 +55,13 @@ func _process(delta):
 	# If verts are moving, update the validity of the polygon.
 	if (main.editor_state == main.EDITOR_STATE.POLYGON_DRAG_VERTEX
 		or main.editor_state == main.EDITOR_STATE.POLYGON_CREATE):
-		# When more than 3 points exist, lines can intersect.
+		# When more than 2 points exist, lines can intersect.
 		# Check polygon validity.
-		if len(drawable_polygon.polygon) >= 4:
+		if len(drawable_polygon.polygon) >= 3:
 			drawable_polygon.is_valid = PolygonValidator.validate_polygon(
 				drawable_polygon.polygon,
 				main.get_snapped_mouse_position())
-		# If there's 3 points or fewer, show the polygon in a guaranteed
+		# If there's 2 points or fewer, show the polygon in a guaranteed
 		# valid state (lest the first line of a created polygon show in alarming
 		# red).
 		else:
