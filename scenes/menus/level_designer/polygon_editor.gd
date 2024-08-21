@@ -148,7 +148,10 @@ func begin_edit(obj_to_edit: Polygon2D):
 	
 	# Save a global reference to the target node.
 	main.polygon_edit_node = obj_to_edit
-	main.polygon_edit_node.tree_exiting.connect(func(): drawable_polygon.end_edit())
+	main.polygon_edit_node.tree_exiting.connect(func(): 
+		drawable_polygon.end_edit()
+		drawable_polygon.is_valid = false
+		)
 	
 	assert(obj_to_edit.polygon.size() > 0,
 		"Shouldn't be possible to enter polygon edit mode on an empty polygon.")
