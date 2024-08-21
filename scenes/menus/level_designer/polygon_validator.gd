@@ -2,7 +2,7 @@ class_name PolygonValidator
 
 
 
-func validate_polygon(vertices: PackedVector2Array, dragged_vertex: Vector2):
+func validate_polygon(vertices: PackedVector2Array, dragged_vertex = null):
 	if vertices.size() < 3: return false
 	if _has_duplicate_vertices(vertices, dragged_vertex): return false
 	if _is_polygon_self_intersecting(vertices): return false
@@ -18,7 +18,8 @@ func validate_polygon(vertices: PackedVector2Array, dragged_vertex: Vector2):
 # https://www.webcitation.org/6ahkPQIsN
 # https://en.wikipedia.org/wiki/Bentley%E2%80%93Ottmann_algorithm
 
-func _has_duplicate_vertices(vertices: PackedVector2Array, dragged_vertex: Vector2):
+func _has_duplicate_vertices(vertices: PackedVector2Array, dragged_vertex):
+	if !dragged_vertex: return false
 	var v = vertices.duplicate()
 	v.remove_at(vertices.find(dragged_vertex))
 	return true if (dragged_vertex in v) else false

@@ -223,6 +223,7 @@ func remove_vertex(index):
 	print("Remove ", index)
 	# Check if there'll be enough verts left without this one to still form
 	# a polygon.
+	
 	if drawable_polygon.polygon.size() <= 3:
 		# Polygon has too few verts to remove one and still be a polygon.
 		# Delete the entire target node rather than let the geometry
@@ -236,6 +237,7 @@ func remove_vertex(index):
 		drawable_polygon.polygon.remove_at(index)
 		drawable_polygon.refresh_polygon()
 		_refresh_display_polygon()
+		drawable_polygon.is_valid = PolygonValidator.new().validate_polygon(drawable_polygon.polygon)
 
 
 func _begin_move_vertex(index):
