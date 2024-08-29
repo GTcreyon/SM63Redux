@@ -1,0 +1,589 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: westcreeper <qiugtacc@foxmail.com>\n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: ../gui/pause/level_info/level_info.tscn:83
+msgid "MUSHROOM KINGDOM"
+msgstr "蘑菇王国"
+
+#: ../gui/pause/level_info/level_info.tscn:254
+msgid "Tutorial 1"
+msgstr "教程 1"
+
+#: ../gui/pause/level_info/level_info.tscn:278
+msgid "Head to the castle, everybody's waiting!"
+msgstr "前往城堡吧，大家都等着呢！"
+
+#: ../gui/pause/map/map.tscn:125
+msgid ""
+"Bob-omb Battlefield\n"
+" - Coming soon!"
+msgstr ""
+"炸弹战场\n"
+" - 即将推出！"
+
+#: ../gui/pause/map/map.tscn:322
+msgid "Coming soon!"
+msgstr "即将推出！"
+
+#: ../gui/pause/map/map.tscn:528
+msgid ""
+"Shifting\n"
+"Sand Land"
+msgstr "流沙之地"
+
+#: ../gui/pause/options/button_menu.tscn:40
+msgid "Reset controls to default"
+msgstr "重置键位设定"
+
+#: ../gui/pause/options/options_menu.tscn:50
+msgid "Disable camera limiting [Try this if the camera is broken]"
+msgstr "禁用摄像机限制 [若摄像机出问题请尝试此设置]"
+
+#: ../gui/pause/options/options_menu.tscn:61
+msgid "Enable touch controls"
+msgstr "启用触控"
+
+#: ../gui/pause/options/options_menu.tscn:72
+msgid "Mute music"
+msgstr "关闭音乐"
+
+#: ../gui/pause/options/options_menu.tscn:83
+#: ../gui/pause/options/rebind_option.gd:160
+msgid "Mute SFX"
+msgstr "关闭音效"
+
+#: ../gui/pause/options/options_menu.tscn:94
+msgid "Show timer\n"
+msgstr "显示计时器\n"
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Left"
+msgstr "左摇杆左"
+
+#: ../gui/pause/options/rebind_option.gd:100
+msgid "Left Stick Right"
+msgstr "左摇杆右"
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Up"
+msgstr "左摇杆上"
+
+#: ../gui/pause/options/rebind_option.gd:102
+msgid "Left Stick Down"
+msgstr "左摇杆下"
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Left"
+msgstr "右摇杆左"
+
+#: ../gui/pause/options/rebind_option.gd:104
+msgid "Right Stick Right"
+msgstr "右摇杆右"
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Up"
+msgstr "右摇杆上"
+
+#: ../gui/pause/options/rebind_option.gd:106
+msgid "Right Stick Down"
+msgstr "右摇杆下"
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Back"
+msgstr "返回"
+
+#: ../gui/pause/options/rebind_option.gd:128
+msgid "Select"
+msgstr "选择"
+
+#: ../gui/pause/options/rebind_option.gd:129
+msgid "Start"
+msgstr "开始"
+
+#: ../gui/pause/options/rebind_option.gd:130
+msgid "Left Stick Click"
+msgstr "按下左摇杆"
+
+#: ../gui/pause/options/rebind_option.gd:131
+msgid "Right Stick Click"
+msgstr "按下右摇杆"
+
+#: ../gui/pause/options/rebind_option.gd:134
+msgid "Logo"
+msgstr "Logo"
+
+#: ../gui/pause/options/rebind_option.gd:135
+msgid "D-Up"
+msgstr "小键盘上"
+
+#: ../gui/pause/options/rebind_option.gd:136
+msgid "D-Down"
+msgstr "小键盘下"
+
+#: ../gui/pause/options/rebind_option.gd:137
+msgid "D-Left"
+msgstr "小键盘左"
+
+#: ../gui/pause/options/rebind_option.gd:138
+msgid "D-Right"
+msgstr "小键盘右"
+
+#: ../gui/pause/options/rebind_option.gd:143
+msgid "Left"
+msgstr "左"
+
+#: ../gui/pause/options/rebind_option.gd:144
+msgid "Right"
+msgstr "右"
+
+#: ../gui/pause/options/rebind_option.gd:145
+msgid "Jump"
+msgstr "条约"
+
+#: ../gui/pause/options/rebind_option.gd:146
+msgid "Dive"
+msgstr "潜水"
+
+#: ../gui/pause/options/rebind_option.gd:147
+msgid "Spin"
+msgstr "旋转"
+
+#: ../gui/pause/options/rebind_option.gd:148
+msgid "Ground Pound"
+msgstr "砸地"
+
+#: ../gui/pause/options/rebind_option.gd:149
+msgid "Use FLUDD"
+msgstr "使用水枪背包"
+
+#: ../gui/pause/options/rebind_option.gd:150
+msgid "Switch FLUDD Nozzle"
+msgstr "切换水枪背包喷头"
+
+#: ../gui/pause/options/rebind_option.gd:151
+msgid "Pause"
+msgstr "暂停"
+
+#: ../gui/pause/options/rebind_option.gd:152
+msgid "Interact"
+msgstr "交互"
+
+#: ../gui/pause/options/rebind_option.gd:153
+msgid "Skip Text"
+msgstr "跳过文本"
+
+#: ../gui/pause/options/rebind_option.gd:154
+msgid "Zoom In"
+msgstr "镜头放大"
+
+#: ../gui/pause/options/rebind_option.gd:155
+msgid "Zoom Out"
+msgstr "镜头缩小"
+
+#: ../gui/pause/options/rebind_option.gd:156
+msgid "Power Swim"
+msgstr "强力游泳"
+
+#: ../gui/pause/options/rebind_option.gd:157
+msgid "Reset Run"
+msgstr "重新尝试"
+
+#: ../gui/pause/options/rebind_option.gd:158
+msgid "Show Timer"
+msgstr "显示计时器"
+
+#: ../gui/pause/options/rebind_option.gd:159
+msgid "Mute Music"
+msgstr "关闭音乐"
+
+#: ../gui/pause/options/rebind_option.gd:161
+msgid "Music Volume +"
+msgstr "音乐音量 +"
+
+#: ../gui/pause/options/rebind_option.gd:162
+msgid "Music Volume -"
+msgstr "音乐音量 -"
+
+#: ../gui/pause/options/rebind_option.gd:163
+msgid "SFX Volume +"
+msgstr "音效音量 +"
+
+#: ../gui/pause/options/rebind_option.gd:164
+msgid "SFX Volume -"
+msgstr "音效音量 -"
+
+#: ../gui/pause/options/rebind_option.gd:165
+msgid "Fullscreen"
+msgstr "全屏"
+
+#: ../gui/pause/options/rebind_option.gd:166
+msgid "Screen Size +"
+msgstr "屏幕大小 +"
+
+#: ../gui/pause/options/rebind_option.gd:167
+msgid "Screen Size -"
+msgstr "屏幕大小 -"
+
+#: ../gui/pause/options/rebind_option.gd:168
+msgid "Open Feedback Menu"
+msgstr "打开反馈菜单"
+
+#: ../gui/pause/options/rebind_option.gd:169
+msgid "Open Debug Console"
+msgstr "打开Debug控制台"
+
+#: ../gui/pause/options/rebind_option.tscn:35
+msgid "[action]"
+msgstr "[动作]"
+
+#: ../gui/pause/options/rebind_option.tscn:41
+msgid "[keys]"
+msgstr "[按键]"
+
+#: ../gui/pause/options/touch_menu.tscn:57
+msgid "Touch control layout:"
+msgstr "触控布局："
+
+#: ../gui/pause/options/touch_menu.tscn:90
+msgid "Change size:"
+msgstr "更改大小："
+
+#: ../gui/pause/options/touch_menu.tscn:124
+msgid "Swap sides:"
+msgstr "交换位置："
+
+#: ../gui/timer/timer.tscn:38
+msgid "0:00"
+msgstr "0:00"
+
+#: ../gui/timer/timer.tscn:51
+msgid ".000"
+msgstr ".000"
+
+#: ../gui/timer/timer.tscn:126
+msgid "0:00.000"
+msgstr "0:00.000"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
+msgid ""
+"[@n,Bill Board]Hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Welcome back "
+"to the Mushroom Kingdom,[@p,3] pal![@p,10] For old times' sake,[@p,3] here's "
+"a refresher."
+msgstr ""
+"[@n,Bill Board]嘿，[@p,3] [color=#ff8b70]马里奥！[/color][@p,10]欢迎回到蘑菇"
+"王国，[@p,3] pal![@p,10]看在过去的份上，[@p,3]我们就重温一下操作吧。"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
+msgid ""
+"Use [color=#f7c55f]Arrow Keys[/color] to move around,[@p,3] and if you want "
+"to talk to more of the family,[@p,3] simply press [color=#f7c55f][@b,"
+"interact].[/color]"
+msgstr ""
+"使用[color=#f7c55f]方向键[/color]移动，[@p,3]如果你想和更多家庭成员交谈的话，"
+"[@p,3]按 [color=#f7c55f][@b,interact] 键就好啦。[/color]"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:151
+msgid ""
+"They have plenty of tips to help out,[@p,3] and if you're not interested,"
+"[@p,3] at least say \"Hi\" for me,[@p,3] eh?"
+msgstr ""
+"他们会告诉你许多帮你过关的提示，[@p,3]要是你对提示不感兴趣的话，[@p,3]起码跟"
+"我打声招呼，[@p,3]可以吗？"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
+msgid ""
+"[@n,Gil Board]Oh hey,[@p,3] [color=#ff8b70]Mario![/color][@p,10] Not many "
+"people read signs nowadays,[@p,3] so how 'bout I teach you some tricks as "
+"thanks?"
+msgstr ""
+"[@n,Gil Board]哦，嘿，[@p,3] [color=#ff8b70]马里奥！[/color][@p,10]现在看告示"
+"牌的人可不多了，[@p,3]作为感谢，教你一些小技巧怎么样？"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
+msgid ""
+"You can press [color=#f7c55f][@b,spin][/color] to perform a "
+"[color=#ff7f7f]spin attack[/color].[@p,10] Use it in the air to stay up "
+"there longer!"
+msgstr ""
+"你可以按 [color=#f7c55f][@b,spin][/color] 键进行[color=#ff7f7f]旋转攻击[/"
+"color]。[@p,10]在空中施展可停留更长时间！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:156
+msgid ""
+"Also,[@p,3] if you jump backwards while crouching,[@p,3] you can do a sweet "
+"backflip![@p,10] Cool, 'eh?"
+msgstr ""
+"此外，[@p,3]当你下蹲时向后跳，[@p,3]你可以做出完美的后空翻！[@p,10]这很酷，不"
+"是么？"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
+msgid ""
+"[@n,Jil Board]Oh [color=#ff8b70]Mario[/color],[@p,3] honey![@p,10] It's been "
+"so long since I've seen you...[@p,10] Oh my![@p,10] I see scars from your "
+"journeys..."
+msgstr ""
+"[@n,Jil Board]哦，[color=#ff8b70]马里奥[/color]，[@p,3]亲爱的！[@p,10]真是好"
+"久不见啊……[@p,10]天啊！[@p,10]我看到了你旅途中留下的伤痕……"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
+msgid ""
+"No worry,[@p,3] just grab [color=#f7c55f]5 coins[/color] from the air or an "
+"unlucky enemy to refill one [color=#ff7f7f]health point.[/color]"
+msgstr ""
+"不过不用担心，[@p,3]只需要从空中或者倒霉的敌人那收集[color=#f7c55f] 5 枚金币"
+"[/color]就能够回复一点[color=#ff7f7f]生命值。[/color]"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_1.tscn:161
+msgid ""
+"No one quite understands why,[@p,3] but it's a lifesaver -[@p,3] so keep it "
+"in mind,[@p,3] sweetie!"
+msgstr ""
+"没人知道其中原理，[@p,3]但它是救命稻草——[@p,3]所以得记牢了，[@p,3]宝贝！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
+msgid ""
+"[@n,Dill Board]Watch your step,[@p,3] bro![@p,10] There are some nasty "
+"[color=#f7c55f]bob-ombs [/color]behind this rock.[@p,10] Oh,[@p,3] you need "
+"to go this way?"
+msgstr ""
+"[@n,Dill Board]当心你的脚下，[@p,3]伙计！[@p,10]石头后面有些令人讨厌的"
+"[color=#f7c55f]炸弹兵[/color]。[@p,10] Oh,[@p,3]你需要走这条路吗？"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
+msgid ""
+"Well,[@p,3] in that case,[@p,3] press [color=#f7c55f][@b,spin][/color] to do "
+"a [color=#ff7f7f]spin attack[/color] to send those bob-ombs flying."
+msgstr ""
+"好吧，[@p,3]这样的话，[@p,3]按 [color=#f7c55f][@b,spin][/color] 键进行"
+"[color=#ff7f7f]旋转攻击[/color]来打飞这些炸弹兵。"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:125
+msgid ""
+"If you press [color=#f7c55f][@b,pound][/color] in the air,[@p,3] you can "
+"perform a [color=#ff7f7f]Ground-Pound[/color] to smash objects beneath you!"
+msgstr ""
+"如果你在空中按下 [color=#f7c55f][@b,pound][/color] 键，[@p,3]你可以使出"
+"[color=#ff7f7f]砸地[/color]来摧毁你下方的物体！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
+msgid ""
+"[@n,Gil Board]Ah,[@p,3] there you are![@p,10] I forgot to mention something "
+"really important -[@p,3] the [color=#f7c55f]Triple Jump![/color]"
+msgstr ""
+"[@n,Gil Board]啊，[@p,3]你在这儿啊！[@p,10]我之前忘了说一件重要的事情——[@p,3]"
+"[color=#f7c55f]三连跳！[/color]"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
+msgid ""
+"If you jump three times while moving,[@p,3] you can jump higher each time,"
+"[@p,3] ending with a huge leap!"
+msgstr ""
+"如果你在移动中连续跳三次，[@p,3]每次都会跳得更高，[@p,3]最后那下会跳得很高"
+"哦！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_2.tscn:130
+msgid "That's everything I know,[@p,3] or at least,[@p,3] all I can remember."
+msgstr "这就是我所知道的全部了，[@p,3]或者说，[@p,3]我能记得的全部了。"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_3.tscn:170
+msgid ""
+"[@n,Bill Board]Use [color=#f7c55f][@b,fludd][/color] to hover using the "
+"[color=#f7c55f]F.L.U.D.D.[/color] pack!"
+msgstr ""
+"[@n,Bill Board]按 [color=#f7c55f][@b,fludd][/color] 键使用[color=#f7c55f]喷水"
+"背包[/color]在空中悬停！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_3.tscn:175
+msgid ""
+"[@n,Gil Board]To refill the [color=#f7c55f]F.L.U.D.D.[/color] tank, jump "
+"into a pool of water, or find a refill bottle."
+msgstr ""
+"[@n,Gil Board]要填充[color=#f7c55f]喷水背包[/color]水箱，跳入水池或捡起补充瓶"
+"即可。"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
+msgid ""
+"[@n,Bill Board]The [color=#f7c55f]Hover Nozzle[/color] you have on your back "
+"can save you if you happen to slip off a platform or miss a jump."
+msgstr ""
+"[@n,Bill Board]背上的[color=#f7c55f]悬停喷嘴[/color]可在你滑落平台或跳跃失败"
+"时拯救你。"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
+msgid ""
+"Don't become too reliant on it,[@p,3] though.[@p,10] F.L.U.D.D. can only "
+"hold [color=#5f75c5]100 flubs[/color] in that tank of theirs."
+msgstr ""
+"不过，[@p,3]不要太过于依赖它。[@p,10]喷水背包的容量只有[color=#5f75c5]100[/"
+"color]。"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:457
+msgid "Once it's gone,[@p,3] you won't be able to hover any longer."
+msgstr "一旦用完了，[@p,3]你就在没法悬停了。"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
+msgid ""
+"[@n,Jil Board]Hey sweetie-pie![@p,10] If you're ever feeling tired,[@p,3] "
+"just press [color=#f7c55f][@b,pause][/color] to pause the game!"
+msgstr ""
+"[@n,Jil Board]嘿，亲爱的![@p,10]如果你玩累了，[@p,3]只要按下 [color=#f7c55f]"
+"[@b,pause][/color] 键就能暂停游戏！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
+msgid ""
+"In the pause menu,[@p,3] you can change settings,[@p,3] view stats,[@p,3] "
+"change FLUDD nozzle,[@p,3] or just sit back and relax!"
+msgstr ""
+"在暂停菜单里，[@p,3]你可以更改设置，[@p,3]查看统计[@p,3]更换喷水背包喷嘴，"
+"[@p,3]或者就只是坐着休息！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:462
+msgid ""
+"Self-care is important,[@p,3] [color=#df6042]Mario![/color][@p,10] Don't you "
+"dare forget that!"
+msgstr ""
+"照顾好自己很重要，[@p,3] [color=#df6042]马里奥！[/color][@p,10]可别忘了这一"
+"点！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:467
+msgid "You've reached the end of the [color=#f7c55f]Tiny Demo![/color]"
+msgstr "你已经到了这个[color=#f7c55f]小Demo[/color]的尽头了！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:467
+msgid "We hope you enjoyed it, and stay tuned for more!"
+msgstr "我们希望你玩得开心，更多内容敬请期待！"
+
+#: ../scenes/levels/tutorial_1/tutorial_1_4.tscn:472
+msgid ""
+"[@c,toad][@m,anger][@n,Ang.T]Unused dialog...[@p,10] Is that "
+"[color=#f28d7c]really[/color] all I'm good for!?"
+msgstr ""
+"[@c,toad][@m,anger][@n,Ang.T]未使用的对话……[@p,10]我[color=#f28d7c]真的[/"
+"color]只擅长这个吗？"
+
+#: ../scenes/menus/feedback/feedback.tscn:90
+msgid "Feedback"
+msgstr "反馈"
+
+#: ../scenes/menus/feedback/feedback.tscn:101
+msgid "Description"
+msgstr "描述"
+
+#: ../scenes/menus/feedback/feedback.tscn:119
+msgid "Contact info (optional)"
+msgstr "联系方式（选填）"
+
+#: ../scenes/menus/feedback/feedback.tscn:129
+msgid "Let us know how to contact you, e.g. discord handle"
+msgstr "留下你的联系方式吧，比如Discord"
+
+#: ../scenes/menus/feedback/feedback.tscn:155
+msgid " Negative"
+msgstr "差评"
+
+#: ../scenes/menus/feedback/feedback.tscn:175
+msgid " Neutral"
+msgstr "中评"
+
+#: ../scenes/menus/feedback/feedback.tscn:196
+msgid " Positive"
+msgstr "好评"
+
+#: ../scenes/menus/feedback/feedback.tscn:233
+msgid "Gameplay"
+msgstr "游戏玩法"
+
+#: ../scenes/menus/feedback/feedback.tscn:253
+msgid "Visual"
+msgstr "视觉效果"
+
+#: ../scenes/menus/feedback/feedback.tscn:273
+msgid "Bug"
+msgstr "Bug"
+
+#: ../scenes/menus/feedback/feedback.tscn:293
+msgid "Lag"
+msgstr "卡顿"
+
+#: ../scenes/menus/feedback/feedback.tscn:314
+msgid "Other"
+msgstr "其他"
+
+#: ../scenes/menus/feedback/feedback.tscn:327
+msgid ""
+"Report includes:\n"
+"-The data you entered\n"
+"-Ingame data (e.g. Mario's position, a screenshot, etc.)\n"
+"-Current platform (Windows, Web, Android, etc.)"
+msgstr ""
+"报告包含：\n"
+"-你输入的数据\n"
+"-游戏内数据（如马里奥的位置，截图）\n"
+"-游玩平台（如Windows，Web，安卓）"
+
+#: ../scenes/menus/feedback/feedback.tscn:346
+msgid "Submit"
+msgstr "提交"
+
+#: ../scenes/menus/level_designer/level_designer.tscn:488
+msgid "Placeholder Loading Text"
+msgstr "占位符加载文本"
+
+#: ../scenes/menus/level_designer/fields/number/input_number.tscn:56
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:22
+msgid "AAAAA"
+msgstr "AAAAA"
+
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:37
+msgid "X"
+msgstr "X"
+
+#: ../scenes/menus/level_designer/fields/vector2/input_vector2.tscn:76
+msgid "Y"
+msgstr "Y"
+
+#: ../scenes/menus/title/title.tscn:103
+msgid "Press Z to start!"
+msgstr "按 Z 键开始！"
+
+#: ../scenes/menus/title/title.tscn:124
+msgid "v0.X.X"
+msgstr "v0.X.X"
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:326
+msgid "Take the light back from Bowser and save the Mushroom Kingdom!"
+msgstr "从库巴手中夺回光明并拯救蘑菇王国！"
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:338
+msgid "Create your own worlds in this in-depth Level Designer!"
+msgstr "在这个深度关卡编辑器中创建自己的世界！"
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:350
+msgid "Enjoy a collection of trinkets and goodies!"
+msgstr "欣赏各种小饰品和精美物品！"
+
+#: ../scenes/menus/title/main_menu/main_menu.tscn:362
+msgid "Adjust anything and everything to your liking!"
+msgstr "根据你的喜好调整任何设置！"
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:57
+msgid "Run"
+msgstr "运行"
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:66
+msgid "Save"
+msgstr "保存"
+
+#: ../scenes/menus/visual_pipescript/editor.tscn:75
+msgid "Load"
+msgstr "加载"
