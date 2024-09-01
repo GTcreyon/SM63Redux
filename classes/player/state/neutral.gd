@@ -1,7 +1,6 @@
 extends PlayerState
 
 @export var hit_handler: HitHandler
-@export var water_check: Area2D
 
 
 func _defer_rules():
@@ -11,9 +10,6 @@ func _defer_rules():
 
 
 func _trans_rules():
-	if not water_check.get_overlapping_areas().is_empty():
-		return &"Swim"
-
 	if hit_handler.bouncing:
 		hit_handler.bouncing = false
 		return &"StompBounce"

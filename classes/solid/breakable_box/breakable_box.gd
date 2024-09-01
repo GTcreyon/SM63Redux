@@ -17,8 +17,9 @@ func _ready():
 	$Sprite.frame = randi() % 3
 
 
-func take_hit(type: Hitbox.Type, _handler) -> void:
+func take_hit(_hit: Hit) -> bool:
 	destroy()
+	return true
 
 
 func destroy():

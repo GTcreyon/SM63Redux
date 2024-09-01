@@ -33,12 +33,14 @@ func _ready():
 		play()
 
 
-func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
+func take_hit(hit: Hit) -> bool:
+	var type = hit.type
+	var handler = hit.source
 	if disabled:
 		return false
 
 	match type:
-		Hitbox.Type.STOMP:
+		Hit.Type.STOMP:
 			var koopa = koopa_scene.instantiate()
 			get_parent().add_child.call_deferred(koopa)
 			#koopa.position = Vector2(position.x, body.position.y + 33)
@@ -49,10 +51,10 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 			handler.set_vel_component(Vector2.UP, 5)
 			defeat()
 			return true
-		Hitbox.Type.STRIKE:
+		Hit.Type.STRIKE:
 			spawn_shell(handler)
 			return true
-		Hitbox.Type.POUND:
+		Hit.Type.POUND:
 			var shell = spawn_shell(handler)
 			shell.destroy(handler)
 			return true

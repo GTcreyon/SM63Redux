@@ -73,8 +73,6 @@ func _defer_rules():
 func _trans_rules():
 	if not Input.is_action_pressed(&"spin") and _time <= SOFT_TIME:
 		# Include a delay while in the air to prevent unlimited spinning
-		if not water_check.get_overlapping_areas().is_empty():
-			return &"Swim"
 		if actor.is_on_floor() or _time <= 0:
 			return &"Neutral"
 

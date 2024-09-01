@@ -108,28 +108,28 @@ shape = SubResource("8")
 position = Vector2(9, 0)
 target_position = Vector2(0, 35)
 
-[node name="HurtboxStomp" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="HurtboxStomp" type="Area2D" parent="." node_paths=PackedStringArray("target")]
 collision_layer = 4
 collision_mask = 0
 input_pickable = false
 monitoring = false
 script = ExtResource("5_06d11")
-_target = NodePath("..")
-_hurt_mask = 2
+target = NodePath("..")
+hurt_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStomp"]
 position = Vector2(0, -8)
 shape = SubResource("9")
 
-[node name="HurtboxOther" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="HurtboxOther" type="Area2D" parent="." node_paths=PackedStringArray("target")]
 position = Vector2(0, 2.5)
 collision_layer = 4
 collision_mask = 0
 input_pickable = false
 monitoring = false
 script = ExtResource("5_06d11")
-_target = NodePath("..")
-_hurt_mask = 61
+target = NodePath("..")
+hurt_mask = 40
 
 [node name="Collision" type="CollisionShape2D" parent="HurtboxOther"]
 position = Vector2(0, -1.5)

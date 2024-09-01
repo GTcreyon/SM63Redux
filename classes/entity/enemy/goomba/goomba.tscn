@@ -210,27 +210,27 @@ monitorable = false
 [node name="EyeFull" type="CollisionShape2D" parent="AwareArea"]
 shape = SubResource("3")
 
-[node name="HurtboxOther" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="HurtboxOther" type="Area2D" parent="." node_paths=PackedStringArray("target")]
 collision_layer = 4
 collision_mask = 0
 input_pickable = false
 monitoring = false
 script = ExtResource("6_u7yil")
-_target = NodePath("..")
-_hurt_mask = 57
+target = NodePath("..")
+hurt_mask = 40
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxOther"]
 position = Vector2(0, 0.5)
 shape = SubResource("2")
 
-[node name="HurtboxStomp" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="HurtboxStomp" type="Area2D" parent="." node_paths=PackedStringArray("target")]
 collision_layer = 4
 collision_mask = 0
 input_pickable = false
 monitoring = false
 script = ExtResource("6_u7yil")
-_target = NodePath("..")
-_hurt_mask = 6
+target = NodePath("..")
+hurt_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStomp"]
 position = Vector2(0, -5)

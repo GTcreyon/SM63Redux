@@ -8,8 +8,6 @@ const DECEL = 0.25
 
 const EASE_CURVE: float = 0.5
 
-@export var water_check: Area2D
-
 var _time: int
 
 
@@ -46,8 +44,6 @@ func _on_exit():
 
 
 func _trans_rules():
-	if water_check.get_overlapping_areas().is_empty():
-		return &"Air"
 	if _time >= DURATION:
 		return &"Swim"
 	if input.buffered_input(&"spin"):

@@ -42,20 +42,22 @@ func _physics_step():
 	super()
 
 
-func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
+func take_hit(hit: Hit) -> bool:
+	var type = hit.type
+	var handler = hit.source
 	if disabled or _destroyed:
 		return false
 
 	# Default hurt behavior. Can be overridden.
 	match type:
-		Hitbox.Type.POUND:
+		Hit.Type.POUND:
 			destroy(handler)
 			return true
-		Hitbox.Type.STOMP:
+		Hit.Type.STOMP:
 			handler.set_vel_component(Vector2.UP, 5)
 			_kick(handler)
 			return true
-		Hitbox.Type.STRIKE, Hitbox.Type.NUDGE:
+		Hit.Type.STRIKE, Hit.Type.NUDGE:
 			_kick(handler)
 			return true
 		_:

@@ -7,8 +7,6 @@ const HORIZONTAL_MAX_VEL: float = 3.0
 const HORIZONTAL_ACCEL: float = 0.25
 const HORIZONTAL_DECEL: float = 0.1
 
-@export var water_check: Area2D
-
 
 func _on_enter(_h):
 	_anim(&"swim_idle")
@@ -53,11 +51,6 @@ func _anim_finished():
 
 
 func _trans_rules():
-	if water_check.get_overlapping_areas().is_empty():
-		if Input.is_action_pressed(&"swim"):
-			motion.vel.y = 0
-			return &"WaterEscape"
-		return &"Air"
 	if input.buffered_input(&"pound"):
 		return &"WaterBoost"
 	if input.buffered_input(&"spin"):

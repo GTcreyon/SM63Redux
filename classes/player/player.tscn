@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://classes/player/state/neutral.gd" id="5_wqc8b"]
 [ext_resource type="AudioStream" uid="uid://bebevnpo8kc1p" path="res://classes/player/sfx/fludd/hover_loop.mp3" id="6"]
 [ext_resource type="Script" path="res://classes/player/state/walk.gd" id="6_70jfv"]
-[ext_resource type="Script" path="res://classes/player/all.gd" id="6_teaqg"]
+[ext_resource type="Script" path="res://classes/player/state/dry.gd" id="6_spenb"]
 [ext_resource type="AudioStream" uid="uid://bu0n0xnjqrko6" path="res://classes/player/sfx/fludd/hover.mp3" id="7"]
 [ext_resource type="Script" path="res://classes/player/state/crouch.gd" id="7_djbi5"]
 [ext_resource type="Texture2D" uid="uid://dejqqeka1tsc" path="res://classes/player/mario_sheet.png" id="8"]
@@ -1363,63 +1363,64 @@ script = ExtResource("4_to4em")
 _input = NodePath("../Input")
 _motion = NodePath("../Motion")
 target_actor = NodePath("..")
-initial_state = NodePath("All")
+initial_state = NodePath("Dry")
 
-[node name="All" type="Node" parent="StateManager"]
-script = ExtResource("6_teaqg")
+[node name="Dry" type="Node" parent="StateManager" node_paths=PackedStringArray("hurtbox", "water_check")]
+script = ExtResource("6_spenb")
+hurtbox = NodePath("../../Hurtbox")
+water_check = NodePath("../../WaterCheck")
 
-[node name="Neutral" type="Node" parent="StateManager/All" node_paths=PackedStringArray("hit_handler", "water_check")]
+[node name="Neutral" type="Node" parent="StateManager/Dry" node_paths=PackedStringArray("hit_handler")]
 script = ExtResource("5_wqc8b")
 hit_handler = NodePath("../../../HitHandler")
-water_check = NodePath("../../../WaterCheck")
 
-[node name="Floor" type="Node" parent="StateManager/All/Neutral"]
+[node name="Floor" type="Node" parent="StateManager/Dry/Neutral"]
 script = ExtResource("3_iy3xo")
 
-[node name="Idle" type="Node" parent="StateManager/All/Neutral/Floor"]
+[node name="Idle" type="Node" parent="StateManager/Dry/Neutral/Floor"]
 script = ExtResource("4_2ro3p")
 
-[node name="Stand" type="Node" parent="StateManager/All/Neutral/Floor/Idle"]
+[node name="Stand" type="Node" parent="StateManager/Dry/Neutral/Floor/Idle"]
 script = ExtResource("8_65mnq")
 
-[node name="Land" type="Node" parent="StateManager/All/Neutral/Floor/Idle"]
+[node name="Land" type="Node" parent="StateManager/Dry/Neutral/Floor/Idle"]
 script = ExtResource("8_qrq2k")
 animation = &"land"
 
-[node name="StylishLand" type="Node" parent="StateManager/All/Neutral/Floor/Idle"]
+[node name="StylishLand" type="Node" parent="StateManager/Dry/Neutral/Floor/Idle"]
 script = ExtResource("12_he0sq")
 animation = &"land_style"
 
-[node name="Walk" type="Node" parent="StateManager/All/Neutral/Floor"]
+[node name="Walk" type="Node" parent="StateManager/Dry/Neutral/Floor"]
 script = ExtResource("6_70jfv")
 
-[node name="Crouch" type="Node" parent="StateManager/All/Neutral/Floor"]
+[node name="Crouch" type="Node" parent="StateManager/Dry/Neutral/Floor"]
 script = ExtResource("7_djbi5")
 
-[node name="PoundLand" type="Node" parent="StateManager/All/Neutral/Floor" node_paths=PackedStringArray("pound_hitbox")]
+[node name="PoundLand" type="Node" parent="StateManager/Dry/Neutral/Floor" node_paths=PackedStringArray("pound_hitbox")]
 script = ExtResource("8_bxvk2")
 effect_scene = ExtResource("15_cum7c")
 pound_hitbox = NodePath("../../../../../Hitboxes/HitboxPound")
 
-[node name="Slide" type="Node" parent="StateManager/All/Neutral/Floor"]
+[node name="Slide" type="Node" parent="StateManager/Dry/Neutral/Floor"]
 script = ExtResource("9_lxi1s")
 hitbox = 1
 
-[node name="Air" type="Node" parent="StateManager/All/Neutral"]
+[node name="Air" type="Node" parent="StateManager/Dry/Neutral"]
 script = ExtResource("4_saxvj")
 
-[node name="StompBounce" type="Node" parent="StateManager/All/Neutral/Air"]
+[node name="StompBounce" type="Node" parent="StateManager/Dry/Neutral/Air"]
 script = ExtResource("28_rne8p")
 
-[node name="Fall" type="Node" parent="StateManager/All/Neutral/Air" node_paths=PackedStringArray("_stomp_hitbox")]
+[node name="Fall" type="Node" parent="StateManager/Dry/Neutral/Air" node_paths=PackedStringArray("_stomp_hitbox")]
 script = ExtResource("11_4iuru")
 _stomp_hitbox = NodePath("../../../../../Hitboxes/HitboxStomp")
 tight_movement = true
 
-[node name="DummyJump" type="Node" parent="StateManager/All/Neutral/Air"]
+[node name="DummyJump" type="Node" parent="StateManager/Dry/Neutral/Air"]
 script = ExtResource("12_b8c2a")
 
-[node name="Jump" type="Node" parent="StateManager/All/Neutral/Air/DummyJump"]
+[node name="Jump" type="Node" parent="StateManager/Dry/Neutral/Air/DummyJump"]
 script = ExtResource("18_gecu5")
 jump_power = 10.75
 jump_number = 1
@@ -1428,7 +1429,7 @@ trans_anims = PackedStringArray("jump_a_trans", "jump_b_trans")
 allow_modulation = true
 tight_movement = true
 
-[node name="JumpDouble" type="Node" parent="StateManager/All/Neutral/Air/DummyJump"]
+[node name="JumpDouble" type="Node" parent="StateManager/Dry/Neutral/Air/DummyJump"]
 script = ExtResource("18_gecu5")
 jump_power = 12.5
 jump_number = 2
@@ -1437,7 +1438,7 @@ trans_anims = PackedStringArray("jump_double_trans")
 allow_modulation = true
 tight_movement = true
 
-[node name="JumpTriple" type="Node" parent="StateManager/All/Neutral/Air/DummyJump"]
+[node name="JumpTriple" type="Node" parent="StateManager/Dry/Neutral/Air/DummyJump"]
 script = ExtResource("19_tou37")
 jump_power = 15.0
 start_anims = PackedStringArray("flip")
@@ -1445,7 +1446,7 @@ trans_anims = PackedStringArray("jump_double_trans")
 friction_divisor = 1.5
 tight_movement = true
 
-[node name="WaterEscape" type="Node" parent="StateManager/All/Neutral/Air"]
+[node name="WaterEscape" type="Node" parent="StateManager/Dry/Neutral/Air"]
 script = ExtResource("18_gecu5")
 jump_power = 8.0
 start_anims = PackedStringArray("jump_a_start", "jump_b_start")
@@ -1453,7 +1454,7 @@ trans_anims = PackedStringArray("jump_a_trans", "jump_b_trans")
 allow_modulation = true
 tight_movement = true
 
-[node name="Backflip" type="Node" parent="StateManager/All/Neutral/Air"]
+[node name="Backflip" type="Node" parent="StateManager/Dry/Neutral/Air"]
 script = ExtResource("20_rye67")
 _full_rotations = -1.0
 _full_rotations_fludd = -1.0
@@ -1465,13 +1466,13 @@ trans_anims = PackedStringArray("jump_a_trans")
 friction_divisor = 1.5
 allow_turnaround = false
 
-[node name="Dive" type="Node" parent="StateManager/All/Neutral/Air"]
+[node name="Dive" type="Node" parent="StateManager/Dry/Neutral/Air"]
 script = ExtResource("16_vh6so")
 friction_divisor = 8.0
 allow_turnaround = false
 hitbox = 2
 
-[node name="Rollout" type="Node" parent="StateManager/All/Neutral/Air"]
+[node name="Rollout" type="Node" parent="StateManager/Dry/Neutral/Air"]
 script = ExtResource("22_tddom")
 _full_rotations = 1.0
 _flip_time = 16
@@ -1480,44 +1481,43 @@ start_anims = PackedStringArray("flip")
 trans_anims = PackedStringArray("jump_a_trans")
 friction_divisor = 8.0
 
-[node name="Hurt" type="Node" parent="StateManager/All/Neutral/Air"]
+[node name="Hurt" type="Node" parent="StateManager/Dry/Neutral/Air"]
 script = ExtResource("17_s7v4w")
 
-[node name="PoundAir" type="Node" parent="StateManager/All/Neutral/Air"]
+[node name="PoundAir" type="Node" parent="StateManager/Dry/Neutral/Air"]
 script = ExtResource("18_yyx6c")
 
-[node name="PoundWindup" type="Node" parent="StateManager/All/Neutral/Air/PoundAir"]
+[node name="PoundWindup" type="Node" parent="StateManager/Dry/Neutral/Air/PoundAir"]
 script = ExtResource("19_ieyet")
 
-[node name="PoundFall" type="Node" parent="StateManager/All/Neutral/Air/PoundAir" node_paths=PackedStringArray("pound_hitbox")]
+[node name="PoundFall" type="Node" parent="StateManager/Dry/Neutral/Air/PoundAir" node_paths=PackedStringArray("pound_hitbox")]
 script = ExtResource("20_ri21n")
 pound_hitbox = NodePath("../../../../../../Hitboxes/HitboxPound")
 
-[node name="Spin" type="Node" parent="StateManager/All" node_paths=PackedStringArray("water_check", "strike_hitbox")]
+[node name="Spin" type="Node" parent="StateManager/Dry" node_paths=PackedStringArray("water_check", "strike_hitbox")]
 script = ExtResource("21_0w5dd")
 water_check = NodePath("../../../WaterCheck")
 strike_hitbox = NodePath("../../../Hitboxes/HitboxSpin")
 
-[node name="SpinWater" type="Node" parent="StateManager/All/Spin"]
+[node name="SpinWater" type="Node" parent="StateManager/Dry/Spin"]
 script = ExtResource("32_f6s7q")
 
-[node name="SpinAir" type="Node" parent="StateManager/All/Spin"]
+[node name="SpinAir" type="Node" parent="StateManager/Dry/Spin"]
 script = ExtResource("28_gtw61")
 friction_divisor = 1.5
 
-[node name="SpinFloor" type="Node" parent="StateManager/All/Spin"]
+[node name="SpinFloor" type="Node" parent="StateManager/Dry/Spin"]
 script = ExtResource("29_lj851")
 
-[node name="Water" type="Node" parent="StateManager/All"]
+[node name="Water" type="Node" parent="StateManager" node_paths=PackedStringArray("water_check")]
 script = ExtResource("35_ic83m")
+water_check = NodePath("../../WaterCheck")
 
-[node name="Swim" type="Node" parent="StateManager/All/Water" node_paths=PackedStringArray("water_check")]
+[node name="Swim" type="Node" parent="StateManager/Water"]
 script = ExtResource("30_jvacl")
-water_check = NodePath("../../../../WaterCheck")
 
-[node name="WaterBoost" type="Node" parent="StateManager/All/Water" node_paths=PackedStringArray("water_check")]
+[node name="WaterBoost" type="Node" parent="StateManager/Water"]
 script = ExtResource("32_jjdyu")
-water_check = NodePath("../../../../WaterCheck")
 
 [node name="CharacterGroup" type="Node2D" parent="."]
 script = ExtResource("4_q4bau")
@@ -1546,13 +1546,11 @@ stream = ExtResource("6")
 volume_db = -10.0
 bus = &"SFX"
 
-[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 0
 monitoring = false
 script = ExtResource("41_shud4")
-_target = NodePath("../StateManager/All")
-_hurt_mask = 60
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 1.5)

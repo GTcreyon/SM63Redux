@@ -168,27 +168,27 @@ script = ExtResource("1")
 [node name="KinematicShape" type="CollisionShape2D" parent="."]
 shape = SubResource("18")
 
-[node name="HurtboxStomp" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="HurtboxStomp" type="Area2D" parent="." node_paths=PackedStringArray("target")]
 collision_layer = 4
 collision_mask = 0
 input_pickable = false
 monitoring = false
 script = ExtResource("5_vp33w")
-_target = NodePath("..")
-_hurt_mask = 2
+target = NodePath("..")
+hurt_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxStomp"]
 position = Vector2(0, -4.5)
 shape = SubResource("19")
 
-[node name="HurtboxNudge" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="HurtboxNudge" type="Area2D" parent="." node_paths=PackedStringArray("target")]
 collision_layer = 4
 collision_mask = 0
 input_pickable = false
 monitoring = false
 script = ExtResource("5_vp33w")
-_target = NodePath("..")
-_hurt_mask = 125
+target = NodePath("..")
+hurt_mask = 72
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxNudge"]
 shape = SubResource("RectangleShape2D_p2upc")

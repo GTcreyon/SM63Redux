@@ -224,14 +224,14 @@ sprite_frames = SubResource("1")
 animation = &"idle"
 script = ExtResource("4")
 
-[node name="HurtboxStrike" type="Area2D" parent="." node_paths=PackedStringArray("_target")]
+[node name="HurtboxStrike" type="Area2D" parent="." node_paths=PackedStringArray("target")]
 collision_layer = 4
 collision_mask = 2147483648
 input_pickable = false
 monitoring = false
 script = ExtResource("5_1cjc0")
-_target = NodePath("..")
-_hurt_mask = 8
+target = NodePath("..")
+hurt_mask = 40
 
 [node name="Collision" type="CollisionShape2D" parent="HurtboxStrike"]
 shape = SubResource("6")

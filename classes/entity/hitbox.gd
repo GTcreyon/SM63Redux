@@ -2,25 +2,8 @@ class_name Hitbox
 extends Area2D
 ## An [Area2D] that inflicts hits onto [Hurtbox]es.
 
-enum Type {
-	## Fallback type for damage of non-specific origin, e.g. /dmg.
-	GENERIC = 0b1,
-	## Stomp / light crush, e.g. jumping on a Goomba.
-	STOMP = 0b10,
-	## Pound / heavy crush, e.g. ground-pounding a Goomba or being crushed by a Thwomp.
-	POUND = 0b100,
-	## Impact, e.g. spin attack or Bullet Bill.
-	STRIKE = 0b1000,
-	## Heat damage, e.g. fire or lava.
-	BURN = 0b10000,
-	## Explosive damage, e.g. Bob-omb.
-	EXPLOSION = 0b100000,
-	## Passive contact damage, e.g. walking into a shell.
-	NUDGE = 0b1000000,
-}
-
 ## The damage type the hitbox will inflict.
-@export var _hit_type: Type
+@export var _hit_type: Hit.Type
 
 ## The [HitHandler] for this hitbox.
 @export var _handler: HitHandler = get_node_or_null(^"../HitHandler")

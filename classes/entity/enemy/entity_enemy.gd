@@ -69,13 +69,15 @@ func _physics_step():
 		_struck_land()
 
 
-func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
+func take_hit(hit: Hit) -> bool:
+	var type = hit.type
+	var handler = hit.source
 	if disabled:
 		return false
 
 	# Default hurt behavior. Can be overridden.
 	match type:
-		Hitbox.Type.STOMP, Hitbox.Type.POUND:
+		Hit.Type.STOMP, Hit.Type.POUND:
 			if stomped:
 				return false
 			# Play the stomp sound, if there is one
@@ -85,11 +87,11 @@ func take_hit(type: Hitbox.Type, handler: HitHandler) -> bool:
 				else:
 					sfx_stomp.play()
 			var pound := false
-			if type == Hitbox.Type.POUND:
+			if type == Hit.Type.POUND:
 				pound = true
 			_hurt_crush(handler, pound)
 			return true
-		Hitbox.Type.STRIKE:
+		Hit.Type.STRIKE:
 			if struck:
 				return false
 			# Play the struck sound, if there is one

@@ -2,30 +2,31 @@
 
 [ext_resource type="Script" path="res://gui/pause/options/rebind_option.gd" id="2"]
 
-[sub_resource type="StyleBoxEmpty" id="5"]
+[sub_resource type="StyleBoxEmpty" id="3"]
+
+[sub_resource type="StyleBoxEmpty" id="4"]
 
 [sub_resource type="StyleBoxEmpty" id="1"]
 
 [sub_resource type="StyleBoxEmpty" id="2"]
 
-[sub_resource type="StyleBoxEmpty" id="4"]
+[sub_resource type="StyleBoxEmpty" id="5"]
 
-[sub_resource type="StyleBoxEmpty" id="3"]
-
-[node name="RebindOption" type="Button"]
+[node name="RebindOption" type="Button" node_paths=PackedStringArray("key_list")]
 custom_minimum_size = Vector2(0, 18)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 20.0
-theme_override_styles/normal = SubResource("5")
+theme_override_styles/focus = SubResource("3")
+theme_override_styles/disabled = SubResource("4")
 theme_override_styles/hover = SubResource("1")
 theme_override_styles/pressed = SubResource("2")
-theme_override_styles/disabled = SubResource("4")
-theme_override_styles/focus = SubResource("3")
+theme_override_styles/normal = SubResource("5")
 toggle_mode = true
 action_mode = 0
 button_mask = 3
 script = ExtResource("2")
+key_list = NodePath("KeyList")
 
 [node name="ActionName" type="Label" parent="."]
 custom_minimum_size = Vector2(0, 16)
