@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://cc8sxs7wl5feb"]
+
+[ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_editor.gd" id="1_qu7dx"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/polygon_draw.gd" id="2_0n75t"]
+[ext_resource type="Texture2D" uid="uid://rr2wt15543er" path="res://scenes/menus/level_designer/poly_edit/vertex.png" id="3_5w5y3"]
+[ext_resource type="Texture2D" uid="uid://b7x3r25ki34uj" path="res://scenes/menus/level_designer/poly_edit/vertex_selected.png" id="4_1lddh"]
+[ext_resource type="Texture2D" uid="uid://cicskwmcgq06f" path="res://scenes/menus/level_designer/poly_edit/vertex_hover.png" id="5_icii8"]
+[ext_resource type="Script" path="res://scenes/menus/level_designer/poly_edit/placed_vert.gd" id="6_c87d5"]
+
+[node name="PolygonEditor" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_qu7dx")
+
+[node name="Polygon" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 150.0
+offset_top = 100.0
+offset_right = 190.0
+offset_bottom = 140.0
+mouse_filter = 2
+script = ExtResource("2_0n75t")
+
+[node name="NewVert" type="TextureButton" parent="Polygon"]
+layout_mode = 0
+offset_right = 12.0
+offset_bottom = 12.0
+texture_normal = ExtResource("3_5w5y3")
+texture_pressed = ExtResource("4_1lddh")
+texture_hover = ExtResource("5_icii8")
+
+[node name="PlacedVert" type="TextureButton" parent="Polygon"]
+layout_mode = 0
+offset_right = 12.0
+offset_bottom = 12.0
+mouse_default_cursor_shape = 13
+button_mask = 3
+texture_normal = ExtResource("3_5w5y3")
+texture_pressed = ExtResource("4_1lddh")
+texture_hover = ExtResource("5_icii8")
+script = ExtResource("6_c87d5")
+
+[connection signal="pressed" from="Polygon/NewVert" to="Polygon" method="_on_new_vert_pressed"]

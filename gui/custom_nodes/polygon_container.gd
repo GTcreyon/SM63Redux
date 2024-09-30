@@ -21,9 +21,9 @@ func append(pos):
 	button.set_position(pos)
 	button.set_size(Vector2(12, 12))
 	button.action_mode = BaseButton.ACTION_MODE_BUTTON_PRESS
-	button.texture_normal = preload("res://scenes/menus/level_designer/ldui/drag_circle.png")
-	button.texture_hover = preload("res://scenes/menus/level_designer/ldui/drag_circle_hover.png")
-	button.texture_pressed = preload("res://scenes/menus/level_designer/ldui/drag_circle_selected.png")
+	button.texture_normal = preload("res://scenes/menus/level_designer/poly_edit/vertex.png")
+	button.texture_hover = preload("res://scenes/menus/level_designer/poly_edit/vertex_hover.png")
+	button.texture_pressed = preload("res://scenes/menus/level_designer/poly_edit/vertex_selected.png")
 	add_child(button)
 	queue_sort()
 	return button

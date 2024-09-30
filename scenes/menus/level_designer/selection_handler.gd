@@ -1,6 +1,7 @@
+class_name LDSelectionHandler
 extends Control
 
-signal selection_changed
+signal selection_changed(rect: Rect2, new_selection: Array)
 
 const TEXT_MIN_SIZE = Vector2(8, 8)
 const alpha_bottom = 0.4
@@ -52,11 +53,13 @@ func _process(dt):
 
 func _unhandled_input(event):
 	# Open properties
+	
 	if event.is_action_pressed("ld_open_properties") and len(selection_hit) == 1:
 		if property_menu.visible:
 			property_menu.hide_menu()
 			accept_event()
 		else:
+			# TODO: Implement property menu for terrain as well as items.
 			property_menu.set_properties(selection_hit[0].properties, selection_hit[0])
 			property_menu.show_menu()
 			accept_event()
@@ -70,7 +73,8 @@ func _unhandled_input(event):
 			item.queue_free()
 		selection_hit = []
 		main.editor_state = main.EDITOR_STATE.IDLE
-		emit_signal("selection_changed", selection_rect, selection_hit)
+		
+		selection_changed.emit(selection_rect, selection_hit)
 	
 	# Handle starting/ending selecting
 	if event.is_action_pressed("ld_select") and main.editor_state == main.EDITOR_STATE.IDLE:
@@ -82,12 +86,12 @@ func _unhandled_input(event):
 	if event.is_action_released("ld_select") and main.editor_state == main.EDITOR_STATE.SELECTING:
 		start_position = Vector2.ZERO
 		hover.visible = false
-		on_release()
+		_on_release()
 		main.editor_state = main.EDITOR_STATE.IDLE
 		accept_event()
 
 
-func is_a_polygon_item(item):
+func is_a_polygon_item(item: Node) -> bool:
 	if !item:
 		return false
 	if !item.get_parent():
@@ -96,9 +100,95 @@ func is_a_polygon_item(item):
 	return parent_name == "Terrain" or parent_name == "Water" or parent_name == "CameraLimits"
 
 
+func _on_polygon_deleted(polygon: Polygon2D):
+	# Remove the now-deleted polygon from the selection.
+	# Currently it's not possible to open the polygon editor if there's
+	# more than just one terrain lump selected, but if we ever implement
+	# multi-edit, we'll want more selective logic than just deselect-all.
+	remove_from_selection(polygon)
+
+
+## Sets the selection to the given item or array of items. The previous
+## selection will be cleared.
+func set_selection(item):
+	# Remove the glow from the previous selection before we clear it.
+	for hit in selection_hit:
+		hit.set_glowing(false)
+	
+	# Wipe selection.
+	selection_hit = []
+	# Fall through to this function, because it does everything we need.
+	add_to_selection(item)
+
+
+## Adds the given item or array of items to the existing selection.
+func add_to_selection(item):
+	# If the item is singular, wrap it into an array.
+	# That way we only need to write an array execution path.
+	var items = item if item is Array else [item]
+	
+	# Add the item(s) to the selection.
+	selection_hit.append_array(items)
+	
+	# Make them all glow to show their selected status.
+	for hit in items:
+		hit.set_glowing(true)
+	
+	_update_button_visibility()
+	
+	selection_changed.emit(selection_rect, selection_hit)
+
+
+## Removes the given item or array of items from the selection. If the selection
+## does not contain the given item(s), nothing happens.
+func remove_from_selection(item):
+	# If the item is singular, wrap it into an array.
+	# That way we only need to write an array execution path.
+	var items = item if item is Array else [item]
+	
+	for hit in items:
+		# Remove the item from the selection.
+		# (TODO: repeatedly calling erase() could be slow. If it needs opti,
+		#  then for large arrays, might it be faster to compute the
+		#  complementary set of "items," then call set_selection()?)
+		selection_hit.erase(hit)
+		# Disable selected-item glow since they're no longer selected.
+		hit.set_glowing(false)
+	
+	_update_button_visibility()
+	
+	selection_changed.emit(selection_rect, selection_hit)
+
+
+## Clears the selection.
+func deselect_all():
+	for hit in selection_hit:
+		hit.set_glowing(false)
+	
+	selection_hit = []
+	
+	buttons.visible = false
+	
+	selection_changed.emit(selection_rect, selection_hit)
+
+
+func _update_button_visibility():
+	# Show the buttons if there's anything in this selection.
+	buttons.visible = len(selection_hit) != 0
+	# If the buttons are visible now, put them where they should be.
+	if buttons.visible:
+		buttons.global_position = main.get_snapped_mouse_position() + Vector2(
+			-buttons.size.x / 2,
+			4
+		)
+	# If the selection consists of exactly one (1) terrain lump or other
+	# polygon item, show the polygon edit button.
+	polygon_edit_button.visible = len(selection_hit) == 1 and is_a_polygon_item(selection_hit[0])
+
+
 # Return how many items were selected by the previous selection
 # The function is named `calculate` because it does collision detection calculations which can be pretty expensive
-func calculate_selected(max_selected = 32):
+func _calculate_selected(max_selected = 32) -> Array:
 	var collision_handler = get_world_2d().direct_space_state
 	
 	var hitboxes = []
@@ -123,7 +213,7 @@ func calculate_selected(max_selected = 32):
 		hitboxes = collision_handler.intersect_point(query, max_selected)
 	
 	# Convert from raw hitboxes to the actual items
-	var hit = []
+	var hit_items = []
 	for hitbox in hitboxes:
 		hitbox = hitbox.collider
 		# Find the top most parent of the collider
@@ -132,28 +222,11 @@ func calculate_selected(max_selected = 32):
 			hitbox = hitbox.get_parent()
 			var parent = hitbox.get_parent()
 			if is_a_polygon_item(hitbox) or parent.name == "Items":
-				hit.append(hitbox)
+				hit_items.append(hitbox)
 				break
-	return hit
+	return hit_items
 
 
-func on_release():
-	# Remove the effect of previous selection
-	for hit in selection_hit:
-		hit.set_glowing(false)
-	
-	# Get the new selection & give them the hover effect
-	selection_hit = calculate_selected()
-	for hit in selection_hit:
-		hit.set_glowing(true)
-	
-	buttons.visible = len(selection_hit) != 0
-	if buttons.visible:
-		buttons.global_position = main.get_snapped_mouse_position() + Vector2(
-			-buttons.size.x / 2,
-			4
-		)
-	# Show the polygon edit button
-	polygon_edit_button.visible = true if len(selection_hit) == 1 and is_a_polygon_item(selection_hit[0]) else false
-	
-	emit_signal("selection_changed", selection_rect, selection_hit)
+func _on_release():
+	# Set selection from what's in the hover region.
+	set_selection(_calculate_selected())

@@ -9,12 +9,27 @@ extends Node2D
 ## and snap vectors (and the mouse cursor) to the grid.
 
 ## Emitted when [member editor_state] is changed.
-signal editor_state_changed
+signal editor_state_changed(old: EDITOR_STATE, new: EDITOR_STATE)
+
+## Emitted just before playtesting begins, while the editor is still in a fully
+## valid state.
+signal playtest_started
+## Emitted just after playtesting ends, once the editor is back to a fully valid
+## state.
+signal playtest_ended
 
 const TERRAIN_PREFAB = preload("res://classes/solid/terrain/terrain_polygon.tscn")
 const ITEM_PREFAB = preload("res://scenes/menus/level_designer/ld_item/ld_item.tscn")
 
-enum EDITOR_STATE { IDLE, PLACING, SELECTING, DRAGGING, POLYGON_CREATE, POLYGON_EDIT }
+enum EDITOR_STATE {
+	IDLE,
+	PLACING,
+	SELECTING,
+	DRAGGING,
+	POLYGON_CREATE,
+	POLYGON_EDIT,
+	POLYGON_DRAG_VERTEX
+}
 
 ## Definitions for base classes that items can implement.
 var item_classes = {}
@@ -33,6 +48,8 @@ var item_textures: Array[Dictionary] = []
 ## The scenes corresponding to each item. These can be used to create
 ## a playable node tree based on the [LDPlacedItem]s in the level.
 var item_scenes = []
+## The current polygon node which is being edited
+var polygon_edit_node: Polygon2D
 
 ## Set to [code]true[/code] to enable returning to the level designer
 ## when [kbd]ld_exit[/kbd] is pressed.
@@ -68,13 +85,14 @@ func _process(_dt):
 		if in_level:
 			in_level = false
 			get_tree().change_scene_to_file("res://scenes/menus/level_designer/level_designer.tscn")
+			playtest_ended.emit()
 
 
 # Sets the state of the editor.
 func _set_editor_state(new: EDITOR_STATE):
 	var old = editor_state
 	editor_state = new
-	emit_signal("editor_state_changed", old, editor_state)
+	editor_state_changed.emit(old, editor_state)
 
 
 ## Gets the currently edited level node tree.

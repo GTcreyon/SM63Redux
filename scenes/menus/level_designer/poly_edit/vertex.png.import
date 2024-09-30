@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cicskwmcgq06f"
-path="res://.godot/imported/drag_circle_hover.png-4007a836e654d05cd8aefdc642cb1f95.ctex"
+uid="uid://rr2wt15543er"
+path="res://.godot/imported/vertex.png-035dd769a3dd191bb30deb39c7a00f96.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/menus/level_designer/ldui/drag_circle_hover.png"
-dest_files=["res://.godot/imported/drag_circle_hover.png-4007a836e654d05cd8aefdc642cb1f95.ctex"]
+source_file="res://scenes/menus/level_designer/poly_edit/vertex.png"
+dest_files=["res://.godot/imported/vertex.png-035dd769a3dd191bb30deb39c7a00f96.ctex"]
 
 [params]
 
