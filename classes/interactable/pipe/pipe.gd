@@ -1,6 +1,6 @@
 extends InteractableWarp
 
-const PLAYER_STOP_HEIGHT = 15
+const PLAYER_STOP_HEIGHT = 0
 const SLIDE_SPEED = 0.7
 const SLIDE_SPEED_FAST = 1.4
 
