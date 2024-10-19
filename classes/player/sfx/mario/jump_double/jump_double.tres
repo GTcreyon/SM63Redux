@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SFXBank" load_steps=5 format=3 uid="uid://coxqky4wuo073"]
+
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_3wyp3"]
+[ext_resource type="AudioStream" uid="uid://dcc6t3rkx6xef" path="res://classes/player/sfx/mario/jump_double/jump_double_0.wav" id="2_1iogi"]
+[ext_resource type="AudioStream" uid="uid://bs3i6d7fks077" path="res://classes/player/sfx/mario/jump_double/jump_double_1.wav" id="3_h45jf"]
+[ext_resource type="AudioStream" uid="uid://bwtprx6hpsu8k" path="res://classes/player/sfx/mario/jump_double/jump_double_2.wav" id="4_y5xu6"]
+
+[resource]
+script = ExtResource("1_3wyp3")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_1iogi"), ExtResource("3_h45jf"), ExtResource("4_y5xu6")])
+group_bank = {}

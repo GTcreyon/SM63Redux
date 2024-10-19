@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SFXBank" load_steps=5 format=3 uid="uid://ccdta3j8qa402"]
+
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_f6pag"]
+[ext_resource type="AudioStream" uid="uid://t1tpdj5shrkk" path="res://classes/player/sfx/spin/spin_air/spin_air_0.wav" id="2_i4yfq"]
+[ext_resource type="AudioStream" uid="uid://diddk484p2dyy" path="res://classes/player/sfx/spin/spin_air/spin_air_1.wav" id="3_tp4u2"]
+[ext_resource type="AudioStream" uid="uid://c5w3428ffeor3" path="res://classes/player/sfx/spin/spin_air/spin_air_2.wav" id="4_acf06"]
+
+[resource]
+script = ExtResource("1_f6pag")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_i4yfq"), ExtResource("3_tp4u2"), ExtResource("4_acf06")])
+group_bank = {}

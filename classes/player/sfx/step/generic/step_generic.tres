@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SFXBank" load_steps=16 format=3 uid="uid://c66opicl7nuyy"]
+
+[ext_resource type="Script" path="res://classes/player/sfx/sfx_bank.gd" id="1_lcj6p"]
+[ext_resource type="AudioStream" uid="uid://r3scnu5nalik" path="res://classes/player/sfx/step/generic/step_generic_0.wav" id="2_2xoxj"]
+[ext_resource type="AudioStream" uid="uid://0ei11hnj7x0f" path="res://classes/player/sfx/step/generic/step_generic_1.wav" id="3_exs4b"]
+[ext_resource type="AudioStream" uid="uid://dxqynbx0f0ens" path="res://classes/player/sfx/step/generic/step_generic_2.wav" id="4_n6wdc"]
+[ext_resource type="AudioStream" uid="uid://cy122rk61o553" path="res://classes/player/sfx/step/generic/step_generic_3.wav" id="5_vfsjm"]
+[ext_resource type="AudioStream" uid="uid://dgbarkobv7i31" path="res://classes/player/sfx/step/generic/step_generic_4.wav" id="6_6q1wu"]
+[ext_resource type="AudioStream" uid="uid://5kpqr4kh83yy" path="res://classes/player/sfx/step/generic/step_generic_5.wav" id="7_aqw88"]
+[ext_resource type="AudioStream" uid="uid://bxwj4ts5ey0ox" path="res://classes/player/sfx/step/generic/step_generic_6.wav" id="8_jkbs5"]
+[ext_resource type="AudioStream" uid="uid://mwbupn41jd12" path="res://classes/player/sfx/step/generic/step_generic_7.wav" id="9_qg0hl"]
+[ext_resource type="AudioStream" uid="uid://dli4f4iwoxtmt" path="res://classes/player/sfx/step/generic/step_generic_8.wav" id="10_8w74h"]
+[ext_resource type="AudioStream" uid="uid://vgshtc80xkbv" path="res://classes/player/sfx/step/generic/step_generic_9.wav" id="11_iet1f"]
+[ext_resource type="AudioStream" uid="uid://csod4lek78ft3" path="res://classes/player/sfx/step/generic/step_generic_10.wav" id="12_36ju8"]
+[ext_resource type="AudioStream" uid="uid://dlp142ni1ht0s" path="res://classes/player/sfx/step/generic/step_generic_11.wav" id="13_6p6iv"]
+[ext_resource type="AudioStream" uid="uid://cshq8gk8h0nb3" path="res://classes/player/sfx/step/generic/step_generic_12.wav" id="14_bb8g5"]
+[ext_resource type="AudioStream" uid="uid://bl0t18roqbr2n" path="res://classes/player/sfx/step/generic/step_generic_13.wav" id="15_0uk51"]
+
+[resource]
+script = ExtResource("1_lcj6p")
+sound_bank = Array[AudioStreamWAV]([ExtResource("2_2xoxj"), ExtResource("3_exs4b"), ExtResource("4_n6wdc"), ExtResource("5_vfsjm"), ExtResource("6_6q1wu"), ExtResource("7_aqw88"), ExtResource("8_jkbs5"), ExtResource("9_qg0hl"), ExtResource("10_8w74h"), ExtResource("11_iet1f"), ExtResource("12_36ju8"), ExtResource("13_6p6iv"), ExtResource("14_bb8g5"), ExtResource("15_0uk51")])
+group_bank = {}
