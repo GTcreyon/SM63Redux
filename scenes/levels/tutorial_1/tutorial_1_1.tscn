@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ckc4syjyp8xrq" path="res://classes/solid/log/log.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://c5p3x7s08jvob" path="res://classes/solid/log/log_fall.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://bujgheqb6pmrc" path="res://classes/player/player.tscn" id="4"]
-[ext_resource type="PackedScene" path="res://classes/solid/rocks/big_rock/big_rock.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://bhiyyqle055lo" path="res://classes/solid/rocks/big_rock/big_rock.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://do78au40k7meh" path="res://classes/decorative/big_tree.tscn" id="7"]
 [ext_resource type="PackedScene" uid="uid://hr76pxvm5b6f" path="res://classes/water/water.tscn" id="8"]
 [ext_resource type="Texture2D" uid="uid://w4khahd820d5" path="res://classes/decorative/fossil/fossils.png" id="13_dyv3u"]
