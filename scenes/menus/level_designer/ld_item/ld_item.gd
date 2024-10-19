@@ -39,7 +39,7 @@ const GLOW_MATERIAL = preload("res://shaders/glow.tres")
 ## 
 static var active_glow_mats = {}
 
-var item_id: int
+var item_id: StringName
 
 var glow_factor = 1
 var pulse = 0
