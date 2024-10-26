@@ -9,6 +9,9 @@ const BG_SCENE = preload("res://scenes/levels/tutorial_1/bg/bg_t1.tscn")
 
 
 func _on_Start_pressed():
+	main.in_level = true
+	main.playtest_started.emit()
+	
 	var serializer = Serializer.new()
 	Singleton.ld_buffer = serializer.generate_level_binary($"/root/Main/Template/Items".get_children(), $"/root/Main/Template/Terrain".get_children(), main)
 	var template = $"/root/Main/Template"
@@ -26,7 +29,6 @@ func _on_Start_pressed():
 	scoop_children(main, template_inst)
 	main.add_child(PLAYER_SCENE.instantiate())
 	main.add_child(BG_SCENE.instantiate())
-	main.in_level = true
 
 
 func apply_properties(inst, item_data) -> void:

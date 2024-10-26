@@ -1,8 +1,8 @@
 extends Control
 
 @onready var main = $"/root/Main"
-@onready var selection_handler = $".."
-@onready var polygon_editor = $"../../PolygonEditor"
+@onready var selection_handler: LDSelectionHandler = $".."
+@onready var polygon_editor: PolygonEditor = $"../../PolygonEditor"
 
 enum DRAG_TYPE { NONE, MOVE, DUPLICATE }
 
@@ -81,4 +81,4 @@ func _on_duplicator_pressed():
 
 func _on_polygon_pressed():
 	if len(selection_handler.selection_hit) == 1:
-		polygon_editor.edit_polygon(selection_handler.selection_hit[0])
+		polygon_editor.begin_edit(selection_handler.selection_hit[0])
