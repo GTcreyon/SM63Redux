@@ -132,8 +132,6 @@ monitorable = false
 script = ExtResource("6_x1ygv")
 _hit_type = 8
 _handler = NodePath("../HitHandler")
-_persistent = null
-_start_active = null
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-2, -3)

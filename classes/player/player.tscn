@@ -1546,11 +1546,13 @@ stream = ExtResource("6")
 volume_db = -10.0
 bus = &"SFX"
 
-[node name="Hurtbox" type="Area2D" parent="."]
+[node name="Hurtbox" type="Area2D" parent="." node_paths=PackedStringArray("target")]
 collision_layer = 2
 collision_mask = 0
 monitoring = false
 script = ExtResource("41_shud4")
+target = NodePath("../StateManager/Dry")
+hurt_mask = 63
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, 1.5)

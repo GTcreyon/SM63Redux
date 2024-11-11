@@ -12,6 +12,7 @@ func take_hit(hit: Hit) -> bool:
 	var handler = hit.source
 	_hit_type = type
 	_hit_pos = handler.get_pos()
+	print(hit)
 	return true
 
 
@@ -25,7 +26,7 @@ func _trans_rules():
 	match _hit_type:
 		Hit.Type.STRIKE, Hit.Type.EXPLOSION:
 			state = [&"Hurt", dir]
-	if state != state:
+	if state != null:
 		_hit_type = 0
 		return state
 	

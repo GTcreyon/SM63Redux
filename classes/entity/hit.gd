@@ -19,5 +19,10 @@ enum Type {
 	NUDGE = 0b1000000,
 }
 
-var type: Type
-var handler: HitHandler
+var type: Type = Type.GENERIC
+var source: HitHandler
+
+
+func _init(_type: Type, _source: HitHandler) -> void:
+	type = _type
+	source = _source

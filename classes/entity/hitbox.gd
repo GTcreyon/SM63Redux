@@ -54,4 +54,4 @@ func _found_hurtbox(area: Area2D) -> void:
 		_handler = HitHandler.new()
 		get_parent().add_child(_handler)
 
-	var target = area.take_hit(_hit_type, _handler)
+	var target = area.take_hit(Hit.new(_hit_type, _handler))
