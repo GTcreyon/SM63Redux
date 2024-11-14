@@ -1,17 +1,58 @@
 extends Button
 
+enum GamepadBrand {
+	NINTENDO,
+	MICROSOFT,
+	SONY
+}
+
+## The currently set locale. Used to avoid repeating work between
+## rebind-option instances.
+static var locale_current: String
+## 2D array of every button's name for every controller vendor.
+## Some of these names have to be translateable, so it can't be const.
+##
+## To fetch a button's display name, read joypad_buttons[button][GamepadBrand].
+static var joypad_buttons: Array
+## Translated name of input "Left Stick Left".
+static var lstick_l: String
+## Translated name of input "Left Stick Right".
+static var lstick_r: String
+## Translated name of input "Left Stick Up".
+static var lstick_u: String
+## Translated name of input "Left Stick Down".
+static var lstick_d: String
+## Translated name of input "Right Stick Left".
+static var rstick_l: String
+## Translated name of input "Right Stick Right".
+static var rstick_r: String
+## Translated name of input "Right Stick Up".
+static var rstick_u: String
+## Translated name of input "Right Stick Down".
+static var rstick_d: String
+
+
 @export var action_id: String = ""
+
+var btn_scale: float: set = set_btn_scale
 
 @onready var key_list = $KeyList
 @onready var action_name = $ActionName
-var btn_scale: float: set = set_btn_scale
-var locale_saved: String = ""
 
 
 func _ready():
 	var action_map = _get_action_map()
 	action_name.text = action_map[action_id]
+	
+	# If another rebind hasn't cached it already, cache the appropriate set of
+	# joypad button names for this translation.
+	if len(joypad_buttons) == 0:
+		_update_translations()
+	
+	# Generate initial display name
 	update_list()
+	# Update display name on resetting the keymap.
+	$"../../../ResetBinds".reset.connect(Callable(self, "update_list"))
 
 
 func _input(event):
@@ -24,31 +65,38 @@ func _input(event):
 			update_list()
 
 
-func _process(_delta):
-	update_list()
-
-
 func update_list():
-	key_list.text = join_action_array(InputMap.action_get_events(action_id))
-
-
-func join_action_array(actions) -> String:
 	var output: String = ""
-	for action in actions:
-		if action is InputEventJoypadButton:
-			var buttons = _get_joypad_buttons()
-			if action.button_index > buttons.size():
+	var joy_brand = get_joypad_brand()
+	
+	# Read bindings from this action's input map.
+	var bindings = InputMap.action_get_events(action_id)
+	# List out the action's bindings in a readable format.
+	for bind in bindings:
+		# Add this action's display name to the output.
+		# Joypad inputs are surrounded with (parentheses), others are raw.
+		if bind is InputEventJoypadButton:
+			# Binding is a joypad button.
+			# Print the brand-accurate name for this button, or an error symbol
+			# if the button's not recognized.
+			if bind.button_index > joypad_buttons.size():
 				output += "(?)"
 			else:
-				output += "(%s)" % buttons[action.button_index][get_brand_id()]
-		elif action is InputEventJoypadMotion:
-			output += "(%s)" % get_joypad_motion_name(action.axis, action.axis_value)
+				output += "(%s)" % joypad_buttons[bind.button_index][joy_brand]
+		elif bind is InputEventJoypadMotion:
+			# Binding is some direction on an analog stick.
+			output += "(%s)" % get_joypad_motion_name(bind.axis, bind.axis_value)
 		else:
+			# Binding is a non-joypad action.
+			# Keyboard keys are included here.
 			# TODO: make these translatable
-			output += action.as_text()
+			output += bind.as_text()
+		# Add separator between this and the next binding.
 		output += ", "
+	# Trim off the final separator for visual cleanliness.
 	output = output.trim_suffix(", ")
-	return output
+	
+	key_list.text = output
 
 
 func _on_RebindOption_pressed():
@@ -61,23 +109,6 @@ func _on_RebindOption_pressed():
 		Singleton.get_node("SFX/Next").play()
 		action_name.add_theme_color_override("font_color", Color.GREEN)
 		key_list.add_theme_color_override("font_color", Color.GREEN)
-		
-
-func get_brand_id(): # need to get the gamepad brand so we can display correct button icons
-	if Input.get_connected_joypads().size() > 0:
-		var guid = Input.get_joy_guid(0)
-		var vendor_id = guid.substr(8, 4)
-		match vendor_id:
-			"7e05": # nintendo
-				return 0
-			"5e04": # microsoft
-				return 1
-			"1716", "7264", "4c05", "510a", "ce0f", "ba12": # sony
-				return 2
-			_:
-				return 0
-	else:
-		return 0
 
 
 func _on_RebindOption_mouse_entered():
@@ -101,13 +132,30 @@ func unpress():
 func get_joypad_motion_name(axis: int, value: float):
 	match axis:
 		JOY_AXIS_LEFT_X:
-			return tr("Left Stick Left") if value < 0 else tr("Left Stick Right")
+			return lstick_l if value < 0 else lstick_r
 		JOY_AXIS_LEFT_Y:
-			return tr("Left Stick Up") if value < 0 else tr("Left Stick Down")
+			return lstick_u if value < 0 else lstick_d
 		JOY_AXIS_RIGHT_X:
-			return tr("Right Stick Left") if value < 0 else tr("Right Stick Right")
+			return rstick_l if value < 0 else rstick_r
 		JOY_AXIS_RIGHT_Y:
-			return tr("Right Stick Up") if value < 0 else tr("Right Stick Down")
+			return rstick_u if value < 0 else rstick_d
+
+
+func get_joypad_brand(): # need to get the gamepad brand so we can display correct button icons
+	if Input.get_connected_joypads().size() > 0:
+		var guid = Input.get_joy_guid(0)
+		var vendor_id = guid.substr(8, 4)
+		match vendor_id:
+			"7e05":
+				return GamepadBrand.NINTENDO
+			"5e04":
+				return GamepadBrand.MICROSOFT
+			"1716", "7264", "4c05", "510a", "ce0f", "ba12":
+				return GamepadBrand.SONY
+			_:
+				return 0
+	else:
+		return 0
 
 
 func set_btn_scale(new_scale):
@@ -117,7 +165,30 @@ func set_btn_scale(new_scale):
 	key_list.pivot_offset.x = key_list.size.x
 
 
+func _update_translations():
+	locale_current = TranslationServer.get_locale().substr(0, 2)
+
+	joypad_buttons = _get_joypad_buttons()
+	lstick_l = tr("Left Stick Left")
+	lstick_r = tr("Left Stick Right")
+	lstick_u = tr("Left Stick Up")
+	lstick_d = tr("Left Stick Down")
+	rstick_l = tr("Right Stick Left")
+	rstick_r = tr("Right Stick Right")
+	rstick_u = tr("Right Stick Up")
+	rstick_d = tr("Right Stick Down")
+
+
 func _get_joypad_buttons() -> Array:
+	var start := tr("Start")
+	var click_ls := tr("Left Stick Click")
+	var click_rs := tr("Right Stick Click")
+	var logo := tr("Logo")
+	var dpad_u := tr("D-Up")
+	var dpad_d := tr("D-Down")
+	var dpad_l := tr("D-Left")
+	var dpad_r := tr("D-Right")
+	
 	return [
 		["B", "A", "X"],
 		["A", "B", "O"],
@@ -126,17 +197,18 @@ func _get_joypad_buttons() -> Array:
 		["L", "LB", "L1"],
 		["R", "RB", "R1"],
 		["-", tr("Back"), tr("Select")],
-		["+", tr("Start"), tr("Start")],
-		[tr("Left Stick Click"), tr("Left Stick Click"), tr("Left Stick Click")],
-		[tr("Right Stick Click"), tr("Right Stick Click"), tr("Right Stick Click")],
+		["+", start, start],
+		[click_ls, click_ls, click_ls],
+		[click_rs, click_rs, click_rs],
 		["ZL", "LT", "L2"],
 		["ZR", "RT", "R2"],
-		[tr("Logo"), tr("Logo"), tr("Logo")],
-		[tr("D-Up"), tr("D-Up"), tr("D-Up")],
-		[tr("D-Down"), tr("D-Down"), tr("D-Down")],
-		[tr("D-Left"), tr("D-Left"), tr("D-Left")],
-		[tr("D-Right"), tr("D-Right"), tr("D-Right")],
+		[logo, logo, logo],
+		[dpad_u, dpad_u, dpad_u],
+		[dpad_d, dpad_d, dpad_d],
+		[dpad_l, dpad_l, dpad_l],
+		[dpad_r, dpad_r, dpad_r],
 	]
+
 
 func _get_action_map() -> Dictionary:
 	return {
@@ -173,4 +245,9 @@ func _get_action_map() -> Dictionary:
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_TRANSLATION_CHANGED:
+			# Update cached strings (but only if the first instance hasn't
+			# already done that).
+			if locale_current != TranslationServer.get_locale().substr(0, 2):
+				_update_translations()
+			# Update the list.
 			update_list()
