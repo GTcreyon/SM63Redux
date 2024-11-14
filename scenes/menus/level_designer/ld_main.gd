@@ -18,21 +18,32 @@ enum EDITOR_STATE { IDLE, PLACING, SELECTING, DRAGGING, POLYGON_CREATE, POLYGON_
 
 ## Definitions for base classes that items can implement.
 var item_classes = {}
+## Definitions for define-once properties that can be reused between items.
 var item_static_properties = {}
 ## Definitions for each type of item that can be placed.
 ## Each entry is a dictionary with the following properties:[br]
 ## - [b]"name":[/b] This item's displayed name.[br]
-## - [b]"properties":[/b] A dictionary of the item's editable properties.
-##		TODO: This is never actually written, so its format is unclear.
-var items: Array[Dictionary] = []
+## - [b]"properties":[/b] A dictionary of the item's editable properties,
+##		keyed by the label shown when inspected.		
+##		Each property is a dictionary with the following properties:[br]
+##		[b]"type":[/b] Property's datatype.[br]
+##		[b]"var_name":[/b] Name of the script variable the property edits.
+##			If null, will be extrapolated from the property's label.[br]
+##		[b]"default":[/b] Value the property defaults to on newly created
+##			instances. If unset, the default value for the type will be used.
+##			[br]
+##		[b]"increment":[/b] For spinners, amount up/down a single arrow click goes.
+##			1 if unset.[br]
+##		[b]"description":[/b] Description of the property, shown in tooltips.[br]
+var items: Dictionary = {}
 ## Graphics for items to use.
 ## Each entry is a dictionary with the following properties:[br]
 ## - [b]List:[/b] This item's icon in the placeable-item list.[br]
 ## - [b]Placed:[/b] The sprite shown where this item is placed in the actual level.[br]
-var item_textures: Array[Dictionary] = []
+var item_textures: Dictionary = {}
 ## The scenes corresponding to each item. These can be used to create
 ## a playable node tree based on the [LDPlacedItem]s in the level.
-var item_scenes = []
+var item_scenes = {}
 
 ## Set to [code]true[/code] to enable returning to the level designer
 ## when [kbd]ld_exit[/kbd] is pressed.
@@ -121,7 +132,7 @@ func place_terrain(poly: PackedVector2Array) -> TerrainPolygon:
 ## for ID [param item_id].
 ## The new item will begin with [member LDPlacedItem.ghost] set to
 ## [code]true[/code].
-func place_item(item_id: int) -> LDPlacedItem:
+func place_item(item_id: StringName) -> LDPlacedItem:
 	_set_editor_state(EDITOR_STATE.PLACING)
 	
 	# Create and populate loaded item
@@ -134,6 +145,8 @@ func place_item(item_id: int) -> LDPlacedItem:
 	var properties: Dictionary = items[item_id].properties
 	var item_properties: Dictionary = {}
 	for propname in properties:
+		# Initialize property to its default value.
+		# If no default is set, use the type's default value.
 		if properties[propname]["default"] == null:
 			item_properties[propname] = default_of_type(properties[propname]["type"])
 		else:
@@ -226,10 +239,8 @@ func _read_items():
 				if parent_name == "class":
 					# Parent node is a class. Parse children of a class.
 					
-					# This doesn't actually do anything. None of these functions
-					# return anything or have any side effects.
-					# Other than possibly modifying the parser's internal state,
-					# which shouldn't happen with normal attribute reads I think.
+					# These functions don't appear to do anything, but they
+					# actually write data into the passed array (item_classes).
 					match node_name:
 						"property":
 							register_property(item_classes, parent_subname, parent_name, parser)
@@ -244,18 +255,16 @@ func _read_items():
 						"scene":
 							# Save the filepath of the described item's scene.
 							var path = parser.get_named_attribute_value_safe("path")
-							var item_id = int(parent_subname)
-							if item_scenes.size() < item_id + 1:
-								item_scenes.resize(item_id + 1)
+							var item_id = parent_subname
 							item_scenes[item_id] = path
 						"property":
-							# Does nothing.
+							# Load the property definition.
 							register_property(items, parent_subname, parent_name, parser)
 						"texture":
 							# Save the filepaths of the described item's
 							# placed and in-list graphics.
 							
-							var item_id = int(parent_subname)
+							var item_id = parent_subname
 							
 							# Item textures dictionary should have been initted
 							# when the item was first read in. Assert that.
@@ -265,7 +274,7 @@ func _read_items():
 							var path = parser.get_named_attribute_value_safe("path")
 							item_textures[item_id][parser.get_named_attribute_value_safe("tag")] = path
 						"implement":
-							# Currently does nothing.
+							# Copy the named property from the list of predefined properties.
 							implement_property(items, parent_subname, parent_name, parser)
 						"inherit":
 							# Currently does nothing.
@@ -284,12 +293,7 @@ func _read_items():
 						allow_reparent = false
 					elif node_name == "item":
 						# Read item ID
-						var subname = parser.get_named_attribute_value_safe("id")
-						var item_id = int(subname)
-						# Ensure the array can fit item_id as an index.
-						if items.size() < item_id + 1:
-							items.resize(item_id + 1)
-							item_textures.resize(item_id + 1)
+						var item_id = parser.get_named_attribute_value_safe("id")
 						# Add this item to the list.
 						items[item_id] = {
 							name = parser.get_named_attribute_value_safe("name"),
@@ -299,7 +303,7 @@ func _read_items():
 						item_textures[item_id] = {"Placed": null, "List": null}
 						
 						# Save ID as next node's parent subname.
-						parent_subname = subname
+						parent_subname = item_id
 						allow_reparent = false
 					elif node_name == "static":
 						# Load name and properties, simple as that.
@@ -317,32 +321,25 @@ func _read_items():
 					allow_reparent = true
 
 
-## Returns:
-## - Nothing? item_class_properties is declared in-function, never returned....
-func register_property(target, subname: String, type: String, parser: XMLParser):
-	var item_class_properties
+## Loads a property from the parsed XML into the target dictionary.
+func register_property(target, subname: StringName, type: String, parser: XMLParser):
+	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
-	if type == "item":
-		item_class_properties = target[int(subname)].properties
-	else:
-		item_class_properties = target[subname]
-	
+	# Write property values to the target, on the entry keyed to this
+	# XML node's label.
 	item_class_properties[parser.get_named_attribute_value("label")] = collect_property_values(parser)
 
 
-## Returns:
-## Nothing? item_class_properties is declared in-function, never returned....
-func implement_property(target, subname: String, type: String, parser: XMLParser):
-	var item_class_properties
+## Loads a predefined property, specified by the parsed XML,
+## into the given target dictionary.
+func implement_property(target, subname: StringName, type: String, parser: XMLParser):
+	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
-	if type == "item":
-		item_class_properties = target[int(subname)].properties
-	else:
-		item_class_properties = target[subname]
-	
+	# Parse enough information from the XML that we can find the static property.
 	var prop_name = parser.get_named_attribute_value("label")
 	var get_prop = parser.get_named_attribute_value("name")
-	# NOTE: should we dupe this?
+	# Copy the static property into the item.
+	# NOTE: does the property need duping?
 	item_class_properties[prop_name] = item_static_properties[get_prop].duplicate()
 
 
@@ -363,16 +360,28 @@ func collect_property_values(parser: XMLParser) -> Dictionary:
 	return properties
 
 
-## Returns:
-## Nothing? item_class_properties is declared in-function, never returned....
+## Loads an entire set of predefined properties, specified by the parsed XML, 
+## into the given target dictionary.
 func inherit_class(target, subname: String, type: String, parser: XMLParser):
-	var item_class_properties
+	var item_class_properties = _property_dictionary_of(target, subname, type)
 	
-	if type == "item":
-		item_class_properties = target[int(subname)].properties
-	else:
-		item_class_properties = target[subname]
-	
+	# Pick class based on this XML node's name.
 	var parent_class = item_classes[parser.get_named_attribute_value("name")]
+	# Copy the class's properties into the item.
 	for key in parent_class:
 		item_class_properties[key] = parent_class[key]
+
+
+## Returns a reference to the properties dictionary of the given target,
+## using type and subname to pick where to index and where to access.
+func _property_dictionary_of(target, subname: StringName, type: String) -> Dictionary:
+	# Decide which subset of the target we're writing to, based on type.
+	# Dictionaries and arrays are passed by reference, so returning a path to a
+	# subdictionary should get us a window into the target instead of a copy.
+	if type == "item":
+		# Properties of items should be written into the desired item's
+		# properties dictionary.
+		return target[subname].properties
+	else:
+		# Properties of anything else go directly into the desired thing.
+		return target[subname]
