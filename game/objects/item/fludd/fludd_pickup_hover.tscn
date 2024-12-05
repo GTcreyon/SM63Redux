@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://dtr525hale4ql"]
+
+[ext_resource type="Script" path="res://game/classes/dejitter_group/dejitter_group.gd" id="1"]
+[ext_resource type="Script" path="res://game/objects/item/fludd/scripts/fludd_pickup.gd" id="2"]
+[ext_resource type="Script" path="res://game/objects/item/fludd/scripts/fludd_entity.gd" id="3"]
+[ext_resource type="AudioStream" uid="uid://cn3r27x83cqkb" path="res://game/objects/item/fludd/sfx/fludd_pickup_collect.wav" id="4"]
+[ext_resource type="Texture2D" uid="uid://pw2ksn3vsasj" path="res://game/objects/item/fludd/textures/pickup_hover.png" id="5"]
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(16, 15)
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(24, 15)
+
+[node name="FluddPickupHover" type="CharacterBody2D"]
+z_index = -1
+collision_layer = 0
+script = ExtResource("3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("4")
+
+[node name="Hover" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+script = ExtResource("2")
+nozzle_award = 1
+parent_is_root = true
+persistent_collect = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Hover"]
+z_index = -1
+texture = ExtResource("5")
+script = ExtResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hover"]
+shape = SubResource("1")
+
+[node name="SFXCollect" type="AudioStreamPlayer" parent="Hover"]
+stream = ExtResource("4")
+volume_db = -11.0
+bus = &"SFX"

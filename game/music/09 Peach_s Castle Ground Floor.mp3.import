@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://grgq0y7slwe2"
+path="res://.godot/imported/09 Peach_s Castle Ground Floor.mp3-29de39163f37483ce97bd7c9102524f7.mp3str"
+
+[deps]
+
+source_file="res://game/music/09 Peach_s Castle Ground Floor.mp3"
+dest_files=["res://.godot/imported/09 Peach_s Castle Ground Floor.mp3-29de39163f37483ce97bd7c9102524f7.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,623 @@
+[gd_scene load_steps=29 format=3 uid="uid://bhcn3kch6t5hu"]
+
+[ext_resource type="Texture2D" uid="uid://hjwjcoop1ep5" path="res://game/objects/item/fludd/textures/pickup_turbo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://01rvhulbgmob" path="res://game/objects/item/fludd/textures/pickup_rocket.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://pw2ksn3vsasj" path="res://game/objects/item/fludd/textures/pickup_hover.png" id="3"]
+[ext_resource type="Shader" path="res://game/shaders/flash.gdshader" id="4"]
+[ext_resource type="Texture2D" uid="uid://cy7rvh7j0kpi3" path="res://gui/ingame/pause/map/paintings/mini.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://dvhma2mthdmuo" path="res://game/objects/item/fludd/textures/map_rocket.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://cc7aclwxhmsha" path="res://game/objects/item/fludd/textures/map_turbo.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://jy1qfd2noo08" path="res://game/objects/item/fludd/textures/map_hover.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://dcr807dwt44ll" path="res://gui/ingame/pause/map/paintings/bob.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://dqimoeikwko1x" path="res://gui/ingame/pause/map/scroll_handle.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://b8y75jbhwg6na" path="res://gui/ingame/pause/map/divider_middle.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://1pctsggfusdc" path="res://gui/ingame/pause/map/map_shine_0.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://sjf75mshbcox" path="res://gui/ingame/pause/map/scroll_top.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://dr5le5k54odf6" path="res://gui/ingame/pause/map/map_coin_0.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://b78g1odbei6m6" path="res://gui/ingame/pause/map/scroll_bar.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://c30wqm3bg0ivf" path="res://gui/ingame/pause/map/pin.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://cfovv2kvv8jx4" path="res://gui/ingame/pause/map/divider_edge.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://cw3yd45xx6bf8" path="res://gui/ingame/pause/map/map_shine_1.png" id="20"]
+[ext_resource type="Script" path="res://gui/ingame/hud/shine_map.gd" id="21"]
+[ext_resource type="Script" path="res://gui/ingame/pause/map_course.gd" id="23"]
+[ext_resource type="Texture2D" uid="uid://cx81t7mdme5fg" path="res://gui/ingame/hud/hud_icons.png" id="24"]
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("24")
+region = Rect2(19, 3, 16, 17)
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("24")
+region = Rect2(83, 6, 11, 11)
+
+[sub_resource type="ShaderMaterial" id="3"]
+shader = ExtResource("4")
+shader_parameter/flash_factor = 0.0
+
+[sub_resource type="SpriteFrames" id="4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="9"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[node name="MapMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("21")
+
+[node name="Courses" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 166
+
+[node name="MainCourses" type="VBoxContainer" parent="Courses"]
+layout_mode = 2
+theme_override_constants/separation = 166
+
+[node name="BoB" type="Control" parent="Courses/MainCourses"]
+layout_mode = 2
+script = ExtResource("23")
+
+[node name="Painting" type="TextureRect" parent="Courses/MainCourses/BoB"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 12.0
+texture = ExtResource("10")
+
+[node name="Pin" type="Sprite2D" parent="Courses/MainCourses/BoB/Painting"]
+position = Vector2(52, 0)
+texture = ExtResource("18")
+
+[node name="Name" type="Label" parent="Courses/MainCourses/BoB"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 133.0
+offset_top = 14.0
+offset_bottom = 49.0
+theme_type_variation = &"LabelRed"
+text = "Bob-omb Battlefield
+ - Coming soon!"
+uppercase = true
+
+[node name="CoinRow" type="Control" parent="Courses/MainCourses/BoB"]
+anchors_preset = 0
+offset_left = 33.0
+offset_top = 113.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Courses/MainCourses/BoB/CoinRow"]
+texture = SubResource("8")
+centered = false
+
+[node name="X" type="Sprite2D" parent="Courses/MainCourses/BoB/CoinRow"]
+position = Vector2(19, 4)
+texture = SubResource("7")
+centered = false
+
+[node name="Count" type="Label" parent="Courses/MainCourses/BoB/CoinRow"]
+material = SubResource("3")
+layout_mode = 0
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 72.0
+offset_bottom = 17.0
+theme_type_variation = &"LabelRed"
+
+[node name="ShineGroup" type="Control" parent="Courses/MainCourses/BoB"]
+anchors_preset = 0
+offset_left = 178.0
+offset_top = 75.0
+offset_right = 178.0
+offset_bottom = 75.0
+
+[node name="Shine1" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
+sprite_frames = SubResource("4")
+animation = &"off"
+
+[node name="Shine2" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
+position = Vector2(25, 25)
+sprite_frames = SubResource("4")
+animation = &"off"
+
+[node name="Shine3" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
+position = Vector2(16, 56)
+sprite_frames = SubResource("4")
+animation = &"off"
+
+[node name="Shine4" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
+position = Vector2(-16, 56)
+sprite_frames = SubResource("4")
+animation = &"off"
+
+[node name="Shine5" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/ShineGroup"]
+position = Vector2(-25, 25)
+sprite_frames = SubResource("4")
+animation = &"off"
+
+[node name="CoinGroup" type="GridContainer" parent="Courses/MainCourses/BoB"]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 62.0
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 2
+columns = 2
+
+[node name="Coin1" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin2" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin3" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin4" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin5" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin6" type="TextureRect" parent="Courses/MainCourses/BoB/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="FluddGroup" type="Control" parent="Courses/MainCourses/BoB"]
+anchors_preset = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 75.0
+
+[node name="Hover" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/FluddGroup"]
+sprite_frames = SubResource("5")
+animation = &"off"
+
+[node name="Rocket" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/FluddGroup"]
+position = Vector2(0, 27)
+sprite_frames = SubResource("6")
+animation = &"off"
+
+[node name="Turbo" type="AnimatedSprite2D" parent="Courses/MainCourses/BoB/FluddGroup"]
+position = Vector2(0, 56)
+sprite_frames = SubResource("9")
+animation = &"off"
+
+[node name="DividerLeft" type="TextureRect" parent="Courses/MainCourses/BoB"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 157.0
+texture = ExtResource("19")
+
+[node name="DividerMiddle" type="TextureRect" parent="Courses/MainCourses/BoB"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 156.0
+offset_right = -35.0
+texture = ExtResource("12")
+stretch_mode = 1
+
+[node name="DividerRight" type="TextureRect" parent="Courses/MainCourses/BoB"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_top = 157.0
+texture = ExtResource("19")
+flip_h = true
+
+[node name="SL" type="Control" parent="Courses/MainCourses"]
+visible = false
+layout_mode = 2
+script = ExtResource("23")
+
+[node name="Painting" type="TextureRect" parent="Courses/MainCourses/SL"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 12.0
+texture = ExtResource("10")
+
+[node name="Pin" type="Sprite2D" parent="Courses/MainCourses/SL/Painting"]
+position = Vector2(52, 0)
+texture = ExtResource("18")
+
+[node name="Name" type="Label" parent="Courses/MainCourses/SL"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 133.0
+offset_top = 14.0
+offset_bottom = 49.0
+theme_type_variation = &"LabelRed"
+text = "Coming soon!"
+uppercase = true
+
+[node name="CoinRow" type="Control" parent="Courses/MainCourses/SL"]
+anchors_preset = 0
+offset_left = 33.0
+offset_top = 113.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Courses/MainCourses/SL/CoinRow"]
+texture = SubResource("8")
+centered = false
+
+[node name="X" type="Sprite2D" parent="Courses/MainCourses/SL/CoinRow"]
+position = Vector2(19, 4)
+texture = SubResource("7")
+centered = false
+
+[node name="Count" type="Label" parent="Courses/MainCourses/SL/CoinRow"]
+material = SubResource("3")
+layout_mode = 0
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 72.0
+offset_bottom = 17.0
+theme_type_variation = &"LabelRed"
+
+[node name="ShineGroup" type="Control" parent="Courses/MainCourses/SL"]
+visible = false
+anchors_preset = 0
+offset_left = 178.0
+offset_top = 75.0
+offset_right = 178.0
+offset_bottom = 75.0
+
+[node name="Shine1" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
+sprite_frames = SubResource("4")
+animation = &"on"
+
+[node name="Shine2" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
+position = Vector2(25, 25)
+sprite_frames = SubResource("4")
+animation = &"on"
+
+[node name="Shine3" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
+position = Vector2(16, 56)
+sprite_frames = SubResource("4")
+animation = &"on"
+
+[node name="Shine4" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
+position = Vector2(-16, 56)
+sprite_frames = SubResource("4")
+animation = &"on"
+
+[node name="Shine5" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/ShineGroup"]
+position = Vector2(-25, 25)
+sprite_frames = SubResource("4")
+animation = &"on"
+
+[node name="CoinGroup" type="GridContainer" parent="Courses/MainCourses/SL"]
+visible = false
+layout_mode = 0
+offset_left = 239.0
+offset_top = 62.0
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 2
+columns = 2
+
+[node name="Coin1" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin2" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin3" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin4" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin5" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin6" type="TextureRect" parent="Courses/MainCourses/SL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="FluddGroup" type="Control" parent="Courses/MainCourses/SL"]
+visible = false
+anchors_preset = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 75.0
+
+[node name="Hover" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/FluddGroup"]
+sprite_frames = SubResource("5")
+animation = &"on"
+
+[node name="Rocket" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/FluddGroup"]
+position = Vector2(0, 27)
+sprite_frames = SubResource("6")
+animation = &"on"
+
+[node name="Turbo" type="AnimatedSprite2D" parent="Courses/MainCourses/SL/FluddGroup"]
+position = Vector2(0, 56)
+sprite_frames = SubResource("9")
+animation = &"on"
+
+[node name="DividerLeft" type="TextureRect" parent="Courses/MainCourses/SL"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 157.0
+texture = ExtResource("19")
+
+[node name="DividerMiddle" type="TextureRect" parent="Courses/MainCourses/SL"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 156.0
+offset_right = -35.0
+texture = ExtResource("12")
+stretch_mode = 1
+
+[node name="DividerRight" type="TextureRect" parent="Courses/MainCourses/SL"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_top = 157.0
+texture = ExtResource("19")
+flip_h = true
+
+[node name="MiniCourses" type="VBoxContainer" parent="Courses"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 166
+
+[node name="SSL" type="Control" parent="Courses/MiniCourses"]
+layout_mode = 2
+script = ExtResource("23")
+
+[node name="Painting" type="TextureRect" parent="Courses/MiniCourses/SSL"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 12.0
+texture = ExtResource("5")
+
+[node name="Pin" type="Sprite2D" parent="Courses/MiniCourses/SSL/Painting"]
+position = Vector2(36, 0)
+texture = ExtResource("18")
+
+[node name="Name" type="Label" parent="Courses/MiniCourses/SSL"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 101.0
+offset_top = 14.0
+offset_bottom = 49.0
+theme_type_variation = &"LabelRed"
+text = "Shifting
+Sand Land"
+uppercase = true
+
+[node name="CoinRow" type="Control" parent="Courses/MiniCourses/SSL"]
+anchors_preset = 0
+offset_left = 33.0
+offset_top = 81.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Courses/MiniCourses/SSL/CoinRow"]
+texture = SubResource("8")
+centered = false
+
+[node name="X" type="Sprite2D" parent="Courses/MiniCourses/SSL/CoinRow"]
+position = Vector2(19, 4)
+texture = SubResource("7")
+centered = false
+
+[node name="Count" type="Label" parent="Courses/MiniCourses/SSL/CoinRow"]
+material = SubResource("3")
+layout_mode = 0
+offset_left = 32.0
+offset_top = 1.0
+offset_right = 72.0
+offset_bottom = 17.0
+theme_type_variation = &"LabelRed"
+
+[node name="ShineGroup" type="Control" parent="Courses/MiniCourses/SSL"]
+anchors_preset = 0
+offset_left = 153.0
+offset_top = 75.0
+offset_bottom = 75.0
+
+[node name="Shine1" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/ShineGroup"]
+position = Vector2(-32, 0)
+sprite_frames = SubResource("4")
+animation = &"on"
+
+[node name="Shine2" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/ShineGroup"]
+sprite_frames = SubResource("4")
+animation = &"on"
+
+[node name="Shine3" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/ShineGroup"]
+position = Vector2(32, 0)
+sprite_frames = SubResource("4")
+animation = &"on"
+
+[node name="CoinGroup" type="GridContainer" parent="Courses/MiniCourses/SSL"]
+layout_mode = 0
+offset_left = 217.0
+offset_top = 63.0
+theme_override_constants/h_separation = 3
+theme_override_constants/v_separation = 2
+columns = 3
+
+[node name="Coin1" type="TextureRect" parent="Courses/MiniCourses/SSL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin2" type="TextureRect" parent="Courses/MiniCourses/SSL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="Coin3" type="TextureRect" parent="Courses/MiniCourses/SSL/CoinGroup"]
+layout_mode = 2
+texture = ExtResource("15")
+
+[node name="FluddGroup" type="Control" parent="Courses/MiniCourses/SSL"]
+anchors_preset = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -48.0
+offset_top = 20.0
+
+[node name="Hover" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/FluddGroup"]
+sprite_frames = SubResource("5")
+animation = &"on"
+
+[node name="Rocket" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/FluddGroup"]
+position = Vector2(0, 27)
+sprite_frames = SubResource("6")
+animation = &"on"
+
+[node name="Turbo" type="AnimatedSprite2D" parent="Courses/MiniCourses/SSL/FluddGroup"]
+position = Vector2(0, 56)
+sprite_frames = SubResource("9")
+animation = &"on"
+
+[node name="DividerLeft" type="TextureRect" parent="Courses/MiniCourses/SSL"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 104.0
+texture = ExtResource("19")
+
+[node name="DividerMiddle" type="TextureRect" parent="Courses/MiniCourses/SSL"]
+layout_mode = 0
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 103.0
+offset_right = -35.0
+texture = ExtResource("12")
+stretch_mode = 1
+
+[node name="DividerRight" type="TextureRect" parent="Courses/MiniCourses/SSL"]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -35.0
+offset_top = 104.0
+texture = ExtResource("19")
+flip_h = true
+
+[node name="ScrollBar" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = 2.0
+texture = ExtResource("16")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="ScrollTop" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -15.0
+offset_bottom = 2.0
+texture = ExtResource("14")
+
+[node name="ScrollBottom" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -13.0
+offset_top = -1.0
+offset_right = -1.0
+color = Color(0.607843, 0.639216, 0.780392, 1)
+
+[node name="ScrollHandle" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -13.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = 52.0
+texture = ExtResource("11")

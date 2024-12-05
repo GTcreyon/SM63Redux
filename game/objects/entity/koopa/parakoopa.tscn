@@ -1,0 +1,105 @@
+[gd_scene load_steps=15 format=3 uid="uid://b6jp4ecuo2iwc"]
+
+[ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://game/objects/entity/koopa/textures/parakoopa.png" id="1"]
+[ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://game/shaders/palette.tres" id="2"]
+[ext_resource type="Script" path="res://game/objects/entity/koopa/scripts/parakoopa.gd" id="8"]
+[ext_resource type="AudioStream" uid="uid://bgidqcur663qn" path="res://game/objects/entity/koopa/sfx/shell_kick.ogg" id="9"]
+
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("1")
+region = Rect2(264, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("1")
+region = Rect2(220, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("1")
+region = Rect2(176, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("1")
+region = Rect2(132, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("1")
+region = Rect2(88, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("1")
+region = Rect2(44, 0, 44, 44)
+
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 44, 44)
+
+[sub_resource type="SpriteFrames" id="8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("11")
+}, {
+"duration": 1.0,
+"texture": SubResource("12")
+}, {
+"duration": 1.0,
+"texture": SubResource("13")
+}, {
+"duration": 1.0,
+"texture": SubResource("14")
+}, {
+"duration": 1.0,
+"texture": SubResource("15")
+}, {
+"duration": 1.0,
+"texture": SubResource("16")
+}, {
+"duration": 1.0,
+"texture": SubResource("17")
+}],
+"loop": true,
+"name": &"flying",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="9"]
+size = Vector2(20, 16)
+
+[sub_resource type="RectangleShape2D" id="10"]
+size = Vector2(10, 30)
+
+[node name="Parakoopa" type="AnimatedSprite2D"]
+material = ExtResource("2")
+sprite_frames = SubResource("8")
+animation = &"flying"
+frame = 1
+script = ExtResource("8")
+
+[node name="TopCollision" type="Area2D" parent="."]
+position = Vector2(2, -14)
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="HitDetection" type="CollisionShape2D" parent="TopCollision"]
+position = Vector2(0, 6)
+shape = SubResource("9")
+
+[node name="Kick" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9")
+volume_db = 5.0
+bus = &"SFX"
+
+[node name="Damage" type="Area2D" parent="."]
+position = Vector2(2, 3)
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+
+[node name="Collision" type="CollisionShape2D" parent="Damage"]
+shape = SubResource("10")
+
+[connection signal="body_entered" from="TopCollision" to="." method="_on_TopCollision_body_entered"]
+[connection signal="body_entered" from="Damage" to="." method="_on_Damage_body_entered" flags=3]

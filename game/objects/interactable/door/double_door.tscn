@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://81eu6l65tbys"]
+
+[ext_resource type="SpriteFrames" uid="uid://1vbv2fn0hbrq" path="res://game/objects/interactable/door/skins/castle_door_diamond.tres" id="1"]
+[ext_resource type="Script" path="res://game/objects/interactable/door/scripts/double_doors.gd" id="2"]
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(38, 32)
+
+[node name="DoubleDoor" type="Area2D"]
+monitorable = false
+script = ExtResource("2")
+door_graphic = ExtResource("1")
+sprite = NodePath("SpriteL")
+
+[node name="SpriteL" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -32)
+rotation = 3.14159
+scale = Vector2(1, -1)
+sprite_frames = ExtResource("1")
+animation = &"opening"
+centered = false
+
+[node name="SpriteR" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(0, -32)
+sprite_frames = ExtResource("1")
+animation = &"opening"
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -16)
+shape = SubResource("2")

@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d3lpuxs7i73r7"]
+
+[ext_resource type="Shader" path="res://game/shaders/distance_field.gdshader" id="1"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1")
+shader_parameter/frame_count = Vector2i(2, 2)
+shader_parameter/expand_reduce = 0.25

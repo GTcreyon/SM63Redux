@@ -1,0 +1,101 @@
+[gd_scene load_steps=12 format=3 uid="uid://0ku6nm2pnx8f"]
+
+[ext_resource type="Texture2D" uid="uid://babp6is7hdooe" path="res://gui/ingame/hud/touch_buttons.png" id="3"]
+[ext_resource type="Script" path="res://gui/ingame/pause/options/layout_select.gd" id="6"]
+[ext_resource type="Script" path="res://gui/ingame/pause/options/change_size.gd" id="7"]
+[ext_resource type="Script" path="res://gui/ingame/pause/options/swap_sides.gd" id="8"]
+[ext_resource type="Theme" uid="uid://dh1vom0ars54l" path="res://gui/ingame/theme_gui.tres" id="9"]
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("3")
+region = Rect2(0, 21, 20, 21)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("3")
+region = Rect2(20, 21, 20, 21)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("3")
+region = Rect2(0, 42, 20, 21)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("3")
+region = Rect2(20, 42, 20, 21)
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("3")
+region = Rect2(0, 0, 20, 21)
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("3")
+region = Rect2(20, 0, 20, 21)
+
+[node name="TouchMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("9")
+
+[node name="Margin" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Label" type="Label" parent="Margin"]
+layout_mode = 2
+text = "Touch control layout:"
+
+[node name="LayoutSelect" type="OptionButton" parent="Margin"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+script = ExtResource("6")
+
+[node name="MiscConfig" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+
+[node name="SizeChange" type="HBoxContainer" parent="Margin/MiscConfig"]
+layout_mode = 2
+size_flags_horizontal = 6
+script = ExtResource("7")
+
+[node name="Label" type="Label" parent="Margin/MiscConfig/SizeChange"]
+layout_mode = 2
+size_flags_horizontal = 7
+text = "Change size:"
+
+[node name="SizeUp" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
+custom_minimum_size = Vector2(40, 42)
+layout_mode = 2
+size_flags_horizontal = 6
+texture_normal = SubResource("1")
+texture_pressed = SubResource("2")
+stretch_mode = 4
+
+[node name="SizeDown" type="TextureButton" parent="Margin/MiscConfig/SizeChange"]
+custom_minimum_size = Vector2(40, 42)
+layout_mode = 2
+size_flags_horizontal = 6
+texture_normal = SubResource("3")
+texture_pressed = SubResource("4")
+stretch_mode = 4
+
+[node name="SwapSides" type="HBoxContainer" parent="Margin/MiscConfig"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="Label" type="Label" parent="Margin/MiscConfig/SwapSides"]
+layout_mode = 2
+text = "Swap sides:"
+
+[node name="Swap" type="TextureButton" parent="Margin/MiscConfig/SwapSides"]
+custom_minimum_size = Vector2(40, 42)
+layout_mode = 2
+texture_normal = SubResource("5")
+texture_pressed = SubResource("6")
+stretch_mode = 4
+script = ExtResource("8")
+
+[connection signal="item_selected" from="Margin/LayoutSelect" to="Margin/LayoutSelect" method="_on_LayoutSelect_item_selected"]
+[connection signal="pressed" from="Margin/MiscConfig/SizeChange/SizeUp" to="Margin/MiscConfig/SizeChange" method="_on_SizeUp_pressed"]
+[connection signal="pressed" from="Margin/MiscConfig/SizeChange/SizeDown" to="Margin/MiscConfig/SizeChange" method="_on_SizeDown_pressed"]
+[connection signal="pressed" from="Margin/MiscConfig/SwapSides/Swap" to="Margin/MiscConfig/SwapSides/Swap" method="_on_Swap_pressed"]

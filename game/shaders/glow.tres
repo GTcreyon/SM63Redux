@@ -1,0 +1,12 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ckiokx8dmutdj"]
+
+[ext_resource type="Shader" path="res://game/shaders/glow.gdshader" id="1"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1")
+shader_parameter/width = 1
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/cel_count = Vector2(1, 1)
+shader_parameter/sprite_offset = Vector2(0, 0)

@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=2]
+
+[ext_resource type="Texture" uid="uid://cx81t7mdme5fg" path="res://gui/ingame/hud/hud_icons.png" id="1"]
+
+[resource]
+atlas = ExtResource( 1 )
+region = Rect2( 67, 3, 16, 17 )

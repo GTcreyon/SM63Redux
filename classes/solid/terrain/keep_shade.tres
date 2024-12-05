@@ -1,6 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://mcqj38r3ojso"]
-
-[ext_resource type="Shader" path="res://classes/solid/terrain/keep_shade.gdshader" id="1"]
-
-[resource]
-shader = ExtResource("1")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfcnt5t0cy647"]
+
+[ext_resource type="Texture2D" uid="uid://cm564d5rfur2g" path="res://gui/menus/visual_pipescript/begin.png" id="1"]
+[ext_resource type="Script" path="res://gui/menus/visual_pipescript/node.gd" id="2"]
+
+[node name="Begin" type="NinePatchRect"]
+offset_right = 54.0
+offset_bottom = 10.0
+mouse_filter = 0
+texture = ExtResource("1")
+patch_margin_left = 51
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 7
+script = ExtResource("2")

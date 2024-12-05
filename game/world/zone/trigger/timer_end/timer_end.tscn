@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://tjph5g5jir77"]
+
+[ext_resource type="Script" path="res://game/world/zone/trigger/timer_end/timer_end.gd" id="1"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(551.5, 119)
+
+[node name="TimerEnd" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+script = ExtResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(232.25, -3.5)
+shape = SubResource("1")

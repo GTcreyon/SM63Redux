@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bm68anaqm7h4x"]
+
+[ext_resource type="Shader" path="res://game/world/water/water_viewport.gdshader" id="1"]
+
+[resource]
+shader = ExtResource("1")
+shader_parameter/base_water_color = Color(0.2, 0.7, 1, 0.8)
+shader_parameter/surface_texture_size = null
+shader_parameter/surface_anim_phase = 0.0

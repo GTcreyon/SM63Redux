@@ -1,0 +1,135 @@
+[gd_scene load_steps=20 format=3 uid="uid://d01h2eqtefhok"]
+
+[ext_resource type="PackedScene" uid="uid://y2u64ydhoy04" path="res://gui/menus/title/logo/logo.tscn" id="1"]
+[ext_resource type="Texture2D" uid="uid://cxdvdhn0m68oq" path="res://gui/menus/title/title_bg/space_loop.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://5ngfdqcrslpp" path="res://gui/menus/title/title_bg/purple_haze.png" id="3"]
+[ext_resource type="Script" path="res://gui/menus/title/space.gd" id="4"]
+[ext_resource type="Script" path="res://gui/menus/title/title_bg/planet.gd" id="5"]
+[ext_resource type="Texture2D" uid="uid://b8au5h7blne74" path="res://gui/menus/title/title_bg/silhouettes.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://6bc8uf6k8lo4" path="res://gui/menus/title/logo/logo_outline.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://c76emcvc5hkgg" path="res://gui/menus/title/title_bg/light_beam.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://cbffflm6cl4n8" path="res://gui/menus/title/title_bg/magmoon.png" id="10"]
+[ext_resource type="Script" path="res://gui/menus/title/title_bg/magmoon.gd" id="11"]
+[ext_resource type="Script" path="res://gui/menus/title/title_bg/mushmoon.gd" id="12"]
+[ext_resource type="Texture2D" uid="uid://brviibsje1te3" path="res://gui/menus/title/title_bg/mushmoon.png" id="13"]
+[ext_resource type="AudioStream" path="res://scenes/menus/title/title.mp3" id="14_vgww8"]
+[ext_resource type="Script" path="res://gui/menus/title/start_text.gd" id="15"]
+[ext_resource type="PackedScene" uid="uid://c4ib2anhw3fvk" path="res://gui/menus/title/main_menu/main_menu.tscn" id="16"]
+[ext_resource type="Script" path="res://gui/menus/title/title.gd" id="17"]
+[ext_resource type="AudioStream" path="res://scenes/menus/title/main_menu/menu_day.mp3" id="18"]
+[ext_resource type="Script" path="res://gui/menus/title/title_loop.gd" id="19"]
+[ext_resource type="Script" path="res://gui/menus/title/title_cover.gd" id="20"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("17")
+
+[node name="Space" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("2")
+expand_mode = 1
+stretch_mode = 1
+script = ExtResource("4")
+
+[node name="LightBeam" type="TextureRect" parent="Space"]
+layout_mode = 0
+anchor_right = 1.0
+texture = ExtResource("9")
+stretch_mode = 1
+
+[node name="Magmoon" type="Sprite2D" parent="."]
+texture = ExtResource("10")
+script = ExtResource("11")
+
+[node name="Mushmoon" type="Sprite2D" parent="."]
+texture = ExtResource("13")
+script = ExtResource("12")
+
+[node name="Planet" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+offset_top = 166.0
+offset_bottom = 360.0
+pivot_offset = Vector2(0, 194)
+texture = ExtResource("3")
+expand_mode = 1
+stretch_mode = 1
+script = ExtResource("5")
+
+[node name="Silhouettes" type="TextureRect" parent="Planet"]
+layout_mode = 0
+anchor_right = 1.0
+offset_top = 119.0
+pivot_offset = Vector2(0, 75)
+texture = ExtResource("7")
+stretch_mode = 1
+
+[node name="Flash" type="ColorRect" parent="Planet"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+color = Color(0.976471, 0.909804, 0.909804, 0)
+
+[node name="Logo" parent="." instance=ExtResource("1")]
+position = Vector2(302, 109)
+
+[node name="Flash" type="Sprite2D" parent="Logo"]
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("8")
+
+[node name="TitleLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_vgww8")
+volume_db = -8.0
+bus = &"Music"
+script = ExtResource("19")
+
+[node name="MenuLoop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18")
+volume_db = -80.0
+bus = &"Music"
+
+[node name="StartText" type="Label" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.75
+anchor_right = 1.0
+anchor_bottom = 1.0
+pivot_offset = Vector2(321, 0)
+text = "Press Z to start!"
+horizontal_alignment = 1
+script = ExtResource("15")
+
+[node name="Menu" parent="." instance=ExtResource("16")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("20")
+
+[node name="Version" type="Label" parent="."]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -15.0
+pivot_offset = Vector2(-2, 15)
+text = "v0.X.X"

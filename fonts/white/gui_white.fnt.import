@@ -14,3 +14,4 @@ dest_files=["res://.godot/imported/gui_white.fnt-b06627f4a90b9c25e6f537e47aff0ed
 
 fallbacks=[]
 compress=true
+scaling_mode=2

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cdq16avoknj8d"]
+
+[ext_resource type="AudioStream" uid="uid://p4qs2vbyne32" path="res://game/objects/interactable/pipe/pipe_enter.ogg" id="1"]
+[ext_resource type="Texture2D" uid="uid://db0lo5xhoksdx" path="res://game/objects/interactable/pipe/pipe.png" id="2"]
+[ext_resource type="Script" path="res://game/objects/interactable/pipe/pipe.gd" id="3"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8.73426, 16)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(32, 32)
+
+[node name="Pipe" type="Area2D"]
+collision_mask = 2
+monitorable = false
+script = ExtResource("3")
+
+[node name="DetectorArea" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("2")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+z_index = 1
+position = Vector2(0, -16)
+shape = SubResource("2")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1")

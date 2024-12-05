@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bm8r1m4hh1g1a"]
-
-[ext_resource type="Texture2D" uid="uid://ce4unh5srjkx5" path="res://classes/decorative/fungus_single.png" id="1"]
-
-[node name="FungusSingle" type="Sprite2D"]
-z_index = -1
-position = Vector2(0.5, -18.5)
-texture = ExtResource("1")

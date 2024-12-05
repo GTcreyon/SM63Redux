@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2bywvtk37v2j"]
+
+[ext_resource type="StyleBox" uid="uid://c4t05jli7tvcf" path="res://level_designer/ldui/list_item_box_normal.tres" id="1"]
+[ext_resource type="Script" path="res://level_designer/ldui/list_item.gd" id="2"]
+[ext_resource type="StyleBox" uid="uid://27dvir8jkf4y" path="res://level_designer/ldui/list_item_box_press.tres" id="3"]
+[ext_resource type="StyleBox" uid="uid://bxk000r2o0auh" path="res://level_designer/ldui/list_item_box_hover.tres" id="4"]
+
+[node name="ListItem" type="Button"]
+custom_minimum_size = Vector2(32, 32)
+offset_right = 32.0
+offset_bottom = 32.0
+theme_override_styles/normal = ExtResource("1")
+theme_override_styles/hover = ExtResource("4")
+theme_override_styles/pressed = ExtResource("3")
+script = ExtResource("2")
+
+[node name="Icon" type="TextureRect" parent="."]
+editor_description = "The icon of the contained item. Using the button's builtin Icon field leads to all kinds of layout troubles, so for simplicity we just layer it over the top as a separate node."
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand_mode = 1
+stretch_mode = 3
+
+[connection signal="pressed" from="." to="." method="_on_ListItem_pressed"]

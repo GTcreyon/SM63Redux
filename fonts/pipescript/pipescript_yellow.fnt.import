@@ -14,3 +14,4 @@ dest_files=["res://.godot/imported/pipescript_yellow.fnt-ffa563b833be6170554573c
 
 fallbacks=[]
 compress=true
+scaling_mode=2

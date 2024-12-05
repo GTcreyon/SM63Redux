@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk3kxkr4ojd03"]
+
+[ext_resource type="Texture2D" uid="uid://ryg1hkhnew3r" path="res://game/objects/decoration/flowers/textures/flowers.png" id="1"]
+
+[node name="Flowers" type="Sprite2D"]
+z_index = -1
+position = Vector2(0, -6.5)
+texture = ExtResource("1")

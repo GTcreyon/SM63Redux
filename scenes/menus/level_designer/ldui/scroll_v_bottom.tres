@@ -1,9 +1,0 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://l3o8q41iq32"]
-
-[ext_resource type="Texture2D" uid="uid://4uskmfcefctu" path="res://scenes/menus/level_designer/ldui/scroll_v_bottom.png" id="1"]
-
-[resource]
-texture = ExtResource("1")
-texture_margin_top = 12.0
-texture_margin_bottom = 4.0
-region_rect = Rect2(0, 0, 10, 15)

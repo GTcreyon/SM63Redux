@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://do78au40k7meh"]
+
+[ext_resource type="Texture2D" uid="uid://b6mpvktxqq2xx" path="res://game/objects/decoration/tree_big/textures/tree_big.png" id="1"]
+[ext_resource type="Material" uid="uid://bneuwo0j5ktnl" path="res://game/shaders/aa.tres" id="2"]
+
+[node name="BigTree" type="Sprite2D"]
+z_index = -1
+material = ExtResource("2")
+position = Vector2(0.5, -50)
+texture = ExtResource("1")

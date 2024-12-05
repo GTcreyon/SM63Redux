@@ -1,0 +1,344 @@
+[gd_scene load_steps=41 format=3 uid="uid://cahb2wxuq4124"]
+
+[ext_resource type="PackedScene" uid="uid://d0i3anj5fm6op" path="res://gui/ingame/pause/level_info/level_info.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://bhcn3kch6t5hu" path="res://gui/ingame/pause/map/map.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://4rjixlvilqp1" path="res://gui/ingame/pause/options/options_menu.tscn" id="3"]
+[ext_resource type="Texture2D" uid="uid://s56rcjea8ltg" path="res://gui/ingame/pause/buttons/text_map.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://cm2trqopjax4l" path="res://gui/ingame/pause/buttons/star_fludd_0.png" id="5"]
+[ext_resource type="Script" path="res://gui/ingame/hud/pause_content.gd" id="6"]
+[ext_resource type="StyleBox" uid="uid://dfxuny3t568ro" path="res://gui/ingame/pause/buttons/button_fludd_1.tres" id="7"]
+[ext_resource type="StyleBox" uid="uid://djrmn1p55mut1" path="res://gui/ingame/pause/buttons/button_options_1.tres" id="8"]
+[ext_resource type="StyleBox" uid="uid://xow1obb0y36r" path="res://gui/ingame/pause/buttons/button_map_0.tres" id="9"]
+[ext_resource type="Texture2D" uid="uid://b8uoojclref1" path="res://gui/ingame/pause/buttons/star_exit_1.png" id="10"]
+[ext_resource type="Texture2D" uid="uid://b2gii4wqnvfan" path="res://gui/ingame/pause/buttons/text_options.png" id="11"]
+[ext_resource type="StyleBox" uid="uid://b08iok41x5ht2" path="res://gui/ingame/pause/buttons/button_exit_0.tres" id="12"]
+[ext_resource type="Texture2D" uid="uid://cgtd3s1da8wbu" path="res://gui/ingame/pause/buttons/star_exit_0.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://bl7gjby4s8yrm" path="res://gui/ingame/pause/buttons/star_options_0.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://dmpj63244qclq" path="res://gui/ingame/pause/buttons/text_exit.png" id="15"]
+[ext_resource type="StyleBox" uid="uid://h3arvroobjge" path="res://gui/ingame/pause/buttons/button_options_0.tres" id="16"]
+[ext_resource type="Texture2D" uid="uid://tpovnnn6d5ww" path="res://gui/ingame/pause/buttons/star_map_0.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://54s3ors8hfvj" path="res://gui/ingame/pause/buttons/star_fludd_1.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://dpikdo787p7oa" path="res://gui/ingame/pause/buttons/text_fludd.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://deif451oiq8e2" path="res://gui/ingame/pause/buttons/star_map_1.png" id="20"]
+[ext_resource type="StyleBox" uid="uid://qh0leesud224" path="res://gui/ingame/pause/buttons/button_exit_1.tres" id="21"]
+[ext_resource type="StyleBox" uid="uid://ded843xj2bca8" path="res://gui/ingame/pause/buttons/button_map_1.tres" id="22"]
+[ext_resource type="StyleBox" uid="uid://2vfxytqa57vl" path="res://gui/ingame/pause/buttons/button_fludd_0.tres" id="23"]
+[ext_resource type="Texture2D" uid="uid://bq86t3552hfc6" path="res://gui/ingame/pause/buttons/star_options_1.png" id="24"]
+[ext_resource type="Script" path="res://gui/ingame/pause/unpause.gd" id="25"]
+[ext_resource type="Script" path="res://gui/ingame/pause/buttons/pause_button.gd" id="26"]
+[ext_resource type="Texture2D" uid="uid://clbherqeykst2" path="res://gui/ingame/pause/pause_right_corner_top.png" id="27"]
+[ext_resource type="Texture2D" uid="uid://babp6is7hdooe" path="res://gui/ingame/hud/touch_buttons.png" id="28"]
+[ext_resource type="Texture2D" uid="uid://b4hmfel2chdka" path="res://gui/ingame/pause/pause_right_corner_bottom.png" id="29"]
+[ext_resource type="Texture2D" uid="uid://uto34tj6umtp" path="res://gui/ingame/pause/pause_top.png" id="30"]
+[ext_resource type="Texture2D" uid="uid://bjgsn0u6vyrfl" path="res://gui/ingame/pause/pause_left_corner_bottom.png" id="31"]
+[ext_resource type="Texture2D" uid="uid://b0a0hbweq6cc8" path="res://gui/ingame/pause/pause_right_middle.png" id="32"]
+[ext_resource type="Texture2D" uid="uid://ctmrxbnigd3ac" path="res://gui/ingame/pause/pause_left_corner_top.png" id="33"]
+[ext_resource type="Texture2D" uid="uid://dciu0pwecptx4" path="res://gui/ingame/pause/pause_left_middle.png" id="34"]
+[ext_resource type="PackedScene" uid="uid://fyn5gm3oc3v1" path="res://gui/ingame/pause/exit/exit.tscn" id="35"]
+
+[sub_resource type="StyleBoxEmpty" id="10"]
+
+[sub_resource type="StyleBoxEmpty" id="11"]
+
+[sub_resource type="StyleBoxEmpty" id="12"]
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("28")
+region = Rect2(0, 63, 20, 21)
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("28")
+region = Rect2(20, 63, 20, 21)
+
+[node name="PauseMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("6")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.584314, 0.372549, 0.772549, 0.74902)
+
+[node name="Content" type="Control" parent="."]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 37.0
+offset_top = 19.0
+offset_right = -37.0
+offset_bottom = -33.0
+
+[node name="LevelInfo" parent="Content" instance=ExtResource("1")]
+layout_mode = 1
+
+[node name="MapMenu" parent="Content" instance=ExtResource("2")]
+visible = false
+layout_mode = 1
+mouse_filter = 2
+
+[node name="FluddMenu" type="Control" parent="Content"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 40.0
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="OptionsMenu" parent="Content" instance=ExtResource("3")]
+visible = false
+layout_mode = 1
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ExitMenu" parent="Content" instance=ExtResource("35")]
+visible = false
+layout_mode = 1
+
+[node name="ButtonContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 29.0
+offset_top = -33.0
+offset_right = -37.0
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="ButtonMap" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = ExtResource("9")
+theme_override_styles/hover = ExtResource("9")
+theme_override_styles/pressed = ExtResource("22")
+theme_override_styles/disabled = ExtResource("9")
+theme_override_styles/focus = SubResource("10")
+toggle_mode = true
+action_mode = 0
+script = ExtResource("26")
+texture_off = ExtResource("17")
+texture_on = ExtResource("20")
+
+[node name="Stars" type="Polygon2D" parent="ButtonContainer/ButtonMap"]
+texture_repeat = 2
+texture = ExtResource("17")
+polygon = PackedVector2Array(8, 1, 142, 1, 142, 32, 8, 32)
+
+[node name="Text" type="TextureRect" parent="ButtonContainer/ButtonMap"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -8.0
+mouse_filter = 2
+texture = ExtResource("4")
+
+[node name="ButtonFludd" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = ExtResource("23")
+theme_override_styles/hover = ExtResource("23")
+theme_override_styles/pressed = ExtResource("7")
+theme_override_styles/disabled = ExtResource("23")
+theme_override_styles/focus = SubResource("11")
+toggle_mode = true
+action_mode = 0
+script = ExtResource("26")
+texture_off = ExtResource("5")
+texture_on = ExtResource("18")
+
+[node name="Stars" type="Polygon2D" parent="ButtonContainer/ButtonFludd"]
+texture_repeat = 2
+texture = ExtResource("5")
+polygon = PackedVector2Array(1, 1, 143, 1, 143, 32, 1, 32)
+
+[node name="Text" type="TextureRect" parent="ButtonContainer/ButtonFludd"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -8.0
+offset_right = -76.5
+offset_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource("19")
+
+[node name="ButtonOptions" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = ExtResource("16")
+theme_override_styles/hover = ExtResource("16")
+theme_override_styles/pressed = ExtResource("8")
+theme_override_styles/disabled = ExtResource("16")
+theme_override_styles/focus = SubResource("12")
+toggle_mode = true
+action_mode = 0
+script = ExtResource("26")
+texture_off = ExtResource("14")
+texture_on = ExtResource("24")
+
+[node name="Stars" type="Polygon2D" parent="ButtonContainer/ButtonOptions"]
+texture_repeat = 2
+texture = ExtResource("14")
+polygon = PackedVector2Array(1, 1, 142, 1, 142, 32, 1, 32)
+
+[node name="Text" type="TextureRect" parent="ButtonContainer/ButtonOptions"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -8.0
+offset_right = -172.0
+offset_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource("11")
+
+[node name="ButtonExit" type="Button" parent="ButtonContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = ExtResource("12")
+theme_override_styles/hover = ExtResource("12")
+theme_override_styles/pressed = ExtResource("21")
+theme_override_styles/disabled = ExtResource("12")
+theme_override_styles/focus = SubResource("12")
+toggle_mode = true
+action_mode = 0
+script = ExtResource("26")
+texture_off = ExtResource("13")
+texture_on = ExtResource("10")
+
+[node name="Stars" type="Polygon2D" parent="ButtonContainer/ButtonExit"]
+texture_repeat = 2
+texture = ExtResource("13")
+polygon = PackedVector2Array(1, 1, 143, 1, 143, 32, 1, 32)
+
+[node name="Text" type="TextureRect" parent="ButtonContainer/ButtonExit"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.0
+offset_top = -8.0
+offset_right = -267.0
+offset_bottom = 8.0
+mouse_filter = 2
+texture = ExtResource("15")
+
+[node name="Top" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(0, 19)
+layout_mode = 0
+anchor_right = 1.0
+offset_left = -7.0
+offset_right = -37.0
+offset_bottom = 19.0
+mouse_filter = 2
+texture = ExtResource("30")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Left" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_bottom = 1.0
+offset_top = 17.0
+offset_right = 37.0
+offset_bottom = -33.0
+mouse_filter = 2
+texture = ExtResource("34")
+stretch_mode = 1
+
+[node name="Right" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = 17.0
+offset_bottom = -33.0
+pivot_offset = Vector2(37, 0)
+mouse_filter = 2
+texture = ExtResource("32")
+stretch_mode = 1
+
+[node name="LeftCornerTop" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 37.0
+offset_bottom = 17.0
+mouse_filter = 2
+texture = ExtResource("33")
+
+[node name="LeftCornerBottom" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -33.0
+offset_right = 37.0
+pivot_offset = Vector2(0, 33)
+mouse_filter = 2
+texture = ExtResource("31")
+
+[node name="RightCornerTop" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -38.0
+offset_bottom = 17.0
+pivot_offset = Vector2(38, 0)
+mouse_filter = 2
+texture = ExtResource("27")
+
+[node name="RightCornerBottom" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -37.0
+offset_top = -33.0
+pivot_offset = Vector2(37, 33)
+mouse_filter = 2
+texture = ExtResource("29")
+
+[node name="Unpause" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -77.0
+offset_top = 19.0
+offset_right = -37.0
+offset_bottom = 61.0
+grow_horizontal = 0
+texture_normal = SubResource("8")
+texture_pressed = SubResource("9")
+stretch_mode = 4
+script = ExtResource("25")
+
+[connection signal="toggled" from="ButtonContainer/ButtonMap" to="ButtonContainer/ButtonMap" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonContainer/ButtonFludd" to="ButtonContainer/ButtonFludd" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonContainer/ButtonOptions" to="ButtonContainer/ButtonOptions" method="_on_Button_toggled"]
+[connection signal="toggled" from="ButtonContainer/ButtonExit" to="ButtonContainer/ButtonExit" method="_on_Button_toggled"]
+[connection signal="button_down" from="Unpause" to="Unpause" method="_on_Unpause_button_down"]
+[connection signal="button_up" from="Unpause" to="Unpause" method="_on_Unpause_button_up"]

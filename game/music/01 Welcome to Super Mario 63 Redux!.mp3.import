@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bymeoqls1bxbp"
+path="res://.godot/imported/01 Welcome to Super Mario 63 Redux!.mp3-6f25ef96091999cc17ad41f87bd549de.mp3str"
+
+[deps]
+
+source_file="res://game/music/01 Welcome to Super Mario 63 Redux!.mp3"
+dest_files=["res://.godot/imported/01 Welcome to Super Mario 63 Redux!.mp3-6f25ef96091999cc17ad41f87bd549de.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

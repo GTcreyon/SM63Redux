@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://bu0uukyaj3rt8"]
+
+[ext_resource type="Texture2D" uid="uid://dicw0r6w4gwfx" path="res://game/objects/entity/bobomb/textures/bobomb_explosion.png" id="1"]
+[ext_resource type="Script" path="res://game/objects/particles/smoke_poof/scripts/smoke_poof.gd" id="2"]
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(162, 108, 54, 54)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(0, 162, 54, 54)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(54, 162, 54, 54)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
+region = Rect2(108, 162, 54, 54)
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1")
+region = Rect2(162, 162, 54, 54)
+
+[sub_resource type="SpriteFrames" id="6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="SmokePoof" type="AnimatedSprite2D"]
+sprite_frames = SubResource("6")
+frame = 4
+frame_progress = 1.0
+script = ExtResource("2")
+
+[connection signal="animation_finished" from="." to="." method="_on_SmokePoof_animation_finished"]

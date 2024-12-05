@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://dnri8d1imbuvd"]
+
+[ext_resource type="Texture2D" uid="uid://rnytdurrgxfa" path="res://level_designer/fields/boolean/tickbox_ld.png" id="1"]
+[ext_resource type="Script" path="res://level_designer/fields/boolean/tickbox_ld.gd" id="2"]
+
+[sub_resource type="StyleBoxEmpty" id="6"]
+
+[sub_resource type="AtlasTexture" id="7"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="8"]
+atlas = ExtResource("1")
+region = Rect2(0, 40, 20, 20)
+
+[sub_resource type="AtlasTexture" id="9"]
+atlas = ExtResource("1")
+region = Rect2(0, 60, 20, 20)
+
+[sub_resource type="SpriteFrames" id="5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("7")
+}, {
+"duration": 1.0,
+"texture": SubResource("8")
+}, {
+"duration": 1.0,
+"texture": SubResource("9")
+}],
+"loop": false,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="Tickbox" type="HBoxContainer"]
+offset_right = 20.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_constants/separation = 3
+script = ExtResource("2")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("6")
+theme_override_styles/hover = SubResource("6")
+theme_override_styles/pressed = SubResource("6")
+theme_override_styles/disabled = SubResource("6")
+theme_override_styles/focus = SubResource("6")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Button"]
+position = Vector2(10, 10)
+sprite_frames = SubResource("5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

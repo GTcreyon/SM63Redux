@@ -1,0 +1,81 @@
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://bfffbep7u0f87"]
+
+[ext_resource type="StyleBox" uid="uid://q14towpo4vsu" path="res://gui/ingame/dialog/sign_box.tres" id="1_bly62"]
+[ext_resource type="Texture2D" uid="uid://cprnpw3je0r7r" path="res://gui/ingame/dropdown_arrow.png" id="2_4ray6"]
+[ext_resource type="StyleBox" uid="uid://c7gtbox3yrbk7" path="res://gui/ingame/boxes/menu_box_hover.tres" id="3_rba2l"]
+[ext_resource type="StyleBox" uid="uid://dhliyj8vycb7q" path="res://gui/ingame/boxes/menu_box_normal.tres" id="4_adjba"]
+[ext_resource type="StyleBox" uid="uid://b54n55rde5xf6" path="res://gui/ingame/boxes/menu_box_pressed.tres" id="5_tl50b"]
+[ext_resource type="StyleBox" uid="uid://cgemqfbup0gd8" path="res://gui/ingame/boxes/menu_box_drop.tres" id="6_g5imp"]
+[ext_resource type="FontFile" uid="uid://dgedr6b237a5e" path="res://fonts/bylight/bylight.otf" id="7_44i8b"]
+
+[sub_resource type="AtlasTexture" id="8"]
+region = Rect2(0, 0, 14, 15)
+
+[sub_resource type="AtlasTexture" id="9"]
+region = Rect2(0, 15, 14, 15)
+
+[sub_resource type="StyleBoxEmpty" id="4"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 6.0
+content_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6gsb"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.167969, 0.289063, 0.238281, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.231373, 0.117647, 0, 1)
+corner_detail = 1
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lqfr"]
+
+[sub_resource type="StyleBoxTexture" id="5"]
+texture_margin_left = 5.0
+texture_margin_top = 6.0
+texture_margin_right = 5.0
+texture_margin_bottom = 8.0
+region_rect = Rect2(0, 0, 11, 13)
+
+[sub_resource type="StyleBoxTexture" id="6"]
+texture_margin_left = 5.0
+texture_margin_top = 8.0
+texture_margin_right = 5.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(1, 0, 11, 13)
+
+[sub_resource type="StyleBoxTexture" id="7"]
+texture_margin_left = 3.0
+texture_margin_top = 1.0
+texture_margin_right = 3.0
+texture_margin_bottom = 1.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 13, 26)
+
+[resource]
+default_font = ExtResource("7_44i8b")
+GridContainer/constants/h_separation = 4
+GridContainer/constants/v_separation = 4
+Label/colors/font_color = Color(0.980392, 0.905882, 0.913725, 1)
+LineEdit/styles/normal = ExtResource("1_bly62")
+OptionButton/icons/arrow = ExtResource("2_4ray6")
+OptionButton/styles/hover = ExtResource("3_rba2l")
+OptionButton/styles/normal = ExtResource("4_adjba")
+OptionButton/styles/pressed = ExtResource("5_tl50b")
+PopupMenu/icons/radio_checked = SubResource("8")
+PopupMenu/icons/radio_unchecked = SubResource("9")
+PopupMenu/styles/panel = ExtResource("6_g5imp")
+ScrollContainer/styles/bg = SubResource("4")
+ScrollContainer/styles/panel = SubResource("StyleBoxFlat_s6gsb")
+TextEdit/styles/normal = ExtResource("1_bly62")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_3lqfr")
+VScrollBar/styles/grabber_highlight = SubResource("5")
+VScrollBar/styles/grabber_pressed = SubResource("6")
+VScrollBar/styles/scroll = SubResource("7")

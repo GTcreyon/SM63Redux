@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhg2gporb67om"]
+
+[ext_resource type="Script" path="res://game/classes/dejitter_group/dejitter_group.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://7lk1tkfwl3p0" path="res://game/objects/solid/moving_platform/textures/moving_platform.png" id="2"]
+[ext_resource type="Script" path="res://game/world/zone/safety_net/safety_net.gd" id="3"]
+[ext_resource type="Script" path="res://game/objects/solid/moving_platform/scripts/moving_platform.gd" id="4"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(48, 14)
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(48, 2)
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(48, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ydfij"]
+size = Vector2(48, 1)
+
+[node name="MovingPlatform" type="StaticBody2D"]
+collision_mask = 0
+script = ExtResource("4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")
+script = ExtResource("1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("1")
+one_way_collision = true
+
+[node name="RideArea" type="Area2D" parent="."]
+collision_mask = 4
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RideArea"]
+position = Vector2(0, -8)
+shape = SubResource("2")
+
+[node name="SafetyNet" type="Area2D" parent="."]
+position = Vector2(0, -4)
+collision_layer = 0
+collision_mask = 2
+input_pickable = false
+monitorable = false
+script = ExtResource("3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafetyNet"]
+shape = SubResource("3")
+
+[node name="InsideArea" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InsideArea"]
+position = Vector2(0, -5.5)
+shape = SubResource("RectangleShape2D_ydfij")
+
+[connection signal="body_entered" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_entered"]
+[connection signal="body_exited" from="SafetyNet" to="SafetyNet" method="_on_SafetyNet_body_exited"]

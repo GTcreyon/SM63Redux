@@ -1,8 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://5vyfx6fuu3b0"]
-
-[ext_resource type="Texture2D" uid="uid://vsjs6r33o0sl" path="res://classes/decorative/bobush.png" id="1"]
-
-[node name="BoBush" type="Sprite2D"]
-z_index = -1
-position = Vector2(0, -10)
-texture = ExtResource("1")

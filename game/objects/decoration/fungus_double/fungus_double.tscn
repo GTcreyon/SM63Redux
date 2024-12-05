@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnkl6pppsswn6"]
+
+[ext_resource type="Texture2D" uid="uid://cmnk14675b0st" path="res://game/entities/decoration/fungus_single/textures/fungus_double.png" id="1_obggl"]
+
+[node name="FungusDouble" type="Sprite2D"]
+z_index = -1
+position = Vector2(0, -17.5)
+texture = ExtResource("1_obggl")

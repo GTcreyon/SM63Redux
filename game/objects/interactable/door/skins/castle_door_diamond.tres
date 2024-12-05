@@ -1,0 +1,63 @@
+[gd_resource type="SpriteFrames" script_class="DoorSkin" load_steps=8 format=3 uid="uid://1vbv2fn0hbrq"]
+
+[ext_resource type="Texture2D" uid="uid://ci3yju2xcmkoc" path="res://game/objects/interactable/door/textures/door6.png" id="1_jh2kc"]
+[ext_resource type="Texture2D" uid="uid://c4gd7hqrnmjbm" path="res://game/objects/interactable/door/textures/door5.png" id="2_0pw70"]
+[ext_resource type="Texture2D" uid="uid://d2842s8tb46o7" path="res://game/objects/interactable/door/textures/door4.png" id="3_5523h"]
+[ext_resource type="Texture2D" uid="uid://bhbm6thxelhxb" path="res://game/objects/interactable/door/textures/door3.png" id="4_hq76p"]
+[ext_resource type="Texture2D" uid="uid://dewegx3jhj2es" path="res://game/objects/interactable/door/textures/door2.png" id="5_x5cmi"]
+[ext_resource type="Texture2D" uid="uid://ewn35qseinxt" path="res://game/objects/interactable/door/textures/door1.png" id="6_1kato"]
+[ext_resource type="Script" path="res://game/objects/interactable/door/scripts/door_skin.gd" id="7_2fb83"]
+
+[resource]
+resource_name = "Castle Door Diamond"
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jh2kc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0pw70")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5523h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hq76p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_x5cmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1kato")
+}],
+"loop": false,
+"name": &"closing",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_x5cmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1kato")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hq76p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_5523h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_0pw70")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_jh2kc")
+}],
+"loop": false,
+"name": &"opening",
+"speed": 30.0
+}]
+script = ExtResource("7_2fb83")
+player_fade_start_time = 20
+player_fade_rate = 0.1
+door_close_start_time = 20

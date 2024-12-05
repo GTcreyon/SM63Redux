@@ -1,0 +1,60 @@
+[gd_scene load_steps=10 format=3 uid="uid://cf61txa666j8m"]
+
+[ext_resource type="Texture2D" uid="uid://cpokwabiivjyv" path="res://level_designer/ldui/hermes.png" id="1"]
+[ext_resource type="Script" path="res://level_designer/ldui/hermes.gd" id="2"]
+
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(0, 0, 23, 13)
+
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(0, 13, 23, 13)
+
+[sub_resource type="AtlasTexture" id="3"]
+atlas = ExtResource("1")
+region = Rect2(0, 26, 23, 13)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("1")
+region = Rect2(0, 39, 23, 13)
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("1")
+region = Rect2(0, 52, 23, 13)
+
+[sub_resource type="AtlasTexture" id="6"]
+atlas = ExtResource("1")
+region = Rect2(0, 65, 23, 13)
+
+[sub_resource type="SpriteFrames" id="7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("1")
+}, {
+"duration": 1.0,
+"texture": SubResource("2")
+}, {
+"duration": 1.0,
+"texture": SubResource("3")
+}, {
+"duration": 1.0,
+"texture": SubResource("4")
+}, {
+"duration": 1.0,
+"texture": SubResource("5")
+}, {
+"duration": 1.0,
+"texture": SubResource("6")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="Hermes" type="AnimatedSprite2D"]
+sprite_frames = SubResource("7")
+script = ExtResource("2")
+
+[connection signal="animation_finished" from="." to="." method="_on_Hermes_animation_finished"]

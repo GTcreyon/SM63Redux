@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=2]
+
+[ext_resource type="Texture" uid="uid://c3ybxc3gorepi" path="res://game/objects/item/coin/textures/coins.png" id="1"]
+
+[resource]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 16, 16, 16 )
