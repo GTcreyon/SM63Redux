@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cdq16avoknj8d"]
 
-[ext_resource type="AudioStream" uid="uid://p4qs2vbyne32" path="res://game/objects/interactable/pipe/pipe_enter.ogg" id="1"]
-[ext_resource type="Texture2D" uid="uid://db0lo5xhoksdx" path="res://game/objects/interactable/pipe/pipe.png" id="2"]
-[ext_resource type="Script" path="res://game/objects/interactable/pipe/pipe.gd" id="3"]
+[ext_resource type="AudioStream" uid="uid://p4qs2vbyne32" path="res://game/objects/interactable/pipe/sfx/pipe_enter.ogg" id="1"]
+[ext_resource type="Texture2D" uid="uid://db0lo5xhoksdx" path="res://game/objects/interactable/pipe/textures/pipe.png" id="2"]
+[ext_resource type="Script" path="res://game/objects/interactable/pipe/scripts/pipe.gd" id="3"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(8.73426, 16)

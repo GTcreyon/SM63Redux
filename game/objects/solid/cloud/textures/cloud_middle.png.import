@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qi47w64smd1b"
-path="res://.godot/imported/cloud_middle.png-b9a7169ff29fff7e2affdfa94a383783.ctex"
+path="res://.godot/imported/cloud_middle.png-ee6db1db3163742550baf51afeee9bb7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/objects/solid/cloud/cloud_middle.png"
-dest_files=["res://.godot/imported/cloud_middle.png-b9a7169ff29fff7e2affdfa94a383783.ctex"]
+source_file="res://game/objects/solid/cloud/textures/cloud_middle.png"
+dest_files=["res://.godot/imported/cloud_middle.png-ee6db1db3163742550baf51afeee9bb7.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cfk4h8hdklt42"
-path="res://.godot/imported/cloud_right.png-40f17492f3adcefc43dc974f9b8a6886.ctex"
+uid="uid://b4uyj7rg0vj88"
+path="res://.godot/imported/sign.png-eddedfb03896176606eacc916a23a337.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/objects/solid/cloud/cloud_right.png"
-dest_files=["res://.godot/imported/cloud_right.png-40f17492f3adcefc43dc974f9b8a6886.ctex"]
+source_file="res://game/objects/interactable/sign/textures/sign.png"
+dest_files=["res://.godot/imported/sign.png-eddedfb03896176606eacc916a23a337.ctex"]
 
 [params]
 
