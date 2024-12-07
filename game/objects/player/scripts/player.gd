@@ -6,132 +6,132 @@ const FPS_MOD = 32.0 / 60.0 # Multiplier to account for 60fps
 const SFX_BANK = { # bank of sfx to be played with play_sfx()
 	"step": {
 		"grass": [
-			preload("res://classes/player/sfx/step/grass/step_grass_0.wav"),
-			preload("res://classes/player/sfx/step/grass/step_grass_1.wav"),
-			preload("res://classes/player/sfx/step/grass/step_grass_2.wav"),
-			preload("res://classes/player/sfx/step/grass/step_grass_3.wav"),
+			preload("res://game/objects/player/sfx/step/grass/step_grass_0.wav"),
+			preload("res://game/objects/player/sfx/step/grass/step_grass_1.wav"),
+			preload("res://game/objects/player/sfx/step/grass/step_grass_2.wav"),
+			preload("res://game/objects/player/sfx/step/grass/step_grass_3.wav"),
 		],
 		"generic": [
-			preload("res://classes/player/sfx/step/generic/step_generic_0.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_1.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_2.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_3.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_4.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_5.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_6.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_7.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_8.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_9.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_10.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_11.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_12.wav"),
-			preload("res://classes/player/sfx/step/generic/step_generic_13.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_0.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_1.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_2.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_3.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_4.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_5.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_6.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_7.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_8.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_9.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_10.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_11.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_12.wav"),
+			preload("res://game/objects/player/sfx/step/generic/step_generic_13.wav"),
 		],
 		"metal": [
-			preload("res://classes/player/sfx/step/metal/step_metal_0.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_1.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_2.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_3.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_4.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_5.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_6.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_7.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_8.wav"),
-			preload("res://classes/player/sfx/step/metal/step_metal_9.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_0.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_1.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_2.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_3.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_4.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_5.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_6.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_7.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_8.wav"),
+			preload("res://game/objects/player/sfx/step/metal/step_metal_9.wav"),
 		],
 		"snow": [
-			preload("res://classes/player/sfx/step/snow/step_snow_0.wav"),
-			preload("res://classes/player/sfx/step/snow/step_snow_3.wav"),
-			preload("res://classes/player/sfx/step/snow/step_snow_1.wav"),
-			preload("res://classes/player/sfx/step/snow/step_snow_2.wav"),
-			preload("res://classes/player/sfx/step/snow/step_snow_4.wav"),
+			preload("res://game/objects/player/sfx/step/snow/step_snow_0.wav"),
+			preload("res://game/objects/player/sfx/step/snow/step_snow_3.wav"),
+			preload("res://game/objects/player/sfx/step/snow/step_snow_1.wav"),
+			preload("res://game/objects/player/sfx/step/snow/step_snow_2.wav"),
+			preload("res://game/objects/player/sfx/step/snow/step_snow_4.wav"),
 		],
 		"cloud": [
-			preload("res://classes/player/sfx/step/cloud/step_cloud_0.wav"),
-			preload("res://classes/player/sfx/step/cloud/step_cloud_1.wav"),
+			preload("res://game/objects/player/sfx/step/cloud/step_cloud_0.wav"),
+			preload("res://game/objects/player/sfx/step/cloud/step_cloud_1.wav"),
 		],
 		"ice": [
-			preload("res://classes/player/sfx/step/ice/step_ice_0.wav"),
-			preload("res://classes/player/sfx/step/ice/step_ice_1.wav"),
+			preload("res://game/objects/player/sfx/step/ice/step_ice_0.wav"),
+			preload("res://game/objects/player/sfx/step/ice/step_ice_1.wav"),
 		],
 		"sand": [
-			preload("res://classes/player/sfx/step/generic/step_generic_0.wav"),			
+			preload("res://game/objects/player/sfx/step/generic/step_generic_0.wav"),			
 		],
 		"wood": [
-			preload("res://classes/player/sfx/step/generic/step_generic_0.wav"),			
+			preload("res://game/objects/player/sfx/step/generic/step_generic_0.wav"),			
 		],
 	},
 	"voice": {
 		"jump1": [
-			preload("res://classes/player/sfx/mario/jump_single/jump_single_0.wav"),
-			preload("res://classes/player/sfx/mario/jump_single/jump_single_1.wav"),
+			preload("res://game/objects/player/sfx/jump_single/jump_single_0.wav"),
+			preload("res://game/objects/player/sfx/jump_single/jump_single_1.wav"),
 		],
 		"jump2": [
-			preload("res://classes/player/sfx/mario/jump_double/jump_double_0.wav"),
-			preload("res://classes/player/sfx/mario/jump_double/jump_double_1.wav"),
-			preload("res://classes/player/sfx/mario/jump_double/jump_double_2.wav"),
+			preload("res://game/objects/player/sfx/jump_double/jump_double_0.wav"),
+			preload("res://game/objects/player/sfx/jump_double/jump_double_1.wav"),
+			preload("res://game/objects/player/sfx/jump_double/jump_double_2.wav"),
 		],
 		"jump3": [
-			preload("res://classes/player/sfx/mario/jump_triple/jump_triple_0.wav"),
-			preload("res://classes/player/sfx/mario/jump_triple/jump_triple_1.wav"),
-			preload("res://classes/player/sfx/mario/jump_triple/jump_triple_2.wav"),
-			preload("res://classes/player/sfx/mario/jump_triple/jump_triple_3.wav"),
-			preload("res://classes/player/sfx/mario/jump_triple/jump_triple_4.wav"),
-			preload("res://classes/player/sfx/mario/jump_triple/jump_triple_5.wav"),
-			preload("res://classes/player/sfx/mario/jump_triple/jump_triple_6.wav"),
-			preload("res://classes/player/sfx/mario/jump_triple/jump_triple_7.wav"),
+			preload("res://game/objects/player/sfx/jump_triple/jump_triple_0.wav"),
+			preload("res://game/objects/player/sfx/jump_triple/jump_triple_1.wav"),
+			preload("res://game/objects/player/sfx/jump_triple/jump_triple_2.wav"),
+			preload("res://game/objects/player/sfx/jump_triple/jump_triple_3.wav"),
+			preload("res://game/objects/player/sfx/jump_triple/jump_triple_4.wav"),
+			preload("res://game/objects/player/sfx/jump_triple/jump_triple_5.wav"),
+			preload("res://game/objects/player/sfx/jump_triple/jump_triple_6.wav"),
+			preload("res://game/objects/player/sfx/jump_triple/jump_triple_7.wav"),
 		],
 		"dive": [
-			preload("res://classes/player/sfx/mario/dive/dive_0.wav"),
-			preload("res://classes/player/sfx/mario/dive/dive_1.wav"),
-			preload("res://classes/player/sfx/mario/dive/dive_2.wav"),
-			preload("res://classes/player/sfx/mario/dive/dive_3.wav"),
+			preload("res://game/objects/player/sfx/dive/dive_0.wav"),
+			preload("res://game/objects/player/sfx/dive/dive_1.wav"),
+			preload("res://game/objects/player/sfx/dive/dive_2.wav"),
+			preload("res://game/objects/player/sfx/dive/dive_3.wav"),
 		],
 	},
 	"pound": {
 		"grass": [
-			preload("res://classes/player/sfx/pound/pound_grass.wav")
+			preload("res://game/objects/player/sfx/pound/pound_grass.wav")
 		],
 		"generic": [
-			preload("res://classes/player/sfx/pound/pound_generic.wav")
+			preload("res://game/objects/player/sfx/pound/pound_generic.wav")
 		],
 		"metal": [
-			preload("res://classes/player/sfx/pound/pound_generic.wav")
+			preload("res://game/objects/player/sfx/pound/pound_generic.wav")
 		],
 		"snow": [
-			preload("res://classes/player/sfx/pound/pound_snow.wav")
+			preload("res://game/objects/player/sfx/pound/pound_snow.wav")
 		],
 		"cloud": [
-			preload("res://classes/player/sfx/pound/pound_cloud.wav")
+			preload("res://game/objects/player/sfx/pound/pound_cloud.wav")
 		],
 		"ice": [
-			preload("res://classes/player/sfx/pound/pound_generic.wav")
+			preload("res://game/objects/player/sfx/pound/pound_generic.wav")
 		],
 		"sand": [
-			preload("res://classes/player/sfx/pound/pound_sand.wav")
+			preload("res://game/objects/player/sfx/pound/pound_sand.wav")
 		],
 		"wood": [
-			preload("res://classes/player/sfx/pound/pound_generic.wav")
+			preload("res://game/objects/player/sfx/pound/pound_generic.wav")
 		],
 	},
 	"spin": {
 		"air": [
-			preload("res://classes/player/sfx/spin_air_1.wav"),
-			preload("res://classes/player/sfx/spin_air_2.wav"),
-			preload("res://classes/player/sfx/spin_air_3.wav"),
+			preload("res://game/objects/player/sfx/spin_air_1.wav"),
+			preload("res://game/objects/player/sfx/spin_air_2.wav"),
+			preload("res://game/objects/player/sfx/spin_air_3.wav"),
 		],
 		"water": [
-			preload("res://classes/player/sfx/spin_water_1.wav")
+			preload("res://game/objects/player/sfx/spin_water_1.wav")
 		]
 	},
 	"spin_end": {
 		"water": [
-			preload("res://classes/player/sfx/spin_water_end.wav")
+			preload("res://game/objects/player/sfx/spin_water_end.wav")
 		]
 	}
 }
 
-var ground_pound_effect = preload("res://classes/player/ground_pound_effect.tscn")
+var ground_pound_effect = preload("res://game/objects/player/ground_pound_effect.tscn")
 
 # vars to lock mechanics
 var invuln_frames: int = 0
