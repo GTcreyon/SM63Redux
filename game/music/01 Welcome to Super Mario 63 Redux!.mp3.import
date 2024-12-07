@@ -2,7 +2,7 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://bymeoqls1bxbp"
+uid="uid://bhttm8epuee2m"
 path="res://.godot/imported/01 Welcome to Super Mario 63 Redux!.mp3-6f25ef96091999cc17ad41f87bd549de.mp3str"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/01 Welcome to Super Mario 63 Redux!.mp3-6f25e
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=4.251
+bpm=0.0
 beat_count=0
 bar_beats=4

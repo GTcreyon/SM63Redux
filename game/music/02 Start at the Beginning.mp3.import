@@ -2,7 +2,7 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://drsjy30g83g44"
+uid="uid://dlee7l0ycunva"
 path="res://.godot/imported/02 Start at the Beginning.mp3-e4b962f71403fe97da1c86eec9fe8590.mp3str"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/02 Start at the Beginning.mp3-e4b962f71403fe9
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=4.364
+bpm=0.0
 beat_count=0
 bar_beats=4

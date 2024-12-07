@@ -2,7 +2,7 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://c1d8rjso4qxsy"
+uid="uid://b04kr8fh6yfqv"
 path="res://.godot/imported/10 Peach_s Castle Basement.mp3-fcd1487a8525c776598e0ff7b42b3638.mp3str"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/10 Peach_s Castle Basement.mp3-fcd1487a8525c7
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=3.454
+bpm=0.0
 beat_count=0
 bar_beats=4

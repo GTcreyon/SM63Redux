@@ -2,7 +2,7 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://dorcu0fboedr5"
+uid="uid://cv2mylr1k08hk"
 path="res://.godot/imported/04 Learning the Ropes.mp3-82efd704ce616fa3a427e6054df3bfb7.mp3str"
 
 [deps]
@@ -12,8 +12,8 @@ dest_files=["res://.godot/imported/04 Learning the Ropes.mp3-82efd704ce616fa3a42
 
 [params]
 
-loop=false
-loop_offset=0
-bpm=0
+loop=true
+loop_offset=12.025
+bpm=0.0
 beat_count=0
 bar_beats=4

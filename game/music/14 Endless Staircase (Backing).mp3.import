@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://csf228eik3ou7"
+path="res://.godot/imported/14 Endless Staircase (Backing).mp3-0010c10b793a70602340f11cd9d3f26c.mp3str"
+
+[deps]
+
+source_file="res://game/music/14 Endless Staircase (Backing).mp3"
+dest_files=["res://.godot/imported/14 Endless Staircase (Backing).mp3-0010c10b793a70602340f11cd9d3f26c.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=4.866
+bpm=0.0
+beat_count=0
+bar_beats=4

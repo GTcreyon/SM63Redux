@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://3ylr07u3yog4"
+path="res://.godot/imported/14 Endless Staircase (Melody).mp3-882093b169085d45c67738ebbc1aee49.mp3str"
+
+[deps]
+
+source_file="res://game/music/14 Endless Staircase (Melody).mp3"
+dest_files=["res://.godot/imported/14 Endless Staircase (Melody).mp3-882093b169085d45c67738ebbc1aee49.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=4.866
+bpm=0.0
+beat_count=0
+bar_beats=4
