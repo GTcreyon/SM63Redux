@@ -2,8 +2,8 @@ extends Button
 
 @export var action_id: String = ""
 
-@onready var key_list = $KeyList
-@onready var action_name = $ActionName
+@onready var key_list: Label = $KeyList
+@onready var action_name: Label = $ActionName
 var btn_scale: float: set = set_btn_scale
 var locale_saved: String = ""
 
@@ -173,4 +173,5 @@ func _get_action_map() -> Dictionary:
 func _notification(what: int) -> void:
 	match what:
 		NOTIFICATION_TRANSLATION_CHANGED:
-			update_list()
+			if key_list:
+				update_list()
