@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cf61txa666j8m" path="res://level_designer/ldui/hermes.tscn" id="12"]
 [ext_resource type="Texture2D" uid="uid://cb231utoaa0wy" path="res://level_designer/ldui/scroll_block_v.png" id="13"]
 [ext_resource type="Script" path="res://level_designer/item_pane.gd" id="14"]
-[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://scenes/levels/tutorial_1/bg/bg_t1.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://dm0n1yq3d10ir" path="res://game/world/background/grassy_hills/grassy_hills_bg.tscn" id="15"]
 [ext_resource type="Script" path="res://level_designer/start.gd" id="16"]
 [ext_resource type="Script" path="res://level_designer/save.gd" id="17"]
 [ext_resource type="Script" path="res://level_designer/load.gd" id="18"]
