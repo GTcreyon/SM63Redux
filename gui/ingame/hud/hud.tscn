@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bycv605ap1b6u" path="res://gui/ingame/water_meter/water_meter.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://bud0fk28v3h76" path="res://gui/ingame/life_meter/life_meter.tscn" id="13"]
 [ext_resource type="Script" path="res://gui/ingame/hud/hud.gd" id="14"]
-[ext_resource type="Shader" path="res://game/materials/post/flash.gdshader" id="28"]
+[ext_resource type="Shader" path="res://game/shaders/post/flash.gdshader" id="28"]
 
 [sub_resource type="AtlasTexture" id="4"]
 atlas = ExtResource("2")

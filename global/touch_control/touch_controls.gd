@@ -4,7 +4,7 @@ const BUTTON_DIMENSIONS = Vector2(20, 21)
 const ANCHOR_DIRECTION_OFFSETS = [Vector2(1, -1), Vector2(-1, -1), Vector2(1, 1), Vector2(-1, 1)]
 const ANCHOR_PIVOT_OFFSETS = [Vector2(0, -1), Vector2(-1, -1), Vector2(0, 0), Vector2(-1, 0)]
 const ANCHOR_REVERSE_OFFSETS = [false, true, false, true]
-const BUTTON_PREFAB = preload("res://classes/global/touch_control/touch_button.tscn")
+const BUTTON_PREFAB = preload("res://global/touch_control/touch_button.tscn")
 const LAYOUT_PRESETS = {
 	"new": "up:jump,up/down:dive,down/z:pound,interact#fludd:fludd/x:spin,skip@left:left/right:right#nozzle:switch_fludd/pause:pause@_/shift:feedback/_",
 	"one-finger": "nozzle:switch_fludd,skip/z:pound,interact/pipe:down#pause:pause@_/left:left/x:spin,skip/right:right/_#dl:dive,left/jleft:jump,left/up:jump,up/jright:jump,right/dr:dive,right#_/fleft:fludd,left/fludd:fludd/fright:fludd,right/_@_/shift:feedback/_",
@@ -129,4 +129,3 @@ func _generate_buttons(pattern: String) -> void:
 			pos_offset.y += BUTTON_DIMENSIONS.y
 		pos_offset.y = 0
 		anchor_index += 1
-

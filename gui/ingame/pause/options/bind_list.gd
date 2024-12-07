@@ -1,6 +1,6 @@
 extends VBoxContainer
 
-const PREFAB_REBIND_OPTION = preload("res://gui/pause/options/rebind_option.tscn")
+const PREFAB_REBIND_OPTION = preload("res://gui/ingame/pause/options/rebind_option.tscn")
 
 
 func _ready():
