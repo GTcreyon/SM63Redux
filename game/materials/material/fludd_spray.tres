@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b04v14ipldro2"]
 
-[ext_resource type="Shader" path="res://game/shaders/fludd_spray.gdshader" id="1"]
+[ext_resource type="Shader" path="res://game/materials/material/fludd_spray.gdshader" id="1"]
 
 [resource]
 shader = ExtResource("1")

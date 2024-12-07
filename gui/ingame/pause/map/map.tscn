@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://hjwjcoop1ep5" path="res://game/objects/item/fludd/textures/pickup_turbo.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://01rvhulbgmob" path="res://game/objects/item/fludd/textures/pickup_rocket.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://pw2ksn3vsasj" path="res://game/objects/item/fludd/textures/pickup_hover.png" id="3"]
-[ext_resource type="Shader" path="res://game/shaders/flash.gdshader" id="4"]
+[ext_resource type="Shader" path="res://game/materials/post/flash.gdshader" id="4"]
 [ext_resource type="Texture2D" uid="uid://cy7rvh7j0kpi3" path="res://gui/ingame/pause/map/paintings/mini.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://dvhma2mthdmuo" path="res://game/objects/item/fludd/textures/map_rocket.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://cc7aclwxhmsha" path="res://game/objects/item/fludd/textures/map_turbo.png" id="8"]

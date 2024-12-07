@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://87w6u8a6gqvy" path="res://gui/ingame/pause/map/map_coin_1.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://1pctsggfusdc" path="res://gui/ingame/pause/map/map_shine_0.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://dr5le5k54odf6" path="res://gui/ingame/pause/map/map_coin_0.png" id="4"]
-[ext_resource type="Shader" path="res://game/shaders/glow.gdshader" id="4_ne3kv"]
+[ext_resource type="Shader" path="res://game/materials/material/glow.gdshader" id="4_ne3kv"]
 [ext_resource type="Texture2D" uid="uid://cw3yd45xx6bf8" path="res://gui/ingame/pause/map/map_shine_1.png" id="5"]
 [ext_resource type="StyleBox" uid="uid://cuiaksyau07pv" path="res://gui/ingame/pause/pause_back.tres" id="6"]
 [ext_resource type="Script" path="res://gui/ingame/hud/level_info.gd" id="10"]

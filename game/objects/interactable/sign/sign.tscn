@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bxr8jnnuk4ac"]
 
 [ext_resource type="Texture2D" uid="uid://b4uyj7rg0vj88" path="res://game/objects/interactable/sign/textures/sign.png" id="1"]
-[ext_resource type="Material" uid="uid://bb2hoimx8bhii" path="res://game/shaders/sign.tres" id="1_icer7"]
+[ext_resource type="Material" uid="uid://bb2hoimx8bhii" path="res://game/materials/material/sign.tres" id="1_icer7"]
 [ext_resource type="Script" path="res://game/objects/interactable/sign/scripts/sign.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://b8c16fs181nx5" path="res://gui/ingame/sfx/confirm.wav" id="6"]
 

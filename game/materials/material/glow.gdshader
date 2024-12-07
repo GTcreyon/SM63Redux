@@ -20,31 +20,31 @@ varying vec2 cel_index;
 void vertex()
 {
 	// Expand the polygon bounds to make space for the outline to show.
-	
+
 	// Temporarily remove all offset from the sprite mesh.
 	// The following calculations identify vertices and derive mesh size
 	// based on vertex position, so offset vertices will throw everything off.
 	vec2 vert_centered = VERTEX - sprite_offset;
-	
+
 	// Multiply the width by the sign of this vert's position.
 	// Sign of vert is a quick, cheap way to get a "move each edge one pixel
 	// outward" vector, assuming the mesh is a simple quad (in Godot, a sprite
 	// always is) and the origin is the exact center (ensured by vert_centered).
 	vec2 expand_vertex = vec2(float(width)) * sign(vert_centered);
 	vec2 expand_factor = vert_centered / (vert_centered + expand_vertex);
-	
+
 	// Figure out which cel of the spritesheet we're currently in.
 	cel_index = vec2(UV * cel_count) - vec2(1);
 	// Outer edge thinks it's in the next cel over by position.
 	// Account for that.
 	cel_index -= min(sign(vert_centered), vec2(0));
-	
+
 	// Contract the UVs to compensate for the expanded vertex bounds.
 	UV /= expand_factor;
 	// Shift it back to center by two pixels per cel traveled from top-left,
 	// plus one.
 	UV -= float(width) * TEXTURE_PIXEL_SIZE * (2.0 * cel_index + vec2(1));
-	
+
 	VERTEX += expand_vertex;
 }
 
@@ -59,19 +59,19 @@ bool uv_outside_cel(vec2 uv) {
 }
 
 
-void fragment() 
+void fragment()
 {
 	COLOR = texture(TEXTURE, UV);
-	
+
 	// Trim away pixels outside the current cel, lest we draw pixels from
 	// neighboring cels in the expanded margins.
 	if (uv_outside_cel(UV)) {
 		COLOR = vec4(0);
 	}
-	
+
 	if(COLOR.a <= 0.0) {
 		float widthf = float(width); // Not to be confused with fwidth!
-		
+
 		for (float x = -widthf; x <= widthf; x += 1.0) {
 			for (float y = -widthf; y <= widthf; y += 1.0) {
 				// Skip outlining pixels outside the detection area.
@@ -86,9 +86,9 @@ void fragment()
 				// Sample the texture (x, y) pixels over.
 				vec2 neighbor_uv = UV + TEXTURE_PIXEL_SIZE * vec2(x, y);
 				vec4 neighbor_col = texture(TEXTURE, neighbor_uv);
-				
+
 				// Draw the outline if there's anything at all visible there.
-				// Pixels outside the UV area fail automatically, lest we 
+				// Pixels outside the UV area fail automatically, lest we
 				// accidentally outline bits of neighboring cels.
 				if (!uv_outside_cel(neighbor_uv) && neighbor_col.a > 0.0) {
 					COLOR = outline_color;
@@ -96,7 +96,7 @@ void fragment()
 			}
 		}
 	}
-	
+
 	// DEBUG: Highlight spots outside the texture.
 	//COLOR.rg = uv_outside_cel(UV)? vec2(1.0, 1.0) : vec2(0.0, 0.0);
 	//COLOR.ba = vec2(0.0, 1.0);
