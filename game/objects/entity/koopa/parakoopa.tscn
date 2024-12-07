@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://b6jp4ecuo2iwc"]
 
 [ext_resource type="Texture2D" uid="uid://c56k3dswoefph" path="res://game/objects/entity/koopa/textures/parakoopa.png" id="1"]
-[ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://game/materials/mapping/palette.tres" id="2"]
+[ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://game/shaders/mapping/palette.tres" id="2"]
 [ext_resource type="Script" path="res://game/objects/entity/koopa/scripts/parakoopa.gd" id="8"]
 [ext_resource type="AudioStream" uid="uid://bgidqcur663qn" path="res://game/objects/entity/koopa/sfx/shell_kick.ogg" id="9"]
 

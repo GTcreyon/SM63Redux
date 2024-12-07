@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dtydgkpoe56rn" path="res://game/objects/item/shine_sprite/textures/shine.png" id="1"]
 [ext_resource type="Script" path="res://game/objects/item/shine_sprite/scripts/shine.gd" id="2"]
-[ext_resource type="Shader" path="res://game/materials/material/glow.gdshader" id="2_sdcq1"]
+[ext_resource type="Shader" path="res://game/shaders/material/glow.gdshader" id="2_sdcq1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ig4yr"]
 resource_local_to_scene = true

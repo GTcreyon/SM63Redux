@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b20mdb1tyiflv"]
 
 [ext_resource type="Texture2D" uid="uid://dlnni83l71lr0" path="res://game/objects/decoration/tree_small/textures/tree_small.png" id="1"]
-[ext_resource type="Material" uid="uid://bneuwo0j5ktnl" path="res://game/materials/post/aa.tres" id="2"]
+[ext_resource type="Material" uid="uid://bneuwo0j5ktnl" path="res://game/shaders/post/aa.tres" id="2"]
 
 [node name="SmallTree" type="Sprite2D"]
 z_index = -1

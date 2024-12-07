@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d3lpuxs7i73r7"]
 
-[ext_resource type="Shader" path="res://game/materials/dynamic/distance_field.gdshader" id="1"]
+[ext_resource type="Shader" path="res://game/shaders/dynamic/distance_field.gdshader" id="1"]
 
 [resource]
 resource_local_to_scene = true
