@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://p8n6lgy1kx1c"
-path="res://.godot/imported/jungle_normal_spritesheet_explenation.png-42a0cfa6024da24c02141b392a1bd4b4.ctex"
+path="res://.godot/imported/spritesheet_explenation.png-38e35dae46bc8c23b5c91578a2ff5e59.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://classes/solid/terrain/tilesets/jungle/jungle_normal_spritesheet_explenation.png"
-dest_files=["res://.godot/imported/jungle_normal_spritesheet_explenation.png-42a0cfa6024da24c02141b392a1bd4b4.ctex"]
+source_file="res://terrain_skins/spritesheet_explenation.png"
+dest_files=["res://.godot/imported/spritesheet_explenation.png-38e35dae46bc8c23b5c91578a2ff5e59.ctex"]
 
 [params]
 

@@ -17,7 +17,7 @@ const QUAD_SIZE = 32 #2*TerrainBorder.QUAD_RADIUS
 #	type: String = "quad" or "trio" depending on vert count.
 @export var area_queue: Array
 
-@onready var root = $".."
+@onready var root: TerrainPolygon = $".."
 
 
 func _draw():
@@ -105,8 +105,15 @@ func add_cap_segment(is_left, area):
 	])
 	
 	var vert_count = cap_verts.size() # TODO: Always == 4 :P
+
+	# Tint the polygon.
+	# (TODO: Done differently than in terrain_border_endcaps.gd???)
+	var base_color = Color(1, 1, 1)
+	if root.tint:
+		base_color = root.tint_color
+	var colors = PackedColorArray([base_color, base_color, base_color, base_color])
 	
-	# Check if our cap should have a shadow or not
+	# Check if any point of the cap is inside the polygon. 
 	var inside_count = 0
 	var verts_inside = []
 	for vert in cap_verts:
@@ -115,16 +122,9 @@ func add_cap_segment(is_left, area):
 			verts_inside.append(vert)
 			inside_count += 1
 	
-	# Tint the polygon.
-	# (TODO: Done differently than in pencil.gd???)
-	var base_color = Color(1, 1, 1)
-	if root.tint:
-		base_color = root.tint_color
-	var colors = PackedColorArray([base_color, base_color, base_color, base_color])
-	
-	# Draw the shadow if there's any point inside the polygon.
-	if inside_count > 0:
-		# Is the polygon 
+	# Draw the clip tex (if it exists) if there's any point inside the polygon
+	if inside_count > 0 and root.top_endcap_clip != null:
+		# Is any point *outside* the polygon?
 		if inside_count != vert_count:
 			# Clip the box so it fits in the polygon
 			var clip_box = polygon_clip_box(cap_verts, uvs)
@@ -132,14 +132,15 @@ func add_cap_segment(is_left, area):
 			var clip_uv = clip_box[1]
 			# VALIDATE: Make sure the cut box is 4 verts
 			if clip_poly.size() == 4:
-				draw_polygon(clip_poly, colors, clip_uv, root.top_corner_shade)
+				draw_polygon(clip_poly, colors, clip_uv, root.top_endcap_clip)
 			else:
 				# This should not happen!
 				#print("oh no: ", area.index, ": ", clip_poly.size(), " - ", clip_uv.size())
 				pass
-		# If the polygon is fully surrounded, simply draw the shadow.
+		# If the polygon is fully surrounded, simply draw the texture.
 		else:
-			draw_polygon(cap_verts, colors, uvs, root.top_corner_shade)
+			draw_polygon(cap_verts, colors, uvs, root.top_endcap_clip)
 	
-	# Draw the actual endcap on top of the shadow.
-	draw_polygon(cap_verts, colors, uvs, root.top_corner)
+	# Draw the regular endcap on top of the clip texture.
+	if root.top_endcap != null:
+		draw_polygon(cap_verts, colors, uvs, root.top_endcap)

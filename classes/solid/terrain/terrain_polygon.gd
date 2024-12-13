@@ -6,15 +6,7 @@ extends Polygon2D
 
 const COLLISION_LAYER_TERRAIN = 1
 
-@export var texture_spritesheet: Texture2D: set = update_spritesheets
-
-var body: Texture2D
-var top: Texture2D
-var top_shade: Texture2D
-var top_corner: Texture2D
-var top_corner_shade: Texture2D
-var edge: Texture2D
-var bottom: Texture2D
+@export var skin: TerrainSkin: set = reload_tileset
 
 @export var up_direction = Vector2(0, -1): set = set_down_direction
 # TODO: This should always == -up_direction.
@@ -32,6 +24,14 @@ var bottom: Texture2D
 @export var edge_types: Dictionary = {}
 
 var properties: Dictionary = {}
+
+var body: Texture2D
+var top: Texture2D
+var top_clip: Texture2D
+var top_endcap: Texture2D
+var top_endcap_clip: Texture2D
+var side: Texture2D
+var bottom: Texture2D
 
 @onready var decorations: TerrainBorder = $Borders
 @onready var collision_body: StaticBody2D = $Static
@@ -64,17 +64,60 @@ func set_null(_new_val):
 	pass
 
 
-func update_spritesheets(new_sheet: Texture2D):
-	texture_spritesheet = new_sheet
+func reload_tileset(new_ts: TerrainSkin):
+	# Callback to make the terrain lump update when the skin is modified.
+	var redraw_on_skin_change = Callable(self, "update_and_redraw")
 	
-	# Create textures from the spritesheet.
-	# Can't just use atlas textures, they don't loop like we need.
+	# Clean up this terrain lump's callback from off the old skin (if it exists).
+	if skin != null:
+		assert(skin.changed.is_connected(redraw_on_skin_change))
+		
+		skin.disconnect("changed", redraw_on_skin_change.bind(skin))
 	
-	body = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(36, 3, 32, 32) ) )
-	edge = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(3, 3, 32, 32) ) )
-	bottom = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(36, 36, 32, 32) ) )
+	# Replace the old skin with the new.
+	skin = new_ts
+	
+	if new_ts != null:
+		# If the new skin isn't nothing, read in its new textures.
+		update_textures(new_ts)
+		# Also subscribe to updates, so this lump stays in sync.
+		new_ts.changed.connect(redraw_on_skin_change.bind(new_ts))
+		
+		assert(new_ts.changed.is_connected(redraw_on_skin_change))
+	else:
+		# If the new skin is nothing, set the textures to nothing as well.
+		clear_textures()
+	
+	# Push graphics updates to child nodes.
+	# Said nodes can apparently be null right when the editor starts up,
+	# so only update when these nodes exist.
+	if decorations != null:
+		decorations.queue_redraw()
 
-	top = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(105, 3, 32, 32) ) )
-	top_corner = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(72, 3, 32, 32) ) )
-	top_shade = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(105, 36, 32, 32) ) )
-	top_corner_shade = ImageTexture.create_from_image(texture_spritesheet.get_image().get_region( Rect2(72, 36, 32, 32) ) )
+
+func update_and_redraw(new_skin: TerrainSkin):
+	update_textures(new_skin)
+	decorations.queue_redraw()
+
+
+func update_textures(src_skin: TerrainSkin):
+	body = src_skin.body
+	side = src_skin.side
+	bottom = src_skin.bottom
+
+	top = src_skin.top
+	top_endcap = src_skin.top_endcap
+	top_clip = src_skin.top_clip
+	top_endcap_clip = src_skin.top_endcap_clip
+
+
+func clear_textures():
+	body = null
+	side = null
+	bottom = null
+
+	top = null
+	top_endcap = null
+	top_clip = null
+	top_endcap_clip = null
+	
