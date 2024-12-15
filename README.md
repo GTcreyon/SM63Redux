@@ -13,12 +13,12 @@ SM63 Redux is built in the [Godot Engine](https://godotengine.org/), rather than
 ## Downloads
 Here are a few ways you can access the game:
 - The [releases page](https://github.com/Redux-Team/SM63Redux/releases)
-- Our [downloads page](https://sm63redux.com/game)
+- Our [downloads page](https://sm63redux.com/game) ❌ currently offline
 - Our [itch.io page](https://redux-team.itch.io/sm63redux)
 
 ## Socials
 Please follow our socials for updates, progress, and more!
-- [Our Website](https://sm63redux.com)
+- [Our Website](https://sm63redux.com) ❌ currently offline
 - [Discord](https://discord.gg/ctkyscUSBA)
 - [YouTube](https://www.youtube.com/@ReduxTeam)
 - [Twitter](https://x.com/TeamRedux)
