@@ -1,12 +1,12 @@
 [gd_resource type="Theme" load_steps=16 format=3 uid="uid://bfffbep7u0f87"]
 
-[ext_resource type="StyleBox" uid="uid://q14towpo4vsu" path="res://gui/ingame/dialog/sign_box.tres" id="1_bly62"]
-[ext_resource type="Texture2D" uid="uid://cprnpw3je0r7r" path="res://gui/ingame/dropdown_arrow.png" id="2_4ray6"]
-[ext_resource type="StyleBox" uid="uid://c7gtbox3yrbk7" path="res://gui/ingame/boxes/menu_box_hover.tres" id="3_rba2l"]
-[ext_resource type="StyleBox" uid="uid://dhliyj8vycb7q" path="res://gui/ingame/boxes/menu_box_normal.tres" id="4_adjba"]
-[ext_resource type="StyleBox" uid="uid://b54n55rde5xf6" path="res://gui/ingame/boxes/menu_box_pressed.tres" id="5_tl50b"]
-[ext_resource type="StyleBox" uid="uid://cgemqfbup0gd8" path="res://gui/ingame/boxes/menu_box_drop.tres" id="6_g5imp"]
-[ext_resource type="FontFile" uid="uid://dgedr6b237a5e" path="res://fonts/bylight/bylight.otf" id="7_44i8b"]
+[ext_resource type="StyleBox" uid="uid://q14towpo4vsu" path="res://game/ui/ingame/dialog/sign_box.tres" id="1_bly62"]
+[ext_resource type="Texture2D" uid="uid://cprnpw3je0r7r" path="res://game/ui/ingame/dropdown_arrow.png" id="2_4ray6"]
+[ext_resource type="StyleBox" uid="uid://c7gtbox3yrbk7" path="res://game/ui/ingame/boxes/menu_box_hover.tres" id="3_rba2l"]
+[ext_resource type="StyleBox" uid="uid://dhliyj8vycb7q" path="res://game/ui/ingame/boxes/menu_box_normal.tres" id="4_adjba"]
+[ext_resource type="StyleBox" uid="uid://b54n55rde5xf6" path="res://game/ui/ingame/boxes/menu_box_pressed.tres" id="5_tl50b"]
+[ext_resource type="StyleBox" uid="uid://cgemqfbup0gd8" path="res://game/ui/ingame/boxes/menu_box_drop.tres" id="6_g5imp"]
+[ext_resource type="FontFile" uid="uid://dgedr6b237a5e" path="res://game/locale/fonts/bylight/bylight.otf" id="7_44i8b"]
 
 [sub_resource type="AtlasTexture" id="8"]
 region = Rect2(0, 0, 14, 15)

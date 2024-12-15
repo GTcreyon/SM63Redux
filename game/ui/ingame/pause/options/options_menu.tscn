@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=3 uid="uid://4rjixlvilqp1"]
+
+[ext_resource type="PackedScene" uid="uid://b8tbt3ynvhfy1" path="res://game/ui/menus/feedback/tickbox.tscn" id="1"]
+[ext_resource type="Script" path="res://game/ui/ingame/pause/options/options_menu.gd" id="3"]
+[ext_resource type="Script" path="res://game/ui/ingame/pause/options/locale_select.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://f3qkqx1ju1qa" path="res://game/ui/ingame/pause/options/button_menu.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://0ku6nm2pnx8f" path="res://game/ui/ingame/pause/options/touch_menu.tscn" id="9"]
+[ext_resource type="Theme" uid="uid://dh1vom0ars54l" path="res://game/ui/ingame/theme_gui.tres" id="10"]
+
+[node name="OptionsMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("10")
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+script = ExtResource("3")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="List" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CameraFix" parent="ScrollContainer/List" instance=ExtResource("1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/List/CameraFix"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 2.0
+text = "Disable camera limiting [Try this if the camera is broken]"
+
+[node name="TouchControls" parent="ScrollContainer/List" instance=ExtResource("1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/List/TouchControls"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 2.0
+text = "Enable touch controls"
+
+[node name="MuteMusic" parent="ScrollContainer/List" instance=ExtResource("1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/List/MuteMusic"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 2.0
+text = "Mute music"
+
+[node name="MuteSFX" parent="ScrollContainer/List" instance=ExtResource("1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/List/MuteSFX"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 2.0
+text = "Mute SFX"
+
+[node name="ShowTimer" parent="ScrollContainer/List" instance=ExtResource("1")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/List/ShowTimer"]
+layout_mode = 0
+offset_left = 23.0
+offset_top = 2.0
+text = "Show timer
+"
+
+[node name="LocaleSelect" type="OptionButton" parent="ScrollContainer/List"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+script = ExtResource("4")
+
+[node name="ButtonMenu" parent="ScrollContainer/List" instance=ExtResource("8")]
+layout_mode = 2
+
+[node name="TouchMenu" parent="ScrollContainer/List" instance=ExtResource("9")]
+visible = false
+layout_mode = 2
+
+[connection signal="item_selected" from="ScrollContainer/List/LocaleSelect" to="ScrollContainer/List/LocaleSelect" method="_on_Locale_item_selected"]

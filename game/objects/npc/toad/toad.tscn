@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://bb0uyyyri5y2r"]
 
 [ext_resource type="Texture2D" uid="uid://bq2pfvrkkdclt" path="res://game/objects/npc/toad/textures/toad.png" id="1"]
-[ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://game/shaders/mapping/palette.tres" id="2"]
+[ext_resource type="Material" uid="uid://doskvnt6b4sl2" path="res://core/shaders/mapping/palette.tres" id="2"]
 [ext_resource type="Script" path="res://game/objects/npc/toad/scripts/toad.gd" id="3"]
 
 [sub_resource type="AtlasTexture" id="9"]

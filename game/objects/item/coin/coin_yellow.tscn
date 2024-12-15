@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://drpm6hlx76jqc"]
 
 [ext_resource type="Script" path="res://game/objects/item/coin/scripts/coin_entity.gd" id="1_y8rh1"]
-[ext_resource type="Material" uid="uid://bneuwo0j5ktnl" path="res://game/shaders/post/aa.tres" id="2_plesf"]
+[ext_resource type="Material" uid="uid://bneuwo0j5ktnl" path="res://core/shaders/post/aa.tres" id="2_plesf"]
 [ext_resource type="Texture2D" uid="uid://c3ybxc3gorepi" path="res://game/objects/item/coin/textures/coins.png" id="3_onodg"]
 [ext_resource type="Script" path="res://game/classes/dejitter_group/dejitter_group.gd" id="4_ekn3s"]
 [ext_resource type="Script" path="res://game/objects/item/coin/scripts/coin_yellow.gd" id="5_asddl"]

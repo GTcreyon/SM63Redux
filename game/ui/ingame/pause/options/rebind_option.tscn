@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgv324yrguog4"]
+
+[ext_resource type="Script" path="res://game/ui/ingame/pause/options/rebind_option.gd" id="2"]
+
+[sub_resource type="StyleBoxEmpty" id="5"]
+
+[sub_resource type="StyleBoxEmpty" id="1"]
+
+[sub_resource type="StyleBoxEmpty" id="2"]
+
+[sub_resource type="StyleBoxEmpty" id="4"]
+
+[sub_resource type="StyleBoxEmpty" id="3"]
+
+[node name="RebindOption" type="Button"]
+custom_minimum_size = Vector2(0, 18)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 20.0
+theme_override_styles/normal = SubResource("5")
+theme_override_styles/hover = SubResource("1")
+theme_override_styles/pressed = SubResource("2")
+theme_override_styles/disabled = SubResource("4")
+theme_override_styles/focus = SubResource("3")
+toggle_mode = true
+action_mode = 0
+button_mask = 3
+script = ExtResource("2")
+
+[node name="ActionName" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 0
+anchor_right = 1.0
+offset_bottom = 16.0
+text = "[action]"
+
+[node name="KeyList" type="Label" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+pivot_offset = Vector2(640, 0)
+text = "[keys]"
+horizontal_alignment = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_RebindOption_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_RebindOption_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_RebindOption_pressed"]

@@ -1,0 +1,260 @@
+[gd_scene load_steps=12 format=3 uid="uid://d0i3anj5fm6op"]
+
+[ext_resource type="Script" path="res://classes/misc/containers/scale_container.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://87w6u8a6gqvy" path="res://game/ui/ingame/pause/map/map_coin_1.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://1pctsggfusdc" path="res://game/ui/ingame/pause/map/map_shine_0.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://dr5le5k54odf6" path="res://game/ui/ingame/pause/map/map_coin_0.png" id="4"]
+[ext_resource type="Shader" path="res://core/shaders/material/glow.gdshader" id="4_ne3kv"]
+[ext_resource type="Texture2D" uid="uid://cw3yd45xx6bf8" path="res://game/ui/ingame/pause/map/map_shine_1.png" id="5"]
+[ext_resource type="StyleBox" uid="uid://cuiaksyau07pv" path="res://game/ui/ingame/pause/pause_back.tres" id="6"]
+[ext_resource type="Script" path="res://game/ui/ingame/hud/level_info.gd" id="10"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_niip7"]
+resource_local_to_scene = true
+resource_name = "shine_row_glow"
+shader = ExtResource("4_ne3kv")
+shader_parameter/width = 1
+shader_parameter/radial = false
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/cel_count = Vector2(1, 1)
+shader_parameter/sprite_offset = Vector2(16, 17)
+
+[sub_resource type="SpriteFrames" id="1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[node name="LevelInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("10")
+
+[node name="Divider" type="VBoxContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="MainContainer" type="VBoxContainer" parent="Divider"]
+layout_mode = 2
+
+[node name="LevelNamePanel" type="PanelContainer" parent="Divider/MainContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("6")
+
+[node name="ScaleContainer" type="Container" parent="Divider/MainContainer/LevelNamePanel"]
+custom_minimum_size = Vector2(418, 38)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("1")
+scale_factor = Vector2(2, 2)
+
+[node name="LevelName" type="Label" parent="Divider/MainContainer/LevelNamePanel/ScaleContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_type_variation = &"LabelRed"
+text = "MUSHROOM KINGDOM"
+horizontal_alignment = 1
+
+[node name="CollectPanel" type="PanelContainer" parent="Divider/MainContainer"]
+custom_minimum_size = Vector2(0, 36)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("6")
+
+[node name="CollectRow" type="HBoxContainer" parent="Divider/MainContainer/CollectPanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="ShineRow" type="HBoxContainer" parent="Divider/MainContainer/CollectPanel/CollectRow"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+alignment = 1
+
+[node name="Shine1" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
+custom_minimum_size = Vector2(32, 35)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine1"]
+material = SubResource("ShaderMaterial_niip7")
+sprite_frames = SubResource("1")
+animation = &"off"
+centered = false
+
+[node name="Shine2" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
+custom_minimum_size = Vector2(32, 35)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine2"]
+sprite_frames = SubResource("1")
+animation = &"off"
+centered = false
+
+[node name="Shine3" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
+custom_minimum_size = Vector2(32, 35)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine3"]
+sprite_frames = SubResource("1")
+animation = &"off"
+centered = false
+
+[node name="Shine4" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
+visible = false
+custom_minimum_size = Vector2(32, 35)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine4"]
+position = Vector2(16, 20)
+sprite_frames = SubResource("1")
+animation = &"off"
+offset = Vector2(0, -1)
+
+[node name="Shine5" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow"]
+visible = false
+custom_minimum_size = Vector2(32, 35)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/ShineRow/Shine5"]
+position = Vector2(16, 26)
+sprite_frames = SubResource("1")
+animation = &"off"
+offset = Vector2(0, -1)
+
+[node name="CoinRow" type="HBoxContainer" parent="Divider/MainContainer/CollectPanel/CollectRow"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Coin1" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
+custom_minimum_size = Vector2(26, 32)
+layout_mode = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin1"]
+position = Vector2(13, 18)
+sprite_frames = SubResource("2")
+animation = &"off"
+
+[node name="Coin2" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin2"]
+sprite_frames = SubResource("2")
+animation = &"on"
+
+[node name="Coin3" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin3"]
+sprite_frames = SubResource("2")
+animation = &"on"
+
+[node name="Coin4" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin4"]
+sprite_frames = SubResource("2")
+animation = &"on"
+
+[node name="Coin5" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin5"]
+sprite_frames = SubResource("2")
+animation = &"on"
+
+[node name="Coin6" type="Control" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow"]
+visible = false
+layout_mode = 2
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Divider/MainContainer/CollectPanel/CollectRow/CoinRow/Coin6"]
+sprite_frames = SubResource("2")
+animation = &"on"
+
+[node name="ExtraContainer" type="VBoxContainer" parent="Divider"]
+layout_mode = 2
+
+[node name="MissionNamePanel" type="PanelContainer" parent="Divider/ExtraContainer"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = ExtResource("6")
+
+[node name="MissionName" type="Label" parent="Divider/ExtraContainer/MissionNamePanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"LabelWhite"
+text = "Tutorial 1"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="DetailsPanel" type="PanelContainer" parent="Divider/ExtraContainer"]
+show_behind_parent = true
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_filter = 2
+theme_override_styles/panel = ExtResource("6")
+
+[node name="MissionDetails" type="Label" parent="Divider/ExtraContainer/DetailsPanel"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.819608, 0.705882, 0.768627, 1)
+text = "Head to the castle, everybody's waiting!"
+horizontal_alignment = 1

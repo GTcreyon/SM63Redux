@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://5obhfbxhntsj"]
+
+[ext_resource type="Texture2D" uid="uid://bg0vbg2jvx3nk" path="res://game/ui/menus/visual_pipescript/holster.png" id="1"]
+[ext_resource type="Script" path="res://game/ui/menus/visual_pipescript/node.gd" id="2"]
+
+[node name="Holster" type="NinePatchRect"]
+offset_right = 74.0
+offset_bottom = 48.0
+mouse_filter = 0
+texture = ExtResource("1")
+patch_margin_left = 71
+patch_margin_top = 26
+patch_margin_right = 3
+patch_margin_bottom = 22
+script = ExtResource("2")

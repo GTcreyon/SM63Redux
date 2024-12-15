@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c1whpskrwapkq"]
-
-[ext_resource type="Shader" path="res://game/shaders/post/desaturate.gdshader" id="1"]
-
-[resource]
-shader = ExtResource("1")
-shader_parameter/saturation = 0.0

@@ -11,25 +11,28 @@ config_version=5
 [application]
 
 config/name="Super Mario 63 Redux"
-run/main_scene="res://gui/menus/title/title.tscn"
+run/main_scene="res://game/ui/menus/title/title.tscn"
 config/features=PackedStringArray("4.3")
-boot_splash/image="res://splash.png"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon_windows.ico"
 
+[audio]
+
+buses/default_bus_layout="res://core/audio/default_bus_layout.tres"
+
 [autoload]
 
-Singleton="*res://global/singleton/singleton.tscn"
-PerformanceMonitor="*res://global/performance/performance_monitor.gd"
-FlagServer="*res://global/flag_server/flag_server.gd"
-TouchControls="*res://global/touch_control/touch_controls.tscn"
+Singleton="*res://game/classes/global/singleton/singleton.tscn"
+PerformanceMonitor="*res://game/classes/global/performance/performance_monitor.gd"
+FlagServer="*res://game/classes/global/flag_server/flag_server.gd"
+TouchControls="*res://game/classes/global/touch_control/touch_controls.tscn"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-mouse_cursor/custom_image="res://gui/ingame/cursor.png"
+mouse_cursor/custom_image="res://game/ui/ingame/cursor.png"
 mouse_cursor/custom_image_hotspot=Vector2(1, 1)
 
 [dotnet]
@@ -38,7 +41,7 @@ project/assembly_name="Super Mario 63 Redux"
 
 [gui]
 
-theme/custom="res://gui/ingame/theme_gui.tres"
+theme/custom="res://game/ui/ingame/theme_gui.tres"
 
 [importer_defaults]
 
@@ -451,5 +454,4 @@ renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0, 0.8, 0.827451, 1)
-environment/defaults/default_environment="res://default_env.tres"
 vram_compression/import_etc=true

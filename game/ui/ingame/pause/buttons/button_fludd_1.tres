@@ -1,0 +1,11 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dfxuny3t568ro"]
+
+[ext_resource type="Texture2D" uid="uid://devgnp1dxu3ac" path="res://game/ui/ingame/pause/buttons/button_fludd_1.png" id="1"]
+
+[resource]
+texture = ExtResource("1")
+texture_margin_left = 6.0
+texture_margin_top = 3.0
+texture_margin_right = 6.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(0, 0, 13, 10)
