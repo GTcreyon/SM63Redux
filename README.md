@@ -1,4 +1,3 @@
-# Super Mario 63 Redux
 <p align="center">
   <a href="https://sm63redux.com">
 	<img src="meta/logo.png" width="400" alt="Super Mario 63 Redux logo">
@@ -11,5 +10,20 @@ Super Mario 63 Redux is intended to be a full remake of the original [Super Mari
 ## Made in the Godot Engine
 SM63 Redux is built in the [Godot Engine](https://godotengine.org/), rather than Flash Player. This allows us to produce a clean, reliable game that to port to a range of different platforms, including Android and Web.
 
-## Getting the game
-The game can be found on our website, on the [downloads page](https://sm63redux.com/game), or on our [itch.io page](https://creyon.itch.io/sm63redux).
+## Downloads
+Here are a few ways you can access the game:
+- The [releases page](https://github.com/Redux-Team/SM63Redux/releases)
+- Our [downloads page](https://sm63redux.com/game)
+- Our [itch.io page](https://redux-team.itch.io/sm63redux)
+
+## Socials
+Please follow our socials for updates, progress, and more!
+- [Our Website](https://sm63redux.com)
+- [Discord](https://discord.gg/ctkyscUSBA)
+- [YouTube](https://www.youtube.com/@ReduxTeam)
+- [Twitter](https://x.com/TeamRedux)
+- [BlueSky](https://bsky.app/profile/reduxteam.bsky.social)
+- [Mastodon](https://wetdry.world/@reduxteam)
+
+## Development
+You can follow the game's development here, through our [Discord](https://discord.gg/ctkyscUSBA), or through our [Taiga](https://tree.taiga.io/project/reduxteam-super-mario-63-redux/timeline)!
