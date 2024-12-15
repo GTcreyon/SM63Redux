@@ -5,6 +5,8 @@
 export.cfg
 export_credentials.cfg
 *.tmp
+*.import
+*.godot
 
 # Mono-specific ignores
 .mono/
