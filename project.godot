@@ -15,7 +15,7 @@ run/main_scene="res://game/ui/menus/title/title.tscn"
 config/features=PackedStringArray("4.3")
 boot_splash/use_filter=false
 config/icon="res://meta/icon.png"
-config/windows_native_icon="res://icon_windows.ico"
+config/windows_native_icon="res://meta/icon.ico"
 
 [audio]
 
